@@ -804,766 +804,767 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             let nepData: any;
             nepData = JSON.parse(value.nepData);
 
-            nepData.guarantorName ? nepData.guarantorName.ct = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '';
-            nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
+            if (!ObjectUtil.isEmpty(nepData)) {
 
-            nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
-            nepData.relationMedium ? nepData.relationMedium.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value : '';
-            nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
-            nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
-            nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
-            nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
-            nepData.husbandName ? nepData.husbandName.ct = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value : '';
-            nepData.fatherInLawName ? nepData.fatherInLawName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value : '';
+                nepData.guarantorName ? nepData.guarantorName.ct = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '';
+                nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
 
-            nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
-            nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
-            nepData.gurantedAmount ? nepData.gurantedAmount.ct = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).value : '';
+                nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
+                nepData.relationMedium ? nepData.relationMedium.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value : '';
+                nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
+                nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
+                nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
+                nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
+                nepData.husbandName ? nepData.husbandName.ct = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value : '';
+                nepData.fatherInLawName ? nepData.fatherInLawName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value : '';
 
-            nepData.permanentMunicipality ? nepData.permanentMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value : '';
-            nepData.permanentWard ? nepData.permanentWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value : '';
-            nepData.temporaryProvince ? nepData.temporaryProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value : '';
+                nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
+                nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
+                nepData.gurantedAmount ? nepData.gurantedAmount.ct = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).value : '';
 
-            nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
-            nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
-            nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
+                nepData.permanentMunicipality ? nepData.permanentMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value : '';
+                nepData.permanentWard ? nepData.permanentWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value : '';
+                nepData.temporaryProvince ? nepData.temporaryProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value : '';
 
-            // english value
-            nepData.guarantorName ? nepData.guarantorName.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '';
-            nepData.issuedPlace ? nepData.issuedPlace.en = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '';
+                nepData.temporaryDistrict ? nepData.temporaryDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value : '';
+                nepData.temporaryMunicipality ? nepData.temporaryMunicipality.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value : '';
+                nepData.temporaryWard ? nepData.temporaryWard.ct = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value : '';
 
-            nepData.relationship ? nepData.relationship.en = this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '';
-            nepData.relationMedium ? nepData.relationMedium.en = this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value : '';
-            nepData.citizenNumber ? nepData.citizenNumber.en = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumber']).value : '';
-            nepData.gender ? nepData.gender.en = this.userConfigForm.get(['guarantorDetails', index, 'gender']).value : '';
-            nepData.grandFatherName ? nepData.grandFatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value : '';
-            nepData.fatherName ? nepData.fatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value : '';
-            nepData.husbandName ? nepData.husbandName.en = this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value : '';
-            nepData.fatherInLawName ? nepData.fatherInLawName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value : '';
+                // english value
+                nepData.guarantorName ? nepData.guarantorName.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '';
+                nepData.issuedPlace ? nepData.issuedPlace.en = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '';
 
-            nepData.permanentDistrict ? nepData.permanentDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value : '';
-            nepData.permanentProvince ? nepData.permanentProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value : '';
-            nepData.gurantedAmount ? nepData.gurantedAmount.en = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value : '';
+                nepData.relationship ? nepData.relationship.en = this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '';
+                nepData.relationMedium ? nepData.relationMedium.en = this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value : '';
+                nepData.citizenNumber ? nepData.citizenNumber.en = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumber']).value : '';
+                nepData.gender ? nepData.gender.en = this.userConfigForm.get(['guarantorDetails', index, 'gender']).value : '';
+                nepData.grandFatherName ? nepData.grandFatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value : '';
+                nepData.fatherName ? nepData.fatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value : '';
+                nepData.husbandName ? nepData.husbandName.en = this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value : '';
+                nepData.fatherInLawName ? nepData.fatherInLawName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value : '';
 
-            nepData.permanentMunicipality ? nepData.permanentMunicipality.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value : '';
-            nepData.permanentWard ? nepData.permanentWard.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value : '';
-            nepData.temporaryProvince ? nepData.temporaryProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value : '';
+                nepData.permanentDistrict ? nepData.permanentDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value : '';
+                nepData.permanentProvince ? nepData.permanentProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value : '';
+                nepData.gurantedAmount ? nepData.gurantedAmount.en = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value : '';
 
-            nepData.temporaryDistrict ? nepData.temporaryDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value : '';
-            nepData.temporaryMunicipality ? nepData.temporaryMunicipality.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value : '';
-            nepData.temporaryWard ? nepData.temporaryWard.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value : '';
+                nepData.permanentMunicipality ? nepData.permanentMunicipality.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value : '';
+                nepData.permanentWard ? nepData.permanentWard.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value : '';
+                nepData.temporaryProvince ? nepData.temporaryProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value : '';
 
-            nepData.guarantorPermanentMunicipalityOrVdc ? nepData.guarantorPermanentMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value : '';
-            nepData.guarantorTemporaryMunicipalityOrVdc ? nepData.guarantorTemporaryMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value : '';
-            nepData.guarantorNationality ? nepData.guarantorNationality =  this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
-            nepData.radioCitizenIssuedDate ? nepData.radioCitizenIssuedDate =  this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value : '';
+                nepData.temporaryDistrict ? nepData.temporaryDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value : '';
+                nepData.temporaryMunicipality ? nepData.temporaryMunicipality.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value : '';
+                nepData.temporaryWard ? nepData.temporaryWard.en = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value : '';
 
-            // test-------
+                nepData.guarantorPermanentMunicipalityOrVdc ? nepData.guarantorPermanentMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value : '';
+                nepData.guarantorTemporaryMunicipalityOrVdc ? nepData.guarantorTemporaryMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value : '';
+                nepData.guarantorNationality ? nepData.guarantorNationality = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
+                nepData.radioCitizenIssuedDate ? nepData.radioCitizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value : '';
 
-            if (this.actionType === 'Edit' && this.customerType === CustomerType.INDIVIDUAL) {
-                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
-                    nepData['radioCitizenIssuedDate'] = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value,
-                    nepData['citizenIssuedDateNepali'] = {
-                        en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
-                        np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliTrans']).value,
-                        ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliCT']).value,
+                // test-------
+
+                if (this.actionType === 'Edit' && this.customerType === CustomerType.INDIVIDUAL) {
+                    nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                        nepData['radioCitizenIssuedDate'] = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value,
+                        nepData['citizenIssuedDateNepali'] = {
+                            en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
+                            np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliTrans']).value,
+                            ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliCT']).value,
+                        };
+                    nepData['citizenIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateCT']).value,
                     };
-                nepData['citizenIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateCT']).value,
-                };
-            }
+                }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Passport' && this.actionType === 'Edit' &&
-            this.customerType === CustomerType.INSTITUTION) {
-                nepData['indianGuarantorDetailOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
-                };
-                nepData['passportNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportNoCT']).value,
-                };
-                nepData['passportIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDateCT']).value,
-                };
-                nepData['passportValidityDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDateCT']).value,
-                };
-                nepData['passportIssuedFrom'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFrom']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFromTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFromCT']).value,
-                };
-            }
-
-            if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Adhar Card' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['indianGuarantorDetailOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
-                };
-                nepData['adharCardNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNoCT']).value,
-                };
-                nepData['adharCardIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDateCT']).value,
-                };
-                nepData['adharCardIssuedFrom'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFrom']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFromTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFromCT']).value,
-                };
-
-            }
-
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorType'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTypeTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTypeCT']).value,
-                };
-
-            }
-
-            if (this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['authorizedPersonName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonNameCT']).value,
-                };
-
-            }
-
-            if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' &&
-                this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
-                nepData['indianGuarantorDetailOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
-                };
-                nepData['embassyNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoCT']).value,
-                };
-                nepData['embassyIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateCT']).value,
-                };
-                nepData['embassyIssuedFrom'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromCT']).value,
-                };
-            }
-
-            if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['indianGuarantorDetailOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
-                };
-                nepData['embassyNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoCT']).value,
-                };
-                nepData['embassyIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateCT']).value,
-                };
-                nepData['embassyIssuedFrom'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromCT']).value,
-                };
-            }
-
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Other' &&
-                this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
-                nepData['otherGuarantorPassportIssuedDateOption'] = this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateOption']).value,
-                nepData['otherGuarantorPassportValidityDateOption'] = this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateOption']).value,
-                nepData['otherGuarantorPassportNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoCT']).value,
-                };
-                nepData['otherGuarantorPassportIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateCT']).value,
-                };
-                nepData['otherGuarantorPassportValidityDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateCT']).value,
-                };
-                nepData['otherGuarantorPassportIssuedFrom'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFrom']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromCT']).value,
-                };
-                nepData['otherGuarantorPassportIssuedDateNepali'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepaliTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepaliCT']).value,
-                };
-                nepData['otherGuarantorPassportValidityDateNepali'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepaliTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepaliCT']).value,
-                };
-            }
-
-            if (this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
-                nepData['authorizedDobDateType'] = this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobDateType']).value,
-                    nepData['authorizedDobNepali'] = {
-                        en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value,
-                        np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepaliTrans']).value,
-                        ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepaliCT']).value,
+                if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Passport' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['indianGuarantorDetailOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
                     };
-                nepData['authorizedDob'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobCT']).value,
-                };
-                nepData['gender'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
-                };
-                nepData['guarantorMaritalStatus'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatus']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusCT']).value,
-                };
-                nepData['relationMedium'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value,
-                };
-                nepData['husbandName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value,
-                };
-                nepData['fatherInLawName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value,
-                };
-                nepData['grandFatherName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value,
-                };
-                nepData['fatherName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value,
-                };
-            }
+                    nepData['passportNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'passportNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'passportNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'passportNoCT']).value,
+                    };
+                    nepData['passportIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDateCT']).value,
+                    };
+                    nepData['passportValidityDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDateCT']).value,
+                    };
+                    nepData['passportIssuedFrom'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFrom']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFromTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFromCT']).value,
+                    };
+                }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Nepali' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
-                nepData['radioCitizenIssuedDate'] = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value,
-                nepData['citizenIssuedDateNepali'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliCT']).value,
-                };
-                nepData['citizenIssuedDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateCT']).value,
-                };
-                nepData['otherGuarantorPassportNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoCT']).value,
-                };
-                nepData['permanentProvince'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value,
-                };
-                nepData['permanentDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value,
-                };
-                nepData['permanentMunicipality'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value,
-                };
-                nepData['permanentWard'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Adhar Card' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['indianGuarantorDetailOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                    };
+                    nepData['adharCardNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNoCT']).value,
+                    };
+                    nepData['adharCardIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDateCT']).value,
+                    };
+                    nepData['adharCardIssuedFrom'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFrom']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFromTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFromCT']).value,
+                    };
 
-                nepData['temporaryProvince'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value,
-                };
-                nepData['temporaryDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value,
-                };
-                nepData['temporaryMunicipality'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value,
-                };
-                nepData['temporaryWard'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value,
-                };
+                }
 
-                nepData['isSameTemporaryAndPermanent'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorType'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTypeTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTypeCT']).value,
+                    };
 
-                nepData['permanentStreetTole'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleCT']).value,
-                };
+                }
 
-                nepData['temporaryStreetTole'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['authorizedPersonName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonNameCT']).value,
+                    };
 
-                nepData['guarantorPermanentMunicipalityOrVdc'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
-                };
+                }
 
-                nepData['guarantorTemporaryMunicipalityOrVdc'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
-                };
-                // guarantorIssuedDistrict: [undefined],
-                //     guarantorIssuedDistrictTrans: [undefined],
-                //     guarantorIssuedDistrictCT: [undefined],
-                //     guarantorPanNo: [undefined],
-                //     guarantorPanNoTrans: [undefined],
-                //     guarantorPanNoCT: [undefined],
-            }
+                if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' &&
+                    this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
+                    nepData['indianGuarantorDetailOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                    };
+                    nepData['embassyNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoCT']).value,
+                    };
+                    nepData['embassyIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateCT']).value,
+                    };
+                    nepData['embassyIssuedFrom'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromCT']).value,
+                    };
+                }
 
-            if (this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit') {
-                nepData['guarantorIssuedDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrictCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Embassy Certificate' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['indianGuarantorDetailOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOptionCT']).value,
+                    };
+                    nepData['embassyNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyNoCT']).value,
+                    };
+                    nepData['embassyIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDateCT']).value,
+                    };
+                    nepData['embassyIssuedFrom'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFromCT']).value,
+                    };
+                }
 
-                nepData['guarantorPanNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNoCT']).value,
-                };
-            }
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Other' &&
+                    this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                        nepData['otherGuarantorPassportIssuedDateOption'] = this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateOption']).value,
+                        nepData['otherGuarantorPassportValidityDateOption'] = this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateOption']).value,
+                        nepData['otherGuarantorPassportNo'] = {
+                            en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
+                            np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
+                            ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoCT']).value,
+                        };
+                    nepData['otherGuarantorPassportIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateCT']).value,
+                    };
+                    nepData['otherGuarantorPassportValidityDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateCT']).value,
+                    };
+                    nepData['otherGuarantorPassportIssuedFrom'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFrom']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromCT']).value,
+                    };
+                    nepData['otherGuarantorPassportIssuedDateNepali'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepaliTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepaliCT']).value,
+                    };
+                    nepData['otherGuarantorPassportValidityDateNepali'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepaliTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepaliCT']).value,
+                    };
+                }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Foreign' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorForeignAddressOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionCT']).value,
-                };
-                nepData['guarantorOtherAddress'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddress']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressCT']).value,
-                };
+                if (this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
+                    nepData['authorizedDobDateType'] = this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobDateType']).value,
+                        nepData['authorizedDobNepali'] = {
+                            en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value,
+                            np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepaliTrans']).value,
+                            ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepaliCT']).value,
+                        };
+                    nepData['authorizedDob'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobCT']).value,
+                    };
+                    nepData['gender'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                    };
+                    nepData['guarantorMaritalStatus'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatus']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusCT']).value,
+                    };
+                    nepData['relationMedium'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value,
+                    };
+                    nepData['husbandName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value,
+                    };
+                    nepData['fatherInLawName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value,
+                    };
+                    nepData['grandFatherName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value,
+                    };
+                    nepData['fatherName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value,
+                    };
+                }
 
-            }
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Nepali' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                        nepData['radioCitizenIssuedDate'] = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value,
+                        nepData['citizenIssuedDateNepali'] = {
+                            en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
+                            np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliTrans']).value,
+                            ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliCT']).value,
+                        };
+                    nepData['citizenIssuedDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateCT']).value,
+                    };
+                    nepData['otherGuarantorPassportNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoCT']).value,
+                    };
+                    nepData['permanentProvince'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value,
+                    };
+                    nepData['permanentDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value,
+                    };
+                    nepData['permanentMunicipality'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value,
+                    };
+                    nepData['permanentWard'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value,
+                    };
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value === 'Foreign' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorForeignAddressOptionTemp'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempCT']).value,
-                };
-                nepData['guarantorOtherAddressTemp'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTemp']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTempTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTempCT']).value,
-                };
+                    nepData['temporaryProvince'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value,
+                    };
+                    nepData['temporaryDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value,
+                    };
+                    nepData['temporaryMunicipality'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value,
+                    };
+                    nepData['temporaryWard'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value,
+                    };
 
-            }
+                    nepData['isSameTemporaryAndPermanent'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
+                    };
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guaranteeProviderName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderNameCT']).value,
-                };
-            }
-            if (this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '',
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '',
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '',
-                };
-                nepData['relationship'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '',
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value : '',
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '',
-                };
-                nepData['issuedPlace'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '',
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '',
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '',
-                };
-                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value ?
-                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
-                nepData['detailsEntered'] = this.userConfigForm.get(['guarantorDetails', index, 'detailsEntered']).value ?
-                    this.userConfigForm.get(['guarantorDetails', index, 'detailsEntered']).value : '';
-                nepData['detailsFrom'] = this.userConfigForm.get(['guarantorDetails', index, 'detailsFrom']).value ?
-                    this.userConfigForm.get(['guarantorDetails', index, 'detailsFrom']).value : '';
-            }
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Local' &&
-                this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorForeignAddressOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionCT']).value,
-                };
-                nepData['permanentProvince'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value,
-                };
-                nepData['permanentDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value,
-                };
-                nepData['permanentMunicipality'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value,
-                };
-                nepData['permanentWard'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value,
-                };
+                    nepData['permanentStreetTole'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleCT']).value,
+                    };
 
-                nepData['isSameTemporaryAndPermanent'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
-                };
+                    nepData['temporaryStreetTole'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleCT']).value,
+                    };
 
-                nepData['permanentStreetTole'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleCT']).value,
-                };
+                    nepData['guarantorPermanentMunicipalityOrVdc'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                    };
 
-                nepData['guarantorPermanentMunicipalityOrVdc'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
-                };
-            }
+                    nepData['guarantorTemporaryMunicipalityOrVdc'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                    };
+                    // guarantorIssuedDistrict: [undefined],
+                    //     guarantorIssuedDistrictTrans: [undefined],
+                    //     guarantorIssuedDistrictCT: [undefined],
+                    //     guarantorPanNo: [undefined],
+                    //     guarantorPanNoTrans: [undefined],
+                    //     guarantorPanNoCT: [undefined],
+                }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value === 'Local' &&
-                this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorForeignAddressOptionTemp'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempCT']).value,
-                };
-                nepData['temporaryProvince'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value,
-                };
-                nepData['temporaryDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value,
-                };
-                nepData['temporaryMunicipality'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value,
-                };
-                nepData['temporaryWard'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value,
-                };
+                if (this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit') {
+                    nepData['guarantorIssuedDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorIssuedDistrictCT']).value,
+                    };
 
-                nepData['isSameTemporaryAndPermanent'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
-                };
+                    nepData['guarantorPanNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNoCT']).value,
+                    };
+                }
 
-                nepData['temporaryStreetTole'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Foreign' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorForeignAddressOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionCT']).value,
+                    };
+                    nepData['guarantorOtherAddress'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddress']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressCT']).value,
+                    };
 
-                nepData['guarantorTemporaryMunicipalityOrVdc'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
-                };
-            }
+                }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value === 'Corporate Guarantor' ||
-                this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value === 'Cross Guarantor' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorActName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActNameCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value === 'Foreign' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorForeignAddressOptionTemp'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempCT']).value,
+                    };
+                    nepData['guarantorOtherAddressTemp'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTemp']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTempTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTempCT']).value,
+                    };
 
-                nepData['guarantorActYear'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearCT']).value,
-                };
+                }
 
-                nepData['guarantorActYearOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOptionCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guaranteeProviderName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderNameCT']).value,
+                    };
+                }
+                if (this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value : '',
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '',
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).value : '',
+                    };
+                    nepData['relationship'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '',
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value : '',
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '',
+                    };
+                    nepData['issuedPlace'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '',
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '',
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '',
+                    };
+                    nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value ?
+                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
+                    nepData['detailsEntered'] = this.userConfigForm.get(['guarantorDetails', index, 'detailsEntered']).value ?
+                        this.userConfigForm.get(['guarantorDetails', index, 'detailsEntered']).value : '';
+                    nepData['detailsFrom'] = this.userConfigForm.get(['guarantorDetails', index, 'detailsFrom']).value ?
+                        this.userConfigForm.get(['guarantorDetails', index, 'detailsFrom']).value : '';
+                }
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Local' &&
+                    this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorForeignAddressOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionCT']).value,
+                    };
+                    nepData['permanentProvince'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value,
+                    };
+                    nepData['permanentDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value,
+                    };
+                    nepData['permanentMunicipality'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).value,
+                    };
+                    nepData['permanentWard'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentWard']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).value,
+                    };
 
-                nepData['guarantorAuthorizedBodyName'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyName']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyNameTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyNameCT']).value,
-                };
+                    nepData['isSameTemporaryAndPermanent'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
+                    };
 
-                nepData['guarantorRegisteredWith'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWith']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWithTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWithCT']).value,
-                };
+                    nepData['permanentStreetTole'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetToleCT']).value,
+                    };
 
-                nepData['guarantorRegistrationNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNoCT']).value,
-                };
+                    nepData['guarantorPermanentMunicipalityOrVdc'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value,
+                    };
+                }
 
-                nepData['guarantorRegistrationDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateCT']).value,
-                };
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value === 'Local' &&
+                    this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorForeignAddressOptionTemp'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOptionTempCT']).value,
+                    };
+                    nepData['temporaryProvince'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).value,
+                    };
+                    nepData['temporaryDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).value,
+                    };
+                    nepData['temporaryMunicipality'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).value,
+                    };
+                    nepData['temporaryWard'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWard']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).value,
+                    };
 
-                nepData['guarantorRegistrationDateNepali'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepaliTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepaliCT']).value,
-                };
+                    nepData['isSameTemporaryAndPermanent'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanent']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameTemporaryAndPermanentCT']).value,
+                    };
 
-                nepData['guarantorRegistrationDateOption'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOptionTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOptionCT']).value,
-                };
-            }
+                    nepData['temporaryStreetTole'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetToleCT']).value,
+                    };
 
-            /*if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value === 'AD' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION && nepData.guarantorRegistrationDateOption.ct === 'BS') {
-                nepData['guarantorRegistrationDate'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.eDate,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.nDate,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.nDate,
-                };
-            }*/
+                    nepData['guarantorTemporaryMunicipalityOrVdc'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value,
+                    };
+                }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOption']).value === 'AD' && this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION && nepData.guarantorActYearOption.ct === 'BS' &&
-                this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value !== 'Personal Guarantor') {
-                nepData['guarantorActYear'] = {
-                    en: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value === 'Corporate Guarantor' ||
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value === 'Cross Guarantor' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorActName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActNameCT']).value,
+                    };
+
+                    nepData['guarantorActYear'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearCT']).value,
+                    };
+
+                    nepData['guarantorActYearOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOptionCT']).value,
+                    };
+
+                    nepData['guarantorAuthorizedBodyName'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyName']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyNameTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyNameCT']).value,
+                    };
+
+                    nepData['guarantorRegisteredWith'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWith']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWithTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWithCT']).value,
+                    };
+
+                    nepData['guarantorRegistrationNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNoCT']).value,
+                    };
+
+                    nepData['guarantorRegistrationDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateCT']).value,
+                    };
+
+                    nepData['guarantorRegistrationDateNepali'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepaliTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepaliCT']).value,
+                    };
+
+                    nepData['guarantorRegistrationDateOption'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOptionTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOptionCT']).value,
+                    };
+                }
+
+                /*if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value === 'AD' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION && nepData.guarantorRegistrationDateOption.ct === 'BS') {
+                    nepData['guarantorRegistrationDate'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.eDate,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.nDate,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.nDate,
+                    };
+                }*/
+
+                if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOption']).value === 'AD' && this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION && nepData.guarantorActYearOption.ct === 'BS' &&
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value !== 'Personal Guarantor') {
+                    nepData['guarantorActYear'] = {
+                        en: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
                         !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.eDate) ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.eDate : '',
-                    np: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
-                    !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate) ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate : '',
-                    ct: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
-                    !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate) ?
-                        this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate : '',
-                };
+                            this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.eDate : '',
+                        np: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
+                        !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate) ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate : '',
+                        ct: !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value) &&
+                        !ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate) ?
+                            this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value.nDate : '',
+                    };
+                }
+
+                if (this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION &&
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value === 'Personal Guarantor') {
+                    nepData['guarantorMaritalStatus'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatus']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusCT']).value,
+                    };
+                }
+
+                if (this.actionType === 'Edit' &&
+                    this.customerType === CustomerType.INSTITUTION) {
+                    nepData['guarantorRegisteredType'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredType']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredTypeTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredTypeCT']).value,
+                    };
+
+                    nepData['guarantorRegisteredProvince'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredProvince']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredProvinceTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredProvinceCT']).value,
+                    };
+
+                    nepData['guarantorRegisteredDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredDistrictCT']).value,
+                    };
+
+                    nepData['guarantorRegisteredMunicipality'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredMunicipality']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredMunicipalityTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredMunicipalityCT']).value,
+                    };
+
+                    nepData['guarantorRegisteredWardNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNoCT']).value,
+                    };
+
+                    nepData['guarantorRegisteredStreetTole'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetTole']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetToleTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetToleCT']).value,
+                    };
+
+                    nepData['guarantorCurrentType'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentType']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentTypeTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentTypeCT']).value,
+                    };
+
+                    nepData['guarantorCurrentProvince'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentProvince']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentProvinceTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentProvinceCT']).value,
+                    };
+
+                    nepData['guarantorCurrentDistrict'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentDistrict']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentDistrictTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentDistrictCT']).value,
+                    };
+
+                    nepData['guarantorCurrentMunicipality'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentMunicipality']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentMunicipalityTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentMunicipalityCT']).value,
+                    };
+
+                    nepData['guarantorCurrentWardNo'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNo']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNoTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNoCT']).value,
+                    };
+
+                    nepData['guarantorCurrentStreetTole'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetTole']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetToleTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetToleCT']).value,
+                    };
+
+                    nepData['isSameGuarantorRegisteredAndCurrentAddress'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'isSameGuarantorRegisteredAndCurrentAddress']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'isSameGuarantorRegisteredAndCurrentAddressTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameGuarantorRegisteredAndCurrentAddressCT']).value,
+                    };
+
+
+                }
+                // test----end
+
+                // translated data
+                nepData.guarantorName ? nepData.guarantorName.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '';
+                nepData.issuedPlace ? nepData.issuedPlace.np = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '';
+
+                nepData.relationship ? nepData.relationship.np = this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value : '';
+                nepData.relationMedium ? nepData.relationMedium.np = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).value : '';
+                nepData.citizenNumber ? nepData.citizenNumber.np = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).value : '';
+                nepData.gender ? nepData.gender.np = this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).value : '';
+                nepData.grandFatherName ? nepData.grandFatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value : '';
+                nepData.fatherName ? nepData.fatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value : '';
+                nepData.husbandName ? nepData.husbandName.np = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).value : '';
+                nepData.fatherInLawName ? nepData.fatherInLawName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).value : '';
+
+                nepData.permanentDistrict ? nepData.permanentDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value : '';
+                nepData.permanentProvince ? nepData.permanentProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value : '';
+                nepData.gurantedAmount ? nepData.gurantedAmount.np = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).value : '';
+
+                nepData.permanentMunicipality ? nepData.permanentMunicipality.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value : '';
+                nepData.permanentWard ? nepData.permanentWard.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value : '';
+                nepData.temporaryProvince ? nepData.temporaryProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value : '';
+
+                nepData.temporaryDistrict ? nepData.temporaryDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value : '';
+                nepData.temporaryMunicipality ? nepData.temporaryMunicipality.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value : '';
+                nepData.temporaryWard ? nepData.temporaryWard.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value : '';
+
+                nepData.guarantorMaritalStatus ? nepData.guarantorMaritalStatus.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value : '';
+
             }
-
-            if (this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION &&
-                this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value === 'Personal Guarantor') {
-                nepData['guarantorMaritalStatus'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatus']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusCT']).value,
-                };
-            }
-
-            if (this.actionType === 'Edit' &&
-                this.customerType === CustomerType.INSTITUTION) {
-                nepData['guarantorRegisteredType'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredType']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredTypeTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredTypeCT']).value,
-                };
-
-                nepData['guarantorRegisteredProvince'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredProvince']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredProvinceTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredProvinceCT']).value,
-                };
-
-                nepData['guarantorRegisteredDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredDistrictCT']).value,
-                };
-
-                nepData['guarantorRegisteredMunicipality'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredMunicipality']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredMunicipalityTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredMunicipalityCT']).value,
-                };
-
-                nepData['guarantorRegisteredWardNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNoCT']).value,
-                };
-
-                nepData['guarantorRegisteredStreetTole'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetTole']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetToleTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetToleCT']).value,
-                };
-
-                nepData['guarantorCurrentType'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentType']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentTypeTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentTypeCT']).value,
-                };
-
-                nepData['guarantorCurrentProvince'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentProvince']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentProvinceTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentProvinceCT']).value,
-                };
-
-                nepData['guarantorCurrentDistrict'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentDistrict']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentDistrictTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentDistrictCT']).value,
-                };
-
-                nepData['guarantorCurrentMunicipality'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentMunicipality']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentMunicipalityTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentMunicipalityCT']).value,
-                };
-
-                nepData['guarantorCurrentWardNo'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNo']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNoTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNoCT']).value,
-                };
-
-                nepData['guarantorCurrentStreetTole'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetTole']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetToleTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetToleCT']).value,
-                };
-
-                nepData['isSameGuarantorRegisteredAndCurrentAddress'] = {
-                    en: this.userConfigForm.get(['guarantorDetails', index, 'isSameGuarantorRegisteredAndCurrentAddress']).value,
-                    np: this.userConfigForm.get(['guarantorDetails', index, 'isSameGuarantorRegisteredAndCurrentAddressTrans']).value,
-                    ct: this.userConfigForm.get(['guarantorDetails', index, 'isSameGuarantorRegisteredAndCurrentAddressCT']).value,
-                };
-
-
-
-            }
-            // test----end
-
-            // translated data
-            nepData.guarantorName ? nepData.guarantorName.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).value : '';
-            nepData.issuedPlace ? nepData.issuedPlace.np = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '';
-
-            nepData.relationship ? nepData.relationship.np = this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value : '';
-            nepData.relationMedium ? nepData.relationMedium.np = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).value : '';
-            nepData.citizenNumber ? nepData.citizenNumber.np = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).value : '';
-            nepData.gender ? nepData.gender.np = this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).value : '';
-            nepData.grandFatherName ? nepData.grandFatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value : '';
-            nepData.fatherName ? nepData.fatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value : '';
-            nepData.husbandName ? nepData.husbandName.np = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).value : '';
-            nepData.fatherInLawName ? nepData.fatherInLawName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).value : '';
-
-            nepData.permanentDistrict ? nepData.permanentDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value : '';
-            nepData.permanentProvince ? nepData.permanentProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value : '';
-            nepData.gurantedAmount ? nepData.gurantedAmount.np = this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).value : '';
-
-            nepData.permanentMunicipality ? nepData.permanentMunicipality.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).value : '';
-            nepData.permanentWard ? nepData.permanentWard.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).value : '';
-            nepData.temporaryProvince ? nepData.temporaryProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).value : '';
-
-            nepData.temporaryDistrict ? nepData.temporaryDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).value : '';
-            nepData.temporaryMunicipality ? nepData.temporaryMunicipality.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).value : '';
-            nepData.temporaryWard ? nepData.temporaryWard.np = this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).value : '';
-
-            nepData.guarantorMaritalStatus ? nepData.guarantorMaritalStatus.np = this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value : '';
-
-
             // set guarantor nepData values based on index in guarantorDetails form
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).patchValue(JSON.stringify(nepData));
         });
@@ -2160,702 +2161,704 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 }
             }*/
 
-            if (!ObjectUtil.isEmpty(nepaData.guarantorType)) {
-                if (nepaData.guarantorType.en !== 'Personal Guarantor') {
-                    this.getDistrictsByIdForCurrentGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) ? null :
-                        nepaData.guarantorCurrentProvince.en.id, null, i);
-                    this.getMunicipalitiesByIdForCurrentGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) ? null :
-                        nepaData.guarantorCurrentDistrict.en.id, null, i);
-                    this.getDistrictsByIdForRegisteredGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) ? null :
-                        nepaData.guarantorRegisteredProvince.en.id, null, i);
-                    this.getMunicipalitiesByIdForRegisteredGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) ? null :
-                        nepaData.guarantorRegisteredDistrict.en.id, null, i);
+            if (!ObjectUtil.isEmpty(nepaData)) {
+                if (!ObjectUtil.isEmpty(nepaData.guarantorType)) {
+                    if (nepaData.guarantorType.en !== 'Personal Guarantor') {
+                        this.getDistrictsByIdForCurrentGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) ? null :
+                            nepaData.guarantorCurrentProvince.en.id, null, i);
+                        this.getMunicipalitiesByIdForCurrentGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) ? null :
+                            nepaData.guarantorCurrentDistrict.en.id, null, i);
+                        this.getDistrictsByIdForRegisteredGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) ? null :
+                            nepaData.guarantorRegisteredProvince.en.id, null, i);
+                        this.getMunicipalitiesByIdForRegisteredGuarantorAddress(ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) ? null :
+                            nepaData.guarantorRegisteredDistrict.en.id, null, i);
+                    }
                 }
+
+                formArray.push(this.formBuilder.group({
+                    guarantorName: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.en],
+                    guarantorNameTrans: [(!ObjectUtil.isEmpty(nepaData.guarantorName) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorName.np)) ? nepaData.guarantorName.np : undefined],
+                    guarantorNameCT: [(!ObjectUtil.isEmpty(nepaData.guarantorName) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorName.ct)) ? nepaData.guarantorName.ct : undefined],
+                    citizenNumberTrans: [(!ObjectUtil.isEmpty(nepaData.citizenNumber) &&
+                        !ObjectUtil.isEmpty(nepaData.citizenNumber.np)) ? nepaData.citizenNumber.np : undefined],
+                    issuedPlace: [(!ObjectUtil.isEmpty(nepaData.issuedPlace) &&
+                        !ObjectUtil.isEmpty(nepaData.issuedPlace.en)) ? nepaData.issuedPlace.en : undefined],
+                    issuedPlaceTrans: [(!ObjectUtil.isEmpty(nepaData.issuedPlace) &&
+                        !ObjectUtil.isEmpty(nepaData.issuedPlace.np)) ? nepaData.issuedPlace.np : undefined],
+                    issuedPlaceCT: [(!ObjectUtil.isEmpty(nepaData.issuedPlace) &&
+                        !ObjectUtil.isEmpty(nepaData.issuedPlace.ct)) ? nepaData.issuedPlace.ct : undefined],
+                    genderCT: [(!ObjectUtil.isEmpty(nepaData.gender) &&
+                        !ObjectUtil.isEmpty(nepaData.gender.ct)) ? nepaData.gender.ct : undefined],
+                    gender: [(!ObjectUtil.isEmpty(nepaData.gender) &&
+                        !ObjectUtil.isEmpty(nepaData.gender.en)) ? nepaData.gender.en : undefined],
+                    genderTrans: [(!ObjectUtil.isEmpty(nepaData.gender) &&
+                        !ObjectUtil.isEmpty(nepaData.gender.np)) ? nepaData.gender.np : undefined],
+                    relationMediumCT: [(!ObjectUtil.isEmpty(nepaData.relationMedium) &&
+                        !ObjectUtil.isEmpty(nepaData.relationMedium.ct)) ? nepaData.relationMedium.ct : undefined],
+                    relationMedium: [(!ObjectUtil.isEmpty(nepaData.relationMedium) &&
+                        !ObjectUtil.isEmpty(nepaData.relationMedium.en)) ? nepaData.relationMedium.en : undefined],
+                    relationMediumTrans: [(!ObjectUtil.isEmpty(nepaData.relationMedium) &&
+                        !ObjectUtil.isEmpty(nepaData.relationMedium.np)) ? nepaData.relationMedium.np : undefined],
+                    husbandNameCT: [(!ObjectUtil.isEmpty(nepaData.husbandName) &&
+                        !ObjectUtil.isEmpty(nepaData.husbandName.ct)) ? nepaData.husbandName.ct : undefined],
+                    husbandName: [(!ObjectUtil.isEmpty(nepaData.husbandName) &&
+                        !ObjectUtil.isEmpty(nepaData.husbandName.en)) ? nepaData.husbandName.en : undefined],
+                    husbandNameTrans: [(!ObjectUtil.isEmpty(nepaData.husbandName) &&
+                        !ObjectUtil.isEmpty(nepaData.husbandName.np)) ? nepaData.husbandName.np : undefined],
+
+                    fatherInLawNameCT: [(!ObjectUtil.isEmpty(nepaData.fatherInLawName) &&
+                        !ObjectUtil.isEmpty(nepaData.fatherInLawName.ct)) ? nepaData.fatherInLawName.ct : undefined],
+                    fatherInLawName: [(!ObjectUtil.isEmpty(nepaData.fatherInLawName) &&
+                        !ObjectUtil.isEmpty(nepaData.fatherInLawName.en)) ? nepaData.fatherInLawName.en : undefined],
+                    fatherInLawNameTrans: [(!ObjectUtil.isEmpty(nepaData.fatherInLawName) &&
+                        !ObjectUtil.isEmpty(nepaData.fatherInLawName.np)) ? nepaData.fatherInLawName.np : undefined],
+
+                    grandFatherNameCT: [(!ObjectUtil.isEmpty(nepaData.grandFatherName) &&
+                        !ObjectUtil.isEmpty(nepaData.grandFatherName.ct)) ? nepaData.grandFatherName.ct : undefined],
+                    grandFatherName: [(!ObjectUtil.isEmpty(nepaData.grandFatherName) &&
+                        !ObjectUtil.isEmpty(nepaData.grandFatherName.en)) ? nepaData.grandFatherName.en : undefined],
+                    grandFatherNameTrans: [(!ObjectUtil.isEmpty(nepaData.grandFatherName) &&
+                        !ObjectUtil.isEmpty(nepaData.grandFatherName.np)) ? nepaData.grandFatherName.np : undefined],
+
+                    fatherNameCT: [(!ObjectUtil.isEmpty(nepaData.fatherName) &&
+                        !ObjectUtil.isEmpty(nepaData.fatherName.ct)) ? nepaData.fatherName.ct : undefined],
+                    fatherName: [(!ObjectUtil.isEmpty(nepaData.fatherName) &&
+                        !ObjectUtil.isEmpty(nepaData.fatherName.en)) ? nepaData.fatherName.en : undefined],
+                    fatherNameTrans: [(!ObjectUtil.isEmpty(nepaData.fatherName) &&
+                        !ObjectUtil.isEmpty(nepaData.fatherName.np)) ? nepaData.fatherName.np : undefined],
+
+                    relationship: [(!ObjectUtil.isEmpty(nepaData.relationship) &&
+                        !ObjectUtil.isEmpty(nepaData.relationship.en)) ? nepaData.relationship.en : undefined],
+                    relationshipCT: [(!ObjectUtil.isEmpty(nepaData.relationship) &&
+                        !ObjectUtil.isEmpty(nepaData.relationship.ct)) ? nepaData.relationship.ct : undefined],
+                    relationshipTrans: [(!ObjectUtil.isEmpty(nepaData.relationship) &&
+                        !ObjectUtil.isEmpty(nepaData.relationship.np)) ? nepaData.relationship.np : undefined],
+                    citizenNumber: [value.citizenNumber ? value.citizenNumber : undefined],
+                    citizenNumberCT: [(!ObjectUtil.isEmpty(nepaData.citizenNumber) &&
+                        !ObjectUtil.isEmpty(nepaData.citizenNumber.ct)) ? nepaData.citizenNumber.ct : undefined],
+                    gurantedAmount: [(!ObjectUtil.isEmpty(nepaData.gurantedAmount) &&
+                        !ObjectUtil.isEmpty(nepaData.gurantedAmount.en)) ? nepaData.gurantedAmount.en : undefined],
+                    gurantedAmountCT: [(!ObjectUtil.isEmpty(nepaData.gurantedAmount) &&
+                        !ObjectUtil.isEmpty(nepaData.gurantedAmount.ct)) ? nepaData.gurantedAmount.ct : undefined],
+                    gurantedAmountTrans: [(!ObjectUtil.isEmpty(nepaData.gurantedAmount) &&
+                        !ObjectUtil.isEmpty(nepaData.gurantedAmount.ct)) ? nepaData.gurantedAmount.ct : undefined],
+
+                    permanentProvince: [!ObjectUtil.isEmpty(value.province) ? value.province : undefined],
+                    permanentProvinceCT: [(!ObjectUtil.isEmpty(nepaData.permanentProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentProvince.ct)) ? nepaData.permanentProvince.ct : undefined],
+                    permanentProvinceTrans: [(!ObjectUtil.isEmpty(nepaData.permanentProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentProvince.en) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentProvince.en.nepaliName)) ? nepaData.permanentProvince.en.nepaliName : undefined],
+                    permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
+                    permanentDistrictCT: [(!ObjectUtil.isEmpty(nepaData.permanentDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentDistrict.ct)) ? nepaData.permanentDistrict.ct : undefined],
+                    permanentDistrictTrans: [(!ObjectUtil.isEmpty(nepaData.permanentDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentDistrict.en) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentDistrict.en.nepaliName)) ? nepaData.permanentDistrict.en.nepaliName : undefined],
+                    permanentMunicipality: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en)) ? nepaData.permanentMunicipality.en : undefined],
+                    permanentMunicipalityCT: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentMunicipality.ct)) ? nepaData.permanentMunicipality.ct : undefined],
+                    permanentMunicipalityTrans: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en.nepaliName)) ?
+                        nepaData.permanentMunicipality.en.nepaliName : undefined],
+                    permanentWard: [(!ObjectUtil.isEmpty(nepaData.permanentWard) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentWard.en)) ? nepaData.permanentWard.en : undefined],
+                    permanentWardCT: [(!ObjectUtil.isEmpty(nepaData.permanentWard) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentWard.ct)) ? nepaData.permanentWard.ct : undefined],
+                    permanentWardTrans: [(!ObjectUtil.isEmpty(nepaData.permanentWard) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentWard.np)) ? nepaData.permanentWard.np : undefined],
+
+                    temporaryProvince: [!ObjectUtil.isEmpty(value.provinceTemporary) ? value.provinceTemporary : undefined],
+                    temporaryProvinceCT: [(!ObjectUtil.isEmpty(nepaData.temporaryProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryProvince.ct)) ? nepaData.temporaryProvince.ct : undefined],
+                    temporaryProvinceTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryProvince.en) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryProvince.en.nepaliName)) ? nepaData.temporaryProvince.en.nepaliName : undefined],
+                    temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
+                    temporaryDistrictCT: [(!ObjectUtil.isEmpty(nepaData.temporaryDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryDistrict.ct)) ? nepaData.temporaryDistrict.ct : undefined],
+                    temporaryDistrictTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryDistrict.en) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryDistrict.en.nepaliName)) ? nepaData.temporaryDistrict.en.nepaliName : undefined],
+                    temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
+                    temporaryMunicipalityCT: [(!ObjectUtil.isEmpty(nepaData.temporaryMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.ct)) ? nepaData.temporaryMunicipality.ct : undefined],
+                    temporaryMunicipalityTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.en) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.en.nepaliName)) ?
+                        nepaData.temporaryMunicipality.en.nepaliName : undefined],
+                    temporaryWard: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryWard.en)) ? nepaData.temporaryWard.en : undefined],
+                    temporaryWardCT: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryWard.ct)) ? nepaData.temporaryWard.ct : undefined],
+                    temporaryWardTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryWard.np)) ? nepaData.temporaryWard.np : undefined],
+                    isSameTemporaryAndPermanent: (!ObjectUtil.isEmpty(nepaData.isSameTemporaryAndPermanent) &&
+                        !ObjectUtil.isEmpty(nepaData.isSameTemporaryAndPermanent.en)) ?
+                        nepaData.isSameTemporaryAndPermanent.en : undefined,
+                    isSameTemporaryAndPermanentCT: [undefined],
+                    isSameTemporaryAndPermanentTrans: [undefined],
+                    guarantorPermanentMunicipalityOrVdc: [(!ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc.en)) ?
+                        nepaData.guarantorPermanentMunicipalityOrVdc.en : undefined],
+                    nepData: [value.nepData],
+                    guarantorTemporaryMunicipalityOrVdc: [(!ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc.en)) ?
+                        nepaData.guarantorTemporaryMunicipalityOrVdc.en : undefined],
+                    radioCitizenIssuedDate: nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
+                    citizenIssuedDate: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? new Date(nepaData.citizenIssuedDate.en) : '',
+                    citizenIssuedDateTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
+                    citizenIssuedDateCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
+
+                    citizenIssuedDateNepali: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) &&
+                    !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali.en) ?
+                        nepaData.citizenIssuedDateNepali.en : '',
+                    citizenIssuedDateNepaliTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) &&
+                    !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali.en) ? nepaData.citizenIssuedDateNepali.en : '',
+                    citizenIssuedDateNepaliCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) &&
+                    !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali.en) ? nepaData.citizenIssuedDateNepali.en : '',
+
+                    // DOB
+                    authorizedDobDateType: nepaData.authorizedDobDateType ? nepaData.authorizedDobDateType : '',
+                    authorizedDob: !ObjectUtil.isEmpty(nepaData.authorizedDob) &&
+                    !ObjectUtil.isEmpty(nepaData.authorizedDob.en) ? new Date(nepaData.authorizedDob.en) : '',
+                    authorizedDobTrans: !ObjectUtil.isEmpty(nepaData.authorizedDob) &&
+                    !ObjectUtil.isEmpty(nepaData.authorizedDob.en) ? nepaData.authorizedDob.en : '',
+                    authorizedDobCT: !ObjectUtil.isEmpty(nepaData.authorizedDob) &&
+                    !ObjectUtil.isEmpty(nepaData.authorizedDob.en) ? nepaData.authorizedDob.en : '',
+
+                    authorizedDobNepali: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) &&
+                    !ObjectUtil.isEmpty(nepaData.authorizedDobNepali.en) ?
+                        nepaData.authorizedDobNepali.en : '',
+                    authorizedDobNepaliTrans: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) &&
+                    !ObjectUtil.isEmpty(nepaData.authorizedDobNepali.en) ? nepaData.authorizedDobNepali.en : '',
+                    authorizedDobNepaliCT: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) &&
+                    !ObjectUtil.isEmpty(nepaData.authorizedDobNepali.en) ? nepaData.authorizedDobNepali.en : '',
+
+                    guarantorPermanentMunicipalityOrVdcCT: [(!ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc.np)) ?
+                        nepaData.guarantorPermanentMunicipalityOrVdc.np : undefined],
+                    guarantorTemporaryMunicipalityOrVdcCT: [(!ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc.np)) ?
+                        nepaData.guarantorTemporaryMunicipalityOrVdc.np : undefined],
+                    permanentStreetTole: [(!ObjectUtil.isEmpty(nepaData.permanentStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentStreetTole.en)) ?
+                        nepaData.permanentStreetTole.en : undefined],
+                    permanentStreetToleTrans: [(!ObjectUtil.isEmpty(nepaData.permanentStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentStreetTole.np)) ?
+                        nepaData.permanentStreetTole.np : undefined],
+                    permanentStreetToleCT: [(!ObjectUtil.isEmpty(nepaData.permanentStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.permanentStreetTole.ct)) ?
+                        nepaData.permanentStreetTole.ct : undefined],
+                    temporaryStreetTole: [(!ObjectUtil.isEmpty(nepaData.temporaryStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryStreetTole.en)) ?
+                        nepaData.temporaryStreetTole.en : undefined],
+                    temporaryStreetToleTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryStreetTole.np)) ?
+                        nepaData.temporaryStreetTole.np : undefined],
+                    temporaryStreetToleCT: [(!ObjectUtil.isEmpty(nepaData.temporaryStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.temporaryStreetTole.ct)) ?
+                        nepaData.temporaryStreetTole.ct : undefined],
+                    guarantorNationality: [!ObjectUtil.isEmpty(nepaData.guarantorNationality) ?
+                        nepaData.guarantorNationality : undefined],
+                    guarantorNationalityTrans: (!ObjectUtil.isEmpty(nepaData.guarantorNationality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorNationality.np)) ?
+                        nepaData.guarantorNationality.np : undefined,
+                    guarantorNationalityCT: (!ObjectUtil.isEmpty(nepaData.guarantorNationality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorNationality.ct)) ?
+                        nepaData.guarantorNationality.ct : undefined,
+
+                    // for indian guarantor
+                    // embassy details
+                    embassyNo: (!ObjectUtil.isEmpty(nepaData.embassyNo) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyNo.en)) ?
+                        nepaData.embassyNo.en : undefined,
+                    embassyNoTrans: (!ObjectUtil.isEmpty(nepaData.embassyNo) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyNo.np)) ?
+                        nepaData.embassyNo.np : undefined,
+                    embassyNoCT: (!ObjectUtil.isEmpty(nepaData.embassyNo) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyNo.ct)) ?
+                        nepaData.embassyNo.ct : undefined,
+                    embassyIssuedDate: (!ObjectUtil.isEmpty(nepaData.embassyIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyIssuedDate.en)) ?
+                        new Date(nepaData.embassyIssuedDate.en) : undefined,
+                    embassyIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.embassyIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyIssuedDate.np)) ?
+                        nepaData.embassyIssuedDate.np : undefined,
+                    embassyIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.embassyIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyIssuedDate.ct)) ?
+                        nepaData.embassyIssuedDate.ct : undefined,
+                    embassyIssuedFrom: (!ObjectUtil.isEmpty(nepaData.embassyIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyIssuedFrom.en)) ?
+                        nepaData.embassyIssuedFrom.en : undefined,
+                    embassyIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.embassyIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyIssuedFrom.np)) ?
+                        nepaData.embassyIssuedFrom.np : undefined,
+                    embassyIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.embassyIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.embassyIssuedFrom.ct)) ?
+                        nepaData.embassyIssuedFrom.ct : undefined,
+
+                    // passport detail
+                    passportNo: (!ObjectUtil.isEmpty(nepaData.passportNo) &&
+                        !ObjectUtil.isEmpty(nepaData.passportNo.en)) ?
+                        nepaData.passportNo.en : undefined,
+                    passportNoTrans: (!ObjectUtil.isEmpty(nepaData.passportNo) &&
+                        !ObjectUtil.isEmpty(nepaData.passportNo.np)) ?
+                        nepaData.passportNo.np : undefined,
+                    passportNoCT: (!ObjectUtil.isEmpty(nepaData.passportNo) &&
+                        !ObjectUtil.isEmpty(nepaData.passportNo.ct)) ?
+                        nepaData.passportNo.ct : undefined,
+                    passportIssuedDate: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedDate.en)) ?
+                        new Date(nepaData.passportIssuedDate.en) : undefined,
+                    passportIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedDate.np)) ?
+                        nepaData.passportIssuedDate.np : undefined,
+                    passportIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedDate.ct)) ?
+                        nepaData.passportIssuedDate.ct : undefined,
+                    passportValidityDate: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedDate.en)) ?
+                        new Date(nepaData.passportIssuedDate.en) : undefined,
+                    passportValidityDateTrans: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedDate.np)) ?
+                        nepaData.passportIssuedDate.np : undefined,
+                    passportValidityDateCT: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedDate.ct)) ?
+                        nepaData.passportIssuedDate.ct : undefined,
+                    passportIssuedFrom: (!ObjectUtil.isEmpty(nepaData.passportIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedFrom.en)) ?
+                        nepaData.passportIssuedFrom.en : undefined,
+                    passportIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.passportIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedFrom.np)) ?
+                        nepaData.passportIssuedFrom.np : undefined,
+                    passportIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.passportIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.passportIssuedFrom.ct)) ?
+                        nepaData.passportIssuedFrom.ct : undefined,
+
+                    // adhar card detail
+                    adharCardNo: (!ObjectUtil.isEmpty(nepaData.adharCardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardNo.en)) ?
+                        nepaData.adharCardNo.en : undefined,
+                    adharCardNoTrans: (!ObjectUtil.isEmpty(nepaData.adharCardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardNo.np)) ?
+                        nepaData.adharCardNo.np : undefined,
+                    adharCardNoCT: (!ObjectUtil.isEmpty(nepaData.adharCardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardNo.ct)) ?
+                        nepaData.adharCardNo.ct : undefined,
+                    adharCardIssuedDate: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardIssuedDate.en)) ?
+                        new Date(nepaData.adharCardIssuedDate.en) : undefined,
+                    adharCardIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardIssuedDate.np)) ?
+                        nepaData.adharCardIssuedDate.np : undefined,
+                    adharCardIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardIssuedDate.ct)) ?
+                        nepaData.adharCardIssuedDate.ct : undefined,
+                    adharCardIssuedFrom: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom.en)) ?
+                        nepaData.adharCardIssuedFrom.en : undefined,
+                    adharCardIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom.np)) ?
+                        nepaData.adharCardIssuedFrom.np : undefined,
+                    adharCardIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom.ct)) ?
+                        nepaData.adharCardIssuedFrom.ct : undefined,
+
+
+                    otherGuarantorPassportNo: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo.en)) ?
+                        nepaData.otherGuarantorPassportNo.en : undefined,
+                    otherGuarantorPassportNoTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo.np)) ?
+                        nepaData.otherGuarantorPassportNo.np : undefined,
+                    otherGuarantorPassportNoCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo.ct)) ?
+                        nepaData.otherGuarantorPassportNo.ct : undefined,
+                    otherGuarantorPassportIssuedDate: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate.en)) ?
+                        new Date(nepaData.otherGuarantorPassportIssuedDate.en) : undefined,
+                    otherGuarantorPassportIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate.np)) ?
+                        nepaData.otherGuarantorPassportIssuedDate.np : undefined,
+                    otherGuarantorPassportIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate.ct)) ?
+                        nepaData.otherGuarantorPassportIssuedDate.ct : undefined,
+                    otherGuarantorPassportValidityDate: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate.en)) ?
+                        new Date(nepaData.otherGuarantorPassportValidityDate.en) : undefined,
+                    otherGuarantorPassportValidityDateTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate.np)) ?
+                        nepaData.otherGuarantorPassportValidityDate.np : undefined,
+                    otherGuarantorPassportValidityDateCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate.ct)) ?
+                        nepaData.otherGuarantorPassportValidityDate.ct : undefined,
+                    otherGuarantorPassportIssuedFrom: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom.en)) ?
+                        nepaData.otherGuarantorPassportIssuedFrom.en : undefined,
+                    otherGuarantorPassportIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom.np)) ?
+                        nepaData.otherGuarantorPassportIssuedFrom.np : undefined,
+                    otherGuarantorPassportIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom.ct)) ?
+                        nepaData.otherGuarantorPassportIssuedFrom.ct : undefined,
+                    otherGuarantorPassportIssuedDateNepali: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali.en)) ?
+                        nepaData.otherGuarantorPassportIssuedDateNepali.en : undefined,
+                    otherGuarantorPassportIssuedDateNepaliTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali.np)) ?
+                        nepaData.otherGuarantorPassportIssuedDateNepali.np : undefined,
+                    otherGuarantorPassportIssuedDateNepaliCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali.ct)) ?
+                        nepaData.otherGuarantorPassportIssuedDateNepali.ct : undefined,
+                    otherGuarantorPassportValidityDateNepali: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali.en)) ?
+                        nepaData.otherGuarantorPassportValidityDateNepali.en : undefined,
+                    otherGuarantorPassportValidityDateNepaliTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali.np)) ?
+                        nepaData.otherGuarantorPassportValidityDateNepali.np : undefined,
+                    otherGuarantorPassportValidityDateNepaliCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali.ct)) ?
+                        nepaData.otherGuarantorPassportValidityDateNepali.ct : undefined,
+
+                    otherGuarantorPassportIssuedDateOption: nepaData.otherGuarantorPassportIssuedDateOption ?
+                        nepaData.otherGuarantorPassportIssuedDateOption : '',
+                    otherGuarantorPassportIssuedDateOptionTrans: [undefined],
+                    otherGuarantorPassportIssuedDateOptionCT: [undefined],
+                    otherGuarantorPassportValidityDateOption: nepaData.otherGuarantorPassportValidityDateOption ?
+                        nepaData.otherGuarantorPassportValidityDateOption : '',
+                    otherGuarantorPassportValidityDateOptionCT: [undefined],
+                    otherGuarantorPassportValidityDateOptionTrans: [undefined],
+
+                    // Guarantors flag
+
+                    // guarantorNationalityOption:  ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
+                    //     undefined : nepaData.guarantorNationalityOption.en,
+                    // guarantorNationalityOptionTrans: ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
+                    //     undefined : nepaData.guarantorNationalityOption.np,
+                    // guarantorNationalityOptionCT: ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
+                    //     undefined : nepaData.guarantorNationalityOption.ct,
+                    indianGuarantorDetailOption: (!ObjectUtil.isEmpty(nepaData.indianGuarantorDetailOption) &&
+                        !ObjectUtil.isEmpty(nepaData.indianGuarantorDetailOption.en)) ?
+                        nepaData.indianGuarantorDetailOption.en : undefined,
+                    indianGuarantorDetailOptionTrans: undefined,
+                    indianGuarantorDetailOptionCT: undefined,
+
+                    guarantorForeignAddressOption: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.en)) ?
+                        nepaData.guarantorForeignAddressOption.en : undefined,
+                    guarantorForeignAddressOptionTrans: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.np)) ?
+                        nepaData.guarantorForeignAddressOption.np : undefined,
+                    guarantorForeignAddressOptionCT: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.ct)) ?
+                        nepaData.guarantorForeignAddressOption.ct : undefined,
+
+                    guarantorForeignAddressOptionTemp: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp.en)) ?
+                        nepaData.guarantorForeignAddressOptionTemp.en : undefined,
+                    guarantorForeignAddressOptionTempTrans: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp.np)) ?
+                        nepaData.guarantorForeignAddressOptionTemp.np : undefined,
+                    guarantorForeignAddressOptionTempCT: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.ct)) ?
+                        nepaData.guarantorForeignAddressOption.ct : undefined,
+
+                    guarantorOtherAddress: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorOtherAddress.en)) ?
+                        nepaData.guarantorOtherAddress.en : undefined,
+                    guarantorOtherAddressTrans: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorOtherAddress.np)) ?
+                        nepaData.guarantorOtherAddress.np : undefined,
+                    guarantorOtherAddressCT: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorOtherAddress.ct)) ?
+                        nepaData.guarantorOtherAddress.ct : undefined,
+
+                    guarantorOtherAddressTemp: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp.en)) ?
+                        nepaData.guarantorOtherAddressTemp.en : undefined,
+                    guarantorOtherAddressTempTrans: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp.np)) ?
+                        nepaData.guarantorOtherAddressTemp.np : undefined,
+                    guarantorOtherAddressTempCT: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp.ct)) ?
+                        nepaData.guarantorOtherAddressTemp.ct : undefined,
+
+                    guarantorType: (!ObjectUtil.isEmpty(nepaData.guarantorType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorType.en)) ?
+                        nepaData.guarantorType.en : undefined,
+                    guarantorTypeTrans: (!ObjectUtil.isEmpty(nepaData.guarantorType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorType.np)) ?
+                        nepaData.guarantorType.np : undefined,
+                    guarantorTypeCT: (!ObjectUtil.isEmpty(nepaData.guarantorType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorType.ct)) ?
+                        nepaData.guarantorType.ct : undefined,
+                    authorizedPersonName: (!ObjectUtil.isEmpty(nepaData.authorizedPersonName) &&
+                        !ObjectUtil.isEmpty(nepaData.authorizedPersonName.en)) ?
+                        nepaData.authorizedPersonName.en : undefined,
+                    authorizedPersonNameTrans: (!ObjectUtil.isEmpty(nepaData.authorizedPersonName) &&
+                        !ObjectUtil.isEmpty(nepaData.authorizedPersonName.np)) ?
+                        nepaData.authorizedPersonName.np : undefined,
+                    authorizedPersonNameCT: (!ObjectUtil.isEmpty(nepaData.authorizedPersonName) &&
+                        !ObjectUtil.isEmpty(nepaData.authorizedPersonName.ct)) ?
+                        nepaData.authorizedPersonName.ct : undefined,
+                    guaranteeProviderName: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
+                        !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.en)) ?
+                        nepaData.guaranteeProviderName.en : undefined,
+                    guaranteeProviderNameTrans: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
+                        !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.np)) ?
+                        nepaData.guaranteeProviderName.np : undefined,
+                    guaranteeProviderNameCT: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
+                        !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.ct)) ?
+                        nepaData.guaranteeProviderName.ct : undefined,
+
+                    guarantorActName: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
+                        !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.en)) ?
+                        nepaData.guaranteeProviderName.en : undefined,
+                    guarantorActNameTrans: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
+                        !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.ct)) ?
+                        nepaData.guaranteeProviderName.ct : undefined,
+                    guarantorActNameCT: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
+                        !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.ct)) ?
+                        nepaData.guaranteeProviderName.ct : undefined,
+                    guarantorActYear: (!ObjectUtil.isEmpty(nepaData.guarantorActYear) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorActYear.en)) ?
+                        nepaData.guarantorActYear.en : undefined,
+                    guarantorActYearTrans: (!ObjectUtil.isEmpty(nepaData.guarantorActYear) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorActYear.en)) ?
+                        nepaData.guarantorActYear.en : undefined,
+                    guarantorActYearCT: (!ObjectUtil.isEmpty(nepaData.guarantorActYear) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorActYear.en)) ?
+                        nepaData.guarantorActYear.en : undefined,
+                    guarantorActYearOption: (!ObjectUtil.isEmpty(nepaData.guarantorActYearOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorActYearOption.en)) ?
+                        nepaData.guarantorActYearOption.en : undefined,
+                    guarantorActYearOptionTrans: (!ObjectUtil.isEmpty(nepaData.guarantorActYearOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorActYearOption.en)) ?
+                        nepaData.guarantorActYearOption.en : undefined,
+                    guarantorActYearOptionCT: (!ObjectUtil.isEmpty(nepaData.guarantorActYearOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorActYearOption.en)) ?
+                        nepaData.guarantorActYearOption.en : undefined,
+                    guarantorAuthorizedBodyName: (!ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName.en)) ?
+                        nepaData.guarantorAuthorizedBodyName.en : undefined,
+                    guarantorAuthorizedBodyNameTrans: (!ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName.np)) ?
+                        nepaData.guarantorAuthorizedBodyName.np : undefined,
+                    guarantorAuthorizedBodyNameCT: (!ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName.ct)) ?
+                        nepaData.guarantorAuthorizedBodyName.ct : undefined,
+                    guarantorRegisteredWith: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith.en)) ?
+                        nepaData.guarantorRegisteredWith.en : undefined,
+                    guarantorRegisteredWithTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith.np)) ?
+                        nepaData.guarantorRegisteredWith.np : undefined,
+                    guarantorRegisteredWithCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith.ct)) ?
+                        nepaData.guarantorRegisteredWith.ct : undefined,
+                    guarantorRegistrationNo: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo.en)) ?
+                        nepaData.guarantorRegistrationNo.en : undefined,
+                    guarantorRegistrationNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo.np)) ?
+                        nepaData.guarantorRegistrationNo.np : undefined,
+                    guarantorRegistrationNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo.ct)) ?
+                        nepaData.guarantorRegistrationNo.ct : undefined,
+                    guarantorRegistrationDate: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate.en)) ?
+                        new Date(nepaData.guarantorRegistrationDate.en) : undefined,
+                    guarantorRegistrationDateTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate.en)) ?
+                        nepaData.guarantorRegistrationDate.en : undefined,
+                    guarantorRegistrationDateCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate.en)) ?
+                        nepaData.guarantorRegistrationDate.en : undefined,
+                    guarantorRegistrationDateNepali: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali.en)) ?
+                        nepaData.guarantorRegistrationDateNepali.en : undefined,
+                    guarantorRegistrationDateNepaliTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali.en)) ?
+                        nepaData.guarantorRegistrationDateNepali.en : undefined,
+                    guarantorRegistrationDateNepaliCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali.en)) ?
+                        nepaData.guarantorRegistrationDateNepali.en : undefined,
+                    guarantorRegistrationDateOption: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption.en)) ?
+                        nepaData.guarantorRegistrationDateOption.en : undefined,
+                    guarantorRegistrationDateOptionTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption.en)) ?
+                        nepaData.guarantorRegistrationDateOption.en : undefined,
+                    guarantorRegistrationDateOptionCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption.en)) ?
+                        nepaData.guarantorRegistrationDateOption.en : undefined,
+
+                    guarantorIssuedDistrict: (!ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict.en)) ?
+                        nepaData.guarantorIssuedDistrict.en : undefined,
+                    guarantorIssuedDistrictTrans: (!ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict.ct)) ?
+                        nepaData.guarantorIssuedDistrict.ct : undefined,
+                    guarantorIssuedDistrictCT: (!ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict.ct)) ?
+                        nepaData.guarantorIssuedDistrict.ct : undefined,
+                    guarantorPanNo: (!ObjectUtil.isEmpty(nepaData.guarantorPanNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorPanNo.en)) ?
+                        nepaData.guarantorPanNo.en : undefined,
+                    guarantorPanNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorPanNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorPanNo.ct)) ?
+                        nepaData.guarantorPanNo.ct : undefined,
+                    guarantorPanNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorPanNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorPanNo.ct)) ?
+                        nepaData.guarantorPanNo.ct : undefined,
+
+                    guarantorRegisteredType: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredType.en)) ?
+                        nepaData.guarantorRegisteredType.en : undefined,
+                    guarantorRegisteredTypeTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredType.np)) ?
+                        nepaData.guarantorRegisteredType.np : undefined,
+                    guarantorRegisteredTypeCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredType.ct)) ?
+                        nepaData.guarantorRegisteredType.ct : undefined,
+
+                    guarantorRegisteredProvince: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince.en)) ?
+                        nepaData.guarantorRegisteredProvince.en : undefined,
+                    guarantorRegisteredProvinceTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince.ct)) ?
+                        nepaData.guarantorRegisteredProvince.ct : undefined,
+                    guarantorRegisteredProvinceCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince.ct)) ?
+                        nepaData.guarantorRegisteredProvince.ct : undefined,
+
+                    guarantorRegisteredDistrict: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict.en)) ?
+                        nepaData.guarantorRegisteredDistrict.en : undefined,
+                    guarantorRegisteredDistrictTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict.ct)) ?
+                        nepaData.guarantorRegisteredDistrict.ct : undefined,
+                    guarantorRegisteredDistrictCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict.ct)) ?
+                        nepaData.guarantorRegisteredDistrict.ct : undefined,
+
+                    guarantorRegisteredMunicipality: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality.en)) ?
+                        nepaData.guarantorRegisteredMunicipality.en : undefined,
+                    guarantorRegisteredMunicipalityTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality.ct)) ?
+                        nepaData.guarantorRegisteredMunicipality.ct : undefined,
+                    guarantorRegisteredMunicipalityCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality.ct)) ?
+                        nepaData.guarantorRegisteredMunicipality.ct : undefined,
+                    guarantorRegisteredWardNo: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo.en)) ?
+                        nepaData.guarantorRegisteredWardNo.en : undefined,
+                    guarantorRegisteredWardNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo.np)) ?
+                        nepaData.guarantorRegisteredWardNo.np : undefined,
+                    guarantorRegisteredWardNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo.ct)) ?
+                        nepaData.guarantorRegisteredWardNo.ct : undefined,
+                    guarantorRegisteredStreetTole: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole.en)) ?
+                        nepaData.guarantorRegisteredStreetTole.en : undefined,
+                    guarantorRegisteredStreetToleTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole.np)) ?
+                        nepaData.guarantorRegisteredStreetTole.np : undefined,
+                    guarantorRegisteredStreetToleCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole.ct)) ?
+                        nepaData.guarantorRegisteredStreetTole.ct : undefined,
+
+                    // Current Address
+
+                    guarantorCurrentType: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentType.en)) ?
+                        nepaData.guarantorCurrentType.en : undefined,
+                    guarantorCurrentTypeTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentType.np)) ?
+                        nepaData.guarantorCurrentType.np : undefined,
+                    guarantorCurrentTypeCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentType) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentType.ct)) ?
+                        nepaData.guarantorCurrentType.ct : undefined,
+
+                    guarantorCurrentProvince: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince.en)) ?
+                        nepaData.guarantorCurrentProvince.en : undefined,
+                    guarantorCurrentProvinceTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince.ct)) ?
+                        nepaData.guarantorCurrentProvince.ct : undefined,
+                    guarantorCurrentProvinceCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince.ct)) ?
+                        nepaData.guarantorCurrentProvince.ct : undefined,
+
+                    guarantorCurrentDistrict: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict.en)) ?
+                        nepaData.guarantorCurrentDistrict.en : undefined,
+                    guarantorCurrentDistrictTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict.ct)) ?
+                        nepaData.guarantorCurrentDistrict.ct : undefined,
+                    guarantorCurrentDistrictCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict.ct)) ?
+                        nepaData.guarantorCurrentDistrict.ct : undefined,
+
+                    guarantorCurrentMunicipality: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality.en)) ?
+                        nepaData.guarantorCurrentMunicipality.en : undefined,
+                    guarantorCurrentMunicipalityTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality.ct)) ?
+                        nepaData.guarantorCurrentMunicipality.ct : undefined,
+                    guarantorCurrentMunicipalityCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality.ct)) ?
+                        nepaData.guarantorCurrentMunicipality.ct : undefined,
+                    guarantorCurrentWardNo: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo.en)) ?
+                        nepaData.guarantorCurrentWardNo.en : undefined,
+                    guarantorCurrentWardNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo.np)) ?
+                        nepaData.guarantorCurrentWardNo.np : undefined,
+                    guarantorCurrentWardNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo.ct)) ?
+                        nepaData.guarantorCurrentWardNo.ct : undefined,
+                    guarantorCurrentStreetTole: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole.en)) ?
+                        nepaData.guarantorCurrentStreetTole.en : undefined,
+                    guarantorCurrentStreetToleTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole.np)) ?
+                        nepaData.guarantorCurrentStreetTole.np : undefined,
+                    guarantorCurrentStreetToleCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole.ct)) ?
+                        nepaData.guarantorCurrentStreetTole.ct : undefined,
+
+                    isSameGuarantorRegisteredAndCurrentAddress: (!ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress) &&
+                        !ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress.en)) ?
+                        nepaData.isSameGuarantorRegisteredAndCurrentAddress.en : undefined,
+                    isSameGuarantorRegisteredAndCurrentAddressTrans: (!ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress) &&
+                        !ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress.en)) ?
+                        nepaData.isSameGuarantorRegisteredAndCurrentAddress.en : undefined,
+                    isSameGuarantorRegisteredAndCurrentAddressCT: (!ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress) &&
+                        !ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress.en)) ?
+                        nepaData.isSameGuarantorRegisteredAndCurrentAddress.en : undefined,
+
+                    guarantorMaritalStatus: [(!ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus.en)) ? nepaData.guarantorMaritalStatus.en : undefined],
+                    guarantorMaritalStatusTrans: [(!ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus.np)) ? nepaData.guarantorMaritalStatus.np : undefined],
+                    guarantorMaritalStatusCT: [(!ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) &&
+                        !ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus.ct)) ? nepaData.guarantorMaritalStatus.ct : undefined],
+
+                    radioCitizenIssuedDateCT: [undefined],
+                    // citizenIssuedDateCT: [undefined],
+                    id: [value.id],
+                    detailsEntered: [!ObjectUtil.isEmpty(nepaData.detailsEntered) ? nepaData.detailsEntered : undefined],
+                    detailsFrom: [!ObjectUtil.isEmpty(nepaData.detailsFrom) ? nepaData.detailsFrom : undefined],
+                }));
             }
-
-            formArray.push(this.formBuilder.group({
-                guarantorName: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.en],
-                guarantorNameTrans: [(!ObjectUtil.isEmpty(nepaData.guarantorName) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorName.np)) ? nepaData.guarantorName.np : undefined],
-                guarantorNameCT: [(!ObjectUtil.isEmpty(nepaData.guarantorName) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorName.ct)) ? nepaData.guarantorName.ct : undefined],
-                citizenNumberTrans: [(!ObjectUtil.isEmpty(nepaData.citizenNumber) &&
-                    !ObjectUtil.isEmpty(nepaData.citizenNumber.np)) ? nepaData.citizenNumber.np : undefined],
-                issuedPlace: [(!ObjectUtil.isEmpty(nepaData.issuedPlace) &&
-                    !ObjectUtil.isEmpty(nepaData.issuedPlace.en)) ? nepaData.issuedPlace.en : undefined],
-                issuedPlaceTrans: [(!ObjectUtil.isEmpty(nepaData.issuedPlace) &&
-                    !ObjectUtil.isEmpty(nepaData.issuedPlace.np)) ? nepaData.issuedPlace.np : undefined],
-                issuedPlaceCT: [(!ObjectUtil.isEmpty(nepaData.issuedPlace) &&
-                    !ObjectUtil.isEmpty(nepaData.issuedPlace.ct)) ? nepaData.issuedPlace.ct : undefined],
-                genderCT: [(!ObjectUtil.isEmpty(nepaData.gender) &&
-                    !ObjectUtil.isEmpty(nepaData.gender.ct)) ? nepaData.gender.ct : undefined],
-                gender: [(!ObjectUtil.isEmpty(nepaData.gender) &&
-                    !ObjectUtil.isEmpty(nepaData.gender.en)) ? nepaData.gender.en : undefined],
-                genderTrans: [(!ObjectUtil.isEmpty(nepaData.gender) &&
-                    !ObjectUtil.isEmpty(nepaData.gender.np)) ? nepaData.gender.np : undefined],
-                relationMediumCT: [(!ObjectUtil.isEmpty(nepaData.relationMedium) &&
-                    !ObjectUtil.isEmpty(nepaData.relationMedium.ct)) ? nepaData.relationMedium.ct : undefined],
-                relationMedium: [(!ObjectUtil.isEmpty(nepaData.relationMedium) &&
-                    !ObjectUtil.isEmpty(nepaData.relationMedium.en)) ? nepaData.relationMedium.en : undefined],
-                relationMediumTrans: [(!ObjectUtil.isEmpty(nepaData.relationMedium) &&
-                    !ObjectUtil.isEmpty(nepaData.relationMedium.np)) ? nepaData.relationMedium.np : undefined],
-                husbandNameCT: [(!ObjectUtil.isEmpty(nepaData.husbandName) &&
-                    !ObjectUtil.isEmpty(nepaData.husbandName.ct)) ? nepaData.husbandName.ct : undefined],
-                husbandName: [(!ObjectUtil.isEmpty(nepaData.husbandName) &&
-                    !ObjectUtil.isEmpty(nepaData.husbandName.en)) ? nepaData.husbandName.en : undefined],
-                husbandNameTrans: [(!ObjectUtil.isEmpty(nepaData.husbandName) &&
-                    !ObjectUtil.isEmpty(nepaData.husbandName.np)) ? nepaData.husbandName.np : undefined],
-
-                fatherInLawNameCT: [(!ObjectUtil.isEmpty(nepaData.fatherInLawName) &&
-                    !ObjectUtil.isEmpty(nepaData.fatherInLawName.ct)) ? nepaData.fatherInLawName.ct : undefined],
-                fatherInLawName: [(!ObjectUtil.isEmpty(nepaData.fatherInLawName) &&
-                    !ObjectUtil.isEmpty(nepaData.fatherInLawName.en)) ? nepaData.fatherInLawName.en : undefined],
-                fatherInLawNameTrans: [(!ObjectUtil.isEmpty(nepaData.fatherInLawName) &&
-                    !ObjectUtil.isEmpty(nepaData.fatherInLawName.np)) ? nepaData.fatherInLawName.np : undefined],
-
-                grandFatherNameCT: [(!ObjectUtil.isEmpty(nepaData.grandFatherName) &&
-                    !ObjectUtil.isEmpty(nepaData.grandFatherName.ct)) ? nepaData.grandFatherName.ct : undefined],
-                grandFatherName: [(!ObjectUtil.isEmpty(nepaData.grandFatherName) &&
-                    !ObjectUtil.isEmpty(nepaData.grandFatherName.en)) ? nepaData.grandFatherName.en : undefined],
-                grandFatherNameTrans: [(!ObjectUtil.isEmpty(nepaData.grandFatherName) &&
-                    !ObjectUtil.isEmpty(nepaData.grandFatherName.np)) ? nepaData.grandFatherName.np : undefined],
-
-                fatherNameCT: [(!ObjectUtil.isEmpty(nepaData.fatherName) &&
-                    !ObjectUtil.isEmpty(nepaData.fatherName.ct)) ? nepaData.fatherName.ct : undefined],
-                fatherName: [(!ObjectUtil.isEmpty(nepaData.fatherName) &&
-                    !ObjectUtil.isEmpty(nepaData.fatherName.en)) ? nepaData.fatherName.en : undefined],
-                fatherNameTrans: [(!ObjectUtil.isEmpty(nepaData.fatherName) &&
-                    !ObjectUtil.isEmpty(nepaData.fatherName.np)) ? nepaData.fatherName.np : undefined],
-
-                relationship: [(!ObjectUtil.isEmpty(nepaData.relationship) &&
-                    !ObjectUtil.isEmpty(nepaData.relationship.en)) ? nepaData.relationship.en : undefined],
-                relationshipCT: [(!ObjectUtil.isEmpty(nepaData.relationship) &&
-                    !ObjectUtil.isEmpty(nepaData.relationship.ct)) ? nepaData.relationship.ct : undefined],
-                relationshipTrans: [(!ObjectUtil.isEmpty(nepaData.relationship) &&
-                    !ObjectUtil.isEmpty(nepaData.relationship.np)) ? nepaData.relationship.np : undefined],
-                citizenNumber: [value.citizenNumber ? value.citizenNumber : undefined],
-                citizenNumberCT: [(!ObjectUtil.isEmpty(nepaData.citizenNumber) &&
-                    !ObjectUtil.isEmpty(nepaData.citizenNumber.ct)) ? nepaData.citizenNumber.ct : undefined],
-                gurantedAmount: [(!ObjectUtil.isEmpty(nepaData.gurantedAmount) &&
-                    !ObjectUtil.isEmpty(nepaData.gurantedAmount.en)) ? nepaData.gurantedAmount.en : undefined],
-                gurantedAmountCT: [(!ObjectUtil.isEmpty(nepaData.gurantedAmount) &&
-                    !ObjectUtil.isEmpty(nepaData.gurantedAmount.ct)) ? nepaData.gurantedAmount.ct : undefined],
-                gurantedAmountTrans: [(!ObjectUtil.isEmpty(nepaData.gurantedAmount) &&
-                    !ObjectUtil.isEmpty(nepaData.gurantedAmount.ct)) ? nepaData.gurantedAmount.ct : undefined],
-
-                permanentProvince: [!ObjectUtil.isEmpty(value.province) ? value.province : undefined],
-                permanentProvinceCT: [(!ObjectUtil.isEmpty(nepaData.permanentProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentProvince.ct)) ? nepaData.permanentProvince.ct : undefined],
-                permanentProvinceTrans: [(!ObjectUtil.isEmpty(nepaData.permanentProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentProvince.en) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentProvince.en.nepaliName)) ? nepaData.permanentProvince.en.nepaliName : undefined],
-                permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
-                permanentDistrictCT: [(!ObjectUtil.isEmpty(nepaData.permanentDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentDistrict.ct)) ? nepaData.permanentDistrict.ct : undefined],
-                permanentDistrictTrans: [(!ObjectUtil.isEmpty(nepaData.permanentDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentDistrict.en) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentDistrict.en.nepaliName)) ? nepaData.permanentDistrict.en.nepaliName : undefined],
-                permanentMunicipality: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en)) ? nepaData.permanentMunicipality.en : undefined],
-                permanentMunicipalityCT: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentMunicipality.ct)) ? nepaData.permanentMunicipality.ct : undefined],
-                permanentMunicipalityTrans: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en.nepaliName)) ?
-                    nepaData.permanentMunicipality.en.nepaliName : undefined],
-                permanentWard: [(!ObjectUtil.isEmpty(nepaData.permanentWard) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentWard.en)) ? nepaData.permanentWard.en : undefined],
-                permanentWardCT: [(!ObjectUtil.isEmpty(nepaData.permanentWard) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentWard.ct)) ? nepaData.permanentWard.ct : undefined],
-                permanentWardTrans: [(!ObjectUtil.isEmpty(nepaData.permanentWard) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentWard.np)) ? nepaData.permanentWard.np : undefined],
-
-                temporaryProvince: [!ObjectUtil.isEmpty(value.provinceTemporary) ? value.provinceTemporary : undefined],
-                temporaryProvinceCT: [(!ObjectUtil.isEmpty(nepaData.temporaryProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryProvince.ct)) ? nepaData.temporaryProvince.ct : undefined],
-                temporaryProvinceTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryProvince.en) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryProvince.en.nepaliName)) ? nepaData.temporaryProvince.en.nepaliName : undefined],
-                temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
-                temporaryDistrictCT: [(!ObjectUtil.isEmpty(nepaData.temporaryDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryDistrict.ct)) ? nepaData.temporaryDistrict.ct : undefined],
-                temporaryDistrictTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryDistrict.en) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryDistrict.en.nepaliName)) ? nepaData.temporaryDistrict.en.nepaliName : undefined],
-                temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
-                temporaryMunicipalityCT: [(!ObjectUtil.isEmpty(nepaData.temporaryMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.ct)) ? nepaData.temporaryMunicipality.ct : undefined],
-                temporaryMunicipalityTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.en) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.en.nepaliName)) ?
-                    nepaData.temporaryMunicipality.en.nepaliName : undefined],
-                temporaryWard: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryWard.en)) ? nepaData.temporaryWard.en : undefined],
-                temporaryWardCT: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryWard.ct)) ? nepaData.temporaryWard.ct : undefined],
-                temporaryWardTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryWard) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryWard.np)) ? nepaData.temporaryWard.np : undefined],
-                isSameTemporaryAndPermanent: (!ObjectUtil.isEmpty(nepaData.isSameTemporaryAndPermanent) &&
-                !ObjectUtil.isEmpty(nepaData.isSameTemporaryAndPermanent.en)) ?
-                    nepaData.isSameTemporaryAndPermanent.en : undefined,
-                isSameTemporaryAndPermanentCT: [undefined],
-                isSameTemporaryAndPermanentTrans: [undefined],
-                guarantorPermanentMunicipalityOrVdc: [(!ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc.en)) ?
-                    nepaData.guarantorPermanentMunicipalityOrVdc.en : undefined],
-                nepData: [value.nepData],
-                guarantorTemporaryMunicipalityOrVdc: [(!ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc.en)) ?
-                    nepaData.guarantorTemporaryMunicipalityOrVdc.en : undefined],
-                radioCitizenIssuedDate: nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
-                citizenIssuedDate: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? new Date(nepaData.citizenIssuedDate.en) : '',
-                citizenIssuedDateTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
-                citizenIssuedDateCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
-
-                citizenIssuedDateNepali: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) &&
-                !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali.en) ?
-                    nepaData.citizenIssuedDateNepali.en : '',
-                citizenIssuedDateNepaliTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) &&
-                !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali.en) ? nepaData.citizenIssuedDateNepali.en : '',
-                citizenIssuedDateNepaliCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) &&
-                !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali.en) ? nepaData.citizenIssuedDateNepali.en : '',
-
-                // DOB
-                authorizedDobDateType: nepaData.authorizedDobDateType ? nepaData.authorizedDobDateType : '',
-                authorizedDob: !ObjectUtil.isEmpty(nepaData.authorizedDob) &&
-                !ObjectUtil.isEmpty(nepaData.authorizedDob.en) ? new Date(nepaData.authorizedDob.en) : '',
-                authorizedDobTrans: !ObjectUtil.isEmpty(nepaData.authorizedDob) &&
-                !ObjectUtil.isEmpty(nepaData.authorizedDob.en) ? nepaData.authorizedDob.en : '',
-                authorizedDobCT: !ObjectUtil.isEmpty(nepaData.authorizedDob) &&
-                !ObjectUtil.isEmpty(nepaData.authorizedDob.en) ? nepaData.authorizedDob.en : '',
-
-                authorizedDobNepali: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) &&
-                !ObjectUtil.isEmpty(nepaData.authorizedDobNepali.en) ?
-                    nepaData.authorizedDobNepali.en : '',
-                authorizedDobNepaliTrans: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) &&
-                !ObjectUtil.isEmpty(nepaData.authorizedDobNepali.en) ? nepaData.authorizedDobNepali.en : '',
-                authorizedDobNepaliCT: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) &&
-                !ObjectUtil.isEmpty(nepaData.authorizedDobNepali.en) ? nepaData.authorizedDobNepali.en : '',
-
-                guarantorPermanentMunicipalityOrVdcCT: [(!ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc.np)) ?
-                    nepaData.guarantorPermanentMunicipalityOrVdc.np : undefined],
-                guarantorTemporaryMunicipalityOrVdcCT: [(!ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc.np)) ?
-                    nepaData.guarantorTemporaryMunicipalityOrVdc.np : undefined],
-                permanentStreetTole: [(!ObjectUtil.isEmpty(nepaData.permanentStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentStreetTole.en)) ?
-                    nepaData.permanentStreetTole.en : undefined],
-                permanentStreetToleTrans: [(!ObjectUtil.isEmpty(nepaData.permanentStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentStreetTole.np)) ?
-                    nepaData.permanentStreetTole.np : undefined],
-                permanentStreetToleCT: [(!ObjectUtil.isEmpty(nepaData.permanentStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.permanentStreetTole.ct)) ?
-                    nepaData.permanentStreetTole.ct : undefined],
-                temporaryStreetTole: [(!ObjectUtil.isEmpty(nepaData.temporaryStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryStreetTole.en)) ?
-                    nepaData.temporaryStreetTole.en : undefined],
-                temporaryStreetToleTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryStreetTole.np)) ?
-                    nepaData.temporaryStreetTole.np : undefined],
-                temporaryStreetToleCT: [(!ObjectUtil.isEmpty(nepaData.temporaryStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.temporaryStreetTole.ct)) ?
-                    nepaData.temporaryStreetTole.ct : undefined],
-                guarantorNationality: [!ObjectUtil.isEmpty(nepaData.guarantorNationality) ?
-                    nepaData.guarantorNationality : undefined],
-                guarantorNationalityTrans: (!ObjectUtil.isEmpty(nepaData.guarantorNationality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorNationality.np)) ?
-                    nepaData.guarantorNationality.np : undefined,
-                guarantorNationalityCT: (!ObjectUtil.isEmpty(nepaData.guarantorNationality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorNationality.ct)) ?
-                    nepaData.guarantorNationality.ct : undefined,
-
-                // for indian guarantor
-                // embassy details
-                embassyNo: (!ObjectUtil.isEmpty(nepaData.embassyNo) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyNo.en)) ?
-                    nepaData.embassyNo.en : undefined,
-                embassyNoTrans: (!ObjectUtil.isEmpty(nepaData.embassyNo) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyNo.np)) ?
-                    nepaData.embassyNo.np : undefined,
-                embassyNoCT: (!ObjectUtil.isEmpty(nepaData.embassyNo) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyNo.ct)) ?
-                    nepaData.embassyNo.ct : undefined,
-                embassyIssuedDate: (!ObjectUtil.isEmpty(nepaData.embassyIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyIssuedDate.en)) ?
-                    new Date(nepaData.embassyIssuedDate.en) : undefined,
-                embassyIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.embassyIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyIssuedDate.np)) ?
-                    nepaData.embassyIssuedDate.np : undefined,
-                embassyIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.embassyIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyIssuedDate.ct)) ?
-                    nepaData.embassyIssuedDate.ct : undefined,
-                embassyIssuedFrom: (!ObjectUtil.isEmpty(nepaData.embassyIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyIssuedFrom.en)) ?
-                    nepaData.embassyIssuedFrom.en : undefined,
-                embassyIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.embassyIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyIssuedFrom.np)) ?
-                    nepaData.embassyIssuedFrom.np : undefined,
-                embassyIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.embassyIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.embassyIssuedFrom.ct)) ?
-                    nepaData.embassyIssuedFrom.ct : undefined,
-
-                // passport detail
-                passportNo: (!ObjectUtil.isEmpty(nepaData.passportNo) &&
-                    !ObjectUtil.isEmpty(nepaData.passportNo.en)) ?
-                    nepaData.passportNo.en : undefined,
-                passportNoTrans: (!ObjectUtil.isEmpty(nepaData.passportNo) &&
-                    !ObjectUtil.isEmpty(nepaData.passportNo.np)) ?
-                    nepaData.passportNo.np : undefined,
-                passportNoCT: (!ObjectUtil.isEmpty(nepaData.passportNo) &&
-                    !ObjectUtil.isEmpty(nepaData.passportNo.ct)) ?
-                    nepaData.passportNo.ct : undefined,
-                passportIssuedDate: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedDate.en)) ?
-                    new Date(nepaData.passportIssuedDate.en) : undefined,
-                passportIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedDate.np)) ?
-                    nepaData.passportIssuedDate.np : undefined,
-                passportIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedDate.ct)) ?
-                    nepaData.passportIssuedDate.ct : undefined,
-                passportValidityDate: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedDate.en)) ?
-                    new Date(nepaData.passportIssuedDate.en) : undefined,
-                passportValidityDateTrans: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedDate.np)) ?
-                    nepaData.passportIssuedDate.np : undefined,
-                passportValidityDateCT: (!ObjectUtil.isEmpty(nepaData.passportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedDate.ct)) ?
-                    nepaData.passportIssuedDate.ct : undefined,
-                passportIssuedFrom: (!ObjectUtil.isEmpty(nepaData.passportIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedFrom.en)) ?
-                    nepaData.passportIssuedFrom.en : undefined,
-                passportIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.passportIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedFrom.np)) ?
-                    nepaData.passportIssuedFrom.np : undefined,
-                passportIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.passportIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.passportIssuedFrom.ct)) ?
-                    nepaData.passportIssuedFrom.ct : undefined,
-
-                // adhar card detail
-                adharCardNo: (!ObjectUtil.isEmpty(nepaData.adharCardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardNo.en)) ?
-                    nepaData.adharCardNo.en : undefined,
-                adharCardNoTrans: (!ObjectUtil.isEmpty(nepaData.adharCardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardNo.np)) ?
-                    nepaData.adharCardNo.np : undefined,
-                adharCardNoCT: (!ObjectUtil.isEmpty(nepaData.adharCardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardNo.ct)) ?
-                    nepaData.adharCardNo.ct : undefined,
-                adharCardIssuedDate: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardIssuedDate.en)) ?
-                    new Date(nepaData.adharCardIssuedDate.en) : undefined,
-                adharCardIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardIssuedDate.np)) ?
-                    nepaData.adharCardIssuedDate.np : undefined,
-                adharCardIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardIssuedDate.ct)) ?
-                    nepaData.adharCardIssuedDate.ct : undefined,
-                adharCardIssuedFrom: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom.en)) ?
-                    nepaData.adharCardIssuedFrom.en : undefined,
-                adharCardIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom.np)) ?
-                    nepaData.adharCardIssuedFrom.np : undefined,
-                adharCardIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.adharCardIssuedFrom.ct)) ?
-                    nepaData.adharCardIssuedFrom.ct : undefined,
-
-
-                otherGuarantorPassportNo: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo.en)) ?
-                    nepaData.otherGuarantorPassportNo.en : undefined,
-                otherGuarantorPassportNoTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo.np)) ?
-                    nepaData.otherGuarantorPassportNo.np : undefined,
-                otherGuarantorPassportNoCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo.ct)) ?
-                    nepaData.otherGuarantorPassportNo.ct : undefined,
-                otherGuarantorPassportIssuedDate: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate.en)) ?
-                    new Date(nepaData.otherGuarantorPassportIssuedDate.en) : undefined,
-                otherGuarantorPassportIssuedDateTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate.np)) ?
-                    nepaData.otherGuarantorPassportIssuedDate.np : undefined,
-                otherGuarantorPassportIssuedDateCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate.ct)) ?
-                    nepaData.otherGuarantorPassportIssuedDate.ct : undefined,
-                otherGuarantorPassportValidityDate: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate.en)) ?
-                    new Date(nepaData.otherGuarantorPassportValidityDate.en) : undefined,
-                otherGuarantorPassportValidityDateTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate.np)) ?
-                    nepaData.otherGuarantorPassportValidityDate.np : undefined,
-                otherGuarantorPassportValidityDateCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate.ct)) ?
-                    nepaData.otherGuarantorPassportValidityDate.ct : undefined,
-                otherGuarantorPassportIssuedFrom: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom.en)) ?
-                    nepaData.otherGuarantorPassportIssuedFrom.en : undefined,
-                otherGuarantorPassportIssuedFromTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom.np)) ?
-                    nepaData.otherGuarantorPassportIssuedFrom.np : undefined,
-                otherGuarantorPassportIssuedFromCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom.ct)) ?
-                    nepaData.otherGuarantorPassportIssuedFrom.ct : undefined,
-                otherGuarantorPassportIssuedDateNepali: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali.en)) ?
-                    nepaData.otherGuarantorPassportIssuedDateNepali.en : undefined,
-                otherGuarantorPassportIssuedDateNepaliTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali.np)) ?
-                    nepaData.otherGuarantorPassportIssuedDateNepali.np : undefined,
-                otherGuarantorPassportIssuedDateNepaliCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali.ct)) ?
-                    nepaData.otherGuarantorPassportIssuedDateNepali.ct : undefined,
-                otherGuarantorPassportValidityDateNepali: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali.en)) ?
-                    nepaData.otherGuarantorPassportValidityDateNepali.en : undefined,
-                otherGuarantorPassportValidityDateNepaliTrans: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali.np)) ?
-                    nepaData.otherGuarantorPassportValidityDateNepali.np : undefined,
-                otherGuarantorPassportValidityDateNepaliCT: (!ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali.ct)) ?
-                    nepaData.otherGuarantorPassportValidityDateNepali.ct : undefined,
-
-                otherGuarantorPassportIssuedDateOption: nepaData.otherGuarantorPassportIssuedDateOption ?
-                    nepaData.otherGuarantorPassportIssuedDateOption : '',
-                otherGuarantorPassportIssuedDateOptionTrans: [undefined],
-                otherGuarantorPassportIssuedDateOptionCT: [undefined],
-                otherGuarantorPassportValidityDateOption: nepaData.otherGuarantorPassportValidityDateOption ?
-                    nepaData.otherGuarantorPassportValidityDateOption : '',
-                otherGuarantorPassportValidityDateOptionCT: [undefined],
-                otherGuarantorPassportValidityDateOptionTrans: [undefined],
-
-                // Guarantors flag
-
-                // guarantorNationalityOption:  ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
-                //     undefined : nepaData.guarantorNationalityOption.en,
-                // guarantorNationalityOptionTrans: ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
-                //     undefined : nepaData.guarantorNationalityOption.np,
-                // guarantorNationalityOptionCT: ObjectUtil.isEmpty(nepaData.guarantorNationalityOption) ?
-                //     undefined : nepaData.guarantorNationalityOption.ct,
-                indianGuarantorDetailOption: (!ObjectUtil.isEmpty(nepaData.indianGuarantorDetailOption) &&
-                !ObjectUtil.isEmpty(nepaData.indianGuarantorDetailOption.en)) ?
-                    nepaData.indianGuarantorDetailOption.en : undefined,
-                indianGuarantorDetailOptionTrans: undefined,
-                indianGuarantorDetailOptionCT: undefined,
-
-                guarantorForeignAddressOption: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.en)) ?
-                    nepaData.guarantorForeignAddressOption.en : undefined,
-                guarantorForeignAddressOptionTrans: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.np)) ?
-                    nepaData.guarantorForeignAddressOption.np : undefined,
-                guarantorForeignAddressOptionCT: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.ct)) ?
-                    nepaData.guarantorForeignAddressOption.ct : undefined,
-
-                guarantorForeignAddressOptionTemp: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp.en)) ?
-                    nepaData.guarantorForeignAddressOptionTemp.en : undefined,
-                guarantorForeignAddressOptionTempTrans: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp.np)) ?
-                    nepaData.guarantorForeignAddressOptionTemp.np : undefined,
-                guarantorForeignAddressOptionTempCT: (!ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOptionTemp) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorForeignAddressOption.ct)) ?
-                    nepaData.guarantorForeignAddressOption.ct : undefined,
-
-                guarantorOtherAddress: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorOtherAddress.en)) ?
-                    nepaData.guarantorOtherAddress.en : undefined,
-                guarantorOtherAddressTrans: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorOtherAddress.np)) ?
-                    nepaData.guarantorOtherAddress.np : undefined,
-                guarantorOtherAddressCT: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddress) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorOtherAddress.ct)) ?
-                    nepaData.guarantorOtherAddress.ct : undefined,
-
-                guarantorOtherAddressTemp: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp.en)) ?
-                    nepaData.guarantorOtherAddressTemp.en : undefined,
-                guarantorOtherAddressTempTrans: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp.np)) ?
-                    nepaData.guarantorOtherAddressTemp.np : undefined,
-                guarantorOtherAddressTempCT: (!ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorOtherAddressTemp.ct)) ?
-                    nepaData.guarantorOtherAddressTemp.ct : undefined,
-
-                guarantorType: (!ObjectUtil.isEmpty(nepaData.guarantorType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorType.en)) ?
-                    nepaData.guarantorType.en : undefined,
-                guarantorTypeTrans: (!ObjectUtil.isEmpty(nepaData.guarantorType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorType.np)) ?
-                    nepaData.guarantorType.np : undefined,
-                guarantorTypeCT: (!ObjectUtil.isEmpty(nepaData.guarantorType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorType.ct)) ?
-                    nepaData.guarantorType.ct : undefined,
-                authorizedPersonName: (!ObjectUtil.isEmpty(nepaData.authorizedPersonName) &&
-                    !ObjectUtil.isEmpty(nepaData.authorizedPersonName.en)) ?
-                    nepaData.authorizedPersonName.en : undefined,
-                authorizedPersonNameTrans: (!ObjectUtil.isEmpty(nepaData.authorizedPersonName) &&
-                    !ObjectUtil.isEmpty(nepaData.authorizedPersonName.np)) ?
-                    nepaData.authorizedPersonName.np : undefined,
-                authorizedPersonNameCT: (!ObjectUtil.isEmpty(nepaData.authorizedPersonName) &&
-                    !ObjectUtil.isEmpty(nepaData.authorizedPersonName.ct)) ?
-                    nepaData.authorizedPersonName.ct : undefined,
-                guaranteeProviderName: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
-                    !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.en)) ?
-                    nepaData.guaranteeProviderName.en : undefined,
-                guaranteeProviderNameTrans: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
-                    !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.np)) ?
-                    nepaData.guaranteeProviderName.np : undefined,
-                guaranteeProviderNameCT: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
-                    !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.ct)) ?
-                    nepaData.guaranteeProviderName.ct : undefined,
-
-                guarantorActName: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
-                    !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.en)) ?
-                    nepaData.guaranteeProviderName.en : undefined,
-                guarantorActNameTrans: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
-                    !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.ct)) ?
-                    nepaData.guaranteeProviderName.ct : undefined,
-                guarantorActNameCT: (!ObjectUtil.isEmpty(nepaData.guaranteeProviderName) &&
-                    !ObjectUtil.isEmpty(nepaData.guaranteeProviderName.ct)) ?
-                    nepaData.guaranteeProviderName.ct : undefined,
-                guarantorActYear: (!ObjectUtil.isEmpty(nepaData.guarantorActYear) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorActYear.en)) ?
-                    nepaData.guarantorActYear.en : undefined,
-                guarantorActYearTrans: (!ObjectUtil.isEmpty(nepaData.guarantorActYear) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorActYear.en)) ?
-                    nepaData.guarantorActYear.en : undefined,
-                guarantorActYearCT: (!ObjectUtil.isEmpty(nepaData.guarantorActYear) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorActYear.en)) ?
-                    nepaData.guarantorActYear.en : undefined,
-                guarantorActYearOption: (!ObjectUtil.isEmpty(nepaData.guarantorActYearOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorActYearOption.en)) ?
-                    nepaData.guarantorActYearOption.en : undefined,
-                guarantorActYearOptionTrans: (!ObjectUtil.isEmpty(nepaData.guarantorActYearOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorActYearOption.en)) ?
-                    nepaData.guarantorActYearOption.en : undefined,
-                guarantorActYearOptionCT: (!ObjectUtil.isEmpty(nepaData.guarantorActYearOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorActYearOption.en)) ?
-                    nepaData.guarantorActYearOption.en : undefined,
-                guarantorAuthorizedBodyName: (!ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName.en)) ?
-                    nepaData.guarantorAuthorizedBodyName.en : undefined,
-                guarantorAuthorizedBodyNameTrans: (!ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName.np)) ?
-                    nepaData.guarantorAuthorizedBodyName.np : undefined,
-                guarantorAuthorizedBodyNameCT: (!ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorAuthorizedBodyName.ct)) ?
-                    nepaData.guarantorAuthorizedBodyName.ct : undefined,
-                guarantorRegisteredWith: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith.en)) ?
-                    nepaData.guarantorRegisteredWith.en : undefined,
-                guarantorRegisteredWithTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith.np)) ?
-                    nepaData.guarantorRegisteredWith.np : undefined,
-                guarantorRegisteredWithCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWith.ct)) ?
-                    nepaData.guarantorRegisteredWith.ct : undefined,
-                guarantorRegistrationNo: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo.en)) ?
-                    nepaData.guarantorRegistrationNo.en : undefined,
-                guarantorRegistrationNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo.np)) ?
-                    nepaData.guarantorRegistrationNo.np : undefined,
-                guarantorRegistrationNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo.ct)) ?
-                    nepaData.guarantorRegistrationNo.ct : undefined,
-                guarantorRegistrationDate: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate.en)) ?
-                    new Date(nepaData.guarantorRegistrationDate.en) : undefined,
-                guarantorRegistrationDateTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate.en)) ?
-                    nepaData.guarantorRegistrationDate.en : undefined,
-                guarantorRegistrationDateCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate.en)) ?
-                    nepaData.guarantorRegistrationDate.en : undefined,
-                guarantorRegistrationDateNepali: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali.en)) ?
-                    nepaData.guarantorRegistrationDateNepali.en : undefined,
-                guarantorRegistrationDateNepaliTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali.en)) ?
-                    nepaData.guarantorRegistrationDateNepali.en : undefined,
-                guarantorRegistrationDateNepaliCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali.en)) ?
-                    nepaData.guarantorRegistrationDateNepali.en : undefined,
-                guarantorRegistrationDateOption: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption.en)) ?
-                    nepaData.guarantorRegistrationDateOption.en : undefined,
-                guarantorRegistrationDateOptionTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption.en)) ?
-                    nepaData.guarantorRegistrationDateOption.en : undefined,
-                guarantorRegistrationDateOptionCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption.en)) ?
-                    nepaData.guarantorRegistrationDateOption.en : undefined,
-
-                guarantorIssuedDistrict: (!ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict.en)) ?
-                    nepaData.guarantorIssuedDistrict.en : undefined,
-                guarantorIssuedDistrictTrans: (!ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict.ct)) ?
-                    nepaData.guarantorIssuedDistrict.ct : undefined,
-                guarantorIssuedDistrictCT: (!ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorIssuedDistrict.ct)) ?
-                    nepaData.guarantorIssuedDistrict.ct : undefined,
-                guarantorPanNo: (!ObjectUtil.isEmpty(nepaData.guarantorPanNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorPanNo.en)) ?
-                    nepaData.guarantorPanNo.en : undefined,
-                guarantorPanNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorPanNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorPanNo.ct)) ?
-                    nepaData.guarantorPanNo.ct : undefined,
-                guarantorPanNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorPanNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorPanNo.ct)) ?
-                    nepaData.guarantorPanNo.ct : undefined,
-
-                guarantorRegisteredType: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredType.en)) ?
-                    nepaData.guarantorRegisteredType.en : undefined,
-                guarantorRegisteredTypeTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredType.np)) ?
-                    nepaData.guarantorRegisteredType.np : undefined,
-                guarantorRegisteredTypeCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredType.ct)) ?
-                    nepaData.guarantorRegisteredType.ct : undefined,
-
-                guarantorRegisteredProvince: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince.en)) ?
-                    nepaData.guarantorRegisteredProvince.en : undefined,
-                guarantorRegisteredProvinceTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince.ct)) ?
-                    nepaData.guarantorRegisteredProvince.ct : undefined,
-                guarantorRegisteredProvinceCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredProvince.ct)) ?
-                    nepaData.guarantorRegisteredProvince.ct : undefined,
-
-                guarantorRegisteredDistrict: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict.en)) ?
-                    nepaData.guarantorRegisteredDistrict.en : undefined,
-                guarantorRegisteredDistrictTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict.ct)) ?
-                    nepaData.guarantorRegisteredDistrict.ct : undefined,
-                guarantorRegisteredDistrictCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredDistrict.ct)) ?
-                    nepaData.guarantorRegisteredDistrict.ct : undefined,
-
-                guarantorRegisteredMunicipality: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality.en)) ?
-                    nepaData.guarantorRegisteredMunicipality.en : undefined,
-                guarantorRegisteredMunicipalityTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality.ct)) ?
-                    nepaData.guarantorRegisteredMunicipality.ct : undefined,
-                guarantorRegisteredMunicipalityCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredMunicipality.ct)) ?
-                    nepaData.guarantorRegisteredMunicipality.ct : undefined,
-                guarantorRegisteredWardNo: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo.en)) ?
-                    nepaData.guarantorRegisteredWardNo.en : undefined,
-                guarantorRegisteredWardNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo.np)) ?
-                    nepaData.guarantorRegisteredWardNo.np : undefined,
-                guarantorRegisteredWardNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredWardNo.ct)) ?
-                    nepaData.guarantorRegisteredWardNo.ct : undefined,
-                guarantorRegisteredStreetTole: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole.en)) ?
-                    nepaData.guarantorRegisteredStreetTole.en : undefined,
-                guarantorRegisteredStreetToleTrans: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole.np)) ?
-                    nepaData.guarantorRegisteredStreetTole.np : undefined,
-                guarantorRegisteredStreetToleCT: (!ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorRegisteredStreetTole.ct)) ?
-                    nepaData.guarantorRegisteredStreetTole.ct : undefined,
-
-                // Current Address
-
-                guarantorCurrentType: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentType.en)) ?
-                    nepaData.guarantorCurrentType.en : undefined,
-                guarantorCurrentTypeTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentType.np)) ?
-                    nepaData.guarantorCurrentType.np : undefined,
-                guarantorCurrentTypeCT:  (!ObjectUtil.isEmpty(nepaData.guarantorCurrentType) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentType.ct)) ?
-                    nepaData.guarantorCurrentType.ct : undefined,
-
-                guarantorCurrentProvince: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince.en)) ?
-                    nepaData.guarantorCurrentProvince.en : undefined,
-                guarantorCurrentProvinceTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince.ct)) ?
-                    nepaData.guarantorCurrentProvince.ct : undefined,
-                guarantorCurrentProvinceCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentProvince.ct)) ?
-                    nepaData.guarantorCurrentProvince.ct : undefined,
-
-                guarantorCurrentDistrict: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict.en)) ?
-                    nepaData.guarantorCurrentDistrict.en : undefined,
-                guarantorCurrentDistrictTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict.ct)) ?
-                    nepaData.guarantorCurrentDistrict.ct : undefined,
-                guarantorCurrentDistrictCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentDistrict.ct)) ?
-                    nepaData.guarantorCurrentDistrict.ct : undefined,
-
-                guarantorCurrentMunicipality: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality.en)) ?
-                    nepaData.guarantorCurrentMunicipality.en : undefined,
-                guarantorCurrentMunicipalityTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality.ct)) ?
-                    nepaData.guarantorCurrentMunicipality.ct : undefined,
-                guarantorCurrentMunicipalityCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentMunicipality.ct)) ?
-                    nepaData.guarantorCurrentMunicipality.ct : undefined,
-                guarantorCurrentWardNo: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo.en)) ?
-                    nepaData.guarantorCurrentWardNo.en : undefined,
-                guarantorCurrentWardNoTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo.np)) ?
-                    nepaData.guarantorCurrentWardNo.np : undefined,
-                guarantorCurrentWardNoCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentWardNo.ct)) ?
-                    nepaData.guarantorCurrentWardNo.ct : undefined,
-                guarantorCurrentStreetTole: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole.en)) ?
-                    nepaData.guarantorCurrentStreetTole.en : undefined,
-                guarantorCurrentStreetToleTrans: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole.np)) ?
-                    nepaData.guarantorCurrentStreetTole.np : undefined,
-                guarantorCurrentStreetToleCT: (!ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorCurrentStreetTole.ct)) ?
-                    nepaData.guarantorCurrentStreetTole.ct : undefined,
-
-                isSameGuarantorRegisteredAndCurrentAddress: (!ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress) &&
-                    !ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress.en)) ?
-                    nepaData.isSameGuarantorRegisteredAndCurrentAddress.en : undefined,
-                isSameGuarantorRegisteredAndCurrentAddressTrans: (!ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress) &&
-                    !ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress.en)) ?
-                    nepaData.isSameGuarantorRegisteredAndCurrentAddress.en : undefined,
-                isSameGuarantorRegisteredAndCurrentAddressCT:  (!ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress) &&
-                    !ObjectUtil.isEmpty(nepaData.isSameGuarantorRegisteredAndCurrentAddress.en)) ?
-                    nepaData.isSameGuarantorRegisteredAndCurrentAddress.en : undefined,
-
-                guarantorMaritalStatus: [(!ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) &&
-                !ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus.en)) ? nepaData.guarantorMaritalStatus.en : undefined],
-                guarantorMaritalStatusTrans: [(!ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus.np)) ? nepaData.guarantorMaritalStatus.np : undefined],
-                guarantorMaritalStatusCT: [(!ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) &&
-                    !ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus.ct)) ? nepaData.guarantorMaritalStatus.ct : undefined],
-
-                radioCitizenIssuedDateCT: [undefined],
-                // citizenIssuedDateCT: [undefined],
-                id: [value.id],
-                detailsEntered: [!ObjectUtil.isEmpty(nepaData.detailsEntered) ? nepaData.detailsEntered : undefined],
-                detailsFrom: [!ObjectUtil.isEmpty(nepaData.detailsFrom) ? nepaData.detailsFrom : undefined],
-            }));
         });
     }
 
