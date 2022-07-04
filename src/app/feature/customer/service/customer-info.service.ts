@@ -84,4 +84,11 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public saveSiteVisitDataWithDocument(siteVisit: FormData): Observable<any> {
+        const api = `${this.getApi()}/save/all/siteVisit`;
+        const req = ApiUtils.getRequestWithFileSupport(api);
+
+        return this.http.post(req.url, siteVisit, {headers: req.header});
+    }
 }
