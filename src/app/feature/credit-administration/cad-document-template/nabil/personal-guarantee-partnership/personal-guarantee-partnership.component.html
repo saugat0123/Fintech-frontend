@@ -56,6 +56,9 @@
                                 </span>
                                 <input class="form-field form-control-sm d-print-none" name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm" placeholder="" type="text"/>
+                                <span class="print-only">
+                                    {{form.get(["guarantorsPartnership", i, "municipalityOfFirm"]).value || '_____________________'}}
+                                </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
                                     न.पा. ,
                                 </span>
@@ -63,16 +66,6 @@
                                     गा.वि.स. ,
                                 </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                    गाँउपालिका ,
-                                </span>
-                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "municipalityOfFirm"]).value || '_____________________'}}</span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'" class="print-only">
-                                    न.पा. ,
-                                </span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'" class="print-only">
-                                    गा.वि.स. ,
-                                </span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'" class="print-only">
                                     गाँउपालिका ,
                                 </span>
                                 वडा नं
