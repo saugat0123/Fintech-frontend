@@ -68,7 +68,7 @@ export class PlantMachineryComponent implements OnInit {
                 plantBranch: [formData.plantBranch],
                 fairMarketValue: [formData.fairMarketValue],
                 considerValue: [formData.considerValue],
-                // distressValue: [formData.distressValue],
+                distressValue: [formData.distressValue],
                 plantMachineryStaffRepresentativeDesignation: [formData.plantMachineryStaffRepresentativeDesignation],
                 plantMachineryStaffRepresentativeDesignation2: [formData.plantMachineryStaffRepresentativeDesignation2],
                 plantMachineryStaffRepresentativeName2: [formData.plantMachineryStaffRepresentativeName2],
@@ -122,10 +122,6 @@ export class PlantMachineryComponent implements OnInit {
         const reliasableValue = (Number(this.plantMachineryForm.get(['plantDetails', i, 'realisableValue']).value)
             * (Number(this.plantMachineryForm.get(['plantDetails', i, 'realisableRate']).value) / 100));
         this.plantMachineryForm.get(['plantDetails', i, 'quotation']).patchValue(reliasableValue);
-        this.plantMachineryForm.get(['plantDetails', i, 'fairMarketValue'])
-            .setValue(this.plantMachineryForm.get(['plantDetails', i, 'realisableValue']).value);
-        this.plantMachineryForm.get(['plantDetails', i, 'considerValue'])
-            .setValue(this.plantMachineryForm.get(['plantDetails', i, 'realisableValue']).value);
       }
         break;
       case 'share': {
@@ -198,7 +194,7 @@ export class PlantMachineryComponent implements OnInit {
       plantBranch: [undefined],
       fairMarketValue: [undefined],
       considerValue: [undefined],
-      // distressValue: [undefined],
+      distressValue: [undefined],
       plantMachineryStaffRepresentativeDesignation: [undefined],
       plantMachineryStaffRepresentativeDesignation2: [undefined],
       plantMachineryStaffRepresentativeName2: [undefined],

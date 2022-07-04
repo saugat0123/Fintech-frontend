@@ -227,7 +227,6 @@
                                     <label class="title" for="fairMarketValue">Apartment Fair Market Value</label>
                                     <input class="form-control rounded"
                                            formControlName="fairMarketValue"
-                                           (change)="calcRealiasable(i,'apartment')"
                                            id="fairMarketValue"
                                            name="fairMarketValue" placeholder="Apartment Fair Market Value"
                                            type="text" appDecimalNumber/>
@@ -239,14 +238,13 @@
                                     <label class="title" for="considerValue">Consider Value</label>
                                     <input class="form-control rounded"
                                            formControlName="considerValue"
-                                           readonly
                                            id="considerValue"
                                            name="considerValue" placeholder="Consider Value"
                                            type="text" appDecimalNumber/>
                                 </div>
                             </div>
 
-                            <!--<div class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="distressValue">Distress Value</label>
                                     <input class="form-control rounded"
@@ -255,13 +253,13 @@
                                            name="distressValue" placeholder="Distress Value"
                                            type="text" appDecimalNumber/>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="buildingDistressValue">Apartment Market Value</label>
                                     <input class="form-control rounded"
-                                           readonly
                                            formControlName="buildingDistressValue"
+                                           (change)="calcRealiasable(i,'apartment')"
                                            id="buildingDistressValue"
                                            placeholder="Apartment Market Value"
                                            name="buildingDistressValue"

@@ -128,8 +128,6 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('form value:::', this.formValue);
-    console.log('customer Info:::', this.customerInfo);
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.branchId = this.customerInfo.branch.id;
     }
