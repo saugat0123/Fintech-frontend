@@ -23,6 +23,7 @@ export class IndividualViewComponent implements OnInit {
   individualJsonData: IndividualJsonData;
   @Input() customerInfoData: CustomerInfoData;
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() proposalData;
   clientType: string;
   subsectorDetail: string;
   financialData: Financial = new Financial();
@@ -61,7 +62,7 @@ export class IndividualViewComponent implements OnInit {
         this.isJointInfo = true;
       }
     }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+    if (!ObjectUtil.isEmpty(this.proposalData)) {
       this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
     }
     if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {
