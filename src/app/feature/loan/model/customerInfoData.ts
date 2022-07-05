@@ -29,6 +29,7 @@ import {MultiBanking} from './multiBanking';
 import {Gender} from '../../../@core/model/enum/gender';
 import {Auto} from './Auto';
 import {LandBuilding} from './LandBuilding';
+import {ExistingExposure} from './existingExposure';
 
 export class CustomerInfoData {
     id: number;

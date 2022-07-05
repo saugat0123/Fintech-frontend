@@ -3,6 +3,7 @@ import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
+import {ExistingExposure} from '../../loan/model/existingExposure';
 
 @Injectable({
     providedIn: 'root'

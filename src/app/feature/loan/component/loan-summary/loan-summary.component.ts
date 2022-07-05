@@ -574,14 +574,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 loan.loan = e.loanConfig;
                                 loan.securities = [];
                                 loan.documentStatus = e.docStatus;
-                                loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                                loan.loanType = e.loanType as LoanType;
                                 this.customerAllLoanList.push(loan);
                             }
                         });
                     }
                     const uniqueLoanIds = this.customerAllLoanList.map(d => d.id);
                     this.customerAllLoanList =  this.customerAllLoanList
-                        .filter((value, index) => uniqueLoanIds.indexOf(value.id) === index);
+                        .filter((value, index) => value.id === null || uniqueLoanIds.indexOf(value.id) === index);
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.approvedSecurities)) {
                         const approvedId = this.loanDataHolder.loanHolder.approvedSecurities.map((d) => d.id);
                         this.approvedSecurity = this.loanDataHolder.loanHolder.approvedSecurities

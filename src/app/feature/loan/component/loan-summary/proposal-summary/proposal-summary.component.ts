@@ -158,6 +158,15 @@ export class ProposalSummaryComponent implements OnInit {
                 }
             });
         }
+        if (key === 'proposedLimit') {
+            let totals = 0;
+            this.customerAllLoanList.forEach(d => {
+                if (d.withIn) {
+                    totals += JSON.parse(d.proposal.data).proposedLimit;
+                }
+            });
+            total = total  - totals;
+        }
         return this.isNumber(total);
     }
 
