@@ -4,7 +4,7 @@
     </div>
             <table
                    class="table table-bordered table-hover table-sm sb-small">
-                <thead class="text-right">
+                <tbody class="text-right">
                 <tr class="sb-bg-dark text-white text-center">
                     <td></td>
                     <td colspan="5">Previous Year({{fiscalYears[prevFiscalYearIndex]?.year}})</td>
@@ -39,10 +39,6 @@
                     <td>{{currentYearData?.asOnDate?.q3 |engNepDate: false}}</td>
                     <td>{{currentYearData?.asOnDate?.q4 |engNepDate: false}}</td>
                     <td></td>
-
-                    <td></td>
-
-
 
                 </tr>
                 <tr>
@@ -240,6 +236,6 @@
                     <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.average |currencyFormatter}}</td>
                 </tr>
 
-                </thead>
+                </tbody>
             </table>
 </div>

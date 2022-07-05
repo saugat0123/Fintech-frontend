@@ -20,6 +20,8 @@ import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
 import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Proposal} from '../admin/modal/proposal';
+import {LoanType} from '../loan/model/loanType';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -60,6 +62,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     combinedLoan;
     combined = false;
     allLoanList = [];
+    combinedLoanList = [];
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -238,55 +241,51 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     getAllLoans(customerInfoId: number): void {
-        const search = {
-            loanHolderId: customerInfoId.toString(),
-            isStaged: 'true'
-        };
-        this.customerLoanService.getLoansByLoanHolderId(customerInfoId)
-            .toPromise().then(async (res: any) => {
-            this.customerAllLoanList = await res.detail;
-            // push current loan if not fetched from staged spec response
-            if (this.customerAllLoanList.length > 0) {
-                if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-                    this.customerAllLoanList.push(this.loanDataHolder);
-                }
-                if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-                } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
-                }
-            }
-            // push loans from combined loan if not in the existing array
-            const combinedLoans = this.customerAllLoanList
-                .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
-            if (combinedLoans.length > 0) {
-                const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                this.combinedLoanService.detail(combinedLoanId).toPromise().then((response: any) => {
-                    this.combinedLoan = response.detail;
-                    (response.detail as CombinedLoan).loans.forEach((cl) => {
-                        const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
-                        if (!allLoanIds.includes(cl.id)) {
-                            this.customerAllLoanList.push(cl);
-                        }
-                    });
-                    if (!ObjectUtil.isEmpty(this.combinedLoan)) {
-                        this.combined = true;
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+                this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
+                    next: (res) => {
+                        this.combinedLoanList = res.detail.loans;
+                        (res.detail as CombinedLoan).loans.forEach((cl) => {
+                            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+                            if (!allLoanIds.includes(cl.id)) {
+                                this.customerAllLoanList.push(cl);
+                            }
+                        });
+                    },
+                    error: (err) => {
+
+                    },
+                    complete: () => {
+                        this.loaded = true;
                     }
-                    if (!ObjectUtil.isEmpty(this.combinedLoan) && !ObjectUtil.isEmpty(this.combinedLoan.loans)) {
-                        this.allLoanList = this.combinedLoan.loans;
-                    }
-                }, err => {
-                    console.error(err);
-                }).finally( () => {
-                    this.loaded = true;
                 });
             } else {
-                this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id || (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
                 this.loaded = true;
+                this.customerAllLoanList = [];
+                this.customerAllLoanList.push(this.loanDataHolder);
             }
-        }, error => {
-            console.error(error);
-        });
+            this.allLoanList = this.customerAllLoanList;
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
+                this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
+                    if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id) {
+                        const loan = new LoanDataHolder();
+                        const prop = new Proposal();
+                        prop.data = e.proposalData;
+                        prop.proposedLimit = e.originalLimit;
+                        loan.proposal = prop;
+                        loan.loan = e.loanConfig;
+                        loan.securities = [];
+                        loan.documentStatus = e.docStatus;
+                        loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                        this.customerAllLoanList.push(loan);
+                    }
+                });
+            }
+        }
+
+        this.spinner.hide();
     }
 
     customSafePipe(val) {
