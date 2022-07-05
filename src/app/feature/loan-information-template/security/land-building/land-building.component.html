@@ -393,6 +393,7 @@
                                        class="form-control rounded"
                                        formControlName="totalApartmentRealisableValue"
                                        id="totalLandBuildingRatesa"
+                                       readonly
                                        placeholder="Rate"
                                        name="landBuildingRate"
                                        type="number" appDecimalNumber/>
@@ -450,6 +451,7 @@
                                 <label for="landConsideredValue">Total Realisable Value</label>
                                 <input [ngClass]="{ 'is-invalid': (submitted) && (landAndBuilding.get('landConsideredValue').errors)}"
                                        class="form-control" formControlName="landConsideredValue"
+                                       readonly
                                        id="landConsideredValue" name="total" placeholder="Realisable Value"
                                        type="number" appDecimalNumber>
                                 <div *ngIf="(submitted) && (landAndBuilding.get('landConsideredValue').invalid)"

@@ -168,18 +168,18 @@ export class VehicleComponent implements OnInit {
         }
     }
 
-    get totalVehicleExposure() {
-        let totalRemaining = 0;
-        let totalValuation = 0;
-        let exposures = 0;
-        this.vehicleDetails.controls.forEach((c: AbstractControl) => {
-            totalRemaining += c.get('remainingAmount').value;
-            totalValuation += c.get('quotationAmount').value;
-        });
-        exposures = NumberUtils.isNumber((totalRemaining / totalValuation) * 100);
-        this.vehicleForm.get('vehicleLoanExposure').setValue(exposures);
-        return exposures;
-    }
+    // get totalVehicleExposure() {
+    //     const totalRemaining = 0;
+    //     let totalValuation = 0;
+    //     let exposures = 0;
+    //     this.vehicleDetails.controls.forEach((c: AbstractControl) => {
+    //         // totalRemaining += c.get('remainingAmount').value;
+    //         totalValuation += c.get('quotationAmount').value;
+    //     });
+    //     exposures = NumberUtils.isNumber((totalRemaining / totalValuation) * 100);
+    //     // this.vehicleForm.get('vehicleLoanExposure').setValue(exposures);
+    //     return exposures;
+    // }
 
     public addVehicleSecurity() {
         (this.vehicleForm.get('vehicleDetails') as FormArray).push(this.vehicleDetailsFormGroup());
