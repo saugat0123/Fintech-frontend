@@ -164,7 +164,7 @@
                          [value]="partner?.ownerPermanentWardNoCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{partner?.ownerPermanentWardNoCT ? partner?.ownerPermanentWardNoCT : ''}}</b></span>
+                  <span class="print-only" style="font-weight: bold">{{partner?.ownerPermanentWardNoCT ? partner?.ownerPermanentWardNoCT : ''}}</span>
                 </span>
               </ng-container>
               <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
@@ -462,7 +462,7 @@
               </div>
             </div>
             <div class="mt-4" *ngIf="autoCheck">
-              <p class="text-center" style="margin-top: -1em;"><b>तपसिल</b></p>
+              <p class="text-center" style="margin-top: -1em; font-weight: bold">तपसिल</p>
               <p style="margin-top: -1em;">
                 उपरोक्त ऋणकर्जाको सुरक्षण बापत निम्न बमोजिमको सवारी साधन तपांई धनी बैंकको नाममा नामसारी
                 गरीदिएको छु/छौं ।
@@ -572,7 +572,7 @@
                          name="etiYear"
                          formControlName="etiYear"
                          type="text"/>
-                  <span class="print-only nepaliFont"><b>{{form.get('etiYear')?.value || '===================================='}}</b></span>
+                  <span class="print-only nepaliFont" style="font-weight: bold">{{form.get('etiYear')?.value || '===================================='}}</span>
                   साल
                   <input class="form-field form-control-sm disable-print nepaliFont"
                          name="etiMonth"

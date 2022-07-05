@@ -68,6 +68,8 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   securityTypeLienCondition = false;
   free;
   table;
+  primarySecurityFreeTable: any;
+  secondarySecurityFreeTable: any;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) {}
 
@@ -79,7 +81,14 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
       this.customerApprovedDoc.offerDocumentList[0].supportedInformation
     );
     if (this.free !== null) {
-      this.table = this.free.section3 ? this.free.section3.freeTable : "";
+      this.table = this.free.section3 ? this.free.section3.freeTable : '';
+      this.primarySecurityFreeTable = (this.free.section3 && this.free.section3.primarySecurityFreeTable !== '') ?
+          this.free.section3.primarySecurityFreeTable : '';
+      this.secondarySecurityFreeTable = (this.free.section3 && this.free.section3.secondarySecurityFreeTable !== '') ?
+          this.free.section3.secondarySecurityFreeTable : '';
+    } else {
+      this.primarySecurityFreeTable = '';
+      this.secondarySecurityFreeTable = '';
     }
     this.guarantorData.forEach((any) => {
       this.guarantorParsed.push(JSON.parse(any.nepData));

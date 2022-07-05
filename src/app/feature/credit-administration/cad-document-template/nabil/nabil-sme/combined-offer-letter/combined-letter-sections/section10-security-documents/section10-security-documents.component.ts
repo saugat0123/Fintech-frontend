@@ -158,7 +158,8 @@ export class Section10SecurityDocumentsComponent implements OnInit {
 
   fillForm() {
     this.form.patchValue({
-      totalLoanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.limitAmount)),
+      totalLoanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(!ObjectUtil.isEmpty(this.limitAmount) ?
+          this.limitAmount : '')),
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
       plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
       nameOfPropertyOwner: this.securityOwnersName ? this.securityOwnersName : '',
