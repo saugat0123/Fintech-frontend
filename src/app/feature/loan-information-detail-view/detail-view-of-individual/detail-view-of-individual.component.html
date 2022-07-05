@@ -319,5 +319,11 @@
 <app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist"
                              *ngIf="checklistChecked && loanDataHolder?.paperProductChecklist"></app-product-paper-checklist>
 
+<!-- Site Visit -->
+<app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                     [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                     [loanDataHolder]="loanDataHolder"
+                     [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
+
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>

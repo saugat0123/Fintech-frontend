@@ -43,13 +43,13 @@
         </div>
         <nb-checkbox *ngIf="newSecurity" [(ngModel)]="isApprovedSecurity" name="approved"> Approved Existing Security ?</nb-checkbox>
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"
-                     [security]="securityValue" [isEdit]="isEdit"></app-vehicle>
+                     [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-vehicle>
         <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"
                        [security]="securityValue" [isEdit]="isEdit"></app-apartment>
         <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"
                   [security]="securityValue" [isEdit]="isEdit"></app-land>
         <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"
-                           [security]="securityValue" [isEdit]="isEdit"></app-land-building>
+                           [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-land-building>
         <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"
                              [security]="securityValue" [isEdit]="isEdit"></app-plant-machinery>
         <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
