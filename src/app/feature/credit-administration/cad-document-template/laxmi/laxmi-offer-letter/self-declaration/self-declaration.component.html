@@ -7,24 +7,74 @@
                 <br>
                 शाखा कार्यालय, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="branch"> ।
             </p>
-            <p class="text-center"><b> विषय:— घोषना गरेको सम्बन्धमा ।</b></p>
-            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु. <input (change)="amountChange($event)" type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="amount" >/–
-            (अक्षरेपी रुपैया <input class="nepaliFont form-field form-control-sm font-size-normal" formControlName="amountInWords" disabled>) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
+            <p class="text-center"><span class="font-weight-bold">विषय: घोषना गरेको सम्बन्धमा ।</span> </p>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <span class="font-weight-bold">रु.</span>  <input (change)="amountChange($event)" type = "text" class="nepaliFont form-field form-control-sm font-size-normal font-Weight-Bold" formControlName="amount" >/–
+            <span class="font-weight-bold">(अक्षरेपी रुपैया </span> <input class="nepaliFont form-field form-control-sm font-size-normal font-weight-bold" formControlName="amountInWords" disabled>) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
            <br>
-            घोषना गर्ने ऋणीको नामः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="name" >
-<!--           <br> ठेगानाः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="address" >-->
+          <div *ngIf="individual">
+              <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+                  <tbody>
+                  <tr>
+                      <td class="col-md-6">घोषणा गर्ने ऋणीको नाम :</td>
+                      <td>
+                          <input type = "text" class="nepaliFont form-field form-control font-size-normal demo" formControlName="nameOfIndividualDeclaration" >
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>स्थायी ठेगाना :</td>
+                      <td>
+                          <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="permanentAddressOfIndividualDeclaration" >
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>हालको ठेगाना :</td>
+                      <td>
+                          <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="temporaryAddressOfIndividualDeclaration" >
+                      </td>
+                  </tr>
+                  <tr>
+                      <td style="height: 100px">दस्तखत :</td>
+                      <td></td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
             <div *ngIf="!individual">
-                अख्तियार प्राप्त व्यक्ति÷प्रोपाईटरको दस्तखतः
-                <br>
-                छापः
+                <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+                    <tbody>
+                    <tr>
+                        <td class="col-md-6">घोषणा गर्ने ऋणीको नाम :</td>
+                        <td>
+                            <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="nameOfInstitutionDeclaration" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्ति/प्रोपाईटरको दस्तखत :</td>
+                        <td>
+                            <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="signatureOfProprietor" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी ठेगाना :</td>
+                        <td>
+                            <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="permanentAddressOfInstitutionDeclaration" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>हालको ठेगाना :</td>
+                        <td>
+                            <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="temporaryAddressOfInstitutionDeclaration" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 150px">छाप :</td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div *ngIf="individual">
-                दस्तखतः
-                <div class="clearfix mb-5">
-                    <div class="signature-area float-right text-center"></div>
-                    <div class="signature-area float-right text-center"></div>
-                </div>
-            </div>            <div>
+            <div>
                 <button type="submit" class="btn btn-primary float-right" nbButton status="success">
                     Save
                 </button>
@@ -39,4 +89,5 @@
     </div>
 </div>
 <app-self-declaration-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                            [individual]="individual" [cadData]="cadData"
                                      hidden></app-self-declaration-print>

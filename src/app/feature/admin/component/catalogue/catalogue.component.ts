@@ -403,6 +403,7 @@ export class CatalogueComponent implements OnInit {
     changeAction() {
         this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
+        // this.renewLoan();
         if (this.isCombineLoan) {
             this.loanFormService.removeCombineLoanById(this.loanDataHolder.combinedLoan.id).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully seperated loan.'));

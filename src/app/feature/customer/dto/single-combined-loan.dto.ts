@@ -1,6 +1,7 @@
 import {LoanType} from '../../loan/model/loanType';
 import {DocStatus} from '../../loan/model/docStatus';
 import {LoanStage} from '../../loan/model/loanStage';
+import {LoanConfig} from '../../admin/modal/loan-config';
 
 export class SingleCombinedLoanDto {
   id?: number;
@@ -18,5 +19,7 @@ export class SingleCombinedLoanDto {
   collateralRequirement: number;
   currentStage: LoanStage = new LoanStage();
   parentId?: number;
+  loan: LoanConfig;
+  proposal: any;
 
 }

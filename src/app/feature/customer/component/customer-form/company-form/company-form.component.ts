@@ -244,12 +244,12 @@ export class CompanyFormComponent implements OnInit {
         } else {
             this.addManagementTeam();
         }
-        if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            !ObjectUtil.isEmpty(this.companyJsonData.proprietorList) ?
-                this.setProprietors(this.companyJsonData.proprietorList) : this.addProprietor();
-        } else {
-            this.addProprietor();
-        }
+        // if (!ObjectUtil.isEmpty(this.companyInfo)) {
+        //     !ObjectUtil.isEmpty(this.companyJsonData.proprietorList) ?
+        //         this.setProprietors(this.companyJsonData.proprietorList) : this.addProprietor();
+        // } else {
+        //     this.addProprietor();
+        // }
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -301,7 +301,7 @@ export class CompanyFormComponent implements OnInit {
             showFormField: (!ObjectUtil.isEmpty(this.formValue)),
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
-        this.calculateSharePercent('proprietors', 'totalSharePercent');
+        // this.calculateSharePercent('proprietors', 'totalSharePercent');
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (!ObjectUtil.isEmpty(this.companyJsonData.accountDetails)) {
                 this.setAccountNumber(this.companyJsonData.accountDetails);
@@ -342,10 +342,6 @@ export class CompanyFormComponent implements OnInit {
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
                     this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
                     Validators.maxLength(9), Validators.minLength(9)]],
-            companyEstablishmentDate:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
-                    new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
             businessType:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
@@ -362,10 +358,6 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
                     new Date(this.companyJsonData.relationshipSinceWithCustomer), DateValidator.isValidBefore],
-            issuePlace:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
-                    this.companyInfo.issuePlace, [Validators.required]],
             email:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
@@ -447,6 +439,15 @@ export class CompanyFormComponent implements OnInit {
             udhyogBibag: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
                 this.companyInfo.legalStatus.udhyogBibhag],
+            commercialDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.commercialDate)) ? undefined :
+                new Date(this.companyInfo.legalStatus.commercialDate)],
+            requiredCommercialDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.requiredCommercialDate)) ? undefined :
+                new Date(this.companyInfo.legalStatus.requiredCommercialDate)],
+
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -478,11 +479,11 @@ export class CompanyFormComponent implements OnInit {
             // managementTeams
             managementTeams: this.formBuilder.array([]),
             // managementTeamNote
-            managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
-                this.companyJsonData.managementTeamNote],
+            // managementTeamNote: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyJsonData.managementTeamNote)) ? undefined :
+            //     this.companyJsonData.managementTeamNote],
             // proprietors
-            proprietors: this.formBuilder.array([]),
+            // proprietors: this.formBuilder.array([]),
             // contact person
             contactPersons: this.formBuilder.array([
                 this.contactPersonFormGroup()
@@ -515,27 +516,28 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfo.successionPlanning],
 
             // Business Objective
-            businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
-                this.companyJsonData.businessObjective],
+            // businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
+            //     this.companyJsonData.businessObjective],
 
             // Raw Materials
-            rawMaterialSourcing: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialSourcing) ? undefined :
-                this.companyJsonData.rawMaterialSourcing],
-            rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
-                this.companyJsonData.rawMaterialAvailability],
+            // rawMaterialSourcing: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialSourcing) ? undefined :
+            //     this.companyJsonData.rawMaterialSourcing],
+            // rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
+            //     this.companyJsonData.rawMaterialAvailability],
 
-            // Sister concert
-            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.sisterConcern],
+            // // Sister concert
+            // sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+            //     this.companyJsonData.sisterConcern],
 
             // company background
-            companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.companyBackground, Validators.required],
+            // companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+            //     this.companyJsonData.companyBackground, Validators.required],
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.businessManagementRisk],
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.BusinessIndustryOutlook],
-
+            otherRemarks: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.otherRemarks],
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
                 registrationType: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
@@ -588,14 +590,14 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfo.succession, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** Groups BackGround*/
-            groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
-            || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
-                this.companyJsonData.groupsBackGround],
+            // groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
+            // || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
+            //     this.companyJsonData.groupsBackGround],
 
             /** legal Review Remark*/
-            legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
-            || ObjectUtil.isEmpty(this.companyJsonData.legalReviewRemark) ? undefined :
-                this.companyJsonData.legalReviewRemark],
+            // legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
+            // || ObjectUtil.isEmpty(this.companyJsonData.legalReviewRemark) ? undefined :
+            //     this.companyJsonData.legalReviewRemark],
             /** Business Given*/
             interestIncomeDuringReview: [ObjectUtil.isEmpty(this.businessGiven)
             || ObjectUtil.isEmpty(this.businessGiven.interestIncomeDuringReview) ? undefined :
@@ -762,60 +764,60 @@ export class CompanyFormComponent implements OnInit {
         (<FormArray>this.companyInfoFormGroup.get('contactPersons')).removeAt(index);
     }
 
-    setProprietors(data): FormArray {
-        const controls = this.companyInfoFormGroup.get('proprietors') as FormArray;
-        this.addressList = new Array<Address>(data.length);
-        let proprietorIndex = 0;
-        data.forEach(proprietors => {
-            this.addressList[proprietorIndex] = new Address();
-            if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
-                this.getDistricts(proprietors.province.id, proprietorIndex);
-                if (!ObjectUtil.isEmpty(proprietors.district) && proprietors.district.id !== null) {
-                    this.getMunicipalities(proprietors.district.id, proprietorIndex);
-                }
-            }
-            proprietorIndex++;
-            controls.push(this.formBuilder.group({
-                name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
-                contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
-                share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
-                province: [proprietors.province === null ? null : proprietors.province],
-                district: [proprietors.district === null ? null : proprietors.district],
-                municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
-                holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
-                citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum],
-                issuedDate: [ObjectUtil.isEmpty(proprietors.issuedDate) ? undefined : new Date(proprietors.issuedDate)],
-                issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace],
-                dateOfBirth: [ObjectUtil.isEmpty(proprietors.dateOfBirth) ? undefined : new Date(proprietors.dateOfBirth)],
-                fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName],
-                grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
-                addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
-                addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
-                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
-            }));
-        });
-        return controls;
-    }
+    // setProprietors(data): FormArray {
+    //     const controls = this.companyInfoFormGroup.get('proprietors') as FormArray;
+    //     this.addressList = new Array<Address>(data.length);
+    //     let proprietorIndex = 0;
+    //     data.forEach(proprietors => {
+    //         this.addressList[proprietorIndex] = new Address();
+    //         if (!ObjectUtil.isEmpty(proprietors.province) && proprietors.province.id !== null) {
+    //             this.getDistricts(proprietors.province.id, proprietorIndex);
+    //             if (!ObjectUtil.isEmpty(proprietors.district) && proprietors.district.id !== null) {
+    //                 this.getMunicipalities(proprietors.district.id, proprietorIndex);
+    //             }
+    //         }
+    //         proprietorIndex++;
+    //         controls.push(this.formBuilder.group({
+    //             name: [proprietors.name === undefined ? '' : proprietors.name],
+    //             contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo],
+    //             share: [proprietors.share === undefined ? '' : proprietors.share],
+    //             province: [proprietors.province === null ? null : proprietors.province],
+    //             district: [proprietors.district === null ? null : proprietors.district],
+    //             municipalityVdc: [proprietors.municipalityVdc === null ? null : proprietors.municipalityVdc],
+    //             holderPercentWardNumber: [proprietors.holderPercentWardNumber === null ? null : proprietors.holderPercentWardNumber],
+    //             citizenshipNum: [proprietors.citizenshipNum === null ? null : proprietors.citizenshipNum],
+    //             issuedDate: [ObjectUtil.isEmpty(proprietors.issuedDate) ? undefined : new Date(proprietors.issuedDate)],
+    //             issuedPlace: [proprietors.issuedPlace === null ? null : proprietors.issuedPlace],
+    //             dateOfBirth: [ObjectUtil.isEmpty(proprietors.dateOfBirth) ? undefined : new Date(proprietors.dateOfBirth)],
+    //             fatherName: [proprietors.fatherName === null ? null : proprietors.fatherName],
+    //             grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
+    //             addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
+    //             addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
+    //             type: [proprietors.type === undefined ? '' : proprietors.type]
+    //         }));
+    //     });
+    //     return controls;
+    // }
 
-    // return proprietors formArray
-    getProprietor() {
-        return (this.companyInfoFormGroup.value.proprietors as FormArray);
-    }
+    // // return proprietors formArray
+    // getProprietor() {
+    //     return (this.companyInfoFormGroup.value.proprietors as FormArray);
+    // }
 
-    removeProprietor(index: number) {
-        (<FormArray>this.companyInfoFormGroup.get('proprietors')).removeAt(index);
-        this.addressList.splice(index, 1);
-    }
+    // removeProprietor(index: number) {
+    //     (<FormArray>this.companyInfoFormGroup.get('proprietors')).removeAt(index);
+    //     this.addressList.splice(index, 1);
+    // }
 
-    addProprietor() {
-        this.addressList.push(new Address());
-        const controls = this.companyInfoFormGroup.controls.proprietors as FormArray;
-        // if (FormUtils.checkEmptyProperties(controls)) {
-        //     this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
-        //     return;
-        // }
-        controls.push(this.proprietorsFormGroup());
-    }
+    // addProprietor() {
+    //     this.addressList.push(new Address());
+    //     const controls = this.companyInfoFormGroup.controls.proprietors as FormArray;
+    //     // if (FormUtils.checkEmptyProperties(controls)) {
+    //     //     this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All MProprietor/Shareholder/Partner Detail To Add More'));
+    //     //     return;
+    //     // }
+    //     controls.push(this.proprietorsFormGroup());
+    // }
 
     // get district list based on province
     getDistricts(provinceId: number, proprietorIndex: number) {
@@ -972,11 +974,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.vatNo = this.companyInfoFormGroup.get('vatNo').value;
-        this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
-        this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
@@ -1000,6 +1000,8 @@ export class CompanyFormComponent implements OnInit {
         this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
         this.legalStatus.registrationDistrict = this.companyInfoFormGroup.get('registrationDistrict').value;
         this.legalStatus.udhyogBibhag = this.companyInfoFormGroup.get('udhyogBibag').value;
+        this.legalStatus.commercialDate = this.companyInfoFormGroup.get('commercialDate').value;
+        this.legalStatus.requiredCommercialDate = this.companyInfoFormGroup.get('requiredCommercialDate').value;
         this.legalStatus.regIssuedPlace = this.companyInfoFormGroup.get('regIssuedPlace').value;
         this.companyInfo.legalStatus = this.legalStatus;
         // capital
@@ -1018,7 +1020,7 @@ export class CompanyFormComponent implements OnInit {
         this.swot.threats = this.companyInfoFormGroup.get('threats').value;
 
         // management Team Note
-        this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
+        // this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
 
         // contactPerson
         this.companyInfo.contactPersons = JSON.stringify(this.companyInfoFormGroup.get('contactPersons').value);
@@ -1040,39 +1042,39 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.companyLocations = this.locations;
         // proprietorsList
         this.companyJsonData.proprietorList = new Array<Proprietors>();
-        let proprietorsIndex = 0;
-        while (proprietorsIndex < this.getProprietor().length) {
-            const proprietors = new Proprietors();
-            proprietors.name = this.getProprietor()[proprietorsIndex].name;
-            proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
-            proprietors.share = this.getProprietor()[proprietorsIndex].share;
-            proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
-            proprietors.citizenshipNum = this.getProprietor()[proprietorsIndex].citizenshipNum;
-            proprietors.issuedDate = this.getProprietor()[proprietorsIndex].issuedDate;
-            proprietors.dateOfBirth = this.getProprietor()[proprietorsIndex].dateOfBirth;
-            proprietors.issuedPlace = this.getProprietor()[proprietorsIndex].issuedPlace;
-            proprietors.fatherName = this.getProprietor()[proprietorsIndex].fatherName;
-            proprietors.grandFatherName = this.getProprietor()[proprietorsIndex].grandFatherName;
-            proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
-            proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
-            proprietors.type = this.getProprietor()[proprietorsIndex].type;
-            let province = new Province();
-            province = this.getProprietor()[proprietorsIndex].province;
-            proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
-            let district = new District();
-            district = this.getProprietor()[proprietorsIndex].district;
-            proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ? district : undefined;
-            let municipalityVdc = new MunicipalityVdc();
-            municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
-            proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
-                ? municipalityVdc : undefined;
-            if (this.client !== this.clientName.LAXMIBANK) {
-                proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
-                    proprietorsIndex.toString())[0].ownerKycForm.value;
-            }
-            proprietorsIndex++;
-            this.companyJsonData.proprietorList.push(proprietors);
-        }
+        // let proprietorsIndex = 0;
+        // while (proprietorsIndex < this.getProprietor().length) {
+        //     const proprietors = new Proprietors();
+        //     proprietors.name = this.getProprietor()[proprietorsIndex].name;
+        //     proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
+        //     proprietors.share = this.getProprietor()[proprietorsIndex].share;
+        //     proprietors.holderPercentWardNumber = this.getProprietor()[proprietorsIndex].holderPercentWardNumber;
+        //     proprietors.citizenshipNum = this.getProprietor()[proprietorsIndex].citizenshipNum;
+        //     proprietors.issuedDate = this.getProprietor()[proprietorsIndex].issuedDate;
+        //     proprietors.dateOfBirth = this.getProprietor()[proprietorsIndex].dateOfBirth;
+        //     proprietors.issuedPlace = this.getProprietor()[proprietorsIndex].issuedPlace;
+        //     proprietors.fatherName = this.getProprietor()[proprietorsIndex].fatherName;
+        //     proprietors.grandFatherName = this.getProprietor()[proprietorsIndex].grandFatherName;
+        //     proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
+        //     proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
+        //     proprietors.type = this.getProprietor()[proprietorsIndex].type;
+        //     let province = new Province();
+        //     province = this.getProprietor()[proprietorsIndex].province;
+        //     proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
+        //     let district = new District();
+        //     district = this.getProprietor()[proprietorsIndex].district;
+        //     proprietors.district = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].district)) ? district : undefined;
+        //     let municipalityVdc = new MunicipalityVdc();
+        //     municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
+        //     proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
+        //         ? municipalityVdc : undefined;
+        //     if (this.client !== this.clientName.LAXMIBANK) {
+        //         proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
+        //             proprietorsIndex.toString())[0].ownerKycForm.value;
+        //     }
+        //     proprietorsIndex++;
+        //     this.companyJsonData.proprietorList.push(proprietors);
+        // }
 
         if (!this.disableCrgAlpha && !this.microCustomer) {
             /** banking relation setting data from child **/
@@ -1117,16 +1119,17 @@ export class CompanyFormComponent implements OnInit {
         });
         /** other company detail */
         submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
-        submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
+        // submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
-        submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        // submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
         submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
+        submitData.otherRemarks = this.companyInfoFormGroup.get('otherRemarks').value;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
 
@@ -1149,7 +1152,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
-            if (this.formValue.id == null) {
+            if (this.companyInfo.id == null) {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Company Info'));
             } else {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Info'));
@@ -1266,13 +1269,13 @@ export class CompanyFormComponent implements OnInit {
     }
 
     // Calculation of Share %
-    calculateSharePercent(formArrayName, resultControllerName) {
-        let total = 0;
-        (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach(group => {
-            total = Number(group.get('share').value) + Number(total);
-        });
-        this.companyInfoFormGroup.get(resultControllerName).setValue(total);
-    }
+    // calculateSharePercent(formArrayName, resultControllerName) {
+    //     let total = 0;
+    //     (this.companyInfoFormGroup.get(formArrayName) as FormArray).controls.forEach(group => {
+    //         total = Number(group.get('share').value) + Number(total);
+    //     });
+    //     this.companyInfoFormGroup.get(resultControllerName).setValue(total);
+    // }
 
     microRestData(micro: boolean) {
         const microCustomerTypeControl = this.companyInfoFormGroup.get('microCustomerType');
@@ -1287,7 +1290,7 @@ export class CompanyFormComponent implements OnInit {
 
     microCustomerTypeValidation(microCustomerType) {
         this.microCustomerType = microCustomerType;
-        const microDirectExcludeFields = ['sisterConcern', 'strength', 'weakness', 'opportunity', 'threats'];
+        const microDirectExcludeFields = ['strength', 'weakness', 'opportunity', 'threats'];
         if (microCustomerType === MicroCustomerType.INDIRECT.toString()) {
 
         } else {

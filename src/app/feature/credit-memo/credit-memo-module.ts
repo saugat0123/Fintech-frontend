@@ -18,6 +18,8 @@ import {
     CreditMemoTypeDeleteModalComponent
 } from './component/credit-memo-type/credit-memo-type-delete-modal/credit-memo-type-delete-modal.component';
 import {NgxPrintModule} from 'ngx-print';
+import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
+import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
 
 @NgModule({
     declarations: [
@@ -38,8 +40,9 @@ import {NgxPrintModule} from 'ngx-print';
         ThemeModule,
         CoreModule,
         NgSelectModule,
+        SecurityViewModule,
         RouterModule.forChild(CreditMemoRoutes),
-        NgxPrintModule
+        NgxPrintModule,
     ],
     entryComponents: [
         ActionComponent,

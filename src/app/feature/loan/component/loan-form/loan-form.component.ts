@@ -42,24 +42,18 @@ import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {
-    CreditRiskGradingAlphaComponent
-} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
 import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
-import {
-    CreditRiskGradingGammaComponent
-} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {
-    CreditRiskGradingLambdaComponent
-} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
@@ -69,6 +63,7 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
+import {FinancialAccountInformationComponent} from '../../../loan-information-template/financial-account-information/financial-account-information.component';
 
 
 @Component({
@@ -216,8 +211,8 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorAdderComponent;
 
-    @ViewChild('shareSecurity', {static: false})
-    shareSecurity: SecurityAdderComponent;
+    @ViewChild('securityAdderComponent', {static: false})
+    securityAdderComponent: SecurityAdderComponent;
 
     @ViewChild('reportingInfoTagging', {static: false})
     reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
@@ -227,8 +222,13 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('microProposalInfo', {static: false})
     microProposalInfo: MicroProposalComponent;
+
     @ViewChild('productPaperChecklistComponent', {static: false})
     productPaperChecklistComponent: ProductPaperChecklistComponent;
+
+    @ViewChild('financialAccountDetail', {static: false})
+    financialAccountDetail: FinancialAccountInformationComponent;
+
 
     loanTag: string;
     loanHolder = new CustomerInfoData();
@@ -241,7 +241,7 @@ export class LoanFormComponent implements OnInit {
     paperChecklist;
     allIds = [];
     checklistChecked = false;
-
+    financialInfo = false;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -410,10 +410,33 @@ export class LoanFormComponent implements OnInit {
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
-            if ((this.loanType === 'NEW_LOAN') || this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' ||
-                this.loanType === 'RENEW_WITH_ENHANCEMENT') {
+            // if ((this.loanType === 'NEW_LOAN') || this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' ||
+            //     this.loanType === 'RENEW_WITH_ENHANCEMENT') {
+            //     this.templateList.forEach((value, index) => {
+            //         if (value.name === 'Security') {
+            //             this.templateList.splice(index, 1);
+            //         }
+            //     });
+            // }
+            if (this.loanType === 'FULL_SETTLEMENT_LOAN') {
                 this.templateList.forEach((value, index) => {
-                    if (value.name === 'Security') {
+                    if (value.name === 'Guarantor') {
+                        this.templateList.splice(index, 1);
+                    }
+                    if (value.name === 'Loan Document') {
+                        this.templateList.splice(index, 1);
+                    }
+                    if (value.name === 'Product Paper Checklist') {
+                        this.templateList.splice(index, 1);
+                    }
+                    if (value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+            }
+            if (this.loanType === 'FULL_SETTLEMENT_LOAN') {
+                this.templateList.forEach((value, index) => {
+                    if (value.name === 'Reporting Info') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -430,6 +453,10 @@ export class LoanFormComponent implements OnInit {
                 this.templateList.forEach((value, index) => {
                     // this.loanDocument.customerInfo.isMicroCustomer ||
                     if ((environment.disableCrgLambda) && value.name === 'Credit Risk Grading - Lambda') {
+                        this.templateList.splice(index, 1);
+                    }
+
+                    if (value.name === 'Financial/Account Information') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -672,22 +699,26 @@ export class LoanFormComponent implements OnInit {
             this.paperChecklist = obj.view;
             this.allIds = obj.id;
         }
+        if (name === 'Financial/Account Information' && action) {
+            this.financialAccountDetail.submitForm();
+            this.loanDocument.financialAccountInformation = this.financialAccountDetail.financialData;
+        }
 
         if (name === 'Security' && action) {
-            this.shareSecurity.save();
-            this.loanDocument.loanHolder.shareSecurity = this.shareSecurity.shareSecurityData;
-            if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
-                const updatedShareData = this.loanDocument.loanHolder.shareSecurity.data;
-                const stringifyShareData = JSON.parse(updatedShareData);
-                stringifyShareData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
-                this.loanDocument.loanHolder.shareSecurity.data = JSON.stringify(stringifyShareData);
-            }
-            if (this.loanDocument.loanHolder.shareSecurity.approvedData !== null) {
-                const updatedShareApprovedData = this.loanDocument.loanHolder.shareSecurity.approvedData;
-                const stringifyShareApprovedData = JSON.parse(updatedShareApprovedData);
-                stringifyShareApprovedData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
-                this.loanDocument.loanHolder.shareSecurity.approvedData = JSON.stringify(stringifyShareApprovedData);
-            }
+            this.securityAdderComponent.save();
+            // this.loanDocument.loanHolder.shareSecurity = this.shareSecurity.shareSecurityData;
+            // if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
+            //     const updatedShareData = this.loanDocument.loanHolder.shareSecurity.data;
+            //     const stringifyShareData = JSON.parse(updatedShareData);
+            //     stringifyShareData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
+            //     this.loanDocument.loanHolder.shareSecurity.data = JSON.stringify(stringifyShareData);
+            // }
+            // if (this.loanDocument.loanHolder.shareSecurity.approvedData !== null) {
+            //     const updatedShareApprovedData = this.loanDocument.loanHolder.shareSecurity.approvedData;
+            //     const stringifyShareApprovedData = JSON.parse(updatedShareApprovedData);
+            //     stringifyShareApprovedData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
+            //     this.loanDocument.loanHolder.shareSecurity.approvedData = JSON.stringify(stringifyShareApprovedData);
+            // }
         }
 
 
@@ -745,6 +776,14 @@ export class LoanFormComponent implements OnInit {
         }
     }
 
+    getFinancialAccountInfo() {
+        if (this.loanDocument.financialAccountInformation === undefined) {
+            return undefined;
+        } else {
+            return this.loanDocument.financialAccountInformation;
+        }
+    }
+
     getCustomerInfo(id) {
         this.customerService.detail(id).subscribe((res: any) => {
             this.loanDocument.customerInfo = res.detail;
@@ -774,7 +813,7 @@ export class LoanFormComponent implements OnInit {
                 this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
                 this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
                 this.loanDocument.crgGamma = this.loanHolder.crgGamma;
-                this.loanDocument.security = this.loanHolder.security;
+                this.loanDocument.securities = this.loanHolder.securities;
                 this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
                 this.loanDocument.insurance = this.loanHolder.insurance;
                 this.loanDataReady = true;
@@ -836,10 +875,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.loanType = this.loanType;
             this.loanDocument.loanCategory = this.allId.loanCategory;
 
-            if (this.loanType === 'RELEASE_AND_REPLACEMENT') {
-                    this.loanDocument.loanHolder.shareSecurity.customerShareData = this.approvedShareSecurity;
-            }
-
             if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
                 this.loanDocument.customerInfo = null;
             }
@@ -884,6 +919,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     updateSecurityList(event) {
-        this.approvedShareSecurity = event;
+        this.loanDocument = event;
+        console.log(this.loanDocument);
     }
 }

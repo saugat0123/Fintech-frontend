@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {LoanSummaryComponent} from './loan-summary.component';
 import {SitevistSummaryComponentComponent} from './sitevist-summary-component/sitevist-summary-component.component';
 import {FinancialSummaryComponent} from './financial-summary/financial-summary.component';
-import {SecuritySummaryComponent} from './security-summary/security-summary.component';
 import {InsuranceSummaryComponent} from './insurance-summary/insurance-summary.component';
 import {GuarantorSummaryComponent} from './guarantor-summary/guarantor-summary.component';
 import {CustomerGroupSummaryComponent} from './customer-group-summary/customer-group-summary.component';
@@ -38,20 +37,18 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {RemitDetailsComponent} from './remit-details/remit-details.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
 import {MultiBankingSummaryComponent} from './multi-banking-summary/multi-banking-summary.component';
-import {SecurityApprovedSummaryComponent} from './security-approved-summary/security-approved-summary.component';
-import {FeatureModule} from '../../../feature.module';
 import {NetWorthModule} from '../../../newt-worth/net-worth-module';
 import {DbrModule} from '../../../dbr/dbr.module';
 import { CollateralSiteVisitComponent } from './collateral-site-visit/collateral-site-visit.component';
-import {LoanInformationDetailViewModule} from '../../../loan-information-detail-view/loan-information-detail-view.module';
 import {ProductPaperModule} from '../../../loan-information-template/product-paper-checklist/product-paper-.module';
+import {SecurityViewModule} from '../../../loan-information-view/security-view/security-view/security-view.module';
+import {LoanSummaryInstitutionalComponent} from './loan-summary-institutional/loan-summary-institutional.component';
+import {LoanSummaryIndividualComponent} from './loan-summary-individual/loan-summary-individual.component';
 
 
 const COMPONENTS = [
     SitevistSummaryComponentComponent,
     FinancialSummaryComponent,
-    SecuritySummaryComponent,
-    ProposalSummaryComponent,
     LoanSummaryComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
@@ -74,7 +71,8 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, SecurityApprovedSummaryComponent, SecurityApprovedSummaryComponent, CollateralSiteVisitComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent,  LoanSummaryInstitutionalComponent,
+        LoanSummaryIndividualComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -91,6 +89,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         LoanInformationViewModule,
         DbrModule,
         ProductPaperModule,
+        SecurityViewModule,
     ],
     exports: [
         LoanSummaryComponent,
@@ -103,19 +102,20 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         ApprovalSheetComponent,
         CollateralSummaryComponent,
         ProposalJustificationSummaryComponent,
-        SecuritySummaryComponent,
         GuarantorSummaryComponent,
         SitevistSummaryComponentComponent,
         InsuranceSummaryComponent,
         FinancialSummaryComponent,
-        ProposalSummaryComponent,
         MGroupSummaryComponent,
         CommentsSummaryComponent,
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
         MultiBankingSummaryComponent,
-        CollateralSiteVisitComponent
+        CollateralSiteVisitComponent,
+        LoanSummaryInstitutionalComponent,
+        LoanSummaryIndividualComponent,
+        CompanyInfoSummaryComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

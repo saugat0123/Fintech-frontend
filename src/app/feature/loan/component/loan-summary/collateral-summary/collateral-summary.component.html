@@ -76,21 +76,21 @@
         <mark class="alert-warning text">Total Required Collateral:</mark>
         <strong>Rs.{{totalRequiredCollateral| currencyFormatter}}</strong>
     </div>
-    <div class="col-md-2 sb-small">
-        <mark class="alert-warning">Total FMV/Realisable Value:</mark>
-        <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>
-    </div>
-    <div class="col-md-2 sb-small">
-        <mark class="alert-warning">Surplus/(Deficit):</mark>
-        <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>
-    </div>
-    <div  class="col-md-2 sb-small">
-        <mark class="alert-warning">Coverage%:</mark>
-        <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |roundvalue}}%</strong>
-    </div>
-    <div  class="col-md-2 sb-small">
-        <mark class="alert-warning">Loan Exposure:</mark>
-        <strong>{{
-            ((totalProposedAmount) / security?.totalSecurityAmount) * 100 |roundvalue}}%</strong>
-    </div>
+<!--    <div class="col-md-2 sb-small">-->
+<!--        <mark class="alert-warning">Total FMV/Realisable Value:</mark>-->
+<!--        <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>-->
+<!--    </div>-->
+<!--    <div class="col-md-2 sb-small">-->
+<!--        <mark class="alert-warning">Surplus/(Deficit):</mark>-->
+<!--        <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>-->
+<!--    </div>-->
+<!--    <div  class="col-md-2 sb-small">-->
+<!--        <mark class="alert-warning">Coverage%:</mark>-->
+<!--        <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |roundvalue}}%</strong>-->
+<!--    </div>-->
+<!--    <div  class="col-md-2 sb-small">-->
+<!--        <mark class="alert-warning">Loan Exposure:</mark>-->
+<!--        <strong>{{-->
+<!--            ((totalProposedAmount) / security?.totalSecurityAmount) * 100 |roundvalue}}%</strong>-->
+<!--    </div>-->
 </div>

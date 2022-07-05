@@ -1,0 +1,249 @@
+<nb-card class="p-3">
+    <div class="box-header with-border">
+        <h2 class="box-title title">Details Of Plant And Machinery Security Before Completion</h2>
+    </div>
+    <form [formGroup]="plantMachineryForm">
+        <div *ngFor="let plant of plantMachineryForm.get('plantDetails')['controls']; let i = index"
+             class="font-weight-bold"
+             formArrayName="plantDetails">
+            <div [formGroupName]="i.toString()">
+                <input type="checkbox" formControlName="plantOtherBranchChecked"> Property on another branch
+                location
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="model">Model No.</label>
+                            <input [ngClass]="{'is-invalid': (submitted) && (plant.get('model').errors)}"
+                                   class="form-control rounded" formControlName="model"
+                                   name="model" placeholder="Model No."
+                                   id="model"
+                                   type="text" required/>
+                            <div *ngIf="(submitted) && (plant.get('model').invalid)"
+                                 class="invalid-feedback">
+                                <div *ngIf="plant.get('model').errors.required">Model no is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="quotation">Quotation/Valuation Amount</label>
+                            <input (change)="calcRealiasable(i, 'plant')"
+                                   class="form-control rounded" formControlName="realisableValue"
+                                   id="realisableValue"
+                                   name="realisableValue" placeholder="Quotation/Valuation Amount"
+                                   type="text" appDecimalNumber />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="fairMarketValue">Fair Market Value</label>
+                            <input class="form-control rounded" formControlName="fairMarketValue"
+                                   id="fairMarketValue"
+                                   name="fairMarketValue" placeholder="Fair Market Value"
+                                   type="text" appDecimalNumber />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="considerValue">Consider Value</label>
+                            <input class="form-control rounded" formControlName="considerValue"
+                                   id="considerValue"
+                                   name="considerValue" placeholder="Consider Value"
+                                   type="text" appDecimalNumber />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="distressValue">Distress Value</label>
+                            <input class="form-control rounded" formControlName="distressValue"
+                                   id="distressValue"
+                                   name="distressValue" placeholder="Distress Value"
+                                   type="text" appDecimalNumber />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="quotation">Realisable Rate</label>
+                            <input (change)="calcRealiasable(i, 'plant')"
+                                   class="form-control rounded" formControlName="realisableRate"
+                                   id="realisableRate"
+                                   name="realisableRate" placeholder="Realisable Rate"
+                                   type="text" appDecimalNumber/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="quotation">Realisable Value</label>
+                            <input [ngClass]="{ 'is-invalid': (submitted) && (plant.get('quotation').errors ||
+                                    plant.get('quotation').invalid) }"
+                                   class="form-control rounded" formControlName="quotation"
+                                   id="quotation"
+                                   name="quotation" placeholder=""
+                                   type="text" disabled/>
+                            <div *ngIf="(submitted) && (plant.get('quotation').invalid)"
+                                 class="invalid-feedback">
+                                <div *ngIf="plant.get('quotation').errors.required">Quotation amount is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="supplier">Supplier</label>
+                            <input class="form-control rounded" formControlName="supplier"
+                                   id="supplier"
+                                   name="supplier" placeholder="Supplier"
+                                   type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div *ngIf="plantMachineryForm.get(['plantDetails',i,'plantOtherBranchChecked']).value">
+                            <div class="form-group">
+                                <label>Select Branch</label>
+                                <ng-select
+                                        (change)="valuator(plantMachineryForm.get(['plantDetails',i,'plantBranch']).value.id,'plant',i)"
+                                        [multiple]="false"
+                                        bindLabel="name"
+                                        formControlName="plantBranch"
+                                        placeholder="">
+                                    <ng-option *ngFor="let branch of branchLists"
+                                               [value]="branch">{{branch.name}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Valuator Name</label>
+                            <ng-select [multiple]="false"
+                                       bindLabel="name"
+                                       placeholder=""
+                                       formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
+                                <ng-option [value]="null">--Select Valuator Name--</ng-option>
+                                <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]"
+                                           [value]="valuator">{{valuator.name}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryValuatorDate">Valuated Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="plantMachineryValuatorDate"
+                                   id="plantMachineryValuatorDate"
+                                   name="plantMachineryValuatorDate" placeholder="Valuated Date"
+                                   [nbDatepicker]="plantMachineryValuatorDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="plantMachineryForm.get(['plantDetails',i,'plantMachineryValuatorDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="plantMachineryForm.get(['plantDetails',i,'plantMachineryValuatorDate']).value"></app-calendar>
+                            <nb-datepicker #plantMachineryValuatorDate></nb-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryValuatorRepresentative">Valuator Representative
+                                Name</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryValuatorRepresentative"
+                                   id="plantMachineryValuatorRepresentative"
+                                   name="plantMachineryValuatorRepresentative"
+                                   placeholder="Valuator Representative Name"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryFirstValuationDate">First Valuation Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="plantMachineryFirstValuationDate"
+                                   id="plantMachineryFirstValuationDate"
+                                   name="plantMachineryFirstValuationDate" placeholder="First Valuation Date"
+                                   [nbDatepicker]="firstValuationDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="plantMachineryForm.get(['plantDetails',i,'plantMachineryFirstValuationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="plantMachineryForm.get(['plantDetails',i,'plantMachineryFirstValuationDate']).value"></app-calendar>
+                            <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryStaffRepresentativeDesignation">Staff
+                                Representative Designation 1</label>
+                            <select class="form-control rounded"
+                                    formControlName="plantMachineryStaffRepresentativeDesignation"
+                                    id="plantMachineryStaffRepresentativeDesignation"
+                                    name="plantMachineryStaffRepresentativeDesignation">
+                                <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                <option *ngFor="let designation of designationList"
+                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryStaffRepresentativeName">Staff Representative
+                                Name 1</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryStaffRepresentativeName"
+                                   id="plantMachineryStaffRepresentativeName"
+                                   name="plantMachineryStaffRepresentativeName"
+                                   placeholder="Staff Representative Name 1"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryStaffRepresentativeDesignation2">Staff
+                                Representative Designation 2</label>
+                            <select class="form-control rounded"
+                                    formControlName="plantMachineryStaffRepresentativeDesignation2"
+                                    id="plantMachineryStaffRepresentativeDesignation2"
+                                    name="plantMachineryStaffRepresentativeDesignation2">
+                                <option [ngValue]="null">Staff Representative Designation 2</option>
+                                <option *ngFor="let designation of designationList"
+                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="plantMachineryStaffRepresentativeName2">Staff Representative
+                                Name 2</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryStaffRepresentativeName2"
+                                   id="plantMachineryStaffRepresentativeName2"
+                                   name="plantMachineryStaffRepresentativeName2"
+                                   placeholder="Staff Representative Name2"
+                                   type="text"/>
+                        </div>
+                    </div>
+
+                    <div *ngIf="plantMachineryForm.get('plantDetails')['length'] > 1" class="col-md-1 pt-4">
+                        <input (click)="removePlantDetails(i)"
+                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                               type="button" value="Delete"/>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </form>
+    <div class="text-right" >
+        <input (click)="addPlantandMachinery()" class="btn btn-sm btn-flat btn-primary"
+               type="button"
+               value="Add Plant and Machine"/>
+    </div>
+</nb-card>

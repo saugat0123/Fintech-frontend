@@ -1,0 +1,805 @@
+<!--Apartment Security-->
+<nb-card class="p-5">
+    <form [formGroup]="apartmentForm">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nb-checkbox (change)="underConstruction($event.target.checked)"
+                                 formControlName="underConstructionCheck"
+                                 [checked]="underConstructionChecked">Check if Under Construction
+                    </nb-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="box-header with-border">
+            <h2 class="box-title title">Apartment Details</h2>
+        </div>
+        <!-- Cross Collateralized -->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="box-header with-border">-->
+<!--                    <nb-checkbox (change)="checkedChange($event?.target?.checked, 'apartmentCross')"-->
+<!--                                 formControlName="apartmentCrossChecked"-->
+<!--                                 [checked]="apartmentForm?.get('apartmentCrossChecked')?.value"><i>Cross Collateralized </i>-->
+<!--                    </nb-checkbox>-->
+<!--                </div>-->
+<!--                <table *ngIf="apartmentForm?.get('apartmentCrossChecked')?.value"-->
+<!--                       class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--                    <tr>-->
+<!--                        <th class="sn">SN</th>-->
+<!--                        <th>Borrower</th>-->
+<!--                        <th>Facility</th>-->
+<!--                        <th>Total Exposure</th>-->
+<!--                        <th>RM Value</th>-->
+<!--                        <th>FMV of FAC(Apportioned)</th>-->
+<!--                        <th>Drawdown(%) of FAC</th>-->
+<!--                        <th>Residual FMV of FAC</th>-->
+<!--                        <th *ngIf="apartmentForm?.get('apartmentCross')['length'] > 0"></th>-->
+<!--                    </tr>-->
+<!--                    <tbody *ngFor="let cc of apartmentForm.get('apartmentCross')['controls']; let apIdx = index" formArrayName="apartmentCross">-->
+<!--                    <tr [formGroupName]="apIdx.toString()">-->
+<!--                        <td class="sn">{{apIdx + 1}}</td>-->
+<!--                        <td><input class="form-control text-center"-->
+<!--                                   formControlName="borrowerName"-->
+<!--                                   placeholder="Borrower"-->
+<!--                                   type="text"/></td>-->
+<!--                        <td><select class="form-control" formControlName="facilityName">-->
+<!--                            <option [value]="null" hidden>Select Facility</option>-->
+<!--                            <ng-container *ngFor="let list of loanList">-->
+<!--                                <option *ngIf="!list?.isRemit" [value]="list?.shortNames">{{list?.shortNames}}</option>-->
+<!--                            </ng-container>-->
+<!--                        </select></td>-->
+<!--                        <td><input class="form-control text-center"-->
+<!--                                   formControlName="totalExposure"-->
+<!--                                   placeholder="Total Exposure"-->
+<!--                                   (change)="calculateTotalCross('apartmentCross')"-->
+<!--                                   type="number"/></td>-->
+<!--                        <td><input class="form-control text-center"-->
+<!--                                   formControlName="rmValue"-->
+<!--                                   placeholder="RM Value"-->
+<!--                                   (change)="calculateTotalCross('apartmentCross')"-->
+<!--                                   type="number"/></td>-->
+<!--                        <td><input class="form-control text-center"-->
+<!--                                   formControlName="fmvApportion"-->
+<!--                                   placeholder="FMV of FAC"-->
+<!--                                   (change)="calculateTotalCross('apartmentCross')"-->
+<!--                                   type="number"/></td>-->
+<!--                        <td><input class="form-control text-center"-->
+<!--                                   formControlName="drawDown"-->
+<!--                                   placeholder="Drawdown"-->
+<!--                                   type="text"/></td>-->
+<!--                        <td><input class="form-control text-center"-->
+<!--                                   formControlName="residualFmv"-->
+<!--                                   placeholder="Residual FMV of FAC"-->
+<!--                                   type="text"/></td>-->
+<!--                        <td *ngIf="apartmentForm?.get('apartmentCross')['length'] > 0">-->
+<!--                            <input (click)="removeCrossCollateralized('apartmentCross', apin)"-->
+<!--                                   class="align-self-end btn btn-sm btn-danger btn-primary"-->
+<!--                                   type="button" value="Delete"/>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <th></th>-->
+<!--                        <th>Total</th>-->
+<!--                        <th></th>-->
+<!--                        <th><input [readOnly]="true" class="form-control text-center"-->
+<!--                                   formControlName="apartmentExposureTotal"-->
+<!--                                   type="number"></th>-->
+<!--                        <th><input [readOnly]="true" class="form-control text-center"-->
+<!--                                   formControlName="apartmentRmValueTotal"-->
+<!--                                   type="number"></th>-->
+<!--                        <th><input [readOnly]="true" class="form-control text-center"-->
+<!--                                   formControlName="apartmentFmvOfFacTotal"-->
+<!--                                   type="number"></th>-->
+<!--                        <th></th>-->
+<!--                        <th></th>-->
+<!--                        <th></th>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                    <div class="disable-print">-->
+<!--                        <input (click)="addCrossCollateralized('apartmentCross')" class="btn btn-sm btn-flat btn-primary"-->
+<!--                               type="button" value="Add More"/>-->
+<!--                    </div>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div>
+            <div *ngFor="let building of apartmentForm.get('buildingDetails')['controls']; let i = index"
+                 class="font-weight-bold"
+                 formArrayName="buildingDetails">
+                <div [formGroupName]="i.toString()">
+                    <ng-template #apartment>
+                        <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
+                        branch location
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildingName">Apartment Name</label>
+                                    <input class="form-control rounded" formControlName="buildingName"
+                                           id="buildingName"
+                                           name="buildingName" placeholder="Apartment Name"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="proposedOwner">Proposed Owner</label>
+                                    <input class="form-control rounded"
+                                           formControlName="proposedOwner"
+                                           id="proposedOwner"
+                                           name="proposedOwner" placeholder="Owner Name"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildingDescription">Apartment Description</label>
+                                    <input class="form-control rounded"
+                                           formControlName="buildingDescription"
+                                           id="buildingDescription"
+                                           name="buildingDescription" placeholder="Apartment Description"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
+                                    <input (input)="calculateBuildUpAreaRate(i, 'building')"
+                                           class="form-control rounded" formControlName="buildArea"
+                                           id="buildArea"
+                                           name="buildArea" placeholder="Build Up Area (Sq.ft)"
+                                           type="number" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildRate">Build Up Area Rate</label>
+                                    <input (input)="calculateBuildUpAreaRate(i,'building')"
+                                           class="form-control rounded" formControlName="buildRate"
+                                           id="buildRate"
+                                           name="buildRate" placeholder="Build Up Area Rate"
+                                           type="number"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="totalCost">Total Cost</label>
+                                    <input (ngModelChange)="calculateWaterSupply(i,'building');
+                                    calculateElectrification(i,'building');
+                                    calculateSanitation(i,'building')"
+                                           class="form-control rounded" formControlName="totalCost"
+                                           id="totalCost"
+                                           name="totalCost" placeholder="Total Cost"
+                                           type="number" readonly/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="valuationArea">Valuation Taken Area
+                                        (Sq.ft)</label>
+                                    <input (input)="calculateEstimatedCost(i,'building')"
+                                           class="form-control rounded" formControlName="valuationArea"
+                                           id="valuationArea"
+                                           name="valuationArea" placeholder="Valuation Taken Area"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="ratePerSquareFeet">Rate per Square Feet</label>
+                                    <input (input)="calculateEstimatedCost(i,'building')"
+                                           class="form-control rounded"
+                                           formControlName="ratePerSquareFeet"
+                                           id="ratePerSquareFeet"
+                                           name="ratePerSquareFeet" placeholder="Rate per Square Feet"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="estimatedCosts">Estimated Cost</label>
+                                    <input class="form-control rounded" formControlName="estimatedCost"
+                                           id="estimatedCosts"
+                                           name="estimatedCost" placeholder="Estimated Cost"
+                                           type="number" readonly
+                                           (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
+                                    <input class="form-control rounded"
+                                           formControlName="buildingTotalCost"
+                                           id="buildingTotalCost"
+                                           name="buildingTotalCost" placeholder="Apartment Total Cost"
+                                           type="number" readonly/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="fairMarketValue">Apartment Fair Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="fairMarketValue"
+                                           id="fairMarketValue"
+                                           name="fairMarketValue" placeholder="Apartment Fair Market Value"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="considerValue">Consider Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="considerValue"
+                                           id="considerValue"
+                                           name="considerValue" placeholder="Consider Value"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="distressValue">Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="distressValue"
+                                           id="distressValue"
+                                           name="distressValue" placeholder="Distress Value"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildingDistressValue">Apartment Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="buildingDistressValue"
+                                           (change)="calcRealiasable(i,'apartment')"
+                                           id="buildingDistressValue"
+                                           placeholder="Apartment Market Value"
+                                           name="buildingDistressValue"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="apartmentRate">Releasable Rate</label>
+                                    <input class="form-control rounded" (change)="calcRealiasable(i, 'apartment')"
+                                           formControlName="apartmentRate"
+                                           id="apartmentRate"
+                                           placeholder="Rate %"
+                                           name="apartmentRate"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="buildingReliasableValue">Reliasable Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="buildingReliasableValue"
+                                           id="buildingReliasableValue"
+                                           placeholder="Apartment Market Value"
+                                           name="buildingReliasableValue"
+                                           type="text" appDecimalNumber disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngIf="apartmentForm.get(['buildingDetails',i,'apartmentOtherBranchChecked']).value">
+                                    <div class="form-group">
+                                        <label>Select Branch</label>
+                                        <ng-select
+                                                (change)="valuator(apartmentForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
+                                                [multiple]="false"
+                                                bindLabel="name"
+                                                formControlName="apartmentBranch"
+                                                placeholder="">
+                                            <ng-option *ngFor="let branch of branchLists"
+                                                       [value]="branch">{{branch.name}}</ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nb-checkbox class="form-control" formControlName="isValuated">As per valuation report in valuation</nb-checkbox>
+                        <div class="row" *ngIf="apartmentForm.get(['buildingDetails',i,'isValuated']).value">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Valuator Name</label>
+                                    <ng-select [multiple]="false"
+                                               bindLabel="name"
+                                               placeholder=""
+                                               formControlName="ApartmentValuator"
+                                               (click)="valuator(null,'apartment',i)">
+                                        <ng-option [value]="null">--Select Valuator Name--</ng-option>
+                                        <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
+                                                   [value]="valuator">{{valuator.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="ApartmentValuatorDate">Valuated Date</label>
+                                    <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                           formControlName="ApartmentValuatorDate"
+                                           id="ApartmentValuatorDate"
+                                           name="ApartmentValuatorDate" placeholder="Valuated Date"
+                                           [nbDatepicker]="ApartmentValuatorDate"
+                                           type="text"/>
+                                    <app-calendar
+                                            (messageToEmit)="apartmentForm.get(['buildingDetails',i,'ApartmentValuatorDate']).patchValue($event?.eDate)"
+                                            *ngIf="calendarType === 'BS'"
+                                            [ePreDate]="apartmentForm.get(['buildingDetails',i,'ApartmentValuatorDate']).value"></app-calendar>
+                                    <nb-datepicker #ApartmentValuatorDate></nb-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="ApartmentValuatorRepresentative">Valuator Representative Name</label>
+                                    <input class="form-control rounded"
+                                           formControlName="ApartmentValuatorRepresentative"
+                                           id="ApartmentValuatorRepresentative"
+                                           name="ApartmentValuatorRepresentative"
+                                           placeholder="Valuator Representative Name"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="apartmentFirstValuationDate">First Valuation Date</label>
+                                    <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                           formControlName="apartmentFirstValuationDate"
+                                           id="apartmentFirstValuationDate"
+                                           name="apartmentFirstValuationDate" placeholder="First Valuation Date"
+                                           [nbDatepicker]="firstValuationDate"
+                                           type="text"/>
+                                    <app-calendar
+                                            (messageToEmit)="apartmentForm.get(['buildingDetails',i,'apartmentFirstValuationDate']).patchValue($event?.eDate)"
+                                            *ngIf="calendarType === 'BS'"
+                                            [ePreDate]="apartmentForm.get(['buildingDetails',i,'apartmentFirstValuationDate']).value"></app-calendar>
+                                    <nb-datepicker #firstValuationDate></nb-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="apartmentStaffRepresentativeDesignation">Staff
+                                        Representative Designation 1</label>
+                                    <select class="form-control rounded"
+                                            formControlName="apartmentStaffRepresentativeDesignation"
+                                            id="apartmentStaffRepresentativeDesignation"
+                                            name="apartmentStaffRepresentativeDesignation">
+                                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative
+                                        Name 1</label>
+                                    <input class="form-control rounded"
+                                           formControlName="ApartmentStaffRepresentativeName"
+                                           id="ApartmentStaffRepresentativeName"
+                                           name="ApartmentStaffRepresentativeName"
+                                           placeholder="Staff Representative Name 1"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="apartmentStaffRepresentativeDesignation2">Staff
+                                        Representative Designation 2</label>
+                                    <select class="form-control rounded"
+                                            formControlName="apartmentStaffRepresentativeDesignation2"
+                                            id="apartmentStaffRepresentativeDesignation2"
+                                            name="apartmentStaffRepresentativeDesignation2">
+                                        <option [ngValue]="null">Staff Representative Designation 2</option>
+                                        <option *ngFor="let designation of designationList"
+                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="apartmentStaffRepresentativeName2">Staff
+                                        Representative Name 2</label>
+                                    <input class="form-control rounded"
+                                           formControlName="apartmentStaffRepresentativeName2"
+                                           id="apartmentStaffRepresentativeName2"
+                                           name="apartmentStaffRepresentativeName2"
+                                           placeholder="Staff Representative Name 2"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <!--                        <div class="col-md-12">-->
+                            <!--                            <app-security-revaluation #revaluationComponentApartment-->
+                            <!--                                                      [valuators]="securityValuator?.buildingValuator[i]"-->
+                            <!--                                                      [data]="formDataForEdit?.buildingDetails[i]?.revaluationData"-->
+                            <!--                                                      [oldValuation]="securityForm.get('buildingDetails').value"-->
+                            <!--                                                      [revaluationId]="securityId.apartmentId + i"-->
+                            <!--                                                      [calendarType]="calendarType"-->
+                            <!--                                                      [apartmentSelected]="apartmentSelected"></app-security-revaluation>-->
+                            <!--                        </div>-->
+                            <div *ngIf="apartmentForm.get('buildingDetails')['length'] > 1"
+                                 class="col-md-1 pt-4">
+                                <input (click)="removeBuildingDetails(i)"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+                            </div>
+
+                        </div>
+                    </ng-template>
+                    <ng-template [ngTemplateOutlet]="apartment"></ng-template>
+                </div>
+                <hr>
+            </div>
+
+        </div>
+        <div class="text-right" >
+            <input (click)="addBuilding()" class="btn btn-sm btn-flat btn-primary" type="button"
+                   value="Add Apartment"/>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="title ml-3" for="buildingDetailsDescription">Apartment Details
+                    Description</label>
+                <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
+                          id="buildingDetailsDescription"
+                          placeholder="Apartment Details Description"
+                          rows="5"></textarea>
+            </div>
+        </div>
+        <div [hidden]="!underConstructionChecked">
+            <div *ngFor="let building of apartmentForm.get('buildingUnderConstructions')['controls']; let i = index"
+                 class="font-weight-bold"
+                 formArrayName="buildingUnderConstructions">
+                <div [formGroupName]="i.toString()">
+                    <div class="box-header with-border">
+                        <h2 class="box-title title">Apartment Details Before Completion</h2>
+                    </div>
+                    <div formGroupName="buildingDetailsBeforeCompletion">
+                        <ng-template #build>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingName">Apartment Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="bname"
+                                               name="buildingName" placeholder="Apartment Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDescription">Apartment
+                                            Description</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDescription"
+                                               id="descriptioin"
+                                               name="buildingDescription" placeholder="Apartment Description"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
+                                        <input (input)="calculateBuildUpAreaRate(i,'before')"
+                                               class="form-control rounded" formControlName="buildArea"
+                                               id="area"
+                                               name="buildArea" placeholder="Build Up Area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildRate">Build Up Area Rate</label>
+                                        <input (input)="calculateBuildUpAreaRate(i,'before')"
+                                               class="form-control rounded" formControlName="buildRate"
+                                               id="rate"
+                                               name="buildRate" placeholder="Build Up Area Rate"
+                                               type="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="totalCost">Total Cost</label>
+                                        <input (ngModelChange)="calculateSanitation(i,'before');calculateElectrification(i,'before');calculateWaterSupply(i,'before')"
+                                               class="form-control rounded" formControlName="totalCost"
+                                               id="cost"
+                                               name="totalCost" placeholder="Total Cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="floorName">Floor Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="floorName"
+                                               name="floorName" placeholder="First Floor,Second....."
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="valuationArea">Valuation Taken Area
+                                            (Sq.ft)</label>
+                                        <input (input)="calculateEstimatedCost(i,'before')"
+                                               class="form-control rounded" formControlName="valuationArea"
+                                               id="vArea"
+                                               name="valuationArea" placeholder="Valuation Taken Area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ratePerSquareFeet">Rate per Square
+                                            Feet</label>
+                                        <input (input)="calculateEstimatedCost(i,'before')"
+                                               class="form-control rounded" formControlName="ratePerSquareFeet"
+                                               id="ratepsf"
+                                               name="ratePerSquareFeet" placeholder="Rate per Square Feet"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="estimatedCost">Estimated Cost</label>
+                                        <input class="form-control rounded" formControlName="estimatedCost"
+                                               id="estimatedCost"
+                                               name="estimatedCost" placeholder="Estimated Cost"
+                                               type="number" readonly
+                                               (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="waterSupply">Water Supply %</label>
+                                        <input (input)="calculateWaterSupply(i,'before')"
+                                               class="form-control rounded" formControlName="waterSupplyPercent"
+                                               id="waterSupply"
+                                               name="waterSupplyPercent" placeholder="Water Supply %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="waterSupplyBefore">Water Supply</label>
+                                        <input class="form-control rounded" formControlName="waterSupply"
+                                               id="waterSupplyBefore"
+                                               name="waterSupply" placeholder="Water Supply"
+                                               type="number" readonly
+                                               (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="beforeSanitationPercent">Sanitation %</label>
+                                        <input (input)="calculateSanitation(i,'before')"
+                                               class="form-control rounded" formControlName="sanitationPercent"
+                                               id="beforeSanitationPercent"
+                                               name="sanitationPercent" placeholder="Sanitation %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="sanitation">Sanitation</label>
+                                        <input class="form-control rounded" formControlName="sanitation"
+                                               id="sanitation"
+                                               name="sanitation" placeholder="Sanitation"
+                                               type="number" readonly
+                                               (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="beforeElectrificationPercent">Electrification %</label>
+                                        <input (input)="calculateElectrification(i,'before')"
+                                               class="form-control rounded" formControlName="electrificationPercent"
+                                               id="beforeElectrificationPercent"
+                                               name="electrificationPercent" placeholder="Electrification %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="electrification">Electrification</label>
+                                        <input class="form-control rounded" formControlName="electrification"
+                                               id="electrification"
+                                               name="electrification" placeholder="Electrification"
+                                               type="number" readonly
+                                               (ngModelChange)="calculateTotalApartmentCost(i,'before')"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
+                                        <input class="form-control rounded" formControlName="buildingTotalCost"
+                                               id="tc"
+                                               name="buildingTotalCost" placeholder="Apartment Total Cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingFairMarketValue">Apartment Fair Market
+                                            Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingFairMarketValue"
+                                               id="fmv"
+                                               name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDistressValue">Apartment Market Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDistressValue"
+                                               id="dv"
+                                               name="buildingDistressValue" placeholder="Apartment Market Value"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </ng-template>
+                        <ng-template [ngTemplateOutlet]="build"></ng-template>
+                    </div>
+                    <hr>
+
+                    <div class="box-header with-border">
+                        <h2 class="box-title title">Apartment Details After Completion</h2>
+                        <div formGroupName="buildingDetailsAfterCompletion">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingName">Apartment Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="afterName"
+                                               name="buildingName" placeholder="Apartment Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDescription">Apartment
+                                            Description</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDescription"
+                                               id="afterDesc"
+                                               name="buildingDescription" placeholder="Apartment Description"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
+                                        <input (input)="calculateBuildUpAreaRate(i,'after')"
+                                               class="form-control rounded" formControlName="buildArea"
+                                               id="afterArea"
+                                               name="buildArea" placeholder="Build Up Area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildRate">Build Up Area Rate</label>
+                                        <input (input)="calculateBuildUpAreaRate(i,'after')"
+                                               class="form-control rounded" formControlName="buildRate"
+                                               id="afterbuildRate"
+                                               name="buildRate" placeholder="Build Up Area Rate"
+                                               type="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="totalCost">Total Cost</label>
+                                        <input (ngModelChange)="calculateWaterSupply(i,'after');calculateElectrification(i,'after');calculateSanitation(i,'after')"
+                                               class="form-control rounded" formControlName="totalCost"
+                                               id="afterTc"
+                                               name="totalCost" placeholder="Total Cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="valuationArea">Valuation Taken Area
+                                            (Sq.ft)</label>
+                                        <input (input)="calculateEstimatedCost(i,'after')"
+                                               class="form-control rounded" formControlName="valuationArea"
+                                               id="afterVA"
+                                               name="valuationArea" placeholder="Valuation Taken Area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ratePerSquareFeet">Rate per Square
+                                            Feet</label>
+                                        <input (input)="calculateEstimatedCost(i,'after')"
+                                               class="form-control rounded" formControlName="ratePerSquareFeet"
+                                               id="afterRate"
+                                               name="ratePerSquareFeet" placeholder="Rate per Square Feet"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="estimatedCost">Estimated Cost</label>
+                                        <input class="form-control rounded" formControlName="estimatedCost"
+                                               id="afterEstCost"
+                                               name="estimatedCost" placeholder="Estimated Cost"
+                                               type="number" readonly
+                                               (ngModelChange)="calculateTotalApartmentCost(i,'after')"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
+                                        <input class="form-control rounded" formControlName="buildingTotalCost"
+                                               id="afterbuildTc"
+                                               name="buildingTotalCost" placeholder="Apartment Total Cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingFairMarketValue">Apartment Fair Market
+                                            Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingFairMarketValue"
+                                               id="afterFMV"
+                                               name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDistressValue">Apartment Market Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDistressValue"
+                                               id="afterDV"
+                                               name="buildingDistressValue" placeholder="Apartment Market Value"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div *ngIf="apartmentForm.get('buildingUnderConstructions')['length'] > 1"
+                                     class="col-md-1 pt-4">
+                                    <input (click)="removeBuildingUnderConstructions(i)"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button" value="Delete"/>
+                                </div>
+
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <input (click)="addBuildingUnderConstructions()" class="btn btn-sm btn-flat btn-primary"
+                       type="button"
+                       value="Add Apartment"/>
+            </div>
+        </div>
+    </form>
+</nb-card>

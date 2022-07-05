@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
-import {NbDateService} from '@nebular/theme';
+import {NbDateService, NbDialogService} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
@@ -15,6 +15,10 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {CreateDocumentComponent} from '../security/security-initial-form/create-document/create-document.component';
+import {SiteVisitDocument} from '../security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {ActivatedRoute} from '@angular/router';
 
 
 declare let google: any;
@@ -30,6 +34,7 @@ export class SiteVisitComponent implements OnInit {
   @Output() siteVisitDataEmitter = new EventEmitter();
   calendarType = CalendarType.AD;
   @Input() customerInfo: CustomerInfoData;
+  @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
@@ -61,11 +66,18 @@ export class SiteVisitComponent implements OnInit {
   spinner = false;
   client = environment.client;
   clientName = Clients;
-
+  optionList = ['Yes', 'No', 'NA'];
+  options = [' Owned', 'Rented'];
+  fileType = '.jpg';
+  customerType: string;
+  customerId: number;
+  branchId: number;
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
               private toastService: ToastService,
-              private roleService: RoleService) {
+              private roleService: RoleService,
+              private nbDialogService: NbDialogService,
+              private activatedRoute: ActivatedRoute) {
     this.date = dateService.today();
   }
 
@@ -116,10 +128,15 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.branchId = this.customerInfo.branch.id;
+    }
     this.getRoleList();
+    this.getCustomerTypeAndId();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
+      this.siteVisitDocument = this.formValue.siteVisitDocuments;
     }
 
     this.buildForm();
@@ -134,6 +151,13 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
     }
+  }
+
+  getCustomerTypeAndId() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.customerType = params.customerType;
+      this.customerId = params.customerInfoId;
+    });
   }
 
   buildForm() {
@@ -181,6 +205,8 @@ export class SiteVisitComponent implements OnInit {
                 new Date(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit)],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
+        unit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.unit],
         staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
                 : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeNameDesignation)],
@@ -203,7 +229,47 @@ export class SiteVisitComponent implements OnInit {
         businessSiteVisitLongitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLongitude],
         businessSiteVisitLatitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
+            : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude],
+        inventory: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.inventory],
+        accountsReceivable: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.accountsReceivable],
+        accountsPayable: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.accountsPayable],
+        businessNetTradingAssets: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.businessNetTradingAssets],
+        proposedLimitNta: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.proposedLimitNta],
+        premises: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.premises],
+        rentPayment: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.rentPayment],
+        rentReceipt: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.rentReceipt],
+        borrowerRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.borrowerRadio],
+        valuationRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.valuationRadio],
+        evidenceRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.evidenceRadio],
+        nameOfBank: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.nameOfBank],
+        securityRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.securityRadio],
+        stockRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.stockRadio],
+        fireFightingRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.fireFightingRadio],
+        buildingRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.buildingRadio],
+        hazardousRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.hazardousRadio],
+        environmentRadio: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.environmentRadio],
+        remarksUpdates: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.remarksUpdates],
+        remarksIfAny: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.remarksIfAny],
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
         dateOfInspection: [this.formDataForEdit === undefined ? '' :
@@ -771,24 +837,52 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
+    this.spinner = true;
+    this.submitted = true;
     if (!this.currentResidentForm && !this.businessSiteVisitForm && !this.currentAssetsInspectionForm) {
       this.toastService.show(new Alert(AlertType.INFO, 'Please Select Atleast One SiteVisit!'));
+      this.spinner = false;
       return;
+    }
+    const formData: FormData = new FormData();
+    // for update site visit
+    if (!ObjectUtil.isEmpty(this.formValue) && !ObjectUtil.isEmpty(this.formValue.id)) {
+      formData.append('siteVisitId', this.formValue.id.toString());
     }
     if (this.currentResidentForm) {
       // current residential details
       this.currentResidentAddress.onSubmit();
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
         this.submitted = true;
+        this.spinner = false;
         return;
       } else {
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
+      }
+      // for new site visit
+      if (!ObjectUtil.isEmpty(this.siteVisitDocument)) {
+        this.siteVisitDocument.map((m) => {
+          formData.append('docName', m.docName);
+          if (!ObjectUtil.isEmpty(m.multipartFile)) {
+           formData.append('file', m.multipartFile, m.docName);
+           formData.append('fileExist', 'Yes');
+          } else {
+            formData.append('fileExist', 'No');
+          }
+          formData.append('isPrintable', m.isPrintable);
+          let docIds = -1;
+          if (!ObjectUtil.isEmpty(m.id)) {
+            docIds = m.id;
+          }
+          formData.append('docId', docIds.toString());
+        });
       }
     }
     if (this.businessSiteVisitForm) {
       this.businessOfficeAddress.onSubmit();
       if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
         this.business = true;
+        this.spinner = false;
         return;
       } else {
         this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
@@ -797,16 +891,20 @@ export class SiteVisitComponent implements OnInit {
     if (this.currentAssetsInspectionForm) {
       if (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid) {
         this.current = true;
+        this.spinner = false;
         return;
       }
     }
-
-
+    // required parameters
+    formData.append('customerId', this.customerId.toString());
+    formData.append('customerType', this.customerType);
+    formData.append('branchId', this.branchId.toString());
+    formData.append('data', JSON.stringify(this.siteVisitFormGroup.value));
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
-    this.siteVisitDataEmitter.emit(this.siteVisitData.data);
+    this.siteVisitDataEmitter.emit(formData);
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {
@@ -1081,6 +1179,31 @@ export class SiteVisitComponent implements OnInit {
       console.log('error' , error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
       this.spinner = false;
+    });
+  }
+
+  calculateNetTradingAssests() {
+    let businessNetTradingAssets = 0;
+    businessNetTradingAssets =
+       Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('inventory').value) +
+            Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('accountsReceivable').value) -
+            Number(this.siteVisitFormGroup.get('businessSiteVisitDetails').get('accountsPayable').value);
+    this.siteVisitFormGroup.get('businessSiteVisitDetails').get('businessNetTradingAssets').setValue(businessNetTradingAssets.toFixed(2));
+  }
+
+  viewDocument(url: string, name: string) {
+    const viewDocName = name.concat(this.fileType);
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+  }
+
+  public openDocumentCreateModal(editId): void {
+    const siteVisitDocument = this.siteVisitDocument;
+    this.nbDialogService.open(CreateDocumentComponent, {
+      context: { editId, siteVisitDocument }
     });
   }
 }

@@ -231,9 +231,9 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       this.marketingActivityDetail = this.loanDataHolder.loanHolder.marketingActivities;
       this.marketingActivity = true;
     }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-      this.securityId = this.loanDataHolder.security.id;
-    }
+    // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+    //   this.securityId = this.loanDataHolder.security.id;
+    // }
   }
 
   ngOnDestroy(): void {
@@ -254,10 +254,10 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     // Setting Security data--
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-      this.securityData = JSON.parse(this.loanDataHolder.security.data);
-      this.securitySummary = true;
-    }
+    // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+    //   this.securityData = JSON.parse(this.loanDataHolder.security.data);
+    //   this.securitySummary = true;
+    // }
 
     if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
       this.loanDataHolder.insurance.forEach(value => {

@@ -220,8 +220,7 @@
           </nb-card>
         </ng-template>
       </div>
-
-      <div class="col-md-4" *ngIf="customerInfo?.security">
+      <div class="col-md-4" *ngIf="customerInfo?.securities.length > 0">
        <div class="row">
          <nb-card class="col-md-11 py-2" #security>
            <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
@@ -231,7 +230,7 @@
                </div>
                <div class="col-md-4 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
-                <em [ngClass]="customerInfo?.security?.data ? 'fas fa-check-circle px-2':'fas fa-times-circle px-2'"></em>
+                <em [ngClass]="customerInfo?.securities.length > 0 ? 'fas fa-check-circle px-2':'fas fa-times-circle px-2'"></em>
               </span>
                </div>
              </div>
@@ -249,15 +248,8 @@
               </span></a>
             </nb-card-header>
             <nb-card-body >
-              <app-security-view
-                   *ngIf="customerInfo?.security?.data !== null && customerInfo?.security?.data !== undefined"
-                  [security]="customerInfo?.security"
-                  [shareSecurityData]="customerInfo?.shareSecurity">
-              </app-security-view>
-              <h6 *ngIf=" customerInfo?.security?.data === null ||  customerInfo?.security?.data === undefined" class="text-danger">Note: This customer has no current security.</h6>
-            <hr>
-              <app-security-approved-view *ngIf=" customerInfo?.security?.approvedData" [security]="customerInfo?.security"
-                                          [shareSecurityData]="customerInfo?.shareSecurity"></app-security-approved-view>
+              <h6 *ngIf=" customerInfo?.securities.length === 0" class="text-danger">Note: This customer has no current security.</h6>
+            <app-security-summary [securities]="customerInfo?.securities"></app-security-summary>
             </nb-card-body>
           </nb-card>
         </ng-template>
@@ -466,6 +458,41 @@
               <app-comments [commentData]="customerInfo?.data"
                             [view]="true"
                             [fromProfile]="true"></app-comments>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+      <div class="col-md-4" *ngIf="customerInfo?.facilityUtilization">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #facility>
+            <a class="cursor info-label" (click)="openModel(facilityTemp)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">FACILITY UTILIZATION</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #facilityTemp let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              FACILITY UTILIZATION
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-facility-utilization [fromProfile]="false"
+                                        [customerInfo]="customerInfo">
+              </app-facility-utilization>
             </nb-card-body>
           </nb-card>
         </ng-template>

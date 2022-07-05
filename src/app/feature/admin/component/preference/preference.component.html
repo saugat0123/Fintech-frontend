@@ -1,6 +1,6 @@
 <nb-card class="sb-small">
     <nb-accordion>
-        <nb-accordion-item #itemEmail>
+        <nb-accordion-item *ngIf="roleName === 'admin'" #itemEmail>
             <nb-accordion-item-header>
                 &#9993; &nbsp;Email Configuration
             </nb-accordion-item-header>
@@ -9,7 +9,7 @@
             </nb-accordion-item-body>
         </nb-accordion-item>
 
-        <nb-accordion-item #itemBaseInterest>
+        <nb-accordion-item *ngIf="roleName === 'admin'" #itemBaseInterest>
             <nb-accordion-item-header>
                 &#9874; &nbsp;Base Interest Configuration
             </nb-accordion-item-header>
@@ -28,7 +28,7 @@
             </nb-accordion-item-body>
         </nb-accordion-item>
 
-        <nb-accordion-item #itemBlackList>
+        <nb-accordion-item *ngIf="roleName === 'admin'" #itemBlackList>
             <nb-accordion-item-header>
                 &#9785; &nbsp; Blacklisted Customers
             </nb-accordion-item-header>
@@ -37,7 +37,7 @@
             </nb-accordion-item-body>
         </nb-accordion-item>
 
-        <nb-accordion-item #itemNotification>
+        <nb-accordion-item *ngIf="roleName === 'admin'" #itemNotification>
             <nb-accordion-item-header>
                 &#9872; &nbsp; Notification Master
             </nb-accordion-item-header>
@@ -45,7 +45,7 @@
                 <app-notification-master *ngIf="itemNotification.expanded"></app-notification-master>
             </nb-accordion-item-body>
         </nb-accordion-item>
-        <nb-accordion-item #customerGroup *ngIf="sbsGroupEnabled || productUtils.CBS_ENABLE">
+        <nb-accordion-item #customerGroup *ngIf="sbsGroupEnabled || productUtils.CBS_ENABLE || roleName === 'admin'">
             <nb-accordion-item-header>
                 &#9890; &nbsp; Customer Group
             </nb-accordion-item-header>
@@ -57,7 +57,7 @@
                 </div>
             </nb-accordion-item-body>
         </nb-accordion-item>
-        <nb-accordion-item #financialConfig>
+        <nb-accordion-item #financialConfig *ngIf="roleName === 'admin'">
             <nb-accordion-item-header>
                 &#9788; &nbsp; Fiscal Year Configuration
             </nb-accordion-item-header>

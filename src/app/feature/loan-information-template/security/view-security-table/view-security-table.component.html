@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+               [nbSpinner]="spinner">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Security Type</th>
+                <th>Owner Name</th>
+                <th>Plot Number</th>
+                <th>Fair Market Value</th>
+                <th>Distress Value</th>
+                <th>Consider Value</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let security of securities; let i=index;">
+                <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{security?.securityType.toString().replace(regex, ' ')}}</td>
+                    <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : customerInfo?.name}}</td>
+                    <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
+                    <td>{{security?.fairMarketValue || '0'}}</td>
+                    <td>{{security?.distressValue || '0'}}</td>
+                    <td>{{security?.considerValue || '0'}}</td>
+                    <td>
+                        <ng-container *ngIf="security?.status.toString() === 'ACTIVE'">
+                            <button *ngIf="!toggleArray[i]?.approved" nbTooltip="Edit" (click)="onEdit(security)"
+                                    class="btn btn-sm btn-flat">
+                                <em class="fa fa-edit bg-transparent"></em>
+                            </button>
+                            <button *ngIf="(security?.securityType.toString() ==='LAND_SECURITY' ||
+                            security?.securityType.toString() ==='APARTMENT_SECURITY' || security?.securityType.toString() ==='LAND_BUILDING_SECURITY')"
+                                    nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
+                                    class="btn btn-sm btn-flat">
+                                <em class="fa fa-map-signs bg-transparent"></em>
+                            </button>
+                            <a class="px-2 cursor" *ngIf="toggleArray[i]?.securityPresent"
+                               (click)="toggleArray[i].toggled = !this.toggleArray[i]?.toggled"
+                               nbTooltip="click to view detail security">
+                                <em class="fa fa-eye"></em>
+                            </a>
+                            <a class="px-2 cursor" nbTooltip="Modify Security" *ngIf="toggleArray[i]?.approved && security?.status.toString() === 'ACTIVE'"
+                               (click)="onEdit(security, 'INACTIVE')">
+                                <em class="fa fa-cogs"></em>
+                            </a>
+                            <a class="px-2 cursor" nbTooltip="Reset Security" *ngIf="security?.oldSecurityId && isMaker && !toggleArray[i]?.approved"
+                               (click)="resetSecurity(security?.oldSecurityId, security?.id)">
+                                <em class="fa fa-undo"></em>
+                            </a>
+                        </ng-container>
+                        <a class="px-2 cursor" nbTooltip="{{security?.status.toString() === 'ACTIVE' ? 'UN-LINK' : 'LINK'}} SECURITY" *ngIf="toggleArray[i]?.approved"
+                           (click)="unlinkSecurity(security?.id, security?.status.toString() === 'ACTIVE' ? 'INACTIVE': 'ACTIVE')">
+                            <i [ngClass]="security?.status === 'ACTIVE' ? 'fa fa-minus-square' : 'fa fa-link'" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <ng-container *ngIf="toggleArray[i]?.toggled">
+                            <app-security-tagged-component
+                                    [tagged]="toggleArray[i]?.security"
+                                    [security]="security?.data"></app-security-tagged-component>
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

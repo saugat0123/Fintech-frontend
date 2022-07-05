@@ -1,34 +1,33 @@
 <div class="py-2">
-    <div *ngIf="client == clientName.LAXMIBANK"><span><strong>{{client === clientName?.LAXMIBANK ? 'Justification and purpose of present proposal:' : 'Justification of Facilities:'}}</strong></span></div>
+    <div><span><strong>    Justification and purpose of present proposal</strong></span></div>
     <hr>
     <div class="py-2">
         <ol>
-            <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
-                <div class="row sb-medium">
-                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span></strong>
-                </div>
+            <li class="col-md-12" *ngIf="customerAllLoanList[0]">
+<!--                <div class="row sb-medium">-->
+<!--                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span></strong>-->
+<!--                </div>-->
 
                 <div>
-                    <div class="row sb-small" ><strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit :' : 'Background :' }}</strong></div>
+                    <div class="row sb-small" ><strong>Justification of limit</strong></div>
                     <div class="sb-small">
-                        <span [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
+                        <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
                     <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
                     <div class="sb-small">
-                        <span [innerHTML]="(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
+                        <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
                     <div class="row sb-small"><strong> Repayment criteria :</strong></div>
                     <div class="sb-small">
-                        <span [innerHTML]="(data?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
+                        <span [innerHTML]="(customerAllLoanList[0]?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>
-                <hr>
             </li>
         </ol>
     </div>

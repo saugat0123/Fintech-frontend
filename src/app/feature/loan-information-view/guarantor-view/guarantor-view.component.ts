@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Occupation} from '../../admin/modal/occupation';
+import {LoanDataHolder} from '../../loan/model/loanData';
+import {Guarantor} from '../../loan/model/guarantor';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -8,43 +10,63 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
   styleUrls: ['./guarantor-view.component.scss']
 })
 export class GuarantorViewComponent implements OnInit {
-  @Input() guarantorData;
+  @Input() guarantorData: Array<Guarantor>;
   @Input() individual;
+  @Input() loanDataHolder: LoanDataHolder;
+  @Input() customerAllLoanList: LoanDataHolder [];
   Occupation = Occupation;
   newGuarantor = [];
+  promoter = [];
+  promoterBackground = [];
   cgid;
   constructor() { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.guarantorData = [];
+      this.customerAllLoanList.forEach((d) => {
+        if (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'HSOV_PENDING' || d.documentStatus.toString() === 'DUAL_APPROVAL_PENDING') {
+          d.taggedGuarantors.forEach((g) => {
+            if (!this.guarantorData.includes(g)) {
+              this.guarantorData.push(g);
+            }
+          });
+        }
+      });
+    }
+    this.newGuarantor = this.constructGuarantor(this.guarantorData);
+    this.filterPromoter();
+  }
+  filterPromoter() {
+      if (!ObjectUtil.isEmpty(this.customerAllLoanList[0].loanHolder.guarantors.guarantorList)) {
+        this.promoterBackground = this.customerAllLoanList[0].loanHolder.guarantors.guarantorList.map(d => {
+          if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
+            return d;
+          }
+        });
+      }
+    this.promoter = this.constructGuarantor(this.promoterBackground);
+  }
+
+  constructGuarantor(array) {
     let innerGuarantor = [];
-    this.guarantorData.forEach((g, i) => {
+    const newGuarantor = [];
+    array.forEach((g, i) => {
       innerGuarantor.push(g);
       if ((i + 1) % 2 === 0) {
         if (innerGuarantor.length > 0) {
-          this.newGuarantor.push(innerGuarantor);
+          newGuarantor.push(innerGuarantor);
         }
         innerGuarantor = [];
       }
-      if (i === this.guarantorData.length - 1) {
+      if (i === array.length - 1) {
         if (innerGuarantor.length > 0) {
-          this.newGuarantor.push(innerGuarantor);
+          newGuarantor.push(innerGuarantor);
         }
         innerGuarantor = [];
       }
     });
-    // this.guarantorData.forEach((g, i) => {
-    //
-    //   if(this.cgid !== g.id) {
-    //     innerGuarantor.push(g);
-    //   }
-    //   if (!ObjectUtil.isEmpty(this.guarantorData[i + 1])) {
-    //     this.cgid = this.guarantorData[i + 1].id;
-    //     innerGuarantor.push(this.guarantorData[i + 1]);
-    //   }
-    //   if(innerGuarantor.length > 0) {
-    //     this.newGuarantor.push(innerGuarantor);
-    //   }
-    // });
+    return newGuarantor;
   }
   calculateAge(dob) {
     const difference = Math.abs(Date.now() - new Date(dob).getTime());

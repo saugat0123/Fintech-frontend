@@ -1,0 +1,24 @@
+<table [nbSpinner]="spinner" *ngIf="allSecurity?.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+    <thead>
+    <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Fair Market Value</th>
+        <th>Distress Value</th>
+        <th>Consider Value</th>
+        <th>Used Amount</th>
+        <th>Coverage(%)</th>
+        <th>Security Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let security of allSecurity; let i=index;">
+        <td>{{i + 1}}</td>
+        <td>{{security?.fairMarketValue || '0'}}</td>
+        <td>{{security?.distressValue || '0'}}</td>
+        <td>{{security?.considerValue || '0'}}</td>
+        <td>{{security?.usedAmount || '0'}}</td>
+        <td>{{security?.coverage || '0'}}</td>
+        <td>{{security?.securityType}}</td>
+    </tr>
+    </tbody>
+</table>

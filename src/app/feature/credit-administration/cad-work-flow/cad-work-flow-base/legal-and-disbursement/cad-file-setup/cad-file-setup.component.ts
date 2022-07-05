@@ -24,6 +24,7 @@ export class CadFileSetupComponent implements OnInit {
     @Input() files;
     @Input() proposal;
     @Output() legalFile = new EventEmitter<any>();
+    @Input() fromProfile;
     responseDocList: Array<Document>;
     documentList = [];
     spinner = false;
@@ -138,7 +139,6 @@ export class CadFileSetupComponent implements OnInit {
             );
         } else {
             this.legalFile.emit(finalCadDocReq);
-            this.dialogRef.dismissAll();
         }
     }
 

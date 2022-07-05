@@ -63,8 +63,6 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
-import {GuarantorDetailComponent} from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import {LoanSummaryModule} from './component/loan-summary/loan-summary.module';
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {QuillModule} from 'ngx-quill';
@@ -87,6 +85,13 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
+import {FeatureModule} from '../feature.module';
+import {FinancialAccountInformationModule} from '../loan-information-template/financial-account-information/financial-account-information.module';
+import {
+    SummaryInstitutionalModule
+} from './component/loan-summary/loan-summary-institutional/summary-institutional/summary-institutional.module';
+import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
+import { FacilityUtilizationComponent } from './component/facility-utilization/facility-utilization.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -135,8 +140,6 @@ const COMPONENTS = [
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
     CustomerAssociateComponent,
-    GuarantorAdderComponent,
-    GuarantorDetailComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
@@ -153,7 +156,6 @@ const ENTRY_COMPONENTS = [
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
     CustomerAssociateComponent,
-    GuarantorDetailComponent,
 ];
 
 const modules = {
@@ -210,7 +212,12 @@ const modules = {
         MicroLoanModule,
         NepaliPatroModule,
         TransferLoanModule,
-        ProductPaperModule
+        ProductPaperModule,
+        FeatureModule,
+        FinancialAccountInformationModule,
+        SummaryInstitutionalModule,
+        SecurityViewModule
+
     ],
 
     providers: [

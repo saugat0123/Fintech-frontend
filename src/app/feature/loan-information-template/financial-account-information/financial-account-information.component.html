@@ -1,0 +1,301 @@
+<nb-card *ngIf="(fromLoan) || (!fromLoan && financialData)">
+    <hr class="print-line">
+    <nb-card-header>
+        <p class="text-center"><strong>Financial/Account Information Assessment</strong></p>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="financialAccountForm">
+            <div class="row">
+                <div class="col-md-12">
+                    <table
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Particulars</th>
+                                <th>Historical*FY</th>
+                                <th>Projected FY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4"><b>Regulatory Requirement</b></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td class="text-left">Positive net worth or net profit in last 3 FY</td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="netProfitHistorical" name="netProfitHistorical">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.netProfitHistorical ? 'YES' : 'NO'}}</span>
+                                </td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan"  class="d-inline-flex disable-print" formControlName="netProfitProjected" name="netProfitProjected">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.netProfitProjected ? 'YES' : 'NO'}}</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="text-left">D/E ratio is 4 times or better</td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="deRatioHistorical" name="deRatioHistorical">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.deRatioHistorical ? 'YES' : 'NO'}}</span>
+
+                                </td>
+                                <td>
+                                    <nb-radio-group  *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="deRatioProjected" name="deRatioProjected">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.deRatioProjected ? 'YES' : 'NO'}}</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="text-left">Loans of other BFIs is not classified under non-performing loan
+                                </td>
+                                <td colspan="2">
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="nonPerformingLoan" name="nonPerformingLoan">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.deRatioProjected ? 'YES' : !financialData?.deRatioProjected ? 'NO': 'NA'}}</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><b>Product Paper/Review Requirement</b></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td class="text-left">Working capital loan outstanding is within approved drawdown</td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="capitalLoanHistorical" name="capitalLoanHistorical">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.capitalLoanHistorical ? 'YES' : 'NO'}}</span>
+                                </td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="capitalLoanProjected" name="capitalLoanProjected">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.capitalLoanProjected ? 'YES' : 'NO'}}</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="text-left">ISCR/DSCR (Operating Profit / EMI) is 1.35 or better</td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="iscrHistorical" name="iscrHistorical">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.iscrHistorical ? 'YES' : 'NO'}}</span>
+                                    <br>
+                                    Ratio: <input *ngIf="fromLoan" class="cellInput text-center" name="iscrProjected" formControlName="iscrProjected"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.iscrProjected}}</span>
+                                </td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="iscrRatioHistorical" name="iscrRatioHistorical">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.iscrRatioHistorical ? 'YES' : 'NO'}}</span>
+                                    <br>
+                                    Ratio: <input *ngIf="fromLoan" class="cellInput text-center" name="iscrRatioProjected" formControlName="iscrRatioProjected"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.iscrRatioProjected}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="text-left">Repayment satisfactory with no overdue during review period</td>
+                                <td colspan="2">
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="repayment" name="repayment">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.repayment ? 'YES' : 'NO'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="text-left">Positive Cash Flow (Repayment of term loan)</td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="cashFlowHistorical" name="cashFlowHistorical">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.cashFlowHistorical ? 'YES' : !financialData?.cashFlowHistorical ? 'NO': 'NA'}}</span>
+
+                                </td>
+                                <td>
+                                    <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="cashFlowProjected" name="cashFlowProjected">
+                                        <nb-radio [value]="true">Yes</nb-radio>
+                                        <nb-radio [value]="false">No</nb-radio>
+                                    </nb-radio-group>
+                                    <span *ngIf="!fromLoan">{{financialData?.cashFlowProjected ? 'YES': 'NO'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td class="text-left">Assets Conversion Cycle <br>
+                                    Average ACC (as per business policy) :<br>
+                                    Actual ACC:(as per financial statement) :</td>
+                                <td class="text-left"><br>
+                                    Days: <input *ngIf="fromLoan" class=" text-center disable-print" name="avgAccHistorical" formControlName="avgAccHistorical"
+                                        type="text"> <span *ngIf="!fromLoan">{{financialData?.avgAccHistorical || 'N/A'}}</span><br>
+                                    Days: <input *ngIf="fromLoan" class=" text-center disable-print" name="avgAccProjected" formControlName="avgAccProjected"
+                                        type="text"><span *ngIf="!fromLoan">{{financialData?.avgAccProjected || 'N/A'}}</span>
+                                </td>
+                                <td class="text-left"><br>
+                                    Days: <input *ngIf="fromLoan" class=" text-center disable-print" name="actualAccHistorical" formControlName="actualAccHistorical"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.actualAccHistorical || 'N/A'}}</span>
+                                    <br>
+                                    Days: <input *ngIf="fromLoan" class=" text-center disable-print" name="actualAccProjected" formControlName="actualAccProjected"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.actualAccProjected || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td class="text-left">Average utilization (Review period)</td>
+                                <td colspan="2" class="text-left">Precentage: <input *ngIf="fromLoan" class=" text-center disable-print" name="avgUtilization"
+                                        formControlName="avgUtilization" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.avgUtilization || 'N/A'}}</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td class="text-left">Sales turnover to bank borrowing (Loan Outstanding) percentage
+                                </td>
+                                <td colspan="2" class="text-left">Historical: <input *ngIf="fromLoan" class=" text-center disable-print" name="loanOutstd"
+                                        formControlName="loanOutstd" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.loanOutstd || 'N/A'}}</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td class="text-left">YTD Sales and supporting document obtained: Y/N</td>
+                                <td colspan="2" class="text-left">Amount: <input *ngIf="fromLoan" class=" text-center disable-print" name="ytdSales"
+                                        formControlName="ytdSales" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.ytdSales || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">9</td>
+                                <td class="text-left" rowspan="2">Credit transaction (cash, cheques and transfer)
+                                    including other banks too if applicable</td>
+                                <td><b>Last FY</b></td>
+                                <td><b>Current FY</b></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="creditTransactionLast" formControlName="creditTransactionLast"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.creditTransactionLast || 'N/A'}}</span>
+                                    <br>
+                                    Amount: <input *ngIf="fromLoan" class=" text-center disable-print" name="creditTransactionCurrent"
+                                        formControlName="creditTransactionCurrent" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.creditTransactionCurrent || 'N/A'}}</span>
+                                </td>
+                                <td class="text-left">
+                                    Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="creditTransactionAmtLast"
+                                        formControlName="creditTransactionAmtLast" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.creditTransactionAmtLast || 'N/A'}}</span>
+                                    <br>
+                                    Amount: <input *ngIf="fromLoan" class=" text-center disable-print" name="creditTransactionAmtCurrent"
+                                        formControlName="creditTransactionAmtCurrent" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.creditTransactionAmtCurrent || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td class="text-left">STL booked during review period: Y/NA</td>
+                                <td colspan="2" class="text-left">
+                                    Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="stlBookedNumber" formControlName="stlBookedNumber"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.stlBookedNumber || 'N/A'}}</span>
+                                    <br>
+                                    Amount: <input *ngIf="fromLoan" class=" text-center v" name="stlBookedAmount" formControlName="stlBookedAmount"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.stlBookedAmount || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td class="text-left">LC booked during the review period: Y/NA</td>
+                                <td colspan="2" class="text-left">
+                                    Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="lcBookedNumber" formControlName="lcBookedNumber"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.lcBookedNumber || 'N/A'}}</span>
+                                    <br>
+                                    Amount: <input *ngIf="fromLoan" class=" text-center disable-print" name="lcBookedAmt" formControlName="lcBookedAmt"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.lcBookedAmt || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td class="text-left">TR booked during review period: Y/NA</td>
+                                <td colspan="2" class="text-left">
+                                    Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="trNumber" formControlName="trNumber"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.trNumber || 'N/A'}}</span>
+                                    <br>
+                                    Amount: <input *ngIf="fromLoan" class=" text-center disable-print" name="trAmount" formControlName="trAmount" type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.trAmount || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td class="text-left">DN/IR issued during review period: Y/NA</td>
+                                <td colspan="2" class="text-left">
+                                    Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="dnIrIssuedNum" formControlName="dnIrIssuedNum"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.dnIrIssuedNum || 'N/A'}}</span>
+                                    <br>
+                                    Date: <input *ngIf="fromLoan" class=" table-center disable-print" name="dnIrIssuedDate" formControlName="dnIrIssuedDate"
+                                        [nbDatepicker]="q4" type="text">
+                                    <nb-datepicker #q4></nb-datepicker>
+                                    <span *ngIf="!fromLoan">{{financialData?.dnIrIssuedDate || 'N/A'}}</span>
+                                    <br>
+                                    Purpose: <input *ngIf="fromLoan" class=" text-center disable-print" name="dnIrIssuedPurposr" formControlName="dnIrIssuedPurposr"
+                                        type="text">
+                                    <span *ngIf="!fromLoan">{{financialData?.dnIrIssuedPurposr || 'N/A'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-left"><b>Note:</b><br>
+                                    1. For any deviation to regulatory requirement (applicable only if the answer is
+                                    No), please provide justification under deviation section.<br>
+                                    2. For any deviation to product paper/review requirement (applicable only if the
+                                    answer is No), please provide justification under deviation section.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

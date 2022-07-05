@@ -5,7 +5,6 @@
 
   <nb-card-body>
     <div class="row">
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemSiteVisit>
@@ -49,8 +48,6 @@
         </nb-card>
       </ng-template>
     </div>
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #ciclComponent>
@@ -111,8 +108,6 @@
       </nb-card>
         </div>
       </div>
-
-
       <div class="col-md-4" *ngIf=" (customerInfo?.customerType === customerType?.INDIVIDUAL)">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemFinancial>
@@ -185,12 +180,6 @@
             </nb-card-body>
           </nb-card>
       </ng-template>
-
-
-
-
-
-
       <!--      //remaining-->
       <div class="col-md-4" *ngIf="otherMicroDetailsVisibility">
       <div class="row">
@@ -235,11 +224,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
-
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemIncomeFromAccount>
@@ -281,8 +265,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
       <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
       <div class="row">
         <nb-card class="col-md-11 py-2" #itemNetTradingAssets>
@@ -316,13 +298,14 @@
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
+            <nb-card-body>
             <app-net-trading-assets
                     (netTradingAssetsEventEmitter)="saveNetTradingAssets($event)"
                     [fromProfile]=true
 
                     [netTradingAssetsData]="netTradingAssets">
             </app-net-trading-assets>
-            <nb-card-body>
+
 <!--        <ng-container-->
 <!--            *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">-->
 <!--          <app-nta-mega-->
@@ -345,8 +328,6 @@
           </nb-card>
       </ng-template>
       </div>
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemSecurity>
@@ -356,11 +337,11 @@
               <p class="custom-font">SECURITY</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.security?.data !== null" style="color:green"
+              <span *ngIf="customerInfo?.securities.length > 0" style="color:green"
                     title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
-              <span *ngIf="customerInfo?.security?.data == null" style="color:red"
+              <span *ngIf="customerInfo?.securities.length === 0" style="color:red"
                     title="Status :Not Saved">
                 <em class="fas fa-times-circle px-2"></em>
               </span>
@@ -380,20 +361,19 @@
               </span></a>
           </nb-card-header>
           <nb-card-body>
-            <app-security
+            <app-security #securityComponent
                 (securityDataEmitter)="saveSecurity($event)"
+                          (refreshEmitter)="onRefresh()"
                 [calendarType]="calendarType"
                 [fromProfile]="true"
                 [isMicroCustomer]="false"
-                [securityValue]="customerInfo?.security"
                 [customerType]="customerInfo?.customerType"
-                [shareSecurity]="customerInfo?.shareSecurity"></app-security>
+                [shareSecurity]="customerInfo?.shareSecurity"
+                [customerInfo]="customerInfo"></app-security>
           </nb-card-body>
         </nb-card>
       </ng-template>
       </div>
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemGuarantor>
@@ -437,7 +417,6 @@
         </nb-card>
       </ng-template>
       </div>
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemInsurance>
@@ -478,8 +457,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
       <!--<nb-accordion-item #itemCrgAlpha>
        <a class="cursor info-label">
           <div class="row col-md-12">
@@ -575,9 +552,6 @@
         </nb-card>
       </ng-template>
       </div>
-
-
-
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #reportingInfoLevelAccordion>
@@ -675,6 +649,29 @@
         </nb-card>
       </ng-template>
       </div>
+      <!--<div class="col-md-4"  *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">
+        <div class="row">
+          <nb-card class="col-md-11 py-2">
+            <a class="cursor info-label" (click)="openModel(commonLoanDatas)">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="custom-font">Common Loan Data</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em *ngIf="customerInfo?.commonLoanData"
+                    class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color: red" title="Status : Not Saved">
+                <em *ngIf="!customerInfo?.commonLoanData"
+                    class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+      </div>-->
 
       <!-- ReviewDate-->
       <div class="col-md-4">
@@ -742,7 +739,7 @@
       </div>
       <ng-template #multiBankingTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
-          <nb-card-header> MULTI BAKING/CONSORTIUM FINANCING
+          <nb-card-header> MULTI BANKING/CONSORTIUM FINANCING
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -758,7 +755,134 @@
         </nb-card>
       </ng-template>
 
-<!--      <div class="col-md-4">-->
+      <!--Group Summary Sheet (GSS)-->
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #GSSTData>
+            <a class="cursor info-label" (click)="openModel(GSSTemplate)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">GROUP SUMMARY SHEET (GSS)</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.gssData" style="color:green"
+                    title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.gssData" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #GSSTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header> GROUP SUMMARY SHEET (GSS)
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-group-summary-sheet [fromProfile]="true"
+                                       [calendarType]="calendarType"
+                                       [gssData]="customerInfo?.gssData"
+                                       (gssDataEmitter)="saveGssData($event)">
+              </app-group-summary-sheet>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
+      <!--Other Details-->
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #other>
+            <a class="cursor info-label" (click)="openModel(otherTemplate)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">Others</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.otherDetails" style="color:green"
+                    title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.otherDetails" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #otherTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header> Others
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-other-details [fromProfile]="true"
+                                 [otherData]="customerInfo?.otherDetails"
+                                 (otherDataEmitter)="saveOthersData($event)">
+              </app-other-details>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
+
+<!--Facility Utilization-->
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+        <div class="row">
+          <nb-card class="col-md-11 py-2">
+            <a class="cursor info-label" (click)="openModel(facilityUtilization)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">FACILITY UTILIZATION</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.facilityUtilization" style="color:green"
+                    title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.facilityUtilization" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+      </div>
+      <ng-template #facilityUtilization let-data let-ref="dialogRef">
+        <nb-card class="template-css">
+          <nb-card-header> FACILITY UTILIZATION
+            <a aria-label="Close" class="close cursor"
+               data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+          </nb-card-header>
+          <nb-card-body>
+            <app-facility-utilization [fromProfile]="true"
+                               [customerInfo]="customerInfo"
+                               (emitter)="update($event);saveCustomerInfo()">
+            </app-facility-utilization>
+          </nb-card-body>
+        </nb-card>
+      </ng-template>
+
+
+
+      <!--      <div class="col-md-4">-->
 <!--        <nb-card class="col-md-4 py-2" #commentsFromAccount >-->
 <!--          <a class="cursor info-label">-->
 <!--            <div class="row col-md-12">-->
@@ -829,6 +953,32 @@
         </div>
       </ng-template>
 
+      <!--   CRG GAMMA-->
+      <!--     <nb-card class="col-md-4 py-2"   #itemCrgGamma>-->
+      <!--       <a class="cursor info-label">-->
+      <!--          <div class="row col-md-12">-->
+      <!--            <div class="col-md-8">-->
+      <!--              <span>CREDIT RISK GRADING (GAMMA)</span>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-4 d-flex justify-content-end">-->
+      <!--              <span *ngIf="customerInfo?.crgGamma" style="color:green" title="Status : Saved">-->
+      <!--                <em class="fas fa-check-circle px-2"></em>-->
+      <!--              </span>-->
+      <!--              <span style="color:red" title="Status :Not Saved">-->
+      <!--                <em *ngIf="!customerInfo?.crgGamma" class="fas fa-times-circle px-2"></em>-->
+      <!--              </span>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </a>-->
+      <!--        <ng-template>-->
+      <!--          <app-credit-risk-grading-gamma #CrgGammaComponent-->
+      <!--                                         (crgDataEmitter)="saveCrgGamma($event)"-->
+      <!--                                         *ngIf="itemCrgGamma.expanded"-->
+      <!--                                         [formData]="customerInfo?.crgGamma"-->
+      <!--                                         [fromProfile]="true"></app-credit-risk-grading-gamma>-->
+      <!--        </ng-template>-->
+      <!--     </div> -->
+
 
       <!--   CRG GAMMA-->
       <!--     <nb-card class="col-md-4 py-2"   #itemCrgGamma>-->
@@ -859,3 +1009,213 @@
     </div>
   </nb-card-body>
 </nb-card>
+<ng-template #commonLoanDatas let-data let-ref="dialogRef">
+  <nb-card class="template-css">
+    <nb-card-header>
+      Common Loan Data
+      <a aria-label="Close" class="close cursor"
+         data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup] = "commonLoanData" >
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" style="max-height: 300px !important;height: 250px;">
+              <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
+              <ckeditor formControlName="borrowerInformation"
+                        [style]="{height:'250px !important;'}"
+                        placeholder="Background"
+                        required
+                        [config]="ckeConfig"
+              >
+              </ckeditor>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
+              <ckeditor
+                      formControlName="disbursementCriteria" id="disbursementCriteria"
+                      name="disbursementCriteria"
+                      [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="title" for="repayment"><strong>Repayment</strong></label>
+              <ckeditor
+                      formControlName="repayment" id="repayment"
+                      name="repayment"
+                      [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="title" for="remark">
+                <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
+              <ckeditor
+                      formControlName="remark" id="remark"
+                      [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+
+
+          <div class="col-md-12 mt-3">
+            <div class="form-group">
+              <label class="title"><strong>Summary & Recommendation</strong></label>
+              <ckeditor formControlName="summeryRecommendation"
+                        [style]="{height:'250px !important;'}"
+                        placeholder="Summary & Recommendation"
+                        [config]="ckeConfig">
+              </ckeditor>
+            </div>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <h6><strong>Additional Description</strong></h6>
+            <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
+                         [checked]="waiverChecked">
+              <b>Waiver</b>
+            </nb-checkbox>
+            <div *ngIf="waiverChecked">
+              <ckeditor formControlName="waiverConclusionRecommendation"
+                        [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <nb-checkbox (change)="checkChecked($event.target.checked,'deviation')"
+                         [checked]="deviationChecked">
+              <b>Deviation</b>
+            </nb-checkbox>
+            <div *ngIf="deviationChecked">
+              <ckeditor formControlName="deviationConclusionRecommendation"
+                        [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
+                         [checked]="solChecked"><b>Single Obligor Limit</b>
+            </nb-checkbox>
+            <div *ngIf="solChecked">
+              <ckeditor formControlName="solConclusionRecommendation"
+                        [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+          <div class="col-md-12 form-group">
+
+            <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
+                         [checked]="riskChecked"><b>Risk & Mitigation</b>
+            </nb-checkbox>
+            <div *ngIf="riskChecked">
+              <ckeditor formControlName="riskConclusionRecommendation"
+                        [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+          <div class="col-md-12 form-group">
+
+            <nb-checkbox (change)="checkChecked($event.target.checked,'debt')"
+                         [checked]="debtChecked"><b>Debt Structure and Control</b>
+            </nb-checkbox>
+            <div *ngIf="debtChecked">
+              <ckeditor formControlName="termsAndCondition"
+                        [config]="ckeConfig"></ckeditor>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <nb-checkbox (change)="checkChecked($event.target.checked,'net')"
+                           [checked]="netChecked"><b>Net Worth</b>
+              </nb-checkbox>
+              <table *ngIf="netChecked"
+                     class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                  <th>Assets</th>
+                  <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody class="text-left">
+                <tr>
+                  <td colspan="1"><b>Deposit</b></td>
+                  <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('deposit')"><i class="fa fa-plus" nbTooltip="Add Deposit"></i></a></td>
+                </tr>
+                <tr *ngFor="let controls of commonLoanData?.get('deposit')['controls'];let i = index" formArrayName="deposit">
+                  <ng-container [formGroupName]="i">
+                    <td><input nbInput type="text" formControlName="assets"></td>
+                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td colspan="1"><b>Shares & Securities</b></td>
+                  <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
+                </tr>
+                <tr *ngFor="let controls of commonLoanData?.get('shares')['controls'];let i = index" formArrayName="shares">
+                  <ng-container [formGroupName]="i">
+                    <td><input nbInput type="text" formControlName="assets"></td>
+                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="commonLoanData?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td><b>Real Estate (Land and Building)</b></td>
+                  <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
+
+                </tr>
+
+                <tr *ngFor="let controls of commonLoanData?.get('realState')['controls'];let i = index" formArrayName="realState">
+                  <ng-container [formGroupName]="i">
+                    <td><input nbInput type="text" formControlName="assets"></td>
+                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="commonLoanData?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td><b>Vehicles</b></td>
+                  <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
+                </tr>
+                <tr *ngFor="let controls of commonLoanData?.get('vehicle')['controls'];let i = index" formArrayName="vehicle">
+                  <ng-container [formGroupName]="i">
+                    <td><input nbInput type="text" formControlName="assets"></td>
+                    <td>
+                      <input nbInput type="number" (change)="calculate()" formControlName="amount">
+                      <a *ngIf="commonLoanData?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
+                    </td>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <td class="text-right"><b>Total:</b></td>
+                  <td><input nbInput formControlName="total" (change)="calculate()" type="number"></td>
+                </tr>
+                <tr>
+                  <td class="text-right"><b>Net Worth (Total Assets - Banking Relationship Exposure):</b></td>
+                  <td><input nbInput formControlName="totals"  type="number"></td>
+                </tr>
+                </tbody>
+
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="col-md-12 form-group">
+        <button nbButton (click)="openCadSetup(datax)"><b>Setup Security Schedule</b>
+        </button>
+      </div>
+      <div>
+        <button class="btn float-right d-flex justify-content-end"
+                (click)="saveCommonLoanData()" type="submit" nbButton>Save
+        </button>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #datax>
+  <!--    <app-cad-file-setup [files] = "files" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>-->
+</ng-template>

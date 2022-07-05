@@ -1,84 +1,222 @@
 <div [nbSpinner]="spinner" class="row" id="promissory-note-institution">
+    <div class="col-md-12 viewFull">
     <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
         <p>
-            श्री लक्ष्मी बैंक लि.,
+            श्री लक्ष्मी बैंक लि.
             <br>
-            शाखा कार्यालय, हात्तीसार।<input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                             hidden formControlName="branch">
+            शाखा कार्यालय, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+                                  formControlName="branch">
         </p>
-        <p class="text-center"><b> विषय:— प्रतिज्ञा पत्र <br>
-            <u>(PROMISSORY NOTE)</u></b></p>
-
-        लिखितम् नेपाल सरकार, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                    formControlName="governmentOffice"> मन्त्रालय, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                          formControlName="governmentBranch">को कार्यालय कम्पनी दर्ताको प्रमाण पत्र दर्ता नं.
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-               formControlName="refNo"> मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                    formControlName="year">/
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"formControlName="month">/
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-               formControlName="day"> मा दर्ता भई <input type="text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="officeDistrict"> जिल्ला
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-               formControlName="officeMunicipality">
-        महानगरपालिका वडा नं <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                   formControlName="officeWadNo"> मा रजिष्टर्ड ठेगाना रहेको नेपाल सरकार अर्थ मन्त्रालय आन्तरिक राजश्व विभाग आन्तरिक राजश्व कार्यालय <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                                                                           formControlName="taxOffice">
-        मा स्थायी लेखा नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                  formControlName="lekhaNo"> मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                         formControlName="issuedYear">/
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"formControlName="issuedMonth">/
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-               formControlName="issuedDay"> मा दर्ता रहेको   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                    formControlName="companyName">
-        (यसपछि ऋणी भनिएको छ) को तर्फबाट अधिकार प्राप्त व्यक्ति   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                        formControlName="grandFatherName">को नाति,   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                            formControlName="fatherName">
-        को छोरा   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                         formControlName="customerDistrict"> जिल्ला   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                              formControlName="customerMunicipality"> महानगरपालिका वडा नं.   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                                                    formControlName="customerWadNo">
-        भई हाल   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                        formControlName="currentAddress"> ठेगाना बस्ने बर्ष   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                     formControlName="customerAge">
-        को   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                    formControlName="customerName"> (नागरिकता नं.   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                           formControlName="customerCitizenship">/   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                            formControlName="customerCitizenshipDistrict">  जिल्ला प्रशासन कार्यालय   <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                                                                                                             formControlName="customerIssuedOffice"> जारी मिती  <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                                                                                                                                                                       formControlName="customerCitizenIssuedYear">/
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"formControlName="customerCitizenIssuedMonth">/
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-               formControlName="customerCitizenIssuedDay"> )
-        आगे तपाई लक्ष्मी बैंक लिमिटेडले भुक्तानी माग गरेका वखत तपाईलाई अथवा तपाईले निर्देशन दिएको वा अह्राएका व्यक्ति/संस्थालाई रु. <input (change)="con($event)" type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                                           formControlName="proposedAmount">।–
-        (अक्षरेपी रुपैयाँ <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                 formControlName="amountInWords"> मात्र) र भुक्तानी माग गरेको मिति सम्मको सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न
-        वुझाउन प्रतिज्ञा र कबुल गरी यो प्रतिज्ञापत्र को लिखत गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।'
+        <p class="text-center"><strong> विषय:— प्रतिज्ञा पत्र <br>
+            <u>(PROMISSORY NOTE)</u></strong></p>
+        <div class="row text-justify">
+            लिखितम् म/हामी तपसिलका ऋणीहरु आगे तपाई लक्ष्मी बैंक लिमिटेडबाट तपसिलमा उल्लेखित विवरण बमोजिमको कर्जा उपभोग
+            गर्ने/गरेको व्यहोरा ठिक साँचो हो । धनी बैंकले सो कर्जा जुनसुकै बखत भुक्तानी माग गरेका वखत धनी बैंकको कर्जा स्वीकृतीपत्र/कर्जा
+            प्रस्तावपत्रमा उल्लेखित शर्त बमोजिम तपाईलाई अथवा तपाईले निर्देशन दिएको वा अह्राएको व्यक्ति/संस्थालाई भुक्तानी माग गरेको मिति
+            सम्मको कर्जा तथा सोमा बैंक नियमानुसार लाग्ने व्याज, पेनल व्याज लागयतका सम्पूर्ण वाँकी बक्यौता रकम कलम तिर्न वुझाउन प्रतिज्ञा
+            र कबुल गरी यो प्रतिज्ञापत्रको लिखत साक्षीहरुको रोहबरमा गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-12 text-center">
-                    <b>भवदीय</b>
-                </div>
-                <div class="col-md-6">
-                    <div class="clearfix mb-3">
-                        <div class="signature-areas float-left text-center"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    अख्तियार प्राप्त व्यक्तिको सहिः ..........................<br>
-                    अख्तियार प्राप्त व्यक्तिको नामः       <input type="text" class="form-control-sm form-field nepaliFont"
-                                                                 formControlName="akhtiyar"> <br>
-                    अख्तियार प्राप्त व्यक्तिको ठेगानाः       <input type="text" class="form-control-sm form-field nepaliFont"
-                                                                    formControlName="akhtiyarDistrict"> जिल्ला <input type="text" class="form-control-sm form-field nepaliFont"
-                                                                                                                      formControlName="akhtiyarMunicipality"> वडा नं. <input type="text" class="form-control-sm form-field nepaliFont"
-                                                                                                                                                                             formControlName="akhtiyarWardNo"> भई हाल सोही ठेगाना
+                    <strong>तपसिल</strong>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <strong>कर्जाको विवरण :</strong>
+                    <table class="table table-bordered table-responsive-md">
+                        <tr class="sb-bg-dark text-white">
+                            <td>कर्जा स्वीकृती/प्रस्ताव पत्र नं. र मिति</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>माथी उल्लेखित धनी बैंकको कर्जा स्वीकृती/प्रस्ताव पत्र बमोजिम उपभोग गरेको/गर्ने जम्मा कर्जा रकम (अंक र अक्षरमा)</td>
+                            <td>रु.</td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+        <div class="row" *ngIf="individual">
+            <div class="col-md-12">
+                <strong>प्रतिज्ञापत्रको लिखत लेखिदिने ऋणीको विवरण (व्यक्तिगत ऋणीको हकमा) :</strong>
+                <table class="table table-bordered table-responsive-md">
+                    <tr>
+                        <td>ऋणीको नाम :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>ऋणीको बाजे/ससुराको नाम :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>ऋणीको बाबुको नाम :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>ऋणीको पतिको नाम :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>नागरिकता प्रमाणपत्र नं. :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>नागरिकता जारी गर्ने कार्यालय :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>नागरिकता जारी भएको मिति :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा नं. :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा जारी गर्ने कार्यालय :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा जारी मिति :</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">ऋणीको स्थायी ठेगाना :</td>
+                        <td>जिल्ला :</td>
+                        <td>जिल्ला :</td>
+                    </tr>
+                    <tr>
+                        <td> न.पा./गा.पा. :</td>
+                        <td> न.पा./गा.पा. :</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            वडा नं. :
+                            टोल :
+                        </td>
+                        <td>
+                            वडा नं. :
+                            टोल :
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">ऋणीको हालको ठेगाना :</td>
+                        <td>जिल्ला :</td>
+                        <td>जिल्ला :</td>
+                    </tr>
+                    <tr>
+                        <td> न.पा./गा.पा. :</td>
+                        <td> न.पा./गा.पा. :</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            वडा नं. :
+                            टोल :
+                        </td>
+                        <td>
+                            वडा नं. :
+                            टोल :
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>सम्पर्क फोन/मोवाईल नं.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" *ngIf="!individual">
+            <div class="col-md-12">
+                <strong>प्रतिज्ञापत्रको लिखत लेखिदिने ऋणीको विवरण (संस्थागत ऋणीको हकमा) :</strong>
+                <table class="table table-bordered table-responsive-md">
+                    <tr>
+                        <td>ऋणीको नाम :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>दर्ता नं. :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>दर्ता रहेको निकायको नाम :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>दर्ता मिति :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा नं. :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा जारी गर्ने कार्यालय :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा जारी मिति :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">ऋणीको रजिष्ट्रर्ड ठेगाना :</td>
+                        <td>जिल्ला</td>
+                    </tr>
+                    <tr>
+                        <td>न.पा./गा.पा.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            वडा नं.
+                            टोल
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ऋणीको तर्फबाट अख्तियार प्राप्त व्यक्तिको नाम :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको बाजे/ससुराको नाम :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको बाबुको नाम :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको ठेगाना :</td>
+                        <td>
+                            जिल्ला
+                            न.पा./गा.पा.
+                            वडा नं.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको नागरिकता विवरण :</td>
+                        <td>ना.प्र.नं.
+                            जारी मिति
+                            नागरिकता जारी गर्ने कार्यालय :
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="col-md-12 viewFull">
-            <b>साक्षी</b>
+            <strong>साक्षी</strong>
             <div>
-                <input type="text" class="form-control-sm form-field nepaliFont"
+                १. <input type="text" class="form-control-sm form-field nepaliFont"
                        formControlName="district">
                 जिल्ला,
                 <input type="text" class="form-control-sm form-field nepaliFont"
@@ -95,7 +233,7 @@
             </div>
             <br>
             <div>
-                <input type="text" class="form-control-sm form-field nepaliFont"
+                २. <input type="text" class="form-control-sm form-field nepaliFont"
                        formControlName="districtTwo">
                 जिल्ला,
                 <input type="text" class="form-control-sm form-field nepaliFont"
@@ -112,7 +250,7 @@
             </div>
         </div>
 
-        <b>सनाखत साक्षी</b>ः उपरोक्त कारणीले मेरो सामुन्नेमा सहि छाप गरेको ठिक हो भनी सहि गर्ने धनी बैंकको <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal"
+        <strong>सनाखत साक्षी</strong>: कारणीलाई म राम्ररी चिन्दछु निजले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही गर्ने धनी बैंकमा <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal"
                                                                                                                    formControlName="role">पदमा कार्यरत <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal"
                                                                                                                                                                formControlName="roleName">।
         <br>
@@ -120,17 +258,21 @@
                           formControlName="itiSambatYear">साल <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal"
                                                                       formControlName="itiSambatMonth"> महिना<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal"
                                                                                                                      formControlName="itiSambatDay">गते रोज<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                                                                                                                                                   formControlName="roj"> शुभम् ––––––––––––––––––––––––––––––––––
-        <button type="submit" class="btn btn-primary float-right" nbButton status="success">
-            Save
-        </button>
+                                                                                                                                                                   formControlName="roj"> शुभम् ––––––––––––––––––––––––––––––––––।
+        <div>
+            <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                Save
+            </button>
+        </div>
     </form>
         <button class="btn btn-primary d-print-none"
                 [useExistingCss]="true"
                 [disabled]="!initialInfoPrint"
-                printSectionId="print-section-{{cadChecklistEnum.PROMISSORY_NOTE_COMPANY}}"
+                printSectionId="print-section-{{cadChecklistEnum.PROMISSORY_NOTE}}"
                 ngxPrint>print
         </button>
     </div>
+</div>
 <app-promisory-note-institutional-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                        [individual]="individual" [cadData]="cadData"
                                      hidden></app-promisory-note-institutional-print>

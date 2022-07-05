@@ -37,16 +37,12 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
-import {
-    CollateralSiteVisitService
-} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
-import {
-    SiteVisitDocument
-} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
@@ -54,6 +50,7 @@ import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerType} from '../../../customer/model/customerType';
 import {DocStatus} from '../../model/docStatus';
+import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -171,14 +168,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     showCadDoc = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
-
-    disableApprovalSheetFlag = environment.disableApprovalSheet;
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
-
-    sbsGroupEnabled = environment.SBS_GROUP;
-    megaGroupEnabled = environment.MEGA_GROUP;
     commentsSummary = false;
     dataFromComments;
     previousSecuritySummary = false;
@@ -186,8 +178,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     isJointInfo = false;
     jointInfo = [];
     newJointInfo = [];
-    collateralSiteVisitDetail = [];
-    isCollateralSiteVisit = false;
     age: number;
     isOpen: false;
     private dialogRef: NbDialogRef<any>;
@@ -208,9 +198,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     multiBankingSummary = false;
     multiBankingData;
     requestedLoanType;
-    initialSecurity = false;
-    approvedSecurity = false;
-    approvedSecurityAsProposed = false;
     checkedData;
     proposalAllData;
     financial;
@@ -219,6 +206,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     citizen;
     hidePreviewButton = false;
     zipDocName;
+    loaded = false;
+    combinedLoan;
+    combined = false;
+    allLoanList = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -262,7 +253,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
-        } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+        } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
             this.smallBusiness = true;
         }
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
@@ -317,16 +308,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanData.loanHolder.bankingRelationship)) {
             this.bankingRelation = JSON.parse(this.loanData.loanHolder.bankingRelationship);
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
-                this.initialSecurity = true;
-            }
-        }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurity = true;
-            }
-        }
+        // if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
+        //         this.initialSecurity = true;
+        //     }
+        // }
         this.checkDocumentStatus();
     }
 
@@ -348,26 +334,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.financial = JSON.parse(this.financialData.data);
             }
             this.financialSummary = true;
-        }
-
-        // Setting Security data--
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-            this.securityId = this.loanDataHolder.security.id;
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.data)) {
-                this.securityData = JSON.parse(this.loanDataHolder.security.data);
-                this.securitySummary = true;
-            }
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurity = true;
-                this.approvedSecurityAsProposed = false;
-                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-            }
-            if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
-                !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-                this.approvedSecurityAsProposed = false;
-                this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-                this.approvedSecurity = true;
-            }
         }
 
         if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
@@ -500,24 +466,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.shareSecuritySummary = true;
             this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData)) {
-                this.shareSecuritySummary = true;
-                this.approvedSecurityAsProposed = false;
-                this.approvedShareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-            }
-        }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-            if (ObjectUtil.isEmpty(ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.data) &&
-                !ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity.approvedData))) {
-                const selectedArray = this.securityData['selectedArray'];
-                if (selectedArray.indexOf('ShareSecurity') !== -1) {
-                    this.shareSecuritySummary = true;
-                    this.approvedSecurityAsProposed = false;
-                    this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.approvedData);
-                }
-            }
-        }
         this.loanCategory = this.loanDataHolder.loanCategory;
         this.currentIndex = this.loanDataHolder.previousList.length;
 
@@ -587,15 +535,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     getAllLoans(customerInfoId: number): void {
+        this.spinnerService.show();
         const search = {
             loanHolderId: customerInfoId.toString(),
             isStaged: 'true'
         };
-        this.customerLoanService.getAllWithSearch(search)
-            .subscribe((res: any) => {
-                this.customerAllLoanList = res.detail;
+        this.customerLoanService.getLoansByLoanHolderId(customerInfoId)
+            .toPromise().then(async (res: any) => {
+                this.customerAllLoanList = await res.detail;
                 // push current loan if not fetched from staged spec response
-                if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+                if (ObjectUtil.isEmpty(this.requestedLoanType) && this.customerAllLoanList.length > 0) {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
@@ -612,19 +561,33 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
                 if (combinedLoans.length > 0) {
                     const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                    this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
+                    this.combinedLoanService.detail(combinedLoanId).toPromise().then((response: any) => {
+                        this.combinedLoan = response.detail;
                         (response.detail as CombinedLoan).loans.forEach((cl) => {
                             const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                             if (!allLoanIds.includes(cl.id)) {
                                 this.customerAllLoanList.push(cl);
                             }
                         });
+                        if (!ObjectUtil.isEmpty(this.combinedLoan)) {
+                            this.combined = true;
+                        }
+                        if (!ObjectUtil.isEmpty(this.combinedLoan) && !ObjectUtil.isEmpty(this.combinedLoan.loans)) {
+                            this.allLoanList = this.combinedLoan.loans;
+                        }
                     }, err => {
                         console.error(err);
+                    }).finally( () => {
+                        this.loaded = true;
                     });
+                } else {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id || (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
+                    this.loaded = true;
                 }
-            }, error => {
-                console.error(error);
+            this.spinnerService.hide();
+        }, error => {
+            this.spinnerService.hide();
+            console.error(error);
             });
     }
 

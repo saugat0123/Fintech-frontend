@@ -7,7 +7,9 @@ import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {flatten} from '@angular/compiler';
+import {Security} from '../../../model/security';
+import {LoanDataHolder} from '../../../model/loanData';
+import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 
 
 @Component({
@@ -20,6 +22,9 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() shareSecurity;
     @Input() collateralData;
     @Input() proposal;
+    @Input() securities: Array<Security> = [];
+    @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() pending;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -59,243 +64,297 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
     @Input() isApproveSecurity;
-    isSecurityPresent = false;
     landArray;
     landBuildingArray;
     apartmentArray;
     vehicleArray;
+    leaseArray;
+    assignmentArray;
+    corporateArray;
+    fdArray;
+    hypoArray;
+    insuranceArray;
+    otherArray;
+    personalArray;
+    shareArray;
+    plantArray;
 
-    constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
+    constructor(private collateralSiteVisitService: CollateralSiteVisitService,
+                private securityLoanReference: SecurityLoanReferenceService) {
     }
 
     ngOnInit() {
-        if (this.formData['selectedArray'] !== undefined) {
-            this.isSecurityPresent = true;
-            // land security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('LandSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.landSelected = true;
-                }
-            });
-
-            // apartment security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('ApartmentSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.apartmentSelected = true;
-                }
-            });
-            // land and building security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('Land and Building Security') !== -1) {
-                    this.showTitle = true;
-                    this.landBuilding = true;
-                }
-            });
-            // plant and machinery security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('PlantSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.plantSelected = true;
-                }
-            });
-            // // vehicle security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('VehicleSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.vehicleSelected = true;
-                    this.vehicleArray = this.managedArray(this.formData['initialForm']['vehicleDetails']);
-                }
-            });
-            // fixed deposit receipt security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('FixedDeposit') !== -1) {
-                    this.showTitle = true;
-                    this.depositSelected = true;
-                }
-            });
-            //
-            // // shared security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('ShareSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.shareSelected = true;
-                }
-            });
-            // hypothecation of stock security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('HypothecationOfStock') !== -1) {
-                    this.showTitle = true;
-                    this.hypothecation = true;
-                }
-            });
-            // assignment of receivables
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('AssignmentOfReceivables') !== -1) {
-                    this.showTitle = true;
-                    this.assignment = true;
-                }
-            });
-            // lease assignment
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('LeaseAssignment') !== -1) {
-                    this.showTitle = true;
-                    this.assignments = true;
-                }
-            });
-            // other security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('OtherSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.securityOther = true;
-                }
-            });
-            // corporate guarantee
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('CorporateGuarantee') !== -1) {
-                    this.showTitle = true;
-                    this.corporate = true;
-                }
-            });
-            // personal guarantee
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('PersonalGuarantee') !== -1) {
-                    this.showTitle = true;
-                    this.personal = true;
-                }
-            });
-            // insurance policy
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('InsurancePolicySecurity') !== -1) {
-                    this.showTitle = true;
-                    this.insurancePolicySelected = true;
-                }
-            });
-        }
-        if (this.depositSelected) {
-            this.calculateTotal();
-        }
-        if (this.shareSelected) {
-            this.calculateShareTotals();
-            this.loanSharePercent = this.shareSecurity['loanShareRate'];
-        }
-        if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
-            this.isPresentGuarantor = true;
-        }
-        if (!ObjectUtil.isEmpty(this.securityId)) {
-            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-                .subscribe((response: any) => {
-                    const siteVisit = response.detail;
-                    if (this.landSelected) {
-                        const landDetails = this.formData['initialForm']['landDetails'];
-                        landDetails.forEach(v => {
-                            if (!ObjectUtil.isEmpty(v.uuid)) {
-                                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
-                            }
-                        });
-                        this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
-                    }
-                    if (this.landBuilding) {
-                        const landBuilding = this.formData['initialForm']['landBuilding'];
-                        landBuilding.forEach(v => {
-                            if (!ObjectUtil.isEmpty(v.uuid)) {
-                                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
-                            }
-                        });
-                        this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
-                    }
-                    if (this.apartmentSelected) {
-                        const buildingDetails = this.formData['initialForm']['buildingDetails'];
-                        buildingDetails.forEach(v => {
-                            if (!ObjectUtil.isEmpty(v.uuid)) {
-                                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
-                            }
-                        });
-                        this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
-                    }
-                    // for old loan that does not contains uuid for security and site visit
-                    if (this.landSelected) {
-                        const landDetails = this.formData['initialForm']['landDetails'];
-                        landDetails.forEach(v => {
-                            if (ObjectUtil.isEmpty(v.uuid)) {
-                                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-                            }
-                        });
-                        this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
-                    }
-                    if (this.landBuilding) {
-                        const landBuilding = this.formData['initialForm']['landBuilding'];
-                        landBuilding.forEach(v => {
-                            if (ObjectUtil.isEmpty(v.uuid)) {
-                                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-                            }
-                        });
-                        this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
-                    }
-                    if (this.apartmentSelected) {
-                        const buildingDetails = this.formData['initialForm']['buildingDetails'];
-                        buildingDetails.forEach(v => {
-                            if (ObjectUtil.isEmpty(v.uuid)) {
-                                this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
-                            }
-                        });
-                        this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
-                    }
-                    const arr = [];
-                    this.collateralSiteVisits.forEach(f => {
-                        if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-                            arr.push(f.siteVisitDocuments);
-                        }
-                    });
-                    // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-                    const docArray = flatten(arr);
-                    // filter for only printable document
-                    this.collateralSiteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
-                    this.collateralSiteVisits.filter(item => {
-                        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-                    });
-                    if (this.collateralSiteVisits.length > 0) {
-                        this.isCollateralSiteVisitPresent = true;
-                    }
-                    this.downloadSiteVisitDocument.emit(this.collateralSiteVisitDocuments);
-                });
+        // Set Security Details for view
+        const  loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ? this.customerAllLoanList.length : 0;
+        if (loanListLen > 0 && this.securities.length < 1 ) {
+            this.securities = [];
+            if (this.pending) {
+                this.combineAllSecurity();
+            } else {
+                this.combinedAllApprovedSecurity();
+            }
+        } else if (!ObjectUtil.isEmpty(this.securities)) {
+            this.selectedSecurities();
+            this.setSelectedSecurities();
         }
     }
 
-    calculateTotal() {
-        const depositList = this.formData['initialForm']['fixedDepositDetails'];
-        depositList.forEach(deposit => {
-            this.totalAmount += deposit.amount;
+    combineAllSecurity() {
+        this.customerAllLoanList.forEach((ld) => {
+            if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
+                this.securities =  this.securities.concat(ld.securities);
+            }
+        });
+        if (this.securities.length > 0) {
+            this.selectedSecurities();
+            this.setSelectedSecurities();
+        }
+
+    }
+
+    combinedAllApprovedSecurity(): void {
+        let security: any;
+        this.customerAllLoanList.forEach((ld) => {
+            if (!ObjectUtil.isEmpty(ld.parentId) && ld.documentStatus.toString() !== 'APPROVED' ) {
+                this.securityLoanReference.getAllSecurityLoanReferencesByLoanId(ld.parentId).subscribe({
+                    next: (response: any) => {
+                         security = response.detail;
+                    },
+                    error: (err: any) => {},
+                    complete: () => {
+                        security.forEach((dd: any) => {
+                            const securityObj = new Security();
+                            securityObj.id = dd.securityId;
+                            securityObj.coverage = dd.coverage;
+                            securityObj.data = dd.data;
+                            securityObj.securityType = dd.securityType;
+                            securityObj.usedAmount = dd.usedAmount;
+                            securityObj.status = dd.status;
+                            this.securities.push(securityObj);
+                        });
+                        this.selectedSecurities();
+                        this.setSelectedSecurities();
+                    },
+                    });
+            }
         });
     }
 
-    private calculateShareTotals() {
-        const shareList = this.shareSecurity['shareSecurityDetails'];
-        shareList.forEach(share => {
-            this.shareTotalValue += share.total;
-            this.totalConsideredValue += share.consideredValue;
-        });
-    }
     private managedArray(array) {
         let newArray = [];
         const returnArray = [];
         array.forEach((g, i) => {
-            newArray.push(g);
-            if ((i + 1) % 2 === 0) {
-                if (newArray.length > 0) {
-                    returnArray.push(newArray);
+            if (!ObjectUtil.isEmpty(g)) {
+                newArray.push(g);
+                if ((i + 1) % 2 === 0) {
+                    if (newArray.length > 0) {
+                        returnArray.push(newArray);
+                    }
+                    newArray = [];
                 }
-                newArray = [];
-            }
-            if (i === array.length - 1) {
-                if (newArray.length > 0) {
-                    returnArray.push(newArray);
+                if (i === array.length - 1) {
+                    if (newArray.length > 0) {
+                        returnArray.push(newArray);
+                    }
+                    newArray = [];
                 }
-                newArray = [];
             }
         });
         return returnArray;
+    }
+
+    setSelectedSecurities() {
+        if (this.apartmentSelected) {
+            const apartment = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'APARTMENT_SECURITY') {
+                    apartment.push(JSON.parse(d.data));
+                }
+            });
+            this.apartmentArray = this.managedArray(apartment);
+        }
+        if (this.landSelected) {
+            const land = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'LAND_SECURITY') {
+                    land.push(JSON.parse(d.data));
+                }
+            });
+            this.landArray = this.managedArray(land);
+        }
+        if (this.landBuilding) {
+            const landBuilding = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
+                    landBuilding.push(JSON.parse(d.data));
+                }
+            });
+            this.landBuildingArray = this.managedArray(landBuilding);
+        }
+        if (this.assignments) {
+            const lease = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'LEASE_ASSIGNMENT') {
+                    lease.push(JSON.parse(d.data));
+                }
+            });
+            this.leaseArray = lease;
+        }
+        if (this.assignment) {
+            const assignment = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'ASSIGNMENT_OF_RECEIVABLES') {
+                    assignment.push(JSON.parse(d.data));
+                }
+            });
+            this.assignmentArray = assignment;
+        }
+        if (this.corporate) {
+            const corporate = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'CORPORATE_GUARANTEE') {
+                    corporate.push(JSON.parse(d.data));
+                }
+            });
+            this.corporateArray = corporate;
+        }
+        if (this.depositSelected) {
+            const fd = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
+                    fd.push(JSON.parse(d.data));
+                }
+            });
+            this.fdArray = fd;
+        }
+        if (this.hypothecation) {
+            const hypo = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
+                    hypo.push(JSON.parse(d.data));
+                }
+            });
+            this.hypoArray = hypo;
+        }
+        if (this.insurancePolicySelected) {
+            const insurance = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'INSURANCE_POLICY_SECURITY') {
+                    insurance.push( JSON.parse(d.data));
+                }
+            });
+            this.insuranceArray = insurance;
+        }
+        if (this.securityOther) {
+            const other = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'OTHER_SECURITY') {
+                     other.push(JSON.parse(d.data));
+                }
+            });
+            this.otherArray = other;
+        }
+        if (this.personal) {
+            const personal = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'PERSONAL_GUARANTEE') {
+                    personal.push( JSON.parse(d.data));
+                }
+            });
+            this.personalArray = personal;
+        }
+        if (this.shareSelected) {
+            const share = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'SHARE_SECURITY') {
+                    share.push(JSON.parse(d.data));
+                }
+            });
+            this.shareArray = share;
+        }
+        if (this.plantSelected) {
+            const plant = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
+                    plant.push(JSON.parse(d.data));
+                }
+            });
+            this.plantArray = plant;
+        }
+        if (this.vehicleSelected) {
+            const vehicle = [];
+            this.securities.forEach((d) => {
+                if (d.securityType.toString() === 'VEHICLE_SECURITY') {
+                    vehicle.push(JSON.parse(d.data));
+
+                }
+            });
+            this.vehicleArray =  this.managedArray(vehicle);
+        }
+    }
+    selectedSecurities() {
+        if (!ObjectUtil.isEmpty(this.securities)) {
+            this.securities.forEach((s, i) => {
+                switch (s.securityType.toString()) {
+                    case 'APARTMENT_SECURITY': {
+                        this.apartmentSelected = true;
+                    }
+                        break;
+                    case 'LAND_SECURITY': {
+                        this.landSelected = true;
+                    }
+                        break;
+                    case 'ASSIGNMENT_OF_RECEIVABLES': {
+                        this.assignments = true;
+                    }
+                        break;
+                    case 'LAND_BUILDING_SECURITY': {
+                        this.landBuilding = true;
+                    }
+                        break;
+                    case 'CORPORATE_GUARANTEE': {
+                        this.corporate = true;
+                    }
+                        break;
+                    case 'FIXED_DEPOSIT_RECEIPT': {
+                        this.depositSelected = true;
+                    }
+                        break;
+                    case 'HYPOTHECATION_OF_STOCK': {
+                        this.hypothecation = true;
+                    }
+                        break;
+                    case 'INSURANCE_POLICY_SECURITY': {
+                        this.insurancePolicySelected = true;
+                    }
+                        break;
+                    case 'OTHER_SECURITY': {
+                        this.securityOther = true;
+                    }
+                        break;
+                    case 'PERSONAL_GUARANTEE': {
+                        this.personal = true;
+                    }
+                        break;
+                    case 'LEASE_ASSIGNMENT': {
+                        this.assignments = true;
+                    }
+                        break;
+                    case 'SHARE_SECURITY': {
+                        this.shareSelected = true;
+                    }
+                        break;
+                    case 'PLANT_AND_MACHINERY_SECURITY': {
+                        this.plantSelected = true;
+                    }
+                        break;
+                    case 'VEHICLE_SECURITY': {
+                        this.vehicleSelected = true;
+                    }
+                        break;
+                    default: return;
+                }
+            });
+        }
     }
 }

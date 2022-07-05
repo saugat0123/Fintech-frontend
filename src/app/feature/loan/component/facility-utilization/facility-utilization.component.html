@@ -1,0 +1,177 @@
+<div class="container">
+    <div class="col-md-12 row">
+        <form class="col-md-12" [formGroup]="facilityUtilizatoinForm">
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>Facility</th>
+                        <th>Limit</th>
+                        <th>Average Utilization</th>
+                        <th>Utilization (%)</th>
+                        <th>Maximum</th>
+                        <th>Minimum</th>
+                        <th *ngIf="fromProfile">Action</th>
+                    </tr>
+                    <tbody>
+                    <ng-container formArrayName="data" *ngFor="let controls of facilityUtilizatoinForm?.get('data')['controls']; let i = index">
+                        <tr *ngIf="fromProfile; else view" formGroupName="{{i}}">
+                            <td><input type="text" class="text-center form-control" formControlName="facility"></td>
+                            <td><input type="text" class="text-center form-control" formControlName="limit" (change)="calculateTotalAverage('limit')" appDecimalNumber></td>
+                            <td><input type="text" class="text-center form-control" formControlName="averageUtilization" (change)="calculateTotalAverage('averageUtilization')" appDecimalNumber></td>
+                            <td><input type="text" class="text-center form-control" formControlName="utilization" (change)="calculateTotalAverage('utilization')"  appDecimalNumber></td>
+                            <td><input type="text" class="text-center form-control" formControlName="maximum" (change)="calculateTotalAverage('maximum')"  appDecimalNumber></td>
+                            <td><input type="text" class="text-center form-control" formControlName="minimum" (change)="calculateTotalAverage('minimum')"  appDecimalNumber></td>
+                            <td><button (click)="removeUtilization(i)" nbButton><i class="fa fa-trash"></i></button></td>
+                        </tr>
+                        <ng-template #view>
+                            <tr  formGroupName="{{i}}">
+                                <td><span>{{controls?.get('facility')?.value}}</span></td>
+                                <td><span>{{controls?.get('limit')?.value}}</span></td>
+                                <td><span>{{controls?.get('averageUtilization')?.value}}</span></td>
+                                <td><span>{{controls?.get('utilization')?.value}}</span></td>
+                                <td><span>{{controls?.get('maximum')?.value}}</span></td>
+                                <td><span>{{controls?.get('minimum')?.value}}</span></td>
+                            </tr>
+                        </ng-template>
+                    </ng-container>
+                    <tr>
+                        <td>Facility wise Average Utilization </td>
+                        <td *ngFor="let key  of totalKeys">{{totals[key]}}</td>
+                        <td *ngIf="fromProfile"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Average Utilization </td>
+                        <td *ngFor="let key  of totalKeys">{{(totals[key] / facilityUtilizatoinForm?.get('data')?.value?.length)}}</td>
+                        <td *ngIf="fromProfile"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            <button (click)="addUtilization()" class="float-right" nbButton *ngIf="fromProfile">Add <i clas="fa fa-plus"></i></button>
+            <hr>
+            <div [ngClass]="fromProfile ? 'row' : 'container'">
+                <div [ngClass]="fromProfile ? 'col-md-4' : 'row'">
+                    <label for ="lcIssued"><strong>List of LC’s issued/ BG’s issued</strong></label><br>
+                    <input *ngIf="fromProfile" id = "lcIssued"type ="text" nbInput  formControlName="lcIssued">
+                        <p class="header" *ngIf="!fromProfile">{{facilityUtilizatoinForm?.get('lcIssued')?.value}}</p>
+                </div>
+                <div [ngClass]="fromProfile ? 'col-md-4' : 'row'">
+                    <label  for ="oneLimit"><strong>List of One off Limits</strong></label><br>
+                    <input *ngIf="fromProfile" type ="text" nbInput id="oneLimit" formControlName="oneLimit">
+                        <p class="header" *ngIf="!fromProfile">{{facilityUtilizatoinForm?.get('oneLimit')?.value}}</p>
+                </div>
+                <div [ngClass]="fromProfile ? 'col-md-4' : 'row'">
+                    <label for ="remarks"><strong>Remarks on Utilization</strong></label><br>
+                    <input *ngIf="fromProfile" type ="text" nbInput id="remarks" formControlName="remarks">
+                        <p class="header" *ngIf="!fromProfile">{{facilityUtilizatoinForm?.get('remarks')?.value}}</p>
+                </div>
+            </div>
+
+            <nb-card>
+                <nb-card-header>
+                    <div class="row d-flex justify-content-center">
+                        <h6>Account History</h6>
+                    </div>
+                        <nb-checkbox #chek formControlName="newCustomerChecked"
+                                     (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="formControls.newCustomerChecked.value">
+                            <strong>New Customer</strong>
+                        </nb-checkbox>
+                </nb-card-header>
+                <nb-card-body *ngIf="!chek?.checked">
+                    <div formGroupName="accountTransactionForm">
+                        <div class="col-md-12" >
+                            <table class="table table-bordered table-responsive-md table-hover text-center sb-small table-sm">
+                                <thead>
+                                <tr class="sb-bg-secondary text-white">
+                                    <th>Particular</th>
+                                    <th>Total Number</th>
+                                    <th>Total Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Credit Transaction in Account</td>
+                                    <ng-container *ngIf="fromProfile; else view">
+                                        <td>
+                                            <input class="text-center form-control"
+                                                   formControlName="creditTransactionNumber"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionNumber?.invalid }"
+                                                   appDecimalNumber>
+                                            <div *ngIf="(submitted) && transactionForm?.creditTransactionNumber?.invalid"
+                                                 class="invalid-feedback">
+                                                <span>Invalid Credit Transaction Number.</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="text-center form-control"
+                                                   formControlName="creditTransactionValue"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionValue?.invalid}" appDecimalNumber>
+                                            <div *ngIf="(submitted) && transactionForm?.creditTransactionValue?.invalid"
+                                                 class="invalid-feedback">
+                                                <span>Invalid Credit Transaction Value.</span>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-template #view>
+                                        <td><span>{{transactionForm?.creditTransactionNumber?.value}}</span></td>
+                                        <td><span>{{transactionForm?.creditTransactionValue?.value}}</span></td>
+                                    </ng-template>
+                                </tr>
+                                <tr>
+                                    <td>Debit Transaction in Account</td>
+                                    <ng-container *ngIf="fromProfile; else view2">
+                                        <td>
+                                            <input class="text-center form-control"
+                                                   formControlName="debitTransactionNumber"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionNumber?.invalid }" appDecimalNumber>
+                                            <div *ngIf="(submitted) && transactionForm?.debitTransactionNumber?.invalid"
+                                                 class="invalid-feedback">
+                                                <span>Invalid Debit Transaction Number.</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="text-center form-control"
+                                                   formControlName="debitTransactionValue"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionValue?.invalid }" appDecimalNumber>
+                                            <div *ngIf="(submitted) && transactionForm?.debitTransactionValue?.invalid"
+                                                 class="invalid-feedback">
+                                                <span>Invalid Debit Transaction Value.</span>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-template #view2>
+                                        <td><span>{{transactionForm?.debitTransactionNumber?.value}}</span></td>
+                                        <td><span>{{transactionForm?.debitTransactionValue?.value}}</span></td>
+                                    </ng-template>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <ng-container *ngIf="fromProfile; else view3">
+                                <label for="repaymentTrackWithCurrentBank">
+                                    <strong>Repayment track in our bank</strong></label><strong
+                                    class="text-danger">*</strong>
+                                <select id="repaymentTrackWithCurrentBank" class="form-control text-center"
+                                        formControlName="repaymentTrackWithCurrentBank"
+                                        [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">
+                                    <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
+                                    <option *ngFor="let m of repaymentTrack"
+                                            [value]="m?.value">{{m?.value}}</option>
+                                </select>
+                                <div *ngIf="(submitted) && transactionForm?.repaymentTrackWithCurrentBank.invalid"
+                                     class="invalid-feedback">
+                                    Repayment Track is Required
+                                </div>
+                            </ng-container>
+                            <ng-template #view3>
+                                <label for="repaymentTrackWithCurrentBank">
+                                    <strong>Repayment track in our bank: </strong></label>
+                                <span>{{'  ' + transactionForm?.repaymentTrackWithCurrentBank?.value}}</span>
+                            </ng-template>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+            <button (click)="saveFacilityUtilization()" *ngIf="fromProfile" class="float-right"  nbButton>Save</button>
+        </form>
+    </div>
+</div>

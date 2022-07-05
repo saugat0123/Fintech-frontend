@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-md-12">
+        <p class="header"><strong class="header">Group Summary Sheet</strong></p>
+        <div class="mt-2">
+            <label><strong>Group Details</strong></label>
+            <table class="table table-sm sb-small table-bordered table-hover">
+                <tbody>
+                <tr>
+                    <td>
+                        <strong>Date: </strong><span>{{gssData?.gssDate}}</span>
+                    </td>
+                    <td>
+                        <strong>Last GSS Date: </strong><span>{{gssData?.lastGSSDate}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Name of Customer Group: </strong><span>{{gssData?.groupName}}</span>
+                    </td>
+                    <td>
+                        <strong>Group Code: </strong><span>{{gssData?.groupCode}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Peak Exposure Level<small> (if applicable)</small>:
+                        </strong><span>{{gssData?.peakExposureLevel}}</span>
+                    </td>
+                    <td>
+                        <strong>Group Controller: </strong><span>{{gssData?.groupController}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-2">
+            <label><strong>Exposure Details</strong></label>
+            <table class="table table-sm sb-small table-bordered text-center">
+                <thead>
+                <tr class="sb-bg-secondary text-white">
+                    <th width="2%">S.No.</th>
+                    <th width="20%">Customer Name</th>
+                    <th width="10%">Customer ID</th>
+                    <th width="12%">Branch/Unit</th>
+                    <th width="14%">Risk Grade</th>
+                    <th width="14%">Funded Exposure</th>
+                    <th width="14%">Non Funded Exposure</th>
+                    <th width="14%">Total Exposure</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of gssData?.gssDetails; let i = index">
+                    <td>{{i + 1}}.</td>
+                    <td>{{data?.customerName}}</td>
+                    <td>{{data?.customerID}}</td>
+                    <td>{{loanDataHolder?.branch?.name}}</td>
+                    <td>{{data?.riskGrade}}</td>
+                    <td>{{data?.fundedLimited}}</td>
+                    <td>{{data?.nonFundedLimited}}</td>
+                    <td>{{data?.totalLimit}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="4" class="text-right">Grand Total</td>
+                    <td>{{gssData?.totalFundedLimited}}</td>
+                    <td>{{gssData?.totalNonFundedLimited}}</td>
+                    <td>{{gssData?.totalLimited1}}</td>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="4">Total Group Limit exceeding 1 year</td>
+                    <td colspan="3">
+                        {{gssData?.totalLimitExceed1Year}}
+                    </td>
+
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="4">Total Increase During Current Financial Year(Including Proposed Limit)</td>
+                    <td colspan="3">
+                        {{gssData?.totalIncreaseCurrent}}
+                    </td>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="4">Other Liabilities</td>
+                    <td colspan="3">
+                        {{gssData?.otherLiabilities}}
+                    </td>
+                </tr>
+                <tr class="text-right">
+                    <td></td>
+                    <td colspan="4">Earning from proposed relation in next one year</td>
+                    <td colspan="3">
+                        {{gssData?.earningProposedRelation}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-2">
+            <label><strong>Remarks</strong></label>
+           <table class="table table-sm sb-small table-bordered">
+               <tbody>
+               <tr>
+                   <td>
+                       {{gssData?.gssRemark}}
+                   </td>
+               </tr>
+               </tbody>
+           </table>
+        </div>
+        <div class="mt-2">
+            <label><strong>Approvals</strong></label>
+            <table class="table table-sm sb-small table-bordered">
+                <tbody>
+                <tr style="height: 30vh;">
+                    <td width="33%"></td>
+                    <td width="33%"></td>
+                    <td width="34%"></td>
+                </tr>
+                <tr class="text-center">
+                    <th>Group Controller</th>
+                    <th>HC-C</th>
+                    <th>DCEO/CEO/Management Committee/Board</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

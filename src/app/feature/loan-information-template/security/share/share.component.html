@@ -1,0 +1,178 @@
+<nb-card class="p-3">
+    <nb-card-header>
+        <h6 class="box-title title">Details of security offered and valuation amount</h6>
+    </nb-card-header>
+   <form [formGroup]="shareSecurityForm">
+       <nb-card-body>
+           <div class="row">
+               <div class="col-md-3">
+                   <label for="sharePriceDate"><b>Price Updated Date</b></label>
+                   <input formControlName="sharePriceDate"
+                          class="form-control"
+                          [readOnly]="true"
+                          id="sharePriceDate">
+               </div>
+               <div class="col-md-3 mb-3">
+                   <label for="avgDaysForPrice"><b>Average Day's for Share Price</b></label>
+                   <input formControlName="avgDaysForPrice"
+                          class="form-control"
+                          [readOnly]="true"
+                          id="avgDaysForPrice">
+               </div>
+               <div class="col-md-3">
+                   <label for="promoter"><b>Loan Promoter Percent</b></label>
+                   <input [(ngModel)]="activeNepseMaster.promoter"
+                          [ngModelOptions]="{standalone: true}" class="form-control"
+                          disabled id="promoter">
+               </div>
+               <div class="col-md-3">
+                   <label for="ordinary"><b>Loan Ordinary Percent</b></label>
+                   <input [(ngModel)]="activeNepseMaster.ordinary"
+                          [ngModelOptions]="{standalone: true}" class="form-control"
+                          disabled id="ordinary">
+               </div>
+           </div>
+           <br>
+           <div *ngFor="let shareField of shareSecurityForm.get('shareSecurityDetails')['controls'];  let shareFieldIndex = index"
+                formArrayName="shareSecurityDetails">
+               <div [formGroupName]="shareFieldIndex.toString()">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <div class="form-group">
+                               <label for="companyName">Select Company Name :: Company Code</label>
+                               <select (change)="setShareValueByCompany(shareFieldIndex)"
+                                       [ngClass]="{ 'is-invalid': (submitted) && (shareField.get('companyName').errors || shareField?.get('companyName')?.invalid)}"
+                                       class="custom-select"
+                                       formControlName="companyName" id="companyName"
+                                       name="companyName">
+                                   <option [value]="null" disabled selected>--Select Company Name--</option>
+                                   <option *ngFor="let nepse of nepseList"
+                                           value="{{nepse.companyName }}">{{nepse.companyName}}
+                                       :: {{nepse.companyCode}}</option>
+                               </select>
+                               invalid:: {{submitted && shareField?.get('companyName')?.invalid}}
+                               errors:: {{shareField?.get('companyName')?.errors?.required}}
+                               <div *ngIf="submitted && shareField?.get('companyName')?.invalid"
+                                    class="invalid-feedback">
+                                   <div *ngIf="shareField?.get('companyName')?.errors?.required">
+                                       Company name is required
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <div class="form-group">
+                               <label for="shareType">Select Share Type</label>
+                               <input class="form-control" formControlName="shareType" id="shareType"
+                                      name="shareType" readonly type="text">
+                           </div>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="totalShareUnit">Number of Share Unit</label>
+                               <input (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                      [ngClass]="{ 'is-invalid': (submitted) && (shareField.get('totalShareUnit').errors
+                                           || shareField.get('totalShareUnit').invalid) }"
+                                      class="form-control" formControlName="totalShareUnit"
+                                      id="totalShareUnit"
+                                      name="totalShareUnit"
+                                      type="number" placeholder="Number of Share Unit">
+                               <div *ngIf="(submitted) && (shareField.get('totalShareUnit').invalid)"
+                                    class="invalid-feedback">
+                                   <div *ngIf="shareField.get('totalShareUnit').errors.required">
+                                       Number of share unit is required
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="shareRate">Rate of Each Unit</label>
+                               <input
+                                       (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                       class="form-control" formControlName="amountPerUnit"
+                                       id="shareRate" name="shareRate"
+                                       type="number" placeholder="Rate of Each Unit">
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="total">Total</label>
+                               <input class="form-control" formControlName="total" id="total"
+                                      name="total" readonly type="number" placeholder="Total">
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="shareRatse">Realisable Rate %</label>
+                               <input class="form-control" formControlName="shareRate"
+                                      (change)="calcRealiasable(shareFieldIndex,'share')"
+                                      id="shareRatse" name="shareRate" placeholder="Rate %">
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="drawingPower">Drawing Power</label>
+                               <input class="form-control" formControlName="drawingPower"
+                                      id="drawingPower" name="drawingPower" placeholder="Drawing Power" readonly>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="realisableValue">Realisable Value</label>
+                               <input class="form-control" formControlName="considerValue"
+                                      id="realisableValue" name="total" placeholder="Realisable Value" readonly>
+                           </div>
+                       </div>
+                       <div class="col-md-3">
+                           <div class="form-group">
+                               <label for="shareSecurityFirstValuationDate">First Valuation Date</label>
+                               <input *ngIf="calendarType === 'AD'" class="form-control"
+                                      formControlName="shareSecurityFirstValuationDate"
+                                      id="shareSecurityFirstValuationDate"
+                                      name="shareSecurityFirstValuationDate" placeholder="First Valuation Date"
+                                      [nbDatepicker]="firstValuationDate"
+                                      type="text"/>
+                               <app-calendar
+                                       (messageToEmit)="shareSecurityForm.get(['shareSecurityDetails', shareFieldIndex,'shareSecurityFirstValuationDate']).patchValue($event?.eDate)"
+                                       *ngIf="calendarType === 'BS'"
+                                       [ePreDate]="shareSecurityForm.get(['shareSecurityDetails', shareFieldIndex,'shareSecurityFirstValuationDate']).value"></app-calendar>
+                               <nb-datepicker #firstValuationDate></nb-datepicker>
+                           </div>
+                       </div>
+                   </div>
+                   <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
+                        class="d-flex justify-content-sm-end">
+                       <button (click)="removeShareList(shareFieldIndex)"
+                               class="btn btn-sm btn-flat btn-danger">
+                           <em class="fa fa-trash bg-transparent"></em>
+                       </button>
+                   </div>
+                   <hr/>
+               </div>
+           </div>
+           <div class="d-flex justify-content-sm-end">
+               <p class="font-weight-bolder">Total Realisable
+                   Value: {{totalConsideredValue}}</p>
+           </div>
+           <div class="d-flex justify-content-end">
+               <button (click)="addShareSecurity()" class="btn btn-sm btn-flat btn-primary"><i
+                       class="fa fa-plus"></i></button>
+           </div>
+       </nb-card-body>
+       <nb-card>
+           <nb-card-body>
+               <div class="row">
+                   <div class="col-md-12">
+                       <label for="securityOffered">Description/Details of security offered</label>
+                       <textarea class="form-control text-area" formControlName="securityOffered"
+                                 placeholder="Description/Details of security offered"
+                                 id="securityOffered"></textarea>
+                   </div>
+               </div>
+           </nb-card-body>
+       </nb-card>
+   </form>
+</nb-card>

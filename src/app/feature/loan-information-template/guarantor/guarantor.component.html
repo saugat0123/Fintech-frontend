@@ -36,6 +36,18 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+                                    <div class = "form-group">
+                                        <label for="name"><strong>Type</strong></label>
+                                        <select
+                                                class="form-control" formControlName="guarantorType"
+                                                name="guarantorType">
+                                            <option [value]="null">Select type</option>
+                                            <option *ngFor="let designations of designation"
+                                                    [ngValue]="designations.id">{{designations.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong> Name</strong></label>
@@ -192,27 +204,6 @@
                                     </div>
                                 </ng-container>
                                 <ng-template #nonIlegal>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label><strong>Gender</strong></label>
-                                            <nb-radio-group class="d-flex" formControlName="gender" name="gender{{i}}">
-                                                <nb-radio *ngFor="let gender of genderPairs"
-                                                          [value]="gender?.key">{{gender?.value}}</nb-radio>
-                                            </nb-radio-group>
-                                            <div *ngIf="(submitted) && guarantorDetails?.get('gender')?.invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="guarantorDetails?.get('gender')?.errors?.required">
-                                                    Gender is required
-                                                </div>
-                                            </div>
-                                            <div *ngIf="(addMore) && guarantorDetails?.get('gender')?.invalid"
-                                                 class="alert-warning">
-                                                <div *ngIf="guarantorDetails?.get('gender')?.errors?.required">
-                                                    Please select gender
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label><strong>Citizenship Number</strong></label>
@@ -442,18 +433,18 @@
                                                    name="grandFatherName"
                                                    placeholder="Grandfather's Name"
                                                    type="text"/>
-<!--                                            <div *ngIf="(submitted) && guarantorDetails.get('grandFatherName').invalid"-->
-<!--                                                 class="invalid-feedback">-->
-<!--                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">-->
-<!--                                                    Guarantors Grandfathers name is required-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"-->
-<!--                                                 class="alert-warning">-->
-<!--                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">-->
-<!--                                                    Please fill Guarantors Grandfathers name-->
-<!--                                                </div>-->
-<!--                                            </div>-->
+                                            <div *ngIf="(submitted) && guarantorDetails.get('grandFatherName').invalid"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
+                                                    Guarantors Grandfathers name is required
+                                                </div>
+                                            </div>
+                                            <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"
+                                                 class="alert-warning">
+                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
+                                                    Please fill Guarantors Grandfathers name
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -827,18 +818,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Guarantor</strong></label>
-                                        <select class="form-control form-control-sm-error rounded"
-                                                formControlName="guarantor"
-                                                id="guarantor"
-                                                name="guarantor">
-                                            <option [value]="null">Select Yes/No</option>
-                                            <option [value]="ans" *ngFor="let ans of question">{{ans}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                         <label><strong>Relationship with Borrower </strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
                                                class="form-control form-control-sm-error rounded"
@@ -1151,11 +1130,111 @@
                                     </div>
                                 </ng-container>
                             </div>
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-md-12">
                                     <label><b>Background</b></label>
                                     <textarea rows="3" class="form-control" formControlName="background" placeholder="Background Details"></textarea>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="successionPlanning"><strong>Succession Risk & Mitigation</strong></label>
+                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.successionPlanning?.errors }"
+                                                  formControlName="successionPlanning" id="successionPlanning"
+                                                  name="successionPlanning"
+                                                  [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="groupBackground"><strong>Group's Background and associated companies</strong></label>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.groupBackground?.errors }"
+                                              formControlName="groupBackground" id="groupBackground"
+                                              name="groupBackground" [config]="ckeConfig"
+                                              type="text"></ckeditor>
+                                    <div *ngIf="submitted && guarantorDetails?.groupBackground?.errors "
+                                         class="invalid-feedback">
+                                        <div *ngIf="guarantorDetails?.groupBackground?.errors?.required">
+                                            Group's Background and associated companies is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="customerInfo?.customerType === 'INSTITUTION' " [formGroup]="guarantorDetails?.get('promoterData')">
+
+                                <table  class="table table-sm table-bordered table-hover sb-small text-center">
+                                    <thead>
+                                    <tr class="sb-bg-dark text-white">
+                                        <th>S.N</th>
+                                        <th>Previous/Other Associations</th>
+                                        <th>Nature Of Business/Work</th>
+                                        <th>Capacity</th>
+                                        <th>Tenure (Date)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container formArrayName="background">
+                                        <tr *ngFor="let background of guarantorDetails?.get('promoterData')?.get('background')['controls']; let j = index;" [formGroupName]="j">
+                                            <td>{{j + 1}}</td>
+                                            <td><input type="text" formControlName="previousAssociations"></td>
+                                            <td><input type="text" formControlName="natureOfBusiness"></td>
+                                            <td><input type="text" formControlName="capacity"></td>
+                                            <td>
+                                                <input type="text" formControlName="tenure" [nbDatepicker]="date">
+                                            <nb-datepicker #date></nb-datepicker>
+                                            </td>
+                                            <td><a href="javascript:void(0)" (click)="removeBackground(i,j)"><i class="fa fa-times-circle px-3" nbTooltip="Delete Row"></i></a></td>
+                                        </tr>
+
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <hr>
+                                    <button (click)="addBackground(i)" class="btn btn-sm btn-flat btn-primary float-right">
+                                        Add Background
+                                    </button>
+                                    <hr>
+                                </div>
+                                <table  class="table table-sm table-bordered table-hover sb-small text-center">
+                                    <thead>
+                                    <tr class="sb-bg-dark text-white">
+                                        <th>S.N</th>
+                                        <th>Undivided Adult Family Members</th>
+                                        <th>Relation</th>
+                                        <th>Age</th>
+                                        <th>Profession</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container formArrayName="familyDetails">
+                                        <tr *ngFor="let familyDetails of guarantorDetails?.get('promoterData')?.get('familyDetails')['controls']; let j = index;" [formGroupName]="j">
+                                            <td>{{j + 1}}</td>
+                                            <td><input type="text" formControlName="name"></td>
+                                            <td><input type="text" formControlName="relation"></td>
+                                            <td><input type="text" formControlName="age"></td>
+                                            <td>
+                                                <input type="text" formControlName="profession">
+                                            </td>
+                                            <td><a href="javascript:void(0)" (click)="removeFamily(i,j)"><i class="fa fa-times-circle px-3" nbTooltip="Delete Row"></i></a></td>
+                                        </tr>
+
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                                <div class="text-right">
+                                    <hr>
+                                    <button (click)="addFamily(i)" class="btn btn-sm btn-flat btn-primary float-right">
+                                        Add Family
+                                    </button>
+                                    <hr>
+
+                                </div>
+
                             </div>
                             <app-template-document [customerInfo]="customerInfo" [docName]="guarantorDetails.get('citizenNumber').value" (docPathEmitter)="documentPath($event,i)" [pathValue]="guarantorDetails.get('docPath').value" [docTitle]="docTitle" [docFolderName]="docFolderName"></app-template-document>
                             <p><i><b>Note:</b></i></p>

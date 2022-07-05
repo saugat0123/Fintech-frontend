@@ -45,9 +45,14 @@ export class DefaultLoanTemplate {
             name: 'Product Paper Checklist',
             templateUrl: null
         },
+        // {
+        //     active: false,
+        //     name: 'Security',
+        //     templateUrl: null
+        // },
         {
             active: false,
-            name: 'Security',
+            name: 'Financial/Account Information',
             templateUrl: null
         }
     ];

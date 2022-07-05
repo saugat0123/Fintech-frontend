@@ -1,0 +1,691 @@
+<script src="loan-summary-individual.component.ts"></script>
+<section class="enable-print summary">
+    <div id="print-block">
+        <div class=" col-md-12 summary">
+            <hr class="print-line">
+            <ng-container *ngIf="proposalData?.data !== null">
+                <app-proposal-summary
+                        *ngIf="proposalSummary"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [proposalData]="proposalData"
+                        [loanDataHolder]="loanDataHolder"></app-proposal-summary>
+            </ng-container>
+            <!--                release and replacement-->
+                <!--                    proposed security-->
+
+            <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'; else approved">
+                <!--                    proposed security-->
+                <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
+                                      [pending]="true"></app-security-summary>
+                <!--                    existing security-->
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
+            </ng-container>
+            <ng-template #approved>
+                <app-security-summary [pending]="true" [securities]="loanDataHolder?.securities"></app-security-summary>
+                <app-security-summary *ngIf="loanDataHolder?.parentId"
+                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
+            </ng-template>
+
+
+            <app-security-schedule [customerAllLoanList]="customerAllLoanList"
+                                   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
+
+    <ng-container *ngIf="!fullSettlement">
+        <nb-accordion *ngIf="isRemitLoan">
+            <nb-accordion-item>
+                <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video
+                    KYC</h6></nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <app-video-kyc [showSender]="true" [remitCustomer]="loanDataHolder.remitCustomer"
+                                   [isModal]="false"></app-video-kyc>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+        <div class="row mt-1">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <p class="header"><strong class="header">Address Verification</strong></p>
+                <table *ngIf="!isJointInfo"
+                       class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr class="text-white sb-bg-dark">
+                        <th colspan="6" class="sub-header">Permanent Address</th>
+                    </tr>
+                    <tr>
+                        <th> Province</th>
+                        <th>District</th>
+                        <th> Municipalities</th>
+                        <th>Ward no.</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1">{{individual?.province?.name}}</td>
+                        <td class="text-left pl-1">{{individual?.district?.name}}</td>
+                        <td class="text-left pl-1">{{individual?.municipalities?.name}}</td>
+                        <td class="text-right pr-1">{{individual?.wardNumber || 'NA'}}</td>
+                        <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
+                        <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th colspan="6" class="sub-header">Temporary Address</th>
+                    </tr>
+                    <tr>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>Municipalities</th>
+                        <th>Ward no.</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1">{{individual?.temporaryProvince?.name}}</td>
+                        <td class="text-left pl-1">{{individual?.temporaryDistrict?.name}}</td>
+                        <td class="text-left pl-1">{{individual?.temporaryMunicipalities?.name}}</td>
+                        <td class="text-right pr-1">{{individual?.temporaryWardNumber || 'NA'}}</td>
+                        <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine1 || 'NA'}}</td>
+                        <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
+                    </tr>
+                </table>
+                <table *ngIf="isJointInfo"
+                       class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr class="text-white sb-bg-dark">
+                        <th colspan="7" class="sub-header">Permanent Address</th>
+                    </tr>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>Municipalities</th>
+                        <th>Ward no.</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                    </tr>
+                    <ng-container *ngFor="let jointCustomer of jointInfo">
+                        <tr *ngFor="let info of jointCustomer">
+                            <td class="text-left pl-1">{{info?.customerName}}</td>
+                            <td class="text-left pl-1">{{info?.province?.name}}</td>
+                            <td class="text-left pl-1">{{info?.district?.name}}</td>
+                            <td class="text-left pl-1">{{info?.municipalities?.name}}</td>
+                            <td class="text-right pr-1">{{info?.wardNumber || 'NA'}}</td>
+                            <td class="text-left pl-1">{{info?.permanentAddressLine1 || 'NA'}}</td>
+                            <td class="text-left pl-1">{{info?.permanentAddressLine2 || 'NA'}}</td>
+                        </tr>
+                    </ng-container>
+                    <tr class="text-white sb-bg-dark">
+                        <th colspan="7" class="sub-header">Temporary Address</th>
+                    </tr>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>Municipalities</th>
+                        <th>Ward no.</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                    </tr>
+                    <ng-container *ngFor="let jointCustomer of jointInfo">
+                        <tr *ngFor="let info of jointCustomer">
+                            <td class="text-left pl-1">{{info?.customerName}}</td>
+                            <td class="text-left pl-1">{{info?.temporaryProvince?.name}}</td>
+                            <td class="text-left pl-1">{{info?.temporaryDistrict?.name}}</td>
+                            <td class="text-left pl-1">{{info?.temporaryMunicipalities?.name}}</td>
+                            <td class="text-right pr-1">{{info?.temporaryWardNumber || 'NA'}}</td>
+                            <td class="text-left pl-1">{{info?.temporaryAddressLine1 || 'NA'}}</td>
+                            <td class="text-left pl-1">{{info?.temporaryAddressLine2 || 'NA'}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+        <p class="header" [hidden]="loanCategory === 'INDIVIDUAL'"><strong class="header">Applicant/Guarantor
+            Profile</strong></p>
+        <hr class="print-line">
+        <div class="row">
+            <div class="col-md-12">
+                <app-remit-profile [isRemit]="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-profile>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <app-joint-customer-view *ngIf="isJointInfo && newJointInfo.length > 0"
+                                         [jointDetails]="newJointInfo"></app-joint-customer-view>
+            </div>
+        </div>
+        <ng-container>
+            <div class="row  mt-1">
+                <div class="col-md-12">
+                    <div>
+                        <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                                            [customerAllLoanList]="customerAllLoanList"
+                                            [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+                        <div *ngIf="minOneGuarantorDoc" class="row">
+                            <div class="col-md-12">
+                                <p><strong class="header">Guarantor Documents</strong></p>
+                                <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                                    <thead>
+                                    <tr class="text-white sb-bg-dark">
+                                        <th>S.N</th>
+                                        <th>Guarantor</th>
+                                        <th>Document</th>
+                                        <th>Checked</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+                                    <tr *ngIf="singleDoc?.docPath">
+                                        <td>{{i + 1}}</td>
+                                        <td class="text-left pl-1">{{singleDoc?.name}}</td>
+                                        <td class="text-left pl-1">Net Worth Document</td>
+                                        <td>
+                                            <i class="fa fa-check" *ngIf="singleDoc?.docPath"></i>
+                                            <i class="fa fa-times" *ngIf="!singleDoc?.docPath"></i>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
+                            <div class="col-md-12">
+                                <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
+                                <table
+                                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                                    <thead>
+                                    <tr class="text-white sb-bg-dark">
+                                        <th>Name</th>
+                                        <th>Undivided Family Member</th>
+                                        <th>Age</th>
+                                        <th>Occupation</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let relative of individual?.customerRelatives">
+                                        <td class="text-left pl-1">
+                                            {{relative?.customerRelativeName}}
+                                        </td>
+
+                                        <td class="text-left pl-1">
+                                            {{relative?.customerRelation}}
+                                        </td>
+                                        <td class="text-left pl-1">{{relative?.age}} years</td>
+                                        <td class="text-left pl-1">{{relative?.occupation || 'N/A'}}</td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
+                                               [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+                        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
+                                       [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                                       [loanDataHolder]="loanDataHolder"></app-cicl-view>
+                        <app-dbr *ngIf="financial" [financialData]="financial"
+                                 [proposalData]="proposalData"></app-dbr>
+                        <ng-container *ngIf="checkedData?.waiverChecked">
+                            <hr class="print-line header">
+                            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                                <tr class="text-white sb-bg-dark">
+                                    <th>Waiver</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1"><span
+                                            [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-container>
+                        <ng-container *ngIf="checkedData?.deviationChecked">
+                            <hr class="print-line header">
+                            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                                <tr class=" text-white sb-bg-dark">
+                                    <th>Deviation</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1"><span
+                                            [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-container>
+                        <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                                               [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <!--                remit specific-->
+        <div class="row mt-1">
+            <div class="col-md-12" *ngIf="isRemitLoan">
+                <hr class="print-line">
+                <p><b class="header"> Financial/ Repayment Ability: Primary Source of Income</b></p>
+                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                    <thead class="sb-bg-dark">
+                    <tr>
+                        <th>Particulars</th>
+                        <th>Summary</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><b>Name of Employee</b></td>
+                        <td>{{this.loanDataHolder.remitCustomer.senderName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Company Name</td>
+                        <td>{{senderDetails.senderEmployment.company_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Address/Contact</td>
+                        <td>{{senderDetails.senderAddress.temp_country + "," + senderDetails.senderAddress.temp_city}}</td>
+                    </tr>
+                    <tr>
+                        <td>Post/Designation</td>
+                        <td>{{senderDetails.senderEmployment.profession_or_position}}</td>
+                    </tr>
+                    <tr>
+                        <td>Years Of Service</td>
+                        <td>{{senderDetails.senderEmployment.employment_period}} months</td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Salary/ Remittance recieved monthly</td>
+                        <td>{{senderDetails.senderEmployment.monthly_salary}}</td>
+                    </tr>
+                    <tr>
+                        <td>Exchange Rate:<br>
+
+                            <b>Date of exchange rate:</b></td>
+                        <td>{{senderDetails.senderEmployment.currency}}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-md-12" *ngIf="isRemitLoan">
+                <hr class="print-line">
+                <p><b class="header">DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
+                <table
+                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <thead class="sb-bg-dark">
+                    <tr>
+                        <td><b>Particular</b></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Monthly Income From Remittance</td>
+                        <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                    </tr>
+                    <tr>
+                        <td>Other Income</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b>Total Monthly Income</b></td>
+                        <td>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderEmployment.monthly_salary}}</td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Obligation on Proposed loan</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Total Monthly Obligation</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>DBR</td>
+                        <td>{{(dbr) ? ((dbr) | number : '1.2-3') : 'N/A'}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--                <>-->
+        <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <p><strong class="header">Detail of Present Proposal of the Facility</strong></p>
+                <table class="table table-bordered text-center table-sm sb-small">
+                    <tbody>
+                    <tr>
+                        <th>Credit Facility</th>
+                        <td>{{loanDataHolder?.loan?.name}}</td>
+
+                        <th>Loan Category</th>
+                        <td>{{loanDataHolder?.loanCategory === 'INDIVIDUAL' ? 'PERSONAL'
+                            : 'BUSINESS'}}</td>
+
+                        <th>Proposed Limit</th>
+                        <td>{{dmsLoanFile?.proposedAmount
+                        || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
+
+                        <th>Interest Rate</th>
+                        <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
+
+                        <th>Tenure Duration In Month</th>
+                        <td>{{(dmsLoanFile?.tenureDuration
+                            || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>Loan Administration Fee</th>
+                        <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                            {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
+                            {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                        </td>
+
+                        <th>FMV Funding Percentage</th>
+                        <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
+
+                        <th>Total FMV</th>
+                        <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
+
+                        <th>Total DV</th>
+                        <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
+
+                        <th>Total Loan Limit</th>
+                        <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <th>Individual Exposure</th>
+                        <td>{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
+
+                        <th>Group Exposure</th>
+                        <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
+
+                        <th>Interest Coverage Ratio
+                        </th>
+                        <td>{{dmsLoanFile?.incomeCoverageRatio}}</td>
+
+                    </tr>
+                    <tr>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <p><strong class="header">Security Offered</strong></p>
+                <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
+                    . {{Security[security]}}&nbsp;&nbsp;</label>
+                </p>
+            </div>
+        </div>
+
+        <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+            <div class="col-md-12">
+                <p><strong class="header">Recommendation and Conclusion</strong></p>
+                <p class="border text-justify p-1">
+                    {{dmsLoanFile?.recommendationConclusion}}
+                </p>
+            </div>
+        </div>
+
+        <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
+            <div class="col-md-12">
+                <p><strong class="header">Waiver</strong></p>
+                <p class="border text-justify p-1">
+                    {{dmsLoanFile?.waiver}}
+                </p>
+            </div>
+        </div>
+        <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-dark text-white">
+                    <th class="header">Within Limit Remarks (if any)</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-dark text-white">
+                    <th class="header">Within Limit Remarks (if any)</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="loanDataHolder?.companyInfo?.accountStrategy">
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-dark text-white">
+                    <th class="header">Account Strategy</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.accountStrategy}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <p><strong class="header text-left">Purpose of Loan: </strong></p>
+                <table class="table table-borderless table-responsive">
+                    <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                        <tr>
+                            <td>
+                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="print-only">
+            <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
+                <div class="col-md-12">
+                    <p><strong class="header">Loan Documents</strong></p>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Document</th>
+                            <th>Checked</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
+                            <td>
+                                <i class="fas fa-check" *ngIf="singleDoc?.documentPath"></i>
+                                <i class="fas fa-times" *ngIf="!singleDoc?.documentPath"></i></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
+            <hr>
+            <p class="header"><strong class="header">Credit Risk Grading</strong></p>
+            <table
+                    class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>Credit Risk Grading (Flavour)</th>
+                    <th>Credit Risk Grade</th>
+                    <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
+                    <th>Credit Risk Score</th>
+                    <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngIf="creditRiskLambdaSummary">
+                    <td class="text-left pl-1">Lambda</td>
+                    <td><span
+                            [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
+                    </td>
+                    <td><span
+                            [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
+                    </td>
+                    <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
+                    <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
+                </tr>
+                <tr *ngIf="crgGammaSummary">
+                    <td class="text-left pl-1">Gamma</td>
+                    <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
+                    <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </ng-container>
+            <hr class="print-line">
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p><strong class="header">Authority Section</strong></p>
+                    <table
+                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <thead>
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>Date</th>
+                            <th>From User</th>
+
+                            <th>To User</th>
+
+                            <th>Status</th>
+                            <th class="cmt-width">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td class="text-left pl-1">
+                                {{previousList?.lastModifiedAt | date}}
+                                ({{previousList?.lastModifiedAt | engNepDate: false}})
+                            </td>
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{previousList?.fromUser?.name}}</div>
+                                <div class="pl-1">
+                                    <span>({{previousList?.fromRole?.roleName}})</span>
+                                </div>
+                            </td>
+
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{previousList?.toUser?.name}}</div>
+                                <div class="pl-1">
+                                    ({{previousList?.toRole?.roleName}})
+                                </div>
+                            </td>
+
+                            <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
+                            <td class="text-left">
+                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                    previousList?.comment?.length > 50 ?
+                                    previousList?.comment?.substring(0, 49) :
+                                    previousList?.comment)">
+                                </div>
+                                <a (click)="open(previousList?.comment)"
+                                   *ngIf="previousList?.comment?.length > 50"
+                                   class="text-left pl-1 disable-print">read more ....</a>
+                                <div>
+                                    <span class="pl-1 print-only justify-content"
+                                          [innerHTML]="previousList?.comment | safeHtml"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{currentIndex + 1}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
+                            </td>
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                                <div class="pl-1">
+                                    <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                                </div>
+                            </td>
+
+                            <td class="text-left">
+                                <div class="pl-1">
+                                    {{loanDataHolder?.currentStage?.toUser?.name}}</div>
+                                <div class="pl-1">
+                                    <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                                </div>
+                            </td>
+
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
+                            <td class="text-left">
+                                <div class="pl-1 disable-print">
+                                    <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
+                                    loanDataHolder?.currentStage?.comment)"></span>
+                                </div>
+                                <a (click)="open(loanDataHolder.currentStage.comment)"
+                                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                                   class="text-left pl-1 disable-print">read more ....</a>
+                                <div>
+                                    <span class="pl-1 print-only text-justify pr-1"
+                                          [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
+                 id="signatureDiv">
+                <hr class="print-line">
+                <div class="col-md-12 print-only">
+                    <p><strong class="header">Approval Chain</strong></p>
+                </div>
+                <div *ngFor="let previous of signatureList; let i=index;"
+                     class="col-md-2 padding-0-125">
+                    <div class="signature-block">
+                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
+                        </div>
+                        <hr class="border-dark m-0">
+                        <div class="row justify-content-center signature mx-auto">
+                            <div class="print-only signature-padding"></div>
+                            <img align="middle" alt="signature"
+                                 class="img-thumbnail border-0 signature-height signature-width"
+                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
+                        </div>
+                        <div class="text-center signature-detail sb-bg-secondary text-white">
+                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                            <p class="m-0 sb-small">
+                                ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
+                                )</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
+                                ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Site Visit -->
+            <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                                 [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                                 [loanDataHolder]="loanDataHolder"
+                                 [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
+
+            <br>
+        </div>
+    </div>
+</section>

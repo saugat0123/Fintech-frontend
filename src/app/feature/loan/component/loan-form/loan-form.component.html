@@ -94,8 +94,8 @@
     </nb-card-header>
     <nb-card-body [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerMessage="Please Wait....">
         <section *ngIf="loanDocument && templateList">
-            <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
-                <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
+            <ngb-tabset [destroyOnHide]="false" #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
+                <ngb-tab  *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)" [disabled]="isBlackListed">
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
                         <div class="py-4">
@@ -163,8 +163,8 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
                         <div class="py-4">
-                            <app-security-adder #shareSecurity (saveShareSecurity)="updateSecurityList($event)" [security]="loanHolder?.security"
-                                                [shareSecurityData]="loanHolder?.shareSecurity"></app-security-adder>
+                            <app-security-adder #securityAdderComponent [customerInfo]="loanHolder"
+                                                 [loanHolder]="loanDocument" [proposedAmount]="loanDocument?.proposal?.proposedLimit"></app-security-adder>
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Loan Document'">
@@ -233,7 +233,9 @@
                                                 *ngIf="loanHolder?.insurance"></app-insurance-view>
                         </div>
                     </ng-template>
-
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Financial/Account Information'">
+                        <app-financial-account-information #financialAccountDetail [financialFormValue]="loanDocument" [fromLoan]="true"></app-financial-account-information>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 

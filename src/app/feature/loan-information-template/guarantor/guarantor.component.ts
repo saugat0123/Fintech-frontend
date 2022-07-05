@@ -19,6 +19,8 @@ import {Gender} from '../../../@core/model/enum/gender';
 import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
 import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {DesignationList} from '../../loan/model/designationList';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-guarantor',
@@ -60,6 +62,10 @@ export class GuarantorComponent implements OnInit {
   question = ['Yes', 'No'];
   designationList = [];
   spinner = false;
+  designation;
+  designationLists: DesignationList = new DesignationList();
+
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -71,6 +77,7 @@ export class GuarantorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.designation = this.designationLists.designation;
     this.buildForm();
     this.getProvince();
     this.getAllDistrict();
@@ -111,6 +118,15 @@ export class GuarantorComponent implements OnInit {
         this.setJsonData(this.jsonData, index);
         this.legalChange(v.consentOfLegalHeirs, index);
         this.checkSameAddress = v.checkSameAddress;
+        const promoterData = JSON.parse(v.promoterData);
+        if (!ObjectUtil.isEmpty(promoterData)) {
+          promoterData.background.forEach(d => {
+            this.addBackground(index, d);
+          });
+          promoterData.familyDetails.forEach(d => {
+            this.addFamily(index, d);
+          });
+        }
       });
     }
   }
@@ -215,10 +231,10 @@ export class GuarantorComponent implements OnInit {
       fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
       background: [ObjectUtil.setUndefinedIfNull(data.background)],
+      successionPlanning: [ObjectUtil.setUndefinedIfNull(data.successionPlanning)],
       guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
         Validators.required],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
-      gender: [undefined],
       passNumber: [undefined],
       // passIssueDate: [
       //   ObjectUtil.isEmpty(data.guarantorJson) ? undefined : new Date(data.guarantorJson), Validators.required,
@@ -234,7 +250,6 @@ export class GuarantorComponent implements OnInit {
       nationality: [undefined],
       email: [undefined],
       shareHolding: [undefined],
-      guarantor: [undefined],
       managementTeam: [undefined],
       managementDesignation: [undefined],
       boardDirector: [undefined],
@@ -253,7 +268,38 @@ export class GuarantorComponent implements OnInit {
       registrationDate: [undefined],
       registrationWith: [undefined],
       groupName: [undefined],
+      guarantorType: [ObjectUtil.isEmpty(data.guarantorType) ? undefined : data.guarantorType],
+      promoterData: this.formBuilder.group({
+        background: this.formBuilder.array([]),
+        familyDetails: this.formBuilder.array([])
+      }),
+      groupBackground: [ObjectUtil.isEmpty(data.groupBackground) ? undefined : data.groupBackground]
     });
+  }
+
+  addBackground(i: number, data ?) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('background') as FormArray).push(this.formBuilder.group({
+      previousAssociations: [data ? data.previousAssociations : undefined],
+      natureOfBusiness: [data ? data.natureOfBusiness : undefined],
+      capacity: [data ? data.capacity : undefined],
+      tenure: [data ? new Date(data.tenure) : undefined],
+    }));
+  }
+
+  removeBackground(i: number, j: number) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('background') as FormArray).removeAt(j);
+  }
+  addFamily(i: number, data ?) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('familyDetails') as FormArray).push(this.formBuilder.group({
+      name: [data ? data.name : undefined],
+      relation: [data ? data.relation : undefined],
+      age: [data ? data.age : undefined],
+      profession: [data ? data.profession : undefined],
+    }));
+  }
+
+  removeFamily(i: number, j: number) {
+    ((this.form.get(['guarantorDetails', i, 'promoterData']) as FormGroup).get('familyDetails') as FormArray).removeAt(j);
   }
 
   removeGuarantorDetails(index: number) {
@@ -318,6 +364,7 @@ export class GuarantorComponent implements OnInit {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray['controls'].forEach(c => {
       const guarantor: Guarantor = c.value;
+      guarantor.promoterData = JSON.stringify(c.get('promoterData').value);
       if (!ObjectUtil.isEmpty(c.get('province').value)) {
         const province = new Province();
         province.id = c.get('province').value;
@@ -344,7 +391,6 @@ export class GuarantorComponent implements OnInit {
       Object.keys(submitData).forEach((k) => {
         submitData[k] = this.form.value[k];
       });
-      submitData.gender = c.get('gender').value;
       submitData.passNumber = c.get('passNumber').value;
       submitData.passIssueDate = c.get('passIssueDate').value;
       submitData.passIssuedPlace = c.get('passIssuedPlace').value;
@@ -354,7 +400,6 @@ export class GuarantorComponent implements OnInit {
       submitData.nationality = c.get('nationality').value;
       submitData.email = c.get('email').value;
       submitData.shareHolding = c.get('shareHolding').value;
-      submitData.guarantor = c.get('guarantor').value;
       submitData.managementTeam = c.get('managementTeam').value;
       submitData.managementDesignation = c.get('managementDesignation').value;
       submitData.boardDirector = c.get('boardDirector').value;
@@ -409,6 +454,7 @@ export class GuarantorComponent implements OnInit {
             this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
             // tslint:disable-next-line:max-line-length
             this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
+            this.form.get(['guarantorDetails', i, 'successionPlanning']).patchValue(this.form.get(['guarantorDetails', i, 'successionPlanning']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
                 .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
@@ -433,7 +479,6 @@ export class GuarantorComponent implements OnInit {
     }
 
   setJsonData(data, index: number) {
-    this.form.get(['guarantorDetails', index, 'gender']).patchValue(data.gender);
     this.form.get(['guarantorDetails', index, 'passNumber']).patchValue(data.passNumber);
     this.form.get(['guarantorDetails', index, 'passIssueDate'])
         .patchValue(ObjectUtil.isEmpty(data.passIssueDate) ? undefined : new Date(data.passIssueDate));
@@ -445,7 +490,6 @@ export class GuarantorComponent implements OnInit {
     this.form.get(['guarantorDetails', index, 'nationality']).patchValue(data.nationality);
     this.form.get(['guarantorDetails', index, 'email']).patchValue(data.email);
     this.form.get(['guarantorDetails', index, 'shareHolding']).patchValue(data.shareHolding);
-    this.form.get(['guarantorDetails', index, 'guarantor']).patchValue(data.guarantor);
     this.form.get(['guarantorDetails', index, 'managementTeam']).patchValue(data.managementTeam);
     this.form.get(['guarantorDetails', index, 'managementDesignation']).patchValue(data.managementDesignation);
     this.form.get(['guarantorDetails', index, 'boardDirector']).patchValue(data.boardDirector);
@@ -474,7 +518,6 @@ export class GuarantorComponent implements OnInit {
 
   legalChange(checked, i: number) {
     if (checked) {
-      this.form.get(['guarantorDetails', i, 'gender']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'citizenNumber']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'issuedYear']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'issuedPlace']).patchValue(null);

@@ -290,7 +290,7 @@
                     </ng-container>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12" *ngIf="multiBankingForm.get('isConsortium').value === true">
                     <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-left">
                         <tbody>
                         <tr>
@@ -299,13 +299,6 @@
                                        formControlName="leadBank"
                                        placeholder="Lead Bank"
                                        type="text"/></td>
-                        </tr>
-                        <tr>
-                            <th class="sb-bg-secondary text-white">Financial Information of the Borrower</th>
-                            <td><input class="form-control text-center"
-                                       formControlName="financialInformation"
-                                       placeholder="Financial Information of the Borrower"
-                                       type="number"/></td>
                         </tr>
                         <tr>
                             <th class="sb-bg-secondary text-white">Last Audited Year</th>
@@ -353,25 +346,11 @@
                                 <!--                                <nb-datepicker #appointment></nb-datepicker>-->
                             </td>
                         </tr>
-                        <tr>
-                            <th class="sb-bg-secondary text-white">Consortium Member Banks</th>
-                            <td><input class="form-control text-center"
-                                       formControlName="consortiumMember"
-                                       placeholder="Consortium Member Banks"
-                                       type="text"/></td>
-                        </tr>
-                        <tr>
-                            <th class="sb-bg-secondary text-white">Name of Lender (Other than BFIs)</th>
-                            <td><input class="form-control text-center"
-                                       formControlName="nameOfLeader"
-                                       placeholder="Name of Lender (Other than BFIs)"
-                                       type="text"/></td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12" *ngIf="multiBankingForm.get('isMultiBanking').value === true || multiBankingForm.get('isConsortium').value === true">
                     <div class="form-group">
                         <label for="remark"><strong>Remark</strong></label>
                         <textarea class="form-control" formControlName="remark" id="remark"

@@ -103,11 +103,11 @@
 <!--        <div class="col-md-5">{{companyInfo?.capital?.workingCapital}}</div>-->
 <!--    </div>-->
 
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Number Of Shareholder :</strong></span></div>
-        <div class="col-md-5">{{companyInfo?.capital?.numberOfShareholder | currencyFormatter}}</div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-md-7">-->
+<!--            <span> <strong>Number Of Shareholder :</strong></span></div>-->
+<!--        <div class="col-md-5">{{companyInfo?.capital?.numberOfShareholder | currencyFormatter}}</div>-->
+<!--    </div>-->
 
 <!--    <div class="row">-->
 <!--        <div class="col-md-7">-->
@@ -117,7 +117,7 @@
     <hr/>
 </div>
 
-<nb-card style="overflow-y: scroll; max-height: 150px">
+<ng-container class="bg-light" style="overflow-y: scroll; max-height: 200px">
     <h5>Contact Person Details</h5>
     <ng-container *ngFor="let contactPerson of companyContactPersons">
         <div class="row">
@@ -148,7 +148,7 @@
     <div class="row justify-content-center" *ngIf="companyContactPersons.length === 0">
         <span class="text-danger">No contact found</span>
     </div>
-</nb-card>
+</ng-container>
 
 <div>
     <h5>Company Location Detail</h5>
@@ -169,11 +169,6 @@
         <div class="col-md-7">
             <span> <strong>Address Line 1 :</strong></span></div>
         <div class="col-md-5">{{companyLocationData?.address1}}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Address Line 2 :</strong></span></div>
-        <div class="col-md-5">{{companyLocationData?.address2}}</div>
     </div>
 </div>
 

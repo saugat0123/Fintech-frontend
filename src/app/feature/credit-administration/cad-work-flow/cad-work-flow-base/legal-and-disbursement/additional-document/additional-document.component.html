@@ -5,9 +5,7 @@
                 <div class="float-left"><strong>Additional Documents</strong></div>
                 <div class="float-right">
                     <button
-                            *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
-                              cadData?.docStatus !== 'DISBURSEMENT_PENDING' &&
-                              cadData?.docStatus !== 'DISBURSEMENT_APPROVED'"
+                            *ngIf="cadData?.docStatus !== 'DISBURSEMENT_APPROVED'"
                             nbButton size="small" (click)="openAdd()"><em class="fa fa-plus"></em></button>
                 </div>
             </div>

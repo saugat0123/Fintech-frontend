@@ -13,3 +13,19 @@
   position: absolute;
   top: 30%;
 }
+.fontSize {
+  font-size: 14px;
+  line-height: 40px;
+  margin: 10px 50px;
+  @extend .text-justify;
+}
+.table-border {
+  width: 100%;
+}
+.table-border th,
+.table-border td {
+  border: 1px solid black;
+}
+.font14 {
+  font-size: 14px;
+}

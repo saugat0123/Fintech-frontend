@@ -44,7 +44,6 @@ export class CommonAddressComponent implements OnInit {
       municipalityVdc : [undefined , Validators.required],
       ward : [undefined , Validators.required] ,
       address1 : [undefined],
-      address2 : [undefined]
     });
   }
 

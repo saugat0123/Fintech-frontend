@@ -13,14 +13,18 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
-import {SecurityApprovedViewComponent} from '../loan-information-view/security-approved-view/security-approved-view.component';
 import {DbrModule} from '../dbr/dbr.module';
+import { DetailViewOfIndividualComponent } from './detail-view-of-individual/detail-view-of-individual.component';
+import { DetailViewOfInstitutionalComponent } from './detail-view-of-institutional/detail-view-of-institutional.component';
+import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
+import {VideoKycModule} from '../video-kyc/video-kyc.module';
+import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent, SecurityApprovedViewComponent],
+    declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent, DetailViewOfIndividualComponent, DetailViewOfInstitutionalComponent],
     exports: [
-        SecurityApprovedViewComponent
+        DetailViewOfIndividualComponent, DetailViewOfInstitutionalComponent
     ],
     imports: [
         CommonModule,
@@ -36,6 +40,9 @@ import {DbrModule} from '../dbr/dbr.module';
         CbsGroupModule,
         NepaliPatroModule,
         DbrModule,
+        ProductPaperModule,
+        VideoKycModule,
+        SecurityViewModule,
 
     ]
 })

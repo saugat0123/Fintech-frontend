@@ -68,4 +68,27 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadExcel`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+    public resetSecurity(parentId: number, id: number, customerInfoId: number) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/security/reset?parentId=${parentId}&id=${id}&customerInfoId=${customerInfoId}`);
+        return this.http.delete(req.url, {headers: req.header});
+    }
+
+    public unLinkSecurity(id: number, status) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/security/unlink?id=${id}&status=${status}`);
+        return this.http.put(req.url, {}, {headers: req.header});
+    }
+
+    public getAllCustomerByGroupCode(groupCode: string): Observable<any> {
+        const api = `${this.getApi()}/group-code/${groupCode}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public saveSiteVisitDataWithDocument(siteVisit: FormData): Observable<any> {
+        const api = `${this.getApi()}/save/all/siteVisit`;
+        const req = ApiUtils.getRequestWithFileSupport(api);
+
+        return this.http.post(req.url, siteVisit, {headers: req.header});
+    }
 }

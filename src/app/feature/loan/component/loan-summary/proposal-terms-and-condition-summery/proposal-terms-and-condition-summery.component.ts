@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {LoanDataHolder} from '../../../model/loanData';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-proposal-terms-and-condition-summery',
@@ -20,11 +21,16 @@ export class ProposalTermsAndConditionSummeryComponent implements OnInit, OnChan
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.customerAllLoanList.forEach((d) => {
-      if (JSON.parse(d.proposal.checkedData).debtChecked) {
-        this.checked = true;
-      }
-    });
+    this.customerAllLoanList = this.customerAllLoanList.filter((d) => d.documentStatus.toString() !== 'APPROVED');
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.customerAllLoanList.forEach((d) => {
+        if (!ObjectUtil.isEmpty(d.proposal.checkedData)) {
+          if (JSON.parse(d.proposal.checkedData).debtChecked) {
+            this.checked = true;
+          }
+        }
+      });
+    }
   }
 
 }

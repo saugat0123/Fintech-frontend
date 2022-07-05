@@ -15,11 +15,14 @@ export class SecurityScheduleComponent implements OnInit {
     }
 
     @Input() loanDataHolder: LoanDataHolder;
+    @Input() customerAllLoanList: LoanDataHolder[];
     securityData: Security;
     files;
     fixedAssets: number;
     proposal: Proposal;
     loanToSecurity: number;
+    totalSecurity = 0;
+    totalProposedLimit = 0;
 
     ngOnInit() {
         this.proposal = this.loanDataHolder.proposal;
@@ -28,19 +31,25 @@ export class SecurityScheduleComponent implements OnInit {
                 this.files = JSON.parse(JSON.parse(this.proposal.data).files);
             }
         }
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.securities) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
-                let total = 0;
-                console.log('this is combine loan', this.loanDataHolder.combinedLoan);
-                this.loanDataHolder.combinedLoan.loans.forEach((d) => {
-                    total += d.proposal.proposedLimit;
+                this.customerAllLoanList.forEach((d) => {
+                    if(d.combinedLoan && (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'HSOV_PENDING' || d.documentStatus.toString() === 'DUAL_APPROVAL_PENDING')) {
+                    this.totalProposedLimit += d.proposal.proposedLimit;
+                    }
+                    d.securityLoanReferences.forEach((s) => {
+                        this.totalSecurity += s.usedAmount;
+                    });
                 });
-                this.loanToSecurity = (total / this.loanDataHolder.security.totalSecurityAmount);
+                this.loanToSecurity = (this.totalProposedLimit / this.totalSecurity);
             } else {
-              this.loanToSecurity = (this.loanDataHolder.proposal.proposedLimit / this.loanDataHolder.security.totalSecurityAmount);
-
+                this.loanDataHolder.securityLoanReferences.forEach((d) => {
+                    this.totalSecurity += d.usedAmount;
+                });
+                this.totalProposedLimit = this.loanDataHolder.proposal.proposedLimit;
+                this.loanToSecurity = (this.totalProposedLimit / this.totalSecurity);
             }
-            this.fixedAssets = this.loanDataHolder.security.totalSecurityAmount - Number((JSON.parse(this.proposal.data).proposedLimit));
+            this.fixedAssets = this.totalSecurity - Number(this.totalProposedLimit);
             if (this.fixedAssets < 0) {
                 this.fixedAssets = Math.abs(this.fixedAssets);
             } else {

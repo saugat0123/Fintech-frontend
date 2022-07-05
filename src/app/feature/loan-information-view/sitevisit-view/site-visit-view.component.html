@@ -1,4 +1,4 @@
-<p><b>Site Visit</b></p>
+<p class="header"><b class="header">Site Visit</b></p>
 <p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -49,62 +49,249 @@
     </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
-<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold small">Business Site Visit</p>
+<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold"><strong class="header">Business Inspection Report</strong></p>
+<!--<table *ngIf="formData['businessSiteVisitFormChecked'] === true"-->
+<!--       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
+<!--    <tr class="text-white sb-bg-dark">-->
+<!--        <th>Person Contacted</th>-->
+<!--        <th>Office Address</th>-->
+<!--        <th>Ward</th>-->
+<!--        <th>Address Line 1</th>-->
+<!--        <th>Address Line 2</th>-->
+<!--        <th>Date of Visit(AD/BS)</th>-->
+<!--        <th>Objective of Visit</th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>-->
+<!--        <td class="text-left pl-1">-->
+<!--            {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},-->
+<!--            {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},-->
+<!--            {{formData['businessSiteVisitDetails']['officeAddress']?.municipalityVdc?.name}},-->
+<!--        </td>-->
+<!--        <td class="text-right pr-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>-->
+<!--        <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>-->
+<!--        <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>-->
+<!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</td>-->
+<!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>-->
+<!--    </tr>-->
+<!--    <tr class="text-white sb-bg-dark">-->
+
+<!--    </tr>-->
+<!--    <tr>-->
+
+<!--    </tr>-->
+<!--    <tr class="text-white sb-bg-dark">-->
+<!--        <th>Staff Representative Designation 1</th>-->
+<!--        <th>Staff Representative Name 1</th>-->
+<!--        <th>Staff Representative Designation 2</th>-->
+<!--        <th>Staff Representative Name 2</th>-->
+<!--        <th>Longitude</th>-->
+<!--        <th>Latitude</th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>-->
+<!--        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>-->
+<!--        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation2}}</td>-->
+<!--        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName2}}</td>-->
+<!--        <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLongitude']}}</td>-->
+<!--        <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLatitude']}}</td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<table *ngIf="formData['businessSiteVisitFormChecked'] === true"-->
+<!--       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
+
+<!--    <tr class="text-white sb-bg-dark">-->
+<!--        <th>Comment & Finding</th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>-->
+<!--    </tr>-->
+<!--</table>-->
+<p class="font-weight-bold">Date: </p>
+<p class="font-weight-bold">Unit: {{formData['businessSiteVisitDetails']['unit']}}</p>
+<p class="font-weight-bold">Date of inspection: {{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</p>
+<p class="font-weight-bold">Inspected by: {{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</p>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+    class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
-        <th>Person Contacted</th>
-        <th>Office Address</th>
-        <th>Ward</th>
-        <th>Address Line 1</th>
-        <th>Address Line 2</th>
-        <th>Date of Visit(AD/BS)</th>
-        <th>Objective of Visit</th>
+        <th>1. Facilities and Utilization (as on inspection date)</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
-        <td class="text-left pl-1">
-            {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
+        <td>
+            <p class="text-right">(Amounts in NPR ‘000s)</p>
+                <table  class="table table-bordered table-responsive-md text-center">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Facilities</th>
+                        <th>Limit</th>
+                        <th>Outstanding</th>
+                        <th>Remarks</th>
+                    </tr>
+                    <tr class="text-left" *ngFor="let loan of customerAllLoanList, let i = index">
+                        <td>{{ loan?.loan?.name }}</td>
+                        <td>Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</td>
+                        <td>{{(loan?.proposal?.data | jsonParse)?.remarks}}</td>
+                    </tr>
+                    <tr class="sb-bg-secondary text-white text-left">
+                        <td>Total</td>
+                        <td>Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+        </td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th>2. Latest Valuation of Net Trading Assets: (as on inspection date)</th>
+    </tr>
+    <tr>
+        <td>
+            <table class="table table-bordered table-responsive-md text-center">
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Insured item</th>
+                    <th>Insurance Coverage</th>
+                    <th>Insured Amount</th>
+                    <th>Insurance Validity</th>
+                    <th>Insurance Company</th>
+                    <th>Endorsement</th>
+                </tr>
+                <tbody *ngFor="let insurance of insuranceData; let i= index">
+                <tr class="text-left">
+                    <td>{{i+1}}.</td>
+                    <td>{{insurance?.assetInsured}}</td>
+                    <td>{{insurance.policyType}}</td>
+                    <td>Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
+                    <td>{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
+                    <td>{{insurance?.company}}</td>
+                    <td>{{insurance?.endorsement}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="text-left">Are the policies solely endorsed to us? Yes/No</p>
+        </td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th>3. Insurance of Stock and Fixed Assets (including collateral assets)</th>
+    </tr>
+    <tr>
+        <td>
+            <table class="table table-bordered table-responsive-md text-center">
+                <tr class="text-white sb-bg-dark">
+                    <th>Particulars</th>
+                    <th>Amount (NPR ‘000s)</th>
+                </tr>
+                <tr class="text-left">
+                    <td>Inventory (A)</td>
+                    <td>{{formData['businessSiteVisitDetails']['inventory']}}</td>
+                </tr>
+                <tr class="text-left">
+                    <td>Accounts Receivable (B)</td>
+                    <td>{{formData['businessSiteVisitDetails']['accountsReceivable']}}</td>
+                </tr>
+                <tr class="text-left">
+                    <td>Accounts Payable (C)</td>
+                    <td>{{formData['businessSiteVisitDetails']['accountsPayable']}}</td>
+                </tr>
+                <tr class="text-left">
+                    <td>Net Trading Assets (A+B-C)</td>
+                    <td>{{formData['businessSiteVisitDetails']['businessNetTradingAssets']}}</td>
+                </tr>
+                <tr class="text-left">
+                    <td>Proposed Limit as % of NTA</td>
+                    <td>{{formData['businessSiteVisitDetails']['proposedLimitNta']}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>4. Location of Unit/Goods: {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
             {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},
             {{formData['businessSiteVisitDetails']['officeAddress']?.municipalityVdc?.name}},
+            {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            <p>5. Premises, where goods are stored is (are)	: {{formData['businessSiteVisitDetails']['premises']}}<br>
+             If rented, Rent Payment Current	    : {{formData['businessSiteVisitDetails']['rentPayment']}}<br>
+             Rent Receipt Shown	                : {{formData['businessSiteVisitDetails']['rentReceipt']}}</p>
         </td>
-        <td class="text-right pr-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
-        <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>
-        <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
-
+    <tr class="text-left">
+        <td>6. All the goods belong to the borrower and that none are held on account of third parties (on consignment or otherwise).
+            {{formData['businessSiteVisitDetails']['borrowerRadio']}}
+        </td>
     </tr>
-    <tr>
-
+    <tr class="text-left">
+        <td>
+            7. Valuation does not include any goods released under T/R and/or against acceptance.
+            {{formData['businessSiteVisitDetails']['valuationRadio']}}
+        </td>
     </tr>
-    <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
-        <th>Longitude</th>
-        <th>Latitude</th>
+    <tr class="text-left">
+        <td>
+            8. Was there evidence of any other bank or party being interested in the goods hypothecated to the Bank?  {{formData['businessSiteVisitDetails']['evidenceRadio']}}
+            If, yes mention the names of banks/other parties. {{formData['businessSiteVisitDetails']['nameOfBank']}}
+        </td>
     </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName2}}</td>
-        <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLongitude']}}</td>
-        <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLatitude']}}</td>
+    <tr class="text-left">
+        <td>
+            9. Was the security in order?
+            {{formData['businessSiteVisitDetails']['securityRadio']}}
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            10. Are the stock registers up-to-date?
+            {{formData['businessSiteVisitDetails']['stockRadio']}}
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            11. Are firefighting arrangements in evidence?
+            {{formData['businessSiteVisitDetails']['fireFightingRadio']}}
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            12. Is the building / go-down / store in good condition?
+            {{formData['businessSiteVisitDetails']['buildingRadio']}}
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            13. Are goods of a hazardous nature stored on the premises?
+            {{formData['businessSiteVisitDetails']['hazardousRadio']}}
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            14. Factors of environment & social risk assessed during the inspection? {{formData['businessSiteVisitDetails']['environmentRadio']}}
+            Remarks/updates, if any: {{formData['businessSiteVisitDetails']['remarksUpdates']}}
+        </td>
+    </tr>
+    <tr class="text-left">
+        <td>
+            Remarks (If any): {{formData['businessSiteVisitDetails']['remarksIfAny']}}
+        </td>
     </tr>
 </table>
-<table *ngIf="formData['businessSiteVisitFormChecked'] === true"
-       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-
-    <tr class="text-white sb-bg-dark">
-        <th>Comment & Finding</th>
+<table class="table table-borderless table-responsive-md text-center">
+    <tr class="text-left">
+        <td>------------------------------</td>
+        <td>------------------------------</td>
     </tr>
-    <tr>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
+    <tr class="text-left">
+        <td>Inspected by</td>
+        <td>Reviewed by</td>
+    </tr>
+    <tr class="text-left">
+        <td>Name:</td>
+        <td>Name:</td>
+    </tr>
+    <tr class="text-left">
+        <td>Designation:</td>
+        <td>Designation:</td>
     </tr>
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
