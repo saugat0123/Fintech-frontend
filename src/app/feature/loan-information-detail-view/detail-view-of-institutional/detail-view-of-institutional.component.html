@@ -1,11 +1,12 @@
+<!--     Group Summary Sheet    -->
+<app-group-summary-sheet-view *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+
 <ng-container *ngIf="proposalData?.data !== null">
         <app-proposal-view *ngIf="loanDataHolder?.proposal"
                            [customerAllLoanList]="customerAllLoanList"
                            [proposalData]="proposalData"
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </ng-container>
-<!--     Group Summary Sheet    -->
-<app-group-summary-sheet-view [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
 <!--                release and replacement-->
 <ng-container *ngIf="loanDataHolder?.securities?.length > 0">
 <!--                    proposed security-->
@@ -15,6 +16,10 @@
     <!--                    existing security-->
     <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList"></app-security-detail-view>
 </ng-container>
+<!-- Customer Share Security  -->
+<app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+</app-customer-share-detail-view>
 <app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 

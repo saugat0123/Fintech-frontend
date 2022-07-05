@@ -10,6 +10,7 @@
     <nb-card-body>
         <form [formGroup]="commonLoanData">
             <div class="row">
+                <ng-container *ngIf="customerInfo.customerType === 'INSTITUTION'">
                 <div class="col-md-12">
                     <div class="form-group">
                         <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
@@ -41,6 +42,7 @@
                                 name="repayment"></ckeditor>
                     </div>
                 </div>
+                </ng-container>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="title" for="remark">
@@ -219,6 +221,9 @@
                         </table>
 
                     </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <app-cad-file-setup  #cadSetup [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>
                 </div>
             </div>
         </form>

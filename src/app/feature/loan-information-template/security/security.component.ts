@@ -20,7 +20,6 @@ import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
-import {ToastService} from '../../../@core/utils';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecuritiesType} from '../../constants/securities-type';
 import {PlantMachineryComponent} from './plant-machinery/plant-machinery.component';
@@ -29,9 +28,6 @@ import {ApartmentComponent} from './apartment/apartment.component';
 import {LandBuildingComponent} from './land-building/land-building.component';
 import {FixedDepositComponent} from './fixed-deposit/fixed-deposit.component';
 import {HypothecationOfStockComponent} from './hypothecation-of-stock/hypothecation-of-stock.component';
-import {
-    CorporateGuranteeComponent
-} from '../../credit-administration/cad-document-template/laxmi/laxmi-offer-letter/corporate-guarantee/corporate-gurantee.component';
 import {PersonalGuaranteeComponent} from './personal-guarantee/personal-guarantee.component';
 import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
@@ -165,6 +161,8 @@ export class SecurityComponent implements OnInit {
     selectedSecurity: string;
 
     securityTypes = SecuritiesType.enumObject();
+    isApprovedSecurity = false;
+    newSecurity = false;
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -209,6 +207,9 @@ export class SecurityComponent implements OnInit {
     }
 
     change(arraySelected) {
+        if (!this.isEdit) {
+            this.newSecurity  = true;
+        }
         const selectedSecurity = [];
         selectedSecurity.push(arraySelected);
         this.securityInitialState();
@@ -393,60 +394,6 @@ export class SecurityComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        // if (this.securityForm.invalid) {
-        //     return;
-        // }
-        // if (this.initialSecurity.selectedSecurity === undefined) {
-        //     this.initialSecurity.clearValidationAtInitialStage();
-        // }
-        // if (this.initialSecurity.securityForm.invalid) {
-        //     this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
-        //     return;
-        // }
-        // if (!ObjectUtil.isEmpty(this.securityValue)) {
-        //     this.securityData = this.securityValue;
-        // }
-        // this.initialSecurity.submit();
-
-        // this.securityData.guarantor = [];
-        // this.initialSecurity.selectedArray.forEach((selected) => {
-        //     if (selected === 'ShareSecurity') {
-        //         this.shareSecuritySelected = true;
-        //     }
-        // });
-        // if (this.shareSecuritySelected) {
-        //     this.securityData.templateName = TemplateName.SHARE_SECURITY;
-        //     this.shareSecurityData = this.initialSecurity.shareSecurityData;
-        //     this.securityData.share = this.shareSecurityData;
-        // }
-        // let guarantorIndex = 0;
-        // while (guarantorIndex < this.getGuarantor().length) {
-        //     const guarantor = new Guarantor();
-        //     guarantor.id = this.getGuarantor()[guarantorIndex].id;
-        //     guarantor.version = this.getGuarantor()[guarantorIndex].version;
-        //     guarantor.name = this.getGuarantor()[guarantorIndex].name;
-        //     guarantor.citizenNumber = this.getGuarantor()[guarantorIndex].citizenNumber;
-        //     guarantor.issuedYear = this.getGuarantor()[guarantorIndex].issuedYear;
-        //     guarantor.issuedPlace = this.getGuarantor()[guarantorIndex].issuedPlace;
-        //     guarantor.fatherName = this.getGuarantor()[guarantorIndex].fatherName;
-        //     guarantor.grandFatherName = this.getGuarantor()[guarantorIndex].grandFatherName;
-        //     guarantor.relationship = this.getGuarantor()[guarantorIndex].relationship;
-        //     guarantor.contactNumber = this.getGuarantor()[guarantorIndex].contactNumber;
-        //     if (!ObjectUtil.isEmpty(this.getGuarantor()[guarantorIndex].province)) {
-        //         const province = new Province();
-        //         province.id = this.getGuarantor()[guarantorIndex].province;
-        //         guarantor.province = province;
-        //         const district = new District();
-        //         district.id = this.getGuarantor()[guarantorIndex].district;
-        //         guarantor.district = district;
-        //         const municipalityVdc = new MunicipalityVdc();
-        //         municipalityVdc.id = this.getGuarantor()[guarantorIndex].municipalities;
-        //         guarantor.municipalities = municipalityVdc;
-        //     }
-        //     guarantorIndex++;
-        //     this.securityData.guarantor.push(guarantor);
-        // }
-
         if (this.vehicleSelected) {
             const vehicleData = this.vehicleSecurity.vehicleForm.value.vehicleDetails;
             const securities = this.constructSecurityArray(vehicleData, 'VEHICLE_SECURITY');
@@ -479,8 +426,12 @@ export class SecurityComponent implements OnInit {
         }
          if (this.shareSelected) {
             const shareData = this.shareSecurityComponent.shareSecurityForm.value.shareSecurityDetails;
-            const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
-            this.securityDataEmitter.emit(securities);
+            // const securities = this.constructSecurityArray(shareData, 'SHARE_SECURITY');
+             const security = new Security();
+             security.securityType = SecuritiesType.SHARE_SECURITY;
+             security.data = JSON.stringify(this.shareSecurityComponent.customerShareBatch);
+            // const securities = this.shareSecurityComponent.customerShareBatch;
+            this.securityDataEmitter.emit(security);
         }
         if (this.hypothecationOfStockSelected) {
             const hypothecationOfStockData = this.hypothecationSecurity.hypothecationForm.value.hypothecationOfStock;
@@ -527,6 +478,9 @@ export class SecurityComponent implements OnInit {
                 security.id = this.securityValue.id;
                 security.version = this.securityValue.version;
                 security.status = this.securityValue.status;
+            }
+            if (this.isApprovedSecurity) {
+                security.approved = true;
             }
             security.data = JSON.stringify(value);
             security.fairMarketValue = value.fairMarketValue;
@@ -589,6 +543,13 @@ export class SecurityComponent implements OnInit {
     public onEmitRefresh(event): void {
         if (event) {
             this.refreshEmitter.emit(true);
+        }
+    }
+
+    public onEditShareSecurity(event: any): void {
+        if (!ObjectUtil.isEmpty(event)) {
+            this.isEdit = true;
+            this.change('SHARE_SECURITY');
         }
     }
 }
