@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../../../../@core/BaseService';
 import {Message} from '../model/message';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Status} from '../../../../@core/Status';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
 
 @Injectable({
     providedIn: 'root'
@@ -49,4 +50,21 @@ export class NotificationService extends BaseService<Message> {
         });
     }
 
+    public deleteMessageById(id: number): Observable<void> {
+        const api = `${this.getApi()}/mark-deleted/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.put<void>(req.url , id,{headers: req.header})
+    }
+
+    public deleteAllMessage(id: number): Observable<void> {
+        const api = `${this.getApi()}/mark-delete/all/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.put<void>(req.url ,id, {headers: req.header})
+    }
+
+    public getAllNotification(id: number, page: number, size: number): Observable<any> {
+        const api = `${this.getApi()}/all/notification?page=${page}&size=${size}&id=${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url , {headers: req.header})
+    }
 }
