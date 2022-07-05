@@ -6205,7 +6205,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             this.userConfigForm.get('citizenshipIssueDistrict').patchValue(this.fetchedCustomerDetails.citizenshipIssuedPlace);
             this.userConfigForm.get('dobDateType').patchValue('AD');
             this.userConfigForm.get('dob').patchValue(this.fetchedCustomerDetails.dob);
-            this.userConfigForm.get('gender').patchValue(this.fetchedCustomerDetails.gender.toUpperCase());
+            const genderData = !ObjectUtil.isEmpty(this.fetchedCustomerDetails.gender) ?
+                this.fetchedCustomerDetails.gender.toUpperCase() : '';
+            this.userConfigForm.get('gender').patchValue(genderData);
             this.userConfigForm.get('customerCode').patchValue(this.fetchedCustomerDetails.customerCode);
             this.userConfigForm.get('fatherName').patchValue(this.fetchedCustomerDetails.fatherName);
             this.userConfigForm.get('grandFatherName').patchValue(this.fetchedCustomerDetails.grandFatherName);
