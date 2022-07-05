@@ -84,13 +84,6 @@ export class SecuritySummaryComponent implements OnInit {
             this.formData = JSON.parse(this.security.data);
         }
         if (this.formData['selectedArray'] !== undefined) {
-            // land security
-            this.formData['selectedArray'].filter(f => {
-                if (f.indexOf('LandSecurity') !== -1) {
-                    this.showTitle = true;
-                    this.landSelected = true;
-                }
-            });
             if (this.formData['initialForm'] !== undefined) {
                 const landDetail = this.formData['initialForm']['landDetails'];
                 landDetail.forEach((d, i) => {
@@ -368,6 +361,14 @@ export class SecuritySummaryComponent implements OnInit {
                     }
                 });
             }
+
+            // land security
+            this.formData['selectedArray'].filter(f => {
+                if (f.indexOf('LandSecurity') !== -1) {
+                    this.showTitle = true;
+                    this.landSelected = true;
+                }
+            });
 
             // apartment security
             this.formData['selectedArray'].filter(f => {
