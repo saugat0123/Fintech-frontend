@@ -1,7 +1,7 @@
 <!--Apartment Security-->
 <nb-card class="p-5">
     <form [formGroup]="apartmentForm">
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-3">
                 <div class="form-group">
                     <nb-checkbox (change)="underConstruction($event.target.checked)"
@@ -10,7 +10,7 @@
                     </nb-checkbox>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="box-header with-border">
             <h2 class="box-title title">Apartment Details</h2>
         </div>
@@ -244,7 +244,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="distressValue">Distress Value</label>
                                     <input class="form-control rounded"
@@ -253,7 +253,7 @@
                                            name="distressValue" placeholder="Distress Value"
                                            type="text" appDecimalNumber/>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="buildingDistressValue">Apartment Market Value</label>
@@ -448,16 +448,15 @@
                    value="Add Apartment"/>
         </div>
         <div class="row">
-            <div class="form-group">
-                <label class="title ml-3" for="buildingDetailsDescription">Apartment Details
-                    Description</label>
+            <div class="col-md-12 form-group">
+                <label class="title ml-3" for="buildingDetailsDescription">Remarks of apartment</label>
                 <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
                           id="buildingDetailsDescription"
-                          placeholder="Apartment Details Description"
+                          placeholder="Remarks of apartment"
                           rows="5"></textarea>
             </div>
         </div>
-        <div [hidden]="!underConstructionChecked">
+        <!--<div [hidden]="!underConstructionChecked">
             <div *ngFor="let building of apartmentForm.get('buildingUnderConstructions')['controls']; let i = index"
                  class="font-weight-bold"
                  formArrayName="buildingUnderConstructions">
@@ -800,6 +799,6 @@
                        type="button"
                        value="Add Apartment"/>
             </div>
-        </div>
+        </div>-->
     </form>
 </nb-card>
