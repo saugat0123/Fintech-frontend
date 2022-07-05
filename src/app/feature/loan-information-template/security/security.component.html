@@ -49,7 +49,7 @@
         <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"
                   [security]="securityValue" [isEdit]="isEdit"></app-land>
         <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"
-                           [security]="securityValue" [isEdit]="isEdit"></app-land-building>
+                           [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-land-building>
         <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"
                              [security]="securityValue" [isEdit]="isEdit"></app-plant-machinery>
         <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
