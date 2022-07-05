@@ -23,6 +23,7 @@ export class ListRoleComponent implements OnInit {
     inactiveCount: any;
     roleCount: any;
     roleList: Array<Role>;
+    isEdit: true;
 
     constructor(
         private service: RoleService,
@@ -67,9 +68,9 @@ export class ListRoleComponent implements OnInit {
         ModalUtils.resolve(modalRef.result, ListRoleComponent.loadData, this);
     }
 
-    onStatusChange(data) {
+    onStatusChange(data, isEdit = true) {
         if (data.status === Status.ACTIVE) {
-            this.updateStatus(data);
+            this.updateStatus(data, isEdit);
             return;
         }
         const roleId = data.id;
@@ -81,7 +82,7 @@ export class ListRoleComponent implements OnInit {
                     data.roleName + ' role.'));
                 ListRoleComponent.loadData(this);
             } else {
-                this.updateStatus(data);
+                this.updateStatus(data, isEdit);
             }
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
@@ -89,7 +90,7 @@ export class ListRoleComponent implements OnInit {
             }
         );
     }
-    private updateStatus (data) {
+    private updateStatus (data, isEdit) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
@@ -97,6 +98,7 @@ export class ListRoleComponent implements OnInit {
         const modalRef = this.modalService.open(UpdateModalComponent);
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;
+        modalRef.componentInstance.isEdit = isEdit;
         modalRef.result.then(
             close => {
                 ListRoleComponent.loadData(this);
