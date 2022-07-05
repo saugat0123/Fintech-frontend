@@ -10,16 +10,16 @@ export class DefaultLoanTemplate {
             name: 'Credit Risk Grading - Lambda',
             templateUrl: null
         },
-        {
-            active: false,
-            name: 'Credit Risk Grading - Micro',
-            templateUrl: null
-        },
-        {
-            active: false,
-            name: 'Credit Risk Grading - Gamma',
-            templateUrl: null
-        },
+        // {
+        //     active: false,
+        //     name: 'Credit Risk Grading - Micro',
+        //     templateUrl: null
+        // },
+        // {
+        //     active: false,
+        //     name: 'Credit Risk Grading - Gamma',
+        //     templateUrl: null
+        // },
         {
             active: false,
             name: 'Guarantor',

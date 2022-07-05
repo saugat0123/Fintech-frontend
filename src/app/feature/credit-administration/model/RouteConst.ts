@@ -12,4 +12,5 @@ export class RouteConst {
     static ROUTE_DISBURSEMENT_APPROVED = '/home/credit/disbursement-approved';
     static ROUTE_CAD_LIST_BY_PERMISSIONS = '/home/credit/cad-documents';
     static ROUTE_CAD_SUMMARY = '/home/credit/cad-summary/';
+    static ROUTE_TO_DISCREPANCY = '/home/credit/discrepancy-pending';
 }

@@ -24,4 +24,5 @@ export class Security {
     status: any;
     oldSecurityId: number;
     isCrossCollateral: boolean;
+    approved: boolean;
 }

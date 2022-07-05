@@ -10,4 +10,7 @@ export class CustomerShareData {
     amountPerUnit: number;
     total: number;
     consideredValue: number;
+    fmv: number;
+    drawingAmount: number;
+    realizableAmount: number;
 }

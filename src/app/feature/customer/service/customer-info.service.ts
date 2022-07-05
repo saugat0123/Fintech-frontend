@@ -3,6 +3,7 @@ import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
+import {ExistingExposure} from '../../loan/model/existingExposure';
 
 @Injectable({
     providedIn: 'root'
@@ -83,5 +84,16 @@ export class CustomerInfoService extends BaseService<Object> {
         const api = `${this.getApi()}/group-code/${groupCode}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public saveSiteVisitDataWithDocument(siteVisit: FormData): Observable<any> {
+        const api = `${this.getApi()}/save/all/siteVisit`;
+        const req = ApiUtils.getRequestWithFileSupport(api);
+
+        return this.http.post(req.url, siteVisit, {headers: req.header});
+    }
+    public saveExistingExposure(existingExposure: ExistingExposure [], customerInfoId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/saveExistingExposure?customerInfoId=${customerInfoId}`);
+        return this.http.post(req.url, existingExposure, {headers: req.header});
     }
 }

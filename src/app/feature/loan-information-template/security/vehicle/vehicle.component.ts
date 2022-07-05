@@ -11,6 +11,7 @@ import {ToastService} from '../../../../@core/utils';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {Security} from '../../../loan/model/security';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
     selector: 'app-vehicle',
@@ -21,6 +22,7 @@ export class VehicleComponent implements OnInit {
     vehicleForm: FormGroup;
     submitted = false;
     @Input() calendarType: CalendarType;
+    @Input() customerType: CustomerType;
     landOtherBranchChecked = false;
     vehicleOtherBranchChecked = false;
     securityValuator: SecurityValuator = new SecurityValuator();
@@ -127,6 +129,8 @@ export class VehicleComponent implements OnInit {
     public vehicleRemainingAmount(index: number): void {
         const v = this.vehicleDetails.at(index);
         v.get('remainingAmount').setValue(v.get('quotationAmount').value - v.get('downPayment').value);
+        v.get('considerValue').setValue(v.get('quotationAmount').value);
+        v.get('fairMarketValue').setValue(v.get('quotationAmount').value);
     }
 
     public calcRealiasable(i, key): void {
@@ -137,7 +141,7 @@ export class VehicleComponent implements OnInit {
         }
     }
 
-    public setFreeLimitAmount(index, formArrayName: string, considerValue: number,) {
+    public setFreeLimitAmount(index, formArrayName: string, considerValue: number) {
         if (this.isEdit === false) {
             this.vehicleForm.get([formArrayName, index, 'freeLimit']).setValue(considerValue);
         }
@@ -188,7 +192,7 @@ export class VehicleComponent implements OnInit {
             downPayment: [undefined],
             remainingAmount: [undefined],
             loanExposure: [undefined],
-            showroomCommission: [undefined],
+            // showroomCommission: [undefined],
             vehicalValuator: [undefined],
             vehicalValuatorDate: [undefined],
             vehicalValuatorRepresentative: [undefined],
@@ -207,10 +211,10 @@ export class VehicleComponent implements OnInit {
             vehicleRealiasableAmount: [undefined],
             vehicleRate: [undefined],
             manufactureYear: [undefined],
-            discountPrice: [undefined],
+            // discountPrice: [undefined],
             considerValue: [undefined],
             fairMarketValue: [undefined],
-            distressValue: [undefined],
+            // distressValue: [undefined],
             freeLimit: [undefined],
             vehicleFirstValuationDate: [undefined]
         });
