@@ -59,6 +59,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
     reviewDateData;
     naChecked: boolean;
     loaded;
+    combinedLoan;
+    combined = false;
+    allLoanList = [];
     combinedLoanList = [];
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -263,6 +266,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.customerAllLoanList = [];
                 this.customerAllLoanList.push(this.loanDataHolder);
             }
+            this.allLoanList = this.customerAllLoanList;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
                 this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
                     if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id) {
@@ -279,7 +283,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
                     }
                 });
             }
-            console.log('this is all loan list after filter', this.customerAllLoanList);
         }
 
         this.spinner.hide();

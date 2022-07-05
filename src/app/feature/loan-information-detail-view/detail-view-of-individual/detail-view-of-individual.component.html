@@ -1,3 +1,6 @@
+<!--     Group Summary Sheet    -->
+<app-group-summary-sheet-view *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+
 <div>
     <app-proposal-summary *ngIf="loanDataHolder?.proposal"
                           [customerAllLoanList]="customerAllLoanList"
@@ -28,7 +31,8 @@
                      [loanDataHolder]="loanDataHolder"
                      [customerInfoData]="loanDataHolder?.loanHolder"
                      [individual]="loanDataHolder?.customerInfo"
-                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+                     [loanId]="loanId" [customerInfo]="loanHolder"
+                     [proposalData]="loanDataHolder?.proposal"></app-individual-view>
 
 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"
@@ -318,6 +322,12 @@
 
 <app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist"
                              *ngIf="checklistChecked && loanDataHolder?.paperProductChecklist"></app-product-paper-checklist>
+
+<!-- Site Visit -->
+<app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                     [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                     [loanDataHolder]="loanDataHolder"
+                     [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
 
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>

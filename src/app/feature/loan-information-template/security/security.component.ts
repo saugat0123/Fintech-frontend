@@ -161,6 +161,8 @@ export class SecurityComponent implements OnInit {
     selectedSecurity: string;
 
     securityTypes = SecuritiesType.enumObject();
+    isApprovedSecurity = false;
+    newSecurity = false;
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -205,6 +207,9 @@ export class SecurityComponent implements OnInit {
     }
 
     change(arraySelected) {
+        if (!this.isEdit) {
+            this.newSecurity  = true;
+        }
         const selectedSecurity = [];
         selectedSecurity.push(arraySelected);
         this.securityInitialState();
@@ -389,60 +394,6 @@ export class SecurityComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        // if (this.securityForm.invalid) {
-        //     return;
-        // }
-        // if (this.initialSecurity.selectedSecurity === undefined) {
-        //     this.initialSecurity.clearValidationAtInitialStage();
-        // }
-        // if (this.initialSecurity.securityForm.invalid) {
-        //     this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
-        //     return;
-        // }
-        // if (!ObjectUtil.isEmpty(this.securityValue)) {
-        //     this.securityData = this.securityValue;
-        // }
-        // this.initialSecurity.submit();
-
-        // this.securityData.guarantor = [];
-        // this.initialSecurity.selectedArray.forEach((selected) => {
-        //     if (selected === 'ShareSecurity') {
-        //         this.shareSecuritySelected = true;
-        //     }
-        // });
-        // if (this.shareSecuritySelected) {
-        //     this.securityData.templateName = TemplateName.SHARE_SECURITY;
-        //     this.shareSecurityData = this.initialSecurity.shareSecurityData;
-        //     this.securityData.share = this.shareSecurityData;
-        // }
-        // let guarantorIndex = 0;
-        // while (guarantorIndex < this.getGuarantor().length) {
-        //     const guarantor = new Guarantor();
-        //     guarantor.id = this.getGuarantor()[guarantorIndex].id;
-        //     guarantor.version = this.getGuarantor()[guarantorIndex].version;
-        //     guarantor.name = this.getGuarantor()[guarantorIndex].name;
-        //     guarantor.citizenNumber = this.getGuarantor()[guarantorIndex].citizenNumber;
-        //     guarantor.issuedYear = this.getGuarantor()[guarantorIndex].issuedYear;
-        //     guarantor.issuedPlace = this.getGuarantor()[guarantorIndex].issuedPlace;
-        //     guarantor.fatherName = this.getGuarantor()[guarantorIndex].fatherName;
-        //     guarantor.grandFatherName = this.getGuarantor()[guarantorIndex].grandFatherName;
-        //     guarantor.relationship = this.getGuarantor()[guarantorIndex].relationship;
-        //     guarantor.contactNumber = this.getGuarantor()[guarantorIndex].contactNumber;
-        //     if (!ObjectUtil.isEmpty(this.getGuarantor()[guarantorIndex].province)) {
-        //         const province = new Province();
-        //         province.id = this.getGuarantor()[guarantorIndex].province;
-        //         guarantor.province = province;
-        //         const district = new District();
-        //         district.id = this.getGuarantor()[guarantorIndex].district;
-        //         guarantor.district = district;
-        //         const municipalityVdc = new MunicipalityVdc();
-        //         municipalityVdc.id = this.getGuarantor()[guarantorIndex].municipalities;
-        //         guarantor.municipalities = municipalityVdc;
-        //     }
-        //     guarantorIndex++;
-        //     this.securityData.guarantor.push(guarantor);
-        // }
-
         if (this.vehicleSelected) {
             const vehicleData = this.vehicleSecurity.vehicleForm.value.vehicleDetails;
             const securities = this.constructSecurityArray(vehicleData, 'VEHICLE_SECURITY');
@@ -527,6 +478,9 @@ export class SecurityComponent implements OnInit {
                 security.id = this.securityValue.id;
                 security.version = this.securityValue.version;
                 security.status = this.securityValue.status;
+            }
+            if (this.isApprovedSecurity) {
+                security.approved = true;
             }
             security.data = JSON.stringify(value);
             security.fairMarketValue = value.fairMarketValue;

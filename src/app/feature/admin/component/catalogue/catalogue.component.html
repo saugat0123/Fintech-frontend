@@ -233,7 +233,7 @@
                 </td>
                 <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew) && model?.loan?.loanNature === 'Revolving'; else linkin">
+                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select #select class="form-control form-control-tiny py-0"
                             (change)="onChange(model,onActionChange, $event?.target?.value, select) ">
                         <option [value]="null" selected hidden>Select Type</option>
@@ -243,11 +243,11 @@
                         </ng-container>
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
-                            <option value="RENEWED_LOAN">Renew Loan</option>
-                            <option value="ENHANCED_LOAN">Enhance Loan</option>
+                            <option *ngIf="model?.loan?.loanNature === 'Revolving'" value="RENEWED_LOAN">Renew Loan</option>
+                            <option *ngIf="model?.loan?.loanNature === 'Revolving'" value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
-                            <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
+                            <option *ngIf="model?.loan?.loanNature === 'Revolving'" value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
                             <option value="OTHERS">Others</option>
                         </ng-container>
                     </select>
@@ -266,19 +266,19 @@
                                class="text-success cursor">{{loanType[model.loanType]}} From
                                 <em class="p-1 fa fa-edit"></em></a>
                         </div>
-                        <div *ngIf="!model?.childId; else notCadStage">
-                            <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&
-                                (model?.currentStage?.toUser?.username === currentUserName); else notCadStage">
-                                <button nbButton status="warning" size="tiny"
-                                        (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">
-                                <em class="fa fa-arrow-circle-left"></em></button>
-                            </span>
-                        </div>
-                        <ng-template #notCadStage>
-                            <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
-                                <p>NA</p>
-                            </div>
-                        </ng-template>
+<!--                        <div *ngIf="!model?.childId; else notCadStage">-->
+<!--                            <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&-->
+<!--                                (model?.currentStage?.toUser?.username === currentUserName); else notCadStage">-->
+<!--                                <button nbButton status="warning" size="tiny"-->
+<!--                                        (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">-->
+<!--                                <em class="fa fa-arrow-circle-left"></em></button>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <ng-template #notCadStage>-->
+<!--                            <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>-->
+<!--                                <p>NA</p>-->
+<!--                            </div>-->
+<!--                        </ng-template>-->
                     </td>
                 </ng-template>
             </tr>

@@ -215,6 +215,8 @@ export class RolePermissionComponent implements OnInit {
             }
 
         }
+        console.log('  this.compareCheckedPermission',   this.compareCheckedPermission);
+        console.log('  this.allPermission',   this.allPermission);
     }
 
 

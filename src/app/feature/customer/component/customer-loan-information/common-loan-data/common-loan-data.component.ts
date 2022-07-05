@@ -110,6 +110,7 @@ export class CommonLoanDataComponent implements OnInit {
             if (!ObjectUtil.isEmpty(parsedData.files)) {
                 this.files = JSON.parse(parsedData.files);
             }
+            console.log('this is checked data', JSON.parse(this.resCombinedData[0].proposal.checkedData));
             this.setCheckedData(JSON.parse(this.resCombinedData[0].proposal.checkedData));
             if (!ObjectUtil.isEmpty(parsedData.vehicle)) {
                 this.setFormData(parsedData.vehicle, 'vehicle');
@@ -155,7 +156,7 @@ export class CommonLoanDataComponent implements OnInit {
         // this.updateCombinedDetails();
         this.resCombinedData.forEach((value) => {
             const tempProposalData = JSON.parse(value.proposal.data);
-            value.checkedData = JSON.stringify(mergeChecked);
+                value.proposal.checkedData = JSON.stringify(mergeChecked);
             if (!ObjectUtil.isEmpty(tempProposalData)) {
                 tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
                 const tempForm = this.formBuilder.group(tempProposalData);

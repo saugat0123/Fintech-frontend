@@ -42,6 +42,7 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     @Input() loanList = [];
     @Input() isLoanBeingEdit = false;
@@ -146,7 +147,8 @@ export class ProposalComponent implements OnInit {
     customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
     combinedLoansIds: number[] = [];
     removeFromCombinedLoan = false;
-    existingExpo = [];
+    withIn = false;
+    withInLoanId;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -168,6 +170,10 @@ export class ProposalComponent implements OnInit {
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
+            this.withIn = this.loan.withIn;
+            if (this.withIn) {
+                this.withInLoanId = this.loan.withInLoan;
+            }
             this.formDataForEdit = JSON.parse(this.formValue.data);
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
                 if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
@@ -279,20 +285,28 @@ export class ProposalComponent implements OnInit {
             this.incomeFromAccountDataResponse = this.customerInfo.incomeFromAccount;
         }
 
-        this.loanFormService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
+        this.loanFormService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
-            this.customerGroupLoanList
-                .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
-                .forEach((l) => this.combinedLoansIds.push(l.id));
-            this.removeFromCombinedLoan = this.combinedLoansIds.length > 0;
-            if (this.combinedLoansIds.length > 0) {
-                const loan = this.customerGroupLoanList
-                    .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))[0];
-                this.existingCombinedLoan.id = loan.combinedLoan.id;
-                this.existingCombinedLoan.version = loan.combinedLoan.version;
-            } else {
-                this.customerGroupLoanList
-                    .forEach((l) => this.combinedLoansIds.push(l.id));
+            this.customerGroupLoanList = this.customerGroupLoanList.filter(d => d.documentStatus.toString() !== 'APPROVED' && d.documentStatus.toString() !== 'REJECTED');
+            if (!ObjectUtil.isEmpty(this.loan.loanHolder.existingExposures)) {
+                    this.loan.loanHolder.existingExposures.forEach((e) => {
+                        if (e.docStatus.toString() === 'APPROVED') {
+                            const loan = new LoanDataHolder();
+                            const prop = new Proposal();
+                            prop.data = e.proposalData;
+                            loan.id = e.loanId;
+                            prop.proposedLimit = e.originalLimit;
+                            loan.proposal = prop;
+                            loan.loan = e.loanConfig;
+                            loan.securities = [];
+                            loan.documentStatus = e.docStatus;
+                            loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                            this.customerGroupLoanList.push(loan);
+                        }
+                    });
+            }
+            if (this.loan.id) {
+                console.log(this.customerGroupLoanList.indexOf(this.loan));
             }
         });
     }
@@ -436,7 +450,9 @@ export class ProposalComponent implements OnInit {
                 criticalSectorList: [undefined],
                 criticalSector: [undefined],
                 processApplicable: [undefined],
-            })
+            }),
+            justification: [undefined],
+            currentRequest: [undefined]
         });
     }
 
@@ -489,9 +505,6 @@ export class ProposalComponent implements OnInit {
     onSubmit() {
         // Proposal Form Data--
         this.submitted = true;
-        if (this.loanType !== 'FULL_SETTLEMENT_LOAN') {
-            this.cadSetup.save();
-        }
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
         this.proposalData.existingLimit = this.proposalForm.get('existingLimit').value;
         this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
@@ -542,46 +555,24 @@ export class ProposalComponent implements OnInit {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
             }
+            if (this.withIn) {
+                if (ObjectUtil.isEmpty(this.withInLoanId)) {
+                    this.toastService.show(new Alert(AlertType.WARNING, 'Please Select Within Loan'));
+                    return;
+                }
+                this.loan.withIn = this.withIn;
+                this.loan.withInLoan = this.withInLoanId;
+            }
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
             this.spinner.show();
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;
-                if (!this.combinedLoansIds.includes(this.loan.id)) {
-                    this.combinedLoansIds.push(this.loan.id);
-                }
                 if (this.isLoanBeingEdit === false) {
                     this.loanList.push(this.loan);
                 }
                 this.spinner.hide();
-                if (this.combinedLoansIds.length > 1) {
-                    const combinedLoans: LoanDataHolder[] = this.combinedLoansIds.map((id) => {
-                        const loan = new LoanDataHolder();
-                        loan.id = id;
-                        return loan;
-                    });
-                    const combinedLoan: CombinedLoan = {
-                        id: this.existingCombinedLoan.id,
-                        loans: combinedLoans.length < 1 ? [] : combinedLoans,
-                        version: this.existingCombinedLoan.version
-                    };
-                    if (this.loanList.length > 1) {
-                        this.combinedLoanService.save(combinedLoan).subscribe(() => {
-                            const msg = `Successfully saved combined loan`;
-                            this.toastService.show(new Alert(AlertType.SUCCESS, msg));
-                            this.emitter.emit(this.loan);
-                            this.spinner.hide();
-                        }, error => {
-                            console.error(error);
-                            this.spinner.hide();
-                            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
-                        });
-                    }
-                } else {
-                    this.spinner.hide();
-                    this.emitter.emit(this.loan);
-                }
                 this.emitter.emit(this.loan);
             }, error => {
                 this.spinner.hide();
@@ -1132,6 +1123,8 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('endUseOfFund').setValue(formDataForEdit.endUseOfFund);
         this.proposalForm.get('justificationChangeHistorical').setValue(formDataForEdit.justificationChangeHistorical);
         this.proposalForm.get('justificationChangeProjection').setValue(formDataForEdit.justificationChangeProjection);
+        this.proposalForm.get('justification').setValue(formDataForEdit.justification);
+        this.proposalForm.get('currentRequest').setValue(formDataForEdit.currentRequest);
     }
     patchValue(data) {
         this.proposalForm.patchValue(JSON.parse(data));

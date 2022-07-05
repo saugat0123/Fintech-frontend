@@ -96,7 +96,15 @@
                                 <br>
                                 <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
                                 <br>
-                                <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>
+                                <div><strong class="float-left">Product:</strong>
+                                    <table class="table-borderless float-left">
+                                        <tr *ngFor="let allLoan of allLoanList">
+                                            <td>
+                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <br>
                                 <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
                             <span><strong>Review Date: </strong>
@@ -174,10 +182,17 @@
                     </div>
                 </div>
             </div>
-                <app-loan-summary-individual *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && loaded && loanDataHolder && combinedLoanList"
-                                             [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList"></app-loan-summary-individual>
-                <app-loan-summary-institutional *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'  && loaded && loanDataHolder && combinedLoanList"
-                                                [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList"></app-loan-summary-institutional>
+                <hr class="print-line">
+                <div class="mt-3">
+                    <app-loan-summary-individual *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && loaded && loanDataHolder"
+                                                 [loanSecurity]="loanSecurity"
+                                                 [approvedSecurity]="approvedSecurity"
+                                                 [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList"></app-loan-summary-individual>
+                    <app-loan-summary-institutional *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'  && loaded && loanDataHolder"
+                                                    [loanSecurity]="loanSecurity"
+                                                    [approvedSecurity]="approvedSecurity"
+                                                    [loanDataHolder] = "loanDataHolder" [customerAllLoanList]="customerAllLoanList" [combinedLoan]="combinedLoanList"></app-loan-summary-institutional>
+                </div>
             </div>
         </nb-card-body>
     </nb-card>

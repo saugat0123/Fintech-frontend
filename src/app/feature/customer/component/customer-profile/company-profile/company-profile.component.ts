@@ -102,6 +102,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     documentSpinner = false;
     pendingLoanList = [];
     approvedLoanList = [];
+    loanDataHolder;
 
 
     constructor(private companyInfoService: CompanyInfoService,

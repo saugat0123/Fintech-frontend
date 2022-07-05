@@ -188,7 +188,7 @@
                     <ng-container class="bg-light" style="height: 200px">
                         <ng-container>
                             <div class="row justify-content-lg-start">
-                                <div class="col-md-6"><strong>KYC</strong></div>
+                                <div class="col-md-6"><strong>Family Relation</strong></div>
                                 <div class="col-md-6 " *ngIf="maker && !isJointInfo">
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                         <span> <strong>Age</strong></span></div>
                                     <div class="col-md-1">
                                         <span> <strong>:</strong></span></div>
-                                    <div class="col-md-5">{{(customerRelative.age) ? (customerRelative.age) : 'N/A'}}</div>
+                                    <div class="col-md-5">{{calculateAge(customerRelative) ? calculateAge(customerRelative) : 'N/A'}}</div>
                                 </div>
                                 <hr>
                             </div>
@@ -448,9 +448,9 @@
                     <div class="col-md-4">
                         <select [(ngModel)]="selectedLoanType"
                                 class="form-control rounded" name="loanType" required>
-                            <option [ngValue]="'NEW_LOAN'" hidden>New Loan</option>
-<!--                            <option *ngFor="let list of multipleSelectedLoanType"-->
-<!--                                    [ngValue]="list.key">{{list.value}}</option>-->
+                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                            <option *ngFor="let list of multipleSelectedLoanType"
+                                    [ngValue]="list.key">{{list.value}}</option>
                         </select>
                     </div>
                     <div class="col-md-3">

@@ -206,6 +206,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocName;
     loaded = false;
+    loanSecurity = [];
+    approvedSecurity = [];
+    combinedLoan;
+    combined = false;
+    allLoanList = [];
     combinedLoanList = [];
 
     constructor(
@@ -538,6 +543,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 next: (res) => {
                                     this.combinedLoanList = res.detail.loans;
                                     (res.detail as CombinedLoan).loans.forEach((cl) => {
+                                        this.loanSecurity = this.loanSecurity.concat(cl.securities);
                                         const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                                         if (!allLoanIds.includes(cl.id)) {
                                             this.customerAllLoanList.push(cl);
@@ -554,27 +560,36 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     } else {
                         this.loaded = true;
                         this.customerAllLoanList = [];
+                        this.loanSecurity = this.loanDataHolder.securities;
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
+                    this.allLoanList = this.customerAllLoanList;
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
                         this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
-                            if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id) {
+                            if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id ) {
                                 const loan = new LoanDataHolder();
                                 const prop = new Proposal();
                                 prop.data = e.proposalData;
+                                loan.id = e.loanId;
                                 prop.proposedLimit = e.originalLimit;
                                 loan.proposal = prop;
                                 loan.loan = e.loanConfig;
                                 loan.securities = [];
                                 loan.documentStatus = e.docStatus;
-                                loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                                loan.loanType = e.loanType as LoanType;
                                 this.customerAllLoanList.push(loan);
                             }
                         });
                     }
-                    console.log('this is all loan list after filter', this.customerAllLoanList);
+                    const uniqueLoanIds = this.customerAllLoanList.map(d => d.id);
+                    this.customerAllLoanList =  this.customerAllLoanList
+                        .filter((value, index) => value.id === null || uniqueLoanIds.indexOf(value.id) === index);
+                    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.approvedSecurities)) {
+                        const approvedId = this.loanDataHolder.loanHolder.approvedSecurities.map((d) => d.id);
+                        this.approvedSecurity = this.loanDataHolder.loanHolder.approvedSecurities
+                            .filter((value, index, self) => approvedId.indexOf(value.id) === index);
+                    }
                 }
-
                 this.spinnerService.hide();
     }
 
@@ -791,7 +806,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
             context,
         }).onClose.subscribe((res: any) => {
-            this.activatedRoute.queryParams.subscribe((res) => {
+            this.activatedRoute.queryParams.subscribe((res: any) => {
                 this.loanConfigId = res.loanConfigId;
                 this.customerId = res.customerId;
             });
@@ -953,6 +968,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         } else {
             this.hidePreviewButton = false;
         }
+    }
+
+    // @ts-ignore
+    getIndexById(id, arr): number {
+        arr.forEach((D, i) => {
+            if (id === D.id) {
+                return i;
+            }
+        });
     }
 }
 

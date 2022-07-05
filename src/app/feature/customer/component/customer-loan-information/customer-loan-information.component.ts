@@ -311,12 +311,22 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         }
     }
 
-    public saveSiteVisit(data: string) {
+    public saveSiteVisit(data?: any) {
         if (ObjectUtil.isEmpty(this.siteVisit)) {
             this.siteVisit = new SiteVisit();
         }
-        this.siteVisit.data = data;
-        this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
+        // this.siteVisit.data = data;
+        this.customerInfoService.saveSiteVisitDataWithDocument(data)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
+                // this.itemSiteVisit.close();
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
+            });
+        /*this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
         .subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
             // this.itemSiteVisit.close();
@@ -325,7 +335,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
-        });
+        });*/
     }
 
     saveFinancial(data: string) {

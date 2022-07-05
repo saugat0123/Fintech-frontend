@@ -2,7 +2,6 @@
 <section class="enable-print summary">
     <div id="print-block">
         <div class=" col-md-12 summary">
-            <hr class="print-line">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -13,33 +12,51 @@
             <!--                release and replacement-->
                 <!--                    proposed security-->
 
-            <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'; else approved">
+            <ng-container>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
+                <app-security-summary *ngIf="customerAllLoanList" [securities]="loanSecurity"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="customerAllLoanList"
-                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
+                <app-security-summary *ngIf="customerAllLoanList" [securities]="approvedSecurity"></app-security-summary>
                 <!-- Customer Share Security  -->
                 <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                             [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
                 </app-customer-share-summary>
             </ng-container>
-            <ng-template #approved>
-                <app-security-summary [pending]="true" [securities]="loanDataHolder?.securities"></app-security-summary>
-                <app-security-summary *ngIf="loanDataHolder?.parentId"
-                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
-                <!-- Customer Share Security  -->
-                <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
-                                            [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
-                </app-customer-share-summary>
-            </ng-template>
-
 
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
+                                   [approvedSecurity]="approvedSecurity"
+                                   [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
-
+            <ng-container *ngIf="others">
+                <hr class="print-line header">
+                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Justification</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span
+                                [innerHTML]="proposalAllData?.justification || 'N/A' | safeHtml"></span>
+                        </td>
+                    </tr>
+                </table>
+                <hr class="print-line header">
+                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <tr class="text-white sb-bg-dark">
+                        <th>Current Request</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span
+                                [innerHTML]="proposalAllData?.currentRequest || 'N/A' | safeHtml"></span>
+                        </td>
+                    </tr>
+                </table>
+            </ng-container>
+            <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && (fullSettlement || others)"
+                                [customerAllLoanList]="customerAllLoanList"
+                                [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
+                                [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
     <ng-container *ngIf="!fullSettlement && !others">
         <nb-accordion *ngIf="isRemitLoan">
             <nb-accordion-item>
@@ -167,6 +184,7 @@
                     <div>
                         <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                             [customerAllLoanList]="customerAllLoanList"
+                                            [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
                                             [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
                         <div *ngIf="minOneGuarantorDoc" class="row">
                             <div class="col-md-12">
@@ -663,30 +681,38 @@
                 <div class="col-md-12 print-only">
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>
-                <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-2 padding-0-125">
-                    <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
-                        </div>
-                        <hr class="border-dark m-0">
-                        <div class="row justify-content-center signature mx-auto">
-                            <div class="print-only signature-padding"></div>
-                            <img align="middle" alt="signature"
-                                 class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
-                        </div>
-                        <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">
-                                ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
-                                )</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
-                                ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                <div class="row col-md-12">
+                    <div *ngFor="let previous of signatureList; let i=index;"
+                         class="col-md-2 padding-0-125">
+                        <div class="signature-block">
+                            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                                <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
+                            </div>
+                            <hr class="border-dark m-0">
+                            <div class="row justify-content-center signature mx-auto">
+                                <div class="print-only signature-padding"></div>
+                                <img align="middle" alt="signature"
+                                     class="img-thumbnail border-0 signature-height signature-width"
+                                     src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
+                            </div>
+                            <div class="text-center signature-detail sb-bg-secondary text-white">
+                                <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                                <p class="m-0 sb-small">
+                                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
+                                    )</p>
+                                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
+                                    ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Site Visit -->
+            <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                                 [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                                 [loanDataHolder]="loanDataHolder"
+                                 [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
+
             <br>
         </div>
     </div>

@@ -99,7 +99,7 @@
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
-                           <label class="title" for="quotationAmount"><strong>Quotation/Valuation Amount</strong></label>
+                           <label class="title" for="quotationAmount"><strong>Market Value</strong></label>
                            <input [ngClass]="{ 'is-invalid': (submitted) && (addMoreVehicle.get('quotationAmount').errors ||
                                         addMoreVehicle.get('quotationAmount').invalid) }"
                                   (keyup)="vehicleRemainingAmount(i)"
@@ -131,6 +131,7 @@
                            <input
                                    class="form-control" formControlName="considerValue" id="considerValue"
                                    name="considerValue"
+                                   readonly
                                    (change)="setFreeLimitAmount(i, 'vehicleDetails', addMoreVehicle.get('considerValue')?.value)"
                                    placeholder="Consider Value"
                                    type="number">
@@ -144,12 +145,13 @@
                            <input
                                    class="form-control" formControlName="fairMarketValue" id="fairMarketValue"
                                    name="fairMarketValue"
+                                   readonly
                                    placeholder="Fair Market Value"
                                    type="number">
                        </div>
                    </div>
 
-                   <div class="col-md-4">
+                   <div class="col-md-4" *ngIf="customerType === 'INSTITUTION'">
                        <div class="form-group">
                            <label class="title" for="distressValue"><strong>Distress Value</strong></label>
                            <input
@@ -160,8 +162,7 @@
                        </div>
                    </div>
 
-
-                   <div class="col-md-4">
+                   <div class="col-md-4" *ngIf="customerType === 'INSTITUTION'">
                        <div class="form-group">
                            <label class="title" for="discountPrice"><strong>Discount Price</strong></label>
                            <input
@@ -185,7 +186,7 @@
                </div>
 
                <div class="row">
-                   <div class="col-md-4">
+                   <div class="col-md-4" *ngIf="customerType === 'INSTITUTION'">
                        <div class="form-group">
                            <label class="title" for="downPayment"><strong>Down Payment</strong></label>
                            <input
@@ -196,7 +197,7 @@
                        </div>
                    </div>
 
-                   <div class="col-md-4">
+                   <div class="col-md-4" *ngIf="customerType === 'INSTITUTION'">
                        <div class="form-group">
                            <label class="title" for="remainingAmount"><strong>Remaining Amount</strong></label>
                            <input
@@ -206,7 +207,7 @@
                                    placeholder="Remaining Amount" type="number">
                        </div>
                    </div>
-                   <div class="col-md-4">
+                   <div class="col-md-4" *ngIf="customerType === 'INSTITUTION'">
                        <div class="form-group">
                            <label class="title" for="showroomCommission"><strong>Showroom
                                Commission</strong></label>
