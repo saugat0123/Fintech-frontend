@@ -110,7 +110,6 @@ export class CommonLoanInformationComponent implements OnInit {
                 id: [e.id]
             }));
             this.setProposalData(JSON.parse(e.proposalData), i);
-            console.log('this is build form from loop', this.commonLoanForm.get(['data', i, 'proposalData']).value);
         });
         this.setFormCondition();
     }
@@ -237,7 +236,6 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     checkInstallmentAmount(i) {
-        console.log('tis isadasd', this.commonLoanForm.get(['data', i, 'proposalData']).value);
         if (this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'EMI' || this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'EQI') {
             this.conditionalArray[i].showRepaymentMode = false;
             this.conditionalArray[i].showInstallmentAmount = true;
