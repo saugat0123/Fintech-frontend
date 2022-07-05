@@ -15,6 +15,8 @@ export class GuarantorAdderComponent implements OnInit {
   @Input() guarantorData;
   @Input() taggedGuarantors;
   @Output() emitter = new EventEmitter();
+  @Input() fromProfile: boolean;
+  @Input() customerType;
   guarantorList: Array<Guarantor> = [];
   selectedGuarantorList: Array<Guarantor> = [];
   msg = '';
@@ -27,18 +29,29 @@ export class GuarantorAdderComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.guarantorData)) {
-    this.guarantorList = this.guarantorData.guarantorList;
-    } if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
-    this.selectedGuarantorList = this.taggedGuarantors;
+      this.guarantorList = this.guarantorData.guarantorList;
     }
-    this.tagInitialGuarantors();
+    if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
+      this.selectedGuarantorList = this.taggedGuarantors;
+      this.toggle = [];
+      this.selectedGuarantorList.forEach(s => {
+        this.toggle.push({toggled: false});
+      });
+    }
+    if (this.fromProfile) {
+      this.tagInitialGuarantors();
+    }
   }
 
   addGuarantorDetail(data) {
     const presentGuarantor = this.selectedGuarantorList.filter(d => d.id === data.id);
     if (presentGuarantor.length <= 0) {
+      this.toggle = [];
       this.selectedGuarantorList.push(data);
       this.msg = '';
+      this.selectedGuarantorList.forEach(sg => {
+        this.toggle.push({toggled: false});
+      });
     } else {
       this.msg = 'selected guarantor is already added !';
     }
@@ -60,11 +73,11 @@ export class GuarantorAdderComponent implements OnInit {
     this.nbDialogService.open(GuarantorDetailComponent ,  {context: {guarantorData}});
   }
 
-  tagInitialGuarantors(): void
-  {
-   this.guarantorList.forEach(g =>{
-     this.selectedGuarantorList.push(g);
-     this.toggle.push({toggled: false});
-   })
+  tagInitialGuarantors(): void {
+    this.toggle = [];
+    this.guarantorList.forEach(g => {
+      this.selectedGuarantorList.push(g);
+      this.toggle.push({toggled: false});
+    });
   }
 }

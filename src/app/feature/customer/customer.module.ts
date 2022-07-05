@@ -47,6 +47,7 @@ import { ReviewDateComponent } from './component/customer-profile/company-profil
 import { NetWorthComponent } from './component/net-worth/net-worth.component';
 import {CrgCcblModule} from '../loan-information-template/crg-ccbl/crg-ccbl.module';
 import {FinancialCcblModule} from '../loan-information-template/financial-ccbl/financial-ccbl.module';
+import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -101,7 +102,8 @@ const COMPONENTS = [
         CbsGroupModule,
         NepaliPatroModule,
         CrgCcblModule,
-        FinancialCcblModule
+        FinancialCcblModule,
+        CreditAdministrationModule
 
 
     ],

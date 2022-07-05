@@ -72,13 +72,16 @@ export class CustomerWisePendingComponent implements OnInit {
     userRoleType;
     loanHolderLoanList: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
     toggleArray: { toggled: boolean }[] = [];
-    loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
+    loanForCombine: { customerInfoId: number, loan: Array<LoanDataHolder> }[] = [];
     initStatus;
     clientType: any;
     loanTag = LoanTag.values();
     subSector = [];
     model = new LoanDataHolder();
-    displayCombineLoanList = [];
+    displayCombineLoanList: {
+        customerInfoId: number,
+        loanData: Array<LoanDataHolder>
+    };
     loanHolderLoanListTemp: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
 
     constructor(
@@ -110,7 +113,8 @@ export class CustomerWisePendingComponent implements OnInit {
                 other.loanHolderLoanList = response.detail.content;
                 other.loanHolderLoanListTemp = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
-                other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
+                other.loanHolderLoanList.forEach((l) => other.loanForCombine.push(
+                    {customerInfoId: l.customerInfo.id, loan: other.getLoansData(l.combineList)}));
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
@@ -229,14 +233,16 @@ export class CustomerWisePendingComponent implements OnInit {
         CustomerWisePendingComponent.loadData(this);
     }
 
-    onClick(loanConfigId: number, customerId: number) {
+    onClick(loanConfigId: number, customerId: number, customerInfoId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: loanConfigId,
-                customerId: customerId
+                customerId: customerId,
+                customerInfoId: customerInfoId
             }
         });
+        this.modalService.dismissAll();
     }
 
     changePage(page: number) {
@@ -322,22 +328,22 @@ export class CustomerWisePendingComponent implements OnInit {
         return this.safePipe.transform(val);
     }
 
-    combineLoanListDisplay(data, template, index) {
+    combineLoanListDisplay(data, template, index, customerInfoId: number) {
         const list = this.loanHolderLoanListTemp[index].combineList;
-        this.displayCombineLoanList = [];
+        // const customerInfoId = this.loanHolderLoanListTemp[index].customerInfo;
+        // this.displayCombineLoanList = [];
+        this.displayCombineLoanList = {
+            customerInfoId: null,
+            loanData: new Array<LoanDataHolder>()
+        };
         list.forEach(l => {
             const input: Map<number, Array<LoanDataHolder>> = l;
             Object.keys(input).forEach(key => {
                 if (key.toString() === data.combinedLoan.id.toString()) {
-
-                    this.displayCombineLoanList = input[data.combinedLoan.id];
-
+                    this.displayCombineLoanList.customerInfoId = customerInfoId;
+                    this.displayCombineLoanList.loanData = input[data.combinedLoan.id];
                 }
             });
-
-            // tslint:disable-next-line:max-line-length
-            this.displayCombineLoanList[0].proposal.proposedLimit = JSON.parse(this.displayCombineLoanList[0].proposal.data)['proposedLimit'];
-            this.displayCombineLoanList[0].loan.name = this.displayCombineLoanList[0].loan.name.toString().split(',')[0];
         });
 
         this.modalService.open(template, {
@@ -346,13 +352,15 @@ export class CustomerWisePendingComponent implements OnInit {
         });
     }
 
-    onClickLoan(loanConfigId: number, customerLoan: number) {
+    onClickLoan(loanConfigId: number, customerLoan: number, customerInfoId: number) {
         this.spinner = true;
-        this.modalService.dismissAll();
+        this.onClose();
+        // this.modalService.dismissAll();
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: loanConfigId,
-                customerId: customerLoan
+                customerId: customerLoan,
+                customerInfoId: customerInfoId
             }
         });
     }

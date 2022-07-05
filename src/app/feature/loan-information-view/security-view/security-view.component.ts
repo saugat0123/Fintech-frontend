@@ -164,51 +164,53 @@ export class SecurityViewComponent implements OnInit {
       this.calculateTotal();
     }
 
-    if (this.docStatus.toString() === 'APPROVED') {
-      if (!ObjectUtil.isEmpty(this.collateralData)) {
-        this.collateralSiteVisits = this.collateralData;
-        const doc = [];
-        this.collateralSiteVisits.forEach(f => {
-          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-            doc.push(f.siteVisitDocuments);
+    if (!ObjectUtil.isEmpty(this.docStatus)) {
+      if (this.docStatus.toString() === 'APPROVED') {
+        if (!ObjectUtil.isEmpty(this.collateralData)) {
+          this.collateralSiteVisits = this.collateralData;
+          const doc = [];
+          this.collateralSiteVisits.forEach(f => {
+            if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+              doc.push(f.siteVisitDocuments);
+            }
+          });
+          // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+          const docArray = flatten(doc);
+          // filter for only printable document
+          this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+
+          this.collateralSiteVisits.filter(item => {
+            this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+          });
+          if (this.collateralData.length > 0) {
+            this.isCollateralSiteVisit = true;
           }
-        });
-        // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-        const docArray = flatten(doc);
-        // filter for only printable document
-        this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
-        this.collateralSiteVisits.filter(item => {
-          this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-        });
-        if (this.collateralData.length > 0) {
-          this.isCollateralSiteVisit = true;
         }
-      }
-    } else {
-      if (this.securityId !== undefined) {
-        this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
-            .subscribe((response: any) => {
-              this.collateralSiteVisits = response.detail;
-              const arr = [];
-              this.collateralSiteVisits.forEach(f => {
-                if (f.siteVisitDocuments.length > 0) {
-                  arr.push(f.siteVisitDocuments);
-                }
-              });
-              // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-              const docArray = flatten(arr);
-              // filter for only printable document
-              this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+      } else {
+        if (this.securityId !== undefined) {
+          this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+              .subscribe((response: any) => {
+                this.collateralSiteVisits = response.detail;
+                const arr = [];
+                this.collateralSiteVisits.forEach(f => {
+                  if (f.siteVisitDocuments.length > 0) {
+                    arr.push(f.siteVisitDocuments);
+                  }
+                });
+                // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+                const docArray = flatten(arr);
+                // filter for only printable document
+                this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
-              this.collateralSiteVisits.filter(item => {
-                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                this.collateralSiteVisits.filter(item => {
+                  this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                });
+                if (response.detail.length > 0) {
+                  this.isCollateralSiteVisit = true;
+                }
+                this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
               });
-              if (response.detail.length > 0) {
-                this.isCollateralSiteVisit = true;
-              }
-              this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
-            });
+        }
       }
     }
   }

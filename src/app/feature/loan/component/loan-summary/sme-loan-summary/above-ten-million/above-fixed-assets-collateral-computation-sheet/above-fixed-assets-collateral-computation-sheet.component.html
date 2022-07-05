@@ -1,68 +1,37 @@
-<table class="table-bordered table-sm sb-small table">
+<table class="table-bordered table-sm sb-small table" *ngIf="fixedAssetsComputing?.length > 0">
     <tr class="sb-bg-dark text-white">
+        <th class="sn">S.N</th>
         <th>Facilities</th>
         <th>Proposed Limit</th>
         <th>Required FAC Coverage % as per Product Paper</th>
         <th>Proposed FAC Coverage %</th>
         <th>Deviation</th>
     </tr>
-    <tr>
-        <td>OD</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>DL</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>TR</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>HP</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Others</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th>Total</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+    <tr *ngFor="let fa of fixedAssetsComputing; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{fa?.facilities}}</td>
+        <td>{{fa?.limit}}</td>
+        <td>{{fa?.requiredFac}}</td>
+        <td>{{fa?.proposedFac}}</td>
+        <td>{{fa?.deviation}}</td>
     </tr>
 </table>
 <table class="table table-bordered table-sm sb-small">
     <tr>
         <th>Total Value of Available FAC</th>
-        <td></td>
+        <td>{{commonLoanData?.totalAvailableFac}}</td>
     </tr>
     <tr>
         <td>Total Required Value of FAC as per Product Paper</td>
-        <td></td>
+        <td>{{commonLoanData?.totalRequiredFac}}</td>
     </tr>
     <tr>
         <td>Excess/(Shortfall)</td>
-        <td></td>
+        <td>{{commonLoanData?.excess}}</td>
     </tr>
     <tr>
-        <td colspan="2">Comments on FAC Shortfall: </td>
+        <td colspan="2">COMMENTS ON FAC SHORTFALL: {{commonLoanData?.commentOfFac ? '' : 'NA'}}<br>
+            <span style="font-size: 12px" [innerHTML]="commonLoanData?.commentOfFac"></span>
+        </td>
     </tr>
 </table>

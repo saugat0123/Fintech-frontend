@@ -1,92 +1,107 @@
 <nb-card accent="primary">
-  <div class="row">
-    <div class="col-md-12">
-      <nb-checkbox [value]="guarantorData?.consentOfLegalHeirs">Consent Of LegalHeirs</nb-checkbox>
-    </div>
-  </div>
-      <ng-container>
+    <!--  <div class="row">-->
+    <!--    <div class="col-md-12">-->
+    <!--      <nb-checkbox [value]="guarantorData?.consentOfLegalHeirs">Consent Of LegalHeirs</nb-checkbox>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <ng-container>
         <table class="table table-sm table-bordered table-hover text-center sb-small">
-          <tr class="sb-bg-dark text-white">
-            <th>Name</th>
-            <th>Citizen Number</th>
-            <th>Issued Year</th>
-            <th>Issued Place</th>
-          </tr>
-          <tr>
-            <td>{{guarantorData?.name}}</td>
-            <td>{{guarantorData?.citizenNumber}}</td>
-            <td>{{guarantorData?.issuedYear | date}}</td>
-            <td>{{guarantorData?.issuedPlace}}</td>
-          </tr>
-          <tr class="text-white sb-bg-dark">
-            <th>Contact Number</th>
-            <th>Father Name</th>
-            <th>Grand Father Name</th>
-            <th>Relationship</th>
-          </tr>
-          <tr>
-            <td>{{guarantorData?.contactNumber}}</td>
-            <td>{{guarantorData?.fatherName}}</td>
-            <td>{{guarantorData?.grandFatherName}}</td>
-            <td>{{guarantorData?.relationship}}</td>
-          </tr>
-          <tr class="text-white sb-bg-dark">
-            <th> Age</th>
-            <th>Net Worth</th>
-          </tr>
-          <tr>
-            <td>{{findAge(guarantorData?.issuedYear)}} yrs</td>
-            <td>{{guarantorData?.netWorth | number:'.2-2'}}</td>
-          </tr>
+            <tr class="sb-bg-dark text-white">
+                <th>Name</th>
+                <ng-container *ngIf="guarantorData?.guarantorType === 'personalGuarantor'; else corporate">
+                    <th>Citizen Number</th>
+                    <th>Issued Year</th>
+                    <th>Issued Place</th>
+                </ng-container>
+                <ng-template #corporate>
+                    <th>Registration Number</th>
+                    <th>PAN/VAT Number</th>
+                    <th>Contact Number</th>
+                </ng-template>
+                <th>Guarantee Amount</th>
+            </tr>
+            <tr>
+                <td>{{guarantorData?.name}}</td>
+                <ng-container *ngIf="guarantorData?.guarantorType === 'personalGuarantor'; else cor">
+                    <td>{{guarantorData?.citizenNumber}}</td>
+                    <td>{{guarantorData?.issuedYear | date}}</td>
+                    <td>{{guarantorData?.issuedPlace}}</td>
+                </ng-container>
+                <ng-template #cor>
+                    <td>{{guarantorData?.registrationNumber}}</td>
+                    <td>{{guarantorData?.panNumber}}</td>
+                    <td>{{guarantorData?.contactNumber}}</td>
+                </ng-template>
+                <td>Rs. {{guarantorData?.guaranteeAmount}}</td>
+            </tr>
+            <ng-container *ngIf="guarantorData?.guarantorType === 'personalGuarantor'">
+                <tr class="text-white sb-bg-dark">
+                    <th>Contact Number</th>
+                    <th>Father Name</th>
+                    <th>Grand Father Name</th>
+                    <th *ngIf="customerType?.toString() === 'INDIVIDUAL'">Relationship</th>
+                    <th>Age</th>
+                </tr>
+                <tr>
+                    <td>{{guarantorData?.contactNumber}}</td>
+                    <td>{{guarantorData?.fatherName}}</td>
+                    <td>{{guarantorData?.grandFatherName}}</td>
+                    <td *ngIf="customerType?.toString() === 'INDIVIDUAL'">{{guarantorData?.relationship}}</td>
+                    <td>{{findAge(guarantorData?.issuedYear)}} yrs</td>
+                </tr>
+            </ng-container>
         </table>
-<!--        Permanent Address-->
+        <!--        Permanent Address-->
         <table class="table table-responsive-md table-bordered table-hover text-center sb-small table-sm">
-          <thead>
-          <tr>
-            <th colspan="5">Permanent Address</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="text-white sb-bg-dark">
-            <th>Province</th>
-            <th>District</th>
-            <th>Municipalities</th>
-            <th>Ward NUmber</th>
-            <th>Street Name</th>
-          </tr>
-          <tr>
-            <td>{{guarantorData?.province?.name}}</td>
-            <td>{{guarantorData?.district?.name}}</td>
-            <td>{{guarantorData?.municipalities?.name}}</td>
-            <td>{{guarantorData?.wardNumber}}</td>
-            <td>{{guarantorData?.streetName}}</td>
-
-          </tr>
-          </tbody>
+            <thead>
+            <tr>
+                <th colspan="5">Permanent Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-white sb-bg-dark">
+                <th>Address</th>
+                <th>Province</th>
+                <th>District</th>
+                <th>Municipalities</th>
+                <th>Ward Number</th>
+            </tr>
+            <tr>
+                <td>{{guarantorData?.permanentAddressLineOne}}
+                    {{guarantorData?.permanentAddressLineOne ? ', ' : ''}}
+                    {{guarantorData?.permanentAddressLineTwo}}</td>
+                <td>{{guarantorData?.province?.name}}</td>
+                <td>{{guarantorData?.district?.name}}</td>
+                <td>{{guarantorData?.municipalities?.name}}</td>
+                <td>{{guarantorData?.wardNumber}}</td>
+            </tr>
+            </tbody>
         </table>
-<!--        Current Address-->
+        <!--        Current Address-->
         <table class="table table-responsive-md table-bordered table-hover text-center table-sm sb-small">
-          <thead>
-          <tr>
-            <th colspan="5">Current Address</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="text-white sb-bg-dark">
-            <th>Province</th>
-            <th>District</th>
-            <th>Municipalities</th>
-            <th>Ward NUmber</th>
-            <th>Street Name</th>
-          </tr>
-          <tr>
-            <td>{{guarantorData?.provinceTemporary?.name}}</td>
-            <td>{{guarantorData?.districtTemporary?.name}}</td>
-            <td>{{guarantorData?.municipalitiesTemporary?.name}}</td>
-            <td>{{guarantorData?.wardNumberTemporary}}</td>
-            <td>{{guarantorData?.streetNameTemporary}}</td>
-          </tr>
-          </tbody>
+            <thead>
+            <tr>
+                <th colspan="5">Current Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-white sb-bg-dark">
+                <th>Address</th>
+                <th>Province</th>
+                <th>District</th>
+                <th>Municipalities</th>
+                <th>Ward Number</th>
+            </tr>
+            <tr>
+                <td>{{guarantorData?.temporaryAddressLineOne}}
+                    {{guarantorData?.temporaryAddressLineOne ? ', ' : ''}}
+                    {{guarantorData?.temporaryAddressLineTwo}}</td>
+                <td>{{guarantorData?.provinceTemporary?.name}}</td>
+                <td>{{guarantorData?.districtTemporary?.name}}</td>
+                <td>{{guarantorData?.municipalitiesTemporary?.name}}</td>
+                <td>{{guarantorData?.wardNumberTemporary}}</td>
+            </tr>
+            </tbody>
         </table>
-      </ng-container>
+    </ng-container>
 </nb-card>
