@@ -49,13 +49,27 @@
                                 <span
                                         class="print-only font-weight-bold">
                                     {{ form?.get('actDate')?.value ? form?.get('actDate')?.value : '_________________'}}</span>
-                                बमोजिम नेपाल सरकार <input
+                                बमोजिम
+
+                                <input
                                     class="form-field form-control-sm  disable-print"
-                                    name="headName" formControlName="headName"
+                                    name="authorizedBody" formControlName="authorizedBody"
                                     placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold">{{ form?.get('headName')?.value ? form?.get('headName')?.value : '_________________'}}</span>
-                                मा मिति <input
+                                <span class="print-only font-weight-bold">
+                                    {{ form?.get('authorizedBody')?.value ? form?.get('authorizedBody')?.value : '_________________'}},
+                                </span>
+
+                                <span class="disable-print">
+                                    <input
+                                            class="form-field form-control-sm  disable-print"
+                                            name="headName" formControlName="headName"
+                                            placeholder="" type="text"/>मा
+                                </span>
+                                <span class="print-only font-weight-bold">
+                                    {{ form?.get('headName')?.value ? form?.get('headName')?.value : '_________________'}}मा
+                                </span>
+
+                                 मिति <input
                                     class="form-field form-control-sm  disable-print"
                                     name="registrationDate"
                                     formControlName="registrationDate"
