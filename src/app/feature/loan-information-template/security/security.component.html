@@ -43,7 +43,7 @@
         </div>
 
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"
-                     [security]="securityValue" [isEdit]="isEdit"></app-vehicle>
+                     [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-vehicle>
         <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"
                        [security]="securityValue" [isEdit]="isEdit"></app-apartment>
         <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"

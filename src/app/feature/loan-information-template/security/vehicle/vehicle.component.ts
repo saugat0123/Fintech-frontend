@@ -11,6 +11,7 @@ import {ToastService} from '../../../../@core/utils';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
 import {Security} from '../../../loan/model/security';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
     selector: 'app-vehicle',
@@ -21,6 +22,7 @@ export class VehicleComponent implements OnInit {
     vehicleForm: FormGroup;
     submitted = false;
     @Input() calendarType: CalendarType;
+    @Input() customerType: CustomerType;
     landOtherBranchChecked = false;
     vehicleOtherBranchChecked = false;
     securityValuator: SecurityValuator = new SecurityValuator();
@@ -38,6 +40,7 @@ export class VehicleComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('customerType:::', this.customerType);
         this.buildForm();
         this.branchList();
         this.getRoleList();
@@ -62,7 +65,7 @@ export class VehicleComponent implements OnInit {
                 downPayment: [formData.downPayment],
                 remainingAmount: [formData.remainingAmount],
                 loanExposure: [formData.loanExposure],
-                // showroomCommission: [formData.showroomCommission],
+                showroomCommission: [formData.showroomCommission],
                 vehicalValuator: [formData.vehicalValuator],
                 vehicalValuatorDate: [formData.vehicalValuatorDate ? new Date(formData.vehicalValuatorDate) : ''],
                 vehicalValuatorRepresentative: [formData.vehicalValuatorRepresentative],
@@ -81,10 +84,10 @@ export class VehicleComponent implements OnInit {
                 vehicleRealiasableAmount: [formData.vehicleRealiasableAmount],
                 vehicleRate: [formData.vehicleRate],
                 manufactureYear: [formData.manufactureYear],
-                // discountPrice: [formData.discountPrice],
+                discountPrice: [formData.discountPrice],
                 considerValue: [formData.considerValue],
                 fairMarketValue: [formData.fairMarketValue],
-                // distressValue: [formData.distressValue],
+                distressValue: [formData.distressValue],
                 freeLimit: [formData.freeLimit],
                 vehicleFirstValuationDate: [formData.vehicleFirstValuationDate ? new Date(formData.vehicleFirstValuationDate) : '']
             })
