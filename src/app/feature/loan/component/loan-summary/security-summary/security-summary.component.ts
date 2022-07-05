@@ -54,12 +54,18 @@ export class SecuritySummaryComponent implements OnInit {
     isPrintable = 'YES';
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
-    proposedSecurity: {securityName: string, considerValue: number, marketValue: number,
+    proposedSecurity1: {securityName: string, considerValue: number, marketValue: number,
         distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
-    existingSecurity: {securityName: string, considerValue: number, marketValue: number,
+    existingSecurity1: {securityName: string, considerValue: number, marketValue: number,
         distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
-    existingAsPropose: {securityName: string, considerValue: number, marketValue: number,
+    existingAsPropose1: {securityName: string, considerValue: number, marketValue: number,
         distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
+    proposedSecurity2: {securityName: string, totalAmount} [] = [];
+    existingSecurity2: {securityName: string, totalAmount} [] = [];
+    existingAsPropose2: {securityName: string, totalAmount} [] = [];
+    totalProposeSecurityAmount = 0;
+    totalExistingSecurityAmount = 0;
+    totalExistingAsProposedSecurityAmount = 0;
     totalMV = 0;
     totalFMV = 0;
     totalDV = 0;
@@ -92,7 +98,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMV += Number(d.landConsideredValue);
                         this.totalFMV += Number(d.marketValue);
                         this.totalDV += Number(d.distressValue);
-                        this.proposedSecurity.push({
+                        this.proposedSecurity1.push({
                             securityName: 'Land',
                             considerValue: d.landConsideredValue,
                             marketValue: d.marketValue,
@@ -106,7 +112,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMVEx += Number(d.landConsideredValue);
                         this.totalFMVEx += Number(d.marketValue);
                         this.totalDVEx += Number(d.distressValue);
-                        this.existingSecurity.push({
+                        this.existingSecurity1.push({
                             securityName: 'Land',
                             considerValue: d.landConsideredValue,
                             marketValue: d.marketValue,
@@ -120,7 +126,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMVAsPs += Number(d.landConsideredValue);
                         this.totalFMVAsPs += Number(d.marketValue);
                         this.totalDVAsPs += Number(d.distressValue);
-                        this.existingAsPropose.push({
+                        this.existingAsPropose1.push({
                             securityName: 'Land',
                             considerValue: d.landConsideredValue,
                             marketValue: d.marketValue,
@@ -140,7 +146,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMV += Number(d.landConsideredValue);
                         this.totalFMV += Number(d.marketValue);
                         this.totalDV += Number(d.distressValue);
-                        this.proposedSecurity.push({
+                        this.proposedSecurity1.push({
                             securityName: 'Land and Building',
                             considerValue: d.landConsideredValue,
                             marketValue: d.marketValue,
@@ -154,7 +160,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMVEx += Number(d.landConsideredValue);
                         this.totalFMVEx += Number(d.marketValue);
                         this.totalDVEx += Number(d.distressValue);
-                        this.existingSecurity.push({
+                        this.existingSecurity1.push({
                             securityName: 'Land and Building',
                             considerValue: d.landConsideredValue,
                             marketValue: d.marketValue,
@@ -168,7 +174,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMVAsPs += Number(d.landConsideredValue);
                         this.totalFMVAsPs += Number(d.marketValue);
                         this.totalDVAsPs += Number(d.distressValue);
-                        this.existingAsPropose.push({
+                        this.existingAsPropose1.push({
                             securityName: 'Land and Building',
                             considerValue: d.landConsideredValue,
                             marketValue: d.marketValue,
@@ -188,7 +194,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMV += Number(d.totalCost);
                         this.totalFMV += Number(d.buildingFairMarketValue);
                         this.totalDV += Number(d.buildingDistressValue);
-                        this.proposedSecurity.push({
+                        this.proposedSecurity1.push({
                             securityName: 'Apartment',
                             considerValue: d.totalCost,
                             marketValue: d.buildingFairMarketValue,
@@ -202,7 +208,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMVEx += Number(d.landConsideredValue);
                         this.totalFMVEx += Number(d.marketValue);
                         this.totalDVEx += Number(d.distressValue);
-                        this.existingSecurity.push({
+                        this.existingSecurity1.push({
                             securityName: 'Apartment',
                             considerValue: d.totalCost,
                             marketValue: d.buildingFairMarketValue,
@@ -216,7 +222,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.totalMVAsPs += Number(d.landConsideredValue);
                         this.totalFMVAsPs += Number(d.marketValue);
                         this.totalDVAsPs += Number(d.distressValue);
-                        this.existingAsPropose.push({
+                        this.existingAsPropose1.push({
                             securityName: 'Apartment',
                             considerValue: d.totalCost,
                             marketValue: d.buildingFairMarketValue,
@@ -224,6 +230,140 @@ export class SecuritySummaryComponent implements OnInit {
                             totalMV: this.totalMVAsPs,
                             totalFMV: this.totalFMVAsPs,
                             totalDV: this.totalDVAsPs
+                        });
+                    }
+                });
+            }
+
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['vehicleDetails'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalProposeSecurityAmount += Number(d.quotationAmount);
+                        this.proposedSecurity2.push({
+                            securityName: 'Vehicle',
+                            totalAmount: d.quotationAmount
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalExistingSecurityAmount += Number(d.quotationAmount);
+                        this.existingSecurity2.push({
+                            securityName: 'Vehicle',
+                            totalAmount: d.quotationAmount
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalExistingAsProposedSecurityAmount += Number(d.quotationAmount);
+                        this.existingAsPropose2.push({
+                            securityName: 'Vehicle',
+                            totalAmount: d.quotationAmount
+                        });
+                    }
+                });
+            }
+
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['plantDetails'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalProposeSecurityAmount += Number(d.quotation);
+                        this.proposedSecurity2.push({
+                            securityName: 'Plant and Machinery Security',
+                            totalAmount: d.quotation
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalExistingSecurityAmount += Number(d.quotation);
+                        this.existingSecurity2.push({
+                            securityName: 'Plant and Machinery Security',
+                            totalAmount: this.totalExistingSecurityAmount
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalExistingAsProposedSecurityAmount += Number(d.quotation);
+                        this.existingAsPropose2.push({
+                            securityName: 'Plant and Machinery Security',
+                            totalAmount: this.totalExistingAsProposedSecurityAmount
+                        });
+                    }
+                });
+            }
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['fixedDepositDetails'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalProposeSecurityAmount += Number(d.amount);
+                        this.proposedSecurity2.push({
+                            securityName: 'Fixed Deposit Receipt',
+                            totalAmount: d.amount
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalExistingSecurityAmount += Number(d.quotation);
+                        this.existingSecurity2.push({
+                            securityName: 'Fixed Deposit Receipt',
+                            totalAmount: d.amount
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalExistingAsProposedSecurityAmount += Number(d.quotation);
+                        this.existingAsPropose2.push({
+                            securityName: 'Fixed Deposit Receipt',
+                            totalAmount: d.amount
+                        });
+                    }
+                });
+            }
+
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['hypothecationOfStock'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalProposeSecurityAmount += Number(d.value);
+                        this.proposedSecurity2.push({
+                            securityName: 'Hypothecation of Stock',
+                            totalAmount: d.value
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalExistingSecurityAmount += Number(d.value);
+                        this.existingSecurity2.push({
+                            securityName: 'Hypothecation of Stock',
+                            totalAmount: d.value
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalExistingAsProposedSecurityAmount += Number(d.value);
+                        this.existingAsPropose2.push({
+                            securityName: 'Hypothecation of Stock',
+                            totalAmount: d.value
+                        });
+                    }
+                });
+            }
+
+            if (this.formData['initialForm'] !== undefined) {
+                const landDetail = this.formData['initialForm']['insurancePolicy'];
+                landDetail.forEach((d, i) => {
+                    if (d.forProposed) {
+                        this.totalProposeSecurityAmount += Number(d.insuredAmount);
+                        this.proposedSecurity2.push({
+                            securityName: 'Insurance Policy Security',
+                            totalAmount: d.insuredAmount
+                        });
+                    }
+                    if (d.forExisting) {
+                        this.totalExistingSecurityAmount += Number(d.insuredAmount);
+                        this.existingSecurity2.push({
+                            securityName: 'Insurance Policy Security',
+                            totalAmount: d.insuredAmount
+                        });
+                    }
+                    if (d.existingAsProposed) {
+                        this.totalExistingAsProposedSecurityAmount += Number(d.insuredAmount);
+                        this.existingAsPropose2.push({
+                            securityName: 'Insurance Policy Security',
+                            totalAmount: d.insuredAmount
                         });
                     }
                 });

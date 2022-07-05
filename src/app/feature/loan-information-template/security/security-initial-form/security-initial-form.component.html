@@ -2971,6 +2971,11 @@
                  class="font-weight-bold"
                  formArrayName="insurancePolicy">
                 <div [formGroupName]="i">
+                    <div *ngIf="customerType === 'INSTITUTION'">
+                        <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
+                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

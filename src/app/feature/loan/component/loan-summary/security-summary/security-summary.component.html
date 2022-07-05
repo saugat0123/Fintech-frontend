@@ -66,8 +66,8 @@
 <!--                </table>-->
 <!--            </div>-->
 <!--        </div>-->
-        <strong *ngIf="existingSecurity?.length > 0">Existing</strong>
-        <div class="row" *ngIf="existingSecurity?.length > 0">
+        <strong *ngIf="existingSecurity1?.length > 0 || existingSecurity2?.length > 0">Existing</strong>
+        <div class="row" *ngIf="existingSecurity1?.length > 0">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-secondary text-white">
@@ -79,7 +79,7 @@
                     </tr>
                     <!--Land Security-->
                     <ng-container>
-                        <tr *ngFor="let detail of existingSecurity; let i= index">
+                        <tr *ngFor="let detail of existingSecurity1; let i= index">
                             <td class="text-center">{{i + 1}}</td>
                             <td>{{detail?.securityName}}</td>
                             <td>{{detail?.considerValue}}</td>
@@ -96,9 +96,32 @@
                 </table>
             </div>
         </div>
+        <div class="row" *ngIf="existingSecurity1?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Real estate collateral</th>
+                        <th>Amount</th>
+                    </tr>
+                    <!--Land Security-->
+                    <ng-container>
+                        <tr *ngFor="let detail of existingSecurity2; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.securityName}}</td>
+                            <td>NPR {{detail?.totalAmount}} million</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">{{totalExistingSecurityAmount?.toFixed(2)}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
 
-        <strong *ngIf="proposedSecurity?.length > 0">Proposed</strong>
-        <div class="row" *ngIf="proposedSecurity?.length > 0">
+        <strong *ngIf="proposedSecurity1?.length > 0 || proposedSecurity2?.length > 0">Proposed</strong>
+        <div class="row" *ngIf="proposedSecurity1?.length > 0">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-secondary text-white">
@@ -110,7 +133,7 @@
                     </tr>
                     <!--Land Security-->
                     <ng-container>
-                        <tr *ngFor="let detail of proposedSecurity; let i= index">
+                        <tr *ngFor="let detail of proposedSecurity1; let i= index">
                             <td class="text-center">{{i + 1}}</td>
                             <td>{{detail?.securityName}}</td>
                             <td>{{detail?.considerValue}}</td>
@@ -127,9 +150,32 @@
                 </table>
             </div>
         </div>
+        <div class="row" *ngIf="proposedSecurity2?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Real estate collateral</th>
+                        <th>Amount</th>
+                    </tr>
+                    <!--Land Security-->
+                    <ng-container>
+                        <tr *ngFor="let detail of proposedSecurity2; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.securityName}}</td>
+                            <td>NPR {{detail?.totalAmount}} million</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">{{totalProposeSecurityAmount?.toFixed(2) || 0.0}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
 
-        <strong *ngIf="existingAsPropose?.length > 0">Existing as Proposed</strong>
-        <div class="row" *ngIf="existingAsPropose?.length > 0">
+        <strong *ngIf="existingAsPropose1?.length > 0 || existingAsPropose2?.length > 0">Existing as Proposed</strong>
+        <div class="row" *ngIf="existingAsPropose1?.length > 0">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-secondary text-white">
@@ -141,7 +187,7 @@
                     </tr>
                     <!--Land Security-->
                     <ng-container>
-                        <tr *ngFor="let detail of existingAsPropose; let i= index">
+                        <tr *ngFor="let detail of existingAsPropose1; let i= index">
                             <td class="text-center">{{i + 1}}</td>
                             <td>{{detail?.securityName}}</td>
                             <td>{{detail?.considerValue}}</td>
@@ -153,6 +199,29 @@
                             <td class="font-weight-bold">{{totalMVAsPs?.toFixed(2) || 0.0}}</td>
                             <td class="font-weight-bold">{{totalFMVAsPs?.toFixed(2) || 0.0}}</td>
                             <td class="font-weight-bold">{{totalDVAsPs?.toFixed(2) || 0.0}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+        <div class="row" *ngIf="existingAsPropose2?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-secondary text-white">
+                        <th>S.N</th>
+                        <th>Real estate collateral</th>
+                        <th>Amount</th>
+                    </tr>
+                    <!--Land Security-->
+                    <ng-container>
+                        <tr *ngFor="let detail of existingAsPropose2; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.securityName}}</td>
+                            <td>NPR {{detail?.totalAmount}} million</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">{{totalExistingAsProposedSecurityAmount?.toFixed(2) || 0.0}}</td>
                         </tr>
                     </ng-container>
                 </table>

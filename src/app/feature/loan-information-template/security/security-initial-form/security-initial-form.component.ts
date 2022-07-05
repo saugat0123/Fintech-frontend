@@ -861,6 +861,9 @@ export class SecurityInitialFormComponent implements OnInit {
                             undefined : new Date(singleData.earlySurrenderDate)],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
+                        forProposed: [singleData.forProposed],
+                        forExisting: [singleData.forExisting],
+                        existingAsProposed: [singleData.existingAsProposed],
                     })
                 );
             });
@@ -1434,6 +1437,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 earlySurrenderDate: [undefined],
                 consideredValue: [undefined],
                 cashBackAmount: [undefined],
+                forProposed: [undefined],
+                forExisting: [undefined],
+                existingAsProposed: [undefined],
             }
         );
     }
