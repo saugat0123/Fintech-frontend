@@ -404,15 +404,15 @@ export class CatalogueComponent implements OnInit {
         this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
         // this.renewLoan();
-        if (this.isCombineLoan) {
-            this.loanFormService.removeCombineLoanById(this.loanDataHolder.combinedLoan.id).subscribe((res: any) => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully seperated loan.'));
-                this.loanDataHolder.combinedLoan = null;
-                this.renewLoan();
-            });
-        } else {
+        // if (this.isCombineLoan) {
+        //     this.loanFormService.removeCombineLoanById(this.loanDataHolder.combinedLoan.id).subscribe((res: any) => {
+        //         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully seperated loan.'));
+        //         this.loanDataHolder.combinedLoan = null;
+        //         this.renewLoan();
+        //     });
+        // } else {
             this.renewLoan();
-        }
+        // }
     }
     renewLoan() {
         this.loanFormService.renewLoan(this.loanDataHolder).subscribe((res: any) => {

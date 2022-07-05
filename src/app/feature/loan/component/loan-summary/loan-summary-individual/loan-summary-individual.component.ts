@@ -41,6 +41,7 @@ import {FiscalYearService} from '../../../../admin/service/fiscal-year.service';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {Security} from 'src/app/feature/admin/modal/security';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
+import {LoanTag} from '../../../model/loanTag';
 
 @Component({
   selector: 'app-loan-summary-individual',
@@ -57,6 +58,9 @@ export class LoanSummaryIndividualComponent implements OnInit {
 
   @Input() nepaliDate;
   @Input() customerAllLoanList: LoanDataHolder [];
+
+  @Input() loanSecurity: Array<Security> = [];
+  @Input() approvedSecurity: Array<Security> = [];
 
   client: string;
   clientName = Clients;
@@ -184,6 +188,10 @@ export class LoanSummaryIndividualComponent implements OnInit {
   zipDocName;
   loaded = false;
   fullSettlement = false;
+  others = false;
+  loanTagEnum = LoanTag;
+  isShareLoan = false;
+  @Input() combinedLoan: any;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -216,6 +224,9 @@ export class LoanSummaryIndividualComponent implements OnInit {
     }
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
       this.fullSettlement = true;
+    }
+    if (LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS) {
+      this.others = true;
     }
       this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
@@ -273,6 +284,7 @@ export class LoanSummaryIndividualComponent implements OnInit {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
     }
     this.checkDocumentStatus();
+    this.flagShareSecurity();
   }
 
 
@@ -544,6 +556,9 @@ export class LoanSummaryIndividualComponent implements OnInit {
       if (this.signatureList[index].docAction.toString() === 'DUAL_APPROVAL_PENDING') {
         return 'Approved By';
       }
+      if (this.signatureList[index].docAction.toString() === 'HSOV_PENDING') {
+        return 'Approved By';
+      }
       return label;
     } else {
       if (index === 0) {
@@ -773,6 +788,31 @@ export class LoanSummaryIndividualComponent implements OnInit {
   open(comments) {
     const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
     modalRef.componentInstance.comments = comments;
+  }
+
+  flagShareSecurity() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+      const customerLen = !ObjectUtil.isEmpty(this.combinedLoan) ? this.combinedLoan.length : 0;
+      if (customerLen >= 1) {
+        let finalData: any;
+        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+          finalData = this.combinedLoan.filter((data) => data.loan.loanTag
+              === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY));
+        } else {
+          finalData = this.combinedLoan.filter((data) => data.loan.loanTag
+              === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY) && data.documentStatus.toString() !== 'APPROVED');
+        }
+        if (finalData.length >= 1) {
+          this.isShareLoan = true;
+        } else {
+          this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
+        }
+      } else {
+        this.isShareLoan = false;
+      }
+    } else {
+      this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
+    }
   }
 }
 
