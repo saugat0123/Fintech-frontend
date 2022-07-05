@@ -213,6 +213,12 @@ export class LandBuildingComponent implements OnInit {
             .patchValue(Number(landBuildingConValue));
         this.landBuildingForm.get(['landBuilding', index, 'landConsideredValue'])
             .patchValue(Number(landConValue + landBuildingConValue));
+        const FairMarketValueOfLand = (Number(this.landBuildingForm.get(['landBuilding', index, 'fairMarketValue']).value));
+        const FairMarketValueOfBuilding = (Number(this.landBuildingForm.get(['landBuilding', index, 'totalCost']).value));
+        this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue'])
+            .patchValue(FairMarketValueOfLand + FairMarketValueOfBuilding);
+        this.landBuildingForm.get(['landBuilding', index, 'considerValue'])
+            .patchValue( this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue']).value);
         break;
       case 'lbUnderConstruction':
         const lbUnderConValue = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValueConstruction']).value)
@@ -276,6 +282,7 @@ export class LandBuildingComponent implements OnInit {
       totalBuildingArea: [undefined],
       costPerSquare: [undefined],
       totalCost: [undefined],
+      totalMarketValue: [undefined],
       buildingValuator: [undefined],
       buildingValuatorDate: [undefined],
       buildingValuatorRepresentative: [undefined],
