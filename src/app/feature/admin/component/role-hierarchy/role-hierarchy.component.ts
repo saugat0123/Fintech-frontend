@@ -42,7 +42,6 @@ export class RoleHierarchyComponent implements OnInit {
             this.roleList = response.detail;
             this.length = this.roleList.length > 0;
             this.roleHeirarchy = this.roleList;
-
         });
 
         this.roleService.getStatus().subscribe((response: any) => {

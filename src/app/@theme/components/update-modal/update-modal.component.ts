@@ -37,7 +37,7 @@ export class UpdateModalComponent {
             this.activeModalService.dismiss('openInactiveComment');
             return;
         }
-        this.service.save(this.data).subscribe(() => {
+        this.service.update(this.data).subscribe(() => {
             this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED STATUS'));
             this.activeModalService.close();
