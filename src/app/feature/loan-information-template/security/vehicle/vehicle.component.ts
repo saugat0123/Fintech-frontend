@@ -40,7 +40,6 @@ export class VehicleComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('customerType:::', this.customerType);
         this.buildForm();
         this.branchList();
         this.getRoleList();
