@@ -7,9 +7,14 @@
                 <div *ngIf="purchaseArray.length > 0" class="mt-4">
                     <ng-container *ngFor="let val of purchaseArray; let i1 = index"
                                   formArrayName="homeLoanPurchaseFormArray">
+                        For Purchase case/First Home Loan Buyer
                         <ng-container [formGroupName]="i1">
                             <!--(For Purchase case/First Home Loan Buyer-->
                             <p class="m-0">
+                                <nb-checkbox class="d-print-none" #showFreeTextForPurchase
+                                             formControlName="housingPurchaseClause">
+                                    Show third party transfer clause
+                                </nb-checkbox><br>
                                 धितोबन्धक तमसुक, तंहाको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण
                                 कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक
                                 लिमिटेडको, पुल्चोक शाखामा रहेको चल्ती खातामा रु.
@@ -26,27 +31,19 @@
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span>
-                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="nameOfBeneficiary"
-                                       formControlName="nameOfBeneficiary"
-                                       placeholder=" "
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">{{val?.nameOfBeneficiaryCT || '_________________'}}</span>
-                                लाई A/C Payee Cheque /MC/Draft
-                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
-                            </p>
-                            <p class="m-0 mt-4" *ngIf="val?.NcellStaffCheck">
-                                <!--This clause should be on requirement basis such as NCELL purchase Case-->
-                                उक्त रकम श्री
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="nameOfBeneficiary"
-                                       formControlName="nameOfBeneficiary"
-                                       placeholder=" "
-                                       type="text"/>
-                                <span class="print-only font-weight-bold">{{val?.nameOfBeneficiaryCT || '_________________'}}</span>
-                                लाई A/C Payee Cheque /MC/Draft मार्फत् वा खातामा स्थानान्तरण गरी
-                                भुक्तानी गरिनेछ ।
+                                मात्र) ऋणकर्जा प्रवाह गरिनेछ
+                                <span *ngIf="showFreeTextForPurchase.checked">
+                                    र उक्त रकम श्री
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="nameOfBeneficiary"
+                                           formControlName="nameOfBeneficiary"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only font-weight-bold">{{val?.nameOfBeneficiaryCT || '_________________'}}</span>
+                                    लाई A/C Payee Cheque /MC/Draft
+                                    मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ
+                                </span>
+                                ।
                             </p>
                         </ng-container>
                     </ng-container>
@@ -55,6 +52,7 @@
                     <ng-container *ngFor="let val of constructionArray; let i1 = index"
                                   formArrayName="homeLoanConstructionFormArray">
                         <ng-container [formGroupName]="i1">
+                            For construction case
                             <ng-container>
                                 <!--For construction case-->
                                 धितोबन्धक तमसुक, तहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/
@@ -169,8 +167,13 @@
                                   formArrayName="homeLoanTakeOverFormArray">
                         <ng-container [formGroupName]="i1">
                             <p class="m-0">
+                                Housing Takeover Case
                                 <!--Housing Takeover Case
                                 For all loans-->
+                                <nb-checkbox class="d-print-none" #showFreeTextForTakeOver
+                                             formControlName="housingTakeOverClause">
+                                    Show third party transfer clause
+                                </nb-checkbox><br>
                                 धितोबन्धक तमसुक बाहेक,
                                 तहाँको कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु
                                 बैंकको पक्षमा गरिदिए पश्चात तपाईंको यस नबिल बैंक लिमिटेडको, पुल्चोक शाखामा
@@ -188,7 +191,9 @@
                                        placeholder=" "
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
-                                मात्र) ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम
+                                मात्र) ऋणकर्जा प्रवाह गरिनेछ
+                                <span *ngIf="showFreeTextForTakeOver.checked">
+                                र उक्त रकम
                                 <input class="form-field form-control-sm d-print-none"
                                        name="nameOfBank"
                                        formControlName="nameOfBank"
@@ -197,7 +202,9 @@
                                 <span class="print-only font-weight-bold">{{val?.nameOfBankCT || '______________________'}}</span>
                                 बैंकलाई
                                 A/C Payee Cheque/MC/Draft
-                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+                                मार्फत् वा खातामा स्थानान्तरण गरी भुक्तानी गरिनेछ
+                                </span>
+                                ।
                             </p>
                         </ng-container>
                     </ng-container>
@@ -421,6 +428,11 @@
                                         {{i2 + 1 | nepaliNumber}}.
                                     </td>
                                     <td>
+                                        <br>
+                                        <nb-checkbox class="d-print-none" #showFreeTextForPOD
+                                                     formControlName="podClause">
+                                            Show third party transfer clause
+                                        </nb-checkbox><br>
                                         आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
                                         आवश्यकता
                                         र निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
@@ -444,9 +456,12 @@
                                                placeholder=" "
                                                type="text"/>
                                         <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
-                                        मात्र) को अधिविकर्ष सिमा राखिनेछ र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि
-                                        समयमा
-                                        सो सिमा भन्दा बढी हुनु हुनेछैन ।
+                                        मात्र) को अधिविकर्ष सिमा राखिनेछ
+                                        <span *ngIf="showFreeTextForPOD.checked">
+                                        र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा
+                                        सो सिमा भन्दा बढी हुनु हुनेछैन
+                                        </span>
+                                        ।
                                     </td>
                                 </ng-container>
                             </tr>
@@ -463,6 +478,11 @@
                                     (i2 + 1) | nepaliNumber}}.
                                     </td>
                                     <td>
+                                        <br>
+                                        <nb-checkbox class="d-print-none" #showFreeTextShareLoan
+                                                     formControlName="shareLoanClause">
+                                            Show third party transfer clause
+                                        </nb-checkbox><br>
                                         आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
                                         आवश्यकता
                                         र निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
@@ -494,9 +514,12 @@
                                                type="text"/>
                                         <span class="print-only font-weight-bold">
                                             {{tempInformation?.section8?.loanDemandFreeText[i2]?.freetext11 ? tempInformation?.section8?.loanDemandFreeText[i2]?.freetext11 : '______________________'}}</span>
-                                        को सिमा राखिनेछ र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा सो सिमा
-                                        भन्दा
-                                        बढी हुनु हुनेछैन ।
+                                        को सिमा राखिनेछ
+                                        <span *ngIf="showFreeTextShareLoan.checked">
+                                        र उक्त ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा सो सिमा
+                                        भन्दा बढी हुनु हुनेछैन
+                                        </span>
+                                        ।
                                     </td>
                                 </ng-container>
                             </tr>
