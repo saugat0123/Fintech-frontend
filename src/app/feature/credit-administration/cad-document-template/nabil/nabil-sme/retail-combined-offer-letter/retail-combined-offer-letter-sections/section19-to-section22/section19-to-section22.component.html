@@ -2,7 +2,7 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
         <form [formGroup]="form">
-            <nb-checkbox class="d-print-none" #showAdditionalClause (checkedChange)="showAdditionalClauseCheck(showAdditionalClause.checked)"
+            <nb-checkbox class="d-print-none" #showAdditionalClause
                          formControlName="additionalClauseChecked">
                 Additional Clause for Corporate agreement based Loan
             </nb-checkbox>
@@ -11,7 +11,15 @@
                 Additional Clause for Corporate agreement based Loan:
                 ( Optional as per need basis on all loan types)-->
                <b>
-                   द्रष्टब्य : माथि उल्लिखित ब्यक्तिगत कर्जाको ब्याजदर यस नबिल बैंक लिमिटेड र
+                   द्रष्टब्य : माथि उल्लिखित
+                   <input class="form-field form-control-sm d-print-none"
+                          name="freeText"
+                          formControlName="freeText"
+                          placeholder=" "
+                          type="text"/>
+                   <span class="print-only font-weight-bold">
+                       {{freeInformation?.section22?.freeText || '______________________'}}</span>
+                   को ब्याजदर यस नबिल बैंक लिमिटेड र
                    <input class="form-field form-control-sm d-print-none"
                           name="freeText1"
                           formControlName="freeText1"
