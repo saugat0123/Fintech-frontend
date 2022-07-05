@@ -142,6 +142,7 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
             this.section18.form.get('insuranceAmount').value : '',
     };
         const section22FreeText = {
+            freeText: this.section22.form.get('freeText').value ? this.section22.form.get('freeText').value : '',
             freeText1: this.section22.form.get('freeText1').value ? this.section22.form.get('freeText1').value : '',
             freeText2: this.section22.form.get('freeText2').value ? this.section22.form.get('freeText2').value : '',
             freeText3: this.section22.form.get('freeText3').value ? this.section22.form.get('freeText3').value : '',

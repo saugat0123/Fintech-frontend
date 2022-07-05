@@ -54,6 +54,7 @@ export class Section19ToSection22Component implements OnInit {
       sakshiAge2: [undefined],
       sakshiName2: [undefined],
       nameOfBankStaff: [undefined],
+      freeText: [undefined],
       freeText1: [undefined],
       freeText2: [undefined],
       freeText3: [undefined],
@@ -94,6 +95,7 @@ export class Section19ToSection22Component implements OnInit {
         sakshiAge2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiAge2) ? this.freeInformation.section22.sakshiAge2 : '',
         sakshiName2: !ObjectUtil.isEmpty(this.freeInformation.section22.sakshiName2) ? this.freeInformation.section22.sakshiName2 : '',
         nameOfBankStaff: !ObjectUtil.isEmpty(this.freeInformation.section22.nameOfBankStaff) ? this.freeInformation.section22.nameOfBankStaff : '',
+        freeText: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText) ? this.freeInformation.section22.freeText : '',
         freeText1: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText1) ? this.freeInformation.section22.freeText1 : '',
         freeText2: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText2) ? this.freeInformation.section22.freeText2 : '',
         freeText3: !ObjectUtil.isEmpty(this.freeInformation.section22.freeText3) ? this.freeInformation.section22.freeText3 : '',
@@ -103,8 +105,5 @@ export class Section19ToSection22Component implements OnInit {
             this.freeInformation.section22.additionalClauseChecked : '',
       });
     }
-  }
-  showAdditionalClauseCheck(data) {
-    console.log('Show Additional Clause for Corporate agreement based Loan?', data);
   }
 }
