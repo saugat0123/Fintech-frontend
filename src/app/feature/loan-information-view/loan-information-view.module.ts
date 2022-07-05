@@ -34,6 +34,7 @@ import {SecurityTaggedModule} from '../loan-information-template/security/securi
 import {SecurityTaggerComponent} from './security-view/security-adder/security-tagger/security-tagger.component';
 import { SecurityDetailViewComponent } from './security-detail-view/security-detail-view.component';
 import { GroupSummarySheetViewComponent } from './group-summary-sheet-view/group-summary-sheet-view.component';
+import { CustomerShareDetailViewComponent } from './customer-share-detail-view/customer-share-detail-view.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { GroupSummarySheetViewComponent } from './group-summary-sheet-view/group
         SecurityTaggerComponent,
         SecurityDetailViewComponent,
         GroupSummarySheetViewComponent,
+        CustomerShareDetailViewComponent,
     ],
     exports: [
         InsuranceViewComponent,
@@ -84,6 +86,7 @@ import { GroupSummarySheetViewComponent } from './group-summary-sheet-view/group
         CrossCollateralizedViewComponent,
         SecurityDetailViewComponent,
         GroupSummarySheetViewComponent,
+        CustomerShareDetailViewComponent,
     ],
     imports: [
         CommonModule,

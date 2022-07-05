@@ -64,6 +64,7 @@ import {ProductPaperChecklistComponent} from '../../../loan-information-template
 import {DomSanitizer} from '@angular/platform-browser';
 import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
 import {FinancialAccountInformationComponent} from '../../../loan-information-template/financial-account-information/financial-account-information.component';
+import {BusinessType} from '../../../admin/modal/businessType';
 
 
 @Component({
@@ -528,7 +529,7 @@ export class LoanFormComponent implements OnInit {
                 this.router.navigate(['/home/dashboard']);
             }
 
-            this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
+            this.riskQuestionService.getAllQuestionsByBusinessType('PRODUCTION').subscribe(riskQsnRes => {
                 const crgQuestionsList = riskQsnRes.detail as Array<any>;
                 if (!(crgQuestionsList.length > 0)) {
                     this.removeCrgGammaFromTemplateList();

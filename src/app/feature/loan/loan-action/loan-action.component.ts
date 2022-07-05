@@ -146,9 +146,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
             case 'forward':
                 if (this.loanFlags && this.loanFlags.length > 0) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
-                    this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
-
-                    return;
+                    if (this.loanFlags[0].flag !== 'ZERO_PROPOSAL_AMOUNT') {
+                        this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
+                        return;
+                    }
                 }
                 context = {
                     popUpTitle: 'Send Forward',
@@ -171,7 +172,10 @@ export class LoanActionComponent implements OnInit, OnChanges {
             case 'approve':
                 if (this.loanFlags && this.loanFlags.length > 0) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
-                    return;
+                    if (this.loanFlags[0].flag !== 'ZERO_PROPOSAL_AMOUNT') {
+                        this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
+                        return;
+                    }
                 }
                 if (this.customerLoanHolder.isHsov && this.customerLoanHolder.documentStatus.toString()
                     !== DocStatus.value(DocStatus.HSOV_PENDING)) {
