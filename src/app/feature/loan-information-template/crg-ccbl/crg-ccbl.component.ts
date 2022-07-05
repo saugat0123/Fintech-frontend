@@ -116,11 +116,11 @@ export class CrgCcblComponent implements OnInit {
                     const data = {
                         file: {
                             docName: 'CRG CCBL',
-                            docPath: crgData
+                            docPath: crgData ? crgData : this.data.file.docPath
                         },
                         esrmFile: {
                             docName: 'ESRM',
-                            docPath: esrmData
+                            docPath: esrmData ? esrmData : this.data.esrmFile.docPath
                         },
                         data: this.obtainedScore,
                         selectedFiscalYear: this.selectedFiscalYear,
