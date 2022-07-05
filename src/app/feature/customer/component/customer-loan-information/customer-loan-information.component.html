@@ -909,8 +909,8 @@
         <nb-card class="template-css">
           <nb-card-header> Existing Exposure
             <a aria-label="Close" class="close cursor"
-               data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
+               data-dismiss="modal" (click)="ref.close();onRefresh()">
+                      <span style="color: red" (click)="ref.close();onRefresh()">
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
           </nb-card-header>

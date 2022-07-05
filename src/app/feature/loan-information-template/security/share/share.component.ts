@@ -272,7 +272,7 @@ export class ShareComponent implements OnInit {
                 break;
               }
               let clearedData: any = testData;
-              if (j >= 4) {
+              if (j >= 3) {
                 clearedData = testData.replace(/\s/g, '');
                 clearedData = clearedData === '-' ? Number(0) : clearedData;
                 if (clearedData === 'Ordinary' || clearedData === 'Promoter') {
