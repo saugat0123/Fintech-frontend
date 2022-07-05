@@ -61,7 +61,7 @@ export class VehicleComponent implements OnInit {
                 engineNo: [formData.engineNo],
                 chasisNo: [formData.chasisNo],
                 quotationAmount: [formData.quotationAmount],
-                downPayment: [formData.downPayment],
+                // downPayment: [formData.downPayment],
                 remainingAmount: [formData.remainingAmount],
                 loanExposure: [formData.loanExposure],
                 showroomCommission: [formData.showroomCommission],
@@ -138,6 +138,10 @@ export class VehicleComponent implements OnInit {
             const reliasableValue = (Number(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value)
                 * (Number(this.vehicleForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
             this.vehicleForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
+            this.vehicleForm.get(['vehicleDetails', i, 'considerValue'])
+                .patchValue(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value);
+            this.vehicleForm.get(['vehicleDetails', i, 'fairMarketValue'])
+                .patchValue(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value);
         }
     }
 
@@ -189,8 +193,8 @@ export class VehicleComponent implements OnInit {
             engineNo: [undefined],
             chasisNo: [undefined],
             quotationAmount: [undefined, Validators.required],
-            downPayment: [undefined],
-            remainingAmount: [undefined],
+            // downPayment: [undefined],
+            // remainingAmount: [undefined],
             loanExposure: [undefined],
             // showroomCommission: [undefined],
             vehicalValuator: [undefined],
