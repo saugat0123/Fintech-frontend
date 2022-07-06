@@ -96,4 +96,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/saveExistingExposure?customerInfoId=${customerInfoId}`);
         return this.http.post(req.url, existingExposure, {headers: req.header});
     }
+
+    public saveExposureToLoan(existingExposureId: number, customerInfoId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/existingExposure/loan?id=${existingExposureId}&customerInfoId=${customerInfoId}`);
+        return this.http.post(req.url, {}, {headers: req.header});
+    }
 }
