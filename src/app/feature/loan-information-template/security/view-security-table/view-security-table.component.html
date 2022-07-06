@@ -50,7 +50,7 @@
                                 <em class="fa fa-undo"></em>
                             </a>
                         </ng-container>
-                        <a class="px-2 cursor" nbTooltip="{{security?.status.toString() === 'ACTIVE' ? 'UN-LINK' : 'LINK'}} SECURITY" *ngIf="toggleArray[i]?.approved"
+                        <a class="px-2 cursor" nbTooltip="{{security?.status.toString() === 'ACTIVE' ? 'UN-LINK' : 'LINK'}} SECURITY" *ngIf="toggleArray[i]?.approved || security?.approved"
                            (click)="unlinkSecurity(security?.id, security?.status.toString() === 'ACTIVE' ? 'INACTIVE': 'ACTIVE')">
                             <i [ngClass]="security?.status === 'ACTIVE' ? 'fa fa-minus-square' : 'fa fa-link'" aria-hidden="true"></i>
                         </a>
