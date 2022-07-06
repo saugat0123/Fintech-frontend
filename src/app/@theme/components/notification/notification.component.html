@@ -1,5 +1,5 @@
-<nb-card status="warning" size="small">
-  <nb-card-header>
+<nb-card size="small">
+  <nb-card-header class="c-color">
     <h5 class="text-white">Notification</h5>
     <div class="row">
       <div class="col-md-12 d-flex justify-content-between">
@@ -40,8 +40,15 @@
   </nb-card-body>
 </nb-card>
 <ng-template #template >
-  <div class="modal-header  d-flex justify-content-end">
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">x</button>
+  <div class="modal-header c-color ">
+    <div class="col-md-12 d-flex justify-content-between">
+      <div class="right-content">
+        <label class="text-white h-size">All Notification</label>
+  </div>
+      <div class="left-content">
+        <button type="button" class="btn-close d-red" aria-label="Close" (click)="closeModal()">x</button>
+    </div>
+    </div>
   </div>
   <div class="modal-body">
     <table class="table table-sm table-bordered table-hover sb-small text-left" *ngIf="notifications">
@@ -64,6 +71,8 @@
     </table>
   </div>
   <div class="modal-footer">
-    <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+
   </div>
+  <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
 </ng-template>
+
