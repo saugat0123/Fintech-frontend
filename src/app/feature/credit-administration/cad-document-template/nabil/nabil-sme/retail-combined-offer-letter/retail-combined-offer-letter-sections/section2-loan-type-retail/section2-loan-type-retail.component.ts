@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
-import {executeKarmaBuilder} from '@angular-devkit/build-angular';
 
 @Component({
   selector: 'app-section2-loan-type-retail',
@@ -24,6 +23,20 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   finalFacility;
   facilityNames: Array<String> = [];
   allFacilityNames;
+  assignedData;
+  loanName: Array<any> = new Array<any>();
+  isPersonalOD: boolean;
+  isNabilSahayatri: boolean;
+  isPersonalWoCollateral: boolean;
+  isShareLoanPOD: boolean;
+  isShareLoanDemand: boolean;
+  isMortgageLoan: boolean;
+  isHomeLoan: boolean;
+  isAutoLoan: boolean;
+  isPersonalLoan: boolean;
+  isEducationLoan:  boolean;
+  isEducationClassE:  boolean;
+  isEducationClassA:  boolean;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -43,6 +56,7 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     console.log('Initial Data:', this.initialData);
     this.buildForm();
     this.patchData();
+    this.checkLoan();
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -946,5 +960,60 @@ export class Section2LoanTypeRetailComponent implements OnInit {
       return this.personalLoanFreeTextArray;
     }
   }
-
+  checkLoan() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.assignedData = this.cadData.assignedLoan.forEach(value => {
+        if (!this.loanName.includes(value.loan.name)) {
+          this.loanName.push(value.loan.name);
+        }
+      });
+      this.loanName.forEach(value => {
+        if (value === 'PERSONAL OVERDRAFT COMBINED') {
+          this.isPersonalOD = true;
+        }
+        if (value === 'NABIL SAHAYATRI KARJA') {
+          this.isNabilSahayatri = true;
+        }
+        if (value === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED') {
+          this.isPersonalWoCollateral = true;
+        }
+        if (value === 'NABIL SHARE LOAN POD COMBINED') {
+          this.isShareLoanPOD = true;
+        }
+        if (value === 'SHARE LOAN DEMAND COMBINED') {
+          this.isShareLoanDemand = true;
+        }
+        if (value === 'MORTGAGE LOAN COMBINED') {
+          this.isMortgageLoan = true;
+        }
+        if (value === 'HOME LOAN COMBINED') {
+          this.isHomeLoan = true;
+        }
+        if (value === 'AUTO LOAN COMBINED') {
+          this.isAutoLoan = true;
+        }
+        if (value === 'PERSONAL LOAN COMBINED') {
+          this.isPersonalLoan = true;
+        }
+        if (value === 'EDUCATION LOAN COMBINED') {
+          this.isEducationLoan = true;
+          this.checkEduCondition();
+        }
+      });
+    }
+  }
+  checkEduCondition() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.educationLoanForm) &&
+        !ObjectUtil.isEmpty(this.initialData.educationLoanForm.educationLoanCombinedFormArray)) {
+      this.initialData.educationLoanForm.educationLoanCombinedFormArray.forEach((val: any) => {
+        if (val.securityType === 'LAND' || val.securityType === 'LAND_BUILDING') {
+          this.isEducationClassE = true;
+        }
+        if (val.securityType === 'TD') {
+          this.isEducationClassA = true;
+        }
+      });
+    }
+  }
 }

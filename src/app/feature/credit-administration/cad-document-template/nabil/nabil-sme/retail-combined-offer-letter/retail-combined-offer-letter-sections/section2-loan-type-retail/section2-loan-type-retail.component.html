@@ -11,7 +11,7 @@
                         <ng-container [formGroupName]="i1">
                             <td width="10%" class="font-weight-bold">प्रकरण <br/>{{(i1+1) | nepaliWord}})</td>
                             <td>
-                                <b>कर्जा प्रकार :
+                                <b>कर्जा प्रकार : (Existing Loan)
                                     <ng-container>
                                         {{val?.facilityName ? val?.facilityName : '_________________'}}
                                     </ng-container>
@@ -31,28 +31,100 @@
                                                          formControlName="purposeOfLoan"
                                                          type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.purposeOfLoanCT || '______________________'}}</span> गर्ने प्रयोजनका निमित्त
-                                मात्र कर्जा प्रयोग गरी सक्नुभएको छ । <br>
+                                मात्र कर्जा प्रयोग गरी सक्नुभएको छ ।
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--For Floating Interest rate Case-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
-                                    <input class="form-field form-control-sm d-print-none"
-                                           name="baseRate"
-                                           formControlName="baseRate"
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.baseRateCT || '_________________'}}</span> +
-                                    <input class="form-field form-control-sm d-print-none"
-                                           name="interestPremium"
-                                           formControlName="interestPremium"
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.premiumRateCT || '_________________'}}</span>प्रतिशत ब्याज दर
-                                    प्रिमियम (interest rate premium),
-                                    हाल उपरोक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
-                                    <input class="form-field form-control-sm d-print-none"
-                                           name="interestRate"
-                                           formControlName="interestRate"
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दरले मासिक
-                                    तिर्नु बुझाउनु पर्नेछ ।
+                                    <ng-container *ngIf="isHomeLoan || isAutoLoan || isMortgageLoan || isEducationClassE || isPersonalLoan">
+                                        <br>
+                                        <b>ब्याजदर :</b> त्रैमासिक+ औसत आधार दर (Quarterly Average Base Rate)
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="baseRate"
+                                               formControlName="baseRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.baseRateCT || '_________________'}}</span> +
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestPremium"
+                                               formControlName="interestPremium"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.premiumRateCT || '_________________'}}</span>प्रतिशत ब्याज दर
+                                        प्रिमियम (interest rate premium),
+                                        हाल उपरोक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestRate"
+                                               formControlName="interestRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दरले मासिक
+                                        तिर्नु बुझाउनु पर्नेछ ।
+                                    </ng-container>
+                                    <ng-container *ngIf="isPersonalOD || isNabilSahayatri || isPersonalWoCollateral">
+                                        <br>
+                                        <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="baseRate"
+                                               formControlName="baseRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.baseRateCT || '_________________'}}</span> +
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestPremium"
+                                               formControlName="interestPremium"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.premiumRateCT || '_________________'}}</span>प्रतिशत ब्याज दर
+                                        प्रिमियम (interest rate premium),
+                                        हाल उपरोक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestRate"
+                                               formControlName="interestRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </ng-container>
+                                    <ng-container *ngIf="isEducationClassA">
+                                        <br>
+                                        <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
+                                        (Quarterly Average Base Rate or Time Deposit rate whichever is higher)
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="baseRate"
+                                               formControlName="baseRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.baseRateCT || '_________________'}}</span> +
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestPremium"
+                                               formControlName="interestPremium"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.premiumRateCT || '_________________'}}</span>प्रतिशत ब्याज दर
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium),
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestRate"
+                                               formControlName="interestRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                                        आश्विन, पौष र चैत्र मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </ng-container>
+                                    <ng-container *ngIf="isShareLoanPOD || isShareLoanDemand">
+                                        <br>
+                                        <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="baseRate"
+                                               formControlName="baseRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.baseRateCT || '_________________'}}</span> +
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestPremium"
+                                               formControlName="interestPremium"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.premiumRateCT || '_________________'}}</span>प्रतिशत ब्याज दर
+                                        प्रतिशत ब्याज दर प्रिमियम ( interest rate premium)
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="interestRate"
+                                               formControlName="interestRate"
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                                        आश्विन, पौष र चैत्र मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </ng-container>
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <!--This clause is for Fixed interest rate-->
