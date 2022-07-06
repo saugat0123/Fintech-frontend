@@ -13,7 +13,7 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
     styleUrls: ['./existing-exposure.component.scss']
 })
 export class ExistingExposureComponent implements OnInit {
-    @Input() customerType: CustomerType;
+    @Input() customerType;
     @Input() customerInfo: CustomerInfoData;
 
     existingExposure: FormGroup;
