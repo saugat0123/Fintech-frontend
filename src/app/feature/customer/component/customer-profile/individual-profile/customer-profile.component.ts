@@ -525,6 +525,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.multipleSelectedLoanType.push(val);
 
         });
+        console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
     }
 
     applyLoans(proposal) {

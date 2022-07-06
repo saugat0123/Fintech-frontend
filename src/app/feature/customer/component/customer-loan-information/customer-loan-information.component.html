@@ -948,7 +948,47 @@
           </nb-card>
         </ng-template>
       </div>
+      <div class="col-md-4">
+        <div class="row">
+          <nb-card #itemExistingExposure class="col-md-11 py-2">
+            <a (click)="openModel(itemExistingExposureTemplate)" class="cursor info-label">
+              <div class="row cursor">
+
+                <div class="col-md-8">
+                  <p class="custom-font">
+                    EXISTING EXPOSURE
+                  </p>
+                </div>
+<!--                <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--                  <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--                </div>-->
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemExistingExposureTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              EXISTING EXPOSURE
+              <a (click)="ref.close()" aria-label="Close"
+                 class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-existing-exposure [customerType]="customerInfo?.customerType"></app-existing-exposure>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
     </div>
+
     <nb-accordion>
 
 
