@@ -33,9 +33,6 @@ export class SecuritySummaryComponent implements OnInit {
     shareSelected = false;
     isPresentGuarantor = false;
     totalAmount = 0;
-    shareTotalValue = 0;
-    totalConsideredValue = 0;
-    buildingSelected = false;
     hypothecation = false;
     securityOther = false;
     corporate = false;
@@ -44,7 +41,6 @@ export class SecuritySummaryComponent implements OnInit {
     landBuilding = false;
     showTitle = false;
     insurancePolicySelected = false;
-    ownerShipTransfer = OwnershipTransfer;
     assignment = false;
     otherDetail: any;
     assignments = false;
@@ -72,15 +68,6 @@ export class SecuritySummaryComponent implements OnInit {
     totalProposeSecurityAmount = 0;
     totalExistingSecurityAmount = 0;
     totalExistingAsProposedSecurityAmount = 0;
-    totalMV = 0;
-    totalFMV = 0;
-    totalDV = 0;
-    totalMVEx = 0;
-    totalFMVEx = 0;
-    totalDVEx = 0;
-    totalMVAsPs = 0;
-    totalFMVAsPs = 0;
-    totalDVAsPs = 0;
     allTotalMV = 0;
     allTotalFMV = 0;
     allTotalDV = 0;
@@ -132,9 +119,6 @@ export class SecuritySummaryComponent implements OnInit {
                 let dvExAsPs = 0;
                 landDetail.forEach((d, i) => {
                     if (d.forProposed) {
-                        this.totalMV += Number(d.landConsideredValue);
-                        this.totalFMV += Number(d.marketValue);
-                        this.totalDV += Number(d.distressValue);
                         mv += Number(d.landConsideredValue);
                         fmv += Number(d.marketValue);
                         dv += Number(d.distressValue);
@@ -151,9 +135,6 @@ export class SecuritySummaryComponent implements OnInit {
                         finalProposedLandArray = [this.proposedSecurity1[this.proposedSecurity1.length - 1]];
                     }
                     if (d.forExisting) {
-                        this.totalMVEx += Number(d.landConsideredValue);
-                        this.totalFMVEx += Number(d.marketValue);
-                        this.totalDVEx += Number(d.distressValue);
                         mvEx += Number(d.landConsideredValue);
                         fmvEx += Number(d.marketValue);
                         dvEx += Number(d.distressValue);
@@ -172,9 +153,6 @@ export class SecuritySummaryComponent implements OnInit {
                         mvExAsPs += Number(d.landConsideredValue);
                         fmvExAsPs += Number(d.marketValue);
                         dvExAsPs += Number(d.distressValue);
-                        this.totalMVAsPs += Number(d.landConsideredValue);
-                        this.totalFMVAsPs += Number(d.marketValue);
-                        this.totalDVAsPs += Number(d.distressValue);
                         this.existingAsPropose1.push({
                             securityName: 'Land',
                             considerValue: d.landConsideredValue,
@@ -208,9 +186,6 @@ export class SecuritySummaryComponent implements OnInit {
                 let dvExAsPs = 0;
                 landDetail.forEach((d, i) => {
                     if (d.forProposed) {
-                        this.totalMV += Number(d.landConsideredValue);
-                        this.totalFMV += Number(d.marketValue);
-                        this.totalDV += Number(d.distressValue);
                         mv += Number(d.landConsideredValue);
                         fmv += Number(d.marketValue);
                         dv += Number(d.distressValue);
@@ -226,9 +201,6 @@ export class SecuritySummaryComponent implements OnInit {
                         finalProposedLandBuildingArray = [this.proposedSecurity1[this.proposedSecurity1.length - 1]];
                     }
                     if (d.forExisting) {
-                        this.totalMVEx += Number(d.landConsideredValue);
-                        this.totalFMVEx += Number(d.marketValue);
-                        this.totalDVEx += Number(d.distressValue);
                         mvEx += Number(d.landConsideredValue);
                         fmvEx += Number(d.marketValue);
                         dvEx += Number(d.distressValue);
@@ -244,9 +216,6 @@ export class SecuritySummaryComponent implements OnInit {
                         finalExistingLandBuildingArray = [this.existingSecurity1[this.existingSecurity1.length - 1]];
                     }
                     if (d.existingAsProposed) {
-                        this.totalMVAsPs += Number(d.landConsideredValue);
-                        this.totalFMVAsPs += Number(d.marketValue);
-                        this.totalDVAsPs += Number(d.distressValue);
                         mvExAsPs += Number(d.landConsideredValue);
                         fmvExAsPs += Number(d.marketValue);
                         dvExAsPs += Number(d.distressValue);
@@ -283,9 +252,6 @@ export class SecuritySummaryComponent implements OnInit {
                 let dvExAsPs = 0;
                 landDetail.forEach((d, i) => {
                     if (d.forProposed) {
-                        this.totalMV += Number(d.totalCost);
-                        this.totalFMV += Number(d.buildingFairMarketValue);
-                        this.totalDV += Number(d.buildingDistressValue);
                         mv += Number(d.totalCost);
                         fmv += Number(d.buildingFairMarketValue);
                         dv += Number(d.buildingDistressValue);
@@ -301,9 +267,6 @@ export class SecuritySummaryComponent implements OnInit {
                         finalProposedApartmentArray = [this.proposedSecurity1[this.proposedSecurity1.length - 1]];
                     }
                     if (d.forExisting) {
-                        this.totalMVEx += Number(d.landConsideredValue);
-                        this.totalFMVEx += Number(d.marketValue);
-                        this.totalDVEx += Number(d.distressValue);
                         mvEx += Number(d.totalCost);
                         fmvEx += Number(d.buildingFairMarketValue);
                         dvEx += Number(d.buildingDistressValue);
@@ -319,9 +282,6 @@ export class SecuritySummaryComponent implements OnInit {
                         finalExistingApartmentArray = [this.existingSecurity1[this.existingSecurity1.length - 1]];
                     }
                     if (d.existingAsProposed) {
-                        this.totalMVAsPs += Number(d.landConsideredValue);
-                        this.totalFMVAsPs += Number(d.marketValue);
-                        this.totalDVAsPs += Number(d.distressValue);
                         mvExAsPs += Number(d.totalCost);
                         fmvExAsPs += Number(d.buildingFairMarketValue);
                         dvExAsPs += Number(d.buildingDistressValue);
