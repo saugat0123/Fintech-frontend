@@ -313,10 +313,6 @@ export class CompanyFormComponent implements OnInit {
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
                     this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
                     Validators.maxLength(9), Validators.minLength(9)]],
-            companyEstablishmentDate:
-                [(ObjectUtil.isEmpty(this.companyInfo)
-                    || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
-                    new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
             majorProductService:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.majorProductService)) ? undefined :
@@ -325,10 +321,6 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
                     new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
-                    // loanType:
-                    // [(ObjectUtil.isEmpty(this.companyJsonData)
-                    //     || ObjectUtil.isEmpty(this.companyJsonData.loanType)) ? undefined :
-                    //     this.companyJsonData.loanType, Validators.required],
             relationshipSinceWithCustomer:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
