@@ -107,6 +107,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     approvedLoanList;
     pendingLoanList;
     dialogRef: NbDialogRef<any>;
+    imageUrl: string;
 
 
 
@@ -212,6 +213,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            if (!ObjectUtil.isEmpty(this.customerInfo.profilePic)) {
+                this.imageUrl = `${ApiConfig.URL}/${this.customerInfo.profilePic}?${Math.floor(Math.random() * 100) + 1}`;
+            }
             this.isEditableCustomerData();
             this.spinner = false;
         }, error => {

@@ -92,7 +92,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     pendingLoanList = [];
     approvedLoanList = [];
     @ViewChild('groupLoan', {static: false}) groupLoan: CustomerGroupLoanComponent;
-
+    imageUrl: string;
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
                 private toastService: ToastService,
@@ -177,6 +177,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
         this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            if (!ObjectUtil.isEmpty(this.customerInfo.profilePic)) {
+                this.imageUrl = `${ApiConfig.URL}/${this.customerInfo.profilePic}?${Math.floor(Math.random() * 100) + 1}`;
+            }
             this.setCompanyData(this.companyInfo);
             this.spinner = false;
         }, error => {
