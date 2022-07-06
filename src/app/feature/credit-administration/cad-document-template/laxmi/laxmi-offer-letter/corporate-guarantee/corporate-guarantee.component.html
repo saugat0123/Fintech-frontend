@@ -1,7 +1,7 @@
 <div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.CORPORATE_GUARANTEE}}">
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
-      <h4 class="text-center"><b>विषय:— <u>संस्थागत जमानीको लिखत</u></b></h4>
+      <h5 class="text-center"><b>विषय:— <u>संस्थागत जमानीको लिखत</u></b></h5>
       <p>
         लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा
         नं.१ हात्तिसार स्थित केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेडको</strong> जिल्ला
@@ -39,7 +39,7 @@
         उपस्थित भई लिखत प्रमाणित गराई ऋणीले लिए खाएको कर्जा वापत जमानीको दायित्व वहन गर्न मन्जुर भई यो जमानीको लिखत गरी तपाई धनी
         बैंकलाई दिंए ।
       </p>
-      <h4 class="text-center"><strong>तपसील</strong></h4>
+      <h5 class="text-center"><strong>तपसील</strong></h5>
     <div>
       <ol class="conditions-list order-list">
         <li>
@@ -137,24 +137,168 @@
           त्यस्तो सूचना पठाएको कुराको अकाट्य तथा अन्तिम प्रमाणको रुपमा हुने कुरामा समेत मेरो मन्जुरी छ ।
         </li>
       </ol>
+      <div style="padding-left: 55px">
+        <p>
+          <strong>क. कर्जाको सुरक्षण वापत जमानतको लिखत लेखि दिने संस्थाको विवरण :</strong>
+        </p>
+        <table class="table table-bordered table-responsive-md">
+          <tbody>
+          <tr>
+            <th></th>
+            <th><strong>जमानतकर्ताको विवरण</strong></th>
+          </tr>
+          <tr>
+            <td>नाम :</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>दर्ता नं.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>दर्ता भएको कार्यालय :</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>दर्ता मिति :</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>स्थायी लेखा नं. :</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>स्थायी लेखा जारी गर्ने कार्यालय :</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>स्थायी लेखा जारी मिति :</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td rowspan="3">स्थायी ठेगाना :</td>
+            <td>जिल्ला :</td>
+          </tr>
+          <tr>
+            <td>न.पा./गा.पा. :</td>
+          </tr>
+          <tr>
+            <td>
+              वडा नं. :
+              टोल :
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="3">हालको ठेगाना :</td>
+            <td>जिल्ला :</td>
+          </tr>
+          <tr>
+            <td>न.पा./गा.पा. :</td>
+          </tr>
+          <tr>
+            <td>
+              वडा नं. :
+              टोल :
+            </td>
+          </tr>
+          <tr>
+            <td>सम्पर्क फोन/मोवाईल नं.</td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+        <p><strong>ख. ऋणी संस्थाको विवरण :</strong></p>
+        <table class="table table-bordered table-responsive-md">
+          <tbody>
+            <tr>
+              <td>ऋणीको नाम :</td>
+              <td></td>
+            </tr>
+          <tr>
+            <td>दर्ता नं.:</td>
+            <td></td>
+          </tr>
+            <tr>
+              <td>दर्ता भएको कार्यालय :</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>दर्ता मिति :</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>स्थायी लेखा नं. :</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>स्थायी लेखा जारी गर्ने कार्यालय :</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>स्थायी लेखा जारी मिति :</td>
+              <td></td>
+            </tr>
+          <tr>
+            <td rowspan="3">ऋणीको स्थायी ठेगाना :</td>
+            <td>जिल्ला :</td>
+          </tr>
+          <tr>
+            <td>न.पा./गा.पा. :</td>
+          </tr>
+          <tr>
+            <td>
+              वडा नं. :
+              टोल :
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="3">ऋणीको हालको ठेगाना :</td>
+            <td>जिल्ला :</td>
+          </tr>
+          <tr>
+            <td>न.पा./गा.पा. :</td>
+          </tr>
+          <tr>
+            <td>
+              वडा नं. :
+              टोल :
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <p><strong>ग. कर्जा तथा जमानत दिएको रकमको विवरण :</strong></p>
+        <table class="table table-bordered table-responsive-md">
+          <tr>
+            <td>कर्जा स्वीकृती/कर्जा प्रस्ताव पत्र नं. र मिति</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>ऋणीले उपभोग गर्ने वा गरेको कर्जा रकम (अंक र अक्षरमा)</td>
+            <td>रु.</td>
+          </tr>
+          <tr>
+            <td>जमानत वसेको रकम कलम (अंक र अक्षरमा)</td>
+            <td>रु.</td>
+          </tr>
+        </table>
+      </div>
     </div>
       <p>
-        <strong>जमानतकर्ताको स्व घोषणा :</strong> यस लिखतमा माथी उल्लेखित धनी बैंक र ऋणी वीच सम्पन्न कर्जा सम्झौता (कर्जा
-        स्वीकृती/कर्जा प्रस्ताव पत्र) तथा सोमा उल्लेखित शर्त बन्देजहरु, ऋणीले उपभोग गर्ने वा गरेको कर्जा लगायतका
-        विषयहरुका सम्बन्धमा पूर्ण जानकार भई यस लिखतमा लेखिएको सम्पूर्ण व्यहोरा पढि बुझि सोको मतलव र परिणाम
-        सम्झी बुझि मैले सहि छाप गरी यो जमानीको लिखत गरिदिएको छु । यसमा लेखिएको व्यहोरा ठिक छ, झुठा ठहरेमा
+        <strong>जमानतकर्ताको स्व घोषणा :</strong> यस लिखतमा उल्लेखित धनी बैंक र ऋणी वीच सम्पन्न कर्जा सम्झौता (कर्जा स्वीकृती/कर्जा प्रस्ताव पत्र) तथा सोमा
+        उल्लेखित शर्त बन्देजहरु, ऋणीले उपभोग गर्ने वा गरेको कर्जा लगायतका विषयहरुका सम्बन्धमा पूर्ण जानकार भई यस लिखतमा लेखिएको सम्पूर्ण व्यहोरा
+        पढि बुझि सोको मतलव र परिणाम सम्झी बुझि मैले सहि छाप गरी यो जमानीको लिखत गरिदिएको छु । यसमा लेखिएको व्यहोरा ठिक छ, झुठा ठहरेमा
         कानून बमोजिम सहुंला बुझाँउला ।
       </p>
-      <div class="col-md-12 viewFull">
+      <div>
         <strong><u>साक्षी</u></strong>
         <div>
-          १.
+          १. जिल्ला
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="witnessDistrict1">
-          <span class="print-only nepaliFont">{{form.get('witnessDistrict1').value ? form.get('witnessDistrict1').value  : '========='}}</span> जिल्ला
+          <span class="print-only nepaliFont">{{form.get('witnessDistrict1').value ? form.get('witnessDistrict1').value  : '========='}}</span> गा.पा./न.पा.
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="witnessMunicipality1">
-          <span class="print-only nepaliFont">{{form.get('witnessMunicipality1').value ? form.get('witnessMunicipality1').value  : '========='}}</span> गा.पा./न.पा.
+          <span class="print-only nepaliFont">{{form.get('witnessMunicipality1').value ? form.get('witnessMunicipality1').value  : '========='}}</span>
           वडा नं
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="witnessWardNum1">
@@ -169,13 +313,13 @@
           <span class="print-only nepaliFont">{{form.get('witnessName1').value ? form.get('witnessName1').value  : '========='}}</span>
         </div>
         <div>
-          २.
+          २. जिल्ला
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="witnessDistrict2">
-          <span class="print-only nepaliFont">{{form.get('witnessDistrict2').value ? form.get('witnessDistrict2').value  : '========='}}</span> जिल्ला
+          <span class="print-only nepaliFont">{{form.get('witnessDistrict2').value ? form.get('witnessDistrict2').value  : '========='}}</span> गा.पा./न.पा.
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="witnessMunicipality2">
-          <span class="print-only nepaliFont">{{form.get('witnessMunicipality2').value ? form.get('witnessMunicipality2').value  : '========='}}</span> गा.पा./न.पा.
+          <span class="print-only nepaliFont">{{form.get('witnessMunicipality2').value ? form.get('witnessMunicipality2').value  : '========='}}</span>
           वडा नं
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="witnessWardNum2">
@@ -190,11 +334,10 @@
           <span class="print-only nepaliFont">{{form.get('witnessName2').value ? form.get('witnessName2').value  : '========='}}</span>
         </div>
         <div>
-        <strong> सनाखत साक्षी :</strong> कारणीलाई म राम्ररी चिन्दछु निजले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही गर्ने <br>
-          धनी बैंकमा
+        <strong> सनाखत साक्षी :</strong> कारणीलाई म राम्ररी चिन्दछु निजले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही गर्ने धनी बैंकमा
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="shanakhatWitnessPosition">
-          <span class="print-only nepaliFont">{{form.get('shanakhatWitnessPosition').value ? form.get('shanakhatWitnessPosition').value  : '========='}}</span>पदमा कार्यरत
+          <span class="print-only nepaliFont">{{form.get('shanakhatWitnessPosition').value ? form.get('shanakhatWitnessPosition').value  : '========='}}</span> पदमा कार्यरत
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="shanakhatWitnessName">
           <span class="print-only nepaliFont">{{form.get('shanakhatWitnessName').value ? form.get('shanakhatWitnessName').value  : '========='}}</span>
@@ -215,11 +358,10 @@
           <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                  formControlName="shuvam">
           <span class="print-only nepaliFont">{{form.get('shuvam').value ? form.get('shuvam').value  : '========='}}</span>।
-
         </div>
       </div>
       <div>
-        <button type="submit" class="btn btn-primary float-right disable-print" nbButton status="success">
+        <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">
           Save
         </button>
       </div>

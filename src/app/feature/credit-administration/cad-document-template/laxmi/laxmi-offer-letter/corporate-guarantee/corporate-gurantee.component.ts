@@ -144,7 +144,6 @@ export class CorporateGuranteeComponent implements OnInit {
       branch: [undefined],
       municipality: [undefined],
       wardNumber: [undefined],
-
       rupees1: [undefined],
       amount1: [undefined],
       witnessDistrict1: [undefined],
