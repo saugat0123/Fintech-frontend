@@ -484,7 +484,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
-                    uuid: [singleData.uuid || this.uuid()]
+                    uuid: [singleData.uuid || this.uuid()],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
         });
@@ -507,6 +510,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         hypothecationOwnerRelationship: [singleData.hypothecationOwnerRelationship],
                         ownerKycApplicableData: [singleData.ownerKycApplicableData],
                         kycCheckForHypthecation: [singleData.kycCheckForHypthecation],
+                        forProposed: [singleData.forProposed],
+                        forExisting: [singleData.forExisting],
+                        existingAsProposed: [singleData.existingAsProposed],
 
                     })
                 );
@@ -562,6 +568,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         email: [singleData.email],
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
+                        forProposed: [singleData.forProposed],
+                        forExisting: [singleData.forExisting],
+                        existingAsProposed: [singleData.existingAsProposed],
                     })
                 );
             });
@@ -583,6 +592,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
                         owner: [singleData.owner],
+                        forProposed: [singleData.forProposed],
+                        forExisting: [singleData.forExisting],
+                        existingAsProposed: [singleData.existingAsProposed],
 
                     })
                 );
@@ -623,7 +635,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                     apartmentDeveloperNames: this.formBuilder.array([]),
-                    uuid: [singleData.uuid || this.uuid()]
+                    uuid: [singleData.uuid || this.uuid()],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
             if (!ObjectUtil.isEmpty(Data)) {
@@ -725,7 +740,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     addressLine1: [singleData.addressLine1],
                     addressLine2: [singleData.addressLine2],
                     registerOffice: [singleData.registerOffice],
-                    uuid: [singleData.uuid || this.uuid()]
+                    uuid: [singleData.uuid || this.uuid()],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
         });
@@ -817,6 +835,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         [singleData.plantMachineryStaffRepresentativeDesignation2],
                     plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
                     plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
         });
@@ -840,6 +861,9 @@ export class SecurityInitialFormComponent implements OnInit {
                             undefined : new Date(singleData.earlySurrenderDate)],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
+                        forProposed: [singleData.forProposed],
+                        forExisting: [singleData.forExisting],
+                        existingAsProposed: [singleData.existingAsProposed],
                     })
                 );
             });
@@ -1197,6 +1221,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
                 kycCheckForHypthecation: [false],
+                forProposed: [undefined],
+                forExisting: [undefined],
+                existingAsProposed: [undefined],
             }
         );
     }
@@ -1225,6 +1252,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 email: [undefined],
                 phoneNumber: [undefined],
                 otherDetail: [undefined],
+                forProposed: [undefined],
+                forExisting: [undefined],
+                existingAsProposed: [undefined],
             }
         );
     }
@@ -1237,6 +1267,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 phoneNumber: [undefined],
                 owner: [undefined],
                 otherDetail: [undefined],
+                forProposed: [undefined],
+                forExisting: [undefined],
+                existingAsProposed: [undefined],
             }
         );
     }
@@ -1282,7 +1315,10 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
-            uuid: [this.uuid()]
+            uuid: [this.uuid()],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 
@@ -1308,6 +1344,9 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentOtherBranchChecked: [undefined],
             apartmentDeveloperNames: this.formBuilder.array([]),
             uuid: [this.uuid()],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
     LandBuildingDetailsFormGroup() {
@@ -1379,7 +1418,10 @@ export class SecurityInitialFormComponent implements OnInit {
             addressLine1: [undefined],
             addressLine2: [undefined],
             registerOffice: [undefined],
-            uuid: [this.uuid()]
+            uuid: [this.uuid()],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 
@@ -1395,6 +1437,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 earlySurrenderDate: [undefined],
                 consideredValue: [undefined],
                 cashBackAmount: [undefined],
+                forProposed: [undefined],
+                forExisting: [undefined],
+                existingAsProposed: [undefined],
             }
         );
     }
@@ -1415,6 +1460,9 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeDesignation2: [undefined],
             plantMachineryStaffRepresentativeName2: [undefined],
             plantOtherBranchChecked: [undefined],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 
@@ -1605,6 +1653,9 @@ export class SecurityInitialFormComponent implements OnInit {
             manufactureYear: [undefined],
             discountPrice: [undefined],
             considerValue: [undefined],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 
@@ -1660,6 +1711,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     discountPrice: [singleData.discountPrice ? singleData.discountPrice : undefined],
                     considerValue: [singleData.considerValue ? singleData.considerValue : undefined],
                     manufactureYear: [singleData.vehicleRate ? new Date(singleData.manufactureYear) : undefined],
+                    forProposed: [singleData.forProposed],
+                    forExisting: [singleData.forExisting],
+                    existingAsProposed: [singleData.existingAsProposed],
                 })
             );
         });
@@ -1681,9 +1735,12 @@ export class SecurityInitialFormComponent implements OnInit {
             couponRate: [''],
             beneficiary: [''],
             remarks: [''],
-            accountHolderName: undefined,
+            accountHolderName: [undefined],
             accountNumber: [undefined, Validators.required],
-            tenureStartDate: undefined
+            tenureStartDate: [undefined],
+            forProposed: [undefined],
+            forExisting: [undefined],
+            existingAsProposed: [undefined],
         });
     }
 
@@ -1711,7 +1768,10 @@ export class SecurityInitialFormComponent implements OnInit {
                         accountHolderName: [deposit.accountHolderName],
                         accountNumber: [deposit.accountNumber],
                         tenureStartDate: [ObjectUtil.isEmpty(deposit.tenureStartDate) ?
-                            undefined : new Date(deposit.tenureStartDate)]
+                            undefined : new Date(deposit.tenureStartDate)],
+                        forProposed: [deposit.forProposed],
+                        forExisting: [deposit.forExisting],
+                        existingAsProposed: [deposit.existingAsProposed],
                     })
                 );
             });
