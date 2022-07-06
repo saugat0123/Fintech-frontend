@@ -9,6 +9,7 @@ import {NbDialogRef} from '@nebular/theme';
 })
 export class GuarantorDetailComponent implements OnInit {
    @Input() guarantorData: Guarantor;
+   @Input() customerType;
 
 
   constructor() { }

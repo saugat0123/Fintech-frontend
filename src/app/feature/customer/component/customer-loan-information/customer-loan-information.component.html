@@ -876,7 +876,7 @@
               <div class="row cursor">
                 <div class="col-md-8">
                   <p class="custom-font">
-                    Counter Party Risk Rating
+                    COUNTER PARTY RISK RATING <br><em class="sb-small"> CRG, ESRM</em>
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -894,7 +894,7 @@
         <ng-template #crgCcbl let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              Counter Party Risk Rating
+              COUNTER PARTY RISK RATING
               <a (click)="ref.close()" aria-label="Close"
                  class="close cursor" data-dismiss="modal">
                       <span (click)="ref.close()" style="color: red">
@@ -915,7 +915,7 @@
               <div class="row cursor">
                 <div class="col-md-8">
                   <p class="custom-font">
-                    Financial - CCBL
+                    FINANCIAL - CCBL
                   </p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -934,7 +934,7 @@
         <ng-template #financialCcbl let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              Financial-CCBL
+              FINANCIAL-CCBL
               <a (click)="ref.close()" aria-label="Close"
                  class="close cursor" data-dismiss="modal">
                       <span (click)="ref.close()" style="color: red">
@@ -968,59 +968,162 @@
     <nb-card-body>
       <form [formGroup]="commonLoanData">
         <div class="row">
-          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12">
-            <div class="form-group">
-              <strong>SOL of the BANK</strong>
-              <p class="mt-1">
+          <ng-container *ngIf="customerInfo?.customerType== customerType.INSTITUTION; else ind">
+            <div class="col-md-12">
+              <div class="form-group">
+                <strong>SOL of the BANK</strong>
+                <p class="mt-1">
               <textarea class="form-control rounded"
                         formControlName="solText"
                         id="solText"
                         rows="3">
               </textarea>
-              </p>
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
-            <div class="form-group">
-              <label class="title"><strong>Approving Authority</strong></label>
-              <textarea class="form-control rounded"
-                        formControlName="approvingAuthority"
-                        id="approvingAuthority"
-                        placeholder="Approving Authority"
-                        rows="1">
+            <div class="col-md-12 mt-3">
+              <div class="form-group">
+                <label class="title"><strong>Approving Authority</strong></label>
+                <textarea class="form-control rounded"
+                          formControlName="approvingAuthority"
+                          id="approvingAuthority"
+                          placeholder="Approving Authority"
+                          rows="1">
               </textarea>
+              </div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-
-          <div *ngIf="customerInfo?.customerType== customerType.INSTITUTION" class="col-md-12 mt-3">
-            <div class="form-group">
-              <label class="title"><strong>Special Covenants/Conditions, If Any</strong></label>
-              <ckeditor [config]="ckeConfig"
-                        [style]="{height:'250px !important;'}"
-                        formControlName="specialCovenant"
-                        placeholder="Special Covenants/Conditions, If Any">
-              </ckeditor>
+            <div class="clearfix"></div>
+            <div class="col-md-12 mt-3">
+              <div class="form-group">
+                <label class="title"><strong>Special Covenants/Conditions, If Any</strong></label>
+                <ckeditor [config]="ckeConfig"
+                          [style]="{height:'250px !important;'}"
+                          formControlName="specialCovenant"
+                          placeholder="Special Covenants/Conditions, If Any">
+                </ckeditor>
+              </div>
             </div>
-          </div>
+            <div class="clearfix"></div>
 
-          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType== customerType.INDIVIDUAL">
-            <div class="form-group">
-              <label class="title"><strong>Special Instructions</strong></label>
-              <input class="form-control" formControlName="specialInstruction"
-                     placeholder="eg: as of Poush End 2077" />
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="title"><strong>FIXED ASSETS COLLATERAL COMPUTING SHEET</strong></label>
+                <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+                  <thead>
+                  <tr class="sb-bg-dark">
+                    <th class="sn">S.N</th>
+                    <th>Facilities</th>
+                    <th>Proposed Limit</th>
+                    <th>Required FAC Coverage% as per Product Paper</th>
+                    <th>Proposed FAC Coverage%</th>
+                    <th>Deviation</th>
+                    <th *ngIf="commonLoanData.get('fixedAssetsComputing')['length'] > 0">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody formArrayName="fixedAssetsComputing"
+                         *ngFor="let gl of commonLoanData.get('fixedAssetsComputing')['controls']; let fi = index">
+                  <tr [formGroupName]="fi">
+                    <td>{{fi + 1}}</td>
+                    <td><input class="form-control"
+                               formControlName="facilities"
+                               placeholder="Facilities"
+                               type="text"/></td>
+                    <td><input (change)="calculateTotalProposed()"
+                               class="form-control text-center"
+                               formControlName="limit"
+                               placeholder="Proposed Limit"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="requiredFac"
+                               placeholder="Required FAC Coverage%"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="proposedFac"
+                               placeholder="Proposed FAC Coverage%"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="deviation"
+                               placeholder="Deviation"
+                               type="text"/></td>
+                    <td *ngIf="commonLoanData.get('fixedAssetsComputing')['length'] > 0">
+                      <input (click)="removeFixedAssetsComputing(fi)"
+                             class="align-self-end btn btn-sm btn-danger btn-primary"
+                             type="button" value="Delete"/>
+                    </td>
+                  </tr>
+                  </tbody>
+
+                  <tbody>
+                  <tr class="text-center">
+                    <th colspan="2">Total</th>
+                    <th><input [readOnly]="true"
+                               class="form-control text-center"
+                               formControlName="totalLimit"
+                               placeholder="Total Funded"/></th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th *ngIf="commonLoanData.get('fixedAssetsComputing')['length'] > 0">-</th>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="float-right">
+                  <input (click)="addFixedAssetsComputing()" class="btn btn-sm btn-flat btn-primary"
+                         type="button" value="Add More"/>
+                  <br>
+                </div>
+                <table class="table table-bordered table-responsive-md table-sm text-left">
+                  <tr>
+                    <th>Total Value of Available FAC</th>
+                    <td><input class="form-control"
+                               formControlName="totalAvailableFac"
+                               placeholder="Total Value of Available FAC"
+                               type="text"/></td>
+                  </tr>
+                  <tr>
+                    <td>Total Required Value of FAC as per Product Paper</td>
+                    <td><input class="form-control"
+                               formControlName="totalRequiredFac"
+                               placeholder="Total Required Value of FAC"
+                               type="text"/></td>
+                  </tr>
+                  <tr>
+                    <th>Excess/<span style="color: red">(ShortFall)</span></th>
+                    <td><input class="form-control"
+                               formControlName="excess"
+                               placeholder="Excess/ShortFall"
+                               type="text"/></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <label>COMMENTS ON FAC SHORTFALL: </label>
+                      <ckeditor [config]="ckeConfig"
+                                formControlName="commentOfFac"></ckeditor>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
-          </div>
+          </ng-container>
 
-          <div class="col-md-12 mt-3" *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
-            <div class="form-group">
-              <label class="title"><strong>Regularity of payments:</strong></label>
-              <input class="form-control" formControlName="regularityOfPayments"
-                        placeholder="Regularity of payments" />
-
+          <ng-template #ind>
+            <div class="col-md-12 mt-3">
+              <div class="form-group">
+                <label class="title"><strong>Special Instructions</strong></label>
+                <input class="form-control" formControlName="specialInstruction"
+                       placeholder="eg: as of Poush End 2077"/>
+              </div>
             </div>
-          </div>
+
+            <div class="col-md-12 mt-3">
+              <div class="form-group">
+                <label class="title"><strong>Regularity of payments:</strong></label>
+                <input class="form-control" formControlName="regularityOfPayments"
+                       placeholder="Regularity of payments"/>
+              </div>
+            </div>
+          </ng-template>
 
           <div class="col-md-12 form-group">
             <b>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS, <em>(IF ANY)</em></b>

@@ -67,7 +67,7 @@
           <div class="profile-img">
             <label class="container" for="file-input">
               <img *ngIf="customerInfo?.profilePic !==null " class="image"
-                   src="{{restUrl+'/'+customerInfo?.profilePic}}"/>
+                   src="{{imageUrl}}"/>
               <div *ngIf="customerInfo?.profilePic == null || customerInfo?.profilePic == undefined"
                    class="bg-info no-img">
                 <div>
@@ -324,7 +324,7 @@
             [customerInfoId]="customerInfoId"
             [customerInfo]="customerInfo"
             [companyInfo]="companyInfo"></app-customer-loan-information>
-        <app-customer-loan-information-view *ngIf="!isEditable"
+        <app-customer-loan-information-view *ngIf="!isEditable && customerInfo"
                                             [customerInfo]="customerInfo"
                                           ></app-customer-loan-information-view>
       </div>
