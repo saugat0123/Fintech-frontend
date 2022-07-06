@@ -412,12 +412,12 @@
             </div>
         </div>
         <!--        //cbs Group-->
-        <div class="row  py-2" *ngIf="maker && !isEditable">
+       <!-- <div class="row  py-2" *ngIf="maker && !isEditable">
             <div class="col-md-12 text-danger">
                 <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information
                 cannot be Edited.
             </strong></div>
-        </div>
+        </div>-->
         <div class="row">
             <div class="col-md-12">
                 <app-customer-loan-information
@@ -427,11 +427,11 @@
                         [isMicroCustomer]="customer?.isMicroCustomer"
                         [fromProfile]="false"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
-                <app-customer-loan-information-view *ngIf=" !isEditable"
+                <!--<app-customer-loan-information-view *ngIf=" !isEditable"
                                                     [customerInfo]="customerInfo"
                                                     [customerType]="customerType"
                                                     [fromProfile]="true"
-                                                    [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>
+                                                    [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>-->
             </div>
         </div>
         <nb-card accent="primary">
