@@ -920,63 +920,6 @@
         </nb-card>
       </ng-template>
 
-
-
-      <!--      <div class="col-md-4">-->
-<!--        <nb-card class="col-md-4 py-2" #commentsFromAccount >-->
-<!--          <a class="cursor info-label">-->
-<!--            <div class="row col-md-12">-->
-<!--              <div class="col-md-8">-->
-<!--                <span>COMMENTS</span>-->
-<!--              </div>-->
-<!--              <div class="col-md-4 d-flex justify-content-end">-->
-<!--              <span *ngIf="checkedPreviousComments" style="color:green" title="Status : Saved">-->
-<!--                <em class="fas fa-check-circle px-2"></em>-->
-<!--              </span>-->
-<!--                <span style="color:red" title="Status :Not Saved">-->
-<!--                <em *ngIf="!checkedPreviousComments" class="fas fa-times-circle px-2"></em>-->
-<!--              </span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </a>-->
-<!--        </nb-card>-->
-<!--        <ng-template>-->
-<!--          <app-comments-->
-<!--                  #commentsInfoTagging-->
-<!--                  [commentsDataResponse]="commentsDataResponse"-->
-<!--                  [commentData]="customerInfo?.data"-->
-<!--                  [fromProfile]="true"-->
-
-<!--                  (commentsDataEmitter)="saveDataFromComments($event)">-->
-<!--          </app-comments>-->
-<!--          <div>-->
-<!--            <button class="btn float-right d-flex justify-content-end"-->
-<!--                    (click)="commentsComponent.submitForm()" type="submit" nbButton>Save-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </ng-template>-->
-<!--      </div>-->
-
-
-
-
-<!--      <nb-card class="col-md-4 py-2" #dataFromPreviousSecurity *ngIf="client === clientName?.MEGA">-->
-<!--        <a class="cursor info-label">-->
-<!--          <div class="row col-md-12">-->
-<!--            <div class="col-md-8">-->
-<!--              <span>PREVIOUS SECURITY</span>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 d-flex justify-content-end">-->
-<!--              <span *ngIf="checkedPreviousSecurity" style="color:green" title="Status : Saved">-->
-<!--                <em class="fas fa-check-circle px-2"></em>-->
-<!--              </span>-->
-<!--              <span style="color:red" title="Status :Not Saved">-->
-<!--                <em *ngIf="!checkedPreviousSecurity" class="fas fa-times-circle px-2"></em>-->
-<!--              </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-<!--      </nb-card>-->
       <ng-template>
         <app-previous-security
             #previousSecurityInfoTagging
@@ -994,7 +937,7 @@
       </ng-template>
 
 <!--CRG GAMMA-->
-      <div class="col-md-4"  *ngIf="customerInfo?.customerType === 'INSTITUTION'" >
+      <div class="col-md-4" >
         <div class="row">
           <nb-card class="col-md-11 py-2" #facility>
             <a class="cursor info-label" (click)="openModel(crg)">

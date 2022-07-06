@@ -300,13 +300,10 @@ export class ProposalComponent implements OnInit {
                             loan.loan = e.loanConfig;
                             loan.securities = [];
                             loan.documentStatus = e.docStatus;
-                            loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                            loan.loanType = (e.loanType)  as LoanType;
                             this.customerGroupLoanList.push(loan);
                         }
                     });
-            }
-            if (this.loan.id) {
-                console.log(this.customerGroupLoanList.indexOf(this.loan));
             }
         });
     }
