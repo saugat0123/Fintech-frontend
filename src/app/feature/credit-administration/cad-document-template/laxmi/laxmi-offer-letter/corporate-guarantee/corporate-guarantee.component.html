@@ -3,261 +3,138 @@
     <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
       <h4 class="text-center"><b>विषय:— <u>संस्थागत जमानीको लिखत</u></b></h4>
       <p>
-        लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला,
-        का.म.न.पा.वडा नं.१ हात्तिसार स्थित <strong> लक्ष्मी बैंक लिमिटेडको </strong>शाखा कार्यालय,
+        लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा
+        नं.१ हात्तिसार स्थित केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेडको</strong> जिल्ला
         <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                formControlName="branch">
         <span class="print-only nepaliFont">{{form.get('branch').value ? form.get('branch').value  : '========='}}</span>
+        गा.पा./न.पा.
+        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+               formControlName="municipality">
+        <span class="print-only nepaliFont">{{form.get('municipality').value ? form.get('municipality').value  : '========='}}</span>
+        वडा नं
+        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+               formControlName="wardNumber">
+        <span class="print-only nepaliFont">{{form.get('wardNumber').value ? form.get('wardNumber').value  : '========='}}</span>
+        स्थित शाखा कार्यालय,
         (जसलाई यसपछि
-        <strong>धनी बैंक </strong>भनिएको छ) जमानीको लिखत गरी दिनेका नाम नेपाल सरकार,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="ministry">
-        <span class="print-only nepaliFont">{{form.get('ministry').value ? form.get('ministry').value  : '========='}}</span> मन्त्रालय, कम्पनी रजिष्ट्रारको
-        कार्यालय,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="registrationBureau">
-        <span class="print-only nepaliFont">{{form.get('registrationBureau').value ? form.get('registrationBureau').value  : '========='}}</span> मा प्रा.लि.नं
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="privateLimitedNum">
-        <span class="print-only nepaliFont">{{form.get('privateLimitedNum').value ? form.get('privateLimitedNum').value  : '========='}}</span> मिति
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="registrationDate">
-        <span class="print-only nepaliFont">{{form.get('registrationDate').value ? form.get('registrationDate').value  : '========='}}</span> मा दर्ता भई
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="registrationDistrict">
-        <span class="print-only nepaliFont">{{form.get('registrationDistrict').value ? form.get('registrationDistrict').value  : '========='}}</span>
-        जिल्ला,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="registrationMunicipality">
-        <span class="print-only nepaliFont">{{form.get('registrationMunicipality').value ? form.get('registrationMunicipality').value  : '========='}}</span> न.पा./गा.वि.स. वडा नं
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="registrationWardNum">
-        <span class="print-only nepaliFont">{{form.get('registrationWardNum').value ? form.get('registrationWardNum').value  : '========='}}</span> मा कम्पनीको रजिष्ट्रर्ड ठेगाना भई आन्तरिक राजश्व कार्यालय,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="taxationBureau">
-        <span class="print-only nepaliFont">{{form.get('taxationBureau').value ? form.get('taxationBureau').value  : '========='}}</span> मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र नंं
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="panNumber">
-        <span class="print-only nepaliFont">{{form.get('panNumber').value ? form.get('panNumber').value  : '========='}}</span> मिति
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="registrationDate1">
-        <span class="print-only nepaliFont">{{form.get('registrationDate1').value ? form.get('registrationDate1').value  : '========='}}</span> मा दर्ता भएको
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyName">
-        <span class="print-only nepaliFont">{{form.get('companyName').value ? form.get('companyName').value  : '========='}}</span><strong>प्रा.लि.</strong> (जसलाई यसपछि <strong>जमानतकर्ता </strong>भनिएको छ) को तर्फबाट अख्तियारप्राप्त व्यक्ति
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="grandFatherName">
-        <span class="print-only nepaliFont">{{form.get('grandFatherName').value ? form.get('grandFatherName').value  : '========='}}</span> को नाती/नातिनी/बुहारी,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="fatherName">
-        <span class="print-only nepaliFont">{{form.get('fatherName').value ? form.get('fatherName').value  : '========='}}</span> को छोरा/छोरी,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="spouseName">
-        <span class="print-only nepaliFont">{{form.get('spouseName').value ? form.get('spouseName').value  : '========='}}</span> को
-        पति/पत्नी
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="customerPerDistrict">
-        <span class="print-only nepaliFont">{{form.get('customerPerDistrict').value ? form.get('customerPerDistrict').value  : '========='}}</span> जिल्ला,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="customerPerMunicipality">
-        <span class="print-only nepaliFont">{{form.get('customerPerMunicipality').value ? form.get('customerPerMunicipality').value  : '========='}}</span> गा.वि.स./न.पा.वडा नंं.
-        <input type="text" class="nepaliFont form-field form-control-sm fontSize disable-print" readonly
-               formControlName="customerPerWardNo">
-        <span class="print-only nepaliFont">{{form.get('customerPerWardNo').value ? form.get('customerPerWardNo').value  : '========='}}</span> भई हाल
-        <input type="text" class="nepaliFont form-field form-control-sm fontSize disable-print" readonly
-               formControlName="customerTempAddress">
-        <span class="print-only nepaliFont">{{form.get('customerTempAddress').value ? form.get('customerTempAddress').value  : '========='}}</span> ठेगाना बस्ने वर्ष
-        <input type="text" class="nepaliFont form-field form-control-sm fontSize disable-print" readonly
-               formControlName="customerAge">
-        <span class="print-only nepaliFont">{{form.get('customerAge').value ? form.get('customerAge').value  : '========='}}</span> को
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="customerName">
-        <span class="print-only nepaliFont">{{form.get('customerName').value ? form.get('customerName').value  : '========='}}</span> (नागरिकता नं.
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="customerCitizenshipNo">
-        <span class="print-only nepaliFont">{{form.get('customerCitizenshipNo').value ? form.get('customerCitizenshipNo').value  : '========='}}</span>, जिल्ला प्रशासन कार्यालय,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-               formControlName="citizenshipIssueDistrict">
-        <span class="print-only nepaliFont">{{form.get('citizenshipIssueDistrict').value ? form.get('citizenshipIssueDistrict').value  : '========='}}</span>,
-        २० <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print " readonly
-                  formControlName="citizenshipIssueDate">
-        <span class="print-only nepaliFont">{{form.get('citizenshipIssueDate').value ? form.get('citizenshipIssueDate').value  : '========='}}</span>) आगे, तपाई धनी बैंकले म/हामी जमानी बसी दिने शर्तमा नेपाल सरकार,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="ministryOfNepal">
-        <span class="print-only nepaliFont">{{form.get('ministryOfNepal').value ? form.get('ministryOfNepal').value  : '========='}}</span> मन्त्रालय,
-        कम्पनी रजिष्ट्रारको कार्यालय, त्रिपुरेश्वरमा प्रा.लि.नं
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="PvtLtdNum">
-        <span class="print-only nepaliFont">{{form.get('PvtLtdNum').value ? form.get('PvtLtdNum').value  : '========='}}</span> मिति
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyRegistrationDate">
-        <span class="print-only nepaliFont">{{form.get('companyRegistrationDate').value ? form.get('companyRegistrationDate').value  : '========='}}</span> मा दर्ता भई
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyRegistrationDistrict">
-        <span class="print-only nepaliFont">{{form.get('companyRegistrationDistrict').value ? form.get('companyRegistrationDistrict').value  : '========='}}</span> जिल्ला,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyRegistrationMun">
-        <span class="print-only nepaliFont">{{form.get('companyRegistrationMun').value ? form.get('companyRegistrationMun').value  : '========='}}</span> न.पा./गा.वि.स. वडा नं
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyRegistrationWardNo">
-        <span class="print-only nepaliFont">{{form.get('companyRegistrationWardNo').value ? form.get('companyRegistrationWardNo').value  : '========='}}</span> मा कम्पनीको रजिष्ट्रर्ड ठेगाना भई आन्तरिक
-        राजश्व कार्यालय,
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="taxationBureauForCompany">
-        <span class="print-only nepaliFont">{{form.get('taxationBureauForCompany').value ? form.get('taxationBureauForCompany').value  : '========='}}</span> मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र नंं
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyPanNumber">
-        <span class="print-only nepaliFont">{{form.get('companyPanNumber').value ? form.get('companyPanNumber').value  : '========='}}</span> मिति
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyRegisterDate">
-        <span class="print-only nepaliFont">{{form.get('companyRegisterDate').value ? form.get('companyRegisterDate').value  : '========='}}</span> मा दर्ता भएको
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="companyName1">
-        <span class="print-only nepaliFont">{{form.get('companyName1').value ? form.get('companyName1').value  : '========='}}</span> प्रा.लि. (जसलाई यसपछि <strong>ऋणी</strong> भनिएको छ) लाई मेरो
-        जमानीमा धनी बैंकको (अफर लेटर) नं. कर्जा स्वीकृति पत्र
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="loanApprovedDate">
-        <span class="print-only nepaliFont">{{form.get('loanApprovedDate').value ? form.get('loanApprovedDate').value  : '========='}}</span>
-        मिति
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               formControlName="appliedLoan">
-        <span class="print-only nepaliFont">{{form.get('appliedLoan').value ? form.get('appliedLoan').value  : '========='}}</span> को कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त कबुलियत बमोजिम प्रदान गर्ने/यस अघि
-        समय समयमा प्रदान गरेको/गर्दै आएको र साथै भविष्यमा प्रदान गर्ने जम्मा <strong> रु.
-        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-               readonly
-               formControlName="rupees">
-        <span class="print-only nepaliFont">{{form.get('rupees').value ? form.get('rupees').value  : '========='}}</span>/– (अक्षरेपी
-        रुपैयाँ
-        <input type="text" class="nepaliFont form-field form-control-sm fontSize disable-print" readonly
-               formControlName="amount">
-        <span class="print-only nepaliFont printFont">{{form.get('amount').value ? form.get('amount').value  : '========='}}</span> मात्र) </strong>सम्मको विभिन्न नगदी कर्जा, प्रतितपत्र, बैंक जमानत आदि अन्य बैंकिङ्ग कारोवार
-        सुविधा र सोमा तपाई धनी बैंक र ऋणीका विच सम्पन्न सम्झौता तथा अन्य लिखत कागजात तथा सो नविकरण
-        भएमा सो समेत बमोजिम ऋणीले तपाई धनी बैंकलाई तिर्न वुझाउन पर्ने सांवा, व्याज, कमिशन, फी, मार्जिन आदि
-        अन्य रकम कलम वापत जमानत बसी दिन मेरो/हाम्रो मन्जुरी भएकोले तपाई धनी बैंकलाई ऋणीले तिर्न बुझाउनु
-        पर्ने उल्लेखित कर्जा तथा बैंकिङ्ग कारोवार रकम कलम तपाई धनी बैंकले माग गरेमा तपसिलको शर्तबन्देजको अधिनमा
-        रही म आफैले तिर्न बुझाउन मन्जुर गरी यो जमानीको लिखत गरि दिएको छु । तपाई धनी बैंकले माग गरेका वखत
-        उलेखित रकम कलम नतिरे, नबुझाएमा वा बुझाउन आलटाल गरेमा तपाई धनी बैंकले मेरो/हाम्रो घर घरानाको
-        विभिन्न चल, अचल जायजेथाबाट असुल उपर गरी लिएमा मेरो/हाम्रो मन्जुरी छ । <i>धनी बैंकले म जमानत बसेको
-        रकम माग गर्ने क्रममा वा कर्जा असुलीको क्रममा म जमानतकर्ताको तीनपुस्ते विवरण, पूर्ण परिचय, फोटो, ठेगाना
-        लगायतका मेरो व्यक्तिगत विवरण समेत राखि पत्र पत्रिकामा सूचना प्रकाशित गरेमा मेरो/हाम्रो पूर्ण मन्जुरी रहेको छ ।
-        <strong>साथै नेपाल राष्ट्र बैंकले बैंक तथा वित्तीय संस्थाहरुलाई जारी गरेको कालो सूचि सम्वन्धि निर्देशिकाको ब्यवस्था वा
-        प्रचलित कानून बमोजिम मेरो/हाम्रो नाम कर्जा सूचना केन्द्रको कालो सूचिमा समावेश गरेमा समेत मेरो पूर्ण मञ्जुरी
-        छ ।</strong></i> पछि एकाले लिए, खाएको ऋण मैले/हामीले तिर्न वुझाउनु पर्ने होइन भनि वा अन्य कुनै व्यहोराले उजुर वाजुर
-        गर्ने छैन, गरे यसै लिखतले बदर गराई लिनु भनी मेरो/हाम्रो मनोमान राजिखुशीले साक्षीहरुको रोहबरमा यो जमानीको
-        लिखत गरी तपाई धनी बैंकलाई दिंए र यसको एक प्रति दोहरी बुझी लिए ।
+        <strong>धनी बैंक </strong>भनिएको छ)
+        जमानतको लिखत गरी दिने तपसिलमा उल्लेखित विवरण बमोजिमका व्यक्ति/संस्था (जसलाई यसपछि <strong>जमानतकर्ता</strong> भनिएको छ) आगे, तपाई धनी बैंकले
+        म जमानी बसी दिने शर्तमा तपसिलमा उल्लेखित विवरण बमोजिमका व्यक्ति/संस्था (जसलाई यसपछि <strong>ऋणी</strong> भनिएको छ) लाई मेरो जमानीमा प्रदान गर्ने र
+        वा यस अघि समय समयमा प्रदान गरेको र वा गर्दै आएको र साथै भविष्यमा प्रदान गर्ने र/वा गरेको बैंक र ऋणी वीच सम्पन्न कर्जा सम्झौता बमोजिम
+        तपसिलमा उल्लेखित विवरण बमोजिमको कर्जा/कर्जा सुविधा तथा विभिन्न नगदी कर्जा, प्रतितपत्र, बैंक जमानत लगायतका कोष वा गैरकोषमा आधारित
+        कर्जा/कर्जा सुविधा आदि र/वा अन्य बैंकिङ्ग कारोवार सुविधा र सोमा तपाई धनी बैंक र ऋणीका विच सम्पन्न कर्जा सम्झौता तथा अन्य लिखत कागजात
+        तथा उपभोग गरेको कर्जा/कर्जा सुविधा समय समयमा नविकरण भएमा, पुनरसंचना वा पुनरतालिकिकरण वा कर्जाको शिर्षक परिवर्तन भएको खण्डमा
+        समेत ऋणीले तपाई धनी बैंकलाई तिर्न वुझाउन पर्ने सांवा, व्याज, कमिशन, फी, मार्जिन, कर्जा असुली खर्च, कानूनी खर्चहरु आदि अन्य रकम कलम वापत
+        जमानत बसी दिन मेरो मन्जुरी भएकोले तपाई धनी बैंकलाई ऋणीले तिर्न बुझाउनु पर्ने उल्लेखित कर्जा तथा बैंकिङ्ग कारोवार रकम कलम धनी बैंकको शर्त
+        सम्झौता बमोजिम नबुझाएमा वा बुझाउन आलटाल गरेमा वा धनी बैंकसंगको कर्जा सम्झौता उल्लंघन गरेमा वा कर्जा अनियमित गरी कर्जा नतिरेमा
+        तपाई धनी बैंकले ऋणीबाट असुल गर्नुपर्ने लेना रकम म जमानतकर्ताबाट माग गरेमा तपसिलको शर्तबन्देजको अधिनमा रही म आफैले तिर्न बुझाउन
+        मन्जुर गरी यो जमानीको लिखत गरि दिएको छु । तपाई धनी बैंकले माग गरेका वखत उलेखित रकम कलम नतिरे, नबुझाएमा वा बुझाउन आलटाल
+        गरेमा तपाई धनी बैंकले मेरो घर घरानाको विभिन्न चल, अचल जायजेथाबाट असुल उपर गरी लिएमा समेत मेरो मन्जुरी छ । म जमानत बसेको रकम
+        माग गर्ने क्रममा वा कर्जा असुलीको क्रममा म जमानतकर्ताको तीनपुस्ते विवरण, पूर्ण परिचय तथा फोटो समेत राखि पत्र पत्रिकामा सूचना प्रकाशित गर्न
+        पाउने अधिकार धनी बैंकलाई यसै लिखतबाट प्रदान गरेको छु । <strong><em>साथै नेपाल राष्ट्र बैंकले बैंक तथा वित्तीय संस्थाहरुलाई जारी गरेको कालो सूचि सम्वन्धि
+        निर्देशिकाको ब्यवस्था वा प्रचलित कानून बमोजिम मेरो नाम कर्जा सूचना केन्द्रको कालो सूचिमा समावेश गरेमा समेत मेरो पूर्ण मञ्जुरी छ ।</em></strong> पछि एकाले
+        लिए, खाएको ऋण मैले तिर्न वुझाउनु पर्ने होइन भनि वा अन्य कुनै व्यहोराले उजुर वाजुर गर्ने छैन, गरे यसै लिखतले बदर गराई लिनु भनी आफनो
+        मनोमान राजिखुशीले साक्षीहरुको रोहबरमा धनी बैंकको कार्यालयमा उपस्थित भई र विदेशमा रहे भएको अवस्थामा नेपाली राजदुतावास/नियोगमा
+        उपस्थित भई लिखत प्रमाणित गराई ऋणीले लिए खाएको कर्जा वापत जमानीको दायित्व वहन गर्न मन्जुर भई यो जमानीको लिखत गरी तपाई धनी
+        बैंकलाई दिंए ।
       </p>
-      <h4 class="text-center">तपसील</h4>
+      <h4 class="text-center"><strong>तपसील</strong></h4>
     <div>
       <ol class="conditions-list order-list">
         <li>
-          ऋणीले धनी बैंकलाई तिर्नु वुझाउनु पर्ने ऋण कर्जा तथा बैकिङ्ग सुविधाहरुको रकम, कलम तिर्ने, बुझाउने
-          सम्बन्धमा मेरो/हाम्रो दायित्व मूल ऋणी सरह हुनेछ । ऋणीले धनी बैंकलाई वुझाउनु पर्ने ऋणको रकम कलम
-          नवुझाएमा वा वुझाउन नसकेमा मेरो/हाम्रो दायित्व तत्कालै सिर्जना हुनेछ र ऋणी सो दायित्ववाट मुक्त
-          नभएसम्म अनवरत रुपमा रही रहनेछ ।
+          ऋणीले धनी बैंकलाई तिर्न वुझाउनु पर्ने ऋण कर्जा तथा बैकिङ्ग सुविधाहरुको रकम, कलम तिर्ने, बुझाउने सम्बन्धमा मेरो दायित्व मूल ऋणी सरह
+          हुनेछ । ऋणीले धनी बैंकलाई वुझाउनु पर्ने ऋणको रकम कलम नवुझाएमा वा वुझाउन नसकेमा मेरो दायित्व तत्कालै सिर्जना हुनेछ र ऋणी सो
+          दायित्ववाट मुक्त नभएसम्म अनवरत रुपमा रही रहनेछ ।
         </li>
         <li>
-          ऋणीले तिर्न बुझाउन बाँकी ऋण कर्जा तथा बैंकिङ्ग सुविधाहरुको रकम कलम ऋणीले नवुझाएमा वा शर्त
-          कवुलियत उल्लंघन गरेमा धनी बैंकले सोझै म सँग माग गर्न सक्ने र त्यसरी माग गरेको रकम, कलम
-          मैले/हामीले तपाई धनी बैंकलाई ऋणी (Principal Debtor) सरह प्राथमिक दायित्व (Primary Liability) को
-          रुपमा तिर्न बुझाउन पर्ने र ऋणीले लिएको ऋण कर्जाको सम्पूर्ण रकम कलम चुक्ता भुक्तान नभएसम्म सो प्रति
-          मेरो/हाम्रो दायित्व निरन्तर रही रहने कुरामा मेरो/हाम्रो मन्जुरी छ ।
+          ऋणीले तिर्न बुझाउन बाँकी ऋण कर्जा तथा बैंकिङ्ग सुविधाहरुको रकम कलम ऋणीले नवुझाएमा वा शर्त कवुलियत उल्लंघन गरेमा धनी बैंकले सोझै
+          म सँग माग गर्न सक्ने र त्यसरी माग गरेको रकम, कलम मैले तपाई धनी बैंकलाई ऋणी (Principal Debtor) सरह प्राथमिक दायित्व (Primary Liability)
+          को रुपमा तिर्न बुझाउन पर्ने र ऋणीले लिएको ऋण कर्जाको सम्पूर्ण रकम कलम चुक्ता भुक्तान नभएसम्म सो प्रति मेरो दायित्व निरन्तर रही रहने
+          कुरामा मेरो मन्जुरी छ ।
         </li>
         <li>
-          ऋणीले लिएको ऋण कर्जा तथा बैंकिङ्ग कारोवार सुविधाको तिर्नु वुझाउनु पर्ने रकम कलम नतिरी नवुझाई शर्त
-          कवुलियतको उल्लंघन गर्नासाथ सो रकम कलम धनी बैंकले मवाट असुल उपर गर्न आवश्यक कारवाही सुरु
-          गरेमा मेरो/हाम्रो मन्जुरी छ । ऋणीले शर्त कवुलियत उल्लंघन गरेकोले मैले/हामीले तिर्नु वुझाउनु पर्ने हुन
-          आएको दायित्वको रकम कलम मैले/हामीले जमानी दिएको रकमको हदसम्म धनी बैंकले माग गरेको मितिले ७ (
-          सात) दिन भित्र तिर्न बुझाउन मेरो/हाम्रो मन्जुरी छ ।
+          ऋणीले लिएको ऋण कर्जा तथा बैंकिङ्ग कारोवार सुविधाको तिर्न वुझाउनु पर्ने रकम कलम नतिरी नवुझाई शर्त कवुलियतको उल्लंघन गर्नासाथ सो
+          रकम कलम धनी बैंकले मवाट असुल उपर गर्न आवश्यक कारवाही सुरु गरेमा मेरो मन्जुरी छ । ऋणीले शर्त कवुलियत उल्लंघन गरेकोले मैले तिर्नु
+          वुझाउनु पर्ने हुन आएको दायित्वको रकम कलम मैले जमानी दिएको रकमको हदसम्म धनी बैंकले माग गरेको मितिले ७ (सात) दिन भित्र तिर्न
+          बुझाउन मेरो मन्जुरी छ ।
         </li>
         <li>
-          धनी बैंकले ऋणीसँग उल्लेखित ऋण कर्जा तथा बैंकिङ्ग कारोवार सुविधाको सुरक्षणका लागि अन्य चल, अचल
-          जायजेथा सुरक्षणको रुपमा ग्रहण गरेको वा धित्तोबन्धकी लेखाई लिएको वा अन्य तेश्रो व्यक्ति समेत सँग जमानत
-          लिएको वा त्यसरी लिएको सुरक्षण फुकुवा गरी दिएको वा जमानबाट छुटकारा दिएको वा ऋणी वा तेश्रो व्यक्तिसँग
-          ऋण कर्जा चुक्ता भुक्तान गर्ने सम्बन्धमा सम्झौता मिलापत्र गरी म्याद थप गरिदिएको वा छुट मिन्हा दिएको वा
-          अन्य शर्त कबुलियत गरेको, शर्त कबुलियतमा परिवर्तन वा संशोधन गरेको वा ऋण कर्जा नविकरण गरेको वा थप
-          ऋण कर्जा दिएको  भन्ने आदि कुनै पनि आधारमा मैले/हामीले यस लिखत बमोजिम प्राथमिक रुपमा व्यहोर्न
-          मन्जुर गरेको दायित्वमा कुनै प्रतिकूल वा विपरित प्रभाव परेको मानिने छैन । मैले/हामीले स्वीकार तथा मन्जुर
-          गरेको दायित्व प्राथमिक दायित्वको रुपमा मैले/हामीले नर्वाह तथा बहन गर्नुपर्ने मेरो/हाम्रो कर्तव्य यथावत रही
-          रहने छ र मैले/हामीले धनी बैंकको पक्षमा गरिदिएको यस जमानीको लिखत बमोजिमको मेरो/हाम्रो दायित्व
-          व्यक्तिगत हुने भन्ने कुरामा मेरो/हाम्रो मन्जुरी छ । जस अनुसार तपाई धनी बैंकले आफ्नो तजविजमा ऋण
-          कर्जाको सुरक्षण वापत अन्य चल, अचल सम्पत्ति रहेको र वा अन्यले जमानत गरि दिएको अवस्थामा समेत यस
-          लिखत बमोजिम जमानी गरिदिएको हद सम्मको रकम कलम सोझै म सँग व्यक्तिगत रुपमा असुल उपर गरी लिन
-          सक्ने कुरामा मेरो/हाम्रो मन्जुरी छ । साथै, यस जमानीको लिखत मैले/हामीले दिएको अरु जमानीको लिखत भन्दा
-          छुट्टै हुनेछ र यस जमानीको लिखतले मैले/हामीले गरेको अन्य जमानी एवं अरु सम्पूर्ण लिखत बमोजिम व्यहोर्नु
-          पर्ने दायित्वमा असर पारेको मानिने छैन ।
+          ऋणीले धनी बैंकलाई तिर्न, बुझाउन पर्ने सावाँ, व्याज, कमिशन, फि, मार्जिन आदि रकम कलमको समय समयमा किस्ता भुक्तान गरेको वा आंशिक
+          चुक्ता गरेको वा सो मध्ये केही पूर्ण चुक्ता गरेको आधारमा मैले माथिको प्रकरण बमोजिम बहन गर्न स्विकार तथा मन्जुर गरेको प्राथमिक दायित्वको
+          कुरामा कुनै प्रतिकूल प्रभाव परेको मानिने छैन । यस जमानीपत्रमा उल्लेखित अन्य प्रावधानहरुको सर्वसामान्यतामा प्रतिकूल वा विपरित प्रभाव नपर्ने
+          गरी मैले जमानी दिएको रकमको हदसम्मको रकम, कलम तिर्न बुझाउन मेरो मन्जुरी छ ।
         </li>
         <li>
-          कथंकदाचित ऋणी टाट पल्टेमा वा ऋणी कानुन अन्तर्गत स्थापना भएको संगठित संस्था भएमा र कानुन बमोजिम
-          खारेजी भएमा वा अन्य कुनै कारणले ऋणीको उद्योग/व्यवसाय बन्द भएमा, मैले/हामीले धनी बैंकलाई यस
-          जमानीको लिखत बमोजिम तिर्न बुझाउन मन्जुर गरेको दायित्वमा कुनै प्रतिकुल प्रभाव परेको मानिने छैन र यस
-          जमानीको लिखत वमोजिम धनी बैंक प्रति मैले/हामीले तिर्न बुझाउन पर्ने दायित्वको स्थितिमा कुनै परिवर्तन
-          भएको मानिने छैन र यस्तो दायित्व चुक्ता भुक्तान नभएसम्म यथावत कायम रही रहने छ ।
+          धनी बैंकले ऋणीसँग उल्लेखित ऋण कर्जा तथा बैंकिङ्ग कारोवार सुविधाको सुरक्षणका लागि अन्य चल, अचल जायजेथा सुरक्षणको रुपमा ग्रहण गरेको
+          वा धित्तोबन्धकी लेखाई लिएको वा अन्य तेश्रो व्यक्ति समेत सँग जमानत लिएको वा त्यसरी लिएको सुरक्षण फुकुवा गरी दिएको वा जमानतबाट
+          छुटकारा दिएको वा ऋणी वा तेश्रो व्यक्तिसँग ऋण कर्जा चुक्ता भुक्तान गर्ने सम्बन्धमा सम्झौता मिलापत्र गरी म्याद थप गरिदिएको वा छुट मिन्हा
+          दिएको वा अन्य शर्त कबुलियत गरेको, शर्त कबुलियतमा परिवर्तन वा संशोधन गरेको वा ऋण कर्जा नविकरण गरेको वा थप ऋण कर्जा दिएको भन्ने
+          आदि कुनै पनि आधारमा मैले यस लिखत बमोजिम प्राथमिक रुपमा व्यहोर्न मन्जुर गरेको दायित्वमा कुनै प्रतिकूल वा विपरित प्रभाव परेको मानिने छैन ।
+          मैले स्वीकार तथा मन्जुर गरेको दायित्व प्राथमिक दायित्वको रुपमा मैले निर्वाह तथा बहन गर्नुपर्ने मेरो कर्तव्य यथावत रही रहने छ र मैले धनी
+          बैंकको पक्षमा गरिदिएको यस जमानीको लिखत बमोजिमको मेरो दायित्व व्यक्तिगत हुने भन्ने कुरामा मेरो मन्जुरी छ । जस अनुसार तपाई धनी बैंकले
+          आफ्नो तजविजमा ऋण कर्जाको सुरक्षण वापत अन्य चल, अचल सम्पत्ति रहेको र वा अन्यले जमानत गरि दिएको अवस्थामा समेत यस लिखत
+          बमोजिम जमानी गरिदिएको हद सम्मको रकम कलम सोझै म सँग व्यक्तिगत रुपमा असुल उपर गरी लिन सक्ने कुरामा मेरो मन्जुरी छ । साथै, यस
+          जमानीको लिखत मैले दिएको अरु जमानीको लिखत भन्दा छुट्टै हुनेछ र यस जमानीको लिखतले मैले गरेको अन्य जमानी एवं अरु सम्पूर्ण लिखत
+          बमोजिम व्यहोर्नु पर्ने दायित्वमा असर पारेको मानिने छैन ।
         </li>
         <li>
-          ऋणी कानुन बमोजिम स्थापित संगठित संघ/संस्था/फर्म/कम्पनी भएको स्थितिमा ऋणीको संगठन वा संरचना
-          वा व्यवस्थापनमा भएको कुनै परिवर्तन वा विद्यमान शेयरधनीहरुबाट आंशिक वा पूर्ण रुपमा शेयर हक हस्तान्तरण
-          भएको वा स्वामित्व परिवर्तन भएको वा ऋणीको विधान, नियम, विनियम, प्रबन्धपत्र, नियमावली, सम्झौतामा
-          कुनै संशोधन/परिवर्तन भएको वा ऋणी अन्य कम्पनी, फर्म वा संस्थामा विलिन भएमा वा ऋणीमा अन्य कम्पनी,
-          फर्म वा संस्था सम्माहित (merger) भएको लगायतको कुनै पनि आधारमा मेरो/हाम्रो धनी बैंक प्रति यस
-          लिखतबमोजिम तिर्न, बुझाउन पर्ने ऋण दायित्वको स्थितिमा कुनै परिवर्तन भएको मानिने छैन र त्यस्तो दायित्व
-          यस लिखत अनुसार कर्जा चुक्ता नभएसम्म वा बैंकले लिखित रुपमा जमानतीको दायित्वबाट मुक्त नगरेसम्म
-          यथावत कायम रही रहने छ ।
+          कथंकदाचित ऋणीले धनी बैंकलाई तिर्न बुझाउन पर्ने सम्पूर्ण रकम कलम मेरो शेष पछि पनि चुक्ता भुक्तान हुन वांकी रहेमा, म बाट अंश/अपुताली
+          प्राप्त गर्ने अंशियार वा उत्तराधिकारीहरु (Heir and Successors) ले यस लिखत बमोजिमको दायित्व बहन गर्नुपर्ने र धनी बैंकले ऋणीबाट प्राप्त
+          गर्नुपर्ने सम्पूर्ण रकम कलम चुक्ता भुक्तान नभएसम्म मेरा निज अंशियार वा उत्तराधिकारीले सो दायित्व बमोजिमको रकम, कलम चुक्ता भुक्तान गर्नु
+          पर्ने जवाफदेही र जिम्मेवारी रहने कुरामा मेरो मन्जुरी छ ।
         </li>
         <li>
-          धनी बैंकलाई अदालतको फैसलाद्वारा ऋणीले तिर्नु पर्ने भनी ठहर गरी दिएको रकम कलम वा  धनी बैंकले
-          ऋणीलाई लिखित सूचना दिई माग गरेको तिर्न बुझाउन बाँकी रकम कलम वा  धनी बैंकको खातावही, स्टेटमेण्ट
-          इत्यादिबाट ऋणीले तिर्न बुझाउन बाँकी देखिएको रकम कलम नै ऋणीले धनी बैंकलाई तिर्न बुझाउन पर्ने
-          वास्तविक दायित्वको रुपमा मानिने र सोही आधारमा धनी बैंकले लिखित सूचना दिई म सँग रकम कलम तिर्न
-          बुझाउन माग गरेमा सोही सूचनालाई अन्तिम तथा अकाट्य प्रमाणको रुपमा स्वीकार गरी सो उल्लेखित रकम
-          कलम तिर्न बुझाउन मेरो/हाम्रो मन्जुरी छ । सो सम्बन्धमा कंही कतै कुनै उजुर वाजुर गर्ने छैन ।
+          कथंकदाचित ऋणी टाट पल्टेमा वा ऋणी कानुन अन्तर्गत स्थापना भएको संगठित संस्था भएमा र कानुन बमोजिम खारेजी भएमा वा अन्य कुनै
+          कारणले ऋणीको उद्योग/व्यवसाय बन्द भएमा, मैले धनी बैंकलाई यस जमानीको लिखत बमोजिम तिर्न बुझाउन मन्जुर गरेको दायित्वमा कुनै
+          प्रतिकुल प्रभाव परेको मानिने छैन र यस जमानीको लिखत वमोजिम धनी बैंक प्रति मैले तिर्न बुझाउन पर्ने दायित्वको स्थितिमा कुनै परिवर्तन भएको
+          मानिने छैन र यस्तो दायित्व चुक्ता भुक्तान नभएसम्म यथावत कायम रही रहने छ ।
         </li>
         <li>
-          माथि प्रकरण, प्रकरणमा जे जस्तो उल्लेख भएता पनि यस लिखत बमोजिम मेरो/हाम्रो दायित्व तपाई धनी बैंकले
-          ऋणीलाई प्रदान गर्ने कर्जा मध्ये <strong>रु
-          <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" readonly
-                 formControlName="rupees1">
-          <span class="print-only nepaliFont">{{form.get('rupees1').value ? form.get('rupees1').value  : '========='}}</span>/– (अक्षरेपी रुपैयाँ
-          <input type="text" class="nepaliFont form-field form-control-sm fontSize  disable-print" readonly
-                 formControlName="amount1">
-          <span class="print-only nepaliFont">{{form.get('amount1').value ? form.get('amount1').value  : '========='}}</span> मात्र)</strong> सम्मको ऋण
-          कर्जा तथा बैंकिङ्ग कारोवार सुविधाको  रकम कलमको हद सम्म सिमित रहने छ ।
+          ऋणी कानुन बमोजिम स्थापित संगठित संघ/संस्था/फर्म/कम्पनी भएको स्थितिमा ऋणीको संगठन वा संरचना वा व्यवस्थापनमा भएको कुनै
+          परिवर्तन वा विद्यमान शेयरधनीहरुबाट आंशिक वा पूर्ण रुपमा शेयर हक हस्तान्तरण भएको वा स्वामित्व परिवर्तन भएको वा ऋणीको विधान, नियम,
+          विनियम, प्रबन्धपत्र, नियमावली, सम्झौतामा कुनै संशोधन/परिवर्तन भएको वा ऋणी अन्य कम्पनी, फर्म वा संस्थामा विलिन भएमा वा ऋणीमा अन्य
+          कम्पनी, फर्म वा संस्था सम्माहित (Merge) भएको लगायतको कुनै पनि आधारमा मेरो धनी बैंक प्रति यस लिखत बमोजिम तिर्न, बुझाउन पर्ने ऋण
+          दायित्वको स्थितिमा कुनै परिवर्तन भएको मानिने छैन र त्यस्तो दायित्व यस लिखत अनुसार कर्जा चुक्ता नभएसम्म वा बैंकले लिखित रुपमा
+          जमानतको दायित्वबाट मुक्त नगरेसम्म यथावत कायम रही रहने छ ।
         </li>
         <li>
-          यो जमानीको लिखत वमोजिम मैले/हामीले धनी बैंकका प्रति वहन गर्नु पर्ने दायित्व यसै लिखतमा लेखिए
-          वमोजिम ऋणीले लिएको ऋण कर्जा तथा बैंकिङ्ग सुविधाको धनी बैंकलाई वुझाउनु पर्ने रकम कलम धनी बैंकलाई
-          चुक्ता नवुझाए सम्म रही रहने छ । ऋणीले लेखिए वमोजिम लिएको ऋण सुविधा वा बैंकिङ्ग कारोवारका निमित्त
-          एक पटकको लागि अथवा नविकरण नहुने कर्जा वा सुविधा वाहेकका सवै ऋण कर्जा सुविधाको निमित्त धनी बैंकले
-          नविकरण गरेमा समेत सो वमोजिम मेरो/हाम्रो दायित्व यथावत कायम रहनेछ र धनी बैंकको सम्पूर्ण लेना रकम
-          चुक्ता नभएसम्म यो जमानीको लिखत कायम रही रहने कुरामा मेरो/हाम्रो पूर्ण मन्जुरी छ ।
+          धनी बैंकलाई अदालतको फैसलाद्वारा ऋणीले तिर्नु पर्ने भनी ठहर गरी दिएको रकम कलम वा धनी बैंकले ऋणीलाई लिखित सूचना दिई माग गरेको
+          तिर्न बुझाउन बाँकी रकम कलम वा धनी बैंकको खातावही, स्टेटमेण्ट इत्यादिबाट ऋणीले तिर्न बुझाउन बाँकी देखिएको रकम कलम नै ऋणीले धनी
+          बैंकलाई तिर्न बुझाउन पर्ने वास्तविक दायित्वको रुपमा मानिने र सोही आधारमा धनी बैंकले लिखित सूचना दिई म सँग रकम कलम तिर्न बुझाउन
+          माग गरेमा सोही सूचनालाई अन्तिम तथा अकाट्य प्रमाणको रुपमा स्वीकार गरी सो उल्लेखित रकम कलम तिर्न बुझाउन मेरो मन्जुरी छ । सो
+          सम्बन्धमा कंही कतै कुनै उजुर वाजुर गर्ने छैन ।
         </li>
         <li>
-          कथंकदाचित ऋणी कानून बमोजिम अशक्त वा असक्षम व्यक्ति भई कानुनतः ऋण कर्जाको दायित्वबाट मुक्त भएमा
-          वा त्यस्तो दायित्व निजले कानुनतः व्यहोर्नु नपर्ने भएमा समेत यस लिखत बमोजिम मैले/हामीले धनी बैंकलाई
-          तिर्नू बुझाउन मन्जुर गरेको दायित्वबाट म/हामी मुक्त भएको मानिने छैन र धनी बैंक प्रति मेरो/हाम्रो यस
-          लिखत बमोजिमको दायित्व यथावत कायम रही रहनेछ । धनी बैंकले माग गरेको अवस्थामा उपरोक्त दायित्व
-          अन्तर्गत तिर्न बुझाउन पर्ने रकम कलम तिर्न बुझाउन मेरो/हाम्रो मन्जुरी छ ।
+          यो जमानीको लिखत वमोजिम मैले धनी बैंक प्रति वहन गर्नु पर्ने दायित्व यसै लिखतमा लेखिए वमोजिम ऋणीले लिएको ऋण कर्जा तथा बैंकिङ्ग
+          सुविधाको धनी बैंकलाई वुझाउनु पर्ने रकम कलम धनी  बैंकलाई चुक्ता नवुझाए सम्म रही रहने छ । ऋणीले लेखिए वमोजिम लिएको खाएको ऋण
+          सुविधा वा सो ऋण कर्जा सुविधा नविकरण भएको अवस्थामा समेत धनी बैंकले नविकरण गरेमा समेत सो वमोजिम नविकरण भएको कर्जा सुविधामा
+          समेत मेरो दायित्व यथावत कायम रहनेछ र धनी बैंकको सम्पूर्ण लेना रकम चुक्ता नभएसम्म यो जमानीको लिखत कायम रही रहने कुरामा मेरो पूर्ण
+          मन्जुरी छ ।
+        </li>
+       <li>
+         कथंकदाचित ऋणी कानून बमोजिम अशक्त वा असक्षम व्यक्ति भई कानुनतः ऋण कर्जाको दायित्वबाट मुक्त भएमा वा त्यस्तो दायित्व निजले कानुनतः
+         व्यहोर्नु नपर्ने भएमा समेत यस लिखत बमोजिम मैले धनी बैंकलाई तिर्न बुझाउन मन्जुर गरेको दायित्वबाट म मुक्त भएको मानिने छैन र धनी बैंक
+         प्रति मेरोे यस लिखत बमोजिमको दायित्व यथावत कायम रही रहनेछ । धनी बैंकले माग गरेको अवस्थामा उपरोक्त दायित्व अन्तर्गत तिर्न बुझाउन
+         पर्ने रकम कलम तिर्न बुझाउन मेरोे मन्जुरी छ ।
+       </li>
+        <li>
+          यो जमानीको लिखत वमोजिम म जमानी वसेको रकमको हद सम्म म एक्लै वा संयुक्त रुपमा (Joint and Several) दायित्व वहन गर्न मेरो मन्जुरी
+          रहेको छ । पछि संयुक्त रुपमा जमानीको लिखतमा सही छाप गरेको हुनाले दामासाहीले दायित्व व्यहोर्नु पर्ने हो भन्ने लगायतका कुनै किसिमको
+          उजुरवाजुर गर्ने छैन । गरे यसै लिखतले वदर गरेमा समेत मेरो मन्जुरी रहेको छ ।
         </li>
         <li>
-          यो जमानीको लिखत वमोजिम म/हामी जमानी वसेको रकमको हद सम्म म/हामी एक्लै वा संयुक्त रुपमा (Joint
-          and Several) दायित्व वहन गर्न म/हाम्रो मन्जुरी रहेको छ । पछि संयुक्त रुपमा जमानीको लिखतमा सही छाप
-          गरेको हुनाले दामासाहीले दायित्व व्यहोर्नु पर्ने हो भन्ने लगायतका कुनै किसिमको उजुरवाजुर गर्ने छैन । गरे यसै
-          लिखतले वदर गरेमा समेत म/हाम्रो मन्जुरी रहेको छ ।
+          म र ऋणीका बिचमा लेनदेन कारोवार भई ऋणीले मलाई रकम कलम तिर्न, बुझाउनु पर्ने अवस्थामा समेत ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन
+          पर्ने रकम कलम तिरी बुझाई फछ्र्यौट नभएसम्म मैले ऋणीसँग लेनदेन कारोवार अन्तर्गत प्राप्त गर्नु पर्ने रकम प्राप्त गर्नका लागि कुनै किसिमको
+          दावा गर्ने वा कानुनी कारवाही चलाउने छैन ।
         </li>
         <li>
-          म र ऋणीका बिचमा लेनदेन कारोवार भई ऋणीले मलाई रकम कलम तिर्न, बुझाउनु पर्ने अवस्थामा समेत
-          ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने रकम कलम तिरी बुझाई फछ्र्यौट नभएसम्म मैले/हामीले
-          ऋणीसँग लेनदेन कारोवार अन्तर्गत प्राप्त गर्नु पर्ने रकम प्राप्त गर्नका लागि कुनै किसिमको दावा गर्ने वा कानुनी
-          कारवाही चलाउने छैन ।
-        </li>
-        <li>
-          यस लिखत बमोजिम धनी बैंकले रकम कलम माग गरी मलाई लिखित सूचना दिनु पर्ने भएमा वा धनी बैंकले
-          मलाई जुनसुकै किसिमको सूचना दिनु पर्ने भएमा यस लिखतमा लेखिएको ठेगानामा वा धनी बैकलाई मैले/हामीले
-          अन्तिम पटक उपलब्ध गराएको घर ठेगानामा व्यक्ति वा हुलाक वा विद्युतीय माध्यम मार्फत सूचना दिन सकिनेछ ।
-          त्यसरी व्यक्ति मार्फत दिएको सूचनाको हकमा बुझाएको मिति, हुलाक मार्फत पठाएकोमा सूचना रजिष्ट्रर्ड गरेको
-          मितिले १५ दिन भित्र र विद्युतीय माध्यम मार्फत पठाएकोमा, पठाए उप्रान्त मैले/हामीले प्राप्त गरेको मानिनेछ ।
-          साथै धनी बैंकको कुनै पनि अधिकृत कर्मचारीले हुलाक मार्फत रजिष्ट्रर्ड गरी यो मितिमा सूचना पठाएको भनि
-          लिखित रुपमा प्रमाणित गरी दिएमा सो कुरा अन्यथा प्रमाणित नभएसम्म त्यस्तो सूचना पठाएको कुराको अकाट्य
-          तथा अन्तिम प्रमाणको रुपमा हुने कुरामा समेत मेरो/हाम्रो मन्जुरी छ ।
+          यस लिखत बमोजिम धनी बैंकले रकम कलम माग गरी मलाई लिखित सूचना दिनु पर्ने भएमा वा धनी बैंकले मलाई जुनसुकै किसिमको सूचना दिनु
+          पर्ने भएमा यस लिखतमा लेखिएको ठेगानामा वा धनी बैकलाई मैले अन्तिम पटक उपलब्ध गराएको घर ठेगानामा व्यक्ति वा हुलाक वा विद्युतीय
+          माध्यम मार्फत सूचना दिन सकिनेछ । त्यसरी व्यक्ति मार्फत दिएको सूचनाको हकमा बुझाएको मिति, हुलाक मार्फत पठाएकोमा सूचना रजिष्ट्रर्ड
+          गरेको मितिले १५ दिन भित्र र विद्युतीय माध्यम मार्फत पठाएकोमा, पठाए उप्रान्त मैले प्राप्त गरेको मानिनेछ । साथै धनी बैंकको कुनै पनि अधिकृत
+          कर्मचारीले हुलाक मार्फत रजिष्ट्रर्ड गरी यो मितिमा सूचना पठाएको भनि लिखित रुपमा प्रमाणित गरी दिएमा सो कुरा अन्यथा प्रमाणित नभएसम्म
+          त्यस्तो सूचना पठाएको कुराको अकाट्य तथा अन्तिम प्रमाणको रुपमा हुने कुरामा समेत मेरो मन्जुरी छ ।
         </li>
       </ol>
     </div>

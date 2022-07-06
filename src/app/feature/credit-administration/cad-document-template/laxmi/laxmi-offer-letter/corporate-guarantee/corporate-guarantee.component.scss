@@ -3,7 +3,7 @@
 }
 
 .nepali {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 40px;
   margin: 10px 50px;
   @extend .text-justify;
@@ -42,7 +42,7 @@
 
 .nepaliFont {
   &.font-size-normal {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
@@ -63,7 +63,7 @@
 }
 
 input::-webkit-input-placeholder {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .signature-area {
@@ -85,7 +85,7 @@ input::-webkit-input-placeholder {
   page-break-after: always;
 }
 .fontSize{
-  font-size: 15px;
+  font-size: 14px;
 }
 
 ol.conditions-list{
@@ -110,7 +110,7 @@ ol.conditions-list{
     display: inline;
   }
   div.align {
-    font-size: 20px;
+    font-size: 14px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
@@ -122,5 +122,5 @@ ol.conditions-list{
   font-size: 14px;
 }
 .printFont{
-  font-size: 16px;
+  font-size: 14px;
 }
