@@ -22,7 +22,7 @@
                 <label> Role Type</label>
                 <select (change)="checkRole()" [(ngModel)]="role.roleType" class="custom-select"
                         name="roleType">
-                    <option [ngValue]="undefined" hidden>---select Role Type---</option>
+                    <option [ngValue]="undefined" hidden>Select Role Type</option>
                     <option *ngFor="let roleType of appConfigRoleType   "
                             [ngValue]="roleType">{{roleType |  replace:'_':' '}}</option>
                 </select>
@@ -33,7 +33,7 @@
                 <select #accessVal="ngModel" [(ngModel)]="role.roleAccess"
                         [ngClass]="{ 'is-invalid': f.submitted && accessVal.invalid }" class="custom-select"
                         name="roleAccess" required>
-                    <option [ngValue]="undefined" hidden>Select the Branch Access</option>
+                    <option [ngValue]="undefined" hidden>Select Branch Access</option>
                     <option *ngFor="let roleAccess of roleAccessList.values()"
                             [ngValue]="roleAccess">{{roleAccess}}</option>
                 </select>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <div><sup>*</sup>New Role will added in Lowest Order</div>
+            <div><sup>*</sup>New Role will be added in lowest order</div>
             <button type="submit" class="btn btn-primary"><i
                     class="fa fa-save"></i>
             </button>

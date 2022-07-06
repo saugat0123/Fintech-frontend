@@ -65,24 +65,16 @@ export class UserFormComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.roleService.getAll().subscribe((response: any) => {
-            this.roleList = response.detail;
-        });
-
         this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
-
         this.addressService.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while loading province'));
             console.log(error);
         });
-
         this.getEdit();
-
     }
 
 

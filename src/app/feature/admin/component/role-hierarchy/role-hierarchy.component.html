@@ -38,13 +38,7 @@
                                     <div class="item-box sb-small sb-bg-secondary text-white"
                                          *ngFor="let item of roleList;let i=index" cdkDrag>
                                         <div class="col-md-2">{{i + 1}}</div>
-                                        <div class="col-md-8 pull-right">{{item.role?.roleName}}</div>
-                                        <div class="col-md-2">
-                                            <button nbButton outline status="danger" size="tiny" (click)="removeItem(i)"
-                                                    nbTooltip="Remove Role from Approval Hierarchy">
-                                                <i class="fa fa-trash-alt"></i>
-                                            </button>
-                                        </div>
+                                        <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
                                     </div>
                                 </div>
 
