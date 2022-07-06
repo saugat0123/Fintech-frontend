@@ -213,6 +213,12 @@ export class LandBuildingComponent implements OnInit {
             .patchValue(Number(landBuildingConValue));
         this.landBuildingForm.get(['landBuilding', index, 'landConsideredValue'])
             .patchValue(Number(landConValue + landBuildingConValue));
+        const FairMarketValueOfLand = (Number(this.landBuildingForm.get(['landBuilding', index, 'fairMarketValue']).value));
+        const FairMarketValueOfBuilding = (Number(this.landBuildingForm.get(['landBuilding', index, 'totalCost']).value));
+        this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue'])
+            .patchValue(FairMarketValueOfLand + FairMarketValueOfBuilding);
+        this.landBuildingForm.get(['landBuilding', index, 'considerValue'])
+            .patchValue( this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue']).value);
         break;
       case 'lbUnderConstruction':
         const lbUnderConValue = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValueConstruction']).value)
@@ -276,6 +282,7 @@ export class LandBuildingComponent implements OnInit {
       totalBuildingArea: [undefined],
       costPerSquare: [undefined],
       totalCost: [undefined],
+      totalMarketValue: [undefined],
       buildingValuator: [undefined],
       buildingValuatorDate: [undefined],
       buildingValuatorRepresentative: [undefined],
@@ -335,7 +342,8 @@ export class LandBuildingComponent implements OnInit {
       addressLine2: [undefined],
       registerOffice: [undefined],
       freeLimit: [undefined],
-      landBuildingFirstValuationDate: [undefined]
+      landBuildingFirstValuationDate: [undefined],
+      isValuated: [undefined]
     });
   }
 
@@ -439,7 +447,8 @@ export class LandBuildingComponent implements OnInit {
           addressLine2: [formData.addressLine2],
           registerOffice: [formData.registerOffice],
           freeLimit: [formData.freeLimit],
-          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : '']
+          landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : ''],
+          isValuated: [formData.isValuated]
         })
     );
   }

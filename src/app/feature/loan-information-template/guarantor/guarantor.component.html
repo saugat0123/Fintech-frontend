@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
                                     <div class = "form-group">
                                         <label for="name"><strong>Type</strong></label>
                                         <select
@@ -204,27 +204,6 @@
                                     </div>
                                 </ng-container>
                                 <ng-template #nonIlegal>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label><strong>Gender</strong></label>
-                                            <nb-radio-group class="d-flex" formControlName="gender" name="gender{{i}}">
-                                                <nb-radio *ngFor="let gender of genderPairs"
-                                                          [value]="gender?.key">{{gender?.value}}</nb-radio>
-                                            </nb-radio-group>
-                                            <div *ngIf="(submitted) && guarantorDetails?.get('gender')?.invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="guarantorDetails?.get('gender')?.errors?.required">
-                                                    Gender is required
-                                                </div>
-                                            </div>
-                                            <div *ngIf="(addMore) && guarantorDetails?.get('gender')?.invalid"
-                                                 class="alert-warning">
-                                                <div *ngIf="guarantorDetails?.get('gender')?.errors?.required">
-                                                    Please select gender
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label><strong>Citizenship Number</strong></label>
@@ -835,18 +814,6 @@
                                                 Please fill % Shareholding
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Guarantor</strong></label>
-                                        <select class="form-control form-control-sm-error rounded"
-                                                formControlName="guarantor"
-                                                id="guarantor"
-                                                name="guarantor">
-                                            <option [value]="null">Select Yes/No</option>
-                                            <option [value]="ans" *ngFor="let ans of question">{{ans}}</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">

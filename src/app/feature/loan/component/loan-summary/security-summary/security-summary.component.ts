@@ -94,6 +94,9 @@ export class SecuritySummaryComponent implements OnInit {
                 this.combinedAllApprovedSecurity();
             }
         } else if (!ObjectUtil.isEmpty(this.securities)) {
+            const proposedSecurity = this.securities.map(d => d.id);
+            this.securities =  this.securities
+                .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
             this.selectedSecurities();
             this.setSelectedSecurities();
         }
@@ -101,9 +104,9 @@ export class SecuritySummaryComponent implements OnInit {
 
     combineAllSecurity() {
         this.customerAllLoanList.forEach((ld) => {
-            if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
+            // if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
                 this.securities =  this.securities.concat(ld.securities);
-            }
+            // }
         });
         if (this.securities.length > 0) {
             this.selectedSecurities();

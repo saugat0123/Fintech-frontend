@@ -30,7 +30,9 @@
                                     class="btn btn-sm btn-flat">
                                 <em class="fa fa-edit bg-transparent"></em>
                             </button>
-                            <button nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
+                            <button *ngIf="(security?.securityType.toString() ==='LAND_SECURITY' ||
+                            security?.securityType.toString() ==='APARTMENT_SECURITY' || security?.securityType.toString() ==='LAND_BUILDING_SECURITY')"
+                                    nbTooltip="Site Visit" (click)="onSiteVisitClick(security)"
                                     class="btn btn-sm btn-flat">
                                 <em class="fa fa-map-signs bg-transparent"></em>
                             </button>
@@ -61,6 +63,80 @@
                                     [tagged]="toggleArray[i]?.security"
                                     [security]="security?.data"></app-security-tagged-component>
                         </ng-container>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <!-- FOR SHARE SECURITY DETAILS  -->
+    <div class="col-md-12" *ngIf="customerShareBatchList?.length >= 1">
+        <div class="col-md-12 mt-2">
+            <h6>Share Security Details</h6>
+        </div>
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+               [nbSpinner]="spinner">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
+                <th>Security Type</th>
+                <th>Total Share table</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let customerShareBatch of customerShareBatchList; let i=index;">
+                <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{'SHARE SECURITY'}}</td>
+                    <td>{{customerShareBatch?.shareSecurity?.length || 0}}</td>
+                    <td>
+<!--                        <ng-container *ngIf="security?.status.toString() === 'ACTIVE'">-->
+                        <ng-container>
+                            <button
+                                    (click)="onEditShareSecurity(customerShareBatchList)"
+                                    class="btn btn-sm btn-flat">
+                                <em class="fa fa-edit bg-transparent"></em>
+                            </button>
+
+                            <a class="px-2 cursor" *ngIf="security && customerShareBatch?.shareSecurity?.length >= 1"
+                               (click)="toggleShareView = !toggleShareView"
+                               nbTooltip="click to view detail security">
+                                <em class="fa fa-eye"></em>
+                            </a>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr *ngIf="toggleShareView">
+                    <td colspan="3">
+                        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small mt-2"
+                               [nbSpinner]="spinner">
+                            <thead>
+                            <tr class="text-white sb-bg-dark">
+                                <th>S.N</th>
+                                <th>Owner Name</th>
+                                <th>Total No. of share</th>
+                                <th>Total FMV</th>
+                                <th>Total Drawing Amount</th>
+                                <th>Realizable Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ng-container *ngFor="let security of customerShareBatch?.shareSecurity; let i=index;">
+                                <tr>
+                                    <td>{{i + 1}}</td>
+                                    <td>
+                                        <!--                                    {{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : customerInfo?.name}}-->
+                                        {{(security?.data | jsonParse)?.ownerName }}
+                                    </td>
+                                    <td> {{(security?.data | jsonParse)?.totalNoShare | currencyFormatter}} </td>
+                                    <td> {{(security?.data | jsonParse)?.totalFmv | currencyFormatter}} </td>
+                                    <td> {{(security?.data | jsonParse)?.totalDrawingAmount | currencyFormatter}} </td>
+                                    <td> {{(security?.data | jsonParse)?.totalRealizableAmount | currencyFormatter}} </td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
             </ng-container>

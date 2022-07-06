@@ -1,7 +1,6 @@
 <section class="enable-print summary">
     <div id="print-block">
         <div class=" col-md-12 summary">
-            <hr class="print-line">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -10,20 +9,20 @@
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
             <!--                release and replacement-->
-            <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'; else approved">
+            <ng-container>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
+                <app-security-summary *ngIf="loanSecurity" [securities]="loanSecurity"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="customerAllLoanList"
-                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
+                <app-security-summary *ngIf="approvedSecurity" [securities]="approvedSecurity"></app-security-summary>
+                <!-- Customer Share Security  -->
+                <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                            [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+                </app-customer-share-summary>
             </ng-container>
-            <ng-template #approved>
-                <app-security-summary [pending]="true" [securities]="loanDataHolder?.securities"></app-security-summary>
-                <app-security-summary *ngIf="loanDataHolder?.parentId"
-                                      [customerAllLoanList]="customerAllLoanList"></app-security-summary>
-            </ng-template>
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
+                                   [approvedSecurity]="approvedSecurity"
+                                   [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
            <ng-container>
@@ -41,15 +40,22 @@
                    </div>
                </div>
                <ng-container *ngIf="!fullSettlement">
+                   <hr class="print-line">
                    <div class="row  mt-1">
                        <div class="col-md-12">
                            <div>
                                <div class="col-md-12">
-                                   <hr class="print-line">
-                                   <p><strong class="header text-left">Purpose of Loan: </strong> <span class="text-left"
-                                                                                                        style="display: flex"
-                                                                                                        [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                                   </p>
+                                   <p><strong class="header text-left">Purpose of Loan: </strong></p>
+                                   <table class="table table-borderless table-responsive">
+                                       <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                                       <tr>
+                                           <td>
+                                               <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                               <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                           </td>
+                                       </tr>
+                                       </tbody>
+                                   </table>
                                </div>
                                <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                                    <hr class="print-line">

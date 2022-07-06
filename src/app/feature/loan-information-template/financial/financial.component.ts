@@ -694,4 +694,15 @@ export class FinancialComponent implements OnInit {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         }
     }
+
+    totalMonthlyAmount(expensesOfBorrower: string, totalExpense: string) {
+        let total = 0;
+        (this.financialForm.get(expensesOfBorrower) as FormArray).controls.forEach(group => {
+            total = Number(group.get('amount').value) + Number(total);
+        });
+        this.financialForm.get(totalExpense).setValue(total);
+        this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
+            - Number(this.financialForm.get('totalExpense').value));
+        this.financialForm.get('emiWithProposal').patchValue(total);
+    }
 }

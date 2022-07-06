@@ -40,11 +40,9 @@
                                     Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.currentStage?.toUser?.name}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : ''">
-                                    <a nbTooltip="change loan"  (click)="changeLoan(model.id,model?.loanId)" *ngIf="!model?.combinedLoans && model?.parentId === null && model?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER' && isLoaded && !loan[i].loan?.isRemit"><em
-                                            class="fa fa-cog"></em></a>&nbsp;
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                             class="fa fa-trash"></em></a>&nbsp;
-                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && model?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && model?.loan?.isRemit "  (click)="addVideoKyc(model)">
+                                    <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && model?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && model?.loan?.isRemit " (click)="addVideoKyc(model)">
                                         <em class="fa fa-camera"></em>
                                     </a>&nbsp;
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
@@ -52,7 +50,7 @@
                                     <a nbTooltip="Edit loan" class="text-info" *ngIf="model?.currentStage?.toRole?.roleType.toString()==='MAKER' || (currentUserRoleType === 'ADMIN')"
                                        (click)="onEdit(proposal, model?.id)">
                                         <em class="fa fa-edit"></em></a>&nbsp;
-                                    <a nbTooltip="Open Common Loan Data" (click)="openCommonModal(model?.id, model?.combinedLoans)" *ngIf="(currentUserRoleType === 'MAKER' && model?.loanName === COMBINED_KEY)"><em
+                                    <a nbTooltip="Open Common Loan Data" (click)="openCommonModal(model, model?.combinedLoans)" *ngIf="(currentUserRoleType === 'MAKER' && model?.loanName === COMBINED_KEY) || !model?.combinedLoans"><em
                                             class="fa fa-window-restore"></em></a>&nbsp;
                                 </td>
                             </tr>
@@ -73,9 +71,6 @@
                                         Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                                     <td (click)="onClick(single?.loanId, single?.id,single?.currentStage)">{{single?.currentStage?.toUser?.name}}</td>
                                     <td>
-
-                                        <a nbTooltip="change loan" (click)="changeLoan(single.id,single?.loanId)" *ngIf=" single?.parentId === null && single?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
-                                                class="fa fa-cog"></em></a>&nbsp;
                                         <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)" *ngIf="single?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                                 class="fa fa-trash"></em></a>&nbsp;
                                         <a nbTooltip="Video KYC"  class="text-danger" *ngIf="isLoaded && single?.loan?.loanTag === loanTag?.getKeyByValue(loanTag.REMIT_LOAN) && single?.loan?.isRemit "  (click)="addVideoKyc(single)">
@@ -370,7 +365,7 @@
 </ng-template>
 <ng-template #proposal let-data let-ref="dialogRef">
     <nb-card class="template-css" style="height: 100vh; overflow-y: auto">
-        <nb-card-header> Loan Form
+        <nb-card-header> Loan Form:: {{singleLoan?.loan?.name}}
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="close()">
                       <span style="color: red" (click)="close()">

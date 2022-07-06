@@ -1,3 +1,6 @@
+<!--     Group Summary Sheet    -->
+<app-group-summary-sheet-view *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+
 <div>
     <app-proposal-summary *ngIf="loanDataHolder?.proposal"
                           [customerAllLoanList]="customerAllLoanList"
@@ -16,6 +19,10 @@
     <app-security-detail-view *ngIf="customerAllLoanList"
                               [customerAllLoanList]="customerAllLoanList"></app-security-detail-view>
 </ng-container>
+<!-- Customer Share Security  -->
+<app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                            [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+</app-customer-share-detail-view>
 <app-security-schedule [customerAllLoanList]="customerAllLoanList"
                        [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
@@ -24,7 +31,8 @@
                      [loanDataHolder]="loanDataHolder"
                      [customerInfoData]="loanDataHolder?.loanHolder"
                      [individual]="loanDataHolder?.customerInfo"
-                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+                     [loanId]="loanId" [customerInfo]="loanHolder"
+                     [proposalData]="loanDataHolder?.proposal"></app-individual-view>
 
 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"
@@ -87,7 +95,7 @@
 </div>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-
+<hr>
     <app-report-summary
             [approved]="true"
             *ngIf="loanDataHolder?.reportingInfoLog"
@@ -96,6 +104,7 @@
 </div>
 
 <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+    <hr>
     <span><strong>Loan Reporting Information</strong></span>
     <app-report-summary
             [approved]="false"
@@ -313,6 +322,12 @@
 
 <app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist"
                              *ngIf="checklistChecked && loanDataHolder?.paperProductChecklist"></app-product-paper-checklist>
+
+<!-- Site Visit -->
+<app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                     [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                     [loanDataHolder]="loanDataHolder"
+                     [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
 
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>

@@ -1,11 +1,12 @@
+<!--     Group Summary Sheet    -->
+<app-group-summary-sheet-view *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+
 <ng-container *ngIf="proposalData?.data !== null">
         <app-proposal-view *ngIf="loanDataHolder?.proposal"
                            [customerAllLoanList]="customerAllLoanList"
                            [proposalData]="proposalData"
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </ng-container>
-<!--     Group Summary Sheet    -->
-<app-group-summary-sheet-view [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
 <!--                release and replacement-->
 <ng-container *ngIf="loanDataHolder?.securities?.length > 0">
 <!--                    proposed security-->
@@ -15,6 +16,10 @@
     <!--                    existing security-->
     <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList] ="customerAllLoanList"></app-security-detail-view>
 </ng-container>
+<!-- Customer Share Security  -->
+<app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+</app-customer-share-detail-view>
 <app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 
@@ -34,12 +39,21 @@
 
 <ng-container>
     <div class="row  mt-1">
+        <hr class="print-line">
         <div class="col-md-12">
             <div>
                 <div class = "col-md-12">
-                    <hr class="print-line">
-                    <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                    </p>
+                    <p><strong  class="header text-left">Purpose of Loan: </strong></p>
+                    <table class="table table-borderless table-responsive">
+                        <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                        <tr>
+                            <td>
+                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                     <hr class="print-line">
@@ -51,13 +65,13 @@
                 </div>
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
                 <ng-container *ngIf="smallBusiness">
+                    <hr class="print-line">
                     <div class = "col-md-12">
-                        <hr class="print-line">
                         <p><strong  class="header text-left">Justification for Change (Historical): </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeHistorical || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
+                    <hr class="print-line">
                     <div class = "col-md-12">
-                        <hr class="print-line">
                         <p><strong  class="header text-left">Justification for Change (Projection) : </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeProjection || 'N/A' | safeHtml"></span>
                         </p>
                     </div>

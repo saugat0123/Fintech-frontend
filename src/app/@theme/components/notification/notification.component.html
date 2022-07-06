@@ -1,17 +1,69 @@
-<nb-card size="small">
+<nb-card status="warning" size="small">
   <nb-card-header>
-    Notification
+    <h5 class="text-white">Notification</h5>
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-between">
+        <div class="right-content">
+          <a nbButton size="tiny" status="primary" (click)="open(template)">Show All Notification</a>
+        </div>
+        <div class="left-content">
+          <a nbButton size="tiny" (click)="deleteAllMessage()" status="danger">Clear All</a>
+        </div>
+      </div>
+    </div>
   </nb-card-header>
   <nb-card-body>
-    <nb-list *ngIf="notifications">
-      <nb-list-item (click)="summaryClick(message)" *ngFor="let message of notifications"
-                    class="cursor">
-        {{message?.message}}<br/>
-        <span class="font-weight-bolder small float-right">{{message?.date | date:'medium'}}</span>
-      </nb-list-item>
-    </nb-list>
+    <table class="table table-sm table-bordered table-hover sb-small text-left" *ngIf="notifications">
+      <thead>
+        <tr class="sb-bg-dark text-white">
+          <th>S.No</th>
+          <th>Message</th>
+          <th>Date</th>
+          <th>Clear</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let message of notifications; let i=index">
+        <td>{{ i + 1 }}</td>
+        <td class="cursor" nbTooltip="View" (click)="summaryClick(message)">{{message?.message}} </td>
+        <td>{{message?.date |   date:'medium'}}</td>
+        <td>
+          <a (click)="deleteNotification(message?.id)"
+             class="cursor" role="button" nbButton size="small" status="danger" nbTooltip="Clear Notification"><i class="fa fa-trash"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
     <nb-list *ngIf="notifications.length <= 0">
       <nb-list-item>No notifications</nb-list-item>
     </nb-list>
   </nb-card-body>
 </nb-card>
+<ng-template #template >
+  <div class="modal-header  d-flex justify-content-end">
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">x</button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-sm table-bordered table-hover sb-small text-left" *ngIf="notifications">
+      <thead>
+      <tr class="sb-bg-dark text-white">
+        <th>S.No</th>
+        <th>Date</th>
+        <th>Message</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of notificationData; let i = index;">
+        <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+        <td (click)="summaryClick(data)" *ngIf="data?.status ==='DELETED' || data?.status ==='INACTIVE'">{{data?.date |  date:'medium'}}</td>
+        <td (click)="summaryClick(data)" *ngIf="data?.status ==='ACTIVE' " style="font-weight: bold">{{data?.date |  date:'medium'}}</td>
+        <td (click)="summaryClick(data)" *ngIf="data?.status ==='DELETED' || data?.status ==='INACTIVE'" >{{data?.message}}</td>
+        <td (click)="summaryClick(data)" *ngIf="data?.status ==='ACTIVE' " style="font-weight: bold">{{data?.message}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+  </div>
+</ng-template>

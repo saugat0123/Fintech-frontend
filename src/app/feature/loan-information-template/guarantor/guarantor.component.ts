@@ -235,7 +235,6 @@ export class GuarantorComponent implements OnInit {
       guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
         Validators.required],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
-      gender: [undefined],
       passNumber: [undefined],
       // passIssueDate: [
       //   ObjectUtil.isEmpty(data.guarantorJson) ? undefined : new Date(data.guarantorJson), Validators.required,
@@ -251,7 +250,6 @@ export class GuarantorComponent implements OnInit {
       nationality: [undefined],
       email: [undefined],
       shareHolding: [undefined],
-      guarantor: [undefined],
       managementTeam: [undefined],
       managementDesignation: [undefined],
       boardDirector: [undefined],
@@ -393,7 +391,6 @@ export class GuarantorComponent implements OnInit {
       Object.keys(submitData).forEach((k) => {
         submitData[k] = this.form.value[k];
       });
-      submitData.gender = c.get('gender').value;
       submitData.passNumber = c.get('passNumber').value;
       submitData.passIssueDate = c.get('passIssueDate').value;
       submitData.passIssuedPlace = c.get('passIssuedPlace').value;
@@ -403,7 +400,6 @@ export class GuarantorComponent implements OnInit {
       submitData.nationality = c.get('nationality').value;
       submitData.email = c.get('email').value;
       submitData.shareHolding = c.get('shareHolding').value;
-      submitData.guarantor = c.get('guarantor').value;
       submitData.managementTeam = c.get('managementTeam').value;
       submitData.managementDesignation = c.get('managementDesignation').value;
       submitData.boardDirector = c.get('boardDirector').value;
@@ -483,7 +479,6 @@ export class GuarantorComponent implements OnInit {
     }
 
   setJsonData(data, index: number) {
-    this.form.get(['guarantorDetails', index, 'gender']).patchValue(data.gender);
     this.form.get(['guarantorDetails', index, 'passNumber']).patchValue(data.passNumber);
     this.form.get(['guarantorDetails', index, 'passIssueDate'])
         .patchValue(ObjectUtil.isEmpty(data.passIssueDate) ? undefined : new Date(data.passIssueDate));
@@ -495,7 +490,6 @@ export class GuarantorComponent implements OnInit {
     this.form.get(['guarantorDetails', index, 'nationality']).patchValue(data.nationality);
     this.form.get(['guarantorDetails', index, 'email']).patchValue(data.email);
     this.form.get(['guarantorDetails', index, 'shareHolding']).patchValue(data.shareHolding);
-    this.form.get(['guarantorDetails', index, 'guarantor']).patchValue(data.guarantor);
     this.form.get(['guarantorDetails', index, 'managementTeam']).patchValue(data.managementTeam);
     this.form.get(['guarantorDetails', index, 'managementDesignation']).patchValue(data.managementDesignation);
     this.form.get(['guarantorDetails', index, 'boardDirector']).patchValue(data.boardDirector);
@@ -524,7 +518,6 @@ export class GuarantorComponent implements OnInit {
 
   legalChange(checked, i: number) {
     if (checked) {
-      this.form.get(['guarantorDetails', i, 'gender']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'citizenNumber']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'issuedYear']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'issuedPlace']).patchValue(null);

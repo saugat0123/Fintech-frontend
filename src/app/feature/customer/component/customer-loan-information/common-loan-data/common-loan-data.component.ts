@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
@@ -15,6 +15,9 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {CombinedLoanService} from '../../../../service/combined-loan.service';
 import {CustomerLoanDto} from '../../../../loan/model/customerLoanDto';
+import {
+    CadFileSetupComponent
+} from '../../../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
     selector: 'app-common-loan-data',
@@ -25,6 +28,7 @@ export class CommonLoanDataComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() loanId: any;
     @Input() resCombinedData: any;
+    @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
 
     commonLoanData: FormGroup;
     solChecked = false;
@@ -44,6 +48,7 @@ export class CommonLoanDataComponent implements OnInit {
     ckeConfig;
     parsedProposalData;
     finalLoanData: Array<CustomerLoanDto>;
+    files = [];
 
     constructor(private toastService: ToastService,
                 private customerInfoService: CustomerInfoService,
@@ -59,7 +64,6 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('this is loans', this.resCombinedData);
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildProposalCommonForm();
         this.fetchCombinedLoanData();
@@ -87,13 +91,13 @@ export class CommonLoanDataComponent implements OnInit {
             depositOtherRemark: [undefined],
             total: [undefined],
             totals: [undefined],
+            files: [undefined],
         });
     }
 
     /* For the Customer Loan Service */
     fetchCombinedLoanData() {
-        const tempLoanList = !ObjectUtil.isEmpty(this.resCombinedData) ?
-            this.resCombinedData : null;
+         const tempLoanList = this.resCombinedData ? this.resCombinedData : null;
         const tempProposalData = !ObjectUtil.isEmpty(tempLoanList) ?
             JSON.parse(tempLoanList[0].proposal.data) : null;
         this.setTestValue(tempProposalData);
@@ -103,6 +107,10 @@ export class CommonLoanDataComponent implements OnInit {
     setTestValue(parsedData) {
         if (!ObjectUtil.isEmpty(parsedData)) {
             this.commonLoanData.patchValue(parsedData);
+            if (!ObjectUtil.isEmpty(parsedData.files)) {
+                this.files = JSON.parse(parsedData.files);
+            }
+            console.log('this is checked data', JSON.parse(this.resCombinedData[0].proposal.checkedData));
             this.setCheckedData(JSON.parse(this.resCombinedData[0].proposal.checkedData));
             if (!ObjectUtil.isEmpty(parsedData.vehicle)) {
                 this.setFormData(parsedData.vehicle, 'vehicle');
@@ -129,6 +137,7 @@ export class CommonLoanDataComponent implements OnInit {
 
     saveCommonLoanData() {
         this.spinner.show();
+        this.cadSetup.save();
         const mergeChecked = {
             solChecked: this.solChecked,
             waiverChecked: this.waiverChecked,
@@ -147,7 +156,7 @@ export class CommonLoanDataComponent implements OnInit {
         // this.updateCombinedDetails();
         this.resCombinedData.forEach((value) => {
             const tempProposalData = JSON.parse(value.proposal.data);
-            value.checkedData = JSON.stringify(mergeChecked);
+                value.proposal.checkedData = JSON.stringify(mergeChecked);
             if (!ObjectUtil.isEmpty(tempProposalData)) {
                 tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
                 const tempForm = this.formBuilder.group(tempProposalData);
@@ -292,6 +301,13 @@ export class CommonLoanDataComponent implements OnInit {
                 }));
             });
         }
+    }
+
+    getData(data) {
+        this.files = data;
+        this.commonLoanData.patchValue({
+            files: JSON.stringify(data)
+        });
     }
 
 }

@@ -26,7 +26,6 @@ import {DocumentService} from '../../../admin/component/document/document.servic
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
-import {CombinedLoan} from '../../model/combined-loan';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
 import {ToastService} from '../../../../@core/utils';
@@ -50,7 +49,7 @@ import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerType} from '../../../customer/model/customerType';
 import {DocStatus} from '../../model/docStatus';
-import {SecurityLoanReferenceService} from '../../../security-service/security-loan-reference.service';
+import {CombinedLoan} from '../../model/combined-loan';
 
 @Component({
     selector: 'app-loan-summary',
@@ -207,6 +206,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocName;
     loaded = false;
+    loanSecurity = [];
+    approvedSecurity = [];
+    combinedLoan;
+    combined = false;
+    allLoanList = [];
+    combinedLoanList = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -532,53 +537,60 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     getAllLoans(customerInfoId: number): void {
-        this.spinnerService.show();
-        const search = {
-            loanHolderId: customerInfoId.toString(),
-            isStaged: 'true'
-        };
-        this.customerLoanService.getLoansByLoanHolderId(customerInfoId)
-            .toPromise().then(async (res: any) => {
-                this.customerAllLoanList = await res.detail;
-                // push current loan if not fetched from staged spec response
-                if (ObjectUtil.isEmpty(this.requestedLoanType) && this.customerAllLoanList.length > 0) {
-                    if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+                if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+                    if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
+                            this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
+                                next: (res) => {
+                                    this.combinedLoanList = res.detail.loans;
+                                    (res.detail as CombinedLoan).loans.forEach((cl) => {
+                                        this.loanSecurity = this.loanSecurity.concat(cl.securities);
+                                        const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+                                        if (!allLoanIds.includes(cl.id)) {
+                                            this.customerAllLoanList.push(cl);
+                                        }
+                                    });
+                                },
+                                error: (err) => {
+
+                                },
+                                complete: () => {
+                                    this.loaded = true;
+                                }
+                            });
+                    } else {
+                        this.loaded = true;
+                        this.customerAllLoanList = [];
+                        this.loanSecurity = this.loanDataHolder.securities;
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
-                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-                    } else {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
-                    }
-                } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
-                }
-                // push loans from combined loan if not in the existing array
-                const combinedLoans = this.customerAllLoanList
-                    .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
-                if (combinedLoans.length > 0) {
-                    const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                    this.combinedLoanService.detail(combinedLoanId).toPromise().then((response: any) => {
-                        (response.detail as CombinedLoan).loans.forEach((cl) => {
-                            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
-                            if (!allLoanIds.includes(cl.id)) {
-                                this.customerAllLoanList.push(cl);
+                    this.allLoanList = this.customerAllLoanList;
+                    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
+                        this.loanDataHolder.loanHolder.existingExposures.forEach((e) => {
+                            if (e.docStatus.toString() === 'APPROVED' && e.loanId !== this.loanDataHolder.id ) {
+                                const loan = new LoanDataHolder();
+                                const prop = new Proposal();
+                                prop.data = e.proposalData;
+                                loan.id = e.loanId;
+                                prop.proposedLimit = e.originalLimit;
+                                loan.proposal = prop;
+                                loan.loan = e.loanConfig;
+                                loan.securities = [];
+                                loan.documentStatus = e.docStatus;
+                                loan.loanType = e.loanType as LoanType;
+                                this.customerAllLoanList.push(loan);
                             }
                         });
-                    }, err => {
-                        console.error(err);
-                    }).finally( () => {
-                        this.loaded = true;
-                    });
-                } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: LoanDataHolder) => (c.id === this.loanDataHolder.id || (c.documentStatus.toString() !== 'UNDER_REVIEW' && c.documentStatus.toString() !== 'PENDING')));
-                    this.loaded = true;
+                    }
+                    const uniqueLoanIds = this.customerAllLoanList.map(d => d.id);
+                    this.customerAllLoanList =  this.customerAllLoanList
+                        .filter((value, index) => value.id === null || uniqueLoanIds.indexOf(value.id) === index);
+                    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.approvedSecurities)) {
+                        const approvedId = this.loanDataHolder.loanHolder.approvedSecurities.map((d) => d.id);
+                        this.approvedSecurity = this.loanDataHolder.loanHolder.approvedSecurities
+                            .filter((value, index, self) => approvedId.indexOf(value.id) === index);
+                    }
                 }
-            this.spinnerService.hide();
-        }, error => {
-            this.spinnerService.hide();
-            console.error(error);
-            });
+                this.spinnerService.hide();
     }
 
     download(i) {
@@ -794,7 +806,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
             context,
         }).onClose.subscribe((res: any) => {
-            this.activatedRoute.queryParams.subscribe((res) => {
+            this.activatedRoute.queryParams.subscribe((res: any) => {
                 this.loanConfigId = res.loanConfigId;
                 this.customerId = res.customerId;
             });
@@ -956,6 +968,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         } else {
             this.hidePreviewButton = false;
         }
+    }
+
+    // @ts-ignore
+    getIndexById(id, arr): number {
+        arr.forEach((D, i) => {
+            if (id === D.id) {
+                return i;
+            }
+        });
     }
 }
 

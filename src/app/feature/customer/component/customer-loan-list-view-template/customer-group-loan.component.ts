@@ -512,15 +512,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     return collateralRequirement * proposalLimit;
   }
 
-  changeLoan(id: number, loanConfigId: number) {
-    const modelRef = this.modalService.open(ChangeLoanComponent, {backdrop: false});
-    modelRef.componentInstance.customerType = this.customerInfo.customerType;
-    modelRef.componentInstance.currentLoanConfigId = loanConfigId;
-    modelRef.componentInstance.customerLoanId = id;
-
-
-  }
-
   addVideoKyc(model) {
     this.customerLoanService.detail(model.id).subscribe((data) => {
       const ref =  this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
@@ -541,7 +532,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.modalService.dismissAll();
         this.spinner = true;
         this.customerLoanService.deleteLoanByAdminAndMaker(id).subscribe(() => {
-          this.deleteEmitter.emit();
+          this.triggerCustomerRefresh.emit();
           this.getCustomerLoans();
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Delete Loan'));
         }, error => {
@@ -707,14 +698,20 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.modalService.dismissAll();
   }
 
-    openCommonModal(id, combinedLoans) {
-      const combinedLoan = this.loan.filter((s) => s.combinedLoan.id === id);
-        this.nbDialogRef = this.nbDialogModal.open(CommonLoanDataComponent,
+    openCommonModal(loan, combinedLoans) {
+      console.log('this is combined loans', combinedLoans);
+      let combinedLoan;
+      if (!ObjectUtil.isEmpty(combinedLoans)) {
+        combinedLoan = combinedLoans;
+      } else {
+        combinedLoan = [loan];
+      }
+      this.nbDialogRef = this.nbDialogModal.open(CommonLoanDataComponent,
             {
                 context: {
                     customerInfo: this.customerInfo,
-                    loanId: id,
-                  resCombinedData: combinedLoan
+                    loanId: loan.id,
+                    resCombinedData: combinedLoan
                 },
                 closeOnBackdropClick: false,
                 closeOnEsc: false

@@ -107,6 +107,7 @@ export class LandComponent implements OnInit {
           kycCheckForLand: [formData.kycCheckForLand],
           landRate: [formData.landRate],
           landFirstValuationDate: [formData.landFirstValuationDate ? new Date(formData.landFirstValuationDate) : ''],
+          isValuated: [formData.isValuated]
         })
     );
   }
@@ -226,6 +227,8 @@ export class LandComponent implements OnInit {
       const considerValue = (Number(this.landForm.get(['landDetails', index, 'distressValue']).value)
           * (Number(this.landForm.get(['landDetails', index, 'landRate']).value)) / 100);
       this.landForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
+      this.landForm.get(['landDetails', index, 'considerValue']).patchValue(
+          this.landForm.get(['landDetails', index, 'fairMarketValue']).value);
     }
     this.updateLandSecurityTotal();
   }
@@ -308,7 +311,8 @@ export class LandComponent implements OnInit {
       landOtherBranchChecked: [undefined],
       kycCheckForLand: [false],
       landRate: [undefined],
-      landFirstValuationDate: [undefined]
+      landFirstValuationDate: [undefined],
+      isValuated: [undefined]
     });
   }
 

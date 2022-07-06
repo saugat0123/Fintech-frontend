@@ -118,9 +118,11 @@
                     </div>
                 </div>
                 <div [formGroupName]="i.toString()">
-                    <input type="checkbox" formControlName="underConstructionChecked"> Check if Land & Building is
-                    Under Construction
-                    <br>
+                    <ng-container *ngIf="customerType === 'INSTITUTION'">
+                        <input type="checkbox" formControlName="underConstructionChecked"> Check if Land & Building is
+                        Under Construction
+                        <br>
+                    </ng-container>
                     <input type="checkbox" formControlName="landBuildingOtherBranchChecked"> Property on another
                     branch location
                     <div class="row pt-2">
@@ -228,9 +230,10 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="area">Total Cost Of Building
+                                <label class="title" for="area">Total Cost of Building / Fair Market Value of Building
                                 </label>
-                                <input class="form-control rounded"
+                                <input (input)="calConsiderValue('landBuilding', i)"
+                                       class="form-control rounded"
                                        formControlName="totalCost"
                                        name="totalCost" placeholder="Total cost"
                                        type="number"/>
@@ -239,8 +242,9 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="marketValue">Fair Market Value</label>
-                                <input class="form-control rounded"
+                                <label class="title" for="marketValue">Fair Market Value of Land</label>
+                                <input (input)="calConsiderValue('landBuilding', i)"
+                                       class="form-control rounded"
                                        formControlName="fairMarketValue"
                                        id="marketValue"
                                        name="marketValue"
@@ -250,7 +254,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="distressValue"> Land Market Value / Distress Value</label>
+                                <label class="title" for="distressValue">Land Market Value</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        id="distressValue"
@@ -286,7 +290,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="distressValue"> Apartment Market Value</label>
+                                <label class="title" for="distressValue"> Building Market Value</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        formControlName="apartmentDistressValue"
@@ -297,7 +301,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landBuildingRate">Apartment Rate</label>
+                                <label class="title" for="landBuildingRate">Building Rate</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        formControlName="apartmentRate"
@@ -321,12 +325,25 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label class="title" for="totalMarketValue">Total Fair Market Value </label>
+                                <input
+                                        class="form-control rounded"
+                                        formControlName="totalMarketValue"
+                                        id="totalMarketValue"
+                                        placeholder="Total Market Value"
+                                        name="totalMarketValue"
+                                        type="number" appDecimalNumber/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label class="title" for="consideredValue">Considered Value</label>
                                 <input
                                         class="form-control rounded"
                                         formControlName="considerValue"
                                         (change)="setFreeLimitAmount(i, 'landBuilding', landAndBuilding.get('considerValue')?.value)"
                                         id="consideredValue"
+                                        readonly
                                         placeholder="Consider Value"
                                         name="considerValue"
                                         type="number" appDecimalNumber/>
@@ -370,7 +387,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title">Apartment Realisable Value</label>
+                                <label class="title">Building Realisable Value</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        formControlName="totalApartmentRealisableValue"
@@ -534,7 +551,8 @@
                         <!--                                                      [kycId]="securityId.land_buildingId + i"></app-owner-kyc-applicable>-->
                         <!--                        </div>-->
                     </div>
-                    <div class="row">
+                    <nb-checkbox class="form-control" formControlName="isValuated">As per valuation report in valuation</nb-checkbox>
+                    <div class="row" *ngIf="landBuildingForm.get(['landBuilding',i,'isValuated']).value">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Valuator Name</label>
