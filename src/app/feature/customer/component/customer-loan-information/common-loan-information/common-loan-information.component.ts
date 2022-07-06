@@ -110,7 +110,6 @@ export class CommonLoanInformationComponent implements OnInit {
                 id: [e.id]
             }));
             this.setProposalData(JSON.parse(e.proposalData), i);
-            console.log('this is build form from loop', this.commonLoanForm.get(['data', i, 'proposalData']).value);
         });
         this.setFormCondition();
     }
@@ -237,7 +236,6 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     checkInstallmentAmount(i) {
-        console.log('tis isadasd', this.commonLoanForm.get(['data', i, 'proposalData']).value);
         if (this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'EMI' || this.commonLoanForm.get(['data', i, 'proposalData']).get('repaymentMode').value === 'EQI') {
             this.conditionalArray[i].showRepaymentMode = false;
             this.conditionalArray[i].showInstallmentAmount = true;
@@ -542,5 +540,21 @@ export class CommonLoanInformationComponent implements OnInit {
         this.commonLoanForm.get(['data', i, 'proposalData']).get('justificationChangeProjection').setValue(formDataForEdit.justificationChangeProjection);
         this.commonLoanForm.get(['data', i, 'proposalData']).get('justification').setValue(formDataForEdit.justification);
         this.commonLoanForm.get(['data', i, 'proposalData']).get('currentRequest').setValue(formDataForEdit.currentRequest);
+    }
+
+    fullSettle(id) {
+        this.spinnerService.show();
+        this.customerInfoService.saveExposureToLoan(id, this.customerInfo.id).subscribe({
+            next: (res: any) => {
+            },
+            error: (err: any) => {
+                this.spinnerService.hide();
+                this.toastService.show(new Alert(AlertType.ERROR,  err.toString()));
+            },
+            complete: () => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Converted To Loan'));
+                this.spinnerService.hide();
+            }
+        });
     }
 }

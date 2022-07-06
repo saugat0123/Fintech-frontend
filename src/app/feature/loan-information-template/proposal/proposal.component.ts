@@ -290,7 +290,7 @@ export class ProposalComponent implements OnInit {
             this.customerGroupLoanList = this.customerGroupLoanList.filter(d => d.documentStatus.toString() !== 'APPROVED' && d.documentStatus.toString() !== 'REJECTED');
             if (!ObjectUtil.isEmpty(this.loan.loanHolder.existingExposures)) {
                     this.loan.loanHolder.existingExposures.forEach((e) => {
-                        if (e.docStatus.toString() === 'APPROVED') {
+                        if (e.docStatus.toString() === 'APPROVED' && e.loanId !== null) {
                             const loan = new LoanDataHolder();
                             const prop = new Proposal();
                             prop.data = e.proposalData;

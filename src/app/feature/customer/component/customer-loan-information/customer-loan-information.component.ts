@@ -833,7 +833,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             totals: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
-            console.log('this is the data', this.customerInfo);
             const commonData = JSON.parse(this.customerInfo.commonLoanData);
             this.commonLoanData.patchValue(commonData);
             this.setCheckedData(JSON.parse(this.commonLoanData.get('mergedCheck').value));
