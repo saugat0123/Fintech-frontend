@@ -10,6 +10,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerShareBatch} from '../../../admin/modal/customer-share-batch';
 
 @Component({
     selector: 'app-view-security-table',
@@ -34,6 +35,9 @@ export class ViewSecurityTableComponent implements OnInit {
     };
     modifiedIds = [];
     isMaker;
+    customerShareBatchList: Array<CustomerShareBatch> = new Array<CustomerShareBatch>();
+    toggleShareView: boolean;
+    @Output() shareSecurity: EventEmitter<Object> = new EventEmitter<Object>();
     constructor(private customerLoanInformation: CustomerLoanInformationComponent,
                 private securityLoanReferenceService: SecurityLoanReferenceService,
                 private customerInformationService: CustomerInfoService,
@@ -146,6 +150,11 @@ export class ViewSecurityTableComponent implements OnInit {
                 this.getSecurityDetails(d.id, i);
             });
         }
+        const shareBatchLen = !ObjectUtil.isEmpty(this.customerInfo.customerShareBatches) ? this.customerInfo.customerShareBatches.length
+            : 0;
+        if (shareBatchLen >= 1) {
+            this.customerShareBatchList = this.customerInfo.customerShareBatches;
+        }
 
         this.customerLoanInformation.securities$.subscribe(value => {
                 if (value.length > 0) {
@@ -153,6 +162,12 @@ export class ViewSecurityTableComponent implements OnInit {
                 }
             }
         );
+    }
+
+    public onEditShareSecurity(customerShareBatch: any): void {
+        if (!ObjectUtil.isEmpty(customerShareBatch)) {
+            this.shareSecurity.emit(customerShareBatch);
+        }
     }
 
 }

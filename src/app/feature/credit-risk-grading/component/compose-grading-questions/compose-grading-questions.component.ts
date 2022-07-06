@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CrgGroup} from '../../model/CrgGroup';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
+import {BusinessType} from '../../../admin/modal/businessType';
 
 @Component({
     selector: 'app-compose-grading-questions',
@@ -33,6 +34,8 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     groupMap: Map<number, string> = new Map<number, string>();
 
     private modalRef: NgbModalRef;
+    businessTypes = BusinessType.values();
+    businessType;
 
     constructor(private crgGroupService: CrgGroupService,
                 private questionService: RiskGradingService,
@@ -45,16 +48,9 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     ngOnInit() {
         this.buildSetupForm();
-        this.getSchemeList();
         this.getGroupList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
-    }
-
-    getSchemeList() {
-        this.loanConfigService.getAll().subscribe((response: any) => {
-            this.schemeList = response.detail;
-        });
     }
 
     getGroupList() {
@@ -68,7 +64,6 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     buildSetupForm() {
         this.questionAnswerForm = this.formBuilder.group({
-            loanConfigId: [undefined],
             questionForm: this.formBuilder.array([])
         });
     }
@@ -82,9 +77,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                 description: [undefined, Validators.required],
                 appearanceOrder: [undefined, Validators.required],
                 crgGroupId: [undefined, Validators.required],
-                loanConfig: this.formBuilder.group({
-                    id: [this.loanConfigId]
-                })
+                businessType: this.businessType,
             })
         );
     }
@@ -108,32 +101,6 @@ export class ComposeGradingQuestionsComponent implements OnInit {
         control.removeAt(index);
     }
 
-    onChangeLoanCategory(event?) {
-        this.loanConfigId = event;
-        this.clearFormArray();
-        this.fetchQuestionList();
-    }
-
-    fetchQuestionList() {
-        this.totalObtainablePoints = 0;
-        this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
-            this.questionList = response.detail;
-            this.questionList.forEach(qsn => {
-                this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
-            });
-
-            if (this.questionList.length !== 0) {
-                this.existingQuestionList = true;
-                this.newQuestionList = false;
-            } else {
-                this.clearFormArray();
-                this.newQuestionList = true;
-                this.existingQuestionList = false;
-                this.addQuestionField();
-            }
-        });
-    }
-
     clearFormArray() {
         const control = this.questionAnswerForm.controls.questionForm as FormArray;
         control.controls = [];
@@ -148,10 +115,8 @@ export class ComposeGradingQuestionsComponent implements OnInit {
             version: [this.qsnContent.version === undefined ? 1 : this.qsnContent.version],
             appearanceOrder: [this.qsnContent.appearanceOrder === undefined ? 0 : this.qsnContent.appearanceOrder],
             crgGroupId: [this.qsnContent.crgGroupId === undefined ? undefined : this.qsnContent.crgGroupId],
-            loanConfig: this.formBuilder.group({
-                id: [this.loanConfigId]
-            })
-        });
+            businessType: this.businessType
+    });
         if (this.task === 'Update') {
             this.setAnswers(this.qsnContent);
         } else {
@@ -221,20 +186,20 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
     onSave() {
         if (this.questionAnswerForm.invalid) {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Please Check Validation'));
             return;
         }
         this.questionList = this.questionAnswerForm.value.questionForm;
-        this.questionService.saveQuestionList(this.questionList, 1).subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
-                this.questionList = new Array<CrgQuestion>();
-                this.fetchQuestionList();
-
-            }, error => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
-                this.questionList = new Array<CrgQuestion>();
-            }
-        );
+            this.questionService.saveQuestionListBusinessTYpe(this.questionList).subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
+                    this.questionList = new Array<CrgQuestion>();
+                    this.fetchQuestionsByBusinessYType();
+                }, error => {
+                    console.log(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
+                    this.questionList = new Array<CrgQuestion>();
+                }
+            );
     }
 
     onUpdate(newQsnContent) {
@@ -245,7 +210,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
                 this.questionList = new Array<CrgQuestion>();
                 this.qsnContent = new CrgQuestion();
-                this.fetchQuestionList();
+                    this.fetchQuestionsByBusinessYType();
                 this.modalService.dismissAll('Close modal');
 
             }, error => {
@@ -264,7 +229,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Questions'));
                     this.questionList = new Array<CrgQuestion>();
                     this.qsnContent = new CrgQuestion();
-                    this.fetchQuestionList();
+                this.fetchQuestionsByBusinessYType();
 
                 }, error => {
                     console.log(error);
@@ -273,5 +238,29 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                 }
             );
         }
+    }
+    onChangeBusinessType(event) {
+            this.businessType = event;
+            this.clearFormArray();
+            this.fetchQuestionsByBusinessYType();
+    }
+    fetchQuestionsByBusinessYType() {
+        this.totalObtainablePoints = 0;
+        this.questionService.getAllQuestionsByBusinessType(this.businessType).subscribe((response: any) => {
+            this.questionList = response.detail;
+            this.questionList.forEach(qsn => {
+                this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
+            });
+
+            if (this.questionList.length !== 0) {
+                this.existingQuestionList = true;
+                this.newQuestionList = false;
+            } else {
+                this.clearFormArray();
+                this.newQuestionList = true;
+                this.existingQuestionList = false;
+                this.addQuestionField();
+            }
+        });
     }
 }

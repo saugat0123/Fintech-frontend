@@ -51,6 +51,7 @@ import {CreditAdministrationModule} from '../credit-administration/credit-admini
 import { CommonLoanDataComponent } from './component/customer-loan-information/common-loan-data/common-loan-data.component';
 import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
 import {FacilityUtilizationModule} from '../loan/component/facility-utilization/facility-utilization.module';
+import { CommonLoanInformationComponent } from './component/customer-loan-information/common-loan-information/common-loan-information.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -78,7 +79,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent, CommonLoanDataComponent],
+    declarations: [...COMPONENTS, ActivityListComponent, CompanyOtherDetailComponent, MarketScenarioComponent, CustomerGroupComponent, ChangeLoanComponent, CommonLoanDataComponent, CommonLoanInformationComponent],
     exports: [
         CustomerGroupLoanComponent,
         CompanyFormComponent,

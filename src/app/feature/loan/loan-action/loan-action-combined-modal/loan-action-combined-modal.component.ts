@@ -100,6 +100,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 this.isSolUserPresent[i] = true;
                 this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
             });
+            this.changeStageType('combined');
         }, error => {
             this.spinner = true;
             console.error(error);
@@ -200,40 +201,40 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        if (this.stageType === 'individually') {
-            this.individualType.submitted = true;
-            if (this.individualType.form.invalid) {
-                return;
-            }
-            let dialogRef;
-            if (this.docAction === DocAction[DocAction.REVERT_APPROVED]) {
-                const action = this.individualType.form.get('actions') as FormArray;
-                action.value.forEach((ac) => {
-                   ac.toUser = this.toUser;
-                   ac.toRole = this.toUser.role;
-                });
-                dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-                    context: {
-                        individualCombine: this.individualType.form.value,
-                        action: this.docAction
-                    }
-                });
-            } else {
-                dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-                    context: {
-                        individualCombine: this.individualType.form.value,
-                        action: this.docAction
-                    }
-                });
-            }
-            dialogRef.onClose.subscribe((verified: boolean) => {
-                if (verified === true) {
-                    this.postCombinedAction(false);
-                    this.nbDialogRef.close();
-                    this.emitter.emit(true);
-                }
-            });
-        } else if (this.stageType === 'combined') {
+        // if (this.stageType === 'individually') {
+        //     this.individualType.submitted = true;
+        //     if (this.individualType.form.invalid) {
+        //         return;
+        //     }
+        //     let dialogRef;
+        //     if (this.docAction === DocAction[DocAction.REVERT_APPROVED]) {
+        //         const action = this.individualType.form.get('actions') as FormArray;
+        //         action.value.forEach((ac) => {
+        //            ac.toUser = this.toUser;
+        //            ac.toRole = this.toUser.role;
+        //         });
+        //         dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+        //             context: {
+        //                 individualCombine: this.individualType.form.value,
+        //                 action: this.docAction
+        //             }
+        //         });
+        //     } else {
+        //         dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+        //             context: {
+        //                 individualCombine: this.individualType.form.value,
+        //                 action: this.docAction
+        //             }
+        //         });
+        //     }
+        //     dialogRef.onClose.subscribe((verified: boolean) => {
+        //         if (verified === true) {
+        //             this.postCombinedAction(false);
+        //             this.nbDialogRef.close();
+        //             this.emitter.emit(true);
+        //         }
+        //     });
+        // } else if (this.stageType === 'combined') {
             this.combinedType.submitted = true;
             if (this.combinedType.form.invalid) {
                 return;
@@ -263,9 +264,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     this.postCombinedAction(true);
                     this.nbDialogRef.close();
                     this.emitter.emit(true);
+                } else {
+                    this.emitter.emit();
                 }
             });
-        }
+        // }
     }
 
     private buildCombinedForm(): FormGroup {

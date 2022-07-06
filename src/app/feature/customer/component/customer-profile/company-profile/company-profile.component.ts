@@ -102,6 +102,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     documentSpinner = false;
     pendingLoanList = [];
     approvedLoanList = [];
+    loanDataHolder;
 
 
     constructor(private companyInfoService: CompanyInfoService,
@@ -467,7 +468,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
     getCustomerLoans() {
         this.modalService.dismissAll();
-        this.refreshCustomerInfo();
+        // this.refreshCustomerInfo();
         this.loanFormService.getLoansByLoanHolderId(this.customerInfoId).subscribe((res: any) => {
             this.customerLoans = [];
             this.customerLoans = res.detail;

@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <app-view-security-table [customerInfo]="customerInfo"
     (security)="onEdit($event)" (emitter)="onEmitRefresh($event)"
-    (securityForSiteVisit)="onSiteVisit($event)"></app-view-security-table>
+    (securityForSiteVisit)="onSiteVisit($event)" (shareSecurity)="onEditShareSecurity($event)"></app-view-security-table>
 </div>
 <div *ngIf="isSiteVisit">
     <app-fix-asset-collateral (emitter)="onEmitRefresh($event)" [securityData]="securityValue"></app-fix-asset-collateral>
@@ -41,22 +41,22 @@
             </div>
             <hr>
         </div>
-
+        <nb-checkbox *ngIf="newSecurity" [(ngModel)]="isApprovedSecurity" name="approved"> Approved Existing Security ?</nb-checkbox>
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"
-                     [security]="securityValue" [isEdit]="isEdit"></app-vehicle>
+                     [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-vehicle>
         <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"
                        [security]="securityValue" [isEdit]="isEdit"></app-apartment>
         <app-land #landSecurity *ngIf="landSelected" [calendarType]="calendarType"
                   [security]="securityValue" [isEdit]="isEdit"></app-land>
         <app-land-building #landBuildingSecurity *ngIf="landBuildingSelected" [calendarType]="calendarType"
-                           [security]="securityValue" [isEdit]="isEdit"></app-land-building>
+                           [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-land-building>
         <app-plant-machinery #plantMachinerySecurity *ngIf="plantSelected" [calendarType]="calendarType"
                              [security]="securityValue" [isEdit]="isEdit"></app-plant-machinery>
         <app-fixed-deposit #fixedDepositSecurity *ngIf="depositSelected"
                            [calendarType]="calendarType" [security]="securityValue"
                            [isEdit]="isEdit"></app-fixed-deposit>
         <app-share #shareSecurityComponent *ngIf="shareSelected"
-                   [security]="securityValue" [isEdit]="isEdit" [calendarType]="calendarType"></app-share>
+                   [security]="securityValue" [isEdit]="isEdit" [calendarType]="calendarType" [customerBatch]="customerInfo?.customerShareBatches"></app-share>
         <app-hypothecation-of-stock #hypothecationSecurity *ngIf="hypothecationOfStockSelected"
                                     [security]="securityValue" [isEdit]="isEdit" [calendarType]="calendarType"></app-hypothecation-of-stock>
         <app-corporation-guarantee #corporateGuaranteeSecurity *ngIf="corporateGuaranteeSelected"

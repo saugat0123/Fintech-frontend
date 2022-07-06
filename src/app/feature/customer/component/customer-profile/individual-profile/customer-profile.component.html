@@ -188,7 +188,7 @@
                     <ng-container class="bg-light" style="height: 200px">
                         <ng-container>
                             <div class="row justify-content-lg-start">
-                                <div class="col-md-6"><strong>KYC</strong></div>
+                                <div class="col-md-6"><strong>Family Relation</strong></div>
                                 <div class="col-md-6 " *ngIf="maker && !isJointInfo">
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                                         <span> <strong>Age</strong></span></div>
                                     <div class="col-md-1">
                                         <span> <strong>:</strong></span></div>
-                                    <div class="col-md-5">{{(customerRelative.age) ? (customerRelative.age) : 'N/A'}}</div>
+                                    <div class="col-md-5">{{calculateAge(customerRelative) ? calculateAge(customerRelative) : 'N/A'}}</div>
                                 </div>
                                 <hr>
                             </div>
@@ -513,7 +513,7 @@
 
         <ng-template #proposal let-data let-ref="dialogRef">
             <nb-card class="template-css" class="template-css" style="height: 100vh; overflow-y: auto">
-                <nb-card-header> Loan Form
+                <nb-card-header> Loan Form: {{loan?.loan?.name}}
                     <a aria-label="Close" class="close cursor"
                        data-dismiss="modal" (click)="close()">
                       <span style="color: red" (click)="close()">
@@ -595,6 +595,7 @@
                       <div class="col-md-6" *ngFor="let subLoan of loan; let ii = index">
                           <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
                                                       [loanDataHolder]="subLoan"
+                                                      [loanId]="subLoan?.id"
                                                       [loanType]="subLoan?.loanType"></app-customer-loan-document>
                       </div>
                   </div>
