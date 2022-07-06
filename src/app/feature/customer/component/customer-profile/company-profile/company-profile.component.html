@@ -325,11 +325,6 @@
             [isMicroCustomer]="companyInfo?.isMicroCustomer"
             [fromProfile]="false"
             [companyInfo]="companyInfo"></app-customer-loan-information>
-        <app-customer-loan-information-view *ngIf="!isEditable"
-                                            [customerInfo]="customerInfo"
-                                            [customerInfoId]="customerInfoId"
-                                            [fromProfile]="true"
-                                            [isMicroCustomer]="companyInfo?.isMicroCustomer"></app-customer-loan-information-view>
       </div>
     </div>
   </nb-card-body>
