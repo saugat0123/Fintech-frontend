@@ -53,32 +53,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
-                                    <input *ngIf="calendarType === 'AD'" [nbDatepicker]="establishmentPicker"
-                                           [ngClass]="{ 'is-invalid':submitted && form.companyEstablishmentDate.errors}"
-                                           class="form-control rounded"
-                                           formControlName="companyEstablishmentDate"
-                                           id="companyEstablishmentDate" placeholder="Enter Establishment Date"
-                                           type="text"/>
-                                    <input formControlName="companyEstablishmentDate" *ngIf="calendarType === 'BS'"
-                                           hidden>
-                                    <app-calendar
-                                            [ePreDate]="companyInfoFormGroup.get('companyEstablishmentDate').value"
-                                            *ngIf="calendarType === 'BS'"
-                                            (messageToEmit)="companyInfoFormGroup.get('companyEstablishmentDate').patchValue($event?.eDate)"></app-calendar>
-
-                                    <nb-datepicker #establishmentPicker></nb-datepicker>
-                                    <div *ngIf="submitted && form.companyEstablishmentDate.errors"
-                                         class="small text-danger">
-                                        <div *ngIf="form.companyEstablishmentDate.errors.required ||
-                                    form.companyEstablishmentDate.errors.beforeToday">
-                                            Establishment date is Required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div *ngFor="let acc of companyInfoFormGroup?.get('accountDetails')['controls']; let ii = index"
                                  formArrayName="accountDetails" class="col-md-4">
                                 <label for="accountNo"><strong>Account Number: {{ii + 1}}</strong></label>
@@ -483,7 +457,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="regIssuedPlace"><strong>Issued Place.</strong></label>
+                                    <label for="regIssuedPlace"><strong>Issued Place</strong></label>
                                     <input id="regIssuedPlace" formControlName="regIssuedPlace"
                                            name="regIssuedPlace" type="text" class="form-control"
                                            placeholder="Issued Place"
@@ -537,7 +511,6 @@
                             </div>
                         </div>
                         <hr>
-
                        <div class="box-header with-border">
                            <h5 class="box-title">2. Capital Information</h5>
                        </div>
@@ -548,7 +521,7 @@
                                    <label for="authorizedCapital"><strong>Authorized Capital</strong></label>
                                    <input id="authorizedCapital" formControlName="authorizedCapital" name="authorizedCapital"
                                           type="number" class="form-control" placeholder="Authorized Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }" appDecimalNumber>
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }">
                                    <div *ngIf="(submitted) && form.authorizedCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.authorizedCapital.errors.required">
@@ -562,7 +535,7 @@
                                    <label for="issuedCapital"><strong>Issued Capital</strong></label>
                                    <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number"
                                           class="form-control" placeholder="Issued Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }" appDecimalNumber>
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }">
                                    <div *ngIf="(submitted) && form.issuedCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.issuedCapital.errors.required">
@@ -576,7 +549,7 @@
                                    <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
                                    <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
                                           class="form-control" placeholder="Paid Up Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }" appDecimalNumber>
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
                                    <div *ngIf="(submitted) && form.paidUpCapital.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.paidUpCapital.errors.required">
