@@ -13,5 +13,5 @@ export const environment = {
   SBS_GROUP: false,
   MEGA_GROUP: false,
   microLoan: true,
-  autoReload: true
+  autoReload: true // this should be always true to detect new update after deployment.
 };

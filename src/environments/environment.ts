@@ -26,7 +26,7 @@ export const environment = {
   disableCrgLambda: false,
   SBS_GROUP: false,
   MEGA_GROUP: true,
-  autoReload: true
+  autoReload: true // this should be always true to detect new update after deployment.
 };
 
 /*
