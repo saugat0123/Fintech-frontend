@@ -37,7 +37,6 @@ export class CustomerGroupComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    console.log(this.customerInfo);
     console.log(this.customerInfo.mgroupInfo);
     if (!ObjectUtil.isEmpty(this.customerInfo.mgroupInfo)) {
       this.mGroupInfo = this.customerInfo.mgroupInfo;

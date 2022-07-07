@@ -298,7 +298,12 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
         crgGamma.componentInstance.formData = this.loanDataHolder.crgGamma;
         crgGamma.componentInstance.creditHistory = JSON.parse(this.loanDataHolder.proposal.data).creditHistory;
         crgGamma.componentInstance.loanHolderData = this.loanDataHolder;
-        crgGamma.componentInstance.landSecurityDetails = JSON.parse(this.loanDataHolder.security.data);
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            crgGamma.componentInstance.landSecurityDetails = JSON.parse(this.loanDataHolder.security.data);
+        } else {
+            crgGamma.componentInstance.landSecurityDetails = null;
+        }
+        crgGamma.componentInstance.fromView = true;
     }
 
     getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {

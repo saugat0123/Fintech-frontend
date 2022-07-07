@@ -41,35 +41,33 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12 sb-small">
         <div class="clearfix">
-            <div class="float-right"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
-            <div class="float-right" *ngIf="loanDataHolder?.isSol">
-                <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
+            <div class="float-left">
+                <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
+                <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
+                    ({{loanDataHolder?.createdAt | engNepDate: false}})</span><br>
+                <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
             </div>
+            <div class="float-right">
+                <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
+                <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                    ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
+                <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
+                ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
+                <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
+                <br>
+                <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                    ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+            </div>
+            <br>
         </div>
     </div>
 </div>
 
-<div class="row sb-small">
-    <div class="col-md-12">
-        <b>Purpose: {{loanDataHolder?.loan?.name}}</b>
-        <span class="float-right"><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
-            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-    </div>
-</div>
-<div class="row sb-small mb-1">
-    <div class="col-md-12">
-        <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}} ({{loanDataHolder?.createdAt | engNepDate: false}})</span>
-        <span class="float-right"><b>
-                        <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
-                        <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
-            ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
-                        <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
-                    </span>
-    </div>
-</div>
 <!-- CRG - Gamma-->
 <div *ngIf="crgGammaSummary" class="col-md-12 d-none d-print-block">
     <hr>
@@ -117,7 +115,8 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Background of the Customer</strong></p>
-        <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"></app-above-background-of-customer>
+        <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                          [loanHolder]="loanDataHolder?.loanHolder"></app-above-background-of-customer>
     </li>
     <li>
         <p class="text-uppercase"><strong>Business Related Information</strong></p>
@@ -125,8 +124,9 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Group Exposure with CCBL  (as of {{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date}})</strong></p>
-        <app-m-group-summary [customerCategory]="customerCategory" [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo">
-
+        <app-m-group-summary [customerCategory]="customerCategory"
+                             [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"
+                             [customerType]="loanDataHolder?.loanHolder?.customerType">
         </app-m-group-summary>
     </li>
     <li>
@@ -135,19 +135,17 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Banking Arrangement of the Customer</strong></p>
-        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking else noBanking"
+        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking else notAvailable"
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
-        <ng-template #noBanking>Not Available</ng-template>
     </li>
     <li>
         <p class="text-uppercase"><strong>Stock Statement</strong></p>
-        <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYear?.length > 0 else noStatement"
+        <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYear?.length > 0 else notAvailable"
                          [fiscalYears]="fiscalYear"
                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
-        <ng-template #noStatement>Not Available</ng-template>
 <!--        <app-above-stock-statement></app-above-stock-statement>-->
     </li>
     <li>
@@ -160,7 +158,9 @@
     <li>
         <p class="text-uppercase"><strong>Financial Highlights</strong></p>
         <div class="col-md-12 table-responsive-md" *ngIf="financialCCBL?.data else noFin">
-            <table  style="width: 100%" class= "ck-table"[innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%" class= "table-responsive-md sb-small table-sm table-bordered"
+                    [innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml" >
+            </table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.commentFinancialHighlight || 'NA' | safeHtml" ></table>
         </div>
         <ng-template #noFin>Not Available</ng-template>
@@ -171,13 +171,16 @@
         <p class="text-uppercase"><strong>Assessment of Facilities Requirement</strong></p>
         <div  class="col-md-12 table-responsive-md" *ngIf="financialCCBL?.data">
             <strong>11.1 FB Working capital assessment</strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%"  class= "table-responsive-md sb-small table-sm table-bordered"
+                    [innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment || 'NA' | safeHtml" ></table>
             <strong>11.2 ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%"  class= "table-responsive-md sb-small table-sm table-bordered"
+                    [innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment2 || 'NA' | safeHtml" ></table>
             <strong>11.3 ASSESSMENT OF OTHER CREDIT FACILITIES: </strong> (Amounts in Million)
-            <table  style="width: 100%"  class= "ck-table"[innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml" ></table>
+            <table  style="width: 100%"  class= "table-responsive-md sb-small table-sm table-bordered"
+                    [innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml" ></table>
             <table  style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment3 || 'NA' | safeHtml" ></table>
         </div>
     </li>
@@ -203,24 +206,27 @@
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
         <strong>15.1 Security Documents:</strong>
         <br>The purposed credit facilities shall be secured by the following  security arrangement:<br>
-        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security else noSecurity"
+        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security else notAvailable"
                              [security]="loanDataHolder?.loanHolder?.security"
                              [loanDataHolder]="loanDataHolder"></app-retail-security>
-        <ng-template #noSecurity>Not Available</ng-template>
-        <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList"
+        <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList; else notAvailable"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
         <p><strong>15.4 Fixed Assets Collaterals (Existing/Proposed): Not Available</strong></p>
         <!--<app-above-security-arrangement></app-above-security-arrangement>-->
         <div>
-            <app-insurance-summary [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance; else notAvailable"
+                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
         </div>
     </li>
     <li>
-        <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise): Not Available</strong></p>
-<!--        <app-above-fixed-assets-collateral-computation-sheet></app-above-fixed-assets-collateral-computation-sheet>-->
+        <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise): </strong></p>
+        <app-above-fixed-assets-collateral-computation-sheet
+                *ngIf="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.fixedAssetsComputing; else notAvailable"
+                [commonLoanData]="loanDataHolder?.loanHolder?.commonLoanData | jsonParse">
+        </app-above-fixed-assets-collateral-computation-sheet>
     </li>
     <li>
-        <p class="text-uppercase"><strong>Special Covenants/Conditions, if any:</strong></p>
+        <p class="text-uppercase"><strong>Special Covenants/Conditions, if any: {{proposalData?.specialCovenant ? '' : 'NA'}}</strong></p>
         <span [innerHTML]="proposalData?.specialCovenant | safeHtml"></span>
 <!--        <app-above-special-covenants></app-above-special-covenants>-->
     </li>
@@ -242,25 +248,28 @@
         </div>
     </li>
     <li>
-        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY:</strong></p>
+        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY: {{proposalData?.waiverConclusionRecommendation ? '' : 'NA'}}</strong></p>
         <span [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></span>
 <!--        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>-->
     </li>
     <li>
         <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
-        <app-nrb-statutory-remarks-status [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
+        <app-nrb-statutory-remarks-status *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.data; else notAvailable"
+                                          [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
     </li>
     <li>
         <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
-        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else noMIS" [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-        <ng-template #noMIS>Not Available</ng-template>
+        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else notAvailable"
+                            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
     </li>
 
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
-        <app-above-review-of-credit-facilities *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else noReview" [loanDataHolder]="loanDataHolder"></app-above-review-of-credit-facilities>
-        <ng-template #noReview>Not Available</ng-template>
+        <app-above-review-of-credit-facilities
+                *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else notAvailable"
+                [loanDataHolder]="loanDataHolder">
+        </app-above-review-of-credit-facilities>
     </li>
     <li>
         <p><strong>CONCLUSIONS AND RECOMMENDATIONS:</strong></p>
@@ -272,3 +281,5 @@
                                [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
     </li>
 </ol>
+
+<ng-template #notAvailable>NA</ng-template>

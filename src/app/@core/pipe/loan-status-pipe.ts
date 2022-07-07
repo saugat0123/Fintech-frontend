@@ -24,6 +24,9 @@ export class LoanStatusPipe implements PipeTransform {
         if ('TRANSFER' === value) {
             return 'TRANSFERRED';
         }
+        if ('BACKWARD_TO_COMMITTEE' === value) {
+            return 'FORWARD TO COMMITTEE';
+        }
         return value;
     }
 

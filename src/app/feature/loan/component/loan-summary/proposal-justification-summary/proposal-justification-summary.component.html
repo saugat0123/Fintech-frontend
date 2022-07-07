@@ -1,17 +1,14 @@
-
-  <div *ngFor="let data of customerAllLoanList;let i = index" class="col-sm-12">
+<div *ngFor="let data of allLonList;let i = index" class="col-sm-12">
     <div class="row sb-medium">
-        <span><b>3. {{i+1}} </b><u>{{ data?.loanType | replace:'_' :' ' + ' OF '
-        + data.loan.name}} (<mark><em class="sb-small">Limit: Rs.{{data.proposal.proposedLimit}}, Tenure: {{data.proposal.tenureDurationInMonths}}
-          months
-                            </em></mark>)</u></span>
+        <span><b>3. {{i + 1}} </b><u>{{ data?.loanType | replace:'_' :' ' + ' OF ' + data.loan.name}}
+            (<mark><em class="sb-small">Limit: Rs.{{data.proposal.proposedLimit}}
+                , Tenure: {{data.proposal.tenureDurationInMonths}} months</em></mark>)</u>
+        </span>
     </div>
     <div *ngIf="isDetailedView">
-      <div class="sb-small">
+        <div class="sb-small">
           <span
-              [innerHTML]="(data?.proposal?.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
-      </div>
+                  [innerHTML]="(data?.proposal?.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
+        </div>
     </div>
-  </div>
-
-
+</div>

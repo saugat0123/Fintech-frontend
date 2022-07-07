@@ -366,7 +366,8 @@
                                             type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4" *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'personalGuarantor'">
+                                <div class="col-md-4" *ngIf="form?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'personalGuarantor' &&
+                                    customerInfo?.customerType === 'INDIVIDUAL'">
                                     <div class="form-group">
                                         <label><strong>Relationship</strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
