@@ -3,6 +3,7 @@ import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
+import {ExistingExposure} from '../../loan/model/existingExposure';
 
 @Injectable({
     providedIn: 'root'
@@ -90,6 +91,11 @@ export class CustomerInfoService extends BaseService<Object> {
     public saveCcbl(formData: FormData) {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/crgCcbl`);
         return this.http.post(req.url, formData, {headers: req.header});
+    }
+
+    public saveExistingExposure(existingExposure: ExistingExposure [], customerInfoId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/saveExistingExposure?customerInfoId=${customerInfoId}`);
+        return this.http.post(req.url, existingExposure, {headers: req.header});
     }
 
 

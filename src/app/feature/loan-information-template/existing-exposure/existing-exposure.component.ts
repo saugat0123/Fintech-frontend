@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustomerType} from '../../customer/model/customerType';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {ExistingExposure} from '../../loan/model/existingExposure';
 
 @Component({
     selector: 'app-existing-exposure',
@@ -20,19 +22,26 @@ export class ExistingExposureComponent implements OnInit {
     submitted = false;
     loanList = [];
     selectedLoanList = [];
+    existingData: ExistingExposure = new ExistingExposure();
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
-                private loanFormService: LoanFormService) {
+                private loanFormService: LoanFormService,
+                private customerInfoService: CustomerInfoService) {
     }
 
     ngOnInit() {
         console.log('customerInfo', this.customerInfo);
         this.buildForm();
+        if (this.customerInfo.existingExposures.length > 0) {
+            const exposure = this.customerInfo.existingExposures;
+            console.log('exposure', exposure);
+        } else {
+            this.getApprovedLoanList();
+        }
         this.getAllLoanList();
-        this.addExposure();
-        this.getApprovedLoanList();
+        // this.addExposure();
     }
 
     buildForm() {
@@ -59,7 +68,6 @@ export class ExistingExposureComponent implements OnInit {
 
     private sliceLoan(loanList: any[]) {
         this.loanList = [];
-        // const listOfLoan = [];
         loanList.forEach((val) => {
             if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
                 || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
@@ -76,7 +84,7 @@ export class ExistingExposureComponent implements OnInit {
     addExposure() {
         (this.existingExposure.get('exposure') as FormArray).push(
             this.formBuilder.group({
-                proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
+                Proposal: [undefined, [Validators.required, Validators.min(0)]],
                 interestRate: [undefined],
                 baseRate: [undefined],
                 premiumRateOnBaseRate: [undefined],
@@ -137,15 +145,121 @@ export class ExistingExposureComponent implements OnInit {
                 // strCharge: [undefined],
                 // AdminFee: [undefined],
                 // other: [undefined],
-                existingDateOfExpiry: [undefined]
+                existingDateOfExpiry: [undefined],
+
+                loanTag: [undefined],
+                isFundable: [undefined],
+                loanNature: [undefined],
+                loanType: [undefined],
+                loanName: [undefined]
             })
         );
     }
 
-    private getApprovedLoanList() {
+    getApprovedLoanList() {
         this.loanFormService.getLoansByLoanHolderIdAndDocStatus(this.customerInfo.id, 'APPROVED')
             .subscribe((res: any) => {
+                const approvedLoanList = res.detail;
+                approvedLoanList.forEach(al => {
+                    this.setApprovedLoanData(al);
+                });
+                console.log('exposure value', this.existingExposure.get('exposure'));
                 console.log('res', res);
             });
+    }
+
+    arsedTest(data) {
+        console.log('Thgi sasdflaksdjf;laksjdf ' ,data);
+    }
+
+    setApprovedLoanData(data: any) {
+        console.log('data', data);
+        const control = this.existingExposure.get('exposure') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            control.push(
+                this.formBuilder.group({
+                    proposalData: this.addProposalData(data),
+                    loanName: [data.loan.name],
+                    loanNature: [data.loan.loanNature],
+                    loanType: [data.loanType],
+                    loanConfig: [data.loan],
+                    docStatus: [data.docStatus],
+                    loanId: [data.id],
+                    originalLimit: [data.proposal.proposedLimit]
+                })
+            );
+        }
+    }
+
+    setSavedData() {
+
+    }
+
+    removeLoan(i: number) {
+        (this.existingExposure.get('exposure') as FormArray).removeAt(i);
+    }
+
+    calculateRate(i: number, controlName) {
+        let total = 0;
+        const base = Number(this.existingExposure.get(['exposure', i, 'baseRate']).value);
+        const premiumRate = Number(this.existingExposure.get(['exposure', i, 'premiumRateOnBaseRate']).value);
+        const interest = Number(this.existingExposure.get(['exposure', i, 'interestRate']).value);
+        switch (controlName) {
+            case 'baseRate':
+                total = base + premiumRate;
+                this.existingExposure.get(['exposure', i, 'interestRate']).setValue(Number(total).toFixed(2));
+                break;
+            case 'interestRate':
+                total = interest - base;
+                this.existingExposure.get(['exposure', i, 'premiumRateOnBaseRate']).setValue(Number(total).toFixed(2));
+                break;
+            default:
+                return;
+        }
+    }
+
+    calculateLimitValues(type: string, i: number) {
+        let totalLimit = 0;
+        const existingLimit = Number(this.existingExposure.get(['exposure', i, 'existingLimit']).value);
+        const settlementAmount = Number(this.existingExposure.get(['exposure', i, 'settlementAmount']).value);
+        const enhanceLimitAmount = Number(this.existingExposure.get(['exposure', i, 'enhanceLimitAmount']).value);
+        if (type.toString() === 'settlement') {
+            totalLimit = existingLimit - settlementAmount;
+        } else {
+            totalLimit = existingLimit + enhanceLimitAmount;
+        }
+        this.existingExposure.get(['exposure', i, 'proposedLimit']).setValue(Number(totalLimit).toFixed(2));
+    }
+
+    onSubmit() {
+        const existingExposureData = this.existingExposure.get('exposure') as FormArray;
+        console.log('existingExposureData', existingExposureData);
+        // this.customerInfoService.saveExistingExposure(existingExposureData.value, this.customerInfo.id).subscribe((res: any) => {
+        //     console.log('res', res);
+        // });
+    }
+
+    addProposalData(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            const pData = JSON.parse(data.proposal.data);
+            return this.formBuilder.group({
+                existingLimit: [pData.existingLimit],
+                proposedLimit: [pData.proposedLimit, [Validators.required, Validators.min(0)]],
+                existInterestRate: [pData.existInterestRate],
+                interestRate: [pData.interestRate],
+                baseRate: [pData.baseRate],
+                premiumRateOnBaseRate: [pData.premiumRateOnBaseRate],
+                tenureDurationInMonths: [pData.tenureDurationInMonths],
+                outStandingLimit: [pData.outStandingLimit],
+                existCashMargin: [pData.existCashMargin],
+                cashMargin: [pData.cashMargin],
+                existCommissionPercentage: [pData.existCommissionPercentage],
+                commissionPercentage: [pData.commissionPercentage],
+                enhanceLimitAmount: [pData.enhanceLimitAmount],
+                commitmentFee: [pData.commitmentFee],
+                settlementAmount: [pData.settlementAmount],
+                existingDateOfExpiry: [!ObjectUtil.isEmpty(pData.existingDateOfExpiry) ? new Date(pData.existingDateOfExpiry) : undefined]
+            });
+        }
     }
 }
