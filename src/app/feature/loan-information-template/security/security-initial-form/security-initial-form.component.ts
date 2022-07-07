@@ -346,7 +346,8 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-            files: [undefined]
+            files: [undefined],
+            securityDocument: [undefined]
         });
         this.buildShareSecurityForm();
     }
