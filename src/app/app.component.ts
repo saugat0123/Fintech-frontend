@@ -3,6 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import {VersionCheckService} from './feature/version-check/version-check.service';
+import { ApiConfig } from './@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-root',
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         if (environment.production && environment.autoReload) {
-            this.versionCheckService.initVersionCheck(environment.versionCheckUrl);
+            this.versionCheckService.initVersionCheck(ApiConfig.URL);
         }
     }
 }

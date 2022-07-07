@@ -13,6 +13,5 @@ export const environment = {
   SBS_GROUP: false,
   MEGA_GROUP: false,
   microLoan: true,
-  versionCheckUrl: 'http://103.94.159.179:8082/century/version.json',
   autoReload: true
 };
