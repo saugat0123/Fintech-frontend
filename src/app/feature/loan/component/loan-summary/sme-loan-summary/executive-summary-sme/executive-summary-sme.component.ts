@@ -23,7 +23,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+    // this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.approveAuth = this.data.approvingAuthority;
     }

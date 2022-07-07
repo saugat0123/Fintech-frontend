@@ -40,9 +40,13 @@
                 <!-- Security Summary -->
                 <p>
                     <strong>SECURITY ARRANGEMENT</strong><br>
-                    <app-retail-security *ngIf="loanDataHolder?.security else noSecurity"
-                                         [security]="loanDataHolder?.loanHolder?.security"
-                                         [loanDataHolder]="loanDataHolder"></app-retail-security>
+                    <app-security-summary *ngIf="loanDataHolder?.security else noSecurity"
+                                          [security]="loanDataHolder?.loanHolder?.security"
+                                          [shareSecurity]="loanDataHolder?.shareSecurity"
+                                          [docStatus]="loanDataHolder?.documentStatus"></app-security-summary>
+<!--                    <app-retail-security *ngIf="loanDataHolder?.security else noSecurity"-->
+<!--                                         [security]="loanDataHolder?.loanHolder?.security"-->
+<!--                                         [loanDataHolder]="loanDataHolder"></app-retail-security>-->
                     <ng-template #noSecurity>Not Available</ng-template>
                 </p>
             </li>
