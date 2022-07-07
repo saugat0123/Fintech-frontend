@@ -524,50 +524,11 @@ export class LoanFormComponent implements OnInit {
                 this.totalTabCount = this.templateList.length;
                 this.nextTabId = 1;
             }
+            this.spinner.hide();
             if (this.templateList.length === 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
             }
-
-            this.riskQuestionService.getAllQuestionsByBusinessType('PRODUCTION').subscribe(riskQsnRes => {
-                const crgQuestionsList = riskQsnRes.detail as Array<any>;
-                if (!(crgQuestionsList.length > 0)) {
-                    this.removeCrgGammaFromTemplateList();
-                    this.templateList.forEach((value, index) => {
-                        if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
-                            if (!this.loanDocument.customerInfo.isMicroCustomer
-                                && value.name === 'Credit Risk Grading - Micro') {
-                                this.templateList.splice(index, 1);
-                            }
-                        } else {
-                            if (this.loanDocument.companyInfo.microCustomerType !== MicroCustomerType.DIRECT
-                                && value.name === 'Credit Risk Grading - Micro') {
-                                this.templateList.splice(index, 1);
-                            }
-                        }
-                    });
-                } else {
-                    this.templateList.forEach((value, index) => {
-                        if (value.name === 'Credit Risk Grading - Lambda') {
-                            this.templateList.splice(index, 1);
-                        }
-                        if (value.name === 'Credit Risk Grading - Alpha') {
-                            this.templateList.splice(index, 1);
-                        }
-                        if (value.name === 'Credit Risk Grading - Micro') {
-                            this.templateList.splice(index, 1);
-                        }
-                    });
-                }
-                this.pushProposalTemplateToLast();
-                this.spinner.hide();
-            }, error => {
-                this.spinner.hide();
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
-                this.removeCrgGammaFromTemplateList();
-                this.pushProposalTemplateToLast();
-            });
         });
     }
     pushProposalTemplateToLast() {
