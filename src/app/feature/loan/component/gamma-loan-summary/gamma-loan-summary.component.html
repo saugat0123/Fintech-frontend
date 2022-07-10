@@ -1123,7 +1123,7 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
+                                {{previousList?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}} ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -1158,7 +1158,7 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
