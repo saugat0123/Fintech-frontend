@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../@core/utils';
@@ -17,12 +17,15 @@ import {ExistingExposure} from '../../loan/model/existingExposure';
 export class ExistingExposureComponent implements OnInit {
     @Input() customerType;
     @Input() customerInfo: CustomerInfoData;
+    @Input() loanList: [];
+    @Input() multipleSelectedLoanType: [];
 
     existingExposure: FormGroup;
     submitted = false;
-    loanList = [];
+    // loanList = [];
     selectedLoanList = [];
-    existingData: ExistingExposure = new ExistingExposure();
+    existingData: ExistingExposure[];
+    existingExposureData: ExistingExposure = new ExistingExposure();
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -32,15 +35,22 @@ export class ExistingExposureComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
+        console.log('loanList', this.loanList);
         console.log('customerInfo', this.customerInfo);
         this.buildForm();
-        if (this.customerInfo.existingExposures.length > 0) {
-            const exposure = this.customerInfo.existingExposures;
-            console.log('exposure', exposure);
+        // console.log('existingData', this.existingData);
+        if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
+            if (this.customerInfo.existingExposures.length > 0) {
+                this.existingData = this.customerInfo.existingExposures;
+                console.log('existingData', this.existingData);
+                this.setLoans();
+            }
         } else {
             this.getApprovedLoanList();
         }
-        this.getAllLoanList();
+        // this.getApprovedLoanList();
+        // this.getAllLoanList();
         // this.addExposure();
     }
 
@@ -54,106 +64,67 @@ export class ExistingExposureComponent implements OnInit {
         return this.existingExposure.controls;
     }
 
-    private getAllLoanList() {
-        let listOfLoan = [];
-        this.loanConfigService.getAllByLoanCategory(this.customerType)
-            .subscribe((res: any) => {
-                listOfLoan = res.detail;
-            }, (error) => {
-                this.toastService.show(new Alert(AlertType.DANGER, 'Cannot get loan list '));
-            }, () => {
-                this.sliceLoan(listOfLoan);
-            });
-    }
+    // private getAllLoanList() {
+    //     let listOfLoan = [];
+    //     this.loanConfigService.getAllByLoanCategory(this.customerType)
+    //         .subscribe((res: any) => {
+    //             listOfLoan = res.detail;
+    //         }, (error) => {
+    //             this.toastService.show(new Alert(AlertType.DANGER, 'Cannot get loan list '));
+    //         }, () => {
+    //             this.sliceLoan(listOfLoan);
+    //         });
+    // }
 
-    private sliceLoan(loanList: any[]) {
-        this.loanList = [];
-        loanList.forEach((val) => {
-            if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
-                || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
-                || val.key === 'INTEREST_RATE_REVISION') {
-                return true;
-            }
-            this.loanList.push(val);
-        });
-        console.log('listOfLoan', this.loanList);
-        this.selectedLoanList = this.loanList[0]['key'];
-        console.log('selectedLoanList', this.selectedLoanList);
-    }
+    // private sliceLoan(loanList: any[]) {
+    //     this.loanList = [];
+    //     loanList.forEach((val) => {
+    //         if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
+    //             || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+    //             || val.key === 'INTEREST_RATE_REVISION') {
+    //             return true;
+    //         }
+    //         this.loanList.push(val);
+    //     });
+    //     console.log('listOfLoan', this.loanList);
+    //     this.selectedLoanList = this.loanList[0]['key'];
+    //     console.log('selectedLoanList', this.selectedLoanList);
+    // }
 
     addExposure() {
+        const exposure: any = {
+            existingLimit : null,
+            proposedLimit : null,
+            interestRate : null,
+            existInterestRate : null,
+            baseRate : null,
+            premiumRateOnBaseRate : null,
+            tenureDurationInMonths : null,
+            outStandingLimit : null,
+            existCashMargin : null,
+            cashMargin : null,
+            existCommissionPercentage : null,
+            commissionPercentage : null,
+            enhanceLimitAmount : null,
+            commitmentFee : null,
+            settlementAmount : null,
+            existingDateOfExpiry : null,
+        };
         (this.existingExposure.get('exposure') as FormArray).push(
             this.formBuilder.group({
-                Proposal: [undefined, [Validators.required, Validators.min(0)]],
-                interestRate: [undefined],
-                baseRate: [undefined],
-                premiumRateOnBaseRate: [undefined],
-                // serviceChargeMethod: ['PERCENT'],
-                // swapChargeMethod: ['PERCENT'],
-                // serviceCharge: [undefined],
-                tenureDurationInMonths: [undefined],
-                // repaymentMode: [undefined],
-                // repaymentModeInterest: [undefined],
-                // repaymentModePrincipal: [undefined],
-                // disbursementCriteria: [undefined],
-                // repayment: [undefined],
-                // borrowerInformation: [undefined],
-                // interestAmount: [undefined],
-                existingLimit: [undefined],
-                outStandingLimit: [undefined],
-                // collateralRequirement: [undefined, Validators.required],
-                // swapCharge: [undefined],
-                // subsidizedLoan: [undefined],
-                // remark: [undefined],
-                cashMargin: [undefined],
-                commissionPercentage: [undefined],
-                // commissionFrequency: [undefined],
-                // couponRate: [undefined],
-                // premiumOnCouponRate: [undefined],
-                // tenorOfEachDeal: [undefined],
-                // cashMarginMethod: ['PERCENT'],
-                enhanceLimitAmount: [undefined],
-                // subsidyLoanType: [undefined],
-                // others: [undefined],
-                // installmentAmount: [undefined],
-                // principalAmount: [undefined],
-                // moratoriumPeriod: [undefined],
-                // prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
-                //     || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? '' :
-                //     this.existingExposure.prepaymentCharge],
-                commitmentFee: [undefined],
-                existCashMargin: [undefined],
-                // existCashMarginMethod: ['PERCENT'],
-                existInterestRate: [undefined],
-                existCommissionPercentage: [undefined],
-                settlementAmount: [undefined],
-                // files: [undefined],
-
-                // Pricing Table
-                // interestCardRate: [undefined],
-                // interestDevCardRate: [undefined],
-                // processDevCardRate: [undefined],
-                // commissionDevCardRate: [undefined],
-                // cashMarginDevCardRate: [undefined],
-                // processCardRate: [undefined],
-                // processExistingRate: [undefined],
-                // processProposedRate: [undefined],
-                // commissionsCardRate: [undefined],
-                // cashCardRate: [undefined],
-                // prepaymentCardRate: [undefined],
-                // prepaymentExistingRate: [undefined],
-                // strCharge: [undefined],
-                // AdminFee: [undefined],
-                // other: [undefined],
-                existingDateOfExpiry: [undefined],
-
-                loanTag: [undefined],
-                isFundable: [undefined],
-                loanNature: [undefined],
+                proposalData: this.formBuilder.group(exposure) as FormGroup,
+                loanId: [undefined],
+                originalLimit: [undefined],
                 loanType: [undefined],
-                loanName: [undefined]
+                loanName: [undefined],
+                loanConfig: [undefined],
+                docStatus: [undefined]
             })
         );
+        const c: ExistingExposure = new ExistingExposure();
+        this.existingData.push(c);
+        console.log('Add more', this.existingExposure.get('exposure'));
+        console.log('After Add', this.existingData);
     }
 
     getApprovedLoanList() {
@@ -168,22 +139,18 @@ export class ExistingExposureComponent implements OnInit {
             });
     }
 
-    arsedTest(data) {
-        console.log('Thgi sasdflaksdjf;laksjdf ' ,data);
-    }
-
     setApprovedLoanData(data: any) {
         console.log('data', data);
         const control = this.existingExposure.get('exposure') as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             control.push(
                 this.formBuilder.group({
-                    proposalData: this.addProposalData(data),
+                    proposalData: this.addProposalData(JSON.parse(data.proposal.data)),
                     loanName: [data.loan.name],
                     loanNature: [data.loan.loanNature],
                     loanType: [data.loanType],
                     loanConfig: [data.loan],
-                    docStatus: [data.docStatus],
+                    docStatus: [data.documentStatus],
                     loanId: [data.id],
                     originalLimit: [data.proposal.proposedLimit]
                 })
@@ -191,12 +158,11 @@ export class ExistingExposureComponent implements OnInit {
         }
     }
 
-    setSavedData() {
-
-    }
-
     removeLoan(i: number) {
         (this.existingExposure.get('exposure') as FormArray).removeAt(i);
+        if (!ObjectUtil.isEmpty(this.existingData)) {
+            this.existingData.splice(1, i);
+        }
     }
 
     calculateRate(i: number, controlName) {
@@ -232,34 +198,89 @@ export class ExistingExposureComponent implements OnInit {
     }
 
     onSubmit() {
-        const existingExposureData = this.existingExposure.get('exposure') as FormArray;
-        console.log('existingExposureData', existingExposureData);
-        // this.customerInfoService.saveExistingExposure(existingExposureData.value, this.customerInfo.id).subscribe((res: any) => {
-        //     console.log('res', res);
-        // });
+        this.submitted = true;
+        console.log('existingData', this.existingData);
+        this.setExposure();
+        console.log('after', this.existingData);
+        this.customerInfoService.saveExistingExposure(this.existingData, this.customerInfo.id)
+            .subscribe((res: any) => {
+            console.log('res', res);
+        });
     }
 
     addProposalData(data) {
-        if (!ObjectUtil.isEmpty(data)) {
-            const pData = JSON.parse(data.proposal.data);
-            return this.formBuilder.group({
-                existingLimit: [pData.existingLimit],
-                proposedLimit: [pData.proposedLimit, [Validators.required, Validators.min(0)]],
-                existInterestRate: [pData.existInterestRate],
-                interestRate: [pData.interestRate],
-                baseRate: [pData.baseRate],
-                premiumRateOnBaseRate: [pData.premiumRateOnBaseRate],
-                tenureDurationInMonths: [pData.tenureDurationInMonths],
-                outStandingLimit: [pData.outStandingLimit],
-                existCashMargin: [pData.existCashMargin],
-                cashMargin: [pData.cashMargin],
-                existCommissionPercentage: [pData.existCommissionPercentage],
-                commissionPercentage: [pData.commissionPercentage],
-                enhanceLimitAmount: [pData.enhanceLimitAmount],
-                commitmentFee: [pData.commitmentFee],
-                settlementAmount: [pData.settlementAmount],
-                existingDateOfExpiry: [!ObjectUtil.isEmpty(pData.existingDateOfExpiry) ? new Date(pData.existingDateOfExpiry) : undefined]
-            });
-        }
+        console.log('data', data);
+        return this.formBuilder.group({
+            existingLimit: [ObjectUtil.isEmpty(data) ? undefined : data.existingLimit],
+            proposedLimit: [ObjectUtil.isEmpty(data) ? undefined :
+                data.proposedLimit, [Validators.required, Validators.min(0)]],
+            existInterestRate: [ObjectUtil.isEmpty(data) ? undefined :
+                data.existInterestRate],
+            interestRate: [ObjectUtil.isEmpty(data) ? undefined : data.interestRate],
+            baseRate: [ObjectUtil.isEmpty(data) ? undefined : data.baseRate],
+            premiumRateOnBaseRate: [ ObjectUtil.isEmpty(data) ? undefined : data.premiumRateOnBaseRate],
+            tenureDurationInMonths: [ObjectUtil.isEmpty(data) ? undefined : data.tenureDurationInMonths],
+            outStandingLimit: [ObjectUtil.isEmpty(data) ? undefined : data.outStandingLimit],
+            existCashMargin: [ObjectUtil.isEmpty(data) ? undefined : data.existCashMargin],
+            cashMargin: [ObjectUtil.isEmpty(data) ? undefined : data.cashMargin],
+            existCommissionPercentage: [ObjectUtil.isEmpty(data) ? undefined : data.existCommissionPercentage],
+            commissionPercentage: [ObjectUtil.isEmpty(data) ? undefined : data.commissionPercentage],
+            enhanceLimitAmount: [ObjectUtil.isEmpty(data) ? undefined : data.enhanceLimitAmount],
+            commitmentFee: [ObjectUtil.isEmpty(data) ? undefined : data.commitmentFee],
+            settlementAmount: [ObjectUtil.isEmpty(data) ? undefined : data.settlementAmount],
+            existingDateOfExpiry: [ObjectUtil.isEmpty(data) ? undefined :
+                ObjectUtil.isEmpty(data.existingDateOfExpiry) ? undefined :  new Date(data.existingDateOfExpiry)]
+        });
+    }
+
+    setExposure() {
+        const data = this.existingExposure.get('exposure') as FormArray;
+        console.log('data', data);
+        data.value.forEach((d, i) => {
+           this.existingData[i].proposalData = JSON.stringify(d.proposalData);
+           this.existingData[i].loanId = d.loanId;
+           this.existingData[i].loanType = d.loanType;
+           this.existingData[i].loanName = d.loanName;
+           this.existingData[i].loanConfig = d.loanConfig;
+           this.existingData[i].docStatus = d.docStatus;
+           this.existingData[i].originalLimit = Number(d.proposalData.proposedLimit);
+        });
+    }
+
+    setLoans() {
+        const formArray = (this.existingExposure.get('exposure') as FormArray);
+        this.existingData.forEach((e, i) => {
+            formArray.push(this.formBuilder.group({
+                proposalData: this.addProposalData(JSON.parse(e.proposalData)),
+                loanType: [e.loanType],
+                loanName: [e.loanName],
+                loanId: [e.loanId],
+                loanConfig: [e.loanConfig],
+                docStatus: [e.docStatus],
+                originalLimit: [e.originalLimit],
+                id: [e.id]
+            }));
+        });
+    }
+
+    proposalData1() {
+        return this.formBuilder.group({
+            existingLimit : [undefined],
+            proposedLimit : [undefined],
+            interestRate : [undefined],
+            existInterestRate : [undefined],
+            baseRate : [undefined],
+            premiumRateOnBaseRate : [undefined],
+            tenureDurationInMonths : [undefined],
+            outStandingLimit : [undefined],
+            existCashMargin : [undefined],
+            cashMargin : [undefined],
+            existCommissionPercentage : [undefined],
+            commissionPercentage : [undefined],
+            enhanceLimitAmount : [undefined],
+            commitmentFee : [undefined],
+            settlementAmount : [undefined],
+            existingDateOfExpiry : [undefined],
+        });
     }
 }
