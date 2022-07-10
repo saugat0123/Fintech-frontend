@@ -1,284 +1,116 @@
-<div class="mr-4">
-    <div class="d-flex justify-content-between">
-        <p>Amount in Millions</p>
+<div class="row">
+    <div class="col-md-12">
+        <p><strong> a. Security (already obtained)</strong></p>
+        <strong *ngIf="existingSecurity1?.length > 0">Existing</strong>
+        <div class="row" *ngIf="existingSecurity1?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>Plot #</th>
+                        <th>Area (Ropani)</th>
+                        <th>MV</th>
+                        <th>FMV</th>
+                        <th>DV</th>
+                    </tr>
+                    <ng-container>
+                        <tr *ngFor="let detail of existingSecurity1; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.owner}}</td>
+                            <td>{{detail?.location}}</td>
+                            <td>{{detail?.plot}}</td>
+                            <td>{{detail?.area}}</td>
+                            <td>{{detail?.considerValue}}</td>
+                            <td>{{detail?.marketValue}}</td>
+                            <td>{{detail?.distressValue}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">{{totalMVEx?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{totalFMVEx?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{totalDVEx?.toFixed(2) || 0.0}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <p><strong> b. Security (to be obtained)</strong></p>
+        <strong *ngIf="proposedSecurity1?.length > 0">Proposed</strong>
+        <div class="row" *ngIf="proposedSecurity1?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>Plot #</th>
+                        <th>Area (Ropani)</th>
+                        <th>MV</th>
+                        <th>FMV</th>
+                        <th>DV</th>
+                    </tr>
+                    <ng-container>
+                        <tr *ngFor="let detail of proposedSecurity1; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.owner}}</td>
+                            <td>{{detail?.location}}</td>
+                            <td>{{detail?.plot}}</td>
+                            <td>{{detail?.area}}</td>
+                            <td>{{detail?.considerValue}}</td>
+                            <td>{{detail?.marketValue}}</td>
+                            <td>{{detail?.distressValue}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">{{totalMV?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{totalFMV?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{totalDV?.toFixed(2) || 0.0}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <p><strong> c. Security (to be obtained)</strong></p>
+        <strong *ngIf="existingAsPropose1?.length > 0">Existing as a Proposed</strong>
+        <div class="row" *ngIf="existingAsPropose1?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>Plot #</th>
+                        <th>Area (Ropani)</th>
+                        <th>MV</th>
+                        <th>FMV</th>
+                        <th>DV</th>
+                    </tr>
+                    <ng-container>
+                        <tr *ngFor="let detail of existingAsPropose1; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.owner}}</td>
+                            <td>{{detail?.location}}</td>
+                            <td>{{detail?.plot}}</td>
+                            <td>{{detail?.area}}</td>
+                            <td>{{detail?.considerValue}}</td>
+                            <td>{{detail?.marketValue}}</td>
+                            <td>{{detail?.distressValue}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">{{totalMVAsPs?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{totalFMVAsPs?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{totalDVAsPs?.toFixed(2) || 0.0}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-<table class="table table-bordered table-sm sb-small">
-    <tr class="sb-bg-dark text-white">
-        <td>SN</td>
-        <td>Owner</td>
-        <td>Location</td>
-        <td>Plot #</td>
-        <td>Land Area</td>
-        <td>MV</td>
-        <td>FMV</td>
-        <td>DV</td>
-        <td>Mortgage Value</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td rowspan="3">Mr/Ms ....... (borrower/relations with borrower)</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="3">Land ownership type: freehold, bitauri ..........</td>
-        <td>Land Total:</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="3">Building/s (Plot # ..........)</td>
-        <td>Building Area</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="5">Land and building/s total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="5">Plant and machinery (WDV: NPR ........... mio.)</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="5">Total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-<table class="col-md-8 table table-bordered table-sm sb-small">
-    <tr>
-        <td>Zoning Type</td>
-        <td>residential/commercial/farmland .........</td>
-    </tr>
-    <tr>
-        <td>Access Road</td>
-        <td>type (pitch, gravel); width ......... ft</td>
-    </tr>
-    <tr>
-        <td>Set back/adverse features</td>
-        <td>River ......... /high tension line/monument, ..... </td>
-    </tr>
-    <tr>
-        <td>Google Co-ordinates</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Latest Collateral Visited by</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Latest Collateral Visit Date</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Valuator</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Valuation date</td>
-        <td></td>
-    </tr>
-</table>
-<table class="table table-bordered table-sm sb-small">
-    <tr class="sb-bg-dark text-white">
-        <td>SN</td>
-        <td>Owner</td>
-        <td>Location</td>
-        <td>Plot #</td>
-        <td>Land Area</td>
-        <td>MV</td>
-        <td>FMV</td>
-        <td>DV</td>
-        <td>Mortgage Value</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td rowspan="3">Mr/Ms ....... (borrower/relations with borrower)</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="3">Land ownership type: freehold, bitauri ..........</td>
-        <td>Land Total:</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="3">Building/s (Plot # ..........)</td>
-        <td>Building Area</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="5">Land and building/s total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="5">Plant and machinery (WDV: NPR ........... mio.)</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td colspan="5">Total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-<table class="col-md-8 table table-bordered table-sm sb-small">
-    <tr>
-        <td>Zoning Type</td>
-        <td>residential/commercial/farmland .........</td>
-    </tr>
-    <tr>
-        <td>Access Road</td>
-        <td>type (pitch, gravel); width ......... ft</td>
-    </tr>
-    <tr>
-        <td>Set back/adverse features</td>
-        <td>River ......... /high tension line/monument, ..... </td>
-    </tr>
-    <tr>
-        <td>Google Co-ordinates</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Latest Collateral Visited by</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Latest Collateral Visit Date</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Valuator</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Valuation date</td>
-        <td></td>
-    </tr>
-</table>
-<table class="col-md-12 table table-bordered table-sm sb-small">
-    <tr>
-        <td>Total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-<table class="col-md-12 table table-bordered table-sm sb-small">
-    <tr>
-        <td rowspan="5">Type of Fixed Assets-wise Breakdown</td>
-        <td></td>
-        <td>MV</td>
-        <td>FMV</td>
-        <td>DV</td>
-    </tr>
-    <tr>
-        <td>Land</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Building and other constructions</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Plant and machinery</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Total</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-<p>Notes: (i) Details of one block of adjoining plots of land, irrespective of number of plots, to be mentioned in one
-    table above if the owner is the same. </p>
-
