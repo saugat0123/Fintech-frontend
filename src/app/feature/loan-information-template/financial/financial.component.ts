@@ -400,7 +400,8 @@ export class FinancialComponent implements OnInit {
             Number(this.financialForm.get(['projectedUtilizationFreeText', i, 'comm']).value) +
             Number( this.financialForm.get(['projectedUtilizationFreeText', i, 'forexGains']).value) +
             Number(this.financialForm.get(['projectedUtilizationFreeText', i, 'others']).value);
-            this.financialForm.get(['projectedUtilizationFreeText', i, 'total']).patchValue(total);
+        const totalResult = total.toFixed(2);
+            this.financialForm.get(['projectedUtilizationFreeText', i, 'total']).patchValue(totalResult);
     }
     toggleHistory($event: boolean) {
         this.historicalDataPresent = $event;
