@@ -13,4 +13,7 @@
   .print-only {
     display: block;
   }
+  table td, th {
+    padding: 10px !important;
+  }
 }
