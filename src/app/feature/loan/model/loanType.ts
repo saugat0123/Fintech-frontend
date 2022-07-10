@@ -1,6 +1,6 @@
 export enum LoanType {
     NEW_LOAN = 'New Loan',
-    RENEWED_LOAN = 'Renewed Loan',
+    RENEWED_LOAN = 'Renewal Loan',
     CLOSURE_LOAN = 'Closure Loan',
     ENHANCED_LOAN = 'Enhanced Loan',
     PARTIAL_SETTLEMENT_LOAN = 'Partial Settlement Loan',
