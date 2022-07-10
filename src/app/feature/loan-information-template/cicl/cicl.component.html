@@ -15,12 +15,12 @@
     <form [formGroup]="ciclForm">
       <div class="row">
         <div class="col-md-4 form-group">
-          <label><b>Cib Charge</b></label> &nbsp;
+          <label><b>CIC Charge</b></label> &nbsp;
           <input class="form-control" formControlName="cibCharge"
                  type="text" placeholder="Cib Charge">
         </div>
         <div class="col-md-4 form-group">
-          <label for="cibDate"><b>Cib Date</b></label>
+          <label for="cibDate"><b>CIC Date</b></label>
           <input *ngIf="calendarType === 'AD'" [nbDatepicker]="cibDate"
                  class="form-control rounded"
                  formControlName="cibDate" placeholder="Cib Date"
