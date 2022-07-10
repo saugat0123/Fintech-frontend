@@ -25,11 +25,6 @@
                                 <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="outStandingLimit">
-                                            <!--                                            <span [ngSwitch]="loanType">-->
-                                            <!--                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>-->
-                                            <!--                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>-->
-                                            <!--                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>-->
-                                            <!--                                            </span>-->
                                             <strong>Outstanding Limit</strong>
                                         </label>
                                         <input class="form-control"
@@ -56,6 +51,20 @@
                                                 [ngModelOptions]="{standalone: true}">
                                             <option [ngValue]="null" hidden selected>Select</option>
                                             <option *ngFor="let scheme of customerGroupLoanList;" [value]="scheme?.id">{{scheme?.loan?.name}} : {{(scheme?.proposal?.data | jsonParse)?.proposedLimit}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div *ngIf="isShare" class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="shareType"><strong>Share Type</strong></label>
+                                        <select
+                                                class="form-control"
+                                                [(ngModel)]="shareType"
+                                                [ngModelOptions]="{standalone: true}"
+                                                id="shareType" name="shareType">
+                                            <option [ngValue]="null" hidden>Select Share Type</option>
+                                            <option value="PROMOTER">Promoter</option>
+                                            <option value="ORDINARY">Ordinary</option>
                                         </select>
                                     </div>
                                 </div>

@@ -19,15 +19,16 @@
                 <!--                    existing security-->
                 <app-security-summary *ngIf="customerAllLoanList" [securities]="approvedSecurity"></app-security-summary>
                 <!-- Customer Share Security  -->
-                <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
-                                            [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
-                </app-customer-share-summary>
             </ng-container>
 
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
                                    [approvedSecurity]="approvedSecurity"
                                    [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
+            <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                        [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+            </app-customer-share-summary>
 
             <ng-container *ngIf="others">
                 <hr class="print-line header">

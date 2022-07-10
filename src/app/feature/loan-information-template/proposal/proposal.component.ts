@@ -19,11 +19,12 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
-import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
+import {
+    CadFileSetupComponent
+} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 
 @Component({
     selector: 'app-proposal',
@@ -149,6 +150,7 @@ export class ProposalComponent implements OnInit {
     removeFromCombinedLoan = false;
     withIn = false;
     withInLoanId;
+    shareType;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -170,9 +172,12 @@ export class ProposalComponent implements OnInit {
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
-            this.withIn = this.loan.withIn;
+            this.withIn = this.loan.withIn ? this.loan.withIn : false;
             if (this.withIn) {
                 this.withInLoanId = this.loan.withInLoan;
+            }
+            if (!ObjectUtil.isEmpty(this.loan.shareType)) {
+                this.shareType = this.loan.shareType;
             }
             this.formDataForEdit = JSON.parse(this.formValue.data);
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
@@ -548,6 +553,11 @@ export class ProposalComponent implements OnInit {
             // Proposed Limit value--
         } else {
             this.securityAdderComponent.save();
+            if (this.isShare && ObjectUtil.isEmpty(this.shareType)) {
+                return this.toastService.show(new Alert(AlertType.WARNING, 'Share Type is Missing Please Select Share Type'));
+            } else {
+                this.loan.shareType = this.shareType;
+            }
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;

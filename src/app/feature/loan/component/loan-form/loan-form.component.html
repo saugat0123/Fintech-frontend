@@ -185,17 +185,17 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
-                                                       [financialData]="loanDocument?.financial?.data"
-                                                       [security]="loanDocument?.security"
-                                                       [formData]="loanDocument?.creditRiskGradingAlpha"
-                                                       [companyInfo]="loanDocument?.companyInfo"
-                                                       [customerInfo]="loanDocument?.loanHolder"
-                                                       [loanTag]="loanTag"
-                                                       [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
-                    </ng-template>
+<!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">-->
+<!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
+<!--                        <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha-->
+<!--                                                       [financialData]="loanDocument?.financial?.data"-->
+<!--                                                       [security]="loanDocument?.security"-->
+<!--                                                       [formData]="loanDocument?.creditRiskGradingAlpha"-->
+<!--                                                       [companyInfo]="loanDocument?.companyInfo"-->
+<!--                                                       [customerInfo]="loanDocument?.loanHolder"-->
+<!--                                                       [loanTag]="loanTag"-->
+<!--                                                       [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>-->
+<!--                    </ng-template>-->
 
 <!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">-->
 <!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
