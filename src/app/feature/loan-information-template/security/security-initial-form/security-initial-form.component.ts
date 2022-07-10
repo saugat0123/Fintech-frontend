@@ -38,6 +38,7 @@ import {AddressService} from '../../../../@core/service/baseservice/address.serv
 import {CustomerType} from 'src/app/feature/customer/model/customerType';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CadFileSetupComponent} from '../../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
+import {SecurityDocumentComponent} from './security-document/security-document.component';
 
 
 @Component({
@@ -73,6 +74,8 @@ export class SecurityInitialFormComponent implements OnInit {
     @ViewChildren('ownerKycApplicableHypothecation')
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
     @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
+
+    @ViewChild('securityDocument', {static: false}) securityDocument: SecurityDocumentComponent;
 
     securityId = SecurityIds;
     selectedArray = [];
@@ -164,6 +167,8 @@ export class SecurityInitialFormComponent implements OnInit {
     districtList: District [];
     municipalityList: MunicipalityVdc [];
     files = [];
+    securityDocumentFormValue: any;
+
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -203,6 +208,9 @@ export class SecurityInitialFormComponent implements OnInit {
         if (this.formData !== undefined) {
             if (!ObjectUtil.isEmpty(this.formData['files'])) {
                 this.files = JSON.parse(this.formData['files']);
+            }
+            if (!ObjectUtil.isEmpty(this.formData['securityDocument'])) {
+                this.securityDocumentFormValue = this.formData['securityDocument'];
             }
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -346,7 +354,8 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-            files: [undefined]
+            files: [undefined],
+            securityDocument: [undefined]
         });
         this.buildShareSecurityForm();
     }
@@ -1936,6 +1945,8 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
+        const securityData = JSON.stringify(this.securityDocument.securityDocumentForm.value);
+        this.securityForm.get('securityDocument').patchValue(securityData);
 
         if (this.ownerKycRelationInfoCheckedForLand) {
             this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);

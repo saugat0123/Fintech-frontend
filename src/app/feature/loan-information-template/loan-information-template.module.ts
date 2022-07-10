@@ -47,6 +47,7 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
 import { SwotAnalysisComponent } from './swot-analysis/swot-analysis.component';
 import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 import { FinancialCcblComponent } from './financial-ccbl/financial-ccbl.component';
+import { SecurityDocumentComponent } from './security/security-initial-form/security-document/security-document.component';
 import { ExistingExposureComponent } from './existing-exposure/existing-exposure.component';
 
 const COMPONENTS = [
@@ -85,6 +86,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS, CadDocumentUploadComponent,  CommentsComponent, PreviousSecurityComponent,
         SwotAnalysisComponent,
+        SecurityDocumentComponent,
         ExistingExposureComponent,
         ],
     exports: [...COMPONENTS, CommentsComponent, SwotAnalysisComponent, ExistingExposureComponent],

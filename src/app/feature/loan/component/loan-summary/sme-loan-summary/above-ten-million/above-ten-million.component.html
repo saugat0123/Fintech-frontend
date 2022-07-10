@@ -211,8 +211,11 @@
                              [loanDataHolder]="loanDataHolder"></app-retail-security>
         <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList; else notAvailable"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
-        <p><strong>15.4 Fixed Assets Collaterals (Existing/Proposed): Not Available</strong></p>
-        <!--<app-above-security-arrangement></app-above-security-arrangement>-->
+        <p><strong>15.4 Fixed Assets Collaterals (Existing/Proposed)</strong></p>
+        <app-above-security-arrangement *ngIf="loanDataHolder?.security"
+                                        [security]="loanDataHolder?.loanHolder?.security"
+                                        [shareSecurity]="loanDataHolder?.shareSecurity"
+                                        [docStatus]="loanDataHolder?.documentStatus"></app-above-security-arrangement>
         <div>
             <app-insurance-summary *ngIf="loanDataHolder?.insurance; else notAvailable"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
