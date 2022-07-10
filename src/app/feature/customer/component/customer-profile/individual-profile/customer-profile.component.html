@@ -433,9 +433,7 @@
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
                         *ngIf="customerInfo &&  isEditable"
                         [customerInfoId]="customerInfoId"
-                        [customerInfo]="customerInfo"
-                        [loanList]="nonMicroLoanList"
-                        [multipleSelectedLoanType]="multipleSelectedLoanType"></app-customer-loan-information>
+                        [customerInfo]="customerInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf=" !isEditable"
                                                     [customerInfo]="customerInfo"></app-customer-loan-information-view>
             </div>

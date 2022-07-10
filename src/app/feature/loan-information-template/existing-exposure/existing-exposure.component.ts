@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../@core/utils';
@@ -8,35 +8,39 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {ExistingExposure} from '../../loan/model/existingExposure';
+import {LoanConfig} from '../../admin/modal/loan-config';
+import {LoanType} from '../../loan/model/loanType';
 
 @Component({
     selector: 'app-existing-exposure',
     templateUrl: './existing-exposure.component.html',
     styleUrls: ['./existing-exposure.component.scss']
 })
-export class ExistingExposureComponent implements OnInit {
+export class ExistingExposureComponent implements OnInit, AfterContentChecked {
     @Input() customerType;
     @Input() customerInfo: CustomerInfoData;
-    @Input() loanList: [];
-    @Input() multipleSelectedLoanType: [];
+    // @Input() loanList: LoanConfig[];
+    // @Input() multipleSelectedLoanType;
 
     existingExposure: FormGroup;
     submitted = false;
-    // loanList = [];
+    loanList: LoanConfig[];
     selectedLoanList = [];
-    existingData: ExistingExposure[];
+    multipleSelectedLoanType = [];
+    existingData = [];
+    loanListType = LoanType.value();
     existingExposureData: ExistingExposure = new ExistingExposure();
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private loanFormService: LoanFormService,
-                private customerInfoService: CustomerInfoService) {
+                private customerInfoService: CustomerInfoService,
+                private ref: ChangeDetectorRef) {
     }
 
     ngOnInit() {
         console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
-        console.log('loanList', this.loanList);
         console.log('customerInfo', this.customerInfo);
         this.buildForm();
         // console.log('existingData', this.existingData);
@@ -45,13 +49,14 @@ export class ExistingExposureComponent implements OnInit {
                 this.existingData = this.customerInfo.existingExposures;
                 console.log('existingData', this.existingData);
                 this.setLoans();
+            } else {
+                this.getApprovedLoanList();
             }
         } else {
             this.getApprovedLoanList();
         }
-        // this.getApprovedLoanList();
-        // this.getAllLoanList();
-        // this.addExposure();
+        this.getAllLoanList();
+        console.log('Init existingData', this.existingData);
     }
 
     buildForm() {
@@ -64,34 +69,34 @@ export class ExistingExposureComponent implements OnInit {
         return this.existingExposure.controls;
     }
 
-    // private getAllLoanList() {
-    //     let listOfLoan = [];
-    //     this.loanConfigService.getAllByLoanCategory(this.customerType)
-    //         .subscribe((res: any) => {
-    //             listOfLoan = res.detail;
-    //         }, (error) => {
-    //             this.toastService.show(new Alert(AlertType.DANGER, 'Cannot get loan list '));
-    //         }, () => {
-    //             this.sliceLoan(listOfLoan);
-    //         });
-    // }
+    private getAllLoanList() {
+        this.loanConfigService.getAllByLoanCategory(this.customerType)
+            .subscribe((res: any) => {
+                this.loanList = res.detail;
+                console.log('loanList', this.loanList);
+            }, (error) => {
+                this.toastService.show(new Alert(AlertType.DANGER, 'Cannot get loan list '));
+            }, () => {
+                this.sliceLoan();
+            });
+    }
 
-    // private sliceLoan(loanList: any[]) {
-    //     this.loanList = [];
-    //     loanList.forEach((val) => {
-    //         if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
-    //             || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
-    //             || val.key === 'INTEREST_RATE_REVISION') {
-    //             return true;
-    //         }
-    //         this.loanList.push(val);
-    //     });
-    //     console.log('listOfLoan', this.loanList);
-    //     this.selectedLoanList = this.loanList[0]['key'];
-    //     console.log('selectedLoanList', this.selectedLoanList);
-    // }
+    private sliceLoan() {
+        this.loanListType.forEach((val) => {
+            if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
+                || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'
+                || val.key === 'INTEREST_RATE_REVISION') {
+                return true;
+            }
+            this.multipleSelectedLoanType.push(val);
+        });
+        this.selectedLoanList = this.multipleSelectedLoanType[0]['key'];
+        console.log('selectedLoanList', this.selectedLoanList);
+        console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
+    }
 
     addExposure() {
+        console.log('existingData', this.existingData);
         const exposure: any = {
             existingLimit : null,
             proposedLimit : null,
@@ -118,11 +123,11 @@ export class ExistingExposureComponent implements OnInit {
                 loanType: [undefined],
                 loanName: [undefined],
                 loanConfig: [undefined],
-                docStatus: [undefined]
+                docStatus: [undefined],
             })
         );
-        const c: ExistingExposure = new ExistingExposure();
-        this.existingData.push(c);
+        // this.existingData.push(c);
+        this.existingData =  this.existingExposure.get('exposure').value;
         console.log('Add more', this.existingExposure.get('exposure'));
         console.log('After Add', this.existingData);
     }
@@ -156,6 +161,8 @@ export class ExistingExposureComponent implements OnInit {
                 })
             );
         }
+        this.existingData = control.value;
+        console.log('existingData existingData existingData', this.existingData);
     }
 
     removeLoan(i: number) {
@@ -234,6 +241,7 @@ export class ExistingExposureComponent implements OnInit {
     }
 
     setExposure() {
+        console.log('existingData', this.existingData);
         const data = this.existingExposure.get('exposure') as FormArray;
         console.log('data', data);
         data.value.forEach((d, i) => {
@@ -263,24 +271,14 @@ export class ExistingExposureComponent implements OnInit {
         });
     }
 
-    proposalData1() {
-        return this.formBuilder.group({
-            existingLimit : [undefined],
-            proposedLimit : [undefined],
-            interestRate : [undefined],
-            existInterestRate : [undefined],
-            baseRate : [undefined],
-            premiumRateOnBaseRate : [undefined],
-            tenureDurationInMonths : [undefined],
-            outStandingLimit : [undefined],
-            existCashMargin : [undefined],
-            cashMargin : [undefined],
-            existCommissionPercentage : [undefined],
-            commissionPercentage : [undefined],
-            enhanceLimitAmount : [undefined],
-            commitmentFee : [undefined],
-            settlementAmount : [undefined],
-            existingDateOfExpiry : [undefined],
-        });
+    ngAfterContentChecked(): void {
+        this.ref.detectChanges();
+    }
+
+    setLoanNameAndType(value, i: number) {
+        console.log('value', value, 'i', i);
+        this.existingExposure.get(['exposure', i , 'loanName']).patchValue(value.name);
+        this.existingExposure.get(['exposure', i , 'loanConfig']).patchValue(value);
+        return;
     }
 }

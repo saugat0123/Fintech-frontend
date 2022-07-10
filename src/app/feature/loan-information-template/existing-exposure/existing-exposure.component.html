@@ -10,9 +10,10 @@
                             <strong>
                                 Loan Name: {{ex?.get('loanName')?.value}} <br>
                                 loan Type : {{ex?.get('loanType')?.value}} <br>
-                                Loan Nature: {{ex?.get('loanNature')?.value}}
+                                Loan Nature: {{ex?.get('loanConfig')?.value?.loanNature}}
                             </strong>
-                            <div class="nb-card-header row" *ngIf="!ex?.get('id')?.value">
+                            <hr>
+                            <div class="nb-card-header row" *ngIf="!ex?.get('loanId')?.value">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="loanType"><strong>Loan Type</strong></label>
@@ -21,24 +22,23 @@
                                                  class="form-control rounded" name="loanType" required>
                                             <option [ngValue]="undefined" hidden> Select Loan Type</option>
                                             <option *ngFor="let list of multipleSelectedLoanType"
-                                                    [ngValue]="list.key">{{list.value}}</option>
+                                                    [ngValue]="list?.key">{{list?.value}}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="loanConfig"><strong>Loan Config</strong></label>
-                                        <select
-                                                formControlName="loanConfig" id="loanConfig"
+                                        <label class="title" for="loanConfig"><strong>Loan Facility</strong></label>
+                                        <ng-select formControlName="loanConfig" id="loanConfig"
                                                 name="loanConfig" placeholder="Loan Config"
-                                                class="form-control rounded"
-                                                (change)="setLoan($event?.target?.value,i)"
+                                                class="rounded"
+                                                (change)="setLoanNameAndType($event,i)"
                                                 name="loanId" required>
-                                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
-                                            <ng-container *ngFor="let allList of loanList">
-                                                <option [ngValue]="allList">{{allList.name}}</option>
-                                            </ng-container>
-                                        </select>
+                                            <ng-option [value]="undefined" hidden> Select Loan Type</ng-option>
+                                            <ng-option *ngFor="let allList of loanList" [value]="allList">
+                                                {{allList?.name}}
+                                            </ng-option>
+                                        </ng-select>
                                     </div>
                                 </div>
                             </div>
@@ -524,9 +524,10 @@
                                 Delete {{ex?.get('loanName')?.value?.toLowerCase()}}</button>
                         </div>
                     </div>
-                    <div class="float-right">
-                        <button class="btn btn-success" (click)="addExposure()">Add More</button>
+                    <div class="text-center">
+                        <button class="btn btn-primary" (click)="addExposure()">Add More</button>
                     </div>
+                    <hr>
                 </form>
                 <div class="float-right">
                     <button class="btn btn-success" (click)="onSubmit()">Save</button>
