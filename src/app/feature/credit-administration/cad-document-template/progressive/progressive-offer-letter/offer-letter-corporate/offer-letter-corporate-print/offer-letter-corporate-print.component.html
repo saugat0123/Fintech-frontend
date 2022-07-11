@@ -275,13 +275,13 @@
                                                     {{securityDetail?.name === null || securityDetail?.name === '' ? '' :  securityDetail?.name}}
                                                 </span>
                                                 <br>
-                                                <span *ngIf="isIndividual; else companyPan">
-                                                बूबाको नाम :
+                                                <span *ngIf="securityDetail?.checkForCompany; else companyPan">
+                                                    <span class="uniFont">बूबाको नाम :</span>
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.parentName !== null && securityDetail?.parentName !== ''}">
                                                     {{securityDetail?.parentName === null || securityDetail?.parentName === '' ? '' :  securityDetail?.parentName}}
                                                 </span>
                                                 <br>
-                                                बाजेको नाम :
+                                                    <span class="uniFont">बाजेको नाम :</span>
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.grandParentName !== null && securityDetail?.grandParentName !== ''}">
                                                     {{securityDetail?.grandParentName === null || securityDetail?.grandParentName === '' ? '' :  securityDetail?.grandParentName}}
                                                 </span>
