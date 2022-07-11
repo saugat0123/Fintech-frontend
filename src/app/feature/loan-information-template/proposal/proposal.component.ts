@@ -292,10 +292,10 @@ export class ProposalComponent implements OnInit {
 
         this.loanFormService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
-            this.customerGroupLoanList = this.customerGroupLoanList.filter(d => d.documentStatus.toString() !== 'APPROVED' && d.documentStatus.toString() !== 'REJECTED');
+            this.customerGroupLoanList = this.customerGroupLoanList.filter(d => d.documentStatus.toString() !== 'APPROVED' && d.documentStatus.toString() !== 'REJECTED' && d.id !== this.loan.id);
             if (!ObjectUtil.isEmpty(this.loan.loanHolder.existingExposures)) {
                     this.loan.loanHolder.existingExposures.forEach((e) => {
-                        if (e.docStatus.toString() === 'APPROVED' && e.loanId !== null) {
+                        if (e.docStatus.toString() === 'APPROVED') {
                             const loan = new LoanDataHolder();
                             const prop = new Proposal();
                             prop.data = e.proposalData;
@@ -563,10 +563,10 @@ export class ProposalComponent implements OnInit {
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
             }
             if (this.withIn) {
-                if (ObjectUtil.isEmpty(this.withInLoanId)) {
-                    this.toastService.show(new Alert(AlertType.WARNING, 'Please Select Within Loan'));
-                    return;
-                }
+                // if (ObjectUtil.isEmpty(this.withInLoanId)) {
+                //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Select Within Loan'));
+                //     return;
+                // }
                 this.loan.withIn = this.withIn;
                 this.loan.withInLoan = this.withInLoanId;
             }
