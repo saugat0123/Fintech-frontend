@@ -64,7 +64,6 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('this is the combine loan data', this.resCombinedData);
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildProposalCommonForm();
         this.fetchCombinedLoanData();
