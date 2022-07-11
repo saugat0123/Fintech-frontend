@@ -417,6 +417,7 @@ export class ProposalComponent implements OnInit {
             riskConclusionRecommendation: [undefined],
             summeryRecommendation: undefined,
             purposeOfLoan: undefined,
+            remarkFullOrPartial: undefined,
             termsAndCondition: undefined,
             prepaymentSwapCommitment: [undefined],
             existCashMargin: [undefined],
@@ -1101,6 +1102,7 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('riskConclusionRecommendation').setValue(formDataForEdit.riskConclusionRecommendation);
         this.proposalForm.get('summeryRecommendation').setValue(formDataForEdit.summeryRecommendation);
         this.proposalForm.get('purposeOfLoan').setValue(formDataForEdit.purposeOfLoan);
+        this.proposalForm.get('remarkFullOrPartial').setValue(formDataForEdit.remarkFullOrPartial);
         this.proposalForm.get('termsAndCondition').setValue(formDataForEdit.termsAndCondition);
         this.proposalForm.get('prepaymentSwapCommitment').setValue(formDataForEdit.prepaymentSwapCommitment);
         this.proposalForm.get('existCashMargin').setValue(formDataForEdit.existCashMargin);
