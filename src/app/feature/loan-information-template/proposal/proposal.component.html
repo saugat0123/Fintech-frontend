@@ -1048,6 +1048,14 @@
 <!--                            <app-cad-file-setup  #cadSetup [files] = "files" [fromProfile]="true" [proposal]="true" (legalFile)="getData($event)" ></app-cad-file-setup>-->
 <!--                        </div>-->
                     </div>
+                    <ng-container>
+                        <div class="col-md-12" *ngIf="loan?.loanHolder?.customerType === 'INSTITUTION' &&
+                         loan?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'">
+                        <app-financial-account-information #financialAccountComponent (financialAccountEmitter)="financialAccount($event)"
+                                                           [financialFormValue]="loan" [fromLoan]="true">
+                        </app-financial-account-information>
+                        </div>
+                    </ng-container>
                     <ng-container  *ngIf="fromProfile">
                         <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' || loanType !== 'OTHERS'">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
