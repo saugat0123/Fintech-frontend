@@ -1040,7 +1040,7 @@
 <!--                        </div>-->
                     </div>
                     <ng-container  *ngIf="fromProfile">
-                        <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
+                        <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' || loanType !== 'OTHERS'">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
                                                   [taggedGuarantors]="loan?.taggedGuarantors"
                                                   [guarantorData]="customerInfo?.guarantors">
