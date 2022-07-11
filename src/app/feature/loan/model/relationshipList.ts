@@ -117,6 +117,10 @@ export class RelationshipList {
       name: 'Niece',
     },
     {
+      id: 'Maternal Uncle',
+      name: 'Maternal Uncle'
+    },
+    {
       id: 'Other',
       name: 'Other',
     }
