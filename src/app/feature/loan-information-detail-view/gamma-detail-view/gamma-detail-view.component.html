@@ -70,7 +70,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <p><strong>4. Disbursement Criteria</strong></p>
+        <p><strong>7. Disbursement Criteria</strong></p>
     </div>
     <div class="col-md-12">
         <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.disbursementCriteria || 'N/A' | safeHtml"></p>
@@ -78,7 +78,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <p><strong>5. Repayment {{client === clientName?.SHINE_RESUNGA ? 'Mode' : ''}}</strong></p>
+        <p><strong>8. Repayment {{client === clientName?.SHINE_RESUNGA ? 'Mode' : ''}}</strong></p>
     </div>
     <div class="col-md-12">
         <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></p>
@@ -87,7 +87,7 @@
 
 <!-- Start Reporting Information Details-->
 <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-    <span><strong>6. Reporting Information</strong></span>
+    <span><strong>9. Reporting Information</strong></span>
     <app-report-summary
             [approved]="true"
             *ngIf="loanDataHolder?.reportingInfoLog"
@@ -134,7 +134,7 @@
 <!-- Start Single limit Obligor Details -->
 <div class="row">
     <div class="col-md-12">
-        <p><strong>7. Single limit Obligor Details</strong></p>
+        <p><strong>12. Single limit Obligor Details</strong></p>
         <table class="table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="sb-bg-dark text-white">
