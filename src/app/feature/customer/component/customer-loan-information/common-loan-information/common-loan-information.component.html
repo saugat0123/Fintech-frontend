@@ -40,6 +40,27 @@
                                 </select>
                             </div>
                         </div>
+                        <div *ngIf="conditionalArray[i]?.isShare" class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="shareType"><strong>Share Type</strong></label>
+                                <select
+                                        class="form-control"
+                                        [(ngModel)]="commonLoans[i].shareType"
+                                        [ngModelOptions]="{standalone: true}"
+                                        id="shareType" name="shareType">
+                                    <option [ngValue]="null" hidden>Select Share Type</option>
+                                    <option value="PROMOTER">Promoter</option>
+                                    <option value="ORDINARY">Ordinary</option>
+                                </select>                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <nb-checkbox [(ngModel)]="commonLoans[i].withIn" name="withIn"
+                                             [ngModelOptions]="{standalone: true}">With In ?
+                                </nb-checkbox>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row" *ngIf="!controls?.get('loanId')?.value && controls?.get('id')?.value">
                         <button ngbTooltip="Click To Full Settle The Loan"  class="float-right" nbButton
