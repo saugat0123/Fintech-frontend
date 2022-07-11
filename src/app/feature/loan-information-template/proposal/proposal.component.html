@@ -677,6 +677,14 @@
                                         <ckeditor *ngIf="purposeChecked" formControlName="purposeOfLoan"></ckeditor>
                                     </div>
                                 </div>
+                                <div class="col-md-12" *ngIf="loanType === 'FULL_SETTLEMENT_LOAN' || loanType === 'PARTIAL_SETTLEMENT_LOAN'">
+                                    <div class="form-group">
+                                        <div class="d-flex align-items-center">
+                                            <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Remarks</b></label>
+                                        </div>
+                                        <ckeditor formControlName="remarkFullOrPartial"></ckeditor>
+                                    </div>
+                                </div>
                                 <ng-container *ngIf="!fromProfile">
                                     <div class="row" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
                                         <div class="col-md-12">
@@ -1032,7 +1040,7 @@
 <!--                        </div>-->
                     </div>
                     <ng-container  *ngIf="fromProfile">
-                        <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
+                        <div class="col-md-12" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN' || loanType !== 'OTHERS'">
                             <app-guarantor-adder  (emitter)="guarantors($event)"
                                                   [taggedGuarantors]="loan?.taggedGuarantors"
                                                   [guarantorData]="customerInfo?.guarantors">
