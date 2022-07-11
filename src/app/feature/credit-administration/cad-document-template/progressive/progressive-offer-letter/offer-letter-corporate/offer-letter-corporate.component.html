@@ -300,7 +300,9 @@
                                                        formControlName="name"
                                                        type="text">
                                                 <br>
-                                                <span *ngIf="customerInfo?.customerType == !customerType.INSTITUTION; else companyPan">
+                                                <nb-checkbox (change)="showData($event?.target?.checked, i, 'checkForCompany')" formControlName="checkForCompany">For Individual Collateral</nb-checkbox>
+                                                <br>
+                                                <ng-container *ngIf="securityDetail?.get('checkForCompany')?.value; else checkForCompany">
                                                 बूबाको नाम :
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        formControlName="parentName"
@@ -310,8 +312,8 @@
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        formControlName="grandParentName"
                                                        type="text">
-                                                </span>
-                                                <ng-template #companyPan>
+                                                </ng-container>
+                                                <ng-template #checkForCompany>
                                                 <span class="uniFont">प्यान नं.: </span><span class="nepaliFont">{{this.nepaliData.panNo}}</span>
                                                 <br>
                                                 <span class="uniFont">दर्ता नं.: </span><span class="nepaliFont">{{this.nepaliData.companyRegistrationNo}}</span>
