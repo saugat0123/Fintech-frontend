@@ -29,18 +29,6 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="amount">Amount</label>
-                        <input type="text" class="form-control" placeholder="amount" id="amount"
-                               [(ngModel)]="model.amount" name="amount" #approvalAmount="ngModel"
-                               [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required/>
-                        <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
-                            <div *ngIf="approvalAmount.errors.required"> Approval Amount is required</div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-6">
                         <label for="authorities">Authorities</label>
 
                         <select class="custom-select" [(ngModel)]="authorities.id" id="authorities"
@@ -54,6 +42,27 @@
                         <div *ngIf="f.submitted && authority.invalid" class="invalid-feedback">
                             <div *ngIf="authority.errors.required">Authority is required</div>
                         </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="amount">Amount</label>
+                        <input type="text" class="form-control" placeholder="amount" id="amount"
+                               [(ngModel)]="model.amount" name="amount" #approvalAmount="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required/>
+                        <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
+                            <div *ngIf="approvalAmount.errors.required"> Approval Amount is required</div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="amount">Renewal Amount</label>
+                        <input type="text" class="form-control" placeholder="amount" id="renewalAmount"
+                               [(ngModel)]="model.renewalAmount" name="renewalAmount" #approvalAmount="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required/>
+                        <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
+                            <div *ngIf="approvalAmount.errors.required"> Approval Amount is required</div>
+                        </div><pre></pre>
                     </div>
                     <div class="col-md-6">
                         <label for="customerType">Approval Type</label>
