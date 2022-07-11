@@ -70,6 +70,7 @@ import {ViewSecurityTableComponent} from './security/view-security-table/view-se
 import {SecurityTaggedModule} from './security/security-tagged-component/security-tagged.module';
 import { GroupSummarySheetComponent } from './group-summary-sheet/group-summary-sheet.component';
 import { OtherDetailsComponent } from './other-details/other-details.component';
+import {FinancialAccountInformationModule} from './financial-account-information/financial-account-information.module';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -152,6 +153,7 @@ const COMPONENTS = [
         CoreModule,
         LoanInformationViewModule,
         SecurityTaggedModule,
+        FinancialAccountInformationModule,
     ],
     providers: [
         NgbActiveModal
