@@ -44,9 +44,7 @@ export class SecurityScheduleComponent implements OnInit {
             this.totalSecurities =  this.totalSecurities
                 .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
             this.totalSecurities.forEach((d) => {
-                if (d.status.toString().toUpperCase() === 'ACTIVE') {
                     this.totalSecurity += d.fairMarketValue;
-                }
             });
         }
         this.fixedAssets = this.totalSecurity - Number(this.totalProposedLimit);
