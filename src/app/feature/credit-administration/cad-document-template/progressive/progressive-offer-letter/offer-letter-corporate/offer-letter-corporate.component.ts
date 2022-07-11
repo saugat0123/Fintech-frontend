@@ -203,7 +203,6 @@ export class OfferLetterCorporateComponent implements OnInit {
             offerDocument.initialInformation = JSON.stringify(this.form.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
-
         this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
@@ -226,7 +225,7 @@ export class OfferLetterCorporateComponent implements OnInit {
             this.addEmptySecurityDetail();
             return;
         }
-        data.forEach(value => {
+        data.forEach((value, i) => {
             if (value.securityDetails === 'Land_And_Building') {
                 const tempExistingAddress = value.collateralMunVdcOriginal + ', ' + value.collateralWardNoOld;
                 formArray.push(this.formBuilder.group({
@@ -241,6 +240,10 @@ export class OfferLetterCorporateComponent implements OnInit {
                     jaggaKittaNum: [!ObjectUtil.isEmpty(value.plotNo) ? value.plotNo : ''],
                     jaggaArea: [!ObjectUtil.isEmpty(value.areaOfCollateral) ? value.areaOfCollateral : ''],
                     jaggaSiNum: [!ObjectUtil.isEmpty(value.seatNo) ? value.seatNo : ''],
+                    checkForCompany: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.securityDetails) ?
+                            !ObjectUtil.isEmpty(this.initialInfoPrint.securityDetails[i]) ?
+                                this.initialInfoPrint.securityDetails[i].checkForCompany : '' : '' : '']
                 }));
             }
         });
@@ -356,6 +359,7 @@ export class OfferLetterCorporateComponent implements OnInit {
             jaggaKittaNum: [undefined],
             jaggaArea: [undefined],
             jaggaSiNum: [undefined],
+            checkForCompany : [false]
         });
     }
 
@@ -564,5 +568,13 @@ export class OfferLetterCorporateComponent implements OnInit {
              sthantarandRate: [!ObjectUtil.isEmpty(val.sthantarandRate) ? val.sthantarandRate : ''],
             }));
         });
+    }
+
+    showData(event, index, formControlName) {
+        if (event) {
+            this.form.get(['securityDetails', index, formControlName]).setValue(event);
+        } else {
+            this.form.get(['securityDetails', index, formControlName]).setValue(event);
+        }
     }
 }
