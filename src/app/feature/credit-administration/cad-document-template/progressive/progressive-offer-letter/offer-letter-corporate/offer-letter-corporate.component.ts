@@ -177,7 +177,6 @@ export class OfferLetterCorporateComponent implements OnInit {
             this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-            console.log(initialInfo , 'initialInfo');
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.setGuarantors(initialInfo.guarantors);
@@ -204,7 +203,6 @@ export class OfferLetterCorporateComponent implements OnInit {
             offerDocument.initialInformation = JSON.stringify(this.form.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
-        console.log(this.form.value, 'formvalue');
         this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
@@ -573,15 +571,10 @@ export class OfferLetterCorporateComponent implements OnInit {
     }
 
     showData(event, index, formControlName) {
-        console.log('event', event);
         if (event) {
             this.form.get(['securityDetails', index, formControlName]).setValue(event);
-            console.log(this.form.get(['securityDetails', index, formControlName]).value, 'security element');
         } else {
             this.form.get(['securityDetails', index, formControlName]).setValue(event);
         }
-        // console.log(this.form.get('checkForCompany').value);`
-       // this.element[index] = true;
-       //  //console.log( this.form.get(['securityDetails', index, 'element']), 'showdata');
     }
 }
