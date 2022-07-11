@@ -180,7 +180,6 @@ export class ProposalComponent implements OnInit {
                 this.shareType = this.loan.shareType;
             }
             this.formDataForEdit = JSON.parse(this.formValue.data);
-            console.log('form Data::: ', this.formDataForEdit);
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
                 if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
                     (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
