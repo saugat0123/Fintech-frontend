@@ -815,7 +815,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.customerCode = this.companyInfoFormGroup.get('customerCode').value;
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
-        this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
         this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
         this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
@@ -955,7 +954,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
-            if (this.formValue.id == null) {
+            if (ObjectUtil.isEmpty(this.formValue.id)) {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
             } else {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Information'));
