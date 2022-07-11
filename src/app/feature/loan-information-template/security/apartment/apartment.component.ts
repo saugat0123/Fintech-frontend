@@ -507,4 +507,9 @@ export class ApartmentComponent implements OnInit {
 
   }
 
+  public patchConsiderValue(index, formControl) : void {
+    const tempFairValue = this.apartmentForm.get(['buildingDetails', index, formControl]).value;
+    this.apartmentForm.get(['buildingDetails', index, 'considerValue']).patchValue(tempFairValue);
+  }
+
 }
