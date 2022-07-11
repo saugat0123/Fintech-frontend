@@ -73,11 +73,11 @@
                                       >{{loanDataHolder.priority?.toString() | titlecase}}</span>
                             </div>
 
-                            <div>
-                                <strong> Approving Level:</strong>
-                                <span class="badge badge-danger"
-                                      >{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>
-                            </div>
+<!--                            <div>-->
+<!--                                <strong> Approving Level:</strong>-->
+<!--                                <span class="badge badge-danger"-->
+<!--                                      >{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>-->
+<!--                            </div>-->
 
                             <div>
                                 <strong>Loan Status:</strong>
@@ -97,10 +97,23 @@
                                 <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
                                 <br>
                                 <div><strong class="float-left">Product:</strong>
-                                    <table class="table-borderless float-left">
-                                        <tr *ngFor="let allLoan of allLoanList">
+                                    <table class="table table-sm table-responsive-sm  float-left">
+                                        <thead>
+                                        <tr class="sb-bg-dark text-white">
+                                            <td>Facility Name</td>
+                                            <td>Approving Level</td>
+                                            <td>Credit Risk</td>
+                                        </tr>
+                                        </thead>
+                                        <tr *ngFor="let allLoan of proposedLoan">
                                             <td>
                                                 {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                            <td>
+                                                {{allLoan?.approvingLevel}}
+                                            </td>
+                                            <td>
+                                                {{allLoan?.creditRisk}}
                                             </td>
                                         </tr>
                                     </table>

@@ -15,16 +15,16 @@
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
                 <app-security-summary *ngIf="approvedSecurity" [securities]="approvedSecurity"></app-security-summary>
-                <!-- Customer Share Security  -->
-                <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
-                                            [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
-                </app-customer-share-summary>
+
             </ng-container>
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
                                    [approvedSecurity]="approvedSecurity"
                                    [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
-
+            <!-- Customer Share Security  -->
+            <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                        [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+            </app-customer-share-summary>
            <ng-container>
                <hr class="print-line">
                <p class="header" [hidden]="loanCategory === 'INSTITUTION'"><strong class="header">Applicant/Guarantor

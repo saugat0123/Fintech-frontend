@@ -191,11 +191,17 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       // Total Approved Proposed Amount
 
       const totalApprovedProposedAmount = [];
-      this.customerGroupLoanList.map(val => {
-        if (val.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )) {
-          totalApprovedProposedAmount.push(val.proposal.proposedLimit);
-        }
-      });
+      // this.customerGroupLoanList.map(val => {
+      //   if (val.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )) {
+      if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
+        this.customerInfo.existingExposures.forEach(e => {
+          if (e.docStatus === 'APPROVED') {
+            totalApprovedProposedAmount.push(JSON.parse(e.proposalData).proposedLimit);
+          }
+        });
+      }
+      //   }
+      // });
       this.totalApprovedProposedAmount = totalApprovedProposedAmount.reduce((a, b) => Number(a) + Number(b), 0);
 
 
