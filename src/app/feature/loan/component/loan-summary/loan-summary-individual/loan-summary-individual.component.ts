@@ -813,6 +813,11 @@ export class LoanSummaryIndividualComponent implements OnInit {
     } else {
       this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
     }
+    this.customerAllLoanList.forEach(d => {
+      if (d.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY)) {
+        this.isShareLoan = true;
+      }
+    });
   }
 }
 

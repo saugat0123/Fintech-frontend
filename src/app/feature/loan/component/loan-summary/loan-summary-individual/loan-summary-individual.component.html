@@ -18,16 +18,16 @@
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
                 <app-security-summary *ngIf="customerAllLoanList" [securities]="approvedSecurity"></app-security-summary>
-                <!-- Customer Share Security  -->
-                <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
-                                            [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
-                </app-customer-share-summary>
             </ng-container>
-
+            <!-- Customer Share Security  -->
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
                                    [approvedSecurity]="approvedSecurity"
                                    [loanSecurity]="loanSecurity"
                                    [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
+            <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                        [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+            </app-customer-share-summary>
 
             <ng-container *ngIf="others">
                 <hr class="print-line header">
@@ -504,7 +504,7 @@
                 <table class="table table-borderless table-responsive">
                     <tbody *ngFor="let loan of customerAllLoanList; let i = index">
                         <tr>
-                            <td>
+                            <td *ngIf="loan?.id">
                                 <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
                                 <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
                             </td>

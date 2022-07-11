@@ -279,6 +279,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                         loan.securities = [];
                         loan.documentStatus = e.docStatus;
                         loan.loanType = (e.loanType) as LoanType;
+                        loan.withIn = e.withIn;
                         this.customerAllLoanList.push(loan);
                     }
                 });

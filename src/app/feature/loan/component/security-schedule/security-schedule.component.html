@@ -8,7 +8,7 @@
             </tr>
             <tr>
                 <td class="text-left sb-bg-dark">Total Security Value (MV) in CA</td>
-                <td class="text-right">Rs.{{loanDataHolder?.loanHolder?.security?.totalSecurityAmount |currencyFormatter}}</td>
+                <td class="text-right">Rs.{{totalSecurity |currencyFormatter}}</td>
             </tr>
             <tr>
                 <td class="text-left sb-bg-dark">Expected Loss Given Default</td>
@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td class="text-left sb-bg-dark">Loan to Security Ratio (Total Loan/Total RV)</td>
-                <td class="text-right">{{loanToSecurity?.toFixed(2)   || '0'}}</td>
+                <td class="text-right">{{(totalProposedLimit / totalSecurity)?.toFixed(2)   || '0'}}</td>
             </tr>
             </tbody>
         </table>

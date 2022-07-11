@@ -243,6 +243,7 @@ export class LoanFormComponent implements OnInit {
     allIds = [];
     checklistChecked = false;
     financialInfo = false;
+    smallBusiness = false;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -312,6 +313,7 @@ export class LoanFormComponent implements OnInit {
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
                             this.loanDocument = response.detail;
+                            this.smallBusiness = this.loanDocument.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES';
                             this.checklistData = this.sanitized.bypassSecurityTrustHtml(this.loanDocument.paperProductChecklist);
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
@@ -466,6 +468,9 @@ export class LoanFormComponent implements OnInit {
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Credit Risk Grading - Lambda') {
                         this.templateList.splice(index, 1);
+                    }
+                    if (this.smallBusiness && value.name === 'Financial/Account Information') {
+                            this.templateList.splice(index, 1);
                     }
                 });
                 this.templateList.forEach((value, index) => {
