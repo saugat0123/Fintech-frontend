@@ -34,11 +34,13 @@
                             formControlName="nameOfAuthorizedBody" placeholder=" " type="text" />
                         <span
                             class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : '______________________'}}</span>
-                        <input class="form-field form-control-sm d-print-none" name="nameOfDepartment"
-                            formControlName="nameOfDepartment" placeholder=" " type="text" />
+                        <span class="d-print-none">
+                            <input class="form-field form-control-sm" name="nameOfDepartment"
+                                   formControlName="nameOfDepartment" placeholder=" " type="text" />मा
+                        </span>
                         <span
-                            class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : '______________________'}}</span>
-                        विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
+                            class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : '______________________'}}मा</span>
+                         मिति <input class="form-field form-control-sm d-print-none"
                             name="dateOfRegistration" formControlName="dateOfRegistration" placeholder=" "
                             type="text" />
                         <span class="print-only">{{this.registrationDate ? this.registrationDate : '______________________'}}</span> मा

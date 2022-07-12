@@ -39,15 +39,15 @@
                      type="text"/>
               <span class="print-only">{{form.get('nameOfAuthorizedBody')?.value || '_____________________'}}</span>
             </span>
-            <span>
-              <input class="form-field form-control-sm disable-print"
+            <span class="d-print-none">
+              <input class="form-field form-control-sm"
                      name="nameOfDepartment"
                      formControlName="nameOfDepartment"
                      placeholder=" "
-                     type="text"/>
-              <span class="print-only">{{form.get('nameOfDepartment')?.value || '_____________________'}}</span>
+                     type="text"/>मा
             </span>
-            विभाग/कार्यालयमा मिति
+              <span class="print-only">{{form.get('nameOfDepartment')?.value || '_____________________'}}मा</span>
+             मिति
             <span>
               <input class="form-field form-control-sm disable-print"
                      name="dateOfRegistration"
