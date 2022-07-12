@@ -1,7 +1,7 @@
 <div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.GUARANTOR_ACKNOWLEDGEMENT}}">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
-            <div>
+            <div class="mb-3">
                 श्री लक्ष्मी बैंक लि.<br>
                 शाखा कार्यालय,
                 <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
@@ -9,7 +9,7 @@
                 <span class="print-only nepaliFont">{{form.get('branch').value ? form.get('branch').value  : '========='}}</span> ।
             </div>
             <h5><strong>विषय : धितो जमानत तथा व्यक्तिगत/संस्थागत जमानतको दायित्व निरन्तरताको लागि सहमति/मञ्जुरी प्रदान गरेको वारे ।</strong></h5>
-            <div>
+            <div class="text-justify mb-4">
                 महोदय,<br>
                 त्यस बैंकबाट तपसिलमा उल्लेखित ऋणीले उपभोग गरिरहेको र/वा गर्ने विभिन्न शिर्षक अन्तर्गतका कर्जाहरुको सुरक्षण वापत
                 मैले साविकमा विभिन्न चल अचल सम्पतिको धितो दिएको वा व्यक्तिगत/संस्थागत जमानतको लिखत लेखिदिएकोमा
@@ -17,7 +17,7 @@
                 पटक नविकरण गरे गराएमा वा कर्जाको अवधी परिवर्तन गरे गराएमा वा कर्जा सिमा परिवर्तन गरे गराएमा वा कर्जाको शर्त
                 बन्देज परिवर्तन गरी हेरफेर गरे गराएमा वा कर्जाको शिर्षक परिवर्तन गरे गराएमा समेत मेरोपूर्ण सहमति/मञ्जुरी रहेकोछ ।
             </div>
-            <div>
+            <div class="text-justify mb-4">
                 ऋणीले साविक देखि त्यस बैंकबाट विभिन्न कर्जा उपभोग गर्दे आई रहेको वा साबिकको कर्जा नविरकण गरे गराएको वा हाल
                 उपभोग गर्ने जुनसुकै शिर्षक अन्तर्गतको कर्जाको सुरक्षण वापत समेत मैले/हामीले विभिन्न मितिमा साविक देखि प्रदान गरेको
                 धितोको लिखत/व्यक्तिगत वा संस्थागत जमानतको सुरक्षण लिखतहरुमा लेखिएको दायित्व यथावत कायम रहि कानूनी रुपमा
@@ -29,12 +29,12 @@
                 बैंकको कर्जा पूर्ण रुपमा चुक्ता नगरे सम्म यथावत रहने छ र मैले लिखत बमोजिम कबुल र स्वीकार गरेको आफनो
                 जमानतको दायित्व वहन गर्न मन्जुर गर्दछु ।
             </div>
-            <div>
+            <div class="text-justify mb-4">
                 ऋणीको नाममा हाल जारी गरेको तपसिलमा उल्लेखित कर्जा स्वीकृती पत्र/कर्जा प्रस्तावपत्र तथा सोमा उल्लेखित सम्पूर्ण
                 व्यहोरा पढि वाची मैले आफनो जानकारीमा लिएको छु र सो कर्जाको लागि मैले साविकमा दिएको सुरक्षण वा जमानत
                 यथावत मान्य छ भनी आफनो मनोमान राजिखुशीले यो निरन्तरताको लिखतमा सहि छाप गरी मेरो मन्जुरी प्रदान गरेको छु ।
             </div>
-            <h5><strong>तपसिल</strong></h5>
+            <h5 class="text-center"><strong>तपसिल</strong></h5>
             <table class="table table-bordered table-responsive-md">
                 <tr>
                     <td>ऋणीको नाम :</td>
@@ -45,12 +45,7 @@
                     <td>मितिः—</td>
                 </tr>
             </table>
-            <div>
-                <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">
-                    Save
-                </button>
-            </div>
-            <p><strong>मञ्जुरी प्रदान गर्ने व्यक्तिको हकमा :</strong></p>
+            <p class="ml-4"><strong>मञ्जुरी प्रदान गर्ने व्यक्तिको हकमा :</strong></p>
             <table class="table table-bordered table-responsive-md">
                 <tr>
                     <td>मञ्जुरी प्रदान गर्ने व्यक्तिको नाम :</td>
@@ -63,7 +58,7 @@
                     <td></td>
                 </tr>
             </table>
-            <p><strong>मञ्जुरी प्रदान गर्ने संस्थाको हकमा :</strong></p>
+            <p class="ml-4"><strong>मञ्जुरी प्रदान गर्ने संस्थाको हकमा :</strong></p>
             <table class="table table-bordered table-responsive-md">
                 <tr>
                     <td>मञ्जुरी प्रदान गर्नेको संस्थाको नाम :</td>
@@ -91,7 +86,7 @@
                        formControlName="shanakhatWitnessName">
                 <span class="print-only nepaliFont">{{form.get('shanakhatWitnessName').value ? form.get('shanakhatWitnessName').value  : '========='}}</span>
             </div>
-            <div>
+            <div class="mt-3">
                 ईति सम्बत् २०
                 <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                        formControlName="year">
@@ -108,6 +103,11 @@
                 <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                        formControlName="shuvam">
                 <span class="print-only nepaliFont">{{form.get('shuvam').value ? form.get('shuvam').value  : '========='}}</span>।
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">
+                    Save
+                </button>
             </div>
         </form>
         <button class="btn btn-primary d-print-none"
