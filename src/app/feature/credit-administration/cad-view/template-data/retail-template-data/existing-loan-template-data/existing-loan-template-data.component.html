@@ -29,15 +29,26 @@
                                 </nb-select>
                             </div>
                         </div>
-                        <div class="row pt-2">
+                        <div class="row mt-2 d-flex">
                             <div class="col-md-4 form-group">
                                 <label class="font-weight-bold">Facility Name</label>
-                                <select class="custom-select" formControlName="facilityName" (ngModelChange)="setFacilityName($event, i)">
+                                <select class="custom-select" formControlName="facilityNameEnglish" (ngModelChange)="setFacilityName($event, i)">
                                     <option [value]="null" selected hidden>Select Loan Facility</option>
                                     <option *ngFor="let loanFacility of loanFacilityList"
-                                            [value]="loanFacility.nepaliName">{{loanFacility.name}}||{{loanFacility.nepaliName}}
+                                            [value]="loanFacility.name">{{loanFacility.name}}||{{loanFacility.nepaliName}}
                                     </option>
                                 </select>
+                            </div>
+                            <div class="ml-3" *ngIf="existingLoanCombinedForm.get(['existingLoanFormArray', i, 'facilityNameEnglish']).value === 'EDUCATION LOAN COMBINED'">
+                                <label><strong> Security Type</strong></label>
+                                <nb-select
+                                        formControlName="securityType"
+                                        fullWidth
+                                        placeholder="Security Type">
+                                    <nb-option value="TD"> TD </nb-option>
+                                    <nb-option value="LAND"> Land </nb-option>
+                                    <nb-option value="LAND_BUILDING"> Land And Building </nb-option>
+                                </nb-select>
                             </div>
                         </div>
                         <div class="row pt-4">

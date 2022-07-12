@@ -113,7 +113,8 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
             interestRateCT: [undefined],
 
             interestRateType: [undefined],
-            facilityNameEnglish: [undefined]
+            facilityNameEnglish: [undefined],
+            securityType: [undefined],
         });
     }
 
@@ -157,15 +158,11 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
     setInterestRateType(data) {
     }
 
-    // isExistingLoanCheck(data) {
-    //     this.addLoanFormArr();
-    // }
-
     setFacilityName(eve: any, i: number) {
         if (!ObjectUtil.isEmpty(eve)) {
             this.loanFacilityList.forEach((val: any) => {
-                if (eve === val.nepaliName) {
-                    this.existingLoanCombinedForm.get(['existingLoanFormArray', i, 'facilityNameEnglish']).patchValue(val.name);
+                if (eve === val.name) {
+                    this.existingLoanCombinedForm.get(['existingLoanFormArray', i, 'facilityName']).patchValue(val.nepaliName);
                 }
             });
         }
