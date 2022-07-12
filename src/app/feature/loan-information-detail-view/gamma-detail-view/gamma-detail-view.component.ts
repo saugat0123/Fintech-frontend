@@ -86,6 +86,7 @@ export class GammaDetailViewComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
             this.securityId = this.loanHolder.security.id;
         }
+        console.log('this.loanDataHolder', this.loanDataHolder);
     }
 
   getAllLoans(customerInfoId: number): void {
