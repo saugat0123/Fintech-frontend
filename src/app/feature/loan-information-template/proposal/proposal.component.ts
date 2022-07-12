@@ -19,11 +19,11 @@ import {IncomeFromAccountComponent} from '../income-from-account/income-from-acc
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {CombinedLoan} from '../../loan/model/combined-loan';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
 import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
+import {FinancialAccountInformationComponent} from '../financial-account-information/financial-account-information.component';
 
 @Component({
     selector: 'app-proposal',
@@ -42,6 +42,7 @@ export class ProposalComponent implements OnInit {
     @Input() loan: LoanDataHolder;
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
+    @ViewChild('financialAccountComponent', {static: false}) financialAccountInformationComponent: FinancialAccountInformationComponent;
     @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
     @Input() loanList = [];
@@ -149,6 +150,7 @@ export class ProposalComponent implements OnInit {
     removeFromCombinedLoan = false;
     withIn = false;
     withInLoanId;
+    shareType;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -170,9 +172,12 @@ export class ProposalComponent implements OnInit {
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
-            this.withIn = this.loan.withIn;
+            this.withIn = this.loan.withIn ? this.loan.withIn : false;
             if (this.withIn) {
                 this.withInLoanId = this.loan.withInLoan;
+            }
+            if (!ObjectUtil.isEmpty(this.loan.shareType)) {
+                this.shareType = this.loan.shareType;
             }
             this.formDataForEdit = JSON.parse(this.formValue.data);
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
@@ -287,7 +292,7 @@ export class ProposalComponent implements OnInit {
 
         this.loanFormService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
-            this.customerGroupLoanList = this.customerGroupLoanList.filter(d => d.documentStatus.toString() !== 'APPROVED' && d.documentStatus.toString() !== 'REJECTED');
+            this.customerGroupLoanList = this.customerGroupLoanList.filter(d => d.documentStatus.toString() !== 'APPROVED' && d.documentStatus.toString() !== 'REJECTED' && d.id !== this.loan.id);
             if (!ObjectUtil.isEmpty(this.loan.loanHolder.existingExposures)) {
                     this.loan.loanHolder.existingExposures.forEach((e) => {
                         if (e.docStatus.toString() === 'APPROVED') {
@@ -300,13 +305,10 @@ export class ProposalComponent implements OnInit {
                             loan.loan = e.loanConfig;
                             loan.securities = [];
                             loan.documentStatus = e.docStatus;
-                            loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                            loan.loanType = (e.loanType)  as LoanType;
                             this.customerGroupLoanList.push(loan);
                         }
                     });
-            }
-            if (this.loan.id) {
-                console.log(this.customerGroupLoanList.indexOf(this.loan));
             }
         });
     }
@@ -420,6 +422,7 @@ export class ProposalComponent implements OnInit {
             riskConclusionRecommendation: [undefined],
             summeryRecommendation: undefined,
             purposeOfLoan: undefined,
+            remarkFullOrPartial: undefined,
             termsAndCondition: undefined,
             prepaymentSwapCommitment: [undefined],
             existCashMargin: [undefined],
@@ -551,15 +554,21 @@ export class ProposalComponent implements OnInit {
             // Proposed Limit value--
         } else {
             this.securityAdderComponent.save();
+            if (this.isShare && ObjectUtil.isEmpty(this.shareType)) {
+                return this.toastService.show(new Alert(AlertType.WARNING, 'Share Type is Missing Please Select Share Type'));
+            } else {
+                this.loan.shareType = this.shareType;
+            }
+            this.financialAccountInformationComponent.submitForm();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
             }
             if (this.withIn) {
-                if (ObjectUtil.isEmpty(this.withInLoanId)) {
-                    this.toastService.show(new Alert(AlertType.WARNING, 'Please Select Within Loan'));
-                    return;
-                }
+                // if (ObjectUtil.isEmpty(this.withInLoanId)) {
+                //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Select Within Loan'));
+                //     return;
+                // }
                 this.loan.withIn = this.withIn;
                 this.loan.withInLoan = this.withInLoanId;
             }
@@ -1012,6 +1021,9 @@ export class ProposalComponent implements OnInit {
     }
 
 
+    financialAccount(data?: any) {
+        this.loan = data;
+    }
 
     guarantors(guarantors) {
         this.loan.taggedGuarantors = guarantors;
@@ -1104,6 +1116,7 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('riskConclusionRecommendation').setValue(formDataForEdit.riskConclusionRecommendation);
         this.proposalForm.get('summeryRecommendation').setValue(formDataForEdit.summeryRecommendation);
         this.proposalForm.get('purposeOfLoan').setValue(formDataForEdit.purposeOfLoan);
+        this.proposalForm.get('remarkFullOrPartial').setValue(formDataForEdit.remarkFullOrPartial);
         this.proposalForm.get('termsAndCondition').setValue(formDataForEdit.termsAndCondition);
         this.proposalForm.get('prepaymentSwapCommitment').setValue(formDataForEdit.prepaymentSwapCommitment);
         this.proposalForm.get('existCashMargin').setValue(formDataForEdit.existCashMargin);

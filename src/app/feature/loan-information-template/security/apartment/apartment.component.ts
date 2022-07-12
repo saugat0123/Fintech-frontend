@@ -82,7 +82,7 @@ export class ApartmentComponent implements OnInit {
           buildingTotalCost: [formData.buildingTotalCost],
           fairMarketValue: [formData.fairMarketValue],
           considerValue: [formData.considerValue],
-          distressValue: [formData.distressValue],
+          // distressValue: [formData.distressValue],
           buildingDistressValue: [formData.buildingDistressValue],
           buildingDetailsDescription: [formData.buildingDetailsDescription],
           ApartmentValuator: [formData.ApartmentValuator],
@@ -190,7 +190,7 @@ export class ApartmentComponent implements OnInit {
       buildingTotalCost: [undefined],
       fairMarketValue: [undefined],
       considerValue: [undefined],
-      distressValue: [undefined],
+      // distressValue: [undefined],
       buildingDistressValue: [undefined],
       buildingDetailsDescription: [undefined],
       ApartmentValuator: [undefined],
@@ -505,6 +505,11 @@ export class ApartmentComponent implements OnInit {
 
   public onSubmit(): void {
 
+  }
+
+  public patchConsiderValue(index, formControl) : void {
+    const tempFairValue = this.apartmentForm.get(['buildingDetails', index, formControl]).value;
+    this.apartmentForm.get(['buildingDetails', index, 'considerValue']).patchValue(tempFairValue);
   }
 
 }

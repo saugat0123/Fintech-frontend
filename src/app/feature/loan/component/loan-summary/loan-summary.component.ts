@@ -212,6 +212,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     combined = false;
     allLoanList = [];
     combinedLoanList = [];
+    proposedLoan: LoanDataHolder [] = [];
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -542,6 +543,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
                                 next: (res) => {
                                     this.combinedLoanList = res.detail.loans;
+                                    this.proposedLoan = this.combinedLoanList;
                                     (res.detail as CombinedLoan).loans.forEach((cl) => {
                                         this.loanSecurity = this.loanSecurity.concat(cl.securities);
                                         const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
@@ -562,6 +564,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         this.customerAllLoanList = [];
                         this.loanSecurity = this.loanDataHolder.securities;
                         this.customerAllLoanList.push(this.loanDataHolder);
+                        this.proposedLoan.push(this.loanDataHolder);
                     }
                     this.allLoanList = this.customerAllLoanList;
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
@@ -577,6 +580,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 loan.securities = [];
                                 loan.documentStatus = e.docStatus;
                                 loan.loanType = e.loanType as LoanType;
+                                loan.withIn = e.withIn;
                                 this.customerAllLoanList.push(loan);
                             }
                         });

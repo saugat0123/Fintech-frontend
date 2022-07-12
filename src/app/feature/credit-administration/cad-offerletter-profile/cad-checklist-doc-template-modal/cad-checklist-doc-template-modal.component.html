@@ -64,6 +64,16 @@
                         [cadData]="cadData"
                         [documentId]="documentId"
                         [customerLoanId]="customerLoanId"></app-hypothecation-charge-over-fixed-assets>
+                <app-consent-of-sellers-hakwala
+                        *ngSwitchCase="cadTemplate.CONSENT_OF_SELLERS_HAKWALA"
+                        [cadData]="cadData"
+                        [documentId]="documentId"
+                        [customerLoanId]="customerLoanId"></app-consent-of-sellers-hakwala>
+                <app-guarantor-acknowledgement
+                        *ngSwitchCase="cadTemplate.GUARANTOR_ACKNOWLEDGEMENT"
+                        [cadData]="cadData"
+                        [documentId]="documentId"
+                        [customerLoanId]="customerLoanId"></app-guarantor-acknowledgement>
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
         </div>

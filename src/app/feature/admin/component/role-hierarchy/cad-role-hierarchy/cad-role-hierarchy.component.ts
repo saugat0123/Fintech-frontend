@@ -36,7 +36,7 @@ export class CadRoleHierarchyComponent implements OnInit {
 
 
   ngOnInit() {
-
+      this.isDisabled = true;
       this.approvalType = 'CAD';
       this.refId = 0;
 
@@ -51,7 +51,7 @@ export class CadRoleHierarchyComponent implements OnInit {
 
   drop(event: CdkDragDrop<ApprovalRoleHierarchy[]>) {
     this.approvalRoleHierarchies = [];
-
+    this.isDisabled = false;
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -70,6 +70,7 @@ export class CadRoleHierarchyComponent implements OnInit {
   }
 
   removeItem(index: number) {
+    this.isDisabled = false;
     console.log(this.approvalRoleHierarchies.splice(index, 1));
   }
 
@@ -77,7 +78,6 @@ export class CadRoleHierarchyComponent implements OnInit {
     this.spinner = true;
     this.isDisabled = true;
     this.service.saveAll(this.approvalRoleHierarchies).subscribe((response: any) => {
-      this.isDisabled = false;
       this.spinner = false;
       this.defaultRoleHierarchies = response.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Approval Role Order!'));
@@ -90,6 +90,7 @@ export class CadRoleHierarchyComponent implements OnInit {
   }
 
   reset() {
+    this.isDisabled = false;
     this.service.getDefault(this.approvalType, this.refId).subscribe((res: any) => {
       this.defaultRoleHierarchies = res.detail;
       this.approvalRoleHierarchies = this.defaultRoleHierarchies;

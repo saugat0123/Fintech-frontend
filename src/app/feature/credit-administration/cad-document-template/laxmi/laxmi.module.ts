@@ -37,6 +37,8 @@ import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-lax
 import {NgSelectModule} from '@ng-select/ng-select';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ThemeModule} from '../../../../@theme/theme.module';
+import { ConsentOfSellersHakwalaComponent } from './laxmi-offer-letter/consent-of-sellers-hakwala/consent-of-sellers-hakwala.component';
+import { GuarantorAcknowledgementComponent } from './laxmi-offer-letter/guarantor-acknowledgement/guarantor-acknowledgement.component';
 
 
 @NgModule({
@@ -68,7 +70,9 @@ import {ThemeModule} from '../../../../@theme/theme.module';
         ConsentOfHakwalaComponent,
         MortgageDeedLaxmiComponent,
         HypothecationChargeOverFixedAssetsComponent,
-        OfferLetterLaxmiComponent],
+        OfferLetterLaxmiComponent,
+        ConsentOfSellersHakwalaComponent,
+        GuarantorAcknowledgementComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -81,23 +85,25 @@ import {ThemeModule} from '../../../../@theme/theme.module';
         CKEditorModule,
         ThemeModule,
     ],
-  exports: [
-    LoanDeedIndividualComponent,
-    PromisoryNoteIndividualComponent,
-    SelfDeclarationComponent,
-    NrbKycComponent,
-    LoanDeedInstitutionalComponent,
-    PromisoryNoteInstitutionalComponent,
-    PersonalGuaranteeInstitutionalComponent,
-    PersonalGuaranteeIndividualComponent,
-    HypothecationOverStockAndReceivableCurrentAssetsComponent,
-    ConsentOfHakwalaComponent,
-    CorporateGuranteeComponent,
-    ConsentOfHakwalaComponent,
-    MortgageDeedLaxmiComponent,
-    HypothecationChargeOverFixedAssetsComponent,
-      OfferLetterLaxmiComponent
-  ],
+    exports: [
+        LoanDeedIndividualComponent,
+        PromisoryNoteIndividualComponent,
+        SelfDeclarationComponent,
+        NrbKycComponent,
+        LoanDeedInstitutionalComponent,
+        PromisoryNoteInstitutionalComponent,
+        PersonalGuaranteeInstitutionalComponent,
+        PersonalGuaranteeIndividualComponent,
+        HypothecationOverStockAndReceivableCurrentAssetsComponent,
+        ConsentOfHakwalaComponent,
+        CorporateGuranteeComponent,
+        ConsentOfHakwalaComponent,
+        MortgageDeedLaxmiComponent,
+        HypothecationChargeOverFixedAssetsComponent,
+        OfferLetterLaxmiComponent,
+        ConsentOfSellersHakwalaComponent,
+        GuarantorAcknowledgementComponent
+    ],
     entryComponents: [
         LaxmiOfferLetterComponent
     ]

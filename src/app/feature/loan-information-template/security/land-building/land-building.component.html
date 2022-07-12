@@ -118,11 +118,11 @@
                     </div>
                 </div>
                 <div [formGroupName]="i.toString()">
-                    <ng-container *ngIf="customerType === 'INSTITUTION'">
+                   <!-- <ng-container *ngIf="customerType === 'INSTITUTION'">
                         <input type="checkbox" formControlName="underConstructionChecked"> Check if Land & Building is
                         Under Construction
                         <br>
-                    </ng-container>
+                    </ng-container>-->
                     <input type="checkbox" formControlName="landBuildingOtherBranchChecked"> Property on another
                     branch location
                     <div class="row pt-2">
@@ -254,7 +254,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="distressValue">Land Market Value</label>
+                                <label class="title" for="distressValue"> Market Value of Land</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        id="distressValue"
@@ -266,7 +266,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landBuildingRate">Land Rate</label>
+                                <label class="title" for="landBuildingRate">Land Realisable Rate</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        formControlName="landBuildingRate"
@@ -290,7 +290,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="distressValue"> Building Market Value</label>
+                                <label class="title" for="distressValue">Market Value of Building</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        formControlName="apartmentDistressValue"
@@ -301,7 +301,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landBuildingRate">Building Rate</label>
+                                <label class="title" for="landBuildingRate">Building Realisable Rate</label>
                                 <input (input)="calConsiderValue('landBuilding', i)"
                                        class="form-control rounded"
                                        formControlName="apartmentRate"
@@ -330,6 +330,7 @@
                                         class="form-control rounded"
                                         formControlName="totalMarketValue"
                                         id="totalMarketValue"
+                                        readonly
                                         placeholder="Total Market Value"
                                         name="totalMarketValue"
                                         type="number" appDecimalNumber/>
@@ -349,7 +350,7 @@
                                         type="number" appDecimalNumber/>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <!--<div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="getLocation">Geo Location</label>
                                 <input
@@ -384,7 +385,7 @@
                                         name="registerOffice"
                                         type="text"/>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title">Building Realisable Value</label>
@@ -392,13 +393,14 @@
                                        class="form-control rounded"
                                        formControlName="totalApartmentRealisableValue"
                                        id="totalLandBuildingRatesa"
+                                       readonly
                                        placeholder="Rate"
                                        name="landBuildingRate"
                                        type="number" appDecimalNumber/>
                             </div>
                         </div>
 
-                        <div class="col-md-3 ">
+                        <!--<div class="col-md-3 ">
                             <label for="province">Province</label>
                             <ng-select [items]="provinces"
                                     bindLabel="name"
@@ -443,12 +445,13 @@
                                       placeholder="Address Line Two"
                                       rows="5"
                                       type="text" maxlength="256"></textarea>
-                        </div>
+                        </div>-->
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="landConsideredValue">Total Realisable Value</label>
                                 <input [ngClass]="{ 'is-invalid': (submitted) && (landAndBuilding.get('landConsideredValue').errors)}"
                                        class="form-control" formControlName="landConsideredValue"
+                                       readonly
                                        id="landConsideredValue" name="total" placeholder="Realisable Value"
                                        type="number" appDecimalNumber>
                                 <div *ngIf="(submitted) && (landAndBuilding.get('landConsideredValue').invalid)"
@@ -784,10 +787,8 @@
                         <!--                        </div>-->
 
                     </div>
-
-
                     <hr>
-                    <div *ngIf="landBuildingForm.get(['landBuilding',i,'underConstructionChecked']).value">
+                    <!--<div *ngIf="landBuildingForm.get(['landBuilding',i,'underConstructionChecked']).value">
                         <p><b>Land And Building Under Construction Detail</b></p>
                         <div class="row">
                             <div class="col-md-3">
@@ -928,7 +929,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div>-->
                 </div>
             </div>
 

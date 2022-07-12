@@ -278,7 +278,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
                         loan.loan = e.loanConfig;
                         loan.securities = [];
                         loan.documentStatus = e.docStatus;
-                        loan.loanType = LoanType.getKeyByValue(e.loanType) as LoanType;
+                        loan.loanType = (e.loanType) as LoanType;
+                        loan.withIn = e.withIn;
                         this.customerAllLoanList.push(loan);
                     }
                 });

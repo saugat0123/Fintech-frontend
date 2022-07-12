@@ -230,7 +230,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
 
     getQuestionList() {
         this.spinner = true;
-        this.questionService.getAllQuestionsByBusinessType(this.companyInfo.businessType).subscribe((res: any) => {
+        this.questionService.getAllQuestionsByBusinessType(this.companyInfo ? this.companyInfo.businessType : 'INDIVIDUAL').subscribe((res: any) => {
             const questionsList = res.detail;
             this.crgQuestionsList = questionsList.filter(q => {
                 return q.status === Status.ACTIVE;

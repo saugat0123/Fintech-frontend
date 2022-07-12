@@ -541,4 +541,20 @@ export class CommonLoanInformationComponent implements OnInit {
         this.commonLoanForm.get(['data', i, 'proposalData']).get('justification').setValue(formDataForEdit.justification);
         this.commonLoanForm.get(['data', i, 'proposalData']).get('currentRequest').setValue(formDataForEdit.currentRequest);
     }
+
+    fullSettle(id) {
+        this.spinnerService.show();
+        this.customerInfoService.saveExposureToLoan(id, this.customerInfo.id).subscribe({
+            next: (res: any) => {
+            },
+            error: (err: any) => {
+                this.spinnerService.hide();
+                this.toastService.show(new Alert(AlertType.ERROR,  err.toString()));
+            },
+            complete: () => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Converted To Loan'));
+                this.spinnerService.hide();
+            }
+        });
+    }
 }

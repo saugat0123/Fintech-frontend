@@ -146,7 +146,10 @@
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
-            <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
+                <!--     Group Summary Sheet    -->
+                <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+
+                <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
                                            [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
                                            [combinedLoan]="combinedLoanList"

@@ -88,12 +88,6 @@ input::-webkit-input-placeholder {
   font-size: 14px;
 }
 
-ol.conditions-list{
-  list-style: devanagari;
-  line-height: 40px !important;
-  text-align: justify !important;
-}
-
 @media screen {
   .print-only {
     display: none;
@@ -123,9 +117,4 @@ ol.conditions-list{
 }
 .printFont{
   font-size: 14px;
-}
-ol.order-list > li {
-  margin: 10px 0;
-  padding-left: 20px;
-  line-height: 1.9;
 }

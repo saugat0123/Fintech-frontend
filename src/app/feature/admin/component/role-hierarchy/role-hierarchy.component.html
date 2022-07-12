@@ -25,7 +25,16 @@
             <div [ngClass]="isOfferLetter ? 'col-md-6':'col-md-12'">
                 <nb-card>
                     <nb-card-header class="sb-bg-dark text-white">
-                        Role Order
+                        <div class="row">
+                            <div class="col-md-8">Role Order</div>
+                            <div class="col-md-4">
+                                <div class="text-right">
+                                    <button nbButton status="primary" (click)="reset()" nbTooltip="Reset Role Hierarchy" size="tiny">
+                                        <i class="fa fa-retweet"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </nb-card-header>
                     <nb-card-body>
                         <div *ngIf="!length">

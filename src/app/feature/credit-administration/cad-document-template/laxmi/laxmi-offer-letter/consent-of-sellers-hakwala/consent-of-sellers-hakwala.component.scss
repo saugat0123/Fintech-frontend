@@ -1,0 +1,77 @@
+
+  .cdk-global-overlay-wrapper, .cdk-overlay-container {
+    width: 100%;
+  }
+
+  input::-webkit-input-placeholder {
+    font-size: 14px;
+  }
+
+  .nepali {
+    font-size: 14px;
+    line-height: 40px;
+    margin: 10px 50px;
+    @extend .text-justify;
+  }
+
+  .text-justify,
+  .text-justify p {
+    line-height: 40px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .form-control-xsm,
+  .form-control-sm,
+  .form-control-lg {
+    width: 100%;
+    min-height: 35px;
+    margin-bottom: 5px;
+  }
+
+  .form-control-xsm {
+    max-width: 100px;
+  }
+
+  .form-control-lg {
+    max-width: 600px;
+  }
+
+  .viewFull {
+    max-height: 85vh;
+  }
+
+  .form-field {
+    background: yellow;
+    margin: 0px 5px;
+    border: 0;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    border-bottom: 1px solid black;
+    padding: 0 10px;
+    height: auto;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .form-control-sm {
+    max-width: 200px;
+  }
+
+  @media screen {
+    .print-only {
+      display: none;
+    }
+
+    .disable-print {
+      display: inline;
+
+    }
+  }
+
+  @page {
+    size: A4;
+    margin: 17mm 17mm 17mm 17mm;
+  }

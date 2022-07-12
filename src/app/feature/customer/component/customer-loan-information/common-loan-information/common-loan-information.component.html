@@ -6,6 +6,7 @@
                     <div class="nb-card-header"><p><b>Loan Name: {{controls?.get('loanName')?.value}}</b></p>
                         <p><b>Loan Type: {{controls?.get('loanType')?.value}}</b></p>
                         <p><b>Loan Nature: {{controls?.get('loanConfig')?.value?.loanNature}}</b></p>
+                        <p *ngIf="conditionalArray[i]?.isShare"><b>Share Type: {{commonLoans[i]?.shareType}}</b></p>
                         <a class="px-2 cursor float-right" nbTooltip="Reset Data" *ngIf="controls?.get('loanId')?.value"
                            (click)="resetData(controls?.get('loanId')?.value, i)">
                             <em class="fa fa-undo"></em>
@@ -40,6 +41,31 @@
                                 </select>
                             </div>
                         </div>
+                        <div *ngIf="conditionalArray[i]?.isShare" class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="shareType"><strong>Share Type</strong></label>
+                                <select
+                                        class="form-control"
+                                        [(ngModel)]="commonLoans[i].shareType"
+                                        [ngModelOptions]="{standalone: true}"
+                                        id="shareType" name="shareType">
+                                    <option [ngValue]="null" hidden>Select Share Type</option>
+                                    <option value="PROMOTER">Promoter</option>
+                                    <option value="ORDINARY">Ordinary</option>
+                                </select>                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <nb-checkbox [(ngModel)]="commonLoans[i].withIn" name="withIn"
+                                             [ngModelOptions]="{standalone: true}">With In ?
+                                </nb-checkbox>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" *ngIf="!controls?.get('loanId')?.value && controls?.get('id')?.value">
+                        <button ngbTooltip="Click To Full Settle The Loan"  class="float-right" nbButton
+                                (click)="fullSettle(controls?.get('id').value)"><i class="fa fa-fast-forward"></i></button>
                     </div>
                     <div class="row" [formGroup]="controls?.get('proposalData')">
                         <div class="col-md-4">
@@ -476,7 +502,6 @@
                                             value="PERCENT"><strong> % </strong>
                                     <input formControlName="swapChargeMethod" name="swapChargeMethod"
                                            type="radio" value="FLAT"><strong> Flat</strong>
-                                    &nbsp
                                 </div>
                                 <input
                                         class="form-control" formControlName="swapCharge"
