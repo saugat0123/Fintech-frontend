@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         if (environment.production && environment.autoReload) {
-            this.versionCheckService.initVersionCheck(ApiConfig.URL); // url must be set same as server url
+            this.versionCheckService.initVersionCheck(environment.versionCheckUrl);
         }
     }
 }
