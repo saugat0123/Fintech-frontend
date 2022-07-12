@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { ReleaseInfoComponent } from "../../@core/release-info/release-info.component";
-import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ReleaseInfoComponent } from '../../@core/release-info/release-info.component';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class VersionCheckService {
   reminder = false;
   frequency: number;
   interval;
   // this will be replaced by actual hash post-build.js
-  private currentHash = "{{POST_BUILD_ENTERS_HASH_HERE}}";
+  private currentHash = '{{POST_BUILD_ENTERS_HASH_HERE}}';
 
   constructor(private http: HttpClient, private modal: NgbModal) {}
 
@@ -49,7 +49,7 @@ export class VersionCheckService {
         this.currentHash = hash;
       },
       (err) => {
-        console.error(err, "Could not get version");
+        console.error(err, 'Could not get version');
       }
     );
   }
@@ -63,7 +63,7 @@ export class VersionCheckService {
    * returns {boolean}
    */
   private hasHashChanged(currentHash, newHash) {
-    if (!currentHash || currentHash === "{{POST_BUILD_ENTERS_HASH_HERE}}") {
+    if (!currentHash || currentHash === '{{POST_BUILD_ENTERS_HASH_HERE}}') {
       return false;
     }
     return currentHash !== newHash;
@@ -71,7 +71,7 @@ export class VersionCheckService {
 
   public openForm(url) {
     const options: NgbModalOptions = {
-      backdrop: "static",
+      backdrop: 'static',
       keyboard: false,
     };
 
