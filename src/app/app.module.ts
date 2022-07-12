@@ -29,7 +29,7 @@ import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
-
+import { ReleaseInfoComponent } from './@core/release-info/release-info.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +40,7 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         LoginBaseComponent,
         NewPasswordComponent,
         TimeOutPopUpComponent,
+        ReleaseInfoComponent
 
     ],
     imports: [
@@ -74,7 +75,7 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
     exports: [
 
     ],
-    entryComponents: [TimeOutPopUpComponent]
+    entryComponents: [TimeOutPopUpComponent, ReleaseInfoComponent]
 
 })
 export class AppModule {

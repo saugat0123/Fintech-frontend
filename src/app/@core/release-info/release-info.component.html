@@ -1,0 +1,36 @@
+<div class="modal-content">
+    <div class="modal-body p-5">
+        <div class="row" *ngIf="!remind">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5>{{'New Update(s) Detected !'}}</h5>
+                    <p class="text-primary text-justify">New update is release. It is recommended that you to update your application to the latest version to view the changes.</p>
+                    <p>Please refresh to continue. . .</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="remind">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label> We will remind after within 10 minutes! </label>
+              </div>
+            </div>
+        </div>
+        <div class="row mb-4 float-right" *ngIf="!remind">
+            <div class="col-md-12">
+              <button (click)=onUpdateNewChanges() class="btn float-left" nbButton size="small" status="info"
+                      shape="rectangle" type="submit">Reload Update</button>
+              <button (click)=reminder() class="btn ml-2" nbButton size="small" status="info"
+                      shape="rectangle" type="submit">Remind me Later</button>
+            </div>
+        </div>
+        <div class="row text-center" *ngIf="remind">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label> Closing after {{time}} seconds. </label>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
