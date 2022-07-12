@@ -345,14 +345,14 @@
       <nb-card-body>
         <div class="row" *ngIf="maker">
           <div class="col-md-4">
-            <select [(ngModel)]="selectedLoanType"
-                    class="form-control rounded" name="loanType" required>
-              <option [ngValue]="'NEW_LOAN'" hidden>New Loan</option>
 <!--            <select [(ngModel)]="selectedLoanType"-->
 <!--                    class="form-control rounded" name="loanType" required>-->
-<!--              <option [ngValue]="undefined" hidden> Select Loan Type</option>-->
-<!--              <option *ngFor="let list of multipleSelectedLoanType"-->
-<!--                      [ngValue]="list.key">{{list.value}}</option>-->
+<!--              <option [ngValue]="'NEW_LOAN'" hidden>New Loan</option>-->
+            <select [(ngModel)]="selectedLoanType"
+                    class="form-control rounded" name="loanType" required>
+              <option [ngValue]="undefined" hidden> Select Loan Type</option>
+              <option *ngFor="let list of multipleSelectedLoanType"
+                      [ngValue]="list.key">{{list.value}}</option>
             </select>
           </div>
           <div class="col-md-3">

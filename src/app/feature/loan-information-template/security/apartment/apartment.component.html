@@ -214,21 +214,22 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
+                                    <label class="title" for="buildingTotalCost">Total Cost of Apartment</label>
                                     <input class="form-control rounded"
                                            formControlName="buildingTotalCost"
                                            id="buildingTotalCost"
-                                           name="buildingTotalCost" placeholder="Apartment Total Cost"
+                                           name="buildingTotalCost" placeholder="Total Cost of Apartment"
                                            type="number" readonly/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="fairMarketValue">Apartment Fair Market Value</label>
+                                    <label class="title" for="fairMarketValue">Fair Market Value of Apartment</label>
                                     <input class="form-control rounded"
                                            formControlName="fairMarketValue"
+                                           (input)="patchConsiderValue(i,'fairMarketValue')"
                                            id="fairMarketValue"
-                                           name="fairMarketValue" placeholder="Apartment Fair Market Value"
+                                           name="fairMarketValue" placeholder="Fair Market Value of Apartment"
                                            type="text" appDecimalNumber/>
                                 </div>
                             </div>
@@ -239,6 +240,7 @@
                                     <input class="form-control rounded"
                                            formControlName="considerValue"
                                            id="considerValue"
+                                           readonly
                                            name="considerValue" placeholder="Consider Value"
                                            type="text" appDecimalNumber/>
                                 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ObjectUtil } from '../../../@core/utils/ObjectUtil';
 import { LoanDataHolder } from '../../loan/model/loanData';
@@ -12,6 +12,7 @@ export class FinancialAccountInformationComponent implements OnInit {
   financialAccountForm: FormGroup;
   @Input() financialFormValue: LoanDataHolder;
   @Input() fromLoan: boolean;
+  @Output() financialAccountEmitter = new EventEmitter();
   financialData;
 
   constructor(
@@ -66,7 +67,8 @@ export class FinancialAccountInformationComponent implements OnInit {
   }
 
   submitForm() {
-    this.financialData = JSON.stringify(this.financialAccountForm.value);
+    this.financialFormValue.financialAccountInformation = JSON.stringify(this.financialAccountForm.value);
+    this.financialAccountEmitter.emit(this.financialFormValue);
   }
 
 }
