@@ -117,6 +117,28 @@
                                   formControlName="termsAndCondition"></ckeditor>
                     </div>
                 </div>
+                <ng-container *ngIf="isSbk">
+                    <div class="col-md-12 form-group">
+
+                        <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
+                                     [checked]="borrowChecked"><b>Borrowing Case</b>
+                        </nb-checkbox>
+                        <div *ngIf="borrowChecked">
+                            <ckeditor formControlName="borrowingCase"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+
+                        <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
+                                     [checked]="endUseChecked"><b>End use of Fund</b>
+                        </nb-checkbox>
+                        <div *ngIf="endUseChecked">
+                            <ckeditor formControlName="endUseOfFund"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </ng-container>
                 <div class="col-md-12">
                     <div class="form-group">
                         <nb-checkbox (change)="checkChecked($event.target?.checked,'net')"
