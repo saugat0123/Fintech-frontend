@@ -209,8 +209,8 @@ export class SecurityInitialFormComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.formData['files'])) {
                 this.files = JSON.parse(this.formData['files']);
             }
-            if (!ObjectUtil.isEmpty(this.formData['securityDocument'])) {
-                this.securityDocumentFormValue = this.formData['securityDocument'];
+            if (!ObjectUtil.isEmpty(this.formData['initialForm']['securityDocument'])) {
+                this.securityDocumentFormValue = this.formData['initialForm']['securityDocument'];
             }
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -1945,9 +1945,10 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
-        const securityData = JSON.stringify(this.securityDocument.securityDocumentForm.value);
-        this.securityForm.get('securityDocument').patchValue(securityData);
-
+        if (!ObjectUtil.isEmpty(this.securityDocument)) {
+            const securityData = JSON.stringify(this.securityDocument.securityDocumentForm.value);
+            this.securityForm.get('securityDocument').patchValue(securityData);
+        }
         if (this.ownerKycRelationInfoCheckedForLand) {
             this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
         }
