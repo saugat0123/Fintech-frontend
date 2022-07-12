@@ -10,6 +10,8 @@ import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {BankingRelationship} from '../../admin/modal/banking-relationship';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-cicl',
@@ -17,7 +19,8 @@ import {BankingRelationship} from '../../admin/modal/banking-relationship';
   styleUrls: ['./cicl.component.scss']
 })
 export class CiclComponent implements OnInit {
-  @Input() ciclValue: CiclArray;
+    @Input() ciclValue: CiclArray;
+    @Input() customerInfoId: number;
     // @Input() calendarType: CalendarType;
 
   @Input() fromProfile: boolean;
@@ -44,6 +47,7 @@ export class CiclComponent implements OnInit {
       private formBuilder: FormBuilder,
       private toastService: ToastService,
       private el: ElementRef,
+      private customerInfoService: CustomerInfoService
   ) {
   }
 
@@ -266,5 +270,18 @@ export class CiclComponent implements OnInit {
         } else if (type === 'banking') {
             this.bankingRelationChecked = event;
         }
+    }
+
+    download() {
+        this.customerInfoService.downloadCiclCsv(this.customerInfoId).subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = name;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Download Customer!'));
+        });
     }
 }
