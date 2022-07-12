@@ -40,6 +40,8 @@ export class CommonLoanDataComponent implements OnInit {
     prepaymentChargeChecked = false;
     purposeChecked = false;
     debtChecked = false;
+    borrowChecked = false;
+    endUseChecked = false;
     netChecked = false;
     swapChargeChecked = false;
     subsidizedLoanChecked = false;
@@ -49,6 +51,7 @@ export class CommonLoanDataComponent implements OnInit {
     parsedProposalData;
     finalLoanData: Array<CustomerLoanDto>;
     files = [];
+    isSbk = false;
 
     constructor(private toastService: ToastService,
                 private customerInfoService: CustomerInfoService,
@@ -64,6 +67,9 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.isSbk = true;
+        }
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildProposalCommonForm();
         this.fetchCombinedLoanData();
@@ -81,6 +87,8 @@ export class CommonLoanDataComponent implements OnInit {
             solConclusionRecommendation: [undefined],
             riskConclusionRecommendation: [undefined],
             termsAndCondition: [undefined],
+            borrowingCase: [undefined],
+            endUseOfFund: [undefined],
             shares: this.formBuilder.array([]),
             realState: this.formBuilder.array([]),
             vehicle: this.formBuilder.array([]),
@@ -150,6 +158,8 @@ export class CommonLoanDataComponent implements OnInit {
             prepaymentChargeChecked: this.prepaymentChargeChecked,
             purposeChecked: this.purposeChecked,
             debtChecked: this.debtChecked,
+            borrowChecked: this.borrowChecked,
+            endUseChecked: this.endUseChecked,
             netChecked: this.netChecked,
         };
         const loanList = [];
@@ -237,6 +247,14 @@ export class CommonLoanDataComponent implements OnInit {
                 this.debtChecked = event;
             }
                 break;
+            case 'borrow': {
+                this.borrowChecked = event;
+            }
+                break;
+            case 'endUse': {
+                this.endUseChecked = event;
+            }
+                break;
             case 'net': {
                 this.netChecked = event;
             }
@@ -287,6 +305,8 @@ export class CommonLoanDataComponent implements OnInit {
             this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
             this.checkChecked(data['purposeChecked'], 'purpose');
             this.checkChecked(data['debtChecked'], 'debt');
+            this.checkChecked(data['borrowChecked'], 'borrow');
+            this.checkChecked(data['endUseChecked'], 'endUse');
             this.checkChecked(data['netChecked'], 'net');
         }
     }
