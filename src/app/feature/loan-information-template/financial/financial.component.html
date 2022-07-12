@@ -15,7 +15,7 @@
                     <div [formGroupName]="incomeIndex">
                         <!-- START ROW -->
                         <div class="row">
-                            <div class="col-md-5">
+                           <!-- <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="title"><strong>Income Source</strong></label><strong
                                         class="text-danger">*</strong>
@@ -51,8 +51,7 @@
                                            placeholder="Age of Income Generated(In Months)" type="number" appDecimalNumber>
                                     <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age of Income Generated(In Months) is required</span>
                                 </div>
-                            </div>
-
+                            </div>-->
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
@@ -96,7 +95,7 @@
                                type="button" value="Add More"/>
                     </div>
                 </div>
-              <div class="row" *ngIf="!isBusinessLoan && !disableCrgAlphaParams">
+              <!--<div class="row" *ngIf="!isBusinessLoan && !disableCrgAlphaParams">
                   <div class="col-md-12">
                       <nb-card>
                           <nb-card-body>
@@ -109,7 +108,7 @@
                                       <select id="majorSourceIncomeType" class="form-control"
                                               formControlName="majorSourceIncomeType"
                                               [ngClass]="{'is-invalid': submitted && financialForm.get('majorSourceIncomeType').invalid}">
-                                          <option value="null" hidden selected>--Select Options--</option>
+                                          <option value="null" hidden selected>&#45;&#45;Select Options&#45;&#45;</option>
                                           <option *ngFor="let m of majorSourceIncomeType"
                                                   [value]="m?.value">{{m?.value}}</option>
                                       </select>
@@ -153,7 +152,7 @@
                           </nb-card-body>
                       </nb-card>
                   </div>
-              </div>
+              </div>-->
             </nb-card-body>
         </nb-card>
 

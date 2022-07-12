@@ -63,7 +63,7 @@ export class FinancialComponent implements OnInit {
 
     // Lambda risk factors---
     typeOfSourceOfIncomeArray = TypeOfSourceOfIncomeArray.typeOfSourceOfIncomeArray;
-    majorSourceIncomeType = MajorSourceIncomeType.enumObject();
+    // majorSourceIncomeType = MajorSourceIncomeType.enumObject();
 
     // Financial heading arrays---
     incomeStatementArray = [
@@ -239,7 +239,7 @@ export class FinancialComponent implements OnInit {
                 this.addExpensesOfBorrower();
             }
         }
-        this.checkDisableAlpha();
+        // this.checkDisableAlpha();
     }
 
     buildForm() {
@@ -257,10 +257,10 @@ export class FinancialComponent implements OnInit {
             historicalDataPresent: [true],
             totalWorkingCapitalLimit: [0],
             // crg lambda fields---
-            majorSourceIncomeType: [undefined],
-            periodOfEarning: [undefined],
-            alternateIncomeSource: [undefined],
-            alternateIncomeSourceAmount: [undefined],
+            // majorSourceIncomeType: [undefined],
+            // periodOfEarning: [undefined],
+            // alternateIncomeSource: [undefined],
+            // alternateIncomeSourceAmount: [undefined],
             // grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
@@ -293,11 +293,11 @@ export class FinancialComponent implements OnInit {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    incomeSource: [singleData.incomeSource],
-                    organization: [singleData.organization],
+                    // incomeSource: [singleData.incomeSource],
+                    // organization: [singleData.organization],
                     amount: [singleData.amount],
                     remarks: [singleData.remarks],
-                    ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated],
+                    // ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated],
                 })
             );
         });
@@ -489,11 +489,11 @@ export class FinancialComponent implements OnInit {
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
-                incomeSource: [undefined, Validators.required],
-                organization: [undefined, Validators.required],
+                // incomeSource: [undefined, Validators.required],
+                // organization: [undefined, Validators.required],
                 amount: [undefined, Validators.required],
                 remarks: [undefined, Validators.required],
-                ageOfIncomeGenerated: [undefined, Validators.required],
+                // ageOfIncomeGenerated: [undefined, Validators.required],
             })
         );
     }
@@ -633,7 +633,7 @@ export class FinancialComponent implements OnInit {
         if (this.financialForm.invalid) {
             return;
         }
-        this.calculateAndSetHighestScore();
+        // this.calculateAndSetHighestScore();
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.currentFormData['initialForm'] = this.financialForm.value;
         if (this.isBusinessLoan) {
@@ -687,13 +687,13 @@ export class FinancialComponent implements OnInit {
         });
     }
 
-    checkDisableAlpha() {
+    /*checkDisableAlpha() {
         if (!this.isBusinessLoan && !this.disableCrgAlphaParams) {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], true);
         } else {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         }
-    }
+    }*/
 
     totalMonthlyAmount(expensesOfBorrower: string, totalExpense: string) {
         let total = 0;
