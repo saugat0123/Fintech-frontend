@@ -47,6 +47,11 @@ export class SecurityScheduleComponent implements OnInit {
                     this.totalSecurity += d.fairMarketValue;
             });
         }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.customerShareBatches)) {
+            this.loanDataHolder.loanHolder.customerShareBatches[0].shareSecurity.forEach((share) => {
+               this.totalSecurity += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
+            });
+        }
         this.fixedAssets = this.totalSecurity - Number(this.totalProposedLimit);
             if (this.fixedAssets < 0) {
                 this.fixedAssets = Math.abs(this.fixedAssets);

@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class FinancialJsonParserComponent implements OnInit {
 
     @Input() financialJson;
+    @Input() title;
 
     form: FormGroup;
     schemaIndex = 0;
