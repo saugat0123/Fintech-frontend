@@ -1,0 +1,417 @@
+<div class="nep text-justify" id="{{offerLetterConst.PERSONAL_GUARANTEE_INDIVIDUAL}}Print">
+    <div class="row">
+        <div class="col-md-12">
+          <div>
+                    <h3><p style="text-align: center; font-size:18px"><strong>व्यक्तिगत जमानतको लिखत</strong></p></h3>
+                </div>
+                <div class="nep align">
+                    <div>
+                        <p>
+                            लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका बीणा मार्ग तीनधारा दरवारमार्ग स्थित नबिल
+                            सेन्टरमा मूख्य कार्यालय रहि
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.branchName !== null && letterData?.branchName !== ''}">
+                            {{letterData?.branchName === null || letterData?.branchName === '' ? '___________' : letterData?.branchName}}
+                        </span>
+                            मा शाखा कार्यालय रहेको नबिल बैंक लिमिटेड
+                            (जसलाई यस उप्रान्त "धनी बैंक" भनिएको छ ) को पक्षमा व्यक्तिगत जमानतको लिखत गरी दिने
+                            <strong>
+                                तपसिल खण्ड "ख"
+                            </strong>
+                            मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त <strong>"जमानतदिने"</strong>भनिएको छ आगे.
+                        </p>
+                        <p>
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.grandFatherName !== null && letterData?.grandFatherName !== ''}">
+                            {{letterData?.grandFatherName === null || letterData?.grandFatherName === '' ? '___________' : letterData?.grandFatherName}}
+                        </span>
+                            को नाति/नातिनी बुहारी
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.father_husbandName !== null && letterData?.father_husbandName !== ''}">
+                            {{letterData?.father_husbandName === null || letterData?.father_husbandName === '' ? '___________' : letterData?.father_husbandName}}
+                        </span>
+                            को छोरा/छोरी/श्रीमती
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.district !== null && letterData?.district !== ''}">
+                            {{letterData?.district === null || letterData?.district === '' ? '___________' : letterData?.district}}
+                        </span>
+                            जिल्ला
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.VDCMunicipality !== null && letterData?.VDCMunicipality !== ''}">
+                            {{letterData?.VDCMunicipality === null || letterData?.VDCMunicipality === '' ? '___________' : letterData?.VDCMunicipality}}
+                        </span>
+                            गा.वि.स./नगर वडा नं.
+                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.ward !== null && letterData?.ward !== ''}">
+                            {{letterData?.ward === null || letterData?.ward === '' ? '___________' : letterData?.ward}}
+                        </span>
+                            बस्ने श्री
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.borrowerName !== null && letterData?.borrowerName !== ''}">
+                            {{letterData?.borrowerName === null || letterData?.borrowerName === '' ? '___________' : letterData?.borrowerName}}
+                        </span>
+                        </p>
+                        <p>
+                            (जसलाई यस उप्रान्त <strong>"ऋणी"</strong> भनिएको छ) लाई
+                            <span [ngClass]="{'nepaliFont outside' : letterData?.loanPurpose !== null && letterData?.loanPurpose !== ''}">
+                            {{letterData?.loanPurpose === null || letterData?.loanPurpose === '' ? '___________' : letterData?.loanPurpose}}
+                        </span>
+                            भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकबाट
+                            निज ऋणीको नाममा जारी भएको मिति
+                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.sanctionIssueDate !== null && letterData?.sanctionIssueDate !== ''}">
+                            {{letterData?.sanctionIssueDate === null || letterData?.sanctionIssueDate === '' ? '___________' : letterData?.sanctionIssueDate}}
+                        </span>
+                            नुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग
+                            सुविधाहरु जम्मा रु.
+                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.loanAmount !== null && letterData?.loanAmount !== ''}">
+                            {{letterData?.loanAmount === null || letterData?.loanAmount === '' ? '___________' : letterData?.loanAmount}}
+                        </span>
+                            (अक्षरेपी
+                            <span [ngClass]="{'nepaliFont inside' : letterData?.loanAmountWords !== null && letterData?.loanAmountWords !== ''}">
+                            {{letterData?.loanAmountWords === null || letterData?.loanAmountWords === '' ? '___________' : letterData?.loanAmountWords}}
+                        </span>
+                            तथा भविष्यमा उल्लिखित
+                            ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट
+                            माथवर/हैसियतवाल
+                            व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुंदा उल्लिखित ऋणीले <strong>मलाई/हामीलाई</strong>
+                            जमानत वसी दिनुहोस भनी अनुरोध
+                            गरी तपाईं धनी बैंकमा उपस्थित गराएको तथा तपाई धनीु बैंकबाट समेत निज ऋणीले प्राप्त गरेको/गर्ने
+                            उल्लिखित ऋणकर्जा तथा बैंकिंग सुविधाहरु वापत धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम
+                            व्यक्तिगत रुपमा तिर्ने बुझाउने गरी व्यक्तिगत जमानत दिन <strong>तपाईं/हरुको</strong> मंजुरी छ,छैन भनी सोधनी
+                            हुंदा सोमा <strong>मेरो/हाम्रो</strong> चित्त बुझेकोले देहायका <strong>तपसिल खण्ड क</strong> मा उल्लिखित शर्त वन्देजहरुको
+                            अधिनमा रही तपाईं धनी बैंकको पक्षमा आफ्नो राजीखुसिले यो व्यक्तिगत जमानतको लिखत <strong>गरिदिंए/दियौं</strong>
+                            । निज ऋणीले तपाईं धनी बैंकबाट यसअघि प्राप्त गरेको उपयोग गरेको तथा यस उप्रान्त प्राप्त गर्ने
+                            उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु वापत तपाईं धनी बैंकलाई समय सयममा किस्ता
+                            किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज कमिसन फि शुल्क आदी नतिरी नबुझाई ऋणकर्जा सुविधा
+                            सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले <strong>म/हामी</strong> जमानत दिने उपर दावी लिएमा सो
+                            दावी लिएको मितिले ७ (सात) दिनभित्र <strong>म/हामी</strong> स्वयं तपाई धनी बैंकमा उपस्थित भई सोधखोज गरी सो रकम
+                            कलम चुक्ता भुक्तान <strong>गर्नेछु/छौं</strong> । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी
+                            बांकि राखेमा वा धिङन्याई गरेमा प्रचलित कानून तथा तपाई धनी बैंकको नियमानुसार <strong>म/हामी</strong> जमानत
+                            दिनेलाई ऋणी सरह कारवाही गरी <strong>मेरो/हाम्रो</strong> घरघरानाको्र चलअचल जायजेथाबाट तपाई धनी बैंकको लेना
+                            रकम असूल उपर गरी लिनुहोला । पछि एकाले लिए खाएको रकम कलम <strong>मैले/हामीले</strong> तिर्नु बुझाउनु पर्ने
+                            होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने <strong>छैन/छैनौं</strong>, गरे यसै लिखतले बदर गराई लिनु होला भनी
+                            <strong>मेरो/हाम्रो</strong> मनोमान राजिखुसिले देहाय बमोजिमका साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा
+                            सहिछाप गरी तपाईं धनी बैंकलाई <strong>बुझाएं/बुझायौं</strong> र यसको दोहरी समेत <strong>बुझीलिंए/बुझीलिंयौं</strong> ।
+                        </p>
+                        <p style="text-align: center;font-size: 18px">
+                            <strong>
+                                तपसिल खण्ड "क"
+                            </strong>
+                        </p>
+                        <p style="font-size: 18px">
+                            <strong>
+                                शर्तवन्देजहरुः
+                            </strong>
+                        </p>
+                        <table class="table table-borderless" style="border-collapse: collapse">
+                            <tr>
+                                <td>
+                                    १)
+                                </td>
+                                <td>
+                                    यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु.
+                                    <span [ngClass]="{'nepaliFont outsidenum' : letterData?.loanAmount !== null && letterData?.loanAmount !== ''}">
+                                    {{letterData?.loanAmount === null || letterData?.loanAmount === '' ? '___________' : letterData?.loanAmount}}
+                        </span>
+                                    (अक्षरेपी
+                                    <span [ngClass]="{'nepaliFont inside' : letterData?.loanAmountWords !== null && letterData?.loanAmountWords !== ''}">
+                            {{letterData?.loanAmountWords === null || letterData?.loanAmountWords === '' ? '___________' : letterData?.loanAmountWords}}
+                        </span>
+                                    मात्र) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी,
+                                    शुल्क आदिमा सिमित हुनेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    २)
+                                </td>
+                                <td>
+                                    ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैकिंग सुविधाहरु वापत धनी बैंकलाई समय समयमा
+                                    तिर्नु बुझाउनु पर्ने सांवा व्याज फि कमीसन आदी रकम तिर्ने बुझाउने सम्बन्धमा
+                                    जमानतदिनेको दायित्व मूख्य ऋणी (Principal Debtor) सरह प्राथमीक दायित्व (Primary Liability)
+                                    को रुपमा रहनेछ र सो तिर्न बुझाउन बांकि रकम कलम धनी बैंकले सोझै
+                                    जमानतदिनेसंग माग गर्न सक्नेछ । तर, यस लिखतमा लेखिएको कुनै कुराले ऋणी उपर ऋण असूलीको
+                                    कारवाही गर्न सक्ने धनी बैंकको हकाधिकारमा कुनै वाधा पुग्ने छैन ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ३)
+                                </td>
+                                <td>
+                                    यस लिखत बमोजिमको व्यक्तिगत जमानत धनी बैंकको लागि ऋणीले प्राप्त गरेको ऋणकर्जा
+                                    सुविधाको स्वतन्त्र (Independent) सुरक्षण हो । ऋणीले धनी बैंकको पक्षमा उपलव्ध
+                                    गराएको अन्य सुरक्षण वा धितोको कारणवाट यस जमानतको लिखत बमोजिम जमानतदिने उपर कुनैपनि
+                                    समयमा दाबी लिन धनी बैंकलाई कुनै वाधा पुग्ने छैन ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ४)
+                                </td>
+                                <td>
+                                    धनी बैंकले ऋणीबाट लिन असुल गर्नुपर्ने सम्पूर्ण रकम कलम चुक्ता भुक्तान भएको
+                                    प्रमाणित नभएसम्म यो लिखत बमोजिम जमानतदिनेको दायित्व निरन्तर रुपमा कायम रहनेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ५)
+                                </td>
+                                <td>
+                                    ऋणीको नाममा हाल स्विकृत ऋणकर्जा तथा बैंकिग सुविधाहरु धनी बैंकले आफ्नो तजविजमा
+                                    समयसमयमा नवीकरण, थपघट वा उल्लिखित ऋण स्विकृति पत्रका कुनै शर्तवन्देज कबुलियत फेरबदल
+                                    गर्न वा ऋणीले उपलव्ध गराएका अन्य धितो सुरक्षण परिवर्तन फुकुवा गर्न समेत जमानतदिनेले
+                                    यसै लिखतबाट मंजुरी दिएको मानिनेछ । धनी बैंकको उल्लेखित कार्यले जमानत दिनेकोे
+                                    दायित्वमा कुनै प्रतिकुल असर वा प्रभाव परेको मानिने छैन ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ६)
+                                </td>
+                                <td>
+                                    ऋणी विघटन, खारेज भएको वा टाट पल्टेको घोषणा गरेको वा ऋणीको उद्योग/व्यवसाय वन्द
+                                    भएको वा ऋणीको मृत्यु भएको (प्राकृतिक व्यक्तिको हकमा) वा अन्य यस्तै कुनै कारणबाट
+                                    कानूनी अस्तित्वमा नरहेको कारणले जमानत दिनेको दायित्वमा कुनै प्रतिकूल असर वा प्रभाव
+                                    परेको मानिने छैन र धनी बैंकले जमानत दिने उपर दावी लिएको अवस्थामा जमानतदिनेले यस लिखत
+                                    बमोजिम बैंकको लेना रकम तिर्नु बुझाउनु पर्नेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ७)
+                                </td>
+                                <td>
+                                    ऋणी संगठित संस्था भएको स्थितिमा ऋणीको संगठन संरचनामा वा व्यवस्थापनमा वा
+                                    शेयरधनिहरुमा कुनै परिवर्तन भएको वा ऋणीको विधान, प्रवन्धपत्र नियमावलीमा संशोधन भएको
+                                    वा ऋणी अन्य संगठित संस्थामा गाभिएको (Merged) वा अन्य संस्था ऋणीसंग गाभिएको (Merged)
+                                    अवस्थामा समेत यस लिखत बमोजिम तिर्नु बुझाउनु पर्ने जमानत दिनेको दायित्व यथावत कायम
+                                    रहनेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ८)
+                                </td>
+                                <td>
+                                    ऋणीबाट असूल उपर गरी लिन बांकि रकमको सम्वन्धमा धनी बैंकले जमानत दिने उपर दावी
+                                    लिंदाका बखत जारी गर्ने दावी पत्र (Guarantee Invocation Letter) मा उल्लिखित रकम
+                                    अन्यथा प्रमाणित नभएसम्म अन्तिम र पूर्ण (Final and Conclusive)  मानिनेछ र सोही
+                                    बमोजिम धनी बैंकले माग गर्नासाथ जमानतदिनेले तिर्न बुझाउन मंजुर गर्दछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ९)
+                                </td>
+                                <td>
+                                    ऋणी र धनी बैंकका विच ऋणकर्जा तिर्ने बुझाउने सम्वन्धमा वा ऋण असूली कारवाहीको
+                                    सन्दर्भमा कुनै विवाद श्रृजना भई मुद्धा मामीला चलेको अवस्थाले धनी बैंकलाई यो लिखत
+                                    बमोजिमको रकम कलम जमानतदिनेसंग दावी गरी लिन कुनै वाधा पुग्ने छैन ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १०)
+                                </td>
+                                <td>
+                                    कथंकदाचित कानूनको कार्यान्वयनबाट ऋणी नाबालक वा अशक्त वा असक्षम व्यक्ति ठहरी वा
+                                    अन्य कारणले कर्जा दायित्वबाट मुक्त भएमा समेत जमानतदिने व्यक्ति यो लिखत बमोजिम तिर्नु
+                                    बुझाउनु पर्ने दायित्वबाट मुक्त हुने छैन ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ११)
+                                </td>
+                                <td>
+                                    धनी बैंकबाट स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु ऋणीले आफ्नो आवश्यकत्ता
+                                    अनुसार समय समयमा उपयोग गर्न, तिर्न बुझाउन, पुनः उपयोग गर्न सक्नेछ र त्यसरी तिरे
+                                    बुझाएको, पुनः उपयोग गरेको वा आंशिक चुक्ता भुक्तानी गरेको आधारमा जमानत दिने आफ्नो
+                                    दायित्वबाट मुक्त हुने छैन । ऋणीले सो ऋणकर्जा सुविधा वापत धनी बैंकलाई चुक्ता भुक्तान
+                                    गर्न बांकि रकम तिर्नु बुझाउनु जमानत दिनेको दायित्व हुनेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १२)
+                                </td>
+                                <td>
+                                    ऋणीले प्राप्त गरेको ऋणकर्जा सुविधाको सुरक्षण वापत यस लिखत अन्तर्गत जमानत दिने
+                                    बाहेक अन्य व्यक्ति वा पक्षले समेत जमानत दिएको अवस्थामा त्यस्तो जमानत दिने अन्य
+                                    व्यक्ति वा पक्ष उपर धनी बैंकले दावी नलिएको वा निजहरु कानूनको कार्यान्वयनबाट आफ्नो
+                                    दायित्वबाट मुक्त भएको अवस्थामा समेत यस लिखत बमोजिम जमानतदिनेको दायित्वमा कुनै असर
+                                    पर्ने छैन र धनी बैंकले माग दावी गर्न बाधा पुग्ने छैन । यो लिखत बमोजिमको रकम कलम
+                                    जमानत दिनेले चुक्ता गर्नु पर्नेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १३)
+                                </td>
+                                <td>
+                                    कथंकदाचित ऋणीले धनी बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम चुक्ता भुक्तान हुनुअघि
+                                    नै जमानतदिनेको मृत्यु भएको अवस्थामा जमानतदिनेको शेषपछि निजबाट अंश अपुताली प्राप्त
+                                    गर्ने निजका अंशियार वा उत्तराधिकारीमा यस लिखत बमोजिमको दायित्व सर्नेछ र निज अंशियार
+                                    वा उत्तराधिकारीले यस लिखत बमोजिमको रकम कलम धनी बैंकलाई तिर्नु बुझाउनु पर्नेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १४)
+                                </td>
+                                <td>
+                                    यस लिखत अन्तर्गत एकभन्दा बढी व्यक्तिले जमानत दिएको अवस्थामा त्यस्ता जमानत दिने
+                                    व्यक्तिहरुको धनी बैंक प्रतिको दायित्व व्यक्तिगत वा सामूहिक (Joint or Several) हुनेछ
+                                    र धनी बैंकले त्यस्ता जमानतदिने सबै वा कुनै एकजना माथि मात्र पनि जमानत वापतको रकम
+                                    दावी गर्न सक्नेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १५)
+                                </td>
+                                <td>
+                                    ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको कारणवाट नेपाल राष्ट्र
+                                    बैंकको निर्देशिका बमोजिम जमानतदिनेलाई कर्जा सूचना केन्द्रको कालोसूचीमा सूचिकृत गरेमा
+                                    समेत जमानत दिनेको मंजुरी रहेको छ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १६)
+                                </td>
+                                <td>
+                                    यस लिखत बमोजिम रकम कलम माग दावी लिन परेमा धनी बैंकले जमानत दिनेको यसै लिखतमा
+                                    उल्लिखित ठेगानामा हाते पत्र वा हुलाक मार्फत रजिष्टर्ड पत्रबाट लिखित वा ईमेल/एसएमएस
+                                    मार्फत सूचना दिन सक्नेछ । हाते पत्रको हकमा पत्र बुझाएको मितिमा ईमेल/एसएमएसको हकमा
+                                    उक्त ईमेल/एसएमएस सम्प्रेषण भएको मितिमा तत्काल र हुलाक मार्फत पठाएको पत्रको हकमा
+                                    रजिष्टर्ड गरेको मितिले १५ (पन्ध्र) दिनभित्र जमानत दिनेले सो सूचना रीतपूर्वक प्राप्त
+                                    गरेको मानिनेछ ।
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    १७)
+                                </td>
+                                <td>
+                                    ऋणीले प्राप्त गरेको/गर्ने ऋणकर्जाको रकम, सोमा लाग्ने ब्याज, हर्जना ब्याज तथा सो
+                                    तिर्नु बुभाउनु पर्ने समय तालिका तथा कर्जाका शर्तहरु समेत मैले/हामीले उल्लिखित
+                                    ऋणस्वीकृती पत्र मार्फत जानकारी लिएको छु/छौं । साथै ऋणस्वीकृती पत्र तथा भुक्तानी
+                                    तालिकाको प्रतिलिपि समेत बुझिलिएँ/बुझिलियौं । साथै ब्याज दर लगायत अन्य दरहरुमा बैंकले
+                                    समय समयमा परिवर्तन गर्नसक्ने र त्यस्तो परिवर्तनको जानकारी बैंकले पत्रपत्रिकामा
+                                    प्रकाशन गरेमा सोहि मार्फत र/वा बैंकको आधिकारिक वेव साईट (Website) बाट समेत जानकारी
+                                    प्राप्त गर्नेछु/गर्नेछौं ।
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-12" style="margin-left:10px">
+                        <span [ngClass]="{'nepaliFont outside' : letterData?.freeText !== null && letterData?.freeText !== ''}">
+                            {{letterData?.freeText === null || letterData?.freeText === '' ? '___________' : letterData?.freeText}}
+                        </span>
+                    </div>
+                    <div>
+                        <h3><p style="text-align: center;font-size:18px"><strong>तपसिल खण्ड "ख"</strong></p></h3>
+                        <h3><p style="font-size:18px"><strong>जमानतदिने :</strong></p></h3>
+                        <div style="width: 9em;float: left;border: 1px solid black;height: 9em;margin-left: 5em;">
+                            <p style="text-align: center;margin-top:80%">दा.</p>
+                        </div>
+                        <div style="width: 9em;float: right;border: 1px solid black;height: 9em;margin-right:10%;">
+                            <p style="text-align: center;margin-top:80%">बा.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>
+                                        १.
+                                    </td>
+                                    <td>
+                                        ___________________________________________
+                                        <p>
+                                            नाम:
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.guarantorName !== null && letterData?.guarantorName !== ''}">
+                            {{letterData?.guarantorName === null || letterData?.guarantorName === '' ? '___________' : letterData?.guarantorName}}
+                        </span>
+                                        </p>
+                                        <p>
+                                            बाबु/श्रीमान :
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.father_husbandName !== null && letterData?.father_husbandName !== ''}">
+                                        {{letterData?.father_husbandName === null || letterData?.father_husbandName === '' ? '___________' : letterData?.father_husbandName}}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            बाजे/ससुरा:
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.grandFatherName !== null && letterData?.grandFatherName !== ''}">
+                                                {{letterData?.grandFatherName === null || letterData?.grandFatherName === '' ? '___________' : letterData?.grandFatherName}}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            स्थायी ठेगाना :
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.temporarydistrict !== null && letterData?.temporarydistrict !== ''}">
+                                                {{letterData?.temporarydistrict === null || letterData?.temporarydistrict === '' ? '___________' : letterData?.temporarydistrict}}
+                                            </span>
+                                            जिल्ला
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.temporaryVDCMunicipality !== null && letterData?.temporaryVDCMunicipality !== ''}">
+                                                {{letterData?.temporaryVDCMunicipality === null || letterData?.temporaryVDCMunicipality === '' ? '___________' : letterData?.temporaryVDCMunicipality}}
+                                            </span>
+                                            गा.वि.स./नगर,
+                                            वडा नं.
+                                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.temporaryward !== null && letterData?.temporaryward !== ''}">
+                                                {{letterData?.temporaryward === null || letterData?.temporaryward === '' ? '___________' : letterData?.temporaryward}}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            हालको ठेगाना :
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.temporarydistrict !== null && letterData?.temporarydistrict !== ''}">
+                                                {{letterData?.temporarydistrict === null || letterData?.temporarydistrict === '' ? '___________' : letterData?.temporarydistrict}}
+                                            </span>
+                                            जिल्ला
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.temporaryVDCMunicipality !== null && letterData?.temporaryVDCMunicipality !== ''}">
+                                                {{letterData?.temporaryVDCMunicipality === null || letterData?.temporaryVDCMunicipality === '' ? '___________' : letterData?.temporaryVDCMunicipality}}
+                                            </span>
+                                            गा.वि.स./नगर,
+                                            वडा नं.
+                                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.temporaryward !== null && letterData?.temporaryward !== ''}">
+                                                {{letterData?.temporaryward === null || letterData?.temporaryward === '' ? '___________' : letterData?.temporaryward}}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            ना.प्र.नं.
+                                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.citizenshipNumber !== null && letterData?.citizenshipNumber !== ''}">
+                                                {{letterData?.citizenshipNumber === null || letterData?.citizenshipNumber === '' ? '___________' : letterData?.citizenshipNumber}}
+                                            </span>
+                                            जारी गर्ने कार्यालय
+                                            <span [ngClass]="{'nepaliFont outside' : letterData?.citizenshipIssuedDistrict !== null && letterData?.citizenshipIssuedDistrict !== ''}">
+                                                {{letterData?.citizenshipIssuedDistrict === null || letterData?.citizenshipIssuedDistrict === '' ? '___________' : letterData?.citizenshipIssuedDistrict}}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            जारी मिति:
+                                            <span [ngClass]="{'nepaliFont outsidenum' : letterData?.citizenshipIssueDate !== null && letterData?.citizenshipIssueDate !== ''}">
+                                                {{letterData?.citizenshipIssueDate === null || letterData?.citizenshipIssueDate === '' ? '___________' : letterData?.citizenshipIssueDate}}
+                                            </span>
+                                        </p>
+                                    </td>
+                            </table>
+                        </div>
+                        <div>
+                            <p style="text-align:center">
+                                ईति सम्वत्
+                                <span [ngClass]="{'nepaliFont outsidenum' : letterData?.year1 !== null && letterData?.year1 !== ''}">
+                            {{letterData?.year1 === null || letterData?.year1 === '' ? '___________' : letterData?.year1}}
+                        </span>
+                                साल
+                                <span [ngClass]="{'nepaliFont outsidenum' : letterData?.month1 !== null && letterData?.month1 !== ''}">
+                            {{letterData?.month1 === null || letterData?.month1 === '' ? '___________' : letterData?.month1}}
+                        </span>
+                                महिना
+                                <span [ngClass]="{'nepaliFont outsidenum' : letterData?.date1 !== null && letterData?.date1 !== ''}">
+                            {{letterData?.date1 === null || letterData?.date1 === '' ? '___________' : letterData?.date1}}
+                        </span>
+                                गते रोज
+                                <span [ngClass]="{'nepaliFont outside' : letterData?.day1 !== null && letterData?.day1 !== ''}">
+                            {{letterData?.day1 === null || letterData?.day1 === '' ? '___________' : letterData?.day1}}
+                        </span>
+                                शुभम् ।
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
