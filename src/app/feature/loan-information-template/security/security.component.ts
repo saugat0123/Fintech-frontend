@@ -250,6 +250,7 @@ export class SecurityComponent implements OnInit {
 
 
     onSubmit() {
+        this.spinner = true;
         this.overlay.show();
         this.submitted = true;
         // if (this.securityForm.invalid) {
@@ -261,6 +262,7 @@ export class SecurityComponent implements OnInit {
             this.initialSecurity.clearValidationAtInitialStage();
         }
         if (this.initialSecurity.securityForm.invalid) {
+            this.spinner = false;
             const invalid = [];
             const controls = (this.initialSecurity.securityForm.get('landBuilding') as FormArray)['controls'];
             controls.forEach((c, i) => {
@@ -274,6 +276,7 @@ export class SecurityComponent implements OnInit {
             return;
         }
         if (this.initialSecurity.shareSecurityForm.invalid) {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check Share validation'));
             this.overlay.hide();
             this.submitted = false;

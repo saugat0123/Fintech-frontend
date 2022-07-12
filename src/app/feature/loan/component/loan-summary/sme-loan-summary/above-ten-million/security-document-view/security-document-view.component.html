@@ -1,0 +1,208 @@
+<div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-dark text-white">
+                    <th width="5%">S.N</th>
+                    <th width="70%">Security Document</th>
+                    <th width="30%">Value<br>
+                        <span>Existing</span>
+                        <span class="ml-2">Proposed</span>
+                        <span class="ml-2">Change</span>
+                    </th>
+                </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>
+                        {{securityDocument?.hypoLandBuilding}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exHypoLandBuilding}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prHypoLandBuilding}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chHypoLandBuilding}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2.</td>
+                    <td>
+                        {{securityDocument?.hypoStock}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;"> {{securityDocument?.exHypoStock}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prHypoStock}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chHypoStock}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td>
+                        {{securityDocument?.assignment}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;"> {{securityDocument?.exAssignment}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prAssignment}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chAssignment}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td>
+                        Cash Margin/Lien over Deposits as detailed below :  {{securityDocument?.cashMargin}}<br>
+                        Account Holder/FD Holder: {{securityDocument?.accountHolder}}  (Relation with borrower) <br>
+                        Amount held lien: {{securityDocument?.amountHeld}}<br>
+                        Maturity Date of FD: {{securityDocument?.maturityDate}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exCashMargin}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prCashMargin}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chCashMargin}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5.</td>
+                    <td>
+                        Registration of vehicle/equipment in the Banks name as detailed below: {{securityDocument?.vehicleRegistration}} <br>
+                        Type: {{securityDocument?.type}}<br>
+                        Manufacturer: {{securityDocument?.manufacture}}<br>
+                        Model: {{securityDocument?.model}}<br>
+                        Manufactured year: {{securityDocument?.manufatureYear}}<br>
+                        Registration: {{securityDocument?.registration}}<br>
+                        Engine No.: {{securityDocument?.engineNo}}<br>
+                        Chasis No.: {{securityDocument?.chasisNo}}<br>
+                        Purchase Price: {{securityDocument?.purchasePrice}}<br>
+                        Date of Quotation/Invoice: {{securityDocument?.dateOfQuotation}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exRegistration}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prRegistration}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chRegistration}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6.</td>
+                    <td>
+                        Pledge of shares (ordinary/promoter) with details.<br>
+                        Name of shareholder: {{securityDocument?.nameOfShareholder}} (Relation with borrower)<br>
+                        Name of company: {{securityDocument?.nameOfCompany}}<br>
+                        Type of Share: {{securityDocument?.typeOfShare}}<br>
+                        Value: As per current market price of dated {{securityDocument?.currentValue}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exPledgeOfShare}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prPledgeOfShare}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chPledgeOfShare}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td>
+                        {{securityDocument?.securedTransaction}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exSecureTransaction}}</span>
+                        <span style="margin-left: 30px;"> {{securityDocument?.prSecureTransaction}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chSecureTransaction}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8.</td>
+                    <td>
+                        {{securityDocument?.loanDeed}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exLoanDeed}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prLoanDeed}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chLoanDeed}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9.</td>
+                    <td>
+                        {{securityDocument?.promissoryNote}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exPromissoryNote}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prPromissoryNote}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chPromissoryNote}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>10.</td>
+                    <td>
+                        {{securityDocument?.letterOfSetOff}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exLetterOfSetOff}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prLetterOfSetOff}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chLetterOfSetOff}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>11.</td>
+                    <td>
+                        {{securityDocument?.consentLetter}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exConsentLetter}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prConsentLetter}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chConsentLetter}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>12.</td>
+                    <td>
+                        {{securityDocument?.blacklistingLetter}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exBlacklistingLetter}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prBlacklistingLetter}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chBlacklistingLetter}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>13.</td>
+                    <td>
+                        {{securityDocument?.latterOfContinuity}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exLatterOfContinuity}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prLatterOfContinuity}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chLatterOfContinuity}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>14.</td>
+                    <td>
+                        {{securityDocument?.hirePurchaseDeed}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exHirePurchaseDeed}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prHirePurchaseDeed}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chHirePurchaseDeed}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>15.</td>
+                    <td>
+                        {{securityDocument?.offerLetter}}
+                    </td>
+                    <td>
+                        <span style="margin-left: 10px;">{{securityDocument?.exOfferLetter}}</span>
+                        <span style="margin-left: 30px;">{{securityDocument?.prOfferLetter}}</span>
+                        <span style="margin-left: 40px;">{{securityDocument?.chOfferLetter}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <b>Total</b>
+                    </td>
+                    <td>
+                        <span style="margin-left: 15px;" class="font-weight-bold">{{securityDocument?.exTotal}}</span>
+                        <span style="margin-left: 30px;" class="font-weight-bold">{{securityDocument?.prTotal}}</span>
+                        <span style="margin-left: 40px;" class="font-weight-bold">{{securityDocument?.chTotal}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+

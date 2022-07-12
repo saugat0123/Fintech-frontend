@@ -25,7 +25,7 @@
     </div>
     <hr>
 <!--    *ngIf="!submitted || !submittedCheckFromParent"-->
-    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+    <div [nbSpinner]="spinner" *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
         <button (click)="onSubmit()"  nbButton>save</button>
     </div>
 </div>
