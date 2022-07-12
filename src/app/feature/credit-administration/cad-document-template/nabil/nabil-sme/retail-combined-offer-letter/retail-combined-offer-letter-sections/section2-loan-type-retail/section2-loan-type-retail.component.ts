@@ -23,7 +23,7 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   finalFacility;
   facilityNames: Array<String> = [];
   allFacilityNames;
-  assignedData;
+  existingLoanDetail;
   loanName: Array<any> = new Array<any>();
   isPersonalOD: boolean;
   isNabilSahayatri: boolean;
@@ -961,12 +961,15 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     }
   }
   checkLoan() {
-    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.assignedData = this.cadData.assignedLoan.forEach(value => {
-        if (!this.loanName.includes(value.loan.name)) {
-          this.loanName.push(value.loan.name);
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.initialData)) {
+      if (!ObjectUtil.isEmpty(this.initialData.existingLoanForm) &&
+          !ObjectUtil.isEmpty(this.initialData.existingLoanForm.existingLoanFormArray)) {
+        this.existingLoanDetail = this.initialData.existingLoanForm.existingLoanFormArray.forEach(value => {
+          if (!this.loanName.includes(value.facilityNameEnglish)) {
+            this.loanName.push(value.facilityNameEnglish);
+          }
+        });
+      }
       this.loanName.forEach(value => {
         if (value === 'PERSONAL OVERDRAFT COMBINED') {
           this.isPersonalOD = true;
