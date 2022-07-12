@@ -436,16 +436,16 @@
 </div>
 <br>
 
-<div *ngIf="financialKeys?.length > 0 ">
-    <ng-container *ngFor="let title of financialKeys">
-        <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
-        <hr>
-        <div class="row">
-            <app-financial-json-parser
-                    [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
-        </div>
-    </ng-container>
-</div>
+<!--<div *ngIf="financialKeys?.length > 0 ">-->
+<!--    <ng-container *ngFor="let title of financialKeys">-->
+<!--        <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>-->
+<!--        <hr>-->
+<!--        <div class="row">-->
+<!--            <app-financial-json-parser-->
+<!--                    [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>-->
+<!--        </div>-->
+<!--    </ng-container>-->
+<!--</div>-->
 <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                            [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                            [fromProfile]="false"

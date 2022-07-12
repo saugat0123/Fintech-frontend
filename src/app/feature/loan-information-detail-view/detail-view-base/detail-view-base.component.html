@@ -89,16 +89,16 @@
                 </tr>
             </table>
         </ng-container>
-        <div *ngIf="financialKeys?.length > 0 && !isIndividual ">
-            <ng-container *ngFor="let title of financialKeys">
-                <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
-                <hr>
-                <div class="row">
-                    <app-financial-json-parser
-                            [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
-                </div>
-            </ng-container>
-        </div>
+<!--        <div *ngIf="financialKeys?.length > 0 && !isIndividual ">-->
+<!--            <ng-container *ngFor="let title of financialKeys">-->
+<!--                <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>-->
+<!--                <hr>-->
+<!--                <div class="row">-->
+<!--                    <app-financial-json-parser-->
+<!--                            [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>-->
+<!--                </div>-->
+<!--            </ng-container>-->
+<!--        </div>-->
         <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                               [fiscalYears]="fiscalYearArray"
                               [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>

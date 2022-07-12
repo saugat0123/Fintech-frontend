@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class FinancialJsonParserComponent implements OnInit {
 
     @Input() financialJson;
+    @Input() title;
 
     form: FormGroup;
     schemaIndex = 0;
@@ -23,6 +24,7 @@ export class FinancialJsonParserComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        console.log('this is title', this.title);
         // this.getLastThreeFYAuditedValue();
     }
 

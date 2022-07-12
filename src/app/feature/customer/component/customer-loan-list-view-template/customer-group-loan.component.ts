@@ -195,7 +195,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       //   if (val.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED )) {
       if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
         this.customerInfo.existingExposures.forEach(e => {
-          if (e.docStatus === 'APPROVED') {
+          if (e.docStatus === 'APPROVED' && !e.withIn) {
             totalApprovedProposedAmount.push(JSON.parse(e.proposalData).proposedLimit);
           }
         });
