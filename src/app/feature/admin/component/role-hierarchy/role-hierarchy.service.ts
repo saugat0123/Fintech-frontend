@@ -21,4 +21,9 @@ export class RoleHierarchyService extends BaseService<RoleOrders> {
         const req = ApiUtils.getRequest(`${this.getApi()}/get-all-active`);
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public resetRoleHierarchy(): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/reset-role-hierarchy`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
