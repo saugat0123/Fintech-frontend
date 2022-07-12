@@ -38,6 +38,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {ThemeModule} from '../../../../@theme/theme.module';
 import { ConsentOfSellersHakwalaComponent } from './laxmi-offer-letter/consent-of-sellers-hakwala/consent-of-sellers-hakwala.component';
+import { GuarantorAcknowledgementComponent } from './laxmi-offer-letter/guarantor-acknowledgement/guarantor-acknowledgement.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { ConsentOfSellersHakwalaComponent } from './laxmi-offer-letter/consent-o
         MortgageDeedLaxmiComponent,
         HypothecationChargeOverFixedAssetsComponent,
         OfferLetterLaxmiComponent,
-        ConsentOfSellersHakwalaComponent],
+        ConsentOfSellersHakwalaComponent,
+        GuarantorAcknowledgementComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -99,7 +101,8 @@ import { ConsentOfSellersHakwalaComponent } from './laxmi-offer-letter/consent-o
         MortgageDeedLaxmiComponent,
         HypothecationChargeOverFixedAssetsComponent,
         OfferLetterLaxmiComponent,
-        ConsentOfSellersHakwalaComponent
+        ConsentOfSellersHakwalaComponent,
+        GuarantorAcknowledgementComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent
