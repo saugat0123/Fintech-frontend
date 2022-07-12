@@ -889,7 +889,7 @@
             <a class="cursor info-label" (click)="openModel(commonLoanInformation)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">Existing Exposure</p>
+                  <p class="custom-font">EXISTING EXPOSURE</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.existingExposures?.length > 0" style="color:green"
@@ -907,7 +907,7 @@
       </div>
       <ng-template #commonLoanInformation let-data let-ref="dialogRef">
         <nb-card class="template-css">
-          <nb-card-header> Existing Exposure
+          <nb-card-header> EXISTING EXPOSURE
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close();onRefresh()">
@@ -943,7 +943,7 @@
             <a class="cursor info-label" (click)="openModel(crg)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">Credit Risk Grading</p>
+                  <p class="custom-font">CREDIT RISK GRADING</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.crgGamma" style="color: green" title="Status : Saved">
@@ -960,7 +960,7 @@
         <ng-template #crg let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              Credit Risk Grading
+              CREDIT RISK GRADING
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
