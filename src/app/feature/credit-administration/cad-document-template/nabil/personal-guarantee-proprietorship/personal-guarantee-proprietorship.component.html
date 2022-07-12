@@ -10,7 +10,8 @@
                         <div class="col-md-12">
                             <p class="lh-30">
                                 लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका बीणा मार्ग
-                                तीनधारा दरवारर्मा स्थित नबिल सेन्टरमा मूख्य कार्यालय रहि
+                                तीनधारा दरवारमार्ग
+                                स्थित नबिल सेन्टरमा मूख्य कार्यालय रहि
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="branchName"
                                        formControlName="branchName" placeholder="" type="text"/>
@@ -38,12 +39,12 @@
                                        formControlName="authorizedBodyName" placeholder="" type="text"/>
                                 <span class="font-weight-bold print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "authorizedBodyName"]).value}}</span>
                             </span>,
-                                <span>
-                                <input class="form-field form-control-sm d-print-none" name="headDepartment"
-                                       formControlName="headDepartment" placeholder="" type="text"/>
-                                <span class="print-only font-weight-bold">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "headDepartment"]).value || '_____________________'}}</span>
-                            </span>
-                                विभाग/कार्यालयमा मिति
+                                <span class="d-print-none">
+                                <input class="form-field form-control-sm" name="headDepartment"
+                                       formControlName="headDepartment" placeholder="" type="text"/>मा
+                                </span>
+                                <span class="print-only font-weight-bold">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "headDepartment"]).value || '_____________________'}}मा</span>
+                                 मिति
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="registrationDate"
                                        formControlName="registrationDate" placeholder="" type="text"/>
@@ -64,6 +65,9 @@
                                 </span>
                                 <input class="form-field form-control-sm d-print-none" name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "municipalityOfFirm"]).value || '_____________________'}}
+                                </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
                                     न.पा.,
                                 </span>
@@ -73,16 +77,7 @@
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
                                     गाँउपालिका,
                                 </span>
-                                <span class="print-only font-weight-bold">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "municipalityOfFirm"]).value || '_____________________'}}</span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'" class="print-only">
-                                    न.पा.,
-                                </span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'" class="print-only">
-                                    गा.वि.स.,
-                                </span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'" class="print-only">
-                                    गाँउपालिका,
-                                </span>                                    वडा नं
+                                वडा नं
                                     <input class="form-field form-control-sm d-print-none" name="wardNumOfFirm"
                                            formControlName="wardNumOfFirm" placeholder="" type="text"/>
                                 <span class="print-only font-weight-bold">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "wardNumOfFirm"]).value || '_____________________'}}</span>,
@@ -144,7 +139,7 @@
                                 नियमानुसार म/हामी जमानत दिनेलाई ऋणी सरह कारवाही गरी <span class="font-weight-bold">मेरो/हाम्रो</span> घरघरानाको्र चलअचल
                                 जायजेथाबाट तपाई धनी बैंकको लेना रकम असूल उपर गरी लिनुहोला । पछि एकाले लिए खाएको रकम कलम
                                 <span class="font-weight-bold">मैले/हामीले</span> तिर्नु बुझाउनु पर्ने होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने <span class="font-weight-bold">छैन/छैनौं,</span>
-                                गरे यसै लिखतले बदर गराई लिनु होला भनी मेरो/हाम्रो मनोमान राजिखुसिले वांया किनाराका
+                                गरे यसै लिखतले बदर गराई लिनु होला भनी मेरो/हाम्रो मनोमान राजिखुसिले देहाय बमोजिमका
                                 साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा सहिछाप गरी तपाईं धनी बैंकलाई
                                 <span class="font-weight-bold">बुझाएं/बुझायौं</span> र यसको दोहरी समेत <span class="font-weight-bold">बुझीलिंए/बुझीलिंयौं</span> ।
                             </p>
