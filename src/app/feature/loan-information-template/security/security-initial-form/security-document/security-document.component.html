@@ -10,7 +10,7 @@
                 <tr>
                     <td>1.</td>
                     <td>
-                        <input type="text" nbInput fullWidth
+                        <input type="text" nbInput status="info" fullWidth
                         formControlName="hypoLandBuilding">
                         </td>
                     <td>
@@ -19,15 +19,15 @@
                                 <tr>
                                     <td>
                                         <span><b>Existing</b></span>
-                                        <input type="number" formControlName="exHypoLandBuilding" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exHypoLandBuilding" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
                                         <span><b>Proposed</b></span>
-                                        <input type="number" formControlName="prHypoLandBuilding" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prHypoLandBuilding" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
                                         <span><b>Change</b></span>
-                                        <input type="number" formControlName="chHypoLandBuilding" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chHypoLandBuilding" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -37,20 +37,20 @@
                 <tr>
                     <td>2.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="hypoStock">
+                        <input type="text" nbInput status="info" fullWidth formControlName="hypoStock">
                         </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exHypoStock" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exHypoStock" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prHypoStock" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prHypoStock" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chHypoStock" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chHypoStock" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -60,7 +60,7 @@
                 <tr>
                     <td>3.</td>
                     <td>
-                        <input type="text" nbInput fullWidth
+                        <input type="text" nbInput status="info" fullWidth
                         formControlName="assignment">
                         </td>
                     <td>
@@ -68,13 +68,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exAssignment" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exAssignment" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prAssignment" (change)="exPrChTotalCal()">
+                                        <input type="number"  nbInput status="info" formControlName="prAssignment" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chAssignment" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chAssignment" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -84,23 +84,23 @@
                 <tr>
                     <td>4.</td>
                     <td>
-                        <b>Cash Margin/Lien over Deposits as detailed below:</b> <input type="text" placeholder="...." formControlName="cashMargin"><br>
-                        <b>Account Holder/FD Holder:</b> <input type="text" placeholder="...." formControlName="accountHolder"> <b> (Relation with borrower)</b> <br>
-                        <b>Amount held lien:</b> <input type="text" placeholder="...." formControlName="amountHeld"><br>
-                        <b>Maturity Date of FD:</b> <input type="text" placeholder="...." formControlName="maturityDate">
+                        <b>Cash Margin/Lien over Deposits as detailed below : </b> <input nbInput status="info" type="text" placeholder="...." formControlName="cashMargin"><br>
+                        <b>Account Holder/FD Holder:</b> <input type="text" nbInput status="info" placeholder="...." formControlName="accountHolder"> <b> (Relation with borrower)</b> <br>
+                        <b>Amount held lien:</b> <input type="text" nbInput status="info" placeholder="...." formControlName="amountHeld"><br>
+                        <b>Maturity Date of FD:</b> <input type="text" nbInput status="info" placeholder="...." formControlName="maturityDate">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exCashMargin" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exCashMargin" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prCashMargin" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prCashMargin" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chCashMargin" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chCashMargin" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -110,29 +110,29 @@
                 <tr>
                     <td>5.</td>
                     <td>
-                        <b>Registration of vehicle/equipment in the Banks name as detailed below: </b><input type="text" placeholder="..." formControlName="vehicleRegistration"><br>
-                        <b>Type: </b><input type="text" placeholder="..." formControlName="type"><br>
-                        <b>Manufacturer:</b> <input type="text" placeholder="..." formControlName="manufacture"><br>
-                        <b>Model:</b> <input type="text" placeholder="..." formControlName="model"><br>
-                        <b>Manufactured year:</b> <input type="text" placeholder="..." formControlName="manufatureYear"><br>
-                        <b>Registration:</b> <input type="text" placeholder="..." formControlName="registration"><br>
-                        <b>Engine No.:</b> <input type="text" placeholder="..." formControlName="engineNo"><br>
-                        <b>Chasis No.:</b> <input type="text" placeholder="..." formControlName="chasisNo"><br>
-                        <b>Purchase Price:</b> <input type="text" placeholder="..." formControlName="purchasePrice"><br>
-                        <b>Date of Quotation/Invoice:</b> <input type="text" placeholder="..." formControlName="dateOfQuotation">
+                        <b>Registration of vehicle/equipment in the Banks name as detailed below: </b><input type="text" nbInput status="info" placeholder="..." formControlName="vehicleRegistration"><br>
+                        <b>Type: </b><input type="text" nbInput status="info" placeholder="..." formControlName="type"><br>
+                        <b>Manufacturer:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="manufacture"><br>
+                        <b>Model:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="model"><br>
+                        <b>Manufactured year:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="manufatureYear"><br>
+                        <b>Registration:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="registration"><br>
+                        <b>Engine No.:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="engineNo"><br>
+                        <b>Chasis No.:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="chasisNo"><br>
+                        <b>Purchase Price:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="purchasePrice"><br>
+                        <b>Date of Quotation/Invoice:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="dateOfQuotation">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exRegistration" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exRegistration" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prRegistration" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prRegistration" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chRegistration" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chRegistration" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -143,23 +143,23 @@
                     <td>6.</td>
                     <td>
                         <b>Pledge of shares (ordinary/promoter) with details.</b><br>
-                        <b>Name of shareholder:</b> <input type="text" placeholder="..." formControlName="nameOfShareholder"> <b>(Relation with borrower)</b><br>
-                        <b>Name of company:</b> <input type="text" placeholder="..." formControlName="nameOfCompany"><br>
-                        <b>Type of Share:</b> <input type="text" placeholder="Ordinary /Promoter" formControlName="typeOfShare"><br>
-                        <b>Value: As per current market price of dated </b> <input type="text" placeholder="..." formControlName="currentValue">
+                        <b>Name of shareholder:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="nameOfShareholder"> <b>(Relation with borrower)</b><br>
+                        <b>Name of company:</b> <input type="text" nbInput status="info" placeholder="..." formControlName="nameOfCompany"><br>
+                        <b>Type of Share:</b> <input type="text" nbInput status="info" placeholder="Ordinary /Promoter" formControlName="typeOfShare"><br>
+                        <b>Value: As per current market price of dated </b> <input type="text" nbInput status="info" placeholder="..." formControlName="currentValue">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exPledgeOfShare" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exPledgeOfShare" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prPledgeOfShare" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prPledgeOfShare" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chPledgeOfShare" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chPledgeOfShare" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -169,20 +169,20 @@
                 <tr>
                     <td>7.</td>
                     <td>
-                       <input type="text" nbInput fullWidth formControlName="securedTransaction">
+                       <input type="text" nbInput status="info" fullWidth formControlName="securedTransaction">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exSecureTransaction" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exSecureTransaction" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prSecureTransaction" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prSecureTransaction" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chSecureTransaction" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chSecureTransaction" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -192,20 +192,20 @@
                 <tr>
                     <td>8.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="loanDeed">
+                        <input type="text" nbInput status="info" fullWidth formControlName="loanDeed">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exLoanDeed" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exLoanDeed" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prLoanDeed" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prLoanDeed" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chLoanDeed" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chLoanDeed" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -215,20 +215,20 @@
                 <tr>
                     <td>9.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="promissoryNote">
+                        <input type="text" nbInput status="info" fullWidth formControlName="promissoryNote">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exPromissoryNote" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exPromissoryNote" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prPromissoryNote" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prPromissoryNote" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chPromissoryNote" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chPromissoryNote" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -238,20 +238,20 @@
                 <tr>
                     <td>10.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="letterOfSetOff">
+                        <input type="text" nbInput status="info" fullWidth formControlName="letterOfSetOff">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exLetterOfSetOff" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exLetterOfSetOff" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prLetterOfSetOff" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prLetterOfSetOff" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chLetterOfSetOff" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chLetterOfSetOff" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -261,20 +261,20 @@
                 <tr>
                     <td>11.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="consentLetter">
+                        <input type="text" nbInput status="info" fullWidth formControlName="consentLetter">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exConsentLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exConsentLetter" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prConsentLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prConsentLetter" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chConsentLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chConsentLetter" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -284,20 +284,20 @@
                 <tr>
                     <td>12.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="blacklistingLetter">
+                        <input type="text" nbInput status="info" fullWidth formControlName="blacklistingLetter">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exBlacklistingLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exBlacklistingLetter" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prBlacklistingLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prBlacklistingLetter" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chBlacklistingLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chBlacklistingLetter" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -307,20 +307,20 @@
                 <tr>
                     <td>13.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="latterOfContinuity">
+                        <input type="text" nbInput status="info" fullWidth formControlName="latterOfContinuity">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exLatterOfContinuity" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exLatterOfContinuity" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prLatterOfContinuity" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prLatterOfContinuity" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chLatterOfContinuity" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chLatterOfContinuity" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -330,20 +330,20 @@
                 <tr>
                     <td>14.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="hirePurchaseDeed">
+                        <input type="text" nbInput status="info" fullWidth formControlName="hirePurchaseDeed">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exHirePurchaseDeed" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exHirePurchaseDeed" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prHirePurchaseDeed" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prHirePurchaseDeed" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chHirePurchaseDeed" (change)="exPrChTotalCal()">
+                                        <input type="number"  nbInput status="info" formControlName="chHirePurchaseDeed" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -353,20 +353,20 @@
                 <tr>
                     <td>15.</td>
                     <td>
-                        <input type="text" nbInput fullWidth formControlName="offerLetter">
+                        <input type="text" nbInput status="info" fullWidth formControlName="offerLetter">
                     </td>
                     <td>
                         <ng-container>
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exOfferLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="exOfferLetter" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prOfferLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="prOfferLetter" (change)="exPrChTotalCal()">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chOfferLetter" (change)="exPrChTotalCal()">
+                                        <input type="number" nbInput status="info" formControlName="chOfferLetter" (change)="exPrChTotalCal()">
                                     </td>
                                 </tr>
                             </table>
@@ -383,13 +383,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="number" formControlName="exTotal" readonly class="border-0">
+                                        <input type="number" nbInput status="info" formControlName="exTotal" readonly class="border-0">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="prTotal" readonly class="border-0">
+                                        <input type="number" nbInput status="info" formControlName="prTotal" readonly class="border-0">
                                     </td>
                                     <td>
-                                        <input type="number" formControlName="chTotal" readonly class="border-0">
+                                        <input type="number" nbInput status="info" formControlName="chTotal" readonly class="border-0">
                                     </td>
                                 </tr>
                             </table>
