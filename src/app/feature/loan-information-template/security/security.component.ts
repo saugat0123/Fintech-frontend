@@ -481,6 +481,8 @@ export class SecurityComponent implements OnInit {
             }
             if (this.isApprovedSecurity) {
                 security.approved = true;
+            } else {
+                security.approved = false;
             }
             security.data = JSON.stringify(value);
             security.fairMarketValue = value.fairMarketValue;

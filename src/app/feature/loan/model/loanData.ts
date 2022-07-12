@@ -120,4 +120,5 @@ export class LoanDataHolder extends BaseEntity {
     securityLoanReferences: Array<SecurityLoanReference>;
     withIn: boolean;
     withInLoan: number;
+    shareType;
 }
