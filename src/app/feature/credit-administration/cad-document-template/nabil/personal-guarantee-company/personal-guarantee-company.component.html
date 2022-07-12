@@ -5,12 +5,12 @@
         formArrayName="guaranteeCompanies">
         <div class="col-md-12" [formGroupName]="i">
             <div class="form-group align">
-                <h4 class="text-center font-weight-bold">व्यक्तिगत जमानतको लिखत</h4>
+                <h4 class="text-center font-weight-bold">व्यक्तिगत जमानतको लिखत </h4>
                 <div class="row">
                     <div class="col-md-12">
                         <p class="lh-30">
                             लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका बीणा मार्ग
-                            तीनधारा दरवारर्मा स्थित नबिल सेन्टरमा मूख्य कार्यालय रहि
+                            तीनधारा दरवारमार्ग स्थित नबिल सेन्टरमा मूख्य कार्यालय रहि
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="branchName"
                                     formControlName="branchName" placeholder="" type="text"/>
@@ -37,12 +37,12 @@
                                        formControlName="authorizedBodyName" placeholder="" type="text"/>
                                 <span class="font-weight-bold print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "authorizedBodyName"]).value}}</span>
                             </span>,
-                            <span>
-                                <input class="form-field form-control-sm d-print-none" name="headDepartment"
-                                formControlName="headDepartment" placeholder="" type="text"/>
-                                <span class="font-weight-bold print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "headDepartment"]).value}}</span>
+                            <span class="d-print-none">
+                                <input class="form-field form-control-sm" name="headDepartment"
+                                formControlName="headDepartment" placeholder="" type="text"/>मा
                             </span>
-                            विभाग/कार्यालयमा मिति
+                            <span class="font-weight-bold print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "headDepartment"]).value}}मा</span>
+                             मिति
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="registrationDate"
                                 formControlName="registrationDate" placeholder="" type="text"/>
@@ -115,7 +115,7 @@
                             सयममा किस्ता किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज कमिसन फि शुल्क आदी नतिरी नबुझाई ऋणकर्जा सुविधा सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं धनी बैंकले म/हामी जमानत दिने उपर दावी लिएमा सो दावी लिएको मितिले ७ (सात) 
                             दिनभित्र म/हामी स्वयं तपाई धनी बैंकमा उपस्थित भई सोधखोज गरी सो रकम कलम चुक्ता भुक्तान गर्नेछु/छौं । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी बांकि राखेमा वा धिङन्याई गरेमा प्रचलित कानून तथा तपाई धनी बैंकको
                             नियमानुसार म/हामी जमानत दिनेलाई ऋणी सरह कारवाही गरी मेरो/हाम्रो घरघरानाको्र चलअचल जायजेथाबाट तपाई धनी बैंकको लेना रकम असूल उपर गरी लिनुहोला । पछि एकाले लिए खाएको रकम कलम मैले/हामीले तिर्नु बुझाउनु पर्ने होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने छैन/छैनौं,
-                            गरे यसै लिखतले बदर गराई लिनु होला भनी मेरो/हाम्रो मनोमान राजिखुसिले वांया किनाराका साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा सहिछाप गरी तपाईं धनी बैंकलाई बुझाएं/बुझायौं र यसको दोहरी समेत बुझीलिंए/बुझीलिंयौं ।
+                            गरे यसै लिखतले बदर गराई लिनु होला भनी मेरो/हाम्रो मनोमान राजिखुसिले देहाय बमोजिमका साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा सहिछाप गरी तपाईं धनी बैंकलाई बुझाएं/बुझायौं र यसको दोहरी समेत बुझीलिंए/बुझीलिंयौं ।
                         </p>
                     </div>
                 </div>
