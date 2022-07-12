@@ -101,4 +101,11 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/existingExposure/loan?id=${existingExposureId}&customerInfoId=${customerInfoId}`);
         return this.http.post(req.url, {}, {headers: req.header});
     }
+
+    public downloadCiclCsv(customerInfoId: number): Observable<any> {
+        const api = `${this.getApi()}/download/cicl/csv/${customerInfoId}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, {}, {headers: req.header});
+    }
 }

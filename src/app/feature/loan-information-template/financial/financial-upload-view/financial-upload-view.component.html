@@ -15,7 +15,7 @@
     <hr>
 <nb-tabset  *ngIf="customerInfo?.financial">
     <nb-tab tabId="0" *ngFor="let title of financialKeys; let i = index;" [tabTitle]="title | financialPipe">
-        <app-financial-json-parser [financialJson]="financialData[title] | jsonParse" ></app-financial-json-parser>
+        <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"  [title]="title"></app-financial-json-parser>
     </nb-tab>
 </nb-tabset>
 </div>
