@@ -34,7 +34,6 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   isHomeLoan: boolean;
   isAutoLoan: boolean;
   isPersonalLoan: boolean;
-  isEducationLoan:  boolean;
   isEducationClassE:  boolean;
   isEducationClassA:  boolean;
 
@@ -999,7 +998,6 @@ export class Section2LoanTypeRetailComponent implements OnInit {
           this.isPersonalLoan = true;
         }
         if (value === 'EDUCATION LOAN COMBINED') {
-          this.isEducationLoan = true;
           this.checkEduCondition();
         }
       });
@@ -1007,9 +1005,9 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   }
   checkEduCondition() {
     if (!ObjectUtil.isEmpty(this.initialData) &&
-        !ObjectUtil.isEmpty(this.initialData.educationLoanForm) &&
-        !ObjectUtil.isEmpty(this.initialData.educationLoanForm.educationLoanCombinedFormArray)) {
-      this.initialData.educationLoanForm.educationLoanCombinedFormArray.forEach((val: any) => {
+        !ObjectUtil.isEmpty(this.initialData.existingLoanForm) &&
+        !ObjectUtil.isEmpty(this.initialData.existingLoanForm.existingLoanFormArray)) {
+      this.initialData.existingLoanForm.existingLoanFormArray.forEach((val: any) => {
         if (val.securityType === 'LAND' || val.securityType === 'LAND_BUILDING') {
           this.isEducationClassE = true;
         }
