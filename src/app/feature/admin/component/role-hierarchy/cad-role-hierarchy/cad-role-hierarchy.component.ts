@@ -70,6 +70,7 @@ export class CadRoleHierarchyComponent implements OnInit {
   }
 
   removeItem(index: number) {
+    this.isDisabled = false;
     console.log(this.approvalRoleHierarchies.splice(index, 1));
   }
 
@@ -89,6 +90,7 @@ export class CadRoleHierarchyComponent implements OnInit {
   }
 
   reset() {
+    this.isDisabled = false;
     this.service.getDefault(this.approvalType, this.refId).subscribe((res: any) => {
       this.defaultRoleHierarchies = res.detail;
       this.approvalRoleHierarchies = this.defaultRoleHierarchies;

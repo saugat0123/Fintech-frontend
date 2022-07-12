@@ -25,7 +25,16 @@
             <div [ngClass]="isOfferLetter ? 'col-md-6':'col-md-12'">
                 <nb-card>
                     <nb-card-header class="sb-bg-dark text-white">
-                        Role Order
+                        <div class="row">
+                            <div class="col-md-8">Role Order</div>
+                            <div class="col-md-4">
+                                <div class="text-right">
+                                    <button nbButton status="primary" (click)="reset()" nbTooltip="Reset Role Hierarchy" size="tiny">
+                                        <i class="fa fa-retweet"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </nb-card-header>
                     <nb-card-body>
                         <div *ngIf="!length">
@@ -38,7 +47,13 @@
                                     <div class="item-box sb-small sb-bg-secondary text-white"
                                          *ngFor="let item of roleList;let i=index" cdkDrag>
                                         <div class="col-md-2">{{i + 1}}</div>
-                                        <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
+                                        <div class="col-md-8 pull-right">{{item.role?.roleName}}</div>
+                                        <div class="col-md-2">
+                                            <button nbButton outline status="danger" size="tiny" (click)="removeItem(i)"
+                                                    nbTooltip="Remove Role from Approval Hierarchy">
+                                                <i class="fa fa-trash-alt"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
