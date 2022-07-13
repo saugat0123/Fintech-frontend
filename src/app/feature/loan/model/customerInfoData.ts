@@ -24,6 +24,7 @@ import {Gender} from '../../../@core/model/enum/gender';
 import {MultipleBanking} from '../../admin/modal/multipleBanking';
 import {Auto} from './Auto';
 import {LandBuilding} from './LandBuilding';
+import {ExistingExposure} from './existingExposure';
 
 export class CustomerInfoData {
     id: number;
@@ -84,4 +85,5 @@ export class CustomerInfoData {
     isJointCustomer: any;
     crgCcbl: string;
     financialCcbl: string;
+    existingExposures: Array<ExistingExposure>;
 }

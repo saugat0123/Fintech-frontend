@@ -1,0 +1,540 @@
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <form [formGroup]="existingExposure" class="form-horizontal">
+                    <div class="form-group"
+                         *ngFor="let ex of existingExposure?.get('exposure')['controls']; let i = index"
+                         formArrayName="exposure">
+                        <div [formGroupName]="i">
+                            <strong>
+                                Loan Name: {{ex?.get('loanName')?.value}} <br>
+                                loan Type : {{ex?.get('loanType')?.value | replace: '_': ' '}} <br>
+                                Loan Nature: {{ex?.get('loanConfig')?.value?.loanNature}}
+                            </strong>
+                            <hr>
+                            <div class="nb-card-header row" *ngIf="!ex?.get('loanId')?.value && !ex?.get('id')?.value">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="loanType"><strong>Loan Type</strong></label>
+                                        <select formControlName="loanType" id="loanType"
+                                                name="loanType"
+                                                class="form-control rounded" name="loanType" required>
+                                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                                            <option *ngFor="let list of multipleSelectedLoanType"
+                                                    [ngValue]="list?.key">{{list?.value}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="loanConfig"><strong>Loan Facility</strong></label>
+                                        <ng-select formControlName="loanConfig" id="loanConfig"
+                                                   name="loanConfig"
+                                                   class="rounded"
+                                                   bindLabel="name"
+                                                   (change)="setLoanNameAndType($event,i)"
+                                                   name="loanId" required>
+                                            <ng-option [value]="undefined" hidden> Select Loan Type</ng-option>
+                                            <ng-option *ngFor="let allList of loanList" [value]="allList">
+                                                {{allList?.name}}
+                                            </ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" formGroupName="proposalData">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>
+                                        <input class="form-control"
+                                               (keyup)="calculateLimitValues('enhance', i)"
+                                               [readOnly]="ex?.get('loanType')?.value == 'PARTIAL_SETTLEMENT_LOAN'"
+                                               [ngClass]="{ 'is-invalid': (submitted) && ex?.controls?.proposalData?.controls?.existingLimit?.errors }"
+                                               formControlName="existingLimit" id="existingLimit"
+                                               name="existingLimit" placeholder="Existing limit"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && ex?.controls?.proposalData?.controls?.existingLimit?.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(ex?.controls?.proposalData?.controls?.existingLimit?.errors?.required)">Existing Limit is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="outStandingLimit">
+                                            <strong>Outstanding Limit</strong>
+                                        </label>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && ex?.controls?.proposalData?.controls?.outStandingLimit?.errors}"
+                                               formControlName="outStandingLimit" id="outStandingLimit"
+                                               name="outStandingLimit" placeholder="Limit Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && ex?.controls?.proposalData?.controls?.outStandingLimit?.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(ex?.controls?.proposalData?.controls?.outStandingLimit?.errors?.required)">Amount is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="settlementAmount"></label>
+                                        <strong>Settlement Amount</strong>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && ex?.controls?.proposalData?.controls?.settlementAmount?.errors}"
+                                               formControlName="settlementAmount" id="settlementAmount"
+                                               name="settlementAmount" placeholder="Settlement Amount"
+                                               (keyup)="calculateLimitValues('settlement', i)"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && ex?.controls?.proposalData?.controls?.settlementAmount?.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(ex?.controls?.proposalData?.controls?.settlementAmount?.errors?.required)">Settlement Amount is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="enhanceLimitAmount">
+                                            <strong>Enhancement Amount</strong>
+                                        </label>
+                                        <input class="form-control"
+                                               (keyup)="calculateLimitValues('enhance', i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && ex?.controls?.proposalData?.controls?.enhanceLimitAmount?.errors }"
+                                               formControlName="enhanceLimitAmount" id="enhanceLimitAmount"
+                                               name="enhanceLimitAmount" placeholder="Enhance Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && ex?.controls?.proposalData?.controls?.enhanceLimitAmount?.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(ex?.controls?.proposalData?.controls?.enhanceLimitAmount?.errors?.required)">Enhance limit is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
+                                        <input
+                                                [ngClass]="{ 'is-invalid': (submitted) && ex?.controls?.proposalData?.controls?.proposedLimit?.errors}"
+                                                class="form-control"
+                                                formControlName="proposedLimit" id="proposedLimit"
+                                                name="proposedLimit" placeholder="Proposed limit"
+                                                type="number"
+                                                appDecimalNumber>
+                                        <div *ngIf=" (submitted)  && ex?.controls?.proposalData?.controls?.proposedLimit?.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(ex?.controls?.proposalData?.controls?.proposedLimit?.errors?.required)">Proposed Limit is required</span>
+                                            <!--                                            <span *ngIf="(ex?.controls?.proposalData?.controls?.proposedLimit?.errors.min)">Proposed Limit must be positive numerical value.</span>-->
+                                            <!--                                            <span *ngIf="ex?.controls?.proposalData?.controls?.proposedLimit?.hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="commissionFrequency"><strong>Commission Frequency</strong></label>-->
+                                <!--                                <select-->
+                                <!--                                        [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionFrequency.errors }"-->
+                                <!--                                        class="form-control" formControlName="commissionFrequency"-->
+                                <!--                                        id="commissionFrequency" name="commissionFrequency">-->
+                                <!--                                    <option [ngValue]="null" hidden>Select Commission Frequency</option>-->
+                                <!--                                    <option value="MONTH">Per Month</option>-->
+                                <!--                                    <option value="QUATER">Per Quarter</option>-->
+                                <!--                                    <option value="ANNUM">Per Annum</option>-->
+                                <!--                                </select>-->
+                                <!--                                <div *ngIf="(submitted) && formControls.commissionFrequency.invalid"-->
+                                <!--                                     class="invalid-feedback">-->
+                                <!--                                    <span *ngIf="formControls.commissionFrequency.errors.required">Commission Frequency is required</span>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="couponRate"><strong>Coupon Rate</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        class="form-control" formControlName="couponRate"-->
+                                <!--                                        id="couponRate" name="couponRate" placeholder="Coupon Rate"-->
+                                <!--                                        type="number">-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="premiumOnCouponRate"><strong>Premium On Coupon-->
+                                <!--                                    Rate</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumOnCouponRate.errors }"-->
+                                <!--                                        class="form-control" formControlName="premiumOnCouponRate"-->
+                                <!--                                        id="premiumOnCouponRate" name="premiumOnCouponRate"-->
+                                <!--                                        placeholder="Premium On Coupon Rate"-->
+                                <!--                                        type="number">-->
+                                <!--                                <div *ngIf="(submitted) && formControls.premiumOnCouponRate.invalid"-->
+                                <!--                                     class="invalid-feedback">-->
+                                <!--                                    <span *ngIf="formControls.premiumOnCouponRate.errors.required">Premium On Coupon Rate is required</span>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
+                                        <input (input)="calculateRate(i, 'baseRate')"
+                                               class="form-control" formControlName="baseRate" id="baseRate"
+                                               name="baseRate" placeholder="Base Rate(%)"
+                                               type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
+                                            Rate(%)</strong></label>
+                                        <input (input)="calculateRate(i, 'baseRate')"
+                                               class="form-control"
+                                               class="form-control" formControlName="premiumRateOnBaseRate"
+                                               id="premiumRateOnBaseRate" name="premiumRate"
+                                               placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
+                                               type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
+                                            Month.</strong></label>
+                                        <input class="form-control"
+                                               formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
+                                               placeholder="Tenure Duration in Months"
+                                               type="number">
+                                    </div>
+                                </div>
+
+                                <!--START REPAYMENT MODE-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="repaymentMode"><strong>Repayment Mode</strong></label>-->
+                                <!--                                <select-->
+                                <!--                                        class="custom-select" formControlName="repaymentMode"-->
+                                <!--                                        id="repaymentMode"-->
+                                <!--                                        name="repaymentMode"-->
+                                <!--                                        (change)="checkInstallmentAmount()">-->
+                                <!--                                    <option [ngValue]="null" hidden selected>Select</option>-->
+                                <!--                                    <option value="EMI">EMI</option>-->
+                                <!--                                    <option value="EQI">EQI</option>-->
+                                <!--                                    <option value="AT MATURITY">At Maturity</option>-->
+                                <!--                                    <option value="CUSTOM">Custom</option>-->
+                                <!--                                </select>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="repaymentModeInterest"><strong>Interest-->
+                                <!--                                    Payment</strong></label>-->
+                                <!--                                <select-->
+                                <!--                                    #interestRepayment-->
+                                <!--                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModeInterest.errors }"-->
+                                <!--                                    class="custom-select" formControlName="repaymentModeInterest"-->
+                                <!--                                    id="repaymentModeInterest"-->
+                                <!--                                    name="repaymentModeInterest"-->
+                                <!--                                    (change)="calculateRepaymentModeAmounts(interestRepayment.value , 'INTEREST')">-->
+                                <!--                                    <option [ngValue]="null" hidden selected>Select</option>-->
+                                <!--                                    <option value="MONTHLY">Monthly</option>-->
+                                <!--                                    <option value="QUARTERLY">Quarterly</option>-->
+                                <!--                                    <option value="SEMI-ANNUALLY">Semi-Annually</option>-->
+                                <!--                                    <option value="ANNUALLY">Annually</option>-->
+                                <!--                                </select>-->
+
+                                <!--                                <div *ngIf="(submitted) && formControls.repaymentModeInterest.invalid"-->
+                                <!--                                     class="invalid-feedback">-->
+                                <!--                                        <span *ngIf="formControls.repaymentModeInterest.errors.required">-->
+                                <!--                                            Repayment Frequency is required</span>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="repaymentModePrincipal"><strong>Principal-->
+                                <!--                                    Payment</strong></label>-->
+                                <!--                                <select-->
+                                <!--                                    #repaymentModePrincipal-->
+                                <!--                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.repaymentModePrincipal.errors }"-->
+                                <!--                                    class="custom-select" formControlName="repaymentModePrincipal"-->
+                                <!--                                    id="repaymentModePrincipal"-->
+                                <!--                                    name="repaymentModePrincipal"-->
+                                <!--                                    (change)="calculateRepaymentModeAmounts(repaymentModePrincipal.value , 'PRINCIPAL')">-->
+                                <!--                                    <option [ngValue]="null" hidden selected>Select</option>-->
+                                <!--                                    <option value="MONTHLY">Monthly</option>-->
+                                <!--                                    <option value="QUARTERLY">Quarterly</option>-->
+                                <!--                                    <option value="SEMI-ANNUALLY">Semi-Annually</option>-->
+                                <!--                                    <option value="ANNUALLY">Annually</option>-->
+                                <!--                                </select>-->
+                                <!--                                <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"-->
+                                <!--                                     class="invalid-feedback">-->
+                                <!--                                        <span *ngIf="formControls.repaymentModePrincipal.errors.required">-->
+                                <!--                                            Repayment Frequency is required</span>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group>">-->
+                                <!--                                <label class="title"> <strong>Installment Amount</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        class="form-control" formControlName="installmentAmount"-->
+                                <!--                                        id="installmentAmount"-->
+                                <!--                                        name="installmentAmount" placeholder="Installment Amount"-->
+                                <!--                                        type="number" readonly>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group>">-->
+                                <!--                                <label class="title"> <strong>Interest Amount</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        class="form-control" formControlName="interestAmount"-->
+                                <!--                                        id="interestAmount"-->
+                                <!--                                        name="interestAmount" placeholder="Interest Amount" disabled-->
+                                <!--                                        type="number">-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group>">-->
+                                <!--                                <label class="title"> <strong>Principal Amount</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        class="form-control" formControlName="principalAmount"-->
+                                <!--                                        id="principalAmount"-->
+                                <!--                                        name="principalAmount" placeholder="Principle Amount" disabled-->
+                                <!--                                        type="number">-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--END REPAYMENT MODE-->
+
+                                <!--MOTATORIUM PERIOD-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group>">-->
+                                <!--                                <label class="title"> <strong>Moratorium Period (Month)</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        class="form-control" formControlName="moratoriumPeriod"-->
+                                <!--                                        id="moratoriumPeriod"-->
+                                <!--                                        name="moratoriumPeriod" placeholder="Example: 4 month"-->
+                                <!--                                        type="number" appDecimalNumber>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-md-4">-->
+                                <!--                            <div class="form-group">-->
+                                <!--                                <label class="title" for="collateralRequirement"><strong>Collateral requirement-->
+                                <!--                                    (in%)</strong></label>-->
+                                <!--                                <input-->
+                                <!--                                        [ngClass]="{ 'is-invalid': (submitted) && formControls.collateralRequirement.errors }"-->
+                                <!--                                        class="form-control"-->
+                                <!--                                        formControlName="collateralRequirement" id="collateralRequirement"-->
+                                <!--                                        name="collateralRequirement"-->
+                                <!--                                        placeholder="Collateral requirement" type="number" appDecimalNumber/>-->
+                                <!--                                <div *ngIf="(submitted) && formControls.collateralRequirement.invalid"-->
+                                <!--                                     class="invalid-feedback">-->
+                                <!--                                    <span *ngIf="formControls.collateralRequirement.errors.required">Collateral requirement is required.</span>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                        </div>-->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="existingDateOfExpiry"><strong>Existing Date of
+                                            Expiry</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && ex?.controls?.proposalData?.controls?.existingDateOfExpiry?.errors}"
+                                               class="form-control" formControlName="existingDateOfExpiry"
+                                               id="existingDateOfExpiry"
+                                               name="existingDateOfExpiry" placeholder="Existing Date of Expiry"
+                                               type="date">
+                                        <div *ngIf="(submitted) && ex?.controls?.proposalData?.controls?.existingDateOfExpiry?.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="ex?.controls?.proposalData?.controls?.existingDateOfExpiry?.errors">
+                                                Date of Expiry is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="title"><strong>Pricing</strong></label>
+                                    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+                                        <thead>
+                                        <tr class="sb-bg-dark text-white">
+                                            <th>Pricing</th>
+                                            <!--                                    <th>Card Rate</th>-->
+                                            <th>Existing Rate</th>
+                                            <th>Proposed Rate</th>
+                                            <!--                                    <th>Deviation with Card Rate</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <ng-container>
+                                            <tr>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Interest Rate
+                                                </td>
+                                                <!--                                        <td>-->
+                                                <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                                <!--                                                   formControlName="interestCardRate"-->
+                                                <!--                                                   id="interestCardRate">-->
+                                                <!--                                        </td>-->
+                                                <td><input rows="1" class="form-control mt-1 mb-1"
+                                                           name="existInterestRate" formControlName="existInterestRate"
+                                                           id="existInterestRate"
+                                                           type="number"></td>
+                                                <td>
+                                                    <input rows="1" id="interestRate" class="form-control mt-1 mb-1"
+                                                           type="number"
+                                                           formControlName="interestRate"
+                                                           type="number"
+                                                           (input)="calculateRate(i, 'interestRate')">
+                                                </td>
+                                                <!--                                        <td>-->
+                                                <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                                <!--                                                   formControlName="interestDevCardRate"-->
+                                                <!--                                                   id="interestDevCardRate">-->
+                                                <!--                                        </td>-->
+                                            </tr>
+                                            <!--                                    <tr>-->
+                                            <!--                                        <td style="vertical-align: middle;font-weight: bold; text-align: center">-->
+                                            <!--                                            Processing Fee-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td>-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                            <!--                                                   formControlName="processCardRate"-->
+                                            <!--                                                   id="processCardRate">-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td><input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                            <!--                                                   formControlName="processExistingRate"-->
+                                            <!--                                                   id="processExistingRate"></td>-->
+                                            <!--                                        <td>-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="number"-->
+                                            <!--                                                   formControlName="processProposedRate"-->
+                                            <!--                                                   id="processProposedRate">-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td>-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                            <!--                                                   formControlName="processDevCardRate"-->
+                                            <!--                                                   id="processDevCardRate">-->
+                                            <!--                                        </td>-->
+                                            <!--                                    </tr>-->
+                                            <tr>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Commissions
+                                                </td>
+                                                <!--                                        <td>-->
+                                                <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                                <!--                                                   formControlName="commissionsCardRate"-->
+                                                <!--                                                   id="commissionsCardRate">-->
+                                                <!--                                        </td>-->
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="existCommissionPercentage"
+                                                           id="existCommissionPercentage"></td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="commissionPercentage"
+                                                           id="commissionPercentage">
+                                                </td>
+                                                <!--                                        <td>-->
+                                                <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                                <!--                                                   formControlName="commissionDevCardRate"-->
+                                                <!--                                                   id="commissionDevCardRate">-->
+                                                <!--                                        </td>-->
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Cash Margin
+                                                </td>
+                                                <!--                                        <td>-->
+                                                <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                                <!--                                                   formControlName="cashCardRate"-->
+                                                <!--                                                   id="cashCardRate">-->
+                                                <!--                                        </td>-->
+                                                <td><input rows="1" class="form-control mt-1 mb-1" type="text"
+                                                           formControlName="existCashMargin"
+                                                           id="existCashMargin"></td>
+                                                <td>
+                                                    <input rows="1" class="form-control mt-1 mb-1" type="number"
+                                                           formControlName="cashMargin">
+                                                </td>
+                                                <!--                                        <td>-->
+                                                <!--                                            <input rows="1" class="form-control mt-1 mb-1" type="text"-->
+                                                <!--                                                   formControlName="cashMarginDevCardRate"-->
+                                                <!--                                                   id="cashMarginDevCardRate">-->
+                                                <!--                                        </td>-->
+                                            </tr>
+                                            <!--                                    <tr>-->
+                                            <!--                                        <td style="vertical-align: middle;font-weight: bold; text-align: center">-->
+                                            <!--                                            Prepayment Charge-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td colspan="4">-->
+                                            <!--                                            <table class="table-borderless table-sm" style="width: 100%">-->
+                                            <!--                                                <tbody>-->
+                                            <!--                                                <td class="border-right">If paid by own sources-->
+                                            <!--                                                    <input rows="1" class="form-control mt-1 mb-1"-->
+                                            <!--                                                           formControlName="prepaymentCardRate"-->
+                                            <!--                                                           id="prepaymentCardRate">% of the pre-paid amount,-->
+                                            <!--                                                    flat-->
+                                            <!--                                                </td>-->
+                                            <!--                                                <td>If swapped to other bank/FI-->
+                                            <!--                                                    <input rows="1" class="form-control mt-1 mb-1"-->
+                                            <!--                                                           formControlName="prepaymentExistingRate"-->
+                                            <!--                                                           id="prepaymentExistingRate">% of the pre-paid amount,-->
+                                            <!--                                                    flat-->
+                                            <!--                                                </td>-->
+                                            <!--                                                </tbody>-->
+                                            <!--                                            </table>-->
+                                            <!--                                        </td>-->
+                                            <!--                                    </tr>-->
+                                            <!--                                    <tr>-->
+                                            <!--                                        <td style="vertical-align: middle;font-weight: bold; text-align: center">-->
+                                            <!--                                            STR Charge-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td colspan="4">-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1"-->
+                                            <!--                                                   formControlName="strCharge"-->
+                                            <!--                                                   id="strCharge">-->
+                                            <!--                                        </td>-->
+                                            <!--                                    </tr>-->
+                                            <!--                                    <tr>-->
+                                            <!--                                        <td style="vertical-align: middle;font-weight: bold; text-align: center">-->
+                                            <!--                                            Commitment Fee-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td colspan="4">-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1"-->
+                                            <!--                                                   formControlName="commitmentFee">-->
+                                            <!--                                        </td>-->
+                                            <!--                                    </tr>-->
+                                            <!--                                    <tr>-->
+                                            <!--                                        <td style="vertical-align: middle;font-weight: bold; text-align: center">-->
+                                            <!--                                            Administrative Rate-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td colspan="4">-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1"-->
+                                            <!--                                                   formControlName="serviceCharge"-->
+                                            <!--                                                   id="serviceCharge" appDecimalNumber>-->
+                                            <!--                                        </td>-->
+                                            <!--                                    </tr>-->
+                                            <!--                                    <tr>-->
+                                            <!--                                        <td style="vertical-align: middle;font-weight: bold; text-align: center">-->
+                                            <!--                                            Other-->
+                                            <!--                                        </td>-->
+                                            <!--                                        <td colspan="4">-->
+                                            <!--                                            <input rows="1" class="form-control mt-1 mb-1"-->
+                                            <!--                                                   formControlName="other"-->
+                                            <!--                                                   id="other">-->
+                                            <!--                                        </td>-->
+                                            <!--                                    </tr>-->
+                                        </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <button class="btn btn-danger" (click)="removeLoan(i)">
+                                Delete {{ex?.get('loanName')?.value?.toLowerCase()}}</button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary" (click)="addExposure()">Add More</button>
+                    </div>
+                    <hr>
+                </form>
+                <div class="float-right">
+                    <button class="btn btn-success" [disabled]="submitted" (click)="onSubmit()">Save</button>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
