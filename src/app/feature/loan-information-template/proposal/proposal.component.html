@@ -1073,6 +1073,17 @@
                         </div>
                     </ng-container>
 
+                    <ng-container *ngIf="fromProfile">
+                        <app-product-paper-checklist
+                            #productPaperChecklistComponent
+                            [loanDataHolder]="loan"
+                            (checkList)="productChecklist($event)"
+                            [loan]="loan?.loan"
+                            [fromLoan]="true"
+                            [paper]="paperChecklist"
+                            [allIds]="allIds"></app-product-paper-checklist>
+
+                    </ng-container>
 
                     <!--                    <button nbButton (click)="openGuarantor(guarantor)" *ngIf="fromProfile">Save & Next</button>-->
                     <button nbButton (click)="onSubmit()" *ngIf="fromProfile">Save</button>

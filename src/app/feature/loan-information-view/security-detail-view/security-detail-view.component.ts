@@ -106,8 +106,10 @@ export class SecurityDetailViewComponent implements OnInit {
     if (this.landSelected) {
       const land = [];
       this.securities.forEach((d) => {
-        if (d.securityType.toString() === 'LAND_SECURITY') {
-          land.push(JSON.parse(d.data));
+        if (!ObjectUtil.isEmpty(d.securityType)) {
+          if (d.securityType.toString() === 'LAND_SECURITY') {
+            land.push(JSON.parse(d.data));
+          }
         }
       });
       this.landArray = this.managedArray(land);
@@ -225,64 +227,66 @@ export class SecurityDetailViewComponent implements OnInit {
   selectedSecurities() {
     if (!ObjectUtil.isEmpty(this.securities)) {
       this.securities.forEach((s, i) => {
-        switch (s.securityType.toString()) {
-          case 'APARTMENT_SECURITY': {
-            this.apartmentSelected = true;
+        if (!ObjectUtil.isEmpty(s.securityType)) {
+          switch (s.securityType.toString()) {
+            case 'APARTMENT_SECURITY': {
+              this.apartmentSelected = true;
+            }
+              break;
+            case 'LAND_SECURITY': {
+              this.landSelected = true;
+            }
+              break;
+            case 'ASSIGNMENT_OF_RECEIVABLES': {
+              this.assignments = true;
+            }
+              break;
+            case 'LAND_BUILDING_SECURITY': {
+              this.landBuilding = true;
+            }
+              break;
+            case 'CORPORATE_GUARANTEE': {
+              this.corporate = true;
+            }
+              break;
+            case 'FIXED_DEPOSIT_RECEIPT': {
+              this.depositSelected = true;
+            }
+              break;
+            case 'HYPOTHECATION_OF_STOCK': {
+              this.hypothecation = true;
+            }
+              break;
+            case 'INSURANCE_POLICY_SECURITY': {
+              this.insurancePolicySelected = true;
+            }
+              break;
+            case 'OTHER_SECURITY': {
+              this.securityOther = true;
+            }
+              break;
+            case 'PERSONAL_GUARANTEE': {
+              this.personal = true;
+            }
+              break;
+            case 'LEASE_ASSIGNMENT': {
+              this.assignments = true;
+            }
+              break;
+            case 'SHARE_SECURITY': {
+              this.shareSelected = true;
+            }
+              break;
+            case 'PLANT_AND_MACHINERY_SECURITY': {
+              this.plantSelected = true;
+            }
+              break;
+            case 'VEHICLE_SECURITY': {
+              this.vehicleSelected = true;
+            }
+              break;
+            default: return;
           }
-            break;
-          case 'LAND_SECURITY': {
-            this.landSelected = true;
-          }
-            break;
-          case 'ASSIGNMENT_OF_RECEIVABLES': {
-            this.assignments = true;
-          }
-            break;
-          case 'LAND_BUILDING_SECURITY': {
-            this.landBuilding = true;
-          }
-            break;
-          case 'CORPORATE_GUARANTEE': {
-            this.corporate = true;
-          }
-            break;
-          case 'FIXED_DEPOSIT_RECEIPT': {
-            this.depositSelected = true;
-          }
-            break;
-          case 'HYPOTHECATION_OF_STOCK': {
-            this.hypothecation = true;
-          }
-            break;
-          case 'INSURANCE_POLICY_SECURITY': {
-            this.insurancePolicySelected = true;
-          }
-            break;
-          case 'OTHER_SECURITY': {
-            this.securityOther = true;
-          }
-            break;
-          case 'PERSONAL_GUARANTEE': {
-            this.personal = true;
-          }
-            break;
-          case 'LEASE_ASSIGNMENT': {
-            this.assignments = true;
-          }
-            break;
-          case 'SHARE_SECURITY': {
-            this.shareSelected = true;
-          }
-            break;
-          case 'PLANT_AND_MACHINERY_SECURITY': {
-            this.plantSelected = true;
-          }
-            break;
-          case 'VEHICLE_SECURITY': {
-            this.vehicleSelected = true;
-          }
-            break;
-          default: return;
         }
       });
     }
