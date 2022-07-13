@@ -56,9 +56,5 @@
       </tr>
     </table>
     <app-newt-worth *ngIf="loanDataHolder?.proposal?.data" [proposal]="loanDataHolder?.proposal"></app-newt-worth>
-    <div *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'">
-      <p class="text-left header"><strong class="header">Financial/Account Information Assessment</strong></p>
-      <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
-    </div>
   </div>
 </div>
