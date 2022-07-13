@@ -62,15 +62,38 @@
                     <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
                 </div>
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-                <ng-container *ngIf="smallBusiness">
-                    <hr class="print-line">
-                    <div class = "col-md-12">
-                        <p><strong  class="header text-left">Justification for Change (Historical): </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeHistorical || 'N/A' | safeHtml"></span>
+                <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
+                    <p class="text-left header"><strong class="header">Financial/Account Information Assessment</strong></p>
+                    <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
+                </ng-container>
+                <ng-template #financials>
+                    <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
+                        class="text-left header"><strong class="header">Financial</strong></p>
+                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
+                                               [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
+                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
+                                               [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
+                </ng-template>
+                <ng-container>
+                    <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.financial?.historicalProjected">
+                        <hr class="print-line">
+                        <p><strong class="header text-left">Justification for Change (Historical): </strong>
+                            <span class="text-left" style="display: flex"
+                                  [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
-                    <hr class="print-line">
-                    <div class = "col-md-12">
-                        <p><strong  class="header text-left">Justification for Change (Projection) : </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.justificationChangeProjection || 'N/A' | safeHtml"></span>
+                    <div class="col-md-12">
+                        <hr class="print-line">
+                        <p><strong class="header text-left">Justification for Change (Projection)
+                            : </strong> <span class="text-left" style="display: flex"
+                                              [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></span>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <hr class="print-line">
+                        <p><strong class="header text-left">Remarks
+                            : </strong> <span class="text-left" style="display: flex"
+                                              [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></span>
                         </p>
                     </div>
                 </ng-container>
@@ -401,3 +424,14 @@
 <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
+
+<!--Product Paper Checklist-->
+<div class="col-md-12">
+    <p class="header"><strong class="header">Product Paper Checklist</strong></p>
+</div>
+<ng-container *ngFor="let loan of combinedLoan; let i = index">
+    <ng-container *ngIf="toggleChecklist[i] !== null">
+        <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
+                                     *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
+    </ng-container>
+</ng-container>

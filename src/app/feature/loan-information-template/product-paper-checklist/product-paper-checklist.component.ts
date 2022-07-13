@@ -31,10 +31,10 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     }
     change(id) {
        const ids = id.split(/([0-9]+)/);
-        //id appended to name (each button id is greater or lesser by 10);
+        // id appended to name (each button id is greater or lesser by 10);
         let positiveNum = Number(ids[1]);
         let negativeNum = Number(ids[1]);
-        //total input field in a row
+        // total input field in a row
         const totalInput = ids[3];
         // current position in the row
         const  name = ids[5];
@@ -63,7 +63,8 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
             view: this.parsedData.body.innerHTML,
             id: this.allIds
         };
-            this.checkList.emit(JSON.stringify(obj));
+        this.loanDataHolder.paperProductChecklist = JSON.stringify(obj);
+        this.checkList.emit(this.loanDataHolder);
     }
 
     ngAfterViewInit(): void {

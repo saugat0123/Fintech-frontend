@@ -247,10 +247,8 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     // Setting financial data---
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
       this.financialData = this.loanDataHolder.financial;
-      if (ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
         this.financial = JSON.parse(this.financialData.data);
-      }
-      this.financialSummary = true;
+        this.financialSummary = true;
     }
 
     if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {

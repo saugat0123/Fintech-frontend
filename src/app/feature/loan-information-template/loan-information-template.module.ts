@@ -71,6 +71,7 @@ import {SecurityTaggedModule} from './security/security-tagged-component/securit
 import { GroupSummarySheetComponent } from './group-summary-sheet/group-summary-sheet.component';
 import { OtherDetailsComponent } from './other-details/other-details.component';
 import {FinancialAccountInformationModule} from './financial-account-information/financial-account-information.module';
+import {ProductPaperModule} from './product-paper-checklist/product-paper-.module';
 import { NetTradingAssetsViewComponent } from './net-trading-assets-view/net-trading-assets-view.component';
 
 const COMPONENTS = [
@@ -156,6 +157,7 @@ const COMPONENTS = [
         LoanInformationViewModule,
         SecurityTaggedModule,
         FinancialAccountInformationModule,
+        ProductPaperModule,
     ],
     providers: [
         NgbActiveModal
