@@ -80,10 +80,11 @@
                 <ng-container *ngIf="smallBusiness">
                     <div class="col-md-12 form-group">
                         <div class="row">
-                            <div class="col-md-12 d-flex justify-content-start align-items-center">
-                                <b>Fixed Assets Summary</b>
+                            <div class="col-md-12 text-left">
+                                <b class="header">Fixed Assets Summary (proposed hypothecation)</b>
                             </div>
                         </div>
+                        <p class="text-right">(Amount in NPR ‘000s)</p>
                         <table  class="table table-sm table-bordered table-hover sb-small text-center">
                             <thead>
                             <tr class="sb-bg-dark text-white">
@@ -111,7 +112,7 @@
                     </div>
                     <div class="col-md-12 form-group" >
                         <div class="row">
-                            <div class="col-md-12 d-flex justify-content-start align-items-center">
+                            <div class="col-md-12 text-left">
                                 <b>Summary of Environment & Social Risk Assessment</b>
                             </div>
                         </div>
@@ -162,6 +163,7 @@
                 </ng-container>
                 <ng-container *ngIf="checkedData?.waiverChecked">
                     <hr class="print-line header">
+                    <p class="header"><strong class="header">Waivers</strong></p>
                     <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                         <tr class="  text-white sb-bg-dark">
                             <th   class="">Waiver</th>
@@ -173,6 +175,7 @@
                 </ng-container>
                 <ng-container *ngIf="checkedData?.deviationChecked">
                     <hr class="print-line header">
+                    <p class="header"><strong class="header">Deviation</strong></p>
                     <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-white sb-bg-dark">
                             <th   class="">Deviation</th>
@@ -187,69 +190,6 @@
         </div>
     </div>
 </ng-container>
-
-<div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
-    <div class="col-md-12">
-        <hr class="print-line">
-        <p ><strong   class="header">Detail of Present Proposal of the Facility</strong></p>
-        <table class="table table-bordered text-center table-sm sb-small">
-            <tbody>
-            <tr>
-                <th>Credit Facility</th>
-                <td>{{loanDataHolder?.loan?.name}}</td>
-
-                <th>Proposed Limit</th>
-                <td>{{dmsLoanFile?.proposedAmount
-                || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
-
-                <th>Interest Rate</th>
-                <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
-
-                <th>Tenure Duration In Month</th>
-                <td>{{(dmsLoanFile?.tenureDuration
-                    || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-
-            </tr>
-            <tr>
-                <th>Loan Administration Fee</th>
-                <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
-                    {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                    {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
-                </td>
-
-                <th>FMV Funding Percentage</th>
-                <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
-
-                <th>Total FMV</th>
-                <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
-
-                <th>Total DV</th>
-                <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
-
-                <th>Total Loan Limit</th>
-                <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
-            </tr>
-            <tr>
-                <th>Institution Exposure</th>
-                <td>{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
-
-                <th>Group Exposure</th>
-                <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
-
-                <th>Debt Service Coverage
-                    Ratio
-                </th>
-                <td>{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
-
-                <th>Dealing Product Name</th>
-                <td>{{dmsLoanFile?.dealingProductName}}</td>
-            </tr>
-            <tr>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
     <div class="col-md-12">
@@ -450,6 +390,10 @@
                            [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                            [fromProfile]="false"
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+<div *ngIf="checklistChecked && loanDataHolder?.paperProductChecklist">
+    <p><b class="sub-header">Product Paper Checklist</b></p>
+    <app-product-paper-checklist [allIds]="allId" [paper]="paperChecklist"></app-product-paper-checklist>
+</div>
 <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
                      [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                      [loanDataHolder]="loanDataHolder"
