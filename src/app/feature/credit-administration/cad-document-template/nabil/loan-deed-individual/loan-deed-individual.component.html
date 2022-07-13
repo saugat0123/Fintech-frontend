@@ -277,7 +277,12 @@
                     <ng-container [formGroupName]="j">
                         <td>{{newTempData[j]?.loanNepaliName}}</td>
                         <td>{{newTempData[j]?.loanAmount}}</td>
-                        <td>{{newTempData[j]?.interestRate ? newTempData[j]?.interestRate : '___________________'}}% / रु. {{newTempData[j]?.loanAdminFee ? newTempData[j]?.loanAdminFee : '__________________'}}</td>
+                        <td>
+                            {{newTempData[j]?.interestRate ? newTempData[j]?.interestRate : '___________________'}}%
+                            <span *ngIf="!newTempData[j]?.isExisting">
+                            / रु. {{newTempData[j]?.loanAdminFee ? newTempData[j]?.loanAdminFee : '__________________'}}
+                            </span>
+                        </td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry !== ''">{{newTempData[j]?.dateOfExpiry ? newTempData[j]?.dateOfExpiry : '___________________'}}</td>
                         <td *ngIf="newTempData[j]?.dateOfExpiry === ''">
                             <input class="form-field form-control-sm d-print-none"
