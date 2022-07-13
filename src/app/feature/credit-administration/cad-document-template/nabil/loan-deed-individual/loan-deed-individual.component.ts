@@ -299,6 +299,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   }
 
   initIndividualLoandeed() {
+    console.log('offer document details:', this.offerDocumentDetails);
     let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
     todayDate = todayDate.replace(',', '').split(' ');
     const daysInNumber = new Date().getDay();
@@ -891,7 +892,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: educationLoanAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -915,7 +917,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: autoLoanAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -939,7 +942,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: homeLoanAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -963,7 +967,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountCT) ? val.loanAmountCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: mortgageAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -987,7 +992,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: sahayatriAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -1011,7 +1017,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: shareLoanPOD,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -1035,7 +1042,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: shareloanDemand,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -1059,7 +1067,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: personalLoanAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -1083,7 +1092,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: personalOverdraftAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -1107,7 +1117,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: personalOverdraftWithoutCollateralAdminFee,
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: false
           };
           temploanArray.push(tempData);
         });
@@ -1130,7 +1141,8 @@ export class LoanDeedIndividualComponent implements OnInit {
             loanAmount: !ObjectUtil.isEmpty(val.loanAmountInFigureCT) ? val.loanAmountInFigureCT : '',
             interestRate: educationInterestRate ? educationInterestRate : '',
             loanAdminFee: '',
-            dateOfExpiry: expiryDate ? expiryDate : ''
+            dateOfExpiry: expiryDate ? expiryDate : '',
+            isExisting: true
           };
           temploanArray.push(tempData);
         });
