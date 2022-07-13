@@ -89,6 +89,27 @@
       </div>
       <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION" >
         <div class="row">
+          <nb-card class="col-md-11 py-2" #sensitive>
+            <a class="cursor info-label" (click)="openModel(itemSensitive)">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="custom-font">Sensitivity Analysis</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.financial?.sensitive" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.financial?.sensitive" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION" >
+        <div class="row">
         <nb-card class="col-md-11 py-2" #financ>
         <a class="cursor info-label" (click)="openModel(itemFinancial)">
           <div class="row">
@@ -96,11 +117,11 @@
               <p class="custom-font">Financial Upload</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
+              <span *ngIf="customerInfo?.financial?.data" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.financial" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!customerInfo?.financial?.data" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
@@ -166,13 +187,31 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <!--            <app-financial #financialComponent-->
-              <!--                           (financialDataEmitter)="saveFinancial($event)"-->
-
-              <!--                           [formData]="customerInfo?.financial"-->
-              <!--                           [fromProfile]="true"></app-financial>-->
               <app-financial-upload-view
                       [customerInfo]="customerInfo"
+                      [sensitive]="false"
+                      [customerInfoId] ="customerInfoId"
+                      (customer)="update($event)"
+                      [fromProfile]="false">
+              </app-financial-upload-view>
+            </nb-card-body>
+          </nb-card>
+      </ng-template>
+      <ng-template #itemSensitive let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">SENSITIVE ANALYSIS</span>
+
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-financial-upload-view
+                      [customerInfo]="customerInfo"
+                      [sensitive]="true"
                       [customerInfoId] ="customerInfoId"
                       (customer)="update($event)"
                       [fromProfile]="false">

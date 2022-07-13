@@ -1,6 +1,6 @@
 <div [nbSpinner]="spinner">
 
-<form [formGroup]="form" class="align-content-center" *ngIf="!fromProfile">
+<ng-container class="align-content-center" *ngIf="!fromProfile">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -9,8 +9,7 @@
             </div>
         </div>
     </div>
-    <button nbButton (click)="submitData()" [disabled]="!uploadFile">Submit</button>
-</form>
+</ng-container>
     <br>
     <hr>
 <nb-tabset  *ngIf="customerInfo?.financial">
@@ -18,4 +17,29 @@
         <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"  [title]="title"></app-financial-json-parser>
     </nb-tab>
 </nb-tabset>
+    <form *ngIf="!sensitive" [formGroup]="form">
+        <ng-container >
+            <div class="col-md-12 form-group" >
+                <b>Justification for change (Historical)</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="changeHistorical"></ckeditor>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+
+                    <b>Justification for change (Projection)</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="changeProjection"></ckeditor>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+
+                    <b>Remarks</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="remarks"></ckeditor>
+                </div>
+            </div>
+        </ng-container>
+    </form>
+    <button class="float-right" nbButton (click)="submitData()" >Submit</button>
 </div>
