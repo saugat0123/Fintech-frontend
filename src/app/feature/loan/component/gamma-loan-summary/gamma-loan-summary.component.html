@@ -589,9 +589,8 @@
                         </li>
                         <!-- End of reporting Info-->
                         <!-- Start Security Details-->
-                        <li >
-                            <app-security-summary *ngIf="securitySummary"
-
+                        <li *ngIf="securitySummary">
+                            <app-security-summary
                                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                                   [securityId]="securityId"
                                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
@@ -615,12 +614,14 @@
                                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                                       [fiscalYears]="fiscalYearArray"
                                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
-                            <ng-template #otherBank>
+                        </li>
+                        <ng-template #otherBank>
+                            <li>
                                 <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                                  [fiscalYears]="fiscalYearArray"
                                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-                            </ng-template>
-                        </li>
+                            </li>
+                        </ng-template>
                         <!-- End NTA-->
 
                         <!-- Start Cicl Details-->
@@ -639,7 +640,7 @@
                         </li>
                         <!-- End Insurance Details -->
                         <!-- Start Guarantors Details -->
-                        <li *ngIf="checkGuarantorData >0">
+                        <li *ngIf="checkGuarantorData">
                             <app-guarantor-summary *ngIf="checkGuarantorData"
                                                    [guarantorData]="guarantorData"
                                                    [loanCategory]="loanDataHolder?.loanCategory"></app-guarantor-summary>
@@ -934,101 +935,100 @@
                                 </table>
                             </div>
                         </li>
-                        <hr>
-                        <li>
-                            <p><strong>Authority Section</strong></p>
-                            <table
-                                    class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                                <thead>
-                                <tr class="sb-bg-dark text-white">
-                                    <th>S.N</th>
-                                    <th>Date</th>
-                                    <th>From User</th>
-                                    <th>To User</th>
-                                    <th>Status</th>
-                                    <th class="cmt-width">Remarks</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                                    <td>{{i + 1}}</td>
-                                    <td class="text-left pl-1">
-                                        {{previousList?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}}
-                                        ({{previousList?.lastModifiedAt | engNepDate: false}})
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{previousList?.fromUser?.name}}</div>
-                                        <div class="pl-1">
-                                            <span>({{previousList?.fromRole?.roleName}})</span>
-                                        </div>
-                                    </td>
+                    </ol>
+                    <div>
+                        <p><strong>Authority Section</strong></p>
+                        <table
+                                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            <thead>
+                            <tr class="sb-bg-dark text-white">
+                                <th>S.N</th>
+                                <th>Date</th>
+                                <th>From User</th>
+                                <th>To User</th>
+                                <th>Status</th>
+                                <th class="cmt-width">Remarks</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td class="text-left pl-1">
+                                    {{previousList?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}}
+                                    ({{previousList?.lastModifiedAt | engNepDate: false}})
+                                </td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{previousList?.fromUser?.name}}</div>
+                                    <div class="pl-1">
+                                        <span>({{previousList?.fromRole?.roleName}})</span>
+                                    </div>
+                                </td>
 
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{previousList?.toUser?.name}}</div>
-                                        <div class="pl-1">
-                                            ({{previousList?.toRole?.roleName}})
-                                        </div>
-                                    </td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{previousList?.toUser?.name}}</div>
+                                    <div class="pl-1">
+                                        ({{previousList?.toRole?.roleName}})
+                                    </div>
+                                </td>
 
-                                    <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
-                                    <td class="text-left">
-                                        <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
+                                <td class="text-left">
+                                    <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
                                     previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
                                     previousList?.comment)">
-                                        </div>
-                                        <a (click)="open(previousList?.comment)"
-                                           *ngIf="previousList?.comment?.length > 50"
-                                           class="text-left pl-1 disable-print">read more ....</a>
-                                        <div>
+                                    </div>
+                                    <a (click)="open(previousList?.comment)"
+                                       *ngIf="previousList?.comment?.length > 50"
+                                       class="text-left pl-1 disable-print">read more ....</a>
+                                    <div>
                                     <span class="pl-1 print-only justify-content"
                                           [innerHTML]="previousList?.comment | safeHtml"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{{currentIndex + 1}}</td>
-                                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}}
-                                        ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                        <div class="pl-1">
-                                            <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                                        </div>
-                                    </td>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{currentIndex + 1}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}}
+                                    ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
+                                </td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                                    <div class="pl-1">
+                                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                                    </div>
+                                </td>
 
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                                        <div class="pl-1">
-                                            <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                                        </div>
-                                    </td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{loanDataHolder?.currentStage?.toUser?.name}}</div>
+                                    <div class="pl-1">
+                                        <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                                    </div>
+                                </td>
 
-                                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
-                                    <td class="text-left">
-                                        <div class="pl-1 disable-print">
+                                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
+                                <td class="text-left">
+                                    <div class="pl-1 disable-print">
                                     <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment)"></span>
-                                        </div>
-                                        <a (click)="open(loanDataHolder.currentStage.comment)"
-                                           *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                           class="text-left pl-1 disable-print">read more ....</a>
-                                        <div>
+                                    </div>
+                                    <a (click)="open(loanDataHolder.currentStage.comment)"
+                                       *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                                       class="text-left pl-1 disable-print">read more ....</a>
+                                    <div>
                                     <span class="pl-1 print-only text-justify pr-1"
                                           [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                    </ol>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
