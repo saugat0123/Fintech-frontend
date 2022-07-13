@@ -411,7 +411,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             .filter((c: any) => c.id === this.loanDataHolder.id);
                     } else {
                         this.customerAllLoanList = this.customerAllLoanList
-                            .filter((c: any) =>  ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
+                            .filter((c: any) =>  ((c.currentStage.docAction !== 'CLOSED')
+                                && (c.currentStage.docAction !== 'REJECT') && (c.documentStatus !== 'APPROVED')));
                     }
                 } else {
                     this.customerAllLoanList = this.customerAllLoanList

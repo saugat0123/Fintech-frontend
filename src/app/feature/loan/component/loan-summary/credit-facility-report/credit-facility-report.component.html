@@ -58,6 +58,7 @@
 
     <div class="col-md-12">
         <app-proposal-summary *ngIf="loanDataHolder?.proposal"
+                              [loanDataHolder]="loanDataHolder"
                               [proposalData]="loanDataHolder?.proposal"
                               [customerAllLoanList]="customerLoanList"></app-proposal-summary>
     </div>

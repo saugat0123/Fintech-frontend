@@ -9,7 +9,7 @@
                         <div [formGroupName]="i">
                             <strong>
                                 Loan Name: {{ex?.get('loanName')?.value}} <br>
-                                loan Type : {{ex?.get('loanType')?.value}} <br>
+                                loan Type : {{ex?.get('loanType')?.value | replace: '_': ' '}} <br>
                                 Loan Nature: {{ex?.get('loanConfig')?.value?.loanNature}}
                             </strong>
                             <hr>
@@ -532,7 +532,7 @@
                     <hr>
                 </form>
                 <div class="float-right">
-                    <button class="btn btn-success" (click)="onSubmit()">Save</button>
+                    <button class="btn btn-success" [disabled]="submitted" (click)="onSubmit()">Save</button>
                 </div>
             </div>
         </div>

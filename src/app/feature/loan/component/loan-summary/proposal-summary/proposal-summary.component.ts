@@ -10,6 +10,7 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanDto} from '../../../model/CustomerLoanDto';
+import {ExistingExposure} from '../../../model/existingExposure';
 
 @Component({
     selector: 'app-proposal-summary',
@@ -50,18 +51,23 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
     array = [];
     dtoArray = [];
     iterableDiffer;
+    existingExposure: ExistingExposure[];
 
     constructor(private iterableDiffers: IterableDiffers) {
         this.iterableDiffer = iterableDiffers.find([]).create(null);
     }
 
     ngOnInit() {
+        console.log('LoanType', LoanType.NEW_LOAN);
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
             console.log('loanDataHolder', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                 this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+            }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures.length > 0)) {
+                this.existingExposure = this.loanDataHolder.loanHolder.existingExposures;
             }
         }
         this.calculateInterestRate();
