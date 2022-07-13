@@ -82,16 +82,14 @@
                                    <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
                                </ng-container>
                                <ng-template #financials>
+                               <div class="row">
                                    <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
                                        class="text-left header"><strong class="header">Financial</strong></p>
-                                   <div class="col-md-12">
                                        <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
                                                                   [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
-                                   </div>
-                                   <div class="col-md-12">
                                        <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
                                                                   [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
-                                   </div>
+                               </div>
                                </ng-template>
                                <ng-container>
                                    <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.financial?.historicalProjected">
