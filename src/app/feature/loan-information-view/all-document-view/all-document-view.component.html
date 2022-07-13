@@ -1,5 +1,4 @@
-<span><b>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '24. All Documents' :
-        (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '25. All Documents' : 'All Documents'}}</b>
+<span><b>All Documents</b>
   <button class="float-right sb-small sb-bg-dark text-white disable-print"
           *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath"
           (click)=getDocPath()> Download All Document</button>

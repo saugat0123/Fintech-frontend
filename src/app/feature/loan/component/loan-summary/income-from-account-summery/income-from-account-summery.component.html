@@ -1,6 +1,5 @@
-<div class="row mt-2">
-  <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. Income From Account' :
-          'Income From Account'}}</strong></p>
+<div class="row mt-2" style="padding-left: 1em">
+  <p><strong>Income From Account</strong></p>
   <div class="col-md-12" *ngFor="let incomeFromAccount of incomeFromAccountArray; let i = index">
     <label><strong>{{i+1}}. Account No: {{incomeFromAccount?.accountNo}}</strong></label>
     <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">

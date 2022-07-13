@@ -1,7 +1,7 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <div *ngIf="approveSheet === 'approveSheet'; else notApproveSheet">
-            <p><strong>{{loanCategory === 'INDIVIDUAL' ? '9. ' : '8. '}} Security Details</strong></p>
+            <p><strong>Security Details</strong></p>
         </div>
         <ng-template #notApproveSheet>
             <p><strong>Security Details</strong></p>
