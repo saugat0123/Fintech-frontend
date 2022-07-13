@@ -19,6 +19,7 @@ export class FinancialUploadViewComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() customerInfoId;
     @Output() customer = new EventEmitter();
+    @Input() sensitive;
     @Input() fromProfile: boolean;
     form: FormGroup;
     uploadFile;
@@ -41,12 +42,22 @@ export class FinancialUploadViewComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
-                this.financialData = JSON.parse(this.customerInfo.financial.data);
-                this.financialKeys = Object.keys(this.financialData);
-                this.form.patchValue({
-                    changeHistorical: this.financialData.changeHistorical,
-                    changeProjection: this.financialData.changeProjection
-                });
+                if (this.sensitive) {
+                    if (!ObjectUtil.isEmpty(this.customerInfo.financial.sensitive)) {
+                        this.financialData = JSON.parse(this.customerInfo.financial.sensitive);
+                    }
+                } else {
+                    if (!ObjectUtil.isEmpty(this.customerInfo.financial.data)) {
+                        this.financialData = JSON.parse(this.customerInfo.financial.data);
+                    }
+                }
+                if (!ObjectUtil.isEmpty(this.financialData)) {
+                    this.financialKeys = Object.keys(this.financialData);
+                }
+
+                if (!ObjectUtil.isEmpty(this.customerInfo.financial.historicalProjected)) {
+                    this.form.patchValue(JSON.parse(this.customerInfo.financial.historicalProjected));
+                }
             }
         }
     }
@@ -54,22 +65,23 @@ export class FinancialUploadViewComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             changeHistorical: [undefined],
-            changeProjection: [undefined]
+            changeProjection: [undefined],
+            remarks: [undefined]
         });
     }
 
     upload(event) {
         this.uploadFile = event.target.files[0];
         this.fg.append('file', this.uploadFile);
-        this.fg.append('customerId', this.customerInfoId);
     }
 
     submitData() {
         this.spinner = true;
-        if (this.customerInfo.customerType === 'INSTITUTION' && this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
-            this.fg.append('sbk', JSON.stringify(this.form.value));
-        } else {
-            this.fg.append('sbk', '');
+        this.fg.append('sensitive', this.sensitive);
+        this.fg.append('customerId', this.customerInfoId);
+        this.fg.append('historicalProjected', JSON.stringify(this.form.value));
+        if (!this.uploadFile) {
+            this.fg.append('file', null);
         }
         this.customerInfoService.uploadFinancialExcel(this.fg).subscribe((res: any) => {
             this.customerInfo = res.detail;

@@ -822,26 +822,26 @@
                                                 </div>
                                             </div>
                                         </ng-container>
-                                        <ng-container *ngIf="isInsti">
-                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
-                                                <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')"
-                                                             [checked]="checkedHistorical">
-                                                    <b>Justification for change (Historical)</b>
-                                                </nb-checkbox>
-                                                <div *ngIf="checkedHistorical">
-                                                    <ckeditor [config]="ckeConfig" formControlName="justificationChangeHistorical"></ckeditor>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
-                                                <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')"
-                                                             [checked]="checkedProjection">
-                                                    <b>Justification for change (Projection)</b>
-                                                </nb-checkbox>
-                                                <div *ngIf="checkedProjection">
-                                                    <ckeditor [config]="ckeConfig" formControlName="justificationChangeProjection"></ckeditor>
-                                                </div>
-                                            </div>
-                                        </ng-container>
+<!--                                        <ng-container *ngIf="isInsti">-->
+<!--                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">-->
+<!--                                                <nb-checkbox (change)="checkChecked($event.target.checked, 'changeHistorical')"-->
+<!--                                                             [checked]="checkedHistorical">-->
+<!--                                                    <b>Justification for change (Historical)</b>-->
+<!--                                                </nb-checkbox>-->
+<!--                                                <div *ngIf="checkedHistorical">-->
+<!--                                                    <ckeditor [config]="ckeConfig" formControlName="justificationChangeHistorical"></ckeditor>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">-->
+<!--                                                <nb-checkbox (change)="checkChecked($event.target.checked, 'changeProjection')"-->
+<!--                                                             [checked]="checkedProjection">-->
+<!--                                                    <b>Justification for change (Projection)</b>-->
+<!--                                                </nb-checkbox>-->
+<!--                                                <div *ngIf="checkedProjection">-->
+<!--                                                    <ckeditor [config]="ckeConfig" formControlName="justificationChangeProjection"></ckeditor>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </ng-container>-->
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">
