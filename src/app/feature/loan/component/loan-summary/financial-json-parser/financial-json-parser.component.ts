@@ -10,6 +10,7 @@ export class FinancialJsonParserComponent implements OnInit {
 
     @Input() financialJson;
     @Input() title;
+    @Input() summaryOnly;
 
     form: FormGroup;
     schemaIndex = 0;

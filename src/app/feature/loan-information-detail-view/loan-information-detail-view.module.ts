@@ -19,6 +19,9 @@ import { DetailViewOfInstitutionalComponent } from './detail-view-of-institution
 import {ProductPaperModule} from '../loan-information-template/product-paper-checklist/product-paper-.module';
 import {VideoKycModule} from '../video-kyc/video-kyc.module';
 import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
+import {
+    FinancialAccountInformationModule
+} from '../loan-information-template/financial-account-information/financial-account-information.module';
 
 
 @NgModule({
@@ -43,6 +46,7 @@ import {SecurityViewModule} from '../loan-information-view/security-view/securit
         ProductPaperModule,
         VideoKycModule,
         SecurityViewModule,
+        FinancialAccountInformationModule,
 
     ]
 })
