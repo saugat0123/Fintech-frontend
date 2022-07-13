@@ -161,7 +161,7 @@
             </ng-template>
                 <!--     Group Summary Sheet    -->
                 <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
-
+                <hr class="print-line">
                 <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
                                            [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"

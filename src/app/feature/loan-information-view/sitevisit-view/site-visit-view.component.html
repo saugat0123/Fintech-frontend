@@ -1,5 +1,5 @@
 <p class="header"><b class="header">Site Visit</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold small">Current Resident Details</p>
+<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold sub-header">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
     <tr class="text-white sb-bg-dark">
@@ -107,10 +107,12 @@
 <!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>-->
 <!--    </tr>-->
 <!--</table>-->
-<p class="font-weight-bold">Date: </p>
-<p class="font-weight-bold">Unit: {{formData['businessSiteVisitDetails']['unit']}}</p>
-<p class="font-weight-bold">Date of inspection: {{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</p>
-<p class="font-weight-bold">Inspected by: {{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</p>
+<div *ngIf="formData['businessSiteVisitFormChecked'] === true" class="col-md-12">
+    <p class="font-weight-bold">Date: </p>
+    <p class="font-weight-bold">Unit: {{formData['businessSiteVisitDetails']['unit']}}</p>
+    <p class="font-weight-bold">Date of inspection: {{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</p>
+    <p class="font-weight-bold">Inspected by: {{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</p>
+</div>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
     class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
@@ -278,7 +280,7 @@
         </td>
     </tr>
 </table>
-<table class="table table-borderless table-responsive-md text-center">
+<table class="table table-borderless table-responsive-md text-center" *ngIf="formData['businessSiteVisitFormChecked'] === true">
     <tr class="text-left">
         <td>------------------------------</td>
         <td>------------------------------</td>

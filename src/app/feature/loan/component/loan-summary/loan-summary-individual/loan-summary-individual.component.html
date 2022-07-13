@@ -2,6 +2,21 @@
 <section class="enable-print summary">
     <div id="print-block">
         <div class=" col-md-12 summary">
+            <div class="row" style="margin-bottom: -20px">
+                <div class="col-md-12">
+                    <p><strong class="header text-left">Purpose of Loan </strong></p>
+                    <table class="table table-borderless table-responsive-md table-sm table-condensed sb-small">
+                        <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                        <tr *ngIf="loan?.id">
+                            <td>
+                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -255,6 +270,7 @@
                                  [proposalData]="proposalData"></app-dbr>
                         <ng-container *ngIf="checkedData?.waiverChecked">
                             <hr class="print-line header">
+                            <p class="header"><strong class="header">Waivers</strong></p>
                             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                 <tr class="text-white sb-bg-dark">
                                     <th>Waiver</th>
@@ -268,6 +284,7 @@
                         </ng-container>
                         <ng-container *ngIf="checkedData?.deviationChecked">
                             <hr class="print-line header">
+                            <p class="header"><strong class="header">Deviation</strong></p>
                             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                 <tr class=" text-white sb-bg-dark">
                                     <th>Deviation</th>
@@ -496,22 +513,6 @@
                     <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.accountStrategy}}</td>
                 </tr>
             </table>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <hr class="print-line">
-                <p><strong class="header text-left">Purpose of Loan: </strong></p>
-                <table class="table table-borderless table-responsive">
-                    <tbody *ngFor="let loan of customerAllLoanList; let i = index">
-                        <tr>
-                            <td *ngIf="loan?.id">
-                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
         <div class="print-only">
             <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
