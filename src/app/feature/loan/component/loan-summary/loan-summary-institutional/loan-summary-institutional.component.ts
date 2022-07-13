@@ -241,6 +241,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     }
     this.checkDocumentStatus();
     this.flagShareSecurity();
+    console.log('this.loanDataHolder', this.loanDataHolder);
   }
 
   getLoanDataHolder() {
