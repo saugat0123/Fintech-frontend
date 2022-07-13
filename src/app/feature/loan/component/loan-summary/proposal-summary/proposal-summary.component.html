@@ -215,7 +215,9 @@
                 <td class="text-right pr-1">
                     Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
                 <td>-</td>
-                <td>-</td>
+                <td class="text-right pr-1">
+                    Rs. {{calculateChangeInAmount(fundedNonFundedAmount?.fundedProposedLimit, fundedNonFundedAmount?.fundedExistingLimit) | currencyFormatter}}
+                </td>
                 <td>-</td>
             </tr>
             <tr class="sb-bg-secondary text-white">
@@ -232,7 +234,9 @@
                 <td class="text-right pr-1">
                     Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
                 <td>-</td>
-                <td>-</td>
+                <td class="text-right pr-1">
+                    Rs. {{calculateChangeInAmount(fundedNonFundedAmount?.nonFundedProposedLimit, fundedNonFundedAmount?.nonFundedExistingLimit) | currencyFormatter}}
+                </td>
                 <td>-</td>
             </tr>
             <tr class="sb-bg-secondary text-white">
@@ -246,7 +250,7 @@
                 <td></td>
                 <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                 <td>-</td>
-                <td class="text-right pr-1">Rs. {{calculateTotalChangeAmount(customerAllLoanList, customerLoanDtoList)}}</td>
+                <td class="text-right pr-1">Rs. {{calculateTotalChangeAmount(customerAllLoanList, existingExposure) | currencyFormatter}}</td>
                 <td>-</td>
             </tr>
             </tbody>

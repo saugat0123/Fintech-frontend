@@ -50,7 +50,13 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
     customerLoanDtoList: CustomerLoanDto[];
     array = [];
     iterableDiffer;
-    existingExposure: ExistingExposure[];
+    existingExposure: ExistingExposure[] = [];
+    fundedNonFundedAmount = {
+        fundedProposedLimit: 0,
+        nonFundedProposedLimit: 0,
+        fundedExistingLimit: 0,
+        nonFundedExistingLimit: 0,
+    };
 
     constructor(private iterableDiffers: IterableDiffers) {
         this.iterableDiffer = iterableDiffers.find([]).create(null);
@@ -74,7 +80,7 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
     public getTotal(key: string): number {
         const tempList = this.customerAllLoanList
             .filter(l => JSON.parse(l.proposal.data)[key]);
-        const total = tempList
+        let total = tempList
             .map(l => JSON.parse(l.proposal.data)[key])
             .reduce((a, b) => a + b, 0);
         // if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
@@ -82,6 +88,11 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
         //        total += JSON.parse(cdl.proposal.data)[key];
         //     });
         // }
+        if (this.existingExposure.length > 0) {
+            this.existingExposure.forEach(ee => {
+                total += JSON.parse(ee.proposalData)[key];
+            });
+        }
         return this.isNumber(total);
     }
 
@@ -101,6 +112,19 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
             //         numb = numb + JSON.parse(cdl.proposal.data)[key];
             //     });
             // }
+            if (this.existingExposure.length > 0) {
+                const tempExistingExposureData = this.existingExposure
+                    .filter(l => l.loanConfig.isFundable);
+                tempExistingExposureData.forEach(e => {
+                    numb = numb + JSON.parse(e.proposalData)[key];
+                });
+            }
+            if (key === 'existingLimit') {
+                this.fundedNonFundedAmount.fundedExistingLimit = numb;
+            }
+            if (key === 'proposedLimit') {
+                this.fundedNonFundedAmount.fundedProposedLimit = numb;
+            }
         } else {
             const tempList = this.customerNonFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
@@ -114,8 +138,20 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
             //         numb = numb + JSON.parse(cdl.proposal.data)[key];
             //     });
             // }
+            if (this.existingExposure.length > 0) {
+                const tempExistingExposureData = this.existingExposure
+                    .filter(l => !l.loanConfig.isFundable);
+                tempExistingExposureData.forEach(e => {
+                    numb = numb + JSON.parse(e.proposalData)[key];
+                });
+            }
+            if (key === 'existingLimit') {
+                this.fundedNonFundedAmount.nonFundedExistingLimit = numb;
+            }
+            if (key === 'proposedLimit') {
+                this.fundedNonFundedAmount.nonFundedProposedLimit = numb;
+            }
         }
-
         return this.isNumber(numb);
 
     }
@@ -200,7 +236,7 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
         return interestRate;
     }
 
-    calculateTotalChangeAmount(loanList: LoanDataHolder[], dtoLoanList: CustomerLoanDto[]): number {
+    calculateTotalChangeAmount(loanList: LoanDataHolder[], existingExposure: ExistingExposure[] = []): number {
         const tempList = loanList
             .filter(l => JSON.parse(l.proposal.data).proposedLimit -
                 (JSON.parse(l.proposal.data).existingLimit ? JSON.parse(l.proposal.data).existingLimit : 0));
@@ -208,9 +244,9 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
             .map(l => JSON.parse(l.proposal.data).proposedLimit -
                 (JSON.parse(l.proposal.data).existingLimit ? JSON.parse(l.proposal.data).existingLimit : 0))
             .reduce((a, b) => a + b, 0);
-        if (dtoLoanList !== null && !ObjectUtil.isEmpty(dtoLoanList)) {
-            dtoLoanList.forEach(cdl => {
-                const changeAmount = JSON.parse(cdl.proposal.data).proposedLimit - JSON.parse(cdl.proposal.data).existingLimit;
+        if (existingExposure.length > 0) {
+            existingExposure.forEach(e => {
+                const changeAmount = JSON.parse(e.proposalData).proposedLimit - JSON.parse(e.proposalData).existingLimit;
                 total += changeAmount;
             });
         }
