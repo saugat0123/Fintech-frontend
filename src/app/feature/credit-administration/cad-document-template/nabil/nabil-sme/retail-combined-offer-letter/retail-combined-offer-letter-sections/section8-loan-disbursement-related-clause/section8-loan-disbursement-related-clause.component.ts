@@ -244,7 +244,7 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialData.homeLoanCombinedForm) &&
           !ObjectUtil.isEmpty(this.initialData.homeLoanCombinedForm.homeLoanCombinedFormArray)) {
         this.purchaseArray = this.initialData.homeLoanCombinedForm.homeLoanCombinedFormArray.filter(val =>
-            val.homeLoanCase === 'PURCHASE' && val.firstTimeHomeBuyerCheck);
+            val.homeLoanCase === 'PURCHASE' || val.firstTimeHomeBuyerCheck);
         for (let a = 0; a < this.purchaseArray.length; a++) {
           (this.form.get('homeLoanPurchaseFormArray') as FormArray).push(this.setAllFormFields());
         }
