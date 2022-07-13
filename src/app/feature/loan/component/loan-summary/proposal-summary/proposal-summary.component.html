@@ -63,7 +63,7 @@
                         {{(ex?.proposalData | jsonParse)?.existingDateOfExpiry ? ((ex?.proposalData | jsonParse)?.existingDateOfExpiry | date) : 'NA'}}
                         ({{(ex?.proposalData | jsonParse)?.existingDateOfExpiry ? ((ex?.proposalData | jsonParse)?.existingDateOfExpiry | engNepDate : false) : 'NA'}})
                     </span>
-                    <span *ngIf="!(ex?.proposalData | jsonParse)?.existingDateOfExpiry">-</span>
+                    <span class="float-right pr-1" *ngIf="!(ex?.proposalData | jsonParse)?.existingDateOfExpiry">-</span>
                 </td>
                 <td class="text-right pl-1">
                     <span *ngIf="(ex?.proposalData | jsonParse)?.outStandingLimit">
@@ -133,7 +133,7 @@
                         {{(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry ? ((loan?.proposal?.data | jsonParse)?.existingDateOfExpiry | date) : 'NA'}}
                         ({{(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry ? ((loan?.proposal?.data | jsonParse)?.existingDateOfExpiry | engNepDate : false) : 'NA'}})
                     </span>
-                    <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry">-</span>
+                    <span class="float-right pr-1" *ngIf="!(loan?.proposal?.data | jsonParse)?.existingDateOfExpiry">-</span>
                 </td>
                 <td class="text-right pl-1">
                     <span *ngIf="(LoanType[loan?.loanType] !== LoanType?.NEW_LOAN) && (loan?.proposal?.data | jsonParse)?.outStandingLimit">

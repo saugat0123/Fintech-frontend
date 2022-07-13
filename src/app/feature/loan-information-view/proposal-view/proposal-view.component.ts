@@ -8,6 +8,7 @@ import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CustomerLoanDto} from '../../loan/model/CustomerLoanDto';
+import {ExistingExposure} from '../../loan/model/existingExposure';
 
 @Component({
   selector: 'app-proposal-view',
@@ -44,8 +45,8 @@ export class ProposalViewComponent implements OnInit, DoCheck {
   prepaymentCharge;
   customerLoanDtoList: CustomerLoanDto[];
   array = [];
-  dtoArray = [];
   iterableDiffer;
+  existingExposure: ExistingExposure[];
 
   constructor(private iterableDiffers: IterableDiffers) {
     this.iterableDiffer = iterableDiffers.find([]).create(null);
@@ -56,6 +57,9 @@ export class ProposalViewComponent implements OnInit, DoCheck {
     this.checkedData = JSON.parse(this.proposalData.checkedData);
     if (this.loanDataHolder.customerLoanDtoList !== null) {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+      if (this.loanDataHolder.loanHolder.existingExposures.length > 0) {
+        this.existingExposure = this.loanDataHolder.loanHolder.existingExposures;
+      }
     }
     this.calculateInterestRate();
   }
@@ -148,47 +152,6 @@ export class ProposalViewComponent implements OnInit, DoCheck {
       }
       this.array.push(config);
     });
-    if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-      this.customerLoanDtoList.forEach(cd => {
-        let dtoCfonfig;
-        if (!ObjectUtil.isEmpty(cd.loanConfig)) {
-          dtoCfonfig = {
-            isFundable: cd.loanConfig.isFundable,
-            fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
-            isFixedDeposit: cd.loanConfig.loanTag === 'FIXED_DEPOSIT',
-            isGeneral: cd.loanConfig.loanTag === 'GENERAL',
-            isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
-            isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
-            isHome: cd.loanConfig.loanTag === 'HOME_LOAN',
-            loanNature: cd.loanConfig.loanNature,
-            loanNatureSelected: false,
-            isTerminating: false,
-            isRevolving: false,
-          };
-        }
-        if (!ObjectUtil.isEmpty(dtoCfonfig)) {
-          if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
-            dtoCfonfig.loanNatureSelected = true;
-            if (dtoCfonfig.loanNature.toString() === 'Terminating') {
-              dtoCfonfig.isTerminating = true;
-            } else {
-              dtoCfonfig.isRevolving = true;
-            }
-            if (dtoCfonfig.isRevolving) {
-              dtoCfonfig.isGeneral = false;
-            }
-          }
-          if (!dtoCfonfig.isFundable) {
-            dtoCfonfig.isGeneral = false;
-          }
-          if (dtoCfonfig.isFixedDeposit) {
-            dtoCfonfig.loanNatureSelected = false;
-            dtoCfonfig.fundableNonFundableSelcted = false;
-          }
-        }
-        this.dtoArray.push(dtoCfonfig);
-      });
-    }
   }
   checkInstallmentAmount() {
     if (this.proposalAllData.repaymentMode === 'EMI' || this.proposalAllData.repaymentMode === 'EQI') {

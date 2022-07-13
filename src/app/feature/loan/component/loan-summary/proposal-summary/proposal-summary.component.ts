@@ -49,7 +49,6 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
     @Output() eventEmitter = new EventEmitter();
     customerLoanDtoList: CustomerLoanDto[];
     array = [];
-    dtoArray = [];
     iterableDiffer;
     existingExposure: ExistingExposure[];
 
@@ -58,11 +57,9 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        console.log('LoanType', LoanType.NEW_LOAN);
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-            console.log('loanDataHolder', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                 this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
             }
@@ -77,14 +74,14 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
     public getTotal(key: string): number {
         const tempList = this.customerAllLoanList
             .filter(l => JSON.parse(l.proposal.data)[key]);
-        let total = tempList
+        const total = tempList
             .map(l => JSON.parse(l.proposal.data)[key])
             .reduce((a, b) => a + b, 0);
-        if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-            this.customerLoanDtoList.forEach(cdl => {
-               total += JSON.parse(cdl.proposal.data)[key];
-            });
-        }
+        // if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+        //     this.customerLoanDtoList.forEach(cdl => {
+        //        total += JSON.parse(cdl.proposal.data)[key];
+        //     });
+        // }
         return this.isNumber(total);
     }
 
@@ -97,26 +94,26 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
-            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-                const tempCustomerLoanDtoList = this.customerLoanDtoList
-                    .filter(l => l.isFundable);
-                tempCustomerLoanDtoList.forEach(cdl => {
-                    numb = numb + JSON.parse(cdl.proposal.data)[key];
-                });
-            }
+            // if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            //     const tempCustomerLoanDtoList = this.customerLoanDtoList
+            //         .filter(l => l.isFundable);
+            //     tempCustomerLoanDtoList.forEach(cdl => {
+            //         numb = numb + JSON.parse(cdl.proposal.data)[key];
+            //     });
+            // }
         } else {
             const tempList = this.customerNonFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
             numb = tempList
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
-            if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-                const tempCustomerLoanDtoList = this.customerLoanDtoList
-                    .filter(l => !l.isFundable);
-                tempCustomerLoanDtoList.forEach(cdl => {
-                    numb = numb + JSON.parse(cdl.proposal.data)[key];
-                });
-            }
+            // if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            //     const tempCustomerLoanDtoList = this.customerLoanDtoList
+            //         .filter(l => !l.isFundable);
+            //     tempCustomerLoanDtoList.forEach(cdl => {
+            //         numb = numb + JSON.parse(cdl.proposal.data)[key];
+            //     });
+            // }
         }
 
         return this.isNumber(numb);
@@ -181,47 +178,6 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
             }
             this.array.push(config);
         });
-        if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-            this.customerLoanDtoList.forEach(cd => {
-                let dtoCfonfig;
-                if (!ObjectUtil.isEmpty(cd.loanConfig)) {
-                    dtoCfonfig = {
-                        isFundable: cd.loanConfig.isFundable,
-                        fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
-                        isFixedDeposit: cd.loanConfig.loanTag === 'FIXED_DEPOSIT',
-                        isGeneral: cd.loanConfig.loanTag === 'GENERAL',
-                        isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
-                        isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
-                        isHomeLoan: cd.loanConfig.loanTag === 'HOME_LOAN',
-                        loanNature: cd.loanConfig.loanNature,
-                        loanNatureSelected: false,
-                        isTerminating: false,
-                        isRevolving: false,
-                    };
-                }
-                if (!ObjectUtil.isEmpty(dtoCfonfig)) {
-                    if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
-                        dtoCfonfig.loanNatureSelected = true;
-                        if (dtoCfonfig.loanNature.toString() === 'Terminating') {
-                            dtoCfonfig.isTerminating = true;
-                        } else {
-                            dtoCfonfig.isRevolving = true;
-                        }
-                        if (dtoCfonfig.isRevolving) {
-                            dtoCfonfig.isGeneral = false;
-                        }
-                    }
-                    if (!dtoCfonfig.isFundable) {
-                        dtoCfonfig.isGeneral = false;
-                    }
-                    if (dtoCfonfig.isFixedDeposit) {
-                        dtoCfonfig.loanNatureSelected = false;
-                        dtoCfonfig.fundableNonFundableSelcted = false;
-                    }
-                }
-                this.dtoArray.push(dtoCfonfig);
-            });
-        }
     }
 
     checkInstallmentAmount() {
