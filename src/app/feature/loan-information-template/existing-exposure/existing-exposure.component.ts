@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../@core/utils';
@@ -9,14 +9,13 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {ExistingExposure} from '../../loan/model/existingExposure';
 import {LoanType} from '../../loan/model/loanType';
-import {NbDialogRef} from '@nebular/theme';
 
 @Component({
     selector: 'app-existing-exposure',
     templateUrl: './existing-exposure.component.html',
     styleUrls: ['./existing-exposure.component.scss']
 })
-export class ExistingExposureComponent implements OnInit, AfterContentChecked {
+export class ExistingExposureComponent implements OnInit {
     @Input() customerType;
     @Input() customerInfo: CustomerInfoData;
     @Output() triggerCustomerRefresh = new EventEmitter<boolean>();
@@ -33,8 +32,7 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private loanFormService: LoanFormService,
-                private customerInfoService: CustomerInfoService,
-                private ref: ChangeDetectorRef) {
+                private customerInfoService: CustomerInfoService) {
     }
 
     ngOnInit() {
@@ -259,10 +257,6 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
                 version: [e.version]
             }));
         });
-    }
-
-    ngAfterContentChecked(): void {
-        this.ref.detectChanges();
     }
 
     setLoanNameAndType(value, i: number) {
