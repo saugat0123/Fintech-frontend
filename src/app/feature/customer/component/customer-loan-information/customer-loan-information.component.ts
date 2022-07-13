@@ -50,6 +50,7 @@ import {MultipleBankingComponent} from '../../../loan-information-template/multi
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
 import {NetWorthComponent} from '../net-worth/net-worth.component';
+import {ExistingExposureComponent} from '../../../loan-information-template/existing-exposure/existing-exposure.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -130,6 +131,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public swotAnalysisComponent: SwotAnalysisComponent;
     @ViewChild('netWorth', {static: false})
     public netWorthComponent: NetWorthComponent;
+    @ViewChild('existingExposure', {static: false})
+    public existingExposure: ExistingExposureComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -891,4 +894,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.commonLoanData.get('totalLimit').patchValue(Number(total).toFixed(2));
     }
 
+    refreshCustomerData(event: boolean) {
+        this.triggerCustomerRefresh.emit(event);
+        this.nbDialogRef.close();
+    }
 }

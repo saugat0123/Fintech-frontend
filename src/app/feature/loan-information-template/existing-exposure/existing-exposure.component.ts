@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../@core/utils';
@@ -8,8 +8,8 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {ExistingExposure} from '../../loan/model/existingExposure';
-import {LoanConfig} from '../../admin/modal/loan-config';
 import {LoanType} from '../../loan/model/loanType';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
     selector: 'app-existing-exposure',
@@ -19,12 +19,10 @@ import {LoanType} from '../../loan/model/loanType';
 export class ExistingExposureComponent implements OnInit, AfterContentChecked {
     @Input() customerType;
     @Input() customerInfo: CustomerInfoData;
-    // @Input() loanList: LoanConfig[];
-    // @Input() multipleSelectedLoanType;
-
+    @Output() triggerCustomerRefresh = new EventEmitter<boolean>();
     existingExposure: FormGroup;
     submitted = false;
-    loanList: LoanConfig[];
+    loanList = [];
     selectedLoanList = [];
     multipleSelectedLoanType = [];
     existingData = [];
@@ -40,14 +38,10 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit() {
-        console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
-        console.log('customerInfo', this.customerInfo);
         this.buildForm();
-        // console.log('existingData', this.existingData);
         if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
             if (this.customerInfo.existingExposures.length > 0) {
                 this.existingData = this.customerInfo.existingExposures;
-                console.log('existingData', this.existingData);
                 this.setLoans();
             } else {
                 this.getApprovedLoanList();
@@ -56,7 +50,6 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
             this.getApprovedLoanList();
         }
         this.getAllLoanList();
-        console.log('Init existingData', this.existingData);
     }
 
     buildForm() {
@@ -69,11 +62,10 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
         return this.existingExposure.controls;
     }
 
-    private getAllLoanList() {
+    getAllLoanList() {
         this.loanConfigService.getAllByLoanCategory(this.customerType)
             .subscribe((res: any) => {
                 this.loanList = res.detail;
-                console.log('loanList', this.loanList);
             }, (error) => {
                 this.toastService.show(new Alert(AlertType.DANGER, 'Cannot get loan list '));
             }, () => {
@@ -91,8 +83,6 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
             this.multipleSelectedLoanType.push(val);
         });
         this.selectedLoanList = this.multipleSelectedLoanType[0]['key'];
-        console.log('selectedLoanList', this.selectedLoanList);
-        console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
     }
 
     addExposure() {
@@ -120,16 +110,15 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
                 proposalData: this.formBuilder.group(exposure) as FormGroup,
                 loanId: [undefined],
                 originalLimit: [undefined],
-                loanType: [undefined],
+                loanType: ['NEW_LOAN'],
                 loanName: [undefined],
                 loanConfig: [undefined],
-                docStatus: [undefined],
+                docStatus: ['APPROVED'],
             })
         );
-        // this.existingData.push(c);
-        this.existingData =  this.existingExposure.get('exposure').value;
-        console.log('Add more', this.existingExposure.get('exposure'));
-        console.log('After Add', this.existingData);
+        const c: ExistingExposure = new ExistingExposure();
+        this.existingData.push(c);
+        // this.existingData =  this.existingExposure.get('exposure').value;
     }
 
     getApprovedLoanList() {
@@ -139,13 +128,10 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
                 approvedLoanList.forEach(al => {
                     this.setApprovedLoanData(al);
                 });
-                console.log('exposure value', this.existingExposure.get('exposure'));
-                console.log('res', res);
             });
     }
 
     setApprovedLoanData(data: any) {
-        console.log('data', data);
         const control = this.existingExposure.get('exposure') as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             control.push(
@@ -162,7 +148,6 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
             );
         }
         this.existingData = control.value;
-        console.log('existingData existingData existingData', this.existingData);
     }
 
     removeLoan(i: number) {
@@ -174,17 +159,19 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
 
     calculateRate(i: number, controlName) {
         let total = 0;
-        const base = Number(this.existingExposure.get(['exposure', i, 'baseRate']).value);
-        const premiumRate = Number(this.existingExposure.get(['exposure', i, 'premiumRateOnBaseRate']).value);
-        const interest = Number(this.existingExposure.get(['exposure', i, 'interestRate']).value);
+        const base = Number(this.existingExposure.get(['exposure', i, 'proposalData']).get('baseRate').value);
+        const premiumRate = Number(this.existingExposure.get(['exposure', i, 'proposalData']).get('premiumRateOnBaseRate').value);
+        const interest = Number(this.existingExposure.get(['exposure', i, 'proposalData']).get('interestRate').value);
         switch (controlName) {
             case 'baseRate':
                 total = base + premiumRate;
-                this.existingExposure.get(['exposure', i, 'interestRate']).setValue(Number(total).toFixed(2));
+                this.existingExposure.get(['exposure', i, 'proposalData'])
+                    .get('interestRate').setValue(Number(total).toFixed(2));
                 break;
             case 'interestRate':
                 total = interest - base;
-                this.existingExposure.get(['exposure', i, 'premiumRateOnBaseRate']).setValue(Number(total).toFixed(2));
+                this.existingExposure.get(['exposure', i, 'proposalData'])
+                    .get('premiumRateOnBaseRate').setValue(Number(total).toFixed(2));
                 break;
             default:
                 return;
@@ -193,30 +180,33 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
 
     calculateLimitValues(type: string, i: number) {
         let totalLimit = 0;
-        const existingLimit = Number(this.existingExposure.get(['exposure', i, 'existingLimit']).value);
-        const settlementAmount = Number(this.existingExposure.get(['exposure', i, 'settlementAmount']).value);
-        const enhanceLimitAmount = Number(this.existingExposure.get(['exposure', i, 'enhanceLimitAmount']).value);
+        const existingLimit = Number(this.existingExposure.get(['exposure', i, 'proposalData']).get('existingLimit').value);
+        const settlementAmount = Number(this.existingExposure.get(['exposure', i, 'proposalData']).get('settlementAmount').value);
+        const enhanceLimitAmount = Number(this.existingExposure.get(['exposure', i, 'proposalData']).get('enhanceLimitAmount').value);
         if (type.toString() === 'settlement') {
             totalLimit = existingLimit - settlementAmount;
         } else {
             totalLimit = existingLimit + enhanceLimitAmount;
         }
-        this.existingExposure.get(['exposure', i, 'proposedLimit']).setValue(Number(totalLimit).toFixed(2));
+        this.existingExposure.get(['exposure', i, 'proposalData']).get('proposedLimit').setValue(Number(totalLimit).toFixed(2));
     }
 
     onSubmit() {
         this.submitted = true;
-        console.log('existingData', this.existingData);
+        if (this.existingExposure.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check Validation'));
+            return;
+        }
         this.setExposure();
-        console.log('after', this.existingData);
         this.customerInfoService.saveExistingExposure(this.existingData, this.customerInfo.id)
             .subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Existing Exposure'));
+                this.triggerCustomerRefresh.emit(true);
             console.log('res', res);
         });
     }
 
     addProposalData(data) {
-        console.log('data', data);
         return this.formBuilder.group({
             existingLimit: [ObjectUtil.isEmpty(data) ? undefined : data.existingLimit],
             proposedLimit: [ObjectUtil.isEmpty(data) ? undefined :
@@ -241,9 +231,9 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
     }
 
     setExposure() {
-        console.log('existingData', this.existingData);
         const data = this.existingExposure.get('exposure') as FormArray;
-        console.log('data', data);
+        console.log('existingData', this.existingData);
+        console.log('Data Value', data.value);
         data.value.forEach((d, i) => {
            this.existingData[i].proposalData = JSON.stringify(d.proposalData);
            this.existingData[i].loanId = d.loanId;
@@ -276,7 +266,6 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
     }
 
     setLoanNameAndType(value, i: number) {
-        console.log('value', value, 'i', i);
         this.existingExposure.get(['exposure', i , 'loanName']).patchValue(value.name);
         this.existingExposure.get(['exposure', i , 'loanConfig']).patchValue(value);
         return;

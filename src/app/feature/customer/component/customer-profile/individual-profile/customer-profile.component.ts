@@ -153,7 +153,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 };
                 this.paramProp = paramsValue;
                 this.customerType = this.paramProp.customerType;
-                console.log(this.customerType);
                 this.customerInfoId = this.paramProp.customerInfoId;
                 this.getCustomerInfo();
             });
@@ -525,7 +524,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.multipleSelectedLoanType.push(val);
 
         });
-        console.log('multipleSelectedLoanType', this.multipleSelectedLoanType);
     }
 
     applyLoans(proposal) {

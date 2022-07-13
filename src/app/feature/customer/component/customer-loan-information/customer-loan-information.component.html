@@ -959,14 +959,14 @@
                     EXISTING EXPOSURE
                   </p>
                 </div>
-<!--                <div class="col-md-4 d-flex justify-content-end">-->
-<!--              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">-->
-<!--                <em class="fas fa-check-circle px-2"></em>-->
-<!--              </span>-->
-<!--                  <span style="color:red" title="Status :Not Saved">-->
-<!--                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>-->
-<!--              </span>-->
-<!--                </div>-->
+                <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.existingExposures?.length > 0" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                  <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.existingExposures?.length > 0" class="fas fa-times-circle px-2"></em>
+              </span>
+                </div>
               </div>
             </a>
           </nb-card>
@@ -982,7 +982,9 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-existing-exposure [customerType]="customerInfo?.customerType"
+              <app-existing-exposure #existingExposure
+                                     [customerType]="customerInfo?.customerType"
+                                     (triggerCustomerRefresh)="refreshCustomerData($event)"
                                      [customerInfo]="customerInfo"></app-existing-exposure>
             </nb-card-body>
           </nb-card>

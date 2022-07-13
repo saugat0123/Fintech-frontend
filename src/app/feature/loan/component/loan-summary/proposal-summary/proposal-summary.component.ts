@@ -59,6 +59,7 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+            console.log('loanDataHolder', this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                 this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
             }
