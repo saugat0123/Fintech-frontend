@@ -14,9 +14,11 @@
     <hr>
 <nb-tabset  *ngIf="customerInfo?.financial">
     <nb-tab tabId="0" *ngFor="let title of financialKeys; let i = index;" [tabTitle]="title | financialPipe">
-        <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"  [title]="title"></app-financial-json-parser>
+        <app-financial-json-parser [summaryOnly]="false" [financialJson]="financialData[title] | jsonParse"  [title]="title"></app-financial-json-parser>
     </nb-tab>
 </nb-tabset>
+<!--    <app-financial-json-parser [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>-->
+<!--    <app-financial-json-parser [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>-->
     <form *ngIf="!sensitive" [formGroup]="form">
         <ng-container >
             <div class="col-md-12 form-group" >
@@ -41,5 +43,6 @@
             </div>
         </ng-container>
     </form>
+
     <button class="float-right" nbButton (click)="submitData()" >Submit</button>
 </div>

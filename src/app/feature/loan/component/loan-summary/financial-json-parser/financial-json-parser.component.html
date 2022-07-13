@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="disable-print">
+<form [formGroup]="form" class="disable-print" *ngIf="!summaryOnly; else summary;">
     <div class="col-md-12">
         <div class="row">
             <div class="form-group col-md-4">
@@ -22,20 +22,19 @@
             </div>
         </div>
     </div>
-</form>
-<!--financial dynamic table-->
-<div class="col-md-12">
-    <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover text-white">
-        <thead>
-        <tr class=" sb-bg-dark  text-dark">
-            <td width="25%"><strong>Particular</strong></td>
-            <td *ngFor="let header of financialJson?.column"><strong>{{header}}</strong></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let schema of financialJson.schema; let i = index">
-            <td class=" sb-bg-dark text-dark"><strong>{{schema}}</strong></td>
-            <ng-container *ngIf="schema === 'Gross Profit (Contribution) Margin'
+    <!--financial dynamic table-->
+    <div class="col-md-12">
+        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover text-white">
+            <thead>
+            <tr class=" sb-bg-dark  text-dark">
+                <td width="25%"><strong>Particular</strong></td>
+                <td *ngFor="let header of financialJson?.column"><strong>{{header}}</strong></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let schema of financialJson.schema; let i = index">
+                <td class=" sb-bg-dark text-dark"><strong>{{schema}}</strong></td>
+                <ng-container *ngIf="schema === 'Gross Profit (Contribution) Margin'
               ||schema === 'Net Profit Margin'
               || schema === 'Operating Profit Margin'
               || schema === 'Pretax Profit Margin'
@@ -51,12 +50,12 @@
               || schema === 'Accumulated Dep to Gross Depreciable exps.'
               || schema === 'Net Depreciable Fixed Assets / Dep. Expense' || title === 'commonSizePlData' || title === 'commonSizeBs'
                 ;else days">
-                <td style="background: #706e6e;" class="text-right"
-                    *ngFor="let header of financialJson?.column; let ii = index">
-                    {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? ' ' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
-            </ng-container>
-            <ng-template #days>
-                <ng-container  *ngIf="schema === 'INVDOH'
+                    <td style="background: #706e6e;" class="text-right"
+                        *ngFor="let header of financialJson?.column; let ii = index">
+                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? ' ' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
+                </ng-container>
+                <ng-template #days>
+                    <ng-container  *ngIf="schema === 'INVDOH'
                                       || schema === 'ARDOH'
                                       || schema === 'Net Sales'
                                       || schema === 'Profit Before Tax'
@@ -68,17 +67,98 @@
                                       || schema === 'Total External Liabilities (Long & Short Term)'
                                       || schema === 'All fields of balance sheet, PL, quick & Detailed cash flow';
                                        else normal;" >
+                        <td  style="background: #706e6e;" class="text-right"
+                             *ngFor="let header of financialJson?.column; let ii = index">
+                            {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(0)}}</td>
+                    </ng-container>
+                </ng-template>
+                <ng-template  #normal>
                     <td  style="background: #706e6e;" class="text-right"
                          *ngFor="let header of financialJson?.column; let ii = index">
-                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(0)}}</td>
-                </ng-container>
-            </ng-template>
-            <ng-template  #normal>
-                <td  style="background: #706e6e;" class="text-right"
-                    *ngFor="let header of financialJson?.column; let ii = index">
-                    {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
-            </ng-template>
-        </tr>
-        </tbody>
-    </table>
-</div>
+                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
+                </ng-template>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+<ng-template #summary>
+    <div class="col-md-12">
+        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover text-white">
+            <thead>
+            <tr class=" sb-bg-dark  text-dark">
+                <td width="25%"><strong>Particular</strong></td>
+                <td *ngFor="let header of financialJson?.column"><strong>{{header}}</strong></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let schema of financialJson.schema; let i = index">
+              <ng-container
+              *ngIf="(title === 'executiveSummaryData' && (schema === 'Net Sales' ||
+                     schema === 'Profit Before Tax' ||
+                     schema === 'Networth' ||
+                     schema === 'Gross Profit (Contribution) Margin' ||
+                     schema === 'Net Profit Margin' ||
+                     schema === 'Current Ratio' ||
+                     schema === 'Quick Ratio' ||
+                     schema === 'Trade Creditors Payment Period' ||
+                     schema === 'INVDOH' ||
+                     schema === 'ARDOH' ||
+                     schema === 'Net Trade Cycle' ||
+                     schema === 'Debt/ Equity Ratio' ||
+                     schema === 'Adj. Debt/Equity Ratio ' ||
+                     schema === 'Interest Cover' ||
+                     schema === 'DSCR')) || (title === 'cashFlowData' && (schema?.split(' ')?.join('') === 'CASHCOLLECTEDFROMSALES(1+2)'
+                     || schema === 'NET CASH AFTER OPERATIONS'
+                     || schema?.split(' ')?.join('') === 'CASHAFTERFINANCINGCOST(21+26)'
+                     || schema === 'CASH AFTER DEBT AMORTISATION(27-28)' ))">
+                  <td class=" sb-bg-dark text-dark"><strong>{{schema}}</strong></td>
+                  <ng-container *ngIf="schema === 'Gross Profit (Contribution) Margin'
+              ||schema === 'Net Profit Margin'
+              || schema === 'Operating Profit Margin'
+              || schema === 'Pretax Profit Margin'
+              || schema === 'Break Even Sales point'
+              || schema === 'Sales to Operating Capital Employed'
+              || schema === 'Return on Operating Capital Employed'
+              || schema === 'Working Capital to Total Assets'
+              || schema === 'Working Capital to Sales'
+              || schema === 'Debt to Total Assets'
+              || schema === 'Return on Assets'
+              || schema === 'Sales to Net Fixed Assets'
+              || schema === 'Return on Equity'
+              || schema === 'Accumulated Dep to Gross Depreciable exps.'
+              || schema === 'Net Depreciable Fixed Assets / Dep. Expense' || title === 'commonSizePlData' || title === 'commonSizeBs'
+                ;else days">
+                      <td style="background: #706e6e;" class="text-right"
+                          *ngFor="let header of financialJson?.column; let ii = index">
+                          {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? ' ' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
+                  </ng-container>
+                  <ng-template #days>
+                      <ng-container  *ngIf="schema === 'INVDOH'
+                                      || schema === 'ARDOH'
+                                      || schema === 'Net Sales'
+                                      || schema === 'Profit Before Tax'
+                                      || schema === 'Networth'
+                                      || schema === 'Total Liabilities'
+                                      || schema === 'Working Capital'
+                                      || schema === 'Total Assets'
+                                      || schema === 'Trade Creditors Payment Period'
+                                      || schema === 'Total External Liabilities (Long & Short Term)'
+                                      || schema === 'All fields of balance sheet, PL, quick & Detailed cash flow';
+                                       else normal;" >
+                          <td  style="background: #706e6e;" class="text-right"
+                               *ngFor="let header of financialJson?.column; let ii = index">
+                              {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(0)}}</td>
+                      </ng-container>
+                  </ng-template>
+                  <ng-template  #normal>
+                      <td  style="background: #706e6e;" class="text-right"
+                           *ngFor="let header of financialJson?.column; let ii = index">
+                          {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
+                  </ng-template>
+              </ng-container>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

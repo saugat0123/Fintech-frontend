@@ -45,6 +45,9 @@ import {SecurityViewModule} from '../../../loan-information-view/security-view/s
 import {LoanSummaryInstitutionalComponent} from './loan-summary-institutional/loan-summary-institutional.component';
 import {LoanSummaryIndividualComponent} from './loan-summary-individual/loan-summary-individual.component';
 import { CustomerShareSummaryComponent } from './customer-share-summary/customer-share-summary.component';
+import {
+    FinancialAccountInformationModule
+} from '../../../loan-information-template/financial-account-information/financial-account-information.module';
 
 
 const COMPONENTS = [
@@ -92,6 +95,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         DbrModule,
         ProductPaperModule,
         SecurityViewModule,
+        FinancialAccountInformationModule,
     ],
     exports: [
         LoanSummaryComponent,
