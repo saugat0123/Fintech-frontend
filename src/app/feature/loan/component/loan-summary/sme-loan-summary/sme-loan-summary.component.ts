@@ -541,7 +541,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
               this.customerAllLoanList = this.customerAllLoanList.filter(
                   (c: any) =>
                       c.currentStage.docAction !== 'CLOSED' &&
-                      c.currentStage.docAction !== 'REJECT'
+                      c.currentStage.docAction !== 'REJECT' &&
+                      c.currentStage.docAction !== 'APPROVED'
               );
             }
           } else {
