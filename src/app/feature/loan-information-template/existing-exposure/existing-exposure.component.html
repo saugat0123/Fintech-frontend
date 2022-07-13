@@ -13,7 +13,7 @@
                                 Loan Nature: {{ex?.get('loanConfig')?.value?.loanNature}}
                             </strong>
                             <hr>
-                            <div class="nb-card-header row" *ngIf="!ex?.get('loanId')?.value">
+                            <div class="nb-card-header row" *ngIf="!ex?.get('loanId')?.value && !ex?.get('id')?.value">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="loanType"><strong>Loan Type</strong></label>

@@ -86,7 +86,6 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
     }
 
     addExposure() {
-        console.log('existingData', this.existingData);
         const exposure: any = {
             existingLimit : null,
             proposedLimit : null,
@@ -152,8 +151,8 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
 
     removeLoan(i: number) {
         (this.existingExposure.get('exposure') as FormArray).removeAt(i);
-        if (!ObjectUtil.isEmpty(this.existingData)) {
-            this.existingData.splice(1, i);
+        if (this.existingData.length > 0) {
+            this.existingData.splice(i, 1);
         }
     }
 
@@ -256,7 +255,8 @@ export class ExistingExposureComponent implements OnInit, AfterContentChecked {
                 loanConfig: [e.loanConfig],
                 docStatus: [e.docStatus],
                 originalLimit: [e.originalLimit],
-                id: [e.id]
+                id: [e.id],
+                version: [e.version]
             }));
         });
     }
