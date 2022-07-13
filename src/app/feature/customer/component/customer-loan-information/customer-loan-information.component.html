@@ -93,7 +93,7 @@
             <a class="cursor info-label" (click)="openModel(itemSensitive)">
               <div class="row">
                 <div class="col-md-8">
-                  <p class="custom-font">Sensitivity Analysis</p>
+                  <p class="custom-font">SENSITIVITY ANALYSIS</p>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.financial?.sensitive" style="color:green" title="Status : Saved">
@@ -114,14 +114,14 @@
         <a class="cursor info-label" (click)="openModel(itemFinancial)">
           <div class="row">
             <div class="col-md-8">
-              <p class="custom-font">Financial Upload</p>
+              <p class="custom-font">FINANCIAL UPLOAD</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.financial?.data" style="color:green" title="Status : Saved">
+              <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.financial?.data" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!customerInfo?.financial" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
@@ -843,7 +843,7 @@
             <a class="cursor info-label" (click)="openModel(otherTemplate)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">Others</p>
+                  <p class="custom-font">OTHERS</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.otherDetails" style="color:green"
@@ -928,7 +928,7 @@
             <a class="cursor info-label" (click)="openModel(commonLoanInformation)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">Existing Exposure</p>
+                  <p class="custom-font">EXISTING EXPOSURE</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span *ngIf="customerInfo?.existingExposures?.length > 0" style="color:green"
