@@ -1,0 +1,106 @@
+<div [formGroup]="dynamicFormGroup">
+    <div
+            *ngFor="let grop of getArrayControl(fieldData?.id).controls; let i = index"
+            [formArrayName]="fieldData?.id">
+        <div [formGroupName]="i">
+            <div class="clearfix">
+                <div class="float-left">
+                  <strong><span>{{i+1}}.</span></strong>
+                </div>
+                <div class="float-right">
+                    <button nbButton type="button" size="tiny" (click)="remove(i)" *ngIf="getArrayControl(fieldData?.id).controls.length > 1">remove</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div *ngFor="let field of fieldData?.fields;let i=index"
+                         [ngClass]="FormType.FORM_ARRAY === field.type ? 'col-md-12':field?.settings[2]?.value">
+
+                        <div [ngSwitch]="field.type">
+
+                            <div *ngSwitchCase=FormType.TEXT>
+                                <app-input-text-form
+                                        [submitted]="submitted"
+                                        [field]="field"
+                                        [dynamicFormGroup]="grop"
+                                        *ngIf="isFormBuild">
+
+                                </app-input-text-form>
+
+
+                            </div>
+
+                            <div *ngSwitchCase=FormType.TEXTAREA>
+                                <app-input-textarea-form [submitted]="submitted"
+                                                         [field]="field"
+                                                         [dynamicFormGroup]="grop"
+                                                         *ngIf="isFormBuild">
+
+                                </app-input-textarea-form>
+                            </div>
+
+                            <div *ngSwitchCase=FormType.BREAK>
+                                <div>
+                                    <label class="sb-small" [class]="field?.settings[3]?.value"
+                                    ><strong
+                                    >{{field?.settings[0]?.value}}</strong></label>
+                                    <a class="clearfix cursor" *ngIf="field?.settings[1]?.value">
+                                        <hr>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase=FormType.SELECT>
+                                <app-input-select-form [submitted]="submitted"
+                                                       [field]="field"
+                                                       [dynamicFormGroup]="grop"
+                                                       *ngIf="isFormBuild">
+
+                                </app-input-select-form>
+                            </div>
+
+                            <div *ngSwitchCase=FormType.DATE>
+                                <app-input-date-form [submitted]="submitted"
+                                                     [field]="field"
+                                                     [dynamicFormGroup]="grop"
+                                                     *ngIf="isFormBuild"
+                                                     [calendarType]="calendarType">
+
+                                </app-input-date-form>
+
+
+                            </div>
+
+                            <div *ngSwitchCase=FormType.ADDRESS>
+                                <app-address-form [field]="field" [dynamicFormGroup]="grop"
+                                                  *ngIf="isFormBuild" [submitted]="submitted">
+
+                                </app-address-form>
+                            </div>
+
+                            <div *ngSwitchCase=FormType.RADIO>
+                                <app-input-radio-form [field]="field"
+                                                      [dynamicFormGroup]="grop"
+                                                      *ngIf="isFormBuild"
+                                                      [submitted]="submitted"></app-input-radio-form>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="float-right">
+        <button nbButton size="tiny" (click)="add()" type="button">add more</button>
+    </div>
+</div>

@@ -4,7 +4,7 @@
             <p><strong>{{loanCategory === 'INDIVIDUAL' ? '9. ' : '8. '}} Security Details</strong></p>
         </div>
         <ng-template #notApproveSheet>
-            <p><strong>Security Details</strong></p>
+            <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. ' : ''}} Security Details</strong></p>
         </ng-template>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">

@@ -1,0 +1,30 @@
+<div class="form-group" [id]="field.id">
+
+    <div class="clearfix">
+        <div class="float-left"><label
+                class="sb-small cursor"
+                [ngStyle]="{'color': selectedField?.id == field?.id ? 'red' : ''}"><strong>{{field?.settings[0].value}}</strong></label>
+            <sup class="text-danger"
+                 *ngIf="field?.settings[3]?.value">*</sup></div>
+        <div class="float-right showHide">
+            <nb-icon icon="minus-square-outline" status="warning"
+                     (click)="removeElement()"
+                     *ngIf="selectedField?.id == field?.id "></nb-icon>
+        </div>
+
+
+    </div>
+
+
+<!--    <input *ngIf="calendarType === 'AD'" [nbDatepicker]="date"-->
+<!--           class="form-control form-control-sm"-->
+<!--           [placeholder]="field?.settings[1]?.value" readonly>-->
+    <input type="date"
+           *ngIf="calendarType === 'AD'"
+           class="form-control form-control-sm"
+           [placeholder]="field?.settings[1]?.value" >
+    <app-calendar
+            *ngIf="calendarType === 'BS'"
+    ></app-calendar>
+<!--    <nb-datepicker #date></nb-datepicker>-->
+</div>

@@ -27,6 +27,13 @@
     </nb-card-header>
     <nb-card-body>
         <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">
+            <!-- Micro Summary-->
+            <app-micro-loan-summary
+                    *ngIf="loanConfig.loanTag === 'MICRO_LOAN'"
+                    (changeToApprovalSheetActive)="activeApprovalSheet()"
+                    [loanConfig]="loanConfig"
+                    [loanData]="loanDataHolder"
+                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
 
             <!-- Normal Summary-->
             <app-loan-summary *ngIf="loanConfig.loanTag !== 'MICRO_LOAN' && (summaryType === summaryTypeName?.GENERAL || summaryType === summaryTypeName?.ALPHA)"

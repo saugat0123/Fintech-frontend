@@ -8,6 +8,7 @@ import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {DetailViewBaseComponent} from './detail-view-base/detail-view-base.component';
+import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
@@ -32,6 +33,7 @@ import { AlphaDetailViewComponent } from './alpha-detail-view/alpha-detail-view.
         LoanInformationTemplateModule,
         LoanSummaryModule,
         NepaliCalendarModule,
+        MicroLoanModule,
         CoreModule,
         CbsGroupModule,
         NepaliPatroModule,

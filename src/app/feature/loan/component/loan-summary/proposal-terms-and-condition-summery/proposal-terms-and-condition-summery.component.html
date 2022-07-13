@@ -1,6 +1,7 @@
 <div class="py-2">
     <div *ngIf="loanSummary === 'loanSummary'; else detailView">
-        <span><strong>Terms And Condition</strong></span>
+        <span><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '17. Terms And Condition' :
+            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '18. Terms And Condition' : 'Terms And Condition'}}</strong></span>
     </div>
     <ng-template #detailView>
         <span><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '21. Terms And Condition' :

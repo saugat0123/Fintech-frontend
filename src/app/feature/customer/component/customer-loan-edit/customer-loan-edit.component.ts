@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
+import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 
 @Component({
   selector: 'app-customer-loan-edit',
@@ -32,6 +33,9 @@ export class CustomerLoanEditComponent implements OnInit {
 
   @ViewChild('proposal', {static: false})
   proposal: ProposalComponent;
+
+  @ViewChild('microProposal', {static: false})
+  microProposal: MicroProposalComponent;
 
   @ViewChild('customerLoanDoc', {static: false})
   customerLoanDoc: CustomerLoanDocumentComponent;

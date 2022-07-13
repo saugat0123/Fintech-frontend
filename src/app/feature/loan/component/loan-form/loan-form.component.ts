@@ -57,7 +57,11 @@ import {CreditRiskGradingLambdaComponent} from '../../../loan-information-templa
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
+import {MicroCrgParams} from '../../model/MicroCrgParams';
+import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
+import {Document} from '../../../admin/modal/document';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
@@ -172,6 +176,9 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('creditRiskGradingLambda', {static: false})
     creditRiskGradingLambda: CreditRiskGradingLambdaComponent;
 
+    @ViewChild('crgMicro', {static: false})
+    crgMicro: CrgMicroComponent;
+
     @ViewChild('crgGamma', {static: false})
     crgGamma: CreditRiskGradingGammaComponent;
 
@@ -198,6 +205,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('insurance', {static: false})
     insuranceComponent: InsuranceComponent;
+
+    @ViewChild('microProposalInfo', {static: false})
+    microProposalInfo: MicroProposalComponent;
 
     @ViewChild('obtainedDocument', {static: false})
     obtainedDocument: ObtainedDocumentComponent;
@@ -596,9 +606,17 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
 
+        if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
+            if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
+                this.microProposalInfo.scrollToFirstInvalidControl();
+                this.microProposalInfo.submitted = true;
+                return true;
+            }
+            this.microProposalInfo.onSubmit();
+            this.loanDocument.proposal = this.microProposalInfo.proposalData;
+        }
 
-
-        if (name === 'Proposal' && action ) {
+        if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
             if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
                 this.proposalDetail.scrollToFirstInvalidControl();
                 this.proposalDetail.submitted = true;

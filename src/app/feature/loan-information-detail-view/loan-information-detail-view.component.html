@@ -217,7 +217,15 @@
                                    [loanId]="id"
                                    (documents)="checkSiteVisitDocument($event)"></app-gamma-detail-view>
 
-
+            <!-- Micro Detail View-->
+            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
+                                             [calendarType]="calendarType"
+                                             [customerAllLoanList]="customerAllLoanList"
+                                             [fiscalYearArray]="fiscalYearArray"
+                                             [loanDataHolder]="loanDataHolder"
+                                             [loanHolder]="loanHolder"
+                                             [loanId]="id"
+                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>
 
             <!-- Alpha or ICFC Summay Page-->
             <app-alpha-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName?.ALPHA)"
@@ -229,7 +237,19 @@
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
-
+<!--            <div *ngIf="client === clientList.ICFC">-->
+<!--                <p><strong>Other Documents to be Completed</strong>-->
+<!--                <div>-->
+<!--                    <ol class="row" type="1">-->
+<!--                        <li style="font-size: 12.60px"-->
+<!--                            class="col-md-4" *ngFor="let doc of obtainableDocuments;-->
+<!--                        let i=index">{{doc.name}}</li>-->
+<!--                        <li style="font-size: 12.60px"-->
+<!--                            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;-->
+<!--                        let i=index">{{otherDoc}}</li>-->
+<!--                    </ol>-->
+<!--                </div>-->
+<!--            </div>-->
             <app-proposal-terms-and-condition-summery
                     *ngIf="loanDataHolder && customerAllLoanList && summaryType === summaryTypeName?.GENERAL"
                     [customerAllLoanList]="customerAllLoanList"
@@ -259,7 +279,7 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}} ({{previousList?.lastModifiedAt | engNepDate: false}})
+                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -294,7 +314,7 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date:'MMM dd, yyyy, hh-mm a'}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>

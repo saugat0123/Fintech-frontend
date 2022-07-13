@@ -1,0 +1,8 @@
+<div class="col-md-12">
+    <div class="row">
+        <div *ngFor="let field of displayData;let i=index" class="col-md-3">
+            <strong>{{field?.label}} : </strong><span>{{field?.data}}</span>
+        </div>
+    </div>
+</div>
+

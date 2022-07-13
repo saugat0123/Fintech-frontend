@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+        <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <thead class="sb-bg-dark text-white">
+            <tr>
+                <th>Nature of Assets (Claim)</th>
+                <th>Book Value (A)</th>
+                <th>Specific Provision (B)</th>
+                <th>Eligible CRM (C)</th>
+                <th>Net Value (D) = (A-B-C)</th>
+                <th>Risk Weight (E)</th>
+                <th>RWE (F) = (D*E)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Corporate Claim</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimBookValue || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimSpecificProvision || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimEligible || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimNetValue || 'NA'}} /-</td>
+                <td>{{baselRiskExposure?.corporationClaimRiskWeight || 'NA'}}</td>
+                <td>Rs {{baselRiskExposure?.corporationClaimRwe || 'NA'}} /-</td>
+            </tr>
+            <tr>
+                <td>Off Balance Sheet Item</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemBookValue || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemSpecificProvision || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemEligible || 'NA'}} /-</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemNetValue || 'NA'}} /-</td>
+                <td>{{baselRiskExposure?.OffBalanceSheetItemRiskWeight || 'NA'}}</td>
+                <td>Rs {{baselRiskExposure?.OffBalanceSheetItemRwe || 'NA'}} /-</td>
+            </tr>
+            </tbody>
+        </table>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<form [formGroup]="dynamicFormGroup" appFormInvalidFocus (ngSubmit)="onSubmit()">
+    <div class="col-md-12">
+        <div class="row">
+
+            <div *ngFor="let field of config;let i=index"
+                 [ngClass]="FormType.FORM_ARRAY === field.type ? 'col-md-12':field?.settings[2]?.value">
+
+            <div [ngSwitch]="field.type">
+
+                    <div *ngSwitchCase=FormType.TEXT>
+                        <app-input-text-form
+                                [submitted]="submitted"
+                                [field]="field"
+                                [dynamicFormGroup]="dynamicFormGroup"
+                                *ngIf="isFormBuild">
+
+                        </app-input-text-form>
+
+
+                    </div>
+
+                    <div *ngSwitchCase=FormType.TEXTAREA>
+                        <app-input-textarea-form [submitted]="submitted"
+                                                 [field]="field"
+                                                 [dynamicFormGroup]="dynamicFormGroup"
+                                                 *ngIf="isFormBuild">
+
+                        </app-input-textarea-form>
+                    </div>
+                    <div *ngSwitchCase=FormType.BREAK>
+                        <div>
+                            <label class="sb-small" [class]="field?.settings[3]?.value"
+                            ><strong
+                            >{{field?.settings[0]?.value}}</strong></label>
+                            <a class="clearfix cursor" *ngIf="field?.settings[1]?.value">
+                                <hr>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div *ngSwitchCase=FormType.SELECT>
+                        <app-input-select-form [submitted]="submitted"
+                                               [field]="field"
+                                               [dynamicFormGroup]="dynamicFormGroup"
+                                               *ngIf="isFormBuild">
+
+                        </app-input-select-form>
+                    </div>
+
+
+                    <div *ngSwitchCase=FormType.DATE>
+                        <app-input-date-form [submitted]="submitted"
+                                             [field]="field"
+                                             [dynamicFormGroup]="dynamicFormGroup"
+                                             *ngIf="isFormBuild"
+                                             [calendarType]="calendarType">
+
+                        </app-input-date-form>
+
+
+                    </div>
+
+
+                    <div *ngSwitchCase=FormType.ADDRESS>
+                        <app-address-form [field]="field" [dynamicFormGroup]="dynamicFormGroup"
+                                          *ngIf="isFormBuild" [submitted]="submitted">
+
+                        </app-address-form>
+                    </div>
+
+                    <div *ngSwitchCase=FormType.RADIO>
+                        <app-input-radio-form [field]="field"
+                                              [dynamicFormGroup]="dynamicFormGroup"
+                                              *ngIf="isFormBuild" [submitted]="submitted"></app-input-radio-form>
+                    </div>
+
+                    <div *ngSwitchCase=FormType.FORM_ARRAY>
+                       <app-array-form [fieldData]="field"
+                                       [dynamicFormGroup]="dynamicFormGroup"
+                                       [isFormBuild]="isFormBuild"
+                                       *ngIf="isFormBuild" [submitted]="submitted"
+                       (addControl)="addControlInArray(field)" (removeControl)="removeControlInArray($event)"></app-array-form>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end" *ngIf="preview">
+        <button nbButton>save</button>
+    </div>
+</form>
+<span *ngIf="submitted">{{editPreviousValue | json}}</span>
+<app-common-data-view  *ngIf="submitted" [config]="config" [data]="editPreviousValue"></app-common-data-view>
