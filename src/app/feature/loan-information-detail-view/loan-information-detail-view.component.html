@@ -197,11 +197,6 @@
             </div>
 
             <hr>
-            <div>
-                <p><strong>{{summaryType ===summaryTypeName?.GAMMA ? '1. ' : ''}}Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
-                    ? 'Authorized Company'
-                    : 'Borrower'}}</strong></p>
-            </div>
             <!-- Normal Detail View-->
             <app-detail-view-base *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName.GENERAL)"
                                   [calendarType]="calendarType"

@@ -3,8 +3,7 @@
         <span><strong>Terms And Condition</strong></span>
     </div>
     <ng-template #detailView>
-        <span><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '21. Terms And Condition' :
-            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '22. Terms And Condition' : 'Terms And Condition'}}</strong></span>
+        <span><strong>Terms And Condition</strong></span>
     </ng-template>
   <hr>
   <div class="py-2" *ngIf="loanDataHolder?.loanType !== loanType?.getEnum(loanType.FULL_SETTLEMENT_LOAN)
