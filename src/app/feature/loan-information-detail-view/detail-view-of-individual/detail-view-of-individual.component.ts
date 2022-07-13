@@ -67,9 +67,11 @@ export class DetailViewOfIndividualComponent implements OnInit {
   financialData;
   loanTagEnum = LoanTag;
   isShareLoan = false;
+  residenceVerificationVisible = false;
   @Input() combinedLoan: LoanDataHolder [];
   toggleChecklist = [];
   toggleId = [];
+
   constructor(
       private modalService: NgbModal,
   ) {
@@ -144,6 +146,12 @@ export class DetailViewOfIndividualComponent implements OnInit {
       }
     }
     this.flagShareSecurity();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+      const siteVisitData = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+      if (!ObjectUtil.isEmpty(siteVisitData.currentResidentFormChecked) && siteVisitData.currentResidentFormChecked === true) {
+        this.residenceVerificationVisible = true;
+      }
+    }
   }
   updateChecklist(event) {
     this.checklistData = event;

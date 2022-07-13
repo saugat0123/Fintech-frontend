@@ -195,7 +195,11 @@ export class LoanDeedIndividualComponent implements OnInit {
             witnessWadNoTwo: [undefined],
             role: [undefined],
             roleName: [undefined],
-            commonData: this.formBuilder.array([])
+            commonData: this.formBuilder.array([]),
+            witnessAgeOne: [undefined],
+            witnessNameOne: [undefined],
+            witnessAgeTwo: [undefined],
+            witnessNameTwo: [undefined]
         });
     }
 
