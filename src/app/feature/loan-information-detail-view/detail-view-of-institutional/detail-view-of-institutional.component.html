@@ -457,3 +457,14 @@
 <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
+
+<!--Product Paper Checklist-->
+<div class="col-md-12">
+    <p class="header"><strong class="header">Product Paper Checklist</strong></p>
+</div>
+<ng-container *ngFor="let loan of combinedLoan; let i = index">
+    <ng-container *ngIf="toggleChecklist[i] !== null">
+        <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
+                                     *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
+    </ng-container>
+</ng-container>

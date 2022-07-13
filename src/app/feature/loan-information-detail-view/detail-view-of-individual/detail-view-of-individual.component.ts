@@ -67,8 +67,9 @@ export class DetailViewOfIndividualComponent implements OnInit {
   financialData;
   loanTagEnum = LoanTag;
   isShareLoan = false;
-  @Input() combinedLoan: any;
-
+  @Input() combinedLoan: LoanDataHolder [];
+  toggleChecklist = [];
+  toggleId = [];
   constructor(
       private modalService: NgbModal,
   ) {
@@ -76,6 +77,7 @@ export class DetailViewOfIndividualComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.disable();
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
     }
@@ -141,7 +143,6 @@ export class DetailViewOfIndividualComponent implements OnInit {
         this.crgGammaGradeStatusBadge = 'badge badge-warning';
       }
     }
-    this.disable();
     this.flagShareSecurity();
   }
   updateChecklist(event) {
@@ -159,19 +160,27 @@ export class DetailViewOfIndividualComponent implements OnInit {
   }
 
   disable() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
-      const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
-      this.paperChecklist = obj.view;
-      this.allId = obj.id;
-      const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
-      this.allId.forEach(d => {
-        const input = parserData.getElementById(d);
-        const child = input.innerHTML;
-        if (!child.includes('checked')) {
-          input.innerHTML = `<input type="radio" disabled>`;
+    if (this.combinedLoan.length > 0) {
+      this.combinedLoan.forEach((val, i) => {
+        if (!ObjectUtil.isEmpty(val.paperProductChecklist)) {
+          const obj = JSON.parse(val.paperProductChecklist);
+          this.paperChecklist = obj.view;
+          this.allId = obj.id;
+          const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+          this.allId.forEach(d => {
+            const input = parserData.getElementById(d);
+            const child = input.innerHTML;
+            if (!child.includes('checked')) {
+              input.innerHTML = `<input type="radio" disabled>`;
+            }
+          });
+          this.toggleChecklist.push(parserData.body.innerHTML);
+          this.toggleId.push(this.allId);
+        } else {
+          this.toggleChecklist.push(null);
+          this.toggleId.push(null);
         }
       });
-      this.paperChecklist = parserData.body.innerHTML;
     }
   }
 
