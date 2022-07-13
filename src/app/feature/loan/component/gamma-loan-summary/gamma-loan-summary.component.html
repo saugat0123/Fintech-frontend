@@ -525,7 +525,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let groupExposure of groupExposureData; let i = index">
+                        <tr *ngFor="let groupExposure of proposalAllData?.groupExposure; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">{{groupExposure?.clientName || 'N/A'}}</td>
                             <td class="text-left pl-1">{{groupExposure?.facilityType || 'N/A'}}</td>

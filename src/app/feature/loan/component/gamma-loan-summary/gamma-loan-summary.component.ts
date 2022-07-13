@@ -192,7 +192,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   requestedLoanType;
   hidePreviewButton = false;
   zipDocumentName;
-  groupExposureData: any
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -496,9 +495,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
                 }
             }, error => {
                 console.error(error);
-            }, () => {
-              this.groupExposureData = this.customerAllLoanList.map(v => v.proposal.groupExposure);
-              console.log(this.groupExposureData, 'group exposure data');
             });
     }
 
