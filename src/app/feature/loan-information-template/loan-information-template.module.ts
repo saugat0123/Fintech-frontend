@@ -71,6 +71,7 @@ import {SecurityTaggedModule} from './security/security-tagged-component/securit
 import { GroupSummarySheetComponent } from './group-summary-sheet/group-summary-sheet.component';
 import { OtherDetailsComponent } from './other-details/other-details.component';
 import {FinancialAccountInformationModule} from './financial-account-information/financial-account-information.module';
+import { NetTradingAssetsViewComponent } from './net-trading-assets-view/net-trading-assets-view.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -129,7 +130,8 @@ const COMPONENTS = [
         LandComponent,
         ViewSecurityTableComponent,
         GroupSummarySheetComponent,
-        OtherDetailsComponent],
+        OtherDetailsComponent,
+        NetTradingAssetsViewComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent, OtherDetailsComponent],
     entryComponents: [...COMPONENTS],
     imports: [
