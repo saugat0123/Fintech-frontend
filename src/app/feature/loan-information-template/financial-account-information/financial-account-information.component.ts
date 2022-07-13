@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ObjectUtil } from '../../../@core/utils/ObjectUtil';
 import { LoanDataHolder } from '../../loan/model/loanData';
+import {Financial} from '../../loan/model/financial';
 
 @Component({
   selector: 'app-financial-account-information',
@@ -14,6 +15,8 @@ export class FinancialAccountInformationComponent implements OnInit {
   @Input() fromLoan: boolean;
   @Output() financialAccountEmitter = new EventEmitter();
   financialData;
+  @Input() loanDataHolder: LoanDataHolder;
+  @Input() financialValue: Financial;
 
   constructor(
     private formBuilder: FormBuilder,

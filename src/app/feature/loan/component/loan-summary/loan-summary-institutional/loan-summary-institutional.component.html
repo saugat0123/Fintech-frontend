@@ -99,10 +99,11 @@
                                <ng-container *ngIf="smallBusiness">
                                    <div class="col-md-12 form-group">
                                        <div class="row">
-                                           <div class="col-md-12 d-flex justify-content-start align-items-center">
-                                               <b>Fixed Assets Summary</b>
+                                           <div class="col-md-12 text-left">
+                                               <b class="header">Fixed Assets Summary (proposed hypothecation)</b>
                                            </div>
                                        </div>
+                                       <p class="text-right">(Amount in NPR ‘000s)</p>
                                        <table class="table table-sm table-bordered table-hover sb-small text-center">
                                            <thead>
                                            <tr class="sb-bg-dark text-white">
@@ -131,8 +132,8 @@
                                    </div>
                                    <div class="col-md-12 form-group">
                                        <div class="row">
-                                           <div class="col-md-12 d-flex justify-content-start align-items-center">
-                                               <b>Summary of Environment & Social Risk Assessment</b>
+                                           <div class="col-md-12 text-left">
+                                               <b class="header">Summary of Environment & Social Risk Assessment</b>
                                            </div>
                                        </div>
                                        <table class="table table-sm table-bordered table-hover sb-small text-center">
@@ -182,6 +183,7 @@
                                </ng-container>
                                <ng-container *ngIf="checkedData?.waiverChecked">
                                    <hr class="print-line header">
+                                   <p class="header"><strong class="header">Waivers</strong></p>
                                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                        <tr class="  text-white sb-bg-dark">
                                            <th class="">Waiver</th>
@@ -195,6 +197,7 @@
                                </ng-container>
                                <ng-container *ngIf="checkedData?.deviationChecked">
                                    <hr class="print-line header">
+                                   <p class="header"><strong class="header">Deviation</strong></p>
                                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                        <tr class="text-white sb-bg-dark">
                                            <th class="">Deviation</th>
