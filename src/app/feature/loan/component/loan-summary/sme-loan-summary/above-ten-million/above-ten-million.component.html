@@ -206,9 +206,10 @@
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
         <strong>15.1 Security Documents:</strong>
         <br>The purposed credit facilities shall be secured by the following  security arrangement:<br>
-        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security else notAvailable"
-                             [security]="loanDataHolder?.loanHolder?.security"
-                             [loanDataHolder]="loanDataHolder"></app-retail-security>
+        <app-security-document-view [security]="loanDataHolder?.loanHolder?.security"></app-security-document-view>
+<!--        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security else notAvailable"-->
+<!--                             [security]="loanDataHolder?.loanHolder?.security"-->
+<!--                             [loanDataHolder]="loanDataHolder"></app-retail-security>-->
         <app-guarantor-view *ngIf="loanDataHolder?.loanHolder?.guarantors?.guarantorList; else notAvailable"
                             [guarantorData]="loanDataHolder?.loanHolder?.guarantors?.guarantorList"></app-guarantor-view>
         <p><strong>15.4 Fixed Assets Collaterals (Existing/Proposed)</strong></p>

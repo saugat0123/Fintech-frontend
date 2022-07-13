@@ -106,6 +106,15 @@ export class GuarantorComponent implements OnInit {
   }
 
   addEmptyGroup(): void {
+    const formArray1 = this.form.get('guarantorDetails') as FormArray;
+    formArray1.controls.forEach((control, index) => {
+      if (ObjectUtil.isEmpty(control.get('guarantorType').value)) {
+        this.controlValidation(['citizenNumber', 'dateOfBirth', 'fatherName', 'grandFatherName',
+          'guarantorLegalDocumentAddress' , 'issuedPlace', 'issuedYear', 'panNumber', 'registrationNumber', 'relationship'],
+            false, index);
+      }
+    });
+
     if (this.form.invalid) {
       this.addMore = true;
       return;
