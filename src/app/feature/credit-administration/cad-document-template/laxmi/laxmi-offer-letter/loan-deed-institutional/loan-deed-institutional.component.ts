@@ -28,6 +28,7 @@ export class LoanDeedInstitutionalComponent implements OnInit {
   form: FormGroup;
   spinner = false;
   initialInfoPrint;
+  loanCategory;
   cadCheckListEnum = CadCheckListTemplateEnum;
   nepaliData;
   amount;
@@ -47,6 +48,9 @@ export class LoanDeedInstitutionalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     this.buildForm();
     this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -140,50 +144,73 @@ export class LoanDeedInstitutionalComponent implements OnInit {
     this.form = this.formBuilder.group({
       district: [undefined],
       municipality: [undefined],
-      wardNo: [undefined],
+      wadNo: [undefined],
       branch: [undefined],
-      ministry: [undefined],
-      registerNumber: [undefined],
+      // Borrower Details
+      borrowerName: [undefined],
+      borrowerGrandFatherName: [undefined],
+      borrowerFatherName: [undefined],
+      borrowerHusbandName: [undefined],
+      citizenNumber: [undefined],
+      citizenIssueOffice: [undefined],
+      citizenIssueDate: [undefined],
+      panNumber: [undefined],
+      panIssueOffice: [undefined],
+      panIssueDate: [undefined],
+      borrowerPermanentDistrict: [undefined],
+      borrowerPermanentVdc: [undefined],
+      borrowerTempVdc: [undefined],
+      borrowerWardNo: [undefined],
+      borrowerTole: [undefined],
+      borrowerCurrentDistrict: [undefined],
+      borrowerCurrentVdc: [undefined],
+      borrowerCurrentTempVdc: [undefined],
+      borrowerCurrentWardNo: [undefined],
+      borrowerCurrentTole: [undefined],
+      borrowerMobileNo: [undefined],
+      // Company Details
+      companyName: [undefined],
+      companyRegistrationNo: [undefined],
+      registrationNikayaName: [undefined],
       registrationDate: [undefined],
-      registrationDistrict: [undefined],
-      metropolitan: [undefined],
-      registrationWardNo: [undefined],
-      registrationBranch: [undefined],
-      lekhaNumber: [undefined],
-      date: [undefined],
-      branchName: [undefined],
-      grandFatherName: [undefined],
-      fatherName: [undefined],
-      customerDistrict: [undefined],
-      customerMetropolitan: [undefined],
-      customerWardNo: [undefined],
-      customerTemporaryAddress: [undefined],
-      customerAge: [undefined],
-      customerName: [undefined],
-      customerCitizenshipNo: [undefined],
-      citizenshipIssueDistrict: [undefined],
-      citizenshipIssueDate: [undefined],
-      approvedDate: [undefined],
-      customeName: [undefined],
-      rupees: [undefined],
-      amount: [undefined],
-      year: [undefined],
-      month: [undefined],
-      day: [undefined],
+      companyPanNumber: [undefined],
+      companyPanIssueOffice: [undefined],
+      companyPanIssueDate: [undefined],
+      companyRegDistrict: [undefined],
+      companyRegVdc: [undefined],
+      companyRegWardNo: [undefined],
+      companyRegTole: [undefined],
+      companyRepresentativeName: [undefined],
+      companyRepresentativeGrandFatherName: [undefined],
+      companyRepresentativeFatherName: [undefined],
+      companyRepresentativeDistrict: [undefined],
+      companyRepresentativeVdc: [undefined],
+      companyRepresentativeWardNo: [undefined],
+      companyRepresentativeTole: [undefined],
+      representativeCitizenNumber: [undefined],
+      representativeCitizenIssueDate: [undefined],
+
+      patraNo: [undefined],
+      patraAmount: [undefined],
+      patraAmountinWord: [undefined],
+
+      itisambatYear: [undefined],
+      itisambatMonth: [undefined],
+      itisambatDay: [undefined],
       roj: [undefined],
-      shuvam: [undefined],
-      witnessDistrict1: [undefined],
-      witnessMunicipality1: [undefined],
-      witnessWardNum1: [undefined],
-      witnessAge1: [undefined],
-      witnessName1: [undefined],
-      witnessDistrict2: [undefined],
-      witnessMunicipality2: [undefined],
-      witnessWardNum2: [undefined],
-      witnessAge2: [undefined],
-      witnessName2: [undefined],
-      shanakhatWitnessPosition: [undefined],
-      shanakhatWitnessName: [undefined]
+      witnessDistrictOne: [undefined],
+      witnessMunicipalityOne: [undefined],
+      witnessWadNoOne: [undefined],
+      witnessDistrictTwo: [undefined],
+      witnessMunicipalityTwo: [undefined],
+      witnessWadNoTwo: [undefined],
+      role: [undefined],
+      roleName: [undefined],
+      commonData: this.formBuilder.array([]),
+      witnessAgeOne: [undefined],
+      witnessNameOne: [undefined],
+      witnessAgeTwo: [undefined],
+      witnessNameTwo: [undefined]
     });
   }
 
