@@ -33,6 +33,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
   nepaliData;
   proposedAmount;
   customerInfo;
+  loanCategory;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -46,6 +47,9 @@ export class MortgageDeedLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     this.buildForm();
     this.proposedAmount = this.cadData.assignedLoan[0].proposal.proposedLimit;
     this.customerInfo = this.cadData.assignedLoan[0].customerInfo;
@@ -158,6 +162,45 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       soldLand: [undefined],
       soldHouse: [undefined],
       apology: [undefined],
+      nepaliName1: [undefined],
+      englishName1: [undefined],
+      dateOfBirth1: [undefined],
+      address1: [undefined],
+      gender1: [undefined],
+      citizenshipNumber1: [undefined],
+      issuedDate1: [undefined],
+      issuedPlace1: [undefined],
+      landLordSignNumber1: [undefined],
+      husbandWifeName1: [undefined],
+      fatherName1: [undefined],
+      grandFatherName1: [undefined],
+      motherName1: [undefined],
+      grandMotherName1: [undefined],
+      mobileNumber1: [undefined],
+      nepaliNameCompany: [undefined],
+      englishNameCompany: [undefined],
+      addressCompany: [undefined],
+      citizenshipNumberCompany: [undefined],
+      issuedDateCompany: [undefined],
+      issuedPlaceCompany: [undefined],
+      sthaiNo: [undefined],
+      akhtiyarPerson: [undefined],
+      akhtiyarAddress: [undefined],
+      citizenshipNoCompany: [undefined],
+      citizenshipDateCompany: [undefined],
+      citizenshipOffice: [undefined],
+      nepaliNameCompany1: [undefined],
+      englishNameCompany1: [undefined],
+      addressCompany1: [undefined],
+      citizenshipNumberCompany1: [undefined],
+      issuedDateCompany1: [undefined],
+      issuedPlaceCompany1: [undefined],
+      sthaiNo1: [undefined],
+      akhtiyarPerson1: [undefined],
+      akhtiyarAddress1: [undefined],
+      citizenshipNoCompany1: [undefined],
+      citizenshipDateCompany1: [undefined],
+      citizenshipOffice1: [undefined]
     });
   }
 
