@@ -114,9 +114,9 @@
                                        </p>
                                    </div>
                                </ng-container>
-                               <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                                [fiscalYears]="fiscalYearArray"
-                                                [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+                               <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
+                                                            [loanDataHolder] = "loanDataHolder"
+                                                            [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
                                <ng-container *ngIf="smallBusiness">
                                    <div class="col-md-12 form-group">
                                        <div class="row">

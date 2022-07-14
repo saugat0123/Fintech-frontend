@@ -110,8 +110,10 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
-      this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
-      this.netTradingAssetsSummary = true;
+      this.netTradingAssetsData = JSON.parse(this.loanDataHolder.loanHolder.netTradingAssets.data);
+      if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
+        this.netTradingAssetsSummary = true;
+      }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loan.paperChecklist)) {
       const obj = JSON.parse(this.loanDataHolder.loan.paperChecklist);
