@@ -49,7 +49,6 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
         this.personalLoanCombinedForm.patchValue(this.initialInformation.personalLoanCombinedForm);
       }
-      this.patchDate();
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
@@ -61,26 +60,6 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
       }
     }
     this.setLoanId();
-  }
-  patchDate() {
-    for (let val = 0; val < this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray.length; val++) {
-      const paymentDateType = this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray[val].
-          paymentDateType;
-      if (paymentDateType === 'AD') {
-        const paymentDate = this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray[val].paymentDate;
-        if (!ObjectUtil.isEmpty(paymentDate)) {
-          this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', val, 'paymentDate']).patchValue(
-              new Date(paymentDate));
-        }
-      } else if (paymentDateType === 'BS') {
-        const paymentDate = this.initialInformation.personalLoanCombinedForm.personalLoanCombinedFormArray[val].
-            paymentDateNepali;
-        if (!ObjectUtil.isEmpty(paymentDate)) {
-          this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', val, 'paymentDateNepali']).patchValue(
-              paymentDate);
-        }
-      }
-    }
   }
   buildForm() {
     this.personalLoanCombinedForm = this.formBuilder.group({
@@ -200,7 +179,9 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
       purposeOfLoan: this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'purposeOfLoan']).value ?
           this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'purposeOfLoan']).value : '',
       nameOfCompany: this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'nameOfCompany']).value ?
-          this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'nameOfCompany']).value : ''
+          this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'nameOfCompany']).value : '',
+      paymentDateType: this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value ?
+          this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value : ''
     });
     const translatedValue = await this.translateService.translateForm(this.translatedFormGroup);
     if (!ObjectUtil.isEmpty(translatedValue)) {
@@ -213,6 +194,11 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
           translatedValue.nameOfCompany);
       this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'nameOfCompanyCT']).patchValue(
           translatedValue.nameOfCompany);
+
+      this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateTypeTrans']).patchValue(
+          translatedValue.paymentDateType);
+      this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateTypeCT']).patchValue(
+          translatedValue.paymentDateType);
     }
 
     const convertPremiumRate = this.convertNumbersToNepali(this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'premiumRate']).value ?
@@ -270,13 +256,6 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
       this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'numberOfInstallmentsCT']).patchValue(
           this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'numberOfInstallmentsTrans']).value);
     }
-    /* Converting value for date */
-    this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateTypeTrans']).patchValue(
-        this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value
-    );
-    this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateTypeCT']).patchValue(
-        this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateTypeTrans']).value
-    );
     const tempPaymentDate = this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value;
     let tempPayment;
     if (tempPaymentDate === 'AD') {
