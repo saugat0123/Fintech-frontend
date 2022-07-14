@@ -1,7 +1,37 @@
 <div class="row p-3">
     <div class="col-md-12">
-        <p class="float-left header"><b class="header">Net Trading Assets</b><em> (for Financing of Working Capital, applicable for Term Loan only)</em></p>
-        <br><br>
-        <p class="float-right">(Amount in NPR ‘000s)</p>
+        <nb-card-header>
+            <p class="text-left"><strong class="header">Net Trading Assets</strong></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-left"><strong>1. Yearly Working Capital Position</strong><br>
+                    <span [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-left"><strong>2. Periodic Working Capital Position</strong><br>
+                    <span [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-left"><strong>Justification Field</strong><br>
+                    <span [innerHTML]="ntaData?.justificationField ? ntaData?.justificationField : 'N/A' | safeHtml"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-left"><strong>3. Current Assets</strong><br>
+                    <span [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-left"><strong>Remarks</strong><br>
+                    <span [innerHTML]="ntaData?.remarks ? ntaData?.remarks : 'N/A' | safeHtml"></span></p>
+                </div>
+            </div>
+        </nb-card-header>
     </div>
 </div>

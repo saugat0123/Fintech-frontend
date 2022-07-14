@@ -133,7 +133,7 @@ const COMPONENTS = [
         GroupSummarySheetComponent,
         OtherDetailsComponent,
         NetTradingAssetsViewComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent, OtherDetailsComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent, OtherDetailsComponent, NetTradingAssetsViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

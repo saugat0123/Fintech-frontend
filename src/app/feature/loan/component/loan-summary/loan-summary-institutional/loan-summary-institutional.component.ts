@@ -280,8 +280,10 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
     // Setting NetTradingAssets data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
-      this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
-      this.netTradingAssetsSummary = true;
+      this.netTradingAssetsData = JSON.parse(this.loanDataHolder.loanHolder.netTradingAssets.data);
+      if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
+        this.netTradingAssetsSummary = true;
+      }
     }
 
 
