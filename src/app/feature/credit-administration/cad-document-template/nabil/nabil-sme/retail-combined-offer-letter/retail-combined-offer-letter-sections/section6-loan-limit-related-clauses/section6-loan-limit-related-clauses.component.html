@@ -22,7 +22,7 @@
                     <span class="print-only font-weight-bold">{{tempData?.retailGlobalForm?.totalLimitInWordsCT ? tempData?.retailGlobalForm?.totalLimitInWordsCT : '______________________'}}</span>
                     मात्र) भन्दा बढी हुनु हुनेछैन । <!--Total Limit-->
                 </li>
-                <li *ngIf="isMortgageLoan || isHomeLoan || isAutoLoan || isPersonalLoan">
+                <li *ngIf="isMortgageLoan || isHomeLoan || isAutoLoan || isPersonalLoan || isOthers">
                     {{filteredLoanName}},
                     <span *ngIf="isOthers">शिक्षा ऋण</span>
                     सिमा यदि आंशिक वा पूर्ण भुक्तानी भएपश्चात भुक्तानी भएको रकम पूनःकर्जा स्वरुप उपयोग गर्न सकिनेछैन ।
