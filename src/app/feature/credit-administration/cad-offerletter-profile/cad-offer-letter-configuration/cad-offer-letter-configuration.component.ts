@@ -63,40 +63,81 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     buildForm() {
         this.userConfigForm = this.formBuilder.group({
             name: [undefined],
-            gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
-            fatherName: [undefined],
+            nepaliName: [undefined],
+            gender: [undefined],
             grandFatherName: [undefined],
-            relationMedium: [undefined],
+            fatherName: [undefined],
+            // relationMedium: [undefined],
             husbandName: [undefined],
             fatherInLawName: [undefined],
-            citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
-            age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
-            // tslint:disable-next-line:max-line-length
-            permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province) ? undefined : ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district) ? undefined : ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities) ? undefined : ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
-            permanentMunType: [0],
-            // tslint:disable-next-line:max-line-length
-            temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) ? undefined : ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ?
-                undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
-            permanentWard: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.wardNumber) ? undefined :
-                this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
-            temporaryWard: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryWardNumber) ? undefined :
-                this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
-            temporaryMunType: [1],
+            citizenshipNo: [undefined],
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
+            dateOfBirth: [undefined],
+            panNo: [undefined],
+            panIssueOffice: [undefined],
+            panIssueDate: [undefined],
+            contactNo: [undefined],
+            // Institution
+            registrationNo: [undefined],
+            companyRegOffice: [undefined],
+            regIssueDate: [undefined],
+            // Customer Address
+            customerPermanentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            customerTemporaryAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Institution Registered Address
+            institutionRegisteredAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Institution Current Address
+            institutionCurrentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Authorized Person Address
+            authorizedPersonDetail: this.formBuilder.group({
+                name: [undefined],
+                gender: [undefined],
+                grandFatherName: [undefined],
+                fatherName: [undefined],
+                husbandName: [undefined],
+                fatherInLawName: [undefined],
+                citizenshipNo: [undefined],
+                citizenshipIssueDistrict: [undefined],
+                citizenshipIssueDate: [undefined]
+            }),
+            // Authorized Person Address
+            authorizedPersonAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined]
+            }),
+
             guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [this.customer ?  (this.customer.citizenshipIssuedPlace) : ''],
-            citizenshipIssueDate: [this.customer ? this.customer.citizenshipIssuedDate :  ''],
-        });
+          });
     }
 
-    ageCalculation(startDate) {
+    /*ageCalculation(startDate) {
         startDate = this.datepipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
         const stDate = new Date(startDate);
         const endDate = new Date();
@@ -104,7 +145,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         diff = diff / (60 * 60 * 24);
         const yr = Math.abs(Math.round(diff / 365.25));
         return this.engToNepNumber.transform(yr.toString());
-    }
+    }*/
 
     gender(val) {
         if (val === 'MALE') {
