@@ -13,6 +13,7 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
   tempData;
   loanName: Array<any> = new Array<any>();
   loanNepaliName: Array<any> = new Array<any>();
+  filteredLoanName: Array<any> = new Array<any>();
   assignedData;
   isOthers: boolean;
   isMortgageLoan: boolean;
@@ -87,12 +88,13 @@ export class Section6LoanLimitRelatedClausesComponent implements OnInit {
           this.isShareLoan = true;
         }
       });
+      const tempArr = this.loanNepaliName.filter(data => data === 'धिताे कर्जा' || data === 'आवास कर्जा' ||
+          data === 'सवारी साधन कर्जा' || data === 'व्यक्तिगत ऋण');
+      this.filteredLoanName = tempArr;
     }
     this.form.patchValue({
       totalLimitInFigure: this.tempData.retailGlobalForm.totalLimitInFigureCT ? this.tempData.retailGlobalForm.totalLimitInFigureCT : '',
       totalLimitInWords: this.tempData.retailGlobalForm.totalLimitInWordsCT ? this.tempData.retailGlobalForm.totalLimitInWordsCT : '',
     });
-
-
   }
 }
