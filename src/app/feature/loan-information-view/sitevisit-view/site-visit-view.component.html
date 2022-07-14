@@ -551,7 +551,6 @@
     <tr>
         <td colspan="6"
             class="text-left pl-1">
-<!--            {{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>-->
             {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessNature}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
@@ -563,7 +562,6 @@
     <tr>
         <td colspan="6"
             class="text-left pl-1">
-<!--            class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>-->
         {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessActivities}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
@@ -576,11 +574,9 @@
     <tr>
         <td colspan="3"
             class="text-left pl-1">
-<!--            {{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>-->
             {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessProgress}}</td>
         <td colspan="3"
             class="text-left pl-1">
-<!--            {{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>-->
             {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessChallenges}}</td>
     </tr>
     <tr>
@@ -595,15 +591,13 @@
     </tr>
     <tr>
         <td class="text-left pl-1">
-<!--            {{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['normalElectricityLine'] | booleanConvert}}-->
             {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.normalElectricityLine | booleanConvert}}
         <td class="text-left pl-1">
-<!--        {{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['invertorOrGenerator'] | booleanConvert}}-->
         {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.invertorOrGenerator | booleanConvert}}
-<!--        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['ledgerBook'] | booleanConvert}}-->
-        <td class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.ledgerBook | booleanConvert}}
-<!--        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['electronic'] | booleanConvert}}-->
-        <td class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.electronic | booleanConvert}}
+        <td class="text-left pl-1">
+        {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.ledgerBook | booleanConvert}}
+        <td class="text-left pl-1">
+        {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.electronic | booleanConvert}}
 
     </tr>
 </table>
