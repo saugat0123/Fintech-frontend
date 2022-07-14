@@ -18,8 +18,7 @@
                 <!--End Individual Details-->
                 <!--Start Company Details-->
                 <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
-                    <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
-                                           [calendarType]="calendarType"
+                    <app-company-info-view [calendarType]="calendarType"
                                            [formValue]="loanDataHolder?.companyInfo"
                                            [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
                 </div>
@@ -308,12 +307,14 @@
                         [loanCategory]="loanDataHolder?.loanCategory"></app-credit-checklist-view>
             </li>
             <!-- End Credit Checklist Details-->
+            <!-- Start terms and conditions-->
             <li *ngIf="loanDataHolder && customerAllLoanList">
                 <app-proposal-terms-and-condition-summery
                         [customerAllLoanList]="customerAllLoanList"
                         [loanDataHolder]="loanDataHolder"
                         [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-terms-and-condition-summery>
             </li>
+            <!-- End terms and conditions-->
             <li>
                 <p><strong>Summary & Recommendation</strong>
                 </p>
