@@ -550,7 +550,8 @@
     </tr>
     <tr>
         <td colspan="6"
-            class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
+            class="text-left pl-1">
+            {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessNature}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th colspan="6">Observation of business operation/activities: No of staffs/workers, Machines/Plant in operation;
@@ -560,7 +561,8 @@
     </tr>
     <tr>
         <td colspan="6"
-            class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
+            class="text-left pl-1">
+        {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessActivities}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th colspan="6">Questions to be asked to the accompanying person of client</th>
@@ -571,9 +573,11 @@
     </tr>
     <tr>
         <td colspan="3"
-            class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>
+            class="text-left pl-1">
+            {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessProgress}}</td>
         <td colspan="3"
-            class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>
+            class="text-left pl-1">
+            {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.businessChallenges}}</td>
     </tr>
     <tr>
         <th colspan="2"><b>Power Back-up Arrangement availability at site:</b></th>
@@ -586,10 +590,15 @@
         <th>Electronic</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['normalElectricityLine'] | booleanConvert}}
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['invertorOrGenerator'] | booleanConvert}}
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['ledgerBook'] | booleanConvert}}
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['electronic'] | booleanConvert}}
+        <td class="text-left pl-1">
+            {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.normalElectricityLine | booleanConvert}}
+        <td class="text-left pl-1">
+        {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.invertorOrGenerator | booleanConvert}}
+        <td class="text-left pl-1">
+        {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.ledgerBook | booleanConvert}}
+        <td class="text-left pl-1">
+        {{formData?.currentAssetsInspectionDetails?.majorInquiriesAndObservations?.electronic | booleanConvert}}
+
     </tr>
 </table>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true && this.formData['currentAssetsDetails'] !== null"
