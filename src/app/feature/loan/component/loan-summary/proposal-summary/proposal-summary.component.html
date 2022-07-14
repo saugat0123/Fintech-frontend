@@ -168,7 +168,8 @@
                     && ((loan?.proposal?.data | jsonParse)?.existCashMargin === null)
                     && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
                 </td>
-                <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1"> Rs. {{loan?.withIn ? '(' + ((loan?.proposal?.data | jsonParse)?.proposedLimit | currencyFormatter) +')' :((loan?.proposal?.data | jsonParse)?.proposedLimit | currencyFormatter)}}</td>
+<!--                <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>-->
 <!--                <td width="150px" class="text-left pl-1">-->
 <!--                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'ABSOLUTE'">{{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | date}}-->
 <!--                        ({{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>-->
