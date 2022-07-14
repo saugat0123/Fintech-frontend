@@ -265,61 +265,28 @@
                                status="success" type="text">
                     </div>
                 </div>
-
                 <div class="row" *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'repaymentCase']).value === 'ON_CASE_BASIS'">
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="{{'paymentDateType' + i}}"> Payment Date</label><br>
-                        <nb-radio-group class="d-inline-flex"
-                                        formControlName="paymentDateType" id="{{'paymentDateType' + i}}"
-                                        name="{{'paymentDateType' + i}}" status="success">
-                            <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
-                        </nb-radio-group>
-                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
-                            <nepali-patro [displayNepali]="true" [responseType]="2"
-                                          formControlName="paymentDateNepali">
-                            </nepali-patro>
-                        </div>
-                        <input *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === dateType[0]?.value" [nbDatepicker]="previousDate"
-                               formControlName="paymentDate"
-                               fullWidth
-                               id="paymentDate"
+                        <label class="font-weight-bold" for="purposeOfLoan">Payment Date</label>
+                        <input class="form-control" formControlName="paymentDateType" fullWidth id="paymentDateType"
                                nbInput
                                shape="semi-round"
-                               placeholder="Select Date" status="success">
-                        <nb-datepicker #previousDate></nb-datepicker>
+                               status="success" type="text">
                     </div>
-                    <div class="col-md-4">
-                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'BS'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="paymentDateNepaliTrans" fullWidth id="paymentDateNepaliTrans"
-                                   readonly
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'AD'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="paymentDateTrans" fullWidth id="paymentDateTrans"
-                                   readonly
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="paymentDateTypeTrans" fullWidth id="paymentDateTypeTrans"
+                               readonly
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
                     </div>
-                    <div class="col-md-4">
-                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'BS'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="paymentDateNepaliCT" fullWidth id="paymentDateNepaliCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
-                        <div *ngIf="personalLoanCombinedForm.get(['personalLoanCombinedFormArray', i, 'paymentDateType']).value === 'AD'" class="form-group dateTranslationCustom">
-                            <input class="form-control" formControlName="paymentDateCT" fullWidth id="paymentDateCT"
-                                   nbInput
-                                   shape="semi-round"
-                                   status="success" type="text">
-                        </div>
+                    <div class="col-md-4 form-group fieldMargin">
+                        <input class="form-control" formControlName="paymentDateTypeCT" fullWidth id="paymentDateTypeCT"
+                               nbInput
+                               shape="semi-round"
+                               status="success" type="text">
                     </div>
                 </div>
-
                 <div class="row pt-4">
                     <div class="col-md-4">
                         <label class="font-weight-bold" for="nameOfCompany">Name Of Company Where Customer is Working</label>

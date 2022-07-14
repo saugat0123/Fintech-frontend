@@ -1,6 +1,6 @@
 <div class="container text-justify col-md-12 viewFull">
     <div class="row">
-        <form [formGroup]="form">
+        <form>
             <div>
                 <b>साँवा, ब्याज वा किस्ता भुक्तानी सम्बन्धी शर्तहरुः</b>
                 <br>
@@ -11,17 +11,18 @@
                             तपाईंको {{loanNepaliNameEducation}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
                             कट्टा गरिनेछ ।
                         </li>
-                        <li *ngIf="isCaseBasis">
-                            <!--For Personal Loan on case basis only)-->
-                            तपाईंको {{loanNepaliName}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक
-                            <input class="form-field form-control-sm d-print-none"
-                                   name="freeDate"
-                                   formControlName="freeDate"
-                                   placeholder=" "
-                                   type="text"/>
-                            <span class="print-only font-weight-bold">{{tempInformation?.section7 ? tempInformation?.section7 : '______________________'}}</span>
-                            मा तपाईंको खाताबाट कट्टा गरिनेछ ।
-                        </li>
+                        <ng-container *ngIf="isCaseBasis">
+                            <ng-container *ngFor="let personalLoan of section7Data?.personalLoanCombinedForm.personalLoanCombinedFormArray">
+                                    <!--For Personal Loan on case basis only)-->
+                                   <li> तपाईंको {{loanNepaliName}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक
+                                    <input class="form-field form-control-sm d-print-none"
+                                           [value]="personalLoan?.paymentDateTypeCT"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only font-weight-bold">{{personalLoan?.paymentDateTypeCT ? personalLoan?.paymentDateTypeCT : '______________________'}}</span>
+                                    मा तपाईंको खाताबाट कट्टा गरिनेछ ।</li>
+                            </ng-container>
+                        </ng-container>
                         <li *ngIf="isPODSelected">
                             <!--For POD loan/Nabil Sahayatri/Perrsonal overdraft without collateral and their Renewal and enhancement also)-->
                             {{loanNepaliNameWithoutEducation}} वापतको ब्याज भुक्तानी
