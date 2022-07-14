@@ -9,7 +9,6 @@ import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
 })
 export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     @Input() cadData;
-    form: FormGroup;
     section7Data;
     loanName: Array<any> = new Array<any>();
     loanNepaliName: Array<any> = new Array<any>();
@@ -55,12 +54,7 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
                 this.tempInformation = JSON.parse(this.cadData.offerDocumentList[0].supportedInformation);
             }
         }
-        this.buildForm();
         this.checkCondition();
-        if (!ObjectUtil.isEmpty(this.tempInformation) &&
-        !ObjectUtil.isEmpty(this.tempInformation.section7)) {
-            this.form.get('freeDate').patchValue(this.tempInformation.section7);
-        }
     }
 
     checkCondition() {
@@ -76,14 +70,6 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
                 }
             });
         }
-       /* if (!this.isEducationClassA) {
-            const tempIndex = this.loanNepaliNameShare.indexOf('शिक्षा ऋण');
-            this.loanNepaliNameShare.splice(tempIndex, 1);
-        }
-        if (!this.isEducationClassE) {
-            const tempIndex = this.loanNepaliNameEducation.indexOf('शिक्षा ऋण');
-            this.loanNepaliNameEducation.splice(tempIndex, 1);
-        }*/
         this.loanName.forEach(val => {
             if (val === 'MORTGAGE LOAN COMBINED' || val === 'HOME LOAN COMBINED' ||
                 val === 'AUTO LOAN COMBINED') {
@@ -109,12 +95,6 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
             if (val === 'SHARE LOAN DEMAND COMBINED' || val === 'NABIL SHARE LOAN POD COMBINED') {
                 this.isEducationSelected = true;
             }
-        });
-    }
-
-    buildForm() {
-        return this.form = this.formBuilder.group({
-            freeDate: [undefined]
         });
     }
 }

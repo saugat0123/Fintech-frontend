@@ -14,9 +14,6 @@ import {
     Section2LoanTypeRetailComponent
 } from './retail-combined-offer-letter-sections/section2-loan-type-retail/section2-loan-type-retail.component';
 import {
-    Section7InterestAndEmiPaymentRelatedComponent
-} from './retail-combined-offer-letter-sections/section7-interest-and-emi-payment-related/section7-interest-and-emi-payment-related.component';
-import {
     Section8LoanDisbursementRelatedClauseComponent
 } from './retail-combined-offer-letter-sections/section8-loan-disbursement-related-clause/section8-loan-disbursement-related-clause.component';
 import {
@@ -39,7 +36,6 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @ViewChild('section1', {static: false}) section1: Section1CustomerOfferLetterTypeComponent;
     @ViewChild('section2', {static: false}) section2: Section2LoanTypeRetailComponent;
-    @ViewChild('section7', {static: false}) section7: Section7InterestAndEmiPaymentRelatedComponent;
     @ViewChild('section8', {static: false}) section8: Section8LoanDisbursementRelatedClauseComponent;
     @ViewChild('section14', {static: false}) section14: Section14OtherTermsComponent;
     @ViewChild('section18', {static: false}) section18: Section18RequiredSecurityDocumentsComponent;
@@ -120,7 +116,6 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
     setFreeText() {
         const section1FreeText = this.section1.form.get('freetext1').value ? this.section1.form.get('freetext1').value : '';
         const section2FreeText = this.section2.setTextAreaValue();
-        const section7FreeText = this.section7.form.get('freeDate').value ? this.section7.form.get('freeDate').value : '';
         const section8FreeText = this.section8.setTextAreaValue();
         // tslint:disable-next-line:max-line-length
     const section14FreeText = this.section14.form.get('nameOfEmbassyFreeTxt').value ? this.section14.form.get('nameOfEmbassyFreeTxt').value : '';
@@ -176,7 +171,6 @@ export class RetailCombinedOfferLetterComponent implements OnInit {
         const freeTextVal = {
             section1: section1FreeText,
             section2: section2FreeText,
-            section7: section7FreeText,
             section8: section8FreeText,
             section14: section14FreeText,
             section18: section18FreeText,
