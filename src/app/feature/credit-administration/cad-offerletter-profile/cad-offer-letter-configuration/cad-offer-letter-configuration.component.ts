@@ -15,6 +15,9 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {NepaliToEngNumberPipe} from '../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-word.pipe';
+import {BranchService} from '../../../admin/component/branch/branch.service';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -35,6 +38,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
+    guarantorTypeEnum = [
+        {key: 'Personal_Guarantor', value: 'Personal Guarantor'},
+        {key: 'Corporate_Guarantor', value: 'Corporate Guarantor'},
+    ];
+    branchList;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -42,7 +50,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
-                protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
+                protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private branchService: BranchService) {
     }
 
     get configForm() {
@@ -50,13 +61,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('this is customer', this.customer);
-        console.log('this is customer', this.customerInfo);
+        console.log('this is customer info', this.customerInfo);
         this.buildForm();
+        this.branchService.getAll().subscribe((res: any) => {
+            this.branchList = res.detail;
+        });
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
+        } else {
+            this.addGuarantor();
         }
     }
 
@@ -134,7 +149,57 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }),
 
             guarantorDetails: this.formBuilder.array([]),
-          });
+            collateralDetails: this.formBuilder.array([]),
+
+            // Miscellaneous Details
+            miscellaneousDetail: this.formBuilder.group({
+                offerReferenceNo: [undefined],
+                offerIssueDate: [undefined],
+                loanAmountInFig: [undefined],
+                loanAmountInWord: [undefined],
+                loanFacilityTypeInNep: [undefined],
+                loanFacilityTypeInEng: [undefined],
+                drawdownPer: [undefined],
+                fmvPer: [undefined]
+            }),
+            // Branch Details
+            branchDetail: this.formBuilder.group({
+                branchName: [undefined],
+                branchDistrict: [undefined],
+                branchMunVdc: [undefined],
+                branchWardNo: [undefined],
+                branchTelNo: [undefined],
+                branchFaxNo: [undefined],
+                branchEmail: [undefined],
+                branchNameInNepali: [undefined]
+            })
+        });
+    }
+
+    getNumAmountWord(formGroup, numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.userConfigForm.get(formGroup).get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.userConfigForm.get(formGroup).get(wordLabel).patchValue(returnVal);
+    }
+
+    getBranchDetails(event) {
+        this.branchList.forEach(singleData => {
+                if (event === singleData.name) {
+                    const branchWardNo = this.engToNepNumber.transform(singleData.wardNumber);
+                    this.userConfigForm.get('branchDetail').get('branchWardNo').patchValue(branchWardNo);
+                    const branchDistrictName = singleData.district.nepaliName;
+                    this.userConfigForm.get('branchDetail').get('branchDistrict').patchValue(branchDistrictName);
+                    const branchMunVdcName = singleData.municipalityVdc.nepaliName;
+                    this.userConfigForm.get('branchDetail').get('branchMunVdc').patchValue(branchMunVdcName);
+                    const branchNameInNepali = singleData.nepaliName;
+                    this.userConfigForm.get('branchDetail').get('branchNameInNepali').patchValue(branchNameInNepali);
+                    const branchTelNo = this.engToNepNumber.transform(singleData.landlineNumber);
+                    this.userConfigForm.get('branchDetail').get('branchTelNo').patchValue(branchTelNo);
+                    const branchEmail = singleData.email;
+                    this.userConfigForm.get('branchDetail').get('branchEmail').patchValue(branchEmail);
+                }
+            }
+        );
     }
 
     /*ageCalculation(startDate) {
@@ -202,19 +267,164 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
     }
 
+    addCollateral() {
+        (this.userConfigForm.get('collateralDetails') as FormArray).push(this.addCollateralField());
+    }
+
     addGuarantorField() {
         return this.formBuilder.group({
-            name: '',
-            issuedYear: '',
-            issuedPlace: '',
-            guarantorLegalDocumentAddress: '',
-            relationship: '',
-            citizenNumber: ''
+            guarantorType: [undefined],
+            name: [undefined],
+            gender: [undefined],
+            grandFatherName: [undefined],
+            fatherName: [undefined],
+            husbandName: [undefined],
+            fatherInLawName: [undefined],
+            citizenshipNo: [undefined],
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
+            dateOfBirth: [undefined],
+            panNo: [undefined],
+            panIssueOffice: [undefined],
+            panIssueDate: [undefined],
+            contactNo: [undefined],
+            // Institution
+            registrationNo: [undefined],
+            companyRegOffice: [undefined],
+            regIssueDate: [undefined],
+            // Customer Address
+            guarantorPermanentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            guarantorTemporaryAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Institution Registered Address
+            guarantorInstitutionRegisteredAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Institution Current Address
+            guarantorInstitutionCurrentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Authorized Person Address
+            guarantorAuthorizedPersonDetail: this.formBuilder.group({
+                name: [undefined],
+                gender: [undefined],
+                grandFatherName: [undefined],
+                fatherName: [undefined],
+                husbandName: [undefined],
+                fatherInLawName: [undefined],
+                citizenshipNo: [undefined],
+                citizenshipIssueDistrict: [undefined],
+                citizenshipIssueDate: [undefined]
+            }),
+            // Authorized Person Address
+            guarantorAuthorizedPersonAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined]
+            })
+        });
+    }
+
+    addCollateralField() {
+        return this.formBuilder.group({
+            guarantorType: [undefined],
+            name: [undefined],
+            gender: [undefined],
+            grandFatherName: [undefined],
+            fatherName: [undefined],
+            husbandName: [undefined],
+            fatherInLawName: [undefined],
+            citizenshipNo: [undefined],
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
+            dateOfBirth: [undefined],
+            panNo: [undefined],
+            panIssueOffice: [undefined],
+            panIssueDate: [undefined],
+            contactNo: [undefined],
+            // Institution
+            registrationNo: [undefined],
+            companyRegOffice: [undefined],
+            regIssueDate: [undefined],
+            // Customer Address
+            guarantorPermanentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            guarantorTemporaryAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Institution Registered Address
+            guarantorInstitutionRegisteredAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Institution Current Address
+            guarantorInstitutionCurrentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Authorized Person Address
+            guarantorAuthorizedPersonDetail: this.formBuilder.group({
+                name: [undefined],
+                gender: [undefined],
+                grandFatherName: [undefined],
+                fatherName: [undefined],
+                husbandName: [undefined],
+                fatherInLawName: [undefined],
+                citizenshipNo: [undefined],
+                citizenshipIssueDistrict: [undefined],
+                citizenshipIssueDate: [undefined]
+            }),
+            // Authorized Person Address
+            guarantorAuthorizedPersonAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined]
+            })
         });
     }
 
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    }
+
+    removeCollateral(i: any) {
+        (this.userConfigForm.get('collateralDetails') as FormArray).removeAt(i);
     }
 
     onChangeTab(event) {
@@ -227,6 +437,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setGuarantors(guarantorDetails: any) {
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        if (guarantorDetails.length === 0) {
+            this.addGuarantor();
+            return;
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
                 const guarantorList = this.customerInfo.guarantors.guarantorList;
@@ -235,12 +449,85 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
         guarantorDetails.forEach(value => {
             formArray.push(this.formBuilder.group({
-                name: [value.name],
-                issuedYear: [value.issuedYear],
-                issuedPlace: [value.issuedPlace],
-                guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
-                relationship: [value.relationship],
-                citizenNumber: [value.citizenNumber]
+                guarantorType: [value.guarantorType],
+                name: [value.name ? value.name : ''],
+                gender: [value.gender ? value.gender : ''],
+                grandFatherName: [value.grandFatherName ? value.grandFatherName : ''],
+                fatherName: [value.fatherName ? value.fatherName : ''],
+                husbandName: [value.husbandName ? value.husbandName : ''],
+                fatherInLawName: [value.fatherInLawName ? value.fatherInLawName : ''],
+                citizenshipNo: [value.citizenshipNo ? value.citizenshipNo : ''],
+                citizenshipIssueDistrict: [value.citizenshipIssueDistrict ? value.citizenshipIssueDistrict : ''],
+                citizenshipIssueDate: [value.citizenshipIssueDate ? value.citizenshipIssueDate : ''],
+                panNo: [value.panNo ? value.panNo : ''],
+                panIssueOffice: [value.panIssueOffice ? value.panIssueOffice : ''],
+                panIssueDate: [value.panIssueDate ? value.panIssueDate : ''],
+                contactNo: [value.contactNo ? value.contactNo : ''],
+                // Institution
+                registrationNo: [value.registrationNo ? value.registrationNo : ''],
+                companyRegOffice: [value.companyRegOffice ? value.companyRegOffice : ''],
+                regIssueDate: [value.regIssueDate ? value.regIssueDate : ''],
+                // Customer Address
+                guarantorPermanentAddress: this.formBuilder.group({
+                    district: [value.guarantorPermanentAddress.district ? value.guarantorPermanentAddress.district : ''],
+                    municipality: [value.guarantorPermanentAddress.municipality ? value.guarantorPermanentAddress.municipality : ''],
+                    munType: [value.guarantorPermanentAddress.munType ? value.guarantorPermanentAddress.munType : ''],
+                    wardNo: [value.guarantorPermanentAddress.wardNo ? value.guarantorPermanentAddress.wardNo : ''],
+                    tole: [value.guarantorPermanentAddress.tole ? value.guarantorPermanentAddress.tole : ''],
+                }),
+                guarantorTemporaryAddress: this.formBuilder.group({
+                    district: [value.guarantorTemporaryAddress.district ? value.guarantorTemporaryAddress.district : ''],
+                    municipality: [value.guarantorTemporaryAddress.municipality ? value.guarantorTemporaryAddress.municipality : ''],
+                    munType: [value.guarantorTemporaryAddress.munType ? value.guarantorTemporaryAddress.munType : ''],
+                    wardNo: [value.guarantorTemporaryAddress.wardNo ? value.guarantorTemporaryAddress.wardNo : ''],
+                    tole: [value.guarantorTemporaryAddress.tole ? value.guarantorTemporaryAddress.tole : ''],
+                }),
+                // Institution Registered Address
+                guarantorInstitutionRegisteredAddress: this.formBuilder.group({
+                    district: [value.guarantorInstitutionRegisteredAddress.district ? value.guarantorInstitutionRegisteredAddress.district : ''],
+                    municipality: [value.guarantorInstitutionRegisteredAddress.municipality ?
+                        value.guarantorInstitutionRegisteredAddress.municipality : ''],
+                    munType: [value.guarantorInstitutionRegisteredAddress.munType ?
+                        value.guarantorInstitutionRegisteredAddress.munType : ''],
+                    wardNo: [value.guarantorInstitutionRegisteredAddress.wardNo ? value.guarantorInstitutionRegisteredAddress.wardNo : ''],
+                    tole: [value.guarantorInstitutionRegisteredAddress.tole ? value.guarantorInstitutionRegisteredAddress.tole : ''],
+                }),
+                // Institution Current Address
+                guarantorInstitutionCurrentAddress: this.formBuilder.group({
+                    district: [value.guarantorInstitutionCurrentAddress.district ? value.guarantorInstitutionCurrentAddress.district : ''],
+                    municipality: [value.guarantorInstitutionCurrentAddress.municipality ?
+                        value.guarantorInstitutionCurrentAddress.municipality : ''],
+                    munType: [value.guarantorInstitutionCurrentAddress.munType ? value.guarantorInstitutionCurrentAddress.munType : ''],
+                    wardNo: [value.guarantorInstitutionCurrentAddress.wardNo ? value.guarantorInstitutionCurrentAddress.wardNo : ''],
+                    tole: [value.guarantorInstitutionCurrentAddress.tole ? value.guarantorInstitutionCurrentAddress.tole : ''],
+                }),
+                // Authorized Person Address
+                guarantorAuthorizedPersonDetail: this.formBuilder.group({
+                    name: [value.guarantorAuthorizedPersonDetail.name ? value.guarantorAuthorizedPersonDetail.name : ''],
+                    gender: [value.guarantorAuthorizedPersonDetail.gender ? value.guarantorAuthorizedPersonDetail.gender : ''],
+                    grandFatherName: [value.guarantorAuthorizedPersonDetail.grandFatherName ?
+                        value.guarantorAuthorizedPersonDetail.grandFatherName : ''],
+                    fatherName: [value.guarantorAuthorizedPersonDetail.fatherName ?
+                        value.guarantorAuthorizedPersonDetail.fatherName : ''],
+                    husbandName: [value.guarantorAuthorizedPersonDetail.husbandName ?
+                        value.guarantorAuthorizedPersonDetail.husbandName : ''],
+                    fatherInLawName: [value.guarantorAuthorizedPersonDetail.fatherInLawName ?
+                        value.guarantorAuthorizedPersonDetail.fatherInLawName : ''],
+                    citizenshipNo: [value.guarantorAuthorizedPersonDetail.citizenshipNo ?
+                        value.guarantorAuthorizedPersonDetail.citizenshipNo : ''],
+                    citizenshipIssueDistrict: [value.guarantorAuthorizedPersonDetail.citizenshipIssueDistrict ?
+                        value.guarantorAuthorizedPersonDetail.citizenshipIssueDistrict : ''],
+                    citizenshipIssueDate: [value.guarantorAuthorizedPersonDetail.citizenshipIssueDate ?
+                        value.guarantorAuthorizedPersonDetail.citizenshipIssueDate : ''],
+                }),
+                // Authorized Person Address
+                guarantorAuthorizedPersonAddress: this.formBuilder.group({
+                    district: [value.guarantorAuthorizedPersonAddress.district ? value.guarantorAuthorizedPersonAddress.district : ''],
+                    municipality: [value.guarantorAuthorizedPersonAddress.municipality ?
+                        value.guarantorAuthorizedPersonAddress.municipality : ''],
+                    munType: [value.guarantorAuthorizedPersonAddress.munType ? value.guarantorAuthorizedPersonAddress.munType : ''],
+                    wardNo: [value.guarantorAuthorizedPersonAddress.wardNo ? value.guarantorAuthorizedPersonAddress.wardNo : '']
+                })
             }));
         });
     }
