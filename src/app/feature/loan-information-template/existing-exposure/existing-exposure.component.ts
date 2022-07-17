@@ -20,7 +20,6 @@ export class ExistingExposureComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Output() triggerCustomerRefresh = new EventEmitter<boolean>();
     existingExposure: FormGroup;
-    fundedNonFunded: FormGroup;
     submitted = false;
     loanList = [];
     selectedLoanList = [];
@@ -38,7 +37,6 @@ export class ExistingExposureComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.buildFundedNonFunded();
         if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
             if (this.customerInfo.existingExposures.length > 0) {
                 this.existingData = this.customerInfo.existingExposures;
@@ -50,16 +48,6 @@ export class ExistingExposureComponent implements OnInit {
             this.getApprovedLoanList();
         }
         this.getAllLoanList();
-    }
-    buildFundedNonFunded() {
-        this.fundedNonFunded = this.formBuilder.group({
-            totalFunded: [undefined],
-            totalExistingFunded: [undefined],
-            totalOsFunded: [undefined],
-            totalNonFunded: [undefined],
-            totalExistingNonFunded: [undefined],
-            totalOsNonFunded: [undefined],
-        });
     }
 
     buildForm() {

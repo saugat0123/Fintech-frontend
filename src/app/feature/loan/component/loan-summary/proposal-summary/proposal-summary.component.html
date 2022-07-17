@@ -202,58 +202,114 @@
                         && !(loan?.proposal?.data | jsonParse)?.commissionPercentage"> - </span>
                 </td>
             </tr>
-            <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1"><strong>Funded</strong></td>
-                <td class="text-right pr-1">
-                    Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
-                <td>-</td>
-                <td class="text-right pr-1">
+            <ng-template #within>
+                <tr class="sb-bg-secondary text-white">
+                    <td class="text-left pl-1"><strong>Funded</strong></td>
+                    <td class="text-right pr-1">
+                        Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
                     <span>
                         Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
                     </span>
-                </td>
-                <td></td>
-                <td class="text-right pr-1">
-                    Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-                <td>-</td>
-                <td class="text-right pr-1">
-                    Rs. {{calculateChangeInAmount(fundedNonFundedAmount?.fundedProposedLimit, fundedNonFundedAmount?.fundedExistingLimit) | currencyFormatter}}
-                </td>
-                <td>-</td>
-            </tr>
-            <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1"><strong>Non-Funded</strong></td>
-                <td class="text-right pr-1">
-                    Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
-                <td>-</td>
-                <td class="text-right pr-1">
+                    </td>
+                    <td></td>
+                    <td class="text-right pr-1">
+                        Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                        Rs. {{calculateChangeInAmount(fundedNonFundedAmount?.fundedProposedLimit, fundedNonFundedAmount?.fundedExistingLimit) | currencyFormatter}}
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr class="sb-bg-secondary text-white">
+                    <td class="text-left pl-1"><strong>Non-Funded</strong></td>
+                    <td class="text-right pr-1">
+                        Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
                     <span>
                         Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
                     </span>
-                </td>
-                <td></td>
-                <td class="text-right pr-1">
-                    Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-                <td>-</td>
-                <td class="text-right pr-1">
-                    Rs. {{calculateChangeInAmount(fundedNonFundedAmount?.nonFundedProposedLimit, fundedNonFundedAmount?.nonFundedExistingLimit) | currencyFormatter}}
-                </td>
-                <td>-</td>
-            </tr>
-            <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1"><strong>Total</strong></td>
+                    </td>
+                    <td></td>
+                    <td class="text-right pr-1">
+                        Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                        Rs. {{calculateChangeInAmount(fundedNonFundedAmount?.nonFundedProposedLimit, fundedNonFundedAmount?.nonFundedExistingLimit) | currencyFormatter}}
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr class="sb-bg-secondary text-white">
+                    <td class="text-left pl-1"><strong>Total</strong></td>
 
-                <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
-                <td>-</td>
-                <td class="text-right pr-1">
-                    <span>Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
-                </td>
-                <td></td>
-                <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
-                <td>-</td>
-                <td class="text-right pr-1">Rs. {{calculateTotalChangeAmount(customerAllLoanList, existingExposure) | currencyFormatter}}</td>
-                <td>-</td>
-            </tr>
+                    <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                        <span>Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
+                    </td>
+                    <td></td>
+                    <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">Rs. {{calculateTotalChangeAmount(customerAllLoanList, existingExposure) | currencyFormatter}}</td>
+                    <td>-</td>
+                </tr>
+            </ng-template>
+            <ng-container *ngIf="loanDataHolder?.loanHolder?.withInData && (loanDataHolder?.loanHolder?.withInData | jsonParse)?.withIn; else within">
+                <tr class="sb-bg-secondary text-white">
+                    <td class="text-left pl-1"><strong>Funded</strong></td>
+                    <td class="text-right pr-1">
+                        Rs. {{ (loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalFundedLimit | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                    <span>
+                        Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalFundedOs | currencyFormatter }}
+                    </span>
+                    </td>
+                    <td></td>
+                    <td class="text-right pr-1">
+                        Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalFundedProposedLimit | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                        Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalFundedProposedChange | currencyFormatter}}
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr class="sb-bg-secondary text-white">
+                    <td class="text-left pl-1"><strong>Non-Funded</strong></td>
+                    <td class="text-right pr-1">
+                        Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalNonFundedLimit | currencyFormatter }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                    <span>
+                        Rs. {{ (loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalNonFundedOs | currencyFormatter }}
+                    </span>
+                    </td>
+                    <td></td>
+                    <td class="text-right pr-1">
+                        Rs. {{ (loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalNonFundedProposedLimit | currencyFormatter  }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                        Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalNonFundedProposedChange | currencyFormatter }}
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr class="sb-bg-secondary text-white">
+                    <td class="text-left pl-1"><strong>Total</strong></td>
+
+                    <td class="text-right pr-1">Rs. {{ (loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalExistingLimit | currencyFormatter  }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">
+                        <span>Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalExistingOs | currencyFormatter  }}</span>
+                    </td>
+                    <td></td>
+                    <td class="text-right pr-1">Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalProposedLimit | currencyFormatter  }}</td>
+                    <td>-</td>
+                    <td class="text-right pr-1">Rs. {{(loanDataHolder?.loanHolder?.withInData | jsonParse)?.totalProposedChange | currencyFormatter }}</td>
+                    <td>-</td>
+                </tr>
+            </ng-container>
             </tbody>
         </table>
     </div>

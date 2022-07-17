@@ -86,4 +86,5 @@ export class CustomerInfoData {
     crgCcbl: string;
     financialCcbl: string;
     existingExposures: Array<ExistingExposure>;
+    withInData: string;
 }
