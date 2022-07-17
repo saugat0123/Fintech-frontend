@@ -634,7 +634,7 @@
                         </li>
                         <!-- End Cicl Details-->
                         <!-- Start Insurance Details -->
-                        <li *ngIf="loanDataHolder?.insurance.length > 0">
+                        <li *ngIf="loanDataHolder?.insurance?.length > 0">
                             <app-insurance-summary
                                                    [insurance]="loanDataHolder?.insurance"
                                                    [loanCategory]="loanDataHolder?.loanCategory"
