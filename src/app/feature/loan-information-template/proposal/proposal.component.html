@@ -39,7 +39,23 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-md-4">
+                                        <nb-checkbox [(ngModel)]="withIn" name="withIn"
+                                                     [ngModelOptions]="{standalone: true}">With In ?
+                                        </nb-checkbox>
+                                        <select *ngIf="withIn"
+                                                class="custom-select"
+                                                name="withInLoan"
+                                                [(ngModel)]="withInLoanId"
+                                                [ngModelOptions]="{standalone: true}">
+                                            <option [ngValue]="null" hidden selected>Select</option>
+                                            <ng-container *ngFor="let scheme of customerGroupLoanList;" >
+                                                <option *ngIf="currentLoanId !== scheme?.id && currentLoanId !== scheme?.withInLoan"  [value]="scheme?.id">
+                                                    {{scheme?.loan?.name}} : {{(scheme?.proposal?.data | jsonParse)?.proposedLimit}}
+                                                </option>
+                                            </ng-container>
+                                        </select>
+                                </div>
                                 <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="settlementAmount"></label>

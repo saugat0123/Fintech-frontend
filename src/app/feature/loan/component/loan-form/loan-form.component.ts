@@ -538,6 +538,8 @@ export class LoanFormComponent implements OnInit {
       }
       this.proposalDetail.onSubmit();
       this.loanDocument.proposal = this.proposalDetail.proposalData;
+      this.loanDocument.withInLoan = this.proposalDetail.withInLoanId;
+      this.loanDocument.withIn = this.proposalDetail.withIn;
     }
     if (name === 'Security' && action) {
       this.shareSecurity.save();
@@ -662,7 +664,21 @@ export class LoanFormComponent implements OnInit {
   save() {
     this.nextButtonAction = true;
     this.spinner.show();
-
+    this.proposalDetail.onSubmit();
+    this.loanDocument.proposal = this.proposalDetail.proposalData;
+    this.loanDocument.withInLoan = this.proposalDetail.withInLoanId;
+    this.loanDocument.withIn = this.proposalDetail.withIn;
+    if (this.loanDocument.withIn) {
+      if (ObjectUtil.isEmpty(this.loanDocument.withInLoan)) {
+        this.spinner.hide();
+        return;
+      }
+      if (this.loanDocument.proposal.proposedLimit > this.proposalDetail.parentProposedAmount) {
+        this.toastService.show(new Alert(AlertType.WARNING, 'Within Loan Should Be Less Than Parent Loan'));
+        this.spinner.hide();
+        return;
+      }
+    }
     if (this.selectChild(this.selectedTab, true, this.loanTag)) {
       this.spinner.hide();
       this.nextButtonAction = false;
