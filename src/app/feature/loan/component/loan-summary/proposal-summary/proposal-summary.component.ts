@@ -69,8 +69,10 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                 this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
             }
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures.length > 0)) {
-                this.existingExposure = this.loanDataHolder.loanHolder.existingExposures;
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
+                if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures.length > 0)) {
+                    this.existingExposure = this.loanDataHolder.loanHolder.existingExposures;
+                }
             }
         }
         this.calculateInterestRate();

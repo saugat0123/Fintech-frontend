@@ -37,13 +37,9 @@ export class ExistingExposureComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.existingExposures)) {
-            if (this.customerInfo.existingExposures.length > 0) {
-                this.existingData = this.customerInfo.existingExposures;
-                this.setLoans();
-            } else {
-                this.getApprovedLoanList();
-            }
+        if (this.customerInfo.existingExposures.length > 0) {
+            this.existingData = this.customerInfo.existingExposures;
+            this.setLoans();
         } else {
             this.getApprovedLoanList();
         }
@@ -122,9 +118,18 @@ export class ExistingExposureComponent implements OnInit {
         this.loanFormService.getLoansByLoanHolderIdAndDocStatus(this.customerInfo.id, 'APPROVED')
             .subscribe((res: any) => {
                 const approvedLoanList = res.detail;
-                approvedLoanList.forEach(al => {
-                    this.setApprovedLoanData(al);
+                let loanList = [];
+                if (this.existingData.length > 0) {
+                    this.existingData.forEach(ed => {
+                        loanList = approvedLoanList.filter(al => al.id !== ed.loanId);
+                    });
+                } else {
+                    loanList = approvedLoanList;
+                }
+                loanList.forEach(ll => {
+                    this.setApprovedLoanData(ll);
                 });
+                this.setExistingData();
             });
     }
 
@@ -144,7 +149,6 @@ export class ExistingExposureComponent implements OnInit {
                 })
             );
         }
-        this.existingData = control.value;
     }
 
     removeLoan(i: number) {
@@ -263,5 +267,14 @@ export class ExistingExposureComponent implements OnInit {
         this.existingExposure.get(['exposure', i , 'loanName']).patchValue(value.name);
         this.existingExposure.get(['exposure', i , 'loanConfig']).patchValue(value);
         return;
+    }
+
+    setExistingData() {
+        const control = this.existingExposure.get('exposure') as FormArray;
+        control.value.forEach(c => {
+            if (ObjectUtil.isEmpty(c.id)) {
+                this.existingData.push(c);
+            }
+        });
     }
 }

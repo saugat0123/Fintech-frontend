@@ -15,7 +15,7 @@ export class SecurityDocumentViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.security.data)) {
+    if (!ObjectUtil.isEmpty(this.security)) {
       this.formData = JSON.parse(this.security.data);
       if (!ObjectUtil.isEmpty(this.formData['initialForm']['securityDocument'])) {
         this.securityDocument = JSON.parse(this.formData['initialForm']['securityDocument']);
