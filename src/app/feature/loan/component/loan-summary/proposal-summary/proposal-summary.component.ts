@@ -95,6 +95,15 @@ export class ProposalSummaryComponent implements OnInit, DoCheck {
                 total += JSON.parse(ee.proposalData)[key];
             });
         }
+        if (key === 'proposedLimit') {
+            let totals = 0;
+            this.customerAllLoanList.forEach(d => {
+                if (d.withIn) {
+                    totals += JSON.parse(d.proposal.data).proposedLimit;
+                }
+            });
+            total = total  - totals;
+        }
         return this.isNumber(total);
     }
 
