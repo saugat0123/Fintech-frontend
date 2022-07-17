@@ -101,4 +101,6 @@ export class LoanDataHolder extends BaseEntity {
     autos: Array<Auto> = [];
     landBuildings: Array<LandBuilding> = [];
     selectedArray: string;
+    withIn: boolean;
+    withInLoan: number;
 }

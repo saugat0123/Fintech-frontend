@@ -51,6 +51,7 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {SwotAnalysisComponent} from '../../../loan-information-template/swot-analysis/swot-analysis.component';
 import {NetWorthComponent} from '../net-worth/net-worth.component';
 import {ExistingExposureComponent} from '../../../loan-information-template/existing-exposure/existing-exposure.component';
+import {ExistingExposure} from '../../../loan/model/existingExposure';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -176,6 +177,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     subsidizedLoanChecked = false;
     reviewDate;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
+    fundedNonFunded: FormGroup;
+
 
     constructor(
         private toastService: ToastService,
@@ -194,6 +197,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.ckeConfig = Editor.CK_CONFIG;
+        this.buildFundedNonFunded();
+        if (!ObjectUtil.isEmpty(this.customerInfo.withInData)) {
+            this.fundedNonFunded.patchValue(JSON.parse(this.customerInfo.withInData));
+        }
         this.customerService.detail(this.customerInfo.associateId).subscribe((res) => {
             this.customer = res.detail;
         });
@@ -276,7 +283,57 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             }
         }
     }
+    buildFundedNonFunded() {
+        this.fundedNonFunded = this.formBuilder.group({
+            totalExistingLimit: [undefined],
+            totalExistingOs: [undefined],
+            totalProposedLimit: [undefined],
+            totalProposedChange: [undefined],
+            totalFundedLimit: [undefined],
+            totalFundedOs: [undefined],
+            totalFundedProposedLimit: [undefined],
+            totalFundedProposedChange: [undefined],
+            totalNonFundedLimit: [undefined],
+            totalNonFundedOs: [undefined],
+            totalNonFundedProposedLimit: [undefined],
+            totalNonFundedProposedChange: [undefined],
+            withIn: [undefined],
+        });
+    }
+    setChange(formControlName, funded, proposed) {
+        const fundedNonFunded = funded ? 'totalFundedProposedChange' : 'totalNonFundedProposedChange';
+        let proposedFunded;
+        if (!proposed) {
+            proposedFunded = funded ? 'totalFundedProposedLimit' : 'totalNonFundedProposedLimit';
+        } else {
+            proposedFunded = funded ? 'totalFundedLimit' : 'totalNonFundedLimit';
+        }
+        this.fundedNonFunded.get(fundedNonFunded).patchValue(Number(this.fundedNonFunded.get(formControlName).value) - Number(this.fundedNonFunded.get(proposedFunded).value));
+        this.fundedNonFunded.patchValue({
+            totalExistingLimit:   this.fundedNonFunded.get('totalFundedLimit').value + this.fundedNonFunded.get('totalNonFundedLimit').value ,
+            totalProposedChange: this.fundedNonFunded.get('totalFundedProposedChange').value + this.fundedNonFunded.get('totalNonFundedProposedChange').value
+        });
+    }
 
+    public saveWithin() {
+        this.spinner.show();
+        this.customerInfo.withInData = JSON.stringify(this.fundedNonFunded.value);
+        this.customerInfoService.save(this.customerInfo).subscribe({
+            next: () => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved within data!'));
+            },
+            error: () => {
+                this.spinner.hide();
+                this.nbDialogRef.close();
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Within Data!'));
+            },
+            complete: () => {
+                this.spinner.hide();
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+            }
+        });
+    }
     public saveSiteVisit(data: string) {
         this.spinner.show();
         if (ObjectUtil.isEmpty(this.siteVisit)) {
