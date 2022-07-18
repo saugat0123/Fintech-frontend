@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
 
-                                        <div *ngIf="individualType?.users.get(i)?.length > 1" class="row">
+                                        <div *ngIf="individualType?.users.get(i)?.length > 0" class="row">
                                             <div class="col-md-12 form-group">
                                                 <label class="toUser" for="toUser">To User</label>
                                                 <select class="custom-select" formControlName="toUser" id="toUser{{i}}"
@@ -123,17 +123,9 @@
 
                                         <!--                  //sol-->
                                         <div *ngIf="isMaker">
-                                            <div class="col-md-12">
-                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"
-                                                             formControlName="isSol"
-                                                             (checkedChange)="showHideSol($event,i)">is SOL?
-                                                </nb-checkbox>
-                                            </div>
-
                                             <div class="col-md-12 row" *ngIf="individualType?.form.get(['actions', i, 'isSol']).value">
                                                 <div class="col-md-6">
-                                                    <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval
-                                                        Role</label>
+                                                    <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approving Authority</label>
                                                     <select style="width: 100%"
                                                             [compareWith]="compareFn"
                                                             (change)="getIndividualUserSolList(control?.get('selectedRoleForSol').value, i)"
@@ -237,16 +229,10 @@
                             <!--//sol-->
 
                             <div *ngIf="isMaker">
-                                <div class="col-md-12">
-                                    <nb-checkbox class="cursor" formControlName="isSol"
-                                                 [checked]="preSelectedSolUser[0]?.isSol"
-                                                 (checkedChange)="showHideSolCombine($event)"
-                                    >is SOL?
-                                    </nb-checkbox>
-                                </div>
+                                <br>
                                 <div class="col-md-12 row" *ngIf="combinedType.form.get('isSol').value">
                                     <div class="col-md-6">
-                                        <label class="toRole" for="toRole">Approval Role</label>
+                                        <label class="toRole" for="toRole">Approving Authority</label>
                                         <select style="width: 100%"
                                                 [compareWith]="compareFn"
                                                 (change)="getCombinedSolUserList(combinedType?.form.get('selectedRoleForSol').value)"
