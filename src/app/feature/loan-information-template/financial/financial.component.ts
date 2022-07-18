@@ -443,21 +443,19 @@ export class FinancialComponent implements OnInit {
 
     setObligationAtOtherBank(currentData) {
         const controls = this.financialForm.get('obligationAtOtherBank') as FormArray;
-        currentData.forEach(singleData => {
-            controls.push(
-                this.formBuilder.group({
-                    obliParticulars: [singleData.obliParticulars],
-                    obliAmount: [singleData.obliAmount],
-                    obliRemarks: [singleData.obliRemarks]
-                })
-            );
-        });
+        if (!ObjectUtil.isEmpty(currentData)) {
+            currentData.forEach(singleData => {
+                controls.push(
+                    this.formBuilder.group({
+                        obliParticulars: [singleData.obliParticulars],
+                        obliAmount: [singleData.obliAmount],
+                        obliRemarks: [singleData.obliRemarks]
+                    })
+                );
+            });
+        }
     }
 
-
-
-    //
-    //
     // Fiscal Year --
     addFiscalYear(yearValue, auditorDetails) {
         // push fiscal year
