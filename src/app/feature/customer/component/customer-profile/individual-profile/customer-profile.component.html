@@ -612,7 +612,7 @@
 
                <nb-card *ngIf="loan?.customerDocument?.length > 0">
                    <nb-card-header>
-                       <strong>{{loan?.loan?.name }} {{loan?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{loan?.proposal?.proposedLimit || ''}} {{loan?.loanType}}</strong>
+                       <strong>{{loan?.loan?.name }} {{loan?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{loan?.proposal?.proposedLimit || ''}}  ( {{(loan?.loanType?.toString() | replace : '_' : ' ')}} )</strong>
                        <br>
                    </nb-card-header>
                    <nb-card-body>
