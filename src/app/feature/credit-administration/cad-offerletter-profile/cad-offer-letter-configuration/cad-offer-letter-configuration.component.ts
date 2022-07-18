@@ -42,6 +42,24 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         {key: 'Personal_Guarantor', value: 'Personal Guarantor'},
         {key: 'Corporate_Guarantor', value: 'Corporate Guarantor'},
     ];
+    collateralOwnerTypeEnum = [
+        {key: 'INDIVIDUAL', value: 'INDIVIDUAL'},
+        {key: 'INSTITUTION', value: 'INSTITUTION'},
+    ];
+    collateralTypeInstitutionEnum = [
+        {key: 'land_and_building', value: 'Land and Building'},
+        {key: 'stocks_receivables', value: 'Stocks/Receivables'},
+        {key: 'plant_machinery_equipment', value: 'Plant/Machinery/Equipment'},
+        {key: 'fixed_deposit', value: 'Fixed Deposit'},
+        {key: 'vehicle', value: 'Vehicle'},
+        {key: 'shares', value: 'Shares'},
+    ];
+    collateralTypeIndividualEnum = [
+        {key: 'land_and_building', value: 'Land and Building'},
+        {key: 'fixed_deposit', value: 'Fixed Deposit'},
+        {key: 'vehicle', value: 'Vehicle'},
+        {key: 'shares', value: 'Shares'},
+    ];
     branchList;
 
     constructor(private formBuilder: FormBuilder,
@@ -61,7 +79,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('this is customer info', this.customerInfo);
         this.buildForm();
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
@@ -70,8 +87,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
+            this.setCollaterals(data.collateralDetails);
         } else {
             this.addGuarantor();
+            this.addCollateral();
         }
     }
 
@@ -347,75 +366,78 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addCollateralField() {
         return this.formBuilder.group({
-            guarantorType: [undefined],
+            collateralOwnerType: [undefined],
+            collateralType: [undefined],
+            nameInNepali: [undefined],
             name: [undefined],
+            sellerName: [undefined],
             gender: [undefined],
+            dateOfBirth: [undefined],
+            facAddress: [undefined],
+            citizenshipNo: [undefined],
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
+            contactNo: [undefined],
+            relationMedium: [undefined],
             grandFatherName: [undefined],
             fatherName: [undefined],
             husbandName: [undefined],
             fatherInLawName: [undefined],
-            citizenshipNo: [undefined],
-            citizenshipIssueDistrict: [undefined],
-            citizenshipIssueDate: [undefined],
-            dateOfBirth: [undefined],
-            panNo: [undefined],
-            panIssueOffice: [undefined],
-            panIssueDate: [undefined],
-            contactNo: [undefined],
             // Institution
             registrationNo: [undefined],
-            companyRegOffice: [undefined],
             regIssueDate: [undefined],
-            // Customer Address
-            guarantorPermanentAddress: this.formBuilder.group({
-                district: [undefined],
-                municipality: [undefined],
-                munType: [0],
-                wardNo: [undefined],
-                tole: [undefined]
-            }),
-            guarantorTemporaryAddress: this.formBuilder.group({
-                district: [undefined],
-                municipality: [undefined],
-                munType: [0],
-                wardNo: [undefined],
-                tole: [undefined]
-            }),
-            // Institution Registered Address
-            guarantorInstitutionRegisteredAddress: this.formBuilder.group({
-                district: [undefined],
-                municipality: [undefined],
-                munType: [0],
-                wardNo: [undefined],
-                tole: [undefined]
-            }),
-            // Institution Current Address
-            guarantorInstitutionCurrentAddress: this.formBuilder.group({
-                district: [undefined],
-                municipality: [undefined],
-                munType: [0],
-                wardNo: [undefined],
-                tole: [undefined]
-            }),
-            // Authorized Person Address
-            guarantorAuthorizedPersonDetail: this.formBuilder.group({
+            companyRegOffice: [undefined],
+            panNo: [undefined],
+            // Collateral Authorized Person Detail
+            collateralAuthorizedPersonDetail: this.formBuilder.group({
                 name: [undefined],
-                gender: [undefined],
-                grandFatherName: [undefined],
-                fatherName: [undefined],
-                husbandName: [undefined],
-                fatherInLawName: [undefined],
+                address: [undefined],
                 citizenshipNo: [undefined],
-                citizenshipIssueDistrict: [undefined],
-                citizenshipIssueDate: [undefined]
+                citizenshipIssueDate: [undefined],
+                citizenshipIssueDistrict: [undefined]
             }),
-            // Authorized Person Address
-            guarantorAuthorizedPersonAddress: this.formBuilder.group({
+            // Land and Building Address
+            landAndBuildingDetail: this.formBuilder.group({
+                province: [undefined],
                 district: [undefined],
                 municipality: [undefined],
                 munType: [0],
-                wardNo: [undefined]
-            })
+                wardNo: [undefined],
+                plotNo: [undefined],
+                tole: [undefined],
+                blockStorey: [undefined],
+                area: [undefined],
+                nakshaSeatNo: [undefined],
+            }),
+            // Stocks Receivables Value
+            stocksReceivablesValue: this.formBuilder.group({
+                stockValue: [undefined],
+                receivableValue: [undefined],
+            }),
+            // Plant/Machinery/Equipment Detail
+            plantMachineryDetail: this.formBuilder.group({
+                equipmentDetail: [undefined],
+                equipmentValue: [undefined],
+            }),
+            // Vehicle Detail
+            vehicleDetail: this.formBuilder.group({
+                vehicleRegNo: [undefined]
+            }),
+            // Fixed Deposit Holder Detail
+            fdHolderDetail: this.formBuilder.group({
+                name: [undefined],
+                fdReceiptNo: [undefined],
+                fdAmount: [undefined],
+                fatherName: [undefined],
+                grandFatherName: [undefined]
+            }),
+            // share Detail
+            shareDetail: this.formBuilder.group({
+                name: [undefined],
+                companyName: [undefined],
+                noOfShares: [undefined],
+                shareType: [undefined]
+            }),
         });
     }
 
@@ -429,10 +451,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     onChangeTab(event) {
         this.hideSaveBtn = false;
-        if (event.tabId === '2') {
-            this.hideSaveBtn = true;
-        }
-
     }
 
     setGuarantors(guarantorDetails: any) {
@@ -528,6 +546,89 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     munType: [value.guarantorAuthorizedPersonAddress.munType ? value.guarantorAuthorizedPersonAddress.munType : ''],
                     wardNo: [value.guarantorAuthorizedPersonAddress.wardNo ? value.guarantorAuthorizedPersonAddress.wardNo : '']
                 })
+            }));
+        });
+    }
+    setCollaterals(collateralDetails: any) {
+        const formArray = this.userConfigForm.get('collateralDetails') as FormArray;
+        if (collateralDetails.length === 0) {
+            this.addCollateral();
+            return;
+        }
+        collateralDetails.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                collateralOwnerType: [value.collateralOwnerType],
+                collateralType: [value.collateralType],
+                nameInNepali: [value.nameInNepali],
+                name: [value.name],
+                sellerName: [value.sellerName],
+                gender: [value.gender],
+                dateOfBirth: [value.dateOfBirth],
+                facAddress: [value.facAddress],
+                citizenshipNo: [value.citizenshipNo],
+                citizenshipIssueDistrict: [value.citizenshipIssueDistrict],
+                citizenshipIssueDate: [value.citizenshipIssueDate],
+                contactNo: [value.contactNo],
+                relationMedium: [value.relationMedium],
+                grandFatherName: [value.grandFatherName],
+                fatherName: [value.fatherName],
+                husbandName: [value.husbandName],
+                fatherInLawName: [value.fatherInLawName],
+                // Institution
+                registrationNo: [value.registrationNo],
+                regIssueDate: [value.regIssueDate],
+                companyRegOffice: [value.companyRegOffice],
+                panNo: [value.panNo],
+                // Collateral Authorized Person Detail
+                collateralAuthorizedPersonDetail: this.formBuilder.group({
+                    name: [value.collateralAuthorizedPersonDetail.name],
+                    address: [value.collateralAuthorizedPersonDetail.address],
+                    citizenshipNo: [value.collateralAuthorizedPersonDetail.citizenshipNo],
+                    citizenshipIssueDate: [value.collateralAuthorizedPersonDetail.citizenshipIssueDate],
+                    citizenshipIssueDistrict: [value.collateralAuthorizedPersonDetail.citizenshipIssueDistrict]
+                }),
+                // Land and Building Address
+                landAndBuildingDetail: this.formBuilder.group({
+                    province: [value.landAndBuildingDetail.province],
+                    district: [value.landAndBuildingDetail.district],
+                    municipality: [value.landAndBuildingDetail.municipality],
+                    munType: [value.landAndBuildingDetail.munType],
+                    wardNo: [value.landAndBuildingDetail.wardNo],
+                    plotNo: [value.landAndBuildingDetail.plotNo],
+                    tole: [value.landAndBuildingDetail.tole],
+                    blockStorey: [value.landAndBuildingDetail.blockStorey],
+                    area: [value.landAndBuildingDetail.area],
+                    nakshaSeatNo: [value.landAndBuildingDetail.nakshaSeatNo],
+                }),
+                // Stocks Receivables Value
+                stocksReceivablesValue: this.formBuilder.group({
+                    stockValue: [value.stocksReceivablesValue.stockValue],
+                    receivableValue: [value.stocksReceivablesValue.receivableValue],
+                }),
+                // Plant/Machinery/Equipment Detail
+                plantMachineryDetail: this.formBuilder.group({
+                    equipmentDetail: [value.plantMachineryDetail.equipmentDetail],
+                    equipmentValue: [value.plantMachineryDetail.equipmentValue],
+                }),
+                // Vehicle Detail
+                vehicleDetail: this.formBuilder.group({
+                    vehicleRegNo: [value.vehicleDetail.vehicleRegNo]
+                }),
+                // Fixed Deposit Holder Detail
+                fdHolderDetail: this.formBuilder.group({
+                    name: [value.fdHolderDetail.name],
+                    fdReceiptNo: [value.fdHolderDetail.fdReceiptNo],
+                    fdAmount: [value.fdHolderDetail.fdAmount],
+                    fatherName: [value.fdHolderDetail.fatherName],
+                    grandFatherName: [value.fdHolderDetail.grandFatherName]
+                }),
+                // share Detail
+                shareDetail: this.formBuilder.group({
+                    name: [value.shareDetail.name],
+                    companyName: [value.shareDetail.companyName],
+                    noOfShares: [value.shareDetail.noOfShares],
+                    shareType: [value.shareDetail.shareType]
+                }),
             }));
         });
     }
