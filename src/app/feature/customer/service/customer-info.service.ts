@@ -108,4 +108,9 @@ export class CustomerInfoService extends BaseService<Object> {
 
         return this.http.post(req.url, {}, {headers: req.header});
     }
+    public deleteSecurity(id, customerInfoId)  {
+        const api = `${this.getApi()}/delete/security?securityId=${id}&customerInfoId=${customerInfoId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.delete(req.url, {headers: req.header});
+    }
 }

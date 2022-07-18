@@ -19,8 +19,8 @@
 </nb-tabset>
 <!--    <app-financial-json-parser [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>-->
 <!--    <app-financial-json-parser [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>-->
-    <form *ngIf="!sensitive" [formGroup]="form">
-        <ng-container >
+    <form  [formGroup]="form">
+        <ng-container *ngIf="!sensitive; else sensitiveJustification" >
             <div class="col-md-12 form-group" >
                 <b>Justification for change (Historical)</b>
                 <div >
@@ -42,6 +42,15 @@
                 </div>
             </div>
         </ng-container>
+        <ng-template #sensitiveJustification>
+            <div class="col-md-12 form-group">
+
+                <b>Justification</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="sensitiveJustification"></ckeditor>
+                </div>
+            </div>
+        </ng-template>
     </form>
 
     <button class="float-right" nbButton (click)="submitData()" >Submit</button>
