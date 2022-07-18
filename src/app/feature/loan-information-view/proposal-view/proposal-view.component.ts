@@ -65,8 +65,10 @@ export class ProposalViewComponent implements OnInit, DoCheck {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-      if (this.loanDataHolder.loanHolder.existingExposures.length > 0) {
-        this.existingExposure = this.loanDataHolder.loanHolder.existingExposures;
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
+        if (this.loanDataHolder.loanHolder.existingExposures.length > 0) {
+          this.existingExposure = this.loanDataHolder.loanHolder.existingExposures;
+        }
       }
     }
     this.calculateInterestRate();
