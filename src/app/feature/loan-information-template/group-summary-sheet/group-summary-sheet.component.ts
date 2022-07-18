@@ -4,6 +4,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {cpus} from 'os';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {MGroup} from '../../customer/model/mGroup';
 
 @Component({
     selector: 'app-group-summary-sheet',
@@ -12,7 +13,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 })
 export class GroupSummarySheetComponent implements OnInit {
     @Input() customerInfo;
-    @Input() gssData;
+    @Input() gssData: MGroup;
     @Input() fromProfile: boolean;
     @Output() gssDataEmitter = new EventEmitter();
     @Input() calendarType: CalendarType;
@@ -27,7 +28,7 @@ export class GroupSummarySheetComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.gssData)) {
-            const data = JSON.parse(this.gssData);
+            const data = JSON.parse(this.gssData.detailInformation);
             this.buildForm(data);
             this.setGssData(data.gssDetails);
         } else {
@@ -99,16 +100,18 @@ export class GroupSummarySheetComponent implements OnInit {
         this.gssForm.get(['gssDetails', i, 'totalLimit']).setValue(total);
         this.calculateTotalGss();
     }
-
     onSubmit() {
         this.overlay.show();
         this.submitted = true;
         if (!ObjectUtil.isEmpty(this.gssData)) {
             this.submitData = this.gssData;
         }
-        this.submitData = JSON.stringify(this.gssForm.value);
+        const data = {
+            otherDetail: JSON.stringify(this.gssForm.value),
+            groupCode: this.gssForm.get('groupCode').value
+        };
         this.overlay.hide();
-        this.gssDataEmitter.emit(this.submitData);
+        this.gssDataEmitter.emit(data);
     }
 
     setGssData(data) {

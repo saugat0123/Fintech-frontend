@@ -374,33 +374,6 @@
 
                 </nb-card>
 
-                <nb-card accent="primary" *ngIf="megaGroupEnabled">
-                    <nb-card-header>
-                        Customer Groups
-                    </nb-card-header>
-                    <nb-card-body>
-                        <nb-accordion>
-                            <nb-accordion-item #mGroupAccordion>
-                                <nb-accordion-item-header>
-                                    <div class="row col-md-12">
-                                        <div class="col-md-6">
-                                            <span>Customer Group</span>
-                                        </div>
-                                    </div>
-                                </nb-accordion-item-header>
-                                <nb-accordion-item-body>
-                                    <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"
-                                                        (responseData)="setMGroupData($event)"
-                                                        [customerInfo]="customerInfo"></app-customer-group>
-                                </nb-accordion-item-body>
-                            </nb-accordion-item>
-                        </nb-accordion>
-
-
-                    </nb-card-body>
-
-                </nb-card>
-
             </div>
 
         </div>
