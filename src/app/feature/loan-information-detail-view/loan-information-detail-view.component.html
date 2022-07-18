@@ -405,7 +405,7 @@
                                             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
                     </li>
                     <li class="libold">
-                        <p><strong>WAIVERS, DEVIATIONS, DIFERRALS AND REBETS <em>(IF ANY)</em>:
+                        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES <em>(IF ANY)</em>:
                             {{proposalData?.waiverConclusionRecommendation ? '' : ' NA'}}</strong></p>
                         <tr *ngIf="proposalData?.waiverConclusionRecommendation">
                             <td [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></td>
