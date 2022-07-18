@@ -65,38 +65,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.mortgageForm.patchValue({
-        branchDistrict: this.nepaliData.branchDetail.branchDistrict,
-        branchMun: this.nepaliData.branchDetail.branchMunVdc,
-        branchWardNo: this.nepaliData.branchDetail.branchWardNo,
-        branchName: this.nepaliData.branchDetail.branchNameInNepali,
-        borrowerName: this.nepaliData.nepaliName,
-        acceptanceNumber: this.nepaliData.miscellaneousDetail.offerReferenceNo,
-        date: this.nepaliData.miscellaneousDetail.offerIssueDate,
-        proposedAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
-        amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
-        nepaliNameCompany1: this.nepaliData.nepaliName,
-        englishNameCompany1: this.nepaliData.name,
-        citizenshipNumberCompany1: this.nepaliData.registrationNo,
-        issuedDateCompany1: this.nepaliData.regIssueDate,
-        issuedPlaceCompany1: this.nepaliData.companyRegOffice,
-        sthaiNo1: this.nepaliData.panNo,
-        akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
-        citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
-        citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
-        citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-        nepaliName1: this.nepaliData.nepaliName,
-        englishName1: this.nepaliData.name,
-        dateOfBirth1: this.nepaliData.dateOfBirth,
-        gender1: this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला',
-        citizenshipNumber1: this.nepaliData.citizenshipNo,
-        issuedDate1: this.nepaliData.citizenshipIssueDate,
-        issuedPlace1: this.nepaliData.citizenshipIssueDistrict,
-        mobileNumber1: this.nepaliData.contactNo,
-        husbandWifeName1: this.nepaliData.husbandName,
-        fatherName1: this.nepaliData.fatherName,
-        grandFatherName1: this.nepaliData.grandFatherName
-      });
+      this.patchMorgageForm();
     }
     this.checkInitialData();
   }
@@ -280,42 +249,45 @@ export class MortgageDeedLaxmiComponent implements OnInit {
     });
   }
 
+  patchMorgageForm() {
+    this.mortgageForm.patchValue({
+      //amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.proposedAmount)),
+      branchDistrict: this.nepaliData.branchDetail.branchDistrict,
+      branchMun: this.nepaliData.branchDetail.branchMunVdc,
+      branchWardNo: this.nepaliData.branchDetail.branchWardNo,
+      branchName: this.nepaliData.branchDetail.branchNameInNepali,
+      borrowerName: this.nepaliData.nepaliName,
+      acceptanceNumber: this.nepaliData.miscellaneousDetail.offerReferenceNo,
+      date: this.nepaliData.miscellaneousDetail.offerIssueDate,
+      proposedAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
+      amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
+      nepaliNameCompany1: this.nepaliData.nepaliName,
+      englishNameCompany1: this.nepaliData.name,
+      citizenshipNumberCompany1: this.nepaliData.registrationNo,
+      issuedDateCompany1: this.nepaliData.regIssueDate,
+      issuedPlaceCompany1: this.nepaliData.companyRegOffice,
+      sthaiNo1: this.nepaliData.panNo,
+      akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
+      citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
+      citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
+      citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+      nepaliName1: this.nepaliData.nepaliName,
+      englishName1: this.nepaliData.name,
+      dateOfBirth1: this.nepaliData.dateOfBirth,
+      gender1: this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला',
+      citizenshipNumber1: this.nepaliData.citizenshipNo,
+      issuedDate1: this.nepaliData.citizenshipIssueDate,
+      issuedPlace1: this.nepaliData.citizenshipIssueDistrict,
+      mobileNumber1: this.nepaliData.contactNo,
+      husbandWifeName1: this.nepaliData.husbandName,
+      fatherName1: this.nepaliData.fatherName,
+      grandFatherName1: this.nepaliData.grandFatherName
+    });
+  }
   checkInitialData() {
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.mortgageForm.patchValue(JSON.parse(this.initialInfoPrint));
-      this.mortgageForm.patchValue({
-        //amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.proposedAmount)),
-        branchDistrict: this.nepaliData.branchDetail.branchDistrict,
-        branchMun: this.nepaliData.branchDetail.branchMunVdc,
-        branchWardNo: this.nepaliData.branchDetail.branchWardNo,
-        branchName: this.nepaliData.branchDetail.branchNameInNepali,
-        borrowerName: this.nepaliData.nepaliName,
-        acceptanceNumber: this.nepaliData.miscellaneousDetail.offerReferenceNo,
-        date: this.nepaliData.miscellaneousDetail.offerIssueDate,
-        proposedAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
-        amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
-        nepaliNameCompany1: this.nepaliData.nepaliName,
-        englishNameCompany1: this.nepaliData.name,
-        citizenshipNumberCompany1: this.nepaliData.registrationNo,
-        issuedDateCompany1: this.nepaliData.regIssueDate,
-        issuedPlaceCompany1: this.nepaliData.companyRegOffice,
-        sthaiNo1: this.nepaliData.panNo,
-        akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
-        citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
-        citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
-        citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-        nepaliName1: this.nepaliData.nepaliName,
-        englishName1: this.nepaliData.name,
-        dateOfBirth1: this.nepaliData.dateOfBirth,
-        gender1: this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला',
-        citizenshipNumber1: this.nepaliData.citizenshipNo,
-        issuedDate1: this.nepaliData.citizenshipIssueDate,
-        issuedPlace1: this.nepaliData.citizenshipIssueDistrict,
-        mobileNumber1: this.nepaliData.contactNo,
-        husbandWifeName1: this.nepaliData.husbandName,
-        fatherName1: this.nepaliData.fatherName,
-        grandFatherName1: this.nepaliData.grandFatherName
-      });
+      this.patchMorgageForm();
     } else {
       this.fillNepaliData();
       this.mortgageForm.patchValue({
