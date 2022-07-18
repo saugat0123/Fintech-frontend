@@ -118,6 +118,28 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div><strong class="float-left">Review Date:</strong>
+                                    <table class="table table-sm table-responsive-sm  float-left">
+                                        <thead>
+                                        <tr class="sb-bg-dark text-white">
+                                            <td>Facility Name</td>
+                                            <td>Last Date</td>
+                                            <td>Next Date</td>
+                                        </tr>
+                                        </thead>
+                                        <tr *ngFor="let allLoan of proposedLoan">
+                                            <td>
+                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <br>
                                 <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
                             <span><strong>Review Date: </strong>
