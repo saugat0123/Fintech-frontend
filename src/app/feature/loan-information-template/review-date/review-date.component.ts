@@ -35,6 +35,10 @@ export class ReviewDateComponent implements OnInit {
       this.lastReviewChecked = this.dataForEdit.lastReviewDateChecked;
     }
     this.buildForm(this.dataForEdit);
+    this.reviewDate.get('lastReviewDate')
+        .patchValue(this.dataForEdit ? this.dataForEdit.lastReviewDate :  '');
+    this.reviewDate.get('nextReviewDate')
+        .patchValue(this.dataForEdit ? this.dataForEdit.nextReviewDate : '');
   }
 
   buildForm(data) {
@@ -94,5 +98,4 @@ export class ReviewDateComponent implements OnInit {
     this.reviewDateData.data = JSON.stringify(this.reviewDate.value);
     this.reviewDateDataEmitter.emit(this.reviewDateData);
   }
-
 }

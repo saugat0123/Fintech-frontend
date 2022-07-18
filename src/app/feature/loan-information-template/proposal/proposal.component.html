@@ -1063,6 +1063,12 @@
                                                   [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
+                        <div class="col-md-12">
+                            <app-review-date #lastLoanReviewDate
+                                             [fromProfile] = "true"
+                                             [reviewData]="loan?.reviewDate">
+                            </app-review-date>
+                        </div>
                     </ng-container>
                     <ng-container >
                         <div class="col-md-12" *ngIf="fromProfile">
