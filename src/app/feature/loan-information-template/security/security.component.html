@@ -41,7 +41,7 @@
             </div>
             <hr>
         </div>
-        <nb-checkbox *ngIf="newSecurity && !shareSelected" [(ngModel)]="isApprovedSecurity" name="approved"> Approved Existing Security ?</nb-checkbox>
+        <nb-checkbox *ngIf="newSecurity && !shareSelected" [(ngModel)]="isApprovedSecurity" name="approved"> Tag the security with all facility?</nb-checkbox>
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"
                      [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-vehicle>
         <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"

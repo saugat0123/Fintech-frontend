@@ -97,7 +97,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     dropdownApprovalLevel = [
         {id: 'L1', name: 'L1'},
         {id: 'L2', name: 'L2'},
-        {id: 'L3', name: 'L3'}
+        {id: 'L3', name: 'L3'},
+        {id: 'NA', name: 'NA'}
     ];
     documentSpinner = false;
     pendingLoanList = [];
@@ -473,7 +474,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             this.customerLoans = [];
             this.customerLoans = res.detail;
             const approved = this.customerLoans.filter((d) => d.documentStatus.toString() === 'APPROVED');
-            this.approvedLoanList = this.managedArray(approved);
+            this.approvedLoanList = approved;
             const array = this.customerLoans.filter((d) => (d.documentStatus.toString() === 'UNDER_REVIEW' || d.documentStatus.toString() === 'PENDING' || d.documentStatus.toString() === 'DISCUSSION'));
             this.pendingLoanList = this.managedArray(array);
         });

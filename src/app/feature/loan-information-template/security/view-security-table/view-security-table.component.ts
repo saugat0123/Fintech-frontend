@@ -110,6 +110,23 @@ export class ViewSecurityTableComponent implements OnInit {
             }
         });
     }
+    deleteSecurity(id: number, customerInfoId) {
+        this.ngxSpinnerService.show();
+        this.customerInformationService.deleteSecurity(id, customerInfoId).subscribe({
+            next: (res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted'));
+                this.emitter.emit(true);
+            },
+            error: (error: any) => {
+                this.ngxSpinnerService.hide();
+                this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong!!!!'));
+            },
+            complete: () => {
+                this.ngOnInit();
+                this.ngxSpinnerService.hide();
+            }
+        });
+    }
     unlinkSecurity( id: number, status) {
         this.ngxSpinnerService.show();
         this.customerInformationService.unLinkSecurity(id, status).subscribe({
