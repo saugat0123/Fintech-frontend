@@ -12,8 +12,8 @@ export class GroupSummarySheetViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-      this.gssData = JSON.parse(this.loanDataHolder.gssData);
+    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.mgroupInfo)) {
+      this.gssData = JSON.parse(this.loanDataHolder.mgroupInfo.detailInformation);
     }
   }
 

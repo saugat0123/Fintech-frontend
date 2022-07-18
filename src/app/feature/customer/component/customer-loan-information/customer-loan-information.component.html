@@ -804,12 +804,12 @@
                   <p class="custom-font">GROUP SUMMARY SHEET (GSS)</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.gssData" style="color:green"
+              <span *ngIf="customerInfo?.mgroupInfo" style="color:green"
                     title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
                   <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.gssData" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!customerInfo?.mgroupInfo" class="fas fa-times-circle px-2"></em>
               </span>
                 </div>
               </div>
@@ -828,7 +828,7 @@
             <nb-card-body>
               <app-group-summary-sheet [fromProfile]="true"
                                        [calendarType]="calendarType"
-                                       [gssData]="customerInfo?.gssData"
+                                       [gssData]="customerInfo?.mgroupInfo"
                                        (gssDataEmitter)="saveGssData($event)">
               </app-group-summary-sheet>
             </nb-card-body>
