@@ -134,6 +134,7 @@ export class SecurityTaggerComponent implements OnInit {
             freeLimit: [singleData.considerValue],
             usedAmount: [singleData.usedAmount ? singleData.usedAmount : singleData.considerValue],
             status: [singleData.status],
+              approved: [singleData.approved],
             isCrossCollateral: [!ObjectUtil.isEmpty(this.mGroupCode) ? true : false]
           })
       );

@@ -428,21 +428,6 @@
         ></app-customer-group-loan>
       </nb-card-body>
       <nb-card-footer>
-        <div class="row">
-          <div class="col" *ngIf=" !isRemarkEdited ">
-            <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
-                    class="fa fa-edit"></em></a>
-            <label><b>Within Limit Remarks (if any):</b></label>
-            {{companyInfo.withinLimitRemarks}}
-          </div>
-          <div *ngIf="isRemarkEdited" class="col-md-12 form-group">
-            <form [formGroup]="companyForm">
-              <label><b>Within Limit Remarks (if any):</b></label>
-              <textarea  rows="2" placeholder="Within Limit Remarks " class="form-control border"  formControlName="withinLimitRemarks"></textarea>
-            </form>
-            <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Remark</button>
-          </div>
-        </div>
                 <div class="row">
                   <div class="col" *ngIf=" !isAccountEdited ">
                     <a *ngIf="maker" class="p-2 cursor" (click)="editAccountStrategy()"><em
@@ -501,7 +486,7 @@
       <ng-container *ngFor="let loan of pendingLoanList; let i = index">
         <nb-card>
           <div class="row" style="overflow-y: auto; min-height: 100px; height: auto">
-            <div class="col-md-6" *ngFor="let subLoan of loan; let ii = index">
+            <div class="col-md-12" *ngFor="let subLoan of loan; let ii = index">
               <app-customer-loan-document [fromProfile]="true" (documentEmitter)="saveLoan(subLoan,$event , i , ii)"
                                           [loanDataHolder]="subLoan"
                                           [loanId]="subLoan?.id"
@@ -519,27 +504,24 @@
 
       <ng-container *ngFor="let loan of approvedLoanList; let i = index">
 
-        <nb-card>
+        <nb-card *ngIf="loan?.customerDocument?.length > 0">
+          <nb-card-header>
+            <strong>{{loan?.loan?.name }} {{loan?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{loan?.proposal?.proposedLimit || ''}} {{loan?.loanType}}</strong>
+            <br>
+          </nb-card-header>
           <nb-card-body>
             <div class="row">
-
-              <div class="col-md-6" *ngFor="let datas of loan">
-                <strong>{{datas?.loan?.name}} {{datas?.proposal?.proposedLimit ? 'Proposed Limit: ' : ''}} {{datas?.proposal?.proposedLimit || ''}}</strong>
-                <ng-container *ngIf="datas?.customerDocument?.length < 1">
-                  <strong> NO DOCUMENT available in this loan</strong>
-                </ng-container>
-                <div class="col-md-3 img-hover flex-wrap"
-                     *ngFor="let data of datas?.customerDocument;let i =index"
-                     [nbTooltip]="data?.document?.displayName">
-                  <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
-                          [className]="service.SET_CLASS_NAME"></em>
-                    <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                            data?.document?.displayName?.substring(0, 12) + '..' :
-                            data?.document?.displayName}}</span></a>
-                </div>
+              <div  *ngFor="let data of loan?.customerDocument; "
+                    class="col-md-3 img-hover flex-wrap"
+                    [nbTooltip]="data?.document?.displayName">
+                <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
+                        [className]="'far fa-file-pdf fa-3x text-danger'"></em>
+                  <span class="mx-1 text-center text-justify"> {{data?.document?.displayName?.length > 15 ?
+                          data?.document?.displayName?.substring(0, 12) + '..' :
+                          data?.document?.displayName}}</span>
+                </a>
               </div>
             </div>
-
           </nb-card-body>
         </nb-card>
 
