@@ -66,7 +66,8 @@ export class FinancialUploadViewComponent implements OnInit {
         this.form = this.formBuilder.group({
             changeHistorical: [undefined],
             changeProjection: [undefined],
-            remarks: [undefined]
+            remarks: [undefined],
+            sensitiveJustification: [undefined]
         });
     }
 

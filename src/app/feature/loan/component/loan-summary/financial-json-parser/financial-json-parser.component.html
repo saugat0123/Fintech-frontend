@@ -52,7 +52,7 @@
                 ;else days">
                     <td style="background: #706e6e;" class="text-right"
                         *ngFor="let header of financialJson?.column; let ii = index">
-                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? ' ' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
+                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
                 </ng-container>
                 <ng-template #days>
                     <ng-container  *ngIf="schema === 'INVDOH'
@@ -75,7 +75,7 @@
                 <ng-template  #normal>
                     <td  style="background: #706e6e;" class="text-right"
                          *ngFor="let header of financialJson?.column; let ii = index">
-                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
+                        {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
                 </ng-template>
             </tr>
             </tbody>
@@ -154,7 +154,7 @@
                   <ng-template  #normal>
                       <td  style="background: #706e6e;" class="text-right"
                            *ngFor="let header of financialJson?.column; let ii = index">
-                          {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
+                          {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
                   </ng-template>
               </ng-container>
             </tr>

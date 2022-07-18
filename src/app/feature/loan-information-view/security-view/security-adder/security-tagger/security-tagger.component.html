@@ -24,7 +24,7 @@
                     </thead>
                     <tbody formArrayName="securityDetails">
                         <ng-container *ngFor="let security of securityControls.controls; let i=index;">
-                            <tr *ngIf="security?.get('status').value === 'ACTIVE'">
+                            <tr *ngIf="security?.get('status').value === 'ACTIVE' && !security?.get('approved')?.value">
                                 <ng-container [formGroupName]="i.toString()">
                                     <td>{{i + 1}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.owner ? (security.get('data')?.value | jsonParse)?.owner
