@@ -103,6 +103,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.individualType.solUsers = new Map<number, User[]>();
             this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
             this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
+            if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
+                this.combinedLoan.loans.forEach((cl, i) => {
+                    this.getIndividualUserList(cl.currentStage.toRole, i);
+                    // this.individualType.form.value.action.patchValue({
+                    //     toRole: cl.currentStage.toRole
+                    // });
+                });
+            }
         } else if (value === 'combined') {
             this.combinedType.form = this.buildCombinedForm();
             if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
@@ -138,7 +146,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 const committeeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
                 const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
                 this.combinedType.userList = this.combinedType.userList.filter(ul => ul.id !== logInUserId);
-                this.showUserList = false;
+                this.showUserList = true;
                 if (this.combinedType.userList.length > 0) {
                     this.combinedType.form.patchValue({
                         toUser: this.combinedType.userList[0]
@@ -163,12 +171,22 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.isUserPresent[i] = true;
             if (users.length === 0) {
                 this.isUserPresent[i] = false;
+            } else if (role.roleType === RoleType.COMMITTEE && this.individualType.users.size > 0) {
+                const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
+                const newUserList = users.filter(u => u.id !== logInUserId);
+                this.individualType.users.set(i, newUserList);
+                this.showUserList = true;
+                if (this.individualType.users.size > 0) {
+                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.individualType.users.get(i)[0]);
+                    this.individualType.form.get(['actions', i, 'toRole']).patchValue(this.individualType.users.get(i)[0].role);
+                }
             } else {
                 this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
                 this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
                 this.individualType.form.updateValueAndValidity();
             }
         });
+
     }
 
     public onSubmit(): void {
