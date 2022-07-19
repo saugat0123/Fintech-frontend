@@ -191,7 +191,7 @@
                 </tr>
                 <tr>
                   <td>
-                    वडा नं. : <span class="nepaliFont">{{ corporateGuarantor?.guarantorInstitutionRegisteredAddress?.wardNo ? corporateGuarantor?.guarantorInstitutionRegisteredAddress?.wardNo : '===========' }}</span>
+                    वडा नं. : <span class="nepaliFont">{{ corporateGuarantor?.guarantorInstitutionRegisteredAddress?.wardNo ? corporateGuarantor?.guarantorInstitutionRegisteredAddress?.wardNo : '===========' }}</span> &nbsp;
                     टोल : <span style="font-family: Preeti">{{ corporateGuarantor?.guarantorInstitutionRegisteredAddress?.tole ? corporateGuarantor?.guarantorInstitutionRegisteredAddress?.tole : '===========' }}</span>
                   </td>
                 </tr>
@@ -204,7 +204,7 @@
                 </tr>
                 <tr>
                   <td>
-                    वडा नं. : <span class="nepaliFont">{{ corporateGuarantor?.guarantorInstitutionCurrentAddress?.wardNo ? corporateGuarantor?.guarantorInstitutionCurrentAddress?.wardNo : '==========='}}</span>
+                    वडा नं. : <span class="nepaliFont">{{ corporateGuarantor?.guarantorInstitutionCurrentAddress?.wardNo ? corporateGuarantor?.guarantorInstitutionCurrentAddress?.wardNo : '==========='}}</span>  &nbsp;
                     टोल : <span style="font-family: Preeti">{{ corporateGuarantor?.guarantorInstitutionCurrentAddress?.tole ? corporateGuarantor?.guarantorInstitutionCurrentAddress?.tole : '==========='}}</span>
                   </td>
                 </tr>
@@ -254,7 +254,7 @@
                 </tr>
                 <tr>
                   <td>
-                    वडा नं. : <span class="nepaliFont">{{ this.loanHolderNepData?.institutionRegisteredAddress?.wardNo ? this.loanHolderNepData?.institutionRegisteredAddress?.wardNo : '==========='}}</span>
+                    वडा नं. : <span class="nepaliFont">{{ this.loanHolderNepData?.institutionRegisteredAddress?.wardNo ? this.loanHolderNepData?.institutionRegisteredAddress?.wardNo : '==========='}}</span>  &nbsp;
                     टोल : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionRegisteredAddress?.tole ? this.loanHolderNepData?.institutionRegisteredAddress?.tole : '==========='}}</span>
                   </td>
                 </tr>
@@ -278,14 +278,14 @@
                 <tr>
                   <td>कर्जा स्वीकृती/कर्जा प्रस्ताव पत्र नं. र मिति</td>
                   <td class="nepaliFont">
-                    {{this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo ? this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo : '==========='}},
+                    {{this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo ? this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo : '==========='}}, &nbsp;
                     {{this.loanHolderNepData?.miscellaneousDetail?.offerIssueDate ? this.loanHolderNepData?.miscellaneousDetail?.offerIssueDate : '==========='}}</td>
                 </tr>
                 <tr>
                   <td>ऋणीले उपभोग गर्ने वा गरेको कर्जा रकम (अंक र अक्षरमा)</td>
                   <td>रु. <span class="nepaliFont">
-                    {{this.loanHolderNepData?.miscellaneousDetail?.loanAmountInFig ? this.loanHolderNepData?.miscellaneousDetail?.loanAmountInFig : '==========='}}</span>
-                    <span style="font-family: Preeti">({{this.loanHolderNepData?.miscellaneousDetail?.loanAmountInWord ? this.loanHolderNepData?.miscellaneousDetail?.loanAmountInWord : '==========='}})</span></td>
+                    {{this.loanHolderNepData?.miscellaneousDetail?.loanAmountInFig ? this.loanHolderNepData?.miscellaneousDetail?.loanAmountInFig : '==========='}}</span> &nbsp;
+                    <span>({{this.loanHolderNepData?.miscellaneousDetail?.loanAmountInWord ? this.loanHolderNepData?.miscellaneousDetail?.loanAmountInWord : '_____________'}})</span></td>
                 </tr>
                 <tr>
                   <td>जमानत वसेको रकम कलम (अंक र अक्षरमा)</td>
