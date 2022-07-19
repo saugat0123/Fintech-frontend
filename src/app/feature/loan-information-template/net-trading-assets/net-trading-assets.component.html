@@ -576,8 +576,8 @@
                     <div class="row">
                         <div class="form-floating col-md-12">
                             <label for="justificationField"><b>Justification Field</b></label>
-                            <textarea class="form-control" rows="4" id="justificationField"
-                                      formControlName="justificationField"></textarea>
+                            <ckeditor  id="justificationField" formControlName="justificationField"
+                                       [config]="ntaConfig"></ckeditor>
                         </div>
 
                     </div>
@@ -595,13 +595,14 @@
                     <div class="row">
                         <div class="form-floating col-md-12">
                             <label for="remarks"><b>Remarks</b></label>
-                            <textarea class="form-control" rows="4" id="remarks" formControlName="remarks"></textarea>
+                            <ckeditor  id="remarks" formControlName="remarks"
+                                       [config]="ntaConfig"></ckeditor>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end mt-3">
                 <button (click)="onSubmit()" nbButton type="button">save</button>
             </div>
         </form>

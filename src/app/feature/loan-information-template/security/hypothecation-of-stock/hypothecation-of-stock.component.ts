@@ -48,6 +48,9 @@ export class HypothecationOfStockComponent implements OnInit {
                 hypothecationOwnerRelationship: [formData.hypothecationOwnerRelationship],
                 ownerKycApplicableData: [formData.ownerKycApplicableData],
                 kycCheckForHypthecation: [formData.kycCheckForHypthecation],
+                bookValue: [formData.bookValue],
+                realiasableRate: [formData.realiasableRate],
+                realiasableValue: [formData.realiasableValue],
                 hypothecationFirstValuationDate: [formData.hypothecationFirstValuationDate ? new  Date(formData.hypothecationFirstValuationDate) : '']
             })
         );
@@ -77,7 +80,10 @@ export class HypothecationOfStockComponent implements OnInit {
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
                 kycCheckForHypthecation: [false],
-                hypothecationFirstValuationDate: [undefined]
+                hypothecationFirstValuationDate: [undefined],
+                bookValue: [undefined],
+                realiasableRate: [undefined],
+                realiasableValue: [undefined],
             }
         );
     }

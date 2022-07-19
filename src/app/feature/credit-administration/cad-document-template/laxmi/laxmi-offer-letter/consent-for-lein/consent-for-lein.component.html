@@ -1,0 +1,237 @@
+<div [nbSpinner]="spinner" nbSpinnerSize="giant" class="row"
+     id="print-section-{{offerLetterConst.CONSENT_FOR_LEIN}}">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
+            <div>
+                <div class="float-left">
+                <p>श्री लक्ष्मी बैंक लिमिटेड,<br>
+                    शाखा कार्यालय, <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                          formControlName="branchName">
+                    <span class=" print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value : '========='}}</strong></span> ।
+                </p>
+                </div>
+                <div class="float-right">
+                    मिति :—<input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                           formControlName="date">
+                    <span class=" print-only nepaliFont"><strong>{{form.get('date').value ? form.get('date').value : '========='}}</strong></span>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <p><strong>विषय : मुद्दती रसिद/बचत/चल्ती वा अन्य खातामा भएको रकम र सोमा प्राप्त हुने व्याज समेत धितो तथा रोक्काको लागि मञ्जुरीनामा प्रदान गरेको बारे ।</strong></p>
+            <table class="table-responsive-md table-borderless table-condensed table-sm sb-small">
+                <tr>
+                    <td style="vertical-align: top">१. </td>
+                    <td>त्यस बैंकबाट तपसिलमा उल्लेखित विवरण बमोजिमको ऋणीले उपभोग गर्ने/गरेको विभिन्न शिर्षकको कर्जाको सुरक्षण
+                        वापत मेरो/हाम्रो नाममा रहेकोे तपसिल बमोजिमको भुक्तानी योग्य हुने <strong>मुद्दती रसिद/बचत/चल्ती वा अन्य खातामा
+                        भएको रकम र सोमा प्राप्त हुने व्याज समेत</strong> कर्जाको धितो सुरक्षण स्वरुप मेरो/हाम्रो नाममा निहित रहेको सम्पूर्ण
+                        अधिकार कर्जा चुक्ता नभएसम्मको लागि यसै मञ्जुरीनामाले हस्तान्तरण गरेको छु/छौँ । साथै निम्न उल्लिखित
+                        खातामा रहेको रकमबाट उल्लेखित कर्जा रकम सम्मको सीमा भित्र रही ऋणीले पटक पटक उपभोग गर्ने/गरेको तथा
+                        भविष्यमा उपभोग गर्ने कर्जा चुक्ता नभए सम्म रोक्का (Lein) राख्न समेत यसै कागजतले त्यस बैंकलाई अख्तियार
+                        प्रदान गरेको छु/छौँ । यदि ऋणीले उल्लेखित सिमा भित्र रही बैंकले हाल प्रदान गरेको तथा भविष्यमा ऋण कर्जा
+                        तथा सुविधा पुनरावलोकन/नविकरण गर्दा प्रदान गर्ने/जारी गर्ने ऋण स्वीकृती पत्र/कर्जा तमसुक अनुसारको कर्जा सो
+                        को ब्याज तथा अन्य लेना बाँकी रकम नतिरे नबुझाएमा तपसिलमा उल्लिखित खाताबाट असुल उपर गरी लिन
+                        पाउने अख्तियारी समेत बैंकलाई यसै लिखतबाट प्रदान गरेको छु/छौँ । साथै ऋणीले भुक्तानी गर्नु पर्ने भएको वा
+                        भविष्यमा कुनै पनि बखत भुक्तानी गर्नु पर्ने रकमको सुरक्षण स्वरुप त्यस बैंकमा रहेको मेरो/हाम्रो कुनै वा सबै
+                        खाताहरूमा भएका सम्पूर्ण रकम समेत बुझिलिन मैले/हामीले त्यस बैंकलाई यसै लिखतद्वारा अख्तियारका साथै
+                        नि:शर्तरुपमा स्वीकृति समेत प्रदान गरेको छु/छौं ।
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">२.</td>
+                    <td>ऋणीले त्यस बैंकलाई भुक्तानी गर्नुपर्ने सम्पूर्ण रकम पूर्ण रूपमा चुक्ता भुक्तानी नगरेसम्म र त्यस बैंक प्रति पूरा
+                        गर्नुपर्ने त्यस्तो दायित्वबाट ऋणी पूर्ण रूपमा मुक्त नभएसम्म त्यस बैंकले आफ्नो स्वविवेकमा म/हामी संरक्षकलाई
+                        जानकारी नदिई तथा पछि मैले/हामीले जुनसुकै निर्देशन दिए तापनि फरक नपर्ने गरी मेरो/हाम्रो तर्फबाट यस
+                        लिखत मार्फत् ऋणीले धनी बैंकलाई तिर्नुपर्ने रकम भुक्तानी लिन त्यस बैंकलाई अधिकार प्रदान गरेको छु/छौं ।
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">३.</td>
+                    <td>ऋणीले बैंकबाट उपभोग गरेको कर्जाको सावाँ तथा ब्याज समयमा भुक्तानी नगरेमा म/हामी लाई कुनै सूचना वा
+                        जानकारी नदिई म/हाम्रो त्यस बैंकमा रहेको <strong>मुद्दती रसिद/बचत/चल्ती वा अन्य खातामा भएको रकम र सोमा
+                        प्राप्त हुने व्याज समेत</strong> रोक्का रहेको रकम समेत ऋणीले भुक्तानी गर्नुपर्ने सावाँ व्याजको रकममा समायोजन गरी
+                        लिने अख्तियारी साथै सो को नविकरण अन्तर्गत म/हामीलाई भुक्तानी हुनुपर्ने सबै वा केही रकम वा चल्ती, बचत
+                        खातामा रहेका सबै वा केही रकम वा त्यस बैंकमा रहेको मेरो/हाम्रो अन्य खाताहरूमा भुक्तानी योग्य रुपमा रहेको
+                        रकम कुनै पनि समयमा जफत गर्ने तथा प्रयोग गर्न पाउने अख्तियार रद्द गर्न नसकिने गरी (Irrevocably)
+                        मैले/हामीले त्यस बैंकलाई प्रदान गरेको छु/छौं । त्यसरी प्रयोग गरिएको रकम र/वा त्यस बैंकमा रहे/भएका मेरो/हाम्रो खाताहरूको रकम सो प्रयोग गरिएको हदसम्म कानूनसम्मत प्रयोग गरिएको मानिनेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">४.</td>
+                    <td>मेरो/हाम्रो अनुरोध अनुसार उक्त निक्षेप भौचर नवीकरण गरिएको अवस्थामा पनि सुरुको भौचर सरह नवीकरण
+                        गरिएको निक्षेप उपर तपाई बैंकको सुरक्षण कायम रहिरहने कुरामा म/हामी स्वीकार गर्दछु/गर्दछौं ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">५.</td>
+                    <td>निक्षेप परिपक्व हुनु भन्दा अगावै वा पछि कुनै पनि बखत ऋणीले सावाँ तथा ब्याज भुक्तानी नगरेमा म/हामीलाई
+                        कुनै सूचना वा जानकारी नदिई निक्षेप नवीकरणको भौचरको रकम र सो खातामा कुनै ब्याज रकम जम्मा भएको
+                        भए सो समेत ऋणीले भुक्तानी गर्नुपर्ने सावाँ व्याजको रकममा समायोजन गरी लिने अख्तियारी मैले/हामी संरक्षकले
+                        त्यस बैंकलाई प्रदान गरेको छु/छौं । मेरो/हाम्रो हकमा, यस्तो समायोजन अन्तर्गत उक्त निक्षेप भौचरमा रहेको
+                        रकम माथिको आफ्नो दावी छोडीदिएको तथा त्यस बैंकलाई भुक्तानी गर्ने गरी मैले/हामीले आफ्नो दावी छाडेको
+                        निर्देशन दिएको कुरा समेत रद्द गर्न नसकिने गरी समावेश भएको कुरालाई म/हामी यसै लिखतद्वारा स्वीकार
+                        गर्दछु/गर्दछौं । साक्षी किनाराका सदर ।
+                    </td>
+                </tr>
+            </table>
+            <p class="text-center"><strong>तपसील</strong></p>
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+                <thead>
+                <tr class="sb-bg-dark">
+                    <th>खातावाला/मुद्दती रसिद धनीको नाम</th>
+                    <th>मुद्दती रसिद नं./खाता नं.</th>
+                    <th>रोक्का राख्ने रकम रु.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="height:20px;">
+                    <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                formControlName="khatawala">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('khatawala').value ? form.get('khatawala').value : '========='}}</strong></span>
+                    </td>
+                    <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                formControlName="accountNo">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('accountNo').value ? form.get('accountNo').value : '========='}}</strong></span>
+                    </td>
+                    <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                formControlName="rokkaAmount">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('rokkaAmount').value ? form.get('rokkaAmount').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <strong>ऋणीको विवरण</strong><br>
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+                <tbody>
+                <tr>
+                    <td>ऋणीको नाम</td>
+                    <td class="text-left">
+                       <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                              formControlName="borrowerName">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ऋणीको बाबु/आमाको नाम</td>
+                    <td class="text-left">
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="borrowerFatherName">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerFatherName').value ? form.get('borrowerFatherName').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ऋणीको बाजे/बजैको नाम</td>
+                    <td class="text-left">
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="borrowerGrandFatherName">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerGrandFatherName').value ? form.get('borrowerGrandFatherName').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ऋणीको ठेगाना</td>
+                    <td class="text-left">
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="borrowerAddress">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerAddress').value ? form.get('borrowerAddress').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>दर्ता नं. र मिति</td>
+                    <td class="text-left">
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="regNo">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('regNo').value ? form.get('regNo').value : '========='}}</strong></span>
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="regDate">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('regDate').value ? form.get('regDate').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>दर्ता भएको कार्यालयको नाम</td>
+                    <td class="text-left">
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="regOffice">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('regOffice').value ? form.get('regOffice').value : '========='}}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>कर्जा रकम</td>
+                    <td class="text-left">
+                        रु.<input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="amount">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('amount').value ? form.get('amount').value : '========='}}</strong></span>
+                        /– (अक्षरेपी रुपैया
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                               formControlName="amountInWords">
+                        <span class=" print-only nepaliFont"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value : '========='}}</strong></span>)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            यो लिखतबाट प्रदान गरेको <strong>मुद्दती रसिद/बचत/चल्ती वा अन्य खातामा भएको रकम र सोमा प्राप्त हुने व्याज समेतका
+            </strong> रकम ऋणीले उपभोग गरेको/गर्ने माथी उल्लेखित कर्जाको सुरक्षण वापत धितो लिखत लेखि सहि छाप गरी तपाई
+            बैंकलाई दिएको छु ।
+            <br>
+            <p><strong>धितो मन्जुरी दिनेको विवरण </strong></p>
+            नाम :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                         formControlName="collateralName">
+            <span class="print-only preetiFont font24"><strong>{{form.get('collateralName').value ? form.get('collateralName').value : '========='}}</strong></span>
+            <br>
+            बाबुको नाम :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                                formControlName="collateralFatherName">
+            <span class="print-only preetiFont font24"><strong>{{form.get('collateralFatherName').value ? form.get('collateralFatherName').value : '========='}}</strong></span>
+            <br>
+            बाजेको नाम :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                                formControlName="collateralGrandFatherName">
+            <span class="print-only preetiFont font24"><strong>{{form.get('collateralGrandFatherName').value ? form.get('collateralGrandFatherName').value : '========='}}</strong></span>
+            <br>
+            ठेगाना :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                            formControlName="collateralAddress">
+            <span class="print-only preetiFont font24"><strong>{{form.get('collateralAddress').value ? form.get('collateralAddress').value : '========='}}</strong></span>
+            <br>
+            दस्तखत :<span style="margin-left: 25rem">दा.</span><span style="margin-left: 8rem">वा.</span><br>
+            ईति संवत् <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                              formControlName="itiSambatYear">
+            <span class="print-only preetiFont font24"><strong>{{form.get('itiSambatYear').value ? form.get('itiSambatYear').value : '========='}}</strong></span>
+
+            साल
+            <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                    formControlName="itiSambatMonth">
+            <span class="print-only preetiFont font24"><strong>{{form.get('itiSambatMonth').value ? form.get('itiSambatMonth').value : '========='}}</strong></span>
+
+            महिना <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                         formControlName="itiSambatDay">
+            <span class="print-only preetiFont font24"><strong>{{form.get('itiSambatDay').value ? form.get('itiSambatDay').value : '========='}}</strong></span>
+
+            गते रोज <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                           formControlName="roj">
+            <span class="print-only preetiFont font24"><strong>{{form.get('roj').value ? form.get('roj').value : '========='}}</strong></span>
+
+            शुभम् ________________________।
+            <br>
+            सनाखत साक्षी : धनी बैंकमा <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                                              formControlName="role">
+            <span class="print-only preetiFont font24"><strong>{{form.get('role').value ? form.get('role').value : '========='}}</strong></span>
+            पदमा कार्यरत <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+                                 formControlName="rolePerson">
+            <span class="print-only preetiFont font24"><strong>{{form.get('rolePerson').value ? form.get('rolePerson').value : '========='}}</strong></span>
+            <div>
+                <button type="submit"
+                        class="btn btn-primary float-right disable-print d-print-none"
+                        nbButton
+                        status="success"
+                        [disabled]="spinner">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{offerLetterConst.CONSENT_FOR_LEIN}}"
+                ngxPrint nbButton>print
+        </button>
+    </div>
+</div>
+
+

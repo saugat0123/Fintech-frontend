@@ -44,11 +44,11 @@
                                    </div>
                                <div class="col-md-4">
                                    <div class="form-group">
-                                       <label><strong>Customer Client Type</strong></label>
+                                       <label><strong>Business Segment</strong></label>
                                        <select
                                                [ngClass]="{ 'is-invalid':submitted && form.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
-                                           <option  [ngValue]="null">Select Client Type</option>
+                                           <option  [ngValue]="null">Select Business Segment</option>
 
                                            <option *ngFor="let data of clientType | keyvalue " [ngValue]="data.key">{{data.value}}</option>
                                        </select>

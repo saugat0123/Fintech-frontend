@@ -263,7 +263,7 @@
                 </td>
               </tr>
 
-              <tr>
+              <!--<tr>
                 <td>Overdraft</td>
                 <td><input (keyup)="calculateGrossLastReview()"
                            [ngClass]="{ 'is-invalid': (submitted) && formControls.overDraftLastReview.errors }"
@@ -321,7 +321,7 @@
                            formControlName="demandNextReview"
                            type="number" appDecimalNumber>
                 </td>
-              </tr>
+              </tr>-->
 <!--              Add more Feature if needed-->
               <tbody *ngFor="let category of incomeFormGroup?.get('grossSubCateGory')['controls']; let i = index"
                      formArrayName="grossSubCateGory">
@@ -354,7 +354,7 @@
               </tbody>
               <tr>
                 <td>
-                  <input #gross placeholder="Particular">
+                  <input #gross placeholder="Overdraft">
                   <button (click)="addGrossProfitCategory(gross)"
                           type="button">Add More
                   </button>
