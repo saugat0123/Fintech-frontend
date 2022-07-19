@@ -55,51 +55,55 @@
                     <input class="form-control" formControlName="ownerName" id="ownerName" name="ownerName"
                            [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors }"
                            placeholder="owner name" type="text">
-                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.invalid"
+                    <div *ngIf="(submitted) && siteVisitFormGroup?.get('currentResidentDetails')?.get('ownerName')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors.required">owner Name is required</span>
                         <span *ngIf="siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors.pattern">Invalid Owner Name</span>
                     </div>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeNameDesignation"
-                           for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
-                    <select class="form-control"
-                            formControlName="staffRepresentativeNameDesignation"
-                            id="staffRepresentativeNameDesignation"
-                            name="staffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
-                        <option *ngFor="let designation of designationList"
-                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name
-                        1</label>
-                    <input class="form-control" formControlName="staffRepresentativeName"
-                           id="staffRepresentativeName" name="staffRepresentativeName"
-                           placeholder="Staff Representative Name 1" type="text">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeNameDesignation2"
-                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
-                    <select class="form-control"
-                            formControlName="staffRepresentativeNameDesignation2"
-                            id="staffRepresentativeNameDesignation2"
-                            name="staffRepresentativeNameDesignation2">
-                        <option [ngValue]="null">Staff Representative Designation 2
-                        </option>
-                        <option *ngFor="let designation of designationList"
-                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeName2"
-                           for="staffRepresentativeName2">Staff Representative Name 2</label>
-                    <input class="form-control" formControlName="staffRepresentativeName2"
-                           id="staffRepresentativeName2"
-                           name="staffRepresentativeName2"
-                           placeholder="Staff Representative Name 2" type="text">
+                <div class="col-md-12">
+                    <div *ngFor="let currentResident of siteVisitFormGroup.get('currentResidentDetails').get('currentResidentStaffRepresentative')['controls']; let index = index;"
+                         formArrayName="currentResidentStaffRepresentative">
+                        <div [formGroupName]="index" class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="staffRepresentativeNameDesignation"
+                                       for="staffRepresentativeNameDesignation">
+                                    Staff Representative Designation{{index + 1}}
+                                </label>
+                                <select class="form-control"
+                                        formControlName="staffRepresentativeNameDesignation"
+                                        id="staffRepresentativeNameDesignation"
+                                        name="staffRepresentativeNameDesignation">
+                                    <option [ngValue]="null" hidden>Staf Representative
+                                        Designation {{index + 1}}</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="staffRepresentativeName"
+                                       for="staffRepresentativeName">
+                                    Staff Representative Name {{index + 1}}
+                                </label>
+                                <input class="form-control"
+                                       formControlName="staffRepresentativeName"
+                                       id="staffRepresentativeName"
+                                       name="staffRepresentativeName" type="text"/>
+                            </div>
+                            <div *ngIf="siteVisitFormGroup?.get('currentResidentDetails')?.get('currentResidentStaffRepresentative')['length'] > 1"
+                                 class="col-md-1 pt-4">
+                                <input (click)="deleteCurrentResidentStaffsDetails(index)"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button
+                                (click)="addStaff()"
+                                class="btn btn-sm btn-flat btn-primary">Add Staff
+                        </button>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
@@ -111,7 +115,7 @@
                     </div>
                 </div>
                 <div>
-                    <label class="ml-2"><strong>Location Detail</strong></label>
+                    <label class="ml-2"><strong> Location Detail</strong></label>
                 </div>
                 <div class="row col-md-12">
                     <div class="col-md-4">
@@ -189,47 +193,48 @@
                                    name="objectiveOfVisit" placeholder="objective of visit" type="text">
                             <div *ngIf="(business) && businessSite?.get('objectiveOfVisit')?.invalid"
                                  class="invalid-feedback">
-                                <span *ngIf="businessSite?.get('objectiveOfVisit')?.errors.invalid">objective is required</span>
+                                    <span *ngIf="businessSite?.get('objectiveOfVisit')?.errors.invalid">objective is required</span>
                             </div>
                         </div>
-                        <div class="col-md-4 form-group">
-                            <label class="staffRepresentativeNameDesignation"
-                                   for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
-                            <select class="form-control"
-                                    formControlName="staffRepresentativeNameDesignation"
-                                    id="staffRepresentativeNameDesignationBusiness"
-                                    name="staffRepresentativeNameDesignation">
-                                <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
-                                <option *ngFor="let designation of designationList"
-                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative
-                                Name 1</label>
-                            <input class="form-control" formControlName="staffRepresentativeName"
-                                   id="staffRepresentativeNameBusiness" name="staffRepresentativeName"
-                                   placeholder="Staff Representative Name 1" type="text">
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label class="staffRepresentativeNameDesignation2"
-                                   for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
-                            <select class="form-control"
-                                    formControlName="staffRepresentativeNameDesignation2"
-                                    id="staffRepresentativeNameDesignationBusiness2"
-                                    name="staffRepresentativeNameDesignation2">
-                                <option [ngValue]="null">Staff Representative Designation 2</option>
-                                <option *ngFor="let designation of designationList"
-                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label class="staffRepresentativeName2"
-                                   for="staffRepresentativeName2">Staff Representative Name 2</label>
-                            <input class="form-control" formControlName="staffRepresentativeName2"
-                                   id="staffRepresentativeNameBusiness2"
-                                   name="staffRepresentativeName2"
-                                   placeholder="Staff Representative Name 2" type="text">
+                        <div class="col-md-12">
+                            <div *ngFor="let staff of businessSite?.get('staffDetail')['controls']; let index = index;"
+                                 formArrayName="staffDetail">
+                                <div [formGroupName]="index" class="row">
+                                    <div class="col-md-4 form-group">
+                                        <label class="staffRepresentativeNameDesignation"
+                                               for="staffRepresentativeNameDesignation">Staff Representative
+                                            Designation {{index + 1}}</label>
+                                        <select class="form-control"
+                                                formControlName="staffRepresentativeNameDesignation"
+                                                id="staffRepresentativeNameDesignationBusiness"
+                                                name="staffRepresentativeNameDesignation">
+                                            <option [ngValue]="null" hidden>Staff Representative
+                                                Designation {{index + 1}} </option>
+                                            <option *ngFor="let designation of designationList"
+                                                    [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
+                                            Representative Name {{index + 1}}</label>
+                                        <input class="form-control" formControlName="staffRepresentativeName"
+                                               id="staffRepresentativeNameBusiness" name="staffRepresentativeName"
+                                               placeholder="Staff Representative Name" type="text">
+                                    </div>
+                                    <div *ngIf="siteVisitFormGroup?.get(['businessDetails', i, 'staffDetail'])['length'] > 1"
+                                         class="col-md-1 pt-4">
+                                        <input (click)="deleteBusinessStaffsDetails(i, index)"
+                                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                                               type="button" value="Delete"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <button
+                                        (click)="addBusinessStaffsDetails(i)"
+                                        class="btn btn-sm btn-flat btn-primary">Add Staff
+                                </button>
+                            </div>
                         </div>
                         <div class="col-md-8 form-group">
                             <label class="title" for="findingsAndComments{{i}}">Finding And Comments</label>
@@ -243,8 +248,8 @@
                                 <span *ngIf="businessSite?.get('findingsAndComments')?.errors.required">comments required</span>
                             </div>
                         </div>
-                        <div>
-                            <label class="ml-2"><strong>Location Detail</strong></label>
+                        <div class="row col-md-12">
+                            <label class="ml-3"><strong> Location Detail</strong></label>
                         </div>
                         <div class="row col-md-12">
                             <div class="col-md-4">
@@ -421,12 +426,12 @@
                                         <div class="col-md-4 form-group">
                                             <label class="staffRepresentativeNameDesignation"
                                                    for="staffRepresentativeNameDesignation">Staff Representative
-                                                Designation 1</label>
+                                                Designation {{index+1}}</label>
                                             <select class="form-control"
                                                     formControlName="staffRepresentativeNameDesignation"
                                                     id="staffRepresentativeNameDesignationCurrent"
                                                     name="staffRepresentativeNameDesignation">
-                                                <option [ngValue]="null" hidden>Staff Representative Designation 1
+                                                <option [ngValue]="null" hidden>Staff Representative Designation {{index+1}}
                                                 </option>
                                                 <option *ngFor="let designation of designationList"
                                                         [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
@@ -434,32 +439,10 @@
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
-                                                Representative Name 1</label>
+                                                Representative Name {{index+1}}</label>
                                             <input class="form-control" formControlName="staffRepresentativeName"
                                                    id="staffRepresentativeNameCurrent" name="staffRepresentativeName"
-                                                   placeholder="Staff Representative Name 1" type="text">
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label class="staffRepresentativeNameDesignation2"
-                                                   for="staffRepresentativeNameDesignation2">Staff Representative
-                                                Designation 2</label>
-                                            <select class="form-control"
-                                                    formControlName="staffRepresentativeNameDesignation2"
-                                                    id="staffRepresentativeNameDesignationCurrent2"
-                                                    name="staffRepresentativeNameDesignation2">
-                                                <option [ngValue]="null">Staff Representative Designation 2
-                                                </option>
-                                                <option *ngFor="let designation of designationList"
-                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label class="staffRepresentativeName2"
-                                                   for="staffRepresentativeName2">Staff Representative Name 2</label>
-                                            <input class="form-control" formControlName="staffRepresentativeName2"
-                                                   id="alternativeStaffRepresentativeNameCurrent2"
-                                                   name="staffRepresentativeName2"
-                                                   placeholder="Staff Representative Name 2" type="text">
+                                                   placeholder="Staff Representative Name" type="text">
                                         </div>
                                         <div *ngIf="currentAssets.get('insuranceVerification').get('inspectingStaffsDetails').length > 1"
                                              class="col-md-1 pt-4">
