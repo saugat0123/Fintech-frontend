@@ -74,6 +74,11 @@
                         [cadData]="cadData"
                         [documentId]="documentId"
                         [customerLoanId]="customerLoanId"></app-guarantor-acknowledgement>
+                <app-consent-for-lein
+                        *ngSwitchCase="cadTemplate.CONSENT_FOR_LEIN"
+                        [cadData]="cadData"
+                        [documentId]="documentId"
+                        [customerLoanId]="customerLoanId"></app-consent-for-lein>
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
         </div>
