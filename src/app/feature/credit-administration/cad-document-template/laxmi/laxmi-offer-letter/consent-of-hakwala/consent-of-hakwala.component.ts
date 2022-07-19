@@ -47,8 +47,6 @@ export class ConsentOfHakwalaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.customerData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log('this.customerData', this.customerData);
-    console.log(' this.initialInfoPrint', this.initialInfoPrint);
     this.fillForm();
   }
   buildForm() {
