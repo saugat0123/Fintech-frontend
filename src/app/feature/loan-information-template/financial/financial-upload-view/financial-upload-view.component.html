@@ -1,6 +1,6 @@
 <div [nbSpinner]="spinner">
 
-<form [formGroup]="form" class="align-content-center" *ngIf="!fromProfile">
+<ng-container class="align-content-center" *ngIf="!fromProfile">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -9,13 +9,49 @@
             </div>
         </div>
     </div>
-    <button nbButton (click)="submitData()" [disabled]="!uploadFile">Submit</button>
-</form>
+</ng-container>
     <br>
     <hr>
 <nb-tabset  *ngIf="customerInfo?.financial">
     <nb-tab tabId="0" *ngFor="let title of financialKeys; let i = index;" [tabTitle]="title | financialPipe">
-        <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"  [title]="title"></app-financial-json-parser>
+        <app-financial-json-parser [summaryOnly]="false" [financialJson]="financialData[title] | jsonParse"  [title]="title"></app-financial-json-parser>
     </nb-tab>
 </nb-tabset>
+<!--    <app-financial-json-parser [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>-->
+<!--    <app-financial-json-parser [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>-->
+    <form  [formGroup]="form">
+        <ng-container *ngIf="!sensitive; else sensitiveJustification" >
+            <div class="col-md-12 form-group" >
+                <b>Justification for change (Historical)</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="changeHistorical"></ckeditor>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+
+                    <b>Justification for change (Projection)</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="changeProjection"></ckeditor>
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+
+                    <b>Remarks</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="remarks"></ckeditor>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #sensitiveJustification>
+            <div class="col-md-12 form-group">
+
+                <b>Justification</b>
+                <div >
+                    <ckeditor [config]="ckeConfig" formControlName="sensitiveJustification"></ckeditor>
+                </div>
+            </div>
+        </ng-template>
+    </form>
+
+    <button class="float-right" nbButton (click)="submitData()" >Submit</button>
 </div>

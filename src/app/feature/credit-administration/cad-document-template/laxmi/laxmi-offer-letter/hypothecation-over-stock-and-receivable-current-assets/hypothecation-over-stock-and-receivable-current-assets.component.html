@@ -3,405 +3,359 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
             <p class="text-center"><b>चालु सम्पत्ती उपरको अधिकार हस्तान्तरण सम्बन्धि लिखत</b></p>
-            <p class="text-center"><b>(Hypothecation over Stock and Receivable/Current Assets)</b></p>
+            <p class="text-center"><b>Hypothecation Charge over Current Assets (Stock, Receivable and Book Debt)</b></p>
 
-            लिखितम् लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, का.म.न.पा.वडा
-            नं.१
-            हात्तिसार स्थित लक्ष्मी बैंक लिमिटेडको शाखा कार्यालय, <input type="text"
-                                                                         class="nepaliFont disable-print form-control-sm form-field"
-                                                                         formControlName="customerName">
-            <span class=" print-only nepaliFont"><b>{{form.get('customerName').value ? form.get('customerName').value : '========='}}</b></span>
-            (यसपछि धनी बैंक भनिएको छ)
-            लिखत गरी दिनेका नाम नेपाल सरकार <input type="text"
-                                                   class="nepaliFont disable-print form-control-sm form-field"
-                                                   formControlName="office">
-            <span class=" print-only nepaliFont"><b>{{form.get('office').value ? form.get('office').value : '========='}}</b></span>
-            मन्त्रालय <input type="text"
-                             class="nepaliFont disable-print form-control-sm form-field"
-                             formControlName="issuedOffice">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedOffice').value ? form.get('issuedOffice').value : '========='}}</b></span>
-            कार्यालयमा प्रा.फ.र.नं./प्रा.लि.नं. <input type="text"
-                                                       class="nepaliFont disable-print form-control-sm form-field"
-                                                       formControlName="registrationNumber">
-            <span class=" print-only nepaliFont"><b>{{form.get('registrationNumber').value ? form.get('registrationNumber').value : '========='}}</b></span>
-            मिति <input type="text"
-                        class="nepaliFont disable-print form-control-sm form-field"
-                        formControlName="issuedDate">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedDate').value ? form.get('issuedDate').value : '========='}}</b></span>
-            मा दर्ता भई <input type="text"
-                               class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="issuedDistrict">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedDistrict').value ? form.get('issuedDistrict').value : '========='}}</b></span>
-            जिल्ला
+            लिखितम् लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं.१ हात्तिसार स्थित
+            केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेडको</strong> जिल्ला
+           <input type="text"
+                    class="nepaliFont disable-print form-control-sm form-field"
+                    formControlName="branchDistrict">
+            <span class=" print-only nepaliFont"><b>{{form.get('branchDistrict').value ? form.get('branchDistrict').value : '========='}}</b></span>
+            गा.पा./न.पा.
             <input type="text"
                    class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="issuedMunicipality">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedMunicipality').value ? form.get('issuedMunicipality').value : '========='}}</b></span>
-            महानगरपालिका वडा नं
+                   formControlName="branchMun">
+            <span class=" print-only nepaliFont"><b>{{form.get('branchMun').value ? form.get('branchMun').value : '========='}}</b></span>
+            वडा नं.
             <input type="text"
                    class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="issuedWadNo">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedWadNo').value ? form.get('issuedWadNo').value : '========='}}</b></span>
-            , रजिष्टर्ड ठेगाना रहेको नेपाल सरकार अर्थ मन्त्रालय आन्तरिक राजश्व विभाग आन्तरिक
-            राजश्व कार्यालय
+                   formControlName="branchWardNo">
+            <span class=" print-only nepaliFont"><b>{{form.get('branchWardNo').value ? form.get('branchWardNo').value : '========='}}</b></span>
+            स्थित शाखा कार्यालय,
             <input type="text"
                    class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="taxOffice">
-            <span class=" print-only nepaliFont"><b>{{form.get('taxOffice').value ? form.get('taxOffice').value : '========='}}</b></span>
-
-            मा स्थायी लेखा नं.
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="taxNo">
-            <span class=" print-only nepaliFont"><b>{{form.get('taxNo').value ? form.get('taxNo').value : '========='}}</b></span>
-            मिति
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="issuedYear">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedYear').value ? form.get('issuedYear').value : '========='}}</b></span>
-            /
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="issuedMonth">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedMonth').value ? form.get('issuedMonth').value : '========='}}</b></span>
-            /
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="issuedDay">
-            <span class=" print-only nepaliFont"><b>{{form.get('issuedDay').value ? form.get('issuedDay').value : '========='}}</b></span>
-            मा दर्ता रहेको
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="name">
-            <span class=" print-only nepaliFont"><b>{{form.get('name').value ? form.get('name').value : '========='}}</b></span>
-            (यसपछि ऋणी भनिएकोछ) का तर्फबाट अख्तियार प्राप्त व्यक्ति
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorGrandFatherName">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorGrandFatherName').value ? form.get('guarantorGrandFatherName').value : '========='}}</b></span>
-            को नाती/नातिनी/वुहारी
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorFatherName">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorFatherName').value ? form.get('guarantorFatherName').value : '========='}}</b></span>
-
-
-            को छोरा/छोरी,
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorHusbandName">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorHusbandName').value ? form.get('guarantorHusbandName').value : '========='}}</b></span>
-
-            को पति/पत्नि
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorDistrict">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorDistrict').value ? form.get('guarantorDistrict').value : '========='}}</b></span>
-            जिल्ला,
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorMunicipality">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorMunicipality').value ? form.get('guarantorMunicipality').value : '========='}}</b></span>
-            न.पा/गा.पा. वडा नं.
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorWadNo">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorWadNo').value ? form.get('guarantorWadNo').value : '========='}}</b></span>
-            भई हाल
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorCurrentAddress">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorCurrentAddress').value ? form.get('guarantorCurrentAddress').value : '========='}}</b></span>
-            ठेगाना बस्ने वर्ष
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorAge">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorAge').value ? form.get('guarantorAge').value : '========='}}</b></span>
-            को
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorName">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorName').value ? form.get('guarantorName').value : '========='}}</b></span>
-
-            (नागरिकता नं.
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorCitizenshipNo">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorCitizenshipNo').value ? form.get('guarantorCitizenshipNo').value : '========='}}</b></span>
-
-            जिल्ला प्रशासन कार्यालय
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorCitizenshipIssuedOffice">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorCitizenshipIssuedOffice').value ? form.get('guarantorCitizenshipIssuedOffice').value : '========='}}</b></span>
-            जारी
-            मिती <input type="text"
-                        class="nepaliFont disable-print form-control-sm form-field"
-                        formControlName="guarantorIssuedYear">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorIssuedYear').value ? form.get('guarantorIssuedYear').value : '========='}}</b></span>
-            /
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorIssuedMonth">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorIssuedMonth').value ? form.get('guarantorIssuedMonth').value : '========='}}</b></span>
-            /
-            <input type="text"
-                   class="nepaliFont disable-print form-control-sm form-field"
-                   formControlName="guarantorIssuedDay">
-            <span class=" print-only nepaliFont"><b>{{form.get('guarantorIssuedDay').value ? form.get('guarantorIssuedDay').value : '========='}}</b></span>
-            ) आगे, ऋणीले आफनो व्यापार/व्यवसाय/उद्योग/परयोजना संचालन गर्नको लागि धनी बैंकबाट उपभोग गर्ने/गरिरहेको जम्मा
-            ऋण कर्जा सुविधा रु <input type="text"
-                                      class="nepaliFont disable-print form-control-sm form-field"
-                                    (change)="con($event)"  formControlName="proposedAmount">
-            <span class="print-only nepaliFont"><b>{{form.get('proposedAmount').value ? form.get('proposedAmount').value : '========='}}</b></span>
-            /– (अक्षेरुपी रुपैया <input type="text"
-                                        class="nepaliFont disable-print form-control-sm form-field"
-                                        formControlName="amountInWords">
-            <span class=""><b>{{form.get('amountInWords').value ? form.get('amountInWords').value : '========='}}</b></span>
-            मात्र) आगे, ऋणीले तपसिलको शर्त बन्देजहरुको
-            अधिनमा रहने गरी ऋणीको स्वामित्वमा रहेको ऋणीले धनी बैंकलाई समय समयमा बुझाउने विवरणमा उल्लेखित चालुँ सम्पति
-            (Current Assets)
-            को सुरक्षणमा ऋणीलाई ऋण कर्जा कारोवार गर्न दिन सहमत भएको र ऋणीले सोही बमोजिम स्वीकृत कर्जाको सिमाभित्र रही यस
-            अघि वा यस लिखत
-            गर्दा तथा भविष्यमा धनी बैंकबाट प्राप्त गर्ने/गरेको कर्जा सुविधाको सुरक्षण वापत ऋणीको स्वामित्वमा रहेको तथा
-            भविष्यमा कायम रहन आउने वा प्राप्त
-            हुने चालु सम्पत्तिमा प्रथमाधिकार रहने गरी यसै लिखतद्वारा धितो सुरक्षण लेखिदिई तपसिलमा उल्लेखित सम्पूर्ण
-            शर्तवन्देजहरु पालना गर्न र सोको अधिनमा
-            रहि ऋण कर्जा कारोवार गर्न समेत ऋणीको मञ्जुरी भएकोले साक्षीहरुको रोहबरमा धनी बैंकमा बसी ऋणीको मनोमान
-            राजीखुशीले यो लिखतमा सहिछाप
-            गरी धनी बैंकलाई दियौं ।
+                   formControlName="branchName">
+            <span class=" print-only nepaliFont"><b>{{form.get('branchName').value ? form.get('branchName').value : '========='}}</b></span>
+            (जसलाई यसपछि धनी बैंक भनिएको छ) लिखत लेखिदिने तपसिलमा उल्लेखित ऋणी (यसपछि ऋणी भनिएको छ) आगे, ऋणीले आफनो व्यापार/व्यवसाय/
+            उद्योग/परयोजना संचालन गर्नको लागि धनी बैंकबाट उपभोग गर्ने/गरिरहेको तपसिलमा उल्लेखित जम्मा ऋण कर्जा तथा कर्जा सुविधाको सुरक्षण वापत ऋणीले
+            तपसिलको शर्त बन्देजहरुको अधिनमा रहने गरी ऋणीको स्वामित्वमा रहेको ऋणीले धनी बैंकलाई समय समयमा बुझाउने विवरणमा उल्लेखित चालुँ सम्पति
+            (Current Assets) को सुरक्षणमा ऋणीलाई ऋण कर्जा कारोवार गर्न दिन सहमत भएको र ऋणीले सोही बमोजिम स्वीकृत कर्जाको सिमाभित्र रही यस अघि
+            वा यस लिखत गर्दा तथा भविष्यमा धनी बैंकबाट प्राप्त गर्ने/गरेको कर्जा सुविधाको सुरक्षण वापत ऋणीको स्वामित्वमा रहेको तथा भविष्यमा कायम रहन आउने
+            वा प्राप्त हुने चालु सम्पत्तिमा प्रथमाधिकार रहने गरी यसै लिखतद्वारा धितो सुरक्षण लेखिदिई तपसिलमा उल्लेखित सम्पूर्ण शर्तवन्देजहरु पालना गर्न र सोको
+            अधिनमा रहि ऋण कर्जा कारोवार गर्न समेत ऋणीको मञ्जुरी भएकोले साक्षीहरुको रोहबरमा धनी बैंकमा बसी ऋणीको मनोमान राजीखुशीले यो लिखतमा
+            सहिछाप गरी धनी बैंकलाई दियौं ।
             <br>
             <p class="page-break"></p>
-            <p class="text-center"><b>तपसिल</b></p>
-            <b>शर्त तथा बन्देजहरुः–</b> <br>
-            <b>(१)</b> चालु सम्पति भन्नाले ऋणीसंग हाल रहेको तथा भविष्यमा हुने स्टक मौज्दात (Stock) तथा ऋणीले विभिन्न
-            व्यक्ति/संघ/संस्थाहरुबाट प्राप्त गर्नुपर्ने रकम, ऋणीको हकमा ऋणी हितग्राही भई जारी हुने विभिन्न किसिमका
-            बैंक जमानतहरुमा उल्लेख भए बमोजिम ऋणीले दावी गरी भुक्तानी पाउने अधिकार तथा ऋणीको नाममा जुनसुकै बैैक तथा
-            वित्तीय संस्थाहरुमा खोलिएको निक्षेप खाताहरुमा जम्मा रहेको तथा भविश्यमा जम्मा हुन आउने निक्षेप रकम र
+            <p class="text-center"><strong><u>तपसिल</u></strong></p>
+            <strong><u>शर्त तथा बन्देजहरुः–</u></strong> <br>
+            (१) चालु सम्पति भन्नाले ऋणीसंग हाल रहेको तथा भविष्यमा हुने स्टक मौज्दात (Stock) तथा ऋणीले विभिन्न व्यक्ति/संघ/संस्थाहरुबाट प्राप्त गर्नुपर्ने
+            रकम, ऋणीको हकमा ऋणी हितग्राही भई जारी हुने विभिन्न किसिमका बैंक जमानतहरुमा उल्लेख भए बमोजिम ऋणीले दावी गरी भुक्तानी पाउने अधिकार
+            तथा ऋणीको नाममा जुनसुकै बैैक तथा वित्तीय संस्थाहरुमा खोलिएको निक्षेप खाताहरुमा जम्मा रहेको तथा भविश्यमा जम्मा हुन आउने निक्षेप रकम र
             ऋणीले अन्य तेस्रो व्यक्ति/फर्म/कम्पनीसँग लिन बाँकी हिसाव (Receivable and Book Debt)  लगायतका
             सम्पूर्ण सम्पत्तिहरुलाई जनाउनेछ ।
             <br>
-            <b>(२) </b>धितो लेखिदिएको र व्यवसायको निमित्त चलन गर्न दिइएको मौज्दात तथा उठाउन वाँकी रकम ऋणीको आप्mनै
-            जिम्मा र रेखदेखमा रहने छ तर धनी बैंकले वा अधिकार प्राप्त कुनै निकायले जॉचबुझ निरीक्षण गर्दा तोकिएको
-            मौज्दात र उठाउन वॉकी रकम भन्दा कम रहेको देखिएमा नपुग वापतको ऋण रकमको सावा व्याज ऋणीले तत्कालै
-            भुक्तानी गनुपर्र्नेछ ।<br>
-            <b>(३)</b> ऋणीले धितोको मौज्दातको मूल्य समेतको विवरण तथा उठाउन वाँकी रकमको विवरण खुलाई प्रत्येक
-            मासिक/त्रैमासिक रुपमा वा धनी बैंकले माग गरेका बखत अनिवार्य रुपमा उपलब्ध गराउनुपर्नेछ ।<br>
-            <b>(४) </b>धनी बैकको अधिकार प्राप्त अधिकृत वा धनी बैंकले नियुक्त गरेको एजेण्ट वा प्रतिनिधीले पूर्व
-            सूचना दिई वा नदिई जुनसुकै बेलामा पनि ऋणीले धितो दिएको, चालु सम्पती राखेकोे वा भण्डारण गरेको
-            स्थल, खाता वहि कुनैपनि समयमा प्रबेश गरि धनी बैंकलाई धितो दिएको सामान वा सम्पत्तिहरु जाँचबुझ
-            गर्ने, निरीक्षण गर्ने, यसको मुल्याङ्कन गर्ने, आफ्नो नियन्त्रणमा लिन सक्नेछन् । सो बारेमा धनी
-            बैंकले राखेको अभिलेख ऋणीलाई मान्य हुनेछ । यस सम्बन्धमा भए गरेको सम्पुर्ण खर्चहरु ऋणीले
-            तिर्ने ब्यहोर्ने कुरामा मञ्जुर गर्दछ ।<br>
-            <b>(५)</b> धनी बैंकलाई धितो दिएको चालु सम्पतिहरु तपाई धनी बैंक बाहेक अन्य कुनै व्यक्ति, फर्म वा
-            कम्पनीलाई धितोबन्धक दिने वा उक्त सम्पत्तिहरुमा कुनै प्रकारको बन्धक, चार्ज वा अन्य
-            कुनैपनि प्रकारको हक सिर्जना हुने काम गर्ने छैन र नियमित व्यापारिक कारोबारका सिलसिलामा
-            बाहेक उक्त सामान देखाएर वा सोको आधारमा अरु कसैबाट कुनै ऋण वा रकम उठाउने, असूल गर्ने वा
-            कुनै किसिमले तह लगाउने वा विक्री वा अन्य ब्यवस्था गर्ने छैनौं र धनी बैंकको हित बिपरित
-            हुने कुनै पनि कार्य गर्ने वा गराउने छैनौं । धनी बैंकलाई धितो लेखिदिएको चालु सम्पत्तिलाई
-            प्रतिकूल असर हुने किसिमको कुनै कार्य गरेमा धनी बैंकको सुविधा अनुसार एकै पटक वा पटक पटक
-            वा अन्य कुनै तरिका अपनाई धितोमा रहेको चालु सम्पत्तिबाट धनी बैंकले प्रचलित बैंक तथा
-            वित्तीय संस्था सम्बन्धी ऐन, सुरक्षित कारोवार ऐन वा अन्य प्रचलित नियम कानून बमोजिम आप्mनो
-            लेना रकम असूल उपर गरिलिएमा ऋणीको मञ्जुर छ ।<br>
-            <b> (६)</b> धनी बैंकबाट लिएको ऋण कर्जा तथा बैकिङ्ग सुविधाको रकम पूर्ण रुपमा चुक्ता नभएसम्म
-            ऋणीको नाममा रहेका र भविष्यमा प्राप्त हुने सम्पूर्ण चालु सम्पत्ति उपर तपाई धनी बैंकको
-            धितोको हक रहनेछ ।
-            <b> (७)</b> धितो वापत रहेको चालु सम्पत्ति वा अचल सम्पत्ति मध्ये तत्काल धनी बैंकले जुन
-            सुरक्षणबाट रकम असुल उपर गर्न अनुकूल हुन्छ, सोही सुरक्षणबाट आप्mनो लेना रकम असूल
-            उपर गरेमा ऋणीको मञ्जुरी छ ।<br>
-            <b> (८)</b> ऋणीले धितोमा लेखिदिएको चालु सामानहरु राखेको गोदाम, पसल परिवर्तन गर्नु
-            परेमा धनी बैंकको पूर्व लिखित स्वीकृति लिएर मात्र परिवर्तन गर्न सकिनेछ र
-            स्वीकृति नलिई सारेमा धितो हिनामिना गरे सरह ठहर गरी धनी बैंकबाट ऋण असुलीको
-            कारवाही भएमा ऋणीको मञ्जुर छ ।<br>
-            <b> (९)</b> ऋणीले लेखि दिएको चालु सम्पत्तिहरुको प्रचलित नेपाल कानून बमोजिम
-            लाग्ने शुल्क, कर, राजश्व, दस्तुर तथा यस्तो सम्पत्ति बन्दरगाहबाट छुटाउदा
-            तथा नेपालका भन्सार कार्यालयबाट छुटाउदा लागेको खर्च तथा दस्तुर, यस्तो
-            सामान कारखानाबाट गोदाम वा भण्डार गर्ने ठाउँ सम्म पु–याउदा वा ढुवानी
-            गर्दा तिर्नुपर्ने ढुवानी खर्च, गोदाम भाडाको साथै तिर्नुपर्ने दस्तुर
-            लगायतका सम्पूर्ण खर्च समेतका रकमहरु तिर्ने बुझाउने जिम्मा ऋणीको हुनेछ ।
-            यस्तो रकम बुझाई सोको निस्सा धनी बैंकमा पेश गर्नु ऋणीको कर्तब्य हुनेछ ।
-            धितोमा लेखिदिएको मालसामानहरु राखेको गोदामहरु र पसल कवलहरु रहेको घर, टहरा
-            ऋणीको आप्mनो नभई भाडामा लिएको रहेछ भने सोको भाडा, बहाल कर आदिको दायित्व
-            ऋणी आपैmले व्यहोर्नु पर्नेछ ।<br>
-            <b> (१०)</b> धनी बैंकले स्वीकृत गरेको वीमा कम्पनीसंग वीमाको रकम दावी गर्न
-            पाउने हिताधिकारी (Beneficiary)  धनी बैंक हुने गरी ऋणीको आफ्नै
-            खर्चमा धनी बैंकले माग गरे बमोजिमको बैक्र्स कल्ज सहितको आवश्यक वीमा
-            तथा सो को समयमै नवीकरण गराउनु पर्नेछ । ऋणीले वीमा नगरेमा वा वीमाको
-            नवीकरण नगरेमा धनी बैंकले वीमा वा नवीकरण वापतको विमा प्रिमियम तथा
-            अन्य खर्च समेत गरी ऋणीको कर्जा खातामा खर्च लेखेमा उक्त खर्च रकम
+            (२) धितो लेखिदिएको र व्यवसायको निमित्त चलन गर्न दिइएको मौज्दात तथा उठाउन वाँकी रकम ऋणीको आप्mनै जिम्मा र रेखदेखमा रहने छ तर धनी
+            बैंकले वा अधिकार प्राप्त कुनै निकायले जॉचबुझ निरीक्षण गर्दा तोकिएको मौज्दात र उठाउन वॉकी रकम भन्दा कम रहेको देखिएमा नपुग वापतको ऋण
+            रकमको सावा व्याज ऋणीले तत्कालै भुक्तानी गनुपर्र्नेछ ।<br>
+            (३) ऋणीले धितोको मौज्दातको मूल्य समेतको विवरण तथा उठाउन वाँकी रकमको विवरण खुलाई प्रत्येक <strong>मासिक/त्रैमासिक</strong> रुपमा वा
+            धनी बैंकले माग गरेका बखत अनिवार्य रुपमा उपलब्ध गराउनुपर्नेछ ।<br>
+            (४) धनी बैकको अधिकार प्राप्त अधिकृत वा धनी बैंकले नियुक्त गरेको एजेण्ट वा प्रतिनिधीले पूर्व सूचना दिई वा नदिई जुनसुकै बेलामा पनि ऋणीले धितो
+            दिएको, चालु सम्पती राखेकोे वा भण्डारण गरेको स्थल, खाता वहि कुनैपनि समयमा प्रबेश गरि धनी बैंकलाई धितो दिएको सामान वा सम्पत्तिहरु जाँचबुझ
+            गर्ने, निरीक्षण गर्ने, यसको मुल्याङ्कन गर्ने, आफ्नो नियन्त्रणमा लिन सक्नेछन् । सो बारेमा धनी बैंकले राखेको अभिलेख ऋणीलाई मान्य हुनेछ । यस
+            सम्बन्धमा भए गरेको सम्पुर्ण खर्चहरु ऋणीले तिर्ने ब्यहोर्ने कुरामा मञ्जुर गर्दछ ।<br>
+            (५) धनी बैंकलाई धितो दिएको चालु सम्पतिहरु तपाई धनी बैंक बाहेक अन्य कुनै व्यक्ति, फर्म वा कम्पनीलाई धितोबन्धक दिने वा उक्त सम्पत्तिहरुमा कुनै
+            प्रकारको बन्धक, चार्ज वा अन्य कुनैपनि प्रकारको हक सिर्जना हुने काम गर्ने छैन र नियमित व्यापारिक कारोबारका सिलसिलामा बाहेक उक्त सामान देखाएर
+            वा सोको आधारमा अरु कसैबाट कुनै ऋण वा रकम उठाउने, असूल गर्ने वा कुनै किसिमले तह लगाउने वा विक्री वा अन्य ब्यवस्था गर्ने छैनौं र धनी बैंकको
+            हित बिपरित हुने कुनै पनि कार्य गर्ने वा गराउने छैनौं । धनी बैंकलाई धितो लेखिदिएको चालु सम्पत्तिलाई प्रतिकूल असर हुने किसिमको कुनै कार्य गरेमा धनी
+            बैंकको सुविधा अनुसार एकै पटक वा पटक पटक वा अन्य कुनै तरिका अपनाई धितोमा रहेको चालु सम्पत्तिबाट धनी बैंकले प्रचलित बैंक तथा वित्तीय संस्था
+            सम्बन्धी ऐन, सुरक्षित कारोवार ऐन वा अन्य प्रचलित नियम कानून बमोजिम आप्mनो लेना रकम असूल उपर गरिलिएमा ऋणीको मञ्जुर छ ।<br>
+            (६) धनी बैंकबाट लिएको ऋण कर्जा तथा बैकिङ्ग सुविधाको रकम पूर्ण रुपमा चुक्ता नभएसम्म ऋणीको नाममा रहेका र भविष्यमा प्राप्त हुने सम्पूर्ण चालु
+            सम्पत्ति उपर तपाई धनी बैंकको धितोको हक रहनेछ ।
+            (७) धितो वापत रहेको चालु सम्पत्ति वा अचल सम्पत्ति मध्ये तत्काल धनी बैंकले जुन सुरक्षणबाट रकम असुल उपर गर्न अनुकूल हुन्छ, सोही सुरक्षणबाट
+            आप्mनो लेना रकम असूल उपर गरेमा ऋणीको मञ्जुरी छ ।<br>
+            (८) ऋणीले धितोमा लेखिदिएको चालु सामानहरु राखेको गोदाम, पसल परिवर्तन गर्नु परेमा धनी बैंकको पूर्व लिखित स्वीकृति लिएर मात्र परिवर्तन गर्न
+            सकिनेछ र स्वीकृति नलिई सारेमा धितो हिनामिना गरे सरह ठहर गरी धनी बैंकबाट ऋण असुलीको कारवाही भएमा ऋणीको मञ्जुर छ ।<br>
+            (९) ऋणीले लेखि दिएको चालु सम्पत्तिहरुको प्रचलित नेपाल कानून बमोजिम लाग्ने शुल्क, कर, राजश्व, दस्तुर तथा यस्तो सम्पत्ति बन्दरगाहबाट छुटाउदा
+            तथा नेपालका भन्सार कार्यालयबाट छुटाउदा लागेको खर्च तथा दस्तुर, यस्तो सामान कारखानाबाट गोदाम वा भण्डार गर्ने ठाउँ सम्म पु–याउदा वा ढुवानी गर्दा
+            तिर्नुपर्ने ढुवानी खर्च, गोदाम भाडाको साथै तिर्नुपर्ने दस्तुर लगायतका सम्पूर्ण खर्च समेतका रकमहरु तिर्ने बुझाउने जिम्मा ऋणीको हुनेछ । यस्तो रकम बुझाई
+            सोको निस्सा धनी बैंकमा पेश गर्नु ऋणीको कर्तब्य हुनेछ । धितोमा लेखिदिएको मालसामानहरु राखेको गोदामहरु र पसल कवलहरु रहेको घर, टहरा ऋणीको
+            आप्mनो नभई भाडामा लिएको रहेछ भने सोको भाडा, बहाल कर आदिको दायित्व ऋणी आपैmले व्यहोर्नु पर्नेछ ।<br>
+            (१०) धनी बैंकले स्वीकृत गरेको वीमा कम्पनीसंग वीमाको रकम दावी गर्न पाउने हिताधिकारी (Beneficiary)  धनी बैंक हुने गरी ऋणीको आफ्नै खर्चमा
+            धनी बैंकले माग गरे बमोजिमको बैक्र्स कल्ज सहितको आवश्यक वीमा तथा सो को समयमै नवीकरण गराउनु पर्नेछ । ऋणीले वीमा नगरेमा वा वीमाको
+            नवीकरण नगरेमा धनी बैंकले वीमा वा नवीकरण वापतको विमा प्रिमियम तथा अन्य खर्च समेत गरी ऋणीको कर्जा खातामा खर्च लेखेमा उक्त खर्च रकम
             कर्जा सरह साँवा व्याज धनी बैंकलाई बुझाउन ऋणीको मञ्जुरी छ ।<br>
-            <b> (११)</b> ऋणीले धितोमा राखेका सामानहरु विक्री गरी बिक्रीबाट उठेको रकम
-            प्राप्त हुनासाथ धनी बैंकलाई बुझाउन र त्यसतो रकम धनी बैंकमा जम्मा
-            गर्नको लागि ऋणीले धितोमा रहेको सामानको जिम्मा लिई धनी बैंकको
-            प्रतिनिधिको रुपमा काम गर्नेछ ।<br>
-            <b>(१२)</b> धनी बैंकले कानुन बमोजिम समय समयमा निर्धारण गर्ने व्याज
-            दर, मार्जिन दर एवं अन्य शर्तहरु ऋणीलाई मान्य हुनेछ ।<br>
-            <b> (१३)</b> धनी बैंकमा धितो रहेको सामानको मुल्य घट्न गएमा
-            आवश्यक मार्जिन रकम धनी बैंकले मागेमा सो वापतकोे मार्जिन
-            रकम वा थप धितो तोकिएको म्याद भित्र जम्मा गर्न ऋणीकोे
-            मञ्जुरी छ ।<br>
-            <b> (१४)</b> धितोमा लेखिदिएको वस्तुहरु राखेको गोदामहरु वा
-            पसल कवलहरु भाडामा लिएको रहेछ र कथंमकदाचित समयमा ऋण
-            तिर्न नसकेको अवस्थामा धनी बैंकले धितो सामान लिलाम
-            गर्दा गोदाम घर धनी वा पसल घर धनीले भाडा वापत कुनै
-            किसिमको खिचोला गरेमा घर भडा सम्झौता अन्तर्गतको
-            सम्पुर्ण रकम कलम तिर्ने दायित्व ऋणीको हुनेछ ।<br>
-            <b>(१५)</b> कर्जा खिलाफि भएको अवस्थामा धनी बैंकको
-            सुरक्षणमा रहेको ऋणीको चालु सम्पत्ति कव्जामा लिने
-            सम्बन्धमा चालु सम्पत्ति राखिएको घरमा धनी बैंकले
-            शीलबन्दी गर्ने वा सामान उठाई अर्को घरमा लैजान
-            सक्नेछ र सोको लागि ऋणीको पूर्व स्वीकृतिको
-            आवश्यकता पर्नेछैन । त्यसरी सामान धनी बैंकले
-            कव्जामा लिंदा उठाएको मुचुल्कामा ऋणीे रोहवरमा
-            नबसे पनि उक्त मुचुल्काले पूर्ण वैधता प्राप्त
-            गर्नेछ ।<br>
-            <b>(१६)</b> धनी बैंकले कव्जामा लिँदा वा लिईसके पछि
-            पनि चालु सम्पत्ति कुनै कारणले क्षति भएमा
-            सोको सम्पुर्ण दायित्व र जिम्मेवारी ऋणी
-            स्वयंको हुनेछ ।<br>
-            <b> (१७)</b> यस लिखत बमोजिम ऋण कर्जा तथा अन्य
-            बैंकिङ्ग सुबिधा प्राप्त गर्नको लागी
-            ऋणीले पुरा गर्नुपर्ने पूर्व शर्तहरु पुरा
-            नगरेको कारण वा पेश गर्नुपर्ने लिखत तथा
-            कागजहरु पेश नगरेको कारण यस लिखत बमोजिम
-            ऋणीलाई प्रदान गर्ने भनिएको ऋण भुक्तानी
-            वा अन्य बैंकिङ्ग सुबिधा धनी बैंकले
-            रोकेमा यसबाट नोक्सानी प¥यो भनी धनी बैंक
-            समक्ष ऋणीले कुनैपनि क्षतिपुर्तिको दाबी
-            गर्नेेछैन । यस बिषयमा कुनैपनि निकायमा
-            कुनैपनि प्रकारको उजुर बाजुर गर्ने छैन
-            गरेमा धनी बैंकलाई यस्तो कार्यको
-            प्रतिरक्षा गर्दा वा यस सम्बन्धमा हुन
-            गएको खर्चहरु समेत ऋणीले तिर्ने ब्यहोर्ने
-            छौं ।<br>
-            <b> (१८)</b> ऋणीको हकदार वा ऋणीको सम्पत्तिमा
-            हक प्राप्त गर्ने वा ऋणको दायित्व
-            स्वीकार गर्ने अन्य व्यक्ति समेत यस
-            ऋण सम्झौता अनुसार सिर्जना भएको वा
-            सिर्जना हुने ऋणीको दायित्व परिपालना
-            गर्न वाध्य हुनेछन् । ऋणीको शेयरधनी,
-            साझेदार वा हिस्सेदारीमा भएको फेरबदल
-            वा परिवर्तन तथा ऋणीको व्यवस्थापन वा
-            संचालनमा संलग्न व्यक्तिहरुको फेरबदल
-            भएको कारणले यस सम्झौंता अनुसारको
-            ऋणीको दायित्वमा कुनै असर पर्ने छैन र
-            यस्तो अवस्थामा समेत यस संझौता अनुसार
-            सिर्जना भएको निजको दायित्व पूरा गर्न
-            ऋणी बाध्य हुनेछ ।<br>
-            <b>(१९)</b> ऋणीले धनी बैंकलाई लेखिदिएको
-            चालु सम्पतिको धितो प्रचलित
-            सुरक्षित कारोवार ऐन अन्तर्गत
-            तोकिएको निकायमा धनी बैंकको नाममा
-            प्रथमाधिकार (Creation of Security Interest in the name of the participating Banks)  हुनेगरी ऋणीको आफनै
-            खर्चमा धितोको हकदर्ता गरिदिन ऋणी
-            मन्जुर गर्दछ ।<br>
-
-            <b> धितो प्रदान गरेको चालु
-                सम्पतिहरुको विवरणः</b> ऋणी
-                कम्पनीले धनी बैंकलाई समय
-                समयमा बुझाएको/बुझाउने विवरण
-                बमोजिमको हुनेछ र सो विवरणलाई
-                यसै लिखतको अभिन्न अंगको
-                रुपमा मानिनेछ ।
-            <br>
+            (११) ऋणीले धितोमा राखेका सामानहरु विक्री गरी बिक्रीबाट उठेको रकम प्राप्त हुनासाथ धनी बैंकलाई बुझाउन र त्यसतो रकम धनी बैंकमा जम्मा गर्नको
+            लागि ऋणीले धितोमा रहेको सामानको जिम्मा लिई धनी बैंकको प्रतिनिधिको रुपमा काम गर्नेछ ।<br>
+            (१२) धनी बैंकले कानुन बमोजिम समय समयमा निर्धारण गर्ने व्याज दर, मार्जिन दर एवं अन्य शर्तहरु ऋणीलाई मान्य हुनेछ ।<br>
+            (१३) धनी बैंकमा धितो रहेको सामानको मुल्य घट्न गएमा आवश्यक मार्जिन रकम धनी बैंकले मागेमा सो वापतकोे मार्जिन रकम वा थप धितो तोकिएको
+            म्याद भित्र जम्मा गर्न ऋणीकोे मञ्जुरी छ ।<br>
+            (१४) धितोमा लेखिदिएको वस्तुहरु राखेको गोदामहरु वा पसल कवलहरु भाडामा लिएको रहेछ र कथंमकदाचित समयमा ऋण तिर्न नसकेको अवस्थामा धनी
+            बैंकले धितो सामान लिलाम गर्दा गोदाम घर धनी वा पसल घर धनीले भाडा वापत कुनै किसिमको खिचोला गरेमा घर भडा सम्झौता अन्तर्गतको सम्पुर्ण
+            रकम कलम तिर्ने दायित्व ऋणीको हुनेछ ।<br>
+            (१५) कर्जा खिलाफि भएको अवस्थामा धनी बैंकको सुरक्षणमा रहेको ऋणीको चालु सम्पत्ति कव्जामा लिने सम्बन्धमा चालु सम्पत्ति राखिएको घरमा धनी बैंकले
+            शीलबन्दी गर्ने वा सामान उठाई अर्को घरमा लैजान सक्नेछ र सोको लागि ऋणीको पूर्व स्वीकृतिको आवश्यकता पर्नेछैन । त्यसरी सामान धनी बैंकले कव्जामा
+            लिंदा उठाएको मुचुल्कामा ऋणीे रोहवरमा नबसे पनि उक्त मुचुल्काले पूर्ण वैधता प्राप्त गर्नेछ ।<br>
+            (१६) धनी बैंकले कव्जामा लिँदा वा लिईसके पछि पनि चालु सम्पत्ति कुनै कारणले क्षति भएमा सोको सम्पुर्ण दायित्व र जिम्मेवारी ऋणी स्वयंको हुनेछ ।<br>
+            (१७) यस लिखत बमोजिम ऋण कर्जा तथा अन्य बैंकिङ्ग सुबिधा प्राप्त गर्नको लागी ऋणीले पुरा गर्नुपर्ने पूर्व शर्तहरु पुरा नगरेको कारण वा पेश गर्नुपर्ने
+            लिखत तथा कागजहरु पेश नगरेको कारण यस लिखत बमोजिम ऋणीलाई प्रदान गर्ने भनिएको ऋण भुक्तानी वा अन्य बैंकिङ्ग सुबिधा धनी बैंकले रोकेमा
+            यसबाट नोक्सानी प¥यो भनी धनी बैंक समक्ष ऋणीले कुनैपनि क्षतिपुर्तिको दाबी गर्नेेछैन । यस बिषयमा कुनैपनि निकायमा कुनैपनि प्रकारको उजुर बाजुर गर्ने
+            छैन गरेमा धनी बैंकलाई यस्तो कार्यको प्रतिरक्षा गर्दा वा यस सम्बन्धमा हुन गएको खर्चहरु समेत ऋणीले तिर्ने ब्यहोर्ने छौं ।<br>
+            (१८) ऋणीको हकदार वा ऋणीको सम्पत्तिमा हक प्राप्त गर्ने वा ऋणको दायित्व स्वीकार गर्ने अन्य व्यक्ति समेत यस ऋण सम्झौता अनुसार सिर्जना भएको
+            वा सिर्जना हुने ऋणीको दायित्व परिपालना गर्न वाध्य हुनेछन् । ऋणीको शेयरधनी, साझेदार वा हिस्सेदारीमा भएको फेरबदल वा परिवर्तन तथा ऋणीको
+            व्यवस्थापन वा संचालनमा संलग्न व्यक्तिहरुको फेरबदल भएको कारणले यस सम्झौंता अनुसारको ऋणीको दायित्वमा कुनै असर पर्ने छैन र यस्तो अवस्थामा
+            समेत यस संझौता अनुसार सिर्जना भएको निजको दायित्व पूरा गर्न ऋणी बाध्य हुनेछ ।<br>
+            (१९) ऋणीले धनी बैंकलाई लेखिदिएको चालु सम्पतिको धितो प्रचलित सुरक्षित कारोवार ऐन अन्तर्गत तोकिएको निकायमा धनी बैंकको नाममा प्रथमाधिकार
+            (Creation of Security Interest in the name of the participating Banks)  हुनेगरी ऋणीको आफनै खर्चमा धितोको हकदर्ता
+            गरिदिन ऋणी मन्जुर गर्दछ ।<br>
             <p class="page-break"></p>
-            <b class="text-center">साक्षी</b>
+            <div class="col-md-12">
+                <span><strong>क. लिखत गरिदिने ऋणीको विवरण (संस्थागत ऋणीको हकमा):</strong></span>
+                <table class="table table-sm table-bordered">
+                    <tbody>
+                    <tr>
+                        <td style="width: 30%">ऋणीको नाम:</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyName">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyName').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>दर्ता नं.:</td>
+                        <td> <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                    formControlName="companyRegistrationNo">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegistrationNo').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>दर्ता रहेको निकायको नाम:</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="registrationNikayaName">
+                            <span class="print-only preetiFont font24">{{this.form.get('registrationNikayaName').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>दर्ता मिति:</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="registrationDate">
+                            <span class="print-only preetiFont font24">{{this.form.get('registrationDate').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा नं.:</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyPanNumber">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyPanNumber').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा जारी गर्ने कार्यालय:</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyPanIssueOffice">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyPanIssueOffice').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>स्थायी लेखा जारी मिति:</td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyPanIssueDate">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyPanIssueDate').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            ऋणीको रजिष्ट्रर्ड ठेगाना:
+                        </td>
+                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="companyRegDistrict">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegDistrict').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                  formControlName="companyRegVdc">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegVdc').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                          formControlName="companyRegWardNo">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegWardNo').value || ''}}</span>
+                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                           formControlName="companyRegTole">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegTole').value || ''}}</span> </span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            ऋणीको हालका ठेगाना:
+                        </td>
+                        <td>जिल्ला: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="companyRegTempDistrict">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegTempDistrict').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                  formControlName="companyRegTempVdc">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegTempVdc').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                          formControlName="companyRegTempWardNo">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegTempWardNo').value || ''}}</span>
+                            <span class="ml-3">टोल: <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                           formControlName="companyRegTempTole">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRegTempTole').value || ''}}</span> </span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ऋणीको तर्फबाट अख्तियार प्राप्त व्यक्तिको नाम:
+                        </td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeName">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeName').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            अख्तियार प्राप्त व्यक्तिको बाजे/ससुराको नाम:
+                        </td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeGrandFatherName">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeGrandFatherName').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            अख्तियार प्राप्त व्यक्तिको बाबुको नाम:
+                        </td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeFatherName">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeFatherName').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            अख्तियार प्राप्त व्यक्तिको पतिको नाम:
+                        </td>
+                        <td><input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                   formControlName="companyRepresentativeHusbandName">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeHusbandName').value || ''}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको ठेगाना:</td>
+                        <td>जिल्ला:
+                            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                           formControlName="companyRepresentativeDistrict">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeDistrict').value || ''}}</span>
+                             न.पा./गा.पा.:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                 formControlName="companyRepresentativeVdc">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeVdc').value || ''}}</span>
+                            वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                          formControlName="companyRepresentativeWardNo">
+                            <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeWardNo').value || ''}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको नागरिकता विवरण:</td>
+                        <td>ना.प्र.नं.:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                              formControlName="representativeCitizenNumber">
+                            <span class="print-only preetiFont font24">{{this.form.get('representativeCitizenNumber').value || ''}}</span>
+                            <span class="ml-3">जारी मिति:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                formControlName="representativeCitizenIssueDate"></span>
+                            <span class="print-only preetiFont font24">{{this.form.get('representativeCitizenIssueDate').value || ''}}</span>
+                            <span class="ml-3"> नागरिकता जारी गर्ने कार्यालय:<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                                    formControlName="representativeCitizenOffice"></span>
+                            <span class="print-only preetiFont font24">{{this.form.get('representativeCitizenOffice').value || ''}}</span> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <span><strong>ख . धितो प्रदान गरेको चालु सम्पतिहरुको विवरण :</strong></span>
+                <table class="table table-sm table-bordered">
+                   <thead>
+                    <tr>
+                        <th style="width: 30%">क्र.सं.</th>
+                        <th>चालु सम्पतिको विवरण</th>
+                        <th>धितोको अन्दाजी मूल्य (ने.रु.)</th>
+                    </tr>
+                   </thead>
+                    <tbody>
+                    <tr>
+                        <td>१. </td>
+                        <td>बैंकलाई बुझाएको विवरण बमोजिमको सर सामानको मौज्दात (Stock value)</td>
+                        <td class="font-weight-bold">रु. <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                formControlName="stockValue">
+                            <span class="print-only preetiFont font24">{{this.form.get('stockValue').value || ''}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>२. </td>
+                        <td>बैंकलाई बुझाएको विवरण बमोजिमको उठाँउन वाँकी रकम (Receivable and Book Debt value)</td>
+                        <td class="font-weight-bold">रु. <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                                                                formControlName="debtValue">
+                            <span class="print-only preetiFont font24">{{this.form.get('debtValue').value || ''}}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>माथी उल्लेखित हाल कायमी धितो तथा ऋणी कम्पनीले धनी बैंकलाई समय समयमा बुझाएको/बुझाउने विवरण बमोजिमको हुनेछ र सो विवरणलाई
+                यसै लिखतको अभिन्न अंगको रुपमा मानिनेछ ।</p>
 
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            <p><strong class="text-center">साक्षी</strong></p>
+            १. जिल्ला <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="districtOne">
-                    <span class="print-only nepaliFont"><b>{{form.get('districtOne').value ? form.get('districtOne').value : '========='}}</b></span>
-
-                    जिल्ला,
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+                    <span class="print-only nepaliFont"><b>{{form.get('districtOne').value ? form.get('districtOne').value : '========='}}</b></span>,
+            गा.पा./न.पा. <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="municipalityOne">
                     <span class="print-only nepaliFont"><b>{{form.get('municipalityOne').value ? form.get('municipalityOne').value : '========='}}</b></span>
-
-                    गा.पा./न.पा. वडा नं
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            वडा नं. <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="wardNum">
                     <span class="print-only nepaliFont"><b>{{form.get('wardNum').value ? form.get('wardNum').value : '========='}}</b></span>
-
-                    बस्ने बर्ष
-                    <input type="text" class="form-control-xsm form-field nepaliFont disable-print"
-                           formControlName="ageOne">
-                    <span class="print-only nepaliFont"><b>{{form.get('ageOne').value ? form.get('ageOne').value : '========='}}</b></span>
-
-                    को
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            बस्ने बर्ष <input type="text" class="form-control-xsm form-field nepaliFont disable-print"
+                             formControlName="ageOne">
+            <span class="print-only nepaliFont"><b>{{form.get('ageOne').value ? form.get('ageOne').value : '========='}}</b></span>
+            को <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="sakshiName">
-                    <span class="print-only nepaliFont"><b>{{form.get('sakshiName').value ? form.get('sakshiName').value : '========='}}</b></span>
+            <span class="print-only nepaliFont"><b>{{form.get('sakshiName').value ? form.get('sakshiName').value : '========='}}</b></span>
             <br>
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            २. जिल्ला <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="districtTwo">
-                    <span class="print-only nepaliFont"><b>{{form.get('districtTwo').value ? form.get('districtTwo').value : '========='}}</b></span>
-
-                    जिल्ला,
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            <span class="print-only nepaliFont"><b>{{form.get('districtTwo').value ? form.get('districtTwo').value : '========='}}</b></span>,
+            गा.पा./न.पा.
+            <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="municipalityTwo">
-                    <span class="print-only nepaliFont"><b>{{form.get('municipalityTwo').value ? form.get('municipalityTwo').value : '========='}}</b></span>
-
-                    गा.पा./न.पा. वडा नं
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            <span class="print-only nepaliFont"><b>{{form.get('municipalityTwo').value ? form.get('municipalityTwo').value : '========='}}</b></span>,
+            वडा नं. <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="wardNumTwo">
-                    <span class="print-only nepaliFont"><b>{{form.get('wardNumTwo').value ? form.get('wardNumTwo').value : '========='}}</b></span>
-
-                    बस्ने बर्ष
-                    <input type="text" class="form-control-xsm form-field nepaliFont disable-print"
+            <span class="print-only nepaliFont"><b>{{form.get('wardNumTwo').value ? form.get('wardNumTwo').value : '========='}}</b></span>
+            बस्ने बर्ष
+            <input type="text" class="form-control-xsm form-field nepaliFont disable-print"
                            formControlName="ageTwo">
-                    <span class="print-only nepaliFont"><b>{{form.get('ageTwo').value ? form.get('ageTwo').value : '========='}}</b></span>
-
-                    को
-                    <input type="text" class="form-control-sm form-field nepaliFont disable-print"
+            <span class="print-only nepaliFont"><b>{{form.get('ageTwo').value ? form.get('ageTwo').value : '========='}}</b></span>
+            को
+            <input type="text" class="form-control-sm form-field nepaliFont disable-print"
                            formControlName="sakshiNameTwo">
-                    <span class="print-only nepaliFont"><b>{{form.get('sakshiNameTwo').value ? form.get('sakshiNameTwo').value : '========='}}</b></span>
-
-<br>
-            <b>सनाखत साक्षी</b>ः उपरोक्त कारणीले मेरो सामुन्नेमा सहि छाप गरेको ठिक हो भनी सहि गर्ने धनी बैंकको
-            <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            <span class="print-only nepaliFont"><b>{{form.get('sakshiNameTwo').value ? form.get('sakshiNameTwo').value : '========='}}</b></span>
+            <br>
+            <strong>सनाखत साक्षी</strong>ः कारणीलाई म राम्ररी चिन्दछु निजले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही गर्ने धनी बैंकमा
+         <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="role">
             <span class="print-only nepaliFont"><b>{{form.get('role').value ? form.get('role').value : '========='}}</b></span>
             पदमा कार्यरत
             <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="roleName">
             <span class="print-only nepaliFont"><b>{{form.get('roleName').value ? form.get('roleName').value : '========='}}</b></span>
-
             ।
             <br>
             ईति संवत् <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                               formControlName="itiSambatYear">
             <span class="print-only nepaliFont"><b>{{form.get('itiSambatYear').value ? form.get('itiSambatYear').value : '========='}}</b></span>
-
             साल
             <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="itiSambatMonth">
             <span class="print-only nepaliFont"><b>{{form.get('itiSambatMonth').value ? form.get('itiSambatMonth').value : '========='}}</b></span>
-
-            महिना<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            महिना <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                          formControlName="itiSambatDay">
             <span class="print-only nepaliFont"><b>{{form.get('itiSambatDay').value ? form.get('itiSambatDay').value : '========='}}</b></span>
-
-            गते रोज<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            गते रोज <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="roj">
             <span class="print-only nepaliFont"><b>{{form.get('roj').value ? form.get('roj').value : '========='}}</b></span>
-
             शुभम् ________________________।
-
-                <div>
-                    <button type="submit"
-                            class="btn btn-primary float-right disable-print"
-                            nbButton
-                            status="success"
-                            [disabled]="spinner">
-                        Save
-                    </button>
-                </div>
+            <div>
+                <button type="submit"
+                        class="btn btn-primary float-right disable-print d-print-none"
+                        nbButton
+                        status="success"
+                        [disabled]="spinner">
+                    Save
+                </button>
+                <button class="btn btn-primary d-print-none"
+                        [useExistingCss]="true"
+                        [disabled]="!initialInfoPrint"
+                        printSectionId="print-section-{{offerLetterConst.HYPOTHECATION_OVER_STOCK_AND_RECEIVABLE}}"
+                        ngxPrint nbButton>print
+                </button>
+            </div>
         </form>
-        <button class="btn btn-primary d-print-none"
-                [useExistingCss]="true"
-                [disabled]="!initialInfoPrint"
-                printSectionId="print-section-{{offerLetterConst.HYPOTHECATION_OVER_STOCK_AND_RECEIVABLE}}"
-                ngxPrint>print
-        </button>
     </div>
 </div>
 

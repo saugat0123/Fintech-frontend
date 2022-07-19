@@ -1,4 +1,5 @@
 <div class="row">
+  <p class="header"><strong class="header">Business Information</strong></p>
     <div class="col-md-12">
       <p  class="sub-header"><strong   class="header">Business Profile</strong></p>
       <table
@@ -195,7 +196,7 @@
         </ng-container>
 
         <tr>
-          <td><b>Client Type</b></td>
+          <td><b>Business Segment</b></td>
           <td>{{loanDataHolder?.loanHolder['clientType'] | clientType}}</td>
 
         </tr>
@@ -256,13 +257,7 @@
       <th>Business Process </th>
     </tr>
     <tr>
-      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-      <th>Major Suppliers</th>
-    </tr>
-    <tr>
-      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground ? companyJsonData?.companyBackground : 'N/A' | safeHtml"></span></td>
     </tr>
     <tr class="text-white sb-bg-dark">
       <th>Major Buyers</th>
@@ -271,7 +266,13 @@
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
     </tr>
     <tr class="text-white sb-bg-dark">
-      <th>Risk & Mitigation</th>
+      <th>Major Suppliers</th>
+    </tr>
+    <tr>
+      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+      <th>Risk & Mitigants</th>
     </tr>
     <tr>
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>

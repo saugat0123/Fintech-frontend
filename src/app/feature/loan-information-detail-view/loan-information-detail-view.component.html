@@ -53,17 +53,30 @@
                                     <b>Branch Code: {{loanDataHolder?.branch.branchCode}}</b>
                                 </div>
                                 <br/>
-                                <div><strong class="float-left">Product:  </strong>
-                                    <table class="table-borderless float-left text-justify">
+                                <div><strong class="float-left">Product:</strong>
+                                    <table class="table table-sm table-responsive-sm float-left">
+                                        <thead>
+                                        <tr class="sb-bg-dark text-white">
+                                            <td>Facility Name</td>
+                                            <td>Approving Level</td>
+                                            <td>Credit Risk</td>
+                                        </tr>
+                                        </thead>
                                         <tr *ngFor="let allLoan of allLoanList">
                                             <td>
                                                 {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                            <td>
+                                                {{allLoan?.approvingLevel}}
+                                            </td>
+                                            <td>
+                                                {{allLoan?.creditRisk}}
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <br/>
-                                <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                                <div class="float-left text-justify" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
                                         <span><strong>Review Date: </strong>
                                             <ng-container *ngIf="naChecked; else date">
                                                 {{'NA'}}
@@ -147,8 +160,8 @@
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
                 <!--     Group Summary Sheet    -->
-                <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
-
+                <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.mgroupInfo" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+                <hr class="print-line">
                 <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
                                            [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"

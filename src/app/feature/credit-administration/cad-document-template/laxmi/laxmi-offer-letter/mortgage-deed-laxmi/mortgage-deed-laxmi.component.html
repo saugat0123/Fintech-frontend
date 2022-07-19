@@ -3,42 +3,54 @@
         <p style="text-align:right">टोकन नं./दर्ता नं.र मिति :
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal  disable-print"
                    formControlName="dateRegistration">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('dateRegistration').value ? mortgageForm?.get('dateRegistration').value : '========='}}</b></span>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('dateRegistration').value ? mortgageForm?.get('dateRegistration').value : '========='}}</strong></span>
             रजिष्ट्रेशन नं. र मिति :
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                              formControlName="registrationDate">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('registrationDate').value ? mortgageForm?.get('registrationDate').value : '========='}}</b></span></p>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('registrationDate').value ? mortgageForm?.get('registrationDate').value : '========='}}</strong></span></p>
         <br>
-        <p class="text-center"><strong>विषय : धितो बन्धक लिखत ।</strong></p>
+        <p class="text-center"><strong>विषय : <u>धितो बन्धक लिखत</u> ।</strong></p>
         <br>
         <p>
-            लिखितम लिखत गराई लिनेको नाम काठमाण्डौ जिल्ला, का.म.न.पा. वडा नं. १ हात्तिसार स्थित <strong>लक्ष्मी बैंक लिमिटेड</strong>को शाखा कार्यालय,
-            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            लिखितम लिखत गराई लिनेको नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका
+            वडा नं.१ हात्तिसार स्थित केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेड</strong>को जिल्ला
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                   formControlName="branchDistrict">
+            <span class="print-only preetiFont font24">{{this.mortgageForm.get('branchDistrict').value || ''}}</span> गा.पा./न.पा.
+            <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                   formControlName="branchMun">
+            <span class="print-only preetiFont font24">{{this.mortgageForm.get('branchMun').value || ''}}</span>
+            वडा न.
+            <input type="text" class="preetiFont form-control-sm form-field d-print-none"
+                   formControlName="branchWardNo">
+            <span class="print-only preetiFont">{{this.mortgageForm.get('branchWardNo').value || ''}}</span>
+            स्थित शाखा कार्यालय,
+            <input type="text" class="preetiFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="branchName">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('branchName').value ? mortgageForm?.get('branchName').value : '========='}}</b></span>
+            <span class="preetiFont print-only"><strong>{{mortgageForm?.get('branchName').value ? mortgageForm?.get('branchName').value : '========='}}</strong></span>
             (यसपछि <strong>धनी बैंक</strong> भनिएको छ) धितो बन्धक लेखिदिनेको नाम
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="lekhidiekoNaam">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('lekhidiekoNaam').value ? mortgageForm?.get('lekhidiekoNaam').value : '========='}}</b></span>
-            (यसपछि <strong>धितो सुरक्षण कर्ता</strong> भनिएकोछ) आगे, ऋणीको नाम
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('lekhidiekoNaam').value ? mortgageForm?.get('lekhidiekoNaam').value : '========='}}</strong></span>
+            (यसपछि <strong>धितो सुरक्षण कर्ता</strong> भनिएको छ) आगे, ऋणीको नाम
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="borrowerName">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerName').value ? mortgageForm?.get('borrowerName').value : '========='}}</b></span>
-            (यसपछि <strong>ऋणी</strong> भनिएकोछ) ले धनी बैंकको स्वीकृतिपत्र (अफर लेटर) न
-            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerName').value ? mortgageForm?.get('borrowerName').value : '========='}}</strong></span>
+            (यसपछि <strong>ऋणी</strong> भनिएको छ) ले धनी बैंकको स्वीकृतिपत्र/कर्जा प्रस्तावपत्र नं.
+            <input type="text" class="form-field form-control-sm font-size-normal disable-print"
                     formControlName="acceptanceNumber"> \
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('acceptanceNumber').value ? mortgageForm?.get('acceptanceNumber').value : '========='}}</b></span>
-            मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            <span class="print-only"><strong>{{mortgageForm?.get('acceptanceNumber').value ? mortgageForm?.get('acceptanceNumber').value : '========='}}</strong></span>
+            मिति <input type="text" class="form-field form-control-sm font-size-normal disable-print"
                     formControlName="date">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('date').value ? mortgageForm?.get('date').value : '========='}}</b></span>
+            <span class="print-only"><strong>{{mortgageForm?.get('date').value ? mortgageForm?.get('date').value : '========='}}</strong></span>
             को शर्त कबुलियत अनुसार प्राप्त गर्ने कर्जा रकम रु.
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="proposedAmount" (change)="con($event)">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('proposedAmount').value ? mortgageForm?.get('proposedAmount').value : '========='}}</b></span>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('proposedAmount').value ? mortgageForm?.get('proposedAmount').value : '========='}}</strong></span>
             (<strong>अक्षरेपी रुपैयाँ </strong>
             <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                     formControlName="amountInWords">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('amountInWords').value ? mortgageForm?.get('amountInWords').value : '========='}}</b></span> <strong> मात्र</strong>)
+            <span class="preetiFont print-only"><strong>{{mortgageForm?.get('amountInWords').value ? mortgageForm?.get('amountInWords').value : '========='}}</strong></span> <strong> मात्र</strong>)
             को सुरक्षण बापत धितो बन्धक लेखिदिन आज यस बैंकमा उपस्थित हुन आएकोमा उक्त बमोजिम धितो बन्धक लेखिदिन मन्जुर छ छैन भनी धनी बैंकबाट सोधनी गरेकोमा म/हामी धितो सुरक्षणकर्ताको चित्त बुझ्यो उक्त बमोजिम पटक पटक वा एकै पटक गरी
             र नविकरण गर्नु परेमा बैंकले पटक पटक नविकरण समेत गर्न सक्ने गरी लेखिए बमोजिम ऋणीले प्राप्त गर्ने/गरेको ऋण तथा बैंकिंग सुविधाहरुको सुरक्षण वापत म/हामी धितो सुरक्षणकर्ताको नाममा दर्ता भई आफैले भोगचलन गरि आएको अरु कसैलाई कुनै व्यहोराबाट धितो बन्धक वा राजिनामा वा अन्य कुनै लिखत गरि हक छाडी नदिएको सम्बन्धित मालपोत
             कार्यालयको लगतमा दर्ता रहेको तपसिलमा उल्लेखित जायजेथा र सोमा हाल भएको वा भविष्यमा निर्माण हुने आवासीय तथा व्यापारिक घर, भवन, टहरा, पर्खाल, परियोजना, उद्योग र सोमा हाल भएको वा पछि स्थापना गरेको जडित मिल मेशिनरी, पार्ट पुर्जा, विद्युत लाईन, खानेपानी, जडित विद्युतीय उपकरण, स्थापना तथा संचालनमा रहेको उद्योग,
@@ -53,41 +65,40 @@
             सहिछाप गरि धितो बन्धक लिखत पारित गरी धनी बैंकलाई जग्गाधनी दर्ता प्रमाण पत्र सक्कलै र यो लिखत जिम्मा लगाई दियौं ।
         </p>
         <br>
-        <p><strong>लिखत गरिदिने (धितो दिने व्यक्ति) को विवरण र सहिछाप</strong> : यो धितो बन्धक दिएको जग्गा समेत गर्दा नेपाल राज्य भरमा मेरो र मेरो परिवारको नाममा हदबन्दी भन्दा बढी जग्गा छैन।</p>
-        <br>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <div class="col-md-12" *ngIf="loanCategory === 'INDIVIDUAL'">
+            <p><strong>लिखत गरिदिने (धितो दिने व्यक्ति) को विवरण र सहिछाप</strong> : यो धितो बन्धक दिएको जग्गा समेत गर्दा नेपाल राज्य भरमा मेरो र मेरो परिवारको नाममा हदबन्दी भन्दा बढी जग्गा छैन।</p>
+            <br>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <tr>
                 <td colspan="1" class="text-left pl-1"> नाम, थर (देवनागरीमा) :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="nepaliName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('nepaliName').value ? mortgageForm?.get('nepaliName').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('nepaliName').value ? mortgageForm?.get('nepaliName').value : '========='}}</strong></span>
                 </td>
                 <td colspan="1"  class="text-left pl-1">नाम, थर (अंग्रेजीमा) :
-                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                    <input type="text" class="form-field form-control-sm font-size-normal disable-print"
                            formControlName="englishName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('englishName').value ? mortgageForm?.get('englishName').value : '========='}}</b></span>
+                    <span class="print-only"><strong>{{mortgageForm?.get('englishName').value ? mortgageForm?.get('englishName').value : '========='}}</strong></span>
                 </td>
                 <td colspan="1" class="text-left pl-1">जन्म मिति :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="dateOfBirth">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('dateOfBirth').value ? mortgageForm?.get('dateOfBirth').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('dateOfBirth').value ? mortgageForm?.get('dateOfBirth').value : '========='}}</strong></span>
                 </td>
-                <td colspan="1" rowspan="4" class="text-left pl-1">
-                    दस्तखत : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                    formControlName="signature1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('signature1').value ? mortgageForm?.get('signature1').value : '========='}}</b></span>
+                <td colspan="1" rowspan="6" class="text-left pl-1">
+                    दस्तखत : <br><br><br><br>.........................................................
                     <ng-container>
                         <table class="table table-borderless table-responsive-md text-center table-sm sb-small">
                             <thead>
                             <tr style="height: 160px; width: 140px" >
-                                <td width="50%" style="border: 1px solid"></td>
-                                <td width="50%" style="border: 1px solid"></td>
+                                <td style="width: 50%" style="border: 1px solid"></td>
+                                <td style="width: 50%" style="border: 1px solid"></td>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td width="50%">दायाँ</td>
-                                <td width="50%">बायाँ</td>
+                                <td style="width: 50%">दायाँ</td>
+                                <td style="width: 50%">बायाँ</td>
                             </tr>
                             </tbody>
                         </table>
@@ -98,74 +109,355 @@
                 <td colspan="2" class="text-left pl-1">ठेगाना :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="address">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('address').value ? mortgageForm?.get('address').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('address').value ? mortgageForm?.get('address').value : '========='}}</strong></span>
                 </td>
-                <td colspan="1" class="text-left pl-1">लिङ्ग :
+                <td class="text-left pl-1">लिङ्ग :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="gender">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('gender').value ? mortgageForm?.get('gender').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('gender').value ? mortgageForm?.get('gender').value : '========='}}</strong></span>
                 </td>
             </tr>
             <tr>
-                <td colspan="1" class="text-left pl-1">
+                <td colspan="1" rowspan="2" class="text-left pl-1">
                     नागरिकता नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                           formControlName="citizenshipNumber">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('citizenshipNumber').value ? mortgageForm?.get('citizenshipNumber').value : '========='}}</b></span> <br>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipNumber').value ? mortgageForm?.get('citizenshipNumber').value : '========='}}</strong></span> <br>
                     जारी मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                        formControlName="issuedDate">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('issuedDate').value ? mortgageForm?.get('issuedDate').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedDate').value ? mortgageForm?.get('issuedDate').value : '========='}}</strong></span>
                 </td>
-                <td colspan="1" class="text-left pl-1">
+                <td colspan="1" rowspan="2" class="text-left pl-1">
                     नागरिकता जारी गर्ने कार्यालय र स्थान : <input type="text" class="nepaliFont form-field form-control-sm font-size-norma disable-print"
-                                                                  formControlName="issuedPlace">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('issuedPlace').value ? mortgageForm?.get('issuedPlace').value : '========='}}</b></span>
+                                                                   formControlName="issuedPlace">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedPlace').value ? mortgageForm?.get('issuedPlace').value : '========='}}</strong></span>
                 </td>
-                <td colspan="1" class="text-left pl-1">
+                <td class="text-left pl-1">
                     जग्गाधनी सङ्केत नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                 formControlName="landLordSignNumber">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('landLordSignNumber').value ? mortgageForm?.get('landLordSignNumber').value : '========='}}</b></span> <br>
-                    मोबाईल नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="mobileNumber">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('mobileNumber').value ? mortgageForm?.get('mobileNumber').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('landLordSignNumber').value ? mortgageForm?.get('landLordSignNumber').value : '========='}}</strong></span> <br>
                 </td>
             </tr>
             <tr>
-                <td colspan="1" class="text-left pl-1">
+                <td class="text-left pl-1">
+                    मोबाईल नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="mobileNumber">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('mobileNumber').value ? mortgageForm?.get('mobileNumber').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" rowspan="2" class="text-left pl-1">
                     पति/पत्नीको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                              formControlName="husbandWifeName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('husbandWifeName').value ? mortgageForm?.get('husbandWifeName').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('husbandWifeName').value ? mortgageForm?.get('husbandWifeName').value : '========='}}</strong></span>
                 </td>
                 <td colspan="1" class="text-left pl-1">
                     बाबुको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                         formControlName="fatherName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('fatherName').value ? mortgageForm?.get('fatherName').value : '========='}}</b></span> <br>
-                    बाजेको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                        formControlName="grandFatherName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('grandFatherName').value ? mortgageForm?.get('grandFatherName').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('fatherName').value ? mortgageForm?.get('fatherName').value : '========='}}</strong></span> <br>
                 </td>
                 <td colspan="1" class="text-left pl-1">
+                    बाजेको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="grandFatherName">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('motherName').value ? mortgageForm?.get('motherName').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">
                     आमाको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                        formControlName="motherName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('motherName').value ? mortgageForm?.get('motherName').value : '========='}}</b></span> <br>
+                                       formControlName="motherName">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('grandMotherName').value ? mortgageForm?.get('grandMotherName').value : '========='}}</strong></span>
+                </td>
+                <td class="text-left pl-1">
                     बजैको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                        formControlName="grandMotherName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('grandMotherName').value ? mortgageForm?.get('grandMotherName').value : '========='}}</b></span>
+                                       formControlName="grandMotherName">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('grandFatherName').value ? mortgageForm?.get('grandFatherName').value : '========='}}</strong></span>
                 </td>
             </tr>
         </table>
-        <p><strong>लिखत गराई लिने (धनी बैंक) को विवरण र सहिछाप</strong></p>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        </div>
+        <div class="col-md-12" *ngIf="loanCategory === 'INSTITUTION'">
+            <p><strong>लिखत गरिदिने (फर्म/कम्पनी) को विवरण र सहिछाप</strong> : यो धितो बन्धक दिएको जग्गा समेत गर्दा नेपाल राज्य भरमा मेरो र मेरो परिवारको नाममा हदबन्दी भन्दा बढी जग्गा छैन।</p>
+            <br>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <tr>
-                <td colspan="1" class="text-left pl-1">नाम, थर (देवनागरीमा) : लक्ष्मी बैंक लि.</td>
-                <td colspan="1" class="text-left pl-1">नाम, थर (अंग्रेजीमा) :</td>
-                <td colspan="1" class="text-left pl-1" rowspan="4">धनी बैंकको छाप <br><br><br>
-                    दस्तखत : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                    formControlName="signature2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('signature2').value ? mortgageForm?.get('signature2').value : '========='}}</b></span>
+                <td colspan="1" class="text-left pl-1"> नाम, थर (देवनागरीमा) :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="nepaliNameCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('nepaliNameCompany').value ? mortgageForm?.get('nepaliNameCompany').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1"  class="text-left pl-1">नाम, थर (अंग्रेजीमा) :
+                    <input type="text" class="form-field form-control-sm font-size-normal disable-print"
+                           formControlName="englishNameCompany">
+                    <span class="print-only"><strong>{{mortgageForm?.get('englishNameCompany').value ? mortgageForm?.get('englishNameCompany').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" rowspan="6" class="text-left pl-1">
+                    <br><br>
+                    ऋणी संस्थाको छाप
+                    <br><br><br><br><br>
+                    दस्तखत : <br><br><br><br>.........................................................
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="text-left pl-1">ठेगाना : का.जि.का.म.न.पा.वडा नं.१ हात्तिसार काठमाण्डौ ।</td>
+                <td colspan="2" class="text-left pl-1">ठेगाना :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="addressCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('addressCompany').value ? mortgageForm?.get('addressCompany').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="text-left pl-1">
+                    दर्ता नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                          formControlName="citizenshipNumberCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipNumberCompany').value ? mortgageForm?.get('citizenshipNumberCompany').value : '========='}}</strong></span> <br>
+                </td>
+                <td colspan="1" class="text-left pl-1">
+                    दर्ता मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="issuedDateCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedDateCompany').value ? mortgageForm?.get('issuedDateCompany').value : '========='}}</strong></span><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"> दर्ता भएको कार्यालय : <input type="text" class="nepaliFont form-field form-control-sm font-size-norma disable-print"
+                                                  formControlName="issuedPlaceCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedPlaceCompany').value ? mortgageForm?.get('issuedPlaceCompany').value : '========='}}</strong></span>
+                </td>
+                <td class="text-left pl-1">
+                    स्थायी लेखा नं. : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="sthaiNo">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('sthaiNo').value ? mortgageForm?.get('sthaiNo').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="text-left pl-1">
+                    अख्तियार प्राप्त व्यक्तिको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="akhtiyarPerson">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('akhtiyarPerson').value ? mortgageForm?.get('akhtiyarPerson').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" class="text-left pl-1">
+                    ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="akhtiyarAddress">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('akhtiyarAddress').value ? mortgageForm?.get('akhtiyarAddress').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">ना.प्र.नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                      formControlName="citizenshipNoCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipNoCompany').value ? mortgageForm?.get('citizenshipNoCompany').value : '========='}}</strong></span>
+                    नागरिकता जारी मिति
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="citizenshipDateCompany">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipDateCompany').value ? mortgageForm?.get('citizenshipDateCompany').value : '========='}}</strong></span></td>
+                <td class="text-left pl-1">
+                    नागरिकता जारी गर्ने कार्यालय : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                          formControlName="citizenshipOffice">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipOffice').value ? mortgageForm?.get('citizenshipOffice').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <div class="col-md-12" *ngIf="loanCategory === 'INDIVIDUAL'">
+            <p><strong>ऋणीको विवरण र सहिछाप (व्यक्ति ऋणी भएमा)</strong></p>
+            <br>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <tr>
+                <td colspan="1" class="text-left pl-1"> नाम, थर (देवनागरीमा) :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="nepaliName1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('nepaliName1').value ? mortgageForm?.get('nepaliName1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1"  class="text-left pl-1">नाम, थर (अंग्रेजीमा) :
+                    <input type="text" class="form-field form-control-sm font-size-normal disable-print"
+                           formControlName="englishName1">
+                    <span class="print-only"><strong>{{mortgageForm?.get('englishName1').value ? mortgageForm?.get('englishName1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" class="text-left pl-1">जन्म मिति :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="dateOfBirth1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('dateOfBirth1').value ? mortgageForm?.get('dateOfBirth1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" rowspan="6" class="text-left pl-1">
+                    दस्तखत : <br><br><br><br>.........................................................
+                    <ng-container>
+                        <table class="table table-borderless table-responsive-md text-center table-sm sb-small">
+                            <thead>
+                            <tr style="height: 160px; width: 140px" >
+                                <td style="width: 50%" style="border: 1px solid"></td>
+                                <td style="width: 50%" style="border: 1px solid"></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="width: 50%">दायाँ</td>
+                                <td style="width: 50%">बायाँ</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-left pl-1">ठेगाना :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="address1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('address1').value ? mortgageForm?.get('address1').value : '========='}}</strong></span>
+                </td>
+                <td class="text-left pl-1">लिङ्ग :
+                    <input type="text" class="preetiFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="gender1">
+                    <span class="preetiFont print-only"><strong>{{mortgageForm?.get('gender1').value ? mortgageForm?.get('gender1').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" rowspan="2" class="text-left pl-1">
+                    नागरिकता नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                          formControlName="citizenshipNumber1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipNumber1').value ? mortgageForm?.get('citizenshipNumber1').value : '========='}}</strong></span> <br>
+                    जारी मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="issuedDate1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedDate1').value ? mortgageForm?.get('issuedDate1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" rowspan="2" class="text-left pl-1">
+                    नागरिकता जारी गर्ने कार्यालय र स्थान : <input type="text" class="nepaliFont form-field form-control-sm font-size-norma disable-print"
+                                                                   formControlName="issuedPlace1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedPlace1').value ? mortgageForm?.get('issuedPlace1').value : '========='}}</strong></span>
+                </td>
+                <td class="text-left pl-1">
+                    जग्गाधनी सङ्केत नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                formControlName="landLordSignNumber1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('landLordSignNumber1').value ? mortgageForm?.get('landLordSignNumber1').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">
+                    मोबाईल नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="mobileNumber1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('mobileNumber1').value ? mortgageForm?.get('mobileNumber1').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" rowspan="2" class="text-left pl-1">
+                    पति/पत्नीको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="husbandWifeName1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('husbandWifeName1').value ? mortgageForm?.get('husbandWifeName1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" class="text-left pl-1">
+                    बाबुको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="fatherName1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('fatherName1').value ? mortgageForm?.get('fatherName1').value : '========='}}</strong></span> <br>
+                </td>
+                <td colspan="1" class="text-left pl-1">
+                    बाजेको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="grandFatherName1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('grandFatherName1').value ? mortgageForm?.get('grandFatherName1').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">
+                    आमाको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="motherName1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('motherName1').value ? mortgageForm?.get('motherName1').value : '========='}}</strong></span>
+                </td>
+                <td class="text-left pl-1">
+                    बजैको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="grandMotherName1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('grandMotherName1').value ? mortgageForm?.get('grandMotherName1').value : '========='}}</strong></span>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <div class="col-md-12" *ngIf="loanCategory === 'INSTITUTION'">
+            <p><strong>ऋणीको विवरण (फर्म/कम्पनी ऋणी भएमा)</strong></p>
+            <br>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <tr>
+                <td colspan="1" class="text-left pl-1"> नाम, थर (देवनागरीमा) :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="nepaliNameCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('nepaliNameCompany1').value ? mortgageForm?.get('nepaliNameCompany1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1"  class="text-left pl-1">नाम, थर (अंग्रेजीमा) :
+                    <input type="text" class="form-field form-control-sm font-size-normal disable-print"
+                           formControlName="englishNameCompany1">
+                    <span class="print-only"><strong>{{mortgageForm?.get('englishNameCompany1').value ? mortgageForm?.get('englishNameCompany1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" rowspan="6" class="text-left pl-1">
+                    <br><br>
+                    ऋणी संस्थाको छाप
+                    <br><br><br><br><br>
+                    दस्तखत : <br><br><br><br>.........................................................
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-left pl-1">ठेगाना :
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="addressCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('addressCompany1').value ? mortgageForm?.get('addressCompany1').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="text-left pl-1">
+                    दर्ता नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                      formControlName="citizenshipNumberCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipNumberCompany1').value ? mortgageForm?.get('citizenshipNumberCompany1').value : '========='}}</strong></span> <br>
+                </td>
+                <td colspan="1" class="text-left pl-1">
+                    दर्ता मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="issuedDateCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedDateCompany1').value ? mortgageForm?.get('issuedDateCompany1').value : '========='}}</strong></span><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"> दर्ता भएको कार्यालय : <input type="text" class="nepaliFont form-field form-control-sm font-size-norma disable-print"
+                                                                         formControlName="issuedPlaceCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('issuedPlaceCompany1').value ? mortgageForm?.get('issuedPlaceCompany1').value : '========='}}</strong></span>
+                </td>
+                <td class="text-left pl-1">
+                    स्थायी लेखा नं. : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="sthaiNo1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('sthaiNo1').value ? mortgageForm?.get('sthaiNo1').value : '========='}}</strong></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" class="text-left pl-1">
+                    अख्तियार प्राप्त व्यक्तिको नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                            formControlName="akhtiyarPerson1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('akhtiyarPerson1').value ? mortgageForm?.get('akhtiyarPerson1').value : '========='}}</strong></span>
+                </td>
+                <td colspan="1" class="text-left pl-1">
+                    ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="akhtiyarAddress1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('akhtiyarAddress1').value ? mortgageForm?.get('akhtiyarAddress1').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">ना.प्र.नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                             formControlName="citizenshipNoCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipNoCompany1').value ? mortgageForm?.get('citizenshipNoCompany1').value : '========='}}</strong></span>
+                    नागरिकता जारी मिति
+                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                           formControlName="citizenshipDateCompany1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipDateCompany1').value ? mortgageForm?.get('citizenshipDateCompany1').value : '========='}}</strong></span></td>
+                <td class="text-left pl-1">
+                    नागरिकता जारी गर्ने कार्यालय : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                          formControlName="citizenshipOffice1">
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('citizenshipOffice1').value ? mortgageForm?.get('citizenshipOffice1').value : '========='}}</strong></span> <br>
+                </td>
+            </tr>
+        </table>
+        </div>
+        <p><strong>लिखत गराई लिने (धनी बैंक) को विवरण र सहिछाप</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <tr>
+                <td colspan="1" class="text-left pl-1">नाम, थर (देवनागरीमा) : <strong>लक्ष्मी बैंक लि.</strong></td>
+                <td colspan="1" class="text-left pl-1">नाम, थर (अंग्रेजीमा) : <strong>Laxmi Bank Ltd.</strong></td>
+                <td colspan="1" class="text-left pl-1" rowspan="4">धनी बैंकको छाप <br><br><br><br><br><br><br>
+                    दस्तखत : .........................................................
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-left pl-1">ठेगाना : का.जि.का.म.न.पा.वडा नं.१ हात्तिसार काठमाण्डौ स्थित प्रधान कार्यालयको शाखा कार्यालय <input type="text" class="preetiFont form-field form-control-sm font-size-normal disable-print"
+                                                                                                                                                          formControlName="branchName">
+                    <span class="preetiFont print-only"><strong>{{mortgageForm?.get('branchName').value ? mortgageForm?.get('branchName').value : '========='}}</strong></span>।</td>
             </tr>
             <tr>
                 <td colspan="1" class="text-left pl-1">दर्ता नं. : ८०२/०५८/५९</td>
@@ -174,7 +466,7 @@
 
             <tr>
                 <td colspan="1" class="text-left pl-1">दर्ता मिति : २०५८/०६/११</td>
-                <td colspan="1" class="text-left pl-1">दर्ता भएको कार्यालय : कम्पनी रजिष्ट्रारको कार्यालय, काठमाण्डौ</td>
+                <td colspan="1" class="text-left pl-1">दर्ता भएको कार्यालय : <strong>कम्पनी रजिष्ट्रारको कार्यालय, काठमाण्डौ</strong></td>
             </tr>
         </table>
 
@@ -184,23 +476,23 @@
                 <td class="text-center pr-1 pl-1" colspan="8"><p class="text-center">जग्गाको विवरण (स्रेस्ता बमोजिम)</p>
                     प्रदेशः <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                     formControlName="province">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('province').value ? mortgageForm?.get('province').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('province').value ? mortgageForm?.get('province').value : '========='}}</strong></span>
                     जिल्लाः <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                     formControlName="district">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('district').value ? mortgageForm?.get('district').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('district').value ? mortgageForm?.get('district').value : '========='}}</strong></span>
                 </td>
                 <td class="text-center" colspan="2">कित्ताकाट भए</td>
                 <td class="text-center" colspan="4">घरजग्गाको मुल्य (अङ्कमा) (घर र जग्गाको छुट्टा छुट्टै मुल्य राख्नु पर्नेछ)</td>
                 <td class="text-center pr-1 pl-1" colspan="1" rowspan="3">कैफियत</td>
             </tr>
             <tr>
-                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">गा.वि.स/न.पा</td>
+                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">न.पा./गा.पा.</td>
                 <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">वार्ड नं.</td>
                 <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">सिट नं.</td>
-                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">कि.नं.</td>
-                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">खण्डे</td>
-                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">क्षेत्रफल (रोपनी)</td>
-                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">विरह किसिम</td>
+                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">कि.नं.(अंक र अक्षरमा)</td>
+                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">क्षेत्रफल</td>
+                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">विरह</td>
+                <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">किसिम</td>
                 <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">मोहीको नाम, थर</td>
                 <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">तर्फ</td>
                 <td class="text-center pr-1 pl-1" colspan="1" rowspan="2">क्षेत्रफल</td>
@@ -217,77 +509,77 @@
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="municipality">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('municipality').value ? mortgageForm?.get('municipality').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('municipality').value ? mortgageForm?.get('municipality').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="wordNo">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('wordNo').value ? mortgageForm?.get('wordNo').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('wordNo').value ? mortgageForm?.get('wordNo').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="seatNo">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('seatNo').value ? mortgageForm?.get('seatNo').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('seatNo').value ? mortgageForm?.get('seatNo').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="kittaNo">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('kittaNo').value ? mortgageForm?.get('kittaNo').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('kittaNo').value ? mortgageForm?.get('kittaNo').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="khande">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('khande').value ? mortgageForm?.get('khande').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('khande').value ? mortgageForm?.get('khande').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="area">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('area').value ? mortgageForm?.get('area').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('area').value ? mortgageForm?.get('area').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="absence">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('absence').value ? mortgageForm?.get('absence').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('absence').value ? mortgageForm?.get('absence').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="mohiName">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('mohiName').value ? mortgageForm?.get('mohiName').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('mohiName').value ? mortgageForm?.get('mohiName').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="toward">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('toward').value ? mortgageForm?.get('toward').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('toward').value ? mortgageForm?.get('toward').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="area1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('area1').value ? mortgageForm?.get('area1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('area1').value ? mortgageForm?.get('area1').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="purchasedLand">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('purchasedLand').value ? mortgageForm?.get('purchasedLand').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('purchasedLand').value ? mortgageForm?.get('purchasedLand').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="purchasedHouse">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('purchasedHouse').value ? mortgageForm?.get('purchasedHouse').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('purchasedHouse').value ? mortgageForm?.get('purchasedHouse').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="soldLand">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('soldLand').value ? mortgageForm?.get('soldLand').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('soldLand').value ? mortgageForm?.get('soldLand').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="soldHouse">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('soldHouse').value ? mortgageForm?.get('soldHouse').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('soldHouse').value ? mortgageForm?.get('soldHouse').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="apology">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('apology').value ? mortgageForm?.get('apology').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('apology').value ? mortgageForm?.get('apology').value : '========='}}</strong></span>
                 </td>
             </tr>
         </table>
@@ -297,24 +589,20 @@
             <div class="col-md-6">
                 (क) चालु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                 formControlName="chalu">
-                <span class="nepaliFont print-only"><b>{{mortgageForm?.get('chalu').value ? mortgageForm?.get('chalu').value : '========='}}</b></span>
+                <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('chalu').value ? mortgageForm?.get('chalu').value : '========='}}</strong></span>
                 आ.व.को मालपोत रसिदको प्रतिलिपि थान–१
             </div>
             <div class="col-md-6">
                 (ख) <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="sepharisPatra">
-                <span class="nepaliFont print-only"><b>{{mortgageForm?.get('sepharisPatra').value ? mortgageForm?.get('sepharisPatra').value : '========='}}</b></span>
+                <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('sepharisPatra').value ? mortgageForm?.get('sepharisPatra').value : '========='}}</strong></span>
                 ले गरिदिएको घरबाटो सिफारिस पत्र सक्कल थान –१
             </div>
             <div class="col-md-6">(ग) जग्गाधनी दर्ता प्रमाण पूर्जाको प्रतिलिपि थान –१ </div>
             <div class="col-md-6">(घ) करचुक्ता प्रमाणपत्रको प्रतिलिपि –१ </div>
             <div class="col-md-6">(ङ) लिखत गरि दिनेको नागरिकताको प्रमाणपत्रको प्रतिलिपि थान –१ </div>
             <div class="col-md-6">(च) लिखत गराई लिनेको नागरिकताको प्रमाणपत्रको प्रतिलिपि थान –१ </div>
-            <div class="col-md-6">(छ) अधिकृत वारिस भए अधिकृत वारिसनामा सक्कल थान –१ </div>
-            <div class="col-md-6">(ज) नाबालक भए जन्मदर्ता प्रमाणपत्रको प्रतिलिपि थान –१</div>
-            <div class="col-md-6">(झ) लिनेको वारिस भए अख्तियारनामा सक्कल थान –१</div>
-            <div class="col-md-6">(ञ) संरक्षक/माथवर भए निजको नागरिकताको प्रमाणपत्रको प्रतिलिपि थान –१</div>
-            <div class="col-md-6"> (ट) अन्य आवश्यक प्रमाण</div>
+            <div class="col-md-6">(छ) अन्य आवश्यक प्रमाण</div>
         </div>
         <br>
         साक्षीहरु :
@@ -325,22 +613,19 @@
                 <td class="text-left pl-1" colspan="1">नाम थर :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="guarantorName1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorName1').value ? mortgageForm?.get('guarantorName1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('guarantorName1').value ? mortgageForm?.get('guarantorName1').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">ठेगाना :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="guarantorAddress1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorAddress1').value ? mortgageForm?.get('guarantorAddress1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('guarantorAddress1').value ? mortgageForm?.get('guarantorAddress1').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">बर्ष :
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="guarantorAge1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorAge1').value ? mortgageForm?.get('guarantorAge1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('guarantorAge1').value ? mortgageForm?.get('guarantorAge1').value : '========='}}</strong></span>
                 </td>
-                <td class="text-left pl-1" colspan="1">दस्तखत : <input type="text"
-                                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                                       formControlName="guarantorSignature1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorSignature1').value ? mortgageForm?.get('guarantorSignature1').value : '========='}}</b></span>
+                <td class="text-left pl-1" colspan="1">दस्तखत : <br><br><br><br>.........................................................
                 </td>
             </tr>
             <tr>
@@ -348,37 +633,34 @@
                 <td class="text-left pl-1" colspan="1">नाम थर : <input type="text"
                                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                        formControlName="guarantorName2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorName2').value ? mortgageForm?.get('guarantorName2').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('guarantorName2').value ? mortgageForm?.get('guarantorName2').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">ठेगाना : <input type="text"
                                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                        formControlName="guarantorAddress2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorAddress2').value ? mortgageForm?.get('guarantorAddress2').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('guarantorAddress2').value ? mortgageForm?.get('guarantorAddress2').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">बर्ष : <input type="text"
                                                                      class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                      formControlName="guarantorAge2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorAge2').value ? mortgageForm?.get('guarantorAge2').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('guarantorAge2').value ? mortgageForm?.get('guarantorAge2').value : '========='}}</strong></span>
                 </td>
-                <td class="text-left pl-1" colspan="1">दस्तखत : <input type="text"
-                                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                                       formControlName="guarantorSignature2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('guarantorSignature2').value ? mortgageForm?.get('guarantorSignature2').value : '========='}}</b></span>
+                <td class="text-left pl-1" colspan="1">दस्तखत : <br><br><br><br>.........................................................
                 </td>
             </tr>
         </table>
         <p>ईति सम्बत् २० <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                  formControlName="year">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('year').value ? mortgageForm?.get('year').value : '========='}}</b></span>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('year').value ? mortgageForm?.get('year').value : '========='}}</strong></span>
             साल <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                             formControlName="month">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('month').value ? mortgageForm?.get('month').value : '========='}}</b></span>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('month').value ? mortgageForm?.get('month').value : '========='}}</strong></span>
             महिना <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                           formControlName="date2">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('date2').value ? mortgageForm?.get('date2').value : '========='}}</b></span>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('date2').value ? mortgageForm?.get('date2').value : '========='}}</strong></span>
             गते रोज शुभम् <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                   formControlName="roseShumbham">
-            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('roseShumbham').value ? mortgageForm?.get('roseShumbham').value : '========='}}</b></span> ।</p>
+            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('roseShumbham').value ? mortgageForm?.get('roseShumbham').value : '========='}}</strong></span> ।</p>
         <p>यो लिखत म कारणी <strong>(धितो सुरक्षणकर्ता)</strong> ले भने बमोजिम तयार गरेको हो भनी सही गर्ने :– </p>
 
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -386,17 +668,15 @@
                 <td class="text-left pl-1" colspan="1">नाम <input type="text"
                                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                   formControlName="name1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('name1').value ? mortgageForm?.get('name1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('name1').value ? mortgageForm?.get('name1').value : '========='}}</strong></span>
                 </td>
                 <td class="text-left pl-1" colspan="1">प्र.प.सं. <input type="text"
                                                                         class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                         formControlName="praDot">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('praDot').value ? mortgageForm?.get('praDot').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('praDot').value ? mortgageForm?.get('praDot').value : '========='}}</strong></span>
                 </td>
-                <td class="text-left pl-1" colspan="1">हस्ताक्षर <input type="text"
-                                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                                        formControlName="signature3">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('signature3').value ? mortgageForm?.get('signature3').value : '========='}}</b></span>
+                <td class="text-left pl-1" colspan="1">हस्ताक्षर <br><br><br><br>.........................................................
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('signature3').value ? mortgageForm?.get('signature3').value : '========='}}</strong></span>
                 </td>
             </tr>
         </table>
@@ -404,61 +684,54 @@
 
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <tr>
-                <td class="text-left pl-1" colspan="1"><strong>लेखिएको बमोजिम श्रेस्ता कायम छ/छैन ।</strong> <br>
-                    कर्मचारीको दस्तखत <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                             formControlName="borrowerSignature1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerSignature1').value ? mortgageForm?.get('borrowerSignature1').value : '========='}}</b></span>
+                <td class="text-left pl-1" colspan="1"><strong>लेखिएको बमोजिम श्रेस्ता कायम छ/छैन ।</strong> <br><br><br><br><br>
+                    कर्मचारीको दस्तखत .........................................................
                     नाम <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                formControlName="borrowerName1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerName1').value ? mortgageForm?.get('borrowerName1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerName1').value ? mortgageForm?.get('borrowerName1').value : '========='}}</strong></span>
                     पद <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                               formControlName="borrowerDesignation1">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerDesignation1').value ? mortgageForm?.get('borrowerDesignation1').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerDesignation1').value ? mortgageForm?.get('borrowerDesignation1').value : '========='}}</strong></span>
                     मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                 formControlName="borrowerDate1">
-                <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerDate1').value ? mortgageForm?.get('borrowerDate1').value : '========='}}</b></span>
+                <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerDate1').value ? mortgageForm?.get('borrowerDate1').value : '========='}}</strong></span>
                 </td>
             </tr>
             <tr>
                 <td class="text-left pl-1" colspan="1"><strong>लेखिएको कि.नं.</strong> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                           formControlName="kittaNumber">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('kittaNumber').value ? mortgageForm?.get('kittaNumber').value : '========='}}</b></span>
-                    <strong>को जग्गा/घरजग्गा रोक्का छ/छैन ।</strong><br>
-                    कर्मचारीको दस्तखत <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                             formControlName="borrowerSignature2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerSignature2').value ? mortgageForm?.get('borrowerSignature2').value : '========='}}</b></span>
-
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('kittaNumber').value ? mortgageForm?.get('kittaNumber').value : '========='}}</strong></span>
+                    <strong>को जग्गा/घरजग्गा रोक्का छ/छैन ।</strong><br><br><br><br><br>
+                    कर्मचारीको दस्तखत .........................................................
                     नाम <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                formControlName="borrowerName2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerName2').value ? mortgageForm?.get('borrowerName2').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerName2').value ? mortgageForm?.get('borrowerName2').value : '========='}}</strong></span>
 
                     पद <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                               formControlName="borrowerDesignation2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerDesignation2').value ? mortgageForm?.get('borrowerDesignation2').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerDesignation2').value ? mortgageForm?.get('borrowerDesignation2').value : '========='}}</strong></span>
 
                     मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                 formControlName="borrowerDate2">
-                <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerDate2').value ? mortgageForm?.get('borrowerDate2').value : '========='}}</b></span>
+                <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerDate2').value ? mortgageForm?.get('borrowerDate2').value : '========='}}</strong></span>
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="1"><strong>लेखिएको जग्गाको न्यूनतम मुल्याङ्कन रु.</strong>
+                <td class="text-left pl-1" colspan="1"><strong>लेखिएको जग्गाको न्यूनतम मुल्याङ्कन रु. </strong>
                     <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                            formControlName="landAmount">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('landAmount').value ? mortgageForm?.get('landAmount').value : '========='}}</b></span>
-                    <strong>हुने देखिन्छ ।</strong> <br>
-                    कर्मचारीको दस्तखत <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                             formControlName="borrowerSignature3">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerSignature3').value ? mortgageForm?.get('borrowerSignature3').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('landAmount').value ? mortgageForm?.get('landAmount').value : '========='}}</strong></span>
+                    <strong>हुने देखिन्छ ।</strong> <br><br><br><br><br>
+                    कर्मचारीको दस्तखत .........................................................
                     नाम <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                formControlName="borrowerName3">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerName3').value ? mortgageForm?.get('borrowerName3').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerName3').value ? mortgageForm?.get('borrowerName3').value : '========='}}</strong></span>
                     पद <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                               formControlName="borrowerDesignation2">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerDesignation2').value ? mortgageForm?.get('borrowerDesignation2').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerDesignation2').value ? mortgageForm?.get('borrowerDesignation2').value : '========='}}</strong></span>
                     मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                 formControlName="borrowerDate3">
-                    <span class="nepaliFont print-only"><b>{{mortgageForm?.get('borrowerDate3').value ? mortgageForm?.get('borrowerDate3').value : '========='}}</b></span>
+                    <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('borrowerDate3').value ? mortgageForm?.get('borrowerDate3').value : '========='}}</strong></span>
                 </td>
             </tr>
         </table>
@@ -471,31 +744,31 @@
                         <td class="pr-1">
                             रजिष्ट्रेशन नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                    formControlName="registrationNumber1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('registrationNumber1').value ? mortgageForm?.get('registrationNumber1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('registrationNumber1').value ? mortgageForm?.get('registrationNumber1').value : '========='}}</strong></span> <br>
                             पारित मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                 formControlName="paritMiti1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('paritMiti1').value ? mortgageForm?.get('paritMiti1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('paritMiti1').value ? mortgageForm?.get('paritMiti1').value : '========='}}</strong></span> <br>
                             टोकन  दर्ता नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                    formControlName="tokenNumber1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('tokenNumber1').value ? mortgageForm?.get('tokenNumber1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('tokenNumber1').value ? mortgageForm?.get('tokenNumber1').value : '========='}}</strong></span> <br>
                             मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                           formControlName="date1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('date1').value ? mortgageForm?.get('date1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('date1').value ? mortgageForm?.get('date1').value : '========='}}</strong></span> <br>
                             कारोबार (थैली) अङ्क रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                            formControlName="karobarAmount1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('karobarAmount1').value ? mortgageForm?.get('karobarAmount1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('karobarAmount1').value ? mortgageForm?.get('karobarAmount1').value : '========='}}</strong></span> <br>
                             रजिष्ट्रेशन दस्तुर रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                          formControlName="registrationAmount1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('registrationAmount1').value ? mortgageForm?.get('registrationAmount1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('registrationAmount1').value ? mortgageForm?.get('registrationAmount1').value : '========='}}</strong></span> <br>
                             पूजीगत लाभकर रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                     formControlName="pujiGatAmount1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('pujiGatAmount1').value ? mortgageForm?.get('pujiGatAmount1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('pujiGatAmount1').value ? mortgageForm?.get('pujiGatAmount1').value : '========='}}</strong></span> <br>
                             अन्य कर/दस्तुर रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                       formControlName="taxAmount1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('taxAmount1').value ? mortgageForm?.get('taxAmount1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('taxAmount1').value ? mortgageForm?.get('taxAmount1').value : '========='}}</strong></span> <br>
                             रसिद नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                             formControlName="billNumber1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('billNumber1').value ? mortgageForm?.get('billNumber1').value : '========='}}</b></span>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('billNumber1').value ? mortgageForm?.get('billNumber1').value : '========='}}</strong></span>
                         </td>
                     </tr>
                 </table>
@@ -506,36 +779,36 @@
                 भूमि व्यवस्थापन तथा अभिलेख विभाग <br>
                 मालपोत कार्यालय <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                        formControlName="landRevenue">
-                <span class="nepaliFont print-only"><b>{{mortgageForm?.get('landRevenue').value ? mortgageForm?.get('landRevenue').value : '========='}}</b></span> <br>
+                <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('landRevenue').value ? mortgageForm?.get('landRevenue').value : '========='}}</strong></span> <br>
                 डोरमुकाम <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                 formControlName="doorMukam">
-                <span class="nepaliFont print-only"><b>{{mortgageForm?.get('doorMukam').value ? mortgageForm?.get('doorMukam').value : '========='}}</b></span>
+                <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('doorMukam').value ? mortgageForm?.get('doorMukam').value : '========='}}</strong></span>
             </div>
             <div class="col-md-4">
                 <table class="table pr-1 pl-1 table-condensed table-bordered table-responsive-md table-sm sb-small">
                     <tr>
                         <td class="pr-1">
                             स्वस्कृत (पारित) गर्नेको <br>
-                            दस्तखत र मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                            दस्तखत र मिति <br><br><br><br> .........................................................<input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                  formControlName="signatureDate1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('signatureDate1').value ? mortgageForm?.get('signatureDate1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('signatureDate1').value ? mortgageForm?.get('signatureDate1').value : '========='}}</strong></span> <br>
                             नाम <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                        formControlName="acceptanceName1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('acceptanceName1').value ? mortgageForm?.get('acceptanceName1').value : '========='}}</b></span>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('acceptanceName1').value ? mortgageForm?.get('acceptanceName1').value : '========='}}</strong></span>
                             पद <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                       formControlName="acceptanceDesignation1">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('acceptanceDesignation1').value ? mortgageForm?.get('acceptanceDesignation1').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('acceptanceDesignation1').value ? mortgageForm?.get('acceptanceDesignation1').value : '========='}}</strong></span> <br>
                             यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउँदा लिखत बमोजिम कारोवार गरेको मन्जुर गरेकोले लिखत पारित (स्वीकृत) गर्नको लागि पेश गरेको छु ।<br>
-                            <strong>फाँटवालाको</strong><br>
-                            दस्तखत र मिति : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                            <strong><u>फाँटवालाको</u></strong><br>
+                            दस्तखत र मिति :<br><br><br><br> .........................................................<input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                    formControlName="signatureDate2">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('signatureDate2').value ? mortgageForm?.get('signatureDate2').value : '========='}}</b></span> <br>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('signatureDate2').value ? mortgageForm?.get('signatureDate2').value : '========='}}</strong></span> <br>
                             नाम : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                          formControlName="acceptanceName2">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('acceptanceName2').value ? mortgageForm?.get('acceptanceName2').value : '========='}}</b></span>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('acceptanceName2').value ? mortgageForm?.get('acceptanceName2').value : '========='}}</strong></span>
                             पद <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                       formControlName="acceptanceDesignation2">
-                            <span class="nepaliFont print-only"><b>{{mortgageForm?.get('acceptanceDesignation2').value ? mortgageForm?.get('acceptanceDesignation2').value : '========='}}</b></span>
+                            <span class="nepaliFont print-only"><strong>{{mortgageForm?.get('acceptanceDesignation2').value ? mortgageForm?.get('acceptanceDesignation2').value : '========='}}</strong></span>
                         </td>
                     </tr>
                 </table>
@@ -543,15 +816,15 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary float-right disable-print" nbButton status="success">
+            <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">
                 Save
+            </button>
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{cadCheckListEnum.MORTGAGE_DEED}}"
+                    ngxPrint nbButton>print
             </button>
         </div>
     </form>
-    <button class="btn btn-primary d-print-none"
-            [useExistingCss]="true"
-            [disabled]="!initialInfoPrint"
-            printSectionId="print-section-{{cadCheckListEnum.MORTGAGE_DEED}}"
-            ngxPrint>print
-    </button>
 </div>

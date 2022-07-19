@@ -247,10 +247,8 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     // Setting financial data---
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
       this.financialData = this.loanDataHolder.financial;
-      if (ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
         this.financial = JSON.parse(this.financialData.data);
-      }
-      this.financialSummary = true;
+        this.financialSummary = true;
     }
 
     if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
@@ -282,8 +280,10 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
     // Setting NetTradingAssets data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
-      this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
-      this.netTradingAssetsSummary = true;
+      this.netTradingAssetsData = JSON.parse(this.loanDataHolder.loanHolder.netTradingAssets.data);
+      if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
+        this.netTradingAssetsSummary = true;
+      }
     }
 
 

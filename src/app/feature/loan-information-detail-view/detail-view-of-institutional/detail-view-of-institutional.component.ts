@@ -81,7 +81,9 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   financialKeys;
   loanTagEnum = LoanTag;
   isShareLoan = false;
-  @Input() combinedLoan: any;
+  @Input() combinedLoan: LoanDataHolder [];
+  toggleChecklist = [];
+  toggleId = [];
 
   constructor(
       private fiscalYearService: FiscalYearService,
@@ -93,7 +95,7 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   ngOnInit() {
     this.currentIndex = this.loanDataHolder.previousList.length;
     this.loanCategory = this.loanDataHolder.loanCategory;
-
+    this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
     } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
@@ -108,8 +110,10 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
-      this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
-      this.netTradingAssetsSummary = true;
+      this.netTradingAssetsData = JSON.parse(this.loanDataHolder.loanHolder.netTradingAssets.data);
+      if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
+        this.netTradingAssetsSummary = true;
+      }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loan.paperChecklist)) {
       const obj = JSON.parse(this.loanDataHolder.loan.paperChecklist);
@@ -225,6 +229,31 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       }
     } else {
       this.isShareLoan = this.loanDataHolder.loan.loanTag === this.loanTagEnum.getKeyByValue(LoanTag.SHARE_SECURITY);
+    }
+  }
+
+  disable() {
+    if (this.combinedLoan.length > 0) {
+      this.combinedLoan.forEach((val, i) => {
+        if (!ObjectUtil.isEmpty(val.paperProductChecklist)) {
+          const obj = JSON.parse(val.paperProductChecklist);
+          this.paperChecklist = obj.view;
+          this.allId = obj.id;
+          const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+          this.allId.forEach(d => {
+            const input = parserData.getElementById(d);
+            const child = input.innerHTML;
+            if (!child.includes('checked')) {
+              input.innerHTML = `<input type="radio" disabled>`;
+            }
+          });
+          this.toggleChecklist.push(parserData.body.innerHTML);
+          this.toggleId.push(this.allId);
+        } else {
+          this.toggleChecklist.push(null);
+          this.toggleId.push(null);
+        }
+      });
     }
   }
 }

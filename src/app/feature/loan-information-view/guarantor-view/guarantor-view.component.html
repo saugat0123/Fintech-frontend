@@ -232,24 +232,18 @@
       <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
     <thead class="sb-bg-dark text-white">
 <tr>
-  <th>S.N</th>
-  <th>Name</th>
   <th>Previous/Other Associations</th>
   <th>Nature Of Business/Work</th>
   <th>Capacity</th>
-  <th>Tenure</th>
-  <th>Type</th>
+  <th>Tenure (Date)</th>
 </tr>
     </thead>
         <tbody>
         <tr *ngFor="let promoter of (guarantor?.promoterData | jsonParse)?.background; let j = index;" >
-          <td>{{j + 1}}</td>
-          <td>{{guarantor?.name}}</td>
           <td>{{promoter?.previousAssociations}}</td>
           <td>{{promoter?.natureOfBusiness}}</td>
           <td>{{promoter?.capacity}}</td>
           <td>{{(promoter?.tenure | date)}}</td>
-          <td>{{guarantor?.guarantorType}}</td>
         </tr>
         </tbody>
       </table>

@@ -24,16 +24,15 @@
                                placeholder="Last Review Date"/>
                     </ng-container>
                     <ng-template #naCheck>
-                        <input [nbDatepicker]="lastReviewDate"
+                        <input type="date"
                                *ngIf="calendarType === 'AD'"
-                               class="form-control date-picker"
+                               class="form-control"
                                formControlName="lastReviewDate"
                                placeholder="Last Review Date"/>
                         <input *ngIf="calendarType === 'BS'"
                                formControlName="lastReviewDate" hidden>
                         <app-calendar *ngIf="calendarType === 'BS'"
                                       [ePreDate]="reviewDate?.get('lastReviewDate')?.value"></app-calendar>
-                        <nb-datepicker #lastReviewDate></nb-datepicker>
                     </ng-template>
                     <div class="mt-2">
                         <nb-checkbox (change)="checkControlChanged($event.target.checked, 'lastReviewDateChecked')"
@@ -50,16 +49,15 @@
                                placeholder="Next Review Date"/>
                     </ng-container>
                     <ng-template #na>
-                        <input [nbDatepicker]="nextReviewDate"
-                               *ngIf="calendarType === 'AD'"
-                               class="form-control date-picker"
+                        <input *ngIf="calendarType === 'AD'"
+                               class="form-control"
+                               type="date"
                                formControlName="nextReviewDate"
                                placeholder="Next Review Date"/>
                         <input *ngIf="calendarType === 'BS'"
                                formControlName="nextReviewDate" hidden>
                         <app-calendar *ngIf="calendarType === 'BS'"
                                       [ePreDate]="reviewDate?.get('nextReviewDate')?.value"></app-calendar>
-                        <nb-datepicker #nextReviewDate></nb-datepicker>
                     </ng-template>
                     <div class="mt-2">
                         <nb-checkbox class="mt-2" (change)="checkControlChanged($event.target.checked, 'nextReviewDateChecked')"
@@ -67,16 +65,10 @@
                         </nb-checkbox>
                     </div>
                 </div>
-               <!-- <div class="col-md-4 py-4">
-                    <nb-checkbox (change)="checkChecked($event.target.checked)"
-                                 [checked]="checked" formControlName="checked"><b>NA</b>
-                    </nb-checkbox>
-                </div>-->
             </div>
-
-            <nb-card-footer *ngIf="fromProfile">
-                <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
-            </nb-card-footer>
+<!--            <nb-card-footer *ngIf="fromProfile">-->
+<!--                <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>-->
+<!--            </nb-card-footer>-->
         </form>
     </nb-card-body>
 </nb-card>

@@ -24,6 +24,8 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {SecurityAdderComponent} from '../../loan-information-view/security-view/security-adder/security-adder.component';
 import {CadFileSetupComponent} from '../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {FinancialAccountInformationComponent} from '../financial-account-information/financial-account-information.component';
+import {ProductPaperChecklistComponent} from '../product-paper-checklist/product-paper-checklist.component';
+import {ReviewDateComponent} from '../review-date/review-date.component';
 
 @Component({
     selector: 'app-proposal',
@@ -43,7 +45,9 @@ export class ProposalComponent implements OnInit {
     @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @ViewChild('financialAccountComponent', {static: false}) financialAccountInformationComponent: FinancialAccountInformationComponent;
+    @ViewChild('productPaperChecklistComponent', {static: false}) productPaperChecklistComponent: ProductPaperChecklistComponent;
     @ViewChild('cadSetup', {static: false}) cadSetup: CadFileSetupComponent;
+    @ViewChild('lastLoanReviewDate', {static: false}) reviewDate: ReviewDateComponent;
     @Output() emitter = new EventEmitter();
     @Input() loanList = [];
     @Input() isLoanBeingEdit = false;
@@ -151,6 +155,9 @@ export class ProposalComponent implements OnInit {
     withIn = false;
     withInLoanId;
     shareType;
+    checklistChecked = false;
+    paperChecklist;
+    allIds = [];
 
 
     constructor(private formBuilder: FormBuilder,
@@ -180,6 +187,19 @@ export class ProposalComponent implements OnInit {
                 this.shareType = this.loan.shareType;
             }
             this.formDataForEdit = JSON.parse(this.formValue.data);
+            if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
+                if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
+                    const obj = JSON.parse(this.loan.loan.paperChecklist);
+                    this.paperChecklist = obj.view;
+                    this.allIds = obj.id;
+                    this.checklistChecked = obj.checklistChecked;
+                }
+            } else  {
+                const obj = JSON.parse(this.loan.paperProductChecklist);
+                this.paperChecklist = obj.view;
+                this.allIds = obj.id;
+                this.checklistChecked = true;
+            }
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
                 if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
                     (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
@@ -553,13 +573,18 @@ export class ProposalComponent implements OnInit {
 
             // Proposed Limit value--
         } else {
+            this.loan.reviewDate = this.reviewDate.reviewDateData;
             this.securityAdderComponent.save();
             if (this.isShare && ObjectUtil.isEmpty(this.shareType)) {
                 return this.toastService.show(new Alert(AlertType.WARNING, 'Share Type is Missing Please Select Share Type'));
             } else {
                 this.loan.shareType = this.shareType;
             }
-            this.financialAccountInformationComponent.submitForm();
+            if (this.loan.loanHolder.customerType === 'INSTITUTION' &&
+                this.loan.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+                this.financialAccountInformationComponent.submitForm();
+            }
+            this.productPaperChecklistComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
@@ -572,6 +597,7 @@ export class ProposalComponent implements OnInit {
                 this.loan.withIn = this.withIn;
                 this.loan.withInLoan = this.withInLoanId;
             }
+            this.reviewDate.submitForm();
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
             this.spinner.show();
@@ -1033,6 +1059,10 @@ export class ProposalComponent implements OnInit {
         this.loan = loan;
     }
 
+    productChecklist(data) {
+        this.loan = data;
+    }
+
   addFixedArray() {
     (this.proposalForm.get('fixedAssetsSummary') as FormArray).push(
       this.formBuilder.group({
@@ -1047,15 +1077,17 @@ export class ProposalComponent implements OnInit {
   setFixedArray() {
     const fixedAssets = this.proposalForm.get('fixedAssetsSummary') as FormArray;
       if (this.customerInfo.customerType === 'INSTITUTION') {
-          this.formDataForEdit.fixedAssetsSummary.forEach(d => {
-              fixedAssets.push(this.formBuilder.group({
-                  particular: [d.particular],
-                  unit: [d.unit],
-                  rate: [d.rate],
-                  total: [d.total],
-                  remarks: [d.remarks],
-              }));
-          });
+          if (this.formDataForEdit.fixedAssetsSummary > 0) {
+              this.formDataForEdit.fixedAssetsSummary.forEach(d => {
+                  fixedAssets.push(this.formBuilder.group({
+                      particular: [d.particular],
+                      unit: [d.unit],
+                      rate: [d.rate],
+                      total: [d.total],
+                      remarks: [d.remarks],
+                  }));
+              });
+          }
       }
   }
 

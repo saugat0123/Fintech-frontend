@@ -33,6 +33,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
   nepaliData;
   proposedAmount;
   customerInfo;
+  loanCategory;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -46,6 +47,9 @@ export class MortgageDeedLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     this.buildForm();
     this.proposedAmount = this.cadData.assignedLoan[0].proposal.proposedLimit;
     this.customerInfo = this.cadData.assignedLoan[0].customerInfo;
@@ -61,6 +65,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.patchMorgageForm();
     }
     this.checkInitialData();
   }
@@ -158,6 +163,48 @@ export class MortgageDeedLaxmiComponent implements OnInit {
       soldLand: [undefined],
       soldHouse: [undefined],
       apology: [undefined],
+      nepaliName1: [undefined],
+      englishName1: [undefined],
+      dateOfBirth1: [undefined],
+      address1: [undefined],
+      gender1: [undefined],
+      citizenshipNumber1: [undefined],
+      issuedDate1: [undefined],
+      issuedPlace1: [undefined],
+      landLordSignNumber1: [undefined],
+      husbandWifeName1: [undefined],
+      fatherName1: [undefined],
+      grandFatherName1: [undefined],
+      motherName1: [undefined],
+      grandMotherName1: [undefined],
+      mobileNumber1: [undefined],
+      nepaliNameCompany: [undefined],
+      englishNameCompany: [undefined],
+      addressCompany: [undefined],
+      citizenshipNumberCompany: [undefined],
+      issuedDateCompany: [undefined],
+      issuedPlaceCompany: [undefined],
+      sthaiNo: [undefined],
+      akhtiyarPerson: [undefined],
+      akhtiyarAddress: [undefined],
+      citizenshipNoCompany: [undefined],
+      citizenshipDateCompany: [undefined],
+      citizenshipOffice: [undefined],
+      nepaliNameCompany1: [undefined],
+      englishNameCompany1: [undefined],
+      addressCompany1: [undefined],
+      citizenshipNumberCompany1: [undefined],
+      issuedDateCompany1: [undefined],
+      issuedPlaceCompany1: [undefined],
+      sthaiNo1: [undefined],
+      akhtiyarPerson1: [undefined],
+      akhtiyarAddress1: [undefined],
+      citizenshipNoCompany1: [undefined],
+      citizenshipDateCompany1: [undefined],
+      citizenshipOffice1: [undefined],
+      branchWardNo: [undefined],
+      branchMun : [undefined],
+      branchDistrict: [undefined]
     });
   }
 
@@ -202,22 +249,56 @@ export class MortgageDeedLaxmiComponent implements OnInit {
     });
   }
 
+  patchMorgageForm() {
+    this.mortgageForm.patchValue({
+      //amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.proposedAmount)),
+      branchDistrict: this.nepaliData.branchDetail.branchDistrict,
+      branchMun: this.nepaliData.branchDetail.branchMunVdc,
+      branchWardNo: this.nepaliData.branchDetail.branchWardNo,
+      branchName: this.nepaliData.branchDetail.branchNameInNepali,
+      borrowerName: this.nepaliData.nepaliName,
+      acceptanceNumber: this.nepaliData.miscellaneousDetail.offerReferenceNo,
+      date: this.nepaliData.miscellaneousDetail.offerIssueDate,
+      proposedAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
+      amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
+      nepaliNameCompany1: this.nepaliData.nepaliName,
+      englishNameCompany1: this.nepaliData.name,
+      citizenshipNumberCompany1: this.nepaliData.registrationNo,
+      issuedDateCompany1: this.nepaliData.regIssueDate,
+      issuedPlaceCompany1: this.nepaliData.companyRegOffice,
+      sthaiNo1: this.nepaliData.panNo,
+      akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
+      citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
+      citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
+      citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+      nepaliName1: this.nepaliData.nepaliName,
+      englishName1: this.nepaliData.name,
+      dateOfBirth1: this.nepaliData.dateOfBirth,
+      gender1: this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला',
+      citizenshipNumber1: this.nepaliData.citizenshipNo,
+      issuedDate1: this.nepaliData.citizenshipIssueDate,
+      issuedPlace1: this.nepaliData.citizenshipIssueDistrict,
+      mobileNumber1: this.nepaliData.contactNo,
+      husbandWifeName1: this.nepaliData.husbandName,
+      fatherName1: this.nepaliData.fatherName,
+      grandFatherName1: this.nepaliData.grandFatherName
+    });
+  }
   checkInitialData() {
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.mortgageForm.patchValue(JSON.parse(this.initialInfoPrint));
-      this.mortgageForm.patchValue({
-        amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.proposedAmount))
-      });
+      this.patchMorgageForm();
     } else {
       this.fillNepaliData();
       this.mortgageForm.patchValue({
         proposedAmount: this.nepaliNumber.transform(this.proposedAmount, 'preeti'),
-        amountInWords: this.nepaliCurrencyWordPipe.transform(this.proposedAmount)
+        amountInWords: this.nepaliCurrencyWordPipe.transform(this.proposedAmount),
       });
     }
   }
   fillNepaliData() {
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
+
       this.mortgageForm.patchValue({
         grandFatherName: this.nepaliData.grandFatherName,
         fatherName: this.nepaliData.fatherName,
@@ -230,7 +311,7 @@ export class MortgageDeedLaxmiComponent implements OnInit {
         customerWadNo: this.nepaliData.permanentWard,
         currentAddress: `${this.nepaliData.temporaryDistrict} ,${this.nepaliData.temporaryMunicipality}, ${this.nepaliData.temporaryWard}`,
         rupees: this.nepaliNumber.transform(this.proposedAmount, 'preeti'),
-        amount: this.nepaliCurrencyWordPipe.transform(this.proposedAmount)
+        amount: this.nepaliCurrencyWordPipe.transform(this.proposedAmount),
       });
     }
   }
