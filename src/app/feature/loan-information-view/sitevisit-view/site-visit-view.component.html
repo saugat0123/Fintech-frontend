@@ -516,22 +516,38 @@
 </table>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true && this.formData['currentAssetsDetails'] !== null"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
-        <th class="sn">SN</th>
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
-    </tr>
-    <ng-container *ngFor="let data of formData['currentAssetsDetails']; let in = index;">
-        <tr *ngFor="let staff of data?.insuranceVerification?.inspectingStaffsDetails; let i = index">
-            <td>{{in + 1}}.{{i + 1}}</td>
-            <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation || 'N/A'}}</td>
-            <td class="text-left pl-1">{{staff.staffRepresentativeName || 'N/A'}}</td>
-            <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2 || 'N/A'}}</td>
-            <td class="text-left pl-1">{{staff.staffRepresentativeName2 || 'N/A'}}</td>
-        </tr>
+    <ng-container *ngFor="let data of formData['currentAssetsDetails']">
+        <ng-container *ngFor="let d of data?.insuranceVerification?.inspectingStaffsDetails">
+            <div *ngIf="d?.staffRepresentativeNameDesignation2 === undefined; else oldData">
+                <tr class="text-white sb-bg-dark">
+                    <th>Staff Representative Designation</th>
+                    <th>Staff Representative Name </th>
+                </tr>
+                <tr>
+                    <td>{{d?.staffRepresentativeNameDesignation}}</td>
+                    <td>{{d?.staffRepresentativeName}}</td>
+                </tr>
+            </div>
+        </ng-container>
     </ng-container>
+    <ng-template #oldData>
+        <tr class="text-white sb-bg-dark">
+            <th class="sn">SN</th>
+            <th>Staff Representative Designation 1</th>
+            <th>Staff Representative Name 1</th>
+            <th>Staff Representative Designation 2</th>
+            <th>Staff Representative Name 2</th>
+        </tr>
+        <ng-container *ngFor="let data of formData['currentAssetsDetails']; let in = index;">
+            <tr *ngFor="let staff of data?.insuranceVerification?.inspectingStaffsDetails; let i = index">
+                <td>{{in + 1}}.{{i + 1}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation || 'N/A'}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeName || 'N/A'}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2 || 'N/A'}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeName2 || 'N/A'}}</td>
+            </tr>
+        </ng-container>
+    </ng-template>
 </table>
 
 <!-- ============================================================= Current Asset Inspection form End ==============================================================-->

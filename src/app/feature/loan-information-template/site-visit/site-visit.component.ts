@@ -131,6 +131,16 @@ export class SiteVisitComponent implements OnInit {
             this.formDataForEdit = JSON.parse(stringFormData);
         }
         this.buildForm();
+        if (!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.currentResidentDetails) &&
+            !ObjectUtil.isEmpty(this.formDataForEdit.currentResidentDetails.currentResidentStaffRepresentative)) {
+            this.formDataForEdit.currentResidentDetails.currentResidentStaffRepresentative.forEach((val: any) => {
+                this.addStaff(val);
+            });
+        }
+        // if(!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.currentBusinessDetaila) &&
+        // !ObjectUtil.isEmpty(this.formDataForEdit.currentBusinessStaffRepresentative.forEach((val: any) => {
+        //     this.addBusinessStaff();
+        // })))
         this.previousData();
         if (this.formDataForEdit !== undefined) {
             if (ObjectUtil.isEmpty(this.formDataForEdit.businessDetails)) {
@@ -153,23 +163,18 @@ export class SiteVisitComponent implements OnInit {
             fixedAssetCollateralFormChecked: [false],
             currentAssetsInspectionFormChecked: [false],
             currentResidentDetails: this.formBuilder.group({
+                currentResidentStaffRepresentative: this.formBuilder.array([]),
+                /*staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
+                    (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+                        : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation)],
+                staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
+                    (this.formDataForEdit.currentResidentDetails === undefined ? undefined
+                        : this.formDataForEdit.currentResidentDetails.staffRepresentativeName)],*/
                 address: [undefined],
                 nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
                     : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
                 ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
                     : this.formDataForEdit.currentResidentDetails.ownerName), [Validators.pattern(Pattern.ALPHABET_ONLY)]],
-                staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
-                    (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-                        : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation)],
-                staffRepresentativeName: [this.formDataForEdit === undefined ? undefined :
-                    (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-                        : this.formDataForEdit.currentResidentDetails.staffRepresentativeName)],
-                staffRepresentativeNameDesignation2: [this.formDataForEdit === undefined ? undefined :
-                    (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-                        : this.formDataForEdit.currentResidentDetails.staffRepresentativeNameDesignation2)],
-                staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
-                    (this.formDataForEdit.currentResidentDetails === undefined ? undefined
-                        : this.formDataForEdit.currentResidentDetails.staffRepresentativeName2)],
                 findingComment: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined
                     ? undefined : this.formDataForEdit.currentResidentDetails.findingComment)],
                 locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
@@ -184,6 +189,27 @@ export class SiteVisitComponent implements OnInit {
             businessDetails: this.formBuilder.array([]),
             currentAssetsDetails: this.formBuilder.array([])
         });
+        if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+            this.addStaff();
+        }
+    }
+
+    addStaff(val?: any) {
+        const controls = (this.siteVisitFormGroup
+            .get('currentResidentDetails') as FormGroup)
+            .get('currentResidentStaffRepresentative') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Data To Add More'));
+            return;
+        }
+        (this.siteVisitFormGroup.get('currentResidentDetails').get('currentResidentStaffRepresentative') as FormArray).push(
+            this.formBuilder.group({
+                staffRepresentativeNameDesignation: [(!ObjectUtil.isEmpty(val) &&
+                    !ObjectUtil.isEmpty(val.staffRepresentativeNameDesignation)) ? val.staffRepresentativeNameDesignation : undefined],
+                staffRepresentativeName: [(!ObjectUtil.isEmpty(val) && !ObjectUtil.isEmpty(val.staffRepresentativeName)) ?
+                    val.staffRepresentativeName : undefined]
+            })
+        );
     }
 
     checkboxSelected(label: String, isChecked: boolean) {
@@ -206,6 +232,9 @@ export class SiteVisitComponent implements OnInit {
         this.checkboxSelected('currentAssetsInspection', this.formDataForEdit['currentAssetsInspectionFormChecked']);
         if (!ObjectUtil.isEmpty(this.formDataForEdit.businessDetails)) {
             this.setBusinessDetails(this.formDataForEdit.businessDetails);
+            this.formDataForEdit.businessDetails.forEach((b, i) => {
+                this.setBusinessStaffsDetails(b.staffDetail, i);
+            });
         }
         if (!ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
             const currentDetail = this.formDataForEdit.currentAssetsDetails;
@@ -226,8 +255,6 @@ export class SiteVisitComponent implements OnInit {
         return this.formBuilder.group({
             staffRepresentativeNameDesignation: undefined,
             staffRepresentativeName: undefined,
-            staffRepresentativeNameDesignation2: undefined,
-            staffRepresentativeName2: undefined,
         });
     }
 
@@ -236,7 +263,7 @@ export class SiteVisitComponent implements OnInit {
             .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
             .get('inspectingStaffsDetails') as FormArray;
         if (FormUtils.checkEmptyProperties(controls)) {
-          this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+          this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Data To Add More'));
           return;
         }
         controls.push(this.staffsFormGroup());
@@ -246,6 +273,14 @@ export class SiteVisitComponent implements OnInit {
         ((this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
             .get('inspectingStaffsDetails') as FormArray).removeAt(index);
+    }
+    deleteCurrentResidentStaffsDetails(index) {
+        ((this.siteVisitFormGroup
+            .get('currentResidentDetails') as FormGroup)
+            .get('currentResidentStaffRepresentative') as FormArray).removeAt(index);
+    }
+    deleteBusinessStaffsDetails(mainIndex, index) {
+        (this.siteVisitFormGroup.get(['businessDetails', mainIndex, 'staffDetail']) as FormArray).removeAt(index);
     }
 
     inspectingStaffsDetailsLength() {
@@ -690,7 +725,6 @@ export class SiteVisitComponent implements OnInit {
             );
         });
     }
-
     setInspectingStaffsDetails(currentData, i) {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
@@ -701,10 +735,16 @@ export class SiteVisitComponent implements OnInit {
                     this.formBuilder.group({
                         staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation],
                         staffRepresentativeName: [data.staffRepresentativeName],
-                        staffRepresentativeNameDesignation2: [data.staffRepresentativeNameDesignation2],
-                        staffRepresentativeName2: [data.staffRepresentativeName2],
                     })
                 );
+                if (!ObjectUtil.isEmpty(data.staffRepresentativeName2) || !ObjectUtil.isEmpty(data.staffRepresentativeNameDesignation2)) {
+                    controls.push(
+                        this.formBuilder.group({
+                            staffRepresentativeNameDesignation: [data.staffRepresentativeNameDesignation2],
+                            staffRepresentativeName: [data.staffRepresentativeName2 ],
+                        })
+                    );
+                }
             });
         }
     }
@@ -849,14 +889,11 @@ export class SiteVisitComponent implements OnInit {
             nameOfThePersonContacted: [undefined, [Validators.required, Validators.pattern(Pattern.ALPHABET_ONLY)]],
             dateOfVisit: [undefined],
             objectiveOfVisit: [undefined, Validators.required],
-            staffRepresentativeNameDesignation: [undefined],
-            staffRepresentativeName: [undefined],
-            staffRepresentativeNameDesignation2: [undefined],
-            staffRepresentativeName2: [undefined],
             findingsAndComments: [undefined],
             businessSiteVisitLongitude: [undefined],
             businessSiteVisitLatitude: [undefined],
-            documentPath: [undefined]
+            documentPath: [undefined],
+            staffDetail: this.formBuilder.array([this.staffsFormGroup()])
         });
     }
 
@@ -994,16 +1031,17 @@ export class SiteVisitComponent implements OnInit {
                     nameOfThePersonContacted: [singleData.nameOfThePersonContacted, Validators.required],
                     dateOfVisit: [new Date(singleData.dateOfVisit)],
                     objectiveOfVisit: [singleData.objectiveOfVisit, Validators.required],
-                    staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
+                    /*staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
                     staffRepresentativeName: [singleData.staffRepresentativeName],
                     staffRepresentativeNameDesignation2: [singleData.staffRepresentativeNameDesignation2],
-                    staffRepresentativeName2: [singleData.staffRepresentativeName2],
+                    staffRepresentativeName2: [singleData.staffRepresentativeName2],*/
                     businessSiteVisitLongitude: [singleData.businessSiteVisitLongitude],
                     businessSiteVisitLatitude: [singleData.businessSiteVisitLatitude],
                     findingsAndComments: [singleData.findingsAndComments],
                     locationPreview: [singleData.findingsAndComments],
                     mapAddress: [singleData.findingsAndComments],
-                    documentPath: [singleData.documentPath]
+                    documentPath: [singleData.documentPath],
+                    staffDetail: this.formBuilder.array([])
                 })
             );
         });
@@ -1141,4 +1179,30 @@ export class SiteVisitComponent implements OnInit {
         this.siteVisitFormGroup.get(['businessDetails', i, 'documentPath']).patchValue(path);
     }
 
+    addBusinessStaffsDetails(i) {
+        const controls = (this.siteVisitFormGroup
+            .get(['businessDetails', i]) as FormArray)
+            .get('staffDetail') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+            return;
+        }
+        controls.push(this.staffsFormGroup());
+    }
+    setBusinessStaffsDetails(data, i: number) {
+        const controls = this.siteVisitFormGroup
+            .get(['businessDetails', i, 'staffDetail']) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                controls.push(this.formBuilder.group({
+                    staffRepresentativeName: [d.staffRepresentativeName],
+                    staffRepresentativeNameDesignation: [d.staffRepresentativeNameDesignation],
+                }));
+            });
+        }
+    }
+
+    removeBusinessStaff(parentInd: number, childInd: number) {
+        ((this.siteVisitFormGroup.get(['businessDetails', parentInd]) as FormArray).get('staffDetail') as FormArray).removeAt(childInd);
+    }
 }
