@@ -459,6 +459,9 @@
                                         <td class="text-left">Owner</td>
                                     </tr>
                                     <tr>
+                                        <td class="text-left">Collateral Owner Relationship</td>
+                                    </tr>
+                                    <tr>
                                         <td class="text-left">Plot No.</td>
                                     </tr>
                                     <tr>
@@ -513,6 +516,7 @@
                                 <table class="table table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
                                     <tr> <td class="text-right pl-1">{{landBuilding?.owner || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pl-1">{{landBuilding?.colateralRelationship || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{(landBuilding?.totalBuildingArea + ' '+ landBuilding?.areaFormat || 'N/A')}}</td></tr>
                                     <tr> <td class="text-right pr-1">{{landBuilding?.area + ' '+ landBuilding?.areaFormat || 'N/A'}}</td></tr>
@@ -705,19 +709,21 @@
                     <tr class="text-center sb-bg-gray">
                         <th class="sn">S.N</th>
                         <th>Model</th>
+                        <th>Quotation/Valuation Amount</th>
+                        <th>Market Value</th>
                         <th>Realisable Value</th>
+                        <th>Realisable Rate</th>
                         <th>Supplier</th>
-<!--                        <th>Downpay</th>-->
-<!--                        <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>-->
                         <th>Valuator Name</th>
                     </tr>
                     <tr>
                         <td>{{i + 1}}</td>
                         <td class="text-right pr-1">{{plantDetails?.model}}</td>
+                        <td class="text-right pr-1">{{plantDetails?.realisableValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{plantDetails?.fairMarketValue | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
+                        <td class="text-right pr-1"> {{plantDetails?.realisableRate}} %</td>
                         <td class="text-left pl-1">{{plantDetails?.supplier}}</td>
-<!--                        <td class="text-right pr-1">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>-->
-<!--                        <td *ngIf="plantDetails?.plantOtherBranchChecked === true">{{plantDetails?.plantBranch?.name || 'N/A'}}</td>-->
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name || 'N/A'}}</td>
                     </tr>
                     </thead>

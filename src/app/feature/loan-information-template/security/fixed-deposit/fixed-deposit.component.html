@@ -57,6 +57,7 @@
                         <div class="form-group">
                             <label class="title">Amount<strong></strong></label>
                             <input class="form-control"
+                                   (change)="deposit.get('realizableValue').patchValue((deposit.get('considerValue').value / 100) * deposit.get('realizableRate').value)"
                                    [ngClass]="{'is-invalid': (submitted) && (deposit.get('fairMarketValue').errors)}"
                                    formControlName="fairMarketValue" placeholder="Amount" type="number">
                             <div *ngIf="(submitted) && (deposit.get('fairMarketValue').invalid)" class="invalid-feedback">

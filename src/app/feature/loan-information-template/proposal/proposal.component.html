@@ -1079,7 +1079,7 @@
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="fromProfile">
+                    <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist">
                         <app-product-paper-checklist
                             #productPaperChecklistComponent
                             [loanDataHolder]="loan"
