@@ -11,12 +11,15 @@ import {Financial} from '../../loan/model/financial';
 })
 export class FinancialAccountInformationComponent implements OnInit {
   financialAccountForm: FormGroup;
-  @Input() financialFormValue: LoanDataHolder;
+  @Input() financialFormValue: any;
   @Input() fromLoan: boolean;
   @Output() financialAccountEmitter = new EventEmitter();
   financialData;
   @Input() loanDataHolder: LoanDataHolder;
   @Input() financialValue: Financial;
+  @Input() financialAssessmentData;
+  submitted = false;
+  submitData;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,8 +27,8 @@ export class FinancialAccountInformationComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.financialFormValue.financialAccountInformation)) {
-      this.financialData = JSON.parse(this.financialFormValue.financialAccountInformation);
+    if (!ObjectUtil.isEmpty(this.financialAssessmentData)) {
+      this.financialData = JSON.parse(this.financialAssessmentData);
       this.financialAccountForm.patchValue(this.financialData);
     }
   }
@@ -69,9 +72,13 @@ export class FinancialAccountInformationComponent implements OnInit {
     });
   }
 
-  submitForm() {
-    this.financialFormValue.financialAccountInformation = JSON.stringify(this.financialAccountForm.value);
-    this.financialAccountEmitter.emit(this.financialFormValue);
-  }
 
+  onSubmit() {
+    this.submitted = true;
+    if (!ObjectUtil.isEmpty(this.financialAssessmentData)) {
+      this.submitData = this.financialAssessmentData;
+    }
+    this.submitData = JSON.stringify(this.financialAccountForm.value);
+    this.financialAccountEmitter.emit(this.submitData);
+  }
 }
