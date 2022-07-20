@@ -858,7 +858,8 @@
               <app-net-worth #netWorth
                              (dataEmiter)="saveNetWorth($event)" [customerInfoId]="customerInfoId"
                              [customerName]="customerInfo?.name" [data]="customerInfo?.netWorth"
-                             [isJointCustomer]="customerInfo?.isJointCustomer"></app-net-worth>
+                             [isJointCustomer]="customerInfo?.isJointCustomer"
+                             [guarantorData]="customerInfo?.guarantors"></app-net-worth>
               <div>
                 <button (click)="netWorthComponent.submit()"
                         class="btn float-right d-flex justify-content-end" nbButton type="submit">

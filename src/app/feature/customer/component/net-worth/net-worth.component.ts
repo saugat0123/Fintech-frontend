@@ -5,6 +5,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerService} from '../../service/customer.service';
 import {ActivatedRoute} from '@angular/router';
+import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 
 
 @Component({
@@ -29,19 +30,23 @@ export class NetWorthComponent implements OnInit {
     @Input() customerInfoId: any;
     jointInfo: Array<any> = new Array<any>();
     @Input() isJointCustomer: boolean =false;
+    @Input() guarantorData: GuarantorDetail;
 
     ngOnInit() {
+        console.log('customerName', this.customerName);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.data)) {
             this.form.patchValue(JSON.parse(this.data));
+            // this.setGuarantorData(this.data.guarantorForm);
         }
-
+        this.getGuarantorForm();
         this.getJointCustomerData();
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            customerForm: this.formBuilder.array([])
+            customerForm: this.formBuilder.array([]),
+            guarantorForm: this.formBuilder.array([]),
         });
     }
 
@@ -72,29 +77,30 @@ export class NetWorthComponent implements OnInit {
         this.activeModal.close();
     }
 
-    calculateTotalAssets(i: any) {
-        const total = Number(this.form.get(['customerForm', i, 'cashDepositInOtherBank']).value) +
-            Number(this.form.get(['customerForm', i, 'realEstateProperties']).value)
-            + Number(this.form.get(['customerForm', i, 'investmentInShares']).value) +
-            Number(this.form.get(['customerForm', i, 'vehicle']).value) + Number(this.form.get(['customerForm', i, 'jewelleries']).value);
-        this.form.get(['customerForm', i, 'totalAssets']).patchValue(total);
-        this.calculateNetWorth(i);
+    calculateTotalAssets(i: number, arrayName: string) {
+        const total = Number(this.form.get([arrayName, i, 'cashDepositInOtherBank']).value) +
+            Number(this.form.get([arrayName, i, 'realEstateProperties']).value) +
+            Number(this.form.get([arrayName, i, 'investmentInShares']).value) +
+            Number(this.form.get([arrayName, i, 'vehicle']).value) +
+            Number(this.form.get([arrayName, i, 'jewelleries']).value);
+        this.form.get([arrayName, i, 'totalAssets']).patchValue(total);
+        this.calculateNetWorth(i, arrayName);
     }
 
-    calculateTotalLiabilities(i: any) {
-        const total = Number(this.form.get(['customerForm', i, 'loanFromCCBL']).value) +
-            Number(this.form.get(['customerForm', i, 'creditCardsLimit']).value) +
-            Number(this.form.get(['customerForm', i, 'otherLiabilities']).value) +
-            Number(this.form.get(['customerForm', i, 'loanFromOtherBfi']).value);
-        this.form.get(['customerForm', i, 'totalLiabilities']).patchValue(total);
-        this.calculateNetWorth(i);
+    calculateTotalLiabilities(i: number, arrayName: string) {
+        const total = Number(this.form.get([arrayName, i, 'loanFromCCBL']).value) +
+            Number(this.form.get([arrayName, i, 'creditCardsLimit']).value) +
+            Number(this.form.get([arrayName, i, 'otherLiabilities']).value) +
+            Number(this.form.get([arrayName, i, 'loanFromOtherBfi']).value);
+        this.form.get([arrayName, i, 'totalLiabilities']).patchValue(total);
+        this.calculateNetWorth(i, arrayName);
     }
 
-    calculateNetWorth(i: any) {
-        if (!ObjectUtil.isEmpty(this.form.get(['customerForm', i, 'totalLiabilities']))) {
-            const totalNetWorth = (Number(this.form.get(['customerForm', i, 'totalAssets']).value)
-                - Number(this.form.get(['customerForm', i, 'totalLiabilities']).value));
-            this.form.get(['customerForm', i, 'totalNetWorth']).patchValue(totalNetWorth);
+    calculateNetWorth(i: number, arrayName: string) {
+        if (!ObjectUtil.isEmpty(this.form.get([arrayName, i, 'totalLiabilities']))) {
+            const totalNetWorth = (Number(this.form.get([arrayName, i, 'totalAssets']).value) -
+                Number(this.form.get([arrayName, i, 'totalLiabilities']).value));
+            this.form.get([arrayName, i, 'totalNetWorth']).patchValue(totalNetWorth);
         }
     }
 
@@ -166,6 +172,54 @@ export class NetWorthComponent implements OnInit {
                     this.overlay.hide();
                 });
             }
+        }
+    }
+
+    getGuarantorForm() {
+        if (!ObjectUtil.isEmpty(this.guarantorData)) {
+            const data = this.guarantorData.guarantorList;
+            const form = this.form.get('guarantorForm') as FormArray;
+            data.forEach(d => {
+                form.push(this.formBuilder.group({
+                    name: [d.name],
+                    cashDepositInOtherBank: [undefined],
+                    realEstateProperties : [undefined],
+                    investmentInShares: [undefined],
+                    vehicle: [undefined],
+                    jewelleries: [undefined],
+                    totalAssets: [undefined],
+                    loanFromCCBL: [undefined],
+                    creditCardsLimit: [undefined],
+                    otherLiabilities: [undefined],
+                    totalLiabilities: [undefined],
+                    totalNetWorth: [undefined],
+                    loanFromOtherBfi: [undefined],
+                }));
+            });
+            console.log('formData', this.form);
+        }
+    }
+
+    setGuarantorData(data: any) {
+        const control = this.form.get('guarantorForm') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                control.push(this.formBuilder.group({
+                    name: [d.name],
+                    cashDepositInOtherBank: d.cashDepositInOtherBank,
+                    realEstateProperties: d.realEstateProperties,
+                    investmentInShares: d.investmentInShares,
+                    vehicle: d.vehicle,
+                    jewelleries: d.jewelleries,
+                    totalAssets: d.totalAssets,
+                    loanFromCCBL: d.loanFromCCBL,
+                    creditCardsLimit: d.creditCardsLimit,
+                    otherLiabilities: d.otherLiabilities,
+                    totalLiabilities: d.totalLiabilities,
+                    totalNetWorth: d.totalNetWorth,
+                    loanFromOtherBfi: d.loanFromOtherBfi,
+                }));
+            });
         }
     }
 
