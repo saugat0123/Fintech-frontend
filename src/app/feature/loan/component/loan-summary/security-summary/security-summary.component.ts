@@ -250,6 +250,10 @@ export class SecuritySummaryComponent implements OnInit {
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
                     const data = JSON.parse(d.data);
+                    this.totalIndividualSec.fd.rv += data.realizableValue || 0;
+                    this.totalIndividualSec.fd.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.fd.mv +=  data.fairMarketValue || 0;
+                    this.totalIndividualSec.fd.added = true;
                     fd.push(data);
                 }
             });
@@ -469,6 +473,10 @@ export class SecuritySummaryComponent implements OnInit {
             this.approvedSec.forEach((d) => {
                 if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
                     const data = JSON.parse(d.data);
+                    this.totalIndividualSec.fd.rv += data.realizableValue || 0;
+                    this.totalIndividualSec.fd.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.fd.mv +=  data.fairMarketValue || 0;
+                    this.totalIndividualSec.fd.added = true;
                 }
             });
         }
