@@ -25,8 +25,8 @@
         <table
                 class="table table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
-            <tr class="sb-bg-dark text-white">
-                <th width="30%">Loan Facility</th>
+            <tr class="sb-bg-gray">
+                <th>Loan Facility</th>
                 <th>Existing Limit</th>
                 <th *ngIf="!isRemit">Outstanding</th>
                 <th *ngIf="!isRemit">Enhance</th>
@@ -111,7 +111,7 @@
                 <td>
                     <ng-container *ngIf="loan?.loan?.loanNature === 'Terminating'; else tenure;">
                         <table>
-                            <tr class="text-white sb-bg-dark">
+                            <tr class="sb-bg-gray">
                                 <th *ngIf="(loanDatas[i]?.loanNatureSelected && loanDatas[i]?.fundableNonFundableSelcted &&   loanDatas[i]?.isFundable &&   loanDatas[i]?.isTerminating) ||  loanDatas[i]?.isVehicle ||  loanDatas[i]?.isShare ||  loanDatas[i]?.isGeneral">Repayment Mode</th>
                                 <th *ngIf=" loanDatas[i]?.showInstallmentAmount  && ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.fundableNonFundableSelcted &&  loanDatas[i]?.isFundable &&  loanDatas[i]?.isTerminating) || loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral)">EMI Amount</th>
                                 <th *ngIf="! loanDatas[i]?.showInstallmentAmount &&  ((loanDatas[i]?.loanNatureSelected && loanDatas[i]?.isFundable && loanDatas[i]?.fundableNonFundableSelcted && loanDatas[i]?.isTerminating) || (loanDatas[i]?.isVehicle || loanDatas[i]?.isShare || loanDatas[i]?.isGeneral))">Interest Amount</th>
@@ -157,7 +157,7 @@
             </ng-container>
                 </td>
             </tr>
-            <tr class="sb-bg-secondary text-white">
+            <tr class="sb-bg-gray">
                 <td class="text-left pl-1"><strong>Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
@@ -189,7 +189,7 @@
                 <!--        <td>N/A</td>-->
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
-            <tr class="sb-bg-secondary text-white">
+            <tr class="sb-bg-gray">
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
@@ -217,7 +217,7 @@
                 <!--        <td>N/A</td>-->
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
-            <tr class="sb-bg-secondary text-white">
+            <tr class="sb-bg-gray">
                 <td class="text-left pl-1"><strong>Total</strong></td>
 
                 <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
@@ -282,13 +282,13 @@
     <div class="col-md-12">
         <table *ngIf="productUtils?.CBS_ENABLE"
                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Disbursement Criteria</th>
                 </tr>
                 <tr>
                     <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
                 </tr>
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Repayment</th>
                 </tr>
                 <tr>
@@ -300,7 +300,7 @@
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
             <ng-container *ngIf="checkedData?.solChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Single Obligor Limit</th>
                 </tr>
                 <tr>
@@ -308,7 +308,7 @@
                 </tr>
             </ng-container>
             <ng-container *ngIf="checkedData?.riskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Risk & Mitigation</th>
                 </tr>
                 <tr>
@@ -319,7 +319,7 @@
 
         <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
             <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
-                <td class="sb-bg-dark text-white">CIB Charge</td>
+                <td class="sb-bg-gray">CIB Charge</td>
                 <td>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
             </tr>
         </table>
