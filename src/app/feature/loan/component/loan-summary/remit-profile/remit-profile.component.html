@@ -4,7 +4,7 @@
     <ng-container *ngIf="isRemit;">
         <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th>Particulars</th>
                 <th>Applicant/Beneficiary</th>
                 <th>Guarantor/Migrant Worker</th>
@@ -80,52 +80,52 @@
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center  sb-small">
                         <tbody>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Name</td>
+                            <td class="sb-bg-gray">Name</td>
                             <td class="pl-1 text-right">{{loanHolder?.customerInfo?.customerName}}</td>
                         </tr>
                         <tr>
-                          <td class="text-left sb-bg-dark text-white">Father's Name</td>
+                          <td class="text-left sb-bg-gray">Father's Name</td>
                             <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                         </tr>
                         <tr>
-                          <td class="text-left sb-bg-dark text-white">Grand Father Name</td>
+                          <td class="text-left sb-bg-gray">Grand Father Name</td>
                             <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+                            <td class="sb-bg-gray text-left">Date Of Birth (AD/BS)</td>
                             <td class="pl-1 text-right">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
                         </tr>
 <!--                        <tr>-->
-<!--                            <td class="sb-bg-dark text-left text-white">Citizenship Number</td>-->
+<!--                            <td class="sb-bg-gray text-left">Citizenship Number</td>-->
 <!--                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.citizenshipNumber || 'N/A'}}</td>-->
 <!--                        </tr>-->
                         <tr>
-                            <td class="sb-bg-dark text-left text-white">Phone Number</td>
+                            <td class="sb-bg-gray text-left">Phone Number</td>
                             <td class="text-right pr-1">{{loanHolder?.customerInfo?.contactNumber || 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white">LandLine Number</td>
+                            <td class="sb-bg-gray text-left">LandLine Number</td>
                             <td class="text-right pr-1">{{loanHolder?.customerInfo?.landLineNumber || 'N/A'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white">Occupation</td>
+                            <td class="sb-bg-gray text-left">Occupation</td>
                             <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                         </tr>
 <!--                        <tr>-->
-<!--                            <td class="sb-bg-dark text-left text-white">Income Source</td>-->
+<!--                            <td class="sb-bg-gray text-left">Income Source</td>-->
 <!--                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>-->
 <!--                        </tr>-->
                         <tr>
-                            <td class="sb-bg-dark text-left text-white">Age</td>
+                            <td class="sb-bg-gray text-left">Age</td>
                             <td class="text-right pl-1">{{calculateAge(loanHolder?.customerInfo?.dob) || 'N/A'}} years </td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-dark text-left text-white">Marital Status</td>
+                            <td class="sb-bg-gray text-left">Marital Status</td>
                             <td class="text-right pl-1">{{loanHolder?.loanHolder?.maritalStatus || 'N/A'}}</td>
                         </tr>
 
 <!--                        <tr >-->
-<!--                            <td class=" sb-bg-dark text-left text-white">Customer Client Type</td>-->
+<!--                            <td class=" sb-bg-gray text-left">Customer Client Type</td>-->
 <!--                            <td class="text-right pl-1">{{loanHolder?.loanHolder['clientType'] | clientType}}</td>-->
 
 <!--                        </tr>-->
@@ -144,7 +144,7 @@
                 <p class="text-left sub-header"><strong  class="header">Remit Loan Document</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th>S.N.</th>
                         <th>File Name</th>
                         <th>Action</th>
