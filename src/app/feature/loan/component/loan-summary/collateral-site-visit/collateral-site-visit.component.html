@@ -114,7 +114,7 @@
                         <tr>
                             <td>
                                 <label>3. Ownership status of property is not Guthi/Mohi</label><br>
-                                <label>Remarks: <span>{{security?.data?.typeOfProperty !== 'Guthi' ? 'Yes' : 'No'}}</span>
+                                <label>Remarks: <span>{{collateral?.siteVisitJsonData?.guthi === true ? 'Yes' : 'No'}}</span>
                                 </label>
                             </td>
                         </tr>
@@ -123,7 +123,7 @@
                                 <label>4. Is there any noticeable remark on/to/near the property e.g. river; temple,
                                     playing ground etc.?</label><br>
                                 <label>Remarks:
-                                    <span>{{collateral?.siteVisitJsonData?.riverOrCanalSetbacks === 'YES' ? 'Yes' : 'No'}}</span></label>
+                                    <span>{{collateral?.siteVisitJsonData?.noticeableRemark === true ? 'Yes' : 'No'}}</span></label>
                             </td>
                         </tr>
                         <tr>
@@ -149,7 +149,9 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>6. Are all the applicable taxes current/Tax Payment Receipt seen?: </label>
+                                <label>6. Are all the applicable taxes current/Tax Payment Receipt seen?</label><br>
+                                <label>Remarks:
+                                    <span>{{collateral?.siteVisitJsonData?.taxes === true ? 'Yes' : 'No'}}</span></label>
                             </td>
                         </tr>
                         <tr>
