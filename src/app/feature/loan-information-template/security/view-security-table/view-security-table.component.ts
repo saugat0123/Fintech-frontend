@@ -75,8 +75,10 @@ export class ViewSecurityTableComponent implements OnInit {
             this.spinner = false;
             this.toggleArray[i].security = res.detail;
             this.checkContainedApprovedLoan(res.detail, i);
+            this.ngxSpinnerService.hide();
             this.toggleArray[i].securityPresent = this.toggleArray[i].security.length > 0;
         }, (err) => {
+            this.ngxSpinnerService.hide();
             this.spinner = false;
         });
     }
@@ -98,6 +100,23 @@ export class ViewSecurityTableComponent implements OnInit {
         this.customerInformationService.resetSecurity(parentId, id, this.customerInfo.id).subscribe({
             next: (res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Reset To Default'));
+                this.emitter.emit(true);
+            },
+            error: (error: any) => {
+                this.ngxSpinnerService.hide();
+                this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong!!!!'));
+            },
+            complete: () => {
+                this.ngOnInit();
+                this.ngxSpinnerService.hide();
+            }
+        });
+    }
+    deleteSecurity(id: number, customerInfoId) {
+        this.ngxSpinnerService.show();
+        this.customerInformationService.deleteSecurity(id, customerInfoId).subscribe({
+            next: (res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted'));
                 this.emitter.emit(true);
             },
             error: (error: any) => {
@@ -147,6 +166,7 @@ export class ViewSecurityTableComponent implements OnInit {
             // get details from backed of each security tagged on loans
             this.securities.forEach((d, i) => {
                 this.toggleArray.push({toggled: false, security: null, securityPresent: false, approved: false});
+                this.ngxSpinnerService.show();
                 this.getSecurityDetails(d.id, i);
             });
         }

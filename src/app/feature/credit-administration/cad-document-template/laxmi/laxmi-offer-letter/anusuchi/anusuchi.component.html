@@ -1,0 +1,212 @@
+<div [nbSpinner]="spinner" nbSpinnerSize="giant" class="row"
+     id="print-section-{{offerLetterConst.ANUSUCHI}}">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
+                <div class="float-right">
+                    ने.रा.बैंक निर्देशन फा.नं. २.६
+                </div>
+            <br>
+            <p class="text-center font-weight-bold">बैंक तथा वित्तीय संस्थामा ऋणको लागि निवेदन दिंदा खुलाउनुपर्ने बिबरणको ढाँचा</p>
+            <p><strong>विषय : कर्जा कारोबार सम्बन्धी ऋणीले गरेको स्व:घोषणा पत्र ।</strong></p>
+            <div class="float-right">
+                मिति :—<input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                              formControlName="date">
+                <span class=" print-only nepaliFont"><strong>{{form.get('date').value ? form.get('date').value : '========='}}</strong></span>
+                <br> (रु. हजारमा)
+            </div>
+            <br><br>
+            <table class="table-responsive-md table-bordered table-condensed table-sm sb-small" style="width: 100%">
+                <thead>
+                <tr class="text-center">
+                    <th>ऋण लिएको अन्य बैंक/वित्तीय संस्थाको नाम</th>
+                    <th>बक्यौता रकम (मिति)</th>
+                    <th>म्याद नाघेको छ/छैन</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>१. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                      formControlName="bankName1">
+                            <span class="print-only nepaliFont"><strong>{{form.get('bankName1').value ? form.get('bankName1').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt1')" [checked]="this.form.get('currentCapitalDebt1').value" formcontrolName="currentCapitalDebt1"></nb-checkbox> चालु पुँजी कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan1')" [checked]="this.form.get('periodicLoan1').value" formcontrolName="periodicLoan1"></nb-checkbox> आवधिक कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan1')" [checked]="this.form.get('otherLoan1').value" formcontrolName="otherLoan1"></nb-checkbox> अन्य कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'nonCellBasedFacility1')" [checked]="this.form.get('nonCellBasedFacility1').value" formcontrolName="nonCellBasedFacility1"></nb-checkbox> गैरकोषमा आधारित सुविधा
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="amountDate1">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('amountDate1').value ? form.get('amountDate1').value : '========='}}</strong></span>
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="deadline1">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('deadline1').value ? form.get('deadline1').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">जम्मा</td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalAmountDate1">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalAmountDate1').value ? form.get('totalAmountDate1').value : '========='}}</strong></span>
+                        </td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalDeadline1">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalDeadline1').value ? form.get('totalDeadline1').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>२. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                      formControlName="bankName2">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName2').value ? form.get('bankName2').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt2')" [checked]="this.form.get('currentCapitalDebt2').value" formcontrolName="currentCapitalDebt2"></nb-checkbox> चालु पुँजी कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan2')" [checked]="this.form.get('periodicLoan2').value" formcontrolName="periodicLoan2"></nb-checkbox> आवधिक कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan2')" [checked]="this.form.get('otherLoan2').value" formcontrolName="otherLoan2"></nb-checkbox> अन्य कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'nonCellBasedFacility2')" [checked]="this.form.get('nonCellBasedFacility2').value" formcontrolName="nonCellBasedFacility2"></nb-checkbox> गैरकोषमा आधारित सुविधा
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="amountDate2">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('amountDate2').value ? form.get('amountDate2').value : '========='}}</strong></span>
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="deadline2">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('deadline2').value ? form.get('deadline2').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">जम्मा</td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalAmountDate2">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalAmountDate2').value ? form.get('totalAmountDate2').value : '========='}}</strong></span>
+                        </td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalDeadline2">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalDeadline2').value ? form.get('totalDeadline2').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>३. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                      formControlName="bankName3">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName3').value ? form.get('bankName3').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt3')" [checked]="this.form.get('currentCapitalDebt3').value" formcontrolName="currentCapitalDebt3"></nb-checkbox> चालु पुँजी कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan3')" [checked]="this.form.get('periodicLoan3').value" formcontrolName="periodicLoan3"></nb-checkbox> आवधिक कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan3')" [checked]="this.form.get('otherLoan3').value" formcontrolName="otherLoan3"></nb-checkbox> अन्य कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'nonCellBasedFacility3')" [checked]="this.form.get('nonCellBasedFacility3').value" formcontrolName="nonCellBasedFacility3"></nb-checkbox> गैरकोषमा आधारित सुविधा
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="amountDate3">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('amountDate3').value ? form.get('amountDate3').value : '========='}}</strong></span>
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="deadline3">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('deadline3').value ? form.get('deadline3').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">जम्मा</td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalAmountDate3">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalAmountDate3').value ? form.get('totalAmountDate3').value : '========='}}</strong></span>
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalDeadline3">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalDeadline3').value ? form.get('totalDeadline3').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>४. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                      formControlName="bankName4">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName4').value ? form.get('bankName4').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt4')" [checked]="this.form.get('currentCapitalDebt4').value" formcontrolName="currentCapitalDebt4"></nb-checkbox>
+                               <!-- <span *ngIf="form.get('currentCapitalDebt4').value" class="print-only"><em class="fas fa-check-circle px-2"></em></span>
+                                <span *ngIf="!form.get('currentCapitalDebt4').value" class="print-only"><em class="fas fa-times-circle px-2"></em></span>-->
+                            चालु पुँजी कर्जा
+                            <br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan4')" [checked]="this.form.get('periodicLoan4').value" formcontrolName="periodicLoan4"></nb-checkbox>
+                                <!--<span *ngIf="form.get('periodicLoan4').value" class="print-only"><em class="fas fa-check-circle px-2"></em></span>
+                                <span *ngIf="!form.get('periodicLoan4').value" class="print-only"><em class="fas fa-times-circle px-2"></em></span>-->
+                            आवधिक कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan4')" [checked]="this.form.get('otherLoan4').value" formcontrolName="otherLoan4"></nb-checkbox>
+                            <ng-container class="hide-view">
+                                <!--<span *ngIf="form.get('otherLoan4').value" class="print-only"><em class="fas fa-check-circle px-2"></em></span>
+                                <span *ngIf="!form.get('otherLoan4').value" class="print-only"><em class="fas fa-times-circle px-2"></em></span>-->
+                            </ng-container>
+                            अन्य कर्जा<br>
+                            <nb-checkbox (change)="checkChecked($event.target.checked, 'nonCellBasedFacility4')" [checked]="this.form.get('nonCellBasedFacility4').value" formcontrolName="nonCellBasedFacility4"></nb-checkbox>
+                               <!-- <span *ngIf="form.get('nonCellBasedFacility4').value" class="print-only"><em class="fas fa-check-circle px-2"></em></span>
+                                <span *ngIf="!form.get('nonCellBasedFacility4').value" class="print-only"><em class="fas fa-times-circle px-2"></em></span>-->
+                            गैरकोषमा आधारित सुविधा
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="amountDate4">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('amountDate4').value ? form.get('amountDate4').value : '========='}}</strong></span>
+                        </td>
+                        <td style="vertical-align: top">
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="deadline4">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('deadline4').value ? form.get('deadline4').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">जम्मा</td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalAmountDate4">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalAmountDate4').value ? form.get('totalAmountDate4').value : '========='}}</strong></span>
+                        </td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="totalDeadline4">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('totalDeadline4').value ? form.get('totalDeadline4').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right font-weight-bold">कुल जम्मा</td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="grandTotalAmountDate">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('grandTotalAmountDate').value ? form.get('grandTotalAmountDate').value : '========='}}</strong></span>
+                        </td>
+                        <td>
+                            <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                   formControlName="grandTotalDeadline">
+                            <span class=" print-only nepaliFont"><strong>{{form.get('grandTotalDeadline').value ? form.get('grandTotalDeadline').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+           <p>उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ, झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्ने:</p>
+            <p>व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छाप
+                <input type="text" class="nepaliFont disable-print form-control-sm form-field"
+                                                                      formControlName="borrowerName">
+                <span class=" print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value : '========='}}</strong></span>
+            </p>
+            <p>अधिकार प्राप्त अधिकारीको दस्तखत :</p>
+            <div>
+                <button type="submit"
+                        class="btn btn-primary float-right disable-print d-print-none"
+                        nbButton
+                        status="success"
+                        [disabled]="spinner">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{offerLetterConst.ANUSUCHI}}"
+                ngxPrint nbButton>print
+        </button>
+    </div>
+</div>

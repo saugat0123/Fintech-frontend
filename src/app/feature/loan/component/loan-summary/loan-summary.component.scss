@@ -32,7 +32,7 @@
 
   .signature-block {
     padding: 0.5rem;
-    border: 1px solid #8c8b8b;
+    border: 1px solid #000000 !important;
 
     .signature-detail {
       border-top: 1px dashed;
@@ -64,6 +64,10 @@
 
   .gauge-label-padding {
     //padding-top: 90px;
+  }
+
+  table, th, td {
+    border: 1px solid black !important;
   }
 
   @media print {
@@ -137,7 +141,7 @@
         padding-top: 3rem;
 
         .signature-block {
-          border: 1px solid #8c8b8b;
+          border: 1px solid #000000 !important;
           margin-top: 0.2rem;
         }
 

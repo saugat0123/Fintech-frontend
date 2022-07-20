@@ -18,7 +18,7 @@
             <ng-container *ngFor="let security of securities; let i=index;">
                 <tr>
                     <td>{{i + 1}}</td>
-                    <td>{{security?.securityType.toString().replace(regex, ' ')}}</td>
+                    <td>{{security?.securityType.toString() ==='HYPOTHECATION_OF_STOCK' ? 'Hypothecation of Stock & Receivables' :security?.securityType.toString().replace(regex, ' ')}}</td>
                     <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : customerInfo?.name}}</td>
                     <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>
@@ -48,6 +48,10 @@
                             <a class="px-2 cursor" nbTooltip="Reset Security" *ngIf="security?.oldSecurityId && isMaker && !toggleArray[i]?.approved"
                                (click)="resetSecurity(security?.oldSecurityId, security?.id)">
                                 <em class="fa fa-undo"></em>
+                            </a>
+                            <a class="px-2 cursor" nbTooltip="Delete Security" *ngIf="isMaker && !toggleArray[i]?.securityPresent"
+                               (click)="deleteSecurity(security?.id, customerInfo?.id)">
+                                <em class="fa fa-trash"></em>
                             </a>
                         </ng-container>
                         <a class="px-2 cursor" nbTooltip="{{security?.status.toString() === 'ACTIVE' ? 'UN-LINK' : 'LINK'}} SECURITY" *ngIf="toggleArray[i]?.approved || security?.approved"

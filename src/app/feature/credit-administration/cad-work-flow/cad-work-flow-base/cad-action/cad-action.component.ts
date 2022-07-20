@@ -102,6 +102,9 @@ export class CadActionComponent implements OnInit, OnChanges {
     isLegal = false;
     isDiscrepancy = false;
     isCsu = false;
+    cadStageOfferApproved = false;
+    updatedToRole;
+    returnedFromLegal = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -174,6 +177,15 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.backwardTooltipMessageAndShowHideBackward();
 
         this.checkForwardValidMessage();
+
+        if (this.isCsu && this.currentStatus === 'OFFER_APPROVED' && this.inMyBucket) {
+            this.cadStageOfferApproved = true;
+        }
+
+        if (this.currentCADStage.fromRole.roleType === RoleType.CAD_LEGAL
+            && this.currentCADStage.toRole.roleType === RoleType.MAKER && this.currentStatus === 'OFFER_APPROVED') {
+            this.returnedFromLegal = true;
+        }
     }
 
     checkForwardValidMessage() {
@@ -243,6 +255,13 @@ export class CadActionComponent implements OnInit, OnChanges {
         const data: { email: string, password: string } = dataValue.value;
         data.email = LocalStorageUtil.getStorage().username;
         const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+        if (this.returnedFromLegal && !ObjectUtil.isEmpty(this.toRole)) {
+            if (this.toRole.roleType === RoleType.CAD_LEGAL) {
+                this.formAction.patchValue({
+                    documentStatus: [this.backwardDocStatus()]
+                });
+            }
+        }
         this.http.post(this.securityUrl, requestBody, {headers: this.headers})
             .subscribe(
                 () => {
@@ -314,6 +333,10 @@ export class CadActionComponent implements OnInit, OnChanges {
         } else {
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
                 this.userList = response.detail;
+                this.updatedToRole = role;
+                this.formAction.patchValue({
+                    documentStatus: this.forwardBackwardDocStatusChange()
+                });
                 if (this.userList.length === 1) {
                     this.formAction.patchValue({
                         toUser: this.userList[0],
@@ -371,14 +394,15 @@ export class CadActionComponent implements OnInit, OnChanges {
                     if (this.sendForwardBackwardList.length !== 0) {
 
                         if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
-                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.APPROVAL);
+                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.APPROVAL
+                                || f.role.roleType === RoleType.CAD_LEGAL);
                         } else {
                             if (this.isMaker && this.currentStatus === 'OFFER_APPROVED') {
                                 if(this.cadOfferLetterApprovedDoc.discrepancy) {
-                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CRC);
+                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CRC || f.role.roleType === RoleType.APPROVAL);
 
                                 } else {
-                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CAD_LEGAL);
+                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CAD_LEGAL || f.role.roleType === RoleType.APPROVAL);
 
                                 }
                             } else {
@@ -391,7 +415,19 @@ export class CadActionComponent implements OnInit, OnChanges {
                                 }
                             }
                         }
-                            this.getUserList(this.sendForwardBackwardList[0].role);
+                        if (this.isCsu && this.currentStatus === 'OFFER_APPROVED') {
+                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CAD_LEGAL);
+                        }
+                        const tempList = !ObjectUtil.isEmpty(this.sendForwardBackwardList) ?
+                            this.sendForwardBackwardList.length : 0;
+                           if (tempList > 1) {
+                               this.getUserList(this.sendForwardBackwardList[0].role);
+                               if (ObjectUtil.isEmpty(this.toRole)) {
+                                   this.updatedToRole = this.sendForwardBackwardList[0].role;
+                                   const tempDocumentStatus = this.forwardBackwardDocStatusChange();
+                                   this.formAction.get('documentStatus').patchValue(tempDocumentStatus);
+                               }
+                           }
                         }
                 });
         } else if (this.popUpTitle === 'APPROVED') {
@@ -474,6 +510,11 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public forwardBackwardDocStatusChange() {
         if (this.currentStatus === 'OFFER_APPROVED') {
+            if (!ObjectUtil.isEmpty(this.updatedToRole) && this.isMaker) {
+                if (this.updatedToRole.roleType === RoleType.APPROVAL) {
+                    return 'OFFER_APPROVED';
+                }
+            }
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
             return 'LIMIT_PENDING';
@@ -488,6 +529,11 @@ export class CadActionComponent implements OnInit, OnChanges {
     public backwardDocStatus() {
         switch (this.currentStatus) {
             case 'OFFER_APPROVED':
+                if (this.returnedFromLegal && !ObjectUtil.isEmpty(this.toRole)) {
+                    if (this.toRole.roleType === RoleType.CAD_LEGAL) {
+                        return 'LEGAL_PENDING';
+                    }
+                }
                 return 'OFFER_PENDING';
                 break;
             case 'LEGAL_PENDING':

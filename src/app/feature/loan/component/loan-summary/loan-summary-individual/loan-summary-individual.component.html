@@ -2,7 +2,7 @@
 <section class="enable-print summary">
     <div id="print-block">
         <div class=" col-md-12 summary">
-            <div class="row" style="margin-bottom: -20px">
+            <div class="row" style="margin-bottom: -20px; margin-top: 50px;">
                 <div class="col-md-12">
                     <p><strong class="header text-left">Purpose of Loan </strong></p>
                     <table class="table table-borderless table-responsive-md table-sm table-condensed sb-small">
@@ -28,11 +28,18 @@
                 <!--                    proposed security-->
 
             <ng-container>
+                <hr class="print-line">
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList" [securities]="loanSecurity"
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [securities]="loanSecurity"
+                                      [customerAllLoanList]="customerAllLoanList"
+                                      [approvedSec] = "approvedSecurity"
+                                      [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="customerAllLoanList" [securities]="approvedSecurity"></app-security-summary>
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [loanHolder]="loanDataHolder?.loanHolder"
+                                      [securities]="approvedSecurity"></app-security-summary>
             </ng-container>
             <!-- Customer Share Security  -->
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
@@ -47,7 +54,7 @@
             <ng-container *ngIf="others">
                 <hr class="print-line header">
                 <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th>Justification</th>
                     </tr>
                     <tr>
@@ -58,7 +65,7 @@
                 </table>
                 <hr class="print-line header">
                 <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th>Current Request</th>
                     </tr>
                     <tr>
@@ -75,7 +82,7 @@
     <ng-container *ngIf="!fullSettlement && !others">
         <nb-accordion *ngIf="isRemitLoan">
             <nb-accordion-item>
-                <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video
+                <nb-accordion-item-header class="disable-print sb-small sb-bg-gray text-white"><h6>Video
                     KYC</h6></nb-accordion-item-header>
                 <nb-accordion-item-body>
                     <app-video-kyc [showSender]="true" [remitCustomer]="loanDataHolder.remitCustomer"
@@ -89,7 +96,7 @@
                 <p class="header"><strong class="header">Address Verification</strong></p>
                 <table *ngIf="!isJointInfo"
                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th colspan="6" class="sub-header">Permanent Address</th>
                     </tr>
                     <tr>
@@ -108,7 +115,7 @@
                         <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
                         <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
                     </tr>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th colspan="6" class="sub-header">Temporary Address</th>
                     </tr>
                     <tr>
@@ -130,7 +137,7 @@
                 </table>
                 <table *ngIf="isJointInfo"
                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th colspan="7" class="sub-header">Permanent Address</th>
                     </tr>
                     <tr>
@@ -153,7 +160,7 @@
                             <td class="text-left pl-1">{{info?.permanentAddressLine2 || 'NA'}}</td>
                         </tr>
                     </ng-container>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th colspan="7" class="sub-header">Temporary Address</th>
                     </tr>
                     <tr>
@@ -202,11 +209,11 @@
                                             [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
                                             [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
                         <div *ngIf="minOneGuarantorDoc" class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-2">
                                 <p><strong class="header">Guarantor Documents</strong></p>
                                 <table class="table table-condensed table-bordered table-sm sb-small text-center">
                                     <thead>
-                                    <tr class="text-white sb-bg-dark">
+                                    <tr class="sb-bg-gray">
                                         <th>S.N</th>
                                         <th>Guarantor</th>
                                         <th>Document</th>
@@ -234,7 +241,7 @@
                                 <table
                                         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                                     <thead>
-                                    <tr class="text-white sb-bg-dark">
+                                    <tr class="sb-bg-gray">
                                         <th>Name</th>
                                         <th>Undivided Family Member</th>
                                         <th>Age</th>
@@ -272,7 +279,7 @@
                             <hr class="print-line header">
                             <p class="header"><strong class="header">Waivers</strong></p>
                             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                <tr class="text-white sb-bg-dark">
+                                <tr class="sb-bg-gray">
                                     <th>Waiver</th>
                                 </tr>
                                 <tr>
@@ -286,7 +293,7 @@
                             <hr class="print-line header">
                             <p class="header"><strong class="header">Deviation</strong></p>
                             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                <tr class=" text-white sb-bg-dark">
+                                <tr class="sb-bg-gray">
                                     <th>Deviation</th>
                                 </tr>
                                 <tr>
@@ -308,7 +315,7 @@
                 <hr class="print-line">
                 <p><b class="header"> Financial/ Repayment Ability: Primary Source of Income</b></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                    <thead class="sb-bg-dark">
+                    <thead class="sb-bg-gray">
                     <tr>
                         <th>Particulars</th>
                         <th>Summary</th>
@@ -356,7 +363,7 @@
                 <p><b class="header">DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
                 <table
                         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <thead class="sb-bg-dark">
+                    <thead class="sb-bg-gray">
                     <tr>
                         <td><b>Particular</b></td>
                         <td></td>
@@ -485,7 +492,7 @@
         </div>
         <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
             <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th class="header">Within Limit Remarks (if any)</th>
                 </tr>
                 <tr>
@@ -496,7 +503,7 @@
 
         <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
             <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th class="header">Within Limit Remarks (if any)</th>
                 </tr>
                 <tr>
@@ -506,7 +513,7 @@
         </div>
         <div *ngIf="loanDataHolder?.companyInfo?.accountStrategy">
             <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th class="header">Account Strategy</th>
                 </tr>
                 <tr>
@@ -522,7 +529,7 @@
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
                         <thead>
-                        <tr class="text-white sb-bg-dark">
+                        <tr class="sb-bg-gray">
                             <th>S.N</th>
                             <th>Document</th>
                             <th>Checked</th>
@@ -548,7 +555,7 @@
             <table
                     class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Credit Risk Grading (Flavour)</th>
                     <th>Credit Risk Grade</th>
                     <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
@@ -584,7 +591,7 @@
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white">
+                        <tr class="sb-bg-gray">
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
@@ -600,7 +607,6 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
                                 {{previousList?.lastModifiedAt | date}}
-                                ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -637,7 +643,6 @@
                         <tr>
                             <td>{{currentIndex + 1}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
-                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -684,9 +689,9 @@
                 </div>
                 <div class="row col-md-12">
                     <div *ngFor="let previous of signatureList; let i=index;"
-                         class="col-md-2 padding-0-125">
+                         class="col-md-4 padding-0-125">
                         <div class="signature-block">
-                            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
                                 <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                             </div>
                             <hr class="border-dark m-0">
@@ -696,23 +701,17 @@
                                      class="img-thumbnail border-0 signature-height signature-width"
                                      src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                             </div>
-                            <div class="text-center signature-detail sb-bg-secondary text-white">
-                                <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                                <p class="m-0 sb-small">
-                                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
-                                    )</p>
-                                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
-                                    ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                            <div class="text-center signature-detail sb-bg-gray">
+                                <span class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</span>
+                                <span class="m-0 sb-small">
+                                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})
+                                </span>
+                                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Site Visit -->
-            <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
-                                 [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
-                                 [loanDataHolder]="loanDataHolder"
-                                 [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
 
             <br>
         </div>

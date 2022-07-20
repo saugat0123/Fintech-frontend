@@ -40,6 +40,7 @@ import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
 import {Auto} from './Auto';
 import {LandBuilding} from './LandBuilding';
 import {SecurityLoanReference} from '../../modal/security-loan-reference';
+import {ReviewDate} from './reviewDate';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -121,4 +122,5 @@ export class LoanDataHolder extends BaseEntity {
     withIn: boolean;
     withInLoan: number;
     shareType;
+    reviewDate: ReviewDate;
 }

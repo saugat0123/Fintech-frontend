@@ -33,7 +33,7 @@
                                 (ngModelChange)="clearValidationState()"
                                 [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let type of securityTypes" [value]="type?.key">
-                                {{type?.value}}
+                                {{type?.value === 'Hypothecation of Stock' ? 'Hypothecation of Stocks & Receivables' :type?.value}}
                             </option>
                         </select>
                     </div>
@@ -41,7 +41,7 @@
             </div>
             <hr>
         </div>
-        <nb-checkbox *ngIf="newSecurity && !shareSelected" [(ngModel)]="isApprovedSecurity" name="approved"> Approved Existing Security ?</nb-checkbox>
+        <nb-checkbox *ngIf="newSecurity && !shareSelected" [(ngModel)]="isApprovedSecurity" name="approved"> Is it Approved Security ? <i style="color: red">(If YES please Tick)</i></nb-checkbox>
         <app-vehicle #vehicleSecurity *ngIf="vehicleSelected" [calendarType]="calendarType"
                      [security]="securityValue" [customerType]="customerType" [isEdit]="isEdit"></app-vehicle>
         <app-apartment #apartmentSecurity *ngIf="apartmentSelected" [calendarType]="calendarType"

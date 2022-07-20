@@ -96,3 +96,23 @@ input::-webkit-input-placeholder {
   font-size: 1.5rem;
 }
 
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
+}
+ol li{
+  line-height: 1.9;
+  font-size: 16px;
+}
+

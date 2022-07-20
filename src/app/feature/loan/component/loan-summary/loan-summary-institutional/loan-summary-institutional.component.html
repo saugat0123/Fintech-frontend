@@ -11,7 +11,11 @@
             <!--                release and replacement-->
             <ng-container>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="loanSecurity" [securities]="loanSecurity"
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [securities]="loanSecurity"
+                                      [customerAllLoanList]="customerAllLoanList"
+                                      [approvedSec] = "approvedSecurity"
+                                      [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
                 <app-security-summary *ngIf="approvedSecurity" [securities]="approvedSecurity"></app-security-summary>
@@ -323,7 +327,6 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
                                 {{previousList?.lastModifiedAt | date}}
-                                ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -360,7 +363,6 @@
                         <tr>
                             <td>{{currentIndex + 1}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
-                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">

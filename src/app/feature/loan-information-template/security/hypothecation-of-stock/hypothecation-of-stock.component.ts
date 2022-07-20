@@ -37,18 +37,23 @@ export class HypothecationOfStockComponent implements OnInit {
         const hypothecationOfStock = this.hypothecationForm.get('hypothecationOfStock') as FormArray;
         hypothecationOfStock.push(
             this.formBuilder.group({
-                owner: [formData.owner],
                 stock: [formData.stock],
                 value: [formData.value],
                 otherDetail: [formData.otherDetail],
                 considerValue: [formData.considerValue],
+                stockMarketValue: [formData.stockMarketValue],
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 description: [formData.description],
-                hypothecationOwnerRelationship: [formData.hypothecationOwnerRelationship],
-                ownerKycApplicableData: [formData.ownerKycApplicableData],
-                kycCheckForHypthecation: [formData.kycCheckForHypthecation],
-                hypothecationFirstValuationDate: [formData.hypothecationFirstValuationDate ? new  Date(formData.hypothecationFirstValuationDate) : '']
+                bookValue: [formData.bookValue],
+                realiasableRate: [formData.realiasableRate],
+                realiasableValue: [formData.realiasableValue],
+                stockRealiasableValue: [formData.stockRealiasableValue],
+                averageStock: [formData.averageStock],
+                receivableBookValue: [formData.receivableBookValue],
+                receivableMarketValue: [formData.receivableMarketValue],
+                receivableRealizableRate: [formData.receivableRealizableRate],
+                receivableRealizableValue: [formData.receivableRealizableValue]
             })
         );
     }
@@ -71,15 +76,24 @@ export class HypothecationOfStockComponent implements OnInit {
                 value: [undefined],
                 otherDetail: [undefined],
                 considerValue: 0,
+                stockMarketValue: 0,
                 fairMarketValue: [undefined],
                 distressValue: [undefined],
                 description: [undefined],
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
                 kycCheckForHypthecation: [false],
-                hypothecationFirstValuationDate: [undefined]
-            }
-        );
+                hypothecationFirstValuationDate: [undefined],
+                bookValue: [undefined],
+                realiasableRate: [undefined],
+                realiasableValue: [undefined],
+                stockRealiasableValue: [undefined],
+                averageStock: [undefined],
+                receivableBookValue: [undefined],
+                receivableMarketValue: [undefined],
+                receivableRealizableRate: [undefined],
+                receivableRealizableValue: [undefined],
+            });
     }
 
  public ownerKycRelationInfoCheck(kycCheck, kycCheckId, index): void {
@@ -102,4 +116,8 @@ export class HypothecationOfStockComponent implements OnInit {
     (<FormArray>this.hypothecationForm.get('hypothecationOfStock')).removeAt(index);
   }
 
+    public onChange(i, stock, rec, patchKey) {
+        const total = this.hypothecationForm.get(['hypothecationOfStock', i, stock]).value + this.hypothecationForm.get(['hypothecationOfStock', i, rec]).value ;
+        this.hypothecationForm.get(['hypothecationOfStock', i, patchKey]).patchValue(total);
+    }
 }

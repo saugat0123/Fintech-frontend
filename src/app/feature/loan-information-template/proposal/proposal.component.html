@@ -42,7 +42,7 @@
                                 <div class="col-md-4">
                                     <div>
                                         <nb-checkbox [(ngModel)]="withIn" name="withIn"
-                                                     [ngModelOptions]="{standalone: true}">With In ?
+                                                     [ngModelOptions]="{standalone: true}">Is proposed facility is within limit ? <i style="color:red">(If YES, Please Tick)</i>
                                         </nb-checkbox>
                                         <select *ngIf="withIn"
                                                 class="custom-select"
@@ -347,8 +347,7 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
-                                            Month.</strong></label>
+                                        <label class="title" for="tenureDurationInMonths"><strong>Originally Approved Tenure</strong></label>
                                         <input
                                                 class="form-control"
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
@@ -589,6 +588,7 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <div>
+                                        <label class="title" for="collateralRequirement"><strong>Swap Fee</strong></label>
                                         <div class="variable">
                                             <input
                                                     formControlName="swapChargeMethod"
@@ -1055,6 +1055,12 @@
                                                   [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
+                        <div class="col-md-12">
+                            <app-review-date #lastLoanReviewDate
+                                             [fromProfile] = "true"
+                                             [reviewData]="loan?.reviewDate">
+                            </app-review-date>
+                        </div>
                     </ng-container>
                     <ng-container >
                         <div class="col-md-12" *ngIf="fromProfile">
@@ -1065,7 +1071,7 @@
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="fromProfile">
+                    <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist">
                         <app-product-paper-checklist
                             #productPaperChecklistComponent
                             [loanDataHolder]="loan"
