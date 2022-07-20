@@ -293,7 +293,7 @@ export class FinancialComponent implements OnInit {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    // incomeSource: [singleData.incomeSource],
+                    incomeSource: [singleData.incomeSource],
                     // organization: [singleData.organization],
                     amount: [singleData.amount],
                     remarks: [singleData.remarks],
@@ -489,7 +489,7 @@ export class FinancialComponent implements OnInit {
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
-                // incomeSource: [undefined, Validators.required],
+                incomeSource: [undefined, Validators.required],
                 // organization: [undefined, Validators.required],
                 amount: [undefined, Validators.required],
                 remarks: [undefined, Validators.required],

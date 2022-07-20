@@ -1,4 +1,4 @@
-<p *ngIf="!fromProfile" class="text-left header"><b class="header">Credit CheckList</b></p>
+<p *ngIf="!fromProfile" class="text-left header"><b class="header">CHECKLIST</b></p>
     <div class="row">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
@@ -11,11 +11,12 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
-                <table *ngIf="!fromProfile" class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                <p class="text-center"><strong>Regulatory Compliance Checklist</strong></p>
+                <!--<table *ngIf="!fromProfile" class="table table-bordered text-center table-responsive-md table-sm sb-small">
                     <tr>
                         <th class="sb-bg-dark text-white">Credit CheckList</th>
                     </tr>
-                </table>
+                </table>-->
 <!--                <label>Credit Checklist-General</label>-->
                         <!--          <form [formGroup]="formGroupCheckList">-->
                             <label><strong>Date of Checklist:</strong> </label>
@@ -29,10 +30,8 @@
                                         [ePreDate]="formGroupCheckList.get('dateCheckList').value"></app-calendar>
                                 <nb-datepicker #dateOfChecklist></nb-datepicker>
                             </ng-container>
-                            <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
+                            <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}}</span><br>
 
-
-                <label><strong>Regulatory Compliance Checklist</strong></label><br/>
                 <label><strong>NRB Directive No. 6. 8. (ka)</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
@@ -353,8 +352,11 @@
                     </tr>
                     </tbody>
                 </table>
-<label><strong>This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi Bank Limited or against securities of Nepal Government and Nepal Rastra Bank__________________.</strong></label>
-                <div *ngIf="client === clientName.LAXMIBANK">
+<label><strong>This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi Bank Limited or against securities of Nepal Government and Nepal Rastra Bank
+    <br><br><br>
+    __________________________________________</strong></label><br>
+                <label>Relationship Manager/Branch Manager</label>
+                <!--<div *ngIf="client === clientName.LAXMIBANK">
                     <label  ><b>AML / CFT Checklist</b></label>
                     <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                         <thead>
@@ -1391,7 +1393,7 @@
 
                         </table>
 
-                        <!-- FOR ESRM (SUMMARY) SECTION -->
+                        &lt;!&ndash; FOR ESRM (SUMMARY) SECTION &ndash;&gt;
                         <h6 *ngIf="dataForEdit?.criticalSector">ESRM - Summary</h6>
                         <ng-container *ngIf="dataForEdit?.criticalSector">
                             <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
@@ -1487,8 +1489,7 @@
                             </div>
                         </ng-container>
                     </ng-container>
-                </div>
-
+                </div>-->
             </form>
         </div>
     </div>

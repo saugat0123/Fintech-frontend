@@ -68,7 +68,7 @@
         </table>
         <div class="text-justify col-md-12 border">
             <p>Additional guarantee to be obtained if required for additional comfort.<br>
-                Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
+                Please specify relationship between the above mentioned parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
         </div>
     </ng-container>
     <div>
@@ -84,16 +84,24 @@
                             <td class="pl-1 text-right">{{loanHolder?.customerInfo?.customerName}}</td>
                         </tr>
                         <tr>
+                            <td class="sb-bg-gray text-left">Age</td>
+                            <td class="text-right pl-1">{{calculateAge(loanHolder?.customerInfo?.dob) || 'N/A'}} years </td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-gray text-left">Marital Status</td>
+                            <td class="text-right pl-1">{{loanHolder?.loanHolder?.maritalStatus || 'N/A'}}</td>
+                        </tr>
+                        <tr>
                           <td class="text-left sb-bg-gray">Father's Name</td>
                             <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                         </tr>
                         <tr>
-                          <td class="text-left sb-bg-gray">Grand Father Name</td>
+                          <td class="text-left sb-bg-gray">Grand Father's Name</td>
                             <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <td class="sb-bg-gray text-left">Date Of Birth (AD/BS)</td>
-                            <td class="pl-1 text-right">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
+                            <td class="sb-bg-gray text-left">Date Of Birth (AD)</td>
+                            <td class="pl-1 text-right">{{loanHolder?.customerInfo?.dob | date}}</td>
                         </tr>
 <!--                        <tr>-->
 <!--                            <td class="sb-bg-gray text-left">Citizenship Number</td>-->
@@ -108,6 +116,10 @@
                             <td class="text-right pr-1">{{loanHolder?.customerInfo?.landLineNumber || 'N/A'}}</td>
                         </tr>
                         <tr>
+                            <td class="sb-bg-gray text-left">E-mail</td>
+                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.email || 'N/A'}}</td>
+                        </tr>
+                        <tr>
                             <td class="sb-bg-gray text-left">Occupation</td>
                             <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                         </tr>
@@ -115,14 +127,6 @@
 <!--                            <td class="sb-bg-gray text-left">Income Source</td>-->
 <!--                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>-->
 <!--                        </tr>-->
-                        <tr>
-                            <td class="sb-bg-gray text-left">Age</td>
-                            <td class="text-right pl-1">{{calculateAge(loanHolder?.customerInfo?.dob) || 'N/A'}} years </td>
-                        </tr>
-                        <tr>
-                            <td class="sb-bg-gray text-left">Marital Status</td>
-                            <td class="text-right pl-1">{{loanHolder?.loanHolder?.maritalStatus || 'N/A'}}</td>
-                        </tr>
 
 <!--                        <tr >-->
 <!--                            <td class=" sb-bg-gray text-left">Customer Client Type</td>-->

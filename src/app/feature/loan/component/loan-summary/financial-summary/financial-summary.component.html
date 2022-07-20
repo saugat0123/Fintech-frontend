@@ -2,20 +2,17 @@
   <hr class="print-line">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p class="header"><strong   class="header">Income Source</strong></p>
+      <p class="header"><strong class="header">Income of Borrower/Guarantor</strong></p>
       <div class="row">
         <div class="col-md-12">
           <table class="table table-bordered text-right table-sm sb-small text-center">
             <thead>
-            <tr>
-              <th class="text-center" colspan="6">Income of Borrower/Guarantor</th>
-            </tr>
             <tr class="sb-bg-gray">
               <th>S.N</th>
               <th>Source of Income</th>
-              <th>Type</th>
+              <!--<th>Type</th>-->
               <th>Amount</th>
-              <th>Age Of Income Generated</th>
+             <!-- <th>Age Of Income Generated</th>-->
               <th>Remarks</th>
             </tr>
             </thead>
@@ -23,9 +20,9 @@
             <tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">
               <td>{{i + 1}}</td>
               <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
-              <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
+             <!-- <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>-->
               <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
-              <td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>
+              <!--<td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>-->
               <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
