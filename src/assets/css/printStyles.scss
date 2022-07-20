@@ -88,9 +88,13 @@
   }
 
   hr.print-line {
-    border-top: 2px solid black;
+    border-top: 1px solid black;
     margin-top: .5rem;
     margin-bottom: .5rem;
+  }
+
+  table#table_demo {
+    border: none;
   }
 
   div {

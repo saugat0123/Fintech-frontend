@@ -13,44 +13,37 @@
                 <td class="text-left sb-bg-gray pl-2">Name</td>
               </tr>
               <tr>
-                <td class="text-left sb-bg-gray pl-2">Gender</td>
-              </tr>
-              <tr>
-                <td class="text-left sb-bg-gray pl-2">Relationship With Borrower</td>
+                <td class="sb-bg-gray text-left pl-2">Age</td>
               </tr>
               <tr>
                 <td class="text-left sb-bg-gray pl-2">Father's Name</td>
               </tr>
               <tr>
-                <td class="text-left sb-bg-gray pl-2">Grand Father Name</td>
+                <td class="text-left sb-bg-gray pl-2">Grand Father's Name</td>
               </tr>
               <tr>
-                <td class="sb-bg-gray text-left pl-2">Date Of Birth (AD/BS)</td>
-              </tr>
-              <tr>
-                <td class="sb-bg-gray text-left pl-2">Citizenship Number</td>
+                <td class="text-left sb-bg-gray pl-2">Name of Spouse</td>
               </tr>
               <tr>
                 <td class="sb-bg-gray text-left pl-2">Phone Number</td>
-              </tr>
-
-              <tr>
-                <td class="sb-bg-gray text-left pl-2">Occupation</td>
               </tr>
               <tr>
                 <td class="sb-bg-gray text-left pl-2">Net Worth</td>
               </tr>
               <tr>
-                <td class="sb-bg-gray text-left pl-2">Age</td>
+                <td class="sb-bg-gray text-left pl-2">E-mail</td>
               </tr>
               <tr>
-                <td class="sb-bg-gray text-left pl-2">Email</td>
+                <td class="sb-bg-gray text-left pl-2">Occupation</td>
               </tr>
               <tr>
                 <td class="sb-bg-gray text-left pl-2">Permanent Address</td>
               </tr>
               <tr>
                 <td class="sb-bg-gray text-left pl-2">Temporary Address</td>
+              </tr>
+              <tr>
+                <td class="text-left sb-bg-gray pl-2">Relationship With Borrower</td>
               </tr>
               </tbody>
             </table>
@@ -63,10 +56,7 @@
                 <td class="text-right pr-2">{{subGuarantor?.name || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.gender || 'N/A'}}</td>
-              </tr>
-              <tr>
-                <td class="text-right pr-2">{{subGuarantor?.relationship || 'N/A'}}</td>
+                <td class="text-right pr-2">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}} years</td>
               </tr>
               <tr>
                 <td class="text-right pr-2">{{subGuarantor?.fatherName || 'N/A'}}</td>
@@ -75,32 +65,28 @@
                 <td class="text-right pr-2">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
-              </tr>
-              <tr>
-                <td class="text-right pr-2">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
+                <td class="text-right pr-2">{{subGuarantor?.spouseName || 'N/A'}}</td>
               </tr>
               <tr>
                 <td class="text-right pr-2">{{subGuarantor?.contactNumber || 'N/A'}}</td>
               </tr>
-
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.profession || 'N/A'}}</td>
-              </tr>
-              <tr>
-                <td class="text-right pr-2">{{subGuarantor?.netWorth || 'N/A'}}</td>
-              </tr>
-              <tr>
-                <td class="text-right pr-2">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
+                <td class="text-right pr-2">{{(subGuarantor?.netWorth  | currencyFormatter) || 'N/A'}}</td>
               </tr>
               <tr>
                 <td class="text-right pr-2">{{(subGuarantor?.guarantorJson | jsonParse)?.email || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
+                <td class="text-right pr-2">{{subGuarantor?.profession || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
+                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name + ', Ward No.: '+ subGuarantor?.wardNumber}}</td>
+              </tr>
+              <tr>
+                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name + ', Ward No.: '+ subGuarantor?.wardNumberTemporary}}</td>
+              </tr>
+              <tr>
+                <td class="text-right pr-2">{{subGuarantor?.relationship || 'N/A'}}</td>
               </tr>
               </tbody>
             </table>
@@ -202,7 +188,7 @@
                 <td class="text-right pr-2">{{subGuarantor?.profession || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.netWorth || 'N/A'}}</td>
+                <td class="text-right pr-2">{{(subGuarantor?.netWorth  | currencyFormatter) || 'N/A'}}</td>
               </tr>
               <tr>
                 <td class="text-right pr-2">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
@@ -211,10 +197,10 @@
                 <td class="text-right pr-2">{{subGuarantor?.email || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name}}</td>
+                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name  + ', Ward No.: '+ subGuarantor?.wardNumber}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name}}</td>
+                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name + ', Ward No.: '+ subGuarantor?.wardNumberTemporary}}</td>
               </tr>
               </tbody>
             </table>
