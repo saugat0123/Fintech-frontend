@@ -37,22 +37,23 @@ export class HypothecationOfStockComponent implements OnInit {
         const hypothecationOfStock = this.hypothecationForm.get('hypothecationOfStock') as FormArray;
         hypothecationOfStock.push(
             this.formBuilder.group({
-                owner: [formData.owner],
                 stock: [formData.stock],
                 value: [formData.value],
                 otherDetail: [formData.otherDetail],
                 considerValue: [formData.considerValue],
+                stockMarketValue: [formData.stockMarketValue],
                 fairMarketValue: [formData.fairMarketValue],
                 distressValue: [formData.distressValue],
                 description: [formData.description],
-                hypothecationOwnerRelationship: [formData.hypothecationOwnerRelationship],
-                ownerKycApplicableData: [formData.ownerKycApplicableData],
-                kycCheckForHypthecation: [formData.kycCheckForHypthecation],
                 bookValue: [formData.bookValue],
                 realiasableRate: [formData.realiasableRate],
                 realiasableValue: [formData.realiasableValue],
+                stockRealiasableValue: [formData.stockRealiasableValue],
                 averageStock: [formData.averageStock],
-                hypothecationFirstValuationDate: [formData.hypothecationFirstValuationDate ? new  Date(formData.hypothecationFirstValuationDate) : '']
+                receivableBookValue: [formData.receivableBookValue],
+                receivableMarketValue: [formData.receivableMarketValue],
+                receivableRealizableRate: [formData.receivableRealizableRate],
+                receivableRealizableValue: [formData.receivableRealizableValue]
             })
         );
     }

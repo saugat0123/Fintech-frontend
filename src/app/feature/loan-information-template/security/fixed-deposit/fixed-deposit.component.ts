@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {Security} from '../../../loan/model/security';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-fixed-deposit',
@@ -15,6 +16,7 @@ export class FixedDepositComponent implements OnInit {
   @Input() security: Security;
   @Input() isEdit = false;
 
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -32,18 +34,21 @@ export class FixedDepositComponent implements OnInit {
     const fixedDepositData = this.fixedDepositForm.get('fixedDepositDetails') as FormArray;
     fixedDepositData.push(
         this.formBuilder.group({
-          receiptNumber: [formData.receiptNumber],
-          amount: [formData.amount],
-          considerValue: [formData.considerValue],
-          distressValue: [formData.distressValue],
-          fairMarketValue: [formData.fairMarketValue],
-          expiryDate: [formData.expiryDate ? new Date(formData.expiryDate) : ''],
-          couponRate: [formData.couponRate],
-          beneficiary: [formData.beneficiary],
-          remarks: [formData.remarks],
-          accountHolderName: [formData.accountHolderName],
-          accountNumber: [formData.accountNumber],
-          tenureStartDate: [formData.tenureStartDate ? new Date(formData.tenureStartDate) : ''],
+            receiptNumber: [formData.receiptNumber],
+            amount: [formData.amount],
+            considerValue: [formData.considerValue],
+            distressValue: [formData.distressValue],
+            fairMarketValue: [formData.fairMarketValue],
+            expiryDate: [formData.expiryDate ? new Date(formData.expiryDate) : ''],
+            couponRate: [formData.couponRate],
+            beneficiary: [formData.beneficiary],
+            remarks: [formData.remarks],
+            marketValue: [formData.marketValue],
+            realizableRate: [formData.realizableRate],
+            realizableValue: [formData.realizableValue],
+            accountHolderName: [formData.accountHolderName],
+            accountNumber: [formData.accountNumber],
+            tenureStartDate: [formData.tenureStartDate ? new Date(formData.tenureStartDate) : ''],
             fixedDepositFirstValuationDate: [formData.fixedDepositFirstValuationDate ? new Date(formData.fixedDepositFirstValuationDate) : '']
         })
     );
@@ -70,6 +75,9 @@ export class FixedDepositComponent implements OnInit {
       considerValue: [undefined, Validators.required],
       distressValue: [undefined],
       fairMarketValue: [undefined],
+      marketValue: [undefined],
+      realizableRate: [undefined],
+      realizableValue: [undefined],
       expiryDate: [undefined],
       couponRate: [undefined],
       beneficiary: [undefined],

@@ -6,18 +6,18 @@
             <tr *ngFor="let data of files; let index = index">
                 <td  class="text-left" colspan="2">{{data?.name}}</td>
             </tr>
-            <tr>
-                <td class="sb-bg-gray">Total Security Value (MV) in CA</td>
-                <td class="text-right">Rs.{{totalSecurity |currencyFormatter}}</td>
-            </tr>
-            <tr>
-                <td class="sb-bg-gray">Expected Loss Given Default</td>
-                <td class="text-right">{{(fixedAssets | currencyFormatter) ?fixedAssets:'0'}}</td>
-            </tr>
-            <tr>
-                <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
-                <td class="text-right">{{(totalProposedLimit / totalSecurity)?.toFixed(2)   || '0'}}</td>
-            </tr>
+<!--            <tr>-->
+<!--                <td class="sb-bg-gray">Total Security Value (MV) in CA</td>-->
+<!--                <td class="text-right">Rs.{{totalSecurity |currencyFormatter}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="sb-bg-gray">Expected Loss Given Default</td>-->
+<!--                <td class="text-right">{{(fixedAssets | currencyFormatter) ? fixedAssets:'0'}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>-->
+<!--                <td class="text-right">{{(totalProposedLimit / totalSecurity)?.toFixed(2)   || '0'}}</td>-->
+<!--            </tr>-->
             </tbody>
         </table>
 

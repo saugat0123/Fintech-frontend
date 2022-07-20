@@ -18,7 +18,7 @@
             <ng-container *ngFor="let security of securities; let i=index;">
                 <tr>
                     <td>{{i + 1}}</td>
-                    <td>{{security?.securityType.toString().replace(regex, ' ')}}</td>
+                    <td>{{security?.securityType.toString() ==='HYPOTHECATION_OF_STOCK' ? 'Hypothecation of Stock & Receivables' :security?.securityType.toString().replace(regex, ' ')}}</td>
                     <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : customerInfo?.name}}</td>
                     <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>

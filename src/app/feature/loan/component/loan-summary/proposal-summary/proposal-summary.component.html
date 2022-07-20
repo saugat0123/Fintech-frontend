@@ -45,7 +45,7 @@
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList; let i = index"
                 [class.font-weight-bold]="loan?.documentStatus !== 'APPROVED'">
-                <td class="text-left pl-1">
+                <td  class="text-left pl-lg-2">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
 <!--                            *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>-->

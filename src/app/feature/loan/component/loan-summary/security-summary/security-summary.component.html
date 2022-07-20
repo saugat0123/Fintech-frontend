@@ -1,10 +1,10 @@
 <div class="row mt-3" *ngIf="securities?.length > 0">
     <hr class="print-line">
-    <p class="header" *ngIf="pending"><strong class="header">Security Summary</strong></p>
     <div class="col-md-12" *ngIf="pending">
+        <p class="header float-left"><strong class="header">Security Summary</strong></p>
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th>Security Type</th>
                 <th *ngFor="let sk of subKey">{{sk | securitySummary}}</th>
             </tr>
@@ -12,16 +12,24 @@
             <tbody>
             <ng-container *ngFor="let key of keys">
                 <tr *ngIf="totalIndividualSec[key]?.added">
-                    <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{key | securitySummary}}</td>
+                    <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :'text-left'">{{key | securitySummary}}</td>
                     <td *ngFor="let sk of subKey"
                         [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{totalIndividualSec[key][sk] | currencyFormatter}}</td>
                 </tr>
             </ng-container>
+            <tr>
+                <td class="sb-bg-gray">Expected Loss Given Default</td>
+                <td class="" [colSpan]="subKey?.length">{{(fixedAssets | currencyFormatter) ? fixedAssets:'0'}}</td>
+            </tr>
+            <tr>
+                <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
+                <td class="" [colSpan]="subKey?.length">{{(totalProposedLimit / totalIndividualSec?.total?.rv)?.toFixed(2)   || '0'}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
-    <p class="header"><strong class="header">Security Schedule</strong></p>
     <div class="col-md-12">
+        <p class="header" *ngIf="pending"><strong class="header">Security Schedule</strong></p>
         <p  class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
@@ -87,6 +95,7 @@
                         </tr>
                     </table>
                 </div>
+                <br>
             </ng-container>
             </div>
         </div>
@@ -421,6 +430,7 @@
             </td>
         </tr>
     </table>
+                    <br>
 </ng-container>
 <!--                <span>-->
 <!--                    <p><b>Is Land Cross Collateralized Security ? &nbsp;-->
@@ -526,6 +536,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    <br>
                 </ng-container>
 <!--                <span>-->
 <!--                    <p><b>Is Land & Building Cross Collateralized Security ? &nbsp;-->
@@ -611,6 +622,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    <br>
                 </ng-container>
 <!--                <span>-->
 <!--                    <p><b>Is Apartment Cross Collateralized Security ? &nbsp;-->
@@ -724,14 +736,16 @@
                         <th>Expiry Date(AD/BS)</th>
                         <th>Coupon Rate</th>
                         <th>Beneficiary</th>
+                        <th>Realizable Value</th>
                     </tr>
                     <tr *ngFor="let depositDetails of fdArray; let i= index">
                         <td>{{i + 1}}</td>
                         <td class="text-right pr-1">{{depositDetails?.receiptNumber}}</td>
-                        <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{depositDetails?.fairMarketValue | roundvalue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.expiryDate ? (depositDetails?.expiryDate | date) : 'NA'}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.beneficiary}}</td>
+                        <td class="text-left pl-1">{{depositDetails?.realizableValue | roundvalue | currencyFormatter}}</td>
                     </tr>
                     <tr class="sb-bg-gray">
                         <td colspan="2" class="text-left pl-1">Total</td>
@@ -744,8 +758,7 @@
                         <th>Remarks</th>
                     </tr>
                     <tr *ngFor="let depositDetails of fdArray; let i= index">
-                        <td>
-                            {{depositDetails?.remarks || 'N/A'}}
+                        <td [innerHTML]="depositDetails?.remarks || 'N/A'">
                         </td>
                     </tr>
                 </table>
@@ -782,21 +795,6 @@
                         <td class="text-right pr-1">Rs. {{singleShareData?.drawingPower }}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
-<!--                    <tr>-->
-<!--                        <th></th>-->
-<!--                        <th class="sb-bg-gray">Price As per Date</th>-->
-<!--                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.sharePriceDate ? (shareSecurity?.sharePriceDate | date) : 'NA'}}</td>-->
-<!--                        <th class="sb-bg-gray">Average Day's for Share Price</th>-->
-<!--                        <td colspan="2" class="text-left pl-1">{{shareSecurity?.avgDaysForPrice}} days</td>-->
-<!--                    </tr> <tr>-->
-<!--                        <th class="text-left pl-1" colspan="5">Total</th>-->
-<!--                        <th class="text-right pr-1">Rs. {{shareTotalValue |currencyFormatter}}</th>-->
-<!--                        <th class="text-right pr-1">Rs. {{totalConsideredValue |currencyFormatter}}</th>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <th class="sb-bg-gray">Description</th>-->
-<!--                        <td colspan="6" class="text-left pl-1">{{shareSecurity['securityOffered']}}</td>-->
-<!--                    </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -804,64 +802,41 @@
 
         <div class="row" *ngIf="hypothecation">
             <div class="col-md-12">
-                <p class="sub-header"><strong class="sub-header">Hypothecation Of Stock</strong></p>
+                <p class="sub-header"><strong class="sub-header">Hypothecation of Stock & Receivables</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let hypothecationOfStock of hypoArray; let i= index">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
-                        <th colspan="3">Owner</th>
-                        <th colspan="2">Stock Location</th>
-                        <th colspan="2">Value</th>
-                        <th colspan="2">Collateral Owner Relationship With Borrower</th>
+                        <th colspan="3">Description</th>
+                        <th >Stock Location</th>
+                        <th >Stock Fair Market Value</th>
+                        <th >Receivables Fair Market Value</th>
+                        <th >Stock Book Value</th>
+                        <th >Receivables Book Value</th>
+                        <th >Stock Realisable Value</th>
+                        <th >Receivables Realisable Value</th>
+                        <th>Total Realisable Value</th>
                     </tr>
                     <tr>
                         <td rowspan="4">{{i + 1}}</td>
-                        <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.owner}}</td>
-                        <td class="text-left pl-1" colspan="2">{{hypothecationOfStock?.stock}}</td>
-                        <td class="text-right pr-1" colspan="2">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
-                        <td class="text-right pr-1" colspan="2">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
+                        <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.description}}</td>
+                        <td class="text-left pl-1" >{{hypothecationOfStock?.stock}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.stockMarketValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.receivableMarketValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.bookValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.receivableBookValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.stockRealiasableValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.receivableRealizableValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.realiasableValue | currencyFormatter}}</td>
                     </tr>
-                    <!-- owner Kyc hypothecation -->
-                    <ng-container>
-                        <ng-container *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null">
-                            <tr class="sb-bg-gray">
-                                <th>Undivided Family Member</th>
-                                <th>Name</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
-                                <th>Citizenship Number</th>
-                                <th>Issued District</th>
-                                <th>Issued Date(AD/BS)</th>
-                                <th>Mobile Number</th>
-                                <th>Address</th>
-                            </tr>
-                            <tr *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
-                                <td *ngIf="j>=2"></td>
-                                <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
-                                <td class="text-left pl-1">{{kyc?.relationName}}</td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
-                                <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
-                                <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
-                                <td class="text-left pl-1">{{kyc?.issuedDate? (kyc?.issuedDate | date) : 'NA'}}</td>
-                                <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
-                                <td class="text-left pl-1">{{kyc?.address}}</td>
-                            </tr>
-                        </ng-container>
-                    </ng-container>
+                    <tr class="sb-bg-gray">
+                        <th colspan="12">Remarks</th>
+                    </tr>
+                    <tr>
+                        <td  colspan="12" [innerHTML]="hypothecationOfStock?.otherDetail || 'N/A'">
+                        </td>
+                    </tr>
                 </table>
-                <ng-container  *ngFor="let hypothecationOfStock of hypoArray; let i= index">
-                    <ng-container *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null">
-                        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
-                            <tr class="sb-bg-gray">
-                                <th>Remarks</th>
-                            </tr>
-                            <tr *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
-                                <td>
-                                    {{kyc?.remark || 'N/A'}}
-                                </td>
-                            </tr>
-                        </table>
-                    </ng-container>
-                </ng-container>
             </div>
         </div>
 

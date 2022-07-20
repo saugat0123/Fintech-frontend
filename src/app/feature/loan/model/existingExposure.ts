@@ -10,4 +10,7 @@ export class ExistingExposure extends BaseEntity {
     originalLimit: number;
     shareType: any;
     withIn: boolean;
+    exposureWithInId: number;
+    witInType: number;
+
 }
