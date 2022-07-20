@@ -581,6 +581,7 @@
               <app-above-banking-arrangement-of-the-customer
                       *ngIf="customerInfo?.multiBanking else noBanking"
                       [multiBanking]="customerInfo?.multiBanking"
+                      [isRetailCustomer]="isRetailCustomer"
                       [customerCategory]="customerInfo?.customerCategory"></app-above-banking-arrangement-of-the-customer>
               <ng-template #noBanking>Not Available</ng-template>
             </nb-card-body>
