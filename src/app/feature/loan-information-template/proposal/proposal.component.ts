@@ -178,6 +178,19 @@ export class ProposalComponent implements OnInit {
         this.configEditor();
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
+        if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
+            if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
+                const obj = JSON.parse(this.loan.loan.paperChecklist);
+                this.paperChecklist = obj.view;
+                this.allIds = obj.id;
+                this.checklistChecked = obj.checklistChecked;
+            }
+        } else  {
+            const obj = JSON.parse(this.loan.paperProductChecklist);
+            this.paperChecklist = obj.view;
+            this.allIds = obj.id;
+            this.checklistChecked = true;
+        }
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
             this.withIn = this.loan.withIn ? this.loan.withIn : false;
             if (this.withIn) {
@@ -187,19 +200,6 @@ export class ProposalComponent implements OnInit {
                 this.shareType = this.loan.shareType;
             }
             this.formDataForEdit = JSON.parse(this.formValue.data);
-            if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
-                if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
-                    const obj = JSON.parse(this.loan.loan.paperChecklist);
-                    this.paperChecklist = obj.view;
-                    this.allIds = obj.id;
-                    this.checklistChecked = obj.checklistChecked;
-                }
-            } else  {
-                const obj = JSON.parse(this.loan.paperProductChecklist);
-                this.paperChecklist = obj.view;
-                this.allIds = obj.id;
-                this.checklistChecked = true;
-            }
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
                 if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
                     (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({

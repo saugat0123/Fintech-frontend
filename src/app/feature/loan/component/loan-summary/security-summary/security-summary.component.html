@@ -1,5 +1,26 @@
 <div class="row mt-3" *ngIf="securities?.length > 0">
     <hr class="print-line">
+    <p class="header" *ngIf="pending"><strong class="header">Security Summary</strong></p>
+    <div class="col-md-12" *ngIf="pending">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Security Type</th>
+                <th *ngFor="let sk of subKey">{{sk | securitySummary}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let key of keys">
+                <tr *ngIf="totalIndividualSec[key]?.added">
+                    <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{key | securitySummary}}</td>
+                    <td *ngFor="let sk of subKey"
+                        [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{totalIndividualSec[key][sk] | currencyFormatter}}</td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <p class="header"><strong class="header">Security Schedule</strong></p>
     <div class="col-md-12">
         <p  class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></p>
         <div class="row" *ngIf="vehicleSelected">
@@ -7,7 +28,6 @@
                 <div class="row">
                     <div class="col-md-6"><p class="sub-header"><strong class="sub-header">Vehicle Security</strong></p>
                     </div>
-<!--                    <div class="col-md-6">  <p class="text-right"><b>Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure |number}}%</b></p> </div>-->
                 </div>
             <ng-container *ngFor="let vehicle of vehicleArray">
                 <table class="table table-borderless table-condensed table-responsive-md text-center table-sm sb-small"
@@ -144,7 +164,7 @@
                         <td class=" pr-1">{{landDetails?.area || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class="pr-1">Rs. {{(landDetails?.marketValue |currencyFormatter) || 'N/A'}}</td>
+                        <td class="pr-1">Rs. {{(landDetails?.fairMarketValue |currencyFormatter) || 'N/A'}}</td>
                     </tr>
                     <tr>
                         <td class=" pr-1">Rs. {{(landDetails?.distressValue |currencyFormatter) || 'N/A'}}</td>

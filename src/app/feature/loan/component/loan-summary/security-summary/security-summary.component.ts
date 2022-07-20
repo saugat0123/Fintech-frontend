@@ -10,6 +10,7 @@ import {SiteVisitDocument} from '../../../../loan-information-template/security/
 import {Security} from '../../../model/security';
 import {LoanDataHolder} from '../../../model/loanData';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
+import {CustomerInfoData} from '../../../model/customerInfoData';
 
 
 @Component({
@@ -25,17 +26,24 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() securities: Array<Security> = [];
     @Input() customerAllLoanList: LoanDataHolder[];
     @Input() pending;
+    @Input() loanHolder: CustomerInfoData;
+    @Input() approvedSec;
+    @Input() securityId: number;
+    @Input() collateralSiteVisitDetail = [];
+    @Input() isCollateralSiteVisit;
+    @Input() nepaliDate;
+    @Input() siteVisitDocuments: Array<SiteVisitDocument>;
+    isPrintable = 'YES';
+    @Input() docStatus;
+    @Output() downloadSiteVisitDocument = new EventEmitter();
+    @Input() isApproveSecurity;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
     vehicleSelected = false;
     depositSelected = false;
     shareSelected = false;
-    isPresentGuarantor = false;
     totalAmount = 0;
-    shareTotalValue = 0;
-    totalConsideredValue = 0;
-    buildingSelected = false;
     hypothecation = false;
     securityOther = false;
     corporate = false;
@@ -51,19 +59,6 @@ export class SecuritySummaryComponent implements OnInit {
     otherDetail: any;
     assignments = false;
     leaseAssignment: any;
-    @Input() securityId: number;
-    @Input() collateralSiteVisitDetail = [];
-    @Input() isCollateralSiteVisit;
-    @Input() nepaliDate;
-    @Input() siteVisitDocuments: Array<SiteVisitDocument>;
-    collateralSiteVisitDocuments: Array<SiteVisitDocument>;
-    isCollateralSiteVisitPresent = false;
-    collateralSiteVisits: Array<CollateralSiteVisit> = [];
-    siteVisitJson = [];
-    isPrintable = 'YES';
-    @Input() docStatus;
-    @Output() downloadSiteVisitDocument = new EventEmitter();
-    @Input() isApproveSecurity;
     landArray;
     landBuildingArray;
     apartmentArray;
@@ -79,11 +74,31 @@ export class SecuritySummaryComponent implements OnInit {
     shareArray;
     plantArray;
 
+    totalIndividualSec = {
+        land: {fmv: 0, mv: 0, rv: 0, added: false},
+        landBuilding: {fmv: 0, mv: 0, rv: 0, added: false},
+        apartment: {fmv: 0, mv: 0, rv: 0, added: false},
+        vehicle: {fmv: 0, mv: 0, rv: 0, added: false},
+        lease: {fmv: 0, mv: 0, rv: 0, added: false},
+        assignment: {fmv: 0, mv: 0, rv: 0, added: false},
+        corporate: {fmv: 0, mv: 0, rv: 0, added: false},
+        fd: {fmv: 0, mv: 0, rv: 0, added: false},
+        hypo: {fmv: 0, mv: 0, rv: 0, added: false},
+        insurance: {fmv: 0, mv: 0, rv: 0, added: false},
+        other: {fmv: 0, mv: 0, rv: 0, added: false},
+        personal: {fmv: 0, mv: 0, rv: 0, added: false},
+        share: {fmv: 0, mv: 0, rv: 0, added: false},
+        plant: {fmv: 0, mv: 0, rv: 0, added: false},
+        total: {fmv: 0, mv: 0, rv: 0, added: true},
+    };
+    keys = Object.keys(this.totalIndividualSec);
+    subKey = Object.keys(this.totalIndividualSec.apartment);
     constructor(private collateralSiteVisitService: CollateralSiteVisitService,
                 private securityLoanReference: SecurityLoanReferenceService) {
     }
 
     ngOnInit() {
+        this.subKey.pop();
         // Set Security Details for view
         const  loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ? this.customerAllLoanList.length : 0;
         if (loanListLen > 0 && this.securities.length < 1 ) {
@@ -100,13 +115,30 @@ export class SecuritySummaryComponent implements OnInit {
             this.selectedSecurities();
             this.setSelectedSecurities();
         }
+        if (!ObjectUtil.isEmpty(this.loanHolder.customerShareBatches) &&
+            this.loanHolder.customerShareBatches.length > 0) {
+            this.loanHolder.customerShareBatches[0].shareSecurity.forEach((share) => {
+                this.totalIndividualSec.share.fmv += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
+                this.totalIndividualSec.share.mv += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
+                this.totalIndividualSec.share.rv += JSON.parse(share.data).totalRealizableAmount ? JSON.parse(share.data).totalRealizableAmount : 0;
+                this.totalIndividualSec.share.added = true;
+            });
+        }
+        if (this.pending) {
+            this.setApprovedSecurities();
+        }
+        this.keys.forEach(k => {
+            if (this.totalIndividualSec[k].added && k !== 'total') {
+                this.subKey.forEach(sk => {
+                    this.totalIndividualSec.total[sk] += this.totalIndividualSec[k][sk];
+                });
+            }
+        });
     }
 
     combineAllSecurity() {
         this.customerAllLoanList.forEach((ld) => {
-            // if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
                 this.securities =  this.securities.concat(ld.securities);
-            // }
         });
         if (this.securities.length > 0) {
             this.selectedSecurities();
@@ -171,25 +203,40 @@ export class SecuritySummaryComponent implements OnInit {
             const apartment = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'APARTMENT_SECURITY') {
-                    apartment.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    apartment.push(data);
+                    this.totalIndividualSec.apartment.rv += data.buildingReliasableValue || 0;
+                    this.totalIndividualSec.apartment.mv += data.buildingDistressValue || 0;
+                    this.totalIndividualSec.apartment.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.apartment.added = true;
                 }
             });
             this.apartmentArray = this.managedArray(apartment);
         }
         if (this.landSelected) {
             const land = [];
-            this.securities.forEach((d) => {
+            this.securities.forEach((d, i) => {
                 if (d.securityType.toString() === 'LAND_SECURITY') {
-                    land.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    land.push(data);
+                    this.totalIndividualSec.land.rv += Number(data.landConsideredValue) || 0;
+                    this.totalIndividualSec.land.mv += Number(data.distressValue) || 0;
+                    this.totalIndividualSec.land.fmv += Number(data.fairMarketValue) || 0;
+                    this.totalIndividualSec.land.added = true;
                 }
             });
             this.landArray = this.managedArray(land);
         }
         if (this.landBuilding) {
             const landBuilding = [];
-            this.securities.forEach((d) => {
+            this.securities.forEach((d, i) => {
                 if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
-                    landBuilding.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    landBuilding.push(data);
+                    this.totalIndividualSec.landBuilding.rv += data.landConsideredValue || 0;
+                    this.totalIndividualSec.landBuilding.mv += data.totalMarketValue || 0;
+                    this.totalIndividualSec.landBuilding.fmv += (data.distressValue + data.apartmentDistressValue);
+                    this.totalIndividualSec.landBuilding.added = true;
                 }
             });
             this.landBuildingArray = this.managedArray(landBuilding);
@@ -198,7 +245,8 @@ export class SecuritySummaryComponent implements OnInit {
             const lease = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'LEASE_ASSIGNMENT') {
-                    lease.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    lease.push(data);
                 }
             });
             this.leaseArray = lease;
@@ -207,7 +255,8 @@ export class SecuritySummaryComponent implements OnInit {
             const assignment = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'ASSIGNMENT_OF_RECEIVABLES') {
-                    assignment.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    assignment.push(data);
                 }
             });
             this.assignmentArray = assignment;
@@ -216,7 +265,8 @@ export class SecuritySummaryComponent implements OnInit {
             const corporate = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'CORPORATE_GUARANTEE') {
-                    corporate.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    corporate.push(data);
                 }
             });
             this.corporateArray = corporate;
@@ -225,7 +275,8 @@ export class SecuritySummaryComponent implements OnInit {
             const fd = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
-                    fd.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    fd.push(data);
                 }
             });
             this.fdArray = fd;
@@ -234,7 +285,12 @@ export class SecuritySummaryComponent implements OnInit {
             const hypo = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
-                    hypo.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.hypo.rv += data.realiasableValue || 0;
+                    this.totalIndividualSec.hypo.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.hypo.mv +=  data.fairMarketValue || 0;
+                    this.totalIndividualSec.hypo.added = true;
+                    hypo.push(data);
                 }
             });
             this.hypoArray = hypo;
@@ -288,7 +344,12 @@ export class SecuritySummaryComponent implements OnInit {
             const vehicle = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'VEHICLE_SECURITY') {
-                    vehicle.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    vehicle.push(data);
+                    this.totalIndividualSec.vehicle.rv += data.vehicleRealiasableAmount || 0;
+                    this.totalIndividualSec.vehicle.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.vehicle.mv += data.quotationAmount || 0;
+                    this.totalIndividualSec.vehicle.added = true;
 
                 }
             });
@@ -356,6 +417,123 @@ export class SecuritySummaryComponent implements OnInit {
                     }
                         break;
                     default: return;
+                }
+            });
+        }
+    }
+
+    setApprovedSecurities() {
+        if (this.apartmentSelected) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'APARTMENT_SECURITY') {
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.apartment.rv += data.buildingReliasableValue || 0;
+                    this.totalIndividualSec.apartment.mv += data.buildingDistressValue || 0;
+                    this.totalIndividualSec.apartment.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.apartment.added = true;
+                }
+            });
+        }
+        if (this.landSelected) {
+            this.approvedSec.forEach((d, i) => {
+                if (d.securityType.toString() === 'LAND_SECURITY') {
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.land.rv += Number(data.landConsideredValue) || 0;
+                    this.totalIndividualSec.land.mv += Number(data.distressValue) || 0;
+                    this.totalIndividualSec.land.fmv += Number(data.fairMarketValue) || 0;
+                    this.totalIndividualSec.land.added = true;
+                }
+            });
+        }
+        if (this.landBuilding) {
+            this.approvedSec.forEach((d, i) => {
+                if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.landBuilding.rv += data.landConsideredValue || 0;
+                    this.totalIndividualSec.landBuilding.mv += data.totalMarketValue || 0;
+                    this.totalIndividualSec.landBuilding.fmv += (data.distressValue + data.apartmentDistressValue);
+                    this.totalIndividualSec.landBuilding.added = true;
+                }
+            });
+        }
+        if (this.assignments) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'LEASE_ASSIGNMENT') {
+                    const data = JSON.parse(d.data);
+                }
+            });
+        }
+        if (this.assignment) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'ASSIGNMENT_OF_RECEIVABLES') {
+                    const data = JSON.parse(d.data);
+                }
+            });
+        }
+        if (this.corporate) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'CORPORATE_GUARANTEE') {
+                    const data = JSON.parse(d.data);
+                }
+            });
+        }
+        if (this.depositSelected) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
+                    const data = JSON.parse(d.data);
+                }
+            });
+        }
+        if (this.hypothecation) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.hypo.rv += data.realiasableValue || 0;
+                    this.totalIndividualSec.hypo.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.hypo.mv +=  data.fairMarketValue || 0;
+                    this.totalIndividualSec.hypo.added = true;
+                }
+            });
+        }
+        if (this.insurancePolicySelected) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'INSURANCE_POLICY_SECURITY') {
+                }
+            });
+        }
+        if (this.securityOther) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'OTHER_SECURITY') {
+                }
+            });
+        }
+        if (this.personal) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'PERSONAL_GUARANTEE') {
+                }
+            });
+        }
+        if (this.shareSelected) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'SHARE_SECURITY') {
+                }
+            });
+        }
+        if (this.plantSelected) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
+                }
+            });
+        }
+        if (this.vehicleSelected) {
+            this.approvedSec.forEach((d) => {
+                if (d.securityType.toString() === 'VEHICLE_SECURITY') {
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.vehicle.rv += data.vehicleRealiasableAmount || 0;
+                    this.totalIndividualSec.vehicle.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.vehicle.mv += data.quotationAmount || 0;
+                    this.totalIndividualSec.vehicle.added = true;
+
                 }
             });
         }
