@@ -1,4 +1,4 @@
-    <p><strong>7.1 Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
+    <p *ngIf="!isRetailCustomer"><strong>7.1 Present financing arrangement: None/Sole /multiple banking /consortium</strong><br>
       If consortium arrangement, name of lead bank and other banks; if multiple banking, name of
       banks, and details of
       credit facilities
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <p><strong>7.2 Multiple Banking Declaration </strong> (date of
+    <p><strong>{{isRetailCustomer ? '14.1' : '7.2'}} Multiple Banking Declaration </strong> (date of
       declaration: {{multiBankingData?.multiBankingDate
           ? (multiBankingData?.multiBankingDate | date) : 'N/A'}}) </p>
     <div *ngIf="checkedData?.multiBankingChecked" class="row">
@@ -65,7 +65,7 @@
         </table>
       </div>
     </div>
-    <p><strong>7.3 Report from the existing BFIs in case of swap
+    <p *ngIf="!isRetailCustomer"><strong>7.3 Report from the existing BFIs in case of swap
     </strong> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date)
         : 'N/A'}}) </p>
     <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION && checkedData?.swapChecked" class="row">
@@ -96,7 +96,7 @@
         </table>
       </div>
     </div>
-    <p><strong>7.4 Report from CIC </strong>(date of report: {{cicl?.cibDate ? (cicl?.cibDate | date)
+    <p><strong>{{isRetailCustomer ? '14.2' : '7.4'}} Report from CIC </strong>(date of report: {{cicl?.cibDate ? (cicl?.cibDate | date)
         : 'N/A' }}) </p>
     <div class="row">
       <div class="col-md-12">
@@ -158,7 +158,7 @@
         </div>
       </div>
     </div>
-    <p><strong>7.5 Past performance with the Bank: </strong></p>
+    <p><strong>{{isRetailCustomer ? '14.3' : '7.5'}} Past performance with the Bank: </strong></p>
       <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION; else sana"
            class="row">
         <div class="col-md-12">
@@ -201,12 +201,11 @@
       <ng-template #sana>
         <span [innerHTML]="multiBankingData?.pastPerformance || 'NA' | safeHtml"></span>
       </ng-template>
-    <p><strong>7.6 Account strategy: {{multiBankingData?.accountStrategy ? '': 'NA'}}</strong></p>
-    <div class="container" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION else noAcc">
+    <p *ngIf="!isRetailCustomer"><strong>7.6 Account strategy: {{multiBankingData?.accountStrategy ? '': 'NA'}}</strong></p>
+    <div class="container" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION && !isRetailCustomer">
       <span [innerHTML]="multiBankingData?.accountStrategy | safeHtml"></span>
     </div>
-    <ng-template #noAcc>Not Available</ng-template>
-    <p><strong>7.7 Average Utilization and Transaction Record of facilities by the customer during the last 12 months with
+    <p><strong>{{isRetailCustomer ? '14.4' : '7.7'}} Average Utilization and Transaction Record of facilities by the customer during the last 12 months with
       CCBL</strong></p>
     <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL' else noAvg">
       <div class="row">

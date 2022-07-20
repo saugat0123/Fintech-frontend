@@ -16,7 +16,7 @@
                             class="sb-medium"><strong>
                                 {{loanCategory === 'INSTITUTION' ?
                         loanDataHolder?.companyInfo?.companyName
-                        : loanDataHolder?.customerInfo?.customerName}}
+                        : loanDataHolder?.customerInfo?.customerName}} ({{loanCategory}})
                             </strong> </span>
                     </div>
                     <div class="report-header-sub-heading" *ngIf="isJointInfo">
@@ -24,7 +24,7 @@
                             <ng-container *ngFor="let info of jointCustomer">
                                 <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName :
-                                    info?.customerName}}</span><br />
+                                    info?.customerName}} ({{loanCategory}})</span><br />
                             </ng-container>
                         </div>
                     </div>
@@ -138,6 +138,7 @@
         <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking else notAvailable"
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
+                                                       [isRetailCustomer]="false"
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>

@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerService} from '../../service/customer.service';
@@ -59,14 +58,15 @@ export class NetWorthComponent implements OnInit {
             creditCardsLimit: undefined,
             otherLiabilities: undefined,
             totalLiabilities: undefined,
-            totalNetWorth: undefined
+            totalNetWorth: undefined,
+            loanFromOtherBfi: undefined,
         }));
     }
 
     submit() {
-        if(ObjectUtil.isEmpty(this.isJointCustomer)){
-           this.dataEmiter.emit(this.form.get(['customerForm', 0]).value);
-           return;
+        if (ObjectUtil.isEmpty(this.isJointCustomer)) {
+            this.dataEmiter.emit(this.form.get(['customerForm', 0]).value);
+            return;
         }
         this.dataEmiter.emit(this.form.get('customerForm').value);
         this.activeModal.close();
@@ -83,8 +83,9 @@ export class NetWorthComponent implements OnInit {
 
     calculateTotalLiabilities(i: any) {
         const total = Number(this.form.get(['customerForm', i, 'loanFromCCBL']).value) +
-            Number(this.form.get(['customerForm', i, 'creditCardsLimit']).value)
-            + Number(this.form.get(['customerForm', i, 'otherLiabilities']).value);
+            Number(this.form.get(['customerForm', i, 'creditCardsLimit']).value) +
+            Number(this.form.get(['customerForm', i, 'otherLiabilities']).value) +
+            Number(this.form.get(['customerForm', i, 'loanFromOtherBfi']).value);
         this.form.get(['customerForm', i, 'totalLiabilities']).patchValue(total);
         this.calculateNetWorth(i);
     }
@@ -100,24 +101,22 @@ export class NetWorthComponent implements OnInit {
     getJointCustomerData() {
         const id = this.activatedRoute.snapshot.params.id;
         if (!ObjectUtil.isEmpty(id)) {
-            this.overlay.show()
+            this.overlay.show();
             this.customerService.detail(Number(id)).subscribe(rs => {
                 console.log(JSON.parse(rs.detail.jointInfo), 'JOINT');
                 if (!ObjectUtil.isEmpty(rs.detail.jointInfo) && this.isJointCustomer) {
                     this.jointInfo = JSON.parse(rs.detail.jointInfo).jointCustomerInfo;
-                    if(this.isJointCustomer && !ObjectUtil.isEmpty(this.data)){
+                    if (this.isJointCustomer && !ObjectUtil.isEmpty(this.data)) {
                         this.patchJointCustomerValue();
                     } else {
                         for (let i = 0; i < this.jointInfo.length; i++) {
                             this.addForm();
                         }
                     }
-
-
                 } else {
                     const data = JSON.parse(this.data);
                     const form = this.form.get('customerForm') as FormArray;
-                    if(!ObjectUtil.isEmpty(data)) {
+                    if (!ObjectUtil.isEmpty(data)) {
                         form.push(this.formBuilder.group({
                             cashDepositInOtherBank: data.cashDepositInOtherBank ? data.cashDepositInOtherBank : undefined,
                             realEstateProperties: data.realEstateProperties ? data.realEstateProperties : undefined,
@@ -130,6 +129,7 @@ export class NetWorthComponent implements OnInit {
                             otherLiabilities: data.otherLiabilities ? data.otherLiabilities : undefined,
                             totalLiabilities: data.totalLiabilities ? data.totalLiabilities : undefined,
                             totalNetWorth: data.totalNetWorth ? data.totalNetWorth : undefined,
+                            loanFromOtherBfi: data.loanFromOtherBfi ? data.loanFromOtherBfi : undefined,
                         }));
                     } else {
                         this.addForm();
@@ -137,16 +137,16 @@ export class NetWorthComponent implements OnInit {
                 }
                 this.overlay.hide();
             }, error => {
-                this.overlay.hide()
+                this.overlay.hide();
             });
         }
     }
 
-    patchJointCustomerValue(){
-        if(this.isJointCustomer){
-            this.overlay.show()
-            const  data = JSON.parse(this.data);
-            if(!ObjectUtil.isEmpty(data)){
+    patchJointCustomerValue() {
+        if (this.isJointCustomer) {
+            this.overlay.show();
+            const data = JSON.parse(this.data);
+            if (!ObjectUtil.isEmpty(data)) {
                 const form = this.form.get('customerForm') as FormArray;
                 data.forEach(d => {
                     form.push(this.formBuilder.group({
@@ -161,6 +161,7 @@ export class NetWorthComponent implements OnInit {
                         otherLiabilities: d.otherLiabilities ? d.otherLiabilities : undefined,
                         totalLiabilities: d.totalLiabilities ? d.totalLiabilities : undefined,
                         totalNetWorth: d.totalNetWorth ? d.totalNetWorth : undefined,
+                        loanFromOtherBfi: d.loanFromOtherBfi ? d.loanFromOtherBfi : undefined,
                     }));
                     this.overlay.hide();
                 });

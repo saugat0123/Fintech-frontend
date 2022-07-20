@@ -65,14 +65,9 @@
                                 <div class="report-header-heading mb-2">
                                     {{client}}
                                 </div>
-                                <ng-template #executiveSummary>
-                                    <h2 class="report-header-sub-heading">
-                                        Executive Summary
-                                    </h2>
-                                </ng-template>
-                                <ng-container *ngIf="isDetailedView; else executiveSummary">
+                                <ng-container>
                                     <div>
-                                        <span class="report-header-sub-heading"> Credit Appraisal </span>
+                                        <span class="report-header-sub-heading"> Executive Summary</span>
                                         <br/>
                                         <span class="report-header-sub-heading"> for </span>
                                     </div>
@@ -81,7 +76,7 @@
                                             <strong>
                                                 {{loanCategory === 'INSTITUTION' ?
                                                 loanDataHolder?.companyInfo?.companyName
-                                                : loanDataHolder?.customerInfo?.customerName}}
+                                                : loanDataHolder?.customerInfo?.customerName}} ({{loanCategory}})
                                             </strong>
                                         </span>
                                     </div>
@@ -90,7 +85,7 @@
                                             <ng-container *ngFor="let info of jointCustomer">
                                                 <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
                                                     loanDataHolder?.companyInfo?.companyName :
-                                                    info?.customerName}}</span><br/>
+                                                    info?.customerName}} ({{loanCategory}})</span><br/>
                                             </ng-container>
                                         </div>
                                     </div>
@@ -289,6 +284,7 @@
                                         [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                         [proposal]="loanDataHolder?.proposal"
                                         [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                        [isRetailCustomer]="false"
                                         [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
                                 <!--                                <app-upto-banking-relationship></app-upto-banking-relationship>-->
                             </li>

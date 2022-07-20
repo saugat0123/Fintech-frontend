@@ -27,6 +27,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   nrpValue: any;
   asOnDate: any;
   spinner = false;
+  isRetailCustomer = false;
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, protected fiscalYearService: FiscalYearService,
@@ -49,11 +50,14 @@ export class CustomerLoanInformationViewComponent implements OnInit {
 
   checkCustomerType() {
     if (CustomerType[this.customerInfo.customerType] === CustomerType.INSTITUTION) {
+      this.isRetailCustomer = false;
       this.companyInfoService.detail(this.customerInfo.associateId).subscribe((res: any) => {
         this.companyInfo = res.detail;
       }, error => {
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
       });
+    } else {
+      this.isRetailCustomer = true;
     }
   }
 
