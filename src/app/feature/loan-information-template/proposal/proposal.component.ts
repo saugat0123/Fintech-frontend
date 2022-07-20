@@ -580,10 +580,6 @@ export class ProposalComponent implements OnInit {
             } else {
                 this.loan.shareType = this.shareType;
             }
-            if (this.loan.loanHolder.customerType === 'INSTITUTION' &&
-                this.loan.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
-                this.financialAccountInformationComponent.submitForm();
-            }
             this.productPaperChecklistComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));

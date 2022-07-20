@@ -296,6 +296,9 @@
                     </table>
                 </div>
             </div>
+            <div class="row" *ngIf="fromLoan">
+                <button class="float-right btn-danger" nbButton (click)="onSubmit()" type="submit">Save</button>
+            </div>
         </form>
     </nb-card-body>
 </nb-card>
