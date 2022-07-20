@@ -29,10 +29,15 @@
 
             <ng-container>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList" [securities]="loanSecurity"
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [securities]="loanSecurity"
+                                      [approvedSec] = "approvedSecurity"
+                                      [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="customerAllLoanList" [securities]="approvedSecurity"></app-security-summary>
+                <app-security-summary *ngIf="customerAllLoanList"
+                                      [loanHolder]="loanDataHolder?.loanHolder"
+                                      [securities]="approvedSecurity"></app-security-summary>
             </ng-container>
             <!-- Customer Share Security  -->
             <app-security-schedule [customerAllLoanList]="customerAllLoanList"
@@ -600,7 +605,6 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
                                 {{previousList?.lastModifiedAt | date}}
-                                ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -637,7 +641,6 @@
                         <tr>
                             <td>{{currentIndex + 1}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
-                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">

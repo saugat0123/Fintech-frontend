@@ -51,6 +51,7 @@ export class HypothecationOfStockComponent implements OnInit {
                 bookValue: [formData.bookValue],
                 realiasableRate: [formData.realiasableRate],
                 realiasableValue: [formData.realiasableValue],
+                averageStock: [formData.averageStock],
                 hypothecationFirstValuationDate: [formData.hypothecationFirstValuationDate ? new  Date(formData.hypothecationFirstValuationDate) : '']
             })
         );
@@ -74,6 +75,7 @@ export class HypothecationOfStockComponent implements OnInit {
                 value: [undefined],
                 otherDetail: [undefined],
                 considerValue: 0,
+                stockMarketValue: 0,
                 fairMarketValue: [undefined],
                 distressValue: [undefined],
                 description: [undefined],
@@ -84,8 +86,13 @@ export class HypothecationOfStockComponent implements OnInit {
                 bookValue: [undefined],
                 realiasableRate: [undefined],
                 realiasableValue: [undefined],
-            }
-        );
+                stockRealiasableValue: [undefined],
+                averageStock: [undefined],
+                receivableBookValue: [undefined],
+                receivableMarketValue: [undefined],
+                receivableRealizableRate: [undefined],
+                receivableRealizableValue: [undefined],
+            });
     }
 
  public ownerKycRelationInfoCheck(kycCheck, kycCheckId, index): void {
@@ -108,4 +115,8 @@ export class HypothecationOfStockComponent implements OnInit {
     (<FormArray>this.hypothecationForm.get('hypothecationOfStock')).removeAt(index);
   }
 
+    public onChange(i, stock, rec, patchKey) {
+        const total = this.hypothecationForm.get(['hypothecationOfStock', i, stock]).value + this.hypothecationForm.get(['hypothecationOfStock', i, rec]).value ;
+        this.hypothecationForm.get(['hypothecationOfStock', i, patchKey]).patchValue(total);
+    }
 }

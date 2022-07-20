@@ -42,7 +42,7 @@
                                 <div class="col-md-4">
                                     <div>
                                         <nb-checkbox [(ngModel)]="withIn" name="withIn"
-                                                     [ngModelOptions]="{standalone: true}">With In ?
+                                                     [ngModelOptions]="{standalone: true}">Is proposed facility is within limit ? <i style="color:red">(If YES, Please Tick)</i>
                                         </nb-checkbox>
                                         <select *ngIf="withIn"
                                                 class="custom-select"
@@ -589,6 +589,7 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <div>
+                                        <label class="title" for="collateralRequirement"><strong>Swap Fee</strong></label>
                                         <div class="variable">
                                             <input
                                                     formControlName="swapChargeMethod"

@@ -1,6 +1,6 @@
 <nb-card class="p-3">
     <div class="box-header with-border">
-        <h2 class="box-title title">Hypothecation of Stock</h2>
+        <h2 class="box-title title">Hypothecation of Stock & Receivables</h2>
     </div>
     <form [formGroup]="hypothecationForm">
         <div *ngFor="let hypothecation of hypothecationForm.get('hypothecationOfStock')['controls']; let i = index"
@@ -17,129 +17,136 @@
                                       type="text"></textarea>
                         </div>
                     </div>
-<!--                    <div class="col-md-3">-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="title">Owner</label>-->
-<!--                            <input [ngClass]="{'is-invalid': (submitted) && (hypothecation.get('owner').errors)}"-->
-<!--                                   class="form-control rounded" formControlName="owner"-->
-<!--                                   placeholder="Owner"-->
-<!--                                   type="text" required/>-->
-<!--                            <div *ngIf="(submitted) && (hypothecation.get('owner').invalid)" class="invalid-feedback">-->
-<!--                                <div *ngIf="hypothecation.get('owner').errors.required">-->
-<!--                                    Owner name is required-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title">Book Value</label>
-                            <input class="form-control rounded" formControlName="bookValue"
-                                   placeholder="Book Value"
-                                   type="number"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title">Stock Location</label>
-                            <input class="form-control rounded" formControlName="stock"
-                                   placeholder="Stock Location"
-                                   type="text"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title">Market Value</label>
-                            <input class="form-control rounded" formControlName="fairMarketValue"
-                                   placeholder="Market Value"
-                                   type="number"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3" hidden>
-                        <div class="form-group">
-                            <label class="title">Considered  Value</label>
-                            <input class="form-control rounded" [(ngModel)]="hypothecation.get('fairMarketValue').value" formControlName="considerValue"
-                                   placeholder="Market Value"
-                                   type="number"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title">Realizable Rate</label>
-                            <input class="form-control rounded" formControlName="realiasableRate"
-                                   (change)="hypothecation.get('realiasableValue').patchValue(hypothecation.get('fairMarketValue').value/hypothecation.get('realiasableRate').value)"
-                                   placeholder="Realizable Rate %"
-                                   type="number"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title">Realizable Value</label>
-                            <input class="form-control rounded"  formControlName="realiasableValue"
-                                   placeholder="Realizable Value"
-                                   type="number"/>
-                        </div>
-                    </div>
-                    <div class="col-md-3" hidden>
-                        <div class="form-group">
-                            <label class="title">Value</label>
-                            <input class="form-control rounded" formControlName="distressValue"
-                                   placeholder="Value"
-                                   [(ngModel)]="hypothecation.get('realiasableValue').value"
-                                   type="number"/>
-                        </div>
-                    </div>
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="title" for="hypothecationOwnerRelationship">Collateral Owner-->
-<!--                                Relationship</label>-->
-<!--                            <select class="form-control rounded" formControlName="hypothecationOwnerRelationship"-->
-<!--                                    id="hypothecationOwnerRelationship"-->
-<!--                                    name="hypothecationOwnerRelationship">-->
-<!--                                <option [ngValue]="null">Select Relationship</option>-->
-<!--                                <option *ngFor="let relationship of collateralOwnerRelationshipList.relation"-->
-<!--                                        [ngValue]="relationship.id">{{relationship.name}}</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="title" for="hypothecationFirstValuationDate">First Valuation Date</label>-->
-<!--                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"-->
-<!--                                   formControlName="hypothecationFirstValuationDate"-->
-<!--                                   id="hypothecationFirstValuationDate"-->
-<!--                                   name="hypothecationFirstValuationDate" placeholder="First Valuation Date"-->
-<!--                                   [nbDatepicker]="firstValuationDate"-->
-<!--                                   type="text"/>-->
-<!--                            <app-calendar-->
-<!--                                    (messageToEmit)="hypothecationForm.get(['hypothecationOfStock', i,'hypothecationFirstValuationDate']).patchValue($event?.eDate)"-->
-<!--                                    *ngIf="calendarType === 'BS'"-->
-<!--                                    [ePreDate]="hypothecationForm.get(['hypothecationOfStock', i,'hypothecationFirstValuationDate']).value"></app-calendar>-->
-<!--                            <nb-datepicker #firstValuationDate></nb-datepicker>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-12">-->
-<!--                        <div class="form-group">-->
-<!--                            <nb-checkbox id="ownerKycInfoForHypothecatio{{i}}" class="ml-2"-->
-<!--                                         formControlName="kycCheckForHypthecation"-->
-<!--                                         (checkedChange)="ownerKycRelationInfoCheck(hypothecationForm.get(['hypothecationOfStock', i,-->
-<!--                                              'kycCheckForHypthecation']).value,'hypothecation', i)">-->
-<!--                                <h6>Owner KYC Applicable</h6>-->
-<!--                            </nb-checkbox>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-12">-->
-<!--                        <div class="form-group" *ngIf="hypothecationForm.get(['hypothecationOfStock', i , 'kycCheckForHypthecation']).value === true">-->
-<!--                            <app-owner-kyc-applicable #ownerKycApplicableHypothecation-->
-<!--                                                      [data]="formDataForEdit?.hypothecationOfStock[i]?.ownerKycApplicableData"-->
-<!--                                                      [calendarType]="calendarType"-->
-<!--                                                      [kycId]="securityId.hypothecation_Id + i"></app-owner-kyc-applicable>-->
-<!--                        </div>-->
-<!--                    </div>-->
+       <ng-container>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Stock Book Value</label>
+                   <input class="form-control rounded" formControlName="bookValue"
+                          placeholder="Book Value"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Stock Location</label>
+                   <input class="form-control rounded" formControlName="stock"
+                          placeholder="Stock Location"
+                          type="text"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Stock Market Value</label>
+                   <input class="form-control rounded" formControlName="stockMarketValue"
+                          placeholder="Stock Market Value"
+                          (change)="onChange(i,'stockMarketValue','receivableMarketValue','fairMarketValue')"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Stock Realizable Rate</label>
+                   <input class="form-control rounded" formControlName="realiasableRate"
+                          (change)="hypothecation.get('stockRealiasableValue').patchValue((hypothecation.get('stockMarketValue').value / 100) * hypothecation.get('realiasableRate').value); onChange(i,'stockRealiasableValue', 'receivableRealizableValue', 'realiasableValue')"
+                          placeholder="Realizable Rate %"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Stock Realizable Value</label>
+                   <input class="form-control rounded"  formControlName="stockRealiasableValue"
+                          placeholder="Realizable Value"
+                          type="number"/>
+               </div>
+           </div>
+
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Average Stock To Recieveable Ratio</label>
+                   <input class="form-control rounded"  formControlName="averageStock"
+                          placeholder="Average Stock To Recieveable Ratio"
+                          type="text"/>
+               </div>
+           </div>
+
+           <div class="col-md-3" hidden>
+               <div class="form-group">
+                   <label class="title">Value</label>
+                   <input class="form-control rounded" formControlName="distressValue"
+                          placeholder="Value"
+                          [(ngModel)]="hypothecation.get('realiasableValue').value"
+                          type="number"/>
+               </div>
+           </div>
+
+       </ng-container>
+       <ng-container>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Receivable Book Value</label>
+                   <input class="form-control rounded" formControlName="receivableBookValue"
+                          placeholder="Receivable Book Value"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Receivable Market Value</label>
+                   <input class="form-control rounded" formControlName="receivableMarketValue"
+                          (change)="onChange(i,'stockMarketValue','receivableMarketValue','fairMarketValue')"
+                          placeholder="Market Value"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3" hidden>
+               <div class="form-group">
+                   <label class="title">Considered Value</label>
+                   <input class="form-control rounded" [(ngModel)]="hypothecation.get('fairMarketValue').value" formControlName="considerValue"
+                          placeholder="Market Value"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Receivable Realizable Rate</label>
+                   <input class="form-control rounded" formControlName="receivableRealizableRate"
+                          (change)="hypothecation.get('receivableRealizableValue').patchValue((hypothecation.get('receivableMarketValue').value / 100) * hypothecation.get('receivableRealizableRate').value); onChange(i,'realiasableValue', 'receivableRealizableValue', 'realiasableValue')"
+                          placeholder="Realizable Rate %"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Receivable Realizable Value</label>
+                   <input class="form-control rounded"  formControlName="receivableRealizableValue"
+                          placeholder="Realizable Value"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Total Market Value</label>
+                   <input class="form-control rounded"  formControlName="fairMarketValue"
+                          placeholder="Total Market Value"
+                          type="number"/>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
+                   <label class="title">Total Realizable Value</label>
+                   <input class="form-control rounded"  formControlName="realiasableValue"
+                          placeholder="Total Market Value"
+                          type="number"/>
+               </div>
+           </div>
+       </ng-container>
+
+
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Other Detail</label>
+                            <label>Remarks</label>
                             <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
 
                         </div>

@@ -7,10 +7,10 @@ export enum SecuritiesType {
     FIXED_DEPOSIT_RECEIPT = 'Fixed Deposit Receipt',
     SHARE_SECURITY = 'Share Security',
     HYPOTHECATION_OF_STOCK = 'Hypothecation of Stock',
-    CORPORATE_GUARANTEE = 'Corporate Guarantee',
-    PERSONAL_GUARANTEE = 'Personal Guarantee',
+    // CORPORATE_GUARANTEE = 'Corporate Guarantee',
+    // PERSONAL_GUARANTEE = 'Personal Guarantee',
     INSURANCE_POLICY_SECURITY = 'Insurance Policy Security',
-    ASSIGNMENT_OF_RECEIVABLES = 'Assignment of Receivables',
+    // ASSIGNMENT_OF_RECEIVABLES = 'Assignment of Receivables',
     LEASE_ASSIGNMENT = 'Lease Assignment',
     OTHER_SECURITY = 'Other Security'
 }
