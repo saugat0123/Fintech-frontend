@@ -13,6 +13,7 @@
                 <!--                    proposed security-->
                 <app-security-summary *ngIf="customerAllLoanList"
                                       [securities]="loanSecurity"
+                                      [customerAllLoanList]="customerAllLoanList"
                                       [approvedSec] = "approvedSecurity"
                                       [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>

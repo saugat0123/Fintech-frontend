@@ -66,16 +66,6 @@ input::-webkit-input-placeholder {
   font-size: 16px;
 }
 
-.signature-area {
-  display: block;
-  background-color: transparent;
-  border: 1px solid #3c3c3c;
-  max-width: 291px;
-  width: 291px;
-  height: 186px;
-  max-height: 186px;
-}
-
 @page {
   size: A4;
   margin: 17mm 17mm 17mm 17mm;
@@ -83,17 +73,6 @@ input::-webkit-input-placeholder {
 
 .page-break {
   page-break-after: always;
-}
-.fontSize{
-  font-size: 14px;
-}
-
-.preetiFont {
-  font-family: Preeti;
-}
-
-.font24 {
-  font-size: 1.5rem;
 }
 
 @media screen {
@@ -106,13 +85,3 @@ input::-webkit-input-placeholder {
 
   }
 }
-
-ol.conditions-list{
-  list-style: devanagari;
-  text-align: justify !important;
-}
-ol li{
-  line-height: 1.9;
-  font-size: 16px;
-}
-

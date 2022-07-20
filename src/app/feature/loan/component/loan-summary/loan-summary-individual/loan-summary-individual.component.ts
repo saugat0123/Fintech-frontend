@@ -788,7 +788,7 @@ export class LoanSummaryIndividualComponent implements OnInit {
   }
 
   open(comments) {
-    const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg', backdrop: true});
     modalRef.componentInstance.comments = comments;
   }
 

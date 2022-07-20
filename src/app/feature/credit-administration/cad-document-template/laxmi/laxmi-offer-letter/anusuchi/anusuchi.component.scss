@@ -1,3 +1,4 @@
+
 .cdk-global-overlay-wrapper, .cdk-overlay-container {
   width: 100%;
 }
@@ -28,6 +29,10 @@
   max-width: 100px;
 }
 
+.hide-view {
+  display: none;
+}
+
 .form-control-sm {
   max-width: 200px;
 }
@@ -42,7 +47,7 @@
 
 .nepaliFont {
   &.font-size-normal {
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
@@ -76,25 +81,6 @@ input::-webkit-input-placeholder {
   max-height: 186px;
 }
 
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
-
-.page-break {
-  page-break-after: always;
-}
-.fontSize{
-  font-size: 14px;
-}
-
-.preetiFont {
-  font-family: Preeti;
-}
-
-.font24 {
-  font-size: 1.5rem;
-}
 
 @media screen {
   .print-only {
@@ -107,12 +93,22 @@ input::-webkit-input-placeholder {
   }
 }
 
-ol.conditions-list{
-  list-style: devanagari;
-  text-align: justify !important;
-}
-ol li{
-  line-height: 1.9;
-  font-size: 16px;
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
 }
 
+.page-break {
+  page-break-after: always;
+}
+.font14 {
+  font-size: 14px;
+}
+
+.preetiFont {
+  font-family: Preeti;
+}
+
+.font24 {
+  font-size: 24px;
+}

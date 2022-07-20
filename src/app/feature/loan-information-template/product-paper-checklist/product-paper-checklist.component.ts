@@ -27,6 +27,8 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
 
     ngOnInit() {
         this.parser = new DOMParser();
+        console.log('this is data', this.paper);
+        console.log('this is allids', this.allIds);
         this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
     }
     change(id) {

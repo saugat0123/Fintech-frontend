@@ -1,0 +1,250 @@
+<div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.STATEMENT_OF_POSITION}}">
+    
+    <div class="col-md-12">
+    <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
+            <p class="text-right">मिति:<input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                                              formControlName="date">
+                <span class="print-only nepaliFont">{{form.get('date').value || '========='}}</span>
+            </p>
+            <p><B>जमानी वस्ने व्यक्तिको सम्पत्ति तथा दायित्वको विवरण(STATEMENT OF POSITION)</B></p>
+                <br>
+               <p> जमानी दिनेको नाम: <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                                         formControlName="guarantorName">
+                   <span class="print-only nepaliFont">{{form.get('guarantorName').value || '========='}}</span>
+               </p>
+        <br>
+            <p>     सम्पत्ति(यदि कुनै प्रकारको रोक्का, दृष्टिबन्धक आदि भए कृपया जानकारी गराउनु होला)</p>
+
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+                <thead>
+                <tr>
+                    <th class="text-center"><b> प्रकार </b></th>
+                    <th class="text-center"><b>क्षेत्रफल/विवरण/स्थान/कम्पनी </b></th>
+                    <th class="text-center"><b> मुल्य </b></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>जग्गा</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('jagaDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="jagaDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('jagaMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="jagaMulya">
+                    </td>
+                </tr>
+                <tr>
+                    <td class>घर</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('gharDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="gharDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('gharMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="gharMulya">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>सूचिकृत शेयर</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('shareDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="shareDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('shareMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="shareMulya">
+                    </td>
+                </tr>
+                <tr>
+                    <td>सूचिकृत नभएको शेयर</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('suchikritNabhayekoShareDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="suchikritNabhayekoShareDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('suchikritNabhayekoShareMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="suchikritNabhayekoShareMulya">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>अन्य सुरक्षणहरु</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('anyaSurachaharukoDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="anyaSurachaharukoDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('anyaSurachaharukoMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="anyaSurachaharukoMulya">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>बैक ब्यालेन्स</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('bankBalanceDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="bankBalanceDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('bankBalance').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="bankBalance">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>सवारीसाधन</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('sawariSadhanDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="sawariSadhanDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('sawariSadhanMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="sawariSadhanMulya">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>गरगहनाहरु</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('gargahanaDetail').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="gargahanaDetail">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('gargahanaMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="gargahanaMulya">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="2" align="right"><b>जम्मा सम्पत्ति</b></td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('total').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="total">
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <p><b>दायित्व</b></p>
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+
+                <thead>
+                <tr>
+                    <th class="text-center"><b> प्रकार </b></th>
+                    <th class="text-center"><b>विवरण </b></th>
+                    <th class="text-center"><b> मुल्य </b></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>बैंकबाट ऋण</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('bankBataRinkoBiwaran').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="bankBataRinkoBiwaran">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('bankBataRinkoMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="bankBataRinkoMulya">
+                    </td>
+                </tr>
+                <tr>
+                    <td>वित्तिय संस्थाबाट ऋण</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('bitiyeSansthabataRinkoBiwaran').value || '========='}}</span>
+                        <input type="text" class="nepaliFont form-field disable-print form-control-sm font-size-normal"
+                               formControlName="bitiyeSansthabataRinkoBiwaran">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('bitiyeSansthabataRinkoMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="bitiyeSansthabataRinkoMulya">
+                    </td>
+                </tr>
+                <td>निजी सापटी</td>
+                <td>
+                    <span class="print-only nepaliFont">{{form.get('nijiSapatikoBiwaran').value || '========='}}</span>
+                    <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                           formControlName="nijiSapatikoBiwaran">
+                </td>
+                <td>
+                    <span class="print-only nepaliFont">{{form.get('nijiSapatikoMulya').value || '========='}}</span>
+                    <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                           formControlName="nijiSapatikoMulya">
+                </td>
+                <tr>
+                    <td>अन्य साहु</td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('anyaShahukoBiwaran').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="anyaShahukoBiwaran">
+                    </td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('anyaShahukoMulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="anyaShahukoMulya">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right"><b>जम्मा दायित्व</b></td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('mulya').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="mulya">
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        <br>
+            <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+                <thead>
+                <tr>
+                    <td class="text-right"><b>नेटवर्थ (सम्पत्ति–दायित्व)</b></td>
+                    <td>
+                        <span class="print-only nepaliFont">{{form.get('networth').value || '========='}}</span>
+                        <input type="text" class="nepaliFont disable-print form-field form-control-sm font-size-normal"
+                               formControlName="networth">
+                    </td>
+                </tr>
+                </thead>
+            </table>
+            <p> माथि उल्लेखित विवरणहरु ठिक साँचो हो, झुट्ठा ठहरे कानून बमोजिम सँहुला वुझाँउला । </p>
+            <br>
+            <p>दस्तखतः...................</p>
+            <div>
+                <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">Save</button>
+            </div>
+    </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{cadCheckListEnum.STATEMENT_OF_POSITION}}"
+                ngxPrint nbButton>print
+        </button>
+    </div>
+</div>
+
+
+
