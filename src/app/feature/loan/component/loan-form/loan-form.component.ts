@@ -666,10 +666,6 @@ export class LoanFormComponent implements OnInit {
             this.paperChecklist = obj.view;
             this.allIds = obj.id;
         }
-        if (name === 'Financial/Account Information' && action) {
-            this.financialAccountDetail.submitForm();
-            this.loanDocument.financialAccountInformation = this.financialAccountDetail.financialData;
-        }
 
         if (name === 'Security' && action) {
             this.securityAdderComponent.save();
