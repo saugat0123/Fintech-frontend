@@ -33,7 +33,7 @@
   }
   .signature-block {
     padding: 0.5rem;
-    border: 1px solid black;
+    border: 1px solid black !important;
     margin-top: 0.2rem;
     page-break-before: auto;
     page-break-inside: avoid;
@@ -166,7 +166,5 @@
   tfoot {
     display: table-footer-group
   }
-
-
 
 }

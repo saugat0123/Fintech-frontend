@@ -167,7 +167,7 @@
             </ng-container>
                 </td>
             </tr>
-            <tr class="sb-bg-secondary text-white">
+            <tr class="sb-bg-gray">
                 <td class="text-left pl-1"><strong>Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
@@ -199,7 +199,7 @@
                 <!--        <td>N/A</td>-->
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
-            <tr class="sb-bg-secondary text-white">
+            <tr class="sb-bg-gray">
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
@@ -227,7 +227,7 @@
                 <!--        <td>N/A</td>-->
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
-            <tr class="sb-bg-secondary text-white">
+            <tr class="sb-bg-gray">
                 <td class="text-left pl-1"><strong>Total</strong></td>
 
                 <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>

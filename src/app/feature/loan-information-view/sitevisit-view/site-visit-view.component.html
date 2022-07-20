@@ -2,7 +2,7 @@
 <p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold sub-header">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Owner Name</th>
         <th>Location</th>
         <th>Ward</th>
@@ -21,7 +21,7 @@
         <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address2}}</td>
         <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
@@ -41,7 +41,7 @@
 </table>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="4">Finding & Comment</th>
     </tr>
     <tr>
@@ -52,7 +52,7 @@
 <p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold"><strong class="header">Business Inspection Report</strong></p>
 <!--<table *ngIf="formData['businessSiteVisitFormChecked'] === true"-->
 <!--       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
-<!--    <tr class="text-white sb-bg-dark">-->
+<!--    <tr class="sb-bg-gray">-->
 <!--        <th>Person Contacted</th>-->
 <!--        <th>Office Address</th>-->
 <!--        <th>Ward</th>-->
@@ -74,13 +74,13 @@
 <!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</td>-->
 <!--        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>-->
 <!--    </tr>-->
-<!--    <tr class="text-white sb-bg-dark">-->
+<!--    <tr class="sb-bg-gray">-->
 
 <!--    </tr>-->
 <!--    <tr>-->
 
 <!--    </tr>-->
-<!--    <tr class="text-white sb-bg-dark">-->
+<!--    <tr class="sb-bg-gray">-->
 <!--        <th>Staff Representative Designation 1</th>-->
 <!--        <th>Staff Representative Name 1</th>-->
 <!--        <th>Staff Representative Designation 2</th>-->
@@ -100,7 +100,7 @@
 <!--<table *ngIf="formData['businessSiteVisitFormChecked'] === true"-->
 <!--       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
 
-<!--    <tr class="text-white sb-bg-dark">-->
+<!--    <tr class="sb-bg-gray">-->
 <!--        <th>Comment & Finding</th>-->
 <!--    </tr>-->
 <!--    <tr>-->
@@ -115,14 +115,14 @@
 </div>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true"
     class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>1. Facilities and Utilization (as on inspection date)</th>
     </tr>
     <tr>
         <td>
             <p class="text-right">(Amounts in NPR ‘000s)</p>
                 <table  class="table table-bordered table-responsive-md text-center">
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th>Facilities</th>
                         <th>Limit</th>
                         <th>Outstanding</th>
@@ -143,13 +143,13 @@
                 </table>
         </td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>2. Latest Valuation of Net Trading Assets: (as on inspection date)</th>
     </tr>
     <tr>
         <td>
             <table class="table table-bordered table-responsive-md text-center">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>S.N</th>
                     <th>Insured item</th>
                     <th>Insurance Coverage</th>
@@ -173,13 +173,13 @@
             <p class="text-left">Are the policies solely endorsed to us? Yes/No</p>
         </td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>3. Insurance of Stock and Fixed Assets (including collateral assets)</th>
     </tr>
     <tr>
         <td>
             <table class="table table-bordered table-responsive-md text-center">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Particulars</th>
                     <th>Amount (NPR ‘000s)</th>
                 </tr>
@@ -304,7 +304,7 @@
     {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Asset Collateral'}} & Facilities Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Date of Inspection</th>
         <th>Address</th>
         <th>Ward</th>
@@ -334,7 +334,7 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['locationAndShapeOfLand']}}</td>
 
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Road Approach</th>
         <th>Road Width(in feet)</th>
         <th>Road Access From in feet</th>
@@ -368,7 +368,7 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="12">Remarks</th>
     </tr>
     <tr>
@@ -377,7 +377,7 @@
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Building</th>
         <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
             <th>Building Area</th>
@@ -405,7 +405,7 @@
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture'] | booleanConvert}}</td>
         </ng-container>
     </tr>
-    <tr class="text-white sb-bg-dark" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
+    <tr class="sb-bg-gray" *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
         <th>Frame Structure</th>
         <th>RCC Roofing</th>
         <th>Bathroom and Toilet</th>
@@ -421,7 +421,7 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Any Road Setbacks</th>
         <th>Any River/Canal Setbacks</th>
         <th>Any High-Tension Setbacks</th>
@@ -439,7 +439,7 @@
     <tr>
         <th colspan="3">Vicinity to the Basic Amenities</th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Major Market Place</th>
         <th>School/College</th>
         <th>Hospital/Nursing Home</th>
@@ -450,14 +450,14 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['hospitalOrNursingHome']}}</td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3">Comment about FAC</th>
     </tr>
     <tr>
         <td colspan="3" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
 
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3">Location details</th>
     </tr>
     <tr>
@@ -471,7 +471,7 @@
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
@@ -496,7 +496,7 @@
     <tr *ngIf="!formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
         <td colspan="4"><b>Current Asset Inspection: Stock</b></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Date of Inspection(AD/BS)</th>
         <th>Particulars Of Good Inspected</th>
         <th>Stock Value Reported</th>
@@ -529,7 +529,7 @@
     <tr>
         <th colspan="6"><b>Current Asset Inspection: Insurance Verification</b></th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Assets Mortgaged</th>
         <th>Insured Amount</th>
         <th>Insurance Company</th>
@@ -548,7 +548,7 @@
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="6">Comments</th>
     </tr>
     <tr>
@@ -557,7 +557,7 @@
 </table>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Staff Representative Designation 1</th>
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
@@ -580,22 +580,22 @@
     <tr>
         <th colspan="6"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="6">Explain the business nature, operating/manufacturing process in maximum 4 lines as per observation/discussion with the customer during inspection.</th>
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="6">Observation of business operation/activities: No of staffs/workers, Machines/Plant in operation; Loading/unloading happening/brief of various sections of business (Manufacturing/ Packaging/ Storage/ Dispatch/ Quality Control etc.), No of vehicles observed etc.</th>
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="6">Questions to be asked to the accompanying person of client</th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3">How is the business doing now compared to last year?</th>
         <th colspan="3">What are the prospects and challenges for the business?</th>
     </tr>
@@ -607,7 +607,7 @@
         <th colspan="2"><b>Power Back-up Arrangement availability at site:</b></th>
         <th colspan="2"><b>The stock register system at the site is in the form of:</b></th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th>Normal Electricity Line</th>
         <th>Invertor/Generator</th>
         <th>Ledger Book</th>
@@ -626,7 +626,7 @@
 
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="2">Current Assets Inspection  - Stock Checklist Questionnaire
         </th>
     </tr>
@@ -764,14 +764,14 @@
                 class="fas fa-times"></i></td>
     </tr>
     <tr>
-        <td colspan="2" class="text-white sb-bg-dark">Finding & Comments</td>
+        <td colspan="2" class="sb-bg-gray">Finding & Comments</td>
     </tr>
     <tr>
         <td colspan="2" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.findingAndComments}}</td>
 
     </tr>
     <tr>
-        <td colspan="2" class="text-white sb-bg-dark">Remarks for 'NO' Option</td>
+        <td colspan="2" class="sb-bg-gray">Remarks for 'NO' Option</td>
     </tr>
     <tr>
         <td colspan="2" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.stockCheckListQuestionaire?.remarksForNoOption}}</td>
@@ -786,7 +786,7 @@
         <th colspan="6">Current Assets Inspection - Receivables
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
         <th>Party</th>
         <th>Within 3 Months</th>
@@ -827,7 +827,7 @@
         </td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <td colspan="6">Findings & Comments
     </tr>
     <tr>
@@ -840,7 +840,7 @@
         <th colspan="6">Current Assets Inspection - Payable
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
         <th>Party</th>
         <th>Within 3 Months</th>
@@ -872,7 +872,7 @@
         </td>
     </tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <td colspan="6">Findings & Comments
     </tr>
     <tr>
@@ -886,11 +886,11 @@
         <th colspan="6">Other Current Assets
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3">Receivable Assets
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
         <th>Particulars
         </th>
@@ -908,11 +908,11 @@
             <b>Rs. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableCurrentAssetsTotal | currencyFormatter}}</b>
         </td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3">Inspecting Staffs
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
         <th>Name</th>
         <th>Position</th>
@@ -924,12 +924,12 @@
     </tr>
     <tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3">Payable Assets
 
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
         <th>Particulars</th>
         <th>Amount</th>
@@ -948,11 +948,11 @@
     </tr>
     <tr>
 
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th colspan="3" class="text-left pl-1">Bank Exposure
         </th>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
         <th>Bank Name</th>
         <th>Amount</th>
@@ -962,7 +962,7 @@
         <td class="text-left pl-1">{{bank?.bankName}}</td>
         <td class="text-right pr-1">Rs. {{bank?.amount | currencyFormatter}}</td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
         <td colspan="3">
             Overall Findings / Comment of CAI
         </td>

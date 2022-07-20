@@ -2,10 +2,10 @@
   <nb-card-header>
           <span>
             <b>All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white disable-print"
+            <button class="float-right sb-small sb-bg-gray disable-print"
                     *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath"
                     (click)=getDocPath()> Download All Document</button>
-            <button class="float-right sb-small sb-bg-dark text-white disable-print"
+            <button class="float-right sb-small sb-bg-gray disable-print"
                     *ngIf="hidePreviewButton && loanDataHolder?.zipPath"
                     (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + documentName)"> Download All Document</button>
             here
@@ -19,7 +19,7 @@
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead>
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
           <th class="sn">S.N</th>
           <th>Document</th>
           <th class="d-print-none">Preview</th>
@@ -46,7 +46,7 @@
     <div class="col-md-12">
       <p><strong>Customer General Document</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
           <th class="sn">SN</th>
           <th>Document</th>
           <th *ngIf="!hidePreviewButton" class="d-print-none">Preview</th>
@@ -76,7 +76,7 @@
       <p><strong>Guarantor Documents</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead>
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
           <th class="sn">S.N</th>
           <th>Guarantor</th>
           <th>Document</th>
@@ -113,7 +113,7 @@
       <p><strong>Insurance Documents</strong></p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
         <thead>
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
           <th class="sn">S.N</th>
           <th>Policy Number</th>
           <th>Company</th>
@@ -152,7 +152,7 @@
       <p><strong>Cad Documents</strong></p>
 <!--      <p *ngIf="affiliatedId"><i> CBS Loan File Number:</i>{{loanDataHolder?.cbsLoanFileNumber}}</p>-->
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
-        <thead class="text-white sb-bg-dark">
+        <thead class="sb-bg-gray">
         <tr>
           <th class="sn">S.N</th>
           <th>Document</th>
