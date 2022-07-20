@@ -21,5 +21,5 @@ export enum CadCheckListTemplateEnum {
   GUARANTOR_ACKNOWLEDGEMENT = '2093',
   CONSENT_FOR_LEIN = '2096',
   STATEMENT_OF_POSITION = '2095',
-
+  ANUSUCHI = '2097'
 }
