@@ -2,21 +2,6 @@
 <section class="enable-print summary">
     <div id="print-block">
         <div class=" col-md-12 summary">
-            <div class="row" style="margin-bottom: -20px; margin-top: 50px;">
-                <div class="col-md-12">
-                    <p><strong class="header text-left">Purpose of Loan </strong></p>
-                    <table class="table table-borderless table-responsive-md table-sm table-condensed sb-small">
-                        <tbody *ngFor="let loan of customerAllLoanList; let i = index">
-                        <tr *ngIf="loan?.id">
-                            <td>
-                                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -186,9 +171,9 @@
                 </table>
             </div>
         </div>
-        <p class="header" [hidden]="loanCategory === 'INDIVIDUAL'"><strong class="header">Applicant/Guarantor
-            Profile</strong></p>
         <hr class="print-line">
+        <p class="header" [hidden]="loanCategory !== 'INDIVIDUAL'"><strong class="header">Applicant/Guarantor
+            Profile</strong></p>
         <div class="row">
             <div class="col-md-12">
                 <app-remit-profile [isRemit]="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-profile>
@@ -208,7 +193,7 @@
                                             [customerAllLoanList]="customerAllLoanList"
                                             [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
                                             [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-                        <div *ngIf="minOneGuarantorDoc" class="row">
+                        <!--<div *ngIf="minOneGuarantorDoc" class="row">
                             <div class="col-md-12 mt-2">
                                 <p><strong class="header">Guarantor Documents</strong></p>
                                 <table class="table table-condensed table-bordered table-sm sb-small text-center">
@@ -234,7 +219,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
                             <div class="col-md-12">
                                 <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
@@ -259,8 +244,9 @@
                                         <td class="text-left pl-1">
                                             {{relative?.customerRelation}}
                                         </td>
-                                        <td class="text-left pl-1">{{relative?.age}} years</td>
-                                        <td class="text-left pl-1">{{relative?.occupation || 'N/A'}}</td>
+                                        <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
+                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse) === 'Other'">{{relative?.occupation || 'N/A'}}</td>
+                                        <td class="text-left pl-1">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
 
                                     </tr>
                                     </tbody>
@@ -270,6 +256,22 @@
 
                         <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
                                                [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+                        <hr class="print-line">
+                        <div class="row" style="margin-bottom: -20px; margin-top: 50px;">
+                            <div class="col-md-12">
+                                <p><strong class="header text-left">Purpose of Loan </strong></p>
+                                <table class="table table-borderless table-responsive-md table-sm table-condensed sb-small">
+                                    <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                                    <tr *ngIf="loan?.id">
+                                        <td>
+                                            <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                            <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
                                        [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                                        [loanDataHolder]="loanDataHolder"></app-cicl-view>
@@ -278,31 +280,16 @@
                         <ng-container *ngIf="checkedData?.waiverChecked">
                             <hr class="print-line header">
                             <p class="header"><strong class="header">Waivers</strong></p>
-                            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                <tr class="sb-bg-gray">
-                                    <th>Waiver</th>
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1"><span
-                                            [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
+                            </div>
                         </ng-container>
                         <ng-container *ngIf="checkedData?.deviationChecked">
                             <hr class="print-line header">
                             <p class="header"><strong class="header">Deviation</strong></p>
-                            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                <tr class="sb-bg-gray">
-                                    <th>Deviation</th>
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1"><span
-                                            [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
+                            </div>
                         </ng-container>
+                        <hr class="print-line header">
                         <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                                                [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
                     </div>

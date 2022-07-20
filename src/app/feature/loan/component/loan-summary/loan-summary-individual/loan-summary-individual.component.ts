@@ -236,6 +236,8 @@ export class LoanSummaryIndividualComponent implements OnInit {
     }
 
     this.individual = this.loanDataHolder.customerInfo;
+
+    console.log('data::', this.individual);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
