@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <form [formGroup]="commonLoanForm">
-            <div class="col-md-12" formArrayName ="data" *ngFor="let controls of commonLoanForm.get('data')['controls']; let i = index;">
-                <ng-container formGroupName = "{{i}}"  *ngIf="controls?.get('docStatus')?.value.toString() === 'APPROVED'">
+            <div class="col-md-12" formArrayName="data"
+                 *ngFor="let controls of commonLoanForm.get('data')['controls']; let i = index;">
+                <ng-container formGroupName="{{i}}" *ngIf="controls?.get('docStatus')?.value.toString() === 'APPROVED'">
                     <div class="nb-card-header"><p><b>Loan Name: {{controls?.get('loanName')?.value}}</b></p>
                         <p><b>Loan Type: {{controls?.get('loanType')?.value}}</b></p>
                         <p><b>Loan Nature: {{controls?.get('loanConfig')?.value?.loanNature}}</b></p>
@@ -16,8 +17,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="loanType"><strong>Loan Type</strong></label>
-                                <select  formControlName="loanType" id="loanType"
-                                         name="loanType"
+                                <select formControlName="loanType" id="loanType"
+                                        name="loanType"
                                         class="form-control rounded" name="loanType" required>
                                     <option [ngValue]="undefined" hidden> Select Loan Type</option>
                                     <option *ngFor="let list of multipleSelectedLoanType"
@@ -52,20 +53,33 @@
                                     <option [ngValue]="null" hidden>Select Share Type</option>
                                     <option value="PROMOTER">Promoter</option>
                                     <option value="ORDINARY">Ordinary</option>
-                                </select>                            </div>
+                                </select></div>
                         </div>
-                        <div class="col-md-4">
-                            <div>
-                                <nb-checkbox [(ngModel)]="commonLoans[i].withIn" name="withIn"
-                                             [ngModelOptions]="{standalone: true}">Is proposed facility is within limit ? <i style="color:red">(If YES, Please Tick)</i>?
-                                </nb-checkbox>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="row" *ngIf="!controls?.get('loanId')?.value && controls?.get('id')?.value">
-                        <button ngbTooltip="Click To Full Settle The Loan"  class="float-right" nbButton
-                                (click)="fullSettle(controls?.get('id').value)"><i class="fa fa-fast-forward"></i></button>
+                    <div class="col-md-4" *ngIf="!controls?.get('loanId')?.value">
+                        <div>
+                            <nb-checkbox [(ngModel)]="commonLoans[i].withIn" name="withIn"
+                                         [ngModelOptions]="{standalone: true}">Is proposed facility is within limit ? <i
+                                    style="color:red">(If YES, Please Tick)</i>?
+                            </nb-checkbox>
+                            <select *ngIf="commonLoans[i].withIn"
+                                    class="custom-select"
+                                    name="withInLoan"
+                                    (change)="onSelect($event?.target?.value , i)"
+                                    [(ngModel)]="commonLoans[i].exposureWithInId"
+                                    [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]="null" hidden selected>Select</option>
+                                <ng-container *ngFor="let scheme of customerInfo?.existingExposures;">
+                                    <option *ngIf="scheme?.id" [value]="scheme?.id">{{scheme?.loanConfig?.name}}
+                                        : {{(scheme?.proposalData | jsonParse)?.proposedLimit}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="!controls?.get('loanId')?.value && controls?.get('id')?.value">
+                        <button ngbTooltip="Click To Full Settle The Loan" class="float-right" nbButton
+                                (click)="fullSettle(controls?.get('id').value)"><i class="fa fa-fast-forward"></i>
+                        </button>
                     </div>
                     <div class="row" [formGroup]="controls?.get('proposalData')">
                         <div class="col-md-4">

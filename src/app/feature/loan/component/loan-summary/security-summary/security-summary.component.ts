@@ -11,6 +11,8 @@ import {Security} from '../../../model/security';
 import {LoanDataHolder} from '../../../model/loanData';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
 import {CustomerInfoData} from '../../../model/customerInfoData';
+import {Exposure} from '../../../../credit-administration/model/Exposure';
+import {ExistingExposure} from '../../../model/existingExposure';
 
 
 @Component({
@@ -93,26 +95,19 @@ export class SecuritySummaryComponent implements OnInit {
     };
     keys = Object.keys(this.totalIndividualSec);
     subKey = Object.keys(this.totalIndividualSec.apartment);
+    fixedAssets: number;
+    totalProposedLimit = 0;
     constructor(private collateralSiteVisitService: CollateralSiteVisitService,
                 private securityLoanReference: SecurityLoanReferenceService) {
     }
 
     ngOnInit() {
         this.subKey.pop();
-        // Set Security Details for view
-        const  loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ? this.customerAllLoanList.length : 0;
-        if (loanListLen > 0 && this.securities.length < 1 ) {
-            this.securities = [];
-            if (this.pending) {
-                this.combineAllSecurity();
-            } else {
-                this.combinedAllApprovedSecurity();
-            }
-        } else if (!ObjectUtil.isEmpty(this.securities)) {
+            if (!ObjectUtil.isEmpty(this.securities)) {
             const proposedSecurity = this.securities.map(d => d.id);
             this.securities =  this.securities
                 .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
-            this.selectedSecurities();
+            this.selectedSecurities(this.securities);
             this.setSelectedSecurities();
         }
         if (!ObjectUtil.isEmpty(this.loanHolder.customerShareBatches) &&
@@ -120,62 +115,41 @@ export class SecuritySummaryComponent implements OnInit {
             this.loanHolder.customerShareBatches[0].shareSecurity.forEach((share) => {
                 this.totalIndividualSec.share.fmv += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
                 this.totalIndividualSec.share.mv += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
+                // tslint:disable-next-line:max-line-length
                 this.totalIndividualSec.share.rv += JSON.parse(share.data).totalRealizableAmount ? JSON.parse(share.data).totalRealizableAmount : 0;
                 this.totalIndividualSec.share.added = true;
             });
         }
+        // getting total proposed limit
         if (this.pending) {
+            this.selectedSecurities(this.approvedSec);
             this.setApprovedSecurities();
-        }
-        this.keys.forEach(k => {
-            if (this.totalIndividualSec[k].added && k !== 'total') {
-                this.subKey.forEach(sk => {
-                    this.totalIndividualSec.total[sk] += this.totalIndividualSec[k][sk];
+            this.selectedSecurities(this.securities);
+            this.customerAllLoanList.forEach((d) => {
+                this.totalProposedLimit += JSON.parse(d.proposal.data).proposedLimit;
+            });
+            const exposures: ExistingExposure[] = this.loanHolder.existingExposures.filter(d => d.docStatus.toString() === 'APPROVED');
+            if (exposures.length > 0) {
+                exposures.forEach((d) => {
+                    this.totalProposedLimit += JSON.parse(d.proposalData).proposedLimit;
                 });
             }
-        });
-    }
-
-    combineAllSecurity() {
-        this.customerAllLoanList.forEach((ld) => {
-                this.securities =  this.securities.concat(ld.securities);
-        });
-        if (this.securities.length > 0) {
-            this.selectedSecurities();
-            this.setSelectedSecurities();
-        }
-
-    }
-
-    combinedAllApprovedSecurity(): void {
-        let security: any;
-        this.customerAllLoanList.forEach((ld) => {
-            if (!ObjectUtil.isEmpty(ld.parentId) && ld.documentStatus.toString() !== 'APPROVED' ) {
-                this.securityLoanReference.getAllSecurityLoanReferencesByLoanId(ld.parentId).subscribe({
-                    next: (response: any) => {
-                         security = response.detail;
-                    },
-                    error: (err: any) => {},
-                    complete: () => {
-                        security.forEach((dd: any) => {
-                            const securityObj = new Security();
-                            securityObj.id = dd.securityId;
-                            securityObj.coverage = dd.coverage;
-                            securityObj.data = dd.data;
-                            securityObj.securityType = dd.securityType;
-                            securityObj.usedAmount = dd.usedAmount;
-                            securityObj.status = dd.status;
-                            this.securities.push(securityObj);
-                        });
-                        this.selectedSecurities();
-                        this.setSelectedSecurities();
-                    },
+            this.keys.forEach(k => {
+                if (this.totalIndividualSec[k].added && k !== 'total') {
+                    this.subKey.forEach(sk => {
+                        this.totalIndividualSec.total[sk] += this.totalIndividualSec[k][sk];
                     });
+                }
+            });
+            this.fixedAssets = this.totalIndividualSec.total.rv - Number(this.totalProposedLimit);
+            if (this.fixedAssets < 0) {
+                this.fixedAssets = Math.abs(this.fixedAssets);
+            } else {
+                this.fixedAssets = 0;
             }
-        });
+        }
     }
-
-    private managedArray(array) {
+     private managedArray(array) {
         let newArray = [];
         const returnArray = [];
         array.forEach((g, i) => {
@@ -356,9 +330,23 @@ export class SecuritySummaryComponent implements OnInit {
             this.vehicleArray =  this.managedArray(vehicle);
         }
     }
-    selectedSecurities() {
+    selectedSecurities(securities) {
+        this.apartmentSelected = false;
+        this.landSelected = false;
+        this.assignments = false;
+        this.landBuilding = false;
+        this.corporate = false;
+        this.depositSelected = false;
+        this.hypothecation = false;
+        this.insurancePolicySelected = false;
+        this.securityOther = false;
+        this.personal = false;
+        this.assignments = false;
+        this.shareSelected = false;
+        this.vehicleSelected = false;
+        this.plantSelected = false;
         if (!ObjectUtil.isEmpty(this.securities)) {
-            this.securities.forEach((s, i) => {
+            securities.forEach((s, i) => {
                 switch (s.securityType.toString()) {
                     case 'APARTMENT_SECURITY': {
                         this.apartmentSelected = true;

@@ -79,6 +79,8 @@ export class CommonLoanInformationComponent implements OnInit {
             loanName: [undefined],
             docStatus: ['APPROVED'],
             loanConfig: [undefined],
+            exposureWithInId: [undefined],
+            witInType: [1],
             id: [undefined]
         });
         formArray.push(exposure);
@@ -106,6 +108,8 @@ export class CommonLoanInformationComponent implements OnInit {
                 loanId: [e.loanId],
                 loanConfig: [e.loanConfig],
                 docStatus: [e.docStatus],
+                exposureWithInId: [e.exposureWithInId],
+                witInType: [e.witInType],
                 originalLimit: [e.originalLimit],
                 id: [e.id]
             }));
@@ -556,5 +560,10 @@ export class CommonLoanInformationComponent implements OnInit {
                 this.spinnerService.hide();
             }
         });
+    }
+
+    onSelect(event, i) {
+        const data: ExistingExposure [] = this.commonLoans.filter(d => d.id === Number(event));
+        this.commonLoans[i].witInType = data[0].loanId ? 0 : 1;
     }
 }
