@@ -50,11 +50,11 @@
                        <div class="row">
                            <div class="col-md-4">
                                <div class="form-group">
-                                   <label for="customerNameForm"><strong>Customer Client Type</strong></label>
+                                   <label for="customerNameForm"><strong>Business Segment</strong></label>
                                    <select
                                            [ngClass]="{ 'is-invalid':submitted && basicInfoControls.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
-                                       <option [ngValue]="null">Select Client Type</option>
+                                       <option [ngValue]="null">Select Business Segment</option>
                                        <option *ngFor="let data of clientType | keyvalue " [ngValue]="data.key"
                                                [selected]="data.key === clientTypeInput" >{{data.value}}</option>
                                    </select>

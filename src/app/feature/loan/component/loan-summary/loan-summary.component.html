@@ -97,9 +97,9 @@
                                 <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
                                 <br>
                                 <div><strong class="float-left">Product:</strong>
-                                    <table class="table table-sm table-responsive-sm  float-left">
+                                    <table id="table-border" class="table table-bordered table-condensed table-responsive-md text-center table-sm sb-small">
                                         <thead>
-                                        <tr class="sb-bg-dark text-white">
+                                        <tr class="sb-bg-gray">
                                             <td>Facility Name</td>
                                             <td>Approving Level</td>
                                             <td>Credit Risk</td>
@@ -114,6 +114,28 @@
                                             </td>
                                             <td>
                                                 {{allLoan?.creditRisk}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div><strong class="float-left">Review Date:</strong>
+                                    <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
+                                        <thead>
+                                        <tr class="sb-bg-gray">
+                                            <td>Facility Name</td>
+                                            <td>Last Date</td>
+                                            <td>Next Date</td>
+                                        </tr>
+                                        </thead>
+                                        <tr *ngFor="let allLoan of proposedLoan">
+                                            <td>
+                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
                                             </td>
                                         </tr>
                                     </table>
