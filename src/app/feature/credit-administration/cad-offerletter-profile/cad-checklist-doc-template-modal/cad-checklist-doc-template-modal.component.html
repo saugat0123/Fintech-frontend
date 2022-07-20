@@ -1,4 +1,4 @@
-<nb-card accent="primary" class="p-3 shadow-lg" style="height:99%">
+<nb-card accent="primary" class="p-3 shadow-lg" style="height:99%; width: 100vw;">
     <nb-card-header>
         <a (click)="onClose()" aria-label="Close" class="close cursor"
            data-dismiss="modal">
@@ -74,6 +74,11 @@
                         [cadData]="cadData"
                         [documentId]="documentId"
                         [customerLoanId]="customerLoanId"></app-guarantor-acknowledgement>
+                <app-statement-of-position
+                        *ngSwitchCase="cadTemplate.STATEMENT_OF_POSITION"
+                        [cadData]="cadData"
+                        [documentId]="documentId"
+                        [customerLoanId]="customerLoanId"></app-statement-of-position>
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
         </div>
