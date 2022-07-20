@@ -73,7 +73,7 @@
                                         class="sb-medium"><strong>
                                             {{loanCategory === 'INSTITUTION' ?
                                             loanDataHolder?.companyInfo?.companyName
-                                            : loanDataHolder?.customerInfo?.customerName}}
+                                            : loanDataHolder?.customerInfo?.customerName}} ({{loanCategory}})
                                         </strong> </span>
                                 </div>
                                 <div class="report-header-sub-heading" *ngIf="isJointInfo">
@@ -81,7 +81,7 @@
                                         <ng-container *ngFor="let info of jointCustomer">
                                             <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
                                                 loanDataHolder?.companyInfo?.companyName :
-                                                info?.customerName}}</span><br />
+                                                info?.customerName}} ({{loanCategory}})</span><br />
                                         </ng-container>
                                     </div>
                                 </div>

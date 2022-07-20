@@ -49,7 +49,7 @@
                                             <strong>
                                                 {{loanCategory === 'INSTITUTION' ?
                                                 loanDataHolder?.companyInfo?.companyName
-                                                : loanDataHolder?.customerInfo?.customerName}}
+                                                : loanDataHolder?.customerInfo?.customerName}} ({{loanCategory}})
                                             </strong>
                                         </span>
                                     </div>
@@ -58,15 +58,14 @@
                                             <ng-container *ngFor="let info of jointCustomer">
                                                 <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
                                                     loanDataHolder?.companyInfo?.companyName :
-                                                    info?.customerName}}</span><br/>
+                                                    info?.customerName}} ({{loanCategory}})</span><br/>
                                             </ng-container>
                                         </div>
                                     </div>
                                 </ng-container>
-                                <div class="report-header-sub-heading mt-1 ml-1 mb-1">{{loanDataHolder?.branch?.name}}
-                                    Branch
-                                    ,
-                                    {{loanDataHolder?.branch?.province?.name}}</div>
+                                <div class="report-header-sub-heading mt-1 ml-1 mb-1">
+                                    {{loanDataHolder?.branch?.name}}
+                                    Branch , {{loanDataHolder?.branch?.province?.name}}</div>
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
@@ -393,6 +392,7 @@
                                 *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
                                 [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                 [proposal]="loanDataHolder?.proposal"
+                                [isRetailCustomer]="true"
                                 [cicl]="loanDataHolder?.loanHolder?.cicl"
                                 [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                 [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>

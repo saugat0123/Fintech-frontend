@@ -87,7 +87,8 @@
                     && ((ex?.proposalData | jsonParse)?.existCommissionPercentage === null)">-</span>
                 </td>
                 <td class="text-right pr-1">Rs. {{(ex?.proposalData | jsonParse)?.proposedLimit | currencyFormatter}}</td>
-                <td class="text-left pl-1">{{(ex?.proposalData | jsonParse)?.tenureDurationInMonths}} months</td>
+                <td class="text-left pl-1">{{(ex?.proposalData | jsonParse)?.tenureDurationInMonths}}
+                    {{(ex?.proposalData | jsonParse)?.tenureDurationInMonths ? 'Months' : '-'}}</td>
                 <td class="text-right pr-1">Rs. {{calculateChangeInAmount((ex?.proposalData | jsonParse)?.proposedLimit,
                     (ex?.proposalData | jsonParse)?.existingLimit)}}</td>
                 <td class="pr-1 pl-1">
@@ -175,7 +176,8 @@
 <!--                        ({{(loan?.proposal?.data | jsonParse)?.dateOfExpiry | engNepDate: false}})</span>-->
 <!--                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>-->
 <!--                </td>-->
-                <td class="text-left pl-1">{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} months</td>
+                <td class="text-left pl-1">{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}}
+                    {{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths ? 'Months' : '-'}}</td>
                 <td class="text-right pr-1">Rs. {{calculateChangeInAmount((loan?.proposal?.data | jsonParse)?.proposedLimit,
                     (loan?.proposal?.data | jsonParse)?.existingLimit)}}</td>
                 <td class="pr-1 pl-1">

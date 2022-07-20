@@ -434,7 +434,7 @@
                         *ngIf="customerInfo &&  isEditable"
                         [customerInfoId]="customerInfoId"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
-                <app-customer-loan-information-view *ngIf=" !isEditable"
+                <app-customer-loan-information-view *ngIf=" !isEditable && customerInfo"
                                                     [customerInfo]="customerInfo"></app-customer-loan-information-view>
             </div>
         </div>

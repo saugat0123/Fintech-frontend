@@ -17,6 +17,7 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   @Input() cicl: CiclArray;
   @Input() customerCategory;
   @Input() customerType: CustomerType;
+  @Input() isRetailCustomer: boolean;
   multiBankingData;
   checkedData;
   proposalData;
