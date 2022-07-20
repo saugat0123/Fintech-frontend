@@ -1,5 +1,5 @@
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
-    <p class="header"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
+    <p class="header text-center"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
     <ng-container *ngFor="let security of loanDataHolder?.securities; let i = index;">
         <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
             <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
@@ -9,10 +9,8 @@
                         <div class="right-content">
                             <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
                         </div>
-                        <div class="left-content"><strong>Credit Risk Grade: </strong>
-                            <span>{{loanDataHolder?.creditRisk || ''}}</span></div>
                     </div>
-                    <p><strong>Customer:
+                    <p><strong>Customer Name:
                         {{loanDataHolder?.loanCategory === 'INSTITUTION' ?
                             loanDataHolder?.companyInfo?.companyName
                             : loanDataHolder?.customerInfo?.customerName}}
@@ -80,11 +78,11 @@
                                             <span>{{collateral?.siteVisitJsonData?.roadWidth || ''}}</span>
                                         </div>
                                         <div class="col-lg-4">Blacktopped:
-                                            <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : 'No'}}</span>
+                                            <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : ('No (' + collateral?.siteVisitJsonData?.roadApproach + ')')}}</span>
                                         </div>
                                         <div class="col-lg-4">Boundary Remark:
-                                            <span>{{collateral?.siteVisitJsonData?.building === 'NO' ?
-                                                collateral?.siteVisitJsonData?.remarksForOtherFacility : ''}}</span>
+                                            <span>{{collateral?.siteVisitJsonData?.roadAccessFrom ?
+                                                'Road Access From ' + collateral?.siteVisitJsonData?.roadAccessFrom : ''}}</span>
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">
@@ -116,7 +114,7 @@
                         <tr>
                             <td>
                                 <label>3. Ownership status of property is not Guthi/Mohi</label><br>
-                                <label>Remarks: <span>{{security?.data?.typeOfProperty !== 'Guthi' ? 'Yes' : 'No'}}</span>
+                                <label>Remarks: <span>{{collateral?.siteVisitJsonData?.guthi === true ? 'Yes' : 'No'}}</span>
                                 </label>
                             </td>
                         </tr>
@@ -125,7 +123,7 @@
                                 <label>4. Is there any noticeable remark on/to/near the property e.g. river; temple,
                                     playing ground etc.?</label><br>
                                 <label>Remarks:
-                                    <span>{{collateral?.siteVisitJsonData?.riverOrCanalSetbacks === 'YES' ? 'Yes' : 'No'}}</span></label>
+                                    <span>{{collateral?.siteVisitJsonData?.noticeableRemark === true ? 'Yes' : 'No'}}</span></label>
                             </td>
                         </tr>
                         <tr>
@@ -151,8 +149,9 @@
                         </tr>
                         <tr>
                             <td>
-                                <label>6. Are all the applicable taxes current?: Yes/No</label><br>
-                                <label>Tax Payment Receipt seen? Yes/No</label>
+                                <label>6. Are all the applicable taxes current/Tax Payment Receipt seen?</label><br>
+                                <label>Remarks:
+                                    <span>{{collateral?.siteVisitJsonData?.taxes === true ? 'Yes' : 'No'}}</span></label>
                             </td>
                         </tr>
                         <tr>
