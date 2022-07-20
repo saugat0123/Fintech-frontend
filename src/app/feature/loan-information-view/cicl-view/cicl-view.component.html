@@ -9,7 +9,7 @@
               class="table table-bordered table-hover table-sm sb-small text-center">
         <thead>
 
-        <tr class="sb-bg-dark text-white">
+        <tr class="sb-bg-gray">
           <th>S.N</th>
           <th>Name</th>
           <th>Cicl Relation</th>
@@ -42,13 +42,13 @@
         </thead>
       </table>
     </div>
-    <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
-      <tr class="sb-bg-dark text-white ">
+    <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed; width: 100%">
+      <tr class="sb-bg-gray">
         <td>Remarks</td>
       </tr>
       <td class="text-justify px-2" style="overflow-wrap: break-word; "><span
               [innerHTML]="ciclValue?.remarks ? ciclValue?.remarks : 'N/A' | safeHtml"></span></td>
-      <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-dark text-white">
+      <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-gray">
         <th>Repayment track in other BFIs</th>
       </tr>
       <tr *ngIf="!crgLambdaDisabled">
