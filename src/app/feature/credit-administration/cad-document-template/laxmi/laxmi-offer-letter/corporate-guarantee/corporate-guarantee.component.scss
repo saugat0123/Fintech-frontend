@@ -129,3 +129,14 @@ ol.order-list > li {
   padding-left: 20px;
   line-height: 1.9;
 }
+.nepaliFont {
+  &.font-size-normal {
+    font-size: 14px;
+  }
+}
+.page-break {
+  page-break-after: always;
+}
+.fontSize14 {
+  font-size: 14px;
+}
