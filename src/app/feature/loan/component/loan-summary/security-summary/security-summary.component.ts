@@ -313,7 +313,12 @@ export class SecuritySummaryComponent implements OnInit {
             const plant = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
-                    plant.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    plant.push(data);
+                    this.totalIndividualSec.plant.rv += data.quotation || 0;
+                    this.totalIndividualSec.plant.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.plant.mv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.plant.added = true;
                 }
             });
             this.plantArray = plant;
@@ -518,6 +523,11 @@ export class SecuritySummaryComponent implements OnInit {
         if (this.plantSelected) {
             this.approvedSec.forEach((d) => {
                 if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
+                    const data = JSON.parse(d.data);
+                    this.totalIndividualSec.plant.rv += data.quotation || 0;
+                    this.totalIndividualSec.plant.fmv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.plant.mv += data.fairMarketValue || 0;
+                    this.totalIndividualSec.plant.added = true;
                 }
             });
         }

@@ -26,7 +26,7 @@
                 class="table table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-gray">
-                <th>Loan Facility</th>
+                <th style="width: 30%;">      Loan Facility       </th>
                 <th>Existing Limit</th>
                 <th *ngIf="!isRemit">Outstanding</th>
                 <th *ngIf="!isRemit">Enhance</th>
@@ -45,7 +45,7 @@
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList; let i = index"
                 [class.font-weight-bold]="loan?.documentStatus !== 'APPROVED'">
-                <td  class="text-left pl-lg-2">
+                <td  class="text-left pl-1">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
 <!--                            *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>-->
@@ -157,7 +157,7 @@
             </ng-container>
                 </td>
             </tr>
-            <tr class="sb-bg-gray">
+            <tr class="sb-bg-gray" [class.font-weight-bold]= "true">
                 <td class="text-left pl-1"><strong>Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
@@ -189,7 +189,7 @@
                 <!--        <td>N/A</td>-->
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
-            <tr class="sb-bg-gray">
+            <tr class="sb-bg-gray" [class.font-weight-bold]= "true">
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
                 <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
                 <td class="text-right pr-1" *ngIf="!isRemit">
@@ -217,7 +217,7 @@
                 <!--        <td>N/A</td>-->
                 <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
-            <tr class="sb-bg-gray">
+            <tr class="sb-bg-gray" [class.font-weight-bold]= "true">
                 <td class="text-left pl-1"><strong>Total</strong></td>
 
                 <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>

@@ -178,19 +178,6 @@ export class ProposalComponent implements OnInit {
         this.configEditor();
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
-        if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
-            if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
-                const obj = JSON.parse(this.loan.loan.paperChecklist);
-                this.paperChecklist = obj.view;
-                this.allIds = obj.id;
-                this.checklistChecked = obj.checklistChecked;
-            }
-        } else  {
-            const obj = JSON.parse(this.loan.paperProductChecklist);
-            this.paperChecklist = obj.view;
-            this.allIds = obj.id;
-            this.checklistChecked = true;
-        }
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
             this.withIn = this.loan.withIn ? this.loan.withIn : false;
             if (this.withIn) {
@@ -284,7 +271,6 @@ export class ProposalComponent implements OnInit {
                 this.setFormData(commonData.shares, 'shares');
             }
         }
-        this.getLoanData();
         this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
             .patchValue((Number(value) + Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
@@ -331,6 +317,7 @@ export class ProposalComponent implements OnInit {
                     });
             }
         });
+        this.getLoanData();
     }
 
     getLoanData() {
@@ -342,6 +329,19 @@ export class ProposalComponent implements OnInit {
                 this.loan = new LoanDataHolder();
             }
             this.loan.loan = response.detail;
+            if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
+                if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
+                    const obj = JSON.parse(this.loan.loan.paperChecklist);
+                    this.paperChecklist = obj.view;
+                    this.allIds = obj.id;
+                    this.checklistChecked = obj.checklistChecked;
+                }
+            } else  {
+                const obj = JSON.parse(this.loan.paperProductChecklist);
+                this.paperChecklist = obj.view;
+                this.allIds = obj.id;
+                this.checklistChecked = true;
+            }
             this.checkLoan();
         }, error => {
             console.error(error);

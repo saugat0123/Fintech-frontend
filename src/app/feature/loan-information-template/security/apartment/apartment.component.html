@@ -1,16 +1,6 @@
 <!--Apartment Security-->
 <nb-card class="p-5">
     <form [formGroup]="apartmentForm">
-        <!--<div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <nb-checkbox (change)="underConstruction($event.target.checked)"
-                                 formControlName="underConstructionCheck"
-                                 [checked]="underConstructionChecked">Check if Under Construction
-                    </nb-checkbox>
-                </div>
-            </div>
-        </div>-->
         <div class="box-header with-border">
             <h2 class="box-title title">Apartment Details</h2>
         </div>
@@ -135,6 +125,16 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label class="title" for="buildingTotalCost">Collateral Owner Relationship</label>
+                                    <input class="form-control rounded"
+                                           formControlName="colateralRelationship"
+                                           id="colateralRelationship"
+                                           name="colateralRelationship" placeholder="Collateral Relationship"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label class="title" for="buildingDescription">Apartment Description</label>
                                     <input class="form-control rounded"
                                            formControlName="buildingDescription"
@@ -153,16 +153,16 @@
                                            type="number" required/>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="buildRate">Build Up Area Rate</label>
-                                    <input (input)="calculateBuildUpAreaRate(i,'building')"
-                                           class="form-control rounded" formControlName="buildRate"
-                                           id="buildRate"
-                                           name="buildRate" placeholder="Build Up Area Rate"
-                                           type="number"/>
-                                </div>
-                            </div>
+<!--                            <div class="col-md-4">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="buildRate">Build Up Area Rate</label>-->
+<!--                                    <input (input)="calculateBuildUpAreaRate(i,'building')"-->
+<!--                                           class="form-control rounded" formControlName="buildRate"-->
+<!--                                           id="buildRate"-->
+<!--                                           name="buildRate" placeholder="Build Up Area Rate"-->
+<!--                                           type="number"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -177,38 +177,38 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="valuationArea">Valuation Taken Area
-                                        (Sq.ft)</label>
-                                    <input (input)="calculateEstimatedCost(i,'building')"
-                                           class="form-control rounded" formControlName="valuationArea"
-                                           id="valuationArea"
-                                           name="valuationArea" placeholder="Valuation Taken Area"
-                                           type="number"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="ratePerSquareFeet">Rate per Square Feet</label>
-                                    <input (input)="calculateEstimatedCost(i,'building')"
-                                           class="form-control rounded"
-                                           formControlName="ratePerSquareFeet"
-                                           id="ratePerSquareFeet"
-                                           name="ratePerSquareFeet" placeholder="Rate per Square Feet"
-                                           type="number"/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="estimatedCosts">Estimated Cost</label>
-                                    <input class="form-control rounded" formControlName="estimatedCost"
-                                           id="estimatedCosts"
-                                           name="estimatedCost" placeholder="Estimated Cost"
-                                           type="number" readonly
-                                           (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
-                                </div>
-                            </div>
+<!--                            <div class="col-md-4">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="valuationArea">Valuation Taken Area-->
+<!--                                        (Sq.ft)</label>-->
+<!--                                    <input (input)="calculateEstimatedCost(i,'building')"-->
+<!--                                           class="form-control rounded" formControlName="valuationArea"-->
+<!--                                           id="valuationArea"-->
+<!--                                           name="valuationArea" placeholder="Valuation Taken Area"-->
+<!--                                           type="number"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="ratePerSquareFeet">Rate per Square Feet</label>-->
+<!--                                    <input (input)="calculateEstimatedCost(i,'building')"-->
+<!--                                           class="form-control rounded"-->
+<!--                                           formControlName="ratePerSquareFeet"-->
+<!--                                           id="ratePerSquareFeet"-->
+<!--                                           name="ratePerSquareFeet" placeholder="Rate per Square Feet"-->
+<!--                                           type="number"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="estimatedCosts">Estimated Cost</label>-->
+<!--                                    <input class="form-control rounded" formControlName="estimatedCost"-->
+<!--                                           id="estimatedCosts"-->
+<!--                                           name="estimatedCost" placeholder="Estimated Cost"-->
+<!--                                           type="number" readonly-->
+<!--                                           (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
 
                         <div class="row">
@@ -270,7 +270,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="apartmentRate">Releasable Rate</label>
+                                    <label class="title" for="apartmentRate">Realizable Rate</label>
                                     <input class="form-control rounded" (change)="calcRealiasable(i, 'apartment')"
                                            formControlName="apartmentRate"
                                            id="apartmentRate"
@@ -281,7 +281,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="buildingReliasableValue">Reliasable Value</label>
+                                    <label class="title" for="buildingReliasableValue">Realizable Value</label>
                                     <input class="form-control rounded"
                                            formControlName="buildingReliasableValue"
                                            id="buildingReliasableValue"
@@ -494,7 +494,7 @@
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                         <input (input)="calculateBuildUpAreaRate(i,'before')"
                                                class="form-control rounded" formControlName="buildArea"
-                                               id="area"
+                                               id="araaea"
                                                name="buildArea" placeholder="Build Up Area"
                                                type="number"/>
                                     </div>

@@ -263,6 +263,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 });
             } else {
                 this.loaded = true;
+                this.combinedLoanList.push(this.loanDataHolder);
                 this.customerAllLoanList = [];
                 this.customerAllLoanList.push(this.loanDataHolder);
             }
