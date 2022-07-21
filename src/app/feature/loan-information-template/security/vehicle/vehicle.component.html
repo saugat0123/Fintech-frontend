@@ -97,8 +97,6 @@
                                    placeholder="Manufacture Date" type="text">
                        </div>
                    </div>
-
-
                    <div class="col-md-4">
                        <div class="form-group">
                            <label class="title" for="quotationAmount"><strong>Market Value</strong></label>
@@ -115,6 +113,16 @@
                                    Valuation amount is required
                                </div>
                            </div>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="quotationAmount"><strong>Realisable Rate</strong></label>
+                           <input (change)="calcRealiasable(i,'vehicle')"
+                                  class="form-control" formControlName="vehicleRate" id="vehicleRate"
+                                  name="vehicleRate"
+                                  placeholder="Rate %"
+                                  type="number">
                        </div>
                    </div>
                    <div class="col-md-4">
@@ -164,6 +172,17 @@
                                    type="number">
                        </div>
                    </div>-->
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="vehicleRealiasableAmount"><strong>Realisable Amount</strong></label>
+                           <input (change)="calcRealiasable(i,'vehicle')"
+                                  class="form-control" formControlName="vehicleRealiasableAmount"
+                                  id="vehicleRealiasableAmount"
+                                  name="vehicleRealiasableAmount"
+                                  placeholder="Realiasable Amount"
+                                  type="number" disabled>
+                       </div>
+                   </div>
                </div>
 
                <div class="row">
@@ -279,106 +298,85 @@
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
-                           <label class="title" for="quotationAmount"><strong>Realisable Rate</strong></label>
-                           <input (change)="calcRealiasable(i,'vehicle')"
-                                  class="form-control" formControlName="vehicleRate" id="vehicleRate"
-                                  name="vehicleRate"
-                                  placeholder="Rate %"
-                                  type="number">
+                           <label class="title" for="vehicleFirstValuationDate">First Valuation Date</label>
+                           <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                  formControlName="vehicleFirstValuationDate"
+                                  id="vehicleFirstValuationDate"
+                                  name="vehicleFirstValuationDate" placeholder="First Valuation Date"
+                                  [nbDatepicker]="firstValuationDate"
+                                  type="text"/>
+                           <app-calendar
+                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).patchValue($event?.eDate)"
+                                   *ngIf="calendarType === 'BS'"
+                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).value"></app-calendar>
+                           <nb-datepicker #firstValuationDate></nb-datepicker>
                        </div>
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
-                           <label class="title" for="vehicleRealiasableAmount"><strong>Realisable Amount</strong></label>
-                           <input (change)="calcRealiasable(i,'vehicle')"
-                                  class="form-control" formControlName="vehicleRealiasableAmount"
-                                  id="vehicleRealiasableAmount"
-                                  name="vehicleRealiasableAmount"
-                                  placeholder="Realiasable Amount"
-                                  type="number" disabled>
+                           <label class="title" for="vehicalStaffRepresentativeDesignation">Staff Representative
+                               Designation 1</label>
+                           <select class="form-control rounded"
+                                   formControlName="vehicalStaffRepresentativeDesignation"
+                                   id="vehicalStaffRepresentativeDesignation"
+                                   name="vehicalStaffRepresentativeDesignation">
+                               <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                               <option *ngFor="let designation of designationList"
+                                       [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                           </select>
                        </div>
                    </div>
-<!--                   <div class="col-md-4">-->
-<!--                       <div class="form-group">-->
-<!--                           <label class="title" for="vehicleFirstValuationDate">First Valuation Date</label>-->
-<!--                           <input *ngIf="calendarType === 'AD'" class="form-control rounded"-->
-<!--                                  formControlName="vehicleFirstValuationDate"-->
-<!--                                  id="vehicleFirstValuationDate"-->
-<!--                                  name="vehicleFirstValuationDate" placeholder="First Valuation Date"-->
-<!--                                  [nbDatepicker]="firstValuationDate"-->
-<!--                                  type="text"/>-->
-<!--                           <app-calendar-->
-<!--                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).patchValue($event?.eDate)"-->
-<!--                                   *ngIf="calendarType === 'BS'"-->
-<!--                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'vehicleFirstValuationDate']).value"></app-calendar>-->
-<!--                           <nb-datepicker #firstValuationDate></nb-datepicker>-->
-<!--                       </div>-->
-<!--                   </div>-->
-<!--                   <div class="col-md-4">-->
-<!--                       <div class="form-group">-->
-<!--                           <label class="title" for="vehicalStaffRepresentativeDesignation">Staff Representative-->
-<!--                               Designation 1</label>-->
-<!--                           <select class="form-control rounded"-->
-<!--                                   formControlName="vehicalStaffRepresentativeDesignation"-->
-<!--                                   id="vehicalStaffRepresentativeDesignation"-->
-<!--                                   name="vehicalStaffRepresentativeDesignation">-->
-<!--                               <option [ngValue]="null" hidden>Staff Representative Designation 1</option>-->
-<!--                               <option *ngFor="let designation of designationList"-->
-<!--                                       [ngValue]="designation?.roleName">{{designation?.roleName}}</option>-->
-<!--                           </select>-->
-<!--                       </div>-->
-<!--                   </div>-->
-<!--                   <div class="col-md-4">-->
-<!--                       <div class="form-group">-->
-<!--                           <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name-->
-<!--                               1</label>-->
-<!--                           <input class="form-control rounded" formControlName="vehicalStaffRepresentativeName"-->
-<!--                                  id="vehicalStaffRepresentativeName"-->
-<!--                                  name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name 1"-->
-<!--                                  type="text"/>-->
-<!--                       </div>-->
-<!--                   </div>-->
-<!--                   <div class="col-md-4">-->
-<!--                       <div class="form-group">-->
-<!--                           <label class="title" for="vehicaleStaffRepresentativeDesignation2">Staff Representative-->
-<!--                               Designation 2</label>-->
-<!--                           <select class="form-control rounded"-->
-<!--                                   formControlName="vehicaleStaffRepresentativeDesignation2"-->
-<!--                                   id="vehicaleStaffRepresentativeDesignation2"-->
-<!--                                   name="vehicaleStaffRepresentativeDesignation2">-->
-<!--                               <option [ngValue]="null">Staff Representative Designation 2</option>-->
-<!--                               <option *ngFor="let designation of designationList"-->
-<!--                                       [ngValue]="designation?.roleName">{{designation?.roleName}}</option>-->
-<!--                           </select>-->
-<!--                       </div>-->
-<!--                   </div>-->
-<!--                   <div class="col-md-4">-->
-<!--                       <div class="form-group">-->
-<!--                           <label class="title" for="vehicaleStaffRepresentativeName2">Staff Representative Name-->
-<!--                               2</label>-->
-<!--                           <input class="form-control rounded" formControlName="vehicaleStaffRepresentativeName2"-->
-<!--                                  id="vehicaleStaffRepresentativeName2"-->
-<!--                                  name="vehicaleStaffRepresentativeName2" placeholder="Staff Representative Name 2"-->
-<!--                                  type="text"/>-->
-<!--                       </div>-->
-<!--                   </div>-->
-<!--                   <div class="col-md-4">-->
-<!--                       <div class="form-group">-->
-<!--                           <label class="title">Ownership transfer date</label>-->
-<!--                           <input class="form-control rounded" formControlName="ownershipTransferDate"-->
-<!--                                  *ngIf="calendarType === 'AD'"-->
-<!--                                  name="ownershipTransferDate" placeholder="Ownership transfer date"-->
-<!--                                  [nbDatepicker]="ownershipDate">-->
-<!--                           <app-calendar-->
-<!--                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"-->
-<!--                                   *ngIf="calendarType === 'BS'"-->
-<!--                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>-->
-<!--                           <nb-datepicker #ownershipDate></nb-datepicker>-->
-<!--                       </div>-->
-<!--                   </div>-->
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name
+                               1</label>
+                           <input class="form-control rounded" formControlName="vehicalStaffRepresentativeName"
+                                  id="vehicalStaffRepresentativeName"
+                                  name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name 1"
+                                  type="text"/>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="vehicaleStaffRepresentativeDesignation2">Staff Representative
+                               Designation 2</label>
+                           <select class="form-control rounded"
+                                   formControlName="vehicaleStaffRepresentativeDesignation2"
+                                   id="vehicaleStaffRepresentativeDesignation2"
+                                   name="vehicaleStaffRepresentativeDesignation2">
+                               <option [ngValue]="null">Staff Representative Designation 2</option>
+                               <option *ngFor="let designation of designationList"
+                                       [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="vehicaleStaffRepresentativeName2">Staff Representative Name
+                               2</label>
+                           <input class="form-control rounded" formControlName="vehicaleStaffRepresentativeName2"
+                                  id="vehicaleStaffRepresentativeName2"
+                                  name="vehicaleStaffRepresentativeName2" placeholder="Staff Representative Name 2"
+                                  type="text"/>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title">Ownership transfer date</label>
+                           <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                  *ngIf="calendarType === 'AD'"
+                                  name="ownershipTransferDate" placeholder="Ownership transfer date"
+                                  [nbDatepicker]="ownershipDate">
+                           <app-calendar
+                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                   *ngIf="calendarType === 'BS'"
+                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                           <nb-datepicker #ownershipDate></nb-datepicker>
+                       </div>
+                   </div>
 
                </div>
-               <div class="row" *ngIf="vehicleForm.get(['vehicleDetails',i,'isNew']).value" >
+               <div class="row">
                    <div class="col-md-12">
                        <h6>Showroom Details</h6>
                    </div>
@@ -400,31 +398,13 @@
                                   type="text"/>
                        </div>
                    </div>
-                   <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="title" for="quotationAmount"><strong>Realisable Rate</strong></label>
-                           <input (change)="calcRealiasable(i,'vehicle')"
-                                  class="form-control" formControlName="vehicleRate"
-                                  name="vehicleRate"
-                                  placeholder="Rate %"
-                                  type="number">
-                       </div>
+
+                   <div class="col-md-12 form-group">
+                       <label><b>Remarks of vehicle</b></label>
+                       <textarea class="form-control" formControlName="vehicleRemarks" rows="4"
+                                 placeholder="Vehicle Remarks"></textarea>
                    </div>
-                   <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="title" for="vehicleRealiasableAmount"><strong>Realisable Amount</strong></label>
-                           <input (change)="calcRealiasable(i,'vehicle')"
-                                  class="form-control" formControlName="vehicleRealiasableAmount"
-                                  name="vehicleRealiasableAmount"
-                                  placeholder="Realiasable Amount"
-                                  type="number" disabled>
-                       </div>
-                   </div>
-               </div>
-               <div class="col-md-12 form-group">
-                   <label><b>Remarks of vehicle</b></label>
-                   <textarea class="form-control" formControlName="vehicleRemarks" rows="4"
-                             placeholder="Vehicle Remarks"></textarea>
+
                </div>
                <hr>
            </div>
