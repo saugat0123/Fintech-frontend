@@ -98,5 +98,6 @@ export class CustomerInfoData {
     approvedSecurities: Array<Security>;
     customerShareBatches: Array<CustomerShareBatch>;
     financialAssessmentData: string;
+    accountStrategy: string;
 
 }
