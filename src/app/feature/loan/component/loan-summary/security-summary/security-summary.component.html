@@ -503,9 +503,6 @@
                                         <td class="text-left pl-2">Valuator Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left pl-2">Revaluation Done ?</td>
-                                    </tr>
-                                    <tr>
                                         <td colspan="1" class="text-left pl-2">Road access seen in blueprint</td>
                                     </tr>
                                     <tr>
@@ -531,7 +528,6 @@
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.landBuildingFirstValuationDate ? (landBuilding?.landBuildingFirstValuationDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2">{{(landBuilding?.revaluationData?.isReValuated | booleanConvert) || 'N/A'}}</td></tr>
                                     <tr><td class="text-left pl-2">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
                                     <tr><td class="text-left pl-2">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
 
