@@ -73,6 +73,7 @@ import { OtherDetailsComponent } from './other-details/other-details.component';
 import {FinancialAccountInformationModule} from './financial-account-information/financial-account-information.module';
 import {ProductPaperModule} from './product-paper-checklist/product-paper-.module';
 import { NetTradingAssetsViewComponent } from './net-trading-assets-view/net-trading-assets-view.component';
+import { AccountStrategyComponent } from './account-strategy/account-strategy.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -132,8 +133,9 @@ const COMPONENTS = [
         ViewSecurityTableComponent,
         GroupSummarySheetComponent,
         OtherDetailsComponent,
-        NetTradingAssetsViewComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent, OtherDetailsComponent, NetTradingAssetsViewComponent],
+        NetTradingAssetsViewComponent,
+        AccountStrategyComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent, GroupSummarySheetComponent, OtherDetailsComponent, NetTradingAssetsViewComponent, AccountStrategyComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

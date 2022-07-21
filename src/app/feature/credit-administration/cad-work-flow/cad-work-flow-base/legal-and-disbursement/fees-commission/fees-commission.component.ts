@@ -127,7 +127,7 @@ export class FeesCommissionComponent implements OnInit {
         });
     }
 
-    public disablePreviousSelected(feeDetail, value) {
+    public  disablePreviousSelected(feeDetail, value) {
         const detail = feeDetail.value;
         let returnType = false;
         detail.forEach(d => {

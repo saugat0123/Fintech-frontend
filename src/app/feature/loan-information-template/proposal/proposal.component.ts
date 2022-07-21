@@ -158,7 +158,10 @@ export class ProposalComponent implements OnInit {
     checklistChecked = false;
     paperChecklist;
     allIds = [];
-
+    consumerFinance = false;
+    smallBusiness = false;
+    deprivedSector = false;
+    microFinancialService = false;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -178,6 +181,18 @@ export class ProposalComponent implements OnInit {
         this.configEditor();
         this.buildForm();
         this.checkLoanTypeAndBuildForm();
+        if (this.loan.loanHolder.clientType === 'CONSUMER_FINANCE') {
+            this.consumerFinance = true;
+        }
+        if (this.loan.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.smallBusiness = true;
+        }
+        if (this.loan.loanHolder.clientType === 'DEPRIVED_SECTOR') {
+            this.deprivedSector = true;
+        }
+        if (this.loan.loanHolder.clientType === 'MICRO_FINANCIAL_SERVICES') {
+            this.microFinancialService = true;
+        }
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
             this.withIn = this.loan.withIn ? this.loan.withIn : false;
             if (this.withIn) {

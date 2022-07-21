@@ -247,6 +247,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
                     next: (res) => {
                         this.combinedLoanList = res.detail.loans;
+                        this.allLoanList = res.detail.loans;
                         (res.detail as CombinedLoan).loans.forEach((cl) => {
                             const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                             if (!allLoanIds.includes(cl.id)) {
@@ -263,7 +264,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 });
             } else {
                 this.loaded = true;
-                this.combinedLoanList.push(this.loanDataHolder);
+                this.allLoanList.push(this.loanDataHolder);
                 this.customerAllLoanList = [];
                 this.customerAllLoanList.push(this.loanDataHolder);
             }

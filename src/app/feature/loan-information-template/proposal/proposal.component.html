@@ -1055,12 +1055,6 @@
                                                   [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
-                        <div class="col-md-12">
-                            <app-review-date #lastLoanReviewDate
-                                             [fromProfile] = "true"
-                                             [reviewData]="loan?.reviewDate">
-                            </app-review-date>
-                        </div>
                     </ng-container>
                     <ng-container >
                         <div class="col-md-12" *ngIf="fromProfile">
@@ -1070,7 +1064,12 @@
                                                 (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
                         </div>
                     </ng-container>
-
+                    <div class="col-md-12" *ngIf="smallBusiness || consumerFinance || deprivedSector || microFinancialService">
+                        <app-review-date #lastLoanReviewDate
+                                         [fromProfile] = "true"
+                                         [reviewData]="loan?.reviewDate">
+                        </app-review-date>
+                    </div>
                     <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist">
                         <app-product-paper-checklist
                             #productPaperChecklistComponent

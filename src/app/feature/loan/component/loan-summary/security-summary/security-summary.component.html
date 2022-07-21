@@ -23,6 +23,8 @@
             </tr>
             <tr>
                 <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
+                {{totalProposedLimit}}
+                {{totalIndividualSec?.total?.rv}}
                 <td class="" [colSpan]="subKey?.length">{{(totalProposedLimit / totalIndividualSec?.total?.rv)?.toFixed(2)   || '0'}}</td>
             </tr>
             </tbody>
