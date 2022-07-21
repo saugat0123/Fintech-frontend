@@ -117,16 +117,6 @@
                    </div>
                    <div class="col-md-4">
                        <div class="form-group">
-                           <label class="title" for="quotationAmount"><strong>Realisable Rate</strong></label>
-                           <input (change)="calcRealiasable(i,'vehicle')"
-                                  class="form-control" formControlName="vehicleRate" id="vehicleRate"
-                                  name="vehicleRate"
-                                  placeholder="Rate %"
-                                  type="number">
-                       </div>
-                   </div>
-                   <div class="col-md-4">
-                       <div class="form-group">
                            <label class="title" for="considerValue"><strong>Consider Value</strong></label>
                            <input
                                    class="form-control" formControlName="considerValue" id="considerValue"
@@ -134,19 +124,6 @@
                                    readonly
                                    (change)="setFreeLimitAmount(i, 'vehicleDetails', addMoreVehicle.get('considerValue')?.value)"
                                    placeholder="Consider Value"
-                                   type="number">
-                       </div>
-                   </div>
-
-
-                   <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="title" for="fairMarketValue"><strong>Fair Market Value</strong></label>
-                           <input
-                                   class="form-control" formControlName="fairMarketValue" id="fairMarketValue"
-                                   name="fairMarketValue"
-                                   readonly
-                                   placeholder="Fair Market Value"
                                    type="number">
                        </div>
                    </div>
@@ -172,17 +149,6 @@
                                    type="number">
                        </div>
                    </div>-->
-                   <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="title" for="vehicleRealiasableAmount"><strong>Realisable Amount</strong></label>
-                           <input (change)="calcRealiasable(i,'vehicle')"
-                                  class="form-control" formControlName="vehicleRealiasableAmount"
-                                  id="vehicleRealiasableAmount"
-                                  name="vehicleRealiasableAmount"
-                                  placeholder="Realiasable Amount"
-                                  type="number" disabled>
-                       </div>
-                   </div>
                </div>
 
                <div class="row">
@@ -219,23 +185,6 @@
                         </div>
                     </div>-->
 
-                   <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="title" for="vehicleQuotationDate">Quotation Date</label>
-                           <input *ngIf="calendarType === 'AD'" class="form-control rounded"
-                                  formControlName="vehicleQuotationDate"
-                                  id="vehicleQuotationDate"
-                                  name="vehicleQuotationDate" placeholder="Quotation Date"
-                                  [nbDatepicker]="vehicaleQuotationDate"
-                                  type="text"/>
-                           <app-calendar
-                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'vehicleQuotationDate']).patchValue($event?.eDate)"
-                                   *ngIf="calendarType === 'BS'"
-                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'vehicleQuotationDate']).value"></app-calendar>
-                           <nb-datepicker #vehicaleQuotationDate></nb-datepicker>
-                       </div>
-                   </div>
-
                </div>
                <div class="row">
                    <div class="col-md-12">
@@ -256,7 +205,44 @@
                    </div>
                </div>
                <nb-checkbox class="form-control" formControlName="isNew">Is vehicle new?</nb-checkbox>
-               <div class="row" *ngIf="!vehicleForm.get(['vehicleDetails',i,'isNew']).value">
+               <div class="row mt-3" *ngIf="vehicleForm.get(['vehicleDetails',i,'isNew']).value">
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="vehicleQuotationDate">Quotation Date</label>
+                           <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                  formControlName="vehicleQuotationDate"
+                                  id="vehicleQuotationDate"
+                                  name="vehicleQuotationDate" placeholder="Quotation Date"
+                                  [nbDatepicker]="vehicaleQuotationDate"
+                                  type="text"/>
+                           <app-calendar
+                                   (messageToEmit)="vehicleForm.get(['vehicleDetails',i,'vehicleQuotationDate']).patchValue($event?.eDate)"
+                                   *ngIf="calendarType === 'BS'"
+                                   [ePreDate]="vehicleForm.get(['vehicleDetails',i,'vehicleQuotationDate']).value"></app-calendar>
+                           <nb-datepicker #vehicaleQuotationDate></nb-datepicker>
+                       </div>
+                   </div>
+
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="showroomName">Showroom Name</label>
+                           <input class="form-control rounded" formControlName="showroomName"
+                                  id="showroomName"
+                                  name="showroomName" placeholder="Showroom Name"
+                                  type="text"/>
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="showroomAddress">Showroom Address</label>
+                           <input class="form-control rounded" formControlName="showroomAddress"
+                                  id="showroomAddress"
+                                  name="showroomAddress" placeholder="Showroom Address"
+                                  type="text"/>
+                       </div>
+                   </div>
+               </div>
+               <div class="row mt-3" *ngIf="!vehicleForm.get(['vehicleDetails',i,'isNew']).value">
                    <div class="col-md-4">
                        <div class="form-group">
                            <label>Valuator Name</label>
@@ -374,31 +360,43 @@
                            <nb-datepicker #ownershipDate></nb-datepicker>
                        </div>
                    </div>
-
                </div>
                <div class="row">
-                   <div class="col-md-12">
-                       <h6>Showroom Details</h6>
-                   </div>
-                   <div class="col-md-5">
+                   <div class="col-md-4">
                        <div class="form-group">
-                           <label class="title" for="showroomName">Showroom Name</label>
-                           <input class="form-control rounded" formControlName="showroomName"
-                                  id="showroomName"
-                                  name="showroomName" placeholder="Showroom Name"
-                                  type="text"/>
+                           <div *ngIf="vehicleForm.get(['vehicleDetails',i,'isNew']).value">
+                               <label class="title" for="fairMarketValue"><strong>Quotation amount/Fair Market Value</strong></label>
+                           </div>
+                           <div *ngIf="!vehicleForm.get(['vehicleDetails',i,'isNew']).value">
+                               <label class="title" for="fairMarketValue"><strong>Valuation amount/Fair Market Value</strong></label>
+                           </div>
+                           <input  (change)="calcRealiasable(i,'vehicle')"
+                                   class="form-control" formControlName="fairMarketValue" id="fairMarketValue"
+                                   name="fairMarketValue"
+                                   placeholder="Fair Market Value"
+                                   type="number">
                        </div>
                    </div>
-                   <div class="col-md-5">
+                   <div class="col-md-4">
                        <div class="form-group">
-                           <label class="title" for="showroomAddress">Showroom Address</label>
-                           <input class="form-control rounded" formControlName="showroomAddress"
-                                  id="showroomAddress"
-                                  name="showroomAddress" placeholder="Showroom Address"
-                                  type="text"/>
+                           <label class="title" for="vehicleRate"><strong>Realizable Rate</strong></label>
+                           <input (change)="calcRealiasable(i,'vehicle')"
+                                  class="form-control" formControlName="vehicleRate" id="vehicleRate"
+                                  name="vehicleRate"
+                                  placeholder="Rate %"
+                                  type="number">
                        </div>
                    </div>
-
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label class="title" for="vehicleRealiasableAmount"><strong>Realizable Amount</strong></label>
+                           <input class="form-control" formControlName="vehicleRealiasableAmount"
+                                  id="vehicleRealiasableAmount"
+                                  name="vehicleRealiasableAmount"
+                                  placeholder="Realiasable Amount"
+                                  type="number" disabled>
+                       </div>
+                   </div>
                    <div class="col-md-12 form-group">
                        <label><b>Remarks of vehicle</b></label>
                        <textarea class="form-control" formControlName="vehicleRemarks" rows="4"
