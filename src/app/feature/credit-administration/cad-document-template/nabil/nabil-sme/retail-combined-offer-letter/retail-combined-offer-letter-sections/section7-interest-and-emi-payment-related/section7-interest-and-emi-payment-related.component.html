@@ -8,20 +8,25 @@
                     <ul>
                         <li *ngIf="isLoanSelected || isRegularBasis || isEducationClassE">
                             <!--For Mortgage loan/Housing Loan/Vehicle Loan/Education loan/Personal Loan on regular basis-->
-                            तपाईंको {{loanNepaliNameEducation}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
+                            तपाईंको {{(isLoanSelected && !isEducationClassE && isRegularBasis) ? loanNameMainNepaliWithoutEducation :
+                            (isLoanSelected && isEducationClassE && !isRegularBasis) ? loanNameWithoutPersonalLoan :
+                            (isLoanSelected && !isEducationClassE && !isRegularBasis) ? loanNepaliWithoutPersonalEducation :
+                            (!isLoanSelected && isEducationClassE && !isRegularBasis) ? 'शिक्षा ऋण' :
+                            (!isLoanSelected && !isEducationClassE && isRegularBasis) ? 'व्यक्तिगत कर्जा' :
+                                loanNepaliNameEducation}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
                             कट्टा गरिनेछ ।
                         </li>
+                        <!--For Personal Loan on case basis only)-->
                         <ng-container *ngIf="isCaseBasis">
-                            <ng-container *ngFor="let personalLoan of section7Data?.personalLoanCombinedForm.personalLoanCombinedFormArray">
-                                    <!--For Personal Loan on case basis only)-->
-                                   <li> तपाईंको {{loanNepaliName}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक
-                                    <input class="form-field form-control-sm d-print-none"
-                                           [value]="personalLoan?.paymentDateTypeCT"
-                                           placeholder=" "
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{personalLoan?.paymentDateTypeCT ? personalLoan?.paymentDateTypeCT : '______________________'}}</span>
-                                    मा तपाईंको खाताबाट कट्टा गरिनेछ ।</li>
-                            </ng-container>
+                            <li *ngFor="let personalLoan of personalLoanCaseBasisArray; let i = index">
+                                तपाईंको व्यक्तिगत कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक
+                                <input class="form-field form-control-sm d-print-none"
+                                       [value]="personalLoan?.paymentDateTypeCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{personalLoan?.paymentDateTypeCT ? personalLoan?.paymentDateTypeCT : '______________________'}}</span>
+                                मा तपाईंको खाताबाट कट्टा गरिनेछ ।
+                            </li>
                         </ng-container>
                         <li *ngIf="isPODSelected">
                             <!--For POD loan/Nabil Sahayatri/Perrsonal overdraft without collateral and their Renewal and enhancement also)-->
@@ -30,7 +35,7 @@
                         </li>
                         <li *ngIf="isEducationSelected || isEducationClassA">
                             <!--For Share loan, Education Loan Class A for both Australia and other Countries only-->
-                            तपाईंको {{loanNepaliNameShare}} वापतको व्याज भुक्तानी नेपाली पात्रोको बमोजिम प्रत्येक असार,
+                            तपाईंको {{isEducationClassA ? loanNepaliNameShare : loanNepaliNameShareWithoutEducation}} वापतको व्याज भुक्तानी नेपाली पात्रोको बमोजिम प्रत्येक असार,
                             आश्विन, पौष र चैत्र मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
                         </li>
                         <li>

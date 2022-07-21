@@ -21,8 +21,13 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     isEducationClassE = false;
     isEducationClassA = false;
     loanNepaliNameEducation: Array<any> = new Array<any>();
+    loanNameMainNepaliWithoutEducation: Array<any> = new Array<any>();
+    loanNepaliWithoutPersonalEducation: Array<any> = new Array<any>();
+    loanNameWithoutPersonalLoan: Array<any> = new Array<any>();
     loanNepaliNameWithoutEducation: Array<any> = new Array<any>();
     loanNepaliNameShare: Array<any> = new Array<any>();
+    loanNepaliNameShareWithoutEducation: Array<any> = new Array<any>();
+    personalLoanCaseBasisArray: Array<any> = new Array<any>();
 
     constructor(
         private formBuilder: FormBuilder
@@ -41,10 +46,18 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.loanNepaliName)) {
             this.loanNepaliNameEducation = this.loanNepaliName.filter((val: any) =>
             val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
+            this.loanNepaliWithoutPersonalEducation = this.loanNepaliName.filter((val: any) =>
+            val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा');
+            this.loanNameWithoutPersonalLoan = this.loanNepaliName.filter((val: any) =>
+            val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा');
+            this.loanNameMainNepaliWithoutEducation = this.loanNepaliName.filter((val: any) =>
+                val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
             this.loanNepaliNameWithoutEducation = this.loanNepaliName.filter((val: any) =>
                 val === 'व्यक्तिगत ओभरड्राफ्ट' || val === 'व्यक्तिगत ओभरड्राफ्ट बिना धिताे' || val === 'नबिल सहयात्री कर्जा');
             this.loanNepaliNameShare = this.loanNepaliName.filter((val: any) =>
                 val === 'सेयर कर्जा डिमाण्ड' || val === ' नबिल सेयर कर्जा' || val === 'शिक्षा ऋण');
+            this.loanNepaliNameShareWithoutEducation = this.loanNepaliName.filter((val: any) =>
+                val === 'सेयर कर्जा डिमाण्ड' || val === ' नबिल सेयर कर्जा');
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
@@ -78,6 +91,8 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
             if (val === 'PERSONAL LOAN COMBINED') {
                 if (!ObjectUtil.isEmpty(this.section7Data) && !ObjectUtil.isEmpty(this.section7Data.personalLoanCombinedForm)
                     && !ObjectUtil.isEmpty(this.section7Data.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
+                    this.personalLoanCaseBasisArray = this.section7Data.personalLoanCombinedForm.personalLoanCombinedFormArray.filter((v: any) =>
+                    v.repaymentCase === 'ON_CASE_BASIS');
                     this.section7Data.personalLoanCombinedForm.personalLoanCombinedFormArray.forEach(value => {
                         if (value.repaymentCase === 'REGULAR_BASIS') {
                             this.isRegularBasis = true;
