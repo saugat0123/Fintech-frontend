@@ -247,6 +247,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     consumerFinance = false;
     smallBusiness = false;
+    deprivedSector = false;
+    microFinancialService = false;
 
     ngOnInit() {
         if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
@@ -259,7 +261,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
             this.smallBusiness = true;
         }
-        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+        if (this.loanDataHolder.loanHolder.clientType === 'DEPRIVED_SECTOR') {
+            this.deprivedSector = true;
+        }
+        if (this.loanDataHolder.loanHolder.clientType === 'MICRO_FINANCIAL_SERVICES') {
+            this.microFinancialService = true;
+        }
+            if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.isIndividual = true;
         }
         this.individual = this.loanDataHolder.customerInfo;

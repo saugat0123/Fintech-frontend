@@ -228,7 +228,7 @@ export class LoanSummaryIndividualComponent implements OnInit {
     if (LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS) {
       this.others = true;
     }
-      this.disable();
+      // this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
     } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {

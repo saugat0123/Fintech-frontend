@@ -34,7 +34,7 @@
 
               <td><input (change)="documentUploader($event, document.name, document.id, i)"
                          class="form-control-file"
-                         *ngIf=" fromProfile && loanDataHolder?.currentStage?.toUser?.id.toString() === localStorage?.userId"
+                         *ngIf=" fromProfile && loanDataHolder?.documentStatus !== 'APPROVED'"
                          id="uploadDocument{{i}}" multiple=""
                          type="file">
                 <!--<div *ngIf="submitted && form.file.errors"
