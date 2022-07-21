@@ -80,13 +80,13 @@
                                name="loanAmountInfigure"
                                type="text"
                                class="form-field form-control-sm"
-                               [value]="val.gurantedAmount.ct"/> /-
+                               [value]="val?.gurantedAmount?.ct"/> /-
                         बराबरको
-                        {{val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Married' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Unmarried' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        {{val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Married' ? 'श्रीमती' : (val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Unmarried' ? 'सुश्री' : val?.gender?.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <input class="form-field form-control-sm col-3"
                                formControlName="guarantorName"
                                type="text"
-                               [value]="val.guarantorName.ct"/>
+                               [value]="val?.guarantorName?.ct"/>
                         ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                     </li>
                 </ng-container>

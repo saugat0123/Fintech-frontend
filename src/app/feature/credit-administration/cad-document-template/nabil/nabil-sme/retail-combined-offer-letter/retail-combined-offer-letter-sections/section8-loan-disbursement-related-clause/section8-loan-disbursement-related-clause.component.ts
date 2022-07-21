@@ -72,6 +72,8 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
 
       shareLoanDemandFormArray: this.formBuilder.array([]),
 
+      nabilSahayatriFormArray: this.formBuilder.array([]),
+
       branchName: [undefined]
     });
     this.setFormArrays();
@@ -191,6 +193,15 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
        });
       }
 
+      if (!ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+       this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach((val, i) => {
+         this.form.get(['nabilSahayatriFormArray', i, 'branchName1']).patchValue(this.branchName ? this.branchName : '');
+         this.form.get(['nabilSahayatriFormArray', i, 'loanAmtInFig']).patchValue(val.loanAmountInFigureCT ? val.loanAmountInFigureCT : '');
+         this.form.get(['nabilSahayatriFormArray', i, 'loanAmtInWords']).patchValue(val.loanAmountInWordsCT ? val.loanAmountInWordsCT : '');
+       });
+      }
+
       if (!ObjectUtil.isEmpty(this.initialData.personalOverDraftWithoutCollateralCombinedForm) &&
           !ObjectUtil.isEmpty(this.initialData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray)) {
         this.initialData.personalOverDraftWithoutCollateralCombinedForm.personalOverDraftWithoutCollateralCombinedFormArray.forEach((val, i) => {
@@ -238,6 +249,13 @@ export class Section8LoanDisbursementRelatedClauseComponent implements OnInit {
           !ObjectUtil.isEmpty(this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray)) {
         for (let a = 0; a < this.initialData.personalLoanCombinedForm.personalLoanCombinedFormArray.length; a++) {
           (this.form.get('personalLoanFormArray') as FormArray).push(this.setAllFormFields());
+        }
+      }
+
+      if (!ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+        for (let a = 0; a < this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.length; a++) {
+          (this.form.get('nabilSahayatriFormArray') as FormArray).push(this.setAllFormFields());
         }
       }
 
