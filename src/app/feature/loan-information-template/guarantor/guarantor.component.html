@@ -455,9 +455,12 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
+                                <div class="col-md-12">
+                                    <app-guarantor-net-worth #guarantorNetWorth
+                                                             [netWorthData]="guarantorDetails?.get('netWorthDetails')?.value" [index]="i">
+                                    </app-guarantor-net-worth>
+                                </div>
                                 <div class="col-md-12">
                                     <h6><b>Permanent Address</b></h6>
                                 </div>

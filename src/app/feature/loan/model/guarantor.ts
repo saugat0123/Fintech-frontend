@@ -42,4 +42,5 @@ export class Guarantor {
     registrationNumber: string;
     panNumber: string;
     rnwDate: Date;
+    netWorthDetails: string;
 }
