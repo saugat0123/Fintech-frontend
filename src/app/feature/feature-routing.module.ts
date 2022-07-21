@@ -62,6 +62,10 @@ const routes: Routes = [
         loadChildren: () => import('./credit-administration/credit-administration.module').then(m => m.CreditAdministrationModule)
       },
       {
+        path: 'master',
+        loadChildren: () => import('./master-document/master-document.module').then(m => m.MasterDocumentModule)
+      },
+      {
         path: 'error',
         component: ErrorPageComponent
       },
