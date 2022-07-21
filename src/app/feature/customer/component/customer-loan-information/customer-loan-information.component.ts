@@ -54,6 +54,7 @@ import {BehaviorSubject} from 'rxjs';
 import {GroupSummarySheetComponent} from '../../../loan-information-template/group-summary-sheet/group-summary-sheet.component';
 import {CommonLoanInformationComponent} from './common-loan-information/common-loan-information.component';
 import {SecuritiesType} from '../../../constants/securities-type';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -203,6 +204,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
+        private companyInfoService: CompanyInfoService,
         private customerService: CustomerService,
         private modalService: NbDialogService,
         private spinner: NgxSpinnerService,
@@ -1029,6 +1031,16 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         }, error => {
             this.spinner.hide();
             this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+        });
+    }
+
+    saveAccount(data: any) {
+        this.companyInfo.accountStrategy = data;
+        this.companyInfoService.save(this.companyInfo).subscribe(response => {
+            this.companyInfo = response.detail;
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY SAVED ACCOUNT STRATEGY'));
+        }, res => {
+            this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
         });
     }
 }

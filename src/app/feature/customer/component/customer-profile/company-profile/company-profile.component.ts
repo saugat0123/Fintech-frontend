@@ -172,7 +172,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.form.houseNumber.setValue(companyInfoData.companyLocations.houseNumber);
         this.form.establishmentDate.setValue(new Date(companyInfoData.establishmentDate));
         this.form.withinLimitRemarks.setValue(companyInfoData.withinLimitRemarks);
-        this.form.accountStrategy.setValue(companyInfoData.accountStrategy);
+        // this.form.accountStrategy.setValue(companyInfoData.accountStrategy);
     }
 
     getCompanyInfo(companyInfoId) {
@@ -278,7 +278,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
             contactNum: [undefined, Validators.required],
             businessType: [undefined, Validators.required],
             withinLimitRemarks: [undefined],
-            accountStrategy: [undefined]
+            // accountStrategy: [undefined]
         });
     }
 
@@ -301,7 +301,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.companyInfo.withinLimitRemarks = this.companyForm.get('withinLimitRemarks').value;
         this.companyInfo.bankingRelationship = this.customerInfo.bankingRelationship;
         this.companyInfo.clientType = this.customerInfo.clientType;
-        this.companyInfo.accountStrategy = this.companyForm.get('accountStrategy').value;
+        // this.companyInfo.accountStrategy = this.companyForm.get('accountStrategy').value;
         this.companyInfoService.save(this.companyInfo).subscribe(response => {
             this.companyInfo = response.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED COMPANY DETAIL'));

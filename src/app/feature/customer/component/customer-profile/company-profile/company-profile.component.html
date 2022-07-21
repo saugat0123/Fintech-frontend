@@ -427,23 +427,23 @@
                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
         ></app-customer-group-loan>
       </nb-card-body>
-      <nb-card-footer>
-                <div class="row">
-                  <div class="col" *ngIf=" !isAccountEdited ">
-                    <a *ngIf="maker" class="p-2 cursor" (click)="editAccountStrategy()"><em
-                            class="fa fa-edit"></em></a>
-                    <label><b>Account Strategy(if any):</b></label>
-                    {{companyInfo.accountStrategy}}
-                  </div>
-                  <div *ngIf="isAccountEdited" class="col-md-12 form-group">
-                    <form [formGroup]="companyForm">
-                      <label><b>Account Strategy(if any):</b></label>
-                      <textarea  rows="2" placeholder="Account Strategy" class="form-control border"  formControlName="accountStrategy"></textarea>
-                    </form>
-                    <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Account Strategy</button>
-                  </div>
-                </div>
-      </nb-card-footer>
+<!--      <nb-card-footer>-->
+<!--                <div class="row">-->
+<!--                  <div class="col" *ngIf=" !isAccountEdited ">-->
+<!--                    <a *ngIf="maker" class="p-2 cursor" (click)="editAccountStrategy()"><em-->
+<!--                            class="fa fa-edit"></em></a>-->
+<!--                    <label><b>Account Strategy(if any): </b></label>-->
+<!--                    {{companyInfo.accountStrategy}}-->
+<!--                  </div>-->
+<!--                  <div *ngIf="isAccountEdited" class="col-md-12 form-group">-->
+<!--                    <form [formGroup]="companyForm">-->
+<!--                      <label><b>Account Strategy(if any):</b></label>-->
+<!--                      <textarea  rows="2" placeholder="Account Strategy" class="form-control border"  formControlName="accountStrategy"></textarea>-->
+<!--                    </form>-->
+<!--                    <button class="btn btn-sm float-right small" nbButton (click)="saveCompanyInfoDetail()">Save Account Strategy</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--      </nb-card-footer>-->
     </nb-card>
 
 
