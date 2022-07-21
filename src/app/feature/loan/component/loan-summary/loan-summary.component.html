@@ -118,7 +118,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div *ngIf="smallBusiness; else lastReviewDate"><strong class="float-left">Review Date:</strong>
+                                <div *ngIf="smallBusiness"><strong class="float-left">Review Date:</strong>
                                     <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
                                         <thead>
                                         <tr class="sb-bg-gray">
@@ -141,7 +141,7 @@
                                     </table>
                                 </div>
                                 <br>
-                                <ng-template #lastReviewDate class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                                <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness">
                             <span><strong>Review Date: </strong>
                                 <ng-container *ngIf="naChecked; else date">
                                     {{'NA'}}
@@ -157,7 +157,7 @@
                                         <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>
                                         <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>
                                     </div>
-                                </ng-template>
+                                </ng-container>
                                 <br>
                                 <div class="float-right" *ngIf="loanDataHolder?.isSol">
                                     <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
