@@ -299,6 +299,41 @@
                         </ng-container>
                     </ng-container>
                 </div>
+                <div *ngIf="this.initialData?.nabilSahayatriCombinedForm?.nabilSahayatriCombinedFormArray.length > 0"
+                     class="mt-4">
+                    <ng-container
+                            *ngFor="let val of this.initialData?.nabilSahayatriCombinedForm?.nabilSahayatriCombinedFormArray; let i1 = index"
+                            formArrayName="nabilSahayatriFormArray">
+                        <ng-container [formGroupName]="i1">
+                            <p class="m-0">
+                                <!--Nabil Sahayatri-->
+                                आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकता
+                                र निवेदन बमोजिम तपाईंले यस नबिल बैंक लिमिटेडको,
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="branchName1"
+                                       formControlName="branchName1"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{branchName ? branchName : '______________________'}}</span>
+                                शाखामा खोल्नु भएको चल्ती खातामा रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtInFig"
+                                       formControlName="loanAmtInFig"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInFigureCT || '______________________'}}</span>
+                                /- (अक्षरेपि रु.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="loanAmtInWords"
+                                       formControlName="loanAmtInWords"
+                                       placeholder=" "
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>
+                                मात्र) को अधिविकर्ष सिमा राखिनेछ ।
+                            </p>
+                        </ng-container>
+                    </ng-container>
+                </div>
                 <div *ngIf="this.initialData?.personalOverDraftWithoutCollateralCombinedForm?.personalOverDraftWithoutCollateralCombinedFormArray.length > 0"
                      class="mt-4">
                     <ng-container
