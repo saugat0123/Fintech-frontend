@@ -253,7 +253,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
-        this.disable();
+        // this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {

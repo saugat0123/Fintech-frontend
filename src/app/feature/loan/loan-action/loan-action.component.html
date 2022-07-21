@@ -59,21 +59,21 @@
 <!--    <i class="col-md-1 fas fa-angle-double-left"></i>-->
   </button>
 
-  <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.roleTypeMaker"
-          [ngStyle]="{ 'filter' : (actionsList.roleTypeMaker === false)? 'grayscale(100%)': 'grayscale(0%)'}"
-          class="btn-sm btn-primary">
-    EDIT
-<!--    <i class="col-md-1 fa fa-edit"></i>-->
-  </button>
+<!--  <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.roleTypeMaker"-->
+<!--          [ngStyle]="{ 'filter' : (actionsList.roleTypeMaker === false)? 'grayscale(100%)': 'grayscale(0%)'}"-->
+<!--          class="btn-sm btn-primary">-->
+<!--    EDIT-->
+<!--&lt;!&ndash;    <i class="col-md-1 fa fa-edit"></i>&ndash;&gt;-->
+<!--  </button>-->
 
-  <button (click)="loanAction('close')" *ngIf="!catalogueStatus"
-          [disabled]="!actionsList.closed"
-          [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"
-          class="btn-sm btn-info"
-          value="CLOSED">
-    CLOSE/SETTLEMENT
-<!--    <i class="col-md-1 fa-close"></i>-->
-  </button>
+<!--  <button (click)="loanAction('close')" *ngIf="!catalogueStatus"-->
+<!--          [disabled]="!actionsList.closed"-->
+<!--          [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"-->
+<!--          class="btn-sm btn-info"-->
+<!--          value="CLOSED">-->
+<!--    CLOSE/SETTLEMENT-->
+<!--&lt;!&ndash;    <i class="col-md-1 fa-close"></i>&ndash;&gt;-->
+<!--  </button>-->
 
   <button (click)="loanAction('reject')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.rejected || actionsList.roleTypeMaker"
