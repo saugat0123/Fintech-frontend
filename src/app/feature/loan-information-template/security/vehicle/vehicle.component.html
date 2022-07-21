@@ -115,13 +115,13 @@
                            </div>
                        </div>
                    </div>
-                   <div class="col-md-4">
+                   <div class="col-md-4" hidden>
                        <div class="form-group">
                            <label class="title" for="considerValue"><strong>Consider Value</strong></label>
                            <input
                                    class="form-control" formControlName="considerValue" id="considerValue"
                                    name="considerValue"
-                                   readonly
+                                   [(ngModel)]="addMoreVehicle.get('fairMarketValue').value"
                                    (change)="setFreeLimitAmount(i, 'vehicleDetails', addMoreVehicle.get('considerValue')?.value)"
                                    placeholder="Consider Value"
                                    type="number">
