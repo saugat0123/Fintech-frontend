@@ -135,13 +135,13 @@ export class VehicleComponent implements OnInit {
 
     public calcRealiasable(i, key): void {
         if (key === 'vehicle') {
-            const reliasableValue = (Number(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value)
+            const reliasableValue = (Number(this.vehicleForm.get(['vehicleDetails', i, 'fairMarketValue']).value)
                 * (Number(this.vehicleForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
             this.vehicleForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
-            this.vehicleForm.get(['vehicleDetails', i, 'considerValue'])
-                .patchValue(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value);
-            this.vehicleForm.get(['vehicleDetails', i, 'fairMarketValue'])
-                .patchValue(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value);
+            // this.vehicleForm.get(['vehicleDetails', i, 'considerValue'])
+            //     .patchValue(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value);
+            // this.vehicleForm.get(['vehicleDetails', i, 'fairMarketValue'])
+            //     .patchValue(this.vehicleForm.get(['vehicleDetails', i, 'quotationAmount']).value);
         }
     }
 
