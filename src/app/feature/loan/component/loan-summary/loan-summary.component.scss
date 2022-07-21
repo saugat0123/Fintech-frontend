@@ -32,7 +32,7 @@
 
   .signature-block {
     padding: 0.5rem;
-    border: 1px solid #8c8b8b;
+    border: 1px solid #000000 !important;
 
     .signature-detail {
       border-top: 1px dashed;
@@ -43,7 +43,9 @@
       }
     }
   }
-
+  hr.print-line {
+    border-top: .5px solid black !important;
+  }
   .padding-0-125 {
     padding-left: 0.125rem !important;
     padding-right: 0.125rem !important;
@@ -64,6 +66,10 @@
 
   .gauge-label-padding {
     //padding-top: 90px;
+  }
+
+  table, th, td {
+    border: 1px solid black !important;
   }
 
   @media print {
@@ -137,7 +143,7 @@
         padding-top: 3rem;
 
         .signature-block {
-          border: 1px solid #8c8b8b;
+          border: 1px solid #000000 !important;
           margin-top: 0.2rem;
         }
 

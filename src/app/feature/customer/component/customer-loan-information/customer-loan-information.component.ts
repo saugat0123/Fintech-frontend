@@ -54,6 +54,10 @@ import {BehaviorSubject} from 'rxjs';
 import {GroupSummarySheetComponent} from '../../../loan-information-template/group-summary-sheet/group-summary-sheet.component';
 import {CommonLoanInformationComponent} from './common-loan-information/common-loan-information.component';
 import {SecuritiesType} from '../../../constants/securities-type';
+import {MGroup} from '../../model/mGroup';
+import {
+    FinancialAccountInformationComponent
+} from '../../../loan-information-template/financial-account-information/financial-account-information.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 
 @Component({
@@ -145,6 +149,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public securityComponent: SecurityComponent;
     @ViewChild('commonLoanInformation', {static: false})
     public commonLoanInformation: CommonLoanInformationComponent;
+    @ViewChild('financialAccountInformation', {static: false})
+    private financialAccountInformation: FinancialAccountInformationComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -772,20 +778,27 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     saveGssData(data) {
+        let mGroup = new MGroup();
         this.spinner.show();
+        if (!ObjectUtil.isEmpty(this.customerInfo.mgroupInfo)) {
+            mGroup = this.customerInfo.mgroupInfo;
+        }
         if (!ObjectUtil.isEmpty(data)) {
-            this.customerInfo.gssData = data;
-        this.customerInfoService.save(this.customerInfo)
-            .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group Summary Sheet!'));
-                this.nbDialogRef.close();
-                this.triggerCustomerRefresh.emit(true);
-                this.spinner.hide();
-            }, error => {
-                this.spinner.hide();
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Group Summary Sheet!'));
-            });
+            mGroup.groupCode = data.groupCode;
+            mGroup.detailInformation = data.otherDetail;
+            mGroup.customerInfoId = this.customerInfo.id;
+            this.customerInfo.mgroupInfo = mGroup;
+            this.customerInfoService.save(this.customerInfo)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group Summary Sheet!'));
+                    this.nbDialogRef.close();
+                    this.triggerCustomerRefresh.emit(true);
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Group Summary Sheet!'));
+                });
         }
     }
 
@@ -803,6 +816,22 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                     this.spinner.hide();
                     console.error(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Other Details!'));
+                });
+        }
+    }
+    financialAssessmentSave(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.financialAssessmentData = data;
+            this.customerInfoService.save(this.customerInfo).subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved financial assessment!'));
+                    this.nbDialogRef.close();
+                    this.triggerCustomerRefresh.emit(true);
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save financial assessment!'));
                 });
         }
     }

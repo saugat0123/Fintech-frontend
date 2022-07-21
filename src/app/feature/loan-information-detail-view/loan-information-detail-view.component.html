@@ -56,7 +56,7 @@
                                 <div><strong class="float-left">Product:</strong>
                                     <table class="table table-sm table-responsive-sm float-left">
                                         <thead>
-                                        <tr class="sb-bg-dark text-white">
+                                        <tr class="sb-bg-gray">
                                             <td>Facility Name</td>
                                             <td>Approving Level</td>
                                             <td>Credit Risk</td>
@@ -160,7 +160,7 @@
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
                 <!--     Group Summary Sheet    -->
-                <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.gssData" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
+                <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.mgroupInfo" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
                 <hr class="print-line">
                 <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
                                            [loanDataHolder]="loanDataHolder"

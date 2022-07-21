@@ -423,12 +423,13 @@ export class CatalogueComponent implements OnInit {
                 this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
                 this.onSearch();
                 this.onActionChangeSpinner = false;
-                this.router.navigate(['/home/loan/summary'], {
-                    queryParams: {
-                        loanConfigId: res.detail.loan.id,
-                        customerId: res.detail.id
-                    }
-                });
+                CatalogueComponent.loadData(this);
+                // this.router.navigate(['/home/loan/summary'], {
+                //     queryParams: {
+                //         loanConfigId: res.detail.loan.id,
+                //         customerId: res.detail.id
+                //     }
+                // });
                 this.isCombineLoan = false;
             }, error => {
                 this.onActionChangeSpinner = false;

@@ -187,19 +187,6 @@ export class ProposalComponent implements OnInit {
                 this.shareType = this.loan.shareType;
             }
             this.formDataForEdit = JSON.parse(this.formValue.data);
-            if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
-                if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
-                    const obj = JSON.parse(this.loan.loan.paperChecklist);
-                    this.paperChecklist = obj.view;
-                    this.allIds = obj.id;
-                    this.checklistChecked = obj.checklistChecked;
-                }
-            } else  {
-                const obj = JSON.parse(this.loan.paperProductChecklist);
-                this.paperChecklist = obj.view;
-                this.allIds = obj.id;
-                this.checklistChecked = true;
-            }
             if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
                 if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
                     (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
@@ -284,7 +271,6 @@ export class ProposalComponent implements OnInit {
                 this.setFormData(commonData.shares, 'shares');
             }
         }
-        this.getLoanData();
         this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
             .patchValue((Number(value) + Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
@@ -331,6 +317,7 @@ export class ProposalComponent implements OnInit {
                     });
             }
         });
+        this.getLoanData();
     }
 
     getLoanData() {
@@ -342,6 +329,19 @@ export class ProposalComponent implements OnInit {
                 this.loan = new LoanDataHolder();
             }
             this.loan.loan = response.detail;
+            if (ObjectUtil.isEmpty(this.loan.paperProductChecklist)) {
+                if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
+                    const obj = JSON.parse(this.loan.loan.paperChecklist);
+                    this.paperChecklist = obj.view;
+                    this.allIds = obj.id;
+                    this.checklistChecked = obj.checklistChecked;
+                }
+            } else  {
+                const obj = JSON.parse(this.loan.paperProductChecklist);
+                this.paperChecklist = obj.view;
+                this.allIds = obj.id;
+                this.checklistChecked = true;
+            }
             this.checkLoan();
         }, error => {
             console.error(error);
@@ -579,10 +579,6 @@ export class ProposalComponent implements OnInit {
                 return this.toastService.show(new Alert(AlertType.WARNING, 'Share Type is Missing Please Select Share Type'));
             } else {
                 this.loan.shareType = this.shareType;
-            }
-            if (this.loan.loanHolder.customerType === 'INSTITUTION' &&
-                this.loan.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
-                this.financialAccountInformationComponent.submitForm();
             }
             this.productPaperChecklistComponent.save();
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {

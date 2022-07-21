@@ -227,7 +227,7 @@
                                 </select>
                             </div>
                         </div>
-                        <h5 class="col-md-12 mt-3">Other Facilities</h5>
+                        <h5 class="col-md-12 mt-3">Other Observations</h5>
                         <div class="row col-md-12">
                             <div class="col-md-6">
                                 <table class="table table-bordered table-sm sb-small text-center">
@@ -238,20 +238,21 @@
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td>Water Supply</td>
-                                        <td><input formControlName="waterSupply" type="checkbox"></td>
+                                        <td>Ownership status of property is not Guthi/Mohi</td>
+                                        <td><input formControlName="guthi" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>Electricity</td>
-                                        <td><input formControlName="electricity" type="checkbox"></td>
+                                        <td>Any noticeable remark on/to/near the property e.g. river; temple,
+                                            playing ground etc.?</td>
+                                        <td><input formControlName="noticeableRemark" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>Boundary Wall Construction</td>
-                                        <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
+                                        <td>Are all the applicable taxes current/Tax Payment Receipt seen?</td>
+                                        <td><input formControlName="taxes" type="checkbox"></td>
                                     </tr>
-                                    <tr>
+                                    <!--<tr>
                                         <td>4</td>
                                         <td>Boundary Fencing</td>
                                         <td><input formControlName="boundaryFencing" type="checkbox"></td>
@@ -270,7 +271,7 @@
                                         <td>7</td>
                                         <td>Telephone Line</td>
                                         <td><input formControlName="telephoneLine" type="checkbox"></td>
-                                    </tr>
+                                    </tr>-->
                                 </table>
                             </div>
 
@@ -396,6 +397,7 @@
                                 <option [ngValue]="null" hidden>Select Yes/No</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
                         <div class="col-md-4 form-group">
@@ -406,6 +408,7 @@
                                 <option [ngValue]="null" hidden>Select Yes/No</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
                         <div class="col-md-4 form-group">
@@ -416,6 +419,7 @@
                                 <option [ngValue]="null" hidden>Select Yes/No</option>
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
 

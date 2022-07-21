@@ -57,10 +57,11 @@
                         <div class="form-group">
                             <label class="title">Amount<strong></strong></label>
                             <input class="form-control"
-                                   [ngClass]="{'is-invalid': (submitted) && (deposit.get('amount').errors)}"
-                                   formControlName="amount" placeholder="Amount" type="number">
-                            <div *ngIf="(submitted) && (deposit.get('amount').invalid)" class="invalid-feedback">
-                                <div *ngIf="deposit.get('amount').errors.required">
+                                   (change)="deposit.get('realizableValue').patchValue((deposit.get('considerValue').value / 100) * deposit.get('realizableRate').value)"
+                                   [ngClass]="{'is-invalid': (submitted) && (deposit.get('fairMarketValue').errors)}"
+                                   formControlName="fairMarketValue" placeholder="Amount" type="number">
+                            <div *ngIf="(submitted) && (deposit.get('fairMarketValue').invalid)" class="invalid-feedback">
+                                <div *ngIf="deposit.get('fairMarketValue').errors.required">
                                     Amount is required
                                 </div>
                             </div>
@@ -70,12 +71,43 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title">Consider Value<strong></strong></label>
-                            <input class="form-control"
+                            <input class="form-control" disabled
+                                   [(ngModel)]="deposit.get('fairMarketValue').value"
                                    [ngClass]="{'is-invalid': (submitted) && (deposit.get('considerValue').errors)}"
                                    formControlName="considerValue" placeholder="Consider Value" type="number">
                             <div *ngIf="(submitted) && (deposit.get('considerValue').invalid)" class="invalid-feedback">
                                 <div *ngIf="deposit.get('considerValue').errors.required">
                                     Consider value is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title">Realizable Rate<strong></strong></label>
+                            <input class="form-control"
+                                   [ngClass]="{'is-invalid': (submitted) && (deposit.get('considerValue').errors)}"
+                                   (change)="deposit.get('realizableValue').patchValue((deposit.get('considerValue').value / 100) * deposit.get('realizableRate').value)"
+                                   formControlName="realizableRate" placeholder="Realizable Rate %" type="number">
+                            <div *ngIf="(submitted) && (deposit.get('realizableRate').invalid)"
+                                 class="invalid-feedback">
+                                <div *ngIf="deposit.get('realizableRate').errors.required">
+                                    value is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title">Realizable Value<strong></strong></label>
+                            <input class="form-control" disabled
+                                   [ngClass]="{'is-invalid': (submitted) && (deposit.get('realizableValue').errors)}"
+                                   formControlName="realizableValue" placeholder="Realizable Value" type="number">
+                            <div *ngIf="(submitted) && (deposit.get('realizableValue').invalid)"
+                                 class="invalid-feedback">
+                                <div *ngIf="deposit.get('realizableValue').errors.required">
+                                    value is required
                                 </div>
                             </div>
                         </div>
@@ -94,22 +126,6 @@
                             <nb-datepicker #expiryDate></nb-datepicker>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title" for="fixedDepositFirstValuationDate">First Valuation Date</label>
-                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
-                                   formControlName="fixedDepositFirstValuationDate"
-                                   id="fixedDepositFirstValuationDate"
-                                   name="fixedDepositFirstValuationDate" placeholder="First Valuation Date"
-                                   [nbDatepicker]="firstValuationDate"
-                                   type="text"/>
-                            <app-calendar
-                                    (messageToEmit)="fixedDepositForm.get(['fixedDepositDetails',i,'fixedDepositFirstValuationDate']).patchValue($event?.eDate)"
-                                    *ngIf="calendarType === 'BS'"
-                                    [ePreDate]="fixedDepositForm.get(['fixedDepositDetails',i,'fixedDepositFirstValuationDate']).value"></app-calendar>
-                            <nb-datepicker #firstValuationDate></nb-datepicker>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -124,11 +140,11 @@
                             <input class="form-control" formControlName="beneficiary" placeholder="Beneficiary">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="title">Remarks<strong></strong></label>
-                            <input class="form-control" formControlName="remarks" placeholder="Remarks">
-                        </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="title">Remarks<strong></strong></label>
+                        <ckeditor [config]="ckeConfig"  formControlName="remarks" ></ckeditor>
                     </div>
                 </div>
             </div>

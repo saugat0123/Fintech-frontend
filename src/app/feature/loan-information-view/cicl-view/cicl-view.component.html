@@ -1,6 +1,6 @@
-<hr class="print-line">
 <div class="row">
   <div class="col-md-12 text-center">
+    <hr class="print-line">
     <p class="text-left header"><strong   class="header">Banking Relationship</strong></p>
 <!--    <p class="text-left sb-small"><b>Cib-->
 <!--      Charge:</b> {{ciclValue?.cibCharge ? ('Rs ' + ciclValue?.cibCharge) : ciclValue?.cibRemark?(ciclValue?.cibRemark | jsonParse)?.value:'N/A'}}</p>-->
@@ -9,19 +9,19 @@
               class="table table-bordered table-hover table-sm sb-small text-center">
         <thead>
 
-        <tr class="sb-bg-dark text-white">
+        <tr class="sb-bg-gray align-content-center">
           <th>S.N</th>
           <th>Name</th>
-          <th>Cicl Relation</th>
+          <th>CICL Relation</th>
           <th>Name of FI</th>
           <th>Facility</th>
-          <th>OverDue Amount</th>
-          <th>status</th>
-          <th>Obtained Date(AD/BS)</th>
+          <th>Overdue Amount</th>
+          <th>Status</th>
+          <th>Obtained Date</th>
           <th>Loan Limit</th>
           <th>Outstanding Amount</th>
           <th>Overdue Installment(s)</th>
-          <th>Probability of Defer(in %)</th>
+          <th>Probability of Default</th>
           <th>Risk Score</th>
         </tr>
         <tr *ngFor="let data of ciclList; let i=index">
@@ -32,7 +32,7 @@
           <td class="text-left pl-1">{{data?.facility || 'NA'}}</td>
           <td class="text-right pr-1">Rs. {{data?.overdueAmount | currencyFormatter}}</td>
           <td class="text-left pl-1">{{data?.status || 'NA'}}</td>
-          <td class="text-left pl-1">{{data?.obtaineddate | date}} ({{data?.obtaineddate | engNepDate: false}})</td>
+          <td class="text-left pl-1">{{data?.obtaineddate | date}}</td>
           <td class="text-right pr-1">Rs. {{data?.loanamount | currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{data?.outstandingAmount | currencyFormatter}}</td>
           <td class="text-right pr-1">{{data?.overdue}}</td>
@@ -42,13 +42,13 @@
         </thead>
       </table>
     </div>
-    <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed">
-      <tr class="sb-bg-dark text-white ">
-        <td>Remarks</td>
+    <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed; width: 100%">
+      <tr class="sb-bg-gray">
+        <td><strong>Remarks</strong></td>
       </tr>
       <td class="text-justify px-2" style="overflow-wrap: break-word; "><span
               [innerHTML]="ciclValue?.remarks ? ciclValue?.remarks : 'N/A' | safeHtml"></span></td>
-      <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-dark text-white">
+      <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-gray">
         <th>Repayment track in other BFIs</th>
       </tr>
       <tr *ngIf="!crgLambdaDisabled">

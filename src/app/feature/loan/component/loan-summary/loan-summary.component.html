@@ -59,7 +59,7 @@
                             class="p-1 fa fa-eye"></i></a>
                 </div>
                 <div class="col-md-12">
-                    <hr/>
+                    <hr class="print-line"/>
                 </div>
             </div>
             <div class="row">
@@ -97,9 +97,9 @@
                                 <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
                                 <br>
                                 <div><strong class="float-left">Product:</strong>
-                                    <table class="table table-sm table-responsive-sm  float-left">
+                                    <table id="table-border" class="table table-bordered table-condensed table-responsive-md text-center table-sm sb-small">
                                         <thead>
-                                        <tr class="sb-bg-dark text-white">
+                                        <tr class="sb-bg-gray">
                                             <td>Facility Name</td>
                                             <td>Approving Level</td>
                                             <td>Credit Risk</td>
@@ -118,10 +118,10 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div><strong class="float-left">Review Date:</strong>
-                                    <table class="table table-sm table-responsive-sm  float-left">
+                                <div *ngIf="smallBusiness"><strong class="float-left">Review Date:</strong>
+                                    <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
                                         <thead>
-                                        <tr class="sb-bg-dark text-white">
+                                        <tr class="sb-bg-gray">
                                             <td>Facility Name</td>
                                             <td>Last Date</td>
                                             <td>Next Date</td>
@@ -141,14 +141,15 @@
                                     </table>
                                 </div>
                                 <br>
-                                <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                                <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness">
                             <span><strong>Review Date: </strong>
                                 <ng-container *ngIf="naChecked; else date">
                                     {{'NA'}}
                                 </ng-container>
                                 <ng-template #date>
                                     <br>
-                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
+                                    <br>
                                     Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
                                 </ng-template>
                             </span>
@@ -156,7 +157,7 @@
                                         <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>
                                         <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>
                                     </div>
-                                </div>
+                                </ng-container>
                                 <br>
                                 <div class="float-right" *ngIf="loanDataHolder?.isSol">
                                     <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
@@ -202,13 +203,12 @@
                             </div>
                             <div class="row sb-small mb-1">
                                 <div class="col-md-12">
-                                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}}  ({{nepaliDate}})</span>
+                                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}} </span>
                                     <span class=""><b>
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
-
+                                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
                     </span>
 
                                 </div>

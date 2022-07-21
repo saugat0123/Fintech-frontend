@@ -75,8 +75,10 @@ export class ViewSecurityTableComponent implements OnInit {
             this.spinner = false;
             this.toggleArray[i].security = res.detail;
             this.checkContainedApprovedLoan(res.detail, i);
+            this.ngxSpinnerService.hide();
             this.toggleArray[i].securityPresent = this.toggleArray[i].security.length > 0;
         }, (err) => {
+            this.ngxSpinnerService.hide();
             this.spinner = false;
         });
     }
@@ -164,6 +166,7 @@ export class ViewSecurityTableComponent implements OnInit {
             // get details from backed of each security tagged on loans
             this.securities.forEach((d, i) => {
                 this.toggleArray.push({toggled: false, security: null, securityPresent: false, approved: false});
+                this.ngxSpinnerService.show();
                 this.getSecurityDetails(d.id, i);
             });
         }
