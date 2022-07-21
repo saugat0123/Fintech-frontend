@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <p><b>Address Verification</b></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th colspan="6">Permanent Address</th>
                 </tr>
                 <tr>
@@ -22,7 +22,7 @@
                     <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine1 || 'NA'}}</td>
                     <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
                 </tr>
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th colspan="6">Temporary Address</th>
                 </tr>
                 <tr>
@@ -54,84 +54,84 @@
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Name</td>
+                            <td class="sb-bg-gray">Name</td>
                             <td class="pl-1 text-right">{{individual?.customerName}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Customer Id</td>
+                            <td class="sb-bg-gray">Customer Id</td>
                             <td class="pl-1 text-right">{{customerInfo?.customerCode || 'N/A'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Date of birth(AD/BS)</td>
+                            <td class="sb-bg-gray">Date of birth(AD/BS)</td>
                             <td class="pl-1 text-right">{{individual?.dob | date}}
                                 ({{individual?.dob | engNepDate: false}}
                                 )
                             </td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Age</td>
+                            <td class="sb-bg-gray">Age</td>
                             <td class="pl-1 text-right">{{calculateAge(individual?.dob)}} years</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Citizenship no.</td>
+                            <td class="sb-bg-gray">Citizenship no.</td>
                             <td class="pl-1 text-right">{{individual?.citizenshipNumber}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Citizenship Issued Date(AD/BS)</td>
+                            <td class="sb-bg-gray">Citizenship Issued Date(AD/BS)</td>
                             <td class="pl-1 text-right">{{individual?.citizenshipIssuedDate | date}}
                                 ({{individual?.citizenshipIssuedDate | engNepDate: false}})
                             </td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Issued Place</td>
+                            <td class="sb-bg-gray">Issued Place</td>
                             <td class="pl-1 text-right">{{individual?.citizenshipIssuedPlace}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Gender</td>
+                            <td class="sb-bg-gray">Gender</td>
                             <td class="pl-1 text-right">{{individual?.gender}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Marital Status</td>
+                            <td class="sb-bg-gray">Marital Status</td>
                             <td class="pl-1 text-right">{{individual?.maritalStatus}}</td>
                         </tr>
                         <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
-                            <td class="sb-bg-dark text-white">Father's Name</td>
+                            <td class="sb-bg-gray">Father's Name</td>
                             <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                         </tr>
                         <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
-                            <td class="sb-bg-dark text-white">Grandfather's Name</td>
+                            <td class="sb-bg-gray">Grandfather's Name</td>
                             <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Mobile Number</td>
+                            <td class="sb-bg-gray">Mobile Number</td>
                             <td class="pl-1 text-right">{{individual?.contactNumber || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">LandLine Number</td>
+                            <td class="sb-bg-gray">LandLine Number</td>
                             <td class="pl-1 text-right">{{individual?.landLineNumber || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Email</td>
+                            <td class="sb-bg-gray">Email</td>
                             <td class="pl-1 text-right">{{individual?.email || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Occupation</td>
+                            <td class="sb-bg-gray">Occupation</td>
                             <td class="pl-1 text-right">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Income Source</td>
+                            <td class="sb-bg-gray">Income Source</td>
                             <td class="pl-1 text-right">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Client Type</td>
+                            <td class="sb-bg-gray">Client Type</td>
                             <td class="pl-1 text-right">{{loanDataHolder?.loanHolder?.clientType | clientType}}</td>
                         </tr>
                         <tr class="text-left">
-                            <td class="sb-bg-dark text-white">Address as per Legal Document</td>
+                            <td class="sb-bg-gray">Address as per Legal Document</td>
                             <td class="pl-1 text-right">{{customerInfo?.customerLegalDocumentAddress}}</td>
                         </tr>
                         <tr class="text-left" *ngIf="client === clientName?.SHINE_RESUNGA">
-                            <td class="sb-bg-dark text-white">Obligor Code</td>
+                            <td class="sb-bg-gray">Obligor Code</td>
                             <td class="pl-1 text-right">{{customerInfo?.obligor}}</td>
                         </tr>
                     </table>
@@ -145,7 +145,7 @@
                 <table
                         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th>Name</th>
                         <th>Relation Name</th>
                         <th>Citizenship no.</th>
@@ -189,7 +189,7 @@
 <!--            <div class="col-md-12">-->
 <!--                <p><strong>Banking Relationship</strong></p>-->
 <!--                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
-<!--                    <tr class="text-white sb-bg-dark">-->
+<!--                    <tr class="sb-bg-gray">-->
 <!--                        <th>Banking Relationship</th>-->
 <!--                        <th>Net Worth</th>-->
 <!--                    </tr>-->
@@ -200,7 +200,7 @@
 <!--                </table>-->
 
 <!--&lt;!&ndash;                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <tr  class="text-white sb-bg-dark">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr  class="sb-bg-gray">&ndash;&gt;-->
 <!--&lt;!&ndash;                        <th colspan="2">Banking Relationship</th>&ndash;&gt;-->
 <!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
 <!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
@@ -226,7 +226,7 @@
             <div class="col-md-12">
                 <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                    <thead class="sb-bg-dark">
+                    <thead class="sb-bg-gray">
                     <tr>
                         <th>Particulars</th>
                         <th>Summary</th>
@@ -270,7 +270,7 @@
         </div>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th colspan="2">Introduction</th>
             </tr>
             <tr>
@@ -278,7 +278,7 @@
             </tr>
             <ng-container *ngIf="individualJsonData !== null">
             <ng-container *ngIf="(individualJsonData?.checkedData)?.incomeRiskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th colspan="2">Income Risk & Mitigation</th>
                 </tr>
                 <tr>
@@ -287,7 +287,7 @@
                 </tr>
             </ng-container>
             <ng-container *ngIf="(individualJsonData?.checkedData)?.securityRiskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th colspan="2">Security Risk & Mitigation</th>
                 </tr>
                 <tr>
@@ -296,7 +296,7 @@
                 </tr>
             </ng-container>
             <ng-container *ngIf="(individualJsonData?.checkedData)?.successionRiskChecked">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th colspan="2">Succession Risk & Mitigation</th>
                 </tr>
                 <tr>
@@ -305,7 +305,7 @@
                 </tr>
             </ng-container>
             </ng-container>
-<!--            <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">-->
+<!--            <tr *ngIf="!crgLambdaDisabled" class="sb-bg-gray">-->
 <!--                <th>Banking Relationship</th>-->
 <!--                <th>Net Worth</th>-->
 <!--            </tr>-->
@@ -320,7 +320,7 @@
         <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead class="sb-bg-dark">
+            <thead class="sb-bg-gray">
             <tr>
                 <td><b>Particular</b></td>
                 <td></td>
@@ -367,55 +367,55 @@
                     <td>
                         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Name</td>
+                                <td class="sb-bg-gray">Name</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Customer Id</td>
+                                <td class="sb-bg-gray">Customer Id</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Date of birth(AD/BS)</td>
+                                <td class="sb-bg-gray">Date of birth(AD/BS)</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Age</td>
+                                <td class="sb-bg-gray">Age</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Citizenship no.</td>
+                                <td class="sb-bg-gray">Citizenship no.</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Issued Date(Ad/BS)</td>
+                                <td class="sb-bg-gray">Issued Date(Ad/BS)</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Issued Place</td>
+                                <td class="sb-bg-gray">Issued Place</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Gender</td>
+                                <td class="sb-bg-gray">Gender</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Marital Status</td>
+                                <td class="sb-bg-gray">Marital Status</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Mobile Number</td>
+                                <td class="sb-bg-gray">Mobile Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">LandLine Number</td>
+                                <td class="sb-bg-gray">LandLine Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Email</td>
+                                <td class="sb-bg-gray">Email</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Occupation</td>
+                                <td class="sb-bg-gray">Occupation</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Income Source</td>
+                                <td class="sb-bg-gray">Income Source</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Client Type</td>
+                                <td class="sb-bg-gray">Client Type</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Pan Number</td>
+                                <td class="sb-bg-gray">Pan Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-dark text-white">Account Number</td>
+                                <td class="sb-bg-gray">Account Number</td>
                             </tr>
                         </table>
                         </td>
@@ -487,7 +487,7 @@
             <p class="sub-header" ><strong   class="header">Family Details</strong></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
                 <tbody>
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th>Name</th>
                     <th>Relation Name</th>
                     <th>Citizenship no.</th>
@@ -510,7 +510,7 @@
             </table>
         </ng-container>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th colspan="7">Permanent Address</th>
             </tr>
             <tr>
@@ -533,7 +533,7 @@
                     <td class="text-left pl-1">{{info?.permanentAddressLine2 || 'NA'}}</td>
                 </tr>
             </ng-container>
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th colspan="7">Temporary Address</th>
             </tr>
             <tr>
@@ -562,14 +562,14 @@
 <div *ngIf="isJointInfo" class="col-md-12 text-center">
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tbody>
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
             <th colspan="2">Introduction</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
         </tr>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.incomeRiskChecked">
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th colspan="2">Income Risk & Mitigation</th>
             </tr>
             <tr>
@@ -577,7 +577,7 @@
             </tr>
         </ng-container>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.securityRiskChecked">
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
             <th colspan="2">Security Risk & Mitigation</th>
         </tr>
         <tr>
@@ -585,14 +585,14 @@
         </tr>
         </ng-container>
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.successionRiskChecked">
-        <tr class="text-white sb-bg-dark">
+        <tr class="sb-bg-gray">
             <th colspan="2">Succession Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
         </tr>
         </ng-container>
-<!--        <tr class="text-white sb-bg-dark">-->
+<!--        <tr class="sb-bg-gray">-->
 <!--            <th>Banking Relationship</th>-->
 <!--            <th>Net Worth</th>-->
 <!--        </tr>-->
