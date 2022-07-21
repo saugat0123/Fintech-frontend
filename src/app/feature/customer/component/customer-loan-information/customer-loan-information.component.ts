@@ -1063,13 +1063,20 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         });
     }
 
-    saveAccount(data: any) {
-        this.companyInfo.accountStrategy = data;
-        this.companyInfoService.save(this.companyInfo).subscribe(response => {
-            this.companyInfo = response.detail;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY SAVED ACCOUNT STRATEGY'));
-        }, res => {
-            this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
-        });
+    saveAccount(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.accountStrategy = data;
+            this.customerInfoService.save(this.customerInfo).subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY SAVED ACCOUNT STRATEGY'));
+                this.nbDialogRef.close();
+                this.onRefresh();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, res => {
+                this.spinner.hide();
+                this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+            });
+        }
     }
 }

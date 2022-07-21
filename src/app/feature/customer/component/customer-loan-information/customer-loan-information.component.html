@@ -1051,7 +1051,7 @@
       </div>
 
       <!--Account Strategy -->
-      <div class="col-md-4" >
+      <div class="col-md-4">
         <div class="row">
           <nb-card class="col-md-11 py-2">
             <a class="cursor info-label" (click)="openModel(crg)">
@@ -1060,11 +1060,11 @@
                   <p class="custom-font">ACCOUNT STRATEGY</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
-              <span *ngIf="companyInfo?.accountStrategy" style="color: green" title="Status : Saved">
+              <span *ngIf="customerInfo?.accountStrategy" style="color: green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
                   <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!companyInfo?.accountStrategy" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="!customerInfo?.accountStrategy" class="fas fa-times-circle px-2"></em>
               </span>
                 </div>
               </div>
@@ -1083,7 +1083,7 @@
             </nb-card-header>
             <nb-card-body>
               <app-account-strategy (accountStrategyEmitter) = "saveAccount($event)"
-                                    [accountStrategy]="companyInfo?.accountStrategy"></app-account-strategy>
+                                    [accountStrategy]="customerInfo?.accountStrategy"></app-account-strategy>
             </nb-card-body>
           </nb-card>
         </ng-template>
