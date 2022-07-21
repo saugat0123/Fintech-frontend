@@ -50,11 +50,11 @@ export class FacilityUtilizationComponent implements OnInit {
         } else {
             this. fillTable();
         }
-        if (this.customerInfo.facilityUtilization) {
-            this.setFacility();
-        } else {
-           this.addUtilization();
-        }
+        // if (this.customerInfo.facilityUtilization) {
+        //     this.setFacility();
+        // } else {
+        //    this.addUtilization();
+        // }
     }
 
     buildForm() {
