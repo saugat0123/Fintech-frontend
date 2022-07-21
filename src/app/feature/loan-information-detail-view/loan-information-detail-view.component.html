@@ -54,17 +54,21 @@
                                 </div>
                                 <br/>
                                 <div><strong class="float-left">Product:</strong>
-                                    <table class="table table-sm table-responsive-sm float-left">
+                                    <table id="table-border" class="table table-bordered table-condensed table-responsive-md text-center table-sm sb-small">
                                         <thead>
                                         <tr class="sb-bg-gray">
                                             <td>Facility Name</td>
-                                            <td>Approving Level</td>
-                                            <td>Credit Risk</td>
+                                            <td>Product Code</td>
+                                            <td>Approval Level</td>
+                                            <td>Credit Risk Grade</td>
                                         </tr>
                                         </thead>
                                         <tr *ngFor="let allLoan of allLoanList">
                                             <td>
-                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                                {{allLoan?.loan?.name}}
+                                            </td>
+                                            <td>
+                                                {{allLoan?.loan?.shortNames}}
                                             </td>
                                             <td>
                                                 {{allLoan?.approvingLevel}}

@@ -1817,153 +1817,153 @@
 <!--                       </ng-container>-->
                    </nb-tab>
                  <!--  new tab detail start from here-->
-                   <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">
-                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha)</em></em>
-                       <hr>
-                       <app-banking-relation #bankingRelationComponent
-                                             [formValue]="bankingRelationshipInput">
-                       </app-banking-relation>
-                       <div class="col-md-3 form-group">
-                           <label><strong>IRD report obtained and attached</strong></label>
-                           <select class="form-control" formControlName="irdReport">
-                               <option [value]="null" hidden>--Select Yes/No--</option>
-                               <option value="YES">Yes</option>
-                               <option value="NO">No</option>
-                           </select>
-                       </div>
-                       <hr>
-                       <div class="box-header with-border">
-                           <h5 class="box-title">10. Business & Industry</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-6 form-group">
-                               <label><strong>Regulatory Concern</strong></label>
-                               <select formControlName="regulatoryConcern" id="regulatoryConcern"
-                                       [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}" class="form-control">
-                                   <option [value]="null" hidden>Select regulatory concern here</option>
-                                   <option *ngFor="let regConcern of regulatoryConcernList"
-                                           [value]="regConcern?.value">
-                                       {{regConcern?.value}}
-                               </select>
-                               <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
-                                   <div *ngIf="form.regulatoryConcern.errors.required">
-                                       Regulatory Concern is required
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-3">
-                               <label><strong>Supplier</strong></label>
-                               <select formControlName="supplier" id="supplier" class="form-control">
-                                   <option [value]="null" hidden>Select supplier</option>
-                                   <option *ngFor="let supplier of supplierList"
-                                           [value]="supplier?.value">
-                                       {{supplier?.value}}
-                                   </option>
-                               </select>
-                               <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
-                                   <div *ngIf="form.supplier.errors.required">
-                                       Supplier is required
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-3">
-                               <label><strong>Buyer</strong></label>
-                               <select formControlName="buyer" id="buyer"
-                                       [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}" class="form-control">
-                                   <option [value]="null" hidden>Select Buyer</option>
-                                   <option *ngFor="let buyer of buyerList"
-                                           [value]="buyer?.value">
-                                       {{buyer?.value}}
-                               </select>
-                               <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
-                                   <div *ngIf="form.buyer.errors.required">
-                                       Buyer is required
-                                   </div>
-                               </div>
+<!--                   <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">-->
+<!--                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha)</em></em>-->
+<!--                       <hr>-->
+<!--&lt;!&ndash;                       <app-banking-relation #bankingRelationComponent&ndash;&gt;-->
+<!--&lt;!&ndash;                                             [formValue]="bankingRelationshipInput">&ndash;&gt;-->
+<!--&lt;!&ndash;                       </app-banking-relation>&ndash;&gt;-->
+<!--&lt;!&ndash;                       <div class="col-md-3 form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;                           <label><strong>IRD report obtained and attached</strong></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                           <select class="form-control" formControlName="irdReport">&ndash;&gt;-->
+<!--&lt;!&ndash;                               <option [value]="null" hidden>&#45;&#45;Select Yes/No&#45;&#45;</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                               <option value="YES">Yes</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                               <option value="NO">No</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                           </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                       </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                       <hr>&ndash;&gt;-->
+<!--                       <div class="box-header with-border">-->
+<!--                           <h5 class="box-title">10. Business & Industry</h5>-->
+<!--                       </div>-->
+<!--                       <div class="row">-->
+<!--                           <div class="col-md-6 form-group">-->
+<!--                               <label><strong>Regulatory Concern</strong></label>-->
+<!--                               <select formControlName="regulatoryConcern" id="regulatoryConcern"-->
+<!--                                       [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}" class="form-control">-->
+<!--                                   <option [value]="null" hidden>Select regulatory concern here</option>-->
+<!--                                   <option *ngFor="let regConcern of regulatoryConcernList"-->
+<!--                                           [value]="regConcern?.value">-->
+<!--                                       {{regConcern?.value}}-->
+<!--                               </select>-->
+<!--                               <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">-->
+<!--                                   <div *ngIf="form.regulatoryConcern.errors.required">-->
+<!--                                       Regulatory Concern is required-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-3">-->
+<!--                               <label><strong>Supplier</strong></label>-->
+<!--                               <select formControlName="supplier" id="supplier" class="form-control">-->
+<!--                                   <option [value]="null" hidden>Select supplier</option>-->
+<!--                                   <option *ngFor="let supplier of supplierList"-->
+<!--                                           [value]="supplier?.value">-->
+<!--                                       {{supplier?.value}}-->
+<!--                                   </option>-->
+<!--                               </select>-->
+<!--                               <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">-->
+<!--                                   <div *ngIf="form.supplier.errors.required">-->
+<!--                                       Supplier is required-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-3">-->
+<!--                               <label><strong>Buyer</strong></label>-->
+<!--                               <select formControlName="buyer" id="buyer"-->
+<!--                                       [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}" class="form-control">-->
+<!--                                   <option [value]="null" hidden>Select Buyer</option>-->
+<!--                                   <option *ngFor="let buyer of buyerList"-->
+<!--                                           [value]="buyer?.value">-->
+<!--                                       {{buyer?.value}}-->
+<!--                               </select>-->
+<!--                               <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">-->
+<!--                                   <div *ngIf="form.buyer.errors.required">-->
+<!--                                       Buyer is required-->
+<!--                                   </div>-->
+<!--                               </div>-->
 
-                           </div>
-                       </div>
-                       <hr>
-                       <div class="row">
-                           <div class="col-md-3">
-                               <div>
-                                   <label><strong>Industry Growth </strong></label>
-                               </div>
-                               <div class="form-group">
-                                   <select formControlName="industryGrowth" id="industryGrowth"
-                                           [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">
-                                       <option [value]="null" hidden>Select Industry Growth</option>
-                                       <option *ngFor="let industryGrowth of industryGrowthList"
-                                               [value]="industryGrowth?.value">
-                                           {{industryGrowth?.value}}
-                                   </select>
-                                   <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
-                                       <div *ngIf="form.industryGrowth.errors.required">
-                                           Industry Growth is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-3">
-                               <div>
-                                   <label><strong>Market Competition</strong></label>
-                               </div>
-                               <div class="form-group">
-                                   <select formControlName="marketCompetition" id="marketCompetition"
-                                           [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">
-                                       <option [value]="null" hidden>Select Market Competition</option>
-                                       <option  *ngFor="let marketComp of marketCompetitionList"
-                                                [value]="marketComp?.value">
-                                           {{marketComp?.value}}
-                                   </select>
-                                   <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">
-                                       <div *ngIf="form.marketCompetition.errors.required">
-                                           Market Competition Growth is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-3">
-                               <div>
-                                   <label><strong>Experience </strong></label>
-                               </div>
-                               <div class="form-group">
-                                   <select formControlName="experience" id="experience"
-                                           [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">
-                                       <option [value]="null" hidden>Select Experience</option>
-                                       <option  *ngFor="let experience of experiences"
-                                                [value]="experience?.value">
-                                           {{experience?.value}}
-                                   </select>
-                                   <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
-                                       <div *ngIf="form.experience.errors.required">
-                                           Experience Growth is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <hr>
-                                   <div class="col-md-3">
-                                       <div>
-                                           <label><strong>Succession </strong></label>
-                                       </div>
-                                       <select formControlName="succession" id="succession"
-                                               [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">
-                                           <option [value]="null" hidden>Select succession</option>
-                                           <option  *ngFor="let succession of successionList"
-                                                    [value]="succession?.value">
-                                               {{succession?.value}}
-                                       </select>
-                                       <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">
-                                           <div *ngIf="form.succession.errors.required">
-                                               Succession is required
-                                           </div>
-                                       </div>
-                                   </div>
-                       </div>
-                           <hr>
-                           <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
-                   </nb-tab>
+<!--                           </div>-->
+<!--                       </div>-->
+<!--                       <hr>-->
+<!--                       <div class="row">-->
+<!--                           <div class="col-md-3">-->
+<!--                               <div>-->
+<!--                                   <label><strong>Industry Growth </strong></label>-->
+<!--                               </div>-->
+<!--                               <div class="form-group">-->
+<!--                                   <select formControlName="industryGrowth" id="industryGrowth"-->
+<!--                                           [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">-->
+<!--                                       <option [value]="null" hidden>Select Industry Growth</option>-->
+<!--                                       <option *ngFor="let industryGrowth of industryGrowthList"-->
+<!--                                               [value]="industryGrowth?.value">-->
+<!--                                           {{industryGrowth?.value}}-->
+<!--                                   </select>-->
+<!--                                   <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">-->
+<!--                                       <div *ngIf="form.industryGrowth.errors.required">-->
+<!--                                           Industry Growth is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-3">-->
+<!--                               <div>-->
+<!--                                   <label><strong>Market Competition</strong></label>-->
+<!--                               </div>-->
+<!--                               <div class="form-group">-->
+<!--                                   <select formControlName="marketCompetition" id="marketCompetition"-->
+<!--                                           [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">-->
+<!--                                       <option [value]="null" hidden>Select Market Competition</option>-->
+<!--                                       <option  *ngFor="let marketComp of marketCompetitionList"-->
+<!--                                                [value]="marketComp?.value">-->
+<!--                                           {{marketComp?.value}}-->
+<!--                                   </select>-->
+<!--                                   <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">-->
+<!--                                       <div *ngIf="form.marketCompetition.errors.required">-->
+<!--                                           Market Competition Growth is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-3">-->
+<!--                               <div>-->
+<!--                                   <label><strong>Experience </strong></label>-->
+<!--                               </div>-->
+<!--                               <div class="form-group">-->
+<!--                                   <select formControlName="experience" id="experience"-->
+<!--                                           [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">-->
+<!--                                       <option [value]="null" hidden>Select Experience</option>-->
+<!--                                       <option  *ngFor="let experience of experiences"-->
+<!--                                                [value]="experience?.value">-->
+<!--                                           {{experience?.value}}-->
+<!--                                   </select>-->
+<!--                                   <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">-->
+<!--                                       <div *ngIf="form.experience.errors.required">-->
+<!--                                           Experience Growth is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <hr>-->
+<!--                                   <div class="col-md-3">-->
+<!--                                       <div>-->
+<!--                                           <label><strong>Succession </strong></label>-->
+<!--                                       </div>-->
+<!--                                       <select formControlName="succession" id="succession"-->
+<!--                                               [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">-->
+<!--                                           <option [value]="null" hidden>Select succession</option>-->
+<!--                                           <option  *ngFor="let succession of successionList"-->
+<!--                                                    [value]="succession?.value">-->
+<!--                                               {{succession?.value}}-->
+<!--                                       </select>-->
+<!--                                       <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">-->
+<!--                                           <div *ngIf="form.succession.errors.required">-->
+<!--                                               Succession is required-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                       </div>-->
+<!--                           <hr>-->
+<!--&lt;!&ndash;                           <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>&ndash;&gt;-->
+<!--                   </nb-tab>-->
                    <!--micro customer detail-->
                    <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
                        <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'" #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
