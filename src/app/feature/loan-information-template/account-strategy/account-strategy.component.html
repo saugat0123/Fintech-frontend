@@ -1,0 +1,13 @@
+<nb-card>
+    <nb-card-body>
+        <div class="col-md-12">
+            <form [formGroup]="accountForm">
+                <label>
+                    <b>Account Strategy(if any):</b>
+                </label>
+                <textarea rows="2" placeholder="Account Strategy" class="form-control border" formControlName="accountStrategy"></textarea>
+            </form>
+            <button class="btn btn-sm float-right small" nbButton (click)="saveAccount()">Save Account Strategy</button>
+        </div>
+    </nb-card-body>
+</nb-card>
