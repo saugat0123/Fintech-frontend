@@ -136,15 +136,32 @@ export class SiteVisitComponent implements OnInit {
             this.formDataForEdit.currentResidentDetails.currentResidentStaffRepresentative.forEach((val: any) => {
                 this.addStaff(val);
             });
+        } else {
+            this.addStaff();
         }
-        // if(!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.currentBusinessDetaila) &&
-        // !ObjectUtil.isEmpty(this.formDataForEdit.currentBusinessStaffRepresentative.forEach((val: any) => {
-        //     this.addBusinessStaff();
-        // })))
         this.previousData();
+        /*if (!ObjectUtil.isEmpty(this.formDataForEdit) && !ObjectUtil.isEmpty(this.formDataForEdit.businessDetails)) {
+            this.formDataForEdit.businessDetails.forEach((val: any, i: any) => {
+                if (val.staffDetail.length === 0) {
+                    console.log('Form Valllll:', this.siteVisitFormGroup);
+                    const controls = (this.siteVisitFormGroup
+                        .get(['businessDetails', i]) as FormArray)
+                        .get('staffDetail') as FormArray;
+                    console.log('Etaaaa:', controls);
+                    controls.push(this.formBuilder.group({
+                        staffRepresentativeName: [undefined],
+                        staffRepresentativeNameDesignation: [undefined]
+                    }));
+                }
+            });
+        }*/
         if (this.formDataForEdit !== undefined) {
             if (ObjectUtil.isEmpty(this.formDataForEdit.businessDetails)) {
                 this.addMoreBusinessSiteVisit();
+            } else {
+                this.formDataForEdit.businessDetails.forEach((val: any) => {
+                    return;
+                });
             }
             if (ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
                 this.addMoreCurrentAssets();
@@ -189,9 +206,7 @@ export class SiteVisitComponent implements OnInit {
             businessDetails: this.formBuilder.array([]),
             currentAssetsDetails: this.formBuilder.array([])
         });
-        if (ObjectUtil.isEmpty(this.formDataForEdit)) {
-            this.addStaff();
-        }
+        console.log('Form data for edit:', this.formDataForEdit);
     }
 
     addStaff(val?: any) {

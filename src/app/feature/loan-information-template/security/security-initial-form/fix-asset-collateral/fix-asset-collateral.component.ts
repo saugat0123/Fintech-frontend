@@ -233,8 +233,8 @@ export class FixAssetCollateralComponent implements OnInit {
         return this.formBuilder.group({
             staffRepresentativeNameDesignation: [undefined],
             staffRepresentativeName: [undefined],
-            staffRepresentativeNameDesignation2: [undefined],
-            staffRepresentativeName2: [undefined],
+            // staffRepresentativeNameDesignation2: [undefined],
+            // staffRepresentativeName2: [undefined],
         });
     }
 
