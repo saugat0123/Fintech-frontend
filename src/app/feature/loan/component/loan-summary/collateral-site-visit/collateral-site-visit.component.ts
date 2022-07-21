@@ -30,6 +30,7 @@ export class CollateralSiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
+      console.log('sitevisit:::', this.loanDataHolder.securities);
       this.url = ApiConfig.URL;
       this.random = Math.floor(Math.random() * 100) + 1;
       if (!ObjectUtil.isEmpty(this.loanDataHolder.securities)) {

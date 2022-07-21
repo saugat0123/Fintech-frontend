@@ -84,6 +84,11 @@
                         [cadData]="cadData"
                         [documentId]="documentId"
                         [customerLoanId]="customerLoanId"></app-statement-of-position>
+                <app-anusuchi
+                        *ngSwitchCase="cadTemplate.ANUSUCHI"
+                        [cadData]="cadData"
+                        [documentId]="documentId"
+                        [customerLoanId]="customerLoanId"></app-anusuchi>
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
         </div>
