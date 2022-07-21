@@ -71,6 +71,7 @@
         <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
         </div>
     </ng-container>
+    <hr class="print-line">
     <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                            [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 </div>

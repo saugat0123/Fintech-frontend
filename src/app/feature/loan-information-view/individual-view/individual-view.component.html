@@ -139,7 +139,7 @@
         </div>
     </div>
     <div *ngIf="individual?.customerRelatives?.length > 0" class="borrower_class">
-        <div class="row">
+        <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
                 <table
@@ -147,25 +147,26 @@
                     <thead>
                     <tr class="sb-bg-gray">
                         <th>Name</th>
-                        <th>Relation Name</th>
-                        <th>Citizenship no.</th>
-                        <th>Citizenship Issued District</th>
-                        <th>Citizenship Issued Date(AD/BS)</th>
+                        <th>Undivided Family Member</th>
                         <th>Age</th>
+                        <th>Occupation</th>
+
+
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let relative of individual?.customerRelatives">
-                        <td class="text-left pl-1">{{relative?.customerRelativeName || 'NA'}}</td>
-                        <td class="text-left pl-1">{{relative?.customerRelation || 'NA'}}</td>
-                        <td class="text-left pr-1">{{relative?.citizenshipNumber || 'NA'}}</td>
-                        <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'NA'}}</td>
                         <td class="text-left pl-1">
-                            {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'N/A'}}
-                            ({{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}}
-                            )
+                            {{relative?.customerRelativeName}}
                         </td>
-                        <td class="text-left pl-1">{{relative?.age || 'N/A'}}</td>
+
+                        <td class="text-left pl-1">
+                            {{relative?.customerRelation}}
+                        </td>
+                        <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
+                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse) === 'Other'">{{relative?.occupation || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
+
                     </tr>
                     </tbody>
                 </table>

@@ -1,7 +1,10 @@
 <div class="row mt-3" *ngIf="securities?.length > 0">
     <hr class="print-line">
+    <div class="col-md-12 mb-0">
+        <p class="header" *ngIf="pending"><strong class="header">Security Schedule</strong></p>
+    </div>
     <div class="col-md-12" *ngIf="pending">
-        <p class="header float-left"><strong class="header">Security Summary</strong></p>
+        <p class="header float-left"><strong class="sub-header">Security Summary</strong></p>
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr class="sb-bg-gray">
@@ -29,7 +32,6 @@
         </table>
     </div>
     <div class="col-md-12">
-        <p class="header" *ngIf="pending"><strong class="header">Security Schedule</strong></p>
         <p  class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
@@ -108,40 +110,37 @@
             <td width="30%">
                 <table class="table table-condensed table-bordered table-responsive-md text-left table-sm sb-small sb-bg-gray">
                     <tr>
-                        <td>Owner</td>
-                    </tr>
-                    <tr>
-                        <td>Location</td>
-                    </tr>
-                    <tr>
-                        <td>Plot No</td>
-                    </tr>
-                    <tr>
-                        <td>Area Format</td>
-                    </tr>
-                    <tr>
-                        <td>Area</td>
-                    </tr>
-                    <tr>
-                        <td>FMV</td>
-                    </tr>
-                    <tr>
-                        <td>Market Value</td>
+                        <td>Owner Name</td>
                     </tr>
                     <tr>
                         <td>Collateral Owner Relationship With Borrower</td>
                     </tr>
                     <tr>
+                        <td>Current Address</td>
+                    </tr>
+                    <tr>
                         <td>Address as per Legal Document</td>
+                    </tr>
+                    <tr>
+                        <td>Plot No</td>
+                    </tr>
+                    <tr>
+                        <td>Area</td>
+                    </tr>
+                    <tr>
+                        <td>Fair Market Value</td>
+                    </tr>
+                    <tr>
+                        <td>Market Value</td>
+                    </tr>
+                    <tr>
+                        <td>Realizable Rate</td>
                     </tr>
                     <tr>
                         <td>Realisable Value</td>
                     </tr>
                     <tr>
-                        <td>Rate</td>
-                    </tr>
-                    <tr>
-                        <td>Valuated Date(AD/BS)</td>
+                        <td>Valuated Date(AD)</td>
                     </tr>
                     <tr>
                         <td>Valuator Name</td>
@@ -161,34 +160,31 @@
                         <td class="pl-1">{{landDetails?.owner || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pl-1">{{landDetails?.location || 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td class=" pr-1">{{landDetails?.plotNumber || 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td class="pl-1">{{landDetails?.areaFormat || 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td class=" pr-1">{{landDetails?.area || 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-1">Rs. {{(landDetails?.fairMarketValue |currencyFormatter) || 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td class=" pr-1">Rs. {{(landDetails?.distressValue |currencyFormatter) || 'N/A'}}</td>
-                    </tr>
-                    <tr>
                         <td class=" pr-1">{{landDetails?.landCollateralOwnerRelationship || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pl-1">{{landDetails?.location || 'N/A'}}</td>
                     </tr>
                     <tr>
                         <td class="pl-1" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class="pr-1">Rs. {{(landDetails?.landConsideredValue | currencyFormatter) || 'N/A'}}</td>
+                        <td class=" pr-1">{{landDetails?.plotNumber + '(' + landDetails?.areaFormat + ')'  || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pr-1">Rs. {{(landDetails?.landRate | currencyFormatter) || 'N/A'}}</td>
+                        <td class=" pr-1">{{landDetails?.area || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-1">Rs. {{(landDetails?.fairMarketValue | currencyFormatter) || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">Rs. {{(landDetails?.distressValue |currencyFormatter) || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">{{(landDetails?.landRate | currencyFormatter) || 'N/A'}}%</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-1">Rs. {{(landDetails?.landConsideredValue | currencyFormatter) || 'N/A'}}</td>
                     </tr>
                     <tr>
                         <td class=" pl-1">{{ landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'N/A'}}
