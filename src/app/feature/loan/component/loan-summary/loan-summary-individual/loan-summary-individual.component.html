@@ -246,7 +246,7 @@
                                         </td>
                                         <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
                                         <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] === 'Other'">{{relative?.occupation || 'N/A'}}</td>
-                                        <td class="text-left pl-1">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
+                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] !== 'Other'">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
 
                                     </tr>
                                     </tbody>
@@ -260,16 +260,16 @@
                         <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
                             <div class="col-md-12">
                                 <p><strong class="header text-left">Purpose of Loan </strong></p>
-                                <table class="table table-borderless table-responsive-md table-sm table-condensed sb-small">
-                                    <tbody *ngFor="let loan of customerAllLoanList; let i = index">
-                                    <tr *ngIf="loan?.id">
-                                        <td>
-                                            <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                            <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                                    <ng-container *ngIf="loan?.id">
+                                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                        <ul>
+                                            <li>
+                                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                </ng-container>
                             </div>
                         </div>
                         <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
