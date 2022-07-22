@@ -226,7 +226,7 @@
   <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
   <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
     <thead>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
       <th class="sn">S.No</th>
       <th>Shareholder/Promoters</th>
       <th>Designation</th>
@@ -253,25 +253,25 @@
 
 <div class="col-md-12">
   <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
       <th>Business Process </th>
     </tr>
     <tr>
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground ? companyJsonData?.companyBackground : 'N/A' | safeHtml"></span></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
       <th>Major Buyers</th>
     </tr>
     <tr>
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
       <th>Major Suppliers</th>
     </tr>
     <tr>
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
     </tr>
-    <tr class="text-white sb-bg-dark">
+    <tr class="sb-bg-gray">
       <th>Risk & Mitigants</th>
     </tr>
     <tr>

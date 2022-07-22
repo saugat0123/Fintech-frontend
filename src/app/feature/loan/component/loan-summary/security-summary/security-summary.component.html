@@ -1,8 +1,5 @@
 <div class="row mt-0" *ngIf="securities?.length > 0">
     <hr class="print-line">
-    <div class="col-md-12 mb-0" *ngIf="pending">
-        <label class="header"><strong class="header">Security Schedule</strong></label>
-    </div>
     <div class="col-md-12">
         <label class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></label>
         <div class="row" *ngIf="vehicleSelected">

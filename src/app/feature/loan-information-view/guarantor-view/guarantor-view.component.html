@@ -1,6 +1,6 @@
 <div *ngIf="guarantorData?.length > 0" class="row">
   <div class="col-md-12 text-center">
-    <p class="float-left sub-header" ><strong  class="sub-header">{{individual?'Guarantor Details':'Shareholder/Guarantor Details'}}</strong></p>
+    <p class="float-left sub-header" ><strong  class="sub-header">{{individual?'Guarantor Details':'Promoter/Proprietor/Partner Profile'}}</strong></p>
     <ng-container *ngFor="let guarantor of newGuarantor; let i= index">
       <table class="table table-condensed table-sm table-responsive-md text-center table-sm sb-small" style="table-layout: fixed; width: 100%">
         <tr>
@@ -159,47 +159,47 @@
             <table class="table table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
               <tbody>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.name || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.name || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.gender || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.gender || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.relationship || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.relationship || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.fatherName || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.fatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
+                <td class="text-left pl-2">{{(subGuarantor?.dateOfBirth | date) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.contactNumber || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.contactNumber || 'N/A'}}</td>
               </tr>
 
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.profession || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.profession || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{(subGuarantor?.netWorth  | currencyFormatter) || 'N/A'}}</td>
+                <td class="text-left pl-2">{{(subGuarantor?.netWorth  | currencyFormatter) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
+                <td class="text-left pl-2">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{subGuarantor?.email || 'N/A'}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.email || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name  + ', Ward No.: '+ subGuarantor?.wardNumber}}</td>
+                <td class="text-left pl-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name  + ', Ward No.: '+ subGuarantor?.wardNumber}}</td>
               </tr>
               <tr>
-                <td class="text-right pr-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name + ', Ward No.: '+ subGuarantor?.wardNumberTemporary}}</td>
+                <td class="text-left pl-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name + ', Ward No.: '+ subGuarantor?.wardNumberTemporary}}</td>
               </tr>
               </tbody>
             </table>
