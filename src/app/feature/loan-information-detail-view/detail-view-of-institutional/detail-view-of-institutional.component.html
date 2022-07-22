@@ -18,7 +18,7 @@
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                 [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
 </app-customer-share-detail-view>
-<app-security-schedule  [customerAllLoanList]="customerAllLoanList"   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+<app-security-schedule    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 
 <hr class="print-line">

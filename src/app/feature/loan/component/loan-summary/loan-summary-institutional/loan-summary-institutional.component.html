@@ -10,21 +10,19 @@
             </ng-container>
             <!--                release and replacement-->
             <ng-container>
+                <app-security-total-summary [securities]="loanSecurity"
+                                            [approvedSec]="approvedSecurity"
+                                            [loanHolder]="loanDataHolder?.loanHolder"
+                                            [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
                 <!--                    proposed security-->
                 <app-security-summary *ngIf="customerAllLoanList"
                                       [securities]="loanSecurity"
-                                      [customerAllLoanList]="customerAllLoanList"
-                                      [approvedSec] = "approvedSecurity"
-                                      [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
                 <app-security-summary *ngIf="approvedSecurity" [securities]="approvedSecurity"></app-security-summary>
 
             </ng-container>
-            <app-security-schedule [customerAllLoanList]="customerAllLoanList"
-                                   [approvedSecurity]="approvedSecurity"
-                                   [loanSecurity]="loanSecurity"
-                                   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+            <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
             <!-- Customer Share Security  -->
             <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                         [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
