@@ -50,21 +50,16 @@ import {LoanTag} from '../../../model/loanTag';
 })
 export class LoanSummaryIndividualComponent implements OnInit {
   @Output() changeToApprovalSheetActive = new EventEmitter<string>();
-
   @Input() loanDataHolder: LoanDataHolder;
-
-  @Input()
-  loanConfig: LoanConfig = new LoanConfig();
-
+  @Input() loanConfig: LoanConfig = new LoanConfig();
   @Input() nepaliDate;
-  @Input() customerAllLoanList: LoanDataHolder [];
-
-  @Input() loanSecurity: Array<Security> = [];
-  @Input() approvedSecurity: Array<Security> = [];
-
+  @Input() customerAllLoanList;
+  @Input() loanSecurity;
+  @Input() approvedSecurity;
+  @ViewChild('print', {static: false}) print;
+  @Input() combinedLoan: any;
   client: string;
   clientName = Clients;
-
   docMsg;
   rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -91,7 +86,6 @@ export class LoanSummaryIndividualComponent implements OnInit {
   previousList: Array<LoanStage> = new Array<LoanStage>();
   currentDocAction = '';
   loanCategory;
-  @ViewChild('print', {static: false}) print;
   businessType = BusinessType;
   financialData: Financial = new Financial();
   shareSecurityData: ShareSecurity = new ShareSecurity();
@@ -191,7 +185,6 @@ export class LoanSummaryIndividualComponent implements OnInit {
   others = false;
   loanTagEnum = LoanTag;
   isShareLoan = false;
-  @Input() combinedLoan: any;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,

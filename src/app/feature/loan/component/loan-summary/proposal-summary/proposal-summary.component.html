@@ -105,8 +105,13 @@
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
                 </td>
 
-                        <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month
-
+                        <td>
+                            <ng-container *ngIf="loan?.loan?.loanNature === 'Terminating'; else rev ">
+                                {{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month
+                            </ng-container>
+                            <ng-template #rev>
+                                <p [class.font-weight-bold]="loan?.documentStatus !== 'APPROVED'">{{(loan?.proposal?.data | jsonParse)?.tenorOfEachDeal || 'N/A '}}</p>
+                            </ng-template>
                         </td>
                 <td>
                     <ng-container *ngIf="loan?.loan?.loanNature === 'Terminating'; else tenure;">
@@ -128,8 +133,7 @@
                             </div>
                     </ng-container>
                     <ng-template #tenure>
-                        <p [class.font-weight-bold]="loan?.documentStatus !== 'APPROVED'">{{(loan?.proposal?.data | jsonParse)?.tenorOfEachDeal || 'N/A '}}</p>
-
+                        <p [class.font-weight-bold]="loan?.documentStatus !== 'APPROVED'">{{(loan?.proposal?.data | jsonParse)?.repay || 'N/A '}}</p>
                     </ng-template>
                 </td>
                 <td>

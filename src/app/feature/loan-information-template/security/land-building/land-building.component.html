@@ -801,6 +801,26 @@
 
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="title" for="area">Remarks of land and building</label>
+                                <textarea class="form-control rounded"
+                                          formControlName="landBuildingDescription"
+                                          name="remarksBuilding"
+                                          placeholder="Remarks of land and building"
+                                          [ngClass]="{ 'is-invalid':(submitted) &&  landBuildingForm.get('landBuildingDescription').errors }"
+                                          rows="2" type="text"></textarea>
+                                <div *ngIf="(submitted) && landBuildingForm.get('landBuildingDescription').invalid"
+                                     class="small text-danger">
+                                    <div *ngIf="landBuildingForm.get('landBuildingDescription').errors.required">
+                                        Remarks of required!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!--<div *ngIf="landBuildingForm.get(['landBuilding',i,'underConstructionChecked']).value">
                         <p><b>Land And Building Under Construction Detail</b></p>
                         <div class="row">
@@ -954,24 +974,5 @@
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label class="title" for="area">Remarks of land and building</label>
-                    <textarea class="form-control rounded"
-                              formControlName="landBuildingDescription"
-                              name="remarksBuilding"
-                              placeholder="Remarks of land and building"
-                              [ngClass]="{ 'is-invalid':(submitted) &&  landBuildingForm.get('landBuildingDescription').errors }"
-                              rows="2" type="text"></textarea>
-                    <div *ngIf="(submitted) && landBuildingForm.get('landBuildingDescription').invalid"
-                         class="small text-danger">
-                        <div *ngIf="landBuildingForm.get('landBuildingDescription').errors.required">
-                            Remarks of required!
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </form>
 </nb-card>

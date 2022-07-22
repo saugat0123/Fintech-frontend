@@ -1,0 +1,28 @@
+<ng-container>
+    <p class="header float-left"><strong class="header">Security Summary</strong></p>
+    <table class="table table-bordered table-responsive-md text-center table-sm sb-small border-dark">
+        <thead>
+        <tr class="sb-bg-gray">
+            <th>Security Type</th>
+            <th *ngFor="let sk of subKey">{{sk | securitySummary}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let key of keys">
+            <tr *ngIf="totalIndividualSec[key]?.added">
+                <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :'text-left'">{{key | securitySummary}}</td>
+                <td *ngFor="let sk of subKey"
+                    [ngClass]="key  === 'total' ? 'font-weight-bold' :''">Rs. {{totalIndividualSec[key][sk] | currencyFormatter}}</td>
+            </tr>
+        </ng-container>
+        <tr>
+            <td class="sb-bg-gray">Expected Loss Given Default</td>
+            <td class="" [colSpan]="subKey?.length"> Rs. {{(fixedAssets | currencyFormatter) || '0'}}</td>
+        </tr>
+        <tr>
+            <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
+            <td class="" [colSpan]="subKey?.length">{{(totalProposedLimit / totalIndividualSec?.total?.rv)?.toFixed(2)   || '0'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</ng-container>
