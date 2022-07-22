@@ -17,7 +17,7 @@
     <app-security-detail-view *ngIf="customerAllLoanList"
                               [customerAllLoanList]="customerAllLoanList"></app-security-detail-view>
 </ng-container>
-<app-security-schedule [customerAllLoanList]="customerAllLoanList"
+<app-security-schedule
                        [loanDataHolder]="loanDataHolder"></app-security-schedule>
 <!-- Customer Share Security  -->
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"

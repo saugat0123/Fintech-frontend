@@ -3,36 +3,6 @@
     <div class="col-md-12 mb-0" *ngIf="pending">
         <label class="header"><strong class="header">Security Schedule</strong></label>
     </div>
-    <div class="col-md-12" *ngIf="pending">
-        <label class="header float-left"><strong class="sub-header">Security Summary</strong></label>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-gray">
-                <th>Security Type</th>
-                <th *ngFor="let sk of subKey">{{sk | securitySummary}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let key of keys">
-                <tr *ngIf="totalIndividualSec[key]?.added">
-                    <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :'text-left'">{{key | securitySummary}}</td>
-                    <td *ngFor="let sk of subKey"
-                        [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{totalIndividualSec[key][sk] | currencyFormatter}}</td>
-                </tr>
-            </ng-container>
-            <tr>
-                <td class="sb-bg-gray">Expected Loss Given Default</td>
-                <td class="" [colSpan]="subKey?.length">{{(fixedAssets | currencyFormatter) ? fixedAssets:'0'}}</td>
-            </tr>
-            <tr>
-                <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
-                {{totalProposedLimit}}
-                {{totalIndividualSec?.total?.rv}}
-                <td class="" [colSpan]="subKey?.length">{{(totalProposedLimit / totalIndividualSec?.total?.rv)?.toFixed(2)   || '0'}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
     <div class="col-md-12">
         <label class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></label>
         <div class="row" *ngIf="vehicleSelected">

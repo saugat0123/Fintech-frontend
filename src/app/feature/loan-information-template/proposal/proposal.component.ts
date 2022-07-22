@@ -490,7 +490,8 @@ export class ProposalComponent implements OnInit {
                 processApplicable: [undefined],
             }),
             justification: [undefined],
-            currentRequest: [undefined]
+            currentRequest: [undefined],
+            repay: [undefined]
         });
     }
 
@@ -1181,6 +1182,7 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('justificationChangeProjection').setValue(formDataForEdit.justificationChangeProjection);
         this.proposalForm.get('justification').setValue(formDataForEdit.justification);
         this.proposalForm.get('currentRequest').setValue(formDataForEdit.currentRequest);
+        this.proposalForm.get('repay').setValue(formDataForEdit.repay);
     }
     patchValue(data) {
         this.proposalForm.patchValue(JSON.parse(data));
