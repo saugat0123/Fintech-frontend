@@ -243,12 +243,12 @@
                 </div>
             </div>
             </div>
-            <div *ngIf="!fromProfile">
+            <div *ngIf="!fromProfile" class="col-md-12 viewFull">
                 <p class="header"><strong class="header">Facility Utilization</strong></p>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-left"><strong>Overdraft utilization</strong>
-                        <span [innerHTML]="parsedData?.overdraftUtilization ? parsedData?.overdraftUtilization : 'N/A' | safeHtml">{{parsedData}}</span>
+                        <p class="text-left"><strong>Overdraft utilization</strong><br/>
+                        <span [innerHTML]="parsedData?.overdraftUtilization ? parsedData?.overdraftUtilization : 'N/A' | safeHtml"></span>
                         </p>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-left"><strong>Other Facility Utilization</strong>
+                        <p class="text-left"><strong>Other Facility Utilization</strong><br/>
                         <span [innerHTML]="parsedData?.otherFacilityUtilization ? parsedData?.otherFacilityUtilization : 'N/A' | safeHtml"></span>
                         </p>
                     </div>
@@ -275,7 +275,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-left"><strong>Letter of Credit issued</strong>
+                        <p class="text-left"><strong>Letter of Credit issued</strong><br/>
                         <span [innerHTML]="parsedData?.letterOfCreditIssued ? parsedData?.letterOfCreditIssued : 'N/A' | safeHtml"></span>
                         </p>
                     </div>
@@ -289,7 +289,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-left"><strong>Bank Guarantee issued</strong>
+                        <p class="text-left"><strong>Bank Guarantee issued</strong><br/>
                         <span [innerHTML]="parsedData?.bankGuaranteeIssued ? parsedData?.bankGuaranteeIssued : 'N/A' | safeHtml"></span>
                         </p>
                     </div>
@@ -303,7 +303,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-left"><strong>One off loans approved</strong>
+                        <p class="text-left"><strong>One off loans approved</strong><br/>
                         <span [innerHTML]="parsedData?.oneOffLoansApproved ? parsedData?.oneOffLoansApproved : 'N/A' | safeHtml"></span>
                         </p>
                     </div>
