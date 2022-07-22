@@ -97,23 +97,25 @@
                                    <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.financial?.historicalProjected">
                                        <hr class="print-line">
                                        <p><strong class="header text-left">Justification for Change (Historical): </strong>
-                                           <span class="text-left" style="display: flex"
-                                                 [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></span>
                                        </p>
+                                       <br>
+                                       <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></div>
                                    </div>
                                    <div class="col-md-12">
                                        <hr class="print-line">
                                        <p><strong class="header text-left">Justification for Change (Projection)
-                                           : </strong> <span class="text-left" style="display: flex"
-                                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></span>
+                                           : </strong>
                                        </p>
+                                       <div
+                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></div>
                                    </div>
                                    <div class="col-md-12">
                                        <hr class="print-line">
                                        <p><strong class="header text-left">Remarks
-                                           : </strong> <span class="text-left" style="display: flex"
-                                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></span>
-                                       </p>
+                                           : </strong> </p>
+
+                                       <div
+                                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
                                    </div>
                                </ng-container>
                                <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
