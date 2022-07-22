@@ -421,7 +421,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }),
             // Vehicle Detail
             vehicleDetail: this.formBuilder.group({
-                vehicleRegNo: [undefined]
+                vehicleRegNo: [undefined],
+                vehicleModelNo: [undefined]
             }),
             // Fixed Deposit Holder Detail
             fdHolderDetail: this.formBuilder.group({
@@ -612,7 +613,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 }),
                 // Vehicle Detail
                 vehicleDetail: this.formBuilder.group({
-                    vehicleRegNo: [value.vehicleDetail.vehicleRegNo]
+                    vehicleRegNo: [value.vehicleDetail.vehicleRegNo],
+                    vehicleModelNo: [value.vehicleDetail.vehicleModelNo]
                 }),
                 // Fixed Deposit Holder Detail
                 fdHolderDetail: this.formBuilder.group({
