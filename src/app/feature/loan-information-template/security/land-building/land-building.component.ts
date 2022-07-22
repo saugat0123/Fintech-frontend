@@ -214,10 +214,12 @@ export class LandBuildingComponent implements OnInit {
             .patchValue(Number(landConValue + landBuildingConValue));
         const FairMarketValueOfLand = (Number(this.landBuildingForm.get(['landBuilding', index, 'fairMarketValue']).value));
         const FairMarketValueOfBuilding = (Number(this.landBuildingForm.get(['landBuilding', index, 'totalCost']).value));
+        const MarketValueOfLand = (Number(this.landBuildingForm.get(['landBuilding', index, 'apartmentDistressValue']).value));
+        const MarketValueOfBuilding = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValue']).value));
+        this.landBuildingForm.get(['landBuilding', index, 'considerValue'])
+            .patchValue(MarketValueOfLand + MarketValueOfBuilding);
         this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue'])
             .patchValue(FairMarketValueOfLand + FairMarketValueOfBuilding);
-        this.landBuildingForm.get(['landBuilding', index, 'considerValue'])
-            .patchValue( this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue']).value);
         break;
       case 'lbUnderConstruction':
         const lbUnderConValue = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValueConstruction']).value)

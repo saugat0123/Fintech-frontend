@@ -1659,7 +1659,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="title" for="address">Authorized Person
-                                                        Citizenship Issue Date</label>
+                                                        Address</label>
                                                     <input class="form-control rounded nepaliFont"
                                                            formControlName="address"
                                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get(['collateralDetails', i, 'collateralAuthorizedPersonDetail'])?.get('address')?.errors}"
@@ -2186,7 +2186,6 @@
                                         Telephone Number</label>
                                     <input type="text"
                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get('branchDetail')?.get('branchTelNo')?.errors}"
-                                           readonly
                                            placeholder=""
                                            class="form-control form-control-sm nepaliFont font-size"
                                            id="branchTelNo"
