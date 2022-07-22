@@ -64,12 +64,6 @@ export class SecurityTotalSummaryComponent implements OnInit {
         this.customerAllLoanList.forEach((d) => {
             this.totalProposedLimit += d.withIn ? 0 : JSON.parse(d.proposal.data).proposedLimit;
         });
-        // const exposures: ExistingExposure[] = this.loanHolder.existingExposures.filter(d => d.docStatus.toString() === 'APPROVED');
-        // if (exposures.length > 0) {
-        //     exposures.forEach((d) => {
-        //         this.totalProposedLimit += JSON.parse(d.proposalData).proposedLimit;
-        //     });
-        // }
         if (!ObjectUtil.isEmpty(this.loanHolder.customerShareBatches) &&
             this.loanHolder.customerShareBatches.length > 0) {
             this.loanHolder.customerShareBatches[0].shareSecurity.forEach((share) => {
@@ -87,7 +81,6 @@ export class SecurityTotalSummaryComponent implements OnInit {
                 });
             }
         });
-        console.log('console.log', this.totalProposedLimit);
         this.fixedAssets = this.totalIndividualSec.total.rv - Number(this.totalProposedLimit);
         if (this.fixedAssets < 0) {
             this.fixedAssets = Math.abs(this.fixedAssets);
