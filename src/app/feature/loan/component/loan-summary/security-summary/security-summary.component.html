@@ -481,6 +481,9 @@
                                     <tr>
                                         <td colspan="1" class="text-left">Road Access Description</td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="1" class="text-left">Remarks</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -505,6 +508,7 @@
                                     <tr> <td class="text-right pl-1">{{(landBuilding?.revaluationData?.isReValuated | booleanConvert) || 'N/A'}}</td></tr>
                                     <tr><td class="text-right">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
                                     <tr><td class="text-right">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
+                                    <tr><td class="text-right">{{landBuilding?.landBuildingDescription || 'N/A'}}</td></tr>
 
                                     </tbody>
                                 </table>
