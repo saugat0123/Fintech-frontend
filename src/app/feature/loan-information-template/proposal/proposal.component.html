@@ -369,7 +369,16 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
-
+                                <div class="col-md-4"
+                                     *ngIf="isRevolving">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Repayment Mode</strong></label>
+                                        <input
+                                                class="form-control" formControlName="repay"
+                                                name="moratoriumPeriod" placeholder="Example: 4 month"
+                                                type="text">
+                                    </div>
+                                </div>
                                 <!--                                start of repayment mode-->
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">

@@ -1,35 +1,5 @@
 <div class="row mt-3" *ngIf="securities?.length > 0">
     <hr class="print-line">
-    <div class="col-md-12" *ngIf="pending">
-        <p class="header float-left"><strong class="header">Security Summary</strong></p>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-gray">
-                <th>Security Type</th>
-                <th *ngFor="let sk of subKey">{{sk | securitySummary}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let key of keys">
-                <tr *ngIf="totalIndividualSec[key]?.added">
-                    <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :'text-left'">{{key | securitySummary}}</td>
-                    <td *ngFor="let sk of subKey"
-                        [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{totalIndividualSec[key][sk] | currencyFormatter}}</td>
-                </tr>
-            </ng-container>
-            <tr>
-                <td class="sb-bg-gray">Expected Loss Given Default</td>
-                <td class="" [colSpan]="subKey?.length">{{(fixedAssets | currencyFormatter) ? fixedAssets:'0'}}</td>
-            </tr>
-            <tr>
-                <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
-                {{totalProposedLimit}}
-                {{totalIndividualSec?.total?.rv}}
-                <td class="" [colSpan]="subKey?.length">{{(totalProposedLimit / totalIndividualSec?.total?.rv)?.toFixed(2)   || '0'}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
     <div class="col-md-12">
         <p class="header" *ngIf="pending"><strong class="header">Security Schedule</strong></p>
         <p  class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></p>
@@ -511,6 +481,9 @@
                                     <tr>
                                         <td colspan="1" class="text-left">Road Access Description</td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="1" class="text-left">Remarks</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -535,6 +508,7 @@
                                     <tr> <td class="text-right pl-1">{{(landBuilding?.revaluationData?.isReValuated | booleanConvert) || 'N/A'}}</td></tr>
                                     <tr><td class="text-right">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
                                     <tr><td class="text-right">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
+                                    <tr><td class="text-right">{{landBuilding?.landBuildingDescription || 'N/A'}}</td></tr>
 
                                     </tbody>
                                 </table>

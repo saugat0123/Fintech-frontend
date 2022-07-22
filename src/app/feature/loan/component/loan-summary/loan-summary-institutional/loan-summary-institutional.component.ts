@@ -58,7 +58,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
   @Input() nepaliDate;
   @Input() customerAllLoanList: LoanDataHolder [];
-  @Input() loanSecurity: Array<Security> = [];
+  @Input() loanSecurity: Array<Security>;
   @Input() approvedSecurity: Array<Security> = [];
 
   client: string;

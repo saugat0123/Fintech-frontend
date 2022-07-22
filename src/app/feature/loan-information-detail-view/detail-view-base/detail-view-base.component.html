@@ -6,9 +6,9 @@
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
     </div>
 
-    <app-security-summary [customerAllLoanList]="customerAllLoanList" *ngIf="loaded" [pending]="true"></app-security-summary>
-    <app-security-summary [customerAllLoanList]="customerAllLoanList" *ngIf="loaded" [pending]="false"></app-security-summary>
-    <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
+<!--    <app-security-summary [customerAllLoanList]="customerAllLoanList" *ngIf="loaded" [pending]="true"></app-security-summary>-->
+<!--    <app-security-summary [customerAllLoanList]="customerAllLoanList" *ngIf="loaded" [pending]="false"></app-security-summary>-->
+<!--    <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>-->
 
 
     <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
