@@ -475,9 +475,6 @@
                                     <tr>
                                         <td colspan="1" class="text-left pl-2">Road Access Description</td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="1" class="text-left">Remarks</td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -485,24 +482,21 @@
                                 <table class="table table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
                                     <tr> <td class="text-left pl-2">{{landBuilding?.owner || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2">{{landBuilding?.colateralRelationship || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">{{(landBuilding?.totalBuildingArea + ' '+ landBuilding?.areaFormat || 'N/A')}}</td></tr>
-                                    <tr> <td class="text-left pl-2">{{landBuilding?.area + ' '+ landBuilding?.areaFormat || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td  class="text-left pl-2">Rs. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.totalLandRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.totalApartmentRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{landBuilding?.landBuildingCollateralOwnerRelationship || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{landBuilding?.location || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2">{{(landBuilding?.revaluationData?.isReValuated | booleanConvert) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.area + ' ('+ landBuilding?.areaFormat + ')'|| 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{(landBuilding?.totalBuildingArea + ' (Sq.Ft)' || 'N/A')}}</td></tr>
+                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.considerValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.landBuildingFirstValuationDate ? (landBuilding?.landBuildingFirstValuationDate | date) : 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
                                     <tr><td class="text-left pl-2">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
                                     <tr><td class="text-left pl-2">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
-                                    <tr><td class="text-left pl-2">{{landBuilding?.landBuildingDescription || 'N/A'}}</td></tr>
 
                                     </tbody>
                                 </table>
