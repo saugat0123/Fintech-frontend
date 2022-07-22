@@ -75,7 +75,6 @@ export class LandBuildingComponent implements OnInit {
   private buildForm(): FormGroup {
     return this.landBuildingForm = this.formBuilder.group({
       lbCrossChecked: [undefined],
-      landBuildingDescription: [undefined],
       lbExposureTotal: [undefined],
       lbRmValueTotal: [undefined],
       lbFmvOfFacTotal: [undefined],
@@ -347,7 +346,7 @@ export class LandBuildingComponent implements OnInit {
       landBuildingFirstValuationDate: [undefined],
       isValuated: [undefined],
       mortgaged: [undefined],
-
+      landBuildingDescription: [undefined],
     });
   }
 
@@ -454,6 +453,8 @@ export class LandBuildingComponent implements OnInit {
           landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : ''],
           isValuated: [formData.isValuated],
           mortgaged: [formData.mortgaged],
+          totalMarketValue: [formData.totalMarketValue],
+          landBuildingDescription: [formData.landBuildingDescription],
         })
     );
   }
