@@ -22,6 +22,7 @@ import {SecurityViewModule} from '../loan-information-view/security-view/securit
 import {
     FinancialAccountInformationModule
 } from '../loan-information-template/financial-account-information/financial-account-information.module';
+import {FacilityUtilizationModule} from '../loan/component/facility-utilization/facility-utilization.module';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import {
         VideoKycModule,
         SecurityViewModule,
         FinancialAccountInformationModule,
+        FacilityUtilizationModule,
 
     ]
 })
