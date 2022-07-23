@@ -300,7 +300,13 @@
                    </div>
                </div>
            </ng-container>
-
+            <div *ngIf="loanDataHolder?.loanHolder?.facilityUtilization">
+                <hr class="print-line">
+                <app-facility-utilization
+                        [fromProfile]="false"
+                        [facilityUtilizationData]="loanDataHolder?.loanHolder?.facilityUtilization">
+                </app-facility-utilization>
+            </div>
             <hr class="print-line">
             <div class="row mt-3">
                 <div class="col-md-12">

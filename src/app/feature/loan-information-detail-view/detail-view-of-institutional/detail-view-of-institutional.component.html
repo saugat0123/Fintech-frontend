@@ -434,7 +434,10 @@
         <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
                                      *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
     </ng-container>
-    <app-financial-account-information *ngIf="loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
-                                       [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
-                                       [fromLoan]="false"></app-financial-account-information>
 </ng-container>
+<app-financial-account-information *ngIf="loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
+                                   [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
+                                   [fromLoan]="false"></app-financial-account-information>
+<app-facility-utilization *ngIf="loanDataHolder?.loanHolder?.facilityUtilization"
+                          [fromProfile]="false" [facilityUtilizationData]="loanDataHolder?.loanHolder?.facilityUtilization">
+</app-facility-utilization>
