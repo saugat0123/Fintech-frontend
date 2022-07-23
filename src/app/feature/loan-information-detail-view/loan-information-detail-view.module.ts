@@ -22,6 +22,7 @@ import {SecurityViewModule} from '../loan-information-view/security-view/securit
 import {
     FinancialAccountInformationModule
 } from '../loan-information-template/financial-account-information/financial-account-information.module';
+import {FacilityUtilizationModule} from '../loan/component/facility-utilization/facility-utilization.module';
 import {SecurityTotalSummaryModule} from '../security-total-summary/security-total-summary.module';
 
 
@@ -48,6 +49,7 @@ import {SecurityTotalSummaryModule} from '../security-total-summary/security-tot
         VideoKycModule,
         SecurityViewModule,
         FinancialAccountInformationModule,
+        FacilityUtilizationModule,
         SecurityTotalSummaryModule,
 
     ]
