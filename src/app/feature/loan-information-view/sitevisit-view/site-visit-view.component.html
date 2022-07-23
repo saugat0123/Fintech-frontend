@@ -1,5 +1,5 @@
 <p class="header"><b class="header">Site Visit</b></p>
-<p *ngIf="formData['currentResidentFormChecked'] === true" class="font-weight-bold sub-header">Current Resident Details</p>
+<p *ngIf="formData['currentResidentFormChecked'] === true" class="text-center font-weight-bold sub-header">Current Resident Details</p>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
     <tr class="sb-bg-gray">
@@ -49,7 +49,7 @@
     </tr>
 </table>
 <!-- ============================================================= Business Site Visit ==============================================================-->
-<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="font-weight-bold"><strong class="header">Business Inspection Report</strong></p>
+<p *ngIf="formData['businessSiteVisitFormChecked'] === true" class="text-center font-weight-bold"><strong class="sub-header">Business Inspection Report</strong></p>
 <!--<table *ngIf="formData['businessSiteVisitFormChecked'] === true"-->
 <!--       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
 <!--    <tr class="sb-bg-gray">-->
@@ -134,7 +134,7 @@
                         <td>Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</td>
                         <td>{{(loan?.proposal?.data | jsonParse)?.remarks}}</td>
                     </tr>
-                    <tr class="sb-bg-secondary text-white text-left">
+                    <tr class="sb-bg-gray text-left">
                         <td>Total</td>
                         <td>Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                         <td></td>
@@ -233,7 +233,6 @@
     <tr class="text-left">
         <td>
             8. Was there evidence of any other bank or party being interested in the goods hypothecated to the Bank?  {{formData['businessSiteVisitDetails']['evidenceRadio']}}
-            If, yes mention the names of banks/other parties. {{formData['businessSiteVisitDetails']['nameOfBank']}}
         </td>
     </tr>
     <tr class="text-left">
@@ -269,12 +268,27 @@
     <tr class="text-left">
         <td>
             14. Factors of environment & social risk assessed during the inspection? {{formData['businessSiteVisitDetails']['environmentRadio']}}
-            Remarks/updates, if any: {{formData['businessSiteVisitDetails']['remarksUpdates']}}
         </td>
     </tr>
     <tr class="text-left">
         <td>
-            Remarks (If any): {{formData['businessSiteVisitDetails']['remarksIfAny']}}
+            Remarks (If any):
+            <ul>
+                <li>
+                    {{formData['businessSiteVisitDetails']['remarksIfAny']}}
+                </li>
+                <li *ngIf="formData['businessSiteVisitDetails']['businessSiteVisitLatitude'] || formData['businessSiteVisitDetails']['businessSiteVisitLongitude']">
+                   <strong>Location</strong>
+                    <ul>
+                        <li>
+                            Latitude: {{formData['businessSiteVisitDetails']['businessSiteVisitLatitude']}}
+                        </li>
+                        <li>
+                            Longitude: {{formData['businessSiteVisitDetails']['businessSiteVisitLongitude']}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
             <br/><br/>
             <p><em style="color: red">Note: Please upload documents of stock, receivables and payables (with ageing) duly signed and stamped by the authorized person. (Please ensure documents are readable; printed format is preferred)</em></p>
         </td>
@@ -282,20 +296,20 @@
 </table>
 <table class="table table-borderless table-responsive-md text-center" *ngIf="formData['businessSiteVisitFormChecked'] === true">
     <tr class="text-left">
-        <td>------------------------------</td>
-        <td>------------------------------</td>
+        <td>____________________________________________________________</td>
+        <td>____________________________________________________________</td>
     </tr>
     <tr class="text-left">
         <td>Inspected by</td>
         <td>Reviewed by</td>
     </tr>
     <tr class="text-left">
-        <td>Name:</td>
-        <td>Name:</td>
+        <td>Name: {{formData['businessSiteVisitDetails']['staffRepresentativeName']}}</td>
+        <td>Name: {{formData['businessSiteVisitDetails']['staffRepresentativeName2']}}</td>
     </tr>
     <tr class="text-left">
-        <td>Designation:</td>
-        <td>Designation:</td>
+        <td>Designation: {{formData['businessSiteVisitDetails']['staffRepresentativeNameDesignation']}}</td>
+        <td>Designation: {{formData['businessSiteVisitDetails']['staffRepresentativeNameDesignation2']}}</td>
     </tr>
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
