@@ -212,6 +212,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   fullSettlement = false;
 
   ngOnInit() {
+    console.log('loanholder::::', this.loanDataHolder);
     this.getLoanDataHolder();
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
       this.fullSettlement = true;

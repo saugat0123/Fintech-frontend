@@ -114,7 +114,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="title" for="location">Location</label>
+                            <label class="title" for="location">Current Address</label>
                             <input class="form-control rounded" formControlName="location"
                                    id="location"
                                    name="location" placeholder="Location"
@@ -433,7 +433,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="title" for="landFirstValuationDate">First Valuation Date</label>
+                            <label class="title" for="landFirstValuationDate">Last Valuation Date</label>
                             <input *ngIf="calendarType === 'AD'" class="form-control rounded"
                                    formControlName="landFirstValuationDate"
                                    id="landFirstValuationDate"
@@ -544,7 +544,7 @@
                           rows="5"></textarea>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="form-group col-md-12">
                 <table class="table table-bordered">
                     <thead class="thead-light">
@@ -566,6 +566,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div>-->
     </form>
 </nb-card>

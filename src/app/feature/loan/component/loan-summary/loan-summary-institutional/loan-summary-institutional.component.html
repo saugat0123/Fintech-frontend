@@ -10,6 +10,9 @@
             </ng-container>
             <!--                release and replacement-->
             <ng-container>
+                <div class="col-md-12 mb-0">
+                    <label class="header"><strong class="header">Security Schedule</strong></label>
+                </div>
                 <app-security-total-summary [securities]="loanSecurity"
                                             [approvedSec]="approvedSecurity"
                                             [loanHolder]="loanDataHolder?.loanHolder"
@@ -47,20 +50,17 @@
                        <div class="col-md-12">
                            <div>
                                <div class="col-md-12">
-                                   <p><strong class="header text-left">Purpose of Loan: </strong></p>
-                                   <table class="table table-borderless table-responsive">
-                                       <tbody *ngFor="let loan of customerAllLoanList; let i = index">
-                                       <tr>
-                                           <td>
-                                               <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                                               <span *ngIf="loan?.loanType === 'FULL_SETTLEMENT_LOAN' || loan?.loanType === 'PARTIAL_SETTLEMENT_LOAN'"><b>Remarks:</b>
-                                                   <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.remarks || 'N/A' | safeHtml"></span>
-                                              </span>
-                                           </td>
-                                       </tr>
-                                       </tbody>
-                                   </table>
+                                   <p><strong class="header text-left">Purpose of Loan </strong></p>
+                                   <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                                       <ng-container *ngIf="loan?.id">
+                                           <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                           <ul>
+                                               <li>
+                                                   <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                               </li>
+                                           </ul>
+                                       </ng-container>
+                                   </ng-container>
                                </div>
                                <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                                    <hr class="print-line">
@@ -80,8 +80,9 @@
                                               [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                                               [loanDataHolder]="loanDataHolder"></app-cicl-view>
                                <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
-                                   <p class="text-left header"><strong class="header">Financial/Account Information Assessment</strong></p>
-                                   <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
+                                   <hr class="print-line">
+                                   <app-financial-account-information [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
+                                                                      [fromLoan]="false"></app-financial-account-information>
                                </ng-container>
                                <ng-template #financials>
                                <div class="row">
@@ -94,28 +95,23 @@
                                </div>
                                </ng-template>
                                <ng-container>
-                                   <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.financial?.historicalProjected">
+                                   <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
                                        <hr class="print-line">
-                                       <p><strong class="header text-left">Justification for Change (Historical): </strong>
-                                       </p>
-                                       <br>
+                                       <p><strong class="header text-left">Justification for Change (Historical): </strong></p>
                                        <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></div>
                                    </div>
-                                   <div class="col-md-12">
+                                   <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection">
                                        <hr class="print-line">
                                        <p><strong class="header text-left">Justification for Change (Projection)
                                            : </strong>
                                        </p>
-                                       <div
-                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></div>
+                                       <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></div>
                                    </div>
-                                   <div class="col-md-12">
+                                   <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks">
                                        <hr class="print-line">
-                                       <p><strong class="header text-left">Remarks
-                                           : </strong> </p>
+                                       <p><strong class="header text-left">Remarks : </strong> </p>
 
-                                       <div
-                                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
+                                       <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
                                    </div>
                                </ng-container>
                                <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
@@ -131,7 +127,7 @@
                                        <p class="text-right">(Amount in NPR ‘000s)</p>
                                        <table class="table table-sm table-bordered table-hover sb-small text-center">
                                            <thead>
-                                           <tr class="sb-bg-dark text-white">
+                                           <tr class="sb-bg-gray">
                                                <th>S.N</th>
                                                <th>Particulars</th>
                                                <th>Unit</th>
@@ -155,6 +151,7 @@
                                            </tbody>
                                        </table>
                                    </div>
+                                   <hr class="print-line">
                                    <div class="col-md-12 form-group">
                                        <div class="row">
                                            <div class="col-md-12 text-left">
@@ -163,7 +160,7 @@
                                        </div>
                                        <table class="table table-sm table-bordered table-hover sb-small text-center">
                                            <thead>
-                                           <tr class="sb-bg-dark text-white">
+                                           <tr class="sb-bg-gray">
                                                <th>S.N</th>
                                                <th>Particulars</th>
                                                <th>Remarks</th>
@@ -210,7 +207,7 @@
                                    <hr class="print-line header">
                                    <p class="header"><strong class="header">Waivers</strong></p>
                                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                       <tr class="  text-white sb-bg-dark">
+                                       <tr class="sb-bg-gray">
                                            <th class="">Waiver</th>
                                        </tr>
                                        <tr>
@@ -224,7 +221,7 @@
                                    <hr class="print-line header">
                                    <p class="header"><strong class="header">Deviation</strong></p>
                                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                       <tr class="text-white sb-bg-dark">
+                                       <tr class="sb-bg-gray">
                                            <th class="">Deviation</th>
                                        </tr>
                                        <tr>
@@ -317,7 +314,7 @@
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white">
+                        <tr class="sb-bg-gray">
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
@@ -413,9 +410,9 @@
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-2 padding-0-125">
+                     class="col-md-3 padding-0-125">
                     <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
                             <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
@@ -425,7 +422,7 @@
                                  class="img-thumbnail border-0 signature-height signature-width"
                                  src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                         </div>
-                        <div class="text-center signature-detail sb-bg-secondary text-white">
+                        <div class="text-center signature-detail sb-bg-gray">
                             <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
                             <p class="m-0 sb-small">
                                 ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}

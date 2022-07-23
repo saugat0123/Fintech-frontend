@@ -8,3 +8,6 @@ table {
 .table-bordered, th, td {
   border: 1px solid black !important;
 }
+hr.print-line {
+  border-top: 1px solid black;
+}
