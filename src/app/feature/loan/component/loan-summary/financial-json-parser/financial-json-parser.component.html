@@ -24,16 +24,16 @@
     </div>
     <!--financial dynamic table-->
     <div class="col-md-12">
-        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover text-white">
+        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover">
             <thead>
-            <tr class=" sb-bg-dark  text-dark">
+            <tr class="sb-bg-gray">
                 <td width="25%"><strong>Particular</strong></td>
                 <td *ngFor="let header of financialJson?.column"><strong>{{header}}</strong></td>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let schema of financialJson.schema; let i = index">
-                <td class=" sb-bg-dark text-dark"><strong>{{schema}}</strong></td>
+                <td class=" sb-bg-gray"><strong>{{schema}}</strong></td>
                 <ng-container *ngIf="schema === 'Gross Profit (Contribution) Margin'
               ||schema === 'Net Profit Margin'
               || schema === 'Operating Profit Margin'
@@ -84,9 +84,9 @@
 </form>
 <ng-template #summary>
     <div class="col-md-12">
-        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover text-white">
+        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover">
             <thead>
-            <tr class=" sb-bg-dark  text-dark">
+            <tr class=" sb-bg-gray">
                 <td width="25%"><strong>Particular</strong></td>
                 <td *ngFor="let header of financialJson?.column"><strong>{{header}}</strong></td>
             </tr>
@@ -112,7 +112,7 @@
                      || schema === 'NET CASH AFTER OPERATIONS'
                      || schema?.split(' ')?.join('') === 'CASHAFTERFINANCINGCOST(21+26)'
                      || schema === 'CASH AFTER DEBT AMORTISATION(27-28)' ))">
-                  <td class=" sb-bg-dark text-dark"><strong>{{schema}}</strong></td>
+                  <td class=" sb-bg-gray"><strong>{{schema}}</strong></td>
                   <ng-container *ngIf="schema === 'Gross Profit (Contribution) Margin'
               ||schema === 'Net Profit Margin'
               || schema === 'Operating Profit Margin'

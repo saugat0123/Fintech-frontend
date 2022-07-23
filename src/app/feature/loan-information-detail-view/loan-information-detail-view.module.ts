@@ -23,6 +23,7 @@ import {
     FinancialAccountInformationModule
 } from '../loan-information-template/financial-account-information/financial-account-information.module';
 import {FacilityUtilizationModule} from '../loan/component/facility-utilization/facility-utilization.module';
+import {SecurityTotalSummaryModule} from '../security-total-summary/security-total-summary.module';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {FacilityUtilizationModule} from '../loan/component/facility-utilization/
         SecurityViewModule,
         FinancialAccountInformationModule,
         FacilityUtilizationModule,
+        SecurityTotalSummaryModule,
 
     ]
 })

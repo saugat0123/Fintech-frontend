@@ -1,7 +1,7 @@
 <div *ngIf="individual && !isJointInfo" class="row">
     <ng-container *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" >
         <div class="col-md-12">
-            <p><b>Address Verification</b></p>
+            <p class="header"><b class="header">Address Verification</b></p>
             <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                 <tr class="sb-bg-gray">
                     <th colspan="6">Permanent Address</th>
@@ -44,95 +44,59 @@
             </table>
         </div>
     </ng-container>
-<div class="col-md-12">
-    <p><strong>Applicant/Guarantor Profile</strong></p>
+<div class="col-md-12 mt-3">
+    <hr class="print-line">
+    <p class="header"><strong class="header">Applicant/Guarantor Profile</strong></p>
 </div>
     <div *ngIf="!isRemit" class="borrower_class">
-        <p class="sub-header"><strong class="sub-header">Borrower Details</strong></p>
+        <p class="sub-header"><strong class="sub-header">Applicant Details</strong></p>
             <div class="col-md-12">
                 <div>
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-left">
                             <td class="sb-bg-gray">Name</td>
-                            <td class="pl-1 text-right">{{individual?.customerName}}</td>
+                            <td class="pl-1 text-left">{{loanDataHolder?.customerInfo?.customerName}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Customer Id</td>
-                            <td class="pl-1 text-right">{{customerInfo?.customerCode || 'N/A'}}</td>
+                        <tr>
+                            <td class="sb-bg-gray text-left">Age</td>
+                            <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob) || 'N/A'}} years </td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Date of birth(AD/BS)</td>
-                            <td class="pl-1 text-right">{{individual?.dob | date}}
-                                ({{individual?.dob | engNepDate: false}}
-                                )
-                            </td>
+                        <tr>
+                            <td class="sb-bg-gray text-left">Marital Status</td>
+                            <td class="text-left pl-1">{{(loanDataHolder?.loanHolder?.maritalStatus | titlecase) || 'N/A'}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Age</td>
-                            <td class="pl-1 text-right">{{calculateAge(individual?.dob)}} years</td>
+                        <tr>
+                            <td class="text-left sb-bg-gray">Father's Name</td>
+                            <td class="pl-1 text-left">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Citizenship no.</td>
-                            <td class="pl-1 text-right">{{individual?.citizenshipNumber}}</td>
+                        <tr>
+                            <td class="text-left sb-bg-gray">Grand Father's Name</td>
+                            <td class="pl-1 text-left">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Citizenship Issued Date(AD/BS)</td>
-                            <td class="pl-1 text-right">{{individual?.citizenshipIssuedDate | date}}
-                                ({{individual?.citizenshipIssuedDate | engNepDate: false}})
-                            </td>
+                        <tr>
+                            <td class="sb-bg-gray text-left">Date Of Birth (AD)</td>
+                            <td class="pl-1 text-left">{{loanDataHolder?.customerInfo?.dob | date}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Issued Place</td>
-                            <td class="pl-1 text-right">{{individual?.citizenshipIssuedPlace}}</td>
+                        <!--                        <tr>-->
+                        <!--                            <td class="sb-bg-gray text-left">Citizenship Number</td>-->
+                        <!--                            <td class="text-left pr-1">{{loanHolder?.customerInfo?.citizenshipNumber || 'N/A'}}</td>-->
+                        <!--                        </tr>-->
+                        <tr>
+                            <td class="sb-bg-gray text-left">Phone Number</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.contactNumber || 'N/A'}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Gender</td>
-                            <td class="pl-1 text-right">{{individual?.gender}}</td>
+                        <tr>
+                            <td class="sb-bg-gray text-left">LandLine Number</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.landLineNumber || 'N/A'}}</td>
                         </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Marital Status</td>
-                            <td class="pl-1 text-right">{{individual?.maritalStatus}}</td>
+                        <tr>
+                            <td class="sb-bg-gray text-left">E-mail</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.email || 'N/A'}}</td>
                         </tr>
-                        <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
-                            <td class="sb-bg-gray">Father's Name</td>
-                            <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
-                            <td class="sb-bg-gray">Grandfather's Name</td>
-                            <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Mobile Number</td>
-                            <td class="pl-1 text-right">{{individual?.contactNumber || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">LandLine Number</td>
-                            <td class="pl-1 text-right">{{individual?.landLineNumber || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Email</td>
-                            <td class="pl-1 text-right">{{individual?.email || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Occupation</td>
-                            <td class="pl-1 text-right">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Income Source</td>
-                            <td class="pl-1 text-right">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Client Type</td>
-                            <td class="pl-1 text-right">{{loanDataHolder?.loanHolder?.clientType | clientType}}</td>
-                        </tr>
-                        <tr class="text-left">
-                            <td class="sb-bg-gray">Address as per Legal Document</td>
-                            <td class="pl-1 text-right">{{customerInfo?.customerLegalDocumentAddress}}</td>
-                        </tr>
-                        <tr class="text-left" *ngIf="client === clientName?.SHINE_RESUNGA">
-                            <td class="sb-bg-gray">Obligor Code</td>
-                            <td class="pl-1 text-right">{{customerInfo?.obligor}}</td>
+                        <tr>
+                            <td class="sb-bg-gray text-left">Occupation</td>
+                            <td class="pl-1 text-left">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                         </tr>
                     </table>
                 </div>
@@ -164,8 +128,8 @@
                             {{relative?.customerRelation}}
                         </td>
                         <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
-                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse) === 'Other'">{{relative?.occupation || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
+                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] === 'Other'">{{relative?.occupation || 'N/A'}}</td>
+                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] !== 'Other'">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
 
                     </tr>
                     </tbody>

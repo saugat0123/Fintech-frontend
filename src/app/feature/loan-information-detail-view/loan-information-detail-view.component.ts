@@ -62,7 +62,13 @@ export class LoanInformationDetailViewComponent implements OnInit {
     combinedLoan;
     combined = false;
     allLoanList = [];
+    loanSecurity = [];
+    approvedSecurity = [];
     combinedLoanList = [];
+    consumerFinance = false;
+    smallBusiness = false;
+    deprivedSector = false;
+    microFinancialService = false;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -94,6 +100,17 @@ export class LoanInformationDetailViewComponent implements OnInit {
             }
             if (ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.insurance)) {
                 this.loanDataHolder.loanHolder.insurance = [];
+            }
+            if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+                this.consumerFinance = true;
+            } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
+                this.smallBusiness = true;
+            }
+            if (this.loanDataHolder.loanHolder.clientType === 'DEPRIVED_SECTOR') {
+                this.deprivedSector = true;
+            }
+            if (this.loanDataHolder.loanHolder.clientType === 'MICRO_FINANCIAL_SERVICES') {
+                this.microFinancialService = true;
             }
 
             // Setting credit risk GAMMA data---
@@ -249,6 +266,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                         this.combinedLoanList = res.detail.loans;
                         this.allLoanList = res.detail.loans;
                         (res.detail as CombinedLoan).loans.forEach((cl) => {
+                            this.loanSecurity = this.loanSecurity.concat(cl.securities);
                             const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                             if (!allLoanIds.includes(cl.id)) {
                                 this.customerAllLoanList.push(cl);
@@ -265,6 +283,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
             } else {
                 this.loaded = true;
                 this.allLoanList.push(this.loanDataHolder);
+                this.loanSecurity = this.loanDataHolder.securities;
                 this.customerAllLoanList = [];
                 this.customerAllLoanList.push(this.loanDataHolder);
             }
@@ -285,6 +304,14 @@ export class LoanInformationDetailViewComponent implements OnInit {
                         this.customerAllLoanList.push(loan);
                     }
                 });
+            }
+            const uniqueLoanIds = this.customerAllLoanList.map(d => d.id);
+            this.customerAllLoanList =  this.customerAllLoanList
+                .filter((value, index) => value.id === null || uniqueLoanIds.indexOf(value.id) === index);
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.approvedSecurities)) {
+                const approvedId = this.loanDataHolder.loanHolder.approvedSecurities.map((d) => d.id);
+                this.approvedSecurity = this.loanDataHolder.loanHolder.approvedSecurities
+                    .filter((value, index, self) => approvedId.indexOf(value.id) === index);
             }
         }
 

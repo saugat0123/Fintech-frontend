@@ -7,15 +7,30 @@
 </div>
 
 <!--                release and replacement-->
-<ng-container *ngIf="loanDataHolder?.securities?.length > 0">
-    <!--                    proposed security-->
+<!--<ng-container *ngIf="loanDataHolder?.securities?.length > 0">
+    &lt;!&ndash;                    proposed security&ndash;&gt;
     <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
                               [pending]="true"></app-security-detail-view>
 </ng-container>
 <ng-container>
-    <!--                    existing security-->
+    &lt;!&ndash;                    existing security&ndash;&gt;
     <app-security-detail-view *ngIf="customerAllLoanList"
                               [customerAllLoanList]="customerAllLoanList"></app-security-detail-view>
+</ng-container>-->
+<ng-container>
+    <hr class="print-line">
+    <p class="header"><strong class="header">Security Schedule</strong></p>
+    <app-security-total-summary [securities]="loanSecurity"
+                                [approvedSec]="approvedSecurity"
+                                [loanHolder]="loanDataHolder?.loanHolder"
+                                [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
+    <!--                    proposed security-->
+    <app-security-summary *ngIf="customerAllLoanList"
+                          [securities]="loanSecurity"
+                          [pending]="true"></app-security-summary>
+    <!--                    existing security-->
+    <app-security-summary *ngIf="customerAllLoanList"
+                          [securities]="approvedSecurity"></app-security-summary>
 </ng-container>
 <app-security-schedule
                        [loanDataHolder]="loanDataHolder"></app-security-schedule>
@@ -23,7 +38,7 @@
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                 [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
 </app-customer-share-detail-view>
-
+<hr class="print-line">
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
                      [loanDataHolder]="loanDataHolder"
@@ -31,11 +46,12 @@
                      [individual]="loanDataHolder?.customerInfo"
                      [loanId]="loanId" [customerInfo]="loanHolder"
                      [proposalData]="loanDataHolder?.proposal"></app-individual-view>
-
+<hr class="print-line">
 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"
+                    [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-
+<hr class="print-line">
 <div>
     <app-financial-view *ngIf="loanDataHolder?.financial"
                         [customerType]="loanDataHolder?.loanHolder?.customerType"
