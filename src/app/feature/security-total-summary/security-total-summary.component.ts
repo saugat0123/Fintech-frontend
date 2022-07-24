@@ -56,7 +56,7 @@ export class SecurityTotalSummaryComponent implements OnInit {
   constructor() {
   }
     ngOnInit() {
-        this.securities = this.securities.concat(this.approvedSec);
+        this.approvedSec = this.approvedSec.concat(this.securities);
         this.subKey.pop();
         // getting total proposed limit
         this.selectedSecurities();
