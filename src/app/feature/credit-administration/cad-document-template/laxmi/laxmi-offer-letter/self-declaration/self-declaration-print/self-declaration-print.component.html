@@ -2,19 +2,19 @@
     <div class="col-md-12 viewFull">
         <div class="text-justify nepali">
             <p class="float-right">
-                मिति: <span class="nepaliFont">{{printDocForm.year}}</span>/<span
-                    class="nepaliFont">{{printDocForm.month}}</span>/<span
-                    class="nepaliFont">{{printDocForm.day}}</span>
+                मिति: <span class="nepaliFont">{{printDocForm.year  ? printDocForm.year : '==========='}}</span>/<span
+                    class="nepaliFont">{{printDocForm.month ? printDocForm.month : '==========='}}</span>/<span
+                    class="nepaliFont">{{printDocForm.day ? printDocForm.day : '==========='}}</span>
             </p>
             <p>
                 श्री लक्ष्मी बैंक लि.
                 <br>
-                शाखा कार्यालय, <span>{{this.cadData.assignedLoan[0].branch.nepaliName}}</span> ।
+                शाखा कार्यालय, <span>{{this.nepaliData?.branchDetail?.branchNameInNepali}}</span> ।
             </p>
             <p class="text-center"><span class="font-weight-bold"> विषय: घोषना गरेको सम्बन्धमा ।</span></p>
             मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <span class="font-weight-bold">रु.</span> <span
-                class="nepaliFont font-weight-bold">{{printDocForm?.amount}}</span>/–
-            <span class="font-weight-bold">(अक्षरेपी रुपैया </span> <span class="nepaliFont size font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(printDocForm?.amount))}}</span>) भन्दा बढी कर्जा उपभोग
+                class="nepaliFont font-weight-bold">{{nepaliData?.miscellaneousDetail?.loanAmountInFig ? nepaliData?.miscellaneousDetail?.loanAmountInFig : '==========='}}</span>/–
+            <span class="font-weight-bold">(अक्षरेपी रुपैया </span> <span class="nepaliFont size font-weight-bold">{{nepaliData?.miscellaneousDetail?.loanAmountInWord ? nepaliData?.miscellaneousDetail?.loanAmountInWord : '==========='}}</span>) भन्दा बढी कर्जा उपभोग
             गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
             <br>
             <div *ngIf="individual">
@@ -23,19 +23,25 @@
                     <tr>
                         <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.nameOfIndividualDeclaration}}</span>
+                            <span class="nepaliFont size">{{nepaliData?.nepaliName ? nepaliData?.nepaliName : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>स्थायी ठेगाना :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.permanentAddressOfIndividualDeclaration}}</span>
+                            <span class="nepaliFont size">{{nepaliData.customerPermanentAddress.district ? nepaliData.customerPermanentAddress.district  : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.customerPermanentAddress.municipality ? nepaliData.customerPermanentAddress.municipality : '==========='}}</span>,
+                            <span class="nepaliFont fontSize">{{nepaliData.customerPermanentAddress.wardNo ? nepaliData.customerPermanentAddress.wardNo : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.customerPermanentAddress.tole ? nepaliData.customerPermanentAddress.tole : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>हालको ठेगाना :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.temporaryAddressOfIndividualDeclaration}}</span>
+                            <span class="nepaliFont size">{{nepaliData.customerTemporaryAddress.district ? nepaliData.customerTemporaryAddress.district : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.customerTemporaryAddress.municipality ? nepaliData.customerTemporaryAddress.municipality : '==========='}}</span>,
+                            <span class="nepaliFont fontSize">{{nepaliData.customerTemporaryAddress.wardNo ? nepaliData.customerTemporaryAddress.wardNo : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.customerTemporaryAddress.tole ? nepaliData.customerTemporaryAddress.tole : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -51,25 +57,31 @@
                     <tr>
                         <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.nameOfInstitutionDeclaration}}</span>
+                            <span class="nepaliFont size">{{nepaliData?.nepaliName ? nepaliData?.nepaliName : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>अख्तियार प्राप्त व्यक्ति/प्रोपाईटरको दस्तखत :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.signatureOfProprietor}}</span>
+                            <span class="nepaliFont">{{printDocForm.signatureOfProprietor ? printDocForm.signatureOfProprietor : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>स्थायी ठेगाना :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.permanentAddressOfInstitutionDeclaration}}</span>
+                            <span class="nepaliFont size">{{nepaliData.institutionRegisteredAddress.district ? nepaliData.institutionRegisteredAddress.district : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.institutionRegisteredAddress.municipality ? nepaliData.institutionRegisteredAddress.municipality : '==========='}}</span>,
+                            <span class="nepaliFont fontSize">{{nepaliData.institutionRegisteredAddress.wardNo ? nepaliData.institutionRegisteredAddress.wardNo : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.institutionRegisteredAddress.tole ? nepaliData.institutionRegisteredAddress.tole : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>हालको ठेगाना :</td>
                         <td>
-                            <span class="nepaliFont">{{printDocForm.temporaryAddressOfInstitutionDeclaration}}</span>
+                            <span class="nepaliFont size">{{nepaliData.institutionCurrentAddress.district ? nepaliData.institutionCurrentAddress.district : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.institutionCurrentAddress.municipality ? nepaliData.institutionCurrentAddress.municipality : '==========='}}</span>,
+                            <span class="nepaliFont fontSize">{{nepaliData.institutionCurrentAddress.wardNo ? nepaliData.institutionCurrentAddress.wardNo : '==========='}}</span>,
+                            <span class="nepaliFont size">{{nepaliData.institutionCurrentAddress.tole ? nepaliData.institutionCurrentAddress.tole : '==========='}}</span>
                         </td>
                     </tr>
                     <tr>
