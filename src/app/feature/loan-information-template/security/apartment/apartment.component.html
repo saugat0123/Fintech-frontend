@@ -442,21 +442,21 @@
                     <ng-template [ngTemplateOutlet]="apartment"></ng-template>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label class="title ml-3" for="buildingDetailsDescription">Remarks of apartment</label>
+                        <textarea class="form-control ml-3 rounded" cols="95" formControlName="remarks"
+                                  id="buildingDetailsDescription"
+                                  placeholder="Remarks of apartment"
+                                  rows="5"></textarea>
+                    </div>
+                </div>
             </div>
 
         </div>
         <div class="text-right" >
             <input (click)="addBuilding()" class="btn btn-sm btn-flat btn-primary" type="button"
                    value="Add Apartment"/>
-        </div>
-        <div class="row">
-            <div class="col-md-12 form-group">
-                <label class="title ml-3" for="buildingDetailsDescription">Remarks of apartment</label>
-                <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
-                          id="buildingDetailsDescription"
-                          placeholder="Remarks of apartment"
-                          rows="5"></textarea>
-            </div>
         </div>
         <!--<div [hidden]="!underConstructionChecked">
             <div *ngFor="let building of apartmentForm.get('buildingUnderConstructions')['controls']; let i = index"

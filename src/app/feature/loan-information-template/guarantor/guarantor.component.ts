@@ -232,8 +232,7 @@ export class GuarantorComponent implements OnInit {
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
       background: [ObjectUtil.setUndefinedIfNull(data.background)],
       successionPlanning: [ObjectUtil.setUndefinedIfNull(data.successionPlanning)],
-      guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
-        Validators.required],
+      guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress)],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
       passNumber: [undefined],
       // passIssueDate: [
@@ -355,6 +354,7 @@ export class GuarantorComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
+      console.log('invalid', this.form);
       return;
     }
     if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {

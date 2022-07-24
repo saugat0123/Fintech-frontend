@@ -596,7 +596,9 @@ export class ProposalComponent implements OnInit {
             } else {
                 this.loan.shareType = this.shareType;
             }
-            this.productPaperChecklistComponent.save();
+            if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
+                this.productPaperChecklistComponent.save();
+            }
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
