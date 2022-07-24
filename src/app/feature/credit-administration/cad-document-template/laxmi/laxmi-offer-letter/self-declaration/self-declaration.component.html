@@ -8,7 +8,7 @@
                 शाखा कार्यालय, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="branch"> ।
             </p>
             <p class="text-center"><span class="font-weight-bold">विषय: घोषना गरेको सम्बन्धमा ।</span> </p>
-            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <span class="font-weight-bold">रु.</span>  <input (change)="amountChange($event)" type = "text" class="nepaliFont form-field form-control-sm font-size-normal font-Weight-Bold" formControlName="amount" >/–
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट <span class="font-weight-bold">रु.</span>  <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal font-Weight-Bold" formControlName="amount" >/–
             <span class="font-weight-bold">(अक्षरेपी रुपैया </span> <input class="nepaliFont form-field form-control-sm font-size-normal font-weight-bold" formControlName="amountInWords" disabled>) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
            <br>
           <div *ngIf="individual">
@@ -23,13 +23,19 @@
                   <tr>
                       <td>स्थायी ठेगाना :</td>
                       <td>
-                          <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="permanentAddressOfIndividualDeclaration" >
+                          <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="permanentAddressOfIndividualDeclaration" >,
+                          <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="individualPerMunicipality" >,
+                          <input type = "text" class="nepaliFont form-field form-control-sm fontSize" formControlName="individualPerWard" >,
+                          <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="individualPerTole" >
                       </td>
                   </tr>
                   <tr>
                       <td>हालको ठेगाना :</td>
                       <td>
-                          <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="temporaryAddressOfIndividualDeclaration" >
+                          <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="temporaryAddressOfIndividualDeclaration" >,
+                          <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="individualTempMunicipality" >,
+                          <input type = "text" class="nepaliFont form-field form-control-sm fontSize" formControlName="individualTempWard" >,
+                          <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="individualTempTole" >
                       </td>
                   </tr>
                   <tr>
@@ -57,13 +63,19 @@
                     <tr>
                         <td>स्थायी ठेगाना :</td>
                         <td>
-                            <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="permanentAddressOfInstitutionDeclaration" >
+                            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="permanentAddressOfInstitutionDeclaration" >,
+                            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="institutionPerMunicipality">,
+                            <input type = "text" class="nepaliFont form-field form-control-sm fontSize" formControlName="institutionPerWard">,
+                            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="institutionPerTole">
                         </td>
                     </tr>
                     <tr>
                         <td>हालको ठेगाना :</td>
                         <td>
-                            <input type = "text" class="nepaliFont form-field form-control font-size-normal" formControlName="temporaryAddressOfInstitutionDeclaration" >
+                            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="temporaryAddressOfInstitutionDeclaration" >,
+                            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="institutionTempMunicipality">,
+                            <input type = "text" class="nepaliFont form-field form-control-sm fontSize" formControlName="institutionTempWard">,
+                            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="institutionTempTole">
                         </td>
                     </tr>
                     <tr>
@@ -89,5 +101,5 @@
     </div>
 </div>
 <app-self-declaration-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                            [individual]="individual" [cadData]="cadData"
+                            [individual]="individual" [cadData]="cadData" [nepaliData]="nepaliData"
                                      hidden></app-self-declaration-print>

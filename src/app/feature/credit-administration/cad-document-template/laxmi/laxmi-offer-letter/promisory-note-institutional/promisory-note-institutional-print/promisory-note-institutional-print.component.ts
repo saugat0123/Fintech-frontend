@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CadCheckListTemplateEnum} from '../../../../../../admin/modal/cadCheckListTemplateEnum';
-import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {NepaliToEngNumberPipe} from '../../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
   selector: 'app-promisory-note-institutional-print',
@@ -12,16 +10,11 @@ export class PromisoryNoteInstitutionalPrintComponent implements OnInit {
   @Input() printDocForm;
   @Input() individual;
   @Input() cadData;
+  @Input() nepaliData;
   branch;
-  constructor(
-      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-      private  nepaliToEnglish: NepaliToEngNumberPipe
-  ) { }
+  constructor() { }
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
-    this.printDocForm = JSON.parse(this.printDocForm);
-    this.printDocForm.amountInWords = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglish.transform(this.printDocForm.proposedAmount));
-    this.branch = this.cadData.assignedLoan[0].branch.nepaliName;
   }
 
 }
