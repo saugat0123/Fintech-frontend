@@ -34,7 +34,7 @@
                                 मात्र कर्जा प्रयोग गरी सक्नुभएको छ ।
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--For Floating Interest rate Case-->
-                                    <ng-container *ngIf="isHomeLoan || isAutoLoan || isMortgageLoan || isEducationClassE || isPersonalLoan">
+                                    <ng-container *ngIf="val?.facilityNameEnglish === 'HOME LOAN COMBINED' || val?.facilityNameEnglish === 'AUTO LOAN COMBINED' || val?.facilityNameEnglish === 'MORTGAGE LOAN COMBINED' || (val?.facilityNameEnglish === 'EDUCATION LOAN COMBINED' && (val?.securityType === 'LAND' || val.securityType === 'LAND_BUILDING')) || val?.facilityNameEnglish === 'PERSONAL LOAN COMBINED'">
                                         <br>
                                         <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                         <input class="form-field form-control-sm d-print-none"
@@ -56,7 +56,7 @@
                                         <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दरले मासिक
                                         तिर्नु बुझाउनु पर्नेछ ।
                                     </ng-container>
-                                    <ng-container *ngIf="isPersonalOD || isNabilSahayatri || isPersonalWoCollateral">
+                                    <ng-container *ngIf="val?.facilityNameEnglish === 'PERSONAL OVERDRAFT COMBINED' || val?.facilityNameEnglish === 'NABIL SAHAYATRI KARJA' || val?.facilityNameEnglish === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED'">
                                         <br>
                                         <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                         <input class="form-field form-control-sm d-print-none"
@@ -78,7 +78,7 @@
                                         <span class="print-only font-weight-bold">{{val?.interestRateCT || '_________________'}}</span>प्रतिशत का दर
                                         निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक महिनाको मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
                                     </ng-container>
-                                    <ng-container *ngIf="isEducationClassA">
+                                    <ng-container *ngIf="val?.securityType === 'TD'">
                                         <br>
                                         <b>ब्याजदर :</b> त्रैमासिक मासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
                                         (Quarterly Average Base Rate or Time Deposit rate whichever is higher)
@@ -102,7 +102,7 @@
                                         निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
                                         आश्विन, पौष र चैत्र मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत तिर्नु बुझाउनु पर्नेछ ।
                                     </ng-container>
-                                    <ng-container *ngIf="isShareLoanPOD || isShareLoanDemand">
+                                    <ng-container *ngIf="val?.facilityNameEnglish === 'NABIL SHARE LOAN POD COMBINED' || val?.facilityNameEnglish === 'SHARE LOAN DEMAND COMBINED'">
                                         <br>
                                         <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                         <input class="form-field form-control-sm d-print-none"
