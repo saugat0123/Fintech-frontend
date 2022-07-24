@@ -2,7 +2,7 @@
     <div class="col-md-12 text-center" *ngIf="customerType === 'INDIVIDUAL'">
         <p><strong>Monthly Income / Expenditure Detail</strong></p> <br>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small"
                        *ngIf="!isBusinessLoan">
                     <thead>
@@ -24,7 +24,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -46,7 +46,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -67,6 +67,27 @@
                     </tr>
                 </table>
             </div>
+            <div class="col-md-3">
+                <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>EMI/Interest of Present Proposal</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let data of financialData['initialForm']['emiInterest'];">
+                        <td class="text-left pl-1">{{data.emiParticulars}} ({{data.emiRemarks}})</td>
+                        <td class="text-right pr-1">Rs. {{data.emiAmount | currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><strong>Total Expense</strong></td>
+                        <td class="text-right pr-1">
+                            <strong>Rs. {{financialData['initialForm']['totalExpenseEmi'] | currencyFormatter}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
                 <tr>
@@ -80,7 +101,7 @@
                     <td class="text-left pl-1" colspan="2"><strong>Total EMI of CCBL including present proposal</strong>
                     </td>
                     <td colspan="2" class="text-right pr-1">
-                        <strong>Rs. {{financialData?.initialForm?.emiCCBL | currencyFormatter}}</strong>
+                        <strong>Rs. {{financialData?.initialForm?.totalExpenseEmi | currencyFormatter}}</strong>
                     </td>
                 </tr>
                 <tr>
