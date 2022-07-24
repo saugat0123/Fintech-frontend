@@ -97,5 +97,7 @@ export class CustomerInfoData {
     existingExposures: Array<ExistingExposure>;
     approvedSecurities: Array<Security>;
     customerShareBatches: Array<CustomerShareBatch>;
+    financialAssessmentData: string;
+    accountStrategy: string;
 
 }

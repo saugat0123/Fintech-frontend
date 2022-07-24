@@ -40,7 +40,8 @@ import {ThemeModule} from '../../../../@theme/theme.module';
 import { ConsentOfSellersHakwalaComponent } from './laxmi-offer-letter/consent-of-sellers-hakwala/consent-of-sellers-hakwala.component';
 import { GuarantorAcknowledgementComponent } from './laxmi-offer-letter/guarantor-acknowledgement/guarantor-acknowledgement.component';
 import { ConsentForLeinComponent } from './laxmi-offer-letter/consent-for-lein/consent-for-lein.component';
-
+import { StatementOfPositionComponent } from './laxmi-offer-letter/statement-of-position/statement-of-position.component';
+import {AnusuchiComponent} from './laxmi-offer-letter/anusuchi/anusuchi.component';
 
 @NgModule({
     declarations: [LaxmiOfferLetterComponent,
@@ -74,7 +75,10 @@ import { ConsentForLeinComponent } from './laxmi-offer-letter/consent-for-lein/c
         OfferLetterLaxmiComponent,
         ConsentOfSellersHakwalaComponent,
         GuarantorAcknowledgementComponent,
-        ConsentForLeinComponent],
+        ConsentForLeinComponent,
+        StatementOfPositionComponent,
+        AnusuchiComponent],
+
     imports: [
         CommonModule,
         NbCardModule,
@@ -106,8 +110,8 @@ import { ConsentForLeinComponent } from './laxmi-offer-letter/consent-for-lein/c
         ConsentOfSellersHakwalaComponent,
         GuarantorAcknowledgementComponent,
         ConsentForLeinComponent,
-        ConsentForLeinComponent,
-        ConsentForLeinComponent
+        StatementOfPositionComponent,
+        AnusuchiComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent

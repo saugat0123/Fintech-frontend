@@ -32,7 +32,7 @@
 
   .signature-block {
     padding: 0.5rem;
-    border: 1px solid #8c8b8b;
+    border: 1px solid #000000;
 
     .signature-detail {
       border-top: 1px dashed;
@@ -66,6 +66,14 @@
     //padding-top: 90px;
   }
 
+  hr.print-line {
+    border-top: .5px solid black !important;
+  }
+
+  table, th, td {
+    border: 1px solid black !important;
+  }
+
   @media print {
     nb-card {
       background: none;
@@ -96,6 +104,10 @@
           //    font-size: 12pt;
           margin-bottom: 5px;
         }
+      }
+
+      hr.print-line {
+        border-top: .5px solid black !important;
       }
 
       .print-only {
@@ -152,6 +164,9 @@
         p {
           margin-bottom: 0.2rem;
         }
+      }
+      table, th, td {
+        border: 1px solid black !important;
       }
     }
 

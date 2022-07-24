@@ -7,6 +7,13 @@
     display: inline;
 
   }
+  table, th, td {
+    border: 1px solid black !important;
+  }
+
+  hr.print-line {
+    border-top: .5px solid black !important;
+  }
 }
 @page {
   size: A4;
@@ -15,6 +22,14 @@
 
 @media print {
   .page-break { page-break-before: always; } /* page-break-after works, as well */
+
+  table, th, td {
+    border: 1px solid black !important;
+  }
+
+  hr.print-line {
+    border-top: .5px solid black !important;
+  }
 }
 @media print {
   .print-only {

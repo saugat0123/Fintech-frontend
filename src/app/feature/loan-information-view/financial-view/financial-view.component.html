@@ -1,32 +1,31 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <p *ngIf="!isBusinessLoan" class="float-left"><strong>Income & Bank Obligation</strong></p>
+        <p class="header"><strong class="header">Income of Borrower/Guarantor</strong></p>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
-            <tr>
-                <th colspan="6">Income of Borrower/Guarantor</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-               <!-- <th>Income Source</th>
-                <th>Organization</th>-->
+            <tr class="sb-bg-gray">
+                <th>S.N</th>
+                <th>Source of Income</th>
+                <!--<th>Type</th>-->
                 <th>Amount</th>
-               <!-- <th>Age Of Income Generated</th>-->
+                <!-- <th>Age Of Income Generated</th>-->
                 <th>Remarks</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let incomeOfBorrower of financialData['initialForm']['incomeOfBorrower']; let i = index;">
                 <td>{{i + 1}}</td>
-               <!-- <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
-                <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>-->
+                <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
+                <!-- <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>-->
                 <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
-                <!--<td>{{incomeOfBorrower.ageOfIncomeGenerated || '0'}} months</td>-->
+                <!--<td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>-->
                 <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
-                <td colspan="3" class="text-left pl-1"><b>Total Income </b></td>
-                <td class="text-right pr-1" colspan="3"><b>Rs.{{ financialData['initialForm']['totalIncome'] | currencyFormatter}}</b></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total Income</strong></td>
+                <td colspan="2" class="text-left pr-1">
+                    <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -36,7 +35,7 @@
             <tr>
                 <th colspan="4">Bank Obligation of Borrower</th>
             </tr>
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th class="sn">S.N</th>
                 <th>Particulars</th>
                 <th>Amount</th>
@@ -83,7 +82,7 @@
 <!--                    <strong>{{financialData?.initialForm?.emiNetMonthly}}</strong>-->
 <!--                </td>-->
 <!--            </tr>-->
-<!--            <tr class="text-white sb-bg-dark">-->
+<!--            <tr class="sb-bg-gray">-->
 <!--                <th colspan="4">Note</th>-->
 <!--            </tr>-->
 <!--            <tr>-->
@@ -97,7 +96,7 @@
             <tr>
                 <th colspan="7">Other Detail Of Borrower</th>
             </tr>
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <td>
                     Major Source Of Income
                 </td>
@@ -123,10 +122,10 @@
         </table>-->
 <!--        <table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">-->
 <!--            <thead>-->
-<!--            <tr class="text-white sb-bg-dark">-->
+<!--            <tr class="sb-bg-gray">-->
 <!--                <th colspan="5">Borrower Repayment Capacity</th>-->
 <!--            </tr>-->
-<!--            <tr  class="text-white sb-bg-dark">-->
+<!--            <tr  class="sb-bg-gray">-->
 <!--                <th>Gross Total Income</th>-->
 <!--                <th>Existing Obligation at other Bank</th>-->
 <!--                <th>Proposed and Existing Obligation at Our Bank</th>-->
@@ -152,22 +151,22 @@
             <table *ngIf="!disableCrgAlphaParams"
                 class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <th colspan="2">Risk Factor</th>
                 </tr>
                 </thead>
 
                 <tr>
-                    <th  class="text-white sb-bg-dark">Sales - Projection Vs Achievement</th>
+                    <th  class="sb-bg-gray">Sales - Projection Vs Achievement</th>
                     <td class="text-left pl-1">{{financialData?.initialForm?.salesProjectionVsAchievement}}</td>
                 </tr>
                 <tr>
-                    <th  class="text-white sb-bg-dark">Net Worth of Firm/Company
+                    <th  class="sb-bg-gray">Net Worth of Firm/Company
                     </th>
                     <td class="text-reset pr-1">{{financialData?.initialForm?.netWorthOfFirmOrCompany}}</td>
                 </tr>
                 <tr>
-                    <th  class="text-white sb-bg-dark">Tax Compliance</th>
+                    <th  class="sb-bg-gray">Tax Compliance</th>
                     <td>{{financialData?.initialForm?.taxCompliance}}</td>
 
             </table>
@@ -175,9 +174,9 @@
 
             <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                 <tr>
-                    <th class="text-center sb-bg-dark text-white" colspan="7">Financial Auditor Detail Information</th>
+                    <th class="text-center sb-bg-gray" colspan="7">Financial Auditor Detail Information</th>
                 </tr>
-                <tr class="sb-bg-secondary text-white">
+                <tr class="sb-bg-gray">
                     <th scope="col" class="sn">S.N</th>
                     <th scope="col">Audited</th>
                     <th scope="col">Audit Firm</th>
@@ -204,7 +203,7 @@
                         <tr>
                             <th colspan="3"></th>
                         </tr>
-                        <tr class="text-white sb-bg-dark">
+                        <tr class="sb-bg-gray">
                             <th class="sn">S.No.</th>
                             <th>Particulars/Years:</th>
                             <th *ngFor="let fiscalYear of financialData['fiscalYear']">{{fiscalYear}}</th>
@@ -383,7 +382,7 @@
                         </tbody>
                     </table>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
                 <tr class="text-center">
@@ -395,7 +394,7 @@
                     <table
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
-                        <tr class="text-white sb-bg-dark">
+                        <tr class="sb-bg-gray">
                             <th scope="col" class="sn">S.No</th>
                             <th scope="col">Particulars</th>
                             <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
@@ -585,7 +584,7 @@
 
                     </table>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
                 <tr class="text-center">
@@ -599,7 +598,7 @@
                 <table
                         class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th scope="col" class="sn">S.No</th>
                         <th scope="col">Particulars</th>
                         <th *ngFor="let year of financialData['fiscalYear']">
@@ -842,7 +841,7 @@
             </ng-container>
 
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
                 <tr class="text-center">
@@ -856,7 +855,7 @@
                 <table
                         class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th class="sn">S.No</th>
                         <th>Particulars</th>
                         <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
@@ -1036,7 +1035,7 @@
             <ng-container *ngIf="(client === clientName?.ICFC) && (summaryCheckedList.length > 0)">
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
-                    <tr class="text-white sb-bg-dark">
+                    <tr class="sb-bg-gray">
                         <th>Particulars</th>
                         <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
                     </tr>
@@ -1052,7 +1051,7 @@
                 </table>
             </ng-container>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-                <tr class="text-white sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
                 <tr class="text-center">
@@ -1068,7 +1067,7 @@
                 <tr class="">
                     <th colspan="3">Project Details</th>
                 </tr>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th class="sn">S.N</th>
                     <th>Project Detail</th>
                     <th>Project Cost</th>
@@ -1088,7 +1087,7 @@
             </table>
             <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>Total Debt (including other debts of the customer including present total)</th>
                     <th>Total Equity that client is injecting</th>
                     <th>Net worth</th>
@@ -1106,7 +1105,7 @@
             </table>
 
             <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>Experience of client in related field</th>
                     <th>Ownership of residence</th>
                     <th>Relationship with mega bank</th>

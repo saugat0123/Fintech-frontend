@@ -28,6 +28,7 @@ import {ClientTypePipe} from './pipe/client-type.pipe';
 import {FinancialKeysPipe} from './pipe/financial-keys.pipe';
 import { ClientTypeShortFormPipe } from './pipe/client-type-short-form.pipe';
 import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe';
+import { SecuritySummaryPipe } from './pipe/security-summary.pipe';
 
 
 const DATA_SERVICES = [];
@@ -78,7 +79,8 @@ const UTILITY_MODULES = [
         RemitCountryConvertPipe,
         ClientTypePipe,
         FinancialKeysPipe,
-        NepaliCurrencyFormatterPipe
+        NepaliCurrencyFormatterPipe,
+        SecuritySummaryPipe
     ],
     declarations: [
         CurrencyFormatterPipe,
@@ -103,7 +105,8 @@ const UTILITY_MODULES = [
         RemitCountryConvertPipe,
         ClientTypePipe,
         ClientTypeShortFormPipe,
-        NepaliCurrencyFormatterPipe
+        NepaliCurrencyFormatterPipe,
+        SecuritySummaryPipe
     ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe, ClientTypePipe, ClientTypeShortFormPipe]
 })
 export class CoreModule {

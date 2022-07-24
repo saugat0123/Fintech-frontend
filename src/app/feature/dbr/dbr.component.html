@@ -4,7 +4,7 @@
         <p  class="header"><strong   class="header">Debt Burden Ratio:</strong></p>
         <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-left">
             <thead>
-            <tr class="text-white sb-bg-dark">
+            <tr class="sb-bg-gray">
                 <th>Particualrs</th>
                 <th>DBR</th>
             </tr>
@@ -20,7 +20,7 @@
 </tr>
 <tr>
     <td>Total Monthly Obligation</td>
-    <td class="text-right">{{(financialData?.initialForm?.totalBankObligation?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="text-right">{{(financialData?.initialForm?.totalExpense?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
     <td>Gross DBR (EMI/GMI)</td>

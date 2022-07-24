@@ -55,6 +55,10 @@ import {GroupSummarySheetComponent} from '../../../loan-information-template/gro
 import {CommonLoanInformationComponent} from './common-loan-information/common-loan-information.component';
 import {SecuritiesType} from '../../../constants/securities-type';
 import {MGroup} from '../../model/mGroup';
+import {
+    FinancialAccountInformationComponent
+} from '../../../loan-information-template/financial-account-information/financial-account-information.component';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -145,6 +149,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public securityComponent: SecurityComponent;
     @ViewChild('commonLoanInformation', {static: false})
     public commonLoanInformation: CommonLoanInformationComponent;
+    @ViewChild('financialAccountInformation', {static: false})
+    private financialAccountInformation: FinancialAccountInformationComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -204,6 +210,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
+        private companyInfoService: CompanyInfoService,
         private customerService: CustomerService,
         private modalService: NbDialogService,
         private spinner: NgxSpinnerService,
@@ -812,6 +819,22 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 });
         }
     }
+    financialAssessmentSave(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.financialAssessmentData = data;
+            this.customerInfoService.save(this.customerInfo).subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved financial assessment!'));
+                    this.nbDialogRef.close();
+                    this.triggerCustomerRefresh.emit(true);
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save financial assessment!'));
+                });
+        }
+    }
     update(data) {
         this.customerInfo = data;
     }
@@ -1038,5 +1061,22 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.spinner.hide();
             this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
         });
+    }
+
+    saveAccount(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.accountStrategy = data;
+            this.customerInfoService.save(this.customerInfo).subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY SAVED ACCOUNT STRATEGY'));
+                this.nbDialogRef.close();
+                this.onRefresh();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, res => {
+                this.spinner.hide();
+                this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+            });
+        }
     }
 }

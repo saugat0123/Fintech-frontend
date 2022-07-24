@@ -75,7 +75,6 @@ export class LandBuildingComponent implements OnInit {
   private buildForm(): FormGroup {
     return this.landBuildingForm = this.formBuilder.group({
       lbCrossChecked: [undefined],
-      landBuildingDescription: [undefined],
       lbExposureTotal: [undefined],
       lbRmValueTotal: [undefined],
       lbFmvOfFacTotal: [undefined],
@@ -215,10 +214,12 @@ export class LandBuildingComponent implements OnInit {
             .patchValue(Number(landConValue + landBuildingConValue));
         const FairMarketValueOfLand = (Number(this.landBuildingForm.get(['landBuilding', index, 'fairMarketValue']).value));
         const FairMarketValueOfBuilding = (Number(this.landBuildingForm.get(['landBuilding', index, 'totalCost']).value));
+        const MarketValueOfLand = (Number(this.landBuildingForm.get(['landBuilding', index, 'apartmentDistressValue']).value));
+        const MarketValueOfBuilding = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValue']).value));
+        this.landBuildingForm.get(['landBuilding', index, 'considerValue'])
+            .patchValue(MarketValueOfLand + MarketValueOfBuilding);
         this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue'])
             .patchValue(FairMarketValueOfLand + FairMarketValueOfBuilding);
-        this.landBuildingForm.get(['landBuilding', index, 'considerValue'])
-            .patchValue( this.landBuildingForm.get(['landBuilding', index, 'totalMarketValue']).value);
         break;
       case 'lbUnderConstruction':
         const lbUnderConValue = (Number(this.landBuildingForm.get(['landBuilding', index, 'distressValueConstruction']).value)
@@ -343,7 +344,9 @@ export class LandBuildingComponent implements OnInit {
       registerOffice: [undefined],*/
       freeLimit: [undefined],
       landBuildingFirstValuationDate: [undefined],
-      isValuated: [undefined]
+      isValuated: [undefined],
+      mortgaged: [undefined],
+      landBuildingDescription: [undefined],
     });
   }
 
@@ -448,7 +451,10 @@ export class LandBuildingComponent implements OnInit {
           registerOffice: [formData.registerOffice],*/
           freeLimit: [formData.freeLimit],
           landBuildingFirstValuationDate: [formData.landBuildingFirstValuationDate ? new Date(formData.landBuildingFirstValuationDate) : ''],
-          isValuated: [formData.isValuated]
+          isValuated: [formData.isValuated],
+          mortgaged: [formData.mortgaged],
+          totalMarketValue: [formData.totalMarketValue],
+          landBuildingDescription: [formData.landBuildingDescription],
         })
     );
   }

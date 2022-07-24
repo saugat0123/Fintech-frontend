@@ -1392,6 +1392,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div *ngIf="collateral?.get('collateralType')?.value === 'land_and_building'">
                                     <div class="col-md-12" *ngIf="collateral?.get('collateralOwnerType')?.value">
                                         <div class="row">
                                             <div class="col-md-4">
@@ -1633,9 +1634,10 @@
                                         </div>
                                         <hr>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
-                            <ng-container *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION'">
+                            <ng-container *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION' && collateral?.get('collateralType')?.value === 'land_and_building'">
                                 <div class="row col-md-12" formGroupName="collateralAuthorizedPersonDetail">
                                     <div class="col-md-12">
                                         <strong>Collateral Authorized Person Detail</strong>
@@ -1657,7 +1659,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="title" for="address">Authorized Person
-                                                        Citizenship Issue Date</label>
+                                                        Address</label>
                                                     <input class="form-control rounded nepaliFont"
                                                            formControlName="address"
                                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get(['collateralDetails', i, 'collateralAuthorizedPersonDetail'])?.get('address')?.errors}"
@@ -1892,6 +1894,16 @@
                                                formControlName="vehicleRegNo"
                                                [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'vehicleDetail'])?.get('vehicleRegNo')?.errors}"
                                                name="vehicleRegNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-2">
+                                    <div class="form-group">
+                                        <label class="title" for="tole">Vehicle Model No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="vehicleModelNo"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'vehicleDetail'])?.get('vehicleModelNo')?.errors}"
+                                               name="vehicleModelNo" placeholder=""
                                                type="text"/>
                                     </div>
                                 </div>
@@ -2174,7 +2186,6 @@
                                         Telephone Number</label>
                                     <input type="text"
                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get('branchDetail')?.get('branchTelNo')?.errors}"
-                                           readonly
                                            placeholder=""
                                            class="form-control form-control-sm nepaliFont font-size"
                                            id="branchTelNo"

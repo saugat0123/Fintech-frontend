@@ -54,17 +54,21 @@
                                 </div>
                                 <br/>
                                 <div><strong class="float-left">Product:</strong>
-                                    <table class="table table-sm table-responsive-sm float-left">
+                                    <table id="table-border" class="table table-bordered table-condensed table-responsive-md text-center table-sm sb-small">
                                         <thead>
-                                        <tr class="sb-bg-dark text-white">
+                                        <tr class="sb-bg-gray">
                                             <td>Facility Name</td>
-                                            <td>Approving Level</td>
-                                            <td>Credit Risk</td>
+                                            <td>Product Code</td>
+                                            <td>Approval Level</td>
+                                            <td>Credit Risk Grade</td>
                                         </tr>
                                         </thead>
                                         <tr *ngFor="let allLoan of allLoanList">
                                             <td>
-                                                {{allLoan?.loan?.name + " "+ allLoan?.loan?.shortNames}}
+                                                {{allLoan?.loan?.name}}
+                                            </td>
+                                            <td>
+                                                {{allLoan?.loan?.shortNames}}
                                             </td>
                                             <td>
                                                 {{allLoan?.approvingLevel}}
@@ -76,24 +80,48 @@
                                     </table>
                                 </div>
                                 <br/>
-                                <div class="float-left text-justify" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
-                                        <span><strong>Review Date: </strong>
-                                            <ng-container *ngIf="naChecked; else date">
-                                                {{'NA'}}
+                                <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date:</strong>
+                                    <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
+                                        <thead>
+                                        <tr class="sb-bg-gray">
+                                            <td>Facility Name</td>
+                                            <td>Last Review Date</td>
+                                            <td>Next Review Date</td>
+                                        </tr>
+                                        </thead>
+                                        <tr *ngFor="let allLoan of allLoanList">
+                                            <ng-container *ngIf="allLoan?.reviewDate?.data">
+                                                <td>
+                                                    {{allLoan?.loan?.name}}
+                                                </td>
+                                                <td>
+                                                    <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
+                                                </td>
+                                                <td>
+                                                    <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
+                                                </td>
                                             </ng-container>
-                                            <ng-template #date>
-                                                <br>
-                                                Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
-                                                <br>
-                                                Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
-                                            </ng-template>
-                                        </span>
-                                        <div>
-                                            Credit Risk Score:
-                                            <span class="badge badge-info"
-                                                  style="font-size: 11px">{{loanDataHolder?.creditRisk}}</span>
-                                         </div>
+                                        </tr>
+                                    </table>
                                 </div>
+                                <br>
+                                <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
+                            <span><strong>Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date>
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
+                                    <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
+                                </ng-template>
+                            </span>
+                                    <!--                                    <div>-->
+                                    <!--                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>-->
+                                    <!--                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
+                                    <!--                                    </div>-->
+                                </ng-container>
                                 <!--<strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>
                                 <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
                             </div>
@@ -159,17 +187,22 @@
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
+                <hr class="print-line">
                 <!--     Group Summary Sheet    -->
                 <app-group-summary-sheet-view class="page-break" *ngIf="loanDataHolder?.loanHolder?.mgroupInfo" [loanDataHolder]="loanDataHolder?.loanHolder"></app-group-summary-sheet-view>
-                <hr class="print-line">
+                <hr class="print-line" *ngIf="loanDataHolder?.loanHolder?.mgroupInfo">
                 <app-detail-view-of-individual *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL' && loaded"
                                            [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
+                                               [loanSecurity]="loanSecurity"
+                                               [approvedSecurity]="approvedSecurity"
                                            [combinedLoan]="combinedLoanList"
                                            [signatureList] = "signatureList"></app-detail-view-of-individual>
             <app-detail-view-of-institutional *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'  && loaded"
                                               [loanDataHolder]="loanDataHolder" [customerAllLoanList]="customerAllLoanList"
                                               [loanConfig] = "loanConfig"
+                                              [loanSecurity]="loanSecurity"
+                                              [approvedSecurity]="approvedSecurity"
                                               [combinedLoan]="combinedLoanList"
                                               [signatureList] = "signatureList"></app-detail-view-of-institutional>
         </div>

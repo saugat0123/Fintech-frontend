@@ -1,10 +1,10 @@
 <div *ngIf="viewSecurity" class="row">
     <div class="col-md-12">
-        <p class="header"><strong class="header">Share Security</strong></p>
+        <p class="sub-header"><strong class="sub-header">Share Security</strong></p>
         <ng-container *ngFor="let shareSecurity of shareSecurityDetails; let idx= index">
             <p class="sub-header"><strong>{{ (shareSecurity?.data | jsonParse)?.ownerName}}</strong></p>
             <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                <tr class="sb-bg-secondary text-white">
+                <tr class="sb-bg-gray">
                     <th>S.N</th>
                     <th>Company</th>
                     <th>Ticker</th>
@@ -38,7 +38,7 @@
 
         <ng-container *ngIf="singleSelectedData">
             <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                <tr class="sb-bg-secondary text-white text-center">
+                <tr class="sb-bg-gray text-center">
                     <th> Remarks </th>
                 </tr>
                 <tbody>

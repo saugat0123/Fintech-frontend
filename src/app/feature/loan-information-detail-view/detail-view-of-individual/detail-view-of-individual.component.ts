@@ -30,6 +30,8 @@ export class DetailViewOfIndividualComponent implements OnInit {
   @Input() loanHolder;
   @Input() signatureList;
   @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() loanSecurity: Array<Security>;
+  @Input() approvedSecurity: Array<Security> = [];
   loans;
   paperChecklist;
   allIds = [];
@@ -163,7 +165,7 @@ export class DetailViewOfIndividualComponent implements OnInit {
     return val.replace(/(<([^>]+)>)/gi, '');
   }
   open(comments) {
-    const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg', backdrop: true});
     modalRef.componentInstance.comments = comments;
   }
 

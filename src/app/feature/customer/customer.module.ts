@@ -52,6 +52,9 @@ import { CommonLoanDataComponent } from './component/customer-loan-information/c
 import {SecurityViewModule} from '../loan-information-view/security-view/security-view/security-view.module';
 import {FacilityUtilizationModule} from '../loan/component/facility-utilization/facility-utilization.module';
 import { CommonLoanInformationComponent } from './component/customer-loan-information/common-loan-information/common-loan-information.component';
+import {
+    FinancialAccountInformationModule
+} from '../loan-information-template/financial-account-information/financial-account-information.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -111,7 +114,8 @@ const COMPONENTS = [
         NepaliPatroModule,
         CreditAdministrationModule,
         SecurityViewModule,
-        FacilityUtilizationModule
+        FacilityUtilizationModule,
+        FinancialAccountInformationModule
 
     ],
   entryComponents: [

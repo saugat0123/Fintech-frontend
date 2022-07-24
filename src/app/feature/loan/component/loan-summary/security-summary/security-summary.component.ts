@@ -10,6 +10,9 @@ import {SiteVisitDocument} from '../../../../loan-information-template/security/
 import {Security} from '../../../model/security';
 import {LoanDataHolder} from '../../../model/loanData';
 import {SecurityLoanReferenceService} from '../../../../security-service/security-loan-reference.service';
+import {CustomerInfoData} from '../../../model/customerInfoData';
+import {Exposure} from '../../../../credit-administration/model/Exposure';
+import {ExistingExposure} from '../../../model/existingExposure';
 
 
 @Component({
@@ -18,24 +21,16 @@ import {SecurityLoanReferenceService} from '../../../../security-service/securit
     styleUrls: ['./security-summary.component.scss']
 })
 export class SecuritySummaryComponent implements OnInit {
-    @Input() formData: Object;
-    @Input() shareSecurity;
-    @Input() collateralData;
-    @Input() proposal;
-    @Input() securities: Array<Security> = [];
-    @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() securities;
     @Input() pending;
+    isPrintable = 'YES';
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
     vehicleSelected = false;
     depositSelected = false;
     shareSelected = false;
-    isPresentGuarantor = false;
     totalAmount = 0;
-    shareTotalValue = 0;
-    totalConsideredValue = 0;
-    buildingSelected = false;
     hypothecation = false;
     securityOther = false;
     corporate = false;
@@ -51,19 +46,6 @@ export class SecuritySummaryComponent implements OnInit {
     otherDetail: any;
     assignments = false;
     leaseAssignment: any;
-    @Input() securityId: number;
-    @Input() collateralSiteVisitDetail = [];
-    @Input() isCollateralSiteVisit;
-    @Input() nepaliDate;
-    @Input() siteVisitDocuments: Array<SiteVisitDocument>;
-    collateralSiteVisitDocuments: Array<SiteVisitDocument>;
-    isCollateralSiteVisitPresent = false;
-    collateralSiteVisits: Array<CollateralSiteVisit> = [];
-    siteVisitJson = [];
-    isPrintable = 'YES';
-    @Input() docStatus;
-    @Output() downloadSiteVisitDocument = new EventEmitter();
-    @Input() isApproveSecurity;
     landArray;
     landBuildingArray;
     apartmentArray;
@@ -78,22 +60,11 @@ export class SecuritySummaryComponent implements OnInit {
     personalArray;
     shareArray;
     plantArray;
-
-    constructor(private collateralSiteVisitService: CollateralSiteVisitService,
-                private securityLoanReference: SecurityLoanReferenceService) {
+    constructor() {
     }
 
     ngOnInit() {
-        // Set Security Details for view
-        const  loanListLen = !ObjectUtil.isEmpty(this.customerAllLoanList) ? this.customerAllLoanList.length : 0;
-        if (loanListLen > 0 && this.securities.length < 1 ) {
-            this.securities = [];
-            if (this.pending) {
-                this.combineAllSecurity();
-            } else {
-                this.combinedAllApprovedSecurity();
-            }
-        } else if (!ObjectUtil.isEmpty(this.securities)) {
+            if (!ObjectUtil.isEmpty(this.securities)) {
             const proposedSecurity = this.securities.map(d => d.id);
             this.securities =  this.securities
                 .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
@@ -101,49 +72,7 @@ export class SecuritySummaryComponent implements OnInit {
             this.setSelectedSecurities();
         }
     }
-
-    combineAllSecurity() {
-        this.customerAllLoanList.forEach((ld) => {
-            // if (ld.documentStatus.toString() !== 'APPROVED' && ld.securities.length > 0) {
-                this.securities =  this.securities.concat(ld.securities);
-            // }
-        });
-        if (this.securities.length > 0) {
-            this.selectedSecurities();
-            this.setSelectedSecurities();
-        }
-
-    }
-
-    combinedAllApprovedSecurity(): void {
-        let security: any;
-        this.customerAllLoanList.forEach((ld) => {
-            if (!ObjectUtil.isEmpty(ld.parentId) && ld.documentStatus.toString() !== 'APPROVED' ) {
-                this.securityLoanReference.getAllSecurityLoanReferencesByLoanId(ld.parentId).subscribe({
-                    next: (response: any) => {
-                         security = response.detail;
-                    },
-                    error: (err: any) => {},
-                    complete: () => {
-                        security.forEach((dd: any) => {
-                            const securityObj = new Security();
-                            securityObj.id = dd.securityId;
-                            securityObj.coverage = dd.coverage;
-                            securityObj.data = dd.data;
-                            securityObj.securityType = dd.securityType;
-                            securityObj.usedAmount = dd.usedAmount;
-                            securityObj.status = dd.status;
-                            this.securities.push(securityObj);
-                        });
-                        this.selectedSecurities();
-                        this.setSelectedSecurities();
-                    },
-                    });
-            }
-        });
-    }
-
-    private managedArray(array) {
+     private managedArray(array) {
         let newArray = [];
         const returnArray = [];
         array.forEach((g, i) => {
@@ -171,25 +100,28 @@ export class SecuritySummaryComponent implements OnInit {
             const apartment = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'APARTMENT_SECURITY') {
-                    apartment.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    apartment.push(data);
                 }
             });
             this.apartmentArray = this.managedArray(apartment);
         }
         if (this.landSelected) {
             const land = [];
-            this.securities.forEach((d) => {
+            this.securities.forEach((d, i) => {
                 if (d.securityType.toString() === 'LAND_SECURITY') {
-                    land.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    land.push(data);
                 }
             });
             this.landArray = this.managedArray(land);
         }
         if (this.landBuilding) {
             const landBuilding = [];
-            this.securities.forEach((d) => {
+            this.securities.forEach((d, i) => {
                 if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
-                    landBuilding.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    landBuilding.push(data);
                 }
             });
             this.landBuildingArray = this.managedArray(landBuilding);
@@ -198,7 +130,8 @@ export class SecuritySummaryComponent implements OnInit {
             const lease = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'LEASE_ASSIGNMENT') {
-                    lease.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    lease.push(data);
                 }
             });
             this.leaseArray = lease;
@@ -207,7 +140,8 @@ export class SecuritySummaryComponent implements OnInit {
             const assignment = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'ASSIGNMENT_OF_RECEIVABLES') {
-                    assignment.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    assignment.push(data);
                 }
             });
             this.assignmentArray = assignment;
@@ -216,7 +150,8 @@ export class SecuritySummaryComponent implements OnInit {
             const corporate = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'CORPORATE_GUARANTEE') {
-                    corporate.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    corporate.push(data);
                 }
             });
             this.corporateArray = corporate;
@@ -225,7 +160,8 @@ export class SecuritySummaryComponent implements OnInit {
             const fd = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
-                    fd.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    fd.push(data);
                 }
             });
             this.fdArray = fd;
@@ -234,7 +170,8 @@ export class SecuritySummaryComponent implements OnInit {
             const hypo = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
-                    hypo.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    hypo.push(data);
                 }
             });
             this.hypoArray = hypo;
@@ -279,7 +216,8 @@ export class SecuritySummaryComponent implements OnInit {
             const plant = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
-                    plant.push(JSON.parse(d.data));
+                    const data = JSON.parse(d.data);
+                    plant.push(data);
                 }
             });
             this.plantArray = plant;
@@ -288,8 +226,8 @@ export class SecuritySummaryComponent implements OnInit {
             const vehicle = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'VEHICLE_SECURITY') {
-                    vehicle.push(JSON.parse(d.data));
-
+                    const data = JSON.parse(d.data);
+                    vehicle.push(data);
                 }
             });
             this.vehicleArray =  this.managedArray(vehicle);

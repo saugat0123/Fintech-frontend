@@ -129,11 +129,11 @@ export class CompanyFormComponent implements OnInit {
     // json data
     companyJsonData: CompanyJsonData = new CompanyJsonData();
 
-    @ViewChild('bankingRelationComponent', {static: false})
-    bankingRelationComponent: BankingRelationComponent;
+    // @ViewChild('bankingRelationComponent', {static: false})
+    // bankingRelationComponent: BankingRelationComponent;
 
-    @ViewChild('companyOtherDetailComponent', {static: false})
-    companyOtherDetailComponent: CompanyOtherDetailComponent;
+    /*@ViewChild('companyOtherDetailComponent', {static: false})
+    companyOtherDetailComponent: CompanyOtherDetailComponent;*/
 
     @ViewChild('marketScenarioComponent', {static: false})
     marketScenarioComponent: MarketScenarioComponent;
@@ -145,13 +145,13 @@ export class CompanyFormComponent implements OnInit {
     microIndividualFormComponent: MicroIndividualFormComponent;
 
 
-    experiences = Experience.enumObject();
-    successionList = Succession.enumObject();
-    regulatoryConcernList = RegulatoryConcern.enumObject();
-    supplierList = Supplier.enumObject();
-    buyerList = Buyer.enumObject();
-    industryGrowthList = IndustryGrowth.enumObject();
-    marketCompetitionList = MarketCompetition.enumObject();
+    // experiences = Experience.enumObject();
+    // successionList = Succession.enumObject();
+    // regulatoryConcernList = RegulatoryConcern.enumObject();
+    // supplierList = Supplier.enumObject();
+    // buyerList = Buyer.enumObject();
+    // industryGrowthList = IndustryGrowth.enumObject();
+    // marketCompetitionList = MarketCompetition.enumObject();
     registeredOffice = RegisteredOfficeList.enumObject();
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
@@ -559,35 +559,36 @@ export class CompanyFormComponent implements OnInit {
             }),
 
             /** 8.business and industry */
-            regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.regulatoryConcern, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
-            buyer: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.buyer, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
-            supplier: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.supplier, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+            // tslint:disable-next-line:max-line-length
+            //     this.businessAndIndustry.regulatoryConcern, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // buyer: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+            //     this.businessAndIndustry.buyer, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // supplier: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
+            //     this.businessAndIndustry.supplier, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
-            /** 9. Industry Growth*/
-            industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
-                this.companyInfo.industryGrowth, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // /** 9. Industry Growth*/
+            // industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
+            //     this.companyInfo.industryGrowth, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** 10. Market competition*/
-            marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
-            || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
-                this.companyInfo.marketCompetition, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
+            // || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
+            //     this.companyInfo.marketCompetition, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** 11. Experience*/
-            experience: [ObjectUtil.isEmpty(this.companyInfo)
-            || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
-                this.companyInfo.experience, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // experience: [ObjectUtil.isEmpty(this.companyInfo)
+            // || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
+            //     this.companyInfo.experience, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** Succession*/
-            succession: [ObjectUtil.isEmpty(this.companyInfo)
-            || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
+            // succession: [ObjectUtil.isEmpty(this.companyInfo)
+            // || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
+            //     this.companyInfo.succession, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** Groups BackGround*/
             // groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -640,16 +641,16 @@ export class CompanyFormComponent implements OnInit {
             addressLegalDocument: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.addressLegalDocument)) ? undefined :
                 this.companyJsonData.addressLegalDocument],
-            irdReport: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
-                this.companyJsonData.irdReport],
+            // irdReport: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
+            //     this.companyJsonData.irdReport],
             accountDetails: this.formBuilder.array([]),
 
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
         }
-        this.microCustomerValidation(this.microCustomer);
+        // this.microCustomerValidation(this.microCustomer);
     }
 
     setCompanyInfo(info: CompanyInfo) {
@@ -934,10 +935,12 @@ export class CompanyFormComponent implements OnInit {
         this.spinner = true;
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
-        this.companyOtherDetailComponent.onSubmit();
-        if (!this.disableCrgAlpha && !this.microCustomer) {
-            this.bankingRelationComponent.onSubmit();
-        }
+       /* if(!ObjectUtil.isEmpty(this.companyOtherDetailComponent)) {
+            this.companyOtherDetailComponent.onSubmit();
+        }*/
+        // if (!this.disableCrgAlpha && !this.microCustomer) {
+        //     this.bankingRelationComponent.onSubmit();
+        // }
 
         if (this.microCustomer) {
             if (this.microCustomerType === MicroCustomerType.INDIRECT) {
@@ -955,8 +958,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyLocation.onSubmit();
         this.companyProjectLocation.onSubmit();
         this.companyCorrespondenceLocation.onSubmit();
-        if (this.companyInfoFormGroup.invalid ||
-            ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
+        if (this.companyInfoFormGroup.invalid
             || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
             || this.companyCorrespondenceLocation.addressForm.invalid) {
             this.spinner = false;
@@ -1078,22 +1080,22 @@ export class CompanyFormComponent implements OnInit {
 
         if (!this.disableCrgAlpha && !this.microCustomer) {
             /** banking relation setting data from child **/
-            this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
+            // this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
 
             /** business and industry */
-            this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
-            this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
-            this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
+            // this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
+            // this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
+            // this.businessAndIndustry.buyer = this.companyInfoFormGroup.get('buyer').value;
             this.companyInfo.businessAndIndustry = JSON.stringify(this.businessAndIndustry);
 
             /** industry growth and market competition */
-            this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
-            this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
+            // this.companyInfo.marketCompetition = this.companyInfoFormGroup.get('marketCompetition').value;
+            // this.companyInfo.industryGrowth = this.companyInfoFormGroup.get('industryGrowth').value;
 
             /** experience & succession */
-            this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
-            this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
+            // this.companyInfo.experience = this.companyInfoFormGroup.get('experience').value;
+            // this.companyInfo.succession = this.companyInfoFormGroup.get('succession').value;
         }
 
         /**Business Given**/
@@ -1118,7 +1120,7 @@ export class CompanyFormComponent implements OnInit {
             submitData[k] = this.companyInfoFormGroup.value[k];
         });
         /** other company detail */
-        submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
+       // submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
         // submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
@@ -1130,7 +1132,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
         submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
         submitData.otherRemarks = this.companyInfoFormGroup.get('otherRemarks').value;
-        submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
+       // submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
 
         if (this.microCustomer) {
@@ -1298,26 +1300,26 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
-    microCustomerValidation(micro: boolean) {
-        const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
-        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'], !micro);
-        const clientTypeControl = this.companyInfoFormGroup.get('clientType');
-        if (micro || !this.disableCrgAlpha) {
-            if (micro) {
-                clientTypeControl.patchValue('MICRO');
-                this.controlValidation(alphaFields, false);
-                clientTypeControl.disable();
-            } else {
-                this.controlValidation(alphaFields, true);
-                clientTypeControl.enable();
-            }
-        } else {
-            this.controlValidation(alphaFields, false);
-            // this.clientType = this.clientType.filter(v => v !== 'MICRO');
-            clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
-                this.clientTypeInput);
-        }
-    }
+    // microCustomerValidation(micro: boolean) {
+    //     const alphaFields = ['buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
+    //     this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'], !micro);
+    //     const clientTypeControl = this.companyInfoFormGroup.get('clientType');
+    //     if (micro || !this.disableCrgAlpha) {
+    //         if (micro) {
+    //             clientTypeControl.patchValue('MICRO');
+    //             this.controlValidation(alphaFields, false);
+    //             clientTypeControl.disable();
+    //         } else {
+    //             this.controlValidation(alphaFields, true);
+    //             clientTypeControl.enable();
+    //         }
+    //     } else {
+    //         this.controlValidation(alphaFields, false);
+    //         // this.clientType = this.clientType.filter(v => v !== 'MICRO');
+    //         clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
+    //             this.clientTypeInput);
+    //     }
+    // }
 
     /** @Param validate --- true for add validation and false for remove validation
      * @Param controlNames --- list of formControlName**/
