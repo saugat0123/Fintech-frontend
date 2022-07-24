@@ -116,39 +116,39 @@
                                                         [loanDataHolder] = "loanDataHolder"
                                                         [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
                            <ng-container *ngIf="smallBusiness">
-                               <div class="col-md-12 form-group">
-                                   <div class="row">
-                                       <div class="col-md-12 text-left">
-                                           <b class="header">Fixed Assets Summary (proposed hypothecation)</b>
-                                       </div>
-                                   </div>
-                                   <p class="text-right">(Amount in NPR ‘000s)</p>
-                                   <table class="table table-sm table-bordered table-hover sb-small text-center">
-                                       <thead>
-                                       <tr class="sb-bg-gray">
-                                           <th>S.N</th>
-                                           <th>Particulars</th>
-                                           <th>Unit</th>
-                                           <th>Rate</th>
-                                           <th>Total</th>
-                                           <th>Remarks</th>
-                                       </tr>
-                                       </thead>
-                                       <tbody class="text-left">
-                                       <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index"
-                                           style="text-align: center;">
-                                           <ng-container>
-                                               <td>{{i + 1}}</td>
-                                               <td>{{fixedAssets?.particular || 'NA'}}</td>
-                                               <td>{{fixedAssets?.unit || 'NA'}}</td>
-                                               <td>{{fixedAssets?.rate || 'NA'}}</td>
-                                               <td>{{fixedAssets?.total || 'NA'}}</td>
-                                               <td>{{fixedAssets?.remarks || 'NA'}}</td>
-                                           </ng-container>
-                                       </tr>
-                                       </tbody>
-                                   </table>
-                               </div>
+<!--                               <div class="col-md-12 form-group">-->
+<!--                                   <div class="row">-->
+<!--                                       <div class="col-md-12 text-left">-->
+<!--                                           <b class="header">Fixed Assets Summary (proposed hypothecation)</b>-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                                   <p class="text-right">(Amount in NPR ‘000s)</p>-->
+<!--                                   <table class="table table-sm table-bordered table-hover sb-small text-center">-->
+<!--                                       <thead>-->
+<!--                                       <tr class="sb-bg-gray">-->
+<!--                                           <th>S.N</th>-->
+<!--                                           <th>Particulars</th>-->
+<!--                                           <th>Unit</th>-->
+<!--                                           <th>Rate</th>-->
+<!--                                           <th>Total</th>-->
+<!--                                           <th>Remarks</th>-->
+<!--                                       </tr>-->
+<!--                                       </thead>-->
+<!--                                       <tbody class="text-left">-->
+<!--                                       <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index"-->
+<!--                                           style="text-align: center;">-->
+<!--                                           <ng-container>-->
+<!--                                               <td>{{i + 1}}</td>-->
+<!--                                               <td>{{fixedAssets?.particular || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.unit || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.rate || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.total || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.remarks || 'NA'}}</td>-->
+<!--                                           </ng-container>-->
+<!--                                       </tr>-->
+<!--                                       </tbody>-->
+<!--                                   </table>-->
+<!--                               </div>-->
                                <hr class="print-line">
                                <div class="col-md-12 form-group">
                                    <div class="row">
