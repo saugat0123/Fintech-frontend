@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Guarantor} from '../../loan/model/guarantor';
 
 @Component({
   selector: 'app-customer-business-activity-or-backgrounds',
@@ -9,7 +10,10 @@ export class CustomerBusinessActivityOrBackgroundsComponent implements OnInit {
 
   @Input() customer: any;
   @Input() loanHolder: any;
-  constructor() { }
+  @Input() tagGuarantor: Array<Guarantor>;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

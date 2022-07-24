@@ -299,7 +299,8 @@
                         <app-customer-business-activity-or-backgrounds
                                 *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
                                 [customer]="loanDataHolder.customerInfo"
-                                [loanHolder]="loanDataHolder.loanHolder">
+                                [loanHolder]="loanDataHolder.loanHolder"
+                                [tagGuarantor]="loanDataHolder?.taggedGuarantors">
                         </app-customer-business-activity-or-backgrounds>
                     </li>
 

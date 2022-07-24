@@ -49,6 +49,7 @@ import {CreditAdministrationModule} from '../credit-administration/credit-admini
 import { FinancialCcblComponent } from './financial-ccbl/financial-ccbl.component';
 import { SecurityDocumentComponent } from './security/security-initial-form/security-document/security-document.component';
 import { ExistingExposureComponent } from './existing-exposure/existing-exposure.component';
+import { GuarantorNetWorthComponent } from './guarantor/guarantor-net-worth/guarantor-net-worth.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -88,6 +89,7 @@ const COMPONENTS = [
         SwotAnalysisComponent,
         SecurityDocumentComponent,
         ExistingExposureComponent,
+        GuarantorNetWorthComponent,
         ],
     exports: [...COMPONENTS, CommentsComponent, SwotAnalysisComponent, ExistingExposureComponent],
     entryComponents: [...COMPONENTS],
