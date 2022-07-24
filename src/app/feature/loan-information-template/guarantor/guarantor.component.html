@@ -411,7 +411,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><b>Reported Net Worth (RNW)</b></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('netWorth').errors }" class="form-control" formControlName="netWorth" type="number" placeholder="Net Worth Amount">
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('netWorth').errors }"
+                                               class="form-control"
+                                               formControlName="netWorth"
+                                               type="number"
+                                               placeholder="Net Worth Amount"
+                                               [readOnly]="true">
                                         <div *ngIf="addMore && guarantorDetails.get('netWorth').invalid" class="alert-warning">
                                             <div *ngIf="guarantorDetails.get('netWorth').errors.required">
                                                 Net Worth Amount is required
@@ -455,9 +460,13 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
+                                <div class="col-md-12">
+                                    <app-guarantor-net-worth #guarantorNetWorth
+                                                             (reportNetWorth)="reportedNetWorth($event)"
+                                                             [netWorthData]="guarantorDetails?.get('netWorthDetails')?.value" [index]="i">
+                                    </app-guarantor-net-worth>
+                                </div>
                                 <div class="col-md-12">
                                     <h6><b>Permanent Address</b></h6>
                                 </div>
