@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GuarantorDetail} from '../../loan/model/guarantor-detail';
 import {CalendarType} from '../../../@core/model/calendar-type';
@@ -15,6 +15,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {Occupation} from '../../admin/modal/occupation';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {GuarantorNetWorthComponent} from './guarantor-net-worth/guarantor-net-worth.component';
 
 @Component({
   selector: 'app-guarantor',
@@ -50,6 +51,9 @@ export class GuarantorComponent implements OnInit {
   docTitle = 'Net Worth Document';
   docFolderName = 'guarantorDoc';
   occupation = Occupation.enumObject();
+  @ViewChildren('guarantorNetWorth')
+  guarantorNetWorthComponent: QueryList<GuarantorNetWorthComponent>;
+
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
@@ -230,6 +234,7 @@ export class GuarantorComponent implements OnInit {
         ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
         Validators.required
       ],
+      netWorthDetails: [ObjectUtil.setUndefinedIfNull(data.netWorthDetails)]
     });
   }
 
@@ -304,9 +309,10 @@ export class GuarantorComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {
       this.guarantorDetail = this.guarantorDetailValue;
     }
+    this.getGuarantorNetWorthValue(this.guarantorNetWorthComponent);
     this.guarantorDetail.guarantorList = new Array<Guarantor>();
     const formArray = this.form.get('guarantorDetails') as FormArray;
-    formArray['controls'].forEach(c => {
+    formArray['controls'].forEach((c, i) => {
       const guarantor: Guarantor = c.value;
       if (!ObjectUtil.isEmpty(c.get('province').value)) {
         const province = new Province();
@@ -404,5 +410,23 @@ export class GuarantorComponent implements OnInit {
         this.controlValidation(['registrationNumber', 'panNumber'], true, i);
         break;
     }
+  }
+
+  getGuarantorNetWorthValue(list: QueryList<any>) {
+    this.form.get('guarantorDetails')['controls'].forEach((g, ind) => {
+      const data: any = list.filter(f => f.index === ind);
+      if (ObjectUtil.isEmpty(data)) {
+        g.get('netWorthDetails').setValue(null);
+      } else {
+        g.get('netWorthDetails').setValue(JSON.stringify(data[0].formGroup.get('guarantorNetWorth').value));
+      }
+    });
+  }
+
+  reportedNetWorth(value: any) {
+    if (!ObjectUtil.isEmpty(value)) {
+      this.form.get(['guarantorDetails', value.ind, 'netWorth']).patchValue(value.netWorth);
+    }
+    return;
   }
 }
