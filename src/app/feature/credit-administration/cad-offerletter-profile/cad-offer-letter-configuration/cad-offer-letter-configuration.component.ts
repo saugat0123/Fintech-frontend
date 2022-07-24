@@ -80,7 +80,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('customer Info :::', this.customerInfo);
         this.buildForm();
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
