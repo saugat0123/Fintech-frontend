@@ -50,6 +50,7 @@ export class FinancialComponent implements OnInit {
     totalIncome = 0;
     totalObligationValue = 0;
     totalExpenses = 0;
+    totalEmi = 0;
 
 
     // Risk factors---
@@ -220,10 +221,12 @@ export class FinancialComponent implements OnInit {
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
             this.setObligationAtOtherBank(initialFormData.obligationAtOtherBank);
+            this.setEmiInterest(initialFormData.emiInterest);
             this.setProjectedUtilization(initialFormData.projectedUtilizationFreeText);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('totalExpenseObligation').setValue(initialFormData.totalExpenseObligation);
+            this.financialForm.get('totalExpenseEmi').setValue(initialFormData.totalExpenseEmi);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
             this.financialForm.get('historicalDataPresent').setValue(initialFormData.historicalDataPresent);
             this.financialForm.get('totalWorkingCapitalLimit').setValue(initialFormData.totalWorkingCapitalLimit);
@@ -247,6 +250,7 @@ export class FinancialComponent implements OnInit {
                 this.addIncomeOfBorrower();
                 this.addExpensesOfBorrower();
                 this.addObligationAtOtherBank();
+                this.addEmi();
             } else {
                 this.addProjectedUtilization();
             }
@@ -277,6 +281,10 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('existingObligationOtherBank').patchValue(this.totalObligationValue);
         }
 
+        if (this.totalEmi !== 0) {
+            this.financialForm.get('emiWithProposal').patchValue(this.totalEmi);
+        }
+
         if (!ObjectUtil.isEmpty(data.expensesOfBorrower)) {
             data.expensesOfBorrower.forEach((v: any) => {
                 this.totalExpenses = Number(this.totalExpenses) + Number(v.amount);
@@ -293,10 +301,12 @@ export class FinancialComponent implements OnInit {
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
             obligationAtOtherBank: this.formBuilder.array([]),
+            emiInterest: this.formBuilder.array([]),
             typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
             totalExpense: [0],
             totalExpenseObligation: [0],
+            totalExpenseEmi: [0],
             currentTotal: [0],
             netSaving: [0],
             historicalDataPresent: [true],
@@ -450,6 +460,21 @@ export class FinancialComponent implements OnInit {
                         obliParticulars: [singleData.obliParticulars],
                         obliAmount: [singleData.obliAmount],
                         obliRemarks: [singleData.obliRemarks]
+                    })
+                );
+            });
+        }
+    }
+
+    setEmiInterest(currentData) {
+        const controls = this.financialForm.get('emiInterest') as FormArray;
+        if (!ObjectUtil.isEmpty(currentData)) {
+            currentData.forEach(singleData => {
+                controls.push(
+                    this.formBuilder.group({
+                        emiParticulars: [singleData.emiParticulars],
+                        emiAmount: [singleData.emiAmount],
+                        emiRemarks: [singleData.emiRemarks]
                     })
                 );
             });
@@ -658,6 +683,17 @@ export class FinancialComponent implements OnInit {
         );
     }
 
+    addEmi() {
+        const control = this.financialForm.controls.emiInterest as FormArray;
+        control.push(
+            this.formBuilder.group({
+                emiParticulars: [undefined, Validators.required],
+                emiAmount: [undefined, Validators.required],
+                emiRemarks: [undefined, Validators.required]
+            })
+        );
+    }
+
     removeIncomeIndex(incomeIndex) {
         (this.financialForm.get('incomeOfBorrower') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialForm('incomeOfBorrower', 'totalIncome');
@@ -671,6 +707,11 @@ export class FinancialComponent implements OnInit {
     removeExpensesIndexObligation(incomeIndex) {
         (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialFormObligation('obligationAtOtherBank', 'totalExpenseObligation');
+    }
+
+    removeExpensesIndexEmi(incomeIndex) {
+        (this.financialForm.get('emiInterest') as FormArray).removeAt(incomeIndex);
+        this.totalAdditionInitialFormEmi('emiInterest', 'totalExpenseEmi');
     }
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
@@ -687,6 +728,14 @@ export class FinancialComponent implements OnInit {
         let total = 0;
         (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
             total = Number(group.get('obliAmount').value) + Number(total);
+        });
+        this.financialForm.get(resultControllerName).setValue(total);
+    }
+
+    totalAdditionInitialFormEmi(formArrayName, resultControllerName) {
+        let total = 0;
+        (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
+            total = Number(group.get('emiAmount').value) + Number(total);
         });
         this.financialForm.get(resultControllerName).setValue(total);
     }
@@ -757,6 +806,7 @@ export class FinancialComponent implements OnInit {
             Number(this.financialForm.get('totalExpense').value);
         const totalTMO = Number(this.financialForm.get('emiWithProposal').value) +
             Number(this.financialForm.get('existingObligationOtherBank').value);
+        const totalExpenseEmi = Number(this.financialForm.get('emiWithProposal').value);
         const totalEmiNetMonthly = (totalNetMonthly / totalTMO);
         this.financialForm.get('totalEMIInterest').patchValue(totalEmiNetMonthly.toString() === 'Infinity' ?
             0 : totalEmiNetMonthly.toFixed(2));
@@ -764,6 +814,8 @@ export class FinancialComponent implements OnInit {
         const totalEMIInterest = (Number(this.financialForm.get('totalIncome').value) / totalTMO)
             .toFixed(2);
         this.financialForm.get('emiNetMonthly').patchValue(totalEMIInterest.toString() === 'Infinity' ? 0 : totalEMIInterest);
+        this.financialForm.get('emiWithProposal').patchValue(totalExpenseEmi.toString() === 'Infinity' ?
+            0 : totalExpenseEmi.toFixed(2));
         return;
     }
 
@@ -778,6 +830,10 @@ export class FinancialComponent implements OnInit {
             + Number(this.form.totalObligationCurrentBank.value));
         this.totalObligationRatio();
 
+    }
+
+    totalEMICCBL() {
+        this.financialForm.get('emiWithProposal').setValue(Number(this.form.totalExpenseEmi.value));
     }
 
     totalObligationRatio() {
@@ -806,12 +862,17 @@ export class FinancialComponent implements OnInit {
 
     setObligation(obligationIndex) {
         this.totalObligationValue = 0;
+        this.totalEmi = 0;
        (this.financialForm.get('obligationAtOtherBank') as FormArray).controls.forEach((c: any) => {
            this.totalObligationValue = Number(this.totalObligationValue) + Number(c.get('obliAmount').value);
        });
+        (this.financialForm.get('emiInterest') as FormArray).controls.forEach((c: any) => {
+            this.totalEmi = Number(this.totalEmi) + Number(c.get('emiAmount').value);
+        });
         this.financialForm.patchValue({
             totalExpenseObligation: this.totalObligationValue,
             existingObligationOtherBank: this.totalObligationValue,
+            totalExpenseEmi: this.totalEmi
         });
     }
 }
