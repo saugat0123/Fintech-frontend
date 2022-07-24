@@ -9,9 +9,9 @@ import { MasterDocumentComponent } from './components/master-document/master-doc
 @NgModule({
   declarations: [MasterDocumentComponent],
   imports: [
+    CommonModule,
     MasterDocumentRoutingModule,
     ThemeModule,
-    CommonModule
   ]
 })
 export class MasterDocumentModule { }

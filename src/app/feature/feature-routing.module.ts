@@ -56,14 +56,10 @@ const routes: Routes = [
         path: 'cad-document',
         loadChildren: () => import('./cad-documents/cad-documents.module').then(m => m.CadDocumentsModule)
       },
-
+      {path: 'master', loadChildren: () => import('./master-document/master-document.module').then(m => m.MasterDocumentModule)},
       {
         path: 'credit',
         loadChildren: () => import('./credit-administration/credit-administration.module').then(m => m.CreditAdministrationModule)
-      },
-      {
-        path: 'master',
-        loadChildren: () => import('./master-document/master-document.module').then(m => m.MasterDocumentModule)
       },
       {
         path: 'error',
