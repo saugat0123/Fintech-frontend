@@ -98,7 +98,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
             this.setCollaterals(data.collateralDetails);
-            this.setJointCustomer(data.jointCustomerDetails);
+            if (!ObjectUtil.isEmpty(this.customer.isJointCustomer)) {
+                this.setJointCustomer(data.jointCustomerDetails);
+            }
         } else {
             this.addGuarantor();
             this.addCollateral();
