@@ -21,14 +21,14 @@
               <td>{{i + 1}}</td>
               <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
              <!-- <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>-->
-              <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+              <td class="text-right pr-1">NPR. {{incomeOfBorrower.amount | currencyFormatter}}</td>
               <!--<td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>-->
               <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
               <td class="text-left pl-1" colspan="2"><strong>Total Income</strong></td>
               <td colspan="2" class="text-left pr-1">
-                <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
+                <strong>NPR. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
               </td>
             </tr>
             </tbody>
@@ -53,25 +53,25 @@
 <!--            <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">-->
 <!--              <td>{{i + 1}}</td>-->
 <!--              <td class="text-left pl-1">{{expensesOfBorrower.particulars}}</td>-->
-<!--              <td class="text-right pr-1">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>-->
+<!--              <td class="text-right pr-1">NPR. {{expensesOfBorrower.amount | currencyFormatter}}</td>-->
 <!--              <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--              <td class="text-left pl-1" colspan="3"><strong>Total Bank Obligation</strong></td>-->
 <!--              <td colspan="2" class="text-right pr-1">-->
-<!--                <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>-->
+<!--                <strong>NPR. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>-->
 <!--              </td>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--              <td class="text-left pl-1" colspan="3"><strong>Net Saving</strong></td>-->
 <!--              <td colspan="2" class="text-right pr-1">-->
-<!--                <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>-->
+<!--                <strong>NPR. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>-->
 <!--              </td>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--              <td class="text-left pl-1" colspan="3"><strong>Total EMI of client including present proposal</strong></td>-->
 <!--              <td colspan="2" class="text-right pr-1">-->
-<!--                <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>-->
+<!--                <strong>NPR. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>-->
 <!--              </td>-->
 <!--            </tr>-->
 <!--            <tr>-->
@@ -118,10 +118,10 @@
 <!--  </thead>-->
 <!--  <tbody>-->
 <!--  <tr>-->
-<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>-->
-<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>-->
-<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>-->
-<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">NPR. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">NPR. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">NPR. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">NPR. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>-->
 <!--    <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>-->
 <!--  </tr>-->
 <!--  </tbody>-->

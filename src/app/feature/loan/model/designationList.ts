@@ -9,6 +9,10 @@ export class DesignationList {
       name: 'Partner',
     },
     {
+      id: 'Promoter',
+      name: 'Promoter'
+    },
+    {
       id: 'Director',
       name: 'Director',
     },
@@ -47,10 +51,6 @@ export class DesignationList {
     {
       id: 'Other',
       name: 'Other',
-    },
-    {
-      id: 'Promoter',
-      name: 'Promoter'
     }
   ];
 }

@@ -210,7 +210,7 @@
     </ng-container>
   </div>
 </div>
-<div *ngIf="promoterBackground?.length > 0 &&  customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION'" class="row">
+<div *ngIf="promoterBackground?.length > 0 &&  !individual" class="row">
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">

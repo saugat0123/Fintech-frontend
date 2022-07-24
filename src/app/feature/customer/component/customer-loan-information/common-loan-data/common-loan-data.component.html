@@ -97,7 +97,7 @@
                                   formControlName="solConclusionRecommendation"></ckeditor>
                     </div>
                 </div>
-                <div class="col-md-12 form-group">
+                <div class="col-md-12 form-group" *ngIf="customerInfo?.clientType !== 'CONSUMER_FINANCE'">
 
                     <nb-checkbox (change)="checkChecked($event.target?.checked,'risk')"
                                  [checked]="riskChecked"><b>Risk & Mitigation</b>
@@ -107,7 +107,7 @@
                                   formControlName="riskConclusionRecommendation"></ckeditor>
                     </div>
                 </div>
-                <div class="col-md-12 form-group">
+                <div class="col-md-12 form-group" *ngIf="customerInfo?.clientType !=='CONSUMER_FINANCE'">
 
                     <nb-checkbox (change)="checkChecked($event.target?.checked,'debt')"
                                  [checked]="debtChecked"><b>Debt Structure and Control</b>

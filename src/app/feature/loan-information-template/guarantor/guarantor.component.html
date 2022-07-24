@@ -16,7 +16,7 @@
                 <div formArrayName="guarantorDetails">
                     <div
                         *ngFor="let guarantorDetails of form.get('guarantorDetails')['controls']; let i = index">
-                        <div [formGroupName]="i">
+                        <div class="col-md-12" [formGroupName]="i">
                             <div class="row">
                                 <div class="col-md-10">
                                     <h5>{{i + 1}})   {{customerInfo?.customerType === 'INSTITUTION'?'SHAREHOLDER/GUARANTOR':'GUARANTOR'}} Information</h5>
@@ -858,7 +858,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <h6><b>Permanent Address As Per Legal Document</b></h6>
+                                        <h6><b>Permanent Address As Per Legal Document</b></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -1130,7 +1130,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="groupBackground"><strong>Group's Background and associated companies</strong></label>
                                     <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.groupBackground?.errors }"
@@ -1144,8 +1145,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
-                            <div class="row" *ngIf="customerInfo?.customerType === 'INSTITUTION' " [formGroup]="guarantorDetails?.get('promoterData')">
+                            <div class="row" *ngIf="customerInfo?.customerType === 'INSTITUTION' && (guarantorDetails?.get('guarantorType')?.value === 'Promoter' || guarantorDetails?.get('guarantorType')?.value === 'Proprietor' || guarantorDetails?.get('guarantorType')?.value === 'Partner')" [formGroup]="guarantorDetails?.get('promoterData')">
 
                                 <table  class="table table-sm table-bordered table-hover sb-small text-center">
                                     <thead>

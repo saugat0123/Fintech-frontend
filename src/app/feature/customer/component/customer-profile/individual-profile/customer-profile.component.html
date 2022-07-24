@@ -475,7 +475,7 @@
                                 <input type="number" nbInput formControlName="creditRisk" fullWidth>
                             </div>
                             <div class="col-md-1" *ngIf="!loanForm?.invalid">
-                                <a (click)="applyLoans(proposal)" nbButton><i class="fa fa-plus"></i></a>
+                                <a (click)="applyLoans(proposal)" nbButton><i class="fa fa-plus">Apply Loan</i></a>
                                 <!--                <a  nbButton><i class="fa fa-plus"></i></a>-->
                             </div>
                         </div>
@@ -560,7 +560,7 @@
     <nb-card-body>
       <ng-container *ngIf="pendingLoanList?.length > 0">
           <div class="col-md-12">
-              <p><strong>Pending Loan Document</strong></p>
+              <p><strong>Proposed Loan Document</strong></p>
           </div>
           <ng-container *ngFor="let loan of pendingLoanList; let i = index">
               <nb-card>
@@ -579,7 +579,7 @@
        <ng-container *ngIf="approvedLoanList?.length > 0">
            <div class="col-md-12">
 
-           </div><p><strong>Approved Document</strong></p>
+           </div><p><strong>Existing Document</strong></p>
 
            <ng-container *ngFor="let loan of approvedLoanList; let i = index">
 
