@@ -25,15 +25,13 @@
                                 [loanHolder]="loanDataHolder?.loanHolder"
                                 [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
     <!--                    proposed security-->
-    <app-security-summary *ngIf="customerAllLoanList"
+    <app-security-summary *ngIf="loanSecurity?.length > 0"
                           [securities]="loanSecurity"
                           [pending]="true"></app-security-summary>
     <!--                    existing security-->
-    <app-security-summary *ngIf="customerAllLoanList"
+    <app-security-summary *ngIf="approvedSecurity?.length > 0"
                           [securities]="approvedSecurity"></app-security-summary>
 </ng-container>
-<app-security-schedule
-                       [loanDataHolder]="loanDataHolder"></app-security-schedule>
 <!-- Customer Share Security  -->
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                 [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">

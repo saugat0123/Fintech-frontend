@@ -108,7 +108,7 @@ export class LandComponent implements OnInit {
           landRate: [formData.landRate],
           landFirstValuationDate: [formData.landFirstValuationDate ? new Date(formData.landFirstValuationDate) : ''],
           isValuated: [formData.isValuated],
-          remarks: [formData.remarks]
+          remarks: [ObjectUtil.setUndefinedIfNull(formData.remarks)]
         })
     );
   }

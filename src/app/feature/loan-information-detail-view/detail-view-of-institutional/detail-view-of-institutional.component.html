@@ -6,7 +6,7 @@
             [loanDataHolder]="loanDataHolder"></app-proposal-summary>
 </ng-container>
 <!--                release and replacement-->
-<ng-container *ngIf="loanDataHolder?.securities?.length > 0">
+<ng-container>
     <hr class="print-line">
     <p class="header"><strong class="header">Security Schedule</strong></p>
     <app-security-total-summary [securities]="loanSecurity"
@@ -14,15 +14,13 @@
                                 [loanHolder]="loanDataHolder?.loanHolder"
                                 [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
     <!--                    proposed security-->
-    <app-security-summary *ngIf="customerAllLoanList"
+    <app-security-summary *ngIf="loanSecurity?.length > 0"
                           [securities]="loanSecurity"
                           [pending]="true"></app-security-summary>
-</ng-container>
-<ng-container>
     <!--                    existing security-->
-    <app-security-summary *ngIf="approvedSecurity" [securities]="approvedSecurity"></app-security-summary>
+    <app-security-summary *ngIf="approvedSecurity?.length > 0"
+                          [securities]="approvedSecurity"></app-security-summary>
 </ng-container>
-<app-security-schedule    [loanDataHolder]="loanDataHolder"></app-security-schedule>
 <!-- Customer Share Security  -->
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                 [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
