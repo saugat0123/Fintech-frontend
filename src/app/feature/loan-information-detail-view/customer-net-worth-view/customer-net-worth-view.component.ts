@@ -28,7 +28,6 @@ export class CustomerNetWorthViewComponent implements OnInit {
         if (this.tagGuarantor.length > 0) {
             this.tagGuarantor.forEach((g, i) => {
                 const d = JSON.parse(g.netWorthDetails);
-                console.log('d', d[0]);
                 this.netWorthData.push(d[0]);
             });
         }

@@ -82,7 +82,7 @@
 
 </ng-container>
 <br>
-<ng-container>
+<ng-container *ngIf="netWorthData.length > 0">
     <div *ngFor="let gData of netWorthData; let ii=index">
         <strong>Guarantor Net Worth Detail of &nbsp;{{tagGuarantor[ii]?.name}}</strong>
         <div class="row">
