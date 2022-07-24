@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
@@ -10,16 +10,16 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 export class GuarantorNetWorthComponent implements OnInit {
   @Input() netWorthData: any;
   @Input() index: number;
+  @Output() reportNetWorth = new EventEmitter<any>();
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    console.log('netWorthData', this.netWorthData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.netWorthData)) {
       const gData = JSON.parse(this.netWorthData);
-      this.setGuarantorNetWorth(gData.guarantorNetWorth);
+      this.setGuarantorNetWorth(gData);
     } else {
       this.addForm();
     }
@@ -55,6 +55,7 @@ export class GuarantorNetWorthComponent implements OnInit {
       const totalNetWorth = (Number(this.formGroup.get(['guarantorNetWorth', i, 'totalAssets']).value)
           - Number(this.formGroup.get(['guarantorNetWorth', i, 'totalLiabilities']).value));
       this.formGroup.get(['guarantorNetWorth', i, 'totalNetWorth']).patchValue(totalNetWorth);
+      this.reportNetWorth.emit({netWorth: totalNetWorth, ind: this.index});
     }
   }
 

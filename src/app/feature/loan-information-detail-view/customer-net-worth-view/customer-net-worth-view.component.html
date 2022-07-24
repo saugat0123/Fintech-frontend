@@ -16,23 +16,23 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td >Cash Deposit in other bank</td>
+                        <td>Cash Deposit in other bank</td>
                         <td>{{data?.cashDepositInOtherBank}}</td>
                     </tr>
                     <tr>
-                        <td >Real estate Properties</td>
+                        <td>Real estate Properties</td>
                         <td>{{data?.realEstateProperties}}</td>
                     </tr>
                     <tr>
-                        <td >Investment in shares</td>
+                        <td>Investment in shares</td>
                         <td>{{data?.investmentInShares}}</td>
                     </tr>
                     <tr>
-                        <td >Vehicle</td>
+                        <td>Vehicle</td>
                         <td>{{data?.vehicle}}</td>
                     </tr>
                     <tr>
-                        <td >Jewelleries</td>
+                        <td>Jewelleries</td>
                         <td>{{data?.jewelleries}}</td>
                     </tr>
                     <tr>
@@ -57,11 +57,15 @@
                         <td>{{data?.loanFromCCBL}}</td>
                     </tr>
                     <tr>
-                        <td >Credit Cards Limit if any</td>
+                        <td>Credit Cards Limit if any</td>
                         <td>{{data?.creditCardsLimit}}</td>
                     </tr>
                     <tr>
-                        <td >Other Liabilities</td>
+                        <td>Loan From Other BFIS</td>
+                        <td>{{data?.loanFromOtherBfi}}</td>
+                    </tr>
+                    <tr>
+                        <td>Other Liabilities</td>
                         <td>{{data?.otherLiabilities}}</td>
                     </tr>
                     <tr>
@@ -77,3 +81,82 @@
     </div>
 
 </ng-container>
+<br>
+<ng-container>
+    <div *ngFor="let gData of netWorthData; let ii=index">
+        <strong>Guarantor Net Worth Detail of &nbsp;{{tagGuarantor[ii]?.name}}</strong>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th width="50%">Assets</th>
+                        <th width="50%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Cash Deposit in other bank</td>
+                        <td>Rs. {{gData?.cashDepositInOtherBank}}</td>
+                    </tr>
+                    <tr>
+                        <td>Real estate Properties</td>
+                        <td>Rs. {{gData?.realEstateProperties}}</td>
+                    </tr>
+                    <tr>
+                        <td>Investment in shares</td>
+                        <td>Rs. {{gData?.investmentInShares}}</td>
+                    </tr>
+                    <tr>
+                        <td>Vehicle</td>
+                        <td>Rs. {{gData?.vehicle}}</td>
+                    </tr>
+                    <tr>
+                        <td>Jewelleries</td>
+                        <td>Rs. {{gData?.jewelleries}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Assets</th>
+                        <th>Rs. {{gData?.totalAssets}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>Total Net Worth : Rs. {{gData?.totalNetWorth}}</strong>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                    <thead>
+                    <tr class="sb-bg-dark">
+                        <th width="50%">Liabilities</th>
+                        <th width="50%">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Loan from CCBL</td>
+                        <td>Rs. {{gData?.loanFromCCBL}}</td>
+                    </tr>
+                    <tr>
+                        <td>Credit Cards Limit if any</td>
+                        <td>Rs. {{gData?.creditCardsLimit}}</td>
+                    </tr>
+                    <tr>
+                        <td>Loan From Other BFIS</td>
+                        <td>Rs. {{gData?.loanFromOtherBfi}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Other Liabilities</td>
+                        <td>Rs. {{gData?.otherLiabilities}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Liabilities</th>
+                        <th>Rs. {{gData?.totalLiabilities}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-container>
+

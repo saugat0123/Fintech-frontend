@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GuarantorDetail} from '../../loan/model/guarantor-detail';
 import {CalendarType} from '../../../@core/model/calendar-type';
@@ -83,7 +83,6 @@ export class GuarantorComponent implements OnInit {
         this.addEmptyGroup();
         return;
       }
-      console.log('guarantorList', this.guarantorDetailValue.guarantorList);
       this.guarantorDetailValue.guarantorList.forEach((v, index) => {
         this.addressList.push(new Address());
         this.addressListTemporary.push(new Address());
@@ -300,7 +299,6 @@ export class GuarantorComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('guarantorNetWorthComponent', this.guarantorNetWorthComponent);
     this.overlay.show();
     this.submitted = true;
     if (this.form.invalid) {
@@ -311,7 +309,6 @@ export class GuarantorComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {
       this.guarantorDetail = this.guarantorDetailValue;
     }
-    // this.guarantorNetWorthComponent;
     this.getGuarantorNetWorthValue(this.guarantorNetWorthComponent);
     this.guarantorDetail.guarantorList = new Array<Guarantor>();
     const formArray = this.form.get('guarantorDetails') as FormArray;
@@ -339,8 +336,6 @@ export class GuarantorComponent implements OnInit {
         municipalityVdc.id = c.get('municipalitiesTemporary').value;
         guarantor.municipalitiesTemporary = municipalityVdc;
       }
-      // guarantor.netWorthDetails = this.getGuarantorNetWorthValue(this.guarantorNetWorthComponent, i);
-      console.log('guarantor', guarantor);
       this.guarantorDetail.guarantorList.push(guarantor);
     });
     this.guarantorDataEmitter.emit(this.guarantorDetail);
@@ -420,12 +415,18 @@ export class GuarantorComponent implements OnInit {
   getGuarantorNetWorthValue(list: QueryList<any>) {
     this.form.get('guarantorDetails')['controls'].forEach((g, ind) => {
       const data: any = list.filter(f => f.index === ind);
-      console.log('data', data);
       if (ObjectUtil.isEmpty(data)) {
         g.get('netWorthDetails').setValue(null);
       } else {
         g.get('netWorthDetails').setValue(JSON.stringify(data[0].formGroup.get('guarantorNetWorth').value));
       }
     });
+  }
+
+  reportedNetWorth(value: any) {
+    if (!ObjectUtil.isEmpty(value)) {
+      this.form.get(['guarantorDetails', value.ind, 'netWorth']).patchValue(value.netWorth);
+    }
+    return;
   }
 }
