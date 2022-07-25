@@ -14,18 +14,18 @@
                         <tbody>
                         <tr>
                             <td>
-                                <table class="table table-bordered table-condensed table-responsive-md text-center table-sm sb-small sb-bg-gray">
+                                <table class="table table1 table-bordered table-condensed table-responsive-md text-center table-sm sb-small sb-bg-gray">
                                     <tbody>
                                     <tr class="font">  <td class="text-left pl-2">Model</td> </tr>
                                     <tr class="font">  <td class="text-left pl-2">Quotation/Valuation Amount</td> </tr>
                                     <tr class="font">  <td class="text-left pl-2">Down Payment</td></tr>
                                     <tr class="font">   <td class="text-left pl-2">Remaining Amount</td></tr>
                                     <tr class="font">  <td class="text-left pl-2">Registration Number</td></tr>
-                                    <tr class="font"> <td class="text-left pl-2">Registration Date(AD/BS)</td></tr>
+                                    <tr class="font"> <td class="text-left pl-2">Registration Date(AD)</td></tr>
                                     <tr class="font">  <td class="text-left pl-2">Engine Number</td></tr>
                                     <tr class="font"><td class="text-left pl-2">Chassis Number</td></tr>
                                     <tr><td class="text-left pl-2">Showroom Commission</td></tr>
-                                    <tr> <td class="text-left pl-2">Valuated Date(AD/BS)</td></tr>
+                                    <tr> <td class="text-left pl-2">Valuation Date(AD)</td></tr>
                                     <tr> <td class="text-left pl-2">Valuator Name</td></tr>
                                     <tr> <td class="text-left pl-2">Realisable Amount</td></tr>
                                     </tbody>
@@ -33,7 +33,7 @@
 
                             </td>
                             <td *ngFor="let vehicleDetails of vehicle;">
-                                <table class="table table-bordered table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                <table class="table table1 table-bordered table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                 <tbody>
                                 <tr><td class="text-left pl-2">{{vehicleDetails?.model || 'N/A'}}</td></tr>
                                 <tr>    <td class="text-left pl-2">Rs. {{(vehicleDetails?.quotationAmount | currencyFormatter) || 'N/A'}}</td></tr>
@@ -55,12 +55,12 @@
                         </tbody>
                 </table>
                 <div class="mt-1">
-                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                    <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
                         <tr class="sb-bg-gray">
                             <th>Remarks</th>
                         </tr>
-                        <tr *ngFor="let vehicleDetails of vehicle;" class="justify-content-center text-left pl-2">
-                            <td>
+                        <tr *ngFor="let vehicleDetails of vehicle;" class="justify-content-center">
+                            <td class="text-left pl-2">
                                 {{vehicleDetails?.vehicleRemarks || 'N/A'}}
                             </td>
                         </tr>
@@ -74,10 +74,10 @@
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Land Security</strong></p>
                 <ng-container *ngFor="let land of landArray;">
-    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+    <table class="table table-condensed table-responsive-md text-center table-sm sb-small">
         <tr>
             <td width="30%">
-                <table class="table table-condensed table-bordered table-responsive-md text-left table-sm sb-small sb-bg-gray">
+                <table class="table1 table table-condensed table-responsive-md text-left table-sm sb-small sb-bg-gray">
                     <tr>
                         <td class="text-left pl-2">Owner Name</td>
                     </tr>
@@ -126,7 +126,7 @@
                 </table>
                 </td>
             <td width="35%" *ngFor="let landDetails of land;">
-                <table class="table table-condensed table-bordered table-responsive-md text-right table-sm sb-small">
+                <table class="table1 table table-condensed table-responsive-md table-sm sb-small">
                     <tbody>
                     <tr>
                         <td class="text-left pl-2">{{landDetails?.owner || 'N/A'}}</td>
@@ -181,7 +181,7 @@
         </tr>
         <tr  *ngIf="land[0]?.ownerKycApplicableData !== null">
             <td colspan="3">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <ng-container>
                         <ng-container>
                             <tr class="sb-bg-gray">
@@ -229,7 +229,7 @@
                         </ng-container>
                     </ng-container>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
                     <tr class="sb-bg-gray">
                         <th>Remarks</th>
                     </tr>
@@ -243,7 +243,7 @@
         </tr>
         <tr  *ngIf="land[0]?.revaluationData != null && land[0]?.revaluationData?.isReValuated">
             <td colspan="3">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <ng-container>
                         <ng-container>
                             <tr>
@@ -278,7 +278,7 @@
         </tr>
         <tr  *ngIf="land[1]?.ownerKycApplicableData !== null">
             <td colspan="3">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <ng-container>
                         <ng-container>
                             <tr class="sb-bg-gray">
@@ -354,7 +354,7 @@
                         </tr>
                     </ng-container>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
                     <tr class="sb-bg-gray">
                         <th>Remarks</th>
                     </tr>
@@ -368,7 +368,7 @@
         </tr>
         <tr *ngIf="land[1]?.revaluationData != null && land[1]?.revaluationData?.isReValuated">
             <td colspan="3">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <ng-container>
                         <ng-container >
                             <tr>
@@ -421,11 +421,11 @@
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Land And Building Security</strong></p>
                 <ng-container *ngFor="let landB of landBuildingArray" >
-                    <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
+                    <table class="table table-condensed table-responsive-md  table-sm sb-small">
                         <tbody>
                         <tr>
                             <td>
-                                <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-gray">
+                                <table class="table table1 table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-gray">
                                     <tbody>
                                     <tr>
                                         <td class="text-left pl-2">Owner Name</td>
@@ -479,7 +479,7 @@
                                 </table>
                             </td>
                             <td *ngFor="let landBuilding of landB">
-                                <table class="table table-condensed table-responsive-md table-sm sb-small">
+                                <table class="table table1 table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
                                     <tr> <td class="text-left pl-2">{{landBuilding?.owner || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{landBuilding?.landBuildingCollateralOwnerRelationship || 'N/A'}}</td></tr>
@@ -524,53 +524,53 @@
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Apartment Security</strong></p>
                 <ng-container *ngFor="let landB of apartmentArray" >
-                    <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
+                    <table class="table table-condensed table-responsive-md  table-sm sb-small">
                         <tbody>
                         <tr>
                             <td>
-                                <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-gray">
+                                <table class="table table1 table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-gray">
                                     <tbody>
                                     <tr>
-                                        <td class="text-left">Apartment Name</td>
+                                        <td class="text-left pl-2">Apartment Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Proposed Owner</td>
+                                        <td class="text-left pl-2">Proposed Owner</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Apartment Description</td>
+                                        <td class="text-left pl-2">Apartment Description</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Build Area</td>
+                                        <td class="text-left pl-2">Build Area</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Build Rate</td>
+                                        <td class="text-left pl-2">Build Rate</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Total Cost</td>
+                                        <td class="text-left pl-2">Total Cost</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Fair Market Value</td>
+                                        <td class="text-left pl-2">Fair Market Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Market Value</td>
+                                        <td class="text-left pl-2">Market Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valuator Name</td>
+                                        <td class="text-left pl-2">Valuator Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valuation Date(AD)</td>
+                                        <td class="text-left pl-2">Valuation Date(AD)</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Revaluation Done ?</td>
+                                        <td class="text-left pl-2">Revaluation Done ?</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Realiasable Value</td>
+                                        <td class="text-left pl-2">Realiasable Value</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </td>
                             <td *ngFor="let buildingDetails of landB">
-                                <table class="table table-condensed table-responsive-md table-sm sb-small">
+                                <table class="table table1 table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
                                     <tr> <td class="text-left pl-2">{{buildingDetails?.buildingName || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{buildingDetails?.proposedOwner || 'N/A'}}</td></tr>
@@ -667,7 +667,7 @@
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Plant and Machinery Details Security</strong></p>
 
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let plantDetails of plantArray; let i= index">
                     <thead>
                     <tr class="text-center sb-bg-gray">
@@ -697,7 +697,7 @@
         <div *ngIf="depositSelected" class="row">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Fixed Deposit Receipt Details</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-center sb-bg-gray">
                         <th class="sn">S.N</th>
@@ -723,7 +723,7 @@
                     </tr>
                     </thead>
                 </table>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
                     <tr class="sb-bg-gray">
                         <th>Remarks</th>
                     </tr>
@@ -741,7 +741,7 @@
                 <p class="sub-header"><strong class="sub-header">Share Security Detail</strong>(Promoter Percent: {{loanSharePercent
                 == undefined ? 0 : loanSharePercent.promoter}} , Ordinary
                     Percent: {{loanSharePercent == undefined ? 0 : loanSharePercent.ordinary}})</p>
-                <table class="table table-bordered table-sm text-center sb-small">
+                <table class="table table1 table-bordered table-sm text-center sb-small">
                     <thead>
                     <tr class="text-center sb-bg-gray">
                         <th class="sn">S.N</th>
@@ -773,7 +773,7 @@
         <div class="row" *ngIf="hypothecation">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Hypothecation of Stock & Receivables</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let hypothecationOfStock of hypoArray; let i= index">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
@@ -813,7 +813,7 @@
         <div class="row" *ngIf="securityOther">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Other Security</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let otherSecurity of otherArray; let i= index">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
@@ -831,7 +831,7 @@
         <div class="row" *ngIf="assignments">
             <div class="col-md-12">
                 <p class="sub-header"><strong>Lease Assignment</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let assignments of leaseArray; let i= index">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
@@ -849,7 +849,7 @@
         <div class="row" *ngIf="assignment">
             <div class="col-md-12">
                 <p class="sub-header"><strong>Assignment Of Receivables</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let assignmentOfReceivables of assignmentArray; let i= index">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
@@ -867,7 +867,7 @@
         <div class="row" *ngIf="corporate">
             <div class="col-md-12">
                 <p class="sub-header"><strong>Corporate Guarantee</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
                         <th>Name of Guarantor</th>
@@ -890,7 +890,7 @@
         <div class="row" *ngIf="personal">
             <div class="col-md-12">
                 <p class="sub-header"><strong>Personal Guarantee</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-gray">
                         <th class="sn">S.N</th>
                         <th>Name of Guarantor</th>
@@ -928,7 +928,7 @@
         <div class="row" *ngIf="insurancePolicySelected">
             <div class="col-md-12">
                 <p class="sub-header"><strong>Insurance Policy Security</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-gray">
                         <th>S.N</th>
                         <th>Insured Amount</th>

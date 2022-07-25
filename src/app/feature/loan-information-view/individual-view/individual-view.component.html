@@ -2,7 +2,7 @@
     <ng-container *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" >
         <div class="col-md-12">
             <p class="header"><b class="header">Address Verification</b></p>
-            <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
+            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                 <tr class="sb-bg-gray">
                     <th colspan="6">Permanent Address</th>
                 </tr>
@@ -53,7 +53,7 @@
             <div class="col-md-12">
                 <div>
                     <table
-                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                            class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-left">
                             <td class="sb-bg-gray">Name</td>
                             <td class="pl-1 text-left">{{loanDataHolder?.customerInfo?.customerName}}</td>
@@ -107,7 +107,7 @@
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
                 <table
-                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <thead>
                     <tr class="sb-bg-gray">
                         <th>Name</th>
@@ -140,7 +140,7 @@
     <ng-container *ngIf="isRemit">
         <div class="col-md-12">
             <p><b> Proposal</b></p>
-            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
                     <th>Limit</th>
                     <th>{{loanDataHolder?.proposal?.proposedLimit}}</th>
@@ -190,7 +190,7 @@
         <div class="row mt-1" *ngIf="isRemit">
             <div class="col-md-12">
                 <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
-                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                <table class="table table1 table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead class="sb-bg-gray">
                     <tr>
                         <th>Particulars</th>
@@ -233,8 +233,10 @@
                 </table>
             </div>
         </div>
+        <div class="row mt-1">
+            <div class="col-md-12">
         <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="sb-bg-gray">
                 <th colspan="2">Introduction</th>
             </tr>
@@ -279,12 +281,14 @@
 <!--                <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>-->
 <!--            </tr>-->
         </table>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-12" *ngIf="isRemit">
         <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
         <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-gray">
             <tr>
                 <td><b>Particular</b></td>
@@ -330,113 +334,113 @@
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
                     <td>
-                        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Name</td>
+                                <td class="sb-bg-gray pl-2">Name</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Customer Id</td>
+                                <td class="sb-bg-gray pl-2">Customer Id</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Date of birth(AD/BS)</td>
+                                <td class="sb-bg-gray pl-2">Date of birth(AD/BS)</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Age</td>
+                                <td class="sb-bg-gray pl-2">Age</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Citizenship no.</td>
+                                <td class="sb-bg-gray pl-2">Citizenship no.</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Issued Date(Ad/BS)</td>
+                                <td class="sb-bg-gray pl-2">Issued Date(Ad/BS)</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Issued Place</td>
+                                <td class="sb-bg-gray pl-2">Issued Place</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Gender</td>
+                                <td class="sb-bg-gray pl-2">Gender</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Marital Status</td>
+                                <td class="sb-bg-gray pl-2">Marital Status</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Mobile Number</td>
+                                <td class="sb-bg-gray pl-2">Mobile Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">LandLine Number</td>
+                                <td class="sb-bg-gray pl-2">LandLine Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Email</td>
+                                <td class="sb-bg-gray pl-2">Email</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Occupation</td>
+                                <td class="sb-bg-gray pl-2">Occupation</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Income Source</td>
+                                <td class="sb-bg-gray pl-2">Income Source</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Client Type</td>
+                                <td class="sb-bg-gray pl-2">Client Type</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Pan Number</td>
+                                <td class="sb-bg-gray pl-2">Pan Number</td>
                             </tr>
                             <tr class="text-left">
-                                <td class="sb-bg-gray">Account Number</td>
+                                <td class="sb-bg-gray pl-2">Account Number</td>
                             </tr>
                         </table>
                         </td>
                     <td *ngFor="let info of joint">
-                        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
                             <tr>
-                                <td class="text-left">{{info?.customerName || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.customerName || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.customerCode || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.customerCode || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                                <td class="text-left pl-2">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{calculateAge(info?.dob)}} years</td>
+                                <td class="text-left pl-2">{{calculateAge(info?.dob)}} years</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.citizenshipNumber || 'NA'}}</td>
+                                <td class="text-left pl-2">{{info?.citizenshipNumber || 'NA'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.citizenshipIssuedDate | date}}
+                                <td class="text-left pl-2">{{info?.citizenshipIssuedDate | date}}
                                     ({{info?.citizenshipIssuedDate | engNepDate: false}})</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.citizenshipIssuedPlace || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.citizenshipIssuedPlace || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.gender?.toLowerCase() || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.gender?.toLowerCase() || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.maritalStatus?.toLowerCase() || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.maritalStatus?.toLowerCase() || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.contactNumber || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.contactNumber || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.landLineNumber || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.landLineNumber || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.email || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.email || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.occupation || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.occupation || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.incomeSource || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.incomeSource || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{loanDataHolder?.loanHolder?.clientType | clientType}}</td>
+                                <td class="text-left pl-2">{{loanDataHolder?.loanHolder?.clientType | clientType}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">{{info?.panNumber || 'N/A'}}</td>
+                                <td class="text-left pl-2">{{info?.panNumber || 'N/A'}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">
+                                <td class="text-left pl-2">
                                     <table>
                                         <tr *ngFor="let acc of info?.accountDetails">
                                             <td>
@@ -450,7 +454,7 @@
                 </tr>
             </table>
             <p class="sub-header" ><strong   class="header">Family Details</strong></p>
-            <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
+            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
                 <tbody>
                 <tr class="sb-bg-gray">
                     <th>Name</th>
@@ -474,7 +478,7 @@
                 </tbody>
             </table>
         </ng-container>
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="sb-bg-gray">
                 <th colspan="7">Permanent Address</th>
             </tr>
@@ -525,7 +529,7 @@
     </div>
 </div>
 <div *ngIf="isJointInfo" class="col-md-12 text-center">
-    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+    <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tbody>
         <tr class="sb-bg-gray">
             <th colspan="2">Introduction</th>

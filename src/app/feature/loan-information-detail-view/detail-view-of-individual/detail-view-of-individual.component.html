@@ -46,7 +46,7 @@
                      [individual]="loanDataHolder?.customerInfo"
                      [loanId]="loanId" [customerInfo]="loanHolder"
                      [proposalData]="loanDataHolder?.proposal"></app-individual-view>
-<hr class="print-line">
+
 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"
                     [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
