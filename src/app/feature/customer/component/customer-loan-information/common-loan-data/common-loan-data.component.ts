@@ -80,7 +80,7 @@ export class CommonLoanDataComponent implements OnInit {
             borrowerInformation: [undefined],
             disbursementCriteria: [undefined],
             repayment: [undefined],
-            remark: [undefined],
+            // remark: [undefined],
             summeryRecommendation: [undefined],
             waiverConclusionRecommendation: [undefined],
             deviationConclusionRecommendation: [undefined],
