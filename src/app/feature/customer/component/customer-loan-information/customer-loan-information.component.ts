@@ -203,6 +203,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     netChecked = false;
     swapChargeChecked = false;
     subsidizedLoanChecked = false;
+    reviewDateBoolean = false;
 
     private _securities = new BehaviorSubject<Security[]>([]);
     readonly securities$ = this._securities.asObservable();
@@ -284,6 +285,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.reportingInfoLevelCode = f.code;
                 this.reportingInfoLevelDescription = f.description;
             });
+        }
+        if (this.customerInfo.clientType !== 'CONSUMER_FINANCE' && this.customerInfo.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'
+            && this.customerInfo.clientType !== 'DEPRIVED_SECTOR' && this.customerInfo.clientType !== 'MICRO_FINANCIAL_SERVICES') {
+            this.reviewDateBoolean = true;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
             this.commentsData = this.customerInfo.data;

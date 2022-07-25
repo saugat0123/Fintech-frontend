@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 text-center">
+    <div class="col-md-12">
         <p class="header"><strong class="header">Income of Borrower/Guarantor</strong></p>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
@@ -30,11 +30,9 @@
             </tbody>
         </table>
 
+        <p class="header"><strong class="header">Bank Obligation of Borrower</strong></p>
         <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
-            <tr>
-                <th colspan="4">Bank Obligation of Borrower</th>
-            </tr>
             <tr class="sb-bg-gray">
                 <th class="sn">S.N</th>
                 <th>Particulars</th>
