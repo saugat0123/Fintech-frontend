@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
-import {LayoutService} from '../../../@core/utils';
+import {LayoutService, ToastService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
@@ -13,6 +13,7 @@ import {NotificationService} from '../notification/service/notification.service'
 import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {PushNotificationsService} from '../../../@core/service/push-notification.service';
+import {Alert, AlertType} from '../../model/Alert';
 
 @Component({
   selector: 'app-header',
@@ -49,7 +50,8 @@ export class HeaderComponent implements OnInit {
       private modalService: NgbModal,
       private socketService: SocketService,
       private notificationService: NotificationService,
-      private _pushNotificationService: PushNotificationsService
+      private _pushNotificationService: PushNotificationsService,
+      private toastService: ToastService
   ) {
 
     this.searchService.onSearchSubmit()
@@ -108,14 +110,22 @@ export class HeaderComponent implements OnInit {
             title === HeaderComponent.CHANGE_PASSWORD)
     ).subscribe((value) => {
       if (value === HeaderComponent.LOGOUT) {
-        LocalStorageUtil.clearStorage();
+        console.log('Before LocalStorageUtil', LocalStorageUtil);
+
         try {
-        if (this.socketService.isCustomSocketOpened) {
-          this.socketService.closeSocket();
-        }} catch (e) {
+          this.userService.userLogOut().subscribe((res: any) => {
+            LocalStorageUtil.clearStorage();
+            this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+            console.log('clear data');
+            if (this.socketService.isCustomSocketOpened) {
+              this.socketService.closeSocket();
+            }
+            console.log('After LocalStorageUtil', LocalStorageUtil);
+            this.router.navigate(['/login']);
+          });
+        } catch (e) {
 
         }
-        this.router.navigate(['/login']);
       } else if (value === HeaderComponent.PROFILE) {
         this.modalService.dismissAll();
         this.modalService.open(ProfileComponent, {size: 'lg', backdrop: 'static'});
