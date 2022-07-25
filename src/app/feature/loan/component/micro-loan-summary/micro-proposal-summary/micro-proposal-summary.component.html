@@ -54,26 +54,26 @@
                     {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false}}))
                 </td>
                 <td class="text-right pr-1"><span
-                        *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}</span>
+                        *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">NPR. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}</span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
                 <td class="text-right pr-1"><span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
-                    Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
+                    NPR. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
                 </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span></td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">
-                        Rs. {{(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
+                        NPR. {{(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">-</span>
                 </td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.settlementAmount">
-                        Rs. {{(loan?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
+                        NPR. {{(loan?.proposal?.data | jsonParse)?.settlementAmount | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span>
                 </td>
 
-                <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                <td class="text-right pr-1">NPR. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
                 <!--                Existing INT/COM/CM-->
                 <td>
                     <span *ngIf="loan?.loan?.isFundable">
@@ -82,7 +82,7 @@
                     <span *ngIf="!loan?.loan?.isFundable">
                         <span
                                 *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT'">
-                            CM: Rs. {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)|currencyFormatter}} ,</span>
+                            CM: NPR. {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)|currencyFormatter}} ,</span>
                         <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT'">
                             CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}}%,</span>
                         COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
@@ -98,14 +98,14 @@
            </span>
                     <span *ngIf="!loan?.loan?.isFundable">
                         <span
-                                *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">CM: Rs.  {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0)|currencyFormatter}} ,</span>
+                                *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">CM: NPR.  {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0)|currencyFormatter}} ,</span>
                         <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">CM: {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0)}}
                             %,</span>
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage || '0'}} %</span>
                 </td>
                 <th class="text-center">{{proposalAllData?.interestRebate}}%</th>
                 <td>
-                    <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
+                    <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">NPR. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
                     <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} %</ng-template>
                 </td>
                 <td width="150px" class="text-left pl-1">
@@ -116,9 +116,9 @@
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td class="text-left pl-1"><strong>Funded</strong></td>
-                <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
-                <td class="text-right pr-1">Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-                <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -126,9 +126,9 @@
             </tr>
             <tr class="sb-bg-secondary text-white">
                 <td class="text-left pl-1"><strong>Non-Funded</strong></td>
-                <td class="text-right pr-1">Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
-                <td class="text-right pr-1">Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-                <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
+                <td class="text-right pr-1">NPR. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -137,9 +137,9 @@
             <tr class="sb-bg-secondary text-white">
                 <td class="text-left pl-1"><strong>Total</strong></td>
 
-                <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
-                <td class="text-right pr-1">Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</td>
-                <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ getTotal('existingLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ getTotal('outStandingLimit') | currencyFormatter }}</td>
+                <td class="text-right pr-1">NPR. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>

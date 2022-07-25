@@ -1,6 +1,6 @@
 <div class="py-2">
     <div>
-        <span *ngIf="checked"><strong>Debt Structure and Control</strong></span>
+        <span *ngIf="checked && customerAllLoanList[0]?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"><strong>Debt Structure and Control</strong></span>
     </div>
 <!--    <ng-template #otherBank>-->
 <!--        <span><strong>Terms And Condition</strong></span>-->

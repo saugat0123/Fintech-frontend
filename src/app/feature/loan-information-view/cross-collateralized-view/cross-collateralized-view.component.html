@@ -16,25 +16,25 @@
                 <td class="sn">{{i+1}}</td>
                 <td class="text-left pl-1">{{cc?.borrowerName ? cc?.borrowerName : '-'}}</td>
                 <td class="text-left pl-1">{{cc?.facilityName ? cc?.facilityName : '-'}}</td>
-                <td class="text-right pr-1">{{cc?.totalExposure ? 'Rs.' + cc?.totalExposure : '-'}}</td>
-                <td class="text-right pr-1">{{cc?.rmValue ? 'Rs.' + cc?.rmValue : '-'}}</td>
-                <td class="text-right pr-1">{{cc?.fmvApportion ? 'Rs.' + cc?.fmvApportion : '-'}}</td>
+                <td class="text-right pr-1">{{cc?.totalExposure ? 'NPR.' + cc?.totalExposure : '-'}}</td>
+                <td class="text-right pr-1">{{cc?.rmValue ? 'NPR.' + cc?.rmValue : '-'}}</td>
+                <td class="text-right pr-1">{{cc?.fmvApportion ? 'NPR.' + cc?.fmvApportion : '-'}}</td>
                 <td class="text-right pr-1">{{cc?.drawDown ? cc?.drawDown + ' %' : '-'}}</td>
-                <td class="text-right pr-1">{{cc?.residualFmv ? 'Rs.' + cc?.residualFmv : '-'}}</td>
+                <td class="text-right pr-1">{{cc?.residualFmv ? 'NPR.' + cc?.residualFmv : '-'}}</td>
             </tr>
             </tbody>
             <tbody>
             <tr>
                 <th colspan="3">Total</th>
-                <th class="text-right pr-1">Rs.
+                <th class="text-right pr-1">NPR.
                     {{securityType === 'land' ? (initialForm?.landExposureTotal | currencyFormatter) :
                         securityType === 'landBuilding' ? (initialForm?.lbExposureTotal | currencyFormatter) :
                             securityType === 'apartment' ? (initialForm?.apartmentExposureTotal | currencyFormatter) : 0}}</th>
-                <th class="text-right pr-1">Rs.
+                <th class="text-right pr-1">NPR.
                     {{securityType === 'land' ? (initialForm?.landRmValueTotal | currencyFormatter) :
                         securityType === 'landBuilding' ? (initialForm?.lbRmValueTotal | currencyFormatter) :
                             securityType === 'apartment' ? (initialForm?.apartmentRmValueTotal | currencyFormatter) : 0}}</th>
-                <th class="text-right pr-1">Rs.
+                <th class="text-right pr-1">NPR.
                     {{securityType === 'land' ? (initialForm?.landFmvOfFacTotal | currencyFormatter) :
                         securityType === 'landBuilding' ? (initialForm?.lbRmValueTotal | currencyFormatter) :
                             securityType === 'apartment' ? (initialForm?.apartmentExposureTotal | currencyFormatter) : 0}}</th>

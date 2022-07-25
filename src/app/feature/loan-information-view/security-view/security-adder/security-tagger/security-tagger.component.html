@@ -132,10 +132,10 @@
                     <td>{{i + 1}}</td>
                     <td>{{security?.data?.owner ? security?.data?.owner : loanDataHolder?.loanHolder?.name}}</td>
                     <td>{{security?.data?.plotNumber ? security?.data?.plotNumber : 'NA'}}</td>
-                    <td>Rs. {{security?.data?.fairMarketValue ? (security?.data?.fairMarketValue | currencyFormatter) :  '0'}}</td>
-                    <td>Rs. {{security?.data?.distressValue? (security?.data?.distressValue | currencyFormatter) : '0'}}</td>
-                    <td>Rs. {{security?.data?.considerValue ? (security?.data?.considerValue | currencyFormatter) : '0'}}</td>
-                    <td>Rs. {{security?.usedAmount ? (security?.usedAmount | currencyFormatter) : '0'}}</td>
+                    <td>NPR. {{security?.data?.fairMarketValue ? (security?.data?.fairMarketValue | currencyFormatter) :  '0'}}</td>
+                    <td>NPR. {{security?.data?.distressValue? (security?.data?.distressValue | currencyFormatter) : '0'}}</td>
+                    <td>NPR. {{security?.data?.considerValue ? (security?.data?.considerValue | currencyFormatter) : '0'}}</td>
+                    <td>NPR. {{security?.usedAmount ? (security?.usedAmount | currencyFormatter) : '0'}}</td>
                     <td>{{security?.coverage || '0'}} %</td>
                     <td>{{security?.securityType ? (security?.securityType | replace :'_' : ' ') : 'NA'}}</td>
                     <td>

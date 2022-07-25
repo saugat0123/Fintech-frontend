@@ -523,6 +523,17 @@
                     <!--                </div>-->
 
                 </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="title rounded" for="description">Remarks of land</label>
+                        <textarea class="form-control rounded" cols="150" formControlName="remarks"
+                                  id="description"
+                                  placeholder="Remarks"
+                                  rows="5"></textarea>
+                    </div>
+                </div>
+
                 <div *ngIf="landForm.get('landDetails') ['length'] > 1" class="col-md-1">
                     <input (click)="removeLandDetails(i)"
                            class="align-self-end btn btn-sm btn-danger btn-primary"
@@ -530,19 +541,11 @@
                 </div>
             </div>
             <hr>
+
         </div>
         <div class="text-right">
             <input (click)="addMoreLand()" class="btn btn-sm btn-flat btn-primary" type="button"
                    value="Add More Land"/>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="title rounded" for="description">Remarks of land</label>
-                <textarea class="form-control rounded" cols="150" formControlName="description"
-                          id="description"
-                          placeholder="Remarks"
-                          rows="5"></textarea>
-            </div>
         </div>
         <!--<div class="row">
             <div class="form-group col-md-12">

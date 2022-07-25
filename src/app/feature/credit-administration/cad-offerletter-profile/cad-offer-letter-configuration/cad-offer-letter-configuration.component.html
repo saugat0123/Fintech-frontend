@@ -14,542 +14,40 @@
                 <nb-tab tabId="0"
                         tabTitle="{{customerInfo?.customerType === 'INDIVIDUAL' ? 'CUSTOMER DETAIL' : 'COMPANY DETAIL'}}"
                         #personal>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="title" for="name">Borrower Name (in English)</label>
-                                <input class="form-control rounded"
-                                       formControlName="name"
-                                       id="name"
-                                       [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
-                                       name="name" placeholder=""
-                                       type="text"/>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="title" for="nepaliName">Borrower Name (in Nepali)</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="nepaliName"
-                                       id="nepaliName"
-                                       [ngClass]="{'is-invalid': submitted && configForm.nepaliName.errors}"
-                                       name="nepaliName" placeholder=""
-                                       type="text"/>
-                            </div>
-                        </div>
-                        <ng-container *ngIf="customerInfo.customerType === 'INDIVIDUAL'">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="gender">Gender</label>
-                                    <select class="form-control" formControlName="gender" id="gender"
-                                            [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
-                                        <option [value]="null" hidden>Select Gender</option>
-                                        <option value="0">महिला</option>
-                                        <option value="1">पुरुष</option>
-                                        <!-- <option value="2">अन्य</option>-->
-                                    </select>
+                    <div class="row" *ngIf="customerInfo?.isJointCustomer; else otherSection;">
+                        <ng-container *ngFor="let joint of userConfigForm.get('jointCustomerDetails')['controls']; let i = index;" formArrayName="jointCustomerDetails">
+                            <ng-container [formGroupName]="i">
+                                <div class="col-md-12">
+                                    <p class="text-center"><strong>Joint Customer Detail-{{i+1}}</strong> </p>
+                                    <hr>
                                 </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
-                                <div class="form-group">
-                                    <label class="title" for="grandFatherName">Grandfather Name</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="grandFatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
-                                           id="grandFatherName"
-                                           name="grandFatherName" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <!-- <div class="col" *ngIf="configForm?.gender?.value == 0">
-                                 <div class="form-group">
-                                     <label class="relationMedium" for="relationMedium">Relation Medium</label>
-                                     <select class="form-control" formControlName="relationMedium"
-                                             id="relationMedium"
-                                             [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
-                                         <option [value]="null" hidden>Select Relation Medium</option>
-                                         <option value="0">पैत्रिक नाताबाट</option>
-                                         <option value="1">मैत्रिक नाताबाट</option>
-                                     </select>
-                                 </div>
-                             </div>-->
-                            <div class="col-md-4">
-                                <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
-                                <div class="form-group">
-                                    <label class="title" for="name">Father Name</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="fatherName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
-                                           id="fatherName"
-                                           name="name" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4"
-                                 [hidden]="configForm?.gender?.value == 1">
-                                <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
-                                <div class="form-group">
-                                    <label class="title" for="husbandName">Husband Name </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="husbandName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                                           id="husbandName"
-                                           name="husbandName" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4"
-                                 [hidden]="configForm?.gender?.value == 1">
-                                <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
-                                <div class="form-group">
-                                    <label class="title" for="fatherInLawName">Father In Law Name</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="fatherInLawName"
-                                           [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
-                                           id="fatherInLawName"
-                                           name="fatherInLawName" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="citizenshipNo">Citizenship no.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="citizenshipNo"
-                                           id="citizenshipNo"
-                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
-                                           name="name" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="citizenshipNo">Citizenship Issue Office &
-                                        District</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="citizenshipIssueDistrict"
-                                           id="citizenshipIssueDistrict"
-                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
-                                           name="name" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="citizenshipNo">Citizenship Issue Date</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="citizenshipIssueDate"
-                                           id="citizenshipIssueDate"
-                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
-                                           name="name" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="dateOfBirth">Date of Birth (B.S.)</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="dateOfBirth"
-                                           id="dateOfBirth"
-                                           [ngClass]="{'is-invalid': submitted && configForm.dateOfBirth.errors}"
-                                           name="dateOfBirth" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <ng-container *ngIf="customerInfo?.customerType === 'INSTITUTION'">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="registrationNo">Registration No.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="registrationNo"
-                                           id="registrationNo"
-                                           [ngClass]="{'is-invalid': submitted && configForm.registrationNo.errors}"
-                                           name="registrationNo" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="companyRegOffice">Company Registration Office</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="companyRegOffice"
-                                           id="companyRegOffice"
-                                           [ngClass]="{'is-invalid': submitted && configForm.companyRegOffice.errors}"
-                                           name="companyRegOffice" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title" for="regIssueDate">Registration Issued Date</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="regIssueDate"
-                                           id="regIssueDate"
-                                           [ngClass]="{'is-invalid': submitted && configForm.regIssueDate.errors}"
-                                           name="regIssueDate" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                        </ng-container>
-
-                        <!-- <div class="col-md-4">
-                             <div class="form-group">
-                                 <label class="title" for="name">उमेर</label>
-                                 <input class="form-control rounded nepaliFont"
-                                        formControlName="age"
-                                        id="age"
-                                        [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
-                                        name="age" placeholder="उमेर  "
-                                        readonly="readonly"
-                                        type="text"/>
-                             </div>
-                         </div>-->
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="title" for="panNo">PAN No.</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="panNo"
-                                       id="panNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
-                                       name="panNo" placeholder=""
-                                       type="text"/>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="title" for="panIssueOffice">PAN Issuing Office & District</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="panIssueOffice"
-                                       id="panIssueOffice"
-                                       [ngClass]="{'is-invalid': submitted && configForm.panIssueOffice.errors}"
-                                       name="panIssueOffice" placeholder=""
-                                       type="text"/>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="title" for="panIssueDate">PAN Issued Date</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="panIssueDate"
-                                       id="panIssueDate"
-                                       [ngClass]="{'is-invalid': submitted && configForm.panIssueDate.errors}"
-                                       name="panIssueDate" placeholder=""
-                                       type="text"/>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="title" for="contactNo">Contact/Mobile No.</label>
-                                <input class="form-control rounded nepaliFont"
-                                       formControlName="contactNo"
-                                       id="contactNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
-                                       name="contactNo" placeholder=""
-                                       type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <ng-container *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">
-                        <div class="row" formGroupName="customerPermanentAddress">
-                            <div class="col-md-12 text-center">
-                                <strong>Permanent Address</strong>
-                                <div class="offset-10 col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <select class="form-control" formControlName="munType"
-                                                id="munType"
-                                                [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('munType')?.errors}">
-                                            <option value="0">Municipality</option>
-                                            <option value="1">VDC</option>
-                                        </select>
+                                        <label class="title" for="name">Borrower Name (in English)</label>
+                                        <input class="form-control rounded"
+                                               formControlName="name"
+                                               [ngClass]="{'is-invalid': submitted && joint?.get('name')?.errors}"
+                                               name="name" placeholder=""
+                                               type="text"/>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!--<div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="permanentProvince">
-                                        प्रदेश </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="permanentProvince"
-                                           [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
-                                           id="permanentProvince"
-                                           name="permanentProvince" placeholder="प्रदेश"
-                                           type="text"/>
-                                </div>
-                            </div>-->
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="district">District</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="district"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('district')?.errors}"
-                                           id="district"
-                                           name="district" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title"
-                                           for="municipality">{{userConfigForm.get('customerPermanentAddress')?.get('munType')?.value == 0
-                                        ? 'Municipality' : 'VDC'}}</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="municipality"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('municipality')?.errors}"
-                                           id="municipality"
-                                           name="municipality" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="wardNo">Ward No.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="wardNo"
-                                           [ngClass]="{'is-invalid': submitted &&userConfigForm.get('customerPermanentAddress')?.get('wardNo')?.errors}"
-                                           id="wardNo"
-                                           name="wardNo" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="tole">Tole</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="tole"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('tole')?.errors}"
-                                           id="tole"
-                                           name="tole" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row" formGroupName="customerTemporaryAddress">
-                            <div class="col-md-12 text-center">
-                                <strong>Temporary Address</strong>
-                                <div class="offset-10 col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <select class="form-control" formControlName="munType"
-                                                [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('munType')?.errors}">
-                                            <option value="0">Municipality</option>
-                                            <option value="1">VDC</option>
-                                        </select>
+                                        <label class="title" for="nepaliName">Borrower Name (in Nepali)</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="nepaliName"
+                                               [ngClass]="{'is-invalid': submitted && joint?.get('nepaliName')?.errors}"
+                                               name="nepaliName" placeholder=""
+                                               type="text"/>
                                     </div>
                                 </div>
-                            </div>
-                            <!--<div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="temporaryProvince">
-                                        प्रदेश </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="temporaryProvince"
-                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
-                                           id="temporaryProvince"
-                                           name="temporaryProvince" placeholder="प्रदेश"
-                                           type="text"/>
-                                </div>
-                            </div>-->
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="district">District</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="district"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('district')?.errors}"
-                                           name="district" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="municipality">
-                                        {{ userConfigForm.get('customerTemporaryAddress')?.get('munType')?.value == 0 ? 'Municipality' : 'VDC'}}
-                                    </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="municipality"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('municipality')?.errors}"
-                                           name="municipality" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="wardNo">Ward No.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="wardNo"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('wardNo')?.errors}"
-                                           name="wardNo" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="tole">Tole</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="tole"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('tole')?.errors}"
-                                           name="tole" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="customerInfo?.customerType === 'INSTITUTION'">
-                        <div class="row" formGroupName="institutionRegisteredAddress">
-                            <div class="col-md-12 text-center">
-                                <strong>Institution Registered Address</strong>
-                                <div class="offset-10 col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control" formControlName="munType"
-                                                [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('munType')?.errors}">
-                                            <option value="0">Municipality</option>
-                                            <option value="1">VDC</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="district">District</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="district"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('district')?.errors}"
-                                           name="district" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title"
-                                           for="municipality">{{userConfigForm.get('institutionRegisteredAddress')?.get('munType')?.value == 0
-                                        ? 'Municipality' : 'VDC'}}</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="municipality"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('municipality')?.errors}"
-                                           name="municipality" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="wardNo">Ward No.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="wardNo"
-                                           [ngClass]="{'is-invalid': submitted &&userConfigForm.get('institutionRegisteredAddress')?.get('wardNo')?.errors}"
-                                           name="wardNo" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="tole">Tole</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="tole"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('tole')?.errors}"
-                                           name="tole" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row" formGroupName="institutionCurrentAddress">
-                            <div class="col-md-12 text-center">
-                                <strong>Institution Current Address</strong>
-                                <div class="offset-10 col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control" formControlName="munType"
-                                                [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('munType')?.errors}">
-                                            <option value="0">Municipality</option>
-                                            <option value="1">VDC</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="district">District</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="district"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('district')?.errors}"
-                                           name="district" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title"
-                                           for="municipality">{{userConfigForm.get('institutionCurrentAddress')?.get('munType')?.value == 0
-                                        ? 'Municipality' : 'VDC'}}</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="municipality"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('municipality')?.errors}"
-                                           name="municipality" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="wardNo">Ward No.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="wardNo"
-                                           [ngClass]="{'is-invalid': submitted &&userConfigForm.get('institutionCurrentAddress')?.get('wardNo')?.errors}"
-                                           name="wardNo" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="tole">Tole</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="tole"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('tole')?.errors}"
-                                           name="tole" placeholder=""
-                                           type="text"/>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row" formGroupName="authorizedPersonDetail">
-                            <div class="col-md-12 text-center">
-                                <strong>Authorized Person Detail</strong>
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <div class="row">
+                                <ng-container *ngIf="customerInfo.customerType === 'INDIVIDUAL'">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="name">Authorized Person Name</label>
-                                            <input class="form-control rounded nepaliFont"
-                                                   formControlName="name"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('name')?.errors}"
-                                                   name="name" placeholder=""
-                                                   type="text"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="title" for="gender">Authorized Person Gender</label>
+                                            <label class="title" for="gender">Gender</label>
                                             <select class="form-control" formControlName="gender"
-                                                    [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('gender')?.errors}">
+                                                    [ngClass]="{'is-invalid': submitted && joint.get('gender').errors}">
                                                 <option [value]="null" hidden>Select Gender</option>
                                                 <option value="0">महिला</option>
                                                 <option value="1">पुरुष</option>
@@ -561,51 +59,59 @@
                                     <div class="col-md-4">
                                         <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
                                         <div class="form-group">
-                                            <label class="title" for="grandFatherName">Authorized Person Grandfather
-                                                Name</label>
+                                            <label class="title" for="grandFatherName">Grandfather Name</label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="grandFatherName"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('grandFatherName')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('grandFatherName')?.errors}"
                                                    name="grandFatherName" placeholder=""
                                                    type="text"/>
                                         </div>
                                     </div>
-
+                                    <!-- <div class="col" *ngIf="configForm?.gender?.value == 0">
+                                         <div class="form-group">
+                                             <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                                             <select class="form-control" formControlName="relationMedium"
+                                                     id="relationMedium"
+                                                     [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                                                 <option [value]="null" hidden>Select Relation Medium</option>
+                                                 <option value="0">पैत्रिक नाताबाट</option>
+                                                 <option value="1">मैत्रिक नाताबाट</option>
+                                             </select>
+                                         </div>
+                                     </div>-->
                                     <div class="col-md-4">
                                         <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
                                         <div class="form-group">
-                                            <label class="title" for="name">Authorized Person Father Name</label>
+                                            <label class="title" for="name">Father Name</label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="fatherName"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('fatherName')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('fatherName')?.errors}"
                                                    name="name" placeholder=""
                                                    type="text"/>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4"
-                                         [hidden]="userConfigForm.get('authorizedPersonDetail')?.get('gender')?.value == 1">
+                                         [hidden]="configForm?.gender?.value == 1">
                                         <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
                                         <div class="form-group">
-                                            <label class="title" for="husbandName">Authorized Person Husband
-                                                Name </label>
+                                            <label class="title" for="husbandName">Husband Name </label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="husbandName"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('husbandName')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('husbandName')?.errors}"
                                                    name="husbandName" placeholder=""
                                                    type="text"/>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4"
-                                         [hidden]="userConfigForm.get('authorizedPersonDetail')?.get('gender')?.value == 1">
+                                         [hidden]="configForm?.gender?.value == 1">
                                         <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
                                         <div class="form-group">
-                                            <label class="title" for="fatherInLawName">Authorized Person Father In Law
-                                                Name</label>
+                                            <label class="title" for="fatherInLawName">Father In Law Name</label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="fatherInLawName"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('fatherInLawName')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('fatherInLawName')?.errors}"
                                                    name="fatherInLawName" placeholder=""
                                                    type="text"/>
                                         </div>
@@ -613,11 +119,10 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="citizenshipNo">Authorized Person Citizenship
-                                                no.</label>
+                                            <label class="title" for="citizenshipNo">Citizenship no.</label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="citizenshipNo"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('citizenshipNo')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('citizenshipNo')?.errors}"
                                                    name="name" placeholder=""
                                                    type="text"/>
                                         </div>
@@ -625,12 +130,11 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="citizenshipNo">Authorized Person Citizenship Issue
-                                                Office &
+                                            <label class="title" for="citizenshipNo">Citizenship Issue Office &
                                                 District</label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="citizenshipIssueDistrict"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('citizenshipIssueDistrict')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('citizenshipIssueDistrict')?.errors}"
                                                    name="name" placeholder=""
                                                    type="text"/>
                                         </div>
@@ -638,66 +142,906 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="citizenshipNo">Authorized Person Citizenship Issue
-                                                Date</label>
+                                            <label class="title" for="citizenshipNo">Citizenship Issue Date</label>
                                             <input class="form-control rounded nepaliFont"
                                                    formControlName="citizenshipIssueDate"
-                                                   [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('citizenshipIssueDate')?.errors}"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('citizenshipIssueDate')?.errors}"
                                                    name="name" placeholder=""
                                                    type="text"/>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="dateOfBirth">Date of Birth (B.S.)</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="dateOfBirth"
+                                                   [ngClass]="{'is-invalid': submitted && joint?.get('dateOfBirth')?.errors}"
+                                                   name="dateOfBirth" placeholder=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="panNo">PAN No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="panNo"
+                                               [ngClass]="{'is-invalid': submitted && joint?.get('panNo')?.errors}"
+                                               name="panNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="panIssueOffice">PAN Issuing Office & District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="panIssueOffice"
+                                               [ngClass]="{'is-invalid': submitted && joint?.get('panIssueOffice')?.errors}"
+                                               name="panIssueOffice" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="panIssueDate">PAN Issued Date</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="panIssueDate"
+                                               [ngClass]="{'is-invalid': submitted && joint?.get('panIssueDate')?.errors}"
+                                               name="panIssueDate" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="contactNo">Contact/Mobile No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="contactNo"
+                                               [ngClass]="{'is-invalid': submitted && joint?.get('contactNo')?.errors}"
+                                               name="contactNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-md-12">
+                                    <ng-container *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">
+                                        <div class="row" formGroupName="customerPermanentAddress">
+                                            <div class="col-md-12 text-center">
+                                                <strong>Permanent Address</strong>
+                                                <div class="offset-10 col-md-2">
+                                                    <div class="form-group">
+                                                        <select class="form-control" formControlName="munType"
+                                                                [ngClass]="{'is-invalid': submitted && joint.get('customerPermanentAddress')?.get('munType')?.errors}">
+                                                            <option value="0">Municipality</option>
+                                                            <option value="1">VDC</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="col">
+                                                <div class="form-group">
+                                                    <label class="title" for="permanentProvince">
+                                                        प्रदेश </label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="permanentProvince"
+                                                           [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
+                                                           id="permanentProvince"
+                                                           name="permanentProvince" placeholder="प्रदेश"
+                                                           type="text"/>
+                                                </div>
+                                            </div>-->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="district">District</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="district"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerPermanentAddress')?.get('district')?.errors}"
+                                                           name="district" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title"
+                                                           for="municipality">{{joint.get('customerPermanentAddress')?.get('munType')?.value == 0
+                                                        ? 'Municipality' : 'VDC'}}</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="municipality"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerPermanentAddress')?.get('municipality')?.errors}"
+                                                           name="municipality" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="wardNo">Ward No.</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="wardNo"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerPermanentAddress')?.get('wardNo')?.errors}"
+                                                           name="wardNo" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="tole">Tole</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="tole"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerPermanentAddress')?.get('tole')?.errors}"
+                                                           name="tole" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row" formGroupName="customerTemporaryAddress">
+                                            <div class="col-md-12 text-center">
+                                                <strong>Temporary Address</strong>
+                                                <div class="offset-10 col-md-2">
+                                                    <div class="form-group">
+                                                        <select class="form-control" formControlName="munType"
+                                                                [ngClass]="{'is-invalid': submitted && joint.get('customerTemporaryAddress')?.get('munType')?.errors}">
+                                                            <option value="0">Municipality</option>
+                                                            <option value="1">VDC</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="col">
+                                                <div class="form-group">
+                                                    <label class="title" for="temporaryProvince">
+                                                        प्रदेश </label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="temporaryProvince"
+                                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
+                                                           id="temporaryProvince"
+                                                           name="temporaryProvince" placeholder="प्रदेश"
+                                                           type="text"/>
+                                                </div>
+                                            </div>-->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="district">District</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="district"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerTemporaryAddress')?.get('district')?.errors}"
+                                                           name="district" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="municipality">
+                                                        {{ joint.get('customerTemporaryAddress')?.get('munType')?.value == 0 ? 'Municipality' : 'VDC'}}
+                                                    </label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="municipality"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerTemporaryAddress')?.get('municipality')?.errors}"
+                                                           name="municipality" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="wardNo">Ward No.</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="wardNo"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerTemporaryAddress')?.get('wardNo')?.errors}"
+                                                           name="wardNo" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title" for="tole">Tole</label>
+                                                    <input class="form-control rounded nepaliFont"
+                                                           formControlName="tole"
+                                                           [ngClass]="{'is-invalid': submitted && joint.get('customerTemporaryAddress')?.get('tole')?.errors}"
+                                                           name="tole" placeholder=""
+                                                           type="text"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="col-md-12" *ngIf="(customer?.jointInfo | jsonParse)?.jointCustomerInfo?.length > 1">
+                                    <hr class="print-line">
+                                </div>
+
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                    <ng-template #otherSection>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="name">Borrower Name (in English)</label>
+                                    <input class="form-control rounded"
+                                           formControlName="name"
+                                           id="name"
+                                           [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                                           name="name" placeholder=""
+                                           type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="nepaliName">Borrower Name (in Nepali)</label>
+                                    <input class="form-control rounded nepaliFont"
+                                           formControlName="nepaliName"
+                                           id="nepaliName"
+                                           [ngClass]="{'is-invalid': submitted && configForm.nepaliName.errors}"
+                                           name="nepaliName" placeholder=""
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="customerInfo.customerType === 'INDIVIDUAL'">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="gender">Gender</label>
+                                        <select class="form-control" formControlName="gender" id="gender"
+                                                [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
+                                            <option [value]="null" hidden>Select Gender</option>
+                                            <option value="0">महिला</option>
+                                            <option value="1">पुरुष</option>
+                                            <!-- <option value="2">अन्य</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
+                                    <div class="form-group">
+                                        <label class="title" for="grandFatherName">Grandfather Name</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="grandFatherName"
+                                               [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
+                                               id="grandFatherName"
+                                               name="grandFatherName" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <!-- <div class="col" *ngIf="configForm?.gender?.value == 0">
+                                     <div class="form-group">
+                                         <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                                         <select class="form-control" formControlName="relationMedium"
+                                                 id="relationMedium"
+                                                 [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                                             <option [value]="null" hidden>Select Relation Medium</option>
+                                             <option value="0">पैत्रिक नाताबाट</option>
+                                             <option value="1">मैत्रिक नाताबाट</option>
+                                         </select>
+                                     </div>
+                                 </div>-->
+                                <div class="col-md-4">
+                                    <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
+                                    <div class="form-group">
+                                        <label class="title" for="name">Father Name</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="fatherName"
+                                               [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
+                                               id="fatherName"
+                                               name="name" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4"
+                                     [hidden]="configForm?.gender?.value == 1">
+                                    <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
+                                    <div class="form-group">
+                                        <label class="title" for="husbandName">Husband Name </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="husbandName"
+                                               [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
+                                               id="husbandName"
+                                               name="husbandName" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4"
+                                     [hidden]="configForm?.gender?.value == 1">
+                                    <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
+                                    <div class="form-group">
+                                        <label class="title" for="fatherInLawName">Father In Law Name</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="fatherInLawName"
+                                               [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
+                                               id="fatherInLawName"
+                                               name="fatherInLawName" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="citizenshipNo">Citizenship no.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="citizenshipNo"
+                                               id="citizenshipNo"
+                                               [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
+                                               name="name" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="citizenshipNo">Citizenship Issue Office &
+                                            District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="citizenshipIssueDistrict"
+                                               id="citizenshipIssueDistrict"
+                                               [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
+                                               name="name" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="citizenshipNo">Citizenship Issue Date</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="citizenshipIssueDate"
+                                               id="citizenshipIssueDate"
+                                               [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
+                                               name="name" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="dateOfBirth">Date of Birth (B.S.)</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="dateOfBirth"
+                                               id="dateOfBirth"
+                                               [ngClass]="{'is-invalid': submitted && configForm.dateOfBirth.errors}"
+                                               name="dateOfBirth" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="registrationNo">Registration No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="registrationNo"
+                                               id="registrationNo"
+                                               [ngClass]="{'is-invalid': submitted && configForm.registrationNo.errors}"
+                                               name="registrationNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="companyRegOffice">Company Registration Office</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyRegOffice"
+                                               id="companyRegOffice"
+                                               [ngClass]="{'is-invalid': submitted && configForm.companyRegOffice.errors}"
+                                               name="companyRegOffice" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="regIssueDate">Registration Issued Date</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="regIssueDate"
+                                               id="regIssueDate"
+                                               [ngClass]="{'is-invalid': submitted && configForm.regIssueDate.errors}"
+                                               name="regIssueDate" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <!-- <div class="col-md-4">
+                                 <div class="form-group">
+                                     <label class="title" for="name">उमेर</label>
+                                     <input class="form-control rounded nepaliFont"
+                                            formControlName="age"
+                                            id="age"
+                                            [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
+                                            name="age" placeholder="उमेर  "
+                                            readonly="readonly"
+                                            type="text"/>
+                                 </div>
+                             </div>-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="panNo">PAN No.</label>
+                                    <input class="form-control rounded nepaliFont"
+                                           formControlName="panNo"
+                                           id="panNo"
+                                           [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
+                                           name="panNo" placeholder=""
+                                           type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="panIssueOffice">PAN Issuing Office & District</label>
+                                    <input class="form-control rounded nepaliFont"
+                                           formControlName="panIssueOffice"
+                                           id="panIssueOffice"
+                                           [ngClass]="{'is-invalid': submitted && configForm.panIssueOffice.errors}"
+                                           name="panIssueOffice" placeholder=""
+                                           type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="panIssueDate">PAN Issued Date</label>
+                                    <input class="form-control rounded nepaliFont"
+                                           formControlName="panIssueDate"
+                                           id="panIssueDate"
+                                           [ngClass]="{'is-invalid': submitted && configForm.panIssueDate.errors}"
+                                           name="panIssueDate" placeholder=""
+                                           type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="contactNo">Contact/Mobile No.</label>
+                                    <input class="form-control rounded nepaliFont"
+                                           formControlName="contactNo"
+                                           id="contactNo"
+                                           [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
+                                           name="contactNo" placeholder=""
+                                           type="text"/>
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <div class="row" formGroupName="authorizedPersonAddress">
-                            <div class="col-md-12 text-center">
-                                <strong>Authorized Person Address</strong>
-                                <div class="offset-10 col-md-2">
+                        <ng-container *ngIf="customerInfo?.customerType === 'INDIVIDUAL'">
+                            <div class="row" formGroupName="customerPermanentAddress">
+                                <div class="col-md-12 text-center">
+                                    <strong>Permanent Address</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="munType"
+                                                    id="munType"
+                                                    [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('munType')?.errors}">
+                                                <option value="0">Municipality</option>
+                                                <option value="1">VDC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--<div class="col">
                                     <div class="form-group">
-                                        <select class="form-control" formControlName="munType"
-                                                [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonAddress')?.get('munType')?.errors}">
-                                            <option value="0">Municipality</option>
-                                            <option value="1">VDC</option>
-                                        </select>
+                                        <label class="title" for="permanentProvince">
+                                            प्रदेश </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="permanentProvince"
+                                               [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
+                                               id="permanentProvince"
+                                               name="permanentProvince" placeholder="प्रदेश"
+                                               type="text"/>
+                                    </div>
+                                </div>-->
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="district">District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="district"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('district')?.errors}"
+                                               id="district"
+                                               name="district" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title"
+                                               for="municipality">{{userConfigForm.get('customerPermanentAddress')?.get('munType')?.value == 0
+                                            ? 'Municipality' : 'VDC'}}</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="municipality"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('municipality')?.errors}"
+                                               id="municipality"
+                                               name="municipality" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="wardNo">Ward No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="wardNo"
+                                               [ngClass]="{'is-invalid': submitted &&userConfigForm.get('customerPermanentAddress')?.get('wardNo')?.errors}"
+                                               id="wardNo"
+                                               name="wardNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="tole">Tole</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="tole"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerPermanentAddress')?.get('tole')?.errors}"
+                                               id="tole"
+                                               name="tole" placeholder=""
+                                               type="text"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="district">District</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="district"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonAddress')?.get('district')?.errors}"
-                                           name="district" placeholder=""
-                                           type="text"/>
+                            <hr>
+                            <div class="row" formGroupName="customerTemporaryAddress">
+                                <div class="col-md-12 text-center">
+                                    <strong>Temporary Address</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="munType"
+                                                    [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('munType')?.errors}">
+                                                <option value="0">Municipality</option>
+                                                <option value="1">VDC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="temporaryProvince">
+                                            प्रदेश </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="temporaryProvince"
+                                               [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
+                                               id="temporaryProvince"
+                                               name="temporaryProvince" placeholder="प्रदेश"
+                                               type="text"/>
+                                    </div>
+                                </div>-->
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="district">District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="district"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('district')?.errors}"
+                                               name="district" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="municipality">
+                                            {{ userConfigForm.get('customerTemporaryAddress')?.get('munType')?.value == 0 ? 'Municipality' : 'VDC'}}
+                                        </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="municipality"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('municipality')?.errors}"
+                                               name="municipality" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="wardNo">Ward No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="wardNo"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('wardNo')?.errors}"
+                                               name="wardNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="tole">Tole</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="tole"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('customerTemporaryAddress')?.get('tole')?.errors}"
+                                               name="tole" placeholder=""
+                                               type="text"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title"
-                                           for="municipality">{{userConfigForm.get('authorizedPersonAddress')?.get('munType')?.value == 0
-                                        ? 'Municipality' : 'VDC'}}</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="municipality"
-                                           [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonAddress')?.get('municipality')?.errors}"
-                                           name="municipality" placeholder=""
-                                           type="text"/>
+                        </ng-container>
+                        <ng-container *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+                            <div class="row" formGroupName="institutionRegisteredAddress">
+                                <div class="col-md-12 text-center">
+                                    <strong>Institution Registered Address</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="munType"
+                                                    [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('munType')?.errors}">
+                                                <option value="0">Municipality</option>
+                                                <option value="1">VDC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="district">District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="district"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('district')?.errors}"
+                                               name="district" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title"
+                                               for="municipality">{{userConfigForm.get('institutionRegisteredAddress')?.get('munType')?.value == 0
+                                            ? 'Municipality' : 'VDC'}}</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="municipality"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('municipality')?.errors}"
+                                               name="municipality" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="wardNo">Ward No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="wardNo"
+                                               [ngClass]="{'is-invalid': submitted &&userConfigForm.get('institutionRegisteredAddress')?.get('wardNo')?.errors}"
+                                               name="wardNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="tole">Tole</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="tole"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionRegisteredAddress')?.get('tole')?.errors}"
+                                               name="tole" placeholder=""
+                                               type="text"/>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="wardNo">Ward No.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="wardNo"
-                                           [ngClass]="{'is-invalid': submitted &&userConfigForm.get('authorizedPersonAddress')?.get('wardNo')?.errors}"
-                                           name="wardNo" placeholder=""
-                                           type="text"/>
+                            <hr>
+                            <div class="row" formGroupName="institutionCurrentAddress">
+                                <div class="col-md-12 text-center">
+                                    <strong>Institution Current Address</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="munType"
+                                                    [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('munType')?.errors}">
+                                                <option value="0">Municipality</option>
+                                                <option value="1">VDC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="district">District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="district"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('district')?.errors}"
+                                               name="district" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title"
+                                               for="municipality">{{userConfigForm.get('institutionCurrentAddress')?.get('munType')?.value == 0
+                                            ? 'Municipality' : 'VDC'}}</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="municipality"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('municipality')?.errors}"
+                                               name="municipality" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="wardNo">Ward No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="wardNo"
+                                               [ngClass]="{'is-invalid': submitted &&userConfigForm.get('institutionCurrentAddress')?.get('wardNo')?.errors}"
+                                               name="wardNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="tole">Tole</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="tole"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('institutionCurrentAddress')?.get('tole')?.errors}"
+                                               name="tole" placeholder=""
+                                               type="text"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-container>
+                            <hr>
+                            <div class="row" formGroupName="authorizedPersonDetail">
+                                <div class="col-md-12 text-center">
+                                    <strong>Authorized Person Detail</strong>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Authorized Person Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="name"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('name')?.errors}"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="gender">Authorized Person Gender</label>
+                                                <select class="form-control" formControlName="gender"
+                                                        [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('gender')?.errors}">
+                                                    <option [value]="null" hidden>Select Gender</option>
+                                                    <option value="0">महिला</option>
+                                                    <option value="1">पुरुष</option>
+                                                    <!-- <option value="2">अन्य</option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
+                                            <div class="form-group">
+                                                <label class="title" for="grandFatherName">Authorized Person Grandfather
+                                                    Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="grandFatherName"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('grandFatherName')?.errors}"
+                                                       name="grandFatherName" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <!--[hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">-->
+                                            <div class="form-group">
+                                                <label class="title" for="name">Authorized Person Father Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="fatherName"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('fatherName')?.errors}"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4"
+                                             [hidden]="userConfigForm.get('authorizedPersonDetail')?.get('gender')?.value == 1">
+                                            <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
+                                            <div class="form-group">
+                                                <label class="title" for="husbandName">Authorized Person Husband
+                                                    Name </label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="husbandName"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('husbandName')?.errors}"
+                                                       name="husbandName" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4"
+                                             [hidden]="userConfigForm.get('authorizedPersonDetail')?.get('gender')?.value == 1">
+                                            <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
+                                            <div class="form-group">
+                                                <label class="title" for="fatherInLawName">Authorized Person Father In Law
+                                                    Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="fatherInLawName"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('fatherInLawName')?.errors}"
+                                                       name="fatherInLawName" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship
+                                                    no.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="citizenshipNo"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('citizenshipNo')?.errors}"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship Issue
+                                                    Office &
+                                                    District</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="citizenshipIssueDistrict"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('citizenshipIssueDistrict')?.errors}"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship Issue
+                                                    Date</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="citizenshipIssueDate"
+                                                       [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonDetail')?.get('citizenshipIssueDate')?.errors}"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row" formGroupName="authorizedPersonAddress">
+                                <div class="col-md-12 text-center">
+                                    <strong>Authorized Person Address</strong>
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="munType"
+                                                    [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonAddress')?.get('munType')?.errors}">
+                                                <option value="0">Municipality</option>
+                                                <option value="1">VDC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="district">District</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="district"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonAddress')?.get('district')?.errors}"
+                                               name="district" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title"
+                                               for="municipality">{{userConfigForm.get('authorizedPersonAddress')?.get('munType')?.value == 0
+                                            ? 'Municipality' : 'VDC'}}</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="municipality"
+                                               [ngClass]="{'is-invalid': submitted && userConfigForm.get('authorizedPersonAddress')?.get('municipality')?.errors}"
+                                               name="municipality" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="title" for="wardNo">Ward No.</label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="wardNo"
+                                               [ngClass]="{'is-invalid': submitted &&userConfigForm.get('authorizedPersonAddress')?.get('wardNo')?.errors}"
+                                               name="wardNo" placeholder=""
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-template>
                 </nb-tab>
                 <nb-tab tabId="1" tabTitle="GUARANTOR DETAIL">
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
@@ -1358,7 +1702,7 @@
                         <div [formGroupName]="i" class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div [ngClass]="collateral?.get('collateralOwnerType')?.value ? 'col-md-6' : 'col-md-12'">
+                                    <div [ngClass]="collateral.get('collateralOwnerType')?.value ? 'col-md-6' : 'col-md-12'">
                                         <div class="form-group">
                                             <label class="title" for="collateralOwnerType">Collateral Owner Type</label>
                                             <select class="form-control" formControlName="collateralOwnerType"
