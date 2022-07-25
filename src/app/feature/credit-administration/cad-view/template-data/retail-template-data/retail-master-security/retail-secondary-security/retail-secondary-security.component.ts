@@ -96,7 +96,7 @@ export class RetailSecondarySecurityComponent implements OnInit {
     this.buildForm();
     this.getAllProvince();
     this.getAllDistrict();
-    if (!ObjectUtil.isEmpty(this.initialData)) {
+    if (!ObjectUtil.isEmpty(this.initialData) && (!ObjectUtil.isEmpty(this.initialData.secondarySecurity[0]))) {
       if (!ObjectUtil.isEmpty(this.initialData.secondarySecurity[0].securityType)) {
         this.securitySelected = true;
         console.log('Initial Data:', this.initialData);
@@ -392,7 +392,9 @@ export class RetailSecondarySecurityComponent implements OnInit {
     const formArray = this.retailSecondarySecurityForm.get('securityDetails') as FormArray;
     formData.forEach((val, index) => {
       if (!ObjectUtil.isEmpty(val.securityOwnersName)) {
-        this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+          if (!ObjectUtil.isEmpty(val.securityOwnersDistrict) && (!ObjectUtil.isEmpty(val.securityOwnersDistrict.id))) {
+              this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+          }
       }
       formArray.push(
           this.formBuilder.group({
