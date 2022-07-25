@@ -50,7 +50,7 @@
               || schema === 'Accumulated Dep to Gross Depreciable exps.'
               || schema === 'Net Depreciable Fixed Assets / Dep. Expense' || title === 'commonSizePlData' || title === 'commonSizeBs'
                 ;else days">
-                    <td style="background: #706e6e;" class="text-right"
+                    <td style="background: #ffffff;" class="text-right"
                         *ngFor="let header of financialJson?.column; let ii = index">
                         {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
                 </ng-container>
@@ -67,14 +67,14 @@
                                       || schema === 'Total External Liabilities (Long & Short Term)'
                                       || schema === 'All fields of balance sheet, PL, quick & Detailed cash flow';
                                        else normal;" >
-                        <td  style="background: #706e6e;" class="text-right"
-                             *ngFor="let header of financialJson?.column; let ii = index">
+                        <td style="background: #ffffff;" class="text-right"
+                            *ngFor="let header of financialJson?.column; let ii = index">
                             {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(0)}}</td>
                     </ng-container>
                 </ng-template>
                 <ng-template  #normal>
-                    <td  style="background: #706e6e;" class="text-right"
-                         *ngFor="let header of financialJson?.column; let ii = index">
+                    <td style="background: #ffffff;" class="text-right"
+                        *ngFor="let header of financialJson?.column; let ii = index">
                         {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
                 </ng-template>
             </tr>
@@ -129,7 +129,7 @@
               || schema === 'Accumulated Dep to Gross Depreciable exps.'
               || schema === 'Net Depreciable Fixed Assets / Dep. Expense' || title === 'commonSizePlData' || title === 'commonSizeBs'
                 ;else days">
-                      <td style="background: #706e6e;" class="text-right"
+                      <td style="background: #ffffff;" class="text-right"
                           *ngFor="let header of financialJson?.column; let ii = index">
                           {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? ' ' : (financialJson?.data[i][ii] * 100)?.toFixed(2) + '%'}} </td>
                   </ng-container>
@@ -146,14 +146,14 @@
                                       || schema === 'Total External Liabilities (Long & Short Term)'
                                       || schema === 'All fields of balance sheet, PL, quick & Detailed cash flow';
                                        else normal;" >
-                          <td  style="background: #706e6e;" class="text-right"
-                               *ngFor="let header of financialJson?.column; let ii = index">
+                          <td style="background: #ffffff;" class="text-right"
+                              *ngFor="let header of financialJson?.column; let ii = index">
                               {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(0)}}</td>
                       </ng-container>
                   </ng-template>
                   <ng-template  #normal>
-                      <td  style="background: #706e6e;" class="text-right"
-                           *ngFor="let header of financialJson?.column; let ii = index">
+                      <td style="background: #ffffff;" class="text-right"
+                          *ngFor="let header of financialJson?.column; let ii = index">
                           {{financialJson?.data[i][ii]=== 0.00 || financialJson?.data[i][ii] === undefined ? '0' : (financialJson?.data[i][ii])?.toFixed(2) | currencyFormatter}}</td>
                   </ng-template>
               </ng-container>

@@ -1,4 +1,5 @@
 <div *ngIf="guarantorData?.length > 0" class="row">
+  <hr class="print-line">
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Guarantor Details'}}</strong></p>
     <ng-container *ngFor="let guarantor of newGuarantor; let i= index">
@@ -6,7 +7,7 @@
         <tr>
           <td>
             <table
-                    class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                    class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
 
               <tbody>
               <tr>
@@ -49,7 +50,7 @@
             </table>
           </td>
           <td *ngFor="let subGuarantor of guarantor; let ii = index;">
-            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
               <tbody>
               <tr>
                 <td class="text-left pl-2">{{subGuarantor?.name || 'N/A'}}</td>
@@ -105,7 +106,7 @@
         <tr>
           <td>
             <table
-                    class="table table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
+                    class="table table1 table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
 
               <tbody>
               <tr>
@@ -156,7 +157,7 @@
 
           </td>
           <td *ngFor="let subGuarantor of guarantor; let ii = index;">
-            <table class="table table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
+            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
               <tbody>
               <tr>
                 <td class="text-left pl-2">{{subGuarantor?.name || 'N/A'}}</td>
@@ -214,7 +215,7 @@
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
-      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
     <thead class="sb-bg-gray">
 <tr>
   <th>Previous/Other Associations</th>
@@ -237,7 +238,7 @@
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Undivided Family Members'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
-      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.familyDetails?.length > 0" class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.familyDetails?.length > 0" class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
     <thead class="sb-bg-gray">
 <tr>
   <th>S.N</th>
