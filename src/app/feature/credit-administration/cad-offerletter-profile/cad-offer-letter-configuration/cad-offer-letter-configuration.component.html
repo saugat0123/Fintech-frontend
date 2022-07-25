@@ -1702,7 +1702,7 @@
                         <div [formGroupName]="i" class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div [ngClass]="userConfigForm?.get([ 'collateralDetails', i, 'collateralOwnerType'])?.value === null ? 'col-md-6' : 'col-md-12'">
+                                    <div [ngClass]="collateral.get('collateralOwnerType')?.value ? 'col-md-6' : 'col-md-12'">
                                         <div class="form-group">
                                             <label class="title" for="collateralOwnerType">Collateral Owner Type</label>
                                             <select class="form-control" formControlName="collateralOwnerType"
