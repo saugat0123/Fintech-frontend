@@ -33,6 +33,7 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
     amount;
     nepaliData;
     customerInfo;
+    stock;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -64,8 +65,8 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-            this.patchForm();
         }
+        this.checkStockAndReceivable();
         this.checkInitialData();
     }
 
@@ -156,7 +157,7 @@ patchForm() {
             branchMun: this.nepaliData.branchDetail.branchMunVdc,
             branchWardNo: this.nepaliData.branchDetail.branchWardNo,
             branchName: this.nepaliData.branchDetail.branchNameInNepali,
-            borrowerName: ObjectUtil.setUndefinedIfNull(this.nepaliData.nepaliName),
+            companyName: ObjectUtil.setUndefinedIfNull(this.nepaliData.nepaliName),
             companyRegistrationNo: this.nepaliData.registrationNo,
             registrationNikayaName: this.nepaliData.companyRegOffice,
             registrationDate: this.nepaliData.regIssueDate,
@@ -174,15 +175,13 @@ patchForm() {
             companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
             companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
             companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
-            companyRepresentativeHusbandName: this.nepaliData.authorizedPersonDetail.husbandName,
+            companyRepresentativeHusbandName: ObjectUtil.setUndefinedIfNull (this.nepaliData.authorizedPersonDetail.husbandName),
             companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
             companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
             companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
-            representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenShipNo,
+            representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenshipNo,
             representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
             representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-            stockValue: this.nepaliData.stocksReceivablesValue ? this.nepaliData.stocksReceivablesValue.stockValue : '',
-            debtValue: this.nepaliData.stocksReceivablesValue ? this.nepaliData.stocksReceivablesValue.receivableValue : '',
         });
 }
 
@@ -218,8 +217,6 @@ patchForm() {
           representativeCitizenNumber: this.nepaliData.representativeCitizenNumber,
           representativeCitizenIssueDate: this.nepaliData.representativeCitizenIssueDate,
           representativeCitizenOffice: this.nepaliData.representativeCitizenOffice,
-          stockValue: this.nepaliData.stockValue,
-          debtValue: this.nepaliData.debtValue,
           districtOne: this.nepaliData.districtOne,
           municipalityOne: this.nepaliData.municipalityOne,
           wardNum: this.nepaliData.wardNum,
@@ -236,13 +233,13 @@ patchForm() {
           itiSambatMonth: this.nepaliData.itiSambatMonth,
           itiSambatDay: this.nepaliData.itiSambatDay,
           roj: this.nepaliData.roj,
-
-
-        customerName: this.nepaliData.name,
-
+          stockValue: this.stock ? this.stock.stocksReceivablesValue.stockValue : '',
+          debtValue: this.stock ? this.stock.stocksReceivablesValue.receivableValue : '',
+          customerName: this.nepaliData.name,
         proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
         amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
       });
+        this.patchForm();
     }
   }
     onSubmit() {
@@ -290,7 +287,6 @@ patchForm() {
     checkInitialData() {
         if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
             this.form.patchValue(JSON.parse(this.initialInfoPrint));
-            this.patchForm();
             this.form.patchValue({
                 amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
             });
@@ -299,6 +295,19 @@ patchForm() {
             this.form.patchValue({
                 proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
                 amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
+            });
+        }
+    }
+
+    checkStockAndReceivable() {
+        if (this.nepaliData.collateralDetails.length > 0) {
+            this.nepaliData.collateralDetails.forEach((val, i) => {
+                if (!ObjectUtil.isEmpty(val.collateralType)) {
+                    if (val.collateralType === 'stocks_receivables') {
+                        this.stock = val;
+                        return;
+                    }
+                }
             });
         }
     }
