@@ -5,26 +5,13 @@
                 <th>Originating Branch</th>
                 <th>Date</th>
                 <th>Next Review</th>
-                <th colspan="15">CFR/CA Ref.</th>
+                <th [colSpan]="referenceNumber?.length">CFR/CA Ref.</th>
             </tr>
             <tr class="ref-no">
                 <td class="text-center pl-1">{{loanDataHolder?.branch?.name}}</td>
                 <td class="text-center pl-1">{{loanDataHolder?.createdAt | date}}</td>
                 <td class="text-center pl-1">{{nextReview?.nextReviewDate}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(0,1)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(1,2)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(2,3)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(3,4)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(4,5)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(5,6)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(6,7)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(8,9)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(10,11)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(12,13)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(13,14)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(14,15)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(15,16)}}</td>
-                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(16,17)}}</td>
+                <td class="text-center pl-1" *ngFor="let d of referenceNumber">{{d}}</td>
             </tr>
             <tr>
                 <td colspan="2" rowspan="2"><strong>Customer & Address</strong>
@@ -39,14 +26,15 @@
                     <br>(M){{loanDataHolder?.customerInfo?.contactNumber}} (L) {{loanDataHolder?.customerInfo?.landLineNumber}}
                 </td>
                 <td><strong>Obligation Group Name: </strong><br>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}} <br> <strong>Obligation Group Code:</strong><br>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</td>
-                <td colspan="15"><strong>Risk Grade: </strong><span>{{riskGrade?.totalPoint}}</span>
+                <td [colSpan]="referenceNumber?.length"><strong>Risk Grade: </strong><span>{{riskGrade?.totalPoint}}</span>
                 </td>
             </tr>
             <tr>
                 <td> </td>
-                <td colspan="15"> <app-report-summary [approved]="false"
-                                                      *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0;"
-                                                      [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                <td [colSpan]="referenceNumber?.length">
+                    <app-report-summary [approved]="false"
+                                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0;"
+                                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
                     <strong>MIS Reporting Info</strong>
                     <app-report-summary [approved]="false"
                                         *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0;"
