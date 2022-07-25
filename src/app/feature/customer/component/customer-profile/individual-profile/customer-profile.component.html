@@ -337,7 +337,7 @@
             <div class="col-md-12">
                 <div class="d-block mb-3">
           <span class="d-flex justify-content-end text-success text-uppercase">
-            <strong>Aggregated Amount : Rs. {{totalProposalAmount |number}}</strong>
+            <strong>Aggregated Amount : NPR. {{totalProposalAmount |number}}</strong>
           </span>
                 </div>
                 <nb-card accent="primary" *ngIf="sbsGroupEnabled">
@@ -356,7 +356,7 @@
                                             <span>Groups</span>
                                         </div>
                                         <div class="col-md-6 d-flex justify-content-end">
-                                            <!--Total Amount: Rs. {{proposeAmountOfGroup | currencyFormatter}}-->
+                                            <!--Total Amount: NPR. {{proposeAmountOfGroup | currencyFormatter}}-->
                                         </div>
                                     </div>
                                 </nb-accordion-item-header>
@@ -504,7 +504,7 @@
             <nb-card-header>
                 Loan History
                 <div class="float-right" nbTooltip="">Total Loan Amount
-                    : Rs. {{totalLoanProposedAmount | currencyFormatter}}
+                    : NPR. {{totalLoanProposedAmount | currencyFormatter}}
                 </div>
             </nb-card-header>
             <nb-card-body>
@@ -560,7 +560,7 @@
     <nb-card-body>
       <ng-container *ngIf="pendingLoanList?.length > 0">
           <div class="col-md-12">
-              <p><strong>Proposed Loan Document</strong></p>
+              <p><strong>Pending Loan Document</strong></p>
           </div>
           <ng-container *ngFor="let loan of pendingLoanList; let i = index">
               <nb-card>

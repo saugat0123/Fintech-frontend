@@ -118,7 +118,7 @@
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
 
                                             <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
-                                            <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>
+                                            <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than NPR.<strong>{{minimumAmountLimit}}</strong></span>
                                         </div>
                                     </div>
                                 </div>

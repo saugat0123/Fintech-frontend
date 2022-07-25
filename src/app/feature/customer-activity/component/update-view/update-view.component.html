@@ -112,7 +112,7 @@
     <div class="col-md-12" *ngIf="activity === 'CUSTOMER_GROUP_UPDATE' && data">
       <div class="d-flex justify-content-center">
         <span><strong>Group Code : </strong>{{data?.groupCode}}
-          <strong>  Group Limit  :</strong> Rs. {{data?.groupLimit | currencyFormatter}}/-</span>
+          <strong>  Group Limit  :</strong> NPR. {{data?.groupLimit | currencyFormatter}}/-</span>
       </div>
     </div>
 
@@ -126,7 +126,7 @@
 
         <tr *ngFor="let p of loanUpdateData?.proposal">
           <td><strong>{{p?.fieldName}}</strong></td>
-          <td><span *ngIf="p?.fieldName == 'Proposed Limit'">RS.{{(p?.prevValue) | currencyFormatter}}
+          <td><span *ngIf="p?.fieldName == 'Proposed Limit'">NPR.{{(p?.prevValue) | currencyFormatter}}
             /-</span>
             <span *ngIf="p?.fieldName !== 'Proposed Limit'" [innerHTML]="p?.prevValue | safeHtml"></span></td>
         </tr>

@@ -6,7 +6,7 @@
         <em class="ml-2 text-danger sb-small">Group Code:</em>
         <strong> {{groupDto?.groupCode}} |</strong>
         <em class="ml-2 text-danger sb-small">Total FMV/Realisable Value:</em>
-        <strong>Rs. {{this.totalCollateral | currencyFormatter}}</strong>)</p>
+        <strong>NPR. {{this.totalCollateral | currencyFormatter}}</strong>)</p>
       <table
           class="table sb-small table-condensed table-bordered table-responsive-md table-sm table-hover text-center">
         <thead>
@@ -32,37 +32,37 @@
        <tr *ngFor="let data of group?.fundedData; let j = index;">
          <td>{{j+1}}</td>
          <td class="text-left pl-1">{{data?.loanConfig?.name}}</td>
-         <td class="text-right pr-1">Rs. {{data?.proposal?.proposedLimit |currencyFormatter}}</td>
+         <td class="text-right pr-1">NPR. {{data?.proposal?.proposedLimit |currencyFormatter}}</td>
        </tr>
        <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
          <td class="text-center" colspan="2">Total Funded</td>
-         <td colspan="4" class="text-right pr-1">Rs.{{group?.totalFunded |currencyFormatter}}</td>
+         <td colspan="4" class="text-right pr-1">NPR.{{group?.totalFunded |currencyFormatter}}</td>
        </tr>
 
        <tr *ngFor="let data of group?.nonFundedData; let k = index;">
          <td class="text-right pr-1">{{k+1}}</td>
          <td class="text-left pl-1">{{data?.loanConfig?.name}}</td>
-         <td class="text-right pr-1">Rs.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
+         <td class="text-right pr-1">NPR.{{data?.proposal?.proposedLimit |currencyFormatter}}</td>
        </tr>
        <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
          <td class="text-center" colspan="2">Total Non Funded</td>
-         <td colspan="4" class="text-right pr-1">Rs.{{group?.totalNonFunded |currencyFormatter}}</td>
+         <td colspan="4" class="text-right pr-1">NPR.{{group?.totalNonFunded |currencyFormatter}}</td>
        </tr>
 
      </ng-container>
         </ng-container>
         <tr class="sb-bg-dark  text-white ">
           <td colspan="2">Grand Total Funded</td>
-          <td colspan="2" class="text-right pr-1">Rs.{{groupDto.grandTotalFundedAmount |currencyFormatter}}</td>
+          <td colspan="2" class="text-right pr-1">NPR.{{groupDto.grandTotalFundedAmount |currencyFormatter}}</td>
 
         </tr>
         <tr class="sb-bg-dark  text-white ">
           <td colspan="2">Grand Total Non Funded</td>
-          <td colspan="2" class="text-right pr-1">Rs.{{groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
+          <td colspan="2" class="text-right pr-1">NPR.{{groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
         </tr>
         <tr class="sb-bg-dark text-white ">
           <td  colspan="2">Grand Total </td>
-          <td colspan="2" class="text-right pr-1">Rs.{{groupDto.grandTotalFundedAmount + groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
+          <td colspan="2" class="text-right pr-1">NPR.{{groupDto.grandTotalFundedAmount + groupDto.grandTotalNotFundedAmount |currencyFormatter}}</td>
         </tr>
         </tbody>
       </table>
@@ -75,13 +75,13 @@
   <td>{{i + 1}}</td>
   <td>{{group.}}</td>
   <td>{{customer.loanConfig.name}}</td>
-  <td>Rs. {{customer.totalApprovedLimit |currencyFormatter}}</td>
-  <td>Rs. {{customer.totalPendingLimit |currencyFormatter}}</td>
-  <td>Rs. {{customer.totalPendingLimit+ customer.totalApprovedLimit |currencyFormatter}}</td>
+  <td>NPR. {{customer.totalApprovedLimit |currencyFormatter}}</td>
+  <td>NPR. {{customer.totalPendingLimit |currencyFormatter}}</td>
+  <td>NPR. {{customer.totalPendingLimit+ customer.totalApprovedLimit |currencyFormatter}}</td>
 </tr>
 <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
   <td class="text-center" colspan="2">Total Funded</td>
-  <td colspan="4">Rs.{{groupDto.totalFunded |currencyFormatter}}</td>
+  <td colspan="4">NPR.{{groupDto.totalFunded |currencyFormatter}}</td>
 </tr>
 <tr *ngFor="let customer of groupDto.nonFundedData;let i = index;"
     (click)="loadCustomerProfile(customer.associateId , customer.loanHolderId ,
@@ -89,19 +89,19 @@
   <td>{{i + 1}}</td>
   <td>{{customer.customerName}}</td>
   <td>{{customer.loanConfig.name}}</td>
-  <td>Rs. {{customer.totalApprovedLimit |currencyFormatter}}</td>
-  <td>Rs. {{customer.totalPendingLimit |currencyFormatter}}</td>
-  <td>Rs. {{customer.totalPendingLimit + customer.totalPendingLimit+ customer.totalApprovedLimit  |currencyFormatter}}</td>
+  <td>NPR. {{customer.totalApprovedLimit |currencyFormatter}}</td>
+  <td>NPR. {{customer.totalPendingLimit |currencyFormatter}}</td>
+  <td>NPR. {{customer.totalPendingLimit + customer.totalPendingLimit+ customer.totalApprovedLimit  |currencyFormatter}}</td>
 </tr>
 <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
   <td class="text-center" colspan="2">Total Non Funded</td>
-  <td colspan="4">Rs.{{groupDto.totalNonFunded |currencyFormatter}}</td>
+  <td colspan="4">NPR.{{groupDto.totalNonFunded |currencyFormatter}}</td>
 </tr>
 <tr class="cursor font-weight-bold sb-bg-secondary text-white ">
   <td colspan="2" class="text-center">Grand Total</td>
-  <td colspan="4">Rs.{{groupDto.totalNonFunded + groupDto.totalFunded  |currencyFormatter}}</td>
+  <td colspan="4">NPR.{{groupDto.totalNonFunded + groupDto.totalFunded  |currencyFormatter}}</td>
 </tr>
 <tr  class="cursor font-weight-bold sb-bg-secondary text-white ">
   <td colspan="2" class="text-center">Total Group Amount</td>
-  <td colspan="4">Rs.{{totalGroupApprovedAmount |currencyFormatter}}</td>
+  <td colspan="4">NPR.{{totalGroupApprovedAmount |currencyFormatter}}</td>
 </tr>-->

@@ -71,10 +71,10 @@
                                                 {{allLoan?.loan?.shortNames}}
                                             </td>
                                             <td>
-                                                {{allLoan?.approvingLevel}}
+                                                {{allLoan?.approvingLevel || 'NA'}}
                                             </td>
                                             <td>
-                                                {{allLoan?.creditRisk}}
+                                                {{allLoan?.creditRisk || '0'}}
                                             </td>
                                         </tr>
                                     </table>

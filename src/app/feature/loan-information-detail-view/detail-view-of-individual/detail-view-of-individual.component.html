@@ -5,18 +5,6 @@
                           [proposalData]="loanDataHolder?.proposal"
                           [loanDataHolder]="loanDataHolder"></app-proposal-summary>
 </div>
-
-<!--                release and replacement-->
-<!--<ng-container *ngIf="loanDataHolder?.securities?.length > 0">
-    &lt;!&ndash;                    proposed security&ndash;&gt;
-    <app-security-detail-view *ngIf="customerAllLoanList" [customerAllLoanList]="customerAllLoanList"
-                              [pending]="true"></app-security-detail-view>
-</ng-container>
-<ng-container>
-    &lt;!&ndash;                    existing security&ndash;&gt;
-    <app-security-detail-view *ngIf="customerAllLoanList"
-                              [customerAllLoanList]="customerAllLoanList"></app-security-detail-view>
-</ng-container>-->
 <ng-container>
     <hr class="print-line">
     <p class="header"><strong class="header">Security Schedule</strong></p>
@@ -262,16 +250,16 @@
 
                 <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}</td>
                 <td class="text-left">
-                    <div class="pl-1 disable-print">
-                                   <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                    loanDataHolder?.currentStage?.comment?.substring(0, 49):
-                                    loanDataHolder?.currentStage?.comment)"></span>
-                    </div>
-                    <a (click)="open(loanDataHolder?.currentStage?.comment)"
-                       *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                       class="text-left pl-1 disable-print">read more ....</a>
+<!--                    <div class="pl-1 disable-print">-->
+<!--                                   <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?-->
+<!--                                    loanDataHolder?.currentStage?.comment?.substring(0, 49):-->
+<!--                                    loanDataHolder?.currentStage?.comment)"></span>-->
+<!--                    </div>-->
+<!--                    <a (click)="open(loanDataHolder?.currentStage?.comment)"-->
+<!--                       *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"-->
+<!--                       class="text-left pl-1 disable-print">read more ....</a>-->
                     <div>
-                        <span class="print-only text-justify pl-1 pr-1"
+                        <span class="text-justify pl-1 pr-1"
                               [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                     </div>
                 </td>

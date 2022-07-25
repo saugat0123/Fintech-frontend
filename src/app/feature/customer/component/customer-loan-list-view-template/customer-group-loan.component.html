@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <nb-card>
             <ng-container>
-                <nb-card-header>Proposed Loan</nb-card-header>
+                <nb-card-header>Pending Loan</nb-card-header>
                 <nb-card-body>
                     <table *ngIf="!spinner"
                            class="table table-bordered table-hover table-sm sb-small text-center"
@@ -29,7 +29,7 @@
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{i + 1}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.loanName}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
-                                    class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter)
+                                    class="text-right pr-1">NPR. {{(model?.proposalProposedLimit | currencyFormatter)
                                 || 0}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{loanType[model?.loanType] || model?.loanType}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.documentStatus}}</td>
@@ -37,7 +37,7 @@
 <!--                                <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.collateralRequirement}}</td>-->
 <!--                                <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"-->
 <!--                                    class="text-right pr-1">-->
-<!--                                    Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
+<!--                                    NPR. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.currentStage?.toUser?.name}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : ''">
                                     <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
@@ -60,7 +60,7 @@
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.loanName}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
-                                        class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
+                                        class="text-right pr-1">NPR. {{(single?.proposalProposedLimit | currencyFormatter)
                                     || 0}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{loanType[single?.loanType]}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.documentStatus}}</td>
@@ -68,7 +68,7 @@
 <!--                                    <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.collateralRequirement}}</td>-->
 <!--                                    <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"-->
 <!--                                        class="text-right pr-1">-->
-<!--                                        Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
+<!--                                        NPR. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
                                     <td (click)="onClick(single?.loanId, single?.id,single?.currentStage)">{{single?.currentStage?.toUser?.name}}</td>
                                     <td>
                                         <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)" *ngIf="single?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
@@ -88,17 +88,17 @@
                         <tr class="sb-bg-secondary text-white">
                             <td></td>
                             <td>Total</td>
-                            <td class="text-right pr-1">Rs. {{totalInitialPendingProposedAmount |currencyFormatter}}</td>
+                            <td class="text-right pr-1">NPR. {{totalInitialPendingProposedAmount |currencyFormatter}}</td>
                             <td colspan="4"></td>
                             <td class="text-right pr-1">
-                                Rs. {{totalInitialPendingCollateralAmount|currencyFormatter}}</td>
+                                NPR. {{totalInitialPendingCollateralAmount|currencyFormatter}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </nb-card-body>
             </ng-container>
             <ng-container *ngIf="loanHistoriesGroup(loanHistories)?.approved?.length > 0">
-                <nb-card-header>Existing Loan</nb-card-header>
+                <nb-card-header>Initial, Pending</nb-card-header>
                 <nb-card-body>
                     <table *ngIf="!spinner"
                            class="table table-bordered table-hover table-sm sb-small text-center"
@@ -122,12 +122,12 @@
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{i + 1}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.loanName}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)" class="text-right pr-1">
-                                    Rs. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
+                                    NPR. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{loanType[model?.loanType] || model?.loanType}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.createdAt | date}}</td>
 <!--                                <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.collateralRequirement}}</td>-->
 <!--                                <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)" class="text-right pr-1">-->
-<!--                                    Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
+<!--                                    NPR. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)" class="text-left pl-1">{{model?.currentStage?.lastModifiedAt | date}}({{model?.currentStage?.lastModifiedAt | engNepDate : false}})</td>
                             </tr>
                             <ng-container *ngIf="toggleArray[i].toggled">
@@ -138,12 +138,12 @@
                                         {{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.loanName}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)" class="text-right pr-1">
-                                        Rs. {{(single?.proposalProposedLimit | currencyFormatter) || 0}}</td>
+                                        NPR. {{(single?.proposalProposedLimit | currencyFormatter) || 0}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{loanType[single?.loanType]}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.createdAt | date}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.collateralRequirement}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)" class="text-right pr-1">
-                                        Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                        NPR. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                                     <td class="text-left pl-1">{{single?.currentStage?.lastModifiedAt | date}}({{single?.currentStage?.lastModifiedAt | engNepDate : false}})</td>
                                 </tr>
                             </ng-container>
@@ -152,10 +152,10 @@
                             <td></td>
                             <td>Total</td>
                             <td class="text-right pr-2">
-                                Rs. {{totalApprovedProposedAmount |currencyFormatter}}</td>
+                                NPR. {{totalApprovedProposedAmount |currencyFormatter}}</td>
                             <td colspan="3"></td>
                             <td class="text-right pr-1">
-                                Rs. {{totalApprovedCollateralAmount |currencyFormatter}}</td>
+                                NPR. {{totalApprovedCollateralAmount |currencyFormatter}}</td>
                             <td></td>
                         </tr>
                         </tbody>
@@ -189,13 +189,13 @@
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{i + 1}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.loanName}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
-                                    class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
+                                    class="text-right pr-1">NPR. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{loanType[model?.loanType] || model?.loanType}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.documentStatus}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.createdAt | date}}</td>
 <!--                                <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.collateralRequirement}}</td>-->
 <!--                                <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"-->
-<!--                                    class="text-right pr-1">Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
+<!--                                    class="text-right pr-1">NPR. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
                                 <td>
                                     <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                                         <button nbButton status="warning" size="tiny"
@@ -219,7 +219,7 @@
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.loanName}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
-                                        class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
+                                        class="text-right pr-1">NPR. {{(single?.proposalProposedLimit | currencyFormatter)
                                     || 0}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{loanType[single?.loanType]}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.documentStatus}}</td>
@@ -227,17 +227,17 @@
 <!--                                    <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.collateralRequirement}}</td>-->
 <!--                                    <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"-->
 <!--                                        class="text-right pr-1">-->
-<!--                                        Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
+<!--                                        NPR. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>-->
                                 </tr>
                             </ng-container>
                         </ng-container>
                         <tr class="sb-bg-secondary text-white">
                             <td></td>
                             <td>Total</td>
-                            <td class="text-right pr-1">Rs. {{totalRejectProposedAmount |currencyFormatter}}</td>
+                            <td class="text-right pr-1">NPR. {{totalRejectProposedAmount |currencyFormatter}}</td>
                             <td colspan="4"></td>
                             <td class="text-right pr-1">
-                                Rs. {{totalRejectCollateralAmount |currencyFormatter}}</td>
+                                NPR. {{totalRejectCollateralAmount |currencyFormatter}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -269,14 +269,14 @@
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{i + 1}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.loanName}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
-                                    class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
+                                    class="text-right pr-1">NPR. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{loanType[model?.loanType] || model?.loanType}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.documentStatus}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.createdAt | date}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.collateralRequirement}}</td>
                                 <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
                                     class="text-right pr-1">
-                                    Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                    NPR. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                                 <td>
                                 </td>
                             </tr>
@@ -286,7 +286,7 @@
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.loanName}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
-                                        class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
+                                        class="text-right pr-1">NPR. {{(single?.proposalProposedLimit | currencyFormatter)
                                     || 0}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{loanType[single?.loanType]}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.documentStatus}}</td>
@@ -294,17 +294,17 @@
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.collateralRequirement}}</td>
                                     <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
                                         class="text-right pr-1">
-                                        Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                        NPR. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                                 </tr>
                             </ng-container>
                         </ng-container>
                         <tr class="sb-bg-secondary text-white">
                             <td></td>
                             <td>Total</td>
-                            <td class="text-right pr-1">Rs. {{totalClosedProposedAmount |currencyFormatter}}</td>
+                            <td class="text-right pr-1">NPR. {{totalClosedProposedAmount |currencyFormatter}}</td>
                             <td colspan="4"></td>
                             <td class="text-right pr-1">
-                                Rs. {{totalClosedCollateralAmount |currencyFormatter}}</td>
+                                NPR. {{totalClosedCollateralAmount |currencyFormatter}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -312,13 +312,13 @@
                 <nb-card-footer>
                     <div  *ngIf="displaySecurity">
                         <mark class="alert-warning">Total Required Collateral:</mark>
-                        <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
+                        <strong>NPR.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
                         <br>
                         <mark class="alert-warning">Total FMV/Considered Value:</mark>
-                        <strong>Rs.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>
+                        <strong>NPR.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>
                         <br>
                         <mark class="alert-warning">Surplus/(Deficit):</mark>
-                        <strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
+                        <strong> NPR. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
                         <br>
                         <mark class="alert-warning">Coverage:</mark>
                         <strong>{{collateralDtoData.coveragePercent |roundvalue |currencyFormatter}}%</strong>

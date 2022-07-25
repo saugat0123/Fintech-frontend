@@ -24,7 +24,7 @@
               <strong class="mb-1">Group Code:  </strong>{{option.groupCode}}
             </div>
             <div class="d-flex w-100 justify-content-between">
-              <p class="mb-1">Group Limit: </p> Rs.{{option.groupLimit | currencyFormatter}}
+              <p class="mb-1">Group Limit: </p> NPR.{{option.groupLimit | currencyFormatter}}
             </div>
           </a>
           <p *ngIf="customerGroups.length < 1">No groups found!!!</p>

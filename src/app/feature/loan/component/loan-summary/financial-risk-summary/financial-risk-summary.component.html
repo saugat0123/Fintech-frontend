@@ -132,19 +132,19 @@
         <th scope="row">A</th>
         <td class="text-left pl-1"><b>Total Sales Revenue</b></td>
         <td *ngFor="let amount of financialData['incomeStatementData']['totalSalesRevenue']; " class="text-right pr-1">
-            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+            <b>NPR. {{amount.value | currencyFormatter}}</b></td>
     </tr>
     <tr>
         <th scope="row">B</th>
         <td class="text-left pl-1"><b>Net Worth</b></td>
         <td *ngFor="let amount of financialData['balanceSheetData']['netWorth']" class="text-right pr-1">
-            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+            <b>NPR. {{amount.value | currencyFormatter}}</b></td>
     </tr>
     <tr>
         <th scope="row">C</th>
         <td class="text-left pl-1"><b>Net Profit (Profit after tax)</b></td>
         <td *ngFor="let amount of financialData['incomeStatementData']['profitAfterTax']" class="text-right pr-1">
-            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+            <b>NPR. {{amount.value | currencyFormatter}}</b></td>
     </tr>
     <tr>
         <td colspan="3">&nbsp;</td>
@@ -308,12 +308,12 @@
     <tr>
         <th>g</th>
         <td class="text-left pl-1">Net WC before Bank</td>
-        <td *ngFor="let amount of financialData['keyIndicatorsData']['netWCBeforeBank']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['netWCBeforeBank']" class="text-right pr-1">NPR. {{amount.value | currencyFormatter}}</td>
     </tr>
     <tr>
         <th>5</th>
         <td class="text-left pl-1">Cash Flow</td>
-        <td *ngFor="let amount of financialData['keyIndicatorsData']['cashFlowKI']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+        <td *ngFor="let amount of financialData['keyIndicatorsData']['cashFlowKI']" class="text-right pr-1">NPR. {{amount.value | currencyFormatter}}</td>
     </tr>
     </tbody>
 </table>

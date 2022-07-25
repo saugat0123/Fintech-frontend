@@ -90,8 +90,8 @@ export class SecurityTotalSummaryComponent implements OnInit {
     }
 
     selectedSecurities() {
-        if (!ObjectUtil.isEmpty(this.securities)) {
-            this.securities.forEach((s, i) => {
+        if (!ObjectUtil.isEmpty(this.approvedSec)) {
+            this.approvedSec.forEach((s, i) => {
                 switch (s.securityType.toString()) {
                     case 'APARTMENT_SECURITY': {
                         this.apartmentSelected = true;

@@ -70,12 +70,12 @@
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.toUser?.name }}</td>
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)" class="text-right px-2">
-                            Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
+                            NPR. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
                     </tr>
                     <tr class="bg-light">
                         <td colspan="3"><Strong>Total</Strong></td>
                         <td colspan="3" class="text-right px-2">
-                            <strong>Rs. {{getTotal('proposal?.proposedLimit', model?.customerLoanDtoList) | currencyFormatter}}</strong></td>
+                            <strong>NPR. {{getTotal('proposal?.proposedLimit', model?.customerLoanDtoList) | currencyFormatter}}</strong></td>
                     </tr>
                     <tr class="sb-bg-dark">
                         <td colspan="9">.</td>
