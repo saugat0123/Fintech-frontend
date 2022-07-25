@@ -97,7 +97,7 @@ export class RetailPrimarySecurityComponent implements OnInit {
         this.buildForm();
         this.getAllProvince();
         this.getAllDistrict();
-        if (!ObjectUtil.isEmpty(this.initialData)) {
+        if (!ObjectUtil.isEmpty(this.initialData) && (!ObjectUtil.isEmpty(this.initialData.primarySecurity[0]))) {
             if (!ObjectUtil.isEmpty(this.initialData.primarySecurity[0].securityType)) {
                 this.securitySelected = true;
                 this.setFormArray(this.initialData.primarySecurity);
@@ -140,6 +140,7 @@ export class RetailPrimarySecurityComponent implements OnInit {
             securityType: [undefined],
             securityTypeTrans: [undefined],
             securityTypeCT: [undefined],
+            isHomeLoanTakeOver: [false],
             /* FOR LAND AND BUILDING */
             collateralShare: [undefined],
             insuranceRequired: [false],
@@ -400,13 +401,16 @@ export class RetailPrimarySecurityComponent implements OnInit {
         const formArray = this.retailPrimarySecurityForm.get('securityDetails') as FormArray;
         formData.forEach((val, index) => {
             if (!ObjectUtil.isEmpty(val.securityOwnersName)) {
-                this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+                if (!ObjectUtil.isEmpty(val.securityOwnersDistrict) && (!ObjectUtil.isEmpty(val.securityOwnersDistrict.id))) {
+                   this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+                }
             }
             formArray.push(
                 this.formBuilder.group({
                     securityType: [val.securityType],
                     securityTypeTrans: [val.securityTypeTrans],
                     securityTypeCT: [val.securityTypeCT],
+                    isHomeLoanTakeOver: [val.isHomeLoanTakeOver],
                     /* FOR LAND AND BUILDING */
                     collateralShare: [val.collateralShare],
                     insuranceRequired: [val.insuranceRequired],
