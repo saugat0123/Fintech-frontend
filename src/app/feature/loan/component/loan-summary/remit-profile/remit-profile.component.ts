@@ -26,6 +26,8 @@ export class RemitProfileComponent implements OnInit {
   isLoaded = false;
   isJointInfo = false;
   jointInfo = [];
+  accountNumberList = [];
+  accountNumbers;
   ngOnInit() {
     this.remit = this.loanHolder.remitCustomer;
     if (!ObjectUtil.isEmpty(this.remit)) {
@@ -50,6 +52,12 @@ export class RemitProfileComponent implements OnInit {
         this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
         this.isJointInfo = true;
       }
+      const customerData = JSON.parse(this.loanHolder.customerInfo.individualJsonData);
+      if (!ObjectUtil.isEmpty(customerData)) {
+        customerData.accountDetails.forEach((val) => {
+          this.accountNumberList.push(val.accountNo);
+        });
+      }
     }
   }
   calculateAge(dob) {
@@ -65,4 +73,21 @@ export class RemitProfileComponent implements OnInit {
     link.click();
   }
 
+  getAccountNumber(accountNumberList) {
+    let accountNumber = '';
+    if (accountNumberList.length === 1) {
+      accountNumber = accountNumberList[0];
+    }
+    if (accountNumberList.length === 2) {
+      accountNumber = accountNumberList.join(' and ');
+    }
+    if (accountNumberList.length > 2) {
+      for (let i = 0; i < accountNumberList.length - 1; i++) {
+        this.accountNumbers = accountNumberList.join(' , ');
+      }
+      const tempData = accountNumberList[accountNumberList.length - 1];
+      accountNumber = this.accountNumbers + ' and ' + tempData;
+    }
+    return accountNumber ? accountNumber : '';
   }
+}
