@@ -221,7 +221,7 @@
                                             name="toUser">
                                         <option *ngFor="let user of combinedType?.userList"
                                                 [ngValue]="user">
-                                            {{user.username}}
+                                            {{user.username}} | {{user?.name}}
                                     </select>
                                 </div>
                             </div>

@@ -10,21 +10,20 @@
             </ng-container>
             <!--                release and replacement-->
             <ng-container>
+                <p class="header"><strong class="header">Security Schedule</strong></p>
+                <app-security-total-summary [securities]="loanSecurity"
+                                            [approvedSec]="approvedSecurity"
+                                            [loanHolder]="loanDataHolder?.loanHolder"
+                                            [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList"
+                <app-security-summary *ngIf="loanSecurity?.length > 0"
                                       [securities]="loanSecurity"
-                                      [customerAllLoanList]="customerAllLoanList"
-                                      [approvedSec] = "approvedSecurity"
-                                      [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="approvedSecurity" [securities]="approvedSecurity"></app-security-summary>
+                <app-security-summary *ngIf="approvedSecurity?.length > 0" [securities]="approvedSecurity"></app-security-summary>
 
             </ng-container>
-            <app-security-schedule [customerAllLoanList]="customerAllLoanList"
-                                   [approvedSecurity]="approvedSecurity"
-                                   [loanSecurity]="loanSecurity"
-                                   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+            <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
             <!-- Customer Share Security  -->
             <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                         [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
@@ -39,6 +38,7 @@
                        <app-company-info-summary [approveSheet]="notApprove"
                                                  [companyInfo]="loanDataHolder?.companyInfo"
                                                  [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                       <hr class="print-line">
                        <app-guarantor-view  [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
                    </div>
@@ -46,196 +46,173 @@
                <ng-container *ngIf="!fullSettlement">
                    <hr class="print-line">
                    <div class="row  mt-1">
-                       <div class="col-md-12">
-                           <div>
-                               <div class="col-md-12">
-                                   <p><strong class="header text-left">Purpose of Loan: </strong></p>
-                                   <table class="table table-borderless table-responsive">
-                                       <tbody *ngFor="let loan of customerAllLoanList; let i = index">
+                       <div>
+                           <div class="col-md-12">
+                               <p><strong class="header text-left">Purpose of Loan </strong></p>
+                               <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                                   <ng-container *ngIf="loan?.id">
+                                       <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                       <ul>
+                                           <li>
+                                               <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                           </li>
+                                       </ul>
+                                   </ng-container>
+                               </ng-container>
+                           </div>
+                           <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
+                               <hr class="print-line">
+                               <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left"
+                                                                                                   style="display: flex"
+                                                                                                   [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span>
+                               </p>
+                           </div>
+                           <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
+                               <hr class="print-line">
+                               <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left"
+                                                                                                    style="display: flex"
+                                                                                                    [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span>
+                               </p>
+                           </div>
+                           <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
+                                          [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                                          [loanDataHolder]="loanDataHolder"></app-cicl-view>
+                           <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
+                               <hr class="print-line">
+                               <app-financial-account-information [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
+                                                                  [fromLoan]="false"></app-financial-account-information>
+                           </ng-container>
+                           <ng-template #financials>
+                           <div class="row">
+                               <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
+                                   class="text-left header"><strong class="header">Financial</strong></p>
+                                   <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
+                                                              [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
+                                   <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
+                                                              [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
+                           </div>
+                           </ng-template>
+                           <ng-container>
+                               <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
+                                   <hr class="print-line">
+                                   <p><strong class="header text-left">Justification for Change (Historical): </strong></p>
+                                   <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></div>
+                               </div>
+                               <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection">
+                                   <hr class="print-line">
+                                   <p><strong class="header text-left">Justification for Change (Projection)
+                                       : </strong>
+                                   </p>
+                                   <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></div>
+                               </div>
+                               <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks">
+                                   <hr class="print-line">
+                                   <p><strong class="header text-left">Remarks : </strong> </p>
+
+                                   <div [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
+                               </div>
+                           </ng-container>
+                           <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
+                                                        [loanDataHolder] = "loanDataHolder"
+                                                        [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
+                           <ng-container *ngIf="smallBusiness">
+<!--                               <div class="col-md-12 form-group">-->
+<!--                                   <div class="row">-->
+<!--                                       <div class="col-md-12 text-left">-->
+<!--                                           <b class="header">Fixed Assets Summary (proposed hypothecation)</b>-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                                   <p class="text-right">(Amount in NPR ‘000s)</p>-->
+<!--                                   <table class="table table-sm table-bordered table-hover sb-small text-center">-->
+<!--                                       <thead>-->
+<!--                                       <tr class="sb-bg-gray">-->
+<!--                                           <th>S.N</th>-->
+<!--                                           <th>Particulars</th>-->
+<!--                                           <th>Unit</th>-->
+<!--                                           <th>Rate</th>-->
+<!--                                           <th>Total</th>-->
+<!--                                           <th>Remarks</th>-->
+<!--                                       </tr>-->
+<!--                                       </thead>-->
+<!--                                       <tbody class="text-left">-->
+<!--                                       <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index"-->
+<!--                                           style="text-align: center;">-->
+<!--                                           <ng-container>-->
+<!--                                               <td>{{i + 1}}</td>-->
+<!--                                               <td>{{fixedAssets?.particular || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.unit || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.rate || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.total || 'NA'}}</td>-->
+<!--                                               <td>{{fixedAssets?.remarks || 'NA'}}</td>-->
+<!--                                           </ng-container>-->
+<!--                                       </tr>-->
+<!--                                       </tbody>-->
+<!--                                   </table>-->
+<!--                               </div>-->
+                               <hr class="print-line">
+                               <div class="col-md-12 form-group">
+                                   <div class="row">
+                                       <div class="col-md-12 text-left">
+                                           <b class="header">Summary of Environment & Social Risk Assessment</b>
+                                       </div>
+                                   </div>
+                                   <table class="table table-sm table-bordered table-hover sb-small text-center">
+                                       <thead>
+                                       <tr class="sb-bg-gray">
+                                           <th>S.N</th>
+                                           <th>Particulars</th>
+                                           <th>Remarks</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody class="text-left">
                                        <tr>
+                                           <td>1</td>
+                                           <td class="text-left">Falls under Exclusion and critical sector list</td>
+                                           <td class="text-center">
+                                               {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES' : 'NO'}}
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td>2</td>
+                                           <td class="text-left">E & S Due Diligence process Applicable</td>
+                                           <td class="text-center">
+                                               {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES' : 'NO'}}
+
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td>3</td>
+                                           <td class="text-left">Level of Risk</td>
                                            <td>
-                                               <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                                               <span *ngIf="loan?.loanType === 'FULL_SETTLEMENT_LOAN' || loan?.loanType === 'PARTIAL_SETTLEMENT_LOAN'"><b>Remarks:</b>
-                                                   <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.remarks || 'N/A' | safeHtml"></span>
-                                              </span>
+                                               {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
+
+
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td>4</td>
+                                           <td class="text-left">Falls under Exclusion and critical sector list</td>
+                                           <td>
+                                               {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
+
                                            </td>
                                        </tr>
                                        </tbody>
                                    </table>
                                </div>
-                               <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
-                                   <hr class="print-line">
-                                   <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left"
-                                                                                                       style="display: flex"
-                                                                                                       [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span>
-                                   </p>
+                           </ng-container>
+                           <ng-container *ngIf="checkedData?.waiverChecked">
+                               <hr class="print-line header">
+                               <p class="header"><strong class="header">Waivers</strong></p>
+                               <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
                                </div>
-                               <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
-                                   <hr class="print-line">
-                                   <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left"
-                                                                                                        style="display: flex"
-                                                                                                        [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span>
-                                   </p>
+                           </ng-container>
+                           <ng-container *ngIf="checkedData?.deviationChecked">
+                               <hr class="print-line header">
+                               <p class="header"><strong class="header">Deviation</strong></p>
+                               <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
                                </div>
-                               <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
-                                              [ciclValue]="loanDataHolder?.loanHolder?.cicl"
-                                              [loanDataHolder]="loanDataHolder"></app-cicl-view>
-                               <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
-                                   <p class="text-left header"><strong class="header">Financial/Account Information Assessment</strong></p>
-                                   <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
-                               </ng-container>
-                               <ng-template #financials>
-                               <div class="row">
-                                   <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
-                                       class="text-left header"><strong class="header">Financial</strong></p>
-                                       <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
-                                                                  [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
-                                       <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
-                                                                  [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
-                               </div>
-                               </ng-template>
-                               <ng-container>
-                                   <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.financial?.historicalProjected">
-                                       <hr class="print-line">
-                                       <p><strong class="header text-left">Justification for Change (Historical): </strong>
-                                           <span class="text-left" style="display: flex"
-                                                 [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></span>
-                                       </p>
-                                   </div>
-                                   <div class="col-md-12">
-                                       <hr class="print-line">
-                                       <p><strong class="header text-left">Justification for Change (Projection)
-                                           : </strong> <span class="text-left" style="display: flex"
-                                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></span>
-                                       </p>
-                                   </div>
-                                   <div class="col-md-12">
-                                       <hr class="print-line">
-                                       <p><strong class="header text-left">Remarks
-                                           : </strong> <span class="text-left" style="display: flex"
-                                                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></span>
-                                       </p>
-                                   </div>
-                               </ng-container>
-                               <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
-                                                            [loanDataHolder] = "loanDataHolder"
-                                                            [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
-                               <ng-container *ngIf="smallBusiness">
-                                   <div class="col-md-12 form-group">
-                                       <div class="row">
-                                           <div class="col-md-12 text-left">
-                                               <b class="header">Fixed Assets Summary (proposed hypothecation)</b>
-                                           </div>
-                                       </div>
-                                       <p class="text-right">(Amount in NPR ‘000s)</p>
-                                       <table class="table table-sm table-bordered table-hover sb-small text-center">
-                                           <thead>
-                                           <tr class="sb-bg-dark text-white">
-                                               <th>S.N</th>
-                                               <th>Particulars</th>
-                                               <th>Unit</th>
-                                               <th>Rate</th>
-                                               <th>Total</th>
-                                               <th>Remarks</th>
-                                           </tr>
-                                           </thead>
-                                           <tbody class="text-left">
-                                           <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index"
-                                               style="text-align: center;">
-                                               <ng-container>
-                                                   <td>{{i + 1}}</td>
-                                                   <td>{{fixedAssets?.particular || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.unit || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.rate || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.total || 'NA'}}</td>
-                                                   <td>{{fixedAssets?.remarks || 'NA'}}</td>
-                                               </ng-container>
-                                           </tr>
-                                           </tbody>
-                                       </table>
-                                   </div>
-                                   <div class="col-md-12 form-group">
-                                       <div class="row">
-                                           <div class="col-md-12 text-left">
-                                               <b class="header">Summary of Environment & Social Risk Assessment</b>
-                                           </div>
-                                       </div>
-                                       <table class="table table-sm table-bordered table-hover sb-small text-center">
-                                           <thead>
-                                           <tr class="sb-bg-dark text-white">
-                                               <th>S.N</th>
-                                               <th>Particulars</th>
-                                               <th>Remarks</th>
-                                           </tr>
-                                           </thead>
-                                           <tbody class="text-left">
-                                           <tr>
-                                               <td>1</td>
-                                               <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                               <td class="text-center">
-                                                   {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES' : 'NO'}}
-                                               </td>
-                                           </tr>
-                                           <tr>
-                                               <td>2</td>
-                                               <td class="text-left">E & S Due Diligence process Applicable</td>
-                                               <td class="text-center">
-                                                   {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES' : 'NO'}}
-
-                                               </td>
-                                           </tr>
-                                           <tr>
-                                               <td>3</td>
-                                               <td class="text-left">Level of Risk</td>
-                                               <td>
-                                                   {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
-
-
-                                               </td>
-                                           </tr>
-                                           <tr>
-                                               <td>4</td>
-                                               <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                               <td>
-                                                   {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
-
-                                               </td>
-                                           </tr>
-                                           </tbody>
-                                       </table>
-                                   </div>
-                               </ng-container>
-                               <ng-container *ngIf="checkedData?.waiverChecked">
-                                   <hr class="print-line header">
-                                   <p class="header"><strong class="header">Waivers</strong></p>
-                                   <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                       <tr class="  text-white sb-bg-dark">
-                                           <th class="">Waiver</th>
-                                       </tr>
-                                       <tr>
-                                           <td class="text-left pl-1"><span
-                                                   [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
-                                           </td>
-                                       </tr>
-                                   </table>
-                               </ng-container>
-                               <ng-container *ngIf="checkedData?.deviationChecked">
-                                   <hr class="print-line header">
-                                   <p class="header"><strong class="header">Deviation</strong></p>
-                                   <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                                       <tr class="text-white sb-bg-dark">
-                                           <th class="">Deviation</th>
-                                       </tr>
-                                       <tr>
-                                           <td class="text-left pl-1"><span
-                                                   [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span>
-                                           </td>
-                                       </tr>
-                                   </table>
-                               </ng-container>
-                           </div>
-
+                           </ng-container>
                        </div>
                    </div>
                </ng-container>
@@ -303,7 +280,13 @@
                    </div>
                </div>
            </ng-container>
-
+            <div *ngIf="loanDataHolder?.loanHolder?.facilityUtilization">
+                <hr class="print-line">
+                <app-facility-utilization
+                        [fromProfile]="false"
+                        [facilityUtilizationData]="loanDataHolder?.loanHolder?.facilityUtilization">
+                </app-facility-utilization>
+            </div>
             <hr class="print-line">
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -311,7 +294,7 @@
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white">
+                        <tr class="sb-bg-gray">
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
@@ -346,7 +329,7 @@
 
                             <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                <div class="pl-1" [innerHTML]="customSafePipe(
                                     previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
                                     previousList?.comment)">
@@ -382,7 +365,7 @@
 
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print">
+                                <div class="pl-1">
                                     <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment)"></span>
@@ -407,9 +390,9 @@
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-2 padding-0-125">
+                     class="col-md-3 padding-0-125">
                     <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
                             <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
@@ -419,7 +402,7 @@
                                  class="img-thumbnail border-0 signature-height signature-width"
                                  src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                         </div>
-                        <div class="text-center signature-detail sb-bg-secondary text-white">
+                        <div class="text-center signature-detail sb-bg-gray">
                             <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
                             <p class="m-0 sb-small">
                                 ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}

@@ -48,6 +48,9 @@ import { CustomerShareSummaryComponent } from './customer-share-summary/customer
 import {
     FinancialAccountInformationModule
 } from '../../../loan-information-template/financial-account-information/financial-account-information.module';
+import {FeatureModule} from '../../../feature.module';
+import {SecurityTotalSummaryModule} from '../../../security-total-summary/security-total-summary.module';
+import {FacilityUtilizationModule} from '../facility-utilization/facility-utilization.module';
 
 
 const COMPONENTS = [
@@ -96,6 +99,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         ProductPaperModule,
         SecurityViewModule,
         FinancialAccountInformationModule,
+        SecurityTotalSummaryModule,
+        FacilityUtilizationModule,
     ],
     exports: [
         LoanSummaryComponent,

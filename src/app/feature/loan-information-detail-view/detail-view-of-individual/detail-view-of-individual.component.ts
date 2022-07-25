@@ -30,6 +30,8 @@ export class DetailViewOfIndividualComponent implements OnInit {
   @Input() loanHolder;
   @Input() signatureList;
   @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() loanSecurity: Array<Security>;
+  @Input() approvedSecurity: Array<Security> = [];
   loans;
   paperChecklist;
   allIds = [];

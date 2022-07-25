@@ -1,36 +1,7 @@
-<div class="row mt-3" *ngIf="securities?.length > 0">
+<div class="row mt-0" *ngIf="securities?.length > 0">
     <hr class="print-line">
-    <div class="col-md-12" *ngIf="pending">
-        <p class="header float-left"><strong class="header">Security Summary</strong></p>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-gray">
-                <th>Security Type</th>
-                <th *ngFor="let sk of subKey">{{sk | securitySummary}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let key of keys">
-                <tr *ngIf="totalIndividualSec[key]?.added">
-                    <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :'text-left'">{{key | securitySummary}}</td>
-                    <td *ngFor="let sk of subKey"
-                        [ngClass]="key  === 'total' ? 'font-weight-bold' :''">{{totalIndividualSec[key][sk] | currencyFormatter}}</td>
-                </tr>
-            </ng-container>
-            <tr>
-                <td class="sb-bg-gray">Expected Loss Given Default</td>
-                <td class="" [colSpan]="subKey?.length">{{(fixedAssets | currencyFormatter) ? fixedAssets:'0'}}</td>
-            </tr>
-            <tr>
-                <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>
-                <td class="" [colSpan]="subKey?.length">{{(totalProposedLimit / totalIndividualSec?.total?.rv)?.toFixed(2)   || '0'}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
     <div class="col-md-12">
-        <p class="header" *ngIf="pending"><strong class="header">Security Schedule</strong></p>
-        <p  class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></p>
+        <label class="header"><strong  class="header">{{pending ? 'Propose Security' : 'Existing Security'}}</strong></label>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
                 <div class="row">
@@ -64,18 +35,18 @@
                             <td *ngFor="let vehicleDetails of vehicle;">
                                 <table class="table table-bordered table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                 <tbody>
-                                <tr><td class="text-right pr-2">{{vehicleDetails?.model || 'N/A'}}</td></tr>
-                                <tr>    <td class="text-right pr-2">Rs. {{(vehicleDetails?.quotationAmount | currencyFormatter) || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">Rs. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">Rs. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">{{vehicleDetails?.registrationNumber || 'N/A'}}</td></tr>
-                                <tr> <td class="text-right pr-2">{{ vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'N/A'}}</td></tr>
-                                <tr> <td class="text-right pr-2">{{vehicleDetails?.engineNo || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">{{vehicleDetails?.chasisNo || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">Rs. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">{{ vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'N/A'}}</td></tr>
-                                <tr> <td class="text-right pr-2">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
-                                <tr>  <td class="text-right pr-2">Rs. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr><td class="text-left pl-2">{{vehicleDetails?.model || 'N/A'}}</td></tr>
+                                <tr>    <td class="text-left pl-2">NPR. {{(vehicleDetails?.quotationAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">{{vehicleDetails?.registrationNumber || 'N/A'}}</td></tr>
+                                <tr> <td class="text-left pl-2">{{ vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'N/A'}}</td></tr>
+                                <tr> <td class="text-left pl-2">{{vehicleDetails?.engineNo || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">{{vehicleDetails?.chasisNo || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">{{ vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'N/A'}}</td></tr>
+                                <tr> <td class="text-left pl-2">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
 
                                 </tbody>
                                 </table>
@@ -83,7 +54,7 @@
                         </tr>
                         </tbody>
                 </table>
-                <div class="mt-5">
+                <div class="mt-1">
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small" style="width: 100%">
                         <tr class="sb-bg-gray">
                             <th>Remarks</th>
@@ -108,49 +79,52 @@
             <td width="30%">
                 <table class="table table-condensed table-bordered table-responsive-md text-left table-sm sb-small sb-bg-gray">
                     <tr>
-                        <td>Owner</td>
+                        <td class="text-left pl-2">Owner Name</td>
                     </tr>
                     <tr>
-                        <td>Location</td>
+                        <td class="text-left pl-2">Collateral Owner Relationship With Borrower</td>
                     </tr>
                     <tr>
-                        <td>Plot No</td>
+                        <td class="text-left pl-2">Current Address</td>
                     </tr>
                     <tr>
-                        <td>Area Format</td>
+                        <td class="text-left pl-2">Address as per Legal Document</td>
                     </tr>
                     <tr>
-                        <td>Area</td>
+                        <td class="text-left pl-2">Plot No</td>
                     </tr>
                     <tr>
-                        <td>FMV</td>
+                        <td class="text-left pl-2">Area</td>
                     </tr>
                     <tr>
-                        <td>Market Value</td>
+                        <td class="text-left pl-2">Fair Market Value</td>
                     </tr>
                     <tr>
-                        <td>Collateral Owner Relationship With Borrower</td>
+                        <td class="text-left pl-2">Market Value</td>
                     </tr>
                     <tr>
-                        <td>Address as per Legal Document</td>
+                        <td class="text-left pl-2">Realizable Rate</td>
                     </tr>
                     <tr>
-                        <td>Realisable Value</td>
+                        <td class="text-left pl-2">Realisable Value</td>
                     </tr>
                     <tr>
-                        <td>Rate</td>
+                        <td class="text-left pl-2">Valuation Date(AD)</td>
                     </tr>
                     <tr>
-                        <td>Valuated Date(AD/BS)</td>
+                        <td class="text-left pl-2">Last Valuation Date(AD)</td>
                     </tr>
                     <tr>
-                        <td>Valuator Name</td>
+                        <td class="text-left pl-2">Valuator Name</td>
                     </tr>
                     <tr>
-                        <td>Road access seen in blueprint</td>
+                        <td class="text-left pl-2">Road access seen in blueprint</td>
                     </tr>
                     <tr>
-                        <td>Road Access Description</td>
+                        <td class="text-left pl-2">Road Access Description</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-2">Remarks</td>
                     </tr>
                 </table>
                 </td>
@@ -158,51 +132,55 @@
                 <table class="table table-condensed table-bordered table-responsive-md text-right table-sm sb-small">
                     <tbody>
                     <tr>
-                        <td class="pl-1">{{landDetails?.owner || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.owner || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pl-1">{{landDetails?.location || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.landCollateralOwnerRelationship || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pr-1">{{landDetails?.plotNumber || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.location || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class="pl-1">{{landDetails?.areaFormat || 'N/A'}}</td>
+                        <td class="text-left pl-2" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pr-1">{{landDetails?.area || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.plotNumber || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class="pr-1">Rs. {{(landDetails?.fairMarketValue |currencyFormatter) || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.area + '(' + landDetails?.areaFormat + ')' || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pr-1">Rs. {{(landDetails?.distressValue |currencyFormatter) || 'N/A'}}</td>
+                        <td class="text-left pl-2">NPR. {{(landDetails?.fairMarketValue | currencyFormatter) || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pr-1">{{landDetails?.landCollateralOwnerRelationship || 'N/A'}}</td>
+                        <td class="text-left pl-2">NPR. {{(landDetails?.distressValue |currencyFormatter) || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class="pl-1" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{(landDetails?.landRate | currencyFormatter) || 'N/A'}}%</td>
                     </tr>
                     <tr>
-                        <td class="pr-1">Rs. {{(landDetails?.landConsideredValue | currencyFormatter) || 'N/A'}}</td>
+                        <td class="text-left pl-2">NPR. {{(landDetails?.landConsideredValue | currencyFormatter) || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td class=" pr-1">Rs. {{(landDetails?.landRate | currencyFormatter) || 'N/A'}}</td>
-                    </tr>
-                    <tr>
-                        <td class=" pl-1">{{ landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'N/A'}}
+                        <td class="text-left pl-2">{{ landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'N/A'}}
                         </td>
                     </tr>
                     <tr>
-                        <td class="pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{ landDetails?.landFirstValuationDate ? (landDetails?.landFirstValuationDate | date) : 'N/A'}}
+                        </td>
                     </tr>
                     <tr>
-                        <td>{{landDetails?.roadAccessBluePrint || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.landValuator?.name || 'N/A'}}</td>
                     </tr>
                     <tr>
-                        <td>{{landDetails?.roadAccessDescribe || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{landDetails?.roadAccessBluePrint || 'N/A'}}</td>
                     </tr>
+                    <tr>
+                        <td class="text-left pl-2">{{landDetails?.roadAccessDescribe || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-2" [innerHTML]="landDetails?.remarks ? (landDetails?.remarks | safeHtml) : 'N/A' "></td></tr>
+
                     </tbody>
                 </table>
             </td>
@@ -248,9 +226,9 @@
                                     <td  *ngIf="land[0].ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{land[0]?.saleOwnershipTransfer}}</td>
                                     <td  *ngIf="land[0].ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{land[0]?.familyTransferOwnershipTransfer}}</td>
                                     <td  *ngIf="land[0].ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{land[0]?.giftOwnershipTransfer}}</td>
-                                    <td  *ngIf="land[0].ownershipTransferThrough == 'SALE' && land[0]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.saleRegistrationAmount | currencyFormatter}}</td>
-                                    <td  *ngIf="land[0].ownershipTransferThrough == 'FAMILY_SEPARATION' && land[0]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.familyRegistrationAmount}}</td>
-                                    <td  *ngIf="land[0].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[0]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.giftRegistrationAmount}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'SALE' && land[0]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">NPR. {{land[0]?.saleRegistrationAmount | currencyFormatter}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'FAMILY_SEPARATION' && land[0]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">NPR. {{land[0]?.familyRegistrationAmount}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[0]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">NPR. {{land[0]?.giftRegistrationAmount}}</td>
                                     <th *ngIf="land[0].ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{land[0]?.otherOwnershipTransferValue}}</th>
                                 </ng-container>
                             </tr>
@@ -291,13 +269,13 @@
                             <tr>
                                 <td class="text-left pl-1">{{land[0]?.revaluationData?.reValuationDate ? (land[0]?.revaluationData?.reValuationDate | date) : 'NA'}}</td>
                                 <td colspan="1" class="text-left pl-1">{{land[0]?.revaluationData?.newValuator?.name}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[0]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -346,9 +324,9 @@
                                     <td  *ngIf="land[1].ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{land[1]?.saleOwnershipTransfer}}</td>
                                     <td  *ngIf="land[1].ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{land[1]?.familyTransferOwnershipTransfer}}</td>
                                     <td  *ngIf="land[1].ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{land[1]?.giftOwnershipTransfer}}</td>
-                                    <td  *ngIf="land[1].ownershipTransferThrough == 'SALE' && land[1]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.saleRegistrationAmount | currencyFormatter}}</td>
-                                    <td  *ngIf="land[1].ownershipTransferThrough == 'FAMILY_SEPARATION' && land[1]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.familyRegistrationAmount}}</td>
-                                    <td  *ngIf="land[1].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[1]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.giftRegistrationAmount}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'SALE' && land[1]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">NPR. {{land[1]?.saleRegistrationAmount | currencyFormatter}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'FAMILY_SEPARATION' && land[1]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">NPR. {{land[1]?.familyRegistrationAmount}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[1]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">NPR. {{land[1]?.giftRegistrationAmount}}</td>
                                     <th *ngIf="land[1].ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{land[1]?.otherOwnershipTransferValue}}</th>
                                 </ng-container>
                             </tr>
@@ -372,12 +350,12 @@
                         <tr>
                             <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate ?  (land[1]?.revaluationData?.reValuationDate | date) : 'NA'}}</td>
                             <td colspan="1" class="text-left pl-1">{{land[1]?.revaluationData?.newValuator?.name}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.changeInDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
@@ -456,58 +434,55 @@
                                 <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-gray">
                                     <tbody>
                                     <tr>
-                                        <td class="text-left">Owner</td>
+                                        <td class="text-left pl-2">Owner Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Collateral Owner Relationship</td>
+                                        <td class="text-left pl-2">Collateral Owner Relationship With Borrower</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Plot No.</td>
+                                        <td class="text-left pl-2">Current Address</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Total Building Area</td>
+                                        <td class="text-left pl-2">Address as per Legal Document</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Total Land Area</td>
+                                        <td class="text-left pl-2">Plot No.</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">FMV</td>
+                                        <td class="text-left pl-2">Total Land Area</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Market Value</td>
+                                        <td class="text-left pl-2">Total Building Area</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valuated Date(AD/BS)</td>
+                                        <td class="text-left pl-2">Fair Market Value of Land</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valuator Name</td>
+                                        <td class="text-left pl-2">Fair Market Value of Building</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Land Realisable Value</td>
+                                        <td class="text-left pl-2">Total Market Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Building Realisable Value</td>
+                                        <td class="text-left pl-2">Total Realisable Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Total Realisable Value</td>
+                                        <td class="text-left pl-2">Valuation Date(AD)</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Collateral Owner Relationship With Borrower</td>
+                                        <td class="text-left pl-2">Last Valuation Date(AD)</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Address as per Legal Document</td>
+                                        <td class="text-left pl-2">Valuator Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Current Location</td>
+                                        <td colspan="1" class="text-left pl-2">Road access seen in blueprint</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Revaluation Done ?</td>
+                                        <td colspan="1" class="text-left pl-2">Road Access Description</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="1" class="text-left">Road access seen in blueprint</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="1" class="text-left">Road Access Description</td>
+                                        <td colspan="1" class="text-left pl-2">Remarks</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -515,24 +490,23 @@
                             <td *ngFor="let landBuilding of landB">
                                 <table class="table table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
-                                    <tr> <td class="text-right pl-1">{{landBuilding?.owner || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{landBuilding?.colateralRelationship || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pl-1">{{(landBuilding?.totalBuildingArea + ' '+ landBuilding?.areaFormat || 'N/A')}}</td></tr>
-                                    <tr> <td class="text-right pr-1">{{landBuilding?.area + ' '+ landBuilding?.areaFormat || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pr-1">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td  class="text-right pr-1">Rs. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.totalLandRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.totalApartmentRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{landBuilding?.location || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{(landBuilding?.revaluationData?.isReValuated | booleanConvert) || 'N/A'}}</td></tr>
-                                    <tr><td class="text-right">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
-                                    <tr><td class="text-right">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.owner || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.landBuildingCollateralOwnerRelationship || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.location || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{landBuilding?.area + ' ('+ landBuilding?.areaFormat + ')'|| 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{(landBuilding?.totalBuildingArea + ' (Sq.Ft)' || 'N/A')}}</td></tr>
+                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.considerValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.landBuildingFirstValuationDate ? (landBuilding?.landBuildingFirstValuationDate | date) : 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
+                                    <tr><td class="text-left pl-2">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
+                                    <tr><td class="text-left pl-2">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
+                                    <tr><td class="text-left pl-2" [innerHTML]="landBuilding?.landBuildingDescription ? (landBuilding?.landBuildingDescription | safeHtml) : 'N/A' "></td></tr>
 
                                     </tbody>
                                 </table>
@@ -559,7 +533,7 @@
         <div class="row" *ngIf="apartmentSelected">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Apartment Security</strong></p>
-                <ng-container *ngFor="let landB of apartmentArray" >
+                <ng-container *ngFor="let apartment of apartmentArray" >
                     <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
                         <tbody>
                         <tr>
@@ -585,7 +559,7 @@
                                         <td class="text-left">Total Cost</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">FMV</td>
+                                        <td class="text-left">Fair Market Value</td>
                                     </tr>
                                     <tr>
                                         <td class="text-left">Market Value</td>
@@ -594,7 +568,7 @@
                                         <td class="text-left">Valuator Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Valuated Date(AD/BS)</td>
+                                        <td class="text-left">Valuation Date(AD)</td>
                                     </tr>
                                     <tr>
                                         <td class="text-left">Revaluation Done ?</td>
@@ -602,24 +576,29 @@
                                     <tr>
                                         <td class="text-left">Realiasable Value</td>
                                     </tr>
+                                    <tr>
+                                        <td class="text-left">Remarks</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </td>
-                            <td *ngFor="let buildingDetails of landB">
+                            <td *ngFor="let buildingDetails of apartment">
                                 <table class="table table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
-                                    <tr> <td class="text-right pl-1">{{buildingDetails?.buildingName || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{buildingDetails?.proposedOwner || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">{{buildingDetails?.buildingDescription || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pl-1">{{(buildingDetails?.buildArea || 'N/A')}}</td></tr>
-                                    <tr> <td class="text-right pr-1"> {{(buildingDetails?.buildRate) || 'N/A'}}</td></tr>
-                                    <tr>  <td  class="text-right pr-1">Rs. {{(buildingDetails?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pl-1"> Rs {{(buildingDetails?.buildingFairMarketValue | currencyFormatter) || 'N/A'}})</td></tr>
-                                    <tr>  <td class="text-right pl-1">Rs {{(buildingDetails?.buildingDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">{{buildingDetails?.ApartmentValuatorDate ? (buildingDetails?.ApartmentValuatorDate | date) : 'N/A'}}</td></tr>
-                                    <tr> <td class="text-right pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td></tr>
-                                    <tr>  <td class="text-right pl-1">Rs {{(buildingDetails?.buildingReliasableValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{buildingDetails?.buildingName || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{buildingDetails?.proposedOwner || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{buildingDetails?.buildingDescription || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{(buildingDetails?.buildArea || 'N/A')}}</td></tr>
+                                    <tr> <td class="text-left pl-2"> {{(buildingDetails?.buildRate) || 'N/A'}}</td></tr>
+                                    <tr>  <td  class="text-left pl-2">Rs. {{(buildingDetails?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2"> Rs {{(buildingDetails?.buildingFairMarketValue | currencyFormatter) || 'N/A'}})</td></tr>
+                                    <tr>  <td class="text-left pl-2">Rs {{(buildingDetails?.buildingDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">{{buildingDetails?.ApartmentValuatorDate ? (buildingDetails?.ApartmentValuatorDate | date) : 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">Rs {{(buildingDetails?.buildingReliasableValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr><td class="text-left pl-2" [innerHTML]="buildingDetails?.remarks ? (buildingDetails?.remarks | safeHtml) : 'N/A' "></td></tr>
+
                                     </tbody>
                                 </table>
                             </td>

@@ -33,25 +33,25 @@
                     <tr>
                         <td>{{i+1}}</td>
                         <td>{{f?.loanType}}</td>
-                        <td>Rs. {{f?.balance |currencyFormatter}}</td>
-                        <td>Rs. {{f?.classificationThreeMonth |currencyFormatter}}</td>
-                        <td>Rs. {{f?.classificationThreeToSix |currencyFormatter}}</td>
-                        <td>Rs. {{f?.classificationSixtoThirteen |currencyFormatter}}</td>
-                        <td>Rs. {{f?.classificationOverYear |currencyFormatter}}</td>
-                        <td>Rs. {{f?.provision |currencyFormatter}}</td>
-                        <td>Rs. {{calcTotal([f?.classificationThreeToSix , f?.classificationSixtoThirteen , f?.classificationOverYear]) |currencyFormatter}}</td>
+                        <td>NPR. {{f?.balance |currencyFormatter}}</td>
+                        <td>NPR. {{f?.classificationThreeMonth |currencyFormatter}}</td>
+                        <td>NPR. {{f?.classificationThreeToSix |currencyFormatter}}</td>
+                        <td>NPR. {{f?.classificationSixtoThirteen |currencyFormatter}}</td>
+                        <td>NPR. {{f?.classificationOverYear |currencyFormatter}}</td>
+                        <td>NPR. {{f?.provision |currencyFormatter}}</td>
+                        <td>NPR. {{calcTotal([f?.classificationThreeToSix , f?.classificationSixtoThirteen , f?.classificationOverYear]) |currencyFormatter}}</td>
                     </tr>
                 </ng-container>
                 <tr>
                     <td></td>
                     <td>total</td>
-                    <td>Rs.{{total('balance') |currencyFormatter}}</td>
-                    <td>Rs.{{total('classificationThreeMonth') |currencyFormatter}}</td>
-                    <td>Rs.{{total('classificationThreeToSix') |currencyFormatter}}</td>
-                    <td>Rs.{{total('classificationSixtoThirteen') |currencyFormatter}}</td>
-                    <td>Rs.{{total('classificationOverYear') |currencyFormatter}}</td>
-                    <td>Rs.{{total('provision') |currencyFormatter}}</td>
-                    <td>Rs.{{total('totalNonPerformingLoan')|currencyFormatter}}</td>
+                    <td>NPR.{{total('balance') |currencyFormatter}}</td>
+                    <td>NPR.{{total('classificationThreeMonth') |currencyFormatter}}</td>
+                    <td>NPR.{{total('classificationThreeToSix') |currencyFormatter}}</td>
+                    <td>NPR.{{total('classificationSixtoThirteen') |currencyFormatter}}</td>
+                    <td>NPR.{{total('classificationOverYear') |currencyFormatter}}</td>
+                    <td>NPR.{{total('provision') |currencyFormatter}}</td>
+                    <td>NPR.{{total('totalNonPerformingLoan')|currencyFormatter}}</td>
                     <td></td>
                 </tr>
             </ng-container>

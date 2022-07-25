@@ -38,6 +38,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   @Input() signatureList;
   @Input() calendarType;
   @Input() loanId;
+  @Input() loanSecurity: Array<Security>;
+  @Input() approvedSecurity: Array<Security> = [];
   @ViewChild('productPaperChecklistComponent', {static: false})
   productPaperChecklistComponent: ProductPaperChecklistComponent;
   checklistData;

@@ -21,24 +21,9 @@ import {ExistingExposure} from '../../../model/existingExposure';
     styleUrls: ['./security-summary.component.scss']
 })
 export class SecuritySummaryComponent implements OnInit {
-    @Input() formData: Object;
-    @Input() shareSecurity;
-    @Input() collateralData;
-    @Input() proposal;
-    @Input() securities: Array<Security> = [];
-    @Input() customerAllLoanList: LoanDataHolder[];
+    @Input() securities;
     @Input() pending;
-    @Input() loanHolder: CustomerInfoData;
-    @Input() approvedSec;
-    @Input() securityId: number;
-    @Input() collateralSiteVisitDetail = [];
-    @Input() isCollateralSiteVisit;
-    @Input() nepaliDate;
-    @Input() siteVisitDocuments: Array<SiteVisitDocument>;
     isPrintable = 'YES';
-    @Input() docStatus;
-    @Output() downloadSiteVisitDocument = new EventEmitter();
-    @Input() isApproveSecurity;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;
@@ -75,78 +60,16 @@ export class SecuritySummaryComponent implements OnInit {
     personalArray;
     shareArray;
     plantArray;
-
-    totalIndividualSec = {
-        land: {fmv: 0, mv: 0, rv: 0, added: false},
-        landBuilding: {fmv: 0, mv: 0, rv: 0, added: false},
-        apartment: {fmv: 0, mv: 0, rv: 0, added: false},
-        vehicle: {fmv: 0, mv: 0, rv: 0, added: false},
-        lease: {fmv: 0, mv: 0, rv: 0, added: false},
-        assignment: {fmv: 0, mv: 0, rv: 0, added: false},
-        corporate: {fmv: 0, mv: 0, rv: 0, added: false},
-        fd: {fmv: 0, mv: 0, rv: 0, added: false},
-        hypo: {fmv: 0, mv: 0, rv: 0, added: false},
-        insurance: {fmv: 0, mv: 0, rv: 0, added: false},
-        other: {fmv: 0, mv: 0, rv: 0, added: false},
-        personal: {fmv: 0, mv: 0, rv: 0, added: false},
-        share: {fmv: 0, mv: 0, rv: 0, added: false},
-        plant: {fmv: 0, mv: 0, rv: 0, added: false},
-        total: {fmv: 0, mv: 0, rv: 0, added: true},
-    };
-    keys = Object.keys(this.totalIndividualSec);
-    subKey = Object.keys(this.totalIndividualSec.apartment);
-    fixedAssets: number;
-    totalProposedLimit = 0;
-    constructor(private collateralSiteVisitService: CollateralSiteVisitService,
-                private securityLoanReference: SecurityLoanReferenceService) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.subKey.pop();
             if (!ObjectUtil.isEmpty(this.securities)) {
             const proposedSecurity = this.securities.map(d => d.id);
             this.securities =  this.securities
                 .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
-            this.selectedSecurities(this.securities);
+            this.selectedSecurities();
             this.setSelectedSecurities();
-        }
-        if (!ObjectUtil.isEmpty(this.loanHolder.customerShareBatches) &&
-            this.loanHolder.customerShareBatches.length > 0) {
-            this.loanHolder.customerShareBatches[0].shareSecurity.forEach((share) => {
-                this.totalIndividualSec.share.fmv += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
-                this.totalIndividualSec.share.mv += JSON.parse(share.data).totalFmv ? JSON.parse(share.data).totalFmv : 0;
-                // tslint:disable-next-line:max-line-length
-                this.totalIndividualSec.share.rv += JSON.parse(share.data).totalRealizableAmount ? JSON.parse(share.data).totalRealizableAmount : 0;
-                this.totalIndividualSec.share.added = true;
-            });
-        }
-        // getting total proposed limit
-        if (this.pending) {
-            this.selectedSecurities(this.approvedSec);
-            this.setApprovedSecurities();
-            this.selectedSecurities(this.securities);
-            this.customerAllLoanList.forEach((d) => {
-                this.totalProposedLimit += JSON.parse(d.proposal.data).proposedLimit;
-            });
-            const exposures: ExistingExposure[] = this.loanHolder.existingExposures.filter(d => d.docStatus.toString() === 'APPROVED');
-            if (exposures.length > 0) {
-                exposures.forEach((d) => {
-                    this.totalProposedLimit += JSON.parse(d.proposalData).proposedLimit;
-                });
-            }
-            this.keys.forEach(k => {
-                if (this.totalIndividualSec[k].added && k !== 'total') {
-                    this.subKey.forEach(sk => {
-                        this.totalIndividualSec.total[sk] += this.totalIndividualSec[k][sk];
-                    });
-                }
-            });
-            this.fixedAssets = this.totalIndividualSec.total.rv - Number(this.totalProposedLimit);
-            if (this.fixedAssets < 0) {
-                this.fixedAssets = Math.abs(this.fixedAssets);
-            } else {
-                this.fixedAssets = 0;
-            }
         }
     }
      private managedArray(array) {
@@ -179,10 +102,6 @@ export class SecuritySummaryComponent implements OnInit {
                 if (d.securityType.toString() === 'APARTMENT_SECURITY') {
                     const data = JSON.parse(d.data);
                     apartment.push(data);
-                    this.totalIndividualSec.apartment.rv += data.buildingReliasableValue || 0;
-                    this.totalIndividualSec.apartment.mv += data.buildingDistressValue || 0;
-                    this.totalIndividualSec.apartment.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.apartment.added = true;
                 }
             });
             this.apartmentArray = this.managedArray(apartment);
@@ -193,10 +112,6 @@ export class SecuritySummaryComponent implements OnInit {
                 if (d.securityType.toString() === 'LAND_SECURITY') {
                     const data = JSON.parse(d.data);
                     land.push(data);
-                    this.totalIndividualSec.land.rv += Number(data.landConsideredValue) || 0;
-                    this.totalIndividualSec.land.mv += Number(data.distressValue) || 0;
-                    this.totalIndividualSec.land.fmv += Number(data.fairMarketValue) || 0;
-                    this.totalIndividualSec.land.added = true;
                 }
             });
             this.landArray = this.managedArray(land);
@@ -207,10 +122,6 @@ export class SecuritySummaryComponent implements OnInit {
                 if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
                     const data = JSON.parse(d.data);
                     landBuilding.push(data);
-                    this.totalIndividualSec.landBuilding.rv += data.landConsideredValue || 0;
-                    this.totalIndividualSec.landBuilding.mv += data.totalMarketValue || 0;
-                    this.totalIndividualSec.landBuilding.fmv += (data.distressValue + data.apartmentDistressValue);
-                    this.totalIndividualSec.landBuilding.added = true;
                 }
             });
             this.landBuildingArray = this.managedArray(landBuilding);
@@ -250,10 +161,6 @@ export class SecuritySummaryComponent implements OnInit {
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
                     const data = JSON.parse(d.data);
-                    this.totalIndividualSec.fd.rv += data.realizableValue || 0;
-                    this.totalIndividualSec.fd.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.fd.mv +=  data.fairMarketValue || 0;
-                    this.totalIndividualSec.fd.added = true;
                     fd.push(data);
                 }
             });
@@ -264,10 +171,6 @@ export class SecuritySummaryComponent implements OnInit {
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
                     const data = JSON.parse(d.data);
-                    this.totalIndividualSec.hypo.rv += data.realiasableValue || 0;
-                    this.totalIndividualSec.hypo.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.hypo.mv +=  data.fairMarketValue || 0;
-                    this.totalIndividualSec.hypo.added = true;
                     hypo.push(data);
                 }
             });
@@ -315,10 +218,6 @@ export class SecuritySummaryComponent implements OnInit {
                 if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
                     const data = JSON.parse(d.data);
                     plant.push(data);
-                    this.totalIndividualSec.plant.rv += data.quotation || 0;
-                    this.totalIndividualSec.plant.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.plant.mv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.plant.added = true;
                 }
             });
             this.plantArray = plant;
@@ -329,33 +228,14 @@ export class SecuritySummaryComponent implements OnInit {
                 if (d.securityType.toString() === 'VEHICLE_SECURITY') {
                     const data = JSON.parse(d.data);
                     vehicle.push(data);
-                    this.totalIndividualSec.vehicle.rv += data.vehicleRealiasableAmount || 0;
-                    this.totalIndividualSec.vehicle.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.vehicle.mv += data.quotationAmount || 0;
-                    this.totalIndividualSec.vehicle.added = true;
-
                 }
             });
             this.vehicleArray =  this.managedArray(vehicle);
         }
     }
-    selectedSecurities(securities) {
-        this.apartmentSelected = false;
-        this.landSelected = false;
-        this.assignments = false;
-        this.landBuilding = false;
-        this.corporate = false;
-        this.depositSelected = false;
-        this.hypothecation = false;
-        this.insurancePolicySelected = false;
-        this.securityOther = false;
-        this.personal = false;
-        this.assignments = false;
-        this.shareSelected = false;
-        this.vehicleSelected = false;
-        this.plantSelected = false;
+    selectedSecurities() {
         if (!ObjectUtil.isEmpty(this.securities)) {
-            securities.forEach((s, i) => {
+            this.securities.forEach((s, i) => {
                 switch (s.securityType.toString()) {
                     case 'APARTMENT_SECURITY': {
                         this.apartmentSelected = true;
@@ -414,132 +294,6 @@ export class SecuritySummaryComponent implements OnInit {
                     }
                         break;
                     default: return;
-                }
-            });
-        }
-    }
-
-    setApprovedSecurities() {
-        if (this.apartmentSelected) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'APARTMENT_SECURITY') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.apartment.rv += data.buildingReliasableValue || 0;
-                    this.totalIndividualSec.apartment.mv += data.buildingDistressValue || 0;
-                    this.totalIndividualSec.apartment.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.apartment.added = true;
-                }
-            });
-        }
-        if (this.landSelected) {
-            this.approvedSec.forEach((d, i) => {
-                if (d.securityType.toString() === 'LAND_SECURITY') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.land.rv += Number(data.landConsideredValue) || 0;
-                    this.totalIndividualSec.land.mv += Number(data.distressValue) || 0;
-                    this.totalIndividualSec.land.fmv += Number(data.fairMarketValue) || 0;
-                    this.totalIndividualSec.land.added = true;
-                }
-            });
-        }
-        if (this.landBuilding) {
-            this.approvedSec.forEach((d, i) => {
-                if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.landBuilding.rv += data.landConsideredValue || 0;
-                    this.totalIndividualSec.landBuilding.mv += data.totalMarketValue || 0;
-                    this.totalIndividualSec.landBuilding.fmv += (data.distressValue + data.apartmentDistressValue);
-                    this.totalIndividualSec.landBuilding.added = true;
-                }
-            });
-        }
-        if (this.assignments) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'LEASE_ASSIGNMENT') {
-                    const data = JSON.parse(d.data);
-                }
-            });
-        }
-        if (this.assignment) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'ASSIGNMENT_OF_RECEIVABLES') {
-                    const data = JSON.parse(d.data);
-                }
-            });
-        }
-        if (this.corporate) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'CORPORATE_GUARANTEE') {
-                    const data = JSON.parse(d.data);
-                }
-            });
-        }
-        if (this.depositSelected) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'FIXED_DEPOSIT_RECEIPT') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.fd.rv += data.realizableValue || 0;
-                    this.totalIndividualSec.fd.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.fd.mv +=  data.fairMarketValue || 0;
-                    this.totalIndividualSec.fd.added = true;
-                }
-            });
-        }
-        if (this.hypothecation) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'HYPOTHECATION_OF_STOCK') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.hypo.rv += data.realiasableValue || 0;
-                    this.totalIndividualSec.hypo.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.hypo.mv +=  data.fairMarketValue || 0;
-                    this.totalIndividualSec.hypo.added = true;
-                }
-            });
-        }
-        if (this.insurancePolicySelected) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'INSURANCE_POLICY_SECURITY') {
-                }
-            });
-        }
-        if (this.securityOther) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'OTHER_SECURITY') {
-                }
-            });
-        }
-        if (this.personal) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'PERSONAL_GUARANTEE') {
-                }
-            });
-        }
-        if (this.shareSelected) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'SHARE_SECURITY') {
-                }
-            });
-        }
-        if (this.plantSelected) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'PLANT_AND_MACHINERY_SECURITY') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.plant.rv += data.quotation || 0;
-                    this.totalIndividualSec.plant.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.plant.mv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.plant.added = true;
-                }
-            });
-        }
-        if (this.vehicleSelected) {
-            this.approvedSec.forEach((d) => {
-                if (d.securityType.toString() === 'VEHICLE_SECURITY') {
-                    const data = JSON.parse(d.data);
-                    this.totalIndividualSec.vehicle.rv += data.vehicleRealiasableAmount || 0;
-                    this.totalIndividualSec.vehicle.fmv += data.fairMarketValue || 0;
-                    this.totalIndividualSec.vehicle.mv += data.quotationAmount || 0;
-                    this.totalIndividualSec.vehicle.added = true;
-
                 }
             });
         }

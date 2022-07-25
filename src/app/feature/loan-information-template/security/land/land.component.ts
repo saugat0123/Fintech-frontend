@@ -107,7 +107,8 @@ export class LandComponent implements OnInit {
           kycCheckForLand: [formData.kycCheckForLand],
           landRate: [formData.landRate],
           landFirstValuationDate: [formData.landFirstValuationDate ? new Date(formData.landFirstValuationDate) : ''],
-          isValuated: [formData.isValuated]
+          isValuated: [formData.isValuated],
+          remarks: [ObjectUtil.setUndefinedIfNull(formData.remarks)]
         })
     );
   }
@@ -312,7 +313,8 @@ export class LandComponent implements OnInit {
       kycCheckForLand: [false],
       landRate: [undefined],
       landFirstValuationDate: [undefined],
-      isValuated: [undefined]
+      isValuated: [undefined],
+      remarks: [undefined]
     });
   }
 

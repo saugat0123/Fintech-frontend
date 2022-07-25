@@ -58,6 +58,7 @@ import {MGroup} from '../../model/mGroup';
 import {
     FinancialAccountInformationComponent
 } from '../../../loan-information-template/financial-account-information/financial-account-information.component';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -209,6 +210,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
+        private companyInfoService: CompanyInfoService,
         private customerService: CustomerService,
         private modalService: NbDialogService,
         private spinner: NgxSpinnerService,
@@ -1059,5 +1061,22 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.spinner.hide();
             this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
         });
+    }
+
+    saveAccount(data) {
+        this.spinner.show();
+        if (!ObjectUtil.isEmpty(data)) {
+            this.customerInfo.accountStrategy = data;
+            this.customerInfoService.save(this.customerInfo).subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY SAVED ACCOUNT STRATEGY'));
+                this.nbDialogRef.close();
+                this.onRefresh();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, res => {
+                this.spinner.hide();
+                this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+            });
+        }
     }
 }

@@ -494,7 +494,7 @@
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Propose Amount:</strong>
-                    Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
+                    NPR. {{loanDataHolder?.proposal?.proposedAmountInWords}}
                     Only /-
                 </div>
             </div>
@@ -533,8 +533,8 @@
                 </div>
             </div>
 
-            <app-security-summary *ngIf="securitySummary"
-                                  [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+<!--            <app-security-summary *ngIf="securitySummary"-->
+<!--                                  [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>-->
             <hr>
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 

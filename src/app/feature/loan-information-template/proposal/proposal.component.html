@@ -369,7 +369,16 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
-
+                                <div class="col-md-4"
+                                     *ngIf="isRevolving">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Repayment Mode</strong></label>
+                                        <input
+                                                class="form-control" formControlName="repay"
+                                                name="moratoriumPeriod" placeholder="Example: 4 month"
+                                                type="text">
+                                    </div>
+                                </div>
                                 <!--                                start of repayment mode-->
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">
@@ -498,7 +507,7 @@
                                 <!--                end of Moratorium Period amount div-->
 
                                 <div class="col-md-4"
-                                     *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
+                                     *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group">
                                         <div class="variable">
                                             <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong>
@@ -1055,12 +1064,6 @@
                                                   [guarantorData]="customerInfo?.guarantors">
                             </app-guarantor-adder>
                         </div>
-                        <div class="col-md-12">
-                            <app-review-date #lastLoanReviewDate
-                                             [fromProfile] = "true"
-                                             [reviewData]="loan?.reviewDate">
-                            </app-review-date>
-                        </div>
                     </ng-container>
                     <ng-container >
                         <div class="col-md-12" *ngIf="fromProfile">
@@ -1070,7 +1073,12 @@
                                                 (deleteEmitter)="deleteEmitter($event)"></app-security-adder>
                         </div>
                     </ng-container>
-
+                    <div class="col-md-12" *ngIf="smallBusiness || consumerFinance || deprivedSector || microFinancialService">
+                        <app-review-date #lastLoanReviewDate
+                                         [fromProfile] = "true"
+                                         [reviewData]="loan?.reviewDate">
+                        </app-review-date>
+                    </div>
                     <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist">
                         <app-product-paper-checklist
                             #productPaperChecklistComponent

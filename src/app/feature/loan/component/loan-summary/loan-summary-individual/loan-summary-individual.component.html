@@ -14,23 +14,21 @@
 
             <ng-container>
                 <hr class="print-line">
+                <p class="header"><strong class="header">Security Schedule</strong></p>
+                <app-security-total-summary [securities]="loanSecurity"
+                                            [approvedSec]="approvedSecurity"
+                                            [loanHolder]="loanDataHolder?.loanHolder"
+                                            [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
                 <!--                    proposed security-->
-                <app-security-summary *ngIf="customerAllLoanList"
+                <app-security-summary *ngIf="loanSecurity?.length > 0"
                                       [securities]="loanSecurity"
-                                      [customerAllLoanList]="customerAllLoanList"
-                                      [approvedSec] = "approvedSecurity"
-                                      [loanHolder]="loanDataHolder?.loanHolder"
                                       [pending]="true"></app-security-summary>
                 <!--                    existing security-->
-                <app-security-summary *ngIf="customerAllLoanList"
-                                      [loanHolder]="loanDataHolder?.loanHolder"
+                <app-security-summary *ngIf="approvedSecurity?.length > 0"
                                       [securities]="approvedSecurity"></app-security-summary>
             </ng-container>
             <!-- Customer Share Security  -->
-            <app-security-schedule [customerAllLoanList]="customerAllLoanList"
-                                   [approvedSecurity]="approvedSecurity"
-                                   [loanSecurity]="loanSecurity"
-                                   [loanDataHolder]="loanDataHolder"></app-security-schedule>
+            <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
             <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                         [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
@@ -245,8 +243,8 @@
                                             {{relative?.customerRelation}}
                                         </td>
                                         <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
-                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse) === 'Other'">{{relative?.occupation || 'N/A'}}</td>
-                                        <td class="text-left pl-1">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
+                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] === 'Other'">{{relative?.occupation || 'N/A'}}</td>
+                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] !== 'Other'">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
 
                                     </tr>
                                     </tbody>
@@ -260,16 +258,16 @@
                         <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
                             <div class="col-md-12">
                                 <p><strong class="header text-left">Purpose of Loan </strong></p>
-                                <table class="table table-borderless table-responsive-md table-sm table-condensed sb-small">
-                                    <tbody *ngFor="let loan of customerAllLoanList; let i = index">
-                                    <tr *ngIf="loan?.id">
-                                        <td>
-                                            <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                            <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                                    <ng-container *ngIf="loan?.id">
+                                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                                        <ul>
+                                            <li>
+                                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                </ng-container>
                             </div>
                         </div>
                         <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
@@ -613,7 +611,7 @@
 
                             <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                <div class="pl-1" [innerHTML]="customSafePipe(
                                     previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
                                     previousList?.comment)">
@@ -649,7 +647,7 @@
 
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print">
+                                <div class="pl-1">
                                     <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment)"></span>

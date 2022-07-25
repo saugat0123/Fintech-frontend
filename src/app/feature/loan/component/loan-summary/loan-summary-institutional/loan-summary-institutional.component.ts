@@ -58,7 +58,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
   @Input() nepaliDate;
   @Input() customerAllLoanList: LoanDataHolder [];
-  @Input() loanSecurity: Array<Security> = [];
+  @Input() loanSecurity: Array<Security>;
   @Input() approvedSecurity: Array<Security> = [];
 
   client: string;
@@ -212,6 +212,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   fullSettlement = false;
 
   ngOnInit() {
+    console.log('loanholder::::', this.loanDataHolder);
     this.getLoanDataHolder();
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
       this.fullSettlement = true;
@@ -219,7 +220,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
     }
-    this.disable();
+    // this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
     } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
