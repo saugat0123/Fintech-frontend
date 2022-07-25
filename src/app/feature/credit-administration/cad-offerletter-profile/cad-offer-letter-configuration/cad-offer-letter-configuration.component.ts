@@ -38,6 +38,7 @@ import {CustomerSubType} from '../../../customer/model/customerSubType';
 import {OneFormGuarantors} from '../../model/oneFormGuarantors';
 import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CreditAdministrationService} from '../../service/credit-administration.service';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -146,6 +147,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     guarantorTranslatedFormGroup: FormGroup;
     shareHolderArray: Array<any> = new Array<any>();
     jointCustomerArray: Array<any> = new Array<any>();
+    loanHolderId: any;
+    customerLoanTaggedGuarantor: any;
+    guarantorDetailList: any;
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -165,7 +169,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private dialogService: NbDialogService,
                 private modalService: NgbModal,
-                private readonly changeDetectorRef: ChangeDetectorRef
+                private readonly changeDetectorRef: ChangeDetectorRef,
+                private creditAdminService: CreditAdministrationService
     ) {
     }
 
@@ -250,8 +255,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             }
         }
 
+        if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.id)) {
+            this.loanHolderId = this.loanHolder.id;
+            this.creditAdminService.getCadDataById(this.loanHolderId).subscribe(
+                res => {
+                    const customerCadData = res.detail;
+                    if (!ObjectUtil.isEmpty(customerCadData) && !ObjectUtil.isEmpty(customerCadData.assignedLoan[0]) &&
+                        !ObjectUtil.isEmpty(customerCadData.assignedLoan[0].taggedGuarantors)) {
+                        this.customerLoanTaggedGuarantor = customerCadData.assignedLoan[0].taggedGuarantors;
+                    }
+                },
+                res => {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Cannot Get Cad Data'));
+                });
+        }
 
         if (!ObjectUtil.isEmpty(this.loanHolder.guarantors) && !ObjectUtil.isEmpty(this.loanHolder.guarantors.guarantorList)) {
+            this.guarantorDetailList = this.loanHolder.guarantors.guarantorList;
             this.setGuarantors(this.loanHolder.guarantors.guarantorList);
         } else {
             this.addGuarantor();
@@ -2118,8 +2138,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
 
     removeAtIndex(i: any) {
-        (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
-        this.translatedGuarantorDetails.splice(i, 1);
+        const tempGuarantor = !ObjectUtil.isEmpty(this.guarantorDetailList[i]) ? this.guarantorDetailList[i] : '';
+        if (!ObjectUtil.isEmpty(tempGuarantor) && !ObjectUtil.isEmpty(this.customerLoanTaggedGuarantor)) {
+            if (this.customerLoanTaggedGuarantor.some((val: any) => val.id === tempGuarantor.id)) {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Sorry, this guarantor is tagged to a loan. Please untag before deleting!'));
+            } else {
+                (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+                this.translatedGuarantorDetails.splice(i, 1);
+            }
+        }
     }
 
     removeOwnerDetailAtIndex(i: any) {
