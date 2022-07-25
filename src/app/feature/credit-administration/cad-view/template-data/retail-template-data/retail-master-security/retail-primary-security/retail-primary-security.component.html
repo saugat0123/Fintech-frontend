@@ -7,7 +7,7 @@
                 <div class="row d-flex justify-content-between m-1">
                     <h6> {{i + 1}}. <u>PRIMARY SECURITY</u></h6>
                 </div>
-                <div class="row mb-4">
+                <div class="d-flex">
                     <div class="col-md-4 mb-2">
                         <label><strong> Security Type </strong></label>
                         <nb-select
@@ -18,6 +18,12 @@
                             <nb-option *ngFor="let security of securityType"
                                        [value]="security.key"> {{security.value}}</nb-option>
                         </nb-select>
+                    </div>
+                    <div class="ml-2">
+                        <nb-checkbox
+                                     [checked]="formControls.securityDetails[i]?.isHomeLoanTakeOver.value"
+                                     formControlName="isHomeLoanTakeOver">
+                            <i>  Is Home Loan Take Over? </i></nb-checkbox>
                     </div>
                 </div>
 

@@ -140,6 +140,7 @@ export class RetailPrimarySecurityComponent implements OnInit {
             securityType: [undefined],
             securityTypeTrans: [undefined],
             securityTypeCT: [undefined],
+            isHomeLoanTakeOver: [false],
             /* FOR LAND AND BUILDING */
             collateralShare: [undefined],
             insuranceRequired: [false],
@@ -407,6 +408,7 @@ export class RetailPrimarySecurityComponent implements OnInit {
                     securityType: [val.securityType],
                     securityTypeTrans: [val.securityTypeTrans],
                     securityTypeCT: [val.securityTypeCT],
+                    isHomeLoanTakeOver: [val.isHomeLoanTakeOver],
                     /* FOR LAND AND BUILDING */
                     collateralShare: [val.collateralShare],
                     insuranceRequired: [val.insuranceRequired],

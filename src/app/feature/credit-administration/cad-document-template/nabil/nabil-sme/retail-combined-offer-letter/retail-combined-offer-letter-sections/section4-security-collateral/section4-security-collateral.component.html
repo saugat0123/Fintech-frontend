@@ -9,42 +9,42 @@
                 <b>क. प्राथमिक सुरक्षण (Primary Security)</b>
                 <div *ngIf="isPrimaryLandAndBuilding">
                     <div style="margin-left: 20px">
-                        <!--Applicable only if Land/building as primary collateral-->
-                        <b>१. घर/जग्गा धितोेबन्धक हकाधिकार (Mortage Charges):</b>
-                        <br>
-                        <ng-container *ngIf="isTakeOver else displayOtherClause">
-                            <!--Security clause for Housing Loan Takeover Case Or-->
-                            ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी
-                            दिनु पर्नेछ ।<br>
-                        </ng-container>
-                        <ng-template #displayOtherClause>
-                            <ng-container *ngFor="let item of tempLandBuilding; let i = index">
-                                <ng-container *ngIf="item?.mortgageType === 'New'">
-                                    <!--For new mortgage  Property Case -->
-                                    स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
-                                    घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ ।<br>
+                            <ng-container *ngFor="let item of primaryCollateral; let i = index">
+                                {{item?.isHomeLoanTakeOver}}isHomeLoanTakeOver
+                                <!--Applicable only if Land/building as primary collateral-->
+                                <b>१. घर/जग्गा धितोेबन्धक हकाधिकार (Mortage Charges):</b>
+                                <br>
+                                <ng-container *ngIf="item?.isHomeLoanTakeOver === true; else displayOtherClause">
+                                    <!--Security clause for Housing Loan Takeover Case Or-->
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी
+                                    दिनु पर्नेछ ।<br>
                                 </ng-container>
-                                <ng-container *ngIf="item?.mortgageType === 'Remortgage'">
-                                    <!--For Property remortgage Case Or-->
-                                    स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
-                                    घर/जग्गा पुनंधितोेबन्धक पारित गरी दिनु पर्नेछ ।<br>
-                                </ng-container>
-                                <ng-container *ngIf="item?.mortgageType === 'Existing'">
-                                    <!--For existing mortgage to be continued Case Or-->
-                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय बमोजिमको
-                                    घर/जग्गा यथावत कायम रहने छ ।<br>
-                                </ng-container>
-                                <ng-container *ngIf="item?.collateralShare == 'NO' && item?.mortgageType === 'Enhancement'">
-                                    <!--For existing mortgage with enhancement OR-->
-                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएको देहाय बमोजिमको
-                                    घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि समेत
-                                    धितोेबन्धक यथावत कायम रहने छ ।<br>
-                                </ng-container>
-                                <ng-template>
-                                <ng-container *ngIf="item?.collateralShare === 'YES' && (item?.mortgageType === 'New' || item?.mortgageType === 'Existing')">
-                                <span *ngIf="item.mortgageType === 'New'">
-                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
-                                </span>
+                                <ng-template #displayOtherClause>
+                                    <ng-container *ngIf="item?.mortgageType === 'New'">
+                                        <!--For new mortgage  Property Case -->
+                                        स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
+                                        घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ ।<br>
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.mortgageType === 'Remortgage'">
+                                        <!--For Property remortgage Case Or-->
+                                        स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको
+                                        घर/जग्गा पुनंधितोेबन्धक पारित गरी दिनु पर्नेछ ।<br>
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.mortgageType === 'Existing'">
+                                        <!--For existing mortgage to be continued Case Or-->
+                                        यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय बमोजिमको
+                                        घर/जग्गा यथावत कायम रहने छ ।<br>
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.collateralShare == 'NO' && item?.mortgageType === 'Enhancement'">
+                                        <!--For existing mortgage with enhancement OR-->
+                                        यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएको देहाय बमोजिमको
+                                        घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि समेत
+                                        धितोेबन्धक यथावत कायम रहने छ ।<br>
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.collateralShare === 'YES' && (item?.mortgageType === 'New' || item?.mortgageType === 'Existing')">
+                                        <span *ngIf="item.mortgageType === 'New'">
+                                        स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
+                                        </span>
                                         ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर जग्गा यस बैकले
                                         <input class="form-field form-control-sm d-print-none"
                                                name="nameOfClient"
@@ -59,24 +59,23 @@
                                             <!--For existing mortgage to be continued - this clause if the collateral is shared  --></ng-container>
                                         <br>
                                     </ng-container>
+                                    <ng-container *ngIf="item?.collateralShare == 'YES' &&  item?.mortgageType === 'Enhancement'">
+                                        यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैकले तपाई ऋणी तथा
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="nameOfClient"
+                                               formControlName="nameOfClient"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only font-weight-bold">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
+                                        को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित
+                                        सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
+                                        <!--For existing mortgage with enhancement - this clause if the collateral is shared-->
+                                    </ng-container>
                                 </ng-template>
-                                <ng-container *ngIf="item?.collateralShare == 'YES' &&  item?.mortgageType === 'Enhancement'">
-                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैकले तपाई ऋणी तथा
-                                    <input class="form-field form-control-sm d-print-none"
-                                           name="nameOfClient"
-                                           formControlName="nameOfClient"
-                                           placeholder=" "
-                                           type="text"/>
-                                    <span class="print-only font-weight-bold">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
-                                    को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
-                                    गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित
-                                    सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
-                                    <!--For existing mortgage with enhancement - this clause if the collateral is shared-->
-                                </ng-container>
                                 <app-master-securities-view
                                         [securityDetails]="tempLandBuilding && tempLandBuilding[i] ? tempLandBuilding[i] : []"></app-master-securities-view>
                             </ng-container>
-                        </ng-template>
                     </div>
                     <br>
                 </div>
@@ -211,12 +210,12 @@
                 <!--If land/land & building is proposed as collateral-->
                 <b>ख. माध्यमिक सुरक्षण (Secondary Security)</b>
                  <div *ngIf="isSecondaryLandAndBuilding">
-                     <ng-container *ngFor="let item of tempSecondaryLandBuilding; let i = index">
+                     <ng-container *ngFor="let item of secondaryCollateral; let i = index">
                         <div style="margin-left: 20px">
                             <!--Applicable only if Land/building as primary collateral-->
                             <b>१. घर/जग्गा धितोेबन्धक हकाधिकार (Mortage Charges):</b>
                             <br>
-                            <ng-container *ngIf="isTakeOver else otherClause">
+                            <ng-container *ngIf="item?.isHomeLoanTakeOver === true; else otherClause">
                                 <!--Security clause for Housing Loan Takeover Case Or-->
                                 ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी
                                 दिनु पर्नेछ ।<br>
