@@ -42,6 +42,8 @@ export class IndividualViewComponent implements OnInit {
   beneficiary;
   senderDetails;
   proposalAllData;
+  accountNumberList = [];
+  accountNumbers;
 
   constructor() {
   }
@@ -75,6 +77,14 @@ export class IndividualViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
       this.financialData = this.loanDataHolder.financial;
     }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+      const customerData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
+      if (!ObjectUtil.isEmpty(customerData)) {
+        customerData.accountDetails.forEach((val) => {
+          this.accountNumberList.push(val.accountNo);
+        });
+      }
+    }
     this.calculateEmiEqiAmount();
   }
 
@@ -91,5 +101,23 @@ export class IndividualViewComponent implements OnInit {
     if (this.isRemit) {
       this.dbr = emi / JSON.parse(this.loanDataHolder.remitCustomer.senderData).senderEmployment.monthly_salary;
     }
+  }
+
+  getAccountNumber(accountNumberList) {
+    let accountNumber = '';
+    if (accountNumberList.length === 1) {
+      accountNumber = accountNumberList[0];
+    }
+    if (accountNumberList.length === 2) {
+      accountNumber = accountNumberList.join(' and ');
+    }
+    if (accountNumberList.length > 2) {
+      for (let i = 0; i < accountNumberList.length - 1; i++) {
+        this.accountNumbers = accountNumberList.join(' , ');
+      }
+      const tempData = accountNumberList[accountNumberList.length - 1];
+      accountNumber = this.accountNumbers + ' and ' + tempData;
+    }
+    return accountNumber ? accountNumber : '';
   }
 }

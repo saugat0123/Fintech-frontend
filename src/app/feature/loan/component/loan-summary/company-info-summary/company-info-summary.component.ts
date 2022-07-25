@@ -25,6 +25,8 @@ export class CompanyInfoSummaryComponent implements OnInit {
   @Input() approveSheet;
   client = environment.client;
   clientName = Clients;
+  accountNumberList = [];
+  accountNumbers;
 
 
   constructor() { }
@@ -37,6 +39,31 @@ export class CompanyInfoSummaryComponent implements OnInit {
       this.correspondenceAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
+      if (!ObjectUtil.isEmpty(this.companyInfo)) {
+        const customerData = JSON.parse(this.companyInfo.companyJsonData);
+        if (!ObjectUtil.isEmpty(customerData)) {
+          customerData.accountDetails.forEach((val) => {
+            this.accountNumberList.push(val.accountNo);
+          });
+        }
+    }
   }
 
+  getAccountNumber(accountNumberList) {
+    let accountNumber = '';
+    if (accountNumberList.length === 1) {
+      accountNumber = accountNumberList[0];
+    }
+    if (accountNumberList.length === 2) {
+      accountNumber = accountNumberList.join(' and ');
+    }
+    if (accountNumberList.length > 2) {
+      for (let i = 0; i < accountNumberList.length - 1; i++) {
+        this.accountNumbers = accountNumberList.join(' , ');
+      }
+      const tempData = accountNumberList[accountNumberList.length - 1];
+      accountNumber = this.accountNumbers + ' and ' + tempData;
+    }
+    return accountNumber ? accountNumber : '';
+  }
 }
