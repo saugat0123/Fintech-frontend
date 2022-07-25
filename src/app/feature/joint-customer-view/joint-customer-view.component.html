@@ -16,7 +16,12 @@
                             <tr class="text-left">
                                 <td class="sb-bg-gray">Gender</td>
                             </tr>
-
+                            <tr class="text-left">
+                                <td class="sb-bg-gray">Customer ID</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-gray">Account Number</td>
+                            </tr>
                             <tr>
                                 <td class="sb-bg-gray text-left">Date Of Birth (AD/BS)</td>
                             </tr>
@@ -49,6 +54,12 @@
                             </tr>
                             <tr class="text-left">
                                 <td class=" ">{{customer?.gender || 'N/A'}}</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class=" ">{{customer?.customerCode || 'N/A'}}</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class=" ">{{getAccountNumber(customer?.accountDetails)}}</td>
                             </tr>
                             <tr>
                                 <td class=" text-left ">{{(customer?.dob | date) || 'N/A'}}</td>

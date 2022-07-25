@@ -70,6 +70,12 @@
             </ng-container>
         </div>
     </div>
+    <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
+        <div class="col-md-12">
+            <p><strong class="header text-left">Justification of Limit for Consumer Finance</strong></p>
+            <span [innerHTML]="proposalAllData?.solConclusionRecommendation  || 'N/A' | safeHtml"></span>
+        </div>
+    </div>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                    [loanDataHolder]="loanDataHolder"></app-cicl-view>
     <app-dbr *ngIf="financial" [financialData]="financial" [proposalData]="proposalData"></app-dbr>
@@ -85,6 +91,12 @@
         <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
         </div>
     </ng-container>
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong class="header"> Summary and Recommendation</strong></p>
+            <span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span>
+        </div>
+    </div>
     <hr class="print-line">
     <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                            [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
