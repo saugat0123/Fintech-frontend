@@ -63,8 +63,8 @@
               <td (click)="onApplicantClick(allList.id)">{{allList.branch?.name}}</td>
               <td (click)="onApplicantClick(allList.id)">{{allList.loanConfig?.name}}</td>
               <td (click)="onApplicantClick(allList.id)">{{allList.phoneNumber}}</td>
-              <td (click)="onApplicantClick(allList.id)">Rs.{{allList.requestAmount | currencyFormatter}}</td>
-              <td (click)="onApplicantClick(allList.id)">Rs.{{allList.eligibleAmount | currencyFormatter}}</td>
+              <td (click)="onApplicantClick(allList.id)">NPR.{{allList.requestAmount | currencyFormatter}}</td>
+              <td (click)="onApplicantClick(allList.id)">NPR.{{allList.eligibleAmount | currencyFormatter}}</td>
               <td (click)="onApplicantClick(allList.id)">{{allList.eligibilityStatus}}</td>
               <td>
                 <button [attr.data-target]="'#doc'+i" class="btn btn-primary btn-sm" data-toggle="collapse">View</button>

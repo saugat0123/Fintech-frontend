@@ -61,6 +61,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         {key: 'shares', value: 'Shares'},
     ];
     branchList;
+    tempCustomer;
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -83,11 +84,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
         });
+        if (!ObjectUtil.isEmpty(this.customer) && !ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            this.tempCustomer = JSON.parse(this.customer.jointInfo);
+            if (!ObjectUtil.isEmpty(this.tempCustomer.jointCustomerInfo) && ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+                this.tempCustomer.jointCustomerInfo.forEach(val => {
+                    this.addJointCustomerDetails();
+                });
+            }
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
             this.setCollaterals(data.collateralDetails);
+            if (!ObjectUtil.isEmpty(this.customer.isJointCustomer)) {
+                this.setJointCustomer(data.jointCustomerDetails);
+            }
         } else {
             this.addGuarantor();
             this.addCollateral();
@@ -169,6 +181,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
             guarantorDetails: this.formBuilder.array([]),
             collateralDetails: this.formBuilder.array([]),
+            jointCustomerDetails: this.formBuilder.array([]),
 
             // Miscellaneous Details
             miscellaneousDetail: this.formBuilder.group({
@@ -288,6 +301,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addCollateral() {
         (this.userConfigForm.get('collateralDetails') as FormArray).push(this.addCollateralField());
+    }
+    addJointCustomerDetails() {
+        (this.userConfigForm.get('jointCustomerDetails') as FormArray).push(this.addJointCustomerField());
     }
 
     addGuarantorField() {
@@ -442,6 +458,42 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     }
 
+    addJointCustomerField() {
+        return this.formBuilder.group({
+            name: [undefined],
+            nepaliName: [undefined],
+            gender: [undefined],
+            grandFatherName: [undefined],
+            fatherName: [undefined],
+            husbandName: [undefined],
+            fatherInLawName: [undefined],
+            citizenshipNo: [undefined],
+            citizenshipIssueDistrict: [undefined],
+            citizenshipIssueDate: [undefined],
+            dateOfBirth: [undefined],
+            panNo: [undefined],
+            panIssueOffice: [undefined],
+            panIssueDate: [undefined],
+            contactNo: [undefined],
+            // Customer Permanent Address
+            customerPermanentAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            }),
+            // Customer Temporary Address
+            customerTemporaryAddress: this.formBuilder.group({
+                district: [undefined],
+                municipality: [undefined],
+                munType: [0],
+                wardNo: [undefined],
+                tole: [undefined]
+            })
+        });
+    }
+
     removeAtIndex(i: any) {
         (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
     }
@@ -558,79 +610,120 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
         collateralDetails.forEach(value => {
             formArray.push(this.formBuilder.group({
-                collateralOwnerType: [value.collateralOwnerType],
-                collateralType: [value.collateralType],
-                nameInNepali: [value.nameInNepali],
-                name: [value.name],
-                sellerName: [value.sellerName],
-                gender: [value.gender],
-                dateOfBirth: [value.dateOfBirth],
-                facAddress: [value.facAddress],
-                citizenshipNo: [value.citizenshipNo],
-                citizenshipIssueDistrict: [value.citizenshipIssueDistrict],
-                citizenshipIssueDate: [value.citizenshipIssueDate],
-                contactNo: [value.contactNo],
-                relationMedium: [value.relationMedium],
-                grandFatherName: [value.grandFatherName],
-                fatherName: [value.fatherName],
-                husbandName: [value.husbandName],
-                fatherInLawName: [value.fatherInLawName],
+                collateralOwnerType: [value.collateralOwnerType ? value.collateralOwnerType : ''],
+                collateralType: [value.collateralType ? value.collateralType : ''],
+                nameInNepali: [value.nameInNepali ? value.nameInNepali : ''],
+                name: [value.name ? value.name : ''],
+                sellerName: [value.sellerName ? value.sellerName : ''],
+                gender: [value.gender ? value.gender : ''],
+                dateOfBirth: [value.dateOfBirth ? value.dateOfBirth : ''],
+                facAddress: [value.facAddress ? value.facAddress : ''],
+                citizenshipNo: [value.citizenshipNo ? value.citizenshipNo : ''],
+                citizenshipIssueDistrict: [value.citizenshipIssueDistrict ? value.citizenshipIssueDistrict : ''],
+                citizenshipIssueDate: [value.citizenshipIssueDate ? value.citizenshipIssueDate : ''],
+                contactNo: [value.contactNo ? value.contactNo : ''],
+                relationMedium: [value.relationMedium ? value.relationMedium : ''],
+                grandFatherName: [value.grandFatherName ? value.grandFatherName : ''],
+                fatherName: [value.fatherName ? value.fatherName : ''],
+                husbandName: [value.husbandName ? value.husbandName : ''],
+                fatherInLawName: [value.fatherInLawName ? value.fatherInLawName : ''],
                 // Institution
-                registrationNo: [value.registrationNo],
-                regIssueDate: [value.regIssueDate],
-                companyRegOffice: [value.companyRegOffice],
-                panNo: [value.panNo],
+                registrationNo: [value.registrationNo ? value.registrationNo : ''],
+                regIssueDate: [value.regIssueDate ? value.regIssueDate : ''],
+                companyRegOffice: [value.companyRegOffice ? value.companyRegOffice : ''],
+                panNo: [value.panNo ? value.panNo : ''],
                 // Collateral Authorized Person Detail
                 collateralAuthorizedPersonDetail: this.formBuilder.group({
-                    name: [value.collateralAuthorizedPersonDetail.name],
-                    address: [value.collateralAuthorizedPersonDetail.address],
-                    citizenshipNo: [value.collateralAuthorizedPersonDetail.citizenshipNo],
-                    citizenshipIssueDate: [value.collateralAuthorizedPersonDetail.citizenshipIssueDate],
-                    citizenshipIssueDistrict: [value.collateralAuthorizedPersonDetail.citizenshipIssueDistrict]
+                    name: [value.collateralAuthorizedPersonDetail.name ? value.collateralAuthorizedPersonDetail.name : ''],
+                    address: [value.collateralAuthorizedPersonDetail.address ? value.collateralAuthorizedPersonDetail.address : ''],
+                    citizenshipNo: [value.collateralAuthorizedPersonDetail.citizenshipNo ?
+                        value.collateralAuthorizedPersonDetail.citizenshipNo : ''],
+                    citizenshipIssueDate: [value.collateralAuthorizedPersonDetail.citizenshipIssueDate ?
+                        value.collateralAuthorizedPersonDetail.citizenshipIssueDate : ''],
+                    citizenshipIssueDistrict: [value.collateralAuthorizedPersonDetail.citizenshipIssueDistrict ?
+                        value.collateralAuthorizedPersonDetail.citizenshipIssueDistrict : '']
                 }),
                 // Land and Building Address
                 landAndBuildingDetail: this.formBuilder.group({
-                    province: [value.landAndBuildingDetail.province],
-                    district: [value.landAndBuildingDetail.district],
-                    municipality: [value.landAndBuildingDetail.municipality],
-                    munType: [value.landAndBuildingDetail.munType],
-                    wardNo: [value.landAndBuildingDetail.wardNo],
-                    plotNo: [value.landAndBuildingDetail.plotNo],
-                    tole: [value.landAndBuildingDetail.tole],
-                    blockStorey: [value.landAndBuildingDetail.blockStorey],
-                    area: [value.landAndBuildingDetail.area],
-                    nakshaSeatNo: [value.landAndBuildingDetail.nakshaSeatNo],
+                    province: [value.landAndBuildingDetail.province ? value.landAndBuildingDetail.province : ''],
+                    district: [value.landAndBuildingDetail.district ? value.landAndBuildingDetail.district : ''],
+                    municipality: [value.landAndBuildingDetail.municipality ? value.landAndBuildingDetail.municipality : ''],
+                    munType: [value.landAndBuildingDetail.munType ? value.landAndBuildingDetail.munType : ''],
+                    wardNo: [value.landAndBuildingDetail.wardNo ? value.landAndBuildingDetail.wardNo : ''],
+                    plotNo: [value.landAndBuildingDetail.plotNo ? value.landAndBuildingDetail.plotNo : ''],
+                    tole: [value.landAndBuildingDetail.tole ? value.landAndBuildingDetail.tole : ''],
+                    blockStorey: [value.landAndBuildingDetail.blockStorey ? value.landAndBuildingDetail.blockStorey : ''],
+                    area: [value.landAndBuildingDetail.area ? value.landAndBuildingDetail.area : ''],
+                    nakshaSeatNo: [value.landAndBuildingDetail.nakshaSeatNo ? value.landAndBuildingDetail.nakshaSeatNo : ''],
                 }),
                 // Stocks Receivables Value
                 stocksReceivablesValue: this.formBuilder.group({
-                    stockValue: [value.stocksReceivablesValue.stockValue],
-                    receivableValue: [value.stocksReceivablesValue.receivableValue],
+                    stockValue: [value.stocksReceivablesValue.stockValue ? value.stocksReceivablesValue.stockValue : ''],
+                    receivableValue: [value.stocksReceivablesValue.receivableValue ? value.stocksReceivablesValue.receivableValue : ''],
                 }),
                 // Plant/Machinery/Equipment Detail
                 plantMachineryDetail: this.formBuilder.group({
-                    equipmentDetail: [value.plantMachineryDetail.equipmentDetail],
-                    equipmentValue: [value.plantMachineryDetail.equipmentValue],
+                    equipmentDetail: [value.plantMachineryDetail.equipmentDetail ? value.plantMachineryDetail.equipmentDetail : ''],
+                    equipmentValue: [value.plantMachineryDetail.equipmentValue ? value.plantMachineryDetail.equipmentValue : ''],
                 }),
                 // Vehicle Detail
                 vehicleDetail: this.formBuilder.group({
-                    vehicleRegNo: [value.vehicleDetail.vehicleRegNo],
-                    vehicleModelNo: [value.vehicleDetail.vehicleModelNo]
+                    vehicleRegNo: [value.vehicleDetail.vehicleRegNo ? value.plantMachineryDetail.equipmentDetail : ''],
+                    vehicleModelNo: [value.vehicleDetail.vehicleModelNo ? value.vehicleDetail.vehicleModelNo : '']
                 }),
                 // Fixed Deposit Holder Detail
                 fdHolderDetail: this.formBuilder.group({
-                    name: [value.fdHolderDetail.name],
-                    fdReceiptNo: [value.fdHolderDetail.fdReceiptNo],
-                    fdAmount: [value.fdHolderDetail.fdAmount],
-                    fatherName: [value.fdHolderDetail.fatherName],
-                    grandFatherName: [value.fdHolderDetail.grandFatherName]
+                    name: [value.fdHolderDetail.name ? value.fdHolderDetail.name : ''],
+                    fdReceiptNo: [value.fdHolderDetail.fdReceiptNo ? value.fdHolderDetail.fdReceiptNo : ''],
+                    fdAmount: [value.fdHolderDetail.fdAmount ? value.fdHolderDetail.fdAmount : ''],
+                    fatherName: [value.fdHolderDetail.fatherName ? value.fdHolderDetail.fatherName : ''],
+                    grandFatherName: [value.fdHolderDetail.grandFatherName ? value.fdHolderDetail.grandFatherName : '']
                 }),
                 // share Detail
                 shareDetail: this.formBuilder.group({
-                    name: [value.shareDetail.name],
-                    companyName: [value.shareDetail.companyName],
-                    noOfShares: [value.shareDetail.noOfShares],
-                    shareType: [value.shareDetail.shareType]
+                    name: [value.shareDetail.name ? value.shareDetail.name : ''],
+                    companyName: [value.shareDetail.companyName ? value.shareDetail.companyName : ''],
+                    noOfShares: [value.shareDetail.noOfShares ? value.shareDetail.noOfShares : ''],
+                    shareType: [value.shareDetail.shareType ? value.shareDetail.shareType : '']
                 }),
+            }));
+        });
+    }
+    setJointCustomer(jointCustomer: any) {
+        const formArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
+        jointCustomer.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                name: [value.name ? value.name : ''],
+                nepaliName: [value.nepaliName ? value.nepaliName : ''],
+                gender: [value.gender ? value.gender : ''],
+                grandFatherName: [value.grandFatherName ? value.grandFatherName : ''],
+                fatherName: [value.fatherName ? value.fatherName : ''],
+                husbandName: [value.husbandName ? value.husbandName : ''],
+                fatherInLawName: [value.fatherInLawName ? value.fatherInLawName : ''],
+                citizenshipNo: [value.citizenshipNo ? value.citizenshipNo : ''],
+                citizenshipIssueDistrict: [value.citizenshipIssueDistrict ? value.citizenshipIssueDistrict : ''],
+                citizenshipIssueDate: [value.citizenshipIssueDate ? value.citizenshipIssueDate : ''],
+                dateOfBirth: [value.dateOfBirth ? value.dateOfBirth : ''],
+                panNo: [value.panNo ? value.panNo : ''],
+                panIssueOffice: [value.panIssueOffice ? value.panIssueOffice : ''],
+                panIssueDate: [value.panIssueDate ? value.panIssueDate : ''],
+                contactNo: [value.contactNo ? value.contactNo : ''],
+                // Customer Permanent Address
+                customerPermanentAddress: this.formBuilder.group({
+                    district: [value.customerPermanentAddress.district ? value.customerPermanentAddress.district : ''],
+                    municipality: [value.customerPermanentAddress.municipality ? value.customerPermanentAddress.municipality : ''],
+                    munType: [value.customerPermanentAddress.munType ? value.customerPermanentAddress.munType : ''],
+                    wardNo: [value.customerPermanentAddress.wardNo ? value.customerPermanentAddress.wardNo : ''],
+                    tole: [value.customerPermanentAddress.tole ? value.customerPermanentAddress.tole : '']
+                }),
+                // Customer Temporary Address
+                customerTemporaryAddress: this.formBuilder.group({
+                    district: [value.customerTemporaryAddress.district ? value.customerTemporaryAddress.district : ''],
+                    municipality: [value.customerTemporaryAddress.municipality ? value.customerTemporaryAddress.municipality : ''],
+                    munType: [value.customerTemporaryAddress.munType ? value.customerTemporaryAddress.munType : ''],
+                    wardNo: [value.customerTemporaryAddress.wardNo ? value.customerTemporaryAddress.wardNo : ''],
+                    tole: [value.customerTemporaryAddress.tole ? value.customerTemporaryAddress.tole : '']
+                })
             }));
         });
     }

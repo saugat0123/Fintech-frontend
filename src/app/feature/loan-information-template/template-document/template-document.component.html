@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 table-responsive">
-    <table class="table table-bordered table-responsive table-hover table-sm sb-small text-center">
+    <table class="tssable table-bordered  table-hover table-sm sb-small text-center">
       <thead>
       <tr class="text-white sb-bg-dark">
         <th>S.N</th>
@@ -26,8 +26,8 @@
           <span *ngIf="!checked"
                 style="color:red"><i class="fas fa-times-circle"></i></span>
         </td>
-        <td class="cursor">
-          <span *ngIf="checked">
+        <td class="cursor"  *ngIf="checked">
+          <span>
             <i (click)="deleteDocument()" class="fas fa-trash"></i>
           </span>
         </td>
@@ -35,4 +35,3 @@
       </tbody>
     </table>
   </div>
-</div>

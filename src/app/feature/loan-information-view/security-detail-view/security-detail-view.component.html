@@ -37,17 +37,17 @@
                                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                     <tbody>
                                     <tr><td class="text-left pl-2">{{vehicleDetails?.model || 'N/A'}}</td></tr>
-                                    <tr>    <td class="text-left pl-2">Rs. {{(vehicleDetails?.valuationAmount | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>    <td class="text-left pl-2">NPR. {{(vehicleDetails?.valuationAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{vehicleDetails?.registrationNumber || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{ vehicleDetails?.registrationDate ? (vehicleDetails?.registrationDate | date) : 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{vehicleDetails?.engineNumber || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{vehicleDetails?.chassisNumber || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{ vehicleDetails?.vehicalValuatorDate ? (vehicleDetails?.vehicalValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">NPR. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
 
                                     </tbody>
                                 </table>
