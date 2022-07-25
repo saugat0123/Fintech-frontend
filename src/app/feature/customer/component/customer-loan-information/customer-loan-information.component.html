@@ -990,7 +990,8 @@
           </nb-card>
         </ng-template>
       </div>
-      <div  class="col-md-4">
+      <div *ngIf="customerInfo?.customerType === customerType.INSTITUTION"
+           class="col-md-4">
         <div class="row">
           <nb-card class="col-md-11 py-2">
             <a (click)="openModel(withIn)" class="cursor info-label">
