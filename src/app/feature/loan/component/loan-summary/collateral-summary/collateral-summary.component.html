@@ -25,39 +25,39 @@
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Funded</td>
-                <td class="text-right pr-1">Rs. {{(!fundedListNull)?(proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, fundedList) | currencyFormatter):'N/A'}}</td>
+                <td class="text-right pr-1">NPR. {{(!fundedListNull)?(proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, fundedList) | currencyFormatter):'N/A'}}</td>
                 <td colspan="3">
-                <td class="text-right pr-1">Rs. {{(!fundedListNull)?(calculateRequiredCollateral(fundedList) | currencyFormatter):'N/A'}}</td>
+                <td class="text-right pr-1">NPR. {{(!fundedListNull)?(calculateRequiredCollateral(fundedList) | currencyFormatter):'N/A'}}</td>
             </tr>
             <ng-container *ngFor="let model of fundedList; let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
                     <td class="text-left pl-1">{{model?.loan?.name}}</td>
-                    <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
+                    <td class="text-right pr-1">NPR. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
-                    <td class="text-right pr-1">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
+                    <td class="text-right pr-1">NPR. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
             </ng-container>
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Non Funded</td>
-                <td class="text-right pr-1">Rs. {{(!nonFundedListIsNull)?(proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, nonFundedList) | currencyFormatter):"N/A"}}</td>
+                <td class="text-right pr-1">NPR. {{(!nonFundedListIsNull)?(proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, nonFundedList) | currencyFormatter):"N/A"}}</td>
                 <td colspan="3"></td>
-                <td class="text-right pr-1">Rs. {{(!nonFundedListIsNull)?(calculateRequiredCollateral(nonFundedList) | currencyFormatter):"N/A"}}</td>
+                <td class="text-right pr-1">NPR. {{(!nonFundedListIsNull)?(calculateRequiredCollateral(nonFundedList) | currencyFormatter):"N/A"}}</td>
             </tr>
             <ng-container *ngFor="let model of nonFundedList; let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
                     <td class="text-left pl-1">{{model?.loan?.name}}</td>
-                    <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter) || 0}}</td>
+                    <td class="text-right pr-1">NPR. {{(model?.proposal?.proposedLimit | currencyFormatter) || 0}}</td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
-                    <td class="text-right pr-1">Rs.
+                    <td class="text-right pr-1">NPR.
                         {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
@@ -65,24 +65,24 @@
             <tr class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Total</td>
-                <td class="text-right pr-1">Rs. {{(!customerLoanListNull)?(setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList)) | currencyFormatter):'N/A'}}</td>
+                <td class="text-right pr-1">NPR. {{(!customerLoanListNull)?(setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList)) | currencyFormatter):'N/A'}}</td>
                 <td colspan="3"></td>
-                <td class="text-right pr-1">Rs. {{(!customerLoanListNull)?(setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList)) | currencyFormatter):'N/A'}}</td>
+                <td class="text-right pr-1">NPR. {{(!customerLoanListNull)?(setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList)) | currencyFormatter):'N/A'}}</td>
             </tr>
             </tbody>
         </table>
     </div>
     <div class="col-md-2 sb-small">
         <mark class="alert-warning text">Total Required Collateral:</mark>
-        <strong>Rs.{{totalRequiredCollateral| currencyFormatter}}</strong>
+        <strong>NPR.{{totalRequiredCollateral| currencyFormatter}}</strong>
     </div>
 <!--    <div class="col-md-2 sb-small">-->
 <!--        <mark class="alert-warning">Total FMV/Realisable Value:</mark>-->
-<!--        <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>-->
+<!--        <strong>NPR.{{security?.totalSecurityAmount |currencyFormatter}}</strong>-->
 <!--    </div>-->
 <!--    <div class="col-md-2 sb-small">-->
 <!--        <mark class="alert-warning">Surplus/(Deficit):</mark>-->
-<!--        <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>-->
+<!--        <strong> NPR. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>-->
 <!--    </div>-->
 <!--    <div  class="col-md-2 sb-small">-->
 <!--        <mark class="alert-warning">Coverage%:</mark>-->

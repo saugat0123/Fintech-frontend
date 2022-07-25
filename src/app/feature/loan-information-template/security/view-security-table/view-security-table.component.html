@@ -9,7 +9,7 @@
                 <th>Owner Name</th>
                 <th>Plot Number</th>
                 <th>Fair Market Value</th>
-                <th>Distress Value</th>
+<!--                <th>Distress Value</th>-->
                 <th>Consider Value</th>
                 <th>Action</th>
             </tr>
@@ -22,7 +22,7 @@
                     <td>{{(security?.data | jsonParse)?.owner ? (security?.data | jsonParse)?.owner : customerInfo?.name}}</td>
                     <td>{{(security?.data | jsonParse)?.plotNumber ? (security?.data | jsonParse)?.plotNumber : '0'}}</td>
                     <td>{{security?.fairMarketValue || '0'}}</td>
-                    <td>{{security?.distressValue || '0'}}</td>
+<!--                    <td>{{security?.distressValue || '0'}}</td>-->
                     <td>{{security?.considerValue || '0'}}</td>
                     <td>
                         <ng-container *ngIf="security?.status.toString() === 'ACTIVE'">

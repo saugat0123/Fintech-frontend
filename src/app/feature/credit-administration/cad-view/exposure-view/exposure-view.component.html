@@ -46,8 +46,8 @@
             {{ex?.maturity}}
         </td>
         <!--
-        <td class="text-right px-2">Rs.{{ex?.loanLimit | currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{ex?.disbursement | currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{ex?.loanLimit | currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{ex?.disbursement | currencyFormatter}}</td>
         <td>{{ex?.initialRate}}</td>
         <td>{{ex?.maturity}}</td>-->
         <td>{{ex?.frequency}}</td>
@@ -55,23 +55,23 @@
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'newLoanLimit',true) |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalFundedNonFunded(disbursementDetails, 'newLoanLimit',true) |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
         <td colspan="4"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'newLoanLimit',false) |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalFundedNonFunded(disbursementDetails, 'newLoanLimit',false) |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
         <td colspan="4"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold">Total</td>
-        <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'loanLimit') |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'newLoanLimit') |currencyFormatter}}</td>
-        <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'disbursement') |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalSum(disbursementDetails, 'loanLimit') |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalSum(disbursementDetails, 'newLoanLimit') |currencyFormatter}}</td>
+        <td class="text-right px-2">NPR.{{totalSum(disbursementDetails, 'disbursement') |currencyFormatter}}</td>
         <td colspan="3" *ngIf="!fromScc"></td>
         <td colspan="4" *ngIf="fromScc"></td>
     </tr>
@@ -106,18 +106,18 @@
                 <tr *ngFor="let inn of history;let k =index">
                     <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(k)}}</td>
                     <td>{{inn?.loanName}}</td>
-                    <td class="text-right px-2">Rs.{{inn?.loanLimit |currencyFormatter}}</td>
-                    <td class="text-right px-2">Rs.{{inn?.newLoanLimit |currencyFormatter}}</td>
-                    <td class="text-right px-2">Rs.{{inn?.totalLoanLimit |currencyFormatter}}</td>
-<!--                    <td class="text-right px-2">Rs.{{inn?.disbursement |currencyFormatter}}</td>-->
+                    <td class="text-right px-2">NPR.{{inn?.loanLimit |currencyFormatter}}</td>
+                    <td class="text-right px-2">NPR.{{inn?.newLoanLimit |currencyFormatter}}</td>
+                    <td class="text-right px-2">NPR.{{inn?.totalLoanLimit |currencyFormatter}}</td>
+<!--                    <td class="text-right px-2">NPR.{{inn?.disbursement |currencyFormatter}}</td>-->
                     <td>{{inn?.initialRate}}</td>
                     <td>{{inn?.maturity}}</td>
                     <td>{{inn?.frequency}}</td>
                 </tr>
                 <tr>
                     <td colspan="2" class="font-weight-bold">Total</td>
-                    <td class="text-right px-2">Rs.{{totalSum(history, 'loanLimit') |currencyFormatter}}</td>
-                    <td class="text-right px-2">Rs.{{totalSum(history, 'disbursement') |currencyFormatter}}</td>
+                    <td class="text-right px-2">NPR.{{totalSum(history, 'loanLimit') |currencyFormatter}}</td>
+                    <td class="text-right px-2">NPR.{{totalSum(history, 'disbursement') |currencyFormatter}}</td>
 
                     <td colspan="3"></td>
                 </tr>

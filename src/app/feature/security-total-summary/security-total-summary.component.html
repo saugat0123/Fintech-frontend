@@ -12,12 +12,12 @@
             <tr *ngIf="totalIndividualSec[key]?.added">
                 <td  [ngClass]="key  === 'total' ? 'font-weight-bold' :'text-left'">{{key | securitySummary}}</td>
                 <td *ngFor="let sk of subKey"
-                    [ngClass]="key  === 'total' ? 'font-weight-bold' :''">Rs. {{totalIndividualSec[key][sk] | currencyFormatter}}</td>
+                    [ngClass]="key  === 'total' ? 'font-weight-bold' :''">NPR. {{totalIndividualSec[key][sk] | currencyFormatter}}</td>
             </tr>
         </ng-container>
         <tr>
             <td class="sb-bg-gray">Expected Loss Given Default</td>
-            <td class="" [colSpan]="subKey?.length"> Rs. {{(fixedAssets | currencyFormatter) || '0'}}</td>
+            <td class="" [colSpan]="subKey?.length"> NPR. {{(fixedAssets | currencyFormatter) || '0'}}</td>
         </tr>
         <tr>
             <td class="sb-bg-gray">Loan to Security Ratio (Total Loan/Total RV)</td>

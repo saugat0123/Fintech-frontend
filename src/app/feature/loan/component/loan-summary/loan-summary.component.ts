@@ -565,10 +565,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 },
                                 complete: () => {
                                     this.loaded = true;
+                                    this.spinnerService.hide();
                                 }
                             });
                     } else {
                         this.loaded = true;
+                        this.spinnerService.hide();
                         this.customerAllLoanList = [];
                         this.loanSecurity = this.loanDataHolder.securities;
                         this.customerAllLoanList.push(this.loanDataHolder);
@@ -602,7 +604,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             .filter((value, index, self) => approvedId.indexOf(value.id) === index);
                     }
                 }
-                this.spinnerService.hide();
     }
 
     download(i) {

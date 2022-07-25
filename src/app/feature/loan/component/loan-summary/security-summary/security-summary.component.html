@@ -394,13 +394,13 @@
                             <tr>
                                 <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate  ? (land[1]?.revaluationData?.reValuationDate | date) : 'NA'}}</td>
                                 <td colspan="1" class="text-left pl-1">{{land[1]?.revaluationData?.newValuator?.name}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">NPR. {{land[1]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -461,6 +461,12 @@
                                         <td class="text-left pl-2">Fair Market Value of Building</td>
                                     </tr>
                                     <tr>
+                                        <td class="text-left pl-2">Land Realisable Rate</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">Apartments Realisable Rate</td>
+                                    </tr>
+                                    <tr>
                                         <td class="text-left pl-2">Total Market Value</td>
                                     </tr>
                                     <tr>
@@ -497,10 +503,15 @@
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">{{landBuilding?.area + ' ('+ landBuilding?.areaFormat + ')'|| 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{(landBuilding?.totalBuildingArea + ' (Sq.Ft)' || 'N/A')}}</td></tr>
-                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.considerValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">NPR. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">NPR. {{(landBuilding?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+
+
+                                    <tr> <td class="text-left pl-2"> {{(landBuilding?.landBuildingRate) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2"> {{(landBuilding?.apartmentRatesss) || 'N/A'}}</td></tr>
+
+                                    <tr>  <td class="text-left pl-2">NPR. {{(landBuilding?.considerValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-left pl-2">NPR. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.landBuildingFirstValuationDate ? (landBuilding?.landBuildingFirstValuationDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
@@ -590,7 +601,7 @@
                                     <tr>  <td class="text-left pl-2">{{buildingDetails?.buildingDescription || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{(buildingDetails?.buildArea || 'N/A')}}</td></tr>
                                     <tr> <td class="text-left pl-2"> {{(buildingDetails?.buildRate) || 'N/A'}}</td></tr>
-                                    <tr>  <td  class="text-left pl-2">Rs. {{(buildingDetails?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td  class="text-left pl-2">NPR. {{(buildingDetails?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2"> Rs {{(buildingDetails?.buildingFairMarketValue | currencyFormatter) || 'N/A'}})</td></tr>
                                     <tr>  <td class="text-left pl-2">Rs {{(buildingDetails?.buildingDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td></tr>
@@ -642,9 +653,9 @@
 <!--                        <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>-->
 <!--                        <td class="text-left pl-1">{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>-->
 <!--                        <td class="text-right pr-1">{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>-->
-<!--                        <td class="text-right pr-1">Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate | currencyFormatter}}</td>-->
+<!--                        <td class="text-right pr-1">NPR. {{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate | currencyFormatter}}</td>-->
 <!--                        <td class="text-right pr-1">-->
-<!--                            <strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>-->
+<!--                            <strong>NPR. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong>-->
 <!--                        </td>-->
 <!--                    </tr>-->
 <!--                    </thead>-->
@@ -667,9 +678,9 @@
 <!--                        <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>-->
 <!--                        <td class="text-left pl-1">{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>-->
 <!--                        <td class="pr-1 text-right">{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>-->
-<!--                        <td class="text-right pr-1">Rs. {{afterCompletion?.buildingDetailsAfterCompletion.buildRate | currencyFormatter}}</td>-->
+<!--                        <td class="text-right pr-1">NPR. {{afterCompletion?.buildingDetailsAfterCompletion.buildRate | currencyFormatter}}</td>-->
 <!--                        <td class="text-right pr-1">-->
-<!--                            <strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>-->
+<!--                            <strong>NPR.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong>-->
 <!--                        </td>-->
 <!--                    </tr>-->
 <!--                    </thead>-->
@@ -699,8 +710,8 @@
                         <td>{{i + 1}}</td>
                         <td class="text-right pr-1">{{plantDetails?.model}}</td>
                         <td class="text-right pr-1">{{plantDetails?.realisableValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{plantDetails?.fairMarketValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{plantDetails?.fairMarketValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{plantDetails?.quotation | currencyFormatter}}</td>
                         <td class="text-right pr-1"> {{plantDetails?.realisableRate}} %</td>
                         <td class="text-left pl-1">{{plantDetails?.supplier}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name || 'N/A'}}</td>
@@ -726,15 +737,15 @@
                     <tr *ngFor="let depositDetails of fdArray; let i= index">
                         <td>{{i + 1}}</td>
                         <td class="text-right pr-1">{{depositDetails?.receiptNumber}}</td>
-                        <td class="text-right pr-1">Rs. {{depositDetails?.fairMarketValue | roundvalue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{depositDetails?.fairMarketValue | roundvalue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.expiryDate ? (depositDetails?.expiryDate | date) : 'NA'}}</td>
-                        <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{depositDetails?.couponRate | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.beneficiary}}</td>
                         <td class="text-left pl-1">{{depositDetails?.realizableValue | roundvalue | currencyFormatter}}</td>
                     </tr>
                     <tr class="sb-bg-gray">
                         <td colspan="2" class="text-left pl-1">Total</td>
-                        <td colspan="5" class="text-right pr-1">Rs. {{totalAmount | currencyFormatter}}</td>
+                        <td colspan="5" class="text-right pr-1">NPR. {{totalAmount | currencyFormatter}}</td>
                     </tr>
                     </thead>
                 </table>
@@ -775,10 +786,10 @@
                         <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
                         <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
                         <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
-                        <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{singleShareData?.drawingPower }}</td>
-                        <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{singleShareData?.total |currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{singleShareData?.drawingPower }}</td>
+                        <td class="text-right pr-1">NPR. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -806,13 +817,13 @@
                         <td rowspan="4">{{i + 1}}</td>
                         <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.description}}</td>
                         <td class="text-left pl-1" >{{hypothecationOfStock?.stock}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.stockMarketValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.receivableMarketValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.bookValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.receivableBookValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.stockRealiasableValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.receivableRealizableValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{hypothecationOfStock?.realiasableValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.stockMarketValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.receivableMarketValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.bookValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.receivableBookValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.stockRealiasableValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.receivableRealizableValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">NPR. {{hypothecationOfStock?.realiasableValue | currencyFormatter}}</td>
                     </tr>
                     <tr class="sb-bg-gray">
                         <th colspan="12">Remarks</th>
@@ -873,7 +884,7 @@
                     </tr>
                     <tr>
                         <td rowspan="4">{{i + 1}}</td>
-                        <td class="text-right pr-1" colspan="3">Rs.{{assignmentOfReceivables?.amount}}</td>
+                        <td class="text-right pr-1" colspan="3">NPR.{{assignmentOfReceivables?.amount}}</td>
                         <td [innerHTML]="assignmentOfReceivables?.otherDetail" class="text-left">{{assignmentOfReceivables?.otherDetail}}</td>
                     </tr>
                 </table>
