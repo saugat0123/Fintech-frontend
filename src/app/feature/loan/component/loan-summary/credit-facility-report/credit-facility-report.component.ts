@@ -41,6 +41,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     totalLandAndBuildingMv = 0;
     totalLandAndBuildingDv = 0;
     nextReview;
+    referenceNumber = [];
 
     constructor() {
     }
@@ -54,7 +55,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
             this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
         }
-        this.getAllLoanConfig();
+        this.referenceNumber = this.loanDataHolder.refNo.split('');
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
