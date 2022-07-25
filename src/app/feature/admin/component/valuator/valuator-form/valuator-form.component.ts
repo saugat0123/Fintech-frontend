@@ -107,10 +107,10 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 this.model.name, [Validators.required]],
             contactNo: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.contactNo)) ? undefined :
-                this.model.contactNo, [Validators.required]],
+                this.model.contactNo],
             email: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.email)) ? undefined :
-                this.model.email, [Validators.required, Validators.email]],
+                this.model.email, [Validators.email]],
             province: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.province)) ? undefined :
                 this.model.province, [Validators.required]],
@@ -122,14 +122,14 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 this.model.municipalityVdc, [Validators.required]],
             streetName: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.streetName)) ? undefined :
-                this.model.streetName, [Validators.required]],
+                this.model.streetName],
             wardNumber: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.wardNumber)) ? undefined :
-                this.model.wardNumber, [Validators.required, Validators.min(0)]],
+                this.model.wardNumber],
             valuatingField: [undefined, [Validators.required]],
             bankAssociateDate: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.bankAssociateDate)) ? undefined :
-                this.formatDate(new Date(this.model.bankAssociateDate)), [Validators.required]],
+                this.formatDate(new Date(this.model.bankAssociateDate))],
             minAmount: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.minAmount)) ? undefined :
                 this.model.minAmount, [Validators.required, Validators.min(0)]],
