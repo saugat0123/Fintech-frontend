@@ -271,7 +271,7 @@
                         <td>बैंकलाई बुझाएको विवरण बमोजिमको उठाँउन वाँकी रकम (Receivable and Book Debt value)</td>
                         <td class="font-weight-bold">रु. <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                                                 formControlName="debtValue">
-                            <span class="print-only preetiFont font24">{{this.form.get('debtValue').value || ''}}</span>
+                            <span class="print-only preetiFont font24">{{form?.get('debtValue')?.value || ''}}</span>
                         </td>
                     </tr>
                     </tbody>

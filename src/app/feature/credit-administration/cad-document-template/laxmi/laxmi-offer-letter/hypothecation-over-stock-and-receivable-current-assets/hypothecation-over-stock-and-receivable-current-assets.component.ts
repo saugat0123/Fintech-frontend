@@ -64,6 +64,7 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+            this.patchForm();
         }
         this.checkInitialData();
     }
@@ -149,6 +150,41 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
             debtValue: [undefined],
         });
     }
+patchForm() {
+        this.form.patchValue({
+            branchDistrict: ObjectUtil.setUndefinedIfNull(this.nepaliData.branchDetail.branchDistrict),
+            branchMun: this.nepaliData.branchDetail.branchMunVdc,
+            branchWardNo: this.nepaliData.branchDetail.branchWardNo,
+            branchName: this.nepaliData.branchDetail.branchNameInNepali,
+            borrowerName: this.nepaliData.nepaliName,
+            companyRegistrationNo: this.nepaliData.registrationNo,
+            registrationNikayaName: this.nepaliData.companyRegOffice,
+            registrationDate: this.nepaliData.regIssueDate,
+            companyPanNumber: this.nepaliData.panNo,
+            companyPanIssueOffice: this.nepaliData.panIssueOffice,
+            companyPanIssueDate: this.nepaliData.panIssueDate,
+            companyRegDistrict: this.nepaliData.institutionRegisteredAddress.district,
+            companyRegVdc: this.nepaliData.institutionRegisteredAddress.municipality,
+            companyRegWardNo: this.nepaliData.institutionRegisteredAddress.wardNo,
+            companyRegTole: this.nepaliData.institutionRegisteredAddress.tole,
+            companyRegTempDistrict: this.nepaliData.institutionCurrentAddress.district,
+            companyRegTempVdc: this.nepaliData.institutionCurrentAddress.municipality,
+            companyRegTempWardNo: this.nepaliData.institutionCurrentAddress.wardNo,
+            companyRegTempTole: this.nepaliData.institutionCurrentAddress.tole,
+            companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
+            companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
+            companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
+            companyRepresentativeHusbandName: this.nepaliData.authorizedPersonDetail.husbandName,
+            companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
+            companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
+            companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
+            representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenShipNo,
+            representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
+            representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+            stockValue: this.nepaliData.stocksReceivablesValue.stockValue,
+            debtValue: this.nepaliData.stocksReceivablesValue.receivableValue,
+        });
+}
 
   fillNepaliData() {
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
@@ -239,13 +275,13 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         }
 
         this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
             this.spinner = false;
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
             this.dialogRef.close();
             this.spinner = false;
         });
@@ -254,6 +290,7 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
     checkInitialData() {
         if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
             this.form.patchValue(JSON.parse(this.initialInfoPrint));
+            this.patchForm();
             this.form.patchValue({
                 amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
             });
