@@ -156,7 +156,7 @@ patchForm() {
             branchMun: this.nepaliData.branchDetail.branchMunVdc,
             branchWardNo: this.nepaliData.branchDetail.branchWardNo,
             branchName: this.nepaliData.branchDetail.branchNameInNepali,
-            borrowerName: this.nepaliData.nepaliName,
+            borrowerName: ObjectUtil.setUndefinedIfNull(this.nepaliData.nepaliName),
             companyRegistrationNo: this.nepaliData.registrationNo,
             registrationNikayaName: this.nepaliData.companyRegOffice,
             registrationDate: this.nepaliData.regIssueDate,
@@ -181,8 +181,8 @@ patchForm() {
             representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenShipNo,
             representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
             representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-            stockValue: this.nepaliData.stocksReceivablesValue.stockValue,
-            debtValue: this.nepaliData.stocksReceivablesValue.receivableValue,
+            stockValue: this.nepaliData.stocksReceivablesValue ? this.nepaliData.stocksReceivablesValue.stockValue : '',
+            debtValue: this.nepaliData.stocksReceivablesValue ? this.nepaliData.stocksReceivablesValue.receivableValue : '',
         });
 }
 
