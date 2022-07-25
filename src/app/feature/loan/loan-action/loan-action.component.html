@@ -15,7 +15,7 @@
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     APPROVE
-<!--    <i class="col-md-1 fa fa-check"></i>-->
+    <i class="col-md-1 fa fa-check"></i>
   </button>
 
   <button (click)="loanAction('forward')" *ngIf="!catalogueStatus && status !== docStatus.value(docStatus.HSOV_PENDING)"
@@ -23,7 +23,7 @@
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info">
     SEND FORWARD
-<!--    <i class="col-md-1 fa fa-arrow-circle-up"></i>-->
+    <i class="col-md-1 fa fa-arrow-circle-up"></i>
   </button>
 
   <button (click)="loanAction('backward')" *ngIf="!catalogueStatus"
@@ -32,7 +32,7 @@
           class="btn-sm"
           style="color:lightseagreen;">
     REVERT
-<!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
+    <i class="col-md-1 fa fa-arrow-circle-left"></i>
   </button>
 
   <button [hidden]="!isRemitLoan"    (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus && isMaker"
@@ -40,14 +40,14 @@
           class="btn-sm"
           class="btn-sm btn-primary">
     SEND BACK TO SENDER
-    <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
+        <i class="col-md-1 fa fa-arrow-circle-left"></i>
   </button>
 
   <button [hidden]="!isRemitLoan" (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus && isMaker"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     SEND BACK TO AGENT
-    <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
+        <i class="col-md-1 fa fa-arrow-circle-left"></i>
   </button>
 
   <button (click)="loanAction('backwardCommittee')" *ngIf="(committeeRole && !catalogueStatus) &&  currentUser !== 'hsov'"
@@ -56,7 +56,7 @@
           class="btn-sm btn-info"
           style="color:white;">
     BACK TO COMMITTEE
-<!--    <i class="col-md-1 fas fa-angle-double-left"></i>-->
+    <i class="col-md-1 fas fa-angle-double-left"></i>
   </button>
 
 <!--  <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.roleTypeMaker"-->
@@ -81,29 +81,29 @@
           class="btn-sm btn-danger"
           value="REJECTED">
     REJECT
-<!--    <i class="col-md-1 fa fa-ban"></i>-->
+    <i class="col-md-1 fa fa-ban"></i>
   </button>
   <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus"
           class="btn-sm btn-danger d-flex justify-content-end">
     Delete
-<!--    <i class="col-md-1 fa fa-ban"></i>-->
+    <i class="col-md-1 fa fa-ban"></i>
   </button>
 </ng-container>
   <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
           ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
     PRINT
-    <!--    <i class="col-md-1 fa fa-print"></i>-->
+        <i class="col-md-1 fa fa-print"></i>
   </button>
   <button class="btn-sm btn-toolbar d-flex justify-content-end" (click)="detailedViewAction()">
     DETAILED-VIEW
-<!--    <em class="col-md-1 fa fa-eye"></em>-->
+    <em class="col-md-1 fa fa-eye"></em>
   </button>
   <button (click)="onUploadDocument()"
           *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION"
           [ngStyle]="{ 'filter' : (actionsList.approved=== false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     Documents
-<!--    <i class="col-md-1 fa fa-file-upload"></i>-->
+    <i class="col-md-1 fa fa-file-upload"></i>
   </button>
 
 

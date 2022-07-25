@@ -461,6 +461,12 @@
                                         <td class="text-left pl-2">Fair Market Value of Building</td>
                                     </tr>
                                     <tr>
+                                        <td class="text-left pl-2">Land Realisable Rate</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">Apartments Realisable Rate</td>
+                                    </tr>
+                                    <tr>
                                         <td class="text-left pl-2">Total Market Value</td>
                                     </tr>
                                     <tr>
@@ -499,6 +505,11 @@
                                     <tr>  <td class="text-left pl-2">{{(landBuilding?.totalBuildingArea + ' (Sq.Ft)' || 'N/A')}}</td></tr>
                                     <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.fairMarketValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">Rs. {{(landBuilding?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+
+
+                                    <tr> <td class="text-left pl-2"> {{(landBuilding?.landBuildingRate) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2"> {{(landBuilding?.apartmentRatesss) || 'N/A'}}</td></tr>
+
                                     <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.considerValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
