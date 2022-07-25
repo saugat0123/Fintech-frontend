@@ -2146,6 +2146,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
                 this.translatedGuarantorDetails.splice(i, 1);
             }
+        } else {
+            (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+            this.translatedGuarantorDetails.splice(i, 1);
         }
     }
 
