@@ -98,14 +98,26 @@ export class LoanActionModalComponent implements OnInit {
                         toUser: this.userList[0]
                     });
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
-                    const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
                     const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
                     this.userList = this.userList.filter(ul => ul.id !== logInUserId);
-                    this.showUserList = true;
+                    this.showUserList = false;
                     if (this.userList.length > 0) {
                         this.formAction.patchValue({
                             toUser: this.userList[0]
                         });
+                    }
+                    if (LocalStorageUtil.getStorage().roleType === RoleType.COMMITTEE) {
+                        const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
+                        this.showUserList = true;
+                        if (committeeDefaultUser.length === 0) {
+                            this.formAction.patchValue({
+                                toUser: this.userList[0]
+                            });
+                        } else {
+                            this.formAction.patchValue({
+                                toUser: committeeDefaultUser[0]
+                            });
+                        }
                     }
                 } else if (this.userList.length > 1) {
                     this.formAction.patchValue({

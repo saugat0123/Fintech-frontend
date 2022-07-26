@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
 
-                                        <div *ngIf="individualType?.users.get(i)?.length > 0" class="row">
+                                        <div *ngIf="individualType?.users.get(i)?.length > 0 && showUserList" class="row">
                                             <div class="col-md-12 form-group">
                                                 <label class="toUser" for="toUser">To User</label>
                                                 <select class="custom-select" formControlName="toUser" id="toUser{{i}}"
