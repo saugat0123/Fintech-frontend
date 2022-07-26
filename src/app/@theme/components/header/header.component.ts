@@ -110,17 +110,13 @@ export class HeaderComponent implements OnInit {
             title === HeaderComponent.CHANGE_PASSWORD)
     ).subscribe((value) => {
       if (value === HeaderComponent.LOGOUT) {
-        console.log('Before LocalStorageUtil', LocalStorageUtil);
-
         try {
           this.userService.userLogOut().subscribe((res: any) => {
             LocalStorageUtil.clearStorage();
             this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
-            console.log('clear data');
             if (this.socketService.isCustomSocketOpened) {
               this.socketService.closeSocket();
             }
-            console.log('After LocalStorageUtil', LocalStorageUtil);
             this.router.navigate(['/login']);
           });
         } catch (e) {
