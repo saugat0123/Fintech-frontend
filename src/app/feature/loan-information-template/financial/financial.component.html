@@ -225,6 +225,76 @@
                 </div>
             </nb-card-body>
         </nb-card>
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
+            <nb-card-header>
+                <h3><strong>EMI/Interest of Present Proposal</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngFor="let data of financialForm.get('emiInterest')['controls']; let emiIndex = index"
+                     class="border-bottom border-dark m-4"
+                     formArrayName="emiInterest">
+                    <div [formGroupName]="emiIndex">
+
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Particulars</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && data.get('emiParticulars').invalid}"
+                                           formControlName="emiParticulars" placeholder="Particulars"
+                                           type="text" class="form-control">
+                                    <span *ngIf="data.get('emiParticulars').invalid"
+                                          class="invalid-feedback">Particulars is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Amount (Monthly)</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input #value (keyup)="setObligation(value)"
+                                           [ngClass]="{'is-invalid': submitted && data.get('emiAmount').invalid}"
+                                           formControlName="emiAmount" placeholder="Amount (Monthly)"
+                                           type="number" class="form-control">
+                                    <span *ngIf="data.get('emiAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Remarks</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && data.get('emiRemarks').invalid}"
+                                           formControlName="emiRemarks" placeholder="Remarks"
+                                           type="text" class="form-control">
+                                    <span *ngIf="data.get('emiRemarks').invalid"
+                                          class="invalid-feedback">Remarks is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 ml-0 pl-0 mt-4">
+                                <button (click)="removeExpensesIndexEmi(emiIndex)"
+                                        *ngIf="financialForm.get('emiInterest')['controls'].length > 1"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pl-5">
+                        <label class="title"><strong> Total Monthly EMI/Interest of Present Proposal :
+                            Rs.{{financialForm.get('totalExpenseEmi').value | currencyFormatter}}</strong></label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addEmi()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
 
         <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-body>
@@ -245,8 +315,8 @@
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               placeholder="Include EMI of other BFIs" type="number"/>
-
+                               [value]="totalEMICCBL()"
+                               readonly placeholder="Include EMI of other BFIs" type="number"/>
                         <div *ngIf="(submitted) && form.emiWithProposal.invalid"
                              class="invalid-feedback">
                             Invalid EMI Amount
@@ -275,7 +345,7 @@
                         <label for="existingObligationOtherBank"><strong>Existing Obligation at CCBL/Other Bank</strong></label>
                         <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
-                               (change)="totalObligation()"
+                               (change)="totalObligation()" readonly
                                placeholder="Amount" appDecimalNumber>
                         <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
                              class="invalid-feedback">Invalid Existing Obligation at CCBL/Other Bank
