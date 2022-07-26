@@ -275,12 +275,13 @@
                                 </ng-container>
                             </div>
                         </div>
+                        <hr class="print-line">
                         <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
                             <div class="col-md-12">
                                 <p><strong class="header text-left">Request Type</strong></p>
                                 <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-2">
                                 <p><strong class="header text-left">Justification of Limit for Consumer Finance</strong></p>
                                 <span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span>
                             </div>
@@ -304,6 +305,7 @@
                             <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
                             </div>
                         </ng-container>
+                        <hr class="print-line">
                         <div class="row">
                             <div class="col-md-12">
                                 <p><strong class="header"> Summary and Recommendation</strong></p>

@@ -58,6 +58,7 @@
             </ng-container>
         </div>
     </div>
+    <hr class="print-line">
     <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
         <div class="col-md-12">
             <p><strong class="header text-left">Justification of Limit for Consumer Finance</strong></p>
@@ -336,7 +337,7 @@
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
 <hr class="print-line">
 <!--Product Paper Checklist-->
-<div class="col-md-12">
+<div>
     <p class="header"><strong class="header">Product Paper Checklist</strong></p>
 </div>
 <ng-container *ngFor="let loan of combinedLoan; let i = index">
