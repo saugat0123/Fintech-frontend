@@ -183,7 +183,7 @@ export class DetailViewOfIndividualComponent implements OnInit {
             if (!child.includes('checked')) {
               input.innerHTML = `<input type="radio" disabled>`;
             } else {
-              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * 100) + 1}">`;
+              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * Math.random() * 100) + 1}">`;
             }
           });
           this.toggleChecklist.push(parserData.body.innerHTML);

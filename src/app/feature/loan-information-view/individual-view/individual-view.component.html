@@ -248,12 +248,12 @@
             <div class="col-md-12">
         <table
                 class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="sb-bg-gray">
+           <!-- <tr class="sb-bg-gray">
                 <th colspan="2">Introduction</th>
             </tr>
             <tr>
                 <td colspan="2" class="text-left pl-1" [innerHTML]="individual?.introduction | safeHtml"></td>
-            </tr>
+            </tr>-->
             <ng-container *ngIf="individualJsonData !== null">
             <ng-container *ngIf="(individualJsonData?.checkedData)?.incomeRiskChecked">
                 <tr class="sb-bg-gray">
@@ -542,12 +542,12 @@
 <div *ngIf="isJointInfo" class="col-md-12 text-center">
     <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tbody>
-        <tr class="sb-bg-gray">
+        <!--<tr class="sb-bg-gray">
             <th colspan="2">Introduction</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
-        </tr>
+        </tr>-->
         <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.incomeRiskChecked">
             <tr class="sb-bg-gray">
                 <th colspan="2">Income Risk & Mitigation</th>
