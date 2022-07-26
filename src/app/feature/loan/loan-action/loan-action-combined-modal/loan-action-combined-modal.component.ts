@@ -106,9 +106,6 @@ export class LoanActionCombinedModalComponent implements OnInit {
             if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
                 this.combinedLoan.loans.forEach((cl, i) => {
                     this.getIndividualUserList(cl.currentStage.toRole, i);
-                    // this.individualType.form.value.action.patchValue({
-                    //     toRole: cl.currentStage.toRole
-                    // });
                 });
             }
         } else if (value === 'combined') {
@@ -143,15 +140,15 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     toUser: this.combinedType.userList[0]
                 });
             } else if ((role.roleType === RoleType.COMMITTEE) && this.combinedType.userList.length > 1) {
-                const committeeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
                 const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
                 this.combinedType.userList = this.combinedType.userList.filter(ul => ul.id !== logInUserId);
-                this.showUserList = true;
+                this.showUserList = false;
                 if (this.combinedType.userList.length > 0) {
                     this.combinedType.form.patchValue({
                         toUser: this.combinedType.userList[0]
                     });
                 }
+                this.checkLogInUserRoleType('combine', null);
             } else if (this.combinedType.userList.length > 1) {
                 this.combinedType.form.patchValue({
                     toUser: this.combinedType.userList[0]
@@ -175,11 +172,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
                 const newUserList = users.filter(u => u.id !== logInUserId);
                 this.individualType.users.set(i, newUserList);
-                this.showUserList = true;
+                this.showUserList = false;
                 if (this.individualType.users.size > 0) {
                     this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.individualType.users.get(i)[0]);
-                    this.individualType.form.get(['actions', i, 'toRole']).patchValue(this.individualType.users.get(i)[0].role);
                 }
+                this.checkLogInUserRoleType('individual', i);
             } else {
                 this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
                 this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
@@ -400,5 +397,31 @@ export class LoanActionCombinedModalComponent implements OnInit {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 
+    checkLogInUserRoleType(stageType: string, i: number) {
+        if (LocalStorageUtil.getStorage().roleType === RoleType.COMMITTEE) {
+            if (stageType === 'combine') {
+                const combineCommitteeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
+                this.showUserList = true;
+                if (combineCommitteeDefaultUser.length === 0) {
+                    this.combinedType.form.patchValue({
+                        toUser: this.combinedType.userList[0]
+                    });
+                } else {
+                    this.combinedType.form.patchValue({
+                        toUser: combineCommitteeDefaultUser[0]
+                    });
+                }
+            } else {
+                const individualCommitteeDefaultUser = this.individualType.users.get(i).filter(f =>
+                    f.name.toLowerCase().includes('default'));
+                this.showUserList = true;
+                if (individualCommitteeDefaultUser.length === 0) {
+                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.individualType.users.get(i)[0]);
+                } else {
+                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(individualCommitteeDefaultUser[0]);
+                }
+            }
+        }
+    }
 
 }
