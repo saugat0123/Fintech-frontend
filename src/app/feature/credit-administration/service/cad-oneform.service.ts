@@ -149,4 +149,8 @@ export class CadOneformService extends BaseService<any> {
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
+    public updateAllLoanProposal(proposal: any): Observable<object> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/update-loan-proposal`);
+        return this.http.post(req.url, proposal, {headers: req.header});
+    }
 }
