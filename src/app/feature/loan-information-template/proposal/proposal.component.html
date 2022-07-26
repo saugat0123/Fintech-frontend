@@ -1076,10 +1076,11 @@
                     <div class="col-md-12" *ngIf="smallBusiness || consumerFinance || deprivedSector || microFinancialService">
                         <app-review-date #lastLoanReviewDate
                                          [fromProfile] = "true"
+                                         [fromProposal] = "'Hide'"
                                          [reviewData]="loan?.reviewDate">
                         </app-review-date>
                     </div>
-                    <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist">
+                    <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist && (loan?.loan?.paperChecklist | jsonParse)?.checklistChecked">
                         <app-product-paper-checklist
                             #productPaperChecklistComponent
                             [loanDataHolder]="loan"
