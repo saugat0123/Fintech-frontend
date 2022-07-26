@@ -66,5 +66,14 @@
         <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove" [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-13">
+        <a routerLink="/home/user-activity">
+            <app-icon-card detail="{{userActivityCount}}"  title="User Activity" type="info">
+                <i class="far fa-flag"></i>
+            </app-icon-card>
+        </a>
+    </div>
+</div>
 <app-charts></app-charts>
 <app-overlay-spinner></app-overlay-spinner>

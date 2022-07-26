@@ -15,6 +15,9 @@ import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 import {LoanConfig} from '../../feature/admin/modal/loan-config';
 import {RolePermissionService} from '../../feature/admin/component/role-permission/role-permission.service';
 import {CreditAdministrationService} from '../../feature/credit-administration/service/credit-administration.service';
+import {Alert, AlertType} from '../../@theme/model/Alert';
+import {ToastService} from '../../@core/utils';
+import {UserActivityService} from '../../feature/admin/component/user/user-activity.service';
 
 
 @Component({
@@ -46,6 +49,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     loggedUser: User;
     roleName;
     adminRole = false;
+    userActivityCount = 12;
 
     customerApproveCountDto = {
         allCount: undefined,
@@ -66,7 +70,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private modalService: NgbModal,
         private route: Router,
         private rolePermissionService: RolePermissionService,
-        private creditAdministrationService: CreditAdministrationService
+        private creditAdministrationService: CreditAdministrationService,
+        private toastService: ToastService,
+        private userActivityService: UserActivityService
     ) {
     }
 
@@ -129,6 +135,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
             this.branchCount = response.detail.branches;
         });
         this.initCalendar();
+        this.getUserActivity();
     }
 
     newLoan() {
@@ -179,5 +186,17 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     private setLoanCategory() {
         const type = parseInt(this.loanType, 10);
         this.businessOrPersonal =  (this.loanList.filter((loan: LoanConfig) => loan.id === type))[0].loanCategory;
+    }
+
+    getUserActivity() {
+        this.userActivityService.getStatus().subscribe({
+            next: (res: any) => {
+                console.log(res);
+                this.userActivityCount = res.detail.total;
+            }, error: (err) => {
+                console.log('err', err);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to get User Activity Data'));
+            }, complete: () => {}
+        });
     }
 }
