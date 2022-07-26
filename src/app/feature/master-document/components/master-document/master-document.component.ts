@@ -92,10 +92,7 @@ export class MasterDocumentComponent implements OnInit {
       return;
     }
     const formData = new FormData();
-    if (!ObjectUtil.isEmpty(this.mDoc.id)) {
-      formData.append('docId', this.mDoc.id.toString());
-      formData.append('isEdit', 'YES');
-    }
+
     if (!ObjectUtil.isEmpty(this.file)) {
       formData.append('file', this.file);
     }
@@ -129,17 +126,17 @@ export class MasterDocumentComponent implements OnInit {
     MasterDocumentComponent.loadData(this);
   }
 
-  onEdit(masterDoc: MasterDoc) {
-    this.isEdit = true;
-    this.mDoc = masterDoc;
-    this.removeValidationOnEdit();
-    this.docForm.patchValue(this.mDoc);
-  }
-
-
-  removeValidationOnEdit() {
-    this.docForm.get('file').setValidators(null);
-    this.docForm.get('file').updateValueAndValidity();
+  onDelete(id: number) {
+    this.spinner = true;
+    this.masterDocumentService.delete(id).subscribe(res => {
+      this.toasterService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted file'));
+      MasterDocumentComponent.loadData(this);
+      this.spinner = false;
+    }, error => {
+      this.spinner = false;
+      console.error(error);
+      this.toasterService.show(new Alert(AlertType.DANGER, 'Unable to delete file'));
+    });
   }
 
 }

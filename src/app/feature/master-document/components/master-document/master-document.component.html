@@ -94,9 +94,9 @@
                             <span *ngIf="masterDoc?.status === 'INACTIVE'" class="text-success">{{masterDoc?.status}}</span>
                         </td>
                         <td>
-                            <button nbButton status="info" size="tiny" nbTooltip="Click to edit"
-                            (click)="onEdit(masterDoc)">
-                                <nb-icon icon="edit-outline"></nb-icon>
+                            <button nbButton status="danger" size="tiny" nbTooltip="Click to delete"
+                            (click)="onDelete(masterDoc?.id)">
+                                <nb-icon icon="trash-outline"></nb-icon>
                             </button>
                         </td>
                     </tr>
