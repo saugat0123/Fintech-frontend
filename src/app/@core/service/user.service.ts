@@ -98,4 +98,9 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${this.getApi()}/users/branch/${bId}/maker-active`);
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public userLogOut(): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/logout`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
