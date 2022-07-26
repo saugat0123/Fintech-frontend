@@ -13,7 +13,7 @@
                             <th>Owner Name</th>
                             <th>Plot Number</th>
                             <th>Fair Market Value</th>
-                            <th>Distress Value</th>
+<!--                            <th>Distress Value</th>-->
                             <th>Consider Value</th>
                             <th width="35%">Amount to Use</th>
 <!--                            <th>Free Limit</th>-->
@@ -31,7 +31,7 @@
                                         :  loanDataHolder?.loanHolder?.name}}</td>
                                     <td>{{(security.get('data')?.value | jsonParse)?.plotNumber ? (security.get('data')?.value | jsonParse)?.plotNumber : '0'}}</td>
                                     <td>{{security.get('fairMarketValue')?.value || '0'}}</td>
-                                    <td>{{security.get('distressValue')?.value || '0'}}</td>
+<!--                                    <td>{{security.get('distressValue')?.value || '0'}}</td>-->
                                     <td>{{security.get('considerValue')?.value || '0'}}</td>
                                     <td>
                                         <input type="number" formControlName="usedAmount" class="form-control"

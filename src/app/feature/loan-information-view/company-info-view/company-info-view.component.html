@@ -181,13 +181,13 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
-                <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">NPR. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">NPR. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
+                <td class="text-right pr-1">NPR. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
                 <ng-container *ngIf="client === clientName?.ICFC">
-                    <td class="text-right pr-1" *ngIf="formValue?.capital?.totalCapital > 0">Rs. {{formValue?.capital?.totalCapital}}</td>
-                    <td class="text-right pr-1" *ngIf="formValue?.capital?.fixedCapital > 0">Rs. {{formValue?.capital?.fixedCapital}}</td>
-                    <td class="text-right pr-1" *ngIf="formValue?.capital?.workingCapital > 0">Rs. {{formValue?.capital?.workingCapital}}</td>
+                    <td class="text-right pr-1" *ngIf="formValue?.capital?.totalCapital > 0">NPR. {{formValue?.capital?.totalCapital}}</td>
+                    <td class="text-right pr-1" *ngIf="formValue?.capital?.fixedCapital > 0">NPR. {{formValue?.capital?.fixedCapital}}</td>
+                    <td class="text-right pr-1" *ngIf="formValue?.capital?.workingCapital > 0">NPR. {{formValue?.capital?.workingCapital}}</td>
                 </ng-container>
 <!--                <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>-->
             </tr>
@@ -640,30 +640,30 @@
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <td class="text-left pl-1">Interest Income</td>-->
-<!--                <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>-->
+<!--                <th class="text-right pr-1">NPR. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <td class="text-left pl-1">Loan Processing Fee</td>-->
-<!--                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>-->
+<!--                <th class="text-right pr-1">NPR. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <td class="text-left pl-1">LC Commission</td>-->
-<!--                <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>-->
+<!--                <th class="text-right pr-1">NPR. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <td class="text-left pl-1">Guarantee Commission</td>-->
-<!--                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>-->
+<!--                <th class="text-right pr-1">NPR. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <td class="text-left pl-1">Other Commission</td>-->
-<!--                <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>-->
+<!--                <th class="text-right pr-1">NPR. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <td class="text-left pl-1">Saving Account</td>-->
 <!--                <th>-->
 <!--                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>-->
 <!--                        <ng-template #notMega>-->
-<!--                            <div class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>-->
+<!--                            <div class="text-right pr-1">NPR. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>-->
 <!--                        </ng-template>-->
 <!--                </th>-->
 <!--            </tr>-->
@@ -672,7 +672,7 @@
 <!--                <th>-->
 <!--                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>-->
 <!--                    <ng-template #notMega>-->
-<!--                        <div class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>-->
+<!--                        <div class="text-right pr-1">NPR. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>-->
 <!--                    </ng-template>-->
 <!--                </th>-->
 <!--            </tr>-->
@@ -681,7 +681,7 @@
 <!--                <th>-->
 <!--                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>-->
 <!--                    <ng-template #notMega>-->
-<!--                        <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>-->
+<!--                        <div class="text-right pr-1">NPR. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>-->
 <!--                    </ng-template>-->
 <!--                </th>-->
 <!--            </tr>-->
@@ -690,7 +690,7 @@
 <!--                <th>-->
 <!--                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>-->
 <!--                    <ng-template #notMega>-->
-<!--                        <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>-->
+<!--                        <div class="text-right pr-1">NPR. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>-->
 <!--                    </ng-template>-->
 <!--                </th>-->
 <!--            </tr>-->
@@ -699,7 +699,7 @@
 <!--                <th>-->
 <!--                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>-->
 <!--                    <ng-template #notMega>-->
-<!--                        <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>-->
+<!--                        <div class="text-right pr-1">NPR. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>-->
 <!--                    </ng-template>-->
 <!--                </th>-->
 <!--            </tr>-->
@@ -708,13 +708,13 @@
 <!--                <th>-->
 <!--                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>-->
 <!--                    <ng-template #notMega>-->
-<!--                        <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>-->
+<!--                        <div class="text-right pr-1">NPR. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>-->
 <!--                    </ng-template>-->
 <!--                </th>-->
 <!--            </tr>-->
 <!--            <tr>-->
 <!--                <th class="text-left pl-1">Total</th>-->
-<!--                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>-->
+<!--                <th class="text-right pr-1">NPR. {{businessGiven?.total | currencyFormatter}}</th>-->
 <!--            </tr>-->
 
 <!--        </table>-->

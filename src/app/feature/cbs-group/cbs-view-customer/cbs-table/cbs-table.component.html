@@ -23,14 +23,14 @@
         <td class="text-right pr-1">{{data?.jsonDataMap?.MainCode || '-'}}</td>
         <td class="text-left pl-1">{{data?.jsonDataMap?.Name || '-'}}</td>
         <td class="text-left pl-1">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
-        <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
-        <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
+        <td class="text-right pr-1">NPR.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
+        <td class="text-right pr-1">NPR.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
         <td>{{data?.jsonDataMap?.InterestRate || '-'}}</td>
     </tr>
     <tr>
         <td class="sb-bg-dark text-white text-left pl-1" colspan="6"><strong>Total</strong></td>
-        <td class="text-right pr-1"><strong>Rs.{{totalApprovedLimit | currencyFormatter}}</strong></td>
-        <td class="text-right pr-1"><strong>Rs.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
+        <td class="text-right pr-1"><strong>NPR.{{totalApprovedLimit | currencyFormatter}}</strong></td>
+        <td class="text-right pr-1"><strong>NPR.{{totalOutstandingLimit | currencyFormatter}}</strong></td>
         <td>-</td>
     </tr>
 

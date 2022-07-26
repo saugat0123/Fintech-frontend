@@ -16,19 +16,19 @@
             <tr>
                 <td class="text-left pl-1">Credit Transaction in Account</td>
                 <td class="text-right pr-1">
-                    Rs. {{data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
+                    NPR. {{data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
                 </td>
                 <td class="text-right pr-1">
-                    Rs. {{data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
+                    NPR. {{data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
                 </td>
             </tr>
             <tr>
                 <td class="text-left pl-1">Debit Transaction in Account</td>
                 <td class="text-right pr-1">
-                    Rs. {{data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
+                    NPR. {{data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
                 </td>
                 <td class="text-right pr-1">
-                    Rs. {{data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
+                    NPR. {{data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
             <tr *ngIf="!individual">

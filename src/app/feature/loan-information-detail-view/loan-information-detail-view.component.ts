@@ -278,6 +278,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                     },
                     complete: () => {
                         this.loaded = true;
+                        this.spinner.hide();
                     }
                 });
             } else {
@@ -286,6 +287,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.loanSecurity = this.loanDataHolder.securities;
                 this.customerAllLoanList = [];
                 this.customerAllLoanList.push(this.loanDataHolder);
+                this.spinner.hide();
             }
             this.allLoanList = this.customerAllLoanList;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.existingExposures)) {
@@ -315,7 +317,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
             }
         }
 
-        this.spinner.hide();
     }
 
     customSafePipe(val) {

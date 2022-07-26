@@ -131,13 +131,13 @@
                     </tr>
                     <tr class="text-left" *ngFor="let loan of customerAllLoanList, let i = index">
                         <td>{{ loan?.loan?.name }}</td>
-                        <td>Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
-                        <td>Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</td>
+                        <td>NPR. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+                        <td>NPR. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}</td>
                         <td>{{(loan?.proposal?.data | jsonParse)?.remarks}}</td>
                     </tr>
                     <tr class="sb-bg-gray text-left">
                         <td>Total</td>
-                        <td>Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
+                        <td>NPR. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -164,7 +164,7 @@
                     <td>{{i+1}}.</td>
                     <td>{{insurance?.assetInsured}}</td>
                     <td>{{insurance.policyType}}</td>
-                    <td>Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
+                    <td>NPR. {{insurance?.insuredAmount | currencyFormatter}}</td>
                     <td>{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
                     <td>{{insurance?.company}}</td>
                     <td>{{insurance?.endorsement}}</td>
@@ -525,7 +525,7 @@
         <td class="text-left pl-1">
             {{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}} ({{formData['currentAssetsInspectionDetails']['dateOfInspection'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rentLeased']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
@@ -555,12 +555,12 @@
 
     <tr>
 
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}} ({{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
-        <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>
 
     <tr class="sb-bg-gray">
@@ -812,33 +812,33 @@
     <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">
         <td>{{i + 1}}</td>
         <td class="text-left pl-1">{{parties?.party}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.withinThreeMonths | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.sixMonth | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.oneYear | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.oneYearPlus | currencyFormatter}}</td>
 
     </tr>
     <tr class="text-right">
         <td></td>
         <td class="text-left pl-1">Total</td>
         <td class="pr-1">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b>
         </td>
         <td class="pr-1">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b>
         </td>
         <td class="pr-1">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b>
         </td>
         <td class="pr-1">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b>
         </td>
     </tr>
     <tr>
         <td></td>
         <td class="text-left pl-1">Grand Total</td>
         <td colspan="4" class="text-right pr-1">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b>
         </td>
     </tr>
 
@@ -866,24 +866,24 @@
     <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.payable?.parties; let i=index">
         <td>{{i + 1}}</td>
         <td class="text-left pl-1">{{parties?.party}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.withinThreeMonths | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.sixMonth | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.oneYear | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{parties?.oneYearPlus | currencyFormatter}}</td>
 
     </tr>
     <tr class="text-right">
         <td></td>
         <td class="text-left pl-1">Total</td>
-        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.threeMonthTotal | currencyFormatter}}</b></td>
-        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.sixMonthTotal | currencyFormatter}}</b></td>
-        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.oneYearTotal | currencyFormatter}}</b></td>
-        <td class="pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.moreThanOneYearTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>NPR. {{formData?.currentAssetsInspectionDetails?.payable?.threeMonthTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>NPR. {{formData?.currentAssetsInspectionDetails?.payable?.sixMonthTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>NPR. {{formData?.currentAssetsInspectionDetails?.payable?.oneYearTotal | currencyFormatter}}</b></td>
+        <td class="pr-1"><b>NPR. {{formData?.currentAssetsInspectionDetails?.payable?.moreThanOneYearTotal | currencyFormatter}}</b></td>
     </tr>
     <tr>
         <td></td>
         <td class="text-left pl-1">Grand Total</td>
-        <td colspan="4" class="text-right pr-1"><b>Rs. {{formData?.currentAssetsInspectionDetails?.payable?.grandTotal | currencyFormatter}}</b>
+        <td colspan="4" class="text-right pr-1"><b>NPR. {{formData?.currentAssetsInspectionDetails?.payable?.grandTotal | currencyFormatter}}</b>
         </td>
     </tr>
 
@@ -914,13 +914,13 @@
     <tr *ngFor="let asset of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableAssets; let i = index;">
         <td>{{i + 1}}</td>
         <td class="text-left pl-1">{{asset?.particulars}}</td>
-        <td class="text-right pr-1">Rs. {{asset?.amount | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{asset?.amount | currencyFormatter}}</td>
     </tr>
     <tr>
         <td></td>
         <td class="text-left pl-1">Total</td>
         <td class="text-right pr-1" colspan="2">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableCurrentAssetsTotal | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.receivableCurrentAssetsTotal | currencyFormatter}}</b>
         </td>
     </tr>
     <tr class="sb-bg-gray">
@@ -952,13 +952,13 @@
     <tr *ngFor="let asset of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableAssets; let i=index">
         <td>{{i + 1}}</td>
         <td class="text-left pl-1">{{asset?.particulars}}</td>
-        <td class="text-right pr-1">Rs. {{asset?.amount | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{asset?.amount | currencyFormatter}}</td>
     </tr>
     <tr>
         <td></td>
         <td class="text-left pl-1">Total</td>
         <td class="text-right pr-1" colspan="2">
-            <b>Rs. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableCurrentAssetsTotal  | currencyFormatter}}</b>
+            <b>NPR. {{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.payableCurrentAssetsTotal  | currencyFormatter}}</b>
         </td>
     </tr>
     <tr>
@@ -975,7 +975,7 @@
     <tr *ngFor="let bank of formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.bankExposures; let i=index">
         <td>{{i + 1}}</td>
         <td class="text-left pl-1">{{bank?.bankName}}</td>
-        <td class="text-right pr-1">Rs. {{bank?.amount | currencyFormatter}}</td>
+        <td class="text-right pr-1">NPR. {{bank?.amount | currencyFormatter}}</td>
     </tr>
     <tr class="sb-bg-gray">
         <td colspan="3">
