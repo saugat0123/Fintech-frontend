@@ -79,6 +79,7 @@ export class MasterDocumentComponent implements OnInit {
     const formData = new FormData();
     if (!ObjectUtil.isEmpty(this.mDoc.id)) {
       formData.append('docId', this.mDoc.id.toString());
+      formData.append('isEdit', 'YES');
     }
     if (!ObjectUtil.isEmpty(this.file)) {
       formData.append('file', this.file);
