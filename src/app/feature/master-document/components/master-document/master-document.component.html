@@ -19,6 +19,12 @@
                         <option value="INSTITUTION">INSTITUTION</option>
                     </select>
                 </div>
+                <div class="col-md-4">
+                    <label>Select Loan Type</label>
+                    <select class="form-control" formControlName="loanData">
+                        <option *ngFor="let loan of loanConfigList" [value]="loan?.name">{{loan?.name}}</option>
+                    </select>
+                </div>
             </div>
             <div class="mt-2 text-center">
                 <button nbButton status="success" size="small" type="submit" [disabled]="docForm.invalid">Submit</button>

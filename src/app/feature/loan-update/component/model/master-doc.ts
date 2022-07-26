@@ -8,5 +8,6 @@ export class MasterDoc extends BaseEntity {
     mDocData: string;
     customerType: CustomerType;
     status: DocStatus;
+    loanData: string;
 
 }

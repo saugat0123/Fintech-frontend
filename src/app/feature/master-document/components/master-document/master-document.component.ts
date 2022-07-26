@@ -7,6 +7,8 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {LoanConfig} from '../../../admin/modal/loan-config';
 
 @Component({
   selector: 'app-master-document',
@@ -28,9 +30,11 @@ export class MasterDocumentComponent implements OnInit {
   filterForm: FormGroup = new FormGroup({});
   isFilterCollapsed = true;
   isEdit = false;
+  loanConfigList: Array<LoanConfig> = new Array<LoanConfig>();
 
   constructor(private formBuilder: FormBuilder,
               private masterDocumentService: MasterDocService,
+              private loanConfigService: LoanConfigService,
               private toasterService: ToastService) { }
 
   static loadData(other: MasterDocumentComponent) {
@@ -46,6 +50,7 @@ export class MasterDocumentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllLoanConfigList();
     MasterDocumentComponent.loadData(this);
     this.buildFilterForm();
     this.buildForm();
@@ -56,12 +61,22 @@ export class MasterDocumentComponent implements OnInit {
       file: [undefined, Validators.required],
       docName: [undefined, Validators.required],
       customerType: [undefined, Validators.required],
+      loanData: [undefined],
     });
   }
 
   private buildFilterForm(): FormGroup {
     return this.filterForm = this.formBuilder.group({
       docName: [undefined],
+    });
+  }
+
+  private getAllLoanConfigList(): void {
+    this.loanConfigService.getAll().subscribe(res => {
+      this.loanConfigList = res.detail;
+    }, error => {
+      console.error(error);
+      this.toasterService.show(new Alert(AlertType.DANGER, 'Error while getting loan list'));
     });
   }
 
@@ -83,6 +98,9 @@ export class MasterDocumentComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.file)) {
       formData.append('file', this.file);
+    }
+    if (!ObjectUtil.isEmpty(this.docForm.get('loanData').value)) {
+      formData.append('loanData', this.docForm.get('loanData').value);
     }
     formData.append('docName', this.docForm.get('docName').value);
     formData.append('customerType', this.docForm.get('customerType').value);
