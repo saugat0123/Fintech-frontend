@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {ToastService} from '../../../../../@core/utils';
 import {CadOneformService} from '../../../service/cad-oneform.service';
@@ -22,7 +22,9 @@ export class EditLoanDetailComponent implements OnInit {
   loanTag: string;
   proposal: Proposal;
   loan: LoanConfig;
-  proposedLimit: any;
+  allAssignedLoan: Array<any> = new Array<any>();
+  loanProposedLimit: Array<any> = new Array<any>();
+  updateFlag = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -37,11 +39,11 @@ export class EditLoanDetailComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.data)) {
-      const assignedLoan = this.data.assignedLoan[0];
-      this.loan = assignedLoan.loan;
-      this.proposal = assignedLoan.proposal;
-      this.form.get('proposedLimit').patchValue(this.proposal.proposedLimit);
-      this.showProposedLimitInNep();
+      this.data.assignedLoan.forEach((val, i) => {
+      this.allAssignedLoan.push(val);
+      this.addProposalLimit();
+      this.patchValue(val, i);
+      });
     }
   }
 
@@ -51,15 +53,30 @@ export class EditLoanDetailComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.form = this.formBuilder.group({
-      proposedLimit: [undefined],
+      assignedLoanDetails: this.formBuilder.array([]),
+    });
+  }
+  addProposalLimit() {
+    (this.form.get('assignedLoanDetails') as FormArray).push(this.proposedLimitField());
+  }
+  proposedLimitField() {
+    return this.formBuilder.group({
+      loanName: [undefined],
+      proposedLimit: [undefined]
     });
   }
 
-
   public updateLoanDetail(): void {
     this.spinner = true;
-    this.proposal.proposedLimit = this.form.get('proposedLimit').value;
-    this.cadOneFormService.updateProposalById(this.proposal.id, this.proposal).subscribe(res => {
+    const assignedLoanDetails = [];
+    this.data.assignedLoan.forEach((val: any, i: any) => {
+      const tempProposalModel: Proposal = new Proposal();
+      tempProposalModel.id = val.proposal.id;
+      tempProposalModel.version = val.proposal.version;
+      tempProposalModel.proposedLimit = this.form.get(['assignedLoanDetails', i, 'proposedLimit']).value;
+      assignedLoanDetails.push(tempProposalModel);
+    });
+    this.cadOneFormService.updateAllLoanProposal(assignedLoanDetails).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan updated successfully'));
       this.nbDialogRef.close();
       this.spinner = false;
@@ -70,10 +87,13 @@ export class EditLoanDetailComponent implements OnInit {
     });
   }
 
-  public showProposedLimitInNep(): void {
-    const proposedLimit  = this.form.get('proposedLimit').value;
-    if (!ObjectUtil.isEmpty(proposedLimit)) {
-      this.proposedLimit = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(proposedLimit.toString()));
-    }
+  patchValue(val, i) {
+    this.form.get(['assignedLoanDetails', i, 'loanName']).patchValue(val ?
+    val.loan.name : '');
+    this.form.get(['assignedLoanDetails', i, 'proposedLimit']).patchValue(val ? val.proposal.proposedLimit : '');
+  }
+  setProposedLimit(val) {
+    const tempProposedLimit = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(val.toString()));
+    return tempProposedLimit ? tempProposedLimit : '';
   }
 }

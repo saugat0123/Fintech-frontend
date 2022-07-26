@@ -1,25 +1,29 @@
-<nb-card [nbSpinner]="spinner">
+<nb-card [nbSpinner]="spinner" class="mt-4" style="max-height: 60%">
     <nb-card-header>
         <a class="text-dark font-weight-bold d-flex justify-content-end cursor" (click)="close()">x</a>
         <b class="d-flex justify-content-start">Update Loan Detail</b>
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="form" [nbSpinner]="spinner">
-            <div class="row p-3">
-                <div class="form-group">
-                    <label for="loanTag">Loan Type</label>
-                    <div>
-                        <input nbInput type="text" id="loanTag" [value]="loan?.name || loan?.nepaliName" readonly>
+            <div *ngFor="let allLoan of form?.get('assignedLoanDetails')['controls']; let i = index" formArrayName="assignedLoanDetails">
+                <ng-container [formGroupName]="i">
+                    <div class="row p-3">
+                        <div class="form-group">
+                            <label for="loanTag">Loan Type</label>
+                            <div>
+                                <input nbInput type="text" id="loanTag" formControlName="loanName" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group ml-2">
+                            <label>Proposed Limit</label>
+                            <div>
+                                <input nbInput
+                              formControlName="proposedLimit">
+                            </div>
+                            <span class="font-weight-bold ml-2 mt-2">{{setProposedLimit(form?.get(['assignedLoanDetails', i, 'proposedLimit']).value)}} /-</span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="proposedLimit">Proposed Limit</label>
-                    <div>
-                        <input nbInput formControlName="proposedLimit" id="proposedLimit" type="number"
-                        (change)="showProposedLimitInNep()">
-                    </div>
-                    <span class="font-weight-bold ml-2 mt-2">{{proposedLimit}} /-</span>
-                </div>
+                </ng-container>
             </div>
         </form>
     </nb-card-body>
