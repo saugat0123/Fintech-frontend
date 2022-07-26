@@ -286,6 +286,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.allLoanList.push(this.loanDataHolder);
                 this.loanSecurity = this.loanDataHolder.securities;
                 this.customerAllLoanList = [];
+                this.combinedLoanList.push(this.loanDataHolder);
                 this.customerAllLoanList.push(this.loanDataHolder);
                 this.spinner.hide();
             }

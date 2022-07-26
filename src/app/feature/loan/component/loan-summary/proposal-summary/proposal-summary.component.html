@@ -50,8 +50,6 @@
                 <td class="text-left pl-1">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
-                    <!--                            *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>-->
-                    <!--                    &nbsp;|&nbsp;-->
                     {{ loan?.loan?.name }}
                 </td>
                 <td class="text-center pr-1">
@@ -116,7 +114,7 @@
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}}%</span>
                 </td>
 
-                <td>
+                <td class="text-left">
                     <ng-container *ngIf="loan?.loan?.loanNature === 'Terminating'; else rev ">
                         {{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month
                     </ng-container>
@@ -166,18 +164,18 @@
                             {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}},
                         </div>
                         <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}}%,</ng-template>
+                        <br>
                     </ng-container>
-                    <br>
                     <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.commitmentFee">
                         <span>CF :</span>
                         <span>{{(loan?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}, </span>
+                        <br>
                     </ng-container>
-                    <br>
                     <ng-container *ngIf="loan?.proposal?.prepaymentCharge">
                         <span>PF: </span>
                         <span>{{loan?.proposal?.prepaymentCharge || 'N/A'}}, </span>
+                        <br>
                     </ng-container>
-                    <br>
                     <ng-container *ngIf="(loan?.proposal?.data | jsonParse)?.swapCharge">
                         <span>SF: </span>
                         <span>{{(loan?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</span>
