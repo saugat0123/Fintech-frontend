@@ -285,9 +285,11 @@
                                 <span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span>
                             </div>
                         </div>
-                        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
-                                       [ciclValue]="loanDataHolder?.loanHolder?.cicl"
-                                       [loanDataHolder]="loanDataHolder"></app-cicl-view>
+                        <div>
+                            <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
+                                           [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                                           [loanDataHolder]="loanDataHolder"></app-cicl-view>
+                        </div>
                         <app-dbr *ngIf="financial" [financialData]="financial"
                                  [proposalData]="proposalData"></app-dbr>
                         <ng-container *ngIf="checkedData?.waiverChecked">
