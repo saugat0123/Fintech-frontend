@@ -544,22 +544,22 @@
                                            type="text"
                                            class="form-control-sm form-field"
                                            placeholder="Loan Amount"
-                                           [value]="personalGuarantor.gurantedAmount.ct"/>/- (अक्षरेपी रु
+                                           [value]="personalGuarantor?.gurantedAmount?.ct"/>/- (अक्षरेपी रु
                                     <input formControlName="personalGuarantorAmountInWords"
                                            name="personalGuarantorAmountInWords"
                                            type="text"
                                            class="form-control-sm form-field"
                                            placeholder="Loan Amount"
-                                           [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
+                                           [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor?.gurantedAmount?.en ? personalGuarantor?.gurantedAmount?.en : '')"
                                            />
                                     मात्र) बराबरको
-                                    {{personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
+                                    {{personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married' ? 'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ? 'सुश्री' : personalGuarantor?.gender?.en === 'MALE' ? 'श्री' : '')}}
                                     <input formControlName="personalGuaranteeName"
                                            name="personalguaranteeName"
                                            type="text"
                                            class="form-control-sm form-field"
                                            placeholder="Guarantor Names"
-                                           [value]="personalGuarantor.guarantorName.ct"/>
+                                           [value]="personalGuarantor?.guarantorName?.ct"/>
                                     ले एक्लै वा संयुक्त रूपमा बैंकको पक्षमा व्यक्तिगत जमानत
                                     <span *ngIf="!personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
                                 लेखिदिईएको यथावत कायम रहने छ ।
