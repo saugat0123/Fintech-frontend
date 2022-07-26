@@ -119,5 +119,12 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
+    public getCadDataById(customerId: any): Observable<any> {
+        const api = `${this.getApi()}/cad/${customerId}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 
 }
