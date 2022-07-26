@@ -210,7 +210,7 @@
                                    formControlName="companyRepresentativeFatherName">
                             <span class="print-only preetiFont font24">{{this.form.get('companyRepresentativeFatherName').value || ''}}</span> </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="nepaliData?.authorizedPersonDetail?.gender == 0">
                         <td>
                             अख्तियार प्राप्त व्यक्तिको पतिको नाम:
                         </td>
@@ -247,7 +247,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="stock">
                 <span><strong>ख . धितो प्रदान गरेको चालु सम्पतिहरुको विवरण :</strong></span>
                 <table class="table table-sm table-bordered">
                    <thead>
@@ -271,7 +271,7 @@
                         <td>बैंकलाई बुझाएको विवरण बमोजिमको उठाँउन वाँकी रकम (Receivable and Book Debt value)</td>
                         <td class="font-weight-bold">रु. <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
                                                                 formControlName="debtValue">
-                            <span class="print-only preetiFont font24">{{this.form.get('debtValue').value || ''}}</span>
+                            <span class="print-only preetiFont font24">{{form?.get('debtValue')?.value || ''}}</span>
                         </td>
                     </tr>
                     </tbody>
