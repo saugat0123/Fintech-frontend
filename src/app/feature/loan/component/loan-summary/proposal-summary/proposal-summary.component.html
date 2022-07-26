@@ -39,7 +39,7 @@
 
                 <th>Limit Expiry/Tenure</th>
                 <th>Repayment Mode</th>
-                <th>Fee/Commission</th>
+                <th>Fee/ <br>Commission</th>
 <!--                <th>Purpose of Loan</th>-->
                    </thead>
             <tbody>
@@ -309,14 +309,14 @@
 
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-            <ng-container *ngIf="checkedData?.solChecked">
-                <tr class="sb-bg-gray">
-                    <th>Single Obligor Limit</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-                </tr>
-            </ng-container>
+<!--            <ng-container *ngIf="checkedData?.solChecked">-->
+<!--                <tr class="sb-bg-gray">-->
+<!--                    <th>Single Obligor Limit</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>-->
+<!--                </tr>-->
+<!--            </ng-container>-->
             <ng-container *ngIf="checkedData?.riskChecked && !consumerFinance">
                 <tr class="sb-bg-gray">
                     <th>Risk & Mitigation</th>

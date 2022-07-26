@@ -352,10 +352,17 @@ export class ProposalComponent implements OnInit {
                     this.checklistChecked = obj.checklistChecked;
                 }
             } else  {
-                const obj = JSON.parse(this.loan.paperProductChecklist);
-                this.paperChecklist = obj.view;
-                this.allIds = obj.id;
-                this.checklistChecked = true;
+                if (JSON.parse(this.loan.paperProductChecklist).view === 'undefined') {
+                    const obj = JSON.parse(this.loan.loan.paperChecklist);
+                    this.paperChecklist = obj.view;
+                    this.allIds = obj.id;
+                    this.checklistChecked = obj.checklistChecked;
+                } else {
+                    const obj = JSON.parse(this.loan.paperProductChecklist);
+                    this.paperChecklist = obj.view;
+                    this.allIds = obj.id;
+                    this.checklistChecked = true;
+                }
             }
             this.checkLoan();
         }, error => {
@@ -491,7 +498,8 @@ export class ProposalComponent implements OnInit {
             }),
             justification: [undefined],
             currentRequest: [undefined],
-            repay: [undefined]
+            repay: [undefined],
+            requestType: [undefined]
         });
     }
 
@@ -601,6 +609,7 @@ export class ProposalComponent implements OnInit {
             }
             if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
                 this.productPaperChecklistComponent.save();
+                this.loan.paperProductChecklist = this.productPaperChecklistComponent.finalCheckList;
             }
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
@@ -1075,9 +1084,9 @@ export class ProposalComponent implements OnInit {
         this.loan = loan;
     }
 
-    productChecklist(data) {
-        this.loan = data;
-    }
+    // productChecklist(data) {
+    //     this.loan = data;
+    // }
 
   addFixedArray() {
     (this.proposalForm.get('fixedAssetsSummary') as FormArray).push(

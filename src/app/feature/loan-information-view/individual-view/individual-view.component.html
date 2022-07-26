@@ -136,9 +136,14 @@
                             {{relative?.customerRelation}}
                         </td>
                         <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
-                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] === 'Other'">{{relative?.occupation || 'N/A'}}</td>
-                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] !== 'Other'">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
-
+                        <td class="text-left pl-1" >
+                            <ng-container *ngIf="(relative?.relativeOtherOccupation | jsonParse)?.includes('Other')">
+                                {{relative?.occupation || 'N/A'}}
+                            </ng-container>
+                            <ng-container>
+                                {{(relative?.relativeOtherOccupation | jsonParse) || 'N/A'}}
+                            </ng-container>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

@@ -557,74 +557,74 @@
               </span></a>
     </nb-card-header>
     <nb-card-body>
-      <div class="row">
-        <div class="row col-md-12">
-          <div class="col-md-6">
-            <span>Information of Proprietor/Shareholder/Partner</span>
-          </div>
-        </div>
+<!--      <div class="row">-->
+<!--        <div class="row col-md-12">-->
+<!--          <div class="col-md-6">-->
+<!--            <span>Information of Proprietor/Shareholder/Partner</span>-->
+<!--          </div>-->
+<!--        </div>-->
 
 
-        <br>
-        <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">
-          <thead>
-          <tr class="text-white sb-bg-dark">
-            <th scope="col"> S.N </th>
-            <th scope="col">Type</th>
-            <th scope="col">Name</th>
-            <th scope="col">Contact No.</th>
-            <th scope="col">Share</th>
-            <th scope="col">Province</th>
-            <th scope="col">District</th>
-            <th scope="col">Municipality/VDC</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let proprietorInfo of companyJsonData?.proprietorList;
-                                        let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{proprietorInfo?.type}}</td>
-            <td>{{proprietorInfo?.name}}</td>
-            <td>{{proprietorInfo?.contactNo}}</td>
-            <td>{{proprietorInfo?.share}}</td>
-            <td>{{proprietorInfo?.province?.name}}</td>
-            <td>{{proprietorInfo?.district?.name}}</td>
-            <td>{{proprietorInfo?.municipalityVdc?.name}}</td>
-          </tr>
-          </tbody>
-        </table>
+<!--        <br>-->
+<!--        <table aria-describedby="proprietor info table" class="table  table-bordered table-hover sb-small text-center">-->
+<!--          <thead>-->
+<!--          <tr class="text-white sb-bg-dark">-->
+<!--            <th scope="col"> S.N </th>-->
+<!--            <th scope="col">Type</th>-->
+<!--            <th scope="col">Name</th>-->
+<!--            <th scope="col">Contact No.</th>-->
+<!--            <th scope="col">Share</th>-->
+<!--            <th scope="col">Province</th>-->
+<!--            <th scope="col">District</th>-->
+<!--            <th scope="col">Municipality/VDC</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let proprietorInfo of companyJsonData?.proprietorList;-->
+<!--                                        let i = index">-->
+<!--            <td>{{i + 1}}</td>-->
+<!--            <td>{{proprietorInfo?.type}}</td>-->
+<!--            <td>{{proprietorInfo?.name}}</td>-->
+<!--            <td>{{proprietorInfo?.contactNo}}</td>-->
+<!--            <td>{{proprietorInfo?.share}}</td>-->
+<!--            <td>{{proprietorInfo?.province?.name}}</td>-->
+<!--            <td>{{proprietorInfo?.district?.name}}</td>-->
+<!--            <td>{{proprietorInfo?.municipalityVdc?.name}}</td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
 
-      </div>
-      <hr>
+<!--      </div>-->
+<!--      <hr>-->
 
-      <div class="row">
-        <div class="row col-md-12">
-          <div class="col-md-6">
-            <strong>Management Team</strong>
-          </div>
-        </div>
+<!--      <div class="row">-->
+<!--        <div class="row col-md-12">-->
+<!--          <div class="col-md-6">-->
+<!--            <strong>Management Team</strong>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <br>
-        <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">
-          <thead>
-          <tr class="sb-bg-dark text-white">
-            <th scope="col"> S.N</th>
-            <th scope="col">Name</th>
-            <th scope="col">Designation</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;
-                                        let i = index">
-            <td>{{i + 1}}</td>
-            <td>{{singleManagementTeam?.name}}</td>
-            <td>{{singleManagementTeam?.designation}}</td>
-          </tr>
-          </tbody>
-        </table>
+<!--        <br>-->
+<!--        <table aria-describedby="management team table" class="table  table-bordered table-hover sb-small text-center">-->
+<!--          <thead>-->
+<!--          <tr class="sb-bg-dark text-white">-->
+<!--            <th scope="col"> S.N</th>-->
+<!--            <th scope="col">Name</th>-->
+<!--            <th scope="col">Designation</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let singleManagementTeam of companyJsonData?.managementTeamList;-->
+<!--                                        let i = index">-->
+<!--            <td>{{i + 1}}</td>-->
+<!--            <td>{{singleManagementTeam?.name}}</td>-->
+<!--            <td>{{singleManagementTeam?.designation}}</td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
 
-      </div>
-      <hr>
+<!--      </div>-->
+<!--      <hr>-->
       <div class="row">
         <div class="row col-md-12">
           <div class="col-md-6">

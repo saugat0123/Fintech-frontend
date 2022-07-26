@@ -24,11 +24,10 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     @Input() allIds;
     parser: DOMParser;
     parsedData: Document;
+    finalCheckList;
 
     ngOnInit() {
         this.parser = new DOMParser();
-        console.log('this is data', this.paper);
-        console.log('this is allids', this.allIds);
         this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
     }
     change(id) {
@@ -66,7 +65,8 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
             id: this.allIds
         };
         this.loanDataHolder.paperProductChecklist = JSON.stringify(obj);
-        this.checkList.emit(this.loanDataHolder);
+        this.finalCheckList = JSON.stringify(obj);
+        // this.checkList.emit(JSON.stringify(obj));
     }
 
     ngAfterViewInit(): void {

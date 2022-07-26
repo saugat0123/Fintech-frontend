@@ -243,8 +243,14 @@
                                             {{relative?.customerRelation}}
                                         </td>
                                         <td class="text-left pl-1">{{calculateAge(relative?.dateOfBirth)}} years</td>
-                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] === 'Other'">{{relative?.occupation || 'N/A'}}</td>
-                                        <td class="text-left pl-1" *ngIf="(relative?.relativeOtherOccupation | jsonParse)[0] !== 'Other'">{{(relative?.relativeOtherOccupation | jsonParse)|| 'N/A'}}</td>
+                                        <td class="text-left pl-1" >
+                                            <ng-container *ngIf="(relative?.relativeOtherOccupation | jsonParse)?.includes('Other')">
+                                                {{relative?.occupation || 'N/A'}}
+                                            </ng-container>
+                                            <ng-container>
+                                                {{(relative?.relativeOtherOccupation | jsonParse) || 'N/A'}}
+                                            </ng-container>
+                                            </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -270,6 +276,10 @@
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
+                            <div class="col-md-12">
+                                <p><strong class="header text-left">Request Type</strong></p>
+                                <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
+                            </div>
                             <div class="col-md-12">
                                 <p><strong class="header text-left">Justification of Limit for Consumer Finance</strong></p>
                                 <span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span>
