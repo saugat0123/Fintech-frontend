@@ -205,6 +205,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     subsidizedLoanChecked = false;
     reviewDateBoolean = false;
 
+    consumerFinance = false;
+    smallBusiness = false;
+    deprivedSector = false;
+    microFinancialService = false;
     private _securities = new BehaviorSubject<Security[]>([]);
     readonly securities$ = this._securities.asObservable();
 
@@ -223,6 +227,17 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.ckeConfig = Editor.CK_CONFIG;
+        if (this.customerInfo.clientType === 'CONSUMER_FINANCE') {
+            this.consumerFinance = true;
+        } else if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.smallBusiness = true;
+        }
+        if (this.customerInfo.clientType === 'DEPRIVED_SECTOR') {
+            this.deprivedSector = true;
+        }
+        if (this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES') {
+            this.microFinancialService = true;
+        }
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         this.customerService.detail(this.customerInfo.associateId).subscribe((res) => {
             this.customer = res.detail;

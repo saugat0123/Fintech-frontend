@@ -491,7 +491,8 @@ export class ProposalComponent implements OnInit {
             }),
             justification: [undefined],
             currentRequest: [undefined],
-            repay: [undefined]
+            repay: [undefined],
+            requestType: [undefined]
         });
     }
 

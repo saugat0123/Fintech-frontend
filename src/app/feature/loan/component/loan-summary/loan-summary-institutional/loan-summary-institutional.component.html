@@ -92,6 +92,11 @@
                            </div>
                            </ng-template>
                            <ng-container>
+                               <div class="col-md-12">
+                                   <p><strong class="header text-left">Request Type</strong></p>
+                                   <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
+                               </div>
+
                                <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
                                    <hr class="print-line">
                                    <p><strong class="header text-left">Justification for Change (Historical): </strong></p>

@@ -100,6 +100,7 @@ export class CommonLoanDataComponent implements OnInit {
             total: [undefined],
             totals: [undefined],
             files: [undefined],
+            requestType: [undefined]
         });
     }
 
