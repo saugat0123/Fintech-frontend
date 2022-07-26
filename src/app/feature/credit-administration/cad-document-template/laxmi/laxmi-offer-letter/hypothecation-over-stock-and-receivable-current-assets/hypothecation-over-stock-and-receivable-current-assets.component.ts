@@ -33,6 +33,7 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
     amount;
     nepaliData;
     customerInfo;
+    stock;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -65,6 +66,7 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
         }
+        this.checkStockAndReceivable();
         this.checkInitialData();
     }
 
@@ -149,6 +151,39 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
             debtValue: [undefined],
         });
     }
+patchForm() {
+        this.form.patchValue({
+            branchDistrict: ObjectUtil.setUndefinedIfNull(this.nepaliData.branchDetail.branchDistrict),
+            branchMun: this.nepaliData.branchDetail.branchMunVdc,
+            branchWardNo: this.nepaliData.branchDetail.branchWardNo,
+            branchName: this.nepaliData.branchDetail.branchNameInNepali,
+            companyName: ObjectUtil.setUndefinedIfNull(this.nepaliData.nepaliName),
+            companyRegistrationNo: this.nepaliData.registrationNo,
+            registrationNikayaName: this.nepaliData.companyRegOffice,
+            registrationDate: this.nepaliData.regIssueDate,
+            companyPanNumber: this.nepaliData.panNo,
+            companyPanIssueOffice: this.nepaliData.panIssueOffice,
+            companyPanIssueDate: this.nepaliData.panIssueDate,
+            companyRegDistrict: this.nepaliData.institutionRegisteredAddress.district,
+            companyRegVdc: this.nepaliData.institutionRegisteredAddress.municipality,
+            companyRegWardNo: this.nepaliData.institutionRegisteredAddress.wardNo,
+            companyRegTole: this.nepaliData.institutionRegisteredAddress.tole,
+            companyRegTempDistrict: this.nepaliData.institutionCurrentAddress.district,
+            companyRegTempVdc: this.nepaliData.institutionCurrentAddress.municipality,
+            companyRegTempWardNo: this.nepaliData.institutionCurrentAddress.wardNo,
+            companyRegTempTole: this.nepaliData.institutionCurrentAddress.tole,
+            companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
+            companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
+            companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
+            companyRepresentativeHusbandName: ObjectUtil.setUndefinedIfNull (this.nepaliData.authorizedPersonDetail.husbandName),
+            companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
+            companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
+            companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
+            representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenshipNo,
+            representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
+            representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+        });
+}
 
   fillNepaliData() {
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
@@ -182,8 +217,6 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
           representativeCitizenNumber: this.nepaliData.representativeCitizenNumber,
           representativeCitizenIssueDate: this.nepaliData.representativeCitizenIssueDate,
           representativeCitizenOffice: this.nepaliData.representativeCitizenOffice,
-          stockValue: this.nepaliData.stockValue,
-          debtValue: this.nepaliData.debtValue,
           districtOne: this.nepaliData.districtOne,
           municipalityOne: this.nepaliData.municipalityOne,
           wardNum: this.nepaliData.wardNum,
@@ -200,13 +233,13 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
           itiSambatMonth: this.nepaliData.itiSambatMonth,
           itiSambatDay: this.nepaliData.itiSambatDay,
           roj: this.nepaliData.roj,
-
-
-        customerName: this.nepaliData.name,
-
+          stockValue: this.stock ? this.stock.stocksReceivablesValue.stockValue : '',
+          debtValue: this.stock ? this.stock.stocksReceivablesValue.receivableValue : '',
+          customerName: this.nepaliData.name,
         proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
         amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
       });
+        this.patchForm();
     }
   }
     onSubmit() {
@@ -239,13 +272,13 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         }
 
         this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
             this.spinner = false;
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
             this.dialogRef.close();
             this.spinner = false;
         });
@@ -262,6 +295,19 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
             this.form.patchValue({
                 proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
                 amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
+            });
+        }
+    }
+
+    checkStockAndReceivable() {
+        if (this.nepaliData.collateralDetails.length > 0) {
+            this.nepaliData.collateralDetails.forEach((val, i) => {
+                if (!ObjectUtil.isEmpty(val.collateralType)) {
+                    if (val.collateralType === 'stocks_receivables') {
+                        this.stock = val;
+                        return;
+                    }
+                }
             });
         }
     }
