@@ -352,7 +352,7 @@ export class ProposalComponent implements OnInit {
                     this.checklistChecked = obj.checklistChecked;
                 }
             } else  {
-                if (JSON.parse(this.loan.paperProductChecklist).view === undefined) {
+                if (JSON.parse(this.loan.paperProductChecklist).view === 'undefined') {
                     const obj = JSON.parse(this.loan.loan.paperChecklist);
                     this.paperChecklist = obj.view;
                     this.allIds = obj.id;
