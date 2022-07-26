@@ -92,7 +92,9 @@
                            </div>
                            </ng-template>
                            <ng-container>
-                               <div class="col-md-12">
+
+                               <div class="col-md-12" *ngIf="proposalAllData?.requestType">
+                                   <hr class="print-line">
                                    <p><strong class="header text-left">Request Type</strong></p>
                                    <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
                                </div>

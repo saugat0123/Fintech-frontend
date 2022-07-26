@@ -257,8 +257,12 @@
                             </div>
                         </div>
 
-                        <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
-                                               [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+                        <hr  *ngIf="loanDataHolder?.financial && individual" class="print-line">
+                        <app-financial-view *ngIf="loanDataHolder?.financial && individual"
+                                            [customerType]="loanDataHolder?.loanHolder?.customerType"
+                                            [formData]="loanDataHolder?.financial"></app-financial-view>
+<!--                        <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"-->
+<!--                                               [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
                         <hr class="print-line">
                         <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
                             <div class="col-md-12">
@@ -276,12 +280,16 @@
                             </div>
                         </div>
                         <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
-                            <div class="col-md-12">
-                                <p><strong class="header text-left">Request Type</strong></p>
+                            <div class="col-md-12" *ngIf="proposalAllData?.requestType">
+                                <hr class="print-line">
+                                <p class="header"><strong class="header text-left">Request Type</strong></p>
                                 <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
                             </div>
+
+
                             <div class="col-md-12">
-                                <p><strong class="header text-left">Justification of Limit for Consumer Finance</strong></p>
+                                <hr class="print-line">
+                                <p class="header"><strong class="header text-left">Justification of Limit</strong></p>
                                 <span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span>
                             </div>
                         </div>
@@ -306,7 +314,8 @@
                         </ng-container>
                         <div class="row">
                             <div class="col-md-12">
-                                <p><strong class="header"> Summary and Recommendation</strong></p>
+                                <hr class="print-line">
+                                <p class="header"><strong class="header"> Summary and Recommendation</strong></p>
                                 <span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span>
                             </div>
                         </div>
