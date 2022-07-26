@@ -267,54 +267,6 @@
                                        type="text"/>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeDesignation">Staff Representative
-                                    Designation 1</label>
-                                <select class="form-control rounded"
-                                        formControlName="landStaffRepresentativeDesignation"
-                                        id="landStaffRepresentativeDesignation"
-                                        name="landStaffRepresentativeDesignation">
-                                    <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
-                                    <option *ngFor="let designation of designationList"
-                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name
-                                    1</label>
-                                <input class="form-control rounded" formControlName="landStaffRepresentativeName"
-                                       id="landStaffRepresentativeName"
-                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name 1"
-                                       type="text"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeDesignation2">Staff Representative
-                                    Designation 2</label>
-                                <select class="form-control rounded"
-                                        formControlName="landStaffRepresentativeDesignation2"
-                                        id="landStaffRepresentativeDesignation2"
-                                        name="landStaffRepresentativeDesignation2">
-                                    <option [ngValue]="null">Staff Representative Designation 2</option>
-                                    <option *ngFor="let designation of designationList"
-                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeName2">Staff Representative Name
-                                    2</label>
-                                <input class="form-control rounded" formControlName="landStaffRepresentativeName2"
-                                       id="landStaffRepresentativeName2"
-                                       name="landStaffRepresentativeName2" placeholder="Staff Representative Name 2"
-                                       type="text"/>
-                            </div>
-                        </div>
                         <div class="col-md-3 mb-3">
                             <div class="form-group">
                                 <label for="valuationMode">Valuation Mode</label>
@@ -361,6 +313,108 @@
                                 </select>
                             </div>
                         </div>
+<!--
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeDesignation">Staff Representative
+                                    Designation 1</label>
+                                <select class="form-control rounded"
+                                        formControlName="landStaffRepresentativeDesignation"
+                                        id="landStaffRepresentativeDesignation"
+                                        name="landStaffRepresentativeDesignation">
+                                    <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                        </div>
+-->
+<!--
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name
+                                    1</label>
+                                <input class="form-control rounded" formControlName="landStaffRepresentativeName"
+                                       id="landStaffRepresentativeName"
+                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name 1"
+                                       type="text"/>
+                            </div>
+                        </div>
+-->
+<!--
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeDesignation2">Staff Representative
+                                    Designation 2</label>
+                                <select class="form-control rounded"
+                                        formControlName="landStaffRepresentativeDesignation2"
+                                        id="landStaffRepresentativeDesignation2"
+                                        name="landStaffRepresentativeDesignation2">
+                                    <option [ngValue]="null">Staff Representative Designation 2</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                        </div>
+-->
+<!--
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeName2">Staff Representative Name
+                                    2</label>
+                                <input class="form-control rounded" formControlName="landStaffRepresentativeName2"
+                                       id="landStaffRepresentativeName2"
+                                       name="landStaffRepresentativeName2" placeholder="Staff Representative Name 2"
+                                       type="text"/>
+                            </div>
+                        </div>
+-->
+                        <div class="col-md-12">
+                            <div *ngFor="let landDetailsStaff of securityForm?.get(['landDetails', i, 'landStaffDetails'])['controls']; let index = index;"
+                                 formArrayName="landStaffDetails">
+                                <div [formGroupName]="index" class="row">
+                                    <div class="col-md-4 form-group">
+                                        <label class="landStaffRepresentativeDesignation"
+                                               for="landStaffRepresentativeDesignation">
+                                            Staff Representative Designation{{index + 1}}
+                                        </label>
+                                        <select class="form-control"
+                                                formControlName="landStaffRepresentativeDesignation"
+                                                id="landStaffRepresentativeDesignation"
+                                                name="landStaffRepresentativeDesignation">
+                                            <option [ngValue]="null" hidden>Staff Representative
+                                                Designation {{index + 1}}</option>
+                                            <option *ngFor="let designation of designationList"
+                                                    [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="landStaffRepresentativeName"
+                                               for="landStaffRepresentativeName">
+                                            Staff Representative Name {{index + 1}}
+                                        </label>
+                                        <input class="form-control"
+                                               formControlName="landStaffRepresentativeName"
+                                               id="landStaffRepresentativeName"
+                                               name="landStaffRepresentativeName" type="text"
+                                               placeholder="Staff Representative Name"/>
+                                    </div>
+                                    <div *ngIf="securityForm?.get(['landDetails', i, 'landStaffDetails'])['length'] > 1"
+                                         class="col-md-1 pt-4">
+                                        <input (click)="deleteLandStaffsDetails(i, index)"
+                                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                                               type="button" value="Delete"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <button
+                                        (click)="addStaff(i)"
+                                        class="btn btn-sm btn-flat btn-primary">Add Staff
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="col-md-3"
                              *ngIf="securityForm.get(['landDetails',i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.OTHER)">
                             <div class="form-group">

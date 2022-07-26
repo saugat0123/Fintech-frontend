@@ -76,7 +76,7 @@ export class SecurityInitialFormComponent implements OnInit {
     apartmentSelected = false;
     plantSelected = false;
     underConstructionChecked = false;
-    formDataForEdit: Object;
+    formDataForEdit: any;
     valuatorList = [];
     englishDateSelected = true;
     vehicleSelected = false;
@@ -299,6 +299,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     l['reValuatedConsideredValue'] = 0);
             }
         }
+        console.log('landDetails::::', this.securityForm);
         this.updateLandSecurityTotal();
     }
 
@@ -492,6 +493,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     setLandDetails(currentData) {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
+        console.log('landDetails:::', landDetails);
         currentData.forEach((singleData, index) => {
             if (!ObjectUtil.isEmpty(singleData.kycCheckForLand) && singleData.kycCheckForLand === true) {
                 this.ownerKycRelationInfoCheckedForLand = true;
@@ -515,14 +517,14 @@ export class SecurityInitialFormComponent implements OnInit {
                     landValuator: [singleData.landValuator],
                     landValuatorDate: [ObjectUtil.isEmpty(singleData.landValuatorDate) ? undefined : new Date(singleData.landValuatorDate)],
                     landValuatorRepresentative: [singleData.landValuatorRepresentative],
-                    landStaffRepresentativeName: [singleData.landStaffRepresentativeName],
+                    // landStaffRepresentativeName: [singleData.landStaffRepresentativeName],
                     landBranch: [singleData.landBranch],
                     landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ? undefined : singleData.landConsideredValue],
                     typeOfProperty: [singleData.typeOfProperty],
                     revaluationData: [singleData.revaluationData],
-                    landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
-                    landStaffRepresentativeName2: [singleData.landStaffRepresentativeName2],
-                    landStaffRepresentativeDesignation2: [singleData.landStaffRepresentativeDesignation2],
+                    // landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
+                    // landStaffRepresentativeName2: [singleData.landStaffRepresentativeName2],
+                    // landStaffRepresentativeDesignation2: [singleData.landStaffRepresentativeDesignation2],
                     landSecurityLegalDocumentAddress: [singleData.landSecurityLegalDocumentAddress],
                     ownershipTransferDate: [ObjectUtil.isEmpty(singleData.ownershipTransferDate) ?
                         undefined : new Date(singleData.ownershipTransferDate)],
@@ -540,9 +542,12 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
-                    valuationMode: [singleData.valuationMode]
+                    valuationMode: [singleData.valuationMode],
+                    landStaffDetails: this.formBuilder.array([])
                 })
             );
+            this.previousData();
+            console.log('landDetails after:::', landDetails);
         });
     }
 
@@ -1399,14 +1404,14 @@ export class SecurityInitialFormComponent implements OnInit {
             landValuator: [undefined],
             landValuatorDate: [undefined],
             landValuatorRepresentative: [undefined],
-            landStaffRepresentativeName: [undefined],
+            // landStaffRepresentativeName: [undefined],
             landBranch: [undefined],
             landConsideredValue: [undefined, Validators.required],
             typeOfProperty: [undefined],
             revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}, Validators.required],
-            landStaffRepresentativeDesignation: [undefined],
-            landStaffRepresentativeName2: [undefined],
-            landStaffRepresentativeDesignation2: [undefined],
+            // landStaffRepresentativeDesignation: [undefined],
+            // landStaffRepresentativeName2: [undefined],
+            // landStaffRepresentativeDesignation2: [undefined],
             landSecurityLegalDocumentAddress: [undefined],
             ownershipTransferDate: undefined,
             ownershipTransferThrough: undefined,
@@ -1423,8 +1428,10 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
             kycCheckForLand: [false],
-            valuationMode: ['']
+            valuationMode: [''],
+            landStaffDetails: this.formBuilder.array([]),
         });
+        this.addStaff();
     }
 
     buildingDetailsFormGroup(): FormGroup {
@@ -2543,5 +2550,56 @@ export class SecurityInitialFormComponent implements OnInit {
 
     checkCompany(event: KeyboardEvent, i: number) {
 
+    }
+    deleteLandStaffsDetails(mainIndex: any, index: any) {
+        ((this.securityForm.get('landDetails') as FormArray).at(mainIndex)
+            .get('landStaffDetails') as FormArray).removeAt(index);
+    }
+    addStaff(i?: any) {
+        const controls = ((this.securityForm.get('landDetails') as FormArray).at(i)
+            .get('landStaffDetails') as FormArray);
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+            return;
+        }
+        controls.push(this.staffsFormGroup());
+    }
+    staffsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            landStaffRepresentativeDesignation: undefined,
+            landStaffRepresentativeName: undefined,
+        });
+    }
+
+    previousData() {
+        if (!ObjectUtil.isEmpty(this.formDataForEdit) && (!ObjectUtil.isEmpty(this.formDataForEdit.landDetails))) {
+            console.log('formDataEdit:::', this.formDataForEdit);
+            this.formDataForEdit.landDetails.forEach((val: any, i: any) => {
+                console.log(this.formDataForEdit.landDetails, 'landDetails==');
+                const controls = ((this.securityForm.get('landDetails') as FormArray).at(i)
+                    .get('landStaffDetails') as FormArray);
+                if ((!ObjectUtil.isEmpty(val.landStaffRepresentativeName) &&
+                        ObjectUtil.isEmpty(val.landStaffRepresentativeName2)) ||
+                    (ObjectUtil.isEmpty(val.landStaffRepresentativeName) &&
+                        !ObjectUtil.isEmpty(val.landStaffRepresentativeName2))) {
+                    controls.push(this.staffsFormGroup());
+                    this.securityForm.get(['landDetails', i, 'landStaffDetails', 0, 'staffRepresentativeName'])
+                        .patchValue(!ObjectUtil.isEmpty(val.landStaffRepresentativeName) ? val.landStaffRepresentativeName :
+                            val.landStaffRepresentativeName2);
+                    this.securityForm.get(['landDetails', i, 'landStaffDetails', 0, 'staffRepresentativeNameDesignation'])
+                        .patchValue(!ObjectUtil.isEmpty(val.landStaffRepresentativeDesignation) ? val.landStaffRepresentativeDesignation :
+                            val.landStaffRepresentativeDesignation2);
+                } else if (!ObjectUtil.isEmpty(val.landStaffRepresentativeName) &&
+                    !ObjectUtil.isEmpty(val.landStaffRepresentativeName2)) {
+                    for (let a = 0; a < 2; a++) {
+                        controls.push(this.staffsFormGroup());
+                        this.securityForm.get(['landDetails', i, 'landStaffDetails', a, 'landStaffRepresentativeName']).patchValue(
+                            a === 0 ? val.landStaffRepresentativeName : val.landStaffRepresentativeName2);
+                        this.securityForm.get(['landDetails', i, 'landStaffDetails', a, 'landStaffRepresentativeDesignation']).patchValue(
+                            a === 0 ? val.landStaffRepresentativeDesignation : val.landStaffRepresentativeDesignation2);
+                    }
+                }
+            });
+        }
     }
 }

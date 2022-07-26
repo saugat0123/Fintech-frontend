@@ -650,9 +650,7 @@ export class SiteVisitComponent implements OnInit {
         controls.push(
             this.formBuilder.group({
                 staffRepresentativeNameDesignation: undefined,
-                staffRepresentativeName: undefined,
-                staffRepresentativeNameDesignation2: undefined,
-                staffRepresentativeName2: undefined,
+                staffRepresentativeName: undefined
             })
         );
     }
@@ -933,9 +931,7 @@ export class SiteVisitComponent implements OnInit {
                 inspectingStaffsDetails: this.formBuilder.array([
                     this.formBuilder.group({
                         staffRepresentativeNameDesignation: undefined,
-                        staffRepresentativeName: undefined,
-                        staffRepresentativeNameDesignation2: undefined,
-                        staffRepresentativeName2: undefined,
+                        staffRepresentativeName: undefined
                     })]),
             }),
             majorInquiriesAndObservations: this.formBuilder.group({
