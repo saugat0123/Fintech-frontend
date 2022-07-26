@@ -81,6 +81,13 @@
                                            [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
             </ng-template>
             <ng-container>
+
+                <div class="col-md-12" *ngIf="proposalAllData?.requestType">
+                <hr class="print-line">
+                    <p class="header"><strong class="header text-left">Request Type</strong></p>
+                    <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
+                </div>
+
                 <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
                     <hr class="print-line">
                     <p><strong class="header text-left">Justification for Change (Historical): </strong>

@@ -1,19 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../loan/model/loanData';
-import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {Proposal} from '../../admin/modal/proposal';
-import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
-import {ProductUtils} from '../../admin/service/product-mode.service';
-import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
-import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
-import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {CombinedLoan} from '../../loan/model/combined-loan';
-import {IndividualJsonData} from '../../admin/modal/IndividualJsonData';
-import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {Security} from '../../loan/model/security';
 import {ProductPaperChecklistComponent} from '../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {ReadmoreModelComponent} from '../../loan/component/readmore-model/readmore-model.component';
@@ -247,6 +236,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
             const child = input.innerHTML;
             if (!child.includes('checked')) {
               input.innerHTML = `<input type="radio" disabled>`;
+            } else {
+              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * 100) + 1}">`;
             }
           });
           this.toggleChecklist.push(parserData.body.innerHTML);
