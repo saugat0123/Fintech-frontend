@@ -10,4 +10,5 @@ export class CustomerRelative {
     age: number;
     dateOfBirth: Date;
     relativeOtherOccupation: string;
+    occupation: string;
 }
