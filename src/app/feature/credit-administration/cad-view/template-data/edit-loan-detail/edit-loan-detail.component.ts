@@ -22,8 +22,6 @@ export class EditLoanDetailComponent implements OnInit {
   loanTag: string;
   proposal: Proposal;
   loan: LoanConfig;
-  allAssignedLoan: Array<any> = new Array<any>();
-  loanProposedLimit: Array<any> = new Array<any>();
   updateFlag = false;
 
   constructor(
@@ -40,7 +38,6 @@ export class EditLoanDetailComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.data)) {
       this.data.assignedLoan.forEach((val, i) => {
-      this.allAssignedLoan.push(val);
       this.addProposalLimit();
       this.patchValue(val, i);
       });
@@ -88,8 +85,7 @@ export class EditLoanDetailComponent implements OnInit {
   }
 
   patchValue(val, i) {
-    this.form.get(['assignedLoanDetails', i, 'loanName']).patchValue(val ?
-    val.loan.name : '');
+    this.form.get(['assignedLoanDetails', i, 'loanName']).patchValue(val ? val.loan.name : '');
     this.form.get(['assignedLoanDetails', i, 'proposedLimit']).patchValue(val ? val.proposal.proposedLimit : '');
   }
   setProposedLimit(val) {
