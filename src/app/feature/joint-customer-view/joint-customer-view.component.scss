@@ -1,0 +1,13 @@
+table, th, td {
+  padding: 0px;
+  margin: 0px !important;
+}
+table {
+  border-collapse: collapse !important;
+}
+.table1 th, .table1 td {
+  border: 1px solid black !important;
+}
+hr.print-line {
+  border-top: .5px solid black !important;
+}
