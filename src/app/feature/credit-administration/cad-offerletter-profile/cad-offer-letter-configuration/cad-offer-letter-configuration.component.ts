@@ -260,10 +260,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             this.creditAdminService.getCadDataById(this.loanHolderId).subscribe(
                 res => {
                     const customerCadData = res.detail;
-                    if (!ObjectUtil.isEmpty(customerCadData) && !ObjectUtil.isEmpty(customerCadData.assignedLoan[0]) &&
-                        !ObjectUtil.isEmpty(customerCadData.assignedLoan[0].taggedGuarantors)) {
-                        this.customerLoanTaggedGuarantor = customerCadData.assignedLoan[0].taggedGuarantors;
-                    }
+                    this.setAllTaggedGuarantor(customerCadData);
                 },
                 res => {
                     this.toastService.show(new Alert(AlertType.ERROR, 'Cannot Get Cad Data'));
@@ -301,6 +298,35 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
         }
+    }
+
+    setAllTaggedGuarantor(customerCadData: any) {
+        const tempGuarantorArray = [];
+        if (!ObjectUtil.isEmpty(customerCadData)) {
+            customerCadData.forEach((val: any) => {
+                if (!ObjectUtil.isEmpty(val.assignedLoan[0]) && !ObjectUtil.isEmpty(val.assignedLoan[0].taggedGuarantors)) {
+                    val.assignedLoan[0].taggedGuarantors.forEach((v: any) => {
+                        tempGuarantorArray.push(v);
+                    });
+                }
+            });
+        }
+        if (!ObjectUtil.isEmpty(tempGuarantorArray)) {
+            this.customerLoanTaggedGuarantor = this.removeDuplicateObject(tempGuarantorArray);
+        }
+    }
+
+    removeDuplicateObject(arr: any) {
+        const obj = {};
+        const result = [];
+        arr.forEach((item, i) => {
+            obj[item['id']] = i;
+        });
+        for (const key in obj) {
+            const index = obj[key];
+            result.push(arr[index]);
+        }
+        return result;
     }
 
     buildForm() {
@@ -2145,10 +2171,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             } else {
                 (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
                 this.translatedGuarantorDetails.splice(i, 1);
+                this.guarantorDetailList.splice(i, 1);
             }
         } else {
             (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
             this.translatedGuarantorDetails.splice(i, 1);
+            this.guarantorDetailList.splice(i, 1);
         }
     }
 
