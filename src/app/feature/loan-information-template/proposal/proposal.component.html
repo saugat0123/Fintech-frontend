@@ -1075,8 +1075,7 @@
                     </ng-container>
                     <div class="col-md-12" *ngIf="smallBusiness || consumerFinance || deprivedSector || microFinancialService">
                         <app-review-date #lastLoanReviewDate
-                                         [fromProfile] = "true"
-                                         [fromProposal] = "'Hide'"
+                                         [fromProfile] = "false"
                                          [reviewData]="loan?.reviewDate">
                         </app-review-date>
                     </div>

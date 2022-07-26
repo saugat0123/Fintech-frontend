@@ -11,7 +11,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 export class ReviewDateComponent implements OnInit {
 
   @Input() fromProfile: boolean;
-  @Input() fromProposal;
   @Input() reviewData: ReviewDate;
   calendarType = 'AD';
   @Output() reviewDateDataEmitter = new EventEmitter();
