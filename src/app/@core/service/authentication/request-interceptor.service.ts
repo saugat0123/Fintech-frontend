@@ -57,7 +57,9 @@ export class RequestInterceptor implements HttpInterceptor {
         } else {
             return next.handle(req).pipe(
                 catchError((err): Observable<any> => {
-                    if (err instanceof HttpErrorResponse && err.status === 401) {
+                    const messageUrl = err.url.split('/');
+                    const isLogOut = messageUrl[messageUrl.length - 1] === 'logout';
+                    if (err instanceof HttpErrorResponse && err.status === 401 && !isLogOut) {
                         console.log('token expired ... attempting refresh');
                         return this.handleHttpResponseError(req, next);
                     } else {
