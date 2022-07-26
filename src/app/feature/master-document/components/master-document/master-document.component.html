@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-header>Upload Master Document</nb-card-header>
     <nb-card-body [nbSpinner]="spinner">
-        <form [formGroup]="docForm" (ngSubmit)="onDocUpload()">
+        <form [formGroup]="docForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-md-4">
                     <label>Chose Docx File</label>
@@ -103,5 +103,7 @@
                 </tbody>
             </table>
         </div>
+
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
     </nb-card-body>
 </nb-card>

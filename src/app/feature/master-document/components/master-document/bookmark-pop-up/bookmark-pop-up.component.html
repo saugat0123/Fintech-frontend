@@ -1,0 +1,21 @@
+<nb-card class="large-modal">
+    <nb-card-header>Bookmarks</nb-card-header>
+    <nb-card-body>
+        <div class="text-center text-danger" *ngIf="bookmarks?.length === 0">No Bookmark found</div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>List of Bookmarks</label>
+                    <div *ngFor="let bookmark of bookmarks; let i=index;">
+                        <span>{{i+1}}. </span>
+                        <span> {{bookmark}}</span>
+                    </div>
+                </div>
+            </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="text-right">
+            <button nbButton size="tiny" status="success" (click)="onProceed()" [disabled]="bookmarks?.length === 0">PROCEED</button>
+            <button nbButton size="tiny" status="danger" class="ml-2" (click)="onClose()">CANCEL</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

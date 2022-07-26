@@ -25,4 +25,10 @@ export class MasterDocService extends BaseService<any> {
     return this.http.post(req.url, formData, {headers: req.header});
   }
 
+  public getAllBookmarks(formData: FormData): Observable<any> {
+    const url = `${this.getApi()}/all-bookmarks`;
+    const req = ApiUtils.getRequestWithFileSupport(url);
+    return this.http.post(req.url, formData, {headers: req.header});
+  }
+
 }
