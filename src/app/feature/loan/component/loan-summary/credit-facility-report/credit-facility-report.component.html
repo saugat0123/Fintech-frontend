@@ -5,13 +5,13 @@
                 <th>Originating Branch</th>
                 <th>Date</th>
                 <th>Next Review</th>
-                <th [colSpan]="referenceNumber?.length">CFR/CA Ref.</th>
+                <th>CFR/CA Ref.</th>
             </tr>
             <tr class="ref-no">
                 <td class="text-center pl-1">{{loanDataHolder?.branch?.name}}</td>
                 <td class="text-center pl-1">{{loanDataHolder?.createdAt | date}}</td>
                 <td class="text-center pl-1">{{nextReview?.nextReviewDate}}</td>
-                <td class="text-center pl-1" *ngFor="let d of referenceNumber">{{d}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo}}</td>
             </tr>
             <tr>
                 <td colspan="2" rowspan="2"><strong>Customer & Address</strong>
@@ -26,12 +26,12 @@
                     <br>(M){{loanDataHolder?.customerInfo?.contactNumber}} (L) {{loanDataHolder?.customerInfo?.landLineNumber}}
                 </td>
                 <td><strong>Obligation Group Name: </strong><br>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupName}} <br> <strong>Obligation Group Code:</strong><br>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode}}</td>
-                <td [colSpan]="referenceNumber?.length"><strong>Risk Grade: </strong><span>{{riskGrade?.totalPoint}}</span>
+                <td><strong>Risk Grade: </strong><span>{{riskGrade?.totalPoint}}</span>
                 </td>
             </tr>
             <tr>
                 <td> </td>
-                <td [colSpan]="referenceNumber?.length">
+                <td>
                     <app-report-summary [approved]="false"
                                         *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0;"
                                         [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
