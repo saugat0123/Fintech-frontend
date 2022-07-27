@@ -65,6 +65,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
+    userList: User[];
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -140,14 +141,6 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     toUser: this.combinedType.userList[0]
                 });
             } else if ((role.roleType === RoleType.COMMITTEE) && this.combinedType.userList.length > 1) {
-                const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
-                this.combinedType.userList = this.combinedType.userList.filter(ul => ul.id !== logInUserId);
-                this.showUserList = false;
-                if (this.combinedType.userList.length > 0) {
-                    this.combinedType.form.patchValue({
-                        toUser: this.combinedType.userList[0]
-                    });
-                }
                 this.checkLogInUserRoleType('combine', null);
             } else if (this.combinedType.userList.length > 1) {
                 this.combinedType.form.patchValue({
@@ -164,21 +157,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
     public getIndividualUserList(role, i: number) {
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.individualType.users.set(i, response.detail);
-            const users: User[] = response.detail;
+            this.userList = response.detail;
             this.isUserPresent[i] = true;
-            if (users.length === 0) {
+            if (this.userList.length === 0) {
                 this.isUserPresent[i] = false;
             } else if (role.roleType === RoleType.COMMITTEE && this.individualType.users.size > 0) {
-                const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
-                const newUserList = users.filter(u => u.id !== logInUserId);
-                this.individualType.users.set(i, newUserList);
-                this.showUserList = false;
-                if (this.individualType.users.size > 0) {
-                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.individualType.users.get(i)[0]);
-                }
                 this.checkLogInUserRoleType('individual', i);
             } else {
-                this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
+                this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.userList[0]);
                 this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
                 this.individualType.form.updateValueAndValidity();
             }
@@ -398,28 +384,33 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     checkLogInUserRoleType(stageType: string, i: number) {
+        const logInUserId = parseInt(LocalStorageUtil.getStorage().userId, 10);
         if (LocalStorageUtil.getStorage().roleType === RoleType.COMMITTEE) {
-            if (stageType === 'combine') {
-                const combineCommitteeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
-                this.showUserList = true;
-                if (combineCommitteeDefaultUser.length === 0) {
-                    this.combinedType.form.patchValue({
-                        toUser: this.combinedType.userList[0]
-                    });
-                } else {
-                    this.combinedType.form.patchValue({
-                        toUser: combineCommitteeDefaultUser[0]
-                    });
-                }
+            this.showUserList = true;
+        } else {
+            this.showUserList = false;
+        }
+        if (stageType === 'combine') {
+            const combineCommitteeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
+            this.combinedType.userList = this.combinedType.userList.filter(ul => ul.id !== logInUserId);
+            if (combineCommitteeDefaultUser.length === 0) {
+                this.combinedType.form.patchValue({
+                    toUser: this.combinedType.userList[0]
+                });
             } else {
-                const individualCommitteeDefaultUser = this.individualType.users.get(i).filter(f =>
-                    f.name.toLowerCase().includes('default'));
-                this.showUserList = true;
-                if (individualCommitteeDefaultUser.length === 0) {
-                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.individualType.users.get(i)[0]);
-                } else {
-                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(individualCommitteeDefaultUser[0]);
-                }
+                this.combinedType.form.patchValue({
+                    toUser: combineCommitteeDefaultUser[0]
+                });
+            }
+        } else {
+            const individualCommitteeDefaultUser = this.individualType.users.get(i).filter(f =>
+                f.name.toLowerCase().includes('default'));
+            const newUserList = this.userList.filter(u => u.id !== logInUserId);
+            this.individualType.users.set(i, newUserList);
+            if (individualCommitteeDefaultUser.length === 0) {
+                this.individualType.form.get(['actions', i, 'toUser']).patchValue(this.individualType.users.get(i)[0]);
+            } else {
+                this.individualType.form.get(['actions', i, 'toUser']).patchValue(individualCommitteeDefaultUser[0]);
             }
         }
     }
