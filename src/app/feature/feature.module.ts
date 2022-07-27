@@ -25,6 +25,7 @@ import {GuarantorAdderComponent} from './loan/component/loan-main-template/guara
 import {LoanModule} from './loan/loan.module';
 import {GuarantorDetailComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
 
 
 @NgModule({
@@ -56,9 +57,8 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
             InstitutionalCrgGammaComponent,
             GuarantorAdderComponent,
             GuarantorDetailComponent,
-            ContactDetailsComponent
-
-
+            ContactDetailsComponent,
+            UserActivityComponent
         ],
         exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
              CreditRiskGradingGammaComponent, MultipleBankingComponent,

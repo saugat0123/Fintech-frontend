@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 import {CatalogueSearch, CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
@@ -15,6 +15,7 @@ import {CreditAdministrationService} from '../../../../feature/credit-administra
     styleUrls: ['./pending-loan.component.css']
 })
 export class PendingLoanComponent implements OnInit {
+    @Input() userActivityCount: number;
     pendingCount: number;
     approvedCount: number;
     rejectedCount: number;
