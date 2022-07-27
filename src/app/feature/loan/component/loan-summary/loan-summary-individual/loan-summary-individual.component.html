@@ -1,7 +1,7 @@
 <script src="loan-summary-individual.component.ts"></script>
 <section class="enable-print summary">
     <div id="print-block">
-        <div class=" col-md-12 summary">
+        <div class="summary">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -14,7 +14,7 @@
 
             <ng-container>
                 <hr class="print-line">
-                <p class="header"><strong class="header">Security Schedule</strong></p>
+                <p><strong class="header">Security Schedule</strong></p>
                 <app-security-total-summary [securities]="loanSecurity"
                                             [approvedSec]="approvedSecurity"
                                             [loanHolder]="loanDataHolder?.loanHolder"
@@ -35,7 +35,7 @@
             </app-customer-share-summary>
 
             <ng-container *ngIf="others">
-                <hr class="print-line header">
+                <hr class="print-line">
                 <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <tr class="sb-bg-gray">
                         <th>Justification</th>
@@ -46,7 +46,7 @@
                         </td>
                     </tr>
                 </table>
-                <hr class="print-line header">
+                <hr class="print-line">
                 <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <tr class="sb-bg-gray">
                         <th>Current Request</th>
@@ -76,7 +76,7 @@
         <div class="row mt-1">
             <div class="col-md-12">
                 <hr class="print-line">
-                <p class="header"><strong class="header">Address Verification</strong></p>
+                <p><strong class="header">Address Verification</strong></p>
                 <table *ngIf="!isJointInfo"
                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <tr class="sb-bg-gray">
@@ -170,14 +170,14 @@
             </div>
         </div>
         <hr class="print-line">
-        <p class="header" [hidden]="loanCategory !== 'INDIVIDUAL'"><strong class="header">Applicant/Guarantor
+        <p [hidden]="loanCategory !== 'INDIVIDUAL'"><strong class="header">Applicant/Guarantor
             Profile</strong></p>
         <div class="row">
             <div class="col-md-12">
                 <app-remit-profile [isRemit]="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-profile>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="isJointInfo && newJointInfo.length > 0">
             <div class="col-md-12">
                 <app-joint-customer-view *ngIf="isJointInfo && newJointInfo.length > 0"
                                          [jointDetails]="newJointInfo"></app-joint-customer-view>
@@ -264,7 +264,7 @@
 <!--                        <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"-->
 <!--                                               [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
                         <hr class="print-line">
-                        <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
+                        <div class="row" style="margin-top: 20px;">
                             <div class="col-md-12">
                                 <p><strong class="header text-left">Purpose of Loan </strong></p>
                                 <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
@@ -279,17 +279,17 @@
                                 </ng-container>
                             </div>
                         </div>
-                        <div class="row" style="margin-bottom: -20px; margin-top: 30px;">
+                        <div class="row" style="margin-top: 10px;">
                             <div class="col-md-12" *ngIf="proposalAllData?.requestType">
                                 <hr class="print-line">
-                                <p class="header"><strong class="header text-left">Request Type</strong></p>
+                                <p><strong class="header text-left">Request Type</strong></p>
                                 <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
                             </div>
 
 
-                            <div class="col-md-12">
+                            <div class="col-md-12" *ngIf="proposalAllData?.solConclusionRecommendation">
                                 <hr class="print-line">
-                                <p class="header"><strong class="header text-left">Justification of Limit</strong></p>
+                                <p><strong class="header text-left">Justification of Limit</strong></p>
                                 <span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span>
                             </div>
                         </div>
@@ -301,25 +301,25 @@
                         <app-dbr *ngIf="financial" [financialData]="financial"
                                  [proposalData]="proposalData"></app-dbr>
                         <ng-container *ngIf="checkedData?.waiverChecked">
-                            <hr class="print-line header">
-                            <p class="header"><strong class="header">Waivers</strong></p>
+                            <hr class="print-line">
+                            <p><strong class="header">Waivers</strong></p>
                             <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
                             </div>
                         </ng-container>
                         <ng-container *ngIf="checkedData?.deviationChecked">
-                            <hr class="print-line header">
-                            <p class="header"><strong class="header">Deviation</strong></p>
+                            <hr class="print-line">
+                            <p><strong class="header">Deviation</strong></p>
                             <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
                             </div>
                         </ng-container>
                         <div class="row">
                             <div class="col-md-12">
                                 <hr class="print-line">
-                                <p class="header"><strong class="header"> Summary and Recommendation</strong></p>
+                                <p><strong class="header"> Summary and Recommendation</strong></p>
                                 <span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span>
                             </div>
                         </div>
-                        <hr class="print-line header">
+                        <hr class="print-line">
                         <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                                                [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
                     </div>
@@ -567,8 +567,8 @@
             </div>
         </div>
         <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
-            <hr>
-            <p class="header"><strong class="header">Credit Risk Grading</strong></p>
+            <hr class="print-line">
+            <p><strong class="header">Credit Risk Grading</strong></p>
             <table
                     class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
@@ -700,13 +700,12 @@
 
             <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
                  id="signatureDiv">
-                <hr class="print-line">
                 <div class="col-md-12 print-only">
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>
                 <div class="row col-md-12">
                     <div *ngFor="let previous of signatureList; let i=index;"
-                         class="col-md-4 padding-0-125">
+                         class="col-md-4 padding-0-125 mr-4">
                         <div class="signature-block">
                             <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
                                 <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>

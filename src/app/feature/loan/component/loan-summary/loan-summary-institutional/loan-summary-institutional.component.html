@@ -1,6 +1,6 @@
 <section class="enable-print summary">
     <div id="print-block">
-        <div class=" col-md-12 summary">
+        <div class="summary">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -10,6 +10,7 @@
             </ng-container>
             <!--                release and replacement-->
             <ng-container>
+                <hr class="print-line">
                 <p class="header"><strong class="header">Security Schedule</strong></p>
                 <app-security-total-summary [securities]="loanSecurity"
                                             [approvedSec]="approvedSecurity"
@@ -208,13 +209,13 @@
                                </div>
                            </ng-container>
                            <ng-container *ngIf="checkedData?.waiverChecked">
-                               <hr class="print-line header">
+                               <hr class="print-line">
                                <p class="header"><strong class="header">Waivers</strong></p>
                                <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
                                </div>
                            </ng-container>
                            <ng-container *ngIf="checkedData?.deviationChecked">
-                               <hr class="print-line header">
+                               <hr class="print-line">
                                <p class="header"><strong class="header">Deviation</strong></p>
                                <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
                                </div>

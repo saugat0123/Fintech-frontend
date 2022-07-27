@@ -1,6 +1,6 @@
 <div class="row mt-1">
 <div class="col-md-12">
-    <p><strong *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit"   class="header">Personal Details</strong></p>
+    <p *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit"><strong class="header">Personal Details</strong></p>
     <ng-container *ngIf="isRemit;">
         <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>

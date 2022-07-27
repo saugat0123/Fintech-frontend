@@ -1,6 +1,6 @@
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
     <div class="col-md-12">
-    <p class="header text-center"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
+    <p class="text-center"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
     <ng-container *ngFor="let security of loanDataHolder?.securities; let i = index;">
         <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
             <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
