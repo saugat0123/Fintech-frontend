@@ -16,7 +16,7 @@
             <tr *ngFor="let data of individualJsonData?.deposit">
                 <ng-container >
                     <td class="text-left">{{data?.assets}}</td>
-                    <td class="text-left">{{data?.amount}}</td>
+                    <td class="text-left">NPR. {{data?.amount}}</td>
                 </ng-container>
             </tr>
             <tr>
@@ -27,7 +27,7 @@
             <tr *ngFor="let data of individualJsonData?.shares">
                 <ng-container >
                     <td class="text-left">{{data?.assets}}</td>
-                    <td class="text-left">{{data?.amount}}</td>
+                    <td class="text-left">NPR. {{data?.amount}}</td>
                 </ng-container>
             </tr>
             <tr >
@@ -38,7 +38,7 @@
             <tr *ngFor="let data of individualJsonData?.realState">
                 <ng-container >
                     <td class="text-left">{{data?.assets}}</td>
-                    <td class="text-left">{{data?.amount}}</td>
+                    <td class="text-left">NPR. {{data?.amount}}</td>
                 </ng-container>
             </tr>
             <tr >
@@ -49,16 +49,16 @@
             <tr *ngFor="let data of individualJsonData?.vehicle">
                 <ng-container >
                     <td class="text-left">{{data?.assets}}</td>
-                    <td class="text-left">{{data?.amount}}</td>
+                    <td class="text-left">NPR. {{data?.amount}}</td>
                 </ng-container>
             </tr>
             <tr>
                 <td class="text-left"><b>Total:</b></td>
-                <td class="text-left">{{individualJsonData?.total}}</td>
+                <td class="text-left">NPR. {{individualJsonData?.total}}</td>
             </tr>
             <tr>
                 <td class="text-left"><b>Net Worth (Total Assets - Banking Relationship Exposure):</b></td>
-                <td class="text-left">{{individualJsonData?.totals}}</td>
+                <td class="text-left">NPR. {{individualJsonData?.totals}}</td>
             </tr>
             </tbody>
 
