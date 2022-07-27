@@ -65,6 +65,9 @@
   }
 
   @media print {
+    .print-only {
+      display: block;
+    }
 
     nb-card {
       background: none;
@@ -97,9 +100,9 @@
         }
       }
 
-      .print-only {
-        display: block;
-      }
+      //.print-only {
+      //  display: block;
+      //}
 
       .disable-print {
         display: inline;
