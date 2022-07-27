@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     loggedUser: User;
     roleName;
     adminRole = false;
-    userActivityCount = 12;
+    userActivityCount: number;
 
     customerApproveCountDto = {
         allCount: undefined,
@@ -185,18 +185,17 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
     private setLoanCategory() {
         const type = parseInt(this.loanType, 10);
-        this.businessOrPersonal =  (this.loanList.filter((loan: LoanConfig) => loan.id === type))[0].loanCategory;
+        this.businessOrPersonal = (this.loanList.filter((loan: LoanConfig) => loan.id === type))[0].loanCategory;
     }
 
     getUserActivity() {
         this.userActivityService.getStatus().subscribe({
             next: (res: any) => {
-                console.log(res);
                 this.userActivityCount = res.detail.total;
             }, error: (err) => {
-                console.log('err', err);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to get User Activity Data'));
-            }, complete: () => {}
+            }, complete: () => {
+            }
         });
     }
 }

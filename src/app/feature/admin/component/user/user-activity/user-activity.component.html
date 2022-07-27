@@ -1,18 +1,23 @@
 <div class="row">
     <div class="col-md-12">
+        <p class="text-center"><strong>User Activity</strong></p>
         <table class="table table-responsive-md table-sm sb-small text-center table-bordered">
             <thead>
-            <tr>
-                <th>S.No.</th>
+            <tr class="sb-bg-dark text-white">
+                <th class="sn">S.No.</th>
                 <th>Message</th>
+                <th>Action on(Date & Time)</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let ud of userActivity; let i = index">
-                <td>{{i+1}}</td>
-                <td>{{ud?.message}}</td>
+                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                <td class="text-left pl-1">{{ud?.message}}</td>
+                <td class="text-left pl-1">{{ud?.createdAt}}</td>
             </tr>
             </tbody>
         </table>
+        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
     </div>
 </div>
