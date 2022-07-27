@@ -80,10 +80,10 @@
                 <td class="text-left pl-2">{{(subGuarantor?.profession | titlecase) || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left pl-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name + ', Ward No.: '+ subGuarantor?.wardNumber}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.province?.name +', '+ subGuarantor?.district?.name + ', '+ subGuarantor?.municipalities?.name + ', '+ subGuarantor?.wardNumber}}</td>
               </tr>
               <tr>
-                <td class="text-left pl-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name + ', Ward No.: '+ subGuarantor?.wardNumberTemporary}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.provinceTemporary?.name +', '+ subGuarantor?.districtTemporary?.name + ', '+ subGuarantor?.municipalitiesTemporary?.name + ', '+ subGuarantor?.wardNumberTemporary}}</td>
               </tr>
               <tr>
                 <td class="text-left pl-2">{{subGuarantor?.relationship || 'N/A'}}</td>
@@ -197,10 +197,10 @@
                 <td class="text-left pl-2">{{subGuarantor?.email || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left pl-2">{{'Province: ' + subGuarantor?.province?.name +', District: '+ subGuarantor?.district?.name + ', Municipality: '+ subGuarantor?.municipalities?.name  + ', Ward No.: '+ subGuarantor?.wardNumber}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.province?.name +', '+ subGuarantor?.district?.name + ', '+ subGuarantor?.municipalities?.name  + ', '+ subGuarantor?.wardNumber}}</td>
               </tr>
               <tr>
-                <td class="text-left pl-2">{{'Province: ' + subGuarantor?.provinceTemporary?.name +', District: '+ subGuarantor?.districtTemporary?.name + ', Municipality: '+ subGuarantor?.municipalitiesTemporary?.name + ', Ward No.: '+ subGuarantor?.wardNumberTemporary}}</td>
+                <td class="text-left pl-2">{{subGuarantor?.provinceTemporary?.name +', '+ subGuarantor?.districtTemporary?.name + ', '+ subGuarantor?.municipalitiesTemporary?.name + ', '+ subGuarantor?.wardNumberTemporary}}</td>
               </tr>
               </tbody>
             </table>
