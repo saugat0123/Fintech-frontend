@@ -11,37 +11,23 @@
         </app-icon-card>
     </div>
 
-    <div *ngIf="roleName || adminRole" class="col-md-4 col-sm-6 col-xs-12">
-        <a routerLink="/home/admin/catalogue">
-            <app-icon-card detail="click to transfer" title="Transfer" type="danger">
-                <i class="fas fa-exchange-alt"></i>
-            </app-icon-card>
-        </a>
-    </div>
+    <ng-container *ngIf="roleName || adminRole">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <a routerLink="/home/admin/catalogue">
+                <app-icon-card detail="click to transfer" title="Transfer" type="danger">
+                    <i class="fas fa-exchange-alt"></i>
+                </app-icon-card>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <a routerLink="/home/user-activity">
+                <app-icon-card detail="{{userActivityCount}}" title="User Activity" type="info">
+                    <i class="fas fa-chart-line"></i>
+                </app-icon-card>
+            </a>
+        </div>
+    </ng-container>
 </div>
-
-<!--<div class="row center mb-3" *ngIf="roleType">-->
-<!--    <div class="col-md-12">-->
-<!--        <nb-card>-->
-<!--            <nb-card-body>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-11">-->
-<!--                        <select [(ngModel)]="loanType" class="form-control rounded">-->
-<!--                            <option [ngValue]="undefined" hidden>-&#45;&#45;select Loan Type-&#45;&#45;</option>-->
-<!--                            <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-1">-->
-<!--                        <button nbButton status="primary" (click)="proceed()">-->
-<!--                            <i class="fa fa-arrow-right"></i>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </nb-card-body>-->
-<!--        </nb-card>-->
-
-<!--    </div>-->
-<!--</div>-->
 
 <ng-template #loanTemplate>
     <div class="modal-header">
@@ -60,10 +46,11 @@
 
 <div class="row" *ngIf="!(roleName || adminRole)">
     <div class="col-md-11">
-        <app-pending-loan></app-pending-loan>
+        <app-pending-loan [userActivityCount]="userActivityCount"></app-pending-loan>
     </div>
     <div class="col-md-12">
-        <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove" [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
+        <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove"
+                      [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
     </div>
 </div>
 <app-charts></app-charts>

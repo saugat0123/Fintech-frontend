@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-13">
         <a routerLink="/home/status/initial">
-            <app-icon-card detail="{{initCount}}"  title="Initial" type="info">
+            <app-icon-card detail="{{initCount}}" title="Initial" type="info">
                 <i class="far fa-flag"></i>
             </app-icon-card>
         </a>
@@ -32,10 +32,18 @@
             <i class="far fa-times-circle"></i>
         </app-icon-card>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-13 cursor" *ngIf="postApprovalDocStat && !productUtils.CAD_LITE_VERSION  && !productUtils.FULL_CAD">
+    <div class="col-md-3 col-sm-6 col-xs-13 cursor"
+         *ngIf="postApprovalDocStat && !productUtils.CAD_LITE_VERSION  && !productUtils.FULL_CAD">
         <app-icon-card detail="{{postApprovalDocStat?.docCount}}" title="Post Approval Document"
                        type="success" routerLink="/home/loan/loan-offer-letter">
             <i class="fa fa-file-pdf"></i>
         </app-icon-card>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-13">
+        <a routerLink="/home/user-activity">
+            <app-icon-card detail="{{userActivityCount}}" title="User Activity" type="info">
+                <i class="fas fa-chart-line"></i>
+            </app-icon-card>
+        </a>
     </div>
 </div>
