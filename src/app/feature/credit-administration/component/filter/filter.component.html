@@ -19,7 +19,7 @@
     <!--              status="success" size="small" *ngIf="fromCadDashboard">-->
     <!--        <i aria-hidden="true" class="fas fa-file"></i></button>&nbsp;-->
     <div>
-      <button *ngIf="role[currentRoleType] === role.CAS_MAKER && !loanpull && docStatus ==='OFFER_PENDING'" nbButton size="tiny"
+      <button *ngIf="role[currentRoleType] === role.CAS_MAKER && !loanpull && docStatus ==='OFFER_AND_LEGAL_PENDING'" nbButton size="tiny"
               nbTooltip="Add new customer"
               (click)="openTemplate(chooseCusType)"><em
           class="fa fa-plus"></em></button>
