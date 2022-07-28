@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MasterDocService} from '../../service/master-doc.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../../@core/utils';
@@ -7,11 +6,9 @@ import {NbDialogService} from '@nebular/theme';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {MasterDoc} from '../../model/master-doc';
-import {LoanConfig} from '../../../admin/modal/loan-config';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CoDoc} from '../../model/co-doc';
-import {CodocumentPopUpComponent} from '../codocument-pop-up/codocument-pop-up.component';
+import {CoDocService} from '../../service/co-doc.service';
 
 @Component({
   selector: 'app-codocument',
@@ -21,7 +18,7 @@ import {CodocumentPopUpComponent} from '../codocument-pop-up/codocument-pop-up.c
 export class CodocumentComponent implements OnInit {
   page = 1;
   pageable: Pageable = new Pageable();
-  masterDocList: Array<MasterDoc> = new Array<MasterDoc>();
+  coDocList: Array<CoDoc> = new Array<CoDoc>();
   coDoc: CoDoc = new CoDoc();
   search = {
     docName: undefined
@@ -32,14 +29,14 @@ export class CodocumentComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
-              private masterDocumentService: MasterDocService,
               private loanConfigService: LoanConfigService,
               private toasterService: ToastService,
-              private nbDialogService: NbDialogService) { }
+              private nbDialogService: NbDialogService,
+              private coDocService: CoDocService) { }
 
   static loadData(other: CodocumentComponent) {
-    other.masterDocumentService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
-      other.masterDocList = response.detail.content;
+    other.coDocService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+      other.coDocList = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
     }, error => {

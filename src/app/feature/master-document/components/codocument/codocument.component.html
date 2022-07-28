@@ -49,14 +49,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let masterDoc of masterDocList; let i=index;">
+                <tr *ngFor="let coDoc of coDocList; let i=index;">
                     <td>{{i+1}}</td>
-                    <td>{{masterDoc?.docName}}</td>
-                    <td>{{masterDoc?.customerType}}</td>
-                    <td>{{masterDoc?.lastModifiedAt | date}}</td>
+                    <td>{{coDoc?.docName}}</td>
+                    <td>{{coDoc?.customerType}}</td>
+                    <td>{{coDoc?.lastModifiedAt | date}}</td>
                     <td>
-                        <span *ngIf="masterDoc?.status === 'ACTIVE'" class="text-success">{{masterDoc?.status}}</span>
-                        <span *ngIf="masterDoc?.status === 'INACTIVE'" class="text-success">{{masterDoc?.status}}</span>
+                        <span *ngIf="coDoc?.docStatus === 'ACTIVE'" class="text-success">{{coDoc?.docStatus}}</span>
+                        <span *ngIf="coDoc?.docStatus === 'INACTIVE'" class="text-success">{{coDoc?.docStatus}}</span>
                     </td>
                     <td>
                         <button nbButton size="tiny" status="info">Generate</button>
