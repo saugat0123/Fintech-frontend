@@ -11,6 +11,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {NbDialogService} from '@nebular/theme';
 import {BookmarkPopUpComponent} from '../bookmark-pop-up/bookmark-pop-up.component';
+import {CodocumentPopUpComponent} from '../codocument-pop-up/codocument-pop-up.component';
 
 @Component({
   selector: 'app-master-document',
@@ -175,6 +176,16 @@ export class MasterDocumentComponent implements OnInit {
   changePage(page: number) {
     this.page = page;
     MasterDocumentComponent.loadData(this);
+  }
+
+  onSaveGenerate(masterDoc: any) {
+    let context;
+    context = {
+      masterDoc: masterDoc,
+    };
+    this.nbDialogService.open(CodocumentPopUpComponent, {
+      context,
+    });
   }
 
 }

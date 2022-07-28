@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MasterDoc} from '../../model/master-doc';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {CoDocService} from '../../service/co-doc.service';
+import {CoDoc} from '../../model/co-doc';
 
 @Component({
   selector: 'app-codocument-pop-up',
@@ -13,8 +15,10 @@ export class CodocumentPopUpComponent implements OnInit {
   coDocForm: FormGroup = new FormGroup({});
   allBookmarks: Array<string> = new Array<string>();
   controls = [];
+  coDoc: CoDoc = new CoDoc();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private coDocService: CoDocService) { }
 
 
 
@@ -38,6 +42,17 @@ export class CodocumentPopUpComponent implements OnInit {
   }
 
   onSubmit() {
+    this.coDoc.docData = JSON.stringify(this.coDocForm.value);
+    this.coDoc.docName = this.masterDoc.docName;
+    this.coDoc.docPath = this.masterDoc.docPath;
+    this.coDoc.bookmarks = this.masterDoc.mdocData;
+    this.coDoc.customerType = this.masterDoc.customerType;
+    this.coDoc.docStatus = this.masterDoc.status;
+    this.coDocService.create(this.coDoc).subscribe(res => {
+      console.log(res.detail);
+    }, error => {
+      console.error(error);
+    });
     console.log(this.coDocForm.value);
   }
 

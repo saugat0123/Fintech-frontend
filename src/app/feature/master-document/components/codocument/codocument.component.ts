@@ -28,8 +28,6 @@ export class CodocumentComponent implements OnInit {
   };
   filterForm: FormGroup = new FormGroup({});
   isFilterCollapsed = true;
-  loanConfigList: Array<LoanConfig> = new Array<LoanConfig>();
-  bookmarkList: Array<string> = new Array<string>();
   spinner = false;
   submitted = false;
 
@@ -76,15 +74,5 @@ export class CodocumentComponent implements OnInit {
   changePage(page: number) {
     this.page = page;
     CodocumentComponent.loadData(this);
-  }
-
-  onSaveGenerate(masterDoc: any) {
-    let context;
-    context = {
-      masterDoc: masterDoc,
-    };
-    this.nbDialogService.open(CodocumentPopUpComponent, {
-      context,
-    });
   }
 }
