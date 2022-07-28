@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {
+    RetailLoanNameConstant
+} from '../../../../../../cad-view/template-data/retail-template-data/retail-const/retail-loan-name-constants';
 
 @Component({
     selector: 'app-section7-interest-and-emi-payment-related',
@@ -20,14 +23,17 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     tempInformation;
     isEducationClassE = false;
     isEducationClassA = false;
-    loanNepaliNameEducation: Array<any> = new Array<any>();
-    loanNameMainNepaliWithoutEducation: Array<any> = new Array<any>();
-    loanNepaliWithoutPersonalEducation: Array<any> = new Array<any>();
-    loanNameWithoutPersonalLoan: Array<any> = new Array<any>();
-    loanNepaliNameWithoutEducation: Array<any> = new Array<any>();
-    loanNepaliNameShare: Array<any> = new Array<any>();
-    loanNepaliNameShareWithoutEducation: Array<any> = new Array<any>();
+    loanNepaliNameEducation: any = [];
+    loanNameMainNepaliWithoutEducation: any = [];
+    loanNepaliWithoutPersonalEducation: any = [];
+    loanNameWithoutPersonalLoan: any = [];
+    loanNepaliNameWithoutEducation: any = [];
+    loanNepaliNameShare: any = [];
+    loanNepaliNameShareWithoutEducation: any = [];
+    onlyEducationLoan: any = [];
+    onlyPersonalLoan: any = [];
     personalLoanCaseBasisArray: Array<any> = new Array<any>();
+    loanNameConstant = RetailLoanNameConstant;
 
     constructor(
         private formBuilder: FormBuilder
@@ -35,29 +41,64 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
     }
 
     ngOnInit() {
+        const loanNameArray = [];
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
             this.cadData.assignedLoan.forEach(val => {
                 if (!this.loanName.includes(val.loan.name)) {
+                    loanNameArray.push({
+                        name: val.loan.name,
+                        nepaliName: val.loan.nepaliName
+                    });
                     this.loanName.push(val.loan.name);
                     this.loanNepaliName.push(val.loan.nepaliName);
                 }
             });
         }
-        if (!ObjectUtil.isEmpty(this.loanNepaliName)) {
-            this.loanNepaliNameEducation = this.loanNepaliName.filter((val: any) =>
-            val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
-            this.loanNepaliWithoutPersonalEducation = this.loanNepaliName.filter((val: any) =>
-            val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा');
-            this.loanNameWithoutPersonalLoan = this.loanNepaliName.filter((val: any) =>
-            val === 'शिक्षा ऋण' || val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा');
-            this.loanNameMainNepaliWithoutEducation = this.loanNepaliName.filter((val: any) =>
-                val === 'धिताे कर्जा' || val === 'आवास कर्जा' || val === 'सवारी साधन कर्जा' || val === 'व्यक्तिगत ऋण');
-            this.loanNepaliNameWithoutEducation = this.loanNepaliName.filter((val: any) =>
-                val === 'व्यक्तिगत ओभरड्राफ्ट' || val === 'व्यक्तिगत ओभरड्राफ्ट बिना धिताे' || val === 'नबिल सहयात्री कर्जा');
-            this.loanNepaliNameShare = this.loanNepaliName.filter((val: any) =>
-                val === 'सेयर कर्जा डिमाण्ड' || val === ' नबिल सेयर कर्जा' || val === 'शिक्षा ऋण');
-            this.loanNepaliNameShareWithoutEducation = this.loanNepaliName.filter((val: any) =>
-                val === 'सेयर कर्जा डिमाण्ड' || val === ' नबिल सेयर कर्जा');
+        if (!ObjectUtil.isEmpty(loanNameArray)) {
+            const tempLoanNepaliNameEducation = loanNameArray.filter((val: any) =>
+            val.name === this.loanNameConstant.EDUCATION_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.MORTGAGE_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.HOME_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.AUTO_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.PERSONAL_LOAN_COMBINED);
+            this.loanNepaliNameEducation = this.getNepaliLoanName(tempLoanNepaliNameEducation);
+            const tempLoanNepaliWithoutPersonalEducation = loanNameArray.filter((val: any) =>
+            val.name === this.loanNameConstant.MORTGAGE_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.HOME_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.AUTO_LOAN_COMBINED);
+            this.loanNepaliWithoutPersonalEducation = this.getNepaliLoanName(tempLoanNepaliWithoutPersonalEducation);
+            const tempLoanNameWithoutPersonalLoan = loanNameArray.filter((val: any) =>
+            val.name === this.loanNameConstant.EDUCATION_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.MORTGAGE_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.HOME_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.AUTO_LOAN_COMBINED);
+            this.loanNameWithoutPersonalLoan = this.getNepaliLoanName(tempLoanNameWithoutPersonalLoan);
+            const tempLoanNameMainNepaliWithoutEducation = loanNameArray.filter((val: any) =>
+                val.name === this.loanNameConstant.MORTGAGE_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.HOME_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.AUTO_LOAN_COMBINED ||
+                val.name === this.loanNameConstant.PERSONAL_LOAN_COMBINED);
+            this.loanNameMainNepaliWithoutEducation = this.getNepaliLoanName(tempLoanNameMainNepaliWithoutEducation);
+            const tempLoanNepaliNameWithoutEducation = loanNameArray.filter((val: any) =>
+                val.name === this.loanNameConstant.PERSONAL_OVERDRAFT_COMBINED ||
+                val.name === this.loanNameConstant.NABIL_SAHAYATRI_KARJA ||
+                val.name === this.loanNameConstant.PERSONAL_OVERDRAFT_WITHOUT_COLLATERAL_COMBINED);
+            this.loanNepaliNameWithoutEducation = this.getNepaliLoanName(tempLoanNepaliNameWithoutEducation);
+            const tempLoanNepaliNameShare = loanNameArray.filter((val: any) =>
+                val.name === this.loanNameConstant.SHARE_LOAN_DEMAND_COMBINED ||
+                val.name === this.loanNameConstant.NABIL_SHARE_LOAN_POD_COMBINED ||
+                val.name === this.loanNameConstant.EDUCATION_LOAN_COMBINED);
+            this.loanNepaliNameShare = this.getNepaliLoanName(tempLoanNepaliNameShare);
+            const tempLoanNepaliNameShareWithoutEducation = loanNameArray.filter((val: any) =>
+                val.name === this.loanNameConstant.SHARE_LOAN_DEMAND_COMBINED ||
+                val.name === this.loanNameConstant.NABIL_SHARE_LOAN_POD_COMBINED);
+            this.loanNepaliNameShareWithoutEducation = this.getNepaliLoanName(tempLoanNepaliNameShareWithoutEducation);
+            const tempOnlyEducation = loanNameArray.filter((val: any) =>
+                val.name === this.loanNameConstant.EDUCATION_LOAN_COMBINED);
+            this.onlyEducationLoan = this.getNepaliLoanName(tempOnlyEducation);
+            const tempOnlyPersonal = loanNameArray.filter((val: any) =>
+                val.name === this.loanNameConstant.PERSONAL_LOAN_COMBINED);
+            this.onlyPersonalLoan = this.getNepaliLoanName(tempOnlyPersonal);
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList[0].initialInformation)) {
@@ -68,6 +109,16 @@ export class Section7InterestAndEmiPaymentRelatedComponent implements OnInit {
             }
         }
         this.checkCondition();
+    }
+
+    getNepaliLoanName(loanArray) {
+        if (!ObjectUtil.isEmpty(loanArray)) {
+            const returnLoanNameArray = [];
+            loanArray.forEach((val: any) => {
+                returnLoanNameArray.push(val.nepaliName);
+            });
+            return returnLoanNameArray ? returnLoanNameArray : '';
+        }
     }
 
     checkCondition() {
