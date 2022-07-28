@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <nb-card>
             <nb-card-header>
-                <div class="row">
+                <div class="row" *ngIf="isAdmin">
                     <div class="col-md-12">
                         <button (click)="isFilterCollapsed = !isFilterCollapsed"
                                 [attr.aria-expanded]="!isFilterCollapsed"
@@ -21,7 +21,7 @@
                                     <select class="custom-select" formControlName="createdBy">
                                         <option [value]="null" selected hidden>Select User</option>
                                         <option *ngFor="let user of userList"
-                                                [value]="user.id">{{user.name}}
+                                                [value]="user?.id">{{user?.name}} | {{user?.role?.roleName}}
                                         </option>
                                     </select>
                                 </div>
@@ -61,7 +61,9 @@
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-12">
-                        <table style="border: black" class="table table-responsive-md table-sm sb-small text-center table-bordered">
+                        <strong *ngIf="!isAdmin" class="text-center"><h6>User Activity Details</h6></strong>
+                        <table style="border: black"
+                               class="table table-responsive-md table-sm sb-small text-center table-bordered">
                             <thead>
                             <tr class="sb-bg-dark text-white">
                                 <th class="sn">S.No.</th>
@@ -72,8 +74,8 @@
                             <tbody>
                             <tr *ngFor="let ud of userActivity; let i = index">
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                                <td class="text-left pl-1">{{ud?.message}}</td>
-                                <td class="text-left pl-1">{{ud?.createdAt}}</td>
+                                <td class="text-justify pl-1 pr-1">{{ud?.message}}</td>
+                                <td class="text-justify pl-1 pr-1">{{ud?.createdAt}}</td>
                             </tr>
                             </tbody>
                         </table>
