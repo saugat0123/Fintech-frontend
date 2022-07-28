@@ -37,7 +37,6 @@ export class UserActivityComponent implements OnInit {
   spinner = false;
   isFilterCollapsed = true;
   userList: User[];
-  roleId: number;
   isAdmin = true;
 
   static loaData(other: UserActivityComponent) {
@@ -60,7 +59,6 @@ export class UserActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.roleId = Number(LocalStorageUtil.getStorage().roleId);
     this.buildForm();
     this.getUserList();
     UserActivityComponent.loaData(this);
