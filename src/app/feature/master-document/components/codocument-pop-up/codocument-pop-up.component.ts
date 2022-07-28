@@ -4,6 +4,9 @@ import {MasterDoc} from '../../model/master-doc';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CoDocService} from '../../service/co-doc.service';
 import {CoDoc} from '../../model/co-doc';
+import {NbDialogRef} from '@nebular/theme';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-codocument-pop-up',
@@ -16,9 +19,12 @@ export class CodocumentPopUpComponent implements OnInit {
   allBookmarks: Array<string> = new Array<string>();
   controls = [];
   coDoc: CoDoc = new CoDoc();
+  spinner = false;
 
   constructor(private formBuilder: FormBuilder,
-              private coDocService: CoDocService) { }
+              private coDocService: CoDocService,
+              private nbDialogRef: NbDialogRef<CodocumentPopUpComponent>,
+              private toasterService: ToastService) { }
 
 
 
@@ -42,6 +48,7 @@ export class CodocumentPopUpComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner = true;
     this.coDoc.docData = JSON.stringify(this.coDocForm.value);
     this.coDoc.docName = this.masterDoc.docName;
     this.coDoc.docPath = this.masterDoc.docPath;
@@ -49,11 +56,13 @@ export class CodocumentPopUpComponent implements OnInit {
     this.coDoc.customerType = this.masterDoc.customerType;
     this.coDoc.docStatus = this.masterDoc.status;
     this.coDocService.create(this.coDoc).subscribe(res => {
-      console.log(res.detail);
+      this.toasterService.show(new Alert(AlertType.SUCCESS, 'Document created successfully'));
+      this.nbDialogRef.close('CLOSE');
     }, error => {
+      this.spinner = false;
+      this.toasterService.show(new Alert(AlertType.DANGER, 'Error while creating document'));
       console.error(error);
     });
-    console.log(this.coDocForm.value);
   }
 
 }

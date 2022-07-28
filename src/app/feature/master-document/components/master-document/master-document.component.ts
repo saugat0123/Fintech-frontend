@@ -183,8 +183,13 @@ export class MasterDocumentComponent implements OnInit {
     context = {
       masterDoc: masterDoc,
     };
-    this.nbDialogService.open(CodocumentPopUpComponent, {
+    const componentRef = this.nbDialogService.open(CodocumentPopUpComponent, {
       context,
+    });
+    componentRef.onClose.subscribe(res => {
+      if (res === 'CLOSE') {
+        MasterDocumentComponent.loadData(this);
+      }
     });
   }
 
