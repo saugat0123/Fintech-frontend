@@ -1,23 +1,92 @@
 <div class="row">
     <div class="col-md-12">
-        <p class="text-center"><strong>User Activity</strong></p>
-        <table class="table table-responsive-md table-sm sb-small text-center table-bordered">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th class="sn">S.No.</th>
-                <th>Message</th>
-                <th>Action on(Date & Time)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let ud of userActivity; let i = index">
-                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td class="text-left pl-1">{{ud?.message}}</td>
-                <td class="text-left pl-1">{{ud?.createdAt}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <nb-card>
+            <nb-card-header>
+                <div class="row" *ngIf="isAdmin">
+                    <div class="col-md-12">
+                        <button (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed"
+                                nbButton
+                                status="primary"
+                                size="small">
+                            <i class="fa fa-filter"> Filter</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
+                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                            <div class="row py-3">
+                                <div class="col-md-4">
+                                    <select class="custom-select" formControlName="createdBy">
+                                        <option [value]="null" selected hidden>Select User</option>
+                                        <option *ngFor="let user of userList"
+                                                [value]="user?.id">{{user?.name}} | {{user?.role?.roleName}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <input [nbDatepicker]="startDate"
+                                           formControlName="startDate"
+                                           class="form-control"
+                                           id="startDate"
+                                           name="startDate"
+                                           placeholder="Start Date">
+                                    <nb-datepicker #startDate></nb-datepicker>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input [nbDatepicker]="endDate"
+                                               id="endDate"
+                                               name="endDate"
+                                               formControlName="endDate"
+                                               class="form-control"
+                                               placeholder="End Date">
+                                        <nb-datepicker #endDate></nb-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-0">
+                                <button nbButton status="info" size="small" type="submit" class="mr-2">Search</button>
+                                <button (click)="clearSearch()" class="mr-2" nbButton
+                                        status="danger" size="small">Clear
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong *ngIf="!isAdmin" class="text-center"><h6>User Activity Details</h6></strong>
+                        <table style="border: black"
+                               class="table table-responsive-md table-sm sb-small text-center table-bordered">
+                            <thead>
+                            <tr class="sb-bg-dark text-white">
+                                <th class="sn">S.No.</th>
+                                <th>Message</th>
+                                <th>Action on(Date & Time)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let ud of userActivity; let i = index">
+                                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                                <td class="text-justify pl-1 pr-1">{{ud?.message}}</td>
+                                <td class="text-justify pl-1 pr-1">{{ud?.createdAt}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                        <app-paging *ngIf="!spinner" [pageable]="pageable"
+                                    (changePage)="changePage($event)"></app-paging>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+
     </div>
 </div>
