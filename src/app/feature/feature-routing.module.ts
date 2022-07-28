@@ -6,6 +6,7 @@ import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pen
 import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hierarchy.component';
 import {RouteGuard} from '../@core/service/authentication/route-guard';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
 
 const routes: Routes = [
   {
@@ -65,8 +66,9 @@ const routes: Routes = [
         path: 'error',
         component: ErrorPageComponent
       },
+      {path: 'user-activity', component: UserActivityComponent},
       {path: '', redirectTo: 'dashboard'},
-      {path: '**', redirectTo: 'dashboard'}
+      {path: '**', redirectTo: 'dashboard'},
     ],
   },
 ];
