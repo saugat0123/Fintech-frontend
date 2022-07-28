@@ -331,7 +331,7 @@
             <!--                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>-->
             <!--                </tr>-->
             <!--            </ng-container>-->
-            <ng-container *ngIf="checkedData?.riskChecked && !consumerFinance">
+            <ng-container *ngIf="checkedData?.riskChecked && !consumerFinance && loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'">
                 <tr class="sb-bg-gray">
                     <th>Risk & Mitigation</th>
                 </tr>

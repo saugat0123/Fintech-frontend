@@ -296,6 +296,46 @@
                 </div>
             </div>
             <div class="row" *ngIf="fromLoan">
+                <div class="col-md-12 form-group">
+                    <b>Justification for change (Historical)</b>
+                    <div class="mt-2">
+                        <ckeditor [config]="ckeConfig" formControlName="changeHistorical"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <b>Justification for change (Projection)</b>
+                    <div class="mt-2">
+                        <ckeditor [config]="ckeConfig" formControlName="changeProjection"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <b>Remarks</b>
+                    <div class="mt-2">
+                        <ckeditor *ngIf="fromLoan" [config]="ckeConfig" formControlName="remarks"></ckeditor>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="!fromLoan" >
+                <div class="col-md-12"  *ngIf="financialData?.changeHistorical">
+                    <b>Justification for change (Historical)</b>
+                    <div class="mt-2">
+                        <span [innerHTML]="financialData?.changeHistorical | safeHtml"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="financialData?.changeProjection">
+                    <b>Justification for change (Projection)</b>
+                    <div class="mt-2">
+                        <span [innerHTML]="financialData?.changeProjection | safeHtml"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="financialData?.remarks">
+                    <b>Remarks</b>
+                    <div class="mt-2">
+                        <span [innerHTML]="financialData?.remarks | safeHtml"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="fromLoan">
                 <button class="float-right btn-danger" nbButton (click)="onSubmit()" type="submit">Save</button>
             </div>
         </form>
