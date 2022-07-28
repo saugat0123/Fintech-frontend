@@ -27,7 +27,8 @@
                         Business Site Visit
                     </nb-checkbox>
                 </div>
-                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && !smallBusiness &&
+                 !deprivedSector && !microFinancialService">
                     <nb-checkbox [checked]="currentAssetsInspectionForm"
                                  (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
                         Current Assets Inspection

@@ -94,8 +94,7 @@
                                                               [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
                            </div>
                            </ng-template>
-                           <ng-container>
-
+                           <ng-container *ngIf="!smallBusiness">
                                <div class="col-md-12" *ngIf="proposalAllData?.requestType">
                                    <hr class="print-line">
                                    <p><strong class="header text-left">Request Type</strong></p>

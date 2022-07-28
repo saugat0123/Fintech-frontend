@@ -80,7 +80,7 @@
                 <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
                                            [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
             </ng-template>
-            <ng-container>
+            <ng-container *ngIf="!smallBusiness">
 
                 <div class="col-md-12" *ngIf="proposalAllData?.requestType">
                 <hr class="print-line">
