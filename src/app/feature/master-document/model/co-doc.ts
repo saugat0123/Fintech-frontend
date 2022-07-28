@@ -1,13 +1,11 @@
 import {CustomerType} from '../../customer/model/customerType';
-import {BaseEntity} from '../../../@core/model/base-entity';
 import {DocStatus} from '../mdocconstant/doc-status';
 
-export class MasterDoc extends BaseEntity {
+export class CoDoc {
     docName: string;
     docPath: string;
-    mdocData: string;
+    docData: string;
+    bookmarks: string;
+    docStatus: DocStatus;
     customerType: CustomerType;
-    status: DocStatus;
-    loanData: string;
-
 }

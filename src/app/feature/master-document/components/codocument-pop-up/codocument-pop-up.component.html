@@ -1,0 +1,18 @@
+<nb-card class="large-modal">
+    <nb-card-header>Co Document Data Creation</nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="coDocForm">
+            <div class="row">
+                <div class="col-md-4" *ngFor="let control of controls">
+                    <label>{{control.label}}</label>
+                    <input class="form-control" [formControlName]="control?.controlName">
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="text-right">
+            <button nbButton size="tiny" status="success" (click)="onSubmit()">Submit</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

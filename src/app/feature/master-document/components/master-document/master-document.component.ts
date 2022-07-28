@@ -10,7 +10,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {NbDialogService} from '@nebular/theme';
-import {BookmarkPopUpComponent} from './bookmark-pop-up/bookmark-pop-up.component';
+import {BookmarkPopUpComponent} from '../bookmark-pop-up/bookmark-pop-up.component';
 
 @Component({
   selector: 'app-master-document',

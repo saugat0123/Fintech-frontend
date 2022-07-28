@@ -1,0 +1,72 @@
+<nb-card>
+    <nb-card-header>Co Document</nb-card-header>
+    <nb-card-body [nbSpinner]="spinner">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                nbButton shape="rectangle" status="primary" size="small">
+                            <em class="fa fa-filter"> Filter</em>
+                        </button>
+
+                    </div>
+                </div>
+                <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+                    <form [formGroup]="filterForm">
+                        <div class="row py-3">
+
+                            <div class="col-md-3 mb-3">
+                                <input class="form-control rounded" formControlName="docName" id="docName"
+                                       placeholder="Enter Document Name...">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 p-0">
+                            <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton
+                                    shape="rectangle"
+                                    status="info"
+                                    size="small">Search
+                            </button>
+                            <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 col-md-12">
+            <table class="table table-sm table-bordered table-hover sb-small text-center">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>S.N</th>
+                    <th>Document Name</th>
+                    <th>Customer Type</th>
+                    <th>Created At</th>
+                    <th>Document Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let masterDoc of masterDocList; let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{masterDoc?.docName}}</td>
+                    <td>{{masterDoc?.customerType}}</td>
+                    <td>{{masterDoc?.lastModifiedAt | date}}</td>
+                    <td>
+                        <span *ngIf="masterDoc?.status === 'ACTIVE'" class="text-success">{{masterDoc?.status}}</span>
+                        <span *ngIf="masterDoc?.status === 'INACTIVE'" class="text-success">{{masterDoc?.status}}</span>
+                    </td>
+                    <td>
+                        <button (click)="onSaveGenerate(masterDoc)" nbButton size="tiny" status="success">Create</button>
+                        <button class="ml-2" nbButton size="tiny" status="info">Generate</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+    </nb-card-body>
+</nb-card>

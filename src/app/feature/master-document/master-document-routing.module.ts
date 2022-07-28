@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MasterDocumentComponent} from './components/master-document/master-document.component';
+import {CodocumentComponent} from './components/codocument/codocument.component';
 
 const routes: Routes = [
-  {path: '', component: MasterDocumentComponent}
+  {path: 'document', component: MasterDocumentComponent},
+  {path: 'codocument', component: CodocumentComponent},
 ];
 
 
