@@ -19,6 +19,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {CreateDocumentComponent} from '../security/security-initial-form/create-document/create-document.component';
 import {SiteVisitDocument} from '../security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {ActivatedRoute} from '@angular/router';
+import {LoanType} from '../../loan/model/loanType';
 
 
 declare let google: any;
@@ -72,6 +73,9 @@ export class SiteVisitComponent implements OnInit {
   customerType: string;
   customerId: number;
   branchId: number;
+  smallBusiness = false;
+  deprivedSector = false;
+  microFinancialService = false;
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
               private toastService: ToastService,
@@ -130,6 +134,15 @@ export class SiteVisitComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.branchId = this.customerInfo.branch.id;
+    }
+    if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.customerInfo.customerType === 'INSTITUTION') {
+      this.smallBusiness = true;
+    }
+    if (this.customerInfo.clientType === 'DEPRIVED_SECTOR') {
+      this.deprivedSector = true;
+    }
+    if (this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES') {
+      this.microFinancialService = true;
     }
     this.getRoleList();
     this.getCustomerTypeAndId();

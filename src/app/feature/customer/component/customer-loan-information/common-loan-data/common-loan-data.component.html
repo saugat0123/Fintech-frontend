@@ -98,16 +98,16 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 form-group">
+                <div class="col-md-12 form-group" *ngIf="customerInfo.customerType === 'INDIVIDUAL'">
                     <nb-checkbox (change)="checkChecked($event.target?.checked,'sol')"
-                                 [checked]="solChecked"><b>Justification of Limit for Consumer Finance</b>
+                                 [checked]="solChecked"><b>Justification of Limit</b>
                     </nb-checkbox>
                     <div *ngIf="solChecked">
                         <ckeditor [config]="ckeConfig"
                                   formControlName="solConclusionRecommendation"></ckeditor>
                     </div>
                 </div>
-                <div class="col-md-12 form-group" *ngIf="customerInfo?.clientType !== 'CONSUMER_FINANCE'">
+                <div class="col-md-12 form-group" *ngIf="customerInfo?.clientType !== 'CONSUMER_FINANCE' && customerInfo.customerType === 'INDIVIDUAL'">
 
                     <nb-checkbox (change)="checkChecked($event.target?.checked,'risk')"
                                  [checked]="riskChecked"><b>Risk & Mitigation</b>

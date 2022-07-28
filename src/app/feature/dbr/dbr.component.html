@@ -12,15 +12,15 @@
             <tbody>
 <tr>
     <td>Gross Monthly Income (GMI)</td>
-    <td class="text-left pl-2">{{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="text-left pl-2">NPR. {{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr *ngFor="let data of financialData?.initialForm?.expensesOfBorrower;">
     <td>{{data?.particulars}}</td>
-    <td class="text-left pl-2">{{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="text-left pl-2">NPR. {{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
     <td>Total Monthly Obligation</td>
-    <td class="text-left pl-2">{{(financialData?.initialForm?.totalExpense?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
+    <td class="text-left pl-2">NPR. {{(financialData?.initialForm?.totalExpense?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
     <td>Gross DBR (EMI/GMI)</td>
