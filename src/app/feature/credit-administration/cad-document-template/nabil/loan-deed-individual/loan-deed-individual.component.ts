@@ -97,10 +97,6 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.clientType = this.cadData.loanHolder['customerSubType'];
     }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.clientType = this.cadData.loanHolder['customerSubType'];
-    }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
     }
@@ -110,11 +106,11 @@ export class LoanDeedIndividualComponent implements OnInit {
       !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach((individualCadFile) => {
         if (individualCadFile.customerLoanId === this.customerLoanId &&
-          individualCadFile.cadDocument.id === this.documentId && !ObjectUtil.isEmpty(individualCadFile.initialInformation)) {
+          individualCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(individualCadFile.initialInformation);
           this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
           this.initialInfoPrint = initialInfo;
-          this.loanDeedIndividual.patchValue(initialInfo);
+          // this.loanDeedIndividual.patchValue(initialInfo);
         }
       });
     }
@@ -170,6 +166,14 @@ export class LoanDeedIndividualComponent implements OnInit {
           this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'sakshiName2']).value : '',
       nameOfBankStaff: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'nameOfBankStaff']).value ?
           this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'nameOfBankStaff']).value : '',
+      year: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'year']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'year']).value : '',
+      month: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'month']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'month']).value : '',
+      day: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'day']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'day']).value : '',
+      time: this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'time']).value ?
+          this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'time']).value : '',
     };
     const free1 = {
       // dateOfExpirySingle: this.loanDeedIndividual.get('expiryDate') ? this.loanDeedIndividual.get('expiryDate').value : '',
@@ -644,6 +648,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       cadFile.initialInformation = JSON.stringify(
         this.loanDeedIndividual.value
       );
+      cadFile.supportedInformation = this.setCombinedFreeText();
       this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
@@ -1212,6 +1217,18 @@ export class LoanDeedIndividualComponent implements OnInit {
             this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'nameOfBankStaff']).patchValue(
                 !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
                     this.cadInitialInfo.guarantorFreeText.nameOfBankStaff : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'year']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.year : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'month']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.month : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'day']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.day : '' : '');
+            this.loanDeedIndividual.get(['loanDeedIndividuals', 0, 'time']).patchValue(
+                !ObjectUtil.isEmpty(this.cadInitialInfo) ? !ObjectUtil.isEmpty(this.cadInitialInfo.guarantorFreeText) ?
+                    this.cadInitialInfo.guarantorFreeText.time : '' : '');
           }
         }
       }
