@@ -4,7 +4,7 @@
             <div class="row"
                  *ngFor="let personalGuarantor of personalGuarantorNepDataArray; let i = index"
                  formArrayName="personalGuarantee">
-                <div class="col-md-12" [formGroupName]="i.toString()">
+                <div class="col-md-12" [formGroupName]="i">
                     <p class="text-left"><strong> विषय:— <u>व्यक्तिगत जमानतको लिखत</u></strong></p>
                     <p>लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा
                         नं.१ हात्तिसार स्थित केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेडको</strong> जिल्ला
@@ -149,7 +149,7 @@
                                 </tr>
                                 <tr>
                                     <td>नाम :</td>
-                                    <td><span style="font-family: Preeti">{{ personalGuarantor?.nepaliName ? personalGuarantor?.nepaliName : '===========' }}</span></td>
+                                    <td><span style="font-family: Preeti">{{ personalGuarantor?.name ? personalGuarantor?.name : '===========' }}</span></td>
                                 </tr>
                                 <tr>
                                     <td>बाजे/ससुराको नाम :</td>
