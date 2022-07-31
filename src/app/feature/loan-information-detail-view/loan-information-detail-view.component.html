@@ -279,7 +279,7 @@
                         <p><strong>REQUEST OF THE CLIENT : </strong></p>
                         <p class="sb-small">The client has requested us
                             for {{customerAllLoanList?.length > 1 ? 'following loan' :
-                                loanDataHolder?.loan?.name + ' of NPR ' + loanDataHolder?.proposal?.proposedLimit + '@' +
+                                loanDataHolder?.loan?.name + ' of NPR ' + (loanDataHolder?.proposal?.proposedLimit | currencyFormatter) + '@' +
                                 (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
                                 ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths / 12 + ' year(s)' : 'NA')  }}</p>
                         <div *ngIf="customerAllLoanList?.length > 1">

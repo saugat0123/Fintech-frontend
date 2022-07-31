@@ -45,15 +45,15 @@
             </tr>
             <tr>
                 <td> Authorized Capital</td>
-                <td>{{companyInfo?.capital?.authorizedCapital}}</td>
+                <td>{{companyInfo?.capital?.authorizedCapital | currencyFormatter}}</td>
             </tr>
             <tr>
                 <td>Issued Capital</td>
-                <td>{{companyInfo?.capital?.issuedCapital}}</td>
+                <td>{{companyInfo?.capital?.issuedCapital | currencyFormatter}}</td>
             </tr>
             <tr>
                 <td>Paid up Capital</td>
-                <td>{{companyInfo?.capital?.paidUpCapital}}</td>
+                <td>{{companyInfo?.capital?.paidUpCapital | currencyFormatter}}</td>
             </tr>
             <tr>
                 <td>Latest Net Worth as per B/S</td>
