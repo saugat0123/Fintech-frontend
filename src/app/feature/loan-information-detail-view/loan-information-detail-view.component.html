@@ -44,6 +44,11 @@
                                 </strong>
                                 <span class="badge badge-info">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
                             </div>
+                            <div *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'">
+                                <strong>Request Type:</strong>
+                                <span class="badge badge-success">
+                                    {{(loanDataHolder.proposal?.data | jsonParse)?.requestType ? (((loanDataHolder.proposal?.data | jsonParse)?.requestType.replace("_", " ")) | titlecase) : 'N/A'}}</span>
+                            </div>
                             <div class="clearfix" style="margin-top: 4em">
                                 <div class="float-left">
                                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>

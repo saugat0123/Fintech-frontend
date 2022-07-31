@@ -11,6 +11,18 @@
         <form [formGroup]="commonLoanData">
             <div class="row">
                 <ng-container *ngIf="customerInfo.customerType === 'INSTITUTION'">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="title" for="requestType"><strong>Request Type</strong></label>
+                            <select class="form-control" formControlName="requestType"
+                                    id="requestType" placeholder="Select Request Type">
+                                <option [value]=null hidden>Select Request Type</option>
+                                <option *ngFor="let reqType of requestTypeEnum"
+                                        [value]="reqType?.key">{{reqType?.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+
                 <div class="col-md-12">
                     <div class="form-group">
                         <strong>{{client === clientName?.LAXMIBANK ? 'Justification of limit' : 'Loan background' }}</strong>
@@ -33,15 +45,6 @@
                                 name="disbursementCriteria"></ckeditor>
                     </div>
                 </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="title" for="requestType"><strong>Request Type</strong></label>
-                            <ckeditor
-                                    [config]="ckeConfig" formControlName="requestType"
-                                    id="requestType"
-                                    name="requestType"></ckeditor>
-                        </div>
-                    </div>
 
                 <div class="col-md-12">
                     <div class="form-group">
