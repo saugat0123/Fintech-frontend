@@ -21,20 +21,20 @@
             <tr *ngFor="let con of multiBankingData?.consortium; let i = index">
               <td>{{i + 1}}</td>
               <td>{{con?.coBankName}}</td>
-              <td class="text-right pr-1">Rs. {{con?.funded}}</td>
-              <td class="text-right pr-1">Rs. {{con?.nonFunded}}</td>
-              <td class="text-right pr-1">Rs. {{con?.termLoan}}</td>
-              <td class="text-right pr-1">Rs. {{con?.total}}</td>
+              <td class="text-right pr-1">Rs. {{con?.funded | currencyFormatter}}</td>
+              <td class="text-right pr-1">Rs. {{con?.nonFunded | currencyFormatter}}</td>
+              <td class="text-right pr-1">Rs. {{con?.termLoan | currencyFormatter}}</td>
+              <td class="text-right pr-1">Rs. {{con?.total | currencyFormatter}}</td>
               <td class="text-right pr-1">{{con?.bankPercent}} %</td>
             </tr>
             <tr>
               <td></td>
               <td><b>Total</b></td>
-              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalFunded}}</b></td>
-              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalNonFunded}}</b></td>
-              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTermLoan}}</b></td>
-              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTotal}}</b></td>
-              <td class="text-right pr-1"><b>{{multiBankingData?.totalPercent}}</b> %</td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalFunded | currencyFormatter}}</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalNonFunded | currencyFormatter}}</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTermLoan | currencyFormatter}}</b></td>
+              <td class="text-right pr-1"><b>Rs. {{multiBankingData?.totalTotal | currencyFormatter}}</b></td>
+              <td class="text-right pr-1"><b>{{multiBankingData?.totalPercent | currencyFormatter}}</b> %</td>
             </tr>
           </table>
         </div>
@@ -58,9 +58,9 @@
             <td>{{ii + 1}}</td>
             <td>{{mul?.bankName}}</td>
             <td>{{mul?.facilityName}}</td>
-            <td class="text-right pr-1">Rs. {{mul?.limit}}</td>
-            <td class="text-right pr-1">Rs. {{mul?.outstanding}}</td>
-            <td class="text-right pr-1">Rs. {{mul?.overDue}}</td>
+            <td class="text-right pr-1">Rs. {{mul?.limit | currencyFormatter}}</td>
+            <td class="text-right pr-1">Rs. {{mul?.outstanding | currencyFormatter}}</td>
+            <td class="text-right pr-1">Rs. {{mul?.overDue | currencyFormatter}}</td>
           </tr>
         </table>
       </div>
@@ -82,10 +82,10 @@
           <tr *ngFor="let swa of multiBankingData?.bfiSwap; let iii = index">
             <td>{{swa?.bankName}}</td>
             <td>{{swa?.facilityName}}</td>
-            <td class="text-right pr-1">Rs. {{swa?.limit}}</td>
-            <td class="text-right pr-1">Rs. {{swa?.outstanding}}</td>
+            <td class="text-right pr-1">Rs. {{swa?.limit | currencyFormatter}}</td>
+            <td class="text-right pr-1">Rs. {{swa?.outstanding | currencyFormatter}}</td>
             <td>{{swa?.classification}}</td>
-            <td>{{swa?.account}}</td>
+            <td>{{swa?.account | currencyFormatter}}</td>
           </tr>
           <tr>
             <th class="text-center sb-bg-dark text-white" colspan="6">Comments</th>
@@ -120,10 +120,10 @@
             <td class="text-right pr-1">Rs. {{cic?.borrower ? cic?.borrower : '-'}}</td>
             <td class="text-right pr-1">Rs. {{cic?.guarantor ? cic?.guarantor : '-'}}</td>
             <td class="text-right pr-1">Rs. {{cic?.shareholder ? cic?.shareholder : '-'}}</td>
-            <td>{{cic?.overdueAmount}}</td>
-            <td>{{cic?.loanamount}}</td>
-            <td>{{cic?.outstandingAmount}}</td>
-            <td>{{cic?.overdueStatus}}</td>
+            <td>{{cic?.overdueAmount | currencyFormatter}}</td>
+            <td>{{cic?.loanamount | currencyFormatter}}</td>
+            <td>{{cic?.outstandingAmount | currencyFormatter}}</td>
+            <td>{{cic?.overdueStatus | currencyFormatter}}</td>
             <td>{{cic?.blacklistChecked ? 'Yes' : 'No'}}</td>
           </tr>
           </tbody>
@@ -236,10 +236,10 @@
               <td></td>
               <td>{{avg?.debit}}</td>
               <td>{{avg?.debitNo}}</td>
-              <td class="text-right pr-1">Rs. {{avg?.debitAmount}}</td>
+              <td class="text-right pr-1">Rs. {{avg?.debitAmount | currencyFormatter}}</td>
               <td>{{avg?.credit}}</td>
               <td>{{avg?.creditNo}}</td>
-              <td class="text-right pr-1">Rs. {{avg?.creditAmount}}</td>
+              <td class="text-right pr-1">Rs. {{avg?.creditAmount | currencyFormatter}}</td>
             </tr>
             </tbody>
           </table>

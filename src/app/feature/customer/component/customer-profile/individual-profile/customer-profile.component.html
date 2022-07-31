@@ -569,7 +569,7 @@
                            <div class="col-md-6" *ngFor="let datas of loan">
 
                                <strong>{{datas?.loan?.name }}</strong>
-                               <em>{{datas?.proposal?.proposedLimit ? ' Proposed Limit: ' : ''}} <mark>{{datas?.proposal?.proposedLimit || ''}}</mark></em>
+                               <em>{{(datas?.proposal?.proposedLimit | currencyFormatter) ? ' Proposed Limit: ' : ''}} <mark>{{(datas?.proposal?.proposedLimit | currencyFormatter) || ''}}</mark></em>
                                <span *ngIf="datas?.customerDocument?.length < 1">
                                    <br>
                                     NO DOCUMENT AVAILABLE

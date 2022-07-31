@@ -28,7 +28,7 @@
                 <td>{{data?.citizenshipNumber}}</td>
                 <td>{{data?.citizenshipIssuedDate | date}}</td>
                 <td>{{data?.citizenshipIssuedPlace}}</td>
-                <td>{{data?.relativeNetWorth}}</td>
+                <td>{{data?.relativeNetWorth | currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>

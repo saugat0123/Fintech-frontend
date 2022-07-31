@@ -17,31 +17,31 @@
                     <tbody>
                     <tr>
                         <td>Cash Deposit in other bank</td>
-                        <td>{{data?.cashDepositInOtherBank}}</td>
+                        <td>{{data?.cashDepositInOtherBank | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Real estate Properties</td>
-                        <td>{{data?.realEstateProperties}}</td>
+                        <td>{{data?.realEstateProperties | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Investment in shares</td>
-                        <td>{{data?.investmentInShares}}</td>
+                        <td>{{data?.investmentInShares | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Vehicle</td>
-                        <td>{{data?.vehicle}}</td>
+                        <td>{{data?.vehicle | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Jewelleries</td>
-                        <td>{{data?.jewelleries}}</td>
+                        <td>{{data?.jewelleries | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <th>Total Assets</th>
-                        <th>{{data?.totalAssets}}</th>
+                        <th>{{data?.totalAssets | currencyFormatter}}</th>
                     </tr>
                     </tbody>
                 </table>
-                <strong>Total Net Worth : {{data?.totalNetWorth}}</strong>
+                <strong>Total Net Worth : {{data?.totalNetWorth | currencyFormatter}}</strong>
             </div>
             <div class="col-md-6">
                 <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
@@ -54,23 +54,23 @@
                     <tbody>
                     <tr>
                         <td>Loan from CCBL</td>
-                        <td>{{data?.loanFromCCBL}}</td>
+                        <td>{{data?.loanFromCCBL | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Credit Cards Limit if any</td>
-                        <td>{{data?.creditCardsLimit}}</td>
+                        <td>{{data?.creditCardsLimit | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Loan From Other BFIS</td>
-                        <td>{{data?.loanFromOtherBfi}}</td>
+                        <td>{{data?.loanFromOtherBfi | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Other Liabilities</td>
-                        <td>{{data?.otherLiabilities}}</td>
+                        <td>{{data?.otherLiabilities | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <th>Total Liabilities</th>
-                        <th>{{data?.totalLiabilities}}</th>
+                        <th>{{data?.totalLiabilities | currencyFormatter}}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -97,31 +97,31 @@
                     <tbody>
                     <tr>
                         <td>Cash Deposit in other bank</td>
-                        <td>Rs. {{gData?.cashDepositInOtherBank}}</td>
+                        <td>Rs. {{gData?.cashDepositInOtherBank | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Real estate Properties</td>
-                        <td>Rs. {{gData?.realEstateProperties}}</td>
+                        <td>Rs. {{gData?.realEstateProperties | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Investment in shares</td>
-                        <td>Rs. {{gData?.investmentInShares}}</td>
+                        <td>Rs. {{gData?.investmentInShares | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Vehicle</td>
-                        <td>Rs. {{gData?.vehicle}}</td>
+                        <td>Rs. {{gData?.vehicle | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Jewelleries</td>
-                        <td>Rs. {{gData?.jewelleries}}</td>
+                        <td>Rs. {{gData?.jewelleries | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <th>Total Assets</th>
-                        <th>Rs. {{gData?.totalAssets}}</th>
+                        <th>Rs. {{gData?.totalAssets | currencyFormatter}}</th>
                     </tr>
                     </tbody>
                 </table>
-                <strong>Total Net Worth : Rs. {{gData?.totalNetWorth}}</strong>
+                <strong>Total Net Worth : Rs. {{gData?.totalNetWorth | currencyFormatter}}</strong>
             </div>
             <div class="col-md-6">
                 <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
@@ -134,24 +134,24 @@
                     <tbody>
                     <tr>
                         <td>Loan from CCBL</td>
-                        <td>Rs. {{gData?.loanFromCCBL}}</td>
+                        <td>Rs. {{gData?.loanFromCCBL | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Credit Cards Limit if any</td>
-                        <td>Rs. {{gData?.creditCardsLimit}}</td>
+                        <td>Rs. {{gData?.creditCardsLimit | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <td>Loan From Other BFIS</td>
-                        <td>Rs. {{gData?.loanFromOtherBfi}}</td>
+                        <td>Rs. {{gData?.loanFromOtherBfi | currencyFormatter}}</td>
                     </tr>
 
                     <tr>
                         <td>Other Liabilities</td>
-                        <td>Rs. {{gData?.otherLiabilities}}</td>
+                        <td>Rs. {{gData?.otherLiabilities | currencyFormatter}}</td>
                     </tr>
                     <tr>
                         <th>Total Liabilities</th>
-                        <th>Rs. {{gData?.totalLiabilities}}</th>
+                        <th>Rs. {{gData?.totalLiabilities | currencyFormatter}}</th>
                     </tr>
                     </tbody>
                 </table>

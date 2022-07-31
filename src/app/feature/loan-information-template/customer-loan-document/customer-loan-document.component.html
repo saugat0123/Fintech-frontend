@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-header>
       <strong>{{loanDataHolder?.loan?.name || 'Loan Document'}} </strong>
-      <em class="sb-small">{{loanDataHolder?.proposal?.proposedLimit ? 'Proposed Limit: Rs. ' : ''}} <mark>{{loanDataHolder?.proposal?.proposedLimit || ''}}</mark></em>
+      <em class="sb-small">{{(loanDataHolder?.proposal?.proposedLimit | currencyFormatter) ? 'Proposed Limit: Rs. ' : ''}} <mark>{{(loanDataHolder?.proposal?.proposedLimit | currencyFormatter) || ''}}</mark></em>
     </nb-card-header>
     <nb-card-body>
         <div *ngIf="initialDocuments.length > 0" class="row">

@@ -197,9 +197,9 @@
                         <b>Total</b>
                     </td>
                     <td>
-                        <span style="margin-left: 15px;" class="font-weight-bold">{{securityDocument?.exTotal}}</span>
-                        <span style="margin-left: 30px;" class="font-weight-bold">{{securityDocument?.prTotal}}</span>
-                        <span style="margin-left: 40px;" class="font-weight-bold">{{securityDocument?.chTotal}}</span>
+                        <span style="margin-left: 15px;" class="font-weight-bold">{{securityDocument?.exTotal | currencyFormatter}}</span>
+                        <span style="margin-left: 30px;" class="font-weight-bold">{{securityDocument?.prTotal | currencyFormatter}}</span>
+                        <span style="margin-left: 40px;" class="font-weight-bold">{{securityDocument?.chTotal | currencyFormatter}}</span>
                     </td>
                 </tr>
             </table>

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {FiscalYear} from '../../../../../admin/modal/FiscalYear';
 import {CustomerCategory} from '../../../../../customer/model/customerCategory';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-upto-ten-million',
@@ -19,11 +20,15 @@ export class UptoTenMillionComponent implements OnInit {
   customerCategory = CustomerCategory.SME_UPTO_TEN_MILLION;
   data;
   approveAuth;
-  constructor() { }
+  totalAmount;
+  constructor(
+      private currencyFormatterPipe: CurrencyFormatterPipe
+  ) { }
 
   ngOnInit() {
     this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     this.approveAuth = this.data.approvingAuthority;
+    this.totalAmount = this.currencyFormatterPipe.transform(this.totalProposed);
   }
 
 }
