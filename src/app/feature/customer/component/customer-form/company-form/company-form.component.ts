@@ -1026,7 +1026,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
                 this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
                 this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
-            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(8));
+            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
     }
 
     // Calculation of Share %

@@ -7,7 +7,7 @@ export class AmountWordPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     if (value) {
-      value = parseFloat(value).toFixed(8);
+      value = parseFloat(value).toFixed(2);
       const amounth = value.toString().split('.');
       let price: any = amounth[0];
       const pointer: any = amounth.length > 0 ? amounth[1] : null;
