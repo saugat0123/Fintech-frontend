@@ -117,7 +117,6 @@ taggedCorporateGuarantorsDetailForm() {
             this.initialInfoPrint = JSON.parse(singleCadFile.supportedInformation);
           }
         });
-        console.log('this.initialInfoPrint', this.initialInfoPrint);
         const freeText = this.form.value;
         if (this.initialInfoPrint !== null) {
           for (let val = 0; val < freeText.corporateGuarantee.length; val++) {
