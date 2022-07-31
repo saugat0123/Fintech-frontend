@@ -52,6 +52,15 @@ export class CommonLoanDataComponent implements OnInit {
     finalLoanData: Array<CustomerLoanDto>;
     files = [];
     isSbk = false;
+    requestTypeEnum = [
+        {key: 'UPDATE_LOAN_INFORMATION', value: 'Update Loan Information'},
+        {key: 'RENEWED_LOAN', value: 'Renew Loan'},
+        {key: 'ENHANCED_LOAN', value: 'Enhance Loan'},
+        {key: 'PARTIAL_SETTLEMENT_LOAN', value: 'Partial Settle Loan'},
+        {key: 'FULL_SETTLEMENT_LOAN', value: 'Full Settle Loan'},
+        {key: 'RENEW_WITH_ENHANCEMENT', value: 'Renew With Enhancement'},
+        {key: 'DIARY_NOTE', value: 'Diary Note'},
+    ];
 
     constructor(private toastService: ToastService,
                 private customerInfoService: CustomerInfoService,
@@ -119,7 +128,6 @@ export class CommonLoanDataComponent implements OnInit {
             if (!ObjectUtil.isEmpty(parsedData.files)) {
                 this.files = JSON.parse(parsedData.files);
             }
-            console.log('this is checked data', JSON.parse(this.resCombinedData[0].proposal.checkedData));
             this.setCheckedData(JSON.parse(this.resCombinedData[0].proposal.checkedData));
             if (!ObjectUtil.isEmpty(parsedData.vehicle)) {
                 this.setFormData(parsedData.vehicle, 'vehicle');

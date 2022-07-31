@@ -10,9 +10,13 @@ import {Editor} from '../../../../../../@core/utils/constants/editor';
 })
 export class MarketScenarioComponent implements OnInit {
     @Input() marketScenario;
+    @Input() clientTypeInput;
     marketScenarioForm: FormGroup;
     submitted = false;
     ckeConfig = Editor.CK_CONFIG;
+    smallBusiness = false;
+    deprivedSector = false;
+    microFinancialService = false;
 
     submitData;
 
@@ -24,6 +28,15 @@ export class MarketScenarioComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.clientTypeInput === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.smallBusiness = true;
+        }
+        if (this.clientTypeInput === 'DEPRIVED_SECTOR') {
+            this.deprivedSector = true;
+        }
+        if (this.clientTypeInput === 'MICRO_FINANCIAL_SERVICES') {
+            this.microFinancialService = true;
+        }
         this.buildForm();
         this.setMarketData();
     }

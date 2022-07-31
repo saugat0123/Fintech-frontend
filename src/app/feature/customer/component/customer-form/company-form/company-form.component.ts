@@ -160,6 +160,9 @@ export class CompanyFormComponent implements OnInit {
     srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
+    smallBusiness = false;
+    deprivedSector = false;
+    microFinancialService = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -200,6 +203,15 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
+        if (this.clientTypeInput === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.smallBusiness = true;
+        }
+        if (this.clientTypeInput === 'DEPRIVED_SECTOR') {
+            this.deprivedSector = true;
+        }
+        if (this.clientTypeInput === 'MICRO_FINANCIAL_SERVICES') {
+            this.microFinancialService = true;
+        }
         if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
             this.srdbAffiliatedId = true;
         }

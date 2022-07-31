@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
             <div class="form-group">
                 <label for="securityRisk"><strong>Raw Materials</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.securityRisk.errors }"
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
             <div class="form-group">
                 <label for="marketDemandService"><strong>Demand of Product/Service</strong></label> <br>
                 <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
             <div class="form-group">
                 <label for="competitorsOverview"><strong>Pricing & Competitors Overview</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.competitorsOverview.errors }"
@@ -126,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
             <div class="form-group">
                 <label for="futurePlan"><strong>Future plan</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.futurePlan.errors }"
@@ -142,7 +142,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
             <div class="form-group">
                 <label for="latestBusinessUpdates"><strong>Latest Business Updates</strong></label>
                 <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.latestBusinessUpdates.errors }"
