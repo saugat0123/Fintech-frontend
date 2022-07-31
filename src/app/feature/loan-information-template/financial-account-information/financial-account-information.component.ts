@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ObjectUtil } from '../../../@core/utils/ObjectUtil';
 import { LoanDataHolder } from '../../loan/model/loanData';
 import {Financial} from '../../loan/model/financial';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-financial-account-information',
@@ -20,6 +21,7 @@ export class FinancialAccountInformationComponent implements OnInit {
   @Input() financialAssessmentData;
   submitted = false;
   submitData;
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,7 +70,10 @@ export class FinancialAccountInformationComponent implements OnInit {
       trAmount: [undefined],
       dnIrIssuedNum: [undefined],
       dnIrIssuedDate: [undefined],
-      dnIrIssuedPurposr: [undefined]
+      dnIrIssuedPurposr: [undefined],
+      changeHistorical: [undefined],
+      changeProjection: [undefined],
+      remarks: [undefined],
     });
   }
 

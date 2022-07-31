@@ -87,7 +87,7 @@
         </nb-card>
       </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION" >
+      <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION && !consumerFinance && !deprivedSector && !microFinancialService && !smallBusiness" >
         <div class="row">
           <nb-card class="col-md-11 py-2" #sensitive>
             <a class="cursor info-label" (click)="openModel(itemSensitive)">
@@ -263,7 +263,7 @@
         </nb-card>
       </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo.clientType !== 'CONSUMER_FINANCE'">
+      <div class="col-md-4" *ngIf="!consumerFinance && !deprivedSector && !microFinancialService && !smallBusiness">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemIncomeFromAccount>
         <a class="cursor info-label" (click)="openModel(inccomeFromAccountComponentTemplate)">
@@ -744,7 +744,7 @@
       </ng-template>
 
       <!-- Multi Banking/Consortium Financing-->
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && !consumerFinance && !deprivedSector && !microFinancialService && !smallBusiness">
         <div class="row">
           <nb-card class="col-md-11 py-2">
             <a class="cursor info-label" (click)="openModel(multiBankingTemplate)">
@@ -1051,7 +1051,7 @@
       </div>
 
       <!--Account Strategy -->
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="!consumerFinance && !deprivedSector && !microFinancialService && !smallBusiness">
         <div class="row">
           <nb-card class="col-md-11 py-2">
             <a class="cursor info-label" (click)="openModel(accountStrategy)">

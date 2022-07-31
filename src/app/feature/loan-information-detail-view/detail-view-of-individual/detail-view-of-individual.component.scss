@@ -4,3 +4,16 @@ table, th, td {
 hr.print-line {
   border-top: .5px solid black !important;
 }
+.signature-block {
+  padding: 0.5rem;
+  border: 1px solid #000000 !important;
+
+  .signature-detail {
+    border-top: 1px dashed;
+    padding-top: 0.5rem;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}

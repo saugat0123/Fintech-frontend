@@ -1,7 +1,6 @@
 <nb-card *ngIf="(fromLoan) || (!fromLoan && financialData)">
-    <hr class="print-line">
     <nb-card-header>
-        <label class="text-center header"><strong class="header">Financial/Account Information Assessment</strong></label>
+        <label class="text-center"><strong class="header">Financial/Account Information Assessment</strong></label>
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="financialAccountForm">
@@ -294,6 +293,46 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="row" *ngIf="fromLoan">
+                <div class="col-md-12 form-group">
+                    <b>Justification for change (Historical)</b>
+                    <div class="mt-2">
+                        <ckeditor [config]="ckeConfig" formControlName="changeHistorical"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <b>Justification for change (Projection)</b>
+                    <div class="mt-2">
+                        <ckeditor [config]="ckeConfig" formControlName="changeProjection"></ckeditor>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <b>Remarks</b>
+                    <div class="mt-2">
+                        <ckeditor *ngIf="fromLoan" [config]="ckeConfig" formControlName="remarks"></ckeditor>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="!fromLoan" >
+                <div class="col-md-12"  *ngIf="financialData?.changeHistorical">
+                    <b>Justification for change (Historical)</b>
+                    <div class="mt-2">
+                        <span [innerHTML]="financialData?.changeHistorical | safeHtml"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="financialData?.changeProjection">
+                    <b>Justification for change (Projection)</b>
+                    <div class="mt-2">
+                        <span [innerHTML]="financialData?.changeProjection | safeHtml"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="financialData?.remarks">
+                    <b>Remarks</b>
+                    <div class="mt-2">
+                        <span [innerHTML]="financialData?.remarks | safeHtml"></span>
+                    </div>
                 </div>
             </div>
             <div class="row" *ngIf="fromLoan">

@@ -230,8 +230,8 @@ export class GuarantorComponent implements OnInit {
       spouseName: [ObjectUtil.setUndefinedIfNull(data.spouseName)],
       fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
       profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
-      background: [ObjectUtil.setUndefinedIfNull(data.background)],
-      successionPlanning: [ObjectUtil.setUndefinedIfNull(data.successionPlanning)],
+     /* background: [ObjectUtil.setUndefinedIfNull(data.background)],
+      successionPlanning: [ObjectUtil.setUndefinedIfNull(data.successionPlanning)],*/
       guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress)],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
       passNumber: [undefined],
@@ -272,7 +272,7 @@ export class GuarantorComponent implements OnInit {
         background: this.formBuilder.array([]),
         familyDetails: this.formBuilder.array([])
       }),
-      groupBackground: [ObjectUtil.isEmpty(data.groupBackground) ? undefined : data.groupBackground]
+      // groupBackground: [ObjectUtil.isEmpty(data.groupBackground) ? undefined : data.groupBackground]
     });
   }
 
@@ -454,7 +454,7 @@ export class GuarantorComponent implements OnInit {
             this.getDistrictTemporary(this.form.get(['guarantorDetails', i, 'province']).value, i);
             // tslint:disable-next-line:max-line-length
             this.form.get(['guarantorDetails', i, 'wardNumberTemporary']).patchValue(this.form.get(['guarantorDetails', i, 'wardNumber']).value);
-            this.form.get(['guarantorDetails', i, 'successionPlanning']).patchValue(this.form.get(['guarantorDetails', i, 'successionPlanning']).value);
+            // this.form.get(['guarantorDetails', i, 'successionPlanning']).patchValue(this.form.get(['guarantorDetails', i, 'successionPlanning']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
                 .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])

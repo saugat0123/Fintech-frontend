@@ -1,6 +1,6 @@
 <section class="enable-print summary">
     <div id="print-block">
-        <div class=" col-md-12 summary">
+        <div class="summary">
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -10,7 +10,8 @@
             </ng-container>
             <!--                release and replacement-->
             <ng-container>
-                <p class="header"><strong class="header">Security Schedule</strong></p>
+                <hr class="print-line">
+                <p><strong class="header">Security Schedule</strong></p>
                 <app-security-total-summary [securities]="loanSecurity"
                                             [approvedSec]="approvedSecurity"
                                             [loanHolder]="loanDataHolder?.loanHolder"
@@ -30,7 +31,7 @@
             </app-customer-share-summary>
            <ng-container>
                <hr class="print-line">
-               <p class="header" [hidden]="loanCategory === 'INSTITUTION'"><strong class="header">Applicant/Guarantor
+               <p [hidden]="loanCategory === 'INSTITUTION'"><strong class="header">Applicant/Guarantor
                    Profile</strong></p>
 
                <div class="row">
@@ -73,25 +74,33 @@
                                                                                                     [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span>
                                </p>
                            </div>
-                           <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
-                                          [ciclValue]="loanDataHolder?.loanHolder?.cicl"
-                                          [loanDataHolder]="loanDataHolder"></app-cicl-view>
-                           <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
-                               <hr class="print-line">
-                               <app-financial-account-information [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
-                                                                  [fromLoan]="false"></app-financial-account-information>
-                           </ng-container>
+                           <div class="col-md-12">
+                               <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
+                                              [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                                              [loanDataHolder]="loanDataHolder"></app-cicl-view>
+                               <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
+                                   <hr class="print-line">
+                                   <app-financial-account-information [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
+                                                                      [fromLoan]="false"></app-financial-account-information>
+                               </ng-container>
+                           </div>
                            <ng-template #financials>
                            <div class="row">
                                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
-                                   class="text-left header"><strong class="header">Financial</strong></p>
+                                   class="text-left"><strong class="header">Financial</strong></p>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
                                                               [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
                                                               [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
                            </div>
                            </ng-template>
-                           <ng-container>
+                           <ng-container *ngIf="!smallBusiness">
+                               <div class="col-md-12" *ngIf="proposalAllData?.requestType">
+                                   <hr class="print-line">
+                                   <p><strong class="header text-left">Request Type</strong></p>
+                                   <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
+                               </div>
+
                                <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
                                    <hr class="print-line">
                                    <p><strong class="header text-left">Justification for Change (Historical): </strong></p>
@@ -148,8 +157,8 @@
 <!--                                       </tbody>-->
 <!--                                   </table>-->
 <!--                               </div>-->
-                               <hr class="print-line">
                                <div class="col-md-12 form-group">
+                                   <hr class="print-line">
                                    <div class="row">
                                        <div class="col-md-12 text-left">
                                            <b class="header">Summary of Environment & Social Risk Assessment</b>
@@ -200,18 +209,20 @@
                                    </table>
                                </div>
                            </ng-container>
+                           <div class="col-md-12">
                            <ng-container *ngIf="checkedData?.waiverChecked">
-                               <hr class="print-line header">
-                               <p class="header"><strong class="header">Waivers</strong></p>
+                               <hr class="print-line">
+                               <p><strong class="header">Waivers</strong></p>
                                <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
                                </div>
                            </ng-container>
                            <ng-container *ngIf="checkedData?.deviationChecked">
-                               <hr class="print-line header">
-                               <p class="header"><strong class="header">Deviation</strong></p>
+                               <hr class="print-line">
+                               <p><strong class="header">Deviation</strong></p>
                                <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
                                </div>
                            </ng-container>
+                           </div>
                        </div>
                    </div>
                </ng-container>
