@@ -81,13 +81,6 @@
                                            [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
             </ng-template>
             <ng-container *ngIf="!smallBusiness">
-
-                <div class="col-md-12" *ngIf="proposalAllData?.requestType">
-                <hr class="print-line">
-                    <p class="header"><strong class="header text-left">Request Type</strong></p>
-                    <span [innerHTML]="proposalAllData?.requestType || 'N/A' | safeHtml"></span>
-                </div>
-
                 <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
                     <hr class="print-line">
                     <p><strong class="header text-left">Justification for Change (Historical): </strong>
@@ -352,14 +345,14 @@
 
                 <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                 <td class="text-left">
-                    <div class="pl-1 disable-print">
+                   <!-- <div class="pl-1 disable-print">
                                     <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
                                     loanDataHolder?.currentStage?.comment)"></span>
                     </div>
                     <a (click)="open(loanDataHolder.currentStage.comment)"
                        *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                       class="text-left pl-1 disable-print">read more ....</a>
+                       class="text-left pl-1 disable-print">read more ....</a>-->
                     <div>
                         <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                     </div>

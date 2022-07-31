@@ -1450,6 +1450,7 @@
                        <hr>
                        <!--market scenario-->
                        <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
+                                            [clientTypeInput]="clientTypeInput"
                                             [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
                        <hr>
                        <!--10. SWOT Analysis-->
@@ -1564,6 +1565,7 @@
                            </div>
                        </div>
                        <hr>
+                       <ng-container *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
                        <div class="box-header with-border">
                            <h5 class="box-title">8. Industry outlook</h5>
                        </div>
@@ -1601,6 +1603,7 @@
                                </div>
                            </div>
                        </div>
+                       </ng-container>
 <!--                       <hr>-->
                        <!--Raw materials-->
 <!--                    <ng-container *ngIf="microCustomerType != 'DIRECT'">-->
