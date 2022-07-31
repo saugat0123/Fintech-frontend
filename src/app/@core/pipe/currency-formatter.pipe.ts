@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class CurrencyFormatterPipe implements PipeTransform {
 
-    transform(value: any): string {
+    transform(value: number): string {
 
         // use this if nepali formatter is need
       /*  value = Math.round(value);
