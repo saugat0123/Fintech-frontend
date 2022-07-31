@@ -444,10 +444,10 @@ export class LoanDeedIndividualComponent implements OnInit {
         }
       });
     }
-    if (!ObjectUtil.isEmpty(this.initialInfo) &&
-        !ObjectUtil.isEmpty(this.initialInfo.existingLoanForm) &&
-        !ObjectUtil.isEmpty(this.initialInfo.existingLoanForm.existingLoanFormArray)) {
-      this.initialInfo.existingLoanForm.existingLoanFormArray.forEach(value => {
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) &&
+        !ObjectUtil.isEmpty(this.offerDocumentDetails.existingLoanForm) &&
+        !ObjectUtil.isEmpty(this.offerDocumentDetails.existingLoanForm.existingLoanFormArray)) {
+      this.offerDocumentDetails.existingLoanForm.existingLoanFormArray.forEach(value => {
         const totalAmount = value.loanAmountInFigure ? value.loanAmountInFigure : 0;
         totalLoanDeed = totalLoanDeed + totalAmount;
       });
