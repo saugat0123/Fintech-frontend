@@ -289,10 +289,9 @@ export class CadActionComponent implements OnInit, OnChanges {
                     this.sendForwardBackwardList = [];
                     this.sendForwardBackwardList = response.detail;
                     if (this.sendForwardBackwardList.length !== 0) {
-
-                        if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
-                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
-                        }
+                        // if (this.isMaker && this.currentStatus === 'DISBURSEMENT_PENDING') {
+                        //     this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
+                        // }
                         this.getUserList(this.sendForwardBackwardList[0].role);
                     }
                 });
