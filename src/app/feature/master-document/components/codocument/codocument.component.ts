@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../../@core/utils';
 import {NbDialogService} from '@nebular/theme';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
@@ -29,7 +28,6 @@ export class CodocumentComponent implements OnInit {
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
-              private loanConfigService: LoanConfigService,
               private toasterService: ToastService,
               private nbDialogService: NbDialogService,
               private coDocService: CoDocService) { }
@@ -71,5 +69,15 @@ export class CodocumentComponent implements OnInit {
   changePage(page: number) {
     this.page = page;
     CodocumentComponent.loadData(this);
+  }
+
+  deleteCoDoc(coDoc: CoDoc) {
+    this.coDocService.deleteCoDoc(coDoc).subscribe(res => {
+      this.toasterService.show(new Alert(AlertType.SUCCESS, 'Co document deleted successfully'));
+      CodocumentComponent.loadData(this);
+    }, error => {
+      console.error(error);
+      this.toasterService.show(new Alert(AlertType.DANGER, 'Unable to delete co document'));
+    });
   }
 }

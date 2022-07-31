@@ -24,4 +24,10 @@ export class CoDocService extends BaseService<any> {
     const req = ApiUtils.getRequestWithFileSupport(url);
     return this.http.post(req.url, coDoc, {headers: req.header});
   }
+
+  public deleteCoDoc(coDoc: CoDoc): Observable<any>  {
+    const url = `${this.getApi()}/delete`;
+    const req = ApiUtils.getRequest(url);
+    return this.http.post(req.url, coDoc, {headers: req.header});
+  }
 }

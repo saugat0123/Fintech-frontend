@@ -60,6 +60,9 @@
                     </td>
                     <td>
                         <button nbButton size="tiny" status="info">Generate</button>
+                        <button nbButton size="tiny" status="danger" (click)="deleteCoDoc(coDoc)" nbTooltip="Click to delete">
+                            <nb-icon icon="trash-outline"></nb-icon>
+                        </button>
                     </td>
                 </tr>
                 </tbody>
