@@ -21,16 +21,16 @@
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{c?.loan?.name}}</td>
         <td class="text-left pl-1">
-            {{(c?.proposal?.data | jsonParse)?.interestCardRate ? (c?.proposal?.data | jsonParse)?.interestCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.interestCardRate ? ((c?.proposal?.data | jsonParse)?.interestCardRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.existInterestRate ? (c?.proposal?.data | jsonParse)?.existInterestRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.existInterestRate ? ((c?.proposal?.data | jsonParse)?.existInterestRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.interestRate ? (c?.proposal?.data | jsonParse)?.interestRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.interestRate ? ((c?.proposal?.data | jsonParse)?.interestRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.interestDevCardRate ? (c?.proposal?.data | jsonParse)?.interestDevCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.interestDevCardRate ? ((c?.proposal?.data | jsonParse)?.interestDevCardRate | currencyFormatter) : 'NA'}}
         </td>
     </tr>
     </tbody>
@@ -56,16 +56,16 @@
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{c?.loan?.name}}</td>
         <td class="text-left pl-1">
-            {{(c?.proposal?.data | jsonParse)?.processCardRate ? (c?.proposal?.data | jsonParse)?.processCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.processCardRate ? ((c?.proposal?.data | jsonParse)?.processCardRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.processExistingRate ? (c?.proposal?.data | jsonParse)?.processExistingRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.processExistingRate ? ((c?.proposal?.data | jsonParse)?.processExistingRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.processProposedRate ? (c?.proposal?.data | jsonParse)?.processProposedRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.processProposedRate ? ((c?.proposal?.data | jsonParse)?.processProposedRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.processDevCardRate ? (c?.proposal?.data | jsonParse)?.processDevCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.processDevCardRate ? ((c?.proposal?.data | jsonParse)?.processDevCardRate | currencyFormatter) : 'NA'}}
         </td>
     </tr>
     </tbody>
@@ -87,12 +87,12 @@
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{c?.loan?.name}}</td>
         <td class="text-left pl-1">
-            {{(c?.proposal?.data | jsonParse)?.prepaymentCardRate ?
-            (c?.proposal?.data | jsonParse)?.prepaymentCardRate + ' % of the pre-paid amount, flat' : 'NA'}}
+            {{((c?.proposal?.data | jsonParse)?.prepaymentCardRate | currencyFormatter) ?
+            ((c?.proposal?.data | jsonParse)?.prepaymentCardRate |currencyFormatter) + ' % of the pre-paid amount, flat' : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.prepaymentExistingRate ?
-            (c?.proposal?.data | jsonParse)?.prepaymentExistingRate + ' % of the pre-paid amount, flat' : 'NA'}}
+            {{((c?.proposal?.data | jsonParse)?.prepaymentExistingRate | currencyFormatter) ?
+            ((c?.proposal?.data | jsonParse)?.prepaymentExistingRate | currencyFormatter) + ' % of the pre-paid amount, flat' : 'NA'}}
         </td>
     </tr>
     </tbody>
@@ -116,16 +116,16 @@
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{c?.loan?.name}}</td>
         <td class="text-left pl-1">
-            {{(c?.proposal?.data | jsonParse)?.commissionsCardRate ? (c?.proposal?.data | jsonParse)?.commissionsCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.commissionsCardRate ? ((c?.proposal?.data | jsonParse)?.commissionsCardRate | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.existCommissionPercentage ? (c?.proposal?.data | jsonParse)?.existCommissionPercentage : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.existCommissionPercentage ? ((c?.proposal?.data | jsonParse)?.existCommissionPercentage | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.commissionPercentage ? (c?.proposal?.data | jsonParse)?.commissionPercentage : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.commissionPercentage ? ((c?.proposal?.data | jsonParse)?.commissionPercentage | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.commissionDevCardRate ? (c?.proposal?.data | jsonParse)?.commissionDevCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.commissionDevCardRate ? ((c?.proposal?.data | jsonParse)?.commissionDevCardRate | currencyFormatter) : 'NA'}}
         </td>
     </tr>
     </tbody>
@@ -149,28 +149,28 @@
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{c?.loan?.name}}</td>
         <td class="text-left pl-1">
-            {{(c?.proposal?.data | jsonParse)?.cashCardRate ? (c?.proposal?.data | jsonParse)?.cashCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.cashCardRate ? ((c?.proposal?.data | jsonParse)?.cashCardRate | currencyFormatter): 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.existCashMargin ? (c?.proposal?.data | jsonParse)?.existCashMargin : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.existCashMargin ? ((c?.proposal?.data | jsonParse)?.existCashMargin | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.cashMargin ? (c?.proposal?.data | jsonParse)?.cashMargin : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.cashMargin ? ((c?.proposal?.data | jsonParse)?.cashMargin | currencyFormatter) : 'NA'}}
         </td>
         <td class="text-right pr-1">
-            {{(c?.proposal?.data | jsonParse)?.cashMarginDevCardRate ? (c?.proposal?.data | jsonParse)?.cashMarginDevCardRate : 'NA'}}
+            {{(c?.proposal?.data | jsonParse)?.cashMarginDevCardRate ? ((c?.proposal?.data | jsonParse)?.cashMarginDevCardRate | currencyFormatter) : 'NA'}}
         </td>
     </tr>
     </tbody>
 </table>
 <div class="container">
-    <p><strong>14.1.6. Forex: {{loanDataHolder?.companyInfo?.capital?.forexOnSale ? loanDataHolder?.companyInfo?.capital?.forexOnSale : 'NA'}} </strong> paisa discount / USD on sale;
-        <strong>{{loanDataHolder?.companyInfo?.capital?.forexOnPurchase ? loanDataHolder?.companyInfo?.capital?.forexOnPurchase : 'NA'}}</strong>  paisa / USD premium on purchase</p>
-    <p><strong>14.1.7. CIC charge: </strong>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? loanDataHolder?.loanHolder?.cicl?.cibCharge : 'NA'}}</p>
+    <p><strong>14.1.6. Forex: {{loanDataHolder?.companyInfo?.capital?.forexOnSale ? (loanDataHolder?.companyInfo?.capital?.forexOnSale | currencyFormatter) : 'NA'}} </strong> paisa discount / USD on sale;
+        <strong>{{loanDataHolder?.companyInfo?.capital?.forexOnPurchase ? (loanDataHolder?.companyInfo?.capital?.forexOnPurchase | currencyFormatter) : 'NA'}}</strong>  paisa / USD premium on purchase</p>
+    <p><strong>14.1.7. CIC charge: </strong>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? (loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) : 'NA'}}</p>
     <p><strong>14.1.8. STR charge: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.strCharge ?
-        (loanDataHolder?.proposal?.data | jsonParse)?.strCharge : 'NA'}}</p>
+        ((loanDataHolder?.proposal?.data | jsonParse)?.strCharge | currencyFormatter) : 'NA'}}</p>
     <p><strong>14.1.9. Commitment fee:</strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee ?
-        (loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee : 'NA'}}</p>
+        ((loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee | currencyFormatter) : 'NA'}}</p>
     <p><strong>14.1.10. Other charges/fees: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.other ?
-        (loanDataHolder?.proposal?.data | jsonParse)?.other : 'NA'}}</p>
+        ((loanDataHolder?.proposal?.data | jsonParse)?.other | currencyFormatter): 'NA'}}</p>
 </div>

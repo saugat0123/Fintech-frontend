@@ -22,15 +22,15 @@
                             <td>{{detail?.location}}</td>
                             <td>{{detail?.plot}}</td>
                             <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue}}</td>
-                            <td>{{detail?.marketValue}}</td>
-                            <td>{{detail?.distressValue}}</td>
+                            <td>{{detail?.considerValue | currencyFormatter}}</td>
+                            <td>{{detail?.marketValue | currencyFormatter}}</td>
+                            <td>{{detail?.distressValue | currencyFormatter}}</td>
                         </tr>
                         <tr>
                             <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{totalMVEx?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{totalFMVEx?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{totalDVEx?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{(totalMVEx?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{(totalFMVEx?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{(totalDVEx?.toFixed(2) || 0.0) | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
@@ -60,15 +60,15 @@
                             <td>{{detail?.location}}</td>
                             <td>{{detail?.plot}}</td>
                             <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue}}</td>
-                            <td>{{detail?.marketValue}}</td>
-                            <td>{{detail?.distressValue}}</td>
+                            <td>{{detail?.considerValue | currencyFormatter}}</td>
+                            <td>{{detail?.marketValue | currencyFormatter}}</td>
+                            <td>{{detail?.distressValue | currencyFormatter}}</td>
                         </tr>
                         <tr>
                             <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{totalMV?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{totalFMV?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{totalDV?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{(totalMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{(totalFMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{(totalDV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
@@ -98,15 +98,15 @@
                             <td>{{detail?.location}}</td>
                             <td>{{detail?.plot}}</td>
                             <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue}}</td>
-                            <td>{{detail?.marketValue}}</td>
-                            <td>{{detail?.distressValue}}</td>
+                            <td>{{detail?.considerValue | currencyFormatter}}</td>
+                            <td>{{detail?.marketValue | currencyFormatter}}</td>
+                            <td>{{detail?.distressValue | currencyFormatter}}</td>
                         </tr>
                         <tr>
                             <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{totalMVAsPs?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{totalFMVAsPs?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{totalDVAsPs?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{(totalMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{(totalFMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{(totalDVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
