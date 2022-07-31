@@ -87,8 +87,8 @@
                 <td class="text-right pr-1">Rs. {{(ex?.proposalData | jsonParse)?.proposedLimit | currencyFormatter}}</td>
                 <td class="text-left pl-1">{{(ex?.proposalData | jsonParse)?.tenureDurationInMonths}}
                     {{(ex?.proposalData | jsonParse)?.tenureDurationInMonths ? 'Months' : '-'}}</td>
-                <td class="text-right pr-1">Rs. {{calculateChangeInAmount((ex?.proposalData | jsonParse)?.proposedLimit,
-                    (ex?.proposalData | jsonParse)?.existingLimit)}}</td>
+                <td class="text-right pr-1">Rs. {{(calculateChangeInAmount((ex?.proposalData | jsonParse)?.proposedLimit,
+                    (ex?.proposalData | jsonParse)?.existingLimit)) | currencyFormatter}}</td>
                 <td class="pr-1 pl-1">
                     <span *ngIf="ex?.loanConfig?.isFundable && ex?.loanConfig?.loanNature !== null">
                         IR : {{(ex?.proposalData | jsonParse)?.interestRate}} %,
@@ -169,8 +169,8 @@
                 <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
                 <td class="text-left pl-1">{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}}
                     {{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths ? 'Months' : '-'}}</td>
-                <td class="text-right pr-1">Rs. {{calculateChangeInAmount((loan?.proposal?.data | jsonParse)?.proposedLimit,
-                    (loan?.proposal?.data | jsonParse)?.existingLimit)}}</td>
+                <td class="text-right pr-1">Rs. {{(calculateChangeInAmount((loan?.proposal?.data | jsonParse)?.proposedLimit,
+                    (loan?.proposal?.data | jsonParse)?.existingLimit)) | currencyFormatter}}</td>
                 <td class="pr-1 pl-1">
                     <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
                     || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral || array[i]?.isHome">

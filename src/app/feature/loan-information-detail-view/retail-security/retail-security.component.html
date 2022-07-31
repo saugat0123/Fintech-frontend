@@ -40,19 +40,19 @@
                               </thead>
                               <tr *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                                   <td>Land {{i+1}}</td>
-                                  <td>{{landDetails?.landConsideredValue || 'NA'}}</td>
-                                  <td>{{landDetails?.marketValue || 'NA'}}</td>
-                                  <td>{{landDetails?.distressValue || 'NA'}}</td>
+                                  <td>{{(landDetails?.landConsideredValue | currencyFormatter) || 'NA'}}</td>
+                                  <td>{{(landDetails?.marketValue | currencyFormatter) || 'NA'}}</td>
+                                  <td>{{(landDetails?.distressValue | currencyFormatter) || 'NA'}}</td>
                               </tr>
                               <tr>
                                   <td class="font-weight-bold">Total</td>
-                                  <td class="font-weight-bold">{{getTotal('landDetails', 'landConsideredValue')}}</td>
-                                  <td class="font-weight-bold">{{getTotal('landDetails', 'marketValue')}}</td>
-                                  <td class="font-weight-bold">{{getTotal('landDetails', 'distressValue')}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('landDetails', 'landConsideredValue')) | currencyFormatter}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('landDetails', 'marketValue')) | currencyFormatter}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('landDetails', 'distressValue')) | currencyFormatter}}</td>
                               </tr>
                           </table>
                       </td>
-                      <td class="font-weight-bold">{{getTotal('landDetails', 'marketValue')}}</td>
+                      <td class="font-weight-bold">{{(getTotal('landDetails', 'marketValue')) | currencyFormatter}}</td>
                   </tr>
                   <tr *ngIf="landBuilding">
                       <td>Land & Building Security</td>
@@ -88,19 +88,19 @@
                               </thead>
                               <tr *ngFor="let landBuilding of formData['initialForm']['landBuilding']; let i= index">
                                   <td>Land & Building {{i+1}}</td>
-                                  <td>{{landBuilding?.considerValue || 'NA'}}</td>
-                                  <td>{{landBuilding?.marketValue || 'NA'}}</td>
-                                  <td>{{landBuilding?.distressValue || 'NA'}}</td>
+                                  <td>{{(landBuilding?.considerValue | currencyFormatter)|| 'NA'}}</td>
+                                  <td>{{(landBuilding?.marketValue | currencyFormatter) || 'NA'}}</td>
+                                  <td>{{(landBuilding?.distressValue | currencyFormatter) || 'NA'}}</td>
                               </tr>
                               <tr>
                                   <td class="font-weight-bold">Total</td>
-                                  <td class="font-weight-bold">{{getTotal('landBuilding', 'landConsideredValue')}}</td>
-                                  <td class="font-weight-bold">{{getTotal('landBuilding', 'marketValue')}}</td>
-                                  <td class="font-weight-bold">{{getTotal('landBuilding', 'distressValue')}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('landBuilding', 'landConsideredValue')) | currencyFormatter}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('landBuilding', 'marketValue')) | currencyFormatter}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('landBuilding', 'distressValue')) | currencyFormatter}}</td>
                               </tr>
                           </table>
                       </td>
-                      <td class="font-weight-bold">{{getTotal('landBuilding', 'marketValue')}}</td>
+                      <td class="font-weight-bold">{{getTotal('landBuilding', 'marketValue') | currencyFormatter}}</td>
                   </tr>
                   <tr *ngIf="apartmentSelected">
                       <td>Apartment  Security</td>
@@ -138,17 +138,17 @@
                                   <td>Apartment {{i+1}}</td>
                                   <td>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</td>
                                   <td>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</td>
-                                  <td>{{buildingDetails?.buildingDistressValue || 'NA'}}</td>
+                                  <td>{{(buildingDetails?.buildingDistressValue | currencyFormatter)|| 'NA'}}</td>
                               </tr>
                               <tr>
                                   <td class="font-weight-bold">Total</td>
-                                  <td class="font-weight-bold">{{getTotal('buildingDetails', 'distressValue')}}</td>
-                                  <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingFairMarketValue')}}</td>
-                                  <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingDistressValue')}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('buildingDetails', 'distressValue')) | currencyFormatter}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('buildingDetails', 'buildingFairMarketValue')) | currencyFormatter}}</td>
+                                  <td class="font-weight-bold">{{(getTotal('buildingDetails', 'buildingDistressValue')) | currencyFormatter}}</td>
                               </tr>
                           </table>
                       </td>
-                      <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingFairMarketValue')}}</td>
+                      <td class="font-weight-bold">{{getTotal('buildingDetails', 'buildingFairMarketValue') | currencyFormatter}}</td>
                   </tr>
                   <tr *ngIf="vehicleSelected">
                       <td>Vehicle Security</td>
@@ -261,10 +261,10 @@
                             <td>{{depositDetail?.accountHolderName || 'NA'}}</td>
                             <td>{{depositDetail?.accountNumber || 'NA'}}</td>
                             <td>{{depositDetail?.tenureStartDate || 'NA'}}</td>
-                            <td>{{depositDetail?.amount || 'NA'}}</td>
+                            <td>{{(depositDetail?.amount | currencyFormatter) || 'NA'}}</td>
                             <td>{{depositDetail?.expiryDate || 'NA'}}</td>
-                            <td>{{depositDetail?.couponRate || 'NA'}}</td>
-                            <td>{{depositDetail?.beneficiary || 'NA'}}</td>
+                            <td>{{(depositDetail?.couponRate | currencyFormatter) || 'NA'}}</td>
+                            <td>{{(depositDetail?.beneficiary | currencyFormatter) || 'NA'}}</td>
                             <td>{{depositDetail?.remarks || 'NA'}}</td>
                         </tr>
                         </tbody>
@@ -311,8 +311,8 @@
                             <td>{{shareSecurityDetail?.shareType || 'NA'}}</td>
                             <td>{{shareSecurityDetail?.totalShareUnit || 'NA'}}</td>
                             <td>{{shareSecurityDetail?.amountPerUnit || 'NA'}}</td>
-                            <td>{{shareSecurityDetail?.total || 'NA'}}</td>
-                            <td>{{shareSecurityDetail?.consideredValue || 'NA'}}</td>
+                            <td>{{(shareSecurityDetail?.total | currencyFormatter) || 'NA'}}</td>
+                            <td>{{(shareSecurityDetail?.consideredValue | currencyFormatter) || 'NA'}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -331,7 +331,7 @@
                         <tbody>
                         <tr *ngFor="let assignmentDetail of formData['initialForm']['assignmentOfReceivables']; let i= index">
                             <td>Assignment of Receivable - {{i+1}}</td>
-                            <td>{{assignmentDetail?.amount || 'NA'}}</td>
+                            <td>{{(assignmentDetail?.amount | currencyFormatter) || 'NA'}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -410,15 +410,15 @@
                         <tbody>
                         <tr *ngFor="let insuranceDetail of formData['initialForm']['insurancePolicy']; let i= index">
                             <td>Insurance Policy - {{i+1}}</td>
-                            <td>{{insuranceDetail?.insuredAmount || 'NA'}}</td>
+                            <td>{{(insuranceDetail?.insuredAmount | currencyFormatter) || 'NA'}}</td>
                             <td>{{insuranceDetail?.insuranceCompanyName || 'NA'}}</td>
                             <td>{{insuranceDetail?.policyStartDate || 'NA'}}</td>
                             <td>{{insuranceDetail?.maturityDate || 'NA'}}</td>
                             <td>{{insuranceDetail?.insurancePolicyType || 'NA'}}</td>
-                            <td>{{insuranceDetail?.surrenderValue || 'NA'}}</td>
+                            <td>{{(insuranceDetail?.surrenderValue | currencyFormatter) || 'NA'}}</td>
                             <td>{{insuranceDetail?.earlySurrenderDate || 'NA'}}</td>
-                            <td>{{insuranceDetail?.consideredValue || 'NA'}}</td>
-                            <td>{{insuranceDetail?.cashBackAmount || 'NA'}}</td>
+                            <td>{{(insuranceDetail?.consideredValue | currencyFormatter) || 'NA'}}</td>
+                            <td>{{(insuranceDetail?.cashBackAmount | currencyFormatter) || 'NA'}}</td>
                         </tr>
                         </tbody>
                     </table>

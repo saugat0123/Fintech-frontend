@@ -14,7 +14,7 @@
     <p class="mt-2">Therefore, on the basis of the above-mentioned information and credit assessment, we recommend
         credit facilities
         of
-        NPR <span><b>{{totalProposedLimit}}</b></span> in total to M/s. <span><b>{{loanDataHolder?.loanHolder?.name}}</b></span> as under: </p>
+        NPR <span><b>{{totalProposedLimit | currencyFormatter}}</b></span> in total to M/s. <span><b>{{loanDataHolder?.loanHolder?.name}}</b></span> as under: </p>
 </ng-container>
 <ng-template #notUsedForAboveTenMillion>
     <p><strong>Conclusion, Review and Recommendation</strong></p>

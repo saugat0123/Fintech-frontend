@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-executive-summary-sme',
@@ -19,8 +20,11 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   data;
   approveAuth;
   financialCCBL;
+  total;
 
-  constructor() { }
+  constructor(
+      private currencyFormatterPipe: CurrencyFormatterPipe
+  ) { }
 
   ngOnInit() {
     // this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
@@ -39,6 +43,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
       this.financialCCBL = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
     }
+    this.total = this.currencyFormatterPipe.transform(this.totalProposed);
   }
 
 }
