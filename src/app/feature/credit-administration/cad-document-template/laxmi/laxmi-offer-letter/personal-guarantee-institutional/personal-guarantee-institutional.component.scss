@@ -84,3 +84,25 @@ input::-webkit-input-placeholder {
 .page-break {
   page-break-after: always;
 }
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+ol.order-list > li {
+  margin: 10px 0;
+  padding-left: 20px;
+  line-height: 1.9;
+}
+.fontSize14 {
+  font-size: 14px;
+}
+.fontSize16 {
+  font-size: 16px;
+}
