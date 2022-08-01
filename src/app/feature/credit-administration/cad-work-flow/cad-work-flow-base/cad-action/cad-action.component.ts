@@ -20,7 +20,9 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CadStage} from '../../../model/cadStage';
 import {RoleType} from '../../../../admin/modal/roleType';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
+import {
+    SecurityComplianceCertificateComponent
+} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 
 @Component({
@@ -136,7 +138,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onSubmit(templateLogin) {
-        console.log(this.formAction);
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
@@ -236,7 +237,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public getUserList(role) {
         this.userList = [];
-        console.log(this.formAction);
         if (role.roleType === RoleType.CAD_LEGAL) {
             this.formAction.patchValue({
                 toRole: role
@@ -367,6 +367,8 @@ export class CadActionComponent implements OnInit, OnChanges {
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
             return 'DISBURSEMENT_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'OFFER_PENDING';
         } else {
             return this.currentStatus;
         }
@@ -385,6 +387,23 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
         if (this.currentCADStage.fromRole.roleType === this.roleType.MAKER) {
             this.showHideReturnToRm = false;
+        }
+        if (this.currentCADStage.docAction === 'PULLED') {
+            this.isBackwardDisabled = false;
+        } else {
+            if (this.cadOfferLetterApprovedDoc.previousList.length > 0) {
+                const previousList = this.cadOfferLetterApprovedDoc.previousList.filter(pl =>
+                    pl.docAction === 'ASSIGNED' || pl.toRole.roleType === 'CAD_LEGAL');
+                if (previousList.length > 0 && this.currentCADStage.toRole.roleType === RoleType.CAD_LEGAL
+                    || this.currentCADStage.toRole.roleName === 'CAD') {
+                    this.isBackwardDisabled = false;
+                    if (this.currentCADStage.docAction === 'ASSIGNED') {
+                        this.isBackwardDisabled = true;
+                    }
+                } else {
+                    this.isBackwardDisabled = true;
+                }
+            }
         }
     }
 
