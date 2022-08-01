@@ -5,7 +5,7 @@
         <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
             <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
              security?.securityType === 'LAND_BUILDING_SECURITY' || security?.securityType === 'APARTMENT_SECURITY'">
-                <div class="col-md-12">
+                <div>
                     <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
                         <div class="right-content">
                             <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
@@ -156,7 +156,7 @@
                                             <li *ngIf="collateral?.siteVisitJsonData?.fixedAssetsLatitude"><label>Latitude: </label> {{collateral?.siteVisitJsonData?.fixedAssetsLatitude}}</li>
                                         </ul>
                                     </li>
-                                    <li>{{collateral?.siteVisitJsonData?.commentAboutFAC}}</li>
+                                    <li *ngIf="collateral?.siteVisitJsonData?.commentAboutFAC">{{collateral?.siteVisitJsonData?.commentAboutFAC}}</li>
                                 </ul>
                             </td>
                         </tr>
