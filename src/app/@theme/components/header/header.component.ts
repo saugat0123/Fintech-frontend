@@ -120,7 +120,7 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(['/login']);
           });
         } catch (e) {
-
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to logOut'));
         }
       } else if (value === HeaderComponent.PROFILE) {
         this.modalService.dismissAll();
