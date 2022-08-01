@@ -378,10 +378,9 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public backwardTooltipMessageAndShowHideBackward() {
         const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
-        // tslint:disable-next-line:max-line-length
-        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN) || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
+        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN)
+            || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
             this.isBackwardDisabled = true;
-
         } else {
             this.backwardToolTip = 'return file to ' + user;
         }
@@ -390,19 +389,11 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
         if (this.currentCADStage.docAction === 'PULLED') {
             this.isBackwardDisabled = false;
+        } else if (this.currentCADStage.docAction === 'ASSIGNED') {
+            this.isBackwardDisabled = true;
         } else {
-            if (this.cadOfferLetterApprovedDoc.previousList.length > 0) {
-                const previousList = this.cadOfferLetterApprovedDoc.previousList.filter(pl =>
-                    pl.docAction === 'ASSIGNED' || pl.toRole.roleType === 'CAD_LEGAL');
-                if (previousList.length > 0 && this.currentCADStage.toRole.roleType === RoleType.CAD_LEGAL
-                    || this.currentCADStage.toRole.roleName === 'CAD') {
-                    this.isBackwardDisabled = false;
-                    if (this.currentCADStage.docAction === 'ASSIGNED') {
-                        this.isBackwardDisabled = true;
-                    }
-                } else {
-                    this.isBackwardDisabled = true;
-                }
+            if (this.isMaker) {
+                this.isBackwardDisabled = true;
             }
         }
     }
