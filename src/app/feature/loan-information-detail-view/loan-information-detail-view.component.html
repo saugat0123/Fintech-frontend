@@ -44,7 +44,7 @@
                                 </strong>
                                 <span class="badge badge-info">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
                             </div>
-                            <div *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'">
+                            <div class="text-left" *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'">
                                 <strong>Request Type:</strong>
                                 <span class="badge badge-success">
                                     {{(loanDataHolder.proposal?.data | jsonParse)?.requestType ? (((loanDataHolder.proposal?.data | jsonParse)?.requestType.replace("_", " ")) | titlecase) : 'N/A'}}</span>
@@ -65,7 +65,7 @@
                                             <td>Facility Name</td>
                                             <td>Product Code</td>
                                             <td>Approval Level</td>
-                                            <td>Credit Risk Grade</td>
+                                            <td>CRG</td>
                                         </tr>
                                         </thead>
                                         <tr *ngFor="let allLoan of allLoanList">

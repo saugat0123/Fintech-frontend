@@ -608,8 +608,10 @@ export class ProposalComponent implements OnInit {
                 this.loan.shareType = this.shareType;
             }
             if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
-                this.productPaperChecklistComponent.save();
-                this.loan.paperProductChecklist = this.productPaperChecklistComponent.finalCheckList;
+                if (!ObjectUtil.isEmpty(JSON.parse(this.loan.loan.paperChecklist).view)) {
+                    this.productPaperChecklistComponent.save();
+                    this.loan.paperProductChecklist = this.productPaperChecklistComponent.finalCheckList;
+                }
             }
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
