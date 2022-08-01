@@ -92,7 +92,13 @@ export class CreditRiskGradingGammaComponent implements OnInit {
 
         this.crgQuestionsList.forEach((value, index) => {
             if (this.formDataForEdit !== undefined) {
-                this.totalPointMapper.set(value.description, this.formDataForEdit[value.description]);
+                let point = 0;
+                value.answers.forEach(v => {
+                    if (this.formDataForEdit[value.description] === v.id) {
+                        point = v.points;
+                    }
+                });
+                this.totalPointMapper.set(value.description, point);
             }
             crgFormGroupObject[value.description] = null;
             crgFormGroupObject[`${value.description}Parameter`] = null;
