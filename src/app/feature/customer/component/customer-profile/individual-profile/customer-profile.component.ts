@@ -197,11 +197,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             if (!ObjectUtil.isEmpty(this.customer.isMicroCustomer)) {
                 this.microCustomer = true;
             }
-            this.customerBasicFormBuilder();
-            this.getProvince();
-            if(this.customer.customerRelatives) {
-                this.setRelatives(this.customer.customerRelatives);
-            }
+            // this.customerBasicFormBuilder();
+            // this.getProvince();
+            // if(this.customer.customerRelatives) {
+            //     this.setRelatives(this.customer.customerRelatives);
+            // }
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);

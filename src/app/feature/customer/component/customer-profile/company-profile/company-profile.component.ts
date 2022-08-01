@@ -129,7 +129,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
-        this.buildCompanyForm();
+        // this.buildCompanyForm();
         this.getAllDistrict();
         this.sliceLoan();
         this.buildLoanForm();
@@ -196,7 +196,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
         this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
-            this.setCompanyData(this.companyInfo);
+            // this.setCompanyData(this.companyInfo);
             this.spinner = false;
         }, error => {
             console.error(error);
