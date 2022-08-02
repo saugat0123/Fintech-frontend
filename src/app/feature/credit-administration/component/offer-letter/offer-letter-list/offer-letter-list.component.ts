@@ -28,7 +28,7 @@ export class OfferLetterListComponent implements OnInit {
     loanList = [];
     loanType = LoanType;
     currentUserLocalStorage = LocalStorageUtil.getStorage().userId;
-    toggleArray: { toggled: boolean }[] = [];
+    toggleArray: { toggled: boolean, files: any, fileToggled: boolean }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
     user: User = new User();
     roleType = RoleType;
@@ -48,7 +48,20 @@ export class OfferLetterListComponent implements OnInit {
         other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
             other.spinner = false;
             other.loanList = res.detail.content;
-            other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+            other.loanList.forEach((d) => {
+                const data = [];
+                d.cadFileList.forEach((r) => {
+                    if (r.remarks === 'DEFERRAL') {
+                        data.push(r.cadDocument.displayName);
+                    }
+                });
+                d.additionalDocumentList.forEach((r) => {
+                    if (r.remarks === 'DEFERRAL') {
+                        data.push(r.docName);
+                    }
+                });
+                other.toggleArray.push({toggled: false, files: data, fileToggled: false});
+            });
             other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
             // tslint:disable-next-line:max-line-length
             other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
@@ -116,5 +129,4 @@ export class OfferLetterListComponent implements OnInit {
             }
         }
     }
-
 }
