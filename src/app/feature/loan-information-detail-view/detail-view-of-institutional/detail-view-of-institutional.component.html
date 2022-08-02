@@ -108,7 +108,7 @@
                     </p>
                 </div>
             </ng-container>
-            <div *ngIf="netTradingAssetsSummary">
+            <div *ngIf="netTradingAssetsSummary" class="col-md-12">
                 <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
                                              [loanDataHolder] = "loanDataHolder"
                                              [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
