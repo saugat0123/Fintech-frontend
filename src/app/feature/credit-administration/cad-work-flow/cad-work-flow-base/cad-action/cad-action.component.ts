@@ -112,7 +112,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('cadId', this.cadId);
         console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
@@ -152,14 +151,16 @@ export class CadActionComponent implements OnInit, OnChanges {
         if (this.formAction.invalid) {
             return;
         }
+        //
+        // this.formAction.patchValue({
+        //     screenShotDocPath: this.pathValueData.toString()
+        // });
 
         this.onClose();
         this.closeNb();
         this.modalService.open(templateLogin);
         this.isOpened = false;
         this.isActionClicked.emit(this.isOpened);
-
-
     }
 
 
@@ -287,7 +288,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
-                    screenShotPath: [undefined]
+                    screenShotDocPath: [undefined]
                 }
             );
             const approvalType = 'CAD';
@@ -323,7 +324,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    screenShotPath: [undefined]
+                    screenShotDocPath: [undefined]
 
                 }
             );
@@ -338,7 +339,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    screenShotPath: [undefined]
+                    screenShotDocPath: [undefined]
                 }
             );
 
@@ -445,21 +446,21 @@ export class CadActionComponent implements OnInit, OnChanges {
         formData.append('customerType', this.cadOfferLetterApprovedDoc.loanHolder.customerType);
         formData.append('customerInfoId', this.cadOfferLetterApprovedDoc.loanHolder.id.toString());
         formData.append('uploadedDoc', (this.pathValueData === undefined ? '' : this.pathValueData));
-        console.log('file', file);
         this.loanFormService.uploadCadScreeShotFile(formData).subscribe((res: any) => {
             this.checked = true;
             this.pathValueData = res.detail;
+            this.formAction.patchValue({
+                screenShotDocPath: res.detail.toString()
+            });
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Upload file' + error.error.message));
         });
     }
 
     previewDoc(url: any) {
-        console.log('url', url);
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
-        console.log('href', link.href);
         link.setAttribute('visibility', 'hidden');
         link.click();
     }
