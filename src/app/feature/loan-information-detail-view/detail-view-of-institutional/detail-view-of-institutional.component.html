@@ -78,7 +78,7 @@
             <ng-template #financials>
                 <div class="col-md-12">
                 <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
-                    class="text-left"><strong class="header">Financial</strong></p>
+                    class="col-md-12 text-left"><strong class="header">Financial</strong></p>
                 <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
                                            [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
                 <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
@@ -108,13 +108,14 @@
                     </p>
                 </div>
             </ng-container>
-            <div class="col-md-12" *ngIf="netTradingAssetsSummary">
+            <div *ngIf="netTradingAssetsSummary">
                 <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
                                              [loanDataHolder] = "loanDataHolder"
                                              [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
             </div>
             <ng-container *ngIf="smallBusiness">
                 <div class="col-md-12 form-group">
+                    <hr class="print-line">
                     <div class="row">
                         <div class="col-md-12 text-left">
                             <b class="header">Fixed Assets Summary (proposed hypothecation)</b>
@@ -149,7 +150,7 @@
                 <div class="col-md-12 form-group" >
                     <div class="row">
                         <div class="col-md-12 text-left">
-                            <b>Summary of Environment & Social Risk Assessment</b>
+                            <b class="header">Summary of Environment & Social Risk Assessment</b>
                         </div>
                     </div>
                     <table class="table table-sm table-bordered table-hover sb-small text-center">
@@ -418,7 +419,7 @@
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
 <hr class="print-line">
 <!--Product Paper Checklist-->
-<div class="col-md-12" *ngIf="toggleChecklist !== null">
+<div *ngIf="toggleChecklist !== null">
     <p><strong class="header">Product Paper Checklist</strong></p>
 </div>
 <ng-container *ngFor="let loan of combinedLoan; let i = index">
@@ -427,7 +428,9 @@
                                      *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
     </ng-container>
 </ng-container>
+<ng-container *ngIf="loanDataHolder?.loanHolder?.securities[0]?.collateralSiteVisits">
 <hr class="print-line">
+</ng-container>
 <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
