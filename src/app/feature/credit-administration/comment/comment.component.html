@@ -101,6 +101,7 @@
 </div>
 <ng-template #document>
     <div class="modal-header">
+        <h5 class="text-center">Remark and Document List Details</h5>
         <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
             <span aria-hidden="true">&times;</span>
         </a>
@@ -108,8 +109,15 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-center"><strong>Remark</strong></p>
-                <span [innerHTML]="comment"></span>
+                <table class="table table-condensed table-bordered text-center table-responsive-md table-sm sb-small">
+                    <tr>
+                        <th class="sb-bg-dark text-white">Remark</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left" [innerHTML]="comment"></td>
+                    </tr>
+
+                </table>
             </div>
         </div>
         <hr>
