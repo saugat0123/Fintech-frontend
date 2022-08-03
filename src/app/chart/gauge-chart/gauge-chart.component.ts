@@ -24,7 +24,6 @@ export class GaugeChartComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit() {
-    console.log('I am called');
     this.draw();
   }
 
