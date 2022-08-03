@@ -13,6 +13,14 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {squareOutline} from 'ionicons/icons';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {DocAction} from '../../../loan/model/docAction';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {RouteConst} from '../../model/RouteConst';
+import {ToastService} from '../../../../@core/utils';
+import {RouterUtilsService} from '../../utils/router-utils.service';
 
 @Component({
     selector: 'app-cad-document-list',
@@ -33,13 +41,17 @@ export class CadDocumentListComponent implements OnInit {
     currentIndexArray: { currentIndex: number }[] = [];
     user: User = new User();
     roleType = RoleType;
+    formAction: FormGroup;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private spinnerService: NgxSpinnerService,
                 private userService: UserService,
                 private modalService: NgbModal,
-                public commonService: CommonService) {
+                public commonService: CommonService,
+                private formBuilder: FormBuilder,
+                private toastService: ToastService,
+                private routerUtilsService: RouterUtilsService) {
     }
 
     static loadData(other: CadDocumentListComponent) {
@@ -64,6 +76,7 @@ export class CadDocumentListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildForm();
         this.userDetail();
         CadDocumentListComponent.loadData(this);
     }
@@ -124,6 +137,53 @@ export class CadDocumentListComponent implements OnInit {
             CadDocumentListComponent.loadData(this);
         }, () => {
             CadDocumentListComponent.loadData(this);
+        });
+    }
+
+    buildForm() {
+        this.formAction = this.formBuilder.group(
+            {
+                customerLoanDtoList: [undefined],
+                toUser: [undefined, Validators.required],
+                toRole: [undefined, Validators.required],
+                docAction: [undefined],
+                comment: [undefined],
+                loanHolderId: [undefined],
+                cadId: [undefined]
+            }
+        );
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    openPullPopUp(template, model) {
+        this.modalService.open(template);
+        this.formAction = this.formBuilder.group(
+            {
+                customerLoanDtoList: [model.assignedLoan],
+                toUser: [this.user],
+                toRole: [this.user.role],
+                docAction: [DocAction.value(DocAction.PULLED)],
+                comment: ['Pulled'],
+                loanHolderId: [model.loanHolder.id],
+                cadId: [model.id]
+        });
+    }
+
+    confirm() {
+        this.spinner = true;
+        this.service.assignLoanToUser(this.formAction.value).subscribe((res: any) => {
+            console.log(res);
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'SuccessFully Assigned Cad Document'));
+            this.onClose();
+            this.routerUtilsService.reloadRoute(RouteConst.ROUTE_DASHBOARD, RouteConst.ROUTE_CAD_LIST_BY_PERMISSIONS);
+        }, error => {
+            this.spinner = false;
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Assigning Cad Document'));
         });
     }
 
