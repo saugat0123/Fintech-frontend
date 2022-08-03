@@ -1,4 +1,10 @@
-
+<hr>
+<app-summary-header [loanCategory]="loanDataHolder?.loanHolder?.customerType"
+                    [loanDataHolder]="loanDataHolder"
+                    [crgCCbl]="(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)"
+                    [isJointInfo]="loanDataHolder?.loanHolder?.isJointCustomer"
+                    [currentDocAction]="loanDataHolder?.currentStage?.docAction?.toString()">
+</app-summary-header>
 <ol class="upto-ten-million-list">
     <li>
         <p><strong>PROPOSAL:</strong> To seek approval for providing credit facilities of NPR <b>{{totalAmount}}</b>

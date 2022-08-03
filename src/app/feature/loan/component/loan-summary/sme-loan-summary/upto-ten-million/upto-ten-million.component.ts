@@ -28,9 +28,10 @@ export class UptoTenMillionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('loanDataHolder', this.loanDataHolder);
     this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
-    this.approveAuth = this.data.approvingAuthority;
+    if (!ObjectUtil.isEmpty(this.data)) {
+      this.approveAuth = this.data.approvingAuthority;
+    }
     this.totalAmount = this.currencyFormatterPipe.transform(this.totalProposed);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
       this.financialCCBL = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
