@@ -19,7 +19,8 @@
                 <th>Document Status</th>
                 <th>Current Possession</th>
                 <th>Loan Document No</th>
-                <th *ngIf="(user?.role?.roleType === roleType.ADMIN || user?.username?.toLocaleLowerCase() === 'spadmin')">
+                <th *ngIf="(user?.role?.roleType === roleType.ADMIN || user?.username?.toLocaleLowerCase() === 'spadmin'
+                 ||  user?.role?.roleName?.toLocaleLowerCase() === 'csu')">
                     Action
                 </th>
                 <th>Comments</th>
@@ -41,8 +42,12 @@
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.assignedLoan?.length}}</td>
                     <td><a (click)="openAssignPopUp(model)"
-                           *ngIf="(user?.role?.roleType === roleType.ADMIN || user?.username?.toLocaleLowerCase() === 'spadmin') && model?.docStatus !== 'DISBURSEMENT_APPROVED'"                                                                                                           nbTooltip="click to assign"><em
-                            class="fa fa-user"></em></a>
+                           *ngIf="(user?.role?.roleType === roleType.ADMIN || user?.username?.toLocaleLowerCase() === 'spadmin' || user?.role?.roleName?.toLocaleLowerCase() === 'csu') && model?.docStatus !== 'DISBURSEMENT_APPROVED'"
+                           nbTooltip="click to assign"><em class="fa fa-user"></em></a>
+                        <ng-container *ngIf="(user?.role?.roleName?.toLocaleLowerCase() === 'csu') && model?.docStatus !== 'DISBURSEMENT_APPROVED'">
+                            <a class="ml-2" (click)="openPullPopUp(pullPupUp, model)"
+                               nbTooltip="click to pull"><i class="fas fa-angle-double-down"></i></a>
+                        </ng-container>
                     </td>
                     <td>
                         <a class="px-2 cursor"
@@ -151,5 +156,27 @@
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
 
+        <ng-template #pullPupUp>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Pull Document</h4>
+                <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                Do you want to pull this Document?
+                <div class="col-md-12">
+                    <form>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                                NO
+                            </button>
+                            <button type="submit" class="btn btn-success float-right" (click)="confirm()">YES
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
     </nb-card-body>
 </nb-card>
