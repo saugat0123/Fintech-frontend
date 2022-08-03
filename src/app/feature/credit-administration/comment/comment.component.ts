@@ -3,9 +3,6 @@ import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoa
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
-import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
-import {ToastService} from '../../../@core/utils';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
@@ -21,8 +18,7 @@ export class CommentComponent implements OnInit {
     documentView = 'Click to view Document List';
 
     constructor(private ngbModal: NgbModal,
-                private ngxSpinnerService: NgxSpinnerService,
-                private toastService: ToastService) {
+                private ngxSpinnerService: NgxSpinnerService) {
     }
 
     ngOnInit() {

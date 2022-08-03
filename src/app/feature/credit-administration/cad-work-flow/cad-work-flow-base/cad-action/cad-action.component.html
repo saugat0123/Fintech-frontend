@@ -85,16 +85,16 @@
                          style="color: red;">comment is required
                     </div>
                 </div>
-
-                <div class="form-group col-md-12 py-3" *ngIf="missingSignDoc || missingDraftDoc">
+                <br>
+                <div class="form-group col-md-12" *ngIf="missingSignDoc || missingDraftDoc">
                     <em *ngIf="missingSignDoc" class="text-danger font-weight-bold sb-small">You have not uploaded signed
                         offer letter . Are you sure you want to proceed?</em>
                     <br>
                     <em *ngIf="missingDraftDoc" class="text-danger font-weight-bold sb-small">You have not uploaded draft
                         offer letter . Are you sure you want to proceed?</em>
                 </div>
-
-                <div class="col-md-12 form-group py-3">
+                <br>
+                <div class="col-md-12 form-group">
                     <label><b>Upload ScreenShot</b></label>
                     <input (change)="uploadSignature($event)" accept="image/*"
                            multiple
