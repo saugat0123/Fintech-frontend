@@ -80,10 +80,17 @@
                                                *ngIf="cadOfferLetterApprovedDoc"></app-fees-commissions-view>
                 </nb-tab>
                 <nb-tab tabTitle="Document Checklist">
-                    <app-document-checklist-view [cadData]="cadOfferLetterApprovedDoc"
-                                                 *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist-view>
-                    <app-document-checklist-view-lite [cadData]="cadOfferLetterApprovedDoc"
-                                                      *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-view-lite>
+<!--                    <app-document-checklist-view [cadData]="cadOfferLetterApprovedDoc"-->
+<!--                                                 *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist-view>-->
+<!--                    <app-document-checklist-view-lite [cadData]="cadOfferLetterApprovedDoc"-->
+<!--                                                      *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-view-lite>-->
+
+                    <app-document-checklist [cadData]="cadOfferLetterApprovedDoc"
+                                            (responseCadData)="newCadData($event)"
+                                            *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == false"></app-document-checklist>
+                    <app-document-checklist-lite [cadData]="cadOfferLetterApprovedDoc"
+                                                 (responseCadData)="newCadData($event)"
+                                                 *ngIf="cadOfferLetterApprovedDoc && checkListLiteVersion == true"></app-document-checklist-lite>
                 </nb-tab>
             </nb-tabset>
 

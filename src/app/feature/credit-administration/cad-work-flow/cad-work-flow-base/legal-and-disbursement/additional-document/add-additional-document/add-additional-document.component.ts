@@ -98,6 +98,9 @@ export class AddAdditionalDocumentComponent implements OnInit {
     }
 
     save() {
+        if (this.uploadFile) {
+            this.addDocForm.get('remarks').patchValue('OBTAINED');
+        }
         this.cadData.additionalDocumentList.push(this.addDocForm.value);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved  data!!!'));

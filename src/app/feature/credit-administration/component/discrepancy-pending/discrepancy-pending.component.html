@@ -2,10 +2,10 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
-                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISCREPANCY_PENDING'"></app-filter>
+                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="partialDiscrepancy ? 'PARTIAL_DISCREPANCY_PENDING' :'DISCREPANCY_PENDING'"></app-filter>
             </div>
         </div>
-        <h6 class="text-center">Discrepancy Pending</h6>
+        <h6 class="text-center">{{partialDiscrepancy ? 'PARTIAL DISCREPANCY PENDING' :'DISCREPANCY PENDING'}}</h6>
     </nb-card-header>
     <nb-card-body>
         <table class="table table-bordered table-hover table-sm sb-small text-center ">

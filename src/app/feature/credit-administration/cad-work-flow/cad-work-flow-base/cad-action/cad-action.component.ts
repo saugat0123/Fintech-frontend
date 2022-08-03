@@ -105,6 +105,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     cadStageOfferApproved = false;
     updatedToRole;
     returnedFromLegal = false;
+    partialDiscrepancy = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -130,6 +131,20 @@ export class CadActionComponent implements OnInit, OnChanges {
         if(this.cadOfferLetterApprovedDoc.discrepancy) {
             this.isDiscrepancy = true;
         }
+
+        let cadList = false;
+        let additionalList = false;
+        this.cadOfferLetterApprovedDoc.cadFileList.forEach((r) => {
+            if (r.remarks === 'DEFERRAL') {
+                cadList = true;
+            }
+        });
+        this.cadOfferLetterApprovedDoc.additionalDocumentList.forEach((r) => {
+            if (r.remarks === 'DEFERRAL') {
+                additionalList = true;
+            }
+        });
+        this.partialDiscrepancy = cadList || additionalList;
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
@@ -382,6 +397,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
                     discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
+                    partialDiscrepancy: [this.cadOfferLetterApprovedDoc.partialDiscrepancy],
                 }
             );
             const approvalType = 'CAD';
@@ -448,6 +464,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     toUser: [undefined],
                     toRole: [undefined],
                     discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
+                    partialDiscrepancy: [this.partialDiscrepancy],
 
 
                 }
@@ -464,6 +481,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     toUser: [undefined],
                     toRole: [undefined],
                     discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
+                    partialDiscrepancy: [this.cadOfferLetterApprovedDoc.partialDiscrepancy],
 
                 }
             );

@@ -25,6 +25,7 @@ export class DiscrepancyPendingComponent implements OnInit {
   loanType = LoanType;
   toggleArray: { toggled: boolean }[] = [];
   currentIndexArray: { currentIndex: number }[] = [];
+  partialDiscrepancy = false;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -33,6 +34,9 @@ export class DiscrepancyPendingComponent implements OnInit {
   }
 
   static loadData(other: DiscrepancyPendingComponent) {
+    const url =  other.router.url.split('/');
+    other.partialDiscrepancy = url[url.length - 1] === 'partial-discrepancy-pending';
+    other.searchObj.docStatus = other.partialDiscrepancy ? 'PARTIAL_DISCREPANCY_PENDING' : 'DISCREPANCY_PENDING';
     other.spinner = true;
     other.currentIndexArray = [];
     other.toggleArray = [];
@@ -67,7 +71,7 @@ export class DiscrepancyPendingComponent implements OnInit {
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'DISCREPANCY_PENDING'});
+    this.searchObj = Object.assign(value, {docStatus: this.partialDiscrepancy ? 'PARTIAL_DISCREPANCY_PENDING' : 'DISCREPANCY_PENDING'});
     DiscrepancyPendingComponent.loadData(this);
   }
 
