@@ -294,10 +294,6 @@ export class CadActionComponent implements OnInit, OnChanges {
                     this.sendForwardBackwardList = [];
                     this.sendForwardBackwardList = response.detail;
                     if (this.sendForwardBackwardList.length !== 0) {
-                        // if (this.isMaker && this.currentStatus === 'DISBURSEMENT_PENDING') {
-                        //     this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f =>
-                        //     f.role.roleType !== RoleType.CAD_LEGAL);
-                        // }
                         this.getUserList(this.sendForwardBackwardList[0].role);
                     }
                 });
@@ -464,7 +460,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.loanFormService.deleteCustomerDocFromSystem(this.pathValueData[index]).subscribe((res: any) => {
             delete this.pathValueData[index];
             this.pathValueData.splice(index, 1);
-            // this.docPathEmitter.emit(this.pathValueData);
         }, error => {
             this.toastService.show(new Alert(AlertType.WARNING, 'Unable to delete document!'));
         });
