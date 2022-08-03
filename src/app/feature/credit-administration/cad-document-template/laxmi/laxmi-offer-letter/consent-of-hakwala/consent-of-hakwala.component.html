@@ -1,14 +1,16 @@
 <div [nbSpinner]="spinner" nbSpinnerSize="giant" class="row"
      id="print-section-{{offerLetterConst.CONSENT_OF_HAKWALA}}">
     <div class="col-md-12 viewFull">
-        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" id="collateral" class="text-justify nepali">
+            <div *ngFor="let collateralDetail of collateralDetail; let i = index" formArrayName="collateral">
+            <ng-container [formGroupName]="i">
             <p class="text-center"><b> धितो दिने जग्गा/घरजग्गा धनीको हकवालाहरुको मञ्जुरीनामाको लिखत</b></p>
             <p>
                 लिखितम मञ्जुरीनामाको लिखत गरी दिने हामी तपसिलमा उल्लेखित व्यक्तिहरु आगे त्यस लक्ष्मी बैंक लिमिटेडबाट ऋणी
                 श्री <input type="text"
-                            class="nepaliFont disable-print form-control-sm form-field font14"
+                            class="nepaliFont disable-print form-control-sm form-field"
                             formControlName="customerName" readonly>
-                <span class=" print-only nepaliFont font14"><b>{{form.get('customerName').value ? form.get('customerName').value : '========='}}</b></span>
+                <span class=" print-only nepaliFont"><b>{{form.get(['collateral', i, 'customerName'])?.value ? form.get(['collateral', i, 'customerName'])?.value : '========='}}</b></span>
                 ले लिने/लिएको कर्जाको सुरक्षणको लागि मेरो/हाम्रो
                 समेत हक लाग्ने तपसिलमा उल्लेखित जग्गा/घरजग्गा/अपार्टमेन्ट धितो बन्धक राख्न तपाईको समेत मन्जुरीनामाको कागजात
                 आवश्यक परेकोले मन्जुरीको कागजमा सही छाप गरी दिनु होस भनी जग्गा/घरजग्गा धनीले अनुरोध गरेकोमा मेरो/हाम्रो
@@ -39,99 +41,67 @@
                 </thead>
                 <tbody>
                 <tr style="height:20px;">
-                    <td rowspan="6"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="height:20px;">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="height:20px;">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="height:20px;">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="height:20px;">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="height:20px;">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td rowspan="6" class="nepaliFont">{{collateralDetail.nameInNepali ? collateralDetail.nameInNepali : ''}}</td>
+                    <td class="nepaliFont">{{collateralDetail.landAndBuildingDetail.district ? collateralDetail.landAndBuildingDetail.district: ''}}</td>
+                    <td class="nepaliFont">{{collateralDetail.landAndBuildingDetail.municipality ? collateralDetail.landAndBuildingDetail.municipality: ''}}</td>
+                    <td class="nepaliFont">{{collateralDetail.landAndBuildingDetail.wardNo ? collateralDetail.landAndBuildingDetail.wardNo: ''}}</td>
+                    <td class="nepaliFont">{{collateralDetail.landAndBuildingDetail.plotNo ? collateralDetail.landAndBuildingDetail.plotNo: ''}}</td>
+                    <td class="nepaliFont">{{collateralDetail.landAndBuildingDetail.blockStorey ? collateralDetail.landAndBuildingDetail.blockStorey: ''}}</td>
+                    <td class="nepaliFont">{{collateralDetail.landAndBuildingDetail.area ? collateralDetail.landAndBuildingDetail.area: ''}}</td>
                 </tr>
                 </tbody>
             </table>
             <strong>मन्जुरीको कागज गरिदिने अंशियार/हकवालाहरुको विवरण</strong><br>
             <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
             <tbody>
-            <tr>
-                <td>१.</td>
+            <tr *ngFor="let acceptorDetails of form?.get(['collateral', i, 'acceptor'])['controls'];let j = index" formArrayName="acceptor">
+                <ng-container [formGroupName]="j">
+                <td>{{j+1 | nepaliNumber}}</td>
                 <td class="text-left">
                     मन्जुरी दिनेको नामः<input type="text"
                                               class="nepaliFont disable-print form-control-sm form-field"
+                                              [value]="acceptorDetails?.get('acceptorName')?.value"
                                               formControlName="acceptorName">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorName').value ? form.get('acceptorName').value : '========='}}</b></span>
-<br>
+                    <span class=" print-only nepaliFont"><b>{{acceptorDetails.get('acceptorName').value ? acceptorDetails.get('acceptorName').value : '========='}}</b></span>
+                    <br>
                     ठेगानाः
                     <input type="text"
                            class="nepaliFont disable-print form-control-sm form-field"
+                           [value]="acceptorDetails?.get('acceptorAddress')?.value"
                            formControlName="acceptorAddress">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddress').value ? form.get('acceptorAddress').value : '========='}}</b></span>
-<br>
+                    <span class=" print-only nepaliFont"><b>{{acceptorDetails.get('acceptorAddress').value ? acceptorDetails.get('acceptorAddress').value : '========='}}</b></span>
+                    <br>
                     ना.प्र.नं.
                     <input type="text"
                            class="nepaliFont disable-print form-control-sm form-field"
+                           [value]="acceptorDetails?.get('acceptorCitizenshipNo')?.value"
                            formControlName="acceptorCitizenshipNo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNo').value ? form.get('acceptorCitizenshipNo').value : '========='}}</b></span>
-<br>
+                    <span class=" print-only nepaliFont"><b>{{acceptorDetails.get('acceptorCitizenshipNo').value ? acceptorDetails.get('acceptorCitizenshipNo').value : '========='}}</b></span>
+                    <br>
                     मितिः
                     <input type="text"
                            class="nepaliFont disable-print form-control-sm form-field"
+                           [value]="acceptorDetails?.get('acceptanceDate')?.value"
                            formControlName="acceptanceDate">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDate').value ? form.get('acceptanceDate').value : '========='}}</b></span>
-<br>
+                    <span class=" print-only nepaliFont"><b>{{acceptorDetails.get('acceptanceDate').value ? acceptorDetails.get('acceptanceDate').value : '========='}}</b></span>
+                    <br>
                     जिल्ला प्रशासन कार्यालयः
                     <input type="text"
                            class="nepaliFont disable-print form-control-sm form-field"
+                           [value]="acceptorDetails?.get('acceptorIssuedOffice')?.value"
                            formControlName="acceptorIssuedOffice">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOffice').value ? form.get('acceptorIssuedOffice').value : '========='}}</b></span>
-<br>
+                    <span class=" print-only nepaliFont"><b>{{acceptorDetails.get('acceptorIssuedOffice').value ? acceptorDetails.get('acceptorIssuedOffice').value : '========='}}</b></span>
+                    <br>
                     जग्गाधनीसंगको नाता
                     <input type="text"
                            class="nepaliFont disable-print form-control-sm form-field"
+                           [value]="acceptorDetails?.get('acceptorRelation')?.value"
                            formControlName="acceptorRelation">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelation').value ? form.get('acceptorRelation').value : '========='}}</b></span>
+                    <span class=" print-only nepaliFont"><b>{{acceptorDetails.get('acceptorRelation').value ? acceptorDetails.get('acceptorRelation').value : '========='}}</b></span>
 
                 </td>
                 <td class="text-left">
+                    <span class="mt-50"></span>
                     ................
                     <br>दस्तखत
                 </td>
@@ -141,159 +111,20 @@
                 <td>
                     बायाँ
                 </td>
-            </tr>
-            <tr>
-                <td>२.</td>
-                <td class="text-left">
-                    मन्जुरी दिनेको नामः<input type="text"
-                                              class="nepaliFont disable-print form-control-sm form-field"
-                                              formControlName="acceptorNameTwo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorNameTwo').value ? form.get('acceptorNameTwo').value : '========='}}</b></span>
-                    <br>
-                    ठेगानाः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorAddressTwo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddressTwo').value ? form.get('acceptorAddressTwo').value : '========='}}</b></span>
-                    <br>
-                    ना.प्र.नं.
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorCitizenshipNoTwo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNoTwo').value ? form.get('acceptorCitizenshipNoTwo').value : '========='}}</b></span>
-                    <br>
-                    मितिः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptanceDateTwo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDateTwo').value ? form.get('acceptanceDateTwo').value : '========='}}</b></span>
-                    <br>
-                    जिल्ला प्रशासन कार्यालयः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorIssuedOfficeTwo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOfficeTwo').value ? form.get('acceptorIssuedOfficeTwo').value : '========='}}</b></span>
-                    <br>
-                    जग्गाधनीसंगको नाता
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorRelationTwo">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelationTwo').value ? form.get('acceptorRelationTwo').value : '========='}}</b></span>
-
+                <td class="d-print-none">
+                    <button class="btn btn-danger float-right" (click)="removeAcceptor(i)"
+                            style="position: center">
+                        <em class="fa fa-trash" style="color: white;"></em>
+                    </button>
                 </td>
-                <td class="text-left">
-                    ................
-                    <br>दस्तखत
-                </td>
-                <td>
-                    दायाँ
-                </td>
-                <td>
-                    बायाँ
-                </td>
-            </tr>
-            <tr>
-                <td>३.</td>
-                <td class="text-left">
-                    मन्जुरी दिनेको नामः<input type="text"
-                                              class="nepaliFont disable-print form-control-sm form-field"
-                                              formControlName="acceptorNameThree">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorNameThree').value ? form.get('acceptorNameThree').value : '========='}}</b></span>
-                    <br>
-                    ठेगानाः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorAddressThree">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddressThree').value ? form.get('acceptorAddressThree').value : '========='}}</b></span>
-                    <br>
-                    ना.प्र.नं.
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorCitizenshipNoThree">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNoThree').value ? form.get('acceptorCitizenshipNoThree').value : '========='}}</b></span>
-                    <br>
-                    मितिः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptanceDateThree">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDateThree').value ? form.get('acceptanceDateThree').value : '========='}}</b></span>
-                    <br>
-                    जिल्ला प्रशासन कार्यालयः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorIssuedOfficeThree">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOfficeThree').value ? form.get('acceptorIssuedOfficeThree').value : '========='}}</b></span>
-                    <br>
-                    जग्गाधनीसंगको नाता
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorRelationThree">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelationThree').value ? form.get('acceptorRelationThree').value : '========='}}</b></span>
-
-                </td>
-                <td class="text-left">
-                    ................
-                    <br>दस्तखत
-                </td>
-                <td>
-                    दायाँ
-                </td>
-                <td>
-                    बायाँ
-                </td>
-            </tr>
-            <tr>
-                <td>४.</td>
-                <td class="text-left">
-                    मन्जुरी दिनेको नामः<input type="text"
-                                              class="nepaliFont disable-print form-control-sm form-field"
-                                              formControlName="acceptorNameFour">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorNameFour').value ? form.get('acceptorNameFour').value : '========='}}</b></span>
-                    <br>
-                    ठेगानाः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorAddressFour">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorAddressFour').value ? form.get('acceptorAddressFour').value : '========='}}</b></span>
-                    <br>
-                    ना.प्र.नं.
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorCitizenshipNoFour">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorCitizenshipNoFour').value ? form.get('acceptorCitizenshipNoFour').value : '========='}}</b></span>
-                    <br>
-                    मितिः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptanceDateFour">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptanceDateFour').value ? form.get('acceptanceDateFour').value : '========='}}</b></span>
-                    <br>
-                    जिल्ला प्रशासन कार्यालयः
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorIssuedOfficeFour">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorIssuedOfficeFour').value ? form.get('acceptorIssuedOfficeFour').value : '========='}}</b></span>
-                    <br>
-                    जग्गाधनीसंगको नाता
-                    <input type="text"
-                           class="nepaliFont disable-print form-control-sm form-field"
-                           formControlName="acceptorRelationFour">
-                    <span class=" print-only nepaliFont"><b>{{form.get('acceptorRelationFour').value ? form.get('acceptorRelationFour').value : '========='}}</b></span>
-
-                </td>
-                <td class="text-left">
-                    ................
-                    <br>दस्तखत
-                </td>
-                <td>
-                    दायाँ
-                </td>
-                <td>
-                    बायाँ
-                </td>
+                </ng-container>
             </tr>
             </tbody>
             </table>
+            <div class="float-left d-print-none">
+                <input (click)="addAcceptors(i)" class="btn btn-sm btn-flat btn-primary"
+                       type="button" value="Add More"/>
+            </div>
          <br>
             <b>सनाखत तथा घोषणाः</b> माथी मन्जुरी जनाउने वाहेक धितो दिएको सम्पति उपर दावी गर्ने अन्य अंशियार तथा हकवालाहरु छैन
             । यसमा सहिछाप गर्ने कारणीहरुले मेरो सामुन्नेमा सहि छाप गरेका हुन । यसमा लेखिएको व्यहोरा सत्य हो, झुठा ठहरेमा
@@ -301,39 +132,42 @@
             <input type="text"
                    class="nepaliFont disable-print form-control-sm form-field"
                    formControlName="ownerName">
-            <span class=" print-only nepaliFont"><b>{{form.get('ownerName').value ? form.get('ownerName').value : '========='}}</b></span>
+            <span class=" print-only nepaliFont"><b>{{form.get(['collateral', i, 'ownerName']).value ? form.get(['collateral', i, 'ownerName']).value : '========='}}</b></span>
            <br>
             <b>लिखत सनाखत गर्ने जग्गा/घरजग्गा/ अपार्टमेन्ट धनीको दस्तखतः</b>
             <br>
-            ईति संवत् <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            ईति संवत् <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                               formControlName="itiSambatYear">
-            <span class="print-only nepaliFont"><b>{{form.get('itiSambatYear').value ? form.get('itiSambatYear').value : '========='}}</b></span>
+            <span class="print-only nepaliFont"><b>{{form.get(['collateral', i, 'itiSambatYear']).value ? form.get(['collateral', i, 'itiSambatYear']).value : '========='}}</b></span>
 
             साल
-            <input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                     formControlName="itiSambatMonth">
-            <span class="print-only nepaliFont"><b>{{form.get('itiSambatMonth').value ? form.get('itiSambatMonth').value : '========='}}</b></span>
+            <span class="print-only nepaliFont"><b>{{form.get(['collateral', i, 'itiSambatMonth']).value ? form.get(['collateral', i, 'itiSambatMonth']).value : '========='}}</b></span>
 
-            महिना<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            महिना<input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                          formControlName="itiSambatDay">
-            <span class="print-only nepaliFont"><b>{{form.get('itiSambatDay').value ? form.get('itiSambatDay').value : '========='}}</b></span>
+            <span class="print-only nepaliFont"><b>{{form.get(['collateral', i, 'itiSambatDay']).value ? form.get(['collateral', i, 'itiSambatDay']).value : '========='}}</b></span>
 
-            गते रोज<input  type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            गते रोज<input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                            formControlName="roj">
-            <span class="print-only nepaliFont"><b>{{form.get('roj').value ? form.get('roj').value : '========='}}</b></span>
+            <span class="print-only nepaliFont"><b>{{form.get(['collateral', i, 'itiSambatDay']).value ? form.get(['collateral', i, 'itiSambatDay']).value : '========='}}</b></span>
 
             शुभम् ________________________।
-
-            <div>
-                <button type="submit"
-                        class="btn btn-primary float-right disable-print"
-                        nbButton
-                        status="success"
-                        [disabled]="spinner">
-                    Save
-                </button>
+            </ng-container>
+            <div class="page-break"></div>
             </div>
         </form>
+        <div>
+            <button type="submit"
+                    class="btn btn-primary float-right d-print-none"
+                    nbButton
+                    status="success"
+                    (click)="onSubmit()"
+                    [disabled]="spinner">
+                Save
+            </button>
+        </div>
         <button class="btn btn-primary d-print-none"
                 [useExistingCss]="true"
                 [disabled]="!initialInfoPrint"
