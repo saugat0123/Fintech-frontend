@@ -441,7 +441,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         formData.append('customerType', this.cadOfferLetterApprovedDoc.loanHolder.customerType);
         formData.append('customerInfoId', this.cadOfferLetterApprovedDoc.loanHolder.id.toString());
         formData.append('uploadedDoc', (this.pathValueData === undefined ? '' : this.pathValueData));
-        this.loanFormService.uploadCadScreeShotFile(formData).subscribe((res: any) => {
+        this.cadService.uploadCadScreeShotFile(formData).subscribe((res: any) => {
             this.checked = true;
             this.pathValueData = res.detail;
             this.formAction.patchValue({

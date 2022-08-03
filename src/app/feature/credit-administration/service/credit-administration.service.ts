@@ -118,4 +118,9 @@ export class CreditAdministrationService extends BaseService<any> {
 
         return this.http.delete(req.url, {headers: req.header});
     }
+
+    public uploadCadScreeShotFile(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/cad-screen-shot/upload`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
 }
