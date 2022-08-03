@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
@@ -25,6 +25,8 @@ export class ConsentOfHakwalaComponent implements OnInit {
   spinner = false;
   offerLetterConst = CadCheckListTemplateEnum;
   customerData;
+  collateralDetail: Array<any> = new Array<any>();
+  freeText: Array<any> = new Array<any>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -37,45 +39,24 @@ export class ConsentOfHakwalaComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.initialInfoPrint = JSON.parse(singleCadFile.supportedInformation);
-        }
-      });
-    }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.customerData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.setCollateralDetail();
     }
-    this.fillForm();
+    this.fillfreeText();
   }
   buildForm() {
     this.form = this.formBuilder.group({
-      customerName: [undefined],
-      acceptorName: [undefined],
-      acceptorAddress: [undefined],
-      acceptorCitizenshipNo: [undefined],
-      acceptanceDate: [undefined],
-      acceptorIssuedOffice: [undefined],
-      acceptorRelation: [undefined],
-      acceptorNameTwo: [undefined],
-      acceptorAddressTwo: [undefined],
-      acceptorCitizenshipNoTwo: [undefined],
-      acceptanceDateTwo: [undefined],
-      acceptorIssuedOfficeTwo: [undefined],
-      acceptorRelationTwo: [undefined],
-      acceptorNameThree: [undefined],
-      acceptorAddressThree: [undefined],
-      acceptorCitizenshipNoThree: [undefined],
-      acceptanceDateThree: [undefined],
-      acceptorIssuedOfficeThree: [undefined],
-      acceptorRelationThree: [undefined],
-      acceptorNameFour: [undefined],
-      acceptorAddressFour: [undefined],
-      acceptorCitizenshipNoFour: [undefined],
-      acceptanceDateFour: [undefined],
-      acceptorIssuedOfficeFour: [undefined],
-      acceptorRelationFour: [undefined],
+      collateral: this.formBuilder.array([]),
+    });
+  }
+  addCollateralDetail() {
+    (this.form.get('collateral') as FormArray).push(this.collateralField());
+  }
+  collateralField() {
+    return this.formBuilder.group({
+      customerName: [this.customerData.nepaliName ? this.customerData.nepaliName : ''],
+      acceptor: this.formBuilder.array([]),
       ownerName: [undefined],
       itiSambatYear: [undefined],
       itiSambatMonth: [undefined],
@@ -83,78 +64,86 @@ export class ConsentOfHakwalaComponent implements OnInit {
       roj: [undefined],
     });
   }
-   setFreeText() {
-    const freeText = {
-      acceptorName: this.form.get('acceptorName') ? this.form.get('acceptorName').value : '',
-      acceptorAddress: this.form.get('acceptorAddress') ? this.form.get('acceptorAddress').value : '',
-      acceptorCitizenshipNo: this.form.get('acceptorCitizenshipNo') ? this.form.get('acceptorCitizenshipNo').value : '',
-      acceptanceDate: this.form.get('acceptanceDate') ? this.form.get('acceptanceDate').value : '',
-      acceptorIssuedOffice: this.form.get('acceptorIssuedOffice') ? this.form.get('acceptorIssuedOffice').value : '',
-      acceptorRelation: this.form.get('acceptorRelation') ? this.form.get('acceptorRelation').value : '',
-      acceptorNameTwo: this.form.get('acceptorNameTwo') ? this.form.get('acceptorNameTwo').value : '',
-      acceptorAddressTwo: this.form.get('acceptorAddressTwo') ? this.form.get('acceptorAddressTwo').value : '',
-      acceptorCitizenshipNoTwo: this.form.get('acceptorCitizenshipNoTwo') ? this.form.get('acceptorCitizenshipNoTwo').value : '',
-      acceptanceDateTwo: this.form.get('acceptanceDateTwo') ? this.form.get('acceptanceDateTwo').value : '',
-      acceptorIssuedOfficeTwo: this.form.get('acceptorIssuedOfficeTwo') ? this.form.get('acceptorIssuedOfficeTwo').value : '',
-      acceptorRelationTwo: this.form.get('acceptorRelationTwo') ? this.form.get('acceptorRelationTwo').value : '',
-      acceptorNameThree: this.form.get('acceptorNameThree') ? this.form.get('acceptorNameThree').value : '',
-      acceptorAddressThree: this.form.get('acceptorAddressThree') ? this.form.get('acceptorAddressThree').value : '',
-      acceptorCitizenshipNoThree: this.form.get('acceptorCitizenshipNoThree') ? this.form.get('acceptorCitizenshipNoThree').value : '',
-      acceptanceDateThree: this.form.get('acceptanceDateThree') ? this.form.get('acceptanceDateThree').value : '',
-      acceptorIssuedOfficeThree: this.form.get('acceptorIssuedOfficeThree') ? this.form.get('acceptorIssuedOfficeThree').value : '',
-      acceptorRelationThree: this.form.get('acceptorRelationThree') ? this.form.get('acceptorRelationThree').value : '',
-      acceptorNameFour: this.form.get('acceptorNameFour') ? this.form.get('acceptorNameFour').value : '',
-      acceptorAddressFour: this.form.get('acceptorAddressFour') ? this.form.get('acceptorAddressFour').value : '',
-      acceptorCitizenshipNoFour: this.form.get('acceptorCitizenshipNoFour') ? this.form.get('acceptorCitizenshipNoFour').value : '',
-      acceptanceDateFour: this.form.get('acceptanceDateFour') ? this.form.get('acceptanceDateFour').value : '',
-      acceptorIssuedOfficeFour: this.form.get('acceptorIssuedOfficeFour') ? this.form.get('acceptorIssuedOfficeFour').value : '',
-      acceptorRelationFour: this.form.get('acceptorRelationFour') ? this.form.get('acceptorRelationFour').value : '',
-      ownerName: this.form.get('ownerName') ? this.form.get('ownerName').value : '',
-      itiSambatYear: this.form.get('itiSambatYear') ? this.form.get('itiSambatYear').value : '',
-      itiSambatMonth: this.form.get('itiSambatMonth') ? this.form.get('itiSambatMonth').value : '',
-      itiSambatDay: this.form.get('itiSambatDay') ? this.form.get('itiSambatDay').value : '',
-      roj: this.form.get('roj') ? this.form.get('roj').value : ''
-    };
-    return JSON.stringify(freeText);
-  }
-
-  fillForm() {
-    if (!ObjectUtil.isEmpty(this.customerData)) {
-      this.form.patchValue({
-        customerName: this.customerData.nepaliName ? this.customerData.nepaliName : '',
-        acceptorName: this.initialInfoPrint ? this.initialInfoPrint.acceptorName : '',
-        acceptorAddress: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddress : '',
-        acceptorCitizenshipNo: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNo : '',
-        acceptanceDate: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDate : '',
-        acceptorIssuedOffice: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOffice : '',
-        acceptorRelation: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelation : '',
-        acceptorNameTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorNameTwo : '',
-        acceptorAddressTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddressTwo : '',
-        acceptorCitizenshipNoTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNoTwo : '',
-        acceptanceDateTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDateTwo : '',
-        acceptorIssuedOfficeTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOfficeTwo : '',
-        acceptorRelationTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelationTwo : '',
-        acceptorNameThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorNameThree : '',
-        acceptorAddressThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddressThree : '',
-        acceptorCitizenshipNoThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNoThree : '',
-        acceptanceDateThree: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDateThree : '',
-        acceptorIssuedOfficeThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOfficeThree : '',
-        acceptorRelationThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelationThree : '',
-        acceptorNameFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorNameFour : '',
-        acceptorAddressFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddressFour : '',
-        acceptorCitizenshipNoFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNoFour : '',
-        acceptanceDateFour: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDateFour : '',
-        acceptorIssuedOfficeFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOfficeFour : '',
-        acceptorRelationFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelationFour : '',
-        ownerName: this.initialInfoPrint ? this.initialInfoPrint.ownerName : '',
-        itiSambatYear: this.initialInfoPrint ? this.initialInfoPrint.itiSambatYear : '',
-        itiSambatMonth: this.initialInfoPrint ? this.initialInfoPrint.itiSambatMonth : '',
-        itiSambatDay: this.initialInfoPrint ? this.initialInfoPrint.itiSambatDay : '',
-        roj: this.initialInfoPrint ? this.initialInfoPrint.roj : '',
-      });
+  fillfreeText() {
+    if (this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+        this.cadData.cadFileList.forEach((val, i) => {
+          if (val.customerLoanId === this.customerLoanId && val.cadDocument.id === this.documentId) {
+            this.initialInfoPrint = JSON.parse(val.supportedInformation);
+          }
+        });
+        if (this.initialInfoPrint != null) {
+          for (let val = 0; val < this.initialInfoPrint.length; val++) {
+            this.form.get(['collateral', val, 'ownerName']).patchValue(this.initialInfoPrint ?
+            this.initialInfoPrint[val].ownerName : '');
+            this.form.get(['collateral', val, 'itiSambatYear']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].itiSambatYear : '');
+            this.form.get(['collateral', val, 'itiSambatMonth']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].itiSambatMonth : '');
+            this.form.get(['collateral', val, 'itiSambatDay']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].itiSambatDay : '');
+            this.form.get(['collateral', val, 'roj']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].roj : '');
+            this.setAcceptor(val, this.initialInfoPrint[val].acceptor);
+          }
+        }
+      }
     }
   }
-
+  setAcceptor(i, acceptorData) {
+    const controls = this.form.get(['collateral', i, 'acceptor']) as FormArray;
+    acceptorData.forEach(val => {
+      controls.push(
+          this.formBuilder.group({
+            acceptorName: [val.acceptorName],
+            acceptorAddress: [val.acceptorAddress],
+            acceptorCitizenshipNo: [val.acceptorCitizenshipNo],
+            acceptanceDate: [val.acceptanceDate],
+            acceptorIssuedOffice: [val.acceptorIssuedOffice],
+            acceptorRelation: [val.acceptorRelation]
+          })
+      );
+    });
+  }
+   setFreeText() {
+    const free = this.form.value;
+     for (let val = 0; val < free.collateral.length; val++) {
+       const tempFreeText = {
+         acceptor: this.form.get(['collateral', val, 'acceptor']).value ?
+             this.form.get(['collateral', val, 'acceptor']).value : '',
+         ownerName: this.form.get(['collateral', val, 'ownerName']) ? this.form.get(['collateral', val, 'ownerName']).value : '',
+         itiSambatYear: this.form.get(['collateral', val, 'itiSambatYear']) ?
+             this.form.get(['collateral', val, 'itiSambatYear']).value : '',
+         itiSambatMonth: this.form.get(['collateral', val, 'itiSambatMonth']) ? this.form.get(['collateral', val, 'itiSambatMonth']).value : '',
+         itiSambatDay: this.form.get(['collateral', val, 'itiSambatDay']) ? this.form.get(['collateral', val, 'itiSambatDay']).value : '',
+         roj: this.form.get(['collateral', val, 'roj']) ? this.form.get(['collateral', val, 'roj']).value : ''
+       };
+       this.freeText.push(tempFreeText);
+     }
+    return JSON.stringify(this.freeText);
+  }
+  addAcceptors(i) {
+    const acceptorData = this.form.get(['collateral', i, 'acceptor']) as FormArray;
+    acceptorData.push(
+        this.formBuilder.group({
+          acceptorName: [undefined],
+          acceptorAddress: [undefined],
+          acceptorCitizenshipNo: [undefined],
+          acceptanceDate: [undefined],
+          acceptorIssuedOffice: [undefined],
+          acceptorRelation: [undefined]
+        })
+    );
+  }
+  setCollateralDetail() {
+    this.customerData.collateralDetails.forEach(val => {
+      this.collateralDetail.push(val);
+      this.addCollateralDetail();
+    });
+  }
+  removeAcceptor(i) {
+    (<FormArray>this.form.get(['collateral', i, 'acceptor'])).removeAt(i);
+  }
   onSubmit() {
     this.spinner = true;
     let flag = true;
@@ -177,6 +166,7 @@ export class ConsentOfHakwalaComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
+      cadFile.supportedInformation = this.setFreeText();
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
