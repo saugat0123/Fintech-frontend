@@ -21,7 +21,6 @@ export class CustomOfferLetterDocumentComponent implements OnInit {
   spinner = false;
   existingOfferLetter = false;
   initialInfoPrint;
-  offerLetterConst: { keysEnum: (arg0: any) => void; };
   offerLetterDocument: OfferDocument;
   docName;
 
@@ -53,10 +52,6 @@ export class CustomOfferLetterDocumentComponent implements OnInit {
 
   save() {
     const d = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString() === this.docName)[0];
-    // if (!ObjectUtil.isEmpty(this.offerLetterConst.keysEnum(this.docName.toUpperCase()))) {
-    //   this.toastService.show(new Alert(AlertType.DANGER, 'Provided Name is not available !!'));
-    //   return;
-    // }
     if (!ObjectUtil.isEmpty(d) && !this.isEdit) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Document Already Exist with name ' + this.docName.toUpperCase()));
       return;
