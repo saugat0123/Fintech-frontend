@@ -151,11 +151,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         if (this.formAction.invalid) {
             return;
         }
-        //
-        // this.formAction.patchValue({
-        //     screenShotDocPath: this.pathValueData.toString()
-        // });
-
         this.onClose();
         this.closeNb();
         this.modalService.open(templateLogin);

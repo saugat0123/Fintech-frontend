@@ -16,6 +16,7 @@ export class CommentComponent implements OnInit {
     currentIndex: number;
     currentDocumentPath;
     documentView = 'Click to view Document List';
+    comment: string;
 
     constructor(private ngbModal: NgbModal,
                 private ngxSpinnerService: NgxSpinnerService) {
@@ -28,8 +29,9 @@ export class CommentComponent implements OnInit {
 
     }
 
-    openDocument(document: any, docPath: string) {
+    openDocument(document: any, docPath: string, comment: string) {
         this.ngxSpinnerService.show();
+        this.comment = comment;
         this.currentDocumentPath = (docPath).split(',');
         this.ngbModal.open(document, {size: 'xl', backdrop: 'static'});
         this.ngxSpinnerService.hide();

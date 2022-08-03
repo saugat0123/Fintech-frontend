@@ -122,10 +122,9 @@
                     </table>
                 </div>
 
-
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button nbButton (click)="onSubmit(verify)" size="small" status="primary"><i
+                    <button nbButton [disabled]="formAction.invalid" (click)="onSubmit(verify)" size="small" status="primary"><i
                             class="fa fa-save"></i>
                     </button>
                 </div>
