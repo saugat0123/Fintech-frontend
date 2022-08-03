@@ -132,79 +132,79 @@
           </ng-container>
         </div>
 
-        <div [hidden]="!isEdited" class="col-md-9 sb-small">
-          <form [formGroup]="companyForm">
-            <div class="row form-inline">
-                        <span> <strong>Company Name :</strong> <input formControlName="companyName"
-                                                                      placeholder="name"
-                                                                      type="text"></span></div>
-            <div class="row form-inline">
-                        <span> <strong>Registration Number :</strong>      <input
-                            formControlName="registrationNumber"
-                            id="registrationNumber"
-                            name="registrationNumber"
-                            placeholder="Company registration number"></span></div>
-            <div class="row form-inline">
-                        <span> <strong>Establishment Date :</strong>      <input
-                            [nbDatepicker]="establishmentDate"
-                            formControlName="establishmentDate"
-                            id="establishmentDate"
-                            name="establishmentDate"
-                            placeholder="Company establishment Date">
-                         <nb-datepicker #establishmentDate></nb-datepicker></span></div>
+<!--        <div [hidden]="!isEdited" class="col-md-9 sb-small">-->
+<!--          <form [formGroup]="companyForm">-->
+<!--            <div class="row form-inline">-->
+<!--                        <span> <strong>Company Name :</strong> <input formControlName="companyName"-->
+<!--                                                                      placeholder="name"-->
+<!--                                                                      type="text"></span></div>-->
+<!--            <div class="row form-inline">-->
+<!--                        <span> <strong>Registration Number :</strong>      <input-->
+<!--                            formControlName="registrationNumber"-->
+<!--                            id="registrationNumber"-->
+<!--                            name="registrationNumber"-->
+<!--                            placeholder="Company registration number"></span></div>-->
+<!--            <div class="row form-inline">-->
+<!--                        <span> <strong>Establishment Date :</strong>      <input-->
+<!--                            [nbDatepicker]="establishmentDate"-->
+<!--                            formControlName="establishmentDate"-->
+<!--                            id="establishmentDate"-->
+<!--                            name="establishmentDate"-->
+<!--                            placeholder="Company establishment Date">-->
+<!--                         <nb-datepicker #establishmentDate></nb-datepicker></span></div>-->
 
-            <div class="row form-inline">
+<!--            <div class="row form-inline">-->
 
-              <div class=""><strong>Address :</strong> <input formControlName="address"
-                                                              placeholder="address"
-                                                              type="text"></div>
+<!--              <div class=""><strong>Address :</strong> <input formControlName="address"-->
+<!--                                                              placeholder="address"-->
+<!--                                                              type="text"></div>-->
 
-              <div class="col-md-4">
-                <strong>StreetName :</strong> <input formControlName="streetName"
-                                                     placeholder="street name"
-                                                     type="text"></div>
+<!--              <div class="col-md-4">-->
+<!--                <strong>StreetName :</strong> <input formControlName="streetName"-->
+<!--                                                     placeholder="street name"-->
+<!--                                                     type="text"></div>-->
 
-              <div class="col-md-4">
-                <strong>House Number :</strong> <input formControlName="houseNumber"
-                                                       placeholder="house number"
-                                                       type="text"></div>
-            </div>
-            <div class="row form-inline">
-                        <span> <strong>Pan Number :</strong> <input formControlName="panNumber"
-                                                                    placeholder="pan number"
-                                                                    type="text"></span></div>
-            <div class="row form-inline">
-              <span> <strong>Issue Place :</strong> </span>
-              <ng-select formControlName="issuePlace"
-                         placeholder="issued place"
-                         type="text">
-                <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-                  {{district?.name}}
-                </ng-option>
-              </ng-select>
-            </div>
-            <div class="row form-inline">
-                        <span> <strong>Email :</strong> <input formControlName="email"
-                                                               placeholder="abc@gmail.com"
-                                                               type="text"></span></div>
-            <div class="row form-inline">
-                        <span> <strong>Mobile Number :</strong> <input formControlName="contactNum"
-                                                                        placeholder="contact number"
-                                                                        type="text"></span></div>
-            <div class="row form-inline">
-              <span> <strong>Business Type :</strong> </span>
-              <ng-select [items]="businessTypes"
-                         [multiple]="false"
-                         bindLabel="value"
-                         bindValue="key"
-                         formControlName="businessType"
-                         id="businessType"
-                         placeholder="Select Business Type">
-              </ng-select>
-            </div>
-          </form>
+<!--              <div class="col-md-4">-->
+<!--                <strong>House Number :</strong> <input formControlName="houseNumber"-->
+<!--                                                       placeholder="house number"-->
+<!--                                                       type="text"></div>-->
+<!--            </div>-->
+<!--            <div class="row form-inline">-->
+<!--                        <span> <strong>Pan Number :</strong> <input formControlName="panNumber"-->
+<!--                                                                    placeholder="pan number"-->
+<!--                                                                    type="text"></span></div>-->
+<!--            <div class="row form-inline">-->
+<!--              <span> <strong>Issue Place :</strong> </span>-->
+<!--              <ng-select formControlName="issuePlace"-->
+<!--                         placeholder="issued place"-->
+<!--                         type="text">-->
+<!--                <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
+<!--                  {{district?.name}}-->
+<!--                </ng-option>-->
+<!--              </ng-select>-->
+<!--            </div>-->
+<!--            <div class="row form-inline">-->
+<!--                        <span> <strong>Email :</strong> <input formControlName="email"-->
+<!--                                                               placeholder="abc@gmail.com"-->
+<!--                                                               type="text"></span></div>-->
+<!--            <div class="row form-inline">-->
+<!--                        <span> <strong>Mobile Number :</strong> <input formControlName="contactNum"-->
+<!--                                                                        placeholder="contact number"-->
+<!--                                                                        type="text"></span></div>-->
+<!--            <div class="row form-inline">-->
+<!--              <span> <strong>Business Type :</strong> </span>-->
+<!--              <ng-select [items]="businessTypes"-->
+<!--                         [multiple]="false"-->
+<!--                         bindLabel="value"-->
+<!--                         bindValue="key"-->
+<!--                         formControlName="businessType"-->
+<!--                         id="businessType"-->
+<!--                         placeholder="Select Business Type">-->
+<!--              </ng-select>-->
+<!--            </div>-->
+<!--          </form>-->
 
-        </div>
+<!--        </div>-->
       </div>
       <div class="row justify-content-end">
         <button *ngIf="isEdited" nbButton size="small"

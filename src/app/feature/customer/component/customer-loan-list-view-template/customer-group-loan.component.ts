@@ -16,7 +16,6 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {LoanStage} from '../../../loan/model/loanStage';
-import {ChangeLoanComponent} from '../change-loan/change-loan.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ToastService} from '../../../../@core/utils';
@@ -239,7 +238,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 // Total Closed Proposed Amount
       const totalClosedProposedAmount = [];
       this.customerGroupLoanList.map(val => {
-        if (val.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+        if (val.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) && val.loanType === LoanType.FULL_SETTLEMENT_LOAN) {
           totalClosedProposedAmount.push(val.proposal.proposedLimit);
         }
       });
@@ -408,8 +407,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
         nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
         rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
-        closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
-        approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
+        closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanType === 'FULL_SETTLEMENT_LOAN'),
+        approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanType !== 'FULL_SETTLEMENT_LOAN'),
       };
     }
   }
