@@ -163,7 +163,7 @@
         <thead>
         <tr class="sb-bg-gray">
             <th>Credit Risk Grading (Flavour)</th>
-            <th>CRG</th>
+            <th>Credit Risk Grade</th>
             <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
             <th>Credit Risk Score</th>
             <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
@@ -295,7 +295,7 @@
         <p><strong>Approval Chain</strong></p>
     </div>
     <div *ngFor="let previous of signatureList; let i=index;"
-         class="col-md-4 padding-0-125">
+         class="col-md-3 padding-0-125">
         <div class="signature-block">
             <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
                 <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
@@ -319,7 +319,7 @@
     </div>
 </div>
 
-<hr class="print-line">
+<hr class="print-line" *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
 <!--<div class="borrower_class">
     <div class="row">
         <div class="col-md-12">
