@@ -14,8 +14,8 @@
                 </div>
             </nb-card>
         </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="offer">
+        <div class="col-md-3 cursor"  *ngIf="offer">
+            <nb-card class="card bg-primary">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_OFFER_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -28,8 +28,8 @@
                 </div>
             </nb-card>
         </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-success" *ngIf="offer">
+        <div class="col-md-3 cursor"  *ngIf="offer">
+            <nb-card class="card bg-success">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_OFFER_APPROVED">
                         <label class="card-header bg-dark text-white cursor">
@@ -42,8 +42,8 @@
                 </div>
             </nb-card>
         </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="legal">
+        <div class="col-md-3 cursor" *ngIf="legal">
+            <nb-card class="card bg-primary" >
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTER_LEGAL_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -87,8 +87,8 @@
         </div>
 
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
+        <div class="col-md-3 cursor" *ngIf="disbursement">
+            <nb-card class="card bg-primary" >
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_LIMIT_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -102,8 +102,8 @@
             </nb-card>
         </div>
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
+        <div class="col-md-3 cursor" *ngIf="disbursement">
+            <nb-card class="card bg-primary" >
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_LIMIT_APPROVE">
                         <label class="card-header bg-dark text-white cursor">
@@ -131,8 +131,8 @@
             </nb-card>
         </div>
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
+        <div class="col-md-3 cursor"  *ngIf="disbursement">
+            <nb-card class="card bg-primary">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -146,8 +146,8 @@
             </nb-card>
         </div>
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-success" *ngIf="disbursement">
+        <div class="col-md-3 cursor"  *ngIf="disbursement">
+            <nb-card class="card bg-success">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_APPROVED">
                         <label class="card-header bg-dark text-white cursor">
