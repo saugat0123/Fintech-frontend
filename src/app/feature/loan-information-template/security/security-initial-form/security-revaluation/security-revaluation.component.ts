@@ -139,7 +139,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                 staffRepresentativeDesignation1: [undefined],
                 staffRepresentativeDesignation2: [undefined],
                 staffRepresentativeName1: [undefined],
-                staffRepresentativeName2: [undefined]
+                staffRepresentativeName2: [undefined],
+                 sqlCost: [undefined],
+                 totalCost: [undefined]
             }
         );
     }
@@ -172,7 +174,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                     staffRepresentativeDesignation1: [singleData.staffRepresentativeDesignation1],
                     staffRepresentativeDesignation2: [singleData.staffRepresentativeDesignation2],
                     staffRepresentativeName1: [singleData.staffRepresentativeName1],
-                    staffRepresentativeName2: [singleData.staffRepresentativeName2]
+                    staffRepresentativeName2: [singleData.staffRepresentativeName2],
+                    sqlCost: !ObjectUtil.isEmpty(singleData.sqlCost) ? singleData.sqlCost : undefined,
+                    totalCost: !ObjectUtil.isEmpty(singleData.totalCost) ? singleData.totalCost : undefined
                 })
             );
         });
@@ -194,6 +198,8 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             staffRepresentativeDesignation2: [undefined],
             staffRepresentativeName1: [undefined],
             staffRepresentativeName2: [undefined],
+            sqlCost: [undefined],
+            totalCost: [undefined],
             revaluationDetails: this.formBuilder.array([])
         });
     }
