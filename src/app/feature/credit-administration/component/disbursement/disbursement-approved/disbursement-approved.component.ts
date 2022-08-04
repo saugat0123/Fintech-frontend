@@ -6,17 +6,17 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ExposureComponent} from '../../../cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbDialogService} from '@nebular/theme';
 import * as CryptoJS from 'crypto-js';
 import {AdditionalExposureComponent} from '../additional-exposure/additional-exposure.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {Validators} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {DocAction} from '../../../../loan/model/docAction';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -42,6 +42,8 @@ export class DisbursementApprovedComponent implements OnInit {
                 private spinnerService: NgxSpinnerService,
                 private nbModel: NgbModal,
                 private nbDialogService: NbDialogService, private cadService: CreditAdministrationService,
+                private toastService: ToastService,
+                private routerService: RouterUtilsService
     ) {
     }
 
@@ -112,16 +114,22 @@ export class DisbursementApprovedComponent implements OnInit {
             toRole: data.cadCurrentStage.toRole,
             toUser: data.cadCurrentStage.toUser,
             cadId: data.id,
-            docAction: DocAction.RE_INITIATE,
+            docAction: 'RE_INITIATE',
             comment: 'Re Disbursement',
             documentStatus: CadDocStatus.OFFER_PENDING,
             isBackwardForMaker: true,
-            discrepancy: [false],
-            partialDiscrepancy: [false],
+            discrepancy: false,
+            partialDiscrepancy: false,
         };
+        this.spinnerService.show();
         this.cadService.saveAction(cad).subscribe((response: any) => {
+            this.spinnerService.hide();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Moved File To Offer Pending'));
+            this.routerService.routeOnConditionProfileOrSummary(data.id, data);
             this.spinner = false;
         }, error => {
+            this.spinnerService.hide();
+            this.toastService.show(new Alert(AlertType.ERROR, 'Opps!!! Something Went Wrong'));
             this.spinner = false;
         });
     }
