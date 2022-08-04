@@ -10,6 +10,8 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {NbDialogRef} from '@nebular/theme';
+import {CustomerType} from '../../../../../customer/model/customerType';
+import {CustomerSubType} from '../../../../../customer/model/customerSubType';
 
 @Component({
     selector: 'app-cad-file-setup',
@@ -25,6 +27,9 @@ export class CadFileSetupComponent implements OnInit {
     spinner = false;
 
     form: FormGroup;
+    customerType = CustomerType;
+    customerSubType = CustomerSubType;
+    filteredDocumentList: any;
 
     constructor(private documentService: DocumentService,
                 private toastService: ToastService,
@@ -44,9 +49,9 @@ export class CadFileSetupComponent implements OnInit {
 
     }
 
-    initial() {
+    async initial() {
         this.spinner = true;
-        this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
+        this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(async res => {
             this.responseDocList = res.detail;
             this.responseDocList.forEach(d => {
                 const dataDoc = {
@@ -67,19 +72,65 @@ export class CadFileSetupComponent implements OnInit {
 
             });
             const array = (this.form.get('documents') as FormArray);
-            this.documentList.forEach(d => {
-                array.push(this.formBuilder.group({
-                    document: d,
-                    checked: d.checked,
-                }));
-            });
-
+            await this.setDocumentList();
+            if (!ObjectUtil.isEmpty(this.filteredDocumentList)) {
+                this.filteredDocumentList.forEach(d => {
+                    array.push(this.formBuilder.group({
+                        document: d,
+                        checked: d.checked,
+                    }));
+                });
+            }
         }, error => {
             console.log(error);
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load document '));
 
         });
+    }
+
+    setDocumentList() {
+        const tempDocumentList = [];
+        const idDisplayArray = [];
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.loanHolder) && !ObjectUtil.isEmpty(this.documentList)) {
+            this.documentList.forEach((val: any) => {
+                const splittedDisplayName = val.document.displayName.split(' ');
+                const fil = {
+                    id: val.document.id,
+                    lastName: splittedDisplayName[splittedDisplayName.length - 1]
+                };
+                idDisplayArray.push(fil);
+            });
+            if (!ObjectUtil.isEmpty(this.cadData.loanHolder.customerType)) {
+                if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL) {
+                    const individualFilter = idDisplayArray.filter((val: any) =>
+                        val.lastName === 'Individual');
+                    individualFilter.forEach((filEle: any) => {
+                        tempDocumentList.push(this.documentList.filter((v: any) => v.document.id === filEle.id)[0]);
+                    });
+                    tempDocumentList.push(this.documentList.filter((v: any) => v.document.id === 1053)[0]);
+                    this.filteredDocumentList = tempDocumentList;
+                } else if (this.cadData.loanHolder.customerType === this.customerType.INSTITUTION) {
+                    if (this.cadData.loanHolder.customerSubType === this.customerSubType.PARTNERSHIP.toUpperCase()) {
+                        this.setInstitutionDocumentArray(idDisplayArray, 'Partnership');
+                    } else if (this.cadData.loanHolder.customerSubType === this.customerSubType.PROPRIETORSHIP.toUpperCase()) {
+                        this.setInstitutionDocumentArray(idDisplayArray, 'Proprietorship');
+                    } else if (this.cadData.loanHolder.customerSubType === 'PRIVATE_PUBLIC') {
+                        this.setInstitutionDocumentArray(idDisplayArray, 'Company');
+                    }
+                }
+            }
+        }
+    }
+
+    setInstitutionDocumentArray(idDisplayArray: any, institutionName: string) {
+        const tempDocumentList = [];
+        const individualFilter = idDisplayArray.filter((val: any) =>
+            val.lastName === institutionName);
+        individualFilter.forEach((filEle: any) => {
+            tempDocumentList.push(this.documentList.filter((v: any) => v.document.id === filEle.id)[0]);
+        });
+        this.filteredDocumentList = tempDocumentList;
     }
 
 
