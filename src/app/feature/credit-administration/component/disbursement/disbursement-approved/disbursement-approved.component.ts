@@ -36,6 +36,7 @@ export class DisbursementApprovedComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     encryptUrlArray: { url: string }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
+    selectedCadData;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
@@ -43,7 +44,8 @@ export class DisbursementApprovedComponent implements OnInit {
                 private nbModel: NgbModal,
                 private nbDialogService: NbDialogService, private cadService: CreditAdministrationService,
                 private toastService: ToastService,
-                private routerService: RouterUtilsService
+                private routerService: RouterUtilsService,
+                private modalService:  NgbModal
     ) {
     }
 
@@ -124,13 +126,22 @@ export class DisbursementApprovedComponent implements OnInit {
         this.spinnerService.show();
         this.cadService.saveAction(cad).subscribe((response: any) => {
             this.spinnerService.hide();
+            this.close();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Moved File To Offer Pending'));
             this.routerService.routeOnConditionProfileOrSummary(data.id, data);
             this.spinner = false;
         }, error => {
             this.spinnerService.hide();
+            this.close();
             this.toastService.show(new Alert(AlertType.ERROR, 'Opps!!! Something Went Wrong'));
             this.spinner = false;
         });
+    }
+    close() {
+        this.modalService.dismissAll();
+    }
+    openModal(modal, model) {
+        this.selectedCadData = model;
+        this.modalService.open(modal, {size: 'xl', backdrop: true});
     }
 }
