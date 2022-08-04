@@ -24,6 +24,7 @@ export const routes: Routes = [
     {path: 'limit-approve', component: LimitApprovedComponent},
     {path: 'disbursement-approved', component: DisbursementApprovedComponent},
     {path: 'discrepancy-pending', component: DiscrepancyPendingComponent},
+    {path: 'partial-discrepancy-pending', component: DiscrepancyPendingComponent},
     {path: 'offer-letter-profile', component: LegalAndDisbursementComponent},
     {path: 'cad-documents', component: CadDocumentListComponent},
     {path: 'cad-summary/:id', component: CadSummaryComponent},

@@ -27,6 +27,12 @@ export class LoanStatusPipe implements PipeTransform {
         if ('DUAL_APPROVAL_PENDING' === value) {
             return 'Appproved';
         }
+        if ('OFFER_PENDING' === value) {
+            return 'SECURITY_DOCUMENT_PENDING';
+        }
+        if ('OFFER_APPROVED' === value) {
+            return 'SECURITY_DOCUMENT_APPROVED';
+        }
         return value;
     }
 

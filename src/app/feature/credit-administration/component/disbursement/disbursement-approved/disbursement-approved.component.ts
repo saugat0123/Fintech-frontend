@@ -6,12 +6,17 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ExposureComponent} from '../../../cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbDialogService} from '@nebular/theme';
 import * as CryptoJS from 'crypto-js';
 import {AdditionalExposureComponent} from '../additional-exposure/additional-exposure.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {DocAction} from '../../../../loan/model/docAction';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -31,12 +36,17 @@ export class DisbursementApprovedComponent implements OnInit {
     toggleArray: { toggled: boolean }[] = [];
     encryptUrlArray: { url: string }[] = [];
     currentIndexArray: { currentIndex: number }[] = [];
+    selectedCadData;
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private spinnerService: NgxSpinnerService,
                 private nbModel: NgbModal,
-                private nbDialogService: NbDialogService) {
+                private nbDialogService: NbDialogService, private cadService: CreditAdministrationService,
+                private toastService: ToastService,
+                private routerService: RouterUtilsService,
+                private modalService:  NgbModal
+    ) {
     }
 
     static loadData(other: DisbursementApprovedComponent) {
@@ -99,5 +109,39 @@ export class DisbursementApprovedComponent implements OnInit {
     encryptUrl(id) {
         const i = CryptoJS.AES.encrypt(id.toString(), 'id').toString();
         return i;
+    }
+
+    reDisburse(data: CustomerApprovedLoanCadDocumentation) {
+        const cad = {
+            toRole: data.cadCurrentStage.toRole,
+            toUser: data.cadCurrentStage.toUser,
+            cadId: data.id,
+            docAction: 'RE_INITIATE',
+            comment: 'Re Disbursement',
+            documentStatus: CadDocStatus.OFFER_PENDING,
+            isBackwardForMaker: true,
+            discrepancy: false,
+            partialDiscrepancy: false,
+        };
+        this.spinnerService.show();
+        this.cadService.saveAction(cad).subscribe((response: any) => {
+            this.spinnerService.hide();
+            this.close();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Moved File To Offer Pending'));
+            this.routerService.routeOnConditionProfileOrSummary(data.id, data);
+            this.spinner = false;
+        }, error => {
+            this.spinnerService.hide();
+            this.close();
+            this.toastService.show(new Alert(AlertType.ERROR, 'Opps!!! Something Went Wrong'));
+            this.spinner = false;
+        });
+    }
+    close() {
+        this.modalService.dismissAll();
+    }
+    openModal(modal, model) {
+        this.selectedCadData = model;
+        this.modalService.open(modal, {size: 'xl', backdrop: true});
     }
 }

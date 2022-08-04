@@ -29,6 +29,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     requiredDocument: Array<Document>;
     sccData: string;
     discrepancy: boolean;
+    partialDiscrepancy: boolean;
 
 
 }

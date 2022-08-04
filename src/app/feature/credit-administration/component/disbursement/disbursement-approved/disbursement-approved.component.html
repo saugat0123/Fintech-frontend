@@ -38,7 +38,13 @@
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
                            nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
-                        </a></td>
+                        </a>
+                        <a class="px-2 cursor" *ngIf="isMaker"
+                           (click)="openModal(popUp,model)"
+                           nbTooltip="click to re disburse this file ">
+                            <em class="fa fa-file"></em>
+                        </a>
+                    </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
                     <tr>
@@ -139,6 +145,28 @@
         <!-- ===================table-pagination==================== -->
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
+        <ng-template #popUp>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Confirmation</h4>
+                <a class="close pull-right cursor" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                Do you want to re disburse this Document?
+                <div class="col-md-12">
+                    <form>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="close()">
+                                NO
+                            </button>
+                            <button type="submit" class="btn btn-success float-right" (click)="reDisburse(selectedCadData)">YES
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
 
     </nb-card-body>
 </nb-card>

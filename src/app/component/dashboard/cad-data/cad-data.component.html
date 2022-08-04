@@ -5,7 +5,7 @@
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_CAD_LIST_BY_PERMISSIONS">
                         <label class="card-header bg-dark text-white cursor">
-                            Offer Document All </label>
+                            Post Approval All File </label>
                     </a>
 
                     <div id="Discussion"  style="display: inline">
@@ -14,12 +14,12 @@
                 </div>
             </nb-card>
         </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="offer">
+        <div class="col-md-3 cursor"  *ngIf="offer">
+            <nb-card class="card bg-primary">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_OFFER_PENDING">
                         <label class="card-header bg-dark text-white cursor">
-                            Offer Pending </label>
+                            Security Document Pending </label>
                     </a>
 
                     <div  style="display: inline">
@@ -28,12 +28,12 @@
                 </div>
             </nb-card>
         </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-success" *ngIf="offer">
+        <div class="col-md-3 cursor"  *ngIf="offer">
+            <nb-card class="card bg-success">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_OFFER_APPROVED">
                         <label class="card-header bg-dark text-white cursor">
-                            Offer Approved </label>
+                            Security Document Approved </label>
                     </a>
 
                     <div  style="display: inline">
@@ -42,8 +42,8 @@
                 </div>
             </nb-card>
         </div>
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="legal">
+        <div class="col-md-3 cursor" *ngIf="legal">
+            <nb-card class="card bg-primary" >
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTER_LEGAL_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -87,8 +87,8 @@
         </div>
 
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
+        <div class="col-md-3 cursor" *ngIf="disbursement">
+            <nb-card class="card bg-primary" >
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_LIMIT_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -102,8 +102,8 @@
             </nb-card>
         </div>
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
+        <div class="col-md-3 cursor" *ngIf="disbursement">
+            <nb-card class="card bg-primary" >
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_LIMIT_APPROVE">
                         <label class="card-header bg-dark text-white cursor">
@@ -116,10 +116,23 @@
                 </div>
             </nb-card>
         </div>
-
-
         <div class="col-md-3 cursor">
-            <nb-card class="card bg-primary" *ngIf="disbursement">
+            <nb-card class="card bg-primary">
+                <div >
+                    <a [routerLink]="offerRouteConst.ROUTE_TO_PARTIAL_DISCREPANCY">
+                        <label class="card-header bg-dark text-white cursor">
+                            Partial Discrepancy Pending </label>
+                    </a>
+
+                    <div  style="display: inline">
+                        <strong class="ml-2">&nbsp;{{customerApproveCountDto?.partialDiscrepancy}}</strong>
+                    </div>
+                </div>
+            </nb-card>
+        </div>
+
+        <div class="col-md-3 cursor"  *ngIf="disbursement">
+            <nb-card class="card bg-primary">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_PENDING">
                         <label class="card-header bg-dark text-white cursor">
@@ -133,8 +146,8 @@
             </nb-card>
         </div>
 
-        <div class="col-md-3 cursor">
-            <nb-card class="card bg-success" *ngIf="disbursement">
+        <div class="col-md-3 cursor"  *ngIf="disbursement">
+            <nb-card class="card bg-success">
                 <div >
                     <a [routerLink]="offerRouteConst.ROUTE_DISBURSEMENT_APPROVED">
                         <label class="card-header bg-dark text-white cursor">
