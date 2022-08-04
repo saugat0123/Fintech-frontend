@@ -86,9 +86,9 @@ export class UpdateDocumentComponent implements OnInit {
         this.silentSave();
     }
 
-    nbUpdateCheckbBox() {
-        this.availableDocumentOptions.forEach(d => {
-            this.form.get(d.name).setValue(this.checkAll);
+    async nbUpdateCheckbBox() {
+       await this.availableDocumentOptions.forEach(d => {
+            this.form.get(d.name).patchValue(this.checkAll);
         });
     }
 
