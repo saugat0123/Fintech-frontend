@@ -9,7 +9,7 @@
   </nb-card>
 </ng-template>
 <div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
-<ng-container *ngIf="status !== docStatus.value(docStatus.SEND_BACK_TO_AGENT) && status!== docStatus.value(docStatus.SEND_BACK_TO_SENDER)">
+<ng-container *ngIf="status !== docStatus.value(docStatus.SEND_BACK_TO_AGENT) && status!== docStatus.value(docStatus.SEND_BACK_TO_SENDER) && status !== 'APPROVED'">
   <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"

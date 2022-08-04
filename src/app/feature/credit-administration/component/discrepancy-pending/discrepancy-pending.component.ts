@@ -23,8 +23,9 @@ export class DiscrepancyPendingComponent implements OnInit {
   pageable: Pageable = new Pageable();
   loanList = [];
   loanType = LoanType;
-  toggleArray: { toggled: boolean }[] = [];
+  toggleArray: { toggled: boolean, files: any, fileToggled: boolean}[] = [];
   currentIndexArray: { currentIndex: number }[] = [];
+  partialDiscrepancy = false;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -33,13 +34,29 @@ export class DiscrepancyPendingComponent implements OnInit {
   }
 
   static loadData(other: DiscrepancyPendingComponent) {
+    const url =  other.router.url.split('/');
+    other.partialDiscrepancy = url[url.length - 1] === 'partial-discrepancy-pending';
+    other.searchObj.docStatus = other.partialDiscrepancy ? 'PARTIAL_DISCREPANCY_PENDING' : 'DISCREPANCY_PENDING';
     other.spinner = true;
     other.currentIndexArray = [];
     other.toggleArray = [];
     other.loanList = [];
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.loanList = res.detail.content;
-      other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
+      other.loanList.forEach((d) => {
+        const data = [];
+        d.cadFileList.forEach((r) => {
+          if (r.remarks === 'DEFERRAL') {
+            data.push(r.cadDocument.displayName);
+          }
+        });
+        d.additionalDocumentList.forEach((r) => {
+          if (r.remarks === 'DEFERRAL') {
+            data.push(r.docName);
+          }
+        });
+        other.toggleArray.push({toggled: false, files: data, fileToggled: false});
+      });
       // tslint:disable-next-line:max-line-length
       other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
       console.log(other.loanList);
@@ -67,7 +84,7 @@ export class DiscrepancyPendingComponent implements OnInit {
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'DISCREPANCY_PENDING'});
+    this.searchObj = Object.assign(value, {docStatus: this.partialDiscrepancy ? 'PARTIAL_DISCREPANCY_PENDING' : 'DISCREPANCY_PENDING'});
     DiscrepancyPendingComponent.loadData(this);
   }
 

@@ -105,6 +105,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     cadStageOfferApproved = false;
     updatedToRole;
     returnedFromLegal = false;
+    partialDiscrepancy = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -127,7 +128,8 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.checkCadDocument();
-        if(this.cadOfferLetterApprovedDoc.discrepancy) {
+        this.checkPartialDiscrepancy();
+        if (this.cadOfferLetterApprovedDoc.discrepancy) {
             this.isDiscrepancy = true;
         }
         this.currentUserId = LocalStorageUtil.getStorage().userId;
@@ -381,7 +383,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
-                    discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
+                    discrepancy: [this.isDiscrepancy],
+                    partialDiscrepancy: [this.partialDiscrepancy],
                 }
             );
             const approvalType = 'CAD';
@@ -447,7 +450,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
+                    discrepancy: [this.isDiscrepancy],
+                    partialDiscrepancy: [this.partialDiscrepancy],
 
 
                 }
@@ -463,7 +467,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
+                    discrepancy: [this.isDiscrepancy],
+                    partialDiscrepancy: [this.partialDiscrepancy],
 
                 }
             );
@@ -617,7 +622,24 @@ export class CadActionComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.checkForwardValidMessage();
         this.checkCadDocument();
+        this.checkPartialDiscrepancy();
 
+    }
+
+    checkPartialDiscrepancy() {
+        let cadList = false;
+        let additionalList = false;
+        this.cadOfferLetterApprovedDoc.cadFileList.forEach((r) => {
+            if (r.remarks === 'DEFERRAL') {
+                cadList = true;
+            }
+        });
+        this.cadOfferLetterApprovedDoc.additionalDocumentList.forEach((r) => {
+            if (r.remarks === 'DEFERRAL') {
+                additionalList = true;
+            }
+        });
+        this.partialDiscrepancy = (cadList || additionalList);
     }
 
 }

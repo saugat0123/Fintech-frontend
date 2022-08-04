@@ -13,4 +13,5 @@ export class RouteConst {
     static ROUTE_CAD_LIST_BY_PERMISSIONS = '/home/credit/cad-documents';
     static ROUTE_CAD_SUMMARY = '/home/credit/cad-summary/';
     static ROUTE_TO_DISCREPANCY = '/home/credit/discrepancy-pending';
+    static ROUTE_TO_PARTIAL_DISCREPANCY = '/home/credit/partial-discrepancy-pending';
 }

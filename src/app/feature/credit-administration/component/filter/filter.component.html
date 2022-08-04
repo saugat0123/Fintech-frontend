@@ -55,7 +55,7 @@
           <label class="form-group">Document Status</label>
           <select class="form-control rounded" formControlName="docStatus" id="docStatus">
             <option [ngValue]="null" hidden>Select Document Status</option>
-            <option *ngFor="let status of cadDocStatus" [ngValue]="status">{{status | replace:'_':' ' | titlecase}}</option>
+            <option *ngFor="let status of cadDocStatus" [ngValue]="status">{{((status | loanStatusPipe) | replace:'_':' ' | titlecase)}}</option>
           </select>
         </div>
       </div>

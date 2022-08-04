@@ -78,7 +78,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     legalDoc = [];
     formdata: FormData = new FormData();
     objArr = [{}, {}];
-
+    restUrl = ApiConfig.URL;
     ngOnInit() {
         this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
         this.offerLetterConst = LaxmiOfferLetterConst;
