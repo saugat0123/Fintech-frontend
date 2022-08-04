@@ -640,7 +640,6 @@ export class CadActionComponent implements OnInit, OnChanges {
             }
         });
         this.partialDiscrepancy = (cadList || additionalList);
-        console.log('adasdasdasd', this.partialDiscrepancy);
     }
 
 }

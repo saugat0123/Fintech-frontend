@@ -12,6 +12,11 @@ import {NbDialogService} from '@nebular/theme';
 import * as CryptoJS from 'crypto-js';
 import {AdditionalExposureComponent} from '../additional-exposure/additional-exposure.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Validators} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {DocAction} from '../../../../loan/model/docAction';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -36,7 +41,8 @@ export class DisbursementApprovedComponent implements OnInit {
                 private router: Router,
                 private spinnerService: NgxSpinnerService,
                 private nbModel: NgbModal,
-                private nbDialogService: NbDialogService) {
+                private nbDialogService: NbDialogService, private cadService: CreditAdministrationService,
+    ) {
     }
 
     static loadData(other: DisbursementApprovedComponent) {
@@ -99,5 +105,24 @@ export class DisbursementApprovedComponent implements OnInit {
     encryptUrl(id) {
         const i = CryptoJS.AES.encrypt(id.toString(), 'id').toString();
         return i;
+    }
+
+    reDisburse(data: CustomerApprovedLoanCadDocumentation) {
+        const cad = {
+            toRole: data.cadCurrentStage.toRole,
+            toUser: data.cadCurrentStage.toUser,
+            cadId: data.id,
+            docAction: DocAction.RE_INITIATE,
+            comment: 'Re Disbursement',
+            documentStatus: CadDocStatus.OFFER_PENDING,
+            isBackwardForMaker: true,
+            discrepancy: [false],
+            partialDiscrepancy: [false],
+        };
+        this.cadService.saveAction(cad).subscribe((response: any) => {
+            this.spinner = false;
+        }, error => {
+            this.spinner = false;
+        });
     }
 }
