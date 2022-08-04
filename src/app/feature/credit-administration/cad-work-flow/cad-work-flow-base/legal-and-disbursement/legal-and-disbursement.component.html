@@ -6,7 +6,7 @@
     <nb-card-header>
         <div class="clearfix">
             <div [class]="!layoutFlag ? 'float-left':'float-right'">
-                <strong>{{(cadOfferLetterApprovedDoc?.docStatus | replace:'_':' ')}}</strong></div>
+                <strong>{{((cadOfferLetterApprovedDoc?.docStatus | loanStatusPipe) | replace:'_':' ')}}</strong></div>
         </div>
         <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id"
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
