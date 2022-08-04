@@ -13,6 +13,8 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {NbDialogRef, NbDialogService} from "@nebular/theme";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import { CadOfferLetterConfigurationComponent } from '../cad-offer-letter-configuration.component';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 
 @Component({
   selector: 'app-loan-create',
@@ -29,11 +31,13 @@ export class LoanCreateComponent implements OnInit {
   form: FormGroup;
   spinner = false;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
+  filteredLoanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
   attributes: Attributes = new Attributes();
   translatedLoanDataDetails = [];
   isTranslatedLoanDetails = false;
   isCombinedLoan = false;
+  offerLetterConst = NabilOfferLetterConst;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -58,6 +62,10 @@ export class LoanCreateComponent implements OnInit {
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       console.log(response);
       this.loanFacilityList = response.detail;
+      if (!ObjectUtil.isEmpty(this.loanFacilityList)) {
+        this.filteredLoanFacilityList = this.loanFacilityList.filter((val) =>
+            val.offerLetterConst !== 'COMBINED_LETTER');
+      }
       console.log(response.detail);
     }, error => {
       console.error(error);
@@ -196,5 +204,14 @@ export class LoanCreateComponent implements OnInit {
 
   combinedLoan(event) {
     this.isCombinedLoan = event.target.checked === true;
+    if (this.isCombinedLoan) {
+      if (!ObjectUtil.isEmpty(this.filteredLoanFacilityList)) {
+        this.filteredLoanFacilityList = this.loanFacilityList.filter((val) =>
+            val.offerLetterConst === 'COMBINED_LETTER');
+      }
+    } else {
+      this.filteredLoanFacilityList = this.loanFacilityList.filter((val) =>
+          val.offerLetterConst !== 'COMBINED_LETTER');
+    }
   }
 }
