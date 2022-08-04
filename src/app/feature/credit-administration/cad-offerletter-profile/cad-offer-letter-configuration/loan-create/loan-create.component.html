@@ -30,7 +30,7 @@
           <select class="custom-select" formControlName="loan"
           >
             <option [value]="null" selected hidden>Select Loan Facility</option>
-            <option *ngFor="let loanFacility of loanFacilityList"
+            <option *ngFor="let loanFacility of filteredLoanFacilityList"
                     [value]="loanFacility.id">{{loanFacility.name}}||{{loanFacility.nepaliName}}
             </option>
           </select>
