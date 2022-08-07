@@ -415,7 +415,7 @@
           <label for="type">Select Offer Type</label>
           <select [(ngModel)]="docType" class="form-control" id="type">
             <option hidden selected value="null">--Select Type--</option>
-            <option *ngIf="roleType !== 'MAKER'" value="DRAFT">Draft Document</option>
+            <option  value="DRAFT">Draft Document</option>
             <option value="SIGNED">Signed Document</option>
           </select>
         </div>
