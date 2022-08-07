@@ -58,6 +58,8 @@ import {PreviewCadComponent} from './component/preview-cad/preview-cad.component
 import {CadReportComponent} from './component/cad-report/cad-report.component';
 import {CiclViewComponent} from '../loan-information-view/cicl-view/cicl-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
+import {MegaModule} from './cad-document-template/mega/mega.module';
 
 
 @NgModule({
@@ -108,20 +110,22 @@ import {NepaliPatroModule} from 'nepali-patro';
     PreviewCadComponent,
     CadReportComponent,
     CiclViewComponent],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NbDialogModule.forRoot(),
-    CadDocumentTemplateModule,
-    RouterModule.forChild(routes),
-    NgSelectModule,
-    CoreModule,
-    NgxPrintModule,
-    AngularDraggableModule,
-    NepaliCalendarModule,
-    NepaliPatroModule,
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NbDialogModule.forRoot(),
+        CadDocumentTemplateModule,
+        RouterModule.forChild(routes),
+        NgSelectModule,
+        CoreModule,
+        NgxPrintModule,
+        AngularDraggableModule,
+        NepaliCalendarModule,
+        NepaliPatroModule,
+        MegaOfferLetterTemplateModule,
+        MegaModule,
 
-  ],
+    ],
   entryComponents: [
     AssignPopUpComponent,
     VerifyPopUpComponent,
