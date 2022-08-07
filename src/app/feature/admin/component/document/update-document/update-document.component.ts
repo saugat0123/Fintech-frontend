@@ -8,6 +8,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Status} from '../../../../../@core/Status';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-update-document',
@@ -41,11 +42,12 @@ export class UpdateDocumentComponent implements OnInit {
         other.service.getAllByStatus(Status.ACTIVE).subscribe((response: any) => {
             other.availableDocumentOptions = response.detail;
             other.spinner = false;
-            other.initializeOptions();
-            other.populateOptionValues(other.loanCycle.id);
         }, error => {
             console.log(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Documents'));
+        }, () => {
+            other.initializeOptions();
+            other.populateOptionValues(other.loanCycle.id);
         });
     }
 
@@ -66,11 +68,21 @@ export class UpdateDocumentComponent implements OnInit {
     }
 
     populateOptionValues(loanCycleId: number) {
+        this.selectedDocuments = [];
         this.service.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((response: any) => {
             this.selectedDocuments = response.detail;
-            this.selectedDocuments.forEach(document => {
-                this.form.get(document.name).setValue(true);
-            });
+            if (!ObjectUtil.isEmpty(this.selectedDocuments)) {
+                this.selectedDocuments.forEach(document => {
+                    if (!ObjectUtil.isEmpty(document.name)) {
+                        const formInner = this.form.get(document.name);
+                        if (formInner !== null) {
+                            formInner.patchValue(true);
+                        } else {
+                            console.log('val is null', document.name);
+                        }
+                    }
+                });
+            }
         });
     }
 
@@ -88,7 +100,17 @@ export class UpdateDocumentComponent implements OnInit {
 
     nbUpdateCheckbBox() {
         this.availableDocumentOptions.forEach(d => {
-            this.form.get(d.name).setValue(this.checkAll);
+            if (!ObjectUtil.isEmpty(d.name)) {
+                if (d.name) {
+                    const formInner = this.form.get(d.name);
+                    if (formInner !== null) {
+                        formInner.patchValue(this.checkAll);
+                    } else {
+                        console.log('val is null', d.name);
+                    }
+
+                }
+            }
         });
     }
 
