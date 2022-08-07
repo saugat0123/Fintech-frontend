@@ -14,10 +14,10 @@
                     <div class="form-row">
                         <div class="col-md-6" *ngFor="let option of availableDocumentOptions">
                             <nb-checkbox [checked]="checkAll"
-                                         id="{{'document'+ option.id}}"
+                                         id="{{'document'+ option?.id}}"
                                          status="primary"
-                                         [formControlName]="option.name">
-                                {{option.displayName}}
+                                         [formControlName]="option?.name">
+                                {{option?.displayName}}
                             </nb-checkbox>
                         </div>
                     </div>
