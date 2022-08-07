@@ -1,4 +1,3 @@
-
 <div class="col-md-12">
     <p><strong>Comments</strong></p>
     <table
@@ -8,11 +7,10 @@
             <th>S.N</th>
             <th>Date</th>
             <th>From User</th>
-
             <th>To User</th>
-
             <th>Status</th>
             <th class="cmt-width">Remarks</th>
+            <th>Document Status</th>
         </tr>
         </thead>
         <tbody>
@@ -30,11 +28,8 @@
                     <div class="d-flex justify-content-center">
                         <span>({{previousList?.fromRole?.roleName}})</span>
                     </div>
-
                 </div>
-
             </td>
-
             <td>
                 <div class="col-md-12">
                     <div class="d-flex justify-content-center">
@@ -44,13 +39,20 @@
                     <div class="d-flex justify-content-center">
                         ({{previousList?.toRole?.roleName}})
                     </div>
-
                 </div>
             </td>
-
             <td>{{previousList?.docAction | replace:'_':' '}}</td>
             <td class="text-left px-2">
                 {{ previousList?.comment}}
+            </td>
+            <td>
+                <span *ngIf="previousList?.screenShotDocPath" style="color: limegreen">
+                    <i class="fas fa-times-circle" [nbTooltip]="documentView"
+                       (click)="openDocument(document, previousList?.screenShotDocPath, previousList?.comment)"></i>
+                </span>
+                <span *ngIf="!previousList?.screenShotDocPath" style="color: red">
+                    <i class="fas fa-times-circle"></i>
+                </span>
             </td>
         </tr>
         <tr>
@@ -68,7 +70,6 @@
 
                 </div>
             </td>
-
             <td>
                 <div class="col-md-12">
                     <div class="d-flex justify-content-center">
@@ -81,15 +82,69 @@
 
                 </div>
             </td>
-
             <td>{{cadData?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
             <td class="text-left  px-2">
-
                 {{cadData?.cadCurrentStage?.comment}}
-
-
+            </td>
+            <td>
+                <span *ngIf="cadData?.cadCurrentStage?.screenShotDocPath" style="color: limegreen">
+                    <i class="fas fa-times-circle" [nbTooltip]="documentView"
+                       (click)="openDocument(document, cadData?.cadCurrentStage?.screenShotDocPath, cadData?.cadCurrentStage?.comment)"></i>
+                </span>
+                <span *ngIf="!cadData?.cadCurrentStage?.screenShotDocPath" style="color: red">
+                    <i class="fas fa-times-circle"></i>
+                </span>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+<ng-template #document>
+    <div class="modal-header">
+        <h5 class="text-center">Remark and Document List Details</h5>
+        <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered text-center table-responsive-md table-sm sb-small">
+                    <tr>
+                        <th class="sb-bg-dark text-white">Remark</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left" [innerHTML]="comment"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center"><strong>Document List</strong></p>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead class="sb-bg-dark text-white">
+                    <tr>
+                        <td>S.No.</td>
+                        <td>Document Name</td>
+                        <td>Preview</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let dp of currentDocumentPath; let di= index">
+                        <td>{{di + 1}}</td>
+                        <td>{{dp.substring(dp.lastIndexOf('/') + 1, dp.length)}}</td>
+                        <td>
+                            <i (click)="previewDoc(dp)" class="fas fa-eye"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-overlay-spinner></app-overlay-spinner>
