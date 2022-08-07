@@ -1,11 +1,3 @@
-<hr>
-<app-summary-header [loanCategory]="loanDataHolder?.loanHolder?.customerType"
-                    [loanDataHolder]="loanDataHolder"
-                    [crgCCbl]="(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)"
-                    [isJointInfo]="loanDataHolder?.loanHolder?.isJointCustomer"
-                    [currentDocAction]="loanDataHolder?.currentStage?.docAction?.toString()">
-</app-summary-header>
-<hr>
 <h2 class="heading mt-5">Detailed Assessment</h2>
 <ol class="above-ten-million-list">
     <li>
@@ -15,6 +7,7 @@
     <li>
         <p class="text-uppercase"><strong>Purpose of, and Justification for, the Proposal</strong></p>
         <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                            [isExecutive]="isExecutive"
                                             [isDetailedView]="isDetailedView"
                                             [proposalData]="proposalData"></app-proposal-justification-summary>
     </li>
@@ -40,10 +33,11 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Banking Arrangement of the Customer</strong></p>
-        <app-above-banking-arrangement-of-the-customer *ngIf="loanDataHolder?.loanHolder?.multiBanking else notAvailable"
+        <app-above-banking-arrangement-of-the-customer *ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"
                                                        [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
                                                        [proposal]="loanDataHolder?.proposal"
                                                        [isRetailCustomer]="false"
+                                                       [count]="7.1"
                                                        [cicl]="loanDataHolder?.loanHolder?.cicl"
                                                        [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
     </li>

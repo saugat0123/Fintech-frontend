@@ -5,7 +5,7 @@
                 , Tenure: {{data.proposal.tenureDurationInMonths}} months</em></mark>)</u>
         </span>
     </div>
-    <div *ngIf="isDetailedView">
+    <div *ngIf="isDetailedView && !isExecutive">
         <div class="sb-small">
           <span
                   [innerHTML]="(data?.proposal?.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>

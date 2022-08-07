@@ -17,6 +17,7 @@ export class UptoTenMillionComponent implements OnInit {
   @Input() isDetailedView: boolean;
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() fixedAssetsData: Array<any>;
+  @Input() isExecutive: boolean;
   // loanDataHolder: LoanDataHolder;
   customerCategory = CustomerCategory.SME_UPTO_TEN_MILLION;
   data;

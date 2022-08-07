@@ -18,6 +18,7 @@ export class AboveTenMillionComponent implements OnInit {
   @Input() isDetailedView: boolean;
   @Input() fixedAssetsData: Array<any>;
   @Input() totalProposedLimit: number;
+  @Input() isExecutive: boolean;
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;

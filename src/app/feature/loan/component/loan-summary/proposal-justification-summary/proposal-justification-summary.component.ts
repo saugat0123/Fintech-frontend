@@ -11,6 +11,7 @@ export class ProposalJustificationSummaryComponent implements OnInit, DoCheck {
   @Input() isDetailedView: boolean;
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() isExecutive: boolean;
   allLonList: LoanDataHolder[];
   iterableDiffer;
 
