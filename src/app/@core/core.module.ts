@@ -29,6 +29,7 @@ import {FinancialKeysPipe} from './pipe/financial-keys.pipe';
 import { ClientTypeShortFormPipe } from './pipe/client-type-short-form.pipe';
 import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe';
 import { SecuritySummaryPipe } from './pipe/security-summary.pipe';
+import { DocNameValidatorDirective } from './directive/doc-name-validator.directive';
 
 
 const DATA_SERVICES = [];
@@ -80,7 +81,8 @@ const UTILITY_MODULES = [
         ClientTypePipe,
         FinancialKeysPipe,
         NepaliCurrencyFormatterPipe,
-        SecuritySummaryPipe
+        SecuritySummaryPipe,
+        DocNameValidatorDirective
     ],
     declarations: [
         CurrencyFormatterPipe,
@@ -106,7 +108,8 @@ const UTILITY_MODULES = [
         ClientTypePipe,
         ClientTypeShortFormPipe,
         NepaliCurrencyFormatterPipe,
-        SecuritySummaryPipe
+        SecuritySummaryPipe,
+        DocNameValidatorDirective
     ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe, ClientTypePipe, ClientTypeShortFormPipe]
 })
 export class CoreModule {
