@@ -59,6 +59,7 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
 import {CiclViewComponent} from '../loan-information-view/cicl-view/cicl-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
+import {MegaModule} from './cad-document-template/mega/mega.module';
 
 
 @NgModule({
@@ -122,6 +123,7 @@ import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-o
         NepaliCalendarModule,
         NepaliPatroModule,
         MegaOfferLetterTemplateModule,
+        MegaModule,
 
     ],
   entryComponents: [
