@@ -1,0 +1,47 @@
+<div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.REMIT_LOAN_SELF_DECLARATION}}">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
+            <p>
+                मिति:
+                <input type="text" class="nepaliFont form-field form-control-sm disable-print" formControlName="year">
+                <span class="nepaliFont print-only">{{this.form.get('year')?.value ? this.form.get('year')?.value : '=========='}}</span>/
+                <input type="text" class="nepaliFont form-field form-control-sm disable-print" formControlName="month">
+                <span class="nepaliFont print-only">{{this.form.get('month')?.value ? this.form.get('month')?.value : '=========='}}</span>/
+                <input type="text" class="nepaliFont form-field form-control-sm disable-print" formControlName="day">
+                <span class="nepaliFont print-only">{{this.form.get('day')?.value ? this.form.get('day')?.value : '=========='}}</span>
+            </p>
+            <p>
+                श्री लक्ष्मी बैंक लि.
+                <br>
+                शाखा कार्यालय, तौलिहवा ।
+            </p>
+            <p class="text-center"><b> विषय:— घोषना गरेको सम्बन्धमा ।</b></p>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु.१,००,००,०००/–
+            (अक्षरेपी रुपैया एक करोड) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
+            घोषना गर्ने
+            <br>
+            ऋणीको नामः
+            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" formControlName="name">
+            <span class="nepaliFont print-only">{{this.form.get('name')?.value ? this.form.get('name')?.value : '=========='}}</span>
+            <br> ठेगानाः
+            <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal disable-print" formControlName="address">
+            <span class="nepaliFont print-only">{{this.form.get('address')?.value ? this.form.get('address')?.value : '=========='}}</span>
+            <br>दस्तखतः
+            <div class="clearfix mb-5">
+                <div class="signature-area float-right text-center"></div>
+                <div class="signature-area float-right text-center"></div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{cadCheckListEnum.REMIT_LOAN_SELF_DECLARATION}}"
+                ngxPrint>print
+        </button>
+    </div>
+</div>
