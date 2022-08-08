@@ -9,7 +9,7 @@
           <form (ngSubmit)="submit()" [formGroup]="hayarPurchase">
             <div>
               <div>
-                <h6 class="text-center">व्यक्तिगत एवं गोप्य</h6>
+                <h6 class="text-center">ऋण स्वीकृति–पत्र</h6>
                 <p class="text-right"> मिति:
                   <input class="form-field form-control-sm nepaliFont col-3"
                          formControlName="date"
@@ -17,16 +17,28 @@
                          type="text"/>
                 </p>
 
-                Ref No: 2077/78-MBNL-CAD-RET-<input class="form-field form-control-sm "
+                चलानी नं. <input class="form-field form-control-sm "
                                                     formControlName="refNo"
                                                     placeholder="Eg.0244"
                                                     type="text"/><br>
-                <div class="mb-2"><b>नाम: </b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></div>
+                <div class="mb-2"><b>श्री <input class="form-field form-control-sm "
+                                                 formControlName="addressedPerson"
+                                                 placeholder=""
+                                                 type="text"/><br></b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></div>
                 <div class="row form-group">
               <span style="margin-left: 18px;">
-                  <b>स्थायी ठेगान: </b> प्रदेश: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,&nbsp; जिल्ला: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>,&nbsp; वार्ड न: &nbsp;
-                  <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>,&nbsp;
-                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                  <b>स्थायी ठेगान: <input class="form-field form-control-sm "
+                                          formControlName="permanentAddress"
+                                          placeholder=""
+                                          type="text"/></b> जिल्ला <input class="form-field form-control-sm "
+                                                      formControlName="permanentDistrict"
+                                                      placeholder=""
+                                                      type="text"/>&nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>&nbsp;
+                म.न.पा./उप म.न.पा./न.पा./गा.वि.स &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>&nbsp; वडा नं. <input class="form-field form-control-sm "
+                                                                                                                                                      formControlName="district"
+                                                                                                                                                      placeholder=""
+                                                                                                                                                      type="text"/>
+                  <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
                       गा बि स:
                   </span>
                   <span *ngIf="loanHolderInfo?.permanentMunType==0">
@@ -37,7 +49,7 @@
                 </div>
                 <div class="row form-group">
               <span style="margin-left: 18px;">
-                  <b>हाल ठेगाना: </b> प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp; वार्ड न: &nbsp;
+                  <b>हाल ठेगाना: </b> प्रदेश नं &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>म.न.पा./उप म.न.पा./न.पा./गाउपालिका  वडा नं.
                   <b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
                   <span *ngIf="loanHolderInfo?.temporaryMunType==1">
                       गा बि स
