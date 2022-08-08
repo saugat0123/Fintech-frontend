@@ -83,8 +83,44 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
     this.form = this.formBuilder.group({
         personalGuarantee: this.formBuilder.array([]),
     });
-    this.taggedPersonalGuarantorsDetailForm();
+      if (this.taggedGuarantorsDetailsInLoan.length > 0) {
+          this.taggedPersonalGuarantorsDetailForm();
+      } else {
+          this.addGuarantor();
+      }
   }
+  addGuarantor() {
+      (this.form.get('personalGuarantee') as FormArray).push(this.formBuilder.control({
+          district: [undefined],
+          municipality: [undefined],
+          wadNo: [undefined],
+          branch: [undefined],
+          witnessDistrict1: [undefined],
+          witnessMunicipality1: [undefined],
+          witnessWardNum1: [undefined],
+          witnessAge1: [undefined],
+          witnessName1: [undefined],
+          witnessDistrict2: [undefined],
+          witnessMunicipality2: [undefined],
+          witnessWardNum2: [undefined],
+          witnessAge2: [undefined],
+          witnessName2: [undefined],
+          shanakhatWitnessPosition: [undefined],
+          shanakhatWitnessName: [undefined],
+          year: [undefined],
+          month: [undefined],
+          day: [undefined],
+          roj: [undefined],
+          shuvam: [undefined],
+          sopDate: [undefined],
+          totalAssetsAmount: [undefined],
+          assets: this.formBuilder.array([]),
+          liabilities: this.formBuilder.array([]),
+          totalLiabilitiesAmount: [undefined],
+          netWorth: [undefined]
+      }));
+  }
+
   taggedPersonalGuarantorsDetailForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
@@ -175,9 +211,14 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
                   this.initialInfoPrint[val].shuvam : '');
               this.form.get(['personalGuarantee', val, 'sopDate']).patchValue(this.initialInfoPrint ?
                   this.initialInfoPrint[val].sopDate : '');
-              this.setAssets(val, this.initialInfoPrint[val].assets);
-              this.setLiabilities(val, this.initialInfoPrint[val].liabilities);
-              this.calculateNetAmount(val);
+             if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+                 this.setAssets(val, this.initialInfoPrint[val].assets);
+                 this.setLiabilities(val, this.initialInfoPrint[val].liabilities);
+                 this.calculateNetAmount(val);
+             } else {
+                 this.addAssets(val);
+                 this.addLiabilities(val);
+             }
           }
         }
       }

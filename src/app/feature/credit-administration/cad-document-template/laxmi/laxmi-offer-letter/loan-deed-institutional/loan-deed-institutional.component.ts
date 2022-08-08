@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
@@ -15,6 +15,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-loan-deed-institutional',
@@ -25,14 +26,14 @@ export class LoanDeedInstitutionalComponent implements OnInit {
   @Input() cadData;
   @Input() documentId;
   @Input() customerLoanId;
-  form: FormGroup;
-  spinner = false;
   initialInfoPrint;
   loanCategory;
+  spinner = false;
+  form: FormGroup;
   cadCheckListEnum = CadCheckListTemplateEnum;
   nepaliData;
-  amount;
-  customerInfo;
+  jointInfo: any;
+  isJoint = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -45,191 +46,144 @@ export class LoanDeedInstitutionalComponent implements OnInit {
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
       private nepaliToEnglishPipe: NepaliToEngNumberPipe,
       private nepaliNumber: NepaliNumberPipe,
-  ) { }
+      private spinnerService: NgxSpinnerService
+  ) {
+  }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
       this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
     }
+    // if (this.loanCategory === 'INDIVIDUAL' && this.cadData.assignedLoan[0].customerInfo.jointInfo) {
+    //   this.isJoint = true;
+    // }
     this.buildForm();
-    this.amount = this.cadData.assignedLoan[0].proposal.proposedLimit;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.initialInfoPrint = singleCadFile.initialInformation;
-          if (!ObjectUtil.isEmpty( JSON.parse(singleCadFile.initialInformation).rupees)) {
-            this.amount = JSON.parse(singleCadFile.initialInformation).rupees;
-          }
+          this.initialInfoPrint = JSON.parse(singleCadFile.supportedInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
-      this.form.patchValue(JSON.parse(this.initialInfoPrint));
-      this.form.patchValue({
-        amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount)),
-        branchDistrict: this.nepaliData.branchDetail.branchDistrict,
-        branchMun: this.nepaliData.branchDetail.branchMunVdc,
-        branchWardNo: this.nepaliData.branchDetail.branchWardNo,
-        branchName: this.nepaliData.branchDetail.branchNameInNepali,
-        borrowerName: this.nepaliData.nepaliName,
-        acceptanceNumber: this.nepaliData.miscellaneousDetail.offerReferenceNo,
-        date: this.nepaliData.miscellaneousDetail.offerIssueDate,
-        proposedAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
-        amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
-        nepaliNameCompany1: this.nepaliData.nepaliName,
-        englishNameCompany1: this.nepaliData.name,
-        citizenshipNumberCompany1: this.nepaliData.registrationNo,
-        panIssueDate: this.nepaliData.panIssueDate,
-        panIssueOffice: this.nepaliData.panIssueOffice,
-        panNumber: this.nepaliData.panNo,
-        akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
-        citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
-        citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
-        citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-        nepaliName1: this.nepaliData.nepaliName,
-        englishName1: this.nepaliData.name,
-        dateOfBirth1: this.nepaliData.dateOfBirth,
-        gender1: this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला',
-        citizenNumber: this.nepaliData.citizenshipNo,
-        citizenIssueDate: this.nepaliData.citizenshipIssueDate,
-        citizenIssueOffice: this.nepaliData.citizenshipIssueDistrict,
-        borrowerMobileNo: this.nepaliData.contactNo,
-        borrowerHusbandName: this.nepaliData.husbandName,
-        borrowerFatherName: this.nepaliData.fatherName,
-        borrowerGrandFatherName: this.nepaliData.grandFatherName,
-        borrowerPermanentDistrict: this.nepaliData.customerPermanentAddress.district,
-        borrowerPermanentVdc: this.nepaliData.customerPermanentAddress.municipality,
-        borrowerWardNo: this.nepaliData.customerPermanentAddress.wardNo,
-        borrowerTole: this.nepaliData.customerPermanentAddress.tole,
-        borrowerCurrentDistrict: this.nepaliData.customerTemporaryAddress.district,
-        borrowerCurrentVdc: this.nepaliData.customerTemporaryAddress.municipality,
-        borrowerCurrentWardNo: this.nepaliData.customerTemporaryAddress.wardNo,
-        borrowerCurrentTole: this.nepaliData.customerTemporaryAddress.tole,
-        patraNo: this.nepaliData.miscellaneousDetail.offerReferenceNo,
-        patraDate: this.nepaliData.miscellaneousDetail.offerIssueDate,
-        patraAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
-        patraAmountinWord: this.nepaliData.miscellaneousDetail.loanAmountInWord,
-      });
-    } else {
-      this.fillForm();
-    }
+    this.fillForm();
+    // if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+    //   this.setCommonData();
+    // } else {
+    //   if (this.isJoint) {
+    //     this.jointInfo = JSON.parse(this.cadData.assignedLoan[0].customerInfo.jointInfo).jointCustomerInfo;
+    //     this.jointInfo.forEach((data: any) => {
+    //       this.addCommonData();
+    //     });
+    //   } else {
+    //     this.addCommonData();
+    //   }
+    //   this.fillForm();
+    // }
   }
-  fillForm() {
-    if (!ObjectUtil.isEmpty(this.nepaliData)) {
-      const customerTempAddress =
-          this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
-          this.nepaliData.temporaryWard + ', ' +
-          this.nepaliData.temporaryDistrict;
-      this.form.patchValue({
-        wadNo: this.nepaliNumber.transform(this.cadData.assignedLoan[0].branch.wardNumber, 'preeti'),
-        grandFatherName: this.nepaliData.grandFatherName,
-        fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : this.nepaliData.fatherInLawName,
-        customerDistrict: this.nepaliData.permanentDistrict,
-        customerMetropolitan: this.nepaliData.permanentMunicipality,
-        customerWardNo: this.nepaliData.permanentWard,
-        customerTemporaryAddress: customerTempAddress ? customerTempAddress : '',
-        customerAge: this.nepaliData.age,
-        customerCitizenshipNo: this.nepaliNumber.transform(this.cadData.assignedLoan[0].customerInfo.citizenshipNumber, 'preeti'),
-        citizenshipIssueDistrict: this.nepaliData.citizenshipIssueDistrict,
-        citizenshipIssueDate: this.nepaliData.citizenshipIssueDate,
-        customerName: this.nepaliData.name,
-        rupees: this.nepaliNumber.transform(this.amount, 'preeti'),
-        amount: this.nepaliCurrencyWordPipe.transform(this.amount),
-        branchDistrict: this.nepaliData.branchDetail.branchDistrict,
-        branchMun: this.nepaliData.branchDetail.branchMunVdc,
-        branchWardNo: this.nepaliData.branchDetail.branchWardNo,
-        branchName: this.nepaliData.branchDetail.branchNameInNepali,
-        borrowerName: this.nepaliData.nepaliName,
-        acceptanceNumber: this.nepaliData.miscellaneousDetail.offerReferenceNo,
-        date: this.nepaliData.miscellaneousDetail.offerIssueDate,
-        proposedAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
-        amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
-        nepaliNameCompany1: this.nepaliData.nepaliName,
-        englishNameCompany1: this.nepaliData.name,
-        citizenshipNumberCompany1: this.nepaliData.registrationNo,
-        issuedDateCompany1: this.nepaliData.regIssueDate,
-        issuedPlaceCompany1: this.nepaliData.companyRegOffice,
-        sthaiNo1: this.nepaliData.panNo,
-        akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
-        citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
-        citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
-        citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-        nepaliName1: this.nepaliData.nepaliName,
-        englishName1: this.nepaliData.name,
-        dateOfBirth1: this.nepaliData.dateOfBirth,
-        gender1: this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला',
-        citizenNumber: this.nepaliData.citizenshipNo,
-        citizenIssueDate: this.nepaliData.citizenshipIssueDate,
-        citizenIssueOffice: this.nepaliData.citizenshipIssueDistrict,
-        borrowerMobileNo: this.nepaliData.contactNo,
-        borrowerHusbandName: this.nepaliData.husbandName,
-        borrowerFatherName: this.nepaliData.fatherName,
-        borrowerGrandFatherName: this.nepaliData.grandFatherName,
-        borrowerPermanentDistrict: this.nepaliData.customerPermanentAddress.district,
-        borrowerPermanentVdc: this.nepaliData.customerPermanentAddress.municipality,
-        borrowerWardNo: this.nepaliData.customerPermanentAddress.wardNo,
-        borrowerTole: this.nepaliData.customerPermanentAddress.tole,
-        borrowerCurrentDistrict: this.nepaliData.customerTemporaryAddress.district,
-        borrowerCurrentVdc: this.nepaliData.customerTemporaryAddress.municipality,
-        borrowerCurrentWardNo: this.nepaliData.customerTemporaryAddress.wardNo,
-        borrowerCurrentTole: this.nepaliData.customerTemporaryAddress.tole,
-        patraNo: this.nepaliData.miscellaneousDetail.offerReferenceNo,
-        patraDate: this.nepaliData.miscellaneousDetail.offerIssueDate,
-        patraAmount: this.nepaliData.miscellaneousDetail.loanAmountInFig,
-        patraAmountinWord: this.nepaliData.miscellaneousDetail.loanAmountInWord,
-      });
-    }
-  }
-  submit() {
-    this.spinner = true;
-    let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
-        }
-      });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
-    } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
-    }
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
-      this.dialogRef.close();
-      this.spinner = false;
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-    }, error => {
-      console.error(error);
-      this.spinner = false;
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
-      this.dialogRef.close();
+
+  con(e) {
+    this.form.patchValue({
+      amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(e.target.value))
     });
   }
 
-  private buildForm() {
+  fillForm() {
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
+      this.form.patchValue({
+        district: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchDistrict : '',
+        municipality: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchMunVdc : '',
+        wadNo: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchWardNo : '',
+        branch: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchNameInNepali : '',
+        borrowerName: this.nepaliData.nepaliName ? this.nepaliData.nepaliName : '',
+        borrowerGrandFatherName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName  : '',
+        borrowerFatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        borrowerHusbandName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        citizenNumber: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        citizenIssueOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        citizenIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        panNumber: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        panIssueOffice: this.nepaliData.panIssueOffice ? this.nepaliData.panIssueOffice : '',
+        panIssueDate: this.nepaliData.panIssueDate ? this.nepaliData.panIssueDate : '',
+        borrowerPermanentDistrict: this.nepaliData.customerPermanentAddress ? this.nepaliData.customerPermanentAddress.district : '',
+        borrowerPermanentVdc: this.nepaliData.customerPermanentAddress ? this.nepaliData.customerPermanentAddress.municipality : '',
+        borrowerTempVdc: [undefined],
+        borrowerWardNo: this.nepaliData.customerPermanentAddress ? this.nepaliData.customerPermanentAddress.wardNo : '',
+        borrowerTole: this.nepaliData.customerPermanentAddress ? this.nepaliData.customerPermanentAddress.tole : '',
+        borrowerCurrentDistrict: this.nepaliData.customerTemporaryAddress ? this.nepaliData.customerTemporaryAddress.district : '',
+        borrowerCurrentVdc: this.nepaliData.customerTemporaryAddress ? this.nepaliData.customerTemporaryAddress.municipality : '',
+        borrowerCurrentTempVdc: [undefined],
+        borrowerCurrentWardNo: this.nepaliData.customerTemporaryAddress ? this.nepaliData.customerTemporaryAddress.wardNo : '',
+        borrowerCurrentTole: this.nepaliData.customerTemporaryAddress ? this.nepaliData.customerTemporaryAddress.tole : '',
+        borrowerMobileNo: this.nepaliData.contactNo ? this.nepaliData.contactNo : '',
+        companyName: this.nepaliData.nepaliName ? this.nepaliData.nepaliName : '',
+        companyRegistrationNo: this.nepaliData.registrationNo ? this.nepaliData.registrationNo : '',
+        registrationNikayaName: this.nepaliData.companyRegOffice ? this.nepaliData.companyRegOffice : '',
+        registrationDate: this.nepaliData.regIssueDate ? this.nepaliData.regIssueDate : '',
+        companyPanNumber: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        companyPanIssueOffice: this.nepaliData.panIssueOffice ? this.nepaliData.panIssueOffice : '',
+        companyPanIssueDate: this.nepaliData.panIssueDate ? this.nepaliData.panIssueDate : '',
+        companyRegDistrict: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.district : '',
+        companyRegVdc: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.municipality : '',
+        companyRegWardNo: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.wardNo : '',
+        companyRegTole: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.tole : '',
+        companyRepresentativeName: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.name : '',
+        companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.grandFatherName : '',
+        companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.fatherName : '',
+        companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress ? this.nepaliData.authorizedPersonAddress.district : '',
+        companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress ? this.nepaliData.authorizedPersonAddress.municipality : '',
+        companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress ? this.nepaliData.authorizedPersonAddress.wardNo : '',
+        companyRepresentativeTole: [undefined],
+        representativeCitizenNumber: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.citizenshipNo : '',
+        representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.citizenshipIssueDate : '',
+        representativeCitizenIssueOffice: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict : '',
+        patraNo: this.nepaliData.miscellaneousDetail ? this.nepaliData.miscellaneousDetail.offerReferenceNo : '',
+        patraDate: this.nepaliData.miscellaneousDetail ? this.nepaliData.miscellaneousDetail.offerIssueDate : '',
+        patraAmount: this.nepaliData.miscellaneousDetail ? this.nepaliData.miscellaneousDetail.loanAmountInFig : '',
+        patraAmountinWord: this.nepaliData.miscellaneousDetail ? this.nepaliData.miscellaneousDetail.loanAmountInWord : '',
+        itisambatYear: this.initialInfoPrint ? this.initialInfoPrint.itisambatYear : '',
+        itisambatMonth: this.initialInfoPrint ? this.initialInfoPrint.itisambatMonth : '',
+        itisambatDay: this.initialInfoPrint ? this.initialInfoPrint.itisambatDay : '',
+        roj: this.initialInfoPrint ? this.initialInfoPrint.roj : '',
+        witnessDistrictOne: this.initialInfoPrint ? this.initialInfoPrint.witnessDistrictOne : '',
+        witnessMunicipalityOne: this.initialInfoPrint ? this.initialInfoPrint.witnessMunicipalityOne : '',
+        witnessWadNoOne: this.initialInfoPrint ? this.initialInfoPrint.witnessWadNoOne : '',
+        witnessDistrictTwo: this.initialInfoPrint ? this.initialInfoPrint.witnessDistrictTwo : '',
+        witnessMunicipalityTwo: this.initialInfoPrint ? this.initialInfoPrint.witnessMunicipalityTwo : '',
+        witnessWadNoTwo: this.initialInfoPrint ? this.initialInfoPrint.witnessWadNoTwo : '',
+        role: this.initialInfoPrint ? this.initialInfoPrint.role : '',
+        roleName: this.initialInfoPrint ? this.initialInfoPrint.roleName : '',
+        witnessAgeOne: this.initialInfoPrint ? this.initialInfoPrint.witnessAgeOne : '',
+        witnessNameOne: this.initialInfoPrint ? this.initialInfoPrint.witnessNameOne : '',
+        witnessAgeTwo: this.initialInfoPrint ? this.initialInfoPrint.witnessAgeTwo : '',
+        witnessNameTwo: this.initialInfoPrint ? this.initialInfoPrint.witnessNameTwo : ''
+      });
+      // if (!this.jointInfo) {
+      //   this.form.get(['commonData', 0]).patchValue({
+      //     grandParentName: this.nepaliData.grandFatherName,
+      //     fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : this.nepaliData.fatherInLawName,
+      //     husbandWifeName: this.nepaliData.husbandName,
+      //     permanentDistrict: this.nepaliData.permanentDistrict,
+      //     permanentWardNum: this.nepaliData.permanentWard,
+      //     permanentMunicipality: this.nepaliData.permanentMunicipality,
+      //     temporaryMunicipality: this.nepaliData.temporaryMunicipality,
+      //     temporaryDistrict: this.nepaliData.temporaryDistrict,
+      //     tempWardNum: this.nepaliData.temporaryWard,
+      //     naPraNa: this.nepaliNumber.transform(this.cadData.assignedLoan[0].customerInfo.citizenshipNumber, 'preeti'),
+      //     districtOffice: this.nepaliData.citizenshipIssueDistrict,
+      //   });
+      // }
+    }
+  }
+
+  buildForm() {
     this.form = this.formBuilder.group({
-      branchDistrict: [undefined],
-      branchMun: [undefined],
-      branchWardNo: [undefined],
-      branchName: [undefined],
+      district: [undefined],
+      municipality: [undefined],
+      wadNo: [undefined],
+      branch: [undefined],
       // Borrower Details
       borrowerName: [undefined],
       borrowerGrandFatherName: [undefined],
@@ -251,16 +205,6 @@ export class LoanDeedInstitutionalComponent implements OnInit {
       borrowerCurrentTempVdc: [undefined],
       borrowerCurrentWardNo: [undefined],
       borrowerCurrentTole: [undefined],
-      borrowerPermanentDistrict2: [undefined],
-      borrowerPermanentVdc2: [undefined],
-      borrowerTempVdc2: [undefined],
-      borrowerWardNo2: [undefined],
-      borrowerTole2: [undefined],
-      borrowerCurrentDistrict2: [undefined],
-      borrowerCurrentVdc2: [undefined],
-      borrowerCurrentTempVdc2: [undefined],
-      borrowerCurrentWardNo2: [undefined],
-      borrowerCurrentTole2: [undefined],
       borrowerMobileNo: [undefined],
       // Company Details
       companyName: [undefined],
@@ -274,21 +218,17 @@ export class LoanDeedInstitutionalComponent implements OnInit {
       companyRegVdc: [undefined],
       companyRegWardNo: [undefined],
       companyRegTole: [undefined],
-      companyRegTempDistrict: [undefined],
-      companyRegTempVdc: [undefined],
-      companyRegTempWardNo: [undefined],
-      companyRegTempTole: [undefined],
       companyRepresentativeName: [undefined],
       companyRepresentativeGrandFatherName: [undefined],
       companyRepresentativeFatherName: [undefined],
-      companyRepresentativeHusbandName: [undefined],
       companyRepresentativeDistrict: [undefined],
       companyRepresentativeVdc: [undefined],
       companyRepresentativeWardNo: [undefined],
       companyRepresentativeTole: [undefined],
       representativeCitizenNumber: [undefined],
       representativeCitizenIssueDate: [undefined],
-      representativeCitizenOffice: [undefined],
+      representativeCitizenIssueOffice: [undefined],
+
       patraNo: [undefined],
       patraDate: [undefined],
       patraAmount: [undefined],
@@ -314,9 +254,120 @@ export class LoanDeedInstitutionalComponent implements OnInit {
     });
   }
 
-  con(e) {
-    this.form.patchValue({
-      amount: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(e.target.value))
+  getNumAmountWord(patraAmount, patraAmountinWord) {
+    const wordLabelVar = this.nepaliToEnglishPipe.transform(this.form.get(patraAmount).value.toString());
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(patraAmountinWord).patchValue(returnVal);
+  }
+
+
+  addCommonData() {
+    (this.form.get('commonData') as FormArray).push(this.formBuilder.group({
+      grandParentName: [undefined],
+      fatherName: [undefined],
+      husbandWifeName: [undefined],
+      permanentDistrict: [undefined],
+      permanentMunicipality: [undefined],
+      permanentWardNum: [undefined],
+      temporaryDistrict: [undefined],
+      temporaryMunicipality: [undefined],
+      tempWardNum: [undefined],
+      age: [undefined],
+      name: [undefined],
+      naPraNa: [undefined],
+      districtOffice: [undefined],
+      issuedYear: [undefined],
+      issuedMonth: [undefined],
+      issuedDay: [undefined],
+    }));
+  }
+
+  setCommonData() {
+    JSON.parse(this.initialInfoPrint).commonData.forEach(data => {
+      (this.form.get('commonData') as FormArray).push(this.formBuilder.group({
+        grandParentName: [data.grandParentName],
+        fatherName: [data.fatherName],
+        husbandWifeName: [data.husbandWifeName],
+        permanentDistrict: [data.permanentDistrict],
+        permanentMunicipality: [data.permanentMunicipality],
+        permanentWardNum: [data.permanentWardNum],
+        temporaryDistrict: [data.temporaryDistrict],
+        temporaryMunicipality: [data.temporaryMunicipality],
+        tempWardNum: [data.tempWardNum],
+        age: [data.age],
+        name: [data.name],
+        naPraNa: [data.naPraNa],
+        districtOffice: [data.districtOffice],
+        issuedYear: [data.issuedYear],
+        issuedMonth: [data.issuedMonth],
+        issuedDay: [data.issuedDay],
+      }));
+    });
+  }
+  removeCommonData(i: number) {
+    (this.form.get('commonData') as FormArray).removeAt(i);
+  }
+  setFreeText() {
+    const freeText = {
+      itisambatYear: this.form.get('itisambatYear') ? this.form.get('itisambatYear').value : '',
+      itisambatMonth: this.form.get('itisambatMonth') ? this.form.get('itisambatMonth').value : '',
+      itisambatDay: this.form.get('itisambatDay') ? this.form.get('itisambatDay').value : '',
+      roj: this.form.get('roj') ? this.form.get('roj').value : '',
+      witnessDistrictOne: this.form.get('witnessDistrictOne') ? this.form.get('witnessDistrictOne').value : '',
+      witnessMunicipalityOne: this.form.get('witnessMunicipalityOne') ? this.form.get('witnessMunicipalityOne').value : '',
+      witnessWadNoOne: this.form.get('witnessWadNoOne') ? this.form.get('witnessWadNoOne').value : '',
+      witnessDistrictTwo: this.form.get('witnessDistrictTwo') ? this.form.get('witnessDistrictTwo').value : '',
+      witnessMunicipalityTwo: this.form.get('witnessMunicipalityTwo') ? this.form.get('witnessMunicipalityTwo').value : '',
+      witnessWadNoTwo: this.form.get('roj') ? this.form.get('roj').value : '',
+      role: this.form.get('role') ? this.form.get('role').value : '',
+      roleName: this.form.get('roleName') ? this.form.get('roleName').value : '',
+      witnessAgeOne: this.form.get('witnessAgeOne') ? this.form.get('witnessAgeOne').value : '',
+      witnessNameOne: this.form.get('witnessNameOne') ? this.form.get('witnessNameOne').value : '',
+      witnessAgeTwo: this.form.get('witnessAgeTwo') ? this.form.get('witnessAgeTwo').value : '',
+      witnessNameTwo: this.form.get('witnessNameTwo') ? this.form.get('witnessNameTwo').value : '',
+    };
+    return JSON.stringify(freeText);
+  }
+  submit() {
+    this.spinnerService.show();
+    this.spinner = true;
+    let flag = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
+          singleCadFile.supportedInformation = this.setFreeText();
+        }
+      });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        cadFile.supportedInformation = this.setFreeText();
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+      }
+    } else {
+      const cadFile = new CadFile();
+      const document = new Document();
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      this.cadData.cadFileList.push(cadFile);
+    }
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.dialogRef.close();
+      this.spinner = false;
+      this.spinnerService.hide();
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+    }, error => {
+      console.error(error);
+      this.spinner = false;
+      this.spinnerService.hide();
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.dialogRef.close();
     });
   }
 }
