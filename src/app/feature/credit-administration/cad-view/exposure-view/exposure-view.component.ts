@@ -23,14 +23,14 @@ export class ExposureViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         // tslint:disable-next-line:max-line-length
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure)
             && (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure.data))) {
             this.isExposureFilled = true;
             const data = JSON.parse(this.cadOfferLetterApprovedDoc.exposure.data);
-            console.log('data', data);
-            this.disbursementDetails = data.disbursementDetails;
+            this.disbursementDetails = data.disbursementDetails.filter(val => (
+                val.isValid === true
+            ));
         }
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure)
             && (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure.historyData))) {

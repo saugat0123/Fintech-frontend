@@ -12,7 +12,7 @@
         <h6> Exposure Detail </h6>
     </nb-card-header>
     <nb-card-body>
-        <div class="form" [formGroup]="exposureForm">
+        <div class="col-md-12 form" [formGroup]="exposureForm">
             <table class="table table-bordered table-hover table-sm sb-small text-center ">
                 <thead>
                 <tr class="text-white sb-bg-dark">
@@ -22,9 +22,7 @@
                     <th>Total Limit</th>
                     <th>Interest Rate/ Commission</th>
                     <th>Maturity</th>
-                    <th>Frequency</th>
-
-
+<!--                    <th>Frequency</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -32,19 +30,18 @@
                               formArrayName="disbursementDetails">
                     <ng-container [formGroupName]="i">
                         <tr>
-
                             <td><input class="cellInput text-center" formControlName="loanName" [readOnly]="true"></td>
-                            <td><input class="cellInput text-center" formControlName="loanLimit" [readOnly]="true"></td>
-                            <td><input class="cellInput text-center" formControlName="newLoanLimit" [readOnly]="true"></td>
+                            <td><input class="cellInput text-center" formControlName="loanLimit" (focusout)="checkValidation(i)"></td>
+                            <td><input class="cellInput text-center" formControlName="newLoanLimit" (focusout)="checkValidation(i)"></td>
                             <td><input class="cellInput text-center" formControlName="totalLoanLimit" [readOnly]="true"></td>
 <!--                            <td><input class="cellInput text-center" formControlName="disbursement"></td>-->
-                            <td><input class="cellInput text-center" formControlName="initialRate"></td>
-                            <td><input class="cellInput text-center" formControlName="maturity"></td>
-                            <td>
-                                <select class="cellInput" formControlName="frequency">
-                                    <option [value]="null" disabled hidden>select frequency</option>
-                                    <option *ngFor="let f of frequencyList" [value]="f">{{f}}</option>
-                                </select></td>
+                            <td><input class="cellInput text-center" formControlName="initialRate" (focusout)="checkValidation(i)"></td>
+                            <td><input class="cellInput text-center" formControlName="maturity" (focusout)="checkValidation(i)"></td>
+<!--                            <td>-->
+<!--                                <select class="cellInput" formControlName="frequency">-->
+<!--                                    <option [value]="null" disabled hidden>select frequency</option>-->
+<!--                                    <option *ngFor="let f of frequencyList" [value]="f">{{f}}</option>-->
+<!--                                </select></td>-->
                         </tr>
                     </ng-container>
                 </ng-container>
@@ -60,11 +57,10 @@
                             nbTooltip="click to open"><em
                             [className]="commonService.SET_CLASS_NAME"></em>
                     </a></span></span></div>
-
             </div>
         </div>
     </nb-card-body>
     <nb-card-footer>
-        <button nbButton class="float-right" (click)="submit()" [disabled]="exposureForm.invalid">Save</button>
+        <button nbButton class="float-right" (click)="submit()" [disabled]="!isValid">Save</button>
     </nb-card-footer>
 </nb-card>

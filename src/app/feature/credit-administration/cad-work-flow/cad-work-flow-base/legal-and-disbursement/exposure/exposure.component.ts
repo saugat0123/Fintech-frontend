@@ -30,6 +30,7 @@ export class ExposureComponent implements OnInit, OnChanges {
     frequencyList = ['Semi-Annually', 'Quarterly', 'Monthly', 'Bullet', 'Ballooning'];
 
     spinner = false;
+    isValid = false;
     exposureForm: FormGroup;
     details = [];
     docScc;
@@ -84,9 +85,18 @@ export class ExposureComponent implements OnInit, OnChanges {
         });
     }
 
+    checkValidation(i) {
+        const control = (this.exposureForm.get('disbursementDetails') as FormArray).at(i);
+        if (control.valid) {
+            this.isValid = true;
+            this.exposureForm.get(['disbursementDetails', i, 'isValid']).setValue(true);
+        } else {
+            this.exposureForm.get(['disbursementDetails', i, 'isValid']).setValue(false);
+        }
+    }
+
     addDisbursementDetail() {
-        console.log('Cad Data:', this.cadData);
-        this.cadData.assignedLoan.forEach(value => {
+        this.cadData.assignedLoan.forEach((value, i) => {
             this.disbursementDetails.push(this.formBuilder.group({
                 customerLoanId: [value.id],
                 loanName: [value.loan.name],
@@ -97,10 +107,12 @@ export class ExposureComponent implements OnInit, OnChanges {
                 disbursement: [value.proposal.proposedLimit, Validators.required],
                 initialRate: [value.loan.interestRate, Validators.required],
                 maturity: [undefined, Validators.required],
-                frequency: [undefined, Validators.required],
+                // frequency: [undefined, Validators.required],
                 isFunded: [value.loan.isFundable],
-                approvedLoanBy: [value.currentStage.docAction.toString() === 'APPROVED' ? value.currentStage.toUser.name : undefined]
+                approvedLoanBy: [value.currentStage.docAction.toString() === 'APPROVED' ? value.currentStage.toUser.name : undefined],
+                isValid: [false]
             }));
+            this.checkValidation(i);
         });
     }
 
@@ -108,8 +120,7 @@ export class ExposureComponent implements OnInit, OnChanges {
         let data = [];
         if (!ObjectUtil.isEmpty(this.cadData.exposure.data)) {
             data = JSON.parse(this.cadData.exposure.data).disbursementDetails;
-            console.log('DAta details', data);
-            data.forEach(value => {
+            data.forEach((value, i) => {
                 this.disbursementDetails.push(this.formBuilder.group({
                     customerLoanId: [ObjectUtil.isEmpty(value.id) ? null : value.id],
                     loanName: [value.loanName],
@@ -119,10 +130,12 @@ export class ExposureComponent implements OnInit, OnChanges {
                     // disbursement: [value.disbursement, Validators.required],
                     initialRate: [value.initialRate, Validators.required],
                     maturity: [value.maturity, Validators.required],
-                    frequency: [value.frequency, Validators.required],
+                    // frequency: [value.frequency, Validators.required],
                     isFunded: [value.isFunded],
-                    approvedLoanBy: [value.approvedLoanBy]
+                    approvedLoanBy: [value.approvedLoanBy],
+                    isValid: [value.isValid ? value.isValid : false]
                 }));
+                this.checkValidation(i);
             });
         }
     }
