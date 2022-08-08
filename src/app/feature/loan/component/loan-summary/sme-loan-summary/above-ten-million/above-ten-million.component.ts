@@ -42,7 +42,6 @@ export class AboveTenMillionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('loanDataHolder', this.loanDataHolder);
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.tempData = this.loanDataHolder.proposal;
       if (!ObjectUtil.isEmpty(this.tempData.data)) {

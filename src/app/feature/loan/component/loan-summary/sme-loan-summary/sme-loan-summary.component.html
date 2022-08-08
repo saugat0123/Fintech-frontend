@@ -365,6 +365,7 @@
                                        [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
+            <div style="page-break-after: always !important;"></div>
             <ng-container *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
                                   [fixedAssetsData]="fixedAssetsData"></app-annexure-one>

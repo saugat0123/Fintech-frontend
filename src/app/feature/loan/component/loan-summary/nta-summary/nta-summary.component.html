@@ -1,7 +1,6 @@
 <div class="row p-3">
     <table
             class="table table-bordered table-hover table-sm sb-small">
-        <thead class="text-right">
         <tr class="sb-bg-dark text-white text-center">
             <td></td>
             <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
@@ -159,7 +158,5 @@
             <th class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q4 |currencyFormatter}}</th>
             <th class="pr-1">Rs. {{currentYearData?.surplusDeficit?.average |currencyFormatter}}</th>
         </tr>
-
-        </thead>
     </table>
 </div>
