@@ -17,7 +17,7 @@ $color-bank: #F58229;
 $color-bank-dark: #F58229;
 .summary {
   * {
-    font-family: Cambria, Georgia, serif !important;
+    font-family: Cambria !important;
     font-size: 10pt !important;
   }
   .fa,
@@ -29,19 +29,21 @@ $color-bank-dark: #F58229;
     font-size: 14pt !important;
   }
   .header {
-    font-family: Cambria, Georgia, serif !important;
+    font-family: Cambria !important;
     font-size: 12pt !important;
     padding-top: 32px !important;
   }
   .sub-header {
-    font-family: Cambria, Georgia, serif !important;
+    font-family: Cambria !important;
     font-size: 10pt !important;
     margin-top: 10px;
+    font-weight: bold;
   }
   .security-header {
-    font-family: Cambria, Georgia, serif !important;
+    font-family: Cambria !important;
     font-size: 10pt !important;
     margin-top: 10px;
+    font-weight: bold;
   }
 }
 .bank-hr {

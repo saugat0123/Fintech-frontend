@@ -1,4 +1,4 @@
-
+<div class="summary">
 <div>
     <app-proposal-summary *ngIf="loanDataHolder?.proposal"
                           [customerAllLoanList]="customerAllLoanList"
@@ -8,6 +8,7 @@
 <ng-container>
     <hr class="print-line">
     <p><strong class="header">Security Schedule</strong></p>
+    <p class="sub-header"><strong>Security Summary</strong></p>
     <app-security-total-summary [securities]="loanSecurity"
                                 [approvedSec]="approvedSecurity"
                                 [loanHolder]="loanDataHolder?.loanHolder"
@@ -363,4 +364,4 @@
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
-
+</div>
