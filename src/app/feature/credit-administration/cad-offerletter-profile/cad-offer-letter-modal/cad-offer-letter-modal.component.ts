@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
+import { MegaOfferLetterConst } from '../../mega-offer-letter-const';
 
 @Component({
     selector: 'app-cad-offer-letter-modal',
@@ -7,9 +8,10 @@ import {NbDialogRef} from '@nebular/theme';
     styleUrls: ['./cad-offer-letter-modal.component.scss']
 })
 export class CadOfferLetterModalComponent implements OnInit {
-    @Input() offerLetterType;
+    @Input() offerLetterType: any;
     @Input() cadOfferLetterApprovedDoc;
-    offerLetterTypeConst: any;
+
+    offerLetterTypeConst = MegaOfferLetterConst;
 
     constructor(protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
     ) {
