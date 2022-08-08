@@ -397,7 +397,7 @@
      class="text-round">R/E</i>
 </ng-template>
 
-<div class="row">
+<div class="row summary">
   <div class="col-md-12 sb-medium">
     <strong>Total Proposed Limit (in words):</strong>
     {{ getTotal('proposedLimit') | currencyFormatter}}
@@ -428,7 +428,7 @@
       </tr>
     </table>
     <table
-            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
       <tr class="text-white sb-bg-dark">
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">Tenure Duration in Month</th>
         <th *ngIf="(client !== clientName?.ICFC || !showInterestAmount) && ((loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral)">Repayment Mode</th>

@@ -1,5 +1,5 @@
 <p *ngIf="!fromProfile" class="text-left"><b class="header">CHECKLIST</b></p>
-    <div class="row">
+    <div class="row summary">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
                             name="securityInitialInfoCalendarType">
@@ -8,7 +8,7 @@
             </nb-radio-group>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4 summary">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
                 <p class="text-center"><strong>Regulatory Compliance Checklist</strong></p>
