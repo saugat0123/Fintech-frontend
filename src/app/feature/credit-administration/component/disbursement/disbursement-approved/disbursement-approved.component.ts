@@ -118,7 +118,7 @@ export class DisbursementApprovedComponent implements OnInit {
             cadId: data.id,
             docAction: 'RE_INITIATE',
             comment: 'Re Disbursement',
-            documentStatus: CadDocStatus.OFFER_PENDING,
+            documentStatus: CadDocStatus.OFFER_APPROVED,
             isBackwardForMaker: true,
             discrepancy: false,
             partialDiscrepancy: false,

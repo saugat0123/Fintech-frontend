@@ -686,7 +686,7 @@
                                     <td>
                                         <ng-container
                                                 *ngIf="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value">
-                                            <ng-container>
+                                            <ng-container *ngIf="!offerLetterForm?.get(['purpose', i, 'commissionOtherCheck'])?.value">
                                                 <input type="text"
                                                        [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                                        (change)="valueChange($event?.target?.value, i, 'rate')"
@@ -707,6 +707,22 @@
                                                         offerLetterForm?.get('commissionFrequency')?.value : '========='}}</b>
                                                 </span>
                                             </ng-container>
+                                            <span class="disable-print float-right">
+                                    <nb-checkbox
+                                            (change)="otherValueCheck($event?.target?.checked, i, 'commissionOtherCheck')"
+                                            [checked]="offerLetterForm?.get(['purpose', i, 'commissionOtherCheck'])?.value"><i>Other</i>
+                                    </nb-checkbox>
+                                </span>
+                                            <span *ngIf="offerLetterForm?.get(['purpose', i, 'commissionOtherCheck'])?.value">
+                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                              placeholder="कमिसन"
+                                              [value]="offerLetterForm?.get(['purpose', i, 'commissionValue'])?.value"
+                                              (change)="valueChange($event?.target?.value, i, 'commissionValue')"
+                                              rows="4"></textarea>
+                                    <span class="nepaliFont font-size-normal print-only">
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'commissionValue'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'commissionValue'])?.value : '========='}}</b></span>
+                                </span>
                                         </ng-container>
                                     </td>
                                 </tr>
@@ -866,7 +882,7 @@
                                         *ngIf="offerLetterForm?.get('prepaymentCharge').value; else notPrepayment">
                             <span *ngIf="!offerLetterForm?.get('prepaymentOtherCheck').value">
                                 प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा पुर्ण चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा त्यस अनुसार चुक्ता गरिएको रकममा नेपाल राष्ट्र
-                                बैंकको निर्देशन बमोजिम यस बैंकको प्रचलित नियम अनुसार अग्रीम भुक्तानी शुल्क ९एचभउबथmभलत ऋजबचनभ० ऋणीबाट असुल उपर गरिनेछ ।
+                                बैंकको निर्देशन बमोजिम यस बैंकको प्रचलित नियम अनुसार अग्रीम भुक्तानी शुल्क <strong>(Prepayment Charges)</strong> ऋणीबाट असुल उपर गरिनेछ ।
                         </span>
                                     <span class="float-right disable-print">
                             <nb-checkbox (change)="otherCheck($event?.target?.checked, 'prepaymentOtherCheck')"
@@ -1664,6 +1680,11 @@
                                     <ng-container *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
                                         <tr *ngFor="let shareData of offerLetterForm?.get('shareSecurity')?.value; let iv = index">
                                             <td colspan="1">
+                                                <span class="print-only">
+                                                    <ul>
+                                                        <li></li>
+                                                    </ul>
+                                                </span>
                                     <span *ngIf="offerLetterForm.get('shareSecurity')['length'] > 0"
                                           class="disable-print">
                                         <input (click)="removeSecurity(iv, 'shareSecurity')"
@@ -1902,6 +1923,12 @@
                                 <tr [formGroupName]="cin">
                                     <td colspan="1">
                                         <span class="print-only"><ul><li></li></ul></span>
+                                        <span class="disable-print">
+                                            <input *ngIf="offerLetterForm?.get('corporateGuarantee')['length'] > 0"
+                                                   (click)="removeSecurity(cin, 'corporateGuarantee')"
+                                                   class="align-self-end btn btn-sm btn-danger btn-primary"
+                                                   type="button" value="Delete"/>
+                                        </span>
                                     </td>
                                     <td colspan="6">
                                         <span *ngIf="!offerLetterForm?.get(['corporateGuarantee', cin, 'otherChecked'])?.value">

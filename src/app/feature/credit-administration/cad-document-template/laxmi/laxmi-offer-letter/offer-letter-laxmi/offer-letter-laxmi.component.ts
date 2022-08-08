@@ -489,6 +489,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'interestNeeded']).patchValue(checked);
                 }
                 break;
+            case 'commissionOtherCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'commissionOtherCheck']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'commissionValue']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'commissionOtherCheck']).patchValue(checked);
+                }
+                break;
         }
     }
 
@@ -584,6 +592,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 periodOtherCheck: [false],
                 drawDownOtherPeriodCheck: [false],
                 maturityOtherCheck: [false],
+                commissionOtherCheck: [false],
                 moratariumOtherCheck: [false],
                 drawDownPeriodNeeded: [true],
                 commissionNeeded: [true],
@@ -597,6 +606,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 moratariumPeriodNeeded: [true],
                 moratariumValue: [undefined],
                 maturityValue: [undefined],
+                commissionValue: [undefined],
                 downPeriodValue: [undefined],
                 moratariumMonth: [undefined],
                 drawDownDate: [undefined],
