@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row summary">
     <div class="col-md-12">
         <p><strong class="header">Income of Borrower/Guarantor</strong></p>
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary" *ngIf="!isBusinessLoan">
             <thead>
             <tr class="sb-bg-gray">
                 <th>S.N</th>
@@ -31,7 +31,7 @@
         </table>
 
         <p><strong class="header">Bank Obligation of Borrower</strong></p>
-        <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
+        <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small summary" *ngIf="!isBusinessLoan">
             <thead>
             <tr class="sb-bg-gray">
                 <th class="sn">S.N</th>
@@ -147,7 +147,7 @@
         <div *ngIf="isBusinessLoan">
             <p class="float-left"><strong>Financial Details</strong></p>
             <table *ngIf="!disableCrgAlphaParams"
-                class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                 <thead>
                 <tr class="sb-bg-gray">
                     <th colspan="2">Risk Factor</th>
@@ -170,7 +170,7 @@
             </table>
             <br>
 
-            <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
                 <tr>
                     <th class="text-center sb-bg-gray" colspan="7">Financial Auditor Detail Information</th>
                 </tr>
@@ -196,7 +196,7 @@
 
             <p class="justify-content-start"><strong>Income Statement</strong></p>
                     <table
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                         <thead>
                         <tr>
                             <th colspan="3"></th>
@@ -390,7 +390,7 @@
             </table>
             <p class="float-left"><strong>Balance Sheet</strong></p>
                     <table
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm summary">
                         <thead>
                         <tr class="sb-bg-gray">
                             <th scope="col" class="sn">S.No</th>
@@ -581,7 +581,7 @@
                         </tbody>
 
                     </table>
-            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm summary">
                 <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
@@ -594,7 +594,7 @@
             <ng-container *ngIf="!activeClientIsMega">
                 <p class="float-left"><strong>Cashflow Statement</strong></p>
                 <table
-                        class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                        class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm summary">
                     <thead>
                     <tr class="sb-bg-gray">
                         <th scope="col" class="sn">S.No</th>
@@ -838,7 +838,7 @@
                 </table>
             </ng-container>
 
-            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm summary">
                 <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
@@ -851,7 +851,7 @@
             <p class="float-left"><strong>Key Indicators</strong></p>
             <ng-container *ngIf="client !== clientName?.ICFC">
                 <table
-                        class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                        class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                     <thead>
                     <tr class="sb-bg-gray">
                         <th class="sn">S.No</th>
@@ -1031,7 +1031,7 @@
             </ng-container>
 
             <ng-container *ngIf="(client === clientName?.ICFC) && (summaryCheckedList.length > 0)">
-                <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                     <thead>
                     <tr class="sb-bg-gray">
                         <th>Particulars</th>
@@ -1048,7 +1048,7 @@
                     </tbody>
                 </table>
             </ng-container>
-            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm summary">
                 <tr class="sb-bg-gray">
                     <td><b>Justification</b></td>
                 </tr>
@@ -1060,7 +1060,7 @@
         </div>
 
         <ng-container *ngIf="isMicro && !isBusinessLoan" >
-            <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+            <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                 <thead>
                 <tr class="">
                     <th colspan="3">Project Details</th>
@@ -1083,7 +1083,7 @@
                 </tr>
                 </tbody>
             </table>
-            <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+            <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                 <thead>
                 <tr class="sb-bg-gray">
                     <th>Total Debt (including other debts of the customer including present total)</th>
@@ -1102,7 +1102,7 @@
                 </tbody>
             </table>
 
-            <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+            <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small summary">
                 <tr class="sb-bg-gray">
                     <th>Experience of client in related field</th>
                     <th>Ownership of residence</th>
