@@ -33,14 +33,18 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Banking Arrangement of the Customer</strong></p>
-        <app-above-banking-arrangement-of-the-customer *ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"
-                                                       [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
-                                                       [proposal]="loanDataHolder?.proposal"
-                                                       [isRetailCustomer]="false"
-                                                       [count]="7.1"
-                                                       [cicl]="loanDataHolder?.loanHolder?.cicl"
-                                                       [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+        <ol><app-above-banking-arrangement-of-the-customer *ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"
+                                                           [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                                                           [proposal]="loanDataHolder?.proposal"
+                                                           [isRetailCustomer]="false"
+                                                           [cicl]="loanDataHolder?.loanHolder?.cicl"
+                                                           [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+        </ol>
+<!--        <ol>-->
+<!--            -->
+<!--        </ol>-->
     </li>
+
     <li>
         <p class="text-uppercase"><strong>Stock Statement</strong></p>
         <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYear?.length > 0 else notAvailable"
