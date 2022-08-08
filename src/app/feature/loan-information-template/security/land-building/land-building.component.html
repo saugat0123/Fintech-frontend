@@ -277,8 +277,8 @@
                                        class="form-control rounded"
                                        formControlName="totalLandRealisableValue"
                                        id="totalLandBuildingRate"
-                                       placeholder="Rate"
-                                       name="landBuildingRate"
+                                       placeholder="Realisable Value"
+                                       name="landBuildingRate" disabled
                                        type="number" appDecimalNumber/>
                             </div>
                         </div>
@@ -334,8 +334,8 @@
                                        formControlName="totalApartmentRealisableValue"
                                        id="totalLandBuildingRatesa"
                                        readonly
-                                       placeholder="Rate"
-                                       name="landBuildingRate"
+                                       placeholder="Realisable Value"
+                                       name="landBuildingRate" disabled
                                        type="number" appDecimalNumber/>
                             </div>
                         </div>
@@ -359,7 +359,7 @@
                                         formControlName="totalMarketValue"
                                         id="totalMarketValue"
                                         readonly
-                                        placeholder="Total Market Value"
+                                        placeholder="Total Fair Market Value"
                                         name="totalMarketValue"
                                         type="number" appDecimalNumber/>
                             </div>
@@ -373,7 +373,7 @@
                                         (change)="setFreeLimitAmount(i, 'landBuilding', landAndBuilding.get('considerValue')?.value)"
                                         id="consideredValue"
                                         readonly
-                                        placeholder="Consider Value"
+                                        placeholder="Total Market Valu"
                                         name="considerValue"
                                         type="number" appDecimalNumber/>
                             </div>
@@ -479,7 +479,7 @@
                                 <input [ngClass]="{ 'is-invalid': (submitted) && (landAndBuilding.get('landConsideredValue').errors)}"
                                        class="form-control" formControlName="landConsideredValue"
                                        readonly
-                                       id="landConsideredValue" name="total" placeholder="Realisable Value"
+                                       id="landConsideredValue" name="total" placeholder="Realisable Value" disabled
                                        type="number" appDecimalNumber>
                                 <div *ngIf="(submitted) && (landAndBuilding.get('landConsideredValue').invalid)"
                                      class="invalid-feedback">
