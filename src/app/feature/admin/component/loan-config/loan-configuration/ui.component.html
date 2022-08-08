@@ -62,22 +62,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group>">
-                            <label><h6>Collateral Requirement (In %)</h6></label>
-                            <input type="text" class="form-control" name="collateralrequirement" required
-                                   placeholder="e.g. 13"
-                                   [(ngModel)]="loanConfig.collateralRequirement" #collateralRequirement="ngModel"
-                                   [ngClass]="{ 'is-invalid': loanConfigForm.submitted && collateralRequirement.invalid }">
-                            <div class="invalid-feedback"
-                                 *ngIf="loanConfigForm.submitted && collateralRequirement.invalid">
-                                <div *ngIf="collateralRequirement.errors.required"></div>
-                                <div *ngIf="collateralRequirement.invalid && loanConfig.collateralRequirement !== undefined &&loanConfig.collateralRequirement !== null">
-                                    Collateral Requirement is required!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="col-md-4">-->
+<!--                        <div class="form-group>">-->
+<!--                            <label><h6>Collateral Requirement (In %)</h6></label>-->
+<!--                            <input type="text" class="form-control" name="collateralrequirement" required-->
+<!--                                   placeholder="e.g. 13"-->
+<!--                                   [(ngModel)]="loanConfig.collateralRequirement" #collateralRequirement="ngModel"-->
+<!--                                   [ngClass]="{ 'is-invalid': loanConfigForm.submitted && collateralRequirement.invalid }">-->
+<!--                            <div class="invalid-feedback"-->
+<!--                                 *ngIf="loanConfigForm.submitted && collateralRequirement.invalid">-->
+<!--                                <div *ngIf="collateralRequirement.errors.required"></div>-->
+<!--                                <div *ngIf="collateralRequirement.invalid && loanConfig.collateralRequirement !== undefined &&loanConfig.collateralRequirement !== null">-->
+<!--                                    Collateral Requirement is required!-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="col-md-4">
                         <div class="form-group">
                             <label><h6>Scheme Code</h6></label>

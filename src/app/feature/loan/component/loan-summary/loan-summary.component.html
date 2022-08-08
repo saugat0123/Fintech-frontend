@@ -152,23 +152,7 @@
                                     </table>
                                 </div>
                                 <br>
-                                <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
-                            <span><strong>Review Date: </strong>
-                                <ng-container *ngIf="naChecked; else date">
-                                    {{'NA'}}
-                                </ng-container>
-                                <ng-template #date>
-                                    <br>
-                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
-                                    <br>
-                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
-                                </ng-template>
-                            </span>
-<!--                                    <div>-->
-<!--                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>-->
-<!--                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
-<!--                                    </div>-->
-                                </ng-container>
+
                                 <br>
                                 <div class="float-right" *ngIf="loanDataHolder?.isSol">
                                     <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
@@ -221,6 +205,24 @@
                                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
                                         )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
                     </span>
+                                    <br>
+                                    <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
+                            <span><strong>Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date>
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
+                                    <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
+                                </ng-template>
+                            </span>
+                                        <!--                                    <div>-->
+                                        <!--                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>-->
+                                        <!--                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
+                                        <!--                                    </div>-->
+                                    </ng-container>
 
                                 </div>
                             </div>
