@@ -6,8 +6,25 @@
     </nb-card-header>
     <nb-card-body>
         <div [ngSwitch]="offerLetterType" *ngIf="cadOfferLetterApprovedDoc">
-            <app-custom-offer-letter-document *ngSwitchCase="offerLetterTypeConst.CUSTOM"
-                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-custom-offer-letter-document>
+            <app-hayer-purchase  *ngSwitchCase="offerLetterTypeConst.HIRE_PURCHASE"
+                                [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-hayer-purchase>
+
+            <app-retail-educational-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_EDUCATIONAL"
+                                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-educational-loan>
+            <app-retail-educational-loan-english *ngSwitchCase="offerLetterTypeConst.RETAIL_EDUCATIONAL_ENGLISH"
+                                                 [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-educational-loan-english>
+            <app-retail-housing-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_HOUSING"
+                                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-housing-loan>
+            <app-retail-mortgage *ngSwitchCase="offerLetterTypeConst.RETAIL_MORTGAGE_OVERDRAFT"
+                                 [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-mortgage>
+            <app-retail-mortgage-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_MORTGAGE_LOAN"
+                                      [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-mortgage-loan>
+            <app-retail-professional-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_PROFESSIONAL_LOAN"
+                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-professional-loan>
+            <app-sme *ngSwitchCase="offerLetterTypeConst.SME"
+                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-sme>
+<!--            <app-custom-offer-letter-document *ngSwitchCase="offerLetterTypeConst.CUSTOM"-->
+<!--                                              [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-custom-offer-letter-document>-->
         </div>
         <nb-card-footer>
             <div>
