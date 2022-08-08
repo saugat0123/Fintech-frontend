@@ -42,6 +42,7 @@ import { GuarantorAcknowledgementComponent } from './laxmi-offer-letter/guaranto
 import { ConsentForLeinComponent } from './laxmi-offer-letter/consent-for-lein/consent-for-lein.component';
 import { StatementOfPositionComponent } from './laxmi-offer-letter/statement-of-position/statement-of-position.component';
 import {AnusuchiComponent} from './laxmi-offer-letter/anusuchi/anusuchi.component';
+import { RemitLoanSelfDeclarationComponent } from './laxmi-offer-letter/remit-loan-self-declaration/remit-loan-self-declaration.component';
 
 @NgModule({
     declarations: [LaxmiOfferLetterComponent,
@@ -77,7 +78,8 @@ import {AnusuchiComponent} from './laxmi-offer-letter/anusuchi/anusuchi.componen
         GuarantorAcknowledgementComponent,
         ConsentForLeinComponent,
         StatementOfPositionComponent,
-        AnusuchiComponent],
+        AnusuchiComponent,
+        RemitLoanSelfDeclarationComponent],
 
     imports: [
         CommonModule,
@@ -111,7 +113,8 @@ import {AnusuchiComponent} from './laxmi-offer-letter/anusuchi/anusuchi.componen
         GuarantorAcknowledgementComponent,
         ConsentForLeinComponent,
         StatementOfPositionComponent,
-        AnusuchiComponent
+        AnusuchiComponent,
+        RemitLoanSelfDeclarationComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent
