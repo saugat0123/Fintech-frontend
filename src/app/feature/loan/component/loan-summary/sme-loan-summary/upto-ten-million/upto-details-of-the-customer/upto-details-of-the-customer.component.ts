@@ -37,7 +37,9 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         this.totalCrgPoint = gamma.totalPoint;
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.multiBanking)) {
+        console.log('multiBanking', this.loanDataHolder.loanHolder.multiBanking);
         this.multiBankingData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.data);
+        console.log('multiBankingData', this.multiBankingData);
         this.checkedData = JSON.parse(this.loanDataHolder.loanHolder.multiBanking.checkedData);
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
