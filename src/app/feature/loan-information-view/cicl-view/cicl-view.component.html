@@ -1,4 +1,4 @@
-<div class="mt-2">
+<div class="mt-2 summary">
   <hr class="print-line">
   <div class="text-center">
     <p class="text-left"><strong class="header">Banking Relationship</strong></p>
@@ -6,7 +6,7 @@
 <!--      Charge:</b> {{ciclValue?.cibCharge ? ('Rs ' + ciclValue?.cibCharge) : ciclValue?.cibRemark?(ciclValue?.cibRemark | jsonParse)?.value:'N/A'}}</p>-->
     <div *ngIf="ciclList.length !== 0">
       <table
-              class="table table-bordered table-hover table-sm sb-small text-center">
+              class="table table-bordered table-hover table-sm sb-small text-center summary">
         <thead>
 
         <tr class="sb-bg-gray align-content-center">
@@ -42,7 +42,7 @@
         </thead>
       </table>
     </div>
-    <table class="table table-bordered table-hover table-sm sb-small text-center" style="table-layout: fixed; width: 100%">
+    <table class="table table-bordered table-hover table-sm sb-small text-center summary" style="table-layout: fixed; width: 100%">
       <tr class="sb-bg-gray">
         <td><strong>Remarks</strong></td>
       </tr>

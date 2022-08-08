@@ -1,4 +1,4 @@
-<div class="row mt-3">
+<div class="row mt-3 summary">
     <div class="col-md-12 sb-small">
         <p class="header"><strong class="header">Facility Schedule</strong> <em class="text-danger sb-small"> &nbsp;Bold
             row indicates
@@ -26,7 +26,7 @@
 <div class="row">
     <div class="col-md-12">
         <table
-                class="table table-bordered table-responsive-md table-sm sb-small text-center">
+                class="table table-bordered table-responsive-md table-sm sb-small text-center summary">
             <thead>
             <tr class="sb-bg-gray">
                 <th style="width:30%;"> Facility</th>
@@ -292,7 +292,7 @@
        class="text-round">O</i>
 </ng-template>
 
-<div class="row">
+<div class="row summary">
     <div class="col-md-12 sb-medium">
         <strong>Total Proposed Limit (in words):</strong>
         {{ getTotal('proposedLimit') | currencyFormatter}}
@@ -342,7 +342,7 @@
             </ng-container>
         </table>
 
-        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
             <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
                 <td class="sb-bg-gray">CIB Charge</td>
                 <td>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? loanDataHolder?.loanHolder?.cicl?.cibCharge : loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value : 'N/A'}}</td>
