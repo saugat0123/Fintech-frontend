@@ -14,8 +14,8 @@
         <!--<th>Limit</th>
         <th>Disbursement</th>
         <th>Int Rate</th>
-        <th>Maturity</th>-->
-        <th>Frequency</th>
+        <th>Maturity</th>
+        <th>Frequency</th>-->
         <th *ngIf="fromScc">Approved By</th>
 
     </tr>
@@ -28,30 +28,32 @@
         <td colspan="7" class="text-danger">Exposure Details has not been saved yet</td>
     </tr>
     <tr *ngFor="let ex of disbursementDetails;let i=index">
-        <td>{{i + 1}}</td>
-        <td>{{ex?.loanName}}</td>
-        <td>
-            {{ex?.loanLimit}}
-        </td>
-        <td>
-            {{ex?.newLoanLimit}}
-        </td>
-        <td>
-            {{ex?.totalLoanLimit}}
-        </td>
-        <td>
-            {{ex?.initialRate}}
-        </td>
-        <td>
-            {{ex?.maturity}}
-        </td>
-        <!--
-        <td class="text-right px-2">NPR.{{ex?.loanLimit | currencyFormatter}}</td>
-        <td class="text-right px-2">NPR.{{ex?.disbursement | currencyFormatter}}</td>
-        <td>{{ex?.initialRate}}</td>
-        <td>{{ex?.maturity}}</td>-->
-        <td>{{ex?.frequency}}</td>
-        <td *ngIf="fromScc">{{ex?.approvedLoanBy}}</td>
+        <ng-container *ngIf="ex?.isValid">
+            <td>{{i + 1}}</td>
+            <td>{{ex?.loanName}}</td>
+            <td>
+                {{ex?.loanLimit}}
+            </td>
+            <td>
+                {{ex?.newLoanLimit}}
+            </td>
+            <td>
+                {{ex?.totalLoanLimit}}
+            </td>
+            <td>
+                {{ex?.initialRate}}
+            </td>
+            <td>
+                {{ex?.maturity}}
+            </td>
+            <!--
+            <td class="text-right px-2">NPR.{{ex?.loanLimit | currencyFormatter}}</td>
+            <td class="text-right px-2">NPR.{{ex?.disbursement | currencyFormatter}}</td>
+            <td>{{ex?.initialRate}}</td>
+            <td>{{ex?.maturity}}</td>
+            <td>{{ex?.frequency}}</td>-->
+            <td *ngIf="fromScc">{{ex?.approvedLoanBy}}</td>
+        </ng-container>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
