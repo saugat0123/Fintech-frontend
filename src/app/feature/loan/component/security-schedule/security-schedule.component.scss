@@ -1,3 +1,11 @@
 table, th, td {
   border: 1px solid black !important;
 }
+@media print {
+.summary {
+    * {
+      font-family: Preeti !important;
+      font-size: 10pt !important;
+    }
+  }
+}

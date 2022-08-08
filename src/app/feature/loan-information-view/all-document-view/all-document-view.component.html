@@ -1,4 +1,4 @@
-<nb-card class="modal-dialog-scrollable">
+<nb-card class="modal-dialog-scrollable summary">
   <nb-card-header>
           <span>
             <span><strong class="header">Loan Documents</strong></span>
@@ -11,9 +11,9 @@
           </span>
   </nb-card-header>
   <nb-card-body>
-  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row">
-    <div class="col-md-12">
-      <p><strong>Loan Documents</strong></p>
+  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row summary">
+    <div class="col-md-12 header">
+      Loan Documents
     </div>
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
