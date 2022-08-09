@@ -131,7 +131,7 @@
     <li>
         <!-- waiver deviations and deferral -->
         <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-        <span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
+        <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
     </li>
     <li>
         <!-- nrb statutory remarks status -->

@@ -407,9 +407,9 @@
                     </li>
                     <li class="libold">
                         <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES <em>(IF ANY)</em>:
-                            {{proposalData?.waiverConclusionRecommendation ? '' : ' NA'}}</strong></p>
-                        <tr *ngIf="proposalData?.waiverConclusionRecommendation">
-                            <td [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></td>
+                            {{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation ? '' : ' NA'}}</strong></p>
+                        <tr *ngIf="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation">
+                            <td [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></td>
                         </tr>
                     </li>
                     <li class="libold">

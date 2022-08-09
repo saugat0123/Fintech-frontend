@@ -231,8 +231,8 @@
         </app-above-fixed-assets-collateral-computation-sheet>
     </li>
     <li>
-        <p class="text-uppercase"><strong>Special Covenants/Conditions, if any: {{proposalData?.specialCovenant ? '' : 'NA'}}</strong></p>
-        <span [innerHTML]="proposalData?.specialCovenant | safeHtml"></span>
+        <p class="text-uppercase"><strong>Special Covenants/Conditions, if any: </strong></p>
+        <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialCovenant || 'NA' | safeHtml"></span>
 <!--        <app-above-special-covenants></app-above-special-covenants>-->
     </li>
     <li>
@@ -253,8 +253,8 @@
         </div>
     </li>
     <li>
-        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY: {{proposalData?.waiverConclusionRecommendation ? '' : 'NA'}}</strong></p>
-        <span [innerHTML]="proposalData?.waiverConclusionRecommendation | safeHtml"></span>
+        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY: {{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation ? '' : 'NA'}}</strong></p>
+        <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
 <!--        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>-->
     </li>
     <li>

@@ -311,7 +311,7 @@
                             </li>
                             <li>
                                 <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-                                <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
+                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
                             </li>
                             <li>
                                 <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
