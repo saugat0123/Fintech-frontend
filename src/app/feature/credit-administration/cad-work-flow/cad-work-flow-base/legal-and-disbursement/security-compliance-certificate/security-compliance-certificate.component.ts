@@ -13,7 +13,7 @@ import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util
 import {RoleType} from '../../../../../admin/modal/roleType';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Editor} from '../../../../../../@core/utils/constants/editor';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
 import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
@@ -66,10 +66,22 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
-        }
+    }
+    this.buildSccForm();
+    if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
+      this.sccData = JSON.parse(this.cadFile.sccData);
+      if (this.sccData.drawDownDetails.length > 0) {
+        this.sccData.drawDownDetails.forEach(val => {
+          this.setDrawDownDetail(val);
+        });
+      } else {
+        this.addDrawDownDetail();
+      }
+    } else {
+      this.addDrawDownDetail();
+    }
     if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
       this.sccPath = JSON.parse(this.cadFile.exposure.data).sccPath;
-      console.log(JSON.parse(this.cadFile.exposure.data));
     }
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
@@ -81,7 +93,6 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.isInstitution = false;
       this.jsonData = JSON.parse(this.cadFile.assignedLoan[0].companyInfo.companyJsonData);
     }
-    this.buildSccForm();
     this.configEditor();
     this.getCompanyPan();
     this.setSccRefNumber();
@@ -99,12 +110,17 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       strObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.strObtained) ? new Date() :
               new Date(this.sccData.strObtained)],
+      strLapsed: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.strLapsed) ? new Date() :
+              new Date(this.sccData.strLapsed)],
       iffObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.iffObtained) ? new Date() :
               new Date(this.sccData.iffObtained)],
       kyc: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.kyc) ? new Date() :
               new Date(this.sccData.kyc)],
+      irdSubmission: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.irdSubmission) ? undefined : this.sccData.irdSubmission],
       declaration: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.declaration) ? new Date() :
               new Date(this.sccData.declaration)],
@@ -167,14 +183,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(this.sccData.makuri) ? undefined : this.sccData.makuri],
       verification: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.verification) ? undefined : this.sccData.verification],
-      drawDownNTA: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.drawDownNTA) ? undefined : this.sccData.drawDownNTA],
-      drawDownFMV: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.drawDownFMV) ? undefined : this.sccData.drawDownFMV],
-      drawDownTax: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.drawDownTax) ? undefined : this.sccData.drawDownTax],
-      obtained: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.obtained) ? undefined : this.sccData.obtained],
+      drawDownDetails: this.formBuilder.array([]),
+      emiType: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.emiType) ? undefined : this.sccData.emiType],
       notes: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.notes) ? undefined : this.sccData.notes],
       discrepancy: [ObjectUtil.isEmpty(this.sccData) ? undefined :
@@ -185,7 +196,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(this.sccData.nameOfCustodian) ? undefined : this.sccData.nameOfCustodian],
       vaultNo: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.vaultNo) ? undefined : this.sccData.vaultNo],
-      obtainedDate: [undefined]
+      obtainedDate: [undefined],
+      approvedRemark: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.approvedRemark) ? undefined : this.sccData.approvedRemark]
     });
   }
 
@@ -195,6 +208,42 @@ export class SecurityComplianceCertificateComponent implements OnInit {
         this.panNumber = res.detail.panNumber;
       });
     }
+  }
+  removeDrawDown(i) {
+    (this.sccForm.get('drawDownDetails') as FormArray).removeAt(i);
+  }
+
+  addDrawDownDetail() {
+    (this.sccForm.get('drawDownDetails') as FormArray).push(this.formBuilder.group({
+      drawDownNTA: [undefined],
+      drawDownFMV: [undefined],
+      drawDownTax: [undefined],
+      facilityName: [undefined],
+      emiStartDate: [new Date()],
+      emiEndDate: [new Date()],
+    }));
+  }
+
+  setDrawDownDetail(val) {
+    // const managementData = (this.managementFormGroup.get('managementTeams') as FormArray);
+    // currentData.forEach((singleData, index) => {
+    //   managementData.push(this.formBuilder.group({
+    (this.sccForm.get('drawDownDetails') as FormArray).push(this.formBuilder.group({
+      drawDownNTA: [ObjectUtil.isEmpty(val) ? undefined :
+          ObjectUtil.isEmpty(val.drawDownNTA) ? undefined : val.drawDownNTA],
+      drawDownFMV: [ObjectUtil.isEmpty(val) ? undefined :
+          ObjectUtil.isEmpty(val.drawDownFMV) ? undefined : val.drawDownFMV],
+      drawDownTax: [ObjectUtil.isEmpty(val) ? undefined :
+          ObjectUtil.isEmpty(val.drawDownTax) ? undefined : val.drawDownTax],
+      facilityName: [ObjectUtil.isEmpty(val) ? undefined :
+          ObjectUtil.isEmpty(val.facilityName) ? undefined : val.facilityName],
+      emiStartDate: [ObjectUtil.isEmpty(val) ? new Date() :
+          ObjectUtil.isEmpty(val.caApproved) ? new Date() :
+              new Date(val.caApproved)],
+      emiEndDate: [ObjectUtil.isEmpty(val) ? new Date() :
+          ObjectUtil.isEmpty(val.caApproved) ? new Date() :
+              new Date(val.caApproved)]
+    }));
   }
 
   setSccRefNumber() {
