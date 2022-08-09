@@ -104,6 +104,10 @@
         <app-upto-convenants></app-upto-convenants>
     </li>
     <li>
+        <p><strong>SPECIAL COVENANTS/CONDITIONS, IF ANY:</strong></p>
+        <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialCovenant || 'NA'"></span>
+    </li>
+    <li>
         <!-- disbursement modality -->
         <p><strong>DISBURSEMENT MODALITY (FACILITY WISE):</strong></p>
         <app-upto-disbursement-modality></app-upto-disbursement-modality>
