@@ -446,19 +446,22 @@
           <th>Draw down %under Tax Invoice</th>
           <th>Repayment Schedule</th>
           <th>
-            <ng-select formControlName="emiType">
-              <ng-option value="EMI">EMI</ng-option>
-              <ng-option value="EQI">EQI</ng-option>
-              <ng-option value="EQPI">EQPI</ng-option>
-            </ng-select>
+            <div class="disable-print">
+              <ng-select formControlName="emiType">
+                <ng-option value="EMI">EMI</ng-option>
+                <ng-option value="EQI">EQI</ng-option>
+                <ng-option value="EQPI">EQPI</ng-option>
+              </ng-select>
+            </div>
+            <span class="print-only">{{sccData?.emiType}}</span>
           </th>
-          <th>Action</th>
+          <th class="disable-print">Action</th>
         </tr>
         <tr class="text-white sb-bg-dark">
           <th colspan="4"></th>
           <th>Start Date</th>
           <th>End Date</th>
-          <th></th>
+          <th class="disable-print"></th>
         </tr>
         </thead>
         <tbody>
@@ -468,22 +471,22 @@
         <tr>
           <td>
             <input class="disable-print" formControlName="facilityName" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.facilityName}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails[i]?.facilityName}}</span>
           </td>
           <td>
             <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownNTA}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails[i]?.drawDownNTA}}</span>
           </td>
           <td>
             <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownFMV}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails[i]?.drawDownFMV}}</span>
           </td>
           <td>
             <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownTax}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails[i]?.drawDownTax}}</span>
           </td>
           <td>
-            <span class="print-only">{{sccData?.emiStartDate}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails[i]?.emiStartDate | date}}</span>
             <input [nbDatepicker]="emiStartDate"
                    class="form-control rounded disable-print"
                    formControlName="emiStartDate"
@@ -493,7 +496,7 @@
             <nb-datepicker #emiStartDate></nb-datepicker>
           </td>
           <td>
-            <span class="print-only">{{sccData?.emiEndDate}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails[i]?.emiEndDate | date}}</span>
             <input [nbDatepicker]="emiEndDate"
                    class="form-control rounded disable-print"
                    formControlName="emiEndDate"
@@ -502,7 +505,7 @@
                    type="text"/>
             <nb-datepicker #emiEndDate></nb-datepicker>
           </td>
-          <td class="cursor">
+          <td class="cursor disable-print">
             <span>
                <em *ngIf="sccForm.get('drawDownDetails')['length'] > 1" (click)="removeDrawDown(i)"
                    nbTooltip="remove"
