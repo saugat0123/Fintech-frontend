@@ -1,3 +1,4 @@
+<div class="summary">
 <nb-card *ngIf="(fromLoan) || (!fromLoan && financialData)">
     <nb-card-header>
         <label class="text-center"><strong class="header">Financial/Account Information Assessment</strong></label>
@@ -7,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <table
-                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
                         <thead>
                             <tr [ngClass]="fromLoan ? 'text-white sb-bg-dark' : 'sb-bg-gray'">
                                 <th>S.N</th>
@@ -296,19 +297,19 @@
                 </div>
             </div>
             <div class="row" *ngIf="fromLoan">
-                <div class="col-md-12 form-group">
+                <div class="col-md-12 form-group summary">
                     <b>Justification for change (Historical)</b>
                     <div class="mt-2">
                         <ckeditor [config]="ckeConfig" formControlName="changeHistorical"></ckeditor>
                     </div>
                 </div>
-                <div class="col-md-12 form-group">
+                <div class="col-md-12 form-group summary">
                     <b>Justification for change (Projection)</b>
                     <div class="mt-2">
                         <ckeditor [config]="ckeConfig" formControlName="changeProjection"></ckeditor>
                     </div>
                 </div>
-                <div class="col-md-12 form-group">
+                <div class="col-md-12 form-group summary">
                     <b>Remarks</b>
                     <div class="mt-2">
                         <ckeditor *ngIf="fromLoan" [config]="ckeConfig" formControlName="remarks"></ckeditor>
@@ -316,28 +317,29 @@
                 </div>
             </div>
             <div class="row" *ngIf="!fromLoan" >
-                <div class="col-md-12"  *ngIf="financialData?.changeHistorical">
+                <div class="col-md-12 summary"  *ngIf="financialData?.changeHistorical">
                     <b>Justification for change (Historical)</b>
                     <div class="mt-2">
                         <span [innerHTML]="financialData?.changeHistorical | safeHtml"></span>
                     </div>
                 </div>
-                <div class="col-md-12" *ngIf="financialData?.changeProjection">
+                <div class="col-md-12 summary" *ngIf="financialData?.changeProjection">
                     <b>Justification for change (Projection)</b>
                     <div class="mt-2">
                         <span [innerHTML]="financialData?.changeProjection | safeHtml"></span>
                     </div>
                 </div>
-                <div class="col-md-12" *ngIf="financialData?.remarks">
+                <div class="col-md-12 summary" *ngIf="financialData?.remarks">
                     <b>Remarks</b>
                     <div class="mt-2">
                         <span [innerHTML]="financialData?.remarks | safeHtml"></span>
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="fromLoan">
+            <div class="row summary" *ngIf="fromLoan">
                 <button class="float-right btn-danger" nbButton (click)="onSubmit()" type="submit">Save</button>
             </div>
         </form>
     </nb-card-body>
 </nb-card>
+</div>

@@ -3,6 +3,10 @@ table, th, td {
 }
 @media print {
   .summary {
+    * {
+      font-family: Cambria !important;
+      font-size: 18pt !important;
+    }
     .header {
       font-family: Cambria !important;
       font-size: 20pt !important;
