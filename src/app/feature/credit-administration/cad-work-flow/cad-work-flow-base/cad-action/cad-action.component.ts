@@ -26,6 +26,7 @@ import {
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {DmsLoanFileComponent} from '../../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
     selector: 'app-cad-action',
@@ -68,7 +69,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     roleType = RoleType;
     isOpened = false;
     forApproveMaker = [];
-
+    currentUserRole: string;
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -91,6 +92,9 @@ export class CadActionComponent implements OnInit, OnChanges {
     unAssign = false;
     checked = false;
     pathValueData;
+    isMakerOrApproval = false;
+    isDiscrepancy = false;
+
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -112,9 +116,16 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
+        this.currentUserRole = LocalStorageUtil.getStorage().roleType;
+        if (this.cadOfferLetterApprovedDoc.discrepancy) {
+            this.isDiscrepancy = true;
+        }
+        if ((this.currentUserRole === RoleType.APPROVAL || this.currentUserRole === RoleType.MAKER)
+            && this.cadOfferLetterApprovedDoc.docStatus !== CadDocStatus.DISCREPANCY_PENDING) {
+            this.isMakerOrApproval = true;
+        }
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
         } else {
@@ -315,7 +326,9 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    screenShotDocPath: [undefined]
+                    screenShotDocPath: [undefined],
+                    discrepancy: [this.isDiscrepancy],
+
 
                 }
             );
@@ -330,7 +343,9 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    screenShotDocPath: [undefined]
+                    screenShotDocPath: [undefined],
+                    discrepancy: [this.isDiscrepancy],
+
                 }
             );
 
