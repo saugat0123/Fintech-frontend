@@ -26,6 +26,7 @@ import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-in
 import {
     RetailLoanAgainstInsuranceComponent
 } from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
+import { OfferLetterConsentComponent } from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -51,7 +52,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, OfferLetterConsentComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -61,7 +62,8 @@ const COMPONENTS = [
         RetailMortgageComponent,
         RetailMortgageLoanComponent,
         RetailProfessionalLoanComponent,
-        RetailLoanAgainstInsuranceComponent
+        RetailLoanAgainstInsuranceComponent,
+        OfferLetterConsentComponent
     ],
     imports: [
         ThemeModule,
