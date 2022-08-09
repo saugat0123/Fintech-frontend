@@ -1,8 +1,8 @@
 <div class="row mt-1">
-<div class="col-md-12">
+<div class="col-md-12 summary">
     <p *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit"><strong class="header">Personal Details</strong></p>
     <ng-container *ngIf="isRemit;">
-        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center summary">
             <thead>
             <tr class="sb-bg-gray">
                 <th>Particulars</th>
@@ -77,7 +77,7 @@
             <div class="col-md-12">
                 <div>
                     <table
-                            class="table table-condensed table-bordered table-sm table-responsive-md text-center  sb-small">
+                            class="table table-condensed table-bordered table-sm table-responsive-md text-center summary sb-small">
                         <tbody>
                         <tr class="text-left">
                             <td class="sb-bg-gray">Name</td>
@@ -154,7 +154,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-left sub-header"><strong  class="header">Remit Loan Document</strong></p>
-                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center summary">
                     <thead>
                     <tr class="sb-bg-gray">
                         <th>S.N.</th>

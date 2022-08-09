@@ -1,5 +1,5 @@
 <form [formGroup]="form" class="disable-print" *ngIf="!summaryOnly; else summary;">
-    <div class="col-md-12">
+    <div class="col-md-12 summary">
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="particulars">Select Fiscial Year</label>
@@ -24,7 +24,7 @@
     </div>
     <!--financial dynamic table-->
     <div class="col-md-12">
-        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover">
+        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover summary">
             <thead>
             <tr class="sb-bg-gray">
                 <td width="25%"><strong>Particular</strong></td>
@@ -84,7 +84,7 @@
 </form>
 <ng-template #summary>
     <div class="col-md-12">
-        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover">
+        <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover summary">
             <thead>
             <tr class=" sb-bg-gray">
                 <td width="25%"><strong>Particular</strong></td>
