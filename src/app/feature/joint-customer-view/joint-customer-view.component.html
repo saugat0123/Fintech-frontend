@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row summary">
     <div class="col-md-12 text-center">
-        <p class="text-left" ><strong   class="header">Joint Details</strong></p>
+        <p class="text-left" ><strong class="header">Joint Details</strong></p>
         <ng-container *ngFor="let jointCustomer of jointDetails">
-            <table class="table table-condensed table-sm table-responsive-md text-center sb-small">
+            <table class="table table-condensed table-sm table-responsive-md text-center sb-small summary">
                 <tbody>
                 <tr>
                     <td>
@@ -89,7 +89,7 @@
                 </tbody>
             </table>
             <p class="sub-header" ><strong   class="header">Family Details</strong></p>
-            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of jointCustomer">
+            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary" *ngFor="let info of jointCustomer">
                 <tbody>
                 <tr class="sb-bg-gray">
                     <th>Name</th>
