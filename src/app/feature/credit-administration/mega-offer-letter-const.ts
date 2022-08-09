@@ -9,6 +9,7 @@ export enum MegaOfferLetterConst {
     RETAIL_MORTGAGE_LOAN,
     RETAIL_EDUCATIONAL_ENGLISH,
     RETAIL_LOAN_AGAINST_INSURANCE,
+    OFFER_LETTER_CONSENT
 }
 
 export namespace MegaOfferLetterConst {
@@ -30,8 +31,10 @@ export namespace MegaOfferLetterConst {
           return 'Retail Educational Loan English';
         case MegaOfferLetterConst.RETAIL_MORTGAGE_LOAN:
           return 'Retail Mortgage Loan';
-          case MegaOfferLetterConst.RETAIL_LOAN_AGAINST_INSURANCE:
-              return 'Retail Loan Against Insurance';
+        case MegaOfferLetterConst.RETAIL_LOAN_AGAINST_INSURANCE:
+          return 'Retail Loan Against Insurance';
+        case MegaOfferLetterConst.OFFER_LETTER_CONSENT:
+          return 'Offer Letter Consent';
       }
     }
 
