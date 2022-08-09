@@ -128,17 +128,19 @@
         </tr>
         <tr>
           <td>
+            <div><b> Key Contact Person/Position</b></div>
             <div><b>Name</b></div>
             <div><b>Contact Number</b></div>
             <div><b>E-mail address:</b></div>
             <div><b>Functional Position</b></div>
           </td>
           <td>
-            <div><b> Key Contact Person/Position</b></div>
             <ng-container *ngIf="contact != undefined || contact != null">
+              <div><b>Details</b></div>
               <div>{{contact[0]?.contactName}}</div>
               <div>{{contact[0]?.contactNumber}}</div>
-              <div>{{contact[0]?.email}}</div>
+              <div *ngIf="contact[0]?.email; else email">{{contact[0]?.email}}</div>
+              <ng-template #email>NA</ng-template>
               <div>{{contact[0]?.functionalPosition}}</div>
             </ng-container>
           </td>
