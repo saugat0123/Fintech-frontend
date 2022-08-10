@@ -19,11 +19,11 @@ import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-personal-offer-letter',
-  templateUrl: './personal-offer-letter.component.html',
-  styleUrls: ['./personal-offer-letter.component.scss']
+  selector: 'app-personal-offer-letter-renewals',
+  templateUrl: './personal-offer-letter-renewals.component.html',
+  styleUrls: ['./personal-offer-letter-renewals.component.scss']
 })
-export class PersonalOfferLetterComponent implements OnInit {
+export class PersonalOfferLetterRenewalsComponent implements OnInit {
   form: FormGroup;
   // todo replace enum constant string compare
   spinner = false;
@@ -188,10 +188,10 @@ export class PersonalOfferLetterComponent implements OnInit {
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER).toString())[0];
+          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
         this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER);
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         console.log(initialInfo);
@@ -211,14 +211,14 @@ export class PersonalOfferLetterComponent implements OnInit {
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER)
+        if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS)
             .toString()) {
           offerLetterPath.initialInformation = JSON.stringify(this.form.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }

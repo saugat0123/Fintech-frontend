@@ -1,12 +1,12 @@
 <!--todo refactor ui-->
-<div class="nep" id="{{offerLetterConst.PERSONAL_OFFER_LETTER}}">
+<div class="nep" id="{{offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS}}">
     <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="Saving Retail Personal offer letter.....">
         <nb-card-body>
             <div class="row">
                 <div class="col-md-12">
-                    <form (ngSubmit)="submit()" [formGroup]="form" class="nepali" id="personalOfferLetterPrint">
+                    <form (ngSubmit)="submit()" [formGroup]="form" class="nepali" id="personalOfferLetterRenewalsPrint">
                         <p class="text-right"> मिति:
                             <input class="form-field form-control-sm disable-print nepaliFont"
                                    formControlName="date"
@@ -987,7 +987,7 @@
             </div>
         </nb-card-body>
         <nb-card-footer class="mb-3">
-            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalOfferLetterPrint" class="mr-2 custom-color" >Print</button>
+            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalOfferLetterRenewalsPrint" class="mr-2 custom-color" >Print</button>
         </nb-card-footer>
     </nb-card>
 </div>
