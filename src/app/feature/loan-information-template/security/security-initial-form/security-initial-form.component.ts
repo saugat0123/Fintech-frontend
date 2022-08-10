@@ -220,9 +220,19 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setBuildingDescription(this.formDataForEdit['buildingDetailsDescription']);
             this.setLandDescription(this.formDataForEdit['description']);
             this.setLandDetails(this.formDataForEdit['landDetails']);
+            this.formDataForEdit['landDetails'].forEach((ld, li) => {
+                if (!ObjectUtil.isEmpty(ld.locationDetail)) {
+                    this.setLocationDetail(ld.locationDetail, li, 'landDetails');
+                }
+            });
             this.setBuildingDetails(this.formDataForEdit['buildingDetails']);
             this.setBuildingUnderConstructions(this.formDataForEdit['buildingUnderConstructions']);
             this.setLandBuildingDetails(this.formDataForEdit['landBuilding']);
+            this.formDataForEdit['landBuilding'].forEach((lbd, li) => {
+                if (!ObjectUtil.isEmpty(lbd.locationDetail)) {
+                    this.setLocationDetail(lbd.locationDetail, li, 'landBuilding');
+                }
+            });
             this.setPlantDetails(this.formDataForEdit['plantDetails']);
             this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
@@ -459,7 +469,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     owner: [singleData.owner],
                     location: [singleData.location],
-                    locationDetail: [singleData.locationDetail],
+                    locationDetail: this.formBuilder.array([]),
                     plotNumber: [singleData.plotNumber],
                     areaFormat: [singleData.areaFormat],
                     area: [singleData.area],
@@ -683,9 +693,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     owner: [singleData.owner],
                     location: [singleData.location],
-                    plotNumber: [singleData.plotNumber],
-                    areaFormat: [singleData.areaFormat],
-                    area: [singleData.area],
+                    locationDetail: this.formBuilder.array([]),
+                    // plotNumber: [singleData.plotNumber],
+                    // areaFormat: [singleData.areaFormat],
+                    // area: [singleData.area],
                     marketValue: [singleData.marketValue],
                     distressValue: [singleData.distressValue],
                     description: [singleData.description],
@@ -1292,7 +1303,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             owner: ['', Validators.required],
             location: [''],
-            locationDetail: this.formBuilder.array([]),
+            locationDetail: this.formBuilder.array([this.locationDetailFormGroup()]),
             plotNumber: [''],
             areaFormat: [''],
             area: [''],
@@ -1364,9 +1375,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             owner: [undefined],
             location: undefined,
-            plotNumber: [undefined],
-            areaFormat: undefined,
-            area: undefined,
+            locationDetail: this.formBuilder.array([this.locationDetailFormGroup()]),
             marketValue: [undefined],
             distressValue: [undefined],
             description: undefined,
@@ -2356,14 +2365,32 @@ export class SecurityInitialFormComponent implements OnInit {
     addLocationDetail(securityName: string, index: number) {
         const landDetails = this.securityForm.get([securityName, index, 'locationDetail']) as FormArray;
         landDetails.push(this.locationDetailFormGroup());
-        console.log('securityForm', this.securityForm);
     }
 
-    locationDetailFormGroup() {
+    locationDetailFormGroup(): FormGroup {
         return this.formBuilder.group({
             plotNumber: [undefined],
             areaFormat: [undefined],
             area: [undefined],
         });
+    }
+
+    deleteLocationDetail(securityName: string, i: number, li: number) {
+        (this.securityForm.get([securityName, i, 'locationDetail']) as FormArray).removeAt(li);
+    }
+
+    setLocationDetail(data, index: number, securityName: string) {
+        const locationControl = this.securityForm.get([securityName, index, 'locationDetail']) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                locationControl.push(
+                    this.formBuilder.group({
+                        plotNumber: [d.plotNumber],
+                        areaFormat: [d.areaFormat],
+                        area: [d.area],
+                    })
+                );
+            });
+        }
     }
 }
