@@ -669,23 +669,23 @@
                                         </table>
                                     </div>
                                 </div>
-                                <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title" for="specialCovenant"><strong>Special
-                                                Covenants/Conditions, If Any</strong></label>
-                                            <ckeditor
-                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
-                                                    formControlName="specialCovenant" id="specialCovenant"
-                                                    name="specialCovenant"
-                                                    [config]="ckeConfig"></ckeditor>
-                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"
-                                                 class="text-danger">
-                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-container>
+<!--                                <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">-->
+<!--                                    <div class="col-md-12">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="title" for="specialCovenant"><strong>Special-->
+<!--                                                Covenants/Conditions, If Any</strong></label>-->
+<!--                                            <ckeditor-->
+<!--                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"-->
+<!--                                                    formControlName="specialCovenant" id="specialCovenant"-->
+<!--                                                    name="specialCovenant"-->
+<!--                                                    [config]="ckeConfig"></ckeditor>-->
+<!--                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"-->
+<!--                                                 class="text-danger">-->
+<!--                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </ng-container>-->
                                 <ng-container *ngIf="customerType === 'INSTITUTION'">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -718,13 +718,13 @@
                                     </div>
 
                                 </ng-container>
-                                <div class="col-md-12 form-group" *ngIf="!fromProfile">
-                                    <b>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, <em>(IF ANY)</em></b>
-                                    <div>
-                                        <ckeditor formControlName="waiverConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
+<!--                                <div class="col-md-12 form-group" *ngIf="!fromProfile">-->
+<!--                                    <b>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, <em>(IF ANY)</em></b>-->
+<!--                                    <div>-->
+<!--                                        <ckeditor formControlName="waiverConclusionRecommendation"-->
+<!--                                                  [config]="ckeConfig"></ckeditor>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </form>
                     </div>
