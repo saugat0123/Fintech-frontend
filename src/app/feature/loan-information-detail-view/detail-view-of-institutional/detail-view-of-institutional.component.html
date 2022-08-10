@@ -80,9 +80,9 @@
                 <div class="col-md-12">
                 <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
                     class="col-md-12 text-left"><strong class="header">Financial</strong></p>
-                <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
+                <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
                                            [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
-                <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
+                <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialData"
                                            [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
                 </div>
             </ng-template>

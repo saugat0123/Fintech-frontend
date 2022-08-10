@@ -69,6 +69,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     smallBusiness = false;
     deprivedSector = false;
     microFinancialService = false;
+    thisClient;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -95,6 +96,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
             this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
+            this.thisClient = this.loanDataHolder.loanHolder.clientType;
             if (ObjectUtil.isEmpty(this.loanDataHolder.reportingInfoLevels)) {
                 this.loanDataHolder.reportingInfoLevels = [];
             }
