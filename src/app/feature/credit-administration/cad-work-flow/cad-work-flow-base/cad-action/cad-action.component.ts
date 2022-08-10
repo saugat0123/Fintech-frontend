@@ -27,6 +27,7 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {DmsLoanFileComponent} from '../../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {CadDocStatus} from '../../../model/CadDocStatus';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-cad-action',
@@ -112,6 +113,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 private routerUtilsService: RouterUtilsService,
                 private nbDialogService: NbDialogService,
                 private loanFormService: LoanFormService,
+                private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -214,7 +216,9 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     postAction() {
         this.isForApproveMaker = false;
+        this.spinnerService.show();
         this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
+            this.spinnerService.hide();
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
@@ -244,6 +248,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     }, error1 => this.toastService.show(new Alert(AlertType.ERROR, error1.error.message)));
                     break;
             }
+            this.spinnerService.hide();
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
         });
@@ -294,7 +299,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
-                    screenShotDocPath: [undefined]
+                    screenShotDocPath: [undefined],
+                    discrepancy: [this.isDiscrepancy]
                 }
             );
             const approvalType = 'CAD';
@@ -311,6 +317,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
+            const discrepancyApproved = this.cadOfferLetterApprovedDoc.discrepancy && !this.cadOfferLetterApprovedDoc.discrepancyApproved;
             this.popUpTitle = this.approvedLabel;
             if (newDocStatus === '0') {
                 this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));
@@ -319,9 +326,9 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.formAction = this.formBuilder.group(
                 {
                     cadId: [this.cadId],
-                    docAction: [newDocStatus],
+                    docAction: [discrepancyApproved ? 'DISCREPANCY_APPROVED' : newDocStatus],
                     comment: [undefined, Validators.required],
-                    documentStatus: [newDocStatus],
+                    documentStatus: [discrepancyApproved ? 'OFFER_PENDING' : newDocStatus],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
@@ -375,6 +382,8 @@ export class CadActionComponent implements OnInit, OnChanges {
             return '0';
         } else if (this.currentStatus === 'DISBURSEMENT_APPROVED') {
             return '0';
+        } else if (this.currentStatus === 'PARTIAL_DISCREPANCY_PENDING' && this.currentUserRole === 'CAD_LEGAL') {
+            return 'LEGAL_APPROVED';
         } else {
             return 'DISBURSEMENT_APPROVED';
         }

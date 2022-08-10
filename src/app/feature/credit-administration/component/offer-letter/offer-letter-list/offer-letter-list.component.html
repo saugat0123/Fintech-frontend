@@ -62,11 +62,11 @@
                         </a>
                     </td>
                     <td>
-<!--                        <a class="px-2 cursor" *ngIf="toggleArray[i]?.files?.length > 0"-->
-<!--                           (click)="model?.id ? toggleArray[i].fileToggled = !toggleArray[i].fileToggled:''"-->
-<!--                           nbTooltip="click to view files ">-->
-<!--                            <em class="fa fa-file"></em>-->
-<!--                        </a>-->
+                        <a class="px-2 cursor" *ngIf="toggleArray[i]?.files?.length > 0"
+                           (click)="model?.id ? toggleArray[i].fileToggled = !toggleArray[i].fileToggled:''"
+                           nbTooltip="click to view files ">
+                            <em class="fa fa-file"></em>
+                        </a>
                     </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
@@ -162,24 +162,24 @@
                         <td colspan="11">.</td>
                     </tr>
                 </ng-container>
-<!--                <ng-container *ngIf="toggleArray[i].fileToggled">-->
-<!--                    <tr>-->
-<!--                        <td colspan="10"><b>Post Approval Deferral Documents </b></td>-->
-<!--                    </tr>-->
-<!--                    <tr class="sb-bg-dark text-white">-->
-<!--                        <th colspan="2">S.N</th>-->
-<!--                        <th colspan="5">Document Name</th>-->
-<!--                        <th colspan="4">Remarks</th>-->
-<!--                    </tr>-->
+                <ng-container *ngIf="toggleArray[i].fileToggled">
+                    <tr>
+                        <td colspan="10"><b>Post Approval Deferral Documents </b></td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <th colspan="2">S.N</th>
+                        <th colspan="5">Document Name</th>
+                        <th colspan="4">Remarks</th>
+                    </tr>
 
-<!--                    <tr *ngFor="let data of toggleArray[i]?.files ; let j = index">-->
-<!--                        <td colspan="2">{{j + 1}}</td>-->
-<!--                        <td colspan="5">-->
-<!--                            {{data}}-->
-<!--                        </td>-->
-<!--                        <td colspan="4">DEFERRAL</td>-->
-<!--                    </tr>-->
-<!--                </ng-container>-->
+                    <tr *ngFor="let data of toggleArray[i]?.files ; let j = index">
+                        <td colspan="2">{{j + 1}}</td>
+                        <td colspan="5">
+                            {{data}}
+                        </td>
+                        <td colspan="4">DEFERRAL</td>
+                    </tr>
+                </ng-container>
             </ng-container>
             </tbody>
         </table>
