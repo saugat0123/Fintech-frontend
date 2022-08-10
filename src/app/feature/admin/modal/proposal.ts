@@ -28,4 +28,6 @@ export class Proposal {
     existCashMarginMethod: string;
     existCommissionPercentage: number;
     groupExposure: string;
+    // forexOnSale: string;
+    //  forexOnPurchase: string;
 }

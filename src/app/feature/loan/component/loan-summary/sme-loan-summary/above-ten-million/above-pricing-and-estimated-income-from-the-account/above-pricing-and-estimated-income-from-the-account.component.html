@@ -164,8 +164,9 @@
     </tbody>
 </table>
 <div class="container">
-    <p><strong>14.1.6. Forex: {{loanDataHolder?.companyInfo?.capital?.forexOnSale ? (loanDataHolder?.companyInfo?.capital?.forexOnSale | currencyFormatter) : 'NA'}} </strong> paisa discount / USD on sale;
-        <strong>{{loanDataHolder?.companyInfo?.capital?.forexOnPurchase ? (loanDataHolder?.companyInfo?.capital?.forexOnPurchase | currencyFormatter) : 'NA'}}</strong>  paisa / USD premium on purchase</p>
+    <p></p>
+    <p><strong>14.1.6. Forex: {{((loanDataHolder?.proposal.data | jsonParse)?.forexOnSale | currencyFormatter) || 'NA'}} </strong> paisa discount / USD on sale;
+      <strong>{{((loanDataHolder?.proposal.data | jsonParse)?.forexOnPurchase | currencyFormatter) || 'NA'}}</strong>  paisa / USD premium on purchase</p>
     <p><strong>14.1.7. CIC charge: </strong>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? (loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) : 'NA'}}</p>
     <p><strong>14.1.8. STR charge: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.strCharge ?
         ((loanDataHolder?.proposal?.data | jsonParse)?.strCharge | currencyFormatter) : 'NA'}}</p>
