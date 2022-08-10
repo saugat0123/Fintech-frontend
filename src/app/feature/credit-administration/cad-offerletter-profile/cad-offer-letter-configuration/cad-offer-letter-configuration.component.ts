@@ -84,7 +84,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.branchService.getAll().subscribe((res: any) => {
             this.branchList = res.detail;
         });
-        if (!ObjectUtil.isEmpty(this.customer) && !ObjectUtil.isEmpty(this.customer.jointInfo)) {
+        if (!ObjectUtil.isEmpty(this.customer) && !ObjectUtil.isEmpty(this.customerInfo.isJointCustomer)) {
             this.tempCustomer = JSON.parse(this.customer.jointInfo);
             if (!ObjectUtil.isEmpty(this.tempCustomer.jointCustomerInfo) && ObjectUtil.isEmpty(this.customerInfo.nepData)) {
                 this.tempCustomer.jointCustomerInfo.forEach(val => {

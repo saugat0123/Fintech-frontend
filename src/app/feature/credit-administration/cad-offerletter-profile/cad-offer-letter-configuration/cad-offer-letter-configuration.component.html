@@ -14,7 +14,7 @@
                 <nb-tab tabId="0"
                         tabTitle="{{customerInfo?.customerType === 'INDIVIDUAL' ? 'CUSTOMER DETAIL' : 'COMPANY DETAIL'}}"
                         #personal>
-                    <div class="row" *ngIf="customer?.isJointCustomer; else otherSection;">
+                    <div class="row" *ngIf="customerInfo?.isJointCustomer; else otherSection;">
                         <ng-container *ngFor="let joint of userConfigForm.get('jointCustomerDetails')['controls']; let i = index;" formArrayName="jointCustomerDetails">
                             <ng-container [formGroupName]="i">
                                 <div class="col-md-12">
