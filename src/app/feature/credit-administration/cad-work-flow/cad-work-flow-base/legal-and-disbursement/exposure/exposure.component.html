@@ -31,9 +31,9 @@
                     <ng-container [formGroupName]="i">
                         <tr>
                             <td><input class="cellInput text-center" formControlName="loanName" [readOnly]="true"></td>
-                            <td><input class="cellInput text-center" formControlName="loanLimit" (focusout)="checkValidation(i)"></td>
-                            <td><input class="cellInput text-center" formControlName="newLoanLimit" (focusout)="checkValidation(i)"></td>
-                            <td><input class="cellInput text-center" formControlName="totalLoanLimit" [readOnly]="true"></td>
+                            <td><input class="cellInput text-center" formControlName="loanLimit" (keyup)="totalSingleLimit(i)" (focusout)="checkValidation(i)"></td>
+                            <td><input class="cellInput text-center" formControlName="newLoanLimit" (keyup)="totalSingleLimit(i)" (focusout)="checkValidation(i)"></td>
+                            <td><input class="cellInput text-center" formControlName="totalLoanLimit" (keyup)="totalSingleLimit(i)" [readOnly]="true"></td>
 <!--                            <td><input class="cellInput text-center" formControlName="disbursement"></td>-->
                             <td><input class="cellInput text-center" formControlName="initialRate" (focusout)="checkValidation(i)"></td>
                             <td><input class="cellInput text-center" formControlName="maturity" (focusout)="checkValidation(i)"></td>

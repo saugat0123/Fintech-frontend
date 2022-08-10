@@ -48,9 +48,16 @@ export class ExposureComponent implements OnInit, OnChanges {
         return this.exposureForm.get('disbursementDetails') as FormArray;
     }
 
+    totalSingleLimit(i) {
+        const loanLimit = Number(this.exposureForm.get(['disbursementDetails', i, 'loanLimit']).value);
+        const newLoanLimit = Number(this.exposureForm.get(['disbursementDetails', i, 'newLoanLimit']).value.replace('-', 0));
+        this.exposureForm.get(['disbursementDetails', i, 'totalLoanLimit']).patchValue(Number(loanLimit + newLoanLimit));
+    }
+
     get totalLimit() {
         let t = 0;
-        this.disbursementDetails.controls.forEach(value => t += Number(value.get('loanLimit').value));
+        this.disbursementDetails.controls.forEach(value => t += Number(value.get('loanLimit').value) +
+            Number(value.get('newLoanLimit').value.replace('-', 0)));
         return t;
     }
 
@@ -103,7 +110,7 @@ export class ExposureComponent implements OnInit, OnChanges {
                 loanLimit: [value.proposal.existingLimit, Validators.required],
                 newLoanLimit: [!ObjectUtil.isEmpty(value.proposal.enhanceLimitAmount) ?
                     value.proposal.enhanceLimitAmount : '-', Validators.required],
-                totalLoanLimit: [value.proposal.proposedLimit, Validators.required],
+                totalLoanLimit: [undefined, Validators.required],
                 disbursement: [value.proposal.proposedLimit, Validators.required],
                 initialRate: [value.loan.interestRate, Validators.required],
                 maturity: [undefined, Validators.required],
