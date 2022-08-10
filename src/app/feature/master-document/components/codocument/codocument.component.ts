@@ -8,6 +8,7 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CoDoc} from '../../model/co-doc';
 import {CoDocService} from '../../service/co-doc.service';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-codocument',
@@ -78,6 +79,22 @@ export class CodocumentComponent implements OnInit {
     }, error => {
       console.error(error);
       this.toasterService.show(new Alert(AlertType.DANGER, 'Unable to delete co document'));
+    });
+  }
+
+  download(id: number): void {
+    this.spinner = true;
+    this.coDocService.downloadCoDoc(id).subscribe((res: any) => {
+      const link = document.createElement('a');
+      link.target = '_blank';
+      link.href = `${ApiConfig.URL + '/' + res.detail}?${Math.floor(Math.random() * 100) + 1}`;
+      link.download = `${ApiConfig.URL + '/' + res.detail}?${Math.floor(Math.random() * 100) + 1}`;
+      link.setAttribute('visibility', 'hidden');
+      link.click();
+    }, error => {
+      this.spinner = false;
+      this.toasterService.show(new Alert(AlertType.ERROR, 'Could not download document'));
+      console.error(error);
     });
   }
 }

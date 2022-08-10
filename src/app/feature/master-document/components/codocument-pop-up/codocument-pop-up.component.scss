@@ -1,3 +1,8 @@
 .large-modal {
   width: 920px;
 }
+
+.card-overflow {
+  max-height: 90vh !important;
+  overflow-y: auto;
+}

@@ -1,12 +1,27 @@
-<nb-card class="large-modal" [nbSpinner]="spinner">
+<nb-card class="large-modal card-overflow" [nbSpinner]="spinner">
     <nb-card-header>Co Document Data Creation</nb-card-header>
     <nb-card-body>
         <form [formGroup]="coDocForm">
             <div class="row">
-                <div class="col-md-4" *ngFor="let control of controls">
-                    <label>{{control.label}}</label>
-                    <input class="form-control" [formControlName]="control?.controlName">
-                </div>
+                <ng-container *ngFor="let control of controls;let i=index;">
+                    <div class="col-md-6">
+                        <div>
+                            <nb-radio-group class="d-inline-flex" id="radio-{{i}}" name="radio-{{i}}"
+                                formControlName="radio{{i}}" (click)="onRadioClick(control?.controlName)">
+                                <nb-radio nbTooltip="Change type to text" value="text"></nb-radio>
+                                <nb-radio nbTooltip="Change type to number" value="number"></nb-radio>
+                                <nb-radio nbTooltip="change type to editor" value="editor"></nb-radio>
+                            </nb-radio-group>
+                        </div>
+                        <label>{{control.label}}</label>
+                        <input *ngIf="coDocForm.get('radio'+i).value==='number'
+                            || coDocForm.get('radio'+i).value===null || coDocForm.get('radio'+i).value==='text'"
+                               class="form-control" [formControlName]="control?.controlName"
+                               [type]="coDocForm.get('radio'+i).value">
+                        <ckeditor [config]="ckeConfig" *ngIf="coDocForm.get('radio'+i).value==='editor'"
+                                  [formControlName]="control?.controlName"></ckeditor>
+                    </div>
+                </ng-container>
             </div>
         </form>
     </nb-card-body>

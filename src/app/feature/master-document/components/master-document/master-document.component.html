@@ -94,7 +94,7 @@
                             <span *ngIf="masterDoc?.status === 'INACTIVE'" class="text-success">{{masterDoc?.status}}</span>
                         </td>
                         <td>
-                            <button  (click)="onSaveGenerate(masterDoc)" nbButton size="tiny" status="success">Create</button>
+                            <button  (click)="onSaveGenerate(masterDoc)" nbButton size="tiny" status="success">Generate</button>
                             <button class="ml-2" nbButton status="danger" size="tiny" nbTooltip="Click to delete"
                                     (click)="onDelete(masterDoc?.id)">
                                 <nb-icon icon="trash-outline"></nb-icon>

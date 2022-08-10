@@ -7,6 +7,7 @@ import {CoDoc} from '../../model/co-doc';
 import {NbDialogRef} from '@nebular/theme';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {Editor} from '../../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-codocument-pop-up',
@@ -20,6 +21,7 @@ export class CodocumentPopUpComponent implements OnInit {
   controls = [];
   coDoc: CoDoc = new CoDoc();
   spinner = false;
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder,
               private coDocService: CoDocService,
@@ -42,9 +44,17 @@ export class CodocumentPopUpComponent implements OnInit {
   }
 
   buildForm() {
-    for (const control of this.controls) {
+    this.controls.forEach((control: any, index: number) => {
       this.coDocForm.addControl(control.controlName, this.formBuilder.control(undefined));
-    }
+      this.coDocForm.addControl('radio' + index, this.formBuilder.control(undefined));
+    });
+    // for (const control of this.controls) {
+    //   this.coDocForm.addControl(control.controlName, this.formBuilder.control(undefined));
+    // }
+  }
+
+  onRadioClick(formControlName: string) {
+    this.coDocForm.get(formControlName).reset();
   }
 
   onSubmit() {

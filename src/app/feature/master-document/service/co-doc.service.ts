@@ -30,4 +30,10 @@ export class CoDocService extends BaseService<any> {
     const req = ApiUtils.getRequest(url);
     return this.http.post(req.url, coDoc, {headers: req.header});
   }
+
+  public downloadCoDoc(id: number): Observable<any>  {
+    const url = `${this.getApi()}/download/${id}`;
+    const req = ApiUtils.getRequest(url);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }

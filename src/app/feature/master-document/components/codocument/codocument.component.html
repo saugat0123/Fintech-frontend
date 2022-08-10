@@ -59,7 +59,10 @@
                         <span *ngIf="coDoc?.docStatus === 'INACTIVE'" class="text-success">{{coDoc?.docStatus}}</span>
                     </td>
                     <td>
-                        <button nbButton size="tiny" status="info">Generate</button>
+                        <button nbButton size="tiny" status="info" nbTooltip="Click to download"
+                            (click)="download(coDoc?.id)">
+                            <nb-icon icon="download-outline"></nb-icon>
+                        </button>
                         <button nbButton size="tiny" status="danger" (click)="deleteCoDoc(coDoc)" nbTooltip="Click to delete">
                             <nb-icon icon="trash-outline"></nb-icon>
                         </button>
