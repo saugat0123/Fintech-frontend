@@ -1,29 +1,12 @@
-<table class="table table-condensed table-bordered table-responsive-md sb-small">
-    <tr>
-        <td>Overdraft:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Demand Loan:</td>
-    </tr>
-    <tr>
-        <td>Trust Receipt Loan:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Term Loan:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Letter of Credit:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Bank Guarantee:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Others (Please specify):</td>
-        <td></td>
-    </tr>
-</table>
+<div *ngFor="let data of customerAllLoanList;let i = index" class="col-sm-12">
+    <div class="row">
+        <div class="col-md-12">
+            <span><b>3. {{i + 1}} </b><u>{{ data?.loanType | replace:'_' :' ' + ' OF ' + data.loan.name}}
+                (<mark><em class="sb-small">Limit: Rs.{{data.proposal.proposedLimit | currencyFormatter}}
+                    , Tenure: {{data.proposal.tenureDurationInMonths}} months</em></mark>)</u> <br>
+            </span>
+            <p><strong><u>Disbursement</u></strong></p>
+            <span [innerHTML]="(data?.proposal?.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
+        </div>
+    </div>
+</div>

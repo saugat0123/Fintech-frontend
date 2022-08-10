@@ -18,6 +18,7 @@ export class AboveTenMillionComponent implements OnInit {
   @Input() isDetailedView: boolean;
   @Input() fixedAssetsData: Array<any>;
   @Input() totalProposedLimit: number;
+  @Input() isExecutive: boolean;
   isUsedForAboveTenMillion: boolean;
   proposalData;
   tempData;
@@ -41,7 +42,6 @@ export class AboveTenMillionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('loanDataHolder', this.loanDataHolder);
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.tempData = this.loanDataHolder.proposal;
       if (!ObjectUtil.isEmpty(this.tempData.data)) {

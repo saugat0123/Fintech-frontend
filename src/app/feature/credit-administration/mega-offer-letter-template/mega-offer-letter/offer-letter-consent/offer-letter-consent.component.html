@@ -1,0 +1,207 @@
+<!--todo refactor ui-->
+<div class="container nep" id="{{offerLetterConst.OFFER_LETTER_CONSENT}}">
+    <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="Saving Offer Letter Consent....">
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <form (ngSubmit)="submit()" [formGroup]="form" class="nepali" id="offerLetterConsentPrint">
+                        <div class="row">
+                            <div class="col-md-12">
+                        <p class="text-right" style="margin-top: 10px"> मिति:
+                            <input class="form-field form-control-sm nepaliFont disable-print col-3"
+                                   formControlName="date"
+                                   name="date"
+                                   placeholder=""
+                                   type="text"/>
+                            <span class="print-only nepaliFont"><strong>{{form.get('date').value ? form.get('date').value  : '========='}}</strong></span>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <p> <strong>श्री सेञ्चुरी कर्मर्सियल बैंक लिमिटेड<br>
+                                शाखा कार्यालय,<br><input class="form-field nepaliFont disable-print form-control-sm" formControlName="branchName" name="branchName"
+                                                      type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span></strong>
+                               </p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 text-center">
+                               विषय : कर्जा प्रस्तावपत्र/स्वीकृतिपत्रमा लेखिएको शर्त तथा बन्देजहरु जानकारी भई पालना गर्न तथा गराउनको लागि प्रतिवद्धता जनाएको बारे ।
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <p>महोदय, <br>
+                            </p>
+                            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;तहां <input class="form-field nepaliFont disable-print form-control-sm" formControlName="bankName" name="bankName"
+                                           type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('bankName').value ? form.get('bankName').value  : '========='}}</strong></span>
+                                लि. (यसपछि धनि <strong>बैंक</strong> भनिएको छ) बाट
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerGrandParents" name="borrowerGrandParents"
+                                                                                                 type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerGrandParents').value ? form.get('borrowerGrandParents').value  : '========='}}</strong></span>
+                                को/की नाति/नातिनी/बूहारी
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerParents" name="borrowerParents"
+                                                          type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerParents').value ? form.get('borrowerParents').value  : '========='}}</strong></span>
+                                को/की छोरा/छोरी
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerSpouse" name="borrowerSpouse"
+                                       type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerSpouse').value ? form.get('borrowerSpouse').value  : '========='}}</strong></span>को/की पत्नी/पति
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerPerDistrict" name="borrowerPerDistrict"
+                                                                           type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDistrict').value ? form.get('borrowerPerDistrict').value  : '========='}}</strong></span>जिल्ला
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerPerMun" name="borrowerPerMun"
+                                       type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerMun').value ? form.get('borrowerPerMun').value  : '========='}}</strong></span>
+                                म.न.पा./उप म.न.पा./न.पा./गा.पा./गा.वि.स., वडा नं.
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerPerWardNo" name="borrowerPerWardNo"
+                                                                                       type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWardNo').value ? form.get('borrowerPerWardNo').value  : '========='}}</strong></span>
+                                स्थायी ठेगाना भई हाल
+                                प्रदेश नं. <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerTempProvince" name="borrowerTempProvince"
+                                                  type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempProvince').value ? form.get('borrowerTempProvince').value  : '========='}}</strong></span>,
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerTempDistrict" name="borrowerTempDistrict"
+                                       type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempDistrict').value ? form.get('borrowerTempDistrict').value  : '========='}}</strong></span> जिल्ला
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerTempMun" name="borrowerTempMun"
+                                                                  type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempMun').value ? form.get('borrowerTempMun').value  : '========='}}</strong></span>
+                                म.न.पा./उप म.न.पा./न.पा./
+                                गा.पा. वडा नं.  <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerTempWardNo" name="borrowerTempWardNo"
+                                                       type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempWardNo').value ? form.get('borrowerTempWardNo').value  : '========='}}</strong></span>
+                                बस्ने बर्ष <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerAge"
+                                                  name="borrowerAge" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerAge').value ? form.get('borrowerAge').value  : '========='}}</strong></span>
+                                को/की <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerName"
+                                             name="borrowerName" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span>
+                                (ना.प्र.नंं.
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerCtznshipNo"
+                                       name="borrowerCtznshipNo" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerCtznshipNo').value ? form.get('borrowerCtznshipNo').value  : '========='}}</strong></span>
+                                , जारी मिति <input class="form-field nepaliFont disable-print form-control-sm"
+                                                  formControlName="borrowerCtznshipIssDate"
+                                                  name="borrowerCtznshipIssDate" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerCtznshipIssDate').value ? form.get('borrowerCtznshipIssDate').value  : '========='}}</strong></span>,
+                                जि.का./जिल्ला प्रशासन कार्यालय,
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                       formControlName="borrowerCtznshipIssOffice"
+                                       name="borrowerCtznshipIssOffice" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerCtznshipIssOffice').value ? form.get('borrowerCtznshipIssOffice').value  : '========='}}</strong></span>)
+                                वा प्रचलित नेपाल कानून बमोजिम
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                       formControlName="kanun"
+                                       name="kanun" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('kanun').value ? form.get('kanun').value  : '========='}}</strong></span>
+                                मा प्रा.फ.र.नं.
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                        formControlName="number"
+                                        name="number" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('number').value ? form.get('number').value  : '========='}}</strong></span>
+                                अन्र्तगत मिति <input class="form-field nepaliFont disable-print form-control-sm"
+                                                     formControlName="registerOfficeDate"
+                                                     name="registerOfficeDate" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('registerOfficeDate').value ? form.get('registerOfficeDate').value  : '========='}}</strong></span>
+                                मा दर्ता भई,
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                       formControlName="registerOfficeDis"
+                                       name="registerOfficeDis" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('registerOfficeDis').value ? form.get('registerOfficeDis').value  : '========='}}</strong></span>
+                                जिल्ला <input class="form-field nepaliFont disable-print form-control-sm"
+                                           formControlName="registerOfficeMun"
+                                           name="registerOfficeMun" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('registerOfficeMun').value ? form.get('registerOfficeMun').value  : '========='}}</strong></span>
+                                गा.पा. वडा नं. <input class="form-field nepaliFont disable-print form-control-sm"
+                                                     formControlName="registerOfficeWardNo"
+                                                     name="registerOfficeWardNo" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('registerOfficeWardNo').value ? form.get('registerOfficeWardNo').value  : '========='}}</strong></span>,
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                          formControlName="registerOfficeAddress"
+                                          name="registerOfficeAddress" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('registerOfficeAddress').value ? form.get('registerOfficeAddress').value  : '========='}}</strong></span>
+                                मा रजिष्टर्ड कार्यालय रहेको
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                       formControlName="dhito"
+                                       name="dhito" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('dhito').value ? form.get('dhito').value  : '========='}}</strong></span>
+                                (जसलाइृ यसपछि यस लिखतमा “ऋणी” भनिएको छ) को नाममा म/हामीले ब्यक्तिगत जमानतको लिखत लेखिदिने सर्त
+                                तथा आधारमा विभिन्न कर्जा शिर्षक अन्तर्गत <strong>रू.</strong>
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                        formControlName="amount"
+                                        name="amount" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('amount').value ? form.get('amount').value  : '========='}}</strong></span>
+                                <strong>(अक्षरेपी रुपैया</strong>
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                      formControlName="amountInWords"
+                                      name="amountInWords" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value  : '========='}}</strong></span>
+                                <strong>मात्र)</strong> सम्म कर्जा
+                                तथा बैंकिङ सूविधाहरु स्वीकृत भएको वा निज ऋणीले लिई आएको वा भविष्यमा लिने वा थप लिने कर्जाको सम्बन्धमा निज ऋणीको नाममा बैंकबाट चलानी नं.
+                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                       formControlName="challanNo"
+                                       name="challanNo" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('challanNo').value ? form.get('challanNo').value  : '========='}}</strong></span>
+                                अन्तर्गत मिति  <input class="form-field nepaliFont disable-print form-control-sm"
+                                               formControlName="challanDate"
+                                               name="challanDate" type="text">
+                                <span class="print-only nepaliFont"><strong>{{form.get('challanDate').value ? form.get('challanDate').value  : '========='}}</strong></span>
+                                मा जारी भएको कर्जा नविकरण/प्रस्ताव/स्वीकृति पत्रकोे प्रस्ताव/स्वीकृतिपत्रमा लेखिएको
+                                सम्पूर्ण शर्त तथा बन्देजहरुको बारेमा म/हामीलाई पुर्ण जानकारी भई सोको ब्यहोरा राम्ररी लाईन–लाईन पढी, वाची, सुनी सोको अर्थ, मतलव, परिणामसमेत
+                                जानी बूझि, सम्झी सो पत्रमा लेखिएको शर्त तथा वन्देजहरु म/हामी जमानतकर्ताले अक्षरशः पालना गर्ने सम्बन्धमा स्वीकार तथा प्रतिवद्धता जनाउंदछु/छौं तथा सोही
+                                बमोजिम निज ऋणीलाई पनि पालना गराउने कानूनी दायित्व तथा जिम्मेवारी वहन गर्दछू/छौं । साथै, ऋणीले सो कर्जा प्रस्ताव/स्वीकृतिपत्रमा लेखिए बमोजिम
+                                नगरी भाखा भित्र कर्जा नतिरी नबूझाई आलटाल, धिङ्न्याई गरे गराएमा वा सोबाट बैंकलाई कूनैपनि किसिमको हानी, नोक्सानी, क्षति, ब्याय आदि ईत्यादि
+                                भएमा वा हूने भएमा सोको सम्पूर्ण जिम्मेवारी, जवाफदेहीता तथा उत्तरदायित्व म/हामी जमानतकर्ताले लिनेछू/छौं तथा सो बमोजिमको बाँंकी बक्यौता रहे, भएको
+                                सम्पूर्ण कर्जाको रकम म/हामी जमानतदाताले नै तिर्ने बूझाउने कवूलियत गरी मेरो/हाम्रो मनोमानी, खूशीराजी, सहमति, स्वीकृति र मञ्जूरीले तपाईं बैंकको पक्षमा
+                                यो कागज लेखिदिएको छू/छौं । यसमा लेखिएको ब्यहोरा ठीक, सांचो, सत्य हो । फरक ठहरे कानून बमोजिम सहूंला बूझाउंला ।</p>
+                            </div>
+                            <div class="row" style="width: 100%">
+                                <div class="col-md-12">
+                                    <p> जमानतदाताको तर्फबाट,  <br></p>
+                                <div class="col-md-6 float-left">नामः <input class="form-field nepaliFont disable-print form-control-sm"
+                                                 formControlName="guarantorName"
+                                                 name="guarantorName" type="text">
+                                    <span class="print-only nepaliFont"><strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>
+                                    <br>
+                                    ठेगानाः <input class="form-field nepaliFont disable-print form-control-sm"
+                                                   formControlName="guarantorAddress"
+                                                   name="guarantorAddress" type="text">
+                                    <span class="print-only nepaliFont"><strong>{{form.get('guarantorAddress').value ? form.get('guarantorAddress').value  : '========='}}</strong></span>
+                                    <br><br><br>
+                                    हस्ताक्षरः...............................................<br>
+                                    मितिः <input class="form-field nepaliFont disable-print form-control-sm"
+                                                 formControlName="guarantorDate"
+                                                 name="guarantorDate" type="text">
+                                    <span class="print-only nepaliFont"><strong>{{form.get('guarantorDate').value ? form.get('guarantorDate').value  : '========='}}</strong></span>
+                                </div>
+                                <div class="col-md-6 float-left right">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th style="height: 12rem;" class="text-center"><u>दा</u></th>
+                                            <th style="height: 12rem;" class="text-center"><u>बा</u></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 disable-print text-right">
+                                <button nbButton status="success" type="submit">Save</button>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="offerLetterConsentPrint" class="mr-2 custom-color" >Print</button>
+        </nb-card-footer>
+    </nb-card>
+</div>
