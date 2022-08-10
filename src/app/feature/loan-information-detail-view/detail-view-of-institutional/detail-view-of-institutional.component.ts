@@ -75,6 +75,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   @Input() combinedLoan: LoanDataHolder [];
   toggleChecklist = [];
   toggleId = [];
+  check = false;
+  thisClient;
 
   constructor(
       private fiscalYearService: FiscalYearService,
@@ -84,6 +86,11 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.thisClient = this.loanDataHolder.loanHolder.clientType;
+    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+      this.check = true;
+    }
     this.currentIndex = this.loanDataHolder.previousList.length;
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.disable();
