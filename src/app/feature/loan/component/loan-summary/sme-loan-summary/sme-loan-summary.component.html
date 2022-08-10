@@ -184,6 +184,7 @@
                 <app-executive-summary-sme *ngIf="loaded" [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
                                            [isDetailedView]="isDetailedView"
+                                           [isExecutive]="true"
                                            [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isSaneView">
@@ -203,6 +204,7 @@
                                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
                                 <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
                                                                     [isDetailedView]="isDetailedView"
+                                                                    [isExecutive]="isExecutive"
                                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
 
                             </li>
@@ -297,6 +299,10 @@
                                 <p><strong>COVENANTS:</strong></p>
                                 <app-upto-convenants></app-upto-convenants>
                             </li>
+<!--                            <li>-->
+<!--                                <p><strong>SPECIAL COVENANTS:</strong></p>-->
+<!--                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialCovenant || 'NA'"></span>-->
+<!--                            </li>-->
                             <li>
                                 <p><strong>DISBURSEMENT MODALITY:</strong></p>
                                 <span [innerHTML]="proposalView?.disbursementCriteria || 'NA' | safeHtml"></span>
@@ -307,7 +313,7 @@
                             </li>
                             <li>
                                 <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-                                <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
+                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
                             </li>
                             <li>
                                 <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
@@ -334,12 +340,24 @@
                     </div>
                 </div>
             </ng-container>
+            <div style="page-break-after: always !important;"></div>
+            <div class="col-md-12">
+                <hr>
+                <app-summary-header [loanCategory]="loanDataHolder?.loanHolder?.customerType"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [crgCCbl]="(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)"
+                                    [isJointInfo]="loanDataHolder?.loanHolder?.isJointCustomer"
+                                    [currentDocAction]="loanDataHolder?.currentStage?.docAction?.toString()">
+                </app-summary-header>
+                <hr>
+            </div>
             <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million [loanDataHolder]="loanDataHolder"
                                       [fiscalYear]="fiscalYearArray"
                                       [isDetailedView]="isDetailedView"
                                       [totalProposed]="totalProposedLimit"
                                       [fixedAssetsData]="fixedAssetsData"
+                                      [isExecutive]="false"
                                       [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion">
@@ -348,6 +366,7 @@
                                        [isDetailedView]="isDetailedView"
                                        [fixedAssetsData]="fixedAssetsData"
                                        [fiscalYear]="fiscalYearArray"
+                                       [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
             <div style="page-break-after: always !important;"></div>

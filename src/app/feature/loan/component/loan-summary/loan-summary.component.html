@@ -126,12 +126,12 @@
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                                 ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
                             <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
-                            <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
+                            <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> <b> by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
                             ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
                             <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
                             <br>
-                            <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
-                                ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                                ? loanDataHolder?.solUser?.name + ' (' + loanDataHolder?.solUser?.role.roleName+ ')': 'NA'}}</span>
                         </div>
                         <br>
                     </div>

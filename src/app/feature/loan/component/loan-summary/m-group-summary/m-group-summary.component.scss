@@ -1,0 +1,12 @@
+ol {
+  margin-left: -50px;
+}
+
+li {
+  display: block
+}
+li:before {
+  content: counters(item, ".") "";
+  counter-increment: item;
+  margin-left: -20px;
+}

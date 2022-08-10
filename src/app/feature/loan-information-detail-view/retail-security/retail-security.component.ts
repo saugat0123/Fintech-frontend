@@ -37,6 +37,7 @@ export class RetailSecurityComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.security)) {
             this.formData = JSON.parse(this.security.data);
+            // console.log(this.formData['initialForm']['landDetails'][0].get('plotNumber'));
             if (!ObjectUtil.isEmpty(this.formData.files)) {
                 this.files = JSON.parse(this.formData.files);
             }
