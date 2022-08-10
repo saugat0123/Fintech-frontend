@@ -299,6 +299,10 @@
                                 <p><strong>COVENANTS:</strong></p>
                                 <app-upto-convenants></app-upto-convenants>
                             </li>
+<!--                            <li>-->
+<!--                                <p><strong>SPECIAL COVENANTS:</strong></p>-->
+<!--                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialCovenant || 'NA'"></span>-->
+<!--                            </li>-->
                             <li>
                                 <p><strong>DISBURSEMENT MODALITY:</strong></p>
                                 <span [innerHTML]="proposalView?.disbursementCriteria || 'NA' | safeHtml"></span>
@@ -309,7 +313,7 @@
                             </li>
                             <li>
                                 <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-                                <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
+                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
                             </li>
                             <li>
                                 <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
