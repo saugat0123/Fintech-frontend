@@ -11,7 +11,21 @@
             </ng-container>
             <!--                release and replacement-->
                 <!--                    proposed security-->
-
+            <div *ngIf="check" class="row" style="margin-top: 20px;">
+                <div class="col-md-12">
+                    <p><strong class="header text-left">Purpose of Loan</strong></p>
+                    <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                        <ng-container *ngIf="loan?.id">
+                            <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                            <ul>
+                                <li>
+                                    <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                </li>
+                            </ul>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
             <ng-container>
                 <hr class="print-line">
                 <p><strong class="header">Security Schedule</strong></p>
@@ -264,7 +278,7 @@
 <!--                        <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"-->
 <!--                                               [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
                         <hr class="print-line">
-                        <div class="row" style="margin-top: 20px;">
+                        <div *ngIf="!check" class="row" style="margin-top: 20px;">
                             <div class="col-md-12">
                                 <p><strong class="header text-left">Purpose of Loan</strong></p>
                                 <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
