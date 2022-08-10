@@ -69,6 +69,8 @@
                                        type="text"/>
                             </div>
                         </div>
+                    </div>
+                    <div class="row" *ngFor="let lo of land?.get('locationDetail')['controls']" formArrayName="locationDetail">
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label class="title" for="plotNumber">Plot No.</label>
@@ -101,6 +103,11 @@
                             </div>
                         </div>
                     </div>
+
+                    <div>
+                        <button (click)="addLocationDetail('landDetails', i)">Add More</button>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

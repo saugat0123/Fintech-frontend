@@ -459,6 +459,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     owner: [singleData.owner],
                     location: [singleData.location],
+                    locationDetail: [singleData.locationDetail],
                     plotNumber: [singleData.plotNumber],
                     areaFormat: [singleData.areaFormat],
                     area: [singleData.area],
@@ -1291,6 +1292,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             owner: ['', Validators.required],
             location: [''],
+            locationDetail: this.formBuilder.array([]),
             plotNumber: [''],
             areaFormat: [''],
             area: [''],
@@ -2349,5 +2351,19 @@ export class SecurityInitialFormComponent implements OnInit {
     }
     setFiles(event) {
         this.files = event;
+    }
+
+    addLocationDetail(securityName: string, index: number) {
+        const landDetails = this.securityForm.get([securityName, index, 'locationDetail']) as FormArray;
+        landDetails.push(this.locationDetailFormGroup());
+        console.log('securityForm', this.securityForm);
+    }
+
+    locationDetailFormGroup() {
+        return this.formBuilder.group({
+            plotNumber: [undefined],
+            areaFormat: [undefined],
+            area: [undefined],
+        });
     }
 }
