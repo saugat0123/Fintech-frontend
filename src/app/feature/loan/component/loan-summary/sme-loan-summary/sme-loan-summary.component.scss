@@ -237,6 +237,21 @@ td {
   border: 1px solid black;
   height: 190px;
 }
-ol li {
-  font-weight: bold;
+
+ol {
+  counter-reset: item;
 }
+
+ol > li {
+  counter-increment: item;
+}
+
+ol ol > li {
+  display: block;
+}
+
+ol  ol > li:before {
+  content: counters(item, ".") ".   ";
+  margin-left: -20px;
+}
+

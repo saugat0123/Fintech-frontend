@@ -14,6 +14,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() totalProposed;
   @Input() isDetailedView: boolean;
+  @Input() isExecutive: boolean;
   securityData: Object;
   shareSecurityData: ShareSecurity = new ShareSecurity();
   jsonData;
@@ -27,7 +28,7 @@ export class ExecutiveSummarySmeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.approveAuth = this.data.approvingAuthority;
     }

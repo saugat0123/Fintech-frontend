@@ -9,18 +9,18 @@
     <tbody>
     <tr>
         <th class="sb-bg-secondary text-white" style="width: 5%">Internal</th>
-        <td [innerHTML]="commentData?.previousComments | safeHtml"></td>
-        <td [innerHTML]="commentData?.previousStatus | safeHtml"></td>
+        <td [innerHTML]="commentData?.previousComments || 'NA' | safeHtml"></td>
+        <td [innerHTML]="commentData?.previousStatus || 'NA' | safeHtml"></td>
     </tr>
     <tr>
         <th class="sb-bg-secondary text-white" style="width: 5%">External</th>
-        <td [innerHTML]="commentData?.auditorComments | safeHtml"></td>
-        <td [innerHTML]="commentData?.auditorStatus | safeHtml"></td>
+        <td [innerHTML]="commentData?.auditorComments || 'NA' | safeHtml"></td>
+        <td [innerHTML]="commentData?.auditorStatus || 'NA' | safeHtml"></td>
     </tr>
     <tr>
         <th class="sb-bg-secondary text-white" style="width: 5%">NRB</th>
-        <td [innerHTML]="commentData?.nrbComments | safeHtml"></td>
-        <td [innerHTML]="commentData?.nrbStatus | safeHtml"></td>
+        <td [innerHTML]="commentData?.nrbComments || 'NA' | safeHtml"></td>
+        <td [innerHTML]="commentData?.nrbStatus || 'NA' | safeHtml"></td>
     </tr>
     </tbody>
 </table>

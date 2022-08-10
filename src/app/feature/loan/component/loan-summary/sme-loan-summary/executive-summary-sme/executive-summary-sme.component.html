@@ -1,87 +1,86 @@
-<div class="row">
-    <div class="col-md-12">
+<ol>
+    <li>
+        <p><b>PROPOSAL: </b>
+            To seek approval for providing <b>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}</b>
+            of NRP <b>{{total}}</b> to M/s <b>{{loanDataHolder?.loanHolder?.name}}</b> with details of under:</p>
+    </li>
+    <li>
+        <p><strong>APPROVING AUTHORITY:</strong>  {{this.approveAuth}}</p>
+    </li>
+    <li>
+        <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
+        <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                            [isDetailedView]="isDetailedView"
+                                            [isExecutive]="isExecutive"
+                                            [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+
+    </li>
+    <li>
+        <!-- details of the customer -->
+        <p>
+            <strong>DETAILS OF THE CUSTOMER:</strong><br>
+            <app-upto-details-of-the-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                              [loanDataHolder]="loanDataHolder"></app-upto-details-of-the-customer>
+        </p>
+    </li>
+
+    <li>
+        <!-- Proposal-view of the customer -->
+        <p>
+            <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong><br>
+            <app-proposal-summary *ngIf="loanDataHolder?.proposal else noCurrentStatus"
+                                  [loanDataHolder]="loanDataHolder"
+                                  [customerAllLoanList]="customerAllLoanList"
+                                  [proposalData]="loanDataHolder?.proposal"></app-proposal-summary>
+            <ng-template #noCurrentStatus>Not Available</ng-template>
+        </p>
+    </li>
+    <li>
+        <!-- Security Summary -->
+        <p>
+            <strong>SECURITY ARRANGEMENT</strong><br>
+            <app-security-summary *ngIf="loanDataHolder?.security else noSecurity"
+                                  [security]="loanDataHolder?.loanHolder?.security"
+                                  [shareSecurity]="loanDataHolder?.shareSecurity"
+                                  [docStatus]="loanDataHolder?.documentStatus"></app-security-summary>
+            <!--                    <app-retail-security *ngIf="loanDataHolder?.security else noSecurity"-->
+            <!--                                         [security]="loanDataHolder?.loanHolder?.security"-->
+            <!--                                         [loanDataHolder]="loanDataHolder"></app-retail-security>-->
+            <ng-template #noSecurity>Not Available</ng-template>
+        </p>
+    </li>
+    <li>
+        <!-- Key financial -->
+        <strong>KEY FINANCIAL FIGURES</strong><br>
+        <div class="row" *ngIf="financialCCBL?.data?.financialFigure else noKey">
+            <br>
+            <div class="col-md-12">
+                <table style="width: 100%" [innerHTML]="financialCCBL?.data?.financialFigure | safeHtml"></table>
+            </div>
+        </div>
+        <ng-template #noKey>Not Available</ng-template>
+    </li>
+
+    <li>
+        <!-- group position-->
+        <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
+        as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
+        ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b><br>
         <ol>
-            <li>
-                <p><b>PROPOSAL: </b>
-                    To seek approval for providing <b>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_' : ' '}}</b>
-                    of NRP <b>{{total}}</b> to M/s <b>{{loanDataHolder?.loanHolder?.name}}</b> with details of under:</p>
-            </li>
-            <li>
-                <p><strong>APPROVING AUTHORITY:</strong>  {{this.approveAuth}}</p>
-            </li>
-            <li>
-                <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
-                <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
-                                                    [isDetailedView]="isDetailedView"
-                                                    [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
-
-            </li>
-            <li>
-                <!-- details of the customer -->
-                <p>
-                    <strong>DETAILS OF THE CUSTOMER:</strong><br>
-                    <app-upto-details-of-the-customer [companyInfo]="loanDataHolder?.companyInfo"
-                                                      [loanDataHolder]="loanDataHolder"></app-upto-details-of-the-customer>
-                </p>
-            </li>
-
-            <li>
-                <!-- Proposal-view of the customer -->
-                <p>
-                    <strong>CURRENT STATUS AND PRESENT PROPOSAL</strong><br>
-                    <app-proposal-summary *ngIf="loanDataHolder?.proposal else noCurrentStatus"
-                                          [loanDataHolder]="loanDataHolder"
-                                          [customerAllLoanList]="customerAllLoanList"
-                                          [proposalData]="loanDataHolder?.proposal"></app-proposal-summary>
-                    <ng-template #noCurrentStatus>Not Available</ng-template>
-                </p>
-            </li>
-            <li>
-                <!-- Security Summary -->
-                <p>
-                    <strong>SECURITY ARRANGEMENT</strong><br>
-                    <app-security-summary *ngIf="loanDataHolder?.security else noSecurity"
-                                          [security]="loanDataHolder?.loanHolder?.security"
-                                          [shareSecurity]="loanDataHolder?.shareSecurity"
-                                          [docStatus]="loanDataHolder?.documentStatus"></app-security-summary>
-<!--                    <app-retail-security *ngIf="loanDataHolder?.security else noSecurity"-->
-<!--                                         [security]="loanDataHolder?.loanHolder?.security"-->
-<!--                                         [loanDataHolder]="loanDataHolder"></app-retail-security>-->
-                    <ng-template #noSecurity>Not Available</ng-template>
-                </p>
-            </li>
-            <li>
-                <!-- Key financial -->
-                <strong>KEY FINANCIAL FIGURES</strong><br>
-                <div class="row" *ngIf="financialCCBL?.data?.financialFigure else noKey">
-                    <br>
-                    <div class="col-md-12">
-                        <table style="width: 100%" [innerHTML]="financialCCBL?.data?.financialFigure | safeHtml"></table>
-                    </div>
-                </div>
-                <ng-template #noKey>Not Available</ng-template>
-            </li>
-
-            <li>
-                <!-- group position-->
-                <strong>GROUP POSITION <em>(including the present proposal)</em></strong>
-                as of <b>{{loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate
-                ? (loanDataHolder?.loanHolder?.mgroupInfo?.groupExposureDate | date) : 'NA'}}</b><br>
-                <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.mgroupInfo else noGroup"
-                                     [customerCategory]="'executing'"
-                                     [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"
-                                     [customerType]="loanDataHolder?.loanHolder?.customerType">
-                </app-m-group-summary>
-                <ng-template #noGroup>Not Available</ng-template>
-            </li>
-
-            <li>
-                <!-- signature -->
-                <p>
-                    <strong>RECOMMENDATIONS, REVIEW, AND APPROVAL</strong><br>
-                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
-                </p>
-            </li>
+            <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.mgroupInfo else noGroup"
+                                 [customerCategory]="'executing'"
+                                 [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"
+                                 [customerType]="loanDataHolder?.loanHolder?.customerType">
+            </app-m-group-summary>
         </ol>
-    </div>
-</div>
+        <ng-template #noGroup>Not Available</ng-template>
+    </li>
+
+    <li>
+        <!-- signature -->
+        <p>
+            <strong>RECOMMENDATIONS, REVIEW, AND APPROVAL</strong><br>
+            <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+        </p>
+    </li>
+</ol>

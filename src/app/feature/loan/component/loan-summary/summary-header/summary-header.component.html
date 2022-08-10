@@ -1,0 +1,108 @@
+<div style="page-break-before: always">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Loan Status:</strong>
+                <span class="badge badge-info ml-1" style="font-size: 13px;line-height: 1.9em">
+                                    {{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
+            </div>
+            <div class="col-md-6" style="text-align: center">
+                <div class="report-header">
+                    <div class="report-header-heading mb-2">{{client}}</div>
+                    <div class="report-header-sub-heading">
+                        <span>Credit Facilities Report</span>
+                        <br>
+                        <span> for </span>
+                    </div>
+                    <div *ngIf="!isJointInfo">
+                        <span class="report-header-sub-heading"><strong>
+                                {{loanCategory === 'INSTITUTION' ?
+                        loanDataHolder?.companyInfo?.companyName
+                        : loanDataHolder?.customerInfo?.customerName}} ({{loanCategory}})
+                            </strong> </span>
+                    </div>
+                    <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                        <div *ngFor="let jointCustomer of jointInfo">
+                            <ng-container *ngFor="let info of jointCustomer">
+                                <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                    loanDataHolder?.companyInfo?.companyName :
+                                    info?.customerName}} ({{loanCategory}})</span><br/>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="report-header-sub-heading mt-1 ml-1 mb-1">{{loanDataHolder?.branch?.name}} Branch
+                        ,
+                        {{loanDataHolder?.branch?.province?.name}}</div>
+                    <div class="badge badge-warning mt-2 p-1">Detailed View</div>
+                </div>
+            </div>
+            <div class="col-md-3 text-right">
+                <img class="report-log img-thumbnail border-0" alt="logo"
+                     src="../../../../../assets/img/logo.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 sb-small">
+        <div class="clearfix">
+            <div class="float-left">
+                <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
+                <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
+                    ({{loanDataHolder?.createdAt | engNepDate: false}})</span><br>
+                <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
+            </div>
+            <div class="float-right">
+                <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
+                <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                    ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
+                <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
+                <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span>
+                <b>by:</b> {{loanDataHolder?.currentStage?.fromUser?.name}}
+                ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
+                <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
+                ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
+                <br>
+                <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                    ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+
+<!-- CRG - Gamma-->
+<div *ngIf="loanDataHolder?.loanHolder?.crgCcbl" class="col-md-12 d-print-block">
+    <hr>
+    <nb-card class="sb-medium">
+        <nb-card-header class="text-center">
+            <h6>Counter Party Risk Rating</h6>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-6 text-right">
+                    <app-gauge-chart [chartHeight]="180" [chartWidth]="275" [maxValue]="100"
+                                     [obtainedValue]="crgCCbl?.data"
+                                     gaugeIdentifier="detail-crg-gamma"></app-gauge-chart>
+                </div>
+                <div class="col-md-6 gauge-label-padding">
+                    <div class="vertical-line">
+                        <div class="text-left pl-2">
+                            Risk Scoring:
+                            <span><strong>{{crgCCbl?.data}}</strong></span>
+                        </div>
+                        <div class="text-left pl-2">
+                            CCBL Rating:
+                            <span><strong> {{crgCCbl?.thresholdPoint }}</strong></span>
+                        </div>
+                        <div class="text-left pl-2">
+                            Outcome:
+                            <span><strong> {{crgCCbl?.thresholdOutcome }}</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</div>
