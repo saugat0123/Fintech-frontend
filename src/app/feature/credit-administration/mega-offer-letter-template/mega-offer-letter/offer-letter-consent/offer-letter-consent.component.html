@@ -41,18 +41,19 @@
                                 लि. (यसपछि धनि <strong>बैंक</strong> भनिएको छ) बाट
                                 <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerGrandParents" name="borrowerGrandParents"
                                                                                                  type="text">
-                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerGrandParents').value ? form.get('borrowerGrandParents').value  : '========='}}</strong></span>
-                                को/की नाति/नातिनी/बूहारी
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerGrandParents').value ? form.get('borrowerGrandParents').value  : '========='}}</strong></span>को/की
+                                नाति/नातिनी/बूहारी
                                 <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerParents" name="borrowerParents"
                                                           type="text">
-                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerParents').value ? form.get('borrowerParents').value  : '========='}}</strong></span>
-                                को/की छोरा/छोरी
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerParents').value ? form.get('borrowerParents').value  : '========='}}</strong></span>को/की
+                                छोरा/छोरी
                                 <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerSpouse" name="borrowerSpouse"
                                        type="text">
                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerSpouse').value ? form.get('borrowerSpouse').value  : '========='}}</strong></span>को/की पत्नी/पति
                                 <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerPerDistrict" name="borrowerPerDistrict"
                                                                            type="text">
-                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDistrict').value ? form.get('borrowerPerDistrict').value  : '========='}}</strong></span>जिल्ला
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDistrict').value ? form.get('borrowerPerDistrict').value  : '========='}}</strong></span>
+                                जिल्ला
                                 <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerPerMun" name="borrowerPerMun"
                                        type="text">
                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerMun').value ? form.get('borrowerPerMun').value  : '========='}}</strong></span>
@@ -76,15 +77,15 @@
                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempWardNo').value ? form.get('borrowerTempWardNo').value  : '========='}}</strong></span>
                                 बस्ने बर्ष <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerAge"
                                                   name="borrowerAge" type="text">
-                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerAge').value ? form.get('borrowerAge').value  : '========='}}</strong></span>
-                                को/की <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerName"
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerAge').value ? form.get('borrowerAge').value  : '========='}}</strong></span>को/की
+                                <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerName"
                                              name="borrowerName" type="text">
                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span>
                                 (ना.प्र.नंं.
                                 <input class="form-field nepaliFont disable-print form-control-sm" formControlName="borrowerCtznshipNo"
                                        name="borrowerCtznshipNo" type="text">
-                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerCtznshipNo').value ? form.get('borrowerCtznshipNo').value  : '========='}}</strong></span>
-                                , जारी मिति <input class="form-field nepaliFont disable-print form-control-sm"
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerCtznshipNo').value ? form.get('borrowerCtznshipNo').value  : '========='}}</strong></span>,
+                                जारी मिति <input class="form-field nepaliFont disable-print form-control-sm"
                                                   formControlName="borrowerCtznshipIssDate"
                                                   name="borrowerCtznshipIssDate" type="text">
                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerCtznshipIssDate').value ? form.get('borrowerCtznshipIssDate').value  : '========='}}</strong></span>,
@@ -131,16 +132,15 @@
                                 <span class="print-only nepaliFont"><strong>{{form.get('dhito').value ? form.get('dhito').value  : '========='}}</strong></span>
                                 (जसलाइृ यसपछि यस लिखतमा “ऋणी” भनिएको छ) को नाममा म/हामीले ब्यक्तिगत जमानतको लिखत लेखिदिने सर्त
                                 तथा आधारमा विभिन्न कर्जा शिर्षक अन्तर्गत <strong>रू.</strong>
-                                <input class="form-field nepaliFont disable-print form-control-sm"
-                                        formControlName="amount"
-                                        name="amount" type="text">
+                                <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                                  [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
                                 <span class="print-only nepaliFont"><strong>{{form.get('amount').value ? form.get('amount').value  : '========='}}</strong></span>
                                 <strong>(अक्षरेपी रुपैया</strong>
-                                <input class="form-field nepaliFont disable-print form-control-sm"
+                                <input class="form-field preetiFont size18 disable-print form-control-sm"
                                       formControlName="amountInWords"
                                       name="amountInWords" type="text">
-                                <span class="print-only nepaliFont"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value  : '========='}}</strong></span>
-                                <strong>मात्र)</strong> सम्म कर्जा
+                                <span class="print-only preetiFont size18"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value  : '========='}}</strong></span>
+                                <strong> मात्र)</strong> सम्म कर्जा
                                 तथा बैंकिङ सूविधाहरु स्वीकृत भएको वा निज ऋणीले लिई आएको वा भविष्यमा लिने वा थप लिने कर्जाको सम्बन्धमा निज ऋणीको नाममा बैंकबाट चलानी नं.
                                 <input class="form-field nepaliFont disable-print form-control-sm"
                                        formControlName="challanNo"
