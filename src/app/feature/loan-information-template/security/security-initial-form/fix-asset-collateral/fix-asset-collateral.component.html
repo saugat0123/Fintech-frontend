@@ -396,6 +396,13 @@
                                 <option value="NO">No</option>
                             </select>
                         </div>
+
+                        <div class="col-md-4 form-group" *ngIf="fixedAssetsForm?.get('roadSetbacks')?.value === 'YES'">
+                            <label class="title" for="roadComment">Road setback comment</label>
+                            <input class="form-control" formControlName="roadComment" id="roadComment"
+                                   name="roadComment" placeholder="Road setback comment">
+                        </div>
+
                         <div class="col-md-4 form-group">
                             <label class="title" for="riverOrCanalSetbacks">Any river/canal setbacks?</label>
                             <select class="custom-select" formControlName="riverOrCanalSetbacks"
@@ -406,6 +413,13 @@
                                 <option value="NO">No</option>
                             </select>
                         </div>
+
+                        <div class="col-md-4 form-group" *ngIf="fixedAssetsForm?.get('riverOrCanalSetbacks')?.value === 'YES'">
+                            <label class="title" for="riverCanalComment">River/canal setback comment</label>
+                            <input class="form-control" formControlName="riverCanalComment" id="riverCanalComment"
+                                   name="riverCanalComment" placeholder="River/Canal Comment">
+                        </div>
+
                         <div class="col-md-4 form-group">
                             <label class="title" for="highTensionSetbacks">Any High-tension setbacks?</label>
                             <select class="custom-select" formControlName="highTensionSetbacks"
@@ -415,6 +429,12 @@
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
                             </select>
+                        </div>
+
+                        <div class="col-md-4 form-group" *ngIf="fixedAssetsForm?.get('highTensionSetbacks')?.value === 'YES'">
+                            <label class="title" for="highTensionComment">High-tension setback comment</label>
+                            <input class="form-control" formControlName="highTensionComment" id="highTensionComment"
+                                   name="highTensionComment" placeholder="High-tension setback comment">
                         </div>
 
                         <h5 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h5>
@@ -469,7 +489,7 @@
                                     <tr class="text-white sb-bg-dark">
                                         <th>Particulars</th>
                                         <th>Plot No.</th>
-                                        <th>Area (sq meter etc.)</th>
+                                        <th>Area</th>
                                         <th>MV</th>
                                         <th>FMV</th>
                                         <th>DV</th>

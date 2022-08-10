@@ -217,8 +217,8 @@
                             <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
                             ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
                             <br>
-                            <span *ngIf="loanDataHolder?.isSol"><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
-                                ? loanDataHolder?.solUser?.name : 'NA'}}</span>
+                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name
+                                ? loanDataHolder?.solUser?.name + ' (' + loanDataHolder?.solUser?.role.roleName+ ')': 'NA'}}</span>
                         </div>
                         <br>
                     </div>
