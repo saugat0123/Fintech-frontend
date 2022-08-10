@@ -70,10 +70,12 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.buildSccForm();
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
-      if (this.sccData.drawDownDetails.length > 0) {
-        this.sccData.drawDownDetails.forEach(val => {
-          this.setDrawDownDetail(val);
-        });
+      if (!ObjectUtil.isEmpty(this.sccData.drawDownDetails)) {
+        if (this.sccData.drawDownDetails.length > 0) {
+          this.sccData.drawDownDetails.forEach(val => {
+            this.setDrawDownDetail(val);
+          });
+        }
       } else {
         this.addDrawDownDetail();
       }
