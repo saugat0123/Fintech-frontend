@@ -65,10 +65,10 @@
         </td>
         <ng-container *ngIf="multiBankingData?.consortium">
             <td>{{multiBankingData?.consortium[0]?.coBankName}}</td>
-            <td>{{multiBankingData?.consortium[0]?.funded}}</td>
-            <td>{{multiBankingData?.consortium[0]?.nonFunded}}</td>
-            <td>{{multiBankingData?.consortium[0]?.termLoan}}</td>
-            <td>{{multiBankingData?.consortium[0]?.total}}</td>
+            <td>{{multiBankingData?.consortium[0]?.funded | currencyFormatter}}</td>
+            <td>{{multiBankingData?.consortium[0]?.nonFunded | currencyFormatter}}</td>
+            <td>{{multiBankingData?.consortium[0]?.termLoan | currencyFormatter}}</td>
+            <td>{{multiBankingData?.consortium[0]?.total | currencyFormatter}}</td>
         </ng-container>
 
     </tr>
@@ -77,10 +77,10 @@
         <td colspan="2">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.esrmRating}}</td>
         <ng-container *ngIf="multiBankingData?.consortium">
             <td>{{multiBankingData?.consortium[1]?.coBankName}}</td>
-            <td>{{multiBankingData?.consortium[1]?.funded}}</td>
-            <td>{{multiBankingData?.consortium[1]?.nonFunded}}</td>
-            <td>{{multiBankingData?.consortium[1]?.termLoan}}</td>
-            <td>{{multiBankingData?.consortium[1]?.total}}</td>
+            <td>{{multiBankingData?.consortium[1]?.funded | currencyFormatter}}</td>
+            <td>{{multiBankingData?.consortium[1]?.nonFunded | currencyFormatter}}</td>
+            <td>{{multiBankingData?.consortium[1]?.termLoan | currencyFormatter}}</td>
+            <td>{{multiBankingData?.consortium[1]?.total | currencyFormatter}}</td>
         </ng-container>
     </tr>
     </tbody>
@@ -88,10 +88,10 @@
     <tr>
         <td colspan="3"><b>Rating/NRB Classification/risk weight</b></td>
         <td><b>Total</b></td>
-        <td>{{multiBankingData?.totalFunded}}</td>
-        <td>{{multiBankingData?.totalNonFunded}}</td>
-        <td>{{multiBankingData?.totalTermLoan}}</td>
-        <td>{{multiBankingData?.totalTotal}}</td>
+        <td>{{multiBankingData?.totalFunded | currencyFormatter}}</td>
+        <td>{{multiBankingData?.totalNonFunded | currencyFormatter}}</td>
+        <td>{{multiBankingData?.totalTermLoan | currencyFormatter}}</td>
+        <td>{{multiBankingData?.totalTotal | currencyFormatter}}</td>
     </tr>
     <tbody>
     <tr>

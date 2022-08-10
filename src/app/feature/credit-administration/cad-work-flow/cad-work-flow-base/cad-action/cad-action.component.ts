@@ -20,8 +20,12 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CadStage} from '../../../model/cadStage';
 import {RoleType} from '../../../../admin/modal/roleType';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
+import {
+    SecurityComplianceCertificateComponent
+} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {DmsLoanFileComponent} from '../../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
+import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-cad-action',
@@ -85,6 +89,9 @@ export class CadActionComponent implements OnInit, OnChanges {
     selectedTemplate;
     commentVar;
     unAssign = false;
+    checked = false;
+    pathValueData;
+
     constructor(private router: ActivatedRoute,
                 private route: Router,
                 private loanActionService: LoanActionService,
@@ -100,10 +107,12 @@ export class CadActionComponent implements OnInit, OnChanges {
                 private socketService: SocketService,
                 private routerUtilsService: RouterUtilsService,
                 private nbDialogService: NbDialogService,
+                private loanFormService: LoanFormService,
     ) {
     }
 
     ngOnInit() {
+        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
@@ -136,21 +145,17 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onSubmit(templateLogin) {
-        console.log(this.formAction);
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
         }
-
         this.onClose();
         this.closeNb();
         this.modalService.open(templateLogin);
         this.isOpened = false;
         this.isActionClicked.emit(this.isOpened);
-
-
     }
 
 
@@ -236,7 +241,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public getUserList(role) {
         this.userList = [];
-        console.log(this.formAction);
         if (role.roleType === RoleType.CAD_LEGAL) {
             this.formAction.patchValue({
                 toRole: role
@@ -279,6 +283,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
+                    screenShotDocPath: [undefined]
                 }
             );
             const approvalType = 'CAD';
@@ -289,10 +294,6 @@ export class CadActionComponent implements OnInit, OnChanges {
                     this.sendForwardBackwardList = [];
                     this.sendForwardBackwardList = response.detail;
                     if (this.sendForwardBackwardList.length !== 0) {
-
-                        if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
-                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
-                        }
                         this.getUserList(this.sendForwardBackwardList[0].role);
                     }
                 });
@@ -313,7 +314,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
-                    toRole: [undefined]
+                    toRole: [undefined],
+                    screenShotDocPath: [undefined]
 
                 }
             );
@@ -327,7 +329,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
-                    toRole: [undefined]
+                    toRole: [undefined],
+                    screenShotDocPath: [undefined]
                 }
             );
 
@@ -368,6 +371,8 @@ export class CadActionComponent implements OnInit, OnChanges {
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
             return 'DISBURSEMENT_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'OFFER_PENDING';
         } else {
             return this.currentStatus;
         }
@@ -377,15 +382,23 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public backwardTooltipMessageAndShowHideBackward() {
         const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
-        // tslint:disable-next-line:max-line-length
-        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN) || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
+        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN)
+            || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
             this.isBackwardDisabled = true;
-
         } else {
             this.backwardToolTip = 'return file to ' + user;
         }
         if (this.currentCADStage.fromRole.roleType === this.roleType.MAKER) {
             this.showHideReturnToRm = false;
+        }
+        if (this.currentCADStage.docAction === 'PULLED') {
+            this.isBackwardDisabled = false;
+        } else if (this.currentCADStage.docAction === 'ASSIGNED') {
+            this.isBackwardDisabled = true;
+        } else {
+            if (this.isMaker) {
+                this.isBackwardDisabled = true;
+            }
         }
     }
 
@@ -409,4 +422,49 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
 
+    uploadSignature(event) {
+        const file: File[] = event.target.files;
+        const formData: FormData = new FormData();
+        for (let i = 0; i < file.length; i++) {
+            if (file[i].size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+                this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size is 5MB'));
+                return;
+            }
+            formData.append('file', file[i]);
+        }
+        formData.append('cadId', this.cadId.toString());
+        formData.append('branchId', this.cadOfferLetterApprovedDoc.loanHolder.branch.id.toString());
+        formData.append('customerType', this.cadOfferLetterApprovedDoc.loanHolder.customerType);
+        formData.append('customerInfoId', this.cadOfferLetterApprovedDoc.loanHolder.id.toString());
+        formData.append('uploadedDoc', (this.pathValueData === undefined ? '' : this.pathValueData));
+        this.cadService.uploadCadScreeShotFile(formData).subscribe((res: any) => {
+            this.checked = true;
+            this.pathValueData = res.detail;
+            this.formAction.patchValue({
+                screenShotDocPath: res.detail.toString()
+            });
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Upload file' + error.error.message));
+        });
+    }
+
+    previewDoc(url: any) {
+        const link = document.createElement('a');
+        link.target = '_blank';
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
+        link.setAttribute('visibility', 'hidden');
+        link.click();
+    }
+
+    deleteDocument(index: number) {
+        this.loanFormService.deleteCustomerDocFromSystem(this.pathValueData[index]).subscribe((res: any) => {
+            delete this.pathValueData[index];
+            this.pathValueData.splice(index, 1);
+        }, error => {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Unable to delete document!'));
+        });
+        if (this.pathValueData.length < 1) {
+            this.checked = false;
+        }
+    }
 }

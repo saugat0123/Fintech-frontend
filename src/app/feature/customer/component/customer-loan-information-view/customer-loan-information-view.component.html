@@ -334,7 +334,7 @@
             <nb-card-body>
               <span *ngIf="customerInfo?.commonLoanData; else noCD">
               <p class="text-uppercase"><strong>The Bank's SOL</strong></p>
-              <p>The Bank’s core capital stood at {{nrpValue ? nrpValue : 'NPR .......... billion'}} as on
+              <p>The Bank’s core capital stood at {{nrpValue ? (nrpValue | currencyFormatter) : 'NPR .......... billion'}} as on
                 {{asOnDate ? (asOnDate | date) : '.............'}} ; {{(customerInfo?.commonLoanData | jsonParse)?.solText ? (customerInfo?.commonLoanData | jsonParse)?.solText : '______________'}}</p>
               <p><strong>APPROVING AUTHORITY:</strong> {{(customerInfo?.commonLoanData | jsonParse)?.approvingAuthority}}</p>
               <p class="text-uppercase"><strong>Special Covenants/Conditions, if any:</strong></p>

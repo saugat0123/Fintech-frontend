@@ -776,9 +776,9 @@ export class ProposalComponent implements OnInit {
           interestAmount = 0;
       }
       if (key === 'INTEREST') {
-        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(8)));
+        this.proposalForm.get('interestAmount').patchValue(Number((interestAmount).toFixed(2)));
       }if (key === 'PRINCIPAL') {
-        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(8)));
+        this.proposalForm.get('principalAmount').patchValue(Number((principleAmount).toFixed(2)));
       }
     }
   }

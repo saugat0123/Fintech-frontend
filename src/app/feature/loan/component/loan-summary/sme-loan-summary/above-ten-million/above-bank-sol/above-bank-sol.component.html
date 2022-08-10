@@ -1,2 +1,1 @@
-<p>The Bank’s core capital stood at {{nrpValue ? nrpValue : 'NPR .......... billion'}} as on
-    {{asOnDate ? (asOnDate | date) : '.............'}} ; {{commonData?.solText ? commonData?.solText : '______________'}}</p>
+<span [innerHTML]="commonData?.solText || 'NA' | safeHtml"></span>
