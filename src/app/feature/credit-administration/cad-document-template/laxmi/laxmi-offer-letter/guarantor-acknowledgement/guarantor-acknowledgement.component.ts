@@ -24,6 +24,8 @@ export class GuarantorAcknowledgementComponent implements OnInit {
   spinner = false;
   initialInfoPrint;
   cadCheckListEnum = CadCheckListTemplateEnum;
+  loanCategory;
+  customerData;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -35,20 +37,27 @@ export class GuarantorAcknowledgementComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.initialInfoPrint = singleCadFile.initialInformation;
+          this.initialInfoPrint = JSON.parse(singleCadFile.supportedInformation);
         }
       });
     }
-    if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
-      this.form.patchValue(JSON.parse(this.initialInfoPrint));
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.customerData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.fillForm();
   }
-  private buildForm() {
+  buildForm() {
     this.form = this.formBuilder.group({
       branch: [undefined],
+      individualPermissionProviderName: [undefined],
+      permissionProviderName: [undefined],
+      authorizedPersonName: [undefined],
       shanakhatWitnessBranch: [undefined],
       shanakhatWitnessPosition: [undefined],
       shanakhatWitnessName: [undefined],
@@ -59,6 +68,38 @@ export class GuarantorAcknowledgementComponent implements OnInit {
       shuvam: [undefined]
     });
   }
+  setFreeText() {
+    const freeText = {
+      individualPermissionProviderName: this.form.get('individualPermissionProviderName') ? this.form.get('individualPermissionProviderName').value : '',
+      permissionProviderName: this.form.get('permissionProviderName') ? this.form.get('permissionProviderName').value : '',
+      authorizedPersonName: this.form.get('authorizedPersonName') ? this.form.get('authorizedPersonName').value : '',
+      shanakhatWitnessBranch: this.form.get('shanakhatWitnessBranch') ? this.form.get('shanakhatWitnessBranch').value : '',
+      shanakhatWitnessPosition: this.form.get('shanakhatWitnessPosition') ? this.form.get('shanakhatWitnessPosition').value : '',
+      shanakhatWitnessName: this.form.get('shanakhatWitnessName') ? this.form.get('shanakhatWitnessName').value : '',
+      year: this.form.get('year') ? this.form.get('year').value : '',
+      month: this.form.get('month') ? this.form.get('month').value : '',
+      day: this.form.get('day') ? this.form.get('day').value : '',
+      roj: this.form.get('roj') ? this.form.get('roj').value : '',
+      shuvam: this.form.get('shuvam') ? this.form.get('shuvam').value : ''
+    };
+    return JSON.stringify(freeText);
+  }
+  fillForm() {
+    this.form.patchValue({
+      branch: this.customerData.branchDetail ? this.customerData.branchDetail.branchNameInNepali : '',
+      individualPermissionProviderName: this.initialInfoPrint ? this.initialInfoPrint.individualPermissionProviderName : '',
+      permissionProviderName: this.initialInfoPrint ? this.initialInfoPrint.permissionProviderName : '',
+      authorizedPersonName: this.initialInfoPrint ? this.initialInfoPrint.authorizedPersonName : '',
+      shanakhatWitnessBranch: this.initialInfoPrint ? this.initialInfoPrint.shanakhatWitnessBranch : '',
+      shanakhatWitnessPosition: this.initialInfoPrint ? this.initialInfoPrint.shanakhatWitnessPosition : '',
+      shanakhatWitnessName: this.initialInfoPrint ? this.initialInfoPrint.shanakhatWitnessName : '',
+      year: this.initialInfoPrint ? this.initialInfoPrint.year : '',
+      month: this.initialInfoPrint ? this.initialInfoPrint.month : '',
+      day: this.initialInfoPrint ? this.initialInfoPrint.day : '',
+      roj: this.initialInfoPrint ? this.initialInfoPrint.roj : '',
+      shuvam: this.initialInfoPrint ? this.initialInfoPrint.shuvam : ''
+    });
+  }
   submit() {
     this.spinner = true;
     let flag = true;
@@ -66,13 +107,13 @@ export class GuarantorAcknowledgementComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          singleCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
+        cadFile.supportedInformation = this.setFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -81,7 +122,7 @@ export class GuarantorAcknowledgementComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
+      cadFile.supportedInformation = this.setFreeText();
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
