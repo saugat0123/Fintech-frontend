@@ -9,6 +9,7 @@ import {DisbursementPendingComponent} from './component/disbursement/disbursemen
 import {DisbursementApprovedComponent} from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import {CadDocumentListComponent} from './component/cad-document-list/cad-document-list.component';
 import {CadSummaryComponent} from './cad-work-flow/cad-summary/cad-summary.component';
+import {DiscrepancyPendingComponent} from './component/discrepancy-pending/discrepancy-pending.component';
 
 /** Always add new route to RouteConst.ts file as a static route Variable **/
 export const routes: Routes = [
@@ -18,6 +19,7 @@ export const routes: Routes = [
     {path: 'legal-approved', component: LegalReviewApprovedComponent},
     {path: 'disbursement-pending', component: DisbursementPendingComponent},
     {path: 'disbursement-approved', component: DisbursementApprovedComponent},
+    {path: 'discrepancy/:type', component: DiscrepancyPendingComponent},
     {path: 'offer-letter-profile', component: LegalAndDisbursementComponent},
     {path: 'cad-documents', component: CadDocumentListComponent},
     {path: 'cad-summary/:id', component: CadSummaryComponent},
