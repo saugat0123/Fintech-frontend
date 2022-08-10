@@ -101,7 +101,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     subSector = [];
     relationArray: RelationshipList = new RelationshipList();
     public genderPairs = EnumUtils.pairs(Gender);
-    maritalStatusEnum = MaritalStatus;
+    maritalStatusEnum = MaritalStatus.enumObject();
     placeHolderForMaritalStatus;
     individualJsonData: IndividualJsonData = new IndividualJsonData();
 
@@ -695,5 +695,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     setValue($event: any) {
         this.basicInfo.get('introduction').patchValue($event);
         console.log(this.basicInfo.value);
+    }
+
+    checkValue(value: any) {
+        console.log('maritalStatusEnum maritalStatusEnum', this.maritalStatusEnum);
+        console.log('value value', value);
     }
 }
