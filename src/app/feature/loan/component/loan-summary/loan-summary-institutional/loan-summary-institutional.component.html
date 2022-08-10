@@ -90,9 +90,9 @@
                                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
                                    class="col-md-12 text-left"><strong class="header">Financial</strong></p>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
-                                                              [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
+                                                              [summaryOnly]="true" [financialJson]="financial ?  (financial['executiveSummaryData'] | jsonParse) : ''"  [title]="'executiveSummaryData'"></app-financial-json-parser>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
-                                                              [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
+                                                              [summaryOnly]="true" [financialJson]="financial ? (financial['cashFlowData'] | jsonParse) : ''"  [title]="'cashFlowData'"></app-financial-json-parser>
                            </div>
                            </ng-template>
                            <ng-container *ngIf="!smallBusiness">

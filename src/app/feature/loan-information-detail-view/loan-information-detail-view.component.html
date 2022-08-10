@@ -87,30 +87,7 @@
                                     </table>
                                 </div>
                                 <br/>
-                                <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date: asd</strong>
-                                    <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
-                                        <thead>
-                                        <tr class="sb-bg-gray">
-                                            <td>Facility Name</td>
-                                            <td>Last Review Date</td>
-                                            <td>Next Review Date</td>
-                                        </tr>
-                                        </thead>
-                                        <tr *ngFor="let allLoan of allLoanList">
-                                            <ng-container *ngIf="allLoan?.reviewDate?.data">
-                                                <td>
-                                                    {{allLoan?.loan?.name}}
-                                                </td>
-                                                <td>
-                                                    <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
-                                                </td>
-                                                <td>
-                                                    <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
-                                                </td>
-                                            </ng-container>
-                                        </tr>
-                                    </table>
-                                </div>
+
                                 <br>
 
                                 <!--<strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>
@@ -168,6 +145,30 @@
                         <b> on:</b> {{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
                     </span>
                                 </div>
+                            </div>
+                            <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date: </strong>
+                                <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
+                                    <thead>
+                                    <tr class="sb-bg-gray">
+                                        <td>Facility Name</td>
+                                        <td>Last Review Date</td>
+                                        <td>Next Review Date</td>
+                                    </tr>
+                                    </thead>
+                                    <tr *ngFor="let allLoan of allLoanList">
+                                        <ng-container *ngIf="allLoan?.reviewDate?.data">
+                                            <td>
+                                                {{allLoan?.loan?.name}}
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </table>
                             </div>
                             <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
                             <span><strong>Review Date: </strong>

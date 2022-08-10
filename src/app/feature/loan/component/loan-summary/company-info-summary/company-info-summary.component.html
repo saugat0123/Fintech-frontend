@@ -68,7 +68,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="1"></td>
+
           <td><b>VAT Number</b></td>
           <td>
             <div class="row">
@@ -100,11 +100,11 @@
         </tr>-->
 
         <tr>
-          <td>
+          <td *ngIf="companyInfo?.establishmentDate">
             <b>Business Operation Since(if Other than registration date)(AD/BS)</b>
           </td>
           <td colspan="2">
-            {{companyInfo?.establishmentDate | date}} ({{companyInfo?.establishmentDate |engNepDate: false}})
+            {{companyInfo?.establishmentDate | date}} {{companyInfo?.establishmentDate |engNepDate: false}}
           </td>
         </tr>
         <tr>
@@ -139,8 +139,8 @@
               <div><b>Details</b></div>
               <div>{{contact[0]?.contactName}}</div>
               <div>{{contact[0]?.contactNumber}}</div>
-              <div *ngIf="contact[0]?.email; else email">{{contact[0]?.email}}</div>
-              <ng-template #email>NA</ng-template>
+              <div *ngIf="contact[0]?.contactEmail; else noemail">{{contact[0]?.contactEmail}}</div>
+              <ng-template #noemail>NA</ng-template>
               <div>{{contact[0]?.functionalPosition}}</div>
             </ng-container>
           </td>
