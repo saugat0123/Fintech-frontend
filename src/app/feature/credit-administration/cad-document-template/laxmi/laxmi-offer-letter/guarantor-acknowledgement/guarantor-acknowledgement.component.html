@@ -6,7 +6,7 @@
                 शाखा कार्यालय,
                 <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                        formControlName="branch">
-                <span class="print-only nepaliFont">{{form.get('branch').value ? form.get('branch').value  : '========='}}</span> ।
+                <span class="print-only nepaliFont fontSize">{{form.get('branch').value ? form.get('branch').value  : '========='}}</span> ।
             </div>
             <h5><strong>विषय : धितो जमानत तथा व्यक्तिगत/संस्थागत जमानतको दायित्व निरन्तरताको लागि सहमति/मञ्जुरी प्रदान गरेको वारे ।</strong></h5>
             <div class="text-justify mb-4">
@@ -38,42 +38,59 @@
             <table class="table table-bordered table-responsive-md">
                 <tr>
                     <td>ऋणीको नाम :</td>
-                    <td></td>
+                    <td>{{this.customerData?.nepaliName}}</td>
                 </tr>
                 <tr>
                     <td>कर्जा स्वीकृती/प्रस्ताव पत्र नं. र मिति</td>
-                    <td>मितिः—</td>
+                    <td>{{this.customerData?.miscellaneousDetail?.offerReferenceNo}} &nbsp;
+                        मितिः— {{this.customerData?.miscellaneousDetail?.offerIssueDate}}</td>
                 </tr>
             </table>
-            <p class="ml-4"><strong>मञ्जुरी प्रदान गर्ने व्यक्तिको हकमा :</strong></p>
-            <table class="table table-bordered table-responsive-md">
-                <tr>
-                    <td>मञ्जुरी प्रदान गर्ने व्यक्तिको नाम :</td>
-                    <td></td>
-                    <td rowspan="2">दायाँ</td>
-                    <td rowspan="2">बायाँ</td>
-                </tr>
-                <tr>
-                    <td>दस्तखत :</td>
-                    <td></td>
-                </tr>
-            </table>
-            <p class="ml-4"><strong>मञ्जुरी प्रदान गर्ने संस्थाको हकमा :</strong></p>
-            <table class="table table-bordered table-responsive-md">
-                <tr>
-                    <td>मञ्जुरी प्रदान गर्नेको संस्थाको नाम :</td>
-                    <td></td>
-                    <td rowspan="3">संस्थाको छाप</td>
-                </tr>
-                <tr>
-                    <td>अख्तियार प्राप्त व्यक्तिको नाम</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>दस्तखत :</td>
-                    <td></td>
-                </tr>
-            </table>
+            <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                <p class="ml-4"><strong>मञ्जुरी प्रदान गर्ने व्यक्तिको हकमा :</strong></p>
+                <table class="table table-bordered table-responsive-md">
+                    <tr>
+                        <td>मञ्जुरी प्रदान गर्ने व्यक्तिको नाम :</td>
+                        <td>
+                            <input type="text" class="nepaliFont form-field form-control-sm disable-print"
+                                   formControlName="individualPermissionProviderName">
+                            <span class="print-only nepaliFont">{{form.get('individualPermissionProviderName').value ? form.get('individualPermissionProviderName').value  : '========='}}</span>
+                        </td>
+                        <td rowspan="2">दायाँ</td>
+                        <td rowspan="2">बायाँ</td>
+                    </tr>
+                    <tr>
+                        <td>दस्तखत :</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div *ngIf="loanCategory === 'INSTITUTION'">
+                <p class="ml-4"><strong>मञ्जुरी प्रदान गर्ने संस्थाको हकमा :</strong></p>
+                <table class="table table-bordered table-responsive-md">
+                    <tr>
+                        <td>मञ्जुरी प्रदान गर्नेको संस्थाको नाम :</td>
+                        <td>
+                            <input type="text" class="nepaliFont form-field form-control-sm disable-print"
+                                   formControlName="permissionProviderName">
+                            <span class="print-only nepaliFont">{{form.get('permissionProviderName').value ? form.get('permissionProviderName').value  : '========='}}</span>
+                        </td>
+                        <td rowspan="3">संस्थाको छाप</td>
+                    </tr>
+                    <tr>
+                        <td>अख्तियार प्राप्त व्यक्तिको नाम</td>
+                        <td>
+                            <input type="text" class="nepaliFont form-field form-control-sm disable-print"
+                                   formControlName="authorizedPersonName">
+                            <span class="print-only nepaliFont">{{form.get('authorizedPersonName').value ? form.get('authorizedPersonName').value  : '========='}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>दस्तखत :</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
             <div>
             <strong>सनाखत साक्षी :</strong> कारणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक सांचो हो भनी सनाखत सहि गर्ने लक्ष्मी बैंक लि.,
                 <input type="text" class="form-field form-control-sm nepaliFont disable-print"
@@ -87,7 +104,7 @@
                 <span class="print-only nepaliFont">{{form.get('shanakhatWitnessName').value ? form.get('shanakhatWitnessName').value  : '========='}}</span>
             </div>
             <div class="mt-3">
-                ईति सम्बत् २०
+                ईति सम्बत्
                 <input type="text" class="form-field form-control-sm nepaliFont disable-print"
                        formControlName="year">
                 <span class="print-only nepaliFont">{{form.get('year').value ? form.get('year').value  : '========='}}</span> साल
