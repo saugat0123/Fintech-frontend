@@ -224,13 +224,13 @@ export class PersonalOfferLetterRenewalsComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Personal Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Personal Offer Letter Renewals'));
       this.spinner = false;
       this.dialogRef.close();
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Personal Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Personal Offer Letter Renewals'));
       this.spinner = false;
       this.dialogRef.close();
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
