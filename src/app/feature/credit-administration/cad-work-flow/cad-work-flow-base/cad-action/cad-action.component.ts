@@ -318,6 +318,8 @@ export class CadActionComponent implements OnInit, OnChanges {
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
             const discrepancyApproved = this.cadOfferLetterApprovedDoc.discrepancy && !this.cadOfferLetterApprovedDoc.discrepancyApproved;
+            console.log('this is discrepancy approved', discrepancyApproved);
+            console.log('this is discrepancy approved', newDocStatus);
             this.popUpTitle = this.approvedLabel;
             if (newDocStatus === '0') {
                 this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));
