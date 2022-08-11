@@ -19,6 +19,13 @@
             <br>
             <div *ngIf="individual">
                 <table class="table table-responsive-md table-condensed table-sm text-left sb-small tableDark">
+                    <thead>
+                    <tr>
+                        <th colspan="2">
+                            ऋणी व्यक्ति भएमा :
+                        </th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr>
                         <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
@@ -53,6 +60,13 @@
             </div>
             <div *ngIf="!individual">
                 <table class="table table-responsive-md table-condensed table-sm text-left sb-small tableDark">
+                    <thead>
+                    <tr>
+                        <th colspan="2">
+                            ऋणी संस्था भएमा :
+                        </th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr>
                         <td width="50%">घोषणा गर्ने ऋणीको नाम :</td>
