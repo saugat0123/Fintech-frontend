@@ -27,7 +27,14 @@
                 <tr>
                     <td class="font-weight-bold px-1">Remarks</td>
                     <td class="font-weight-bold px-2">:</td>
-                    <td class="text-left"><textarea class="cellInput" rows="3" formControlName="remarks"></textarea></td>
+                    <td class="text-left">
+                        <select formControlName="remarks"  class="cellInput">
+                            <option [value]="null" hidden>Select Remarks</option>
+                            <option *ngFor="let option of remarkOption"
+                                    [value]="option.key">{{option.value}}</option>
+                        </select>
+<!--                        <textarea class="cellInput" rows="3" formControlName="remarks"></textarea>-->
+                    </td>
                 </tr>
 
 
