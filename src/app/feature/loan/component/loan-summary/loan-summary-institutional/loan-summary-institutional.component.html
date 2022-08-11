@@ -8,6 +8,19 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
+            <div *ngIf="check" class="col-md-12">
+                <p><strong class="header text-left">Purpose of Loan </strong></p>
+                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                    <ng-container *ngIf="loan?.id" class="summary">
+                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                        <ul>
+                            <li>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </li>
+                        </ul>
+                    </ng-container>
+                </ng-container>
+            </div>
             <!--                release and replacement-->
             <ng-container>
                 <hr class="print-line">
@@ -47,7 +60,7 @@
                    <hr class="print-line">
                    <div class="row  mt-1">
                        <div>
-                           <div class="col-md-12">
+                           <div *ngIf="!check" class="col-md-12">
                                <p><strong class="header text-left">Purpose of Loan </strong></p>
                                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                                    <ng-container *ngIf="loan?.id" class="summary">
@@ -90,9 +103,9 @@
                                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
                                    class="col-md-12 text-left"><strong class="header">Financial</strong></p>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
-                                                              [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
+                                                              [summaryOnly]="true" [financialJson]="financial ?  (financial['executiveSummaryData'] | jsonParse) : ''"  [title]="'executiveSummaryData'"></app-financial-json-parser>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
-                                                              [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
+                                                              [summaryOnly]="true" [financialJson]="financial ? (financial['cashFlowData'] | jsonParse) : ''"  [title]="'cashFlowData'"></app-financial-json-parser>
                            </div>
                            </ng-template>
                            <ng-container *ngIf="!smallBusiness">

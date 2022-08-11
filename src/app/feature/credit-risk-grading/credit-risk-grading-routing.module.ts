@@ -2,20 +2,24 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ComposeGradingQuestionsComponent} from './component/compose-grading-questions/compose-grading-questions.component';
 import {RiskGroupComponent} from './component/risk-group/risk-group.component';
+import {RouteGuard} from '../../@core/service/authentication/route-guard';
 
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'setup'
+        redirectTo: 'setup',
+        canActivate: [RouteGuard]
     },
     {
         path: 'setup',
-        component: ComposeGradingQuestionsComponent
+        component: ComposeGradingQuestionsComponent,
+        canActivate: [RouteGuard]
     },
     {
         path: 'group',
-        component: RiskGroupComponent
+        component: RiskGroupComponent,
+        canActivate: [RouteGuard]
     },
     {
         path: '**',

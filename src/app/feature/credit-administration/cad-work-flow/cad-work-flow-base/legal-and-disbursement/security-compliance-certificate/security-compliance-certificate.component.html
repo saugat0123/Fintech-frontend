@@ -471,22 +471,22 @@
         <tr>
           <td>
             <input class="disable-print" formControlName="facilityName" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownDetails[i]?.facilityName}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.facilityName : ''}}</span>
           </td>
           <td>
             <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownDetails[i]?.drawDownNTA}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownNTA : ''}}</span>
           </td>
           <td>
             <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownDetails[i]?.drawDownFMV}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownFMV : ''}}</span>
           </td>
           <td>
             <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.drawDownDetails[i]?.drawDownTax}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownTax : ''}}</span>
           </td>
           <td>
-            <span class="print-only">{{sccData?.drawDownDetails[i]?.emiStartDate | date}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails ? (sccData?.drawDownDetails[i]?.emiStartDate | date) : ''}}</span>
             <input [nbDatepicker]="emiStartDate"
                    class="form-control rounded disable-print"
                    formControlName="emiStartDate"
@@ -496,7 +496,7 @@
             <nb-datepicker #emiStartDate></nb-datepicker>
           </td>
           <td>
-            <span class="print-only">{{sccData?.drawDownDetails[i]?.emiEndDate | date}}</span>
+            <span class="print-only">{{sccData?.drawDownDetails ? (sccData?.drawDownDetails[i]?.emiEndDate | date) : ''}}</span>
             <input [nbDatepicker]="emiEndDate"
                    class="form-control rounded disable-print"
                    formControlName="emiEndDate"
