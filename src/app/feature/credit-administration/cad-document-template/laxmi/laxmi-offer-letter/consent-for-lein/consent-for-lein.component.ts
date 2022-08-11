@@ -25,6 +25,8 @@ export class ConsentForLeinComponent implements OnInit {
   spinner = false;
   offerLetterConst = CadCheckListTemplateEnum;
   customerData;
+  collateralDetails = [];
+  loanCategory;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -37,6 +39,9 @@ export class ConsentForLeinComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0].loanCategory)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -46,6 +51,14 @@ export class ConsentForLeinComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.customerData = JSON.parse(this.cadData.loanHolder.nepData);
+      if (!ObjectUtil.isEmpty(this.customerData)) {
+        this.customerData.collateralDetails.forEach((val) => {
+          const data = val.fdHolderDetail;
+          if (!ObjectUtil.isEmpty(data)) {
+            this.collateralDetails.push(data);
+          }
+        });
+      }
     }
     this.fillForm();
   }
@@ -79,24 +92,7 @@ export class ConsentForLeinComponent implements OnInit {
   }
   setFreeText() {
     const freeText = {
-      branchName: this.form.get('branchName') ? this.form.get('branchName').value : '',
       date: this.form.get('date') ? this.form.get('date').value : '',
-      khatawala: this.form.get('khatawala') ? this.form.get('khatawala').value : '',
-      accountNo: this.form.get('accountNo') ? this.form.get('accountNo').value : '',
-      rokkaAmount: this.form.get('rokkaAmount') ? this.form.get('rokkaAmount').value : '',
-      borrowerName: this.form.get('borrowerName') ? this.form.get('borrowerName').value : '',
-      borrowerFatherName: this.form.get('borrowerFatherName') ? this.form.get('borrowerFatherName').value : '',
-      borrowerGrandFatherName: this.form.get('borrowerGrandFatherName') ? this.form.get('borrowerGrandFatherName').value : '',
-      borrowerAddress: this.form.get('borrowerAddress') ? this.form.get('borrowerAddress').value : '',
-      regNo: this.form.get('regNo') ? this.form.get('regNo').value : '',
-      regDate: this.form.get('regDate') ? this.form.get('regDate').value : '',
-      regOffice: this.form.get('regOffice') ? this.form.get('regOffice').value : '',
-      amount: this.form.get('amount') ? this.form.get('amount').value : '',
-      amountInWords: this.form.get('amountInWords') ? this.form.get('amountInWords').value : '',
-      collateralName: this.form.get('collateralName') ? this.form.get('collateralName').value : '',
-      collateralFatherName: this.form.get('collateralFatherName') ? this.form.get('collateralFatherName').value : '',
-      collateralGrandFatherName: this.form.get('collateralGrandFatherName') ? this.form.get('collateralGrandFatherName').value : '',
-      collateralAddress: this.form.get('collateralAddress') ? this.form.get('collateralAddress').value : '',
       itiSambatYear: this.form.get('itiSambatYear') ? this.form.get('itiSambatYear').value : '',
       itiSambatMonth: this.form.get('itiSambatMonth') ? this.form.get('itiSambatMonth').value : '',
       itiSambatDay: this.form.get('itiSambatDay') ? this.form.get('itiSambatDay').value : '',
@@ -110,23 +106,22 @@ export class ConsentForLeinComponent implements OnInit {
   fillForm() {
     if (!ObjectUtil.isEmpty(this.customerData)) {
       this.form.patchValue({
-        branchName: this.initialInfoPrint ? this.initialInfoPrint.branchName : '',
+        branchName: this.customerData.branchDetail ? this.customerData.branchDetail.branchNameInNepali : '',
         date: this.initialInfoPrint ? this.initialInfoPrint.date : '',
-        khatawala: this.initialInfoPrint ? this.initialInfoPrint.khatawala : '',
-        accountNo: this.initialInfoPrint ? this.initialInfoPrint.accountNo : '',
-        rokkaAmount: this.initialInfoPrint ? this.initialInfoPrint.rokkaAmount : '',
-        borrowerName: this.initialInfoPrint ? this.initialInfoPrint.borrowerName : '',
-        borrowerFatherName: this.initialInfoPrint ? this.initialInfoPrint.borrowerFatherName : '',
-        borrowerGrandFatherName: this.initialInfoPrint ? this.initialInfoPrint.borrowerGrandFatherName : '',
-        borrowerAddress: this.initialInfoPrint ? this.initialInfoPrint.borrowerAddress : '',
-        regNo: this.initialInfoPrint ? this.initialInfoPrint.regNo : '',
-        regDate: this.initialInfoPrint ? this.initialInfoPrint.regDate : '',
-        regOffice: this.initialInfoPrint ? this.initialInfoPrint.regOffice : '',
-        amount: this.initialInfoPrint ? this.initialInfoPrint.amount : '',
-        amountInWords: this.initialInfoPrint ? this.initialInfoPrint.amountInWords : '',
-        collateralName: this.initialInfoPrint ? this.initialInfoPrint.collateralName : '',
-        collateralFatherName: this.initialInfoPrint ? this.initialInfoPrint.collateralFatherName : '',
-        collateralGrandFatherName: this.initialInfoPrint ? this.initialInfoPrint.collateralGrandFatherName : '',
+        khatawala: this.collateralDetails ? this.collateralDetails[0].name : '',
+        accountNo: this.collateralDetails ? this.collateralDetails[0].fdReceiptNo : '',
+        rokkaAmount: this.collateralDetails ? this.collateralDetails[0].fdAmount : '',
+        borrowerName: this.customerData ? this.customerData.nepaliName : '',
+        borrowerFatherName: this.customerData.fatherName ? this.customerData.fatherName : '',
+        borrowerGrandFatherName: this.customerData.grandFatherName ? this.customerData.grandFatherName : '',
+        regNo: this.customerData.registrationNo ? this.customerData.registrationNo : '',
+        regDate: this.customerData.regIssueDate ? this.customerData.regIssueDate : '',
+        regOffice: this.customerData.companyRegOffice ? this.customerData.companyRegOffice : '',
+        amount: this.customerData.miscellaneousDetail ? this.customerData.miscellaneousDetail.loanAmountInFig : '',
+        amountInWords: this.customerData.miscellaneousDetail ? this.customerData.miscellaneousDetail.loanAmountInWord : '',
+        collateralName: this.collateralDetails ? this.collateralDetails[0].name : '',
+        collateralFatherName: this.collateralDetails ? this.collateralDetails[0].fatherName : '',
+        collateralGrandFatherName: this.collateralDetails ? this.collateralDetails[0].grandFatherName : '',
         collateralAddress: this.initialInfoPrint ? this.initialInfoPrint.collateralAddress : '',
         itiSambatYear: this.initialInfoPrint ? this.initialInfoPrint.itiSambatYear : '',
         itiSambatMonth: this.initialInfoPrint ? this.initialInfoPrint.itiSambatMonth : '',
