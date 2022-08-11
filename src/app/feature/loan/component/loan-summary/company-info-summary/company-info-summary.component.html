@@ -207,10 +207,13 @@
           <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
         <tr>
+          <td><b>Customer ID</b></td>
+          <td>{{loanDataHolder?.loanHolder.customerCode}}</td>
+        </tr>
+        <tr>
           <td><b>Account Number</b></td>
           <td>{{getAccountNumber(accountNumberList)}}</td>
         </tr>
-
         <tr>
           <td><b>IRD report obtained and attached</b></td>
           <td>{{companyJsonData?.irdReport || 'N/A'}}</td>
