@@ -6,6 +6,19 @@
             [proposalData]="proposalData"
             [loanDataHolder]="loanDataHolder"></app-proposal-summary>
 </ng-container>
+<div *ngIf="check" class = "col-md-12">
+    <p><strong class="header text-left">Purpose of Loan </strong></p>
+    <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+        <ng-container *ngIf="loan?.id">
+            <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+            <ul>
+                <li>
+                    <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                </li>
+            </ul>
+        </ng-container>
+    </ng-container>
+</div>
 <!--                release and replacement-->
 <ng-container>
     <hr class="print-line">
@@ -47,7 +60,7 @@
 <hr class="print-line">
 <ng-container>
     <div class="row  mt-3">
-            <div class = "col-md-12">
+            <div *ngIf="!check" class = "col-md-12">
                 <p><strong class="header text-left">Purpose of Loan </strong></p>
                 <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                     <ng-container *ngIf="loan?.id">

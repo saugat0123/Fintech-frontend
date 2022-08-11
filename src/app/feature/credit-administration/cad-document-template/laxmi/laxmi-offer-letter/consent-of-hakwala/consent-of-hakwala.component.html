@@ -155,7 +155,12 @@
 
             शुभम् ________________________।
             </ng-container>
-            <div class="page-break"></div>
+            <div *ngIf="i < form.get('collateral')['length'] - 1" class="page-break"></div>
+            </div>
+            <div *ngIf="form.get('collateral')['length'] === 0" class="row">
+                <div class="col-md-12">
+                    <p>Could not find any consent of hakwala details, please fill collateral details</p>
+                </div>
             </div>
         </form>
         <div>

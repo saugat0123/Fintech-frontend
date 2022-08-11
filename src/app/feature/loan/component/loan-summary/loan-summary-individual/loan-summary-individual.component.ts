@@ -185,6 +185,8 @@ export class LoanSummaryIndividualComponent implements OnInit {
   others = false;
   loanTagEnum = LoanTag;
   isShareLoan = false;
+  check = false;
+  thisClient;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -220,6 +222,11 @@ export class LoanSummaryIndividualComponent implements OnInit {
     }
     if (LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS) {
       this.others = true;
+    }
+    this.thisClient = this.loanDataHolder.loanHolder.clientType;
+    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+      this.check = true;
     }
       // this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {

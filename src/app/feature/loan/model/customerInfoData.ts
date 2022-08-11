@@ -99,5 +99,6 @@ export class CustomerInfoData {
     customerShareBatches: Array<CustomerShareBatch>;
     financialAssessmentData: string;
     accountStrategy: string;
+    isJointCustomer: boolean;
 
 }

@@ -2,15 +2,15 @@
      id="print-section-{{offerLetterConst.CONSENT_FOR_LEIN}}">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
-            <div>
-                <div class="float-left">
-                <p>श्री लक्ष्मी बैंक लिमिटेड,<br>
-                    शाखा कार्यालय, <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                                          formControlName="branchName">
-                    <span class=" print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value : '========='}}</strong></span> ।
-                </p>
+            <div class="col-md-12">
+                <div class="col-md-6 float-left">
+                    <p class="text-left">श्री लक्ष्मी बैंक लिमिटेड,<br/> शाखा कार्यालय,
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="branchName" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('branchName').value ? form.get('branchName').value : '========='}}</strong></span>।
+                    </p>
                 </div>
-                <div class="float-right">
+                <div class="col-md-6 float-right text-right">
                     मिति :—<input type="text" class="nepaliFont disable-print form-control-sm form-field"
                            formControlName="date">
                     <span class=" print-only nepaliFont"><strong>{{form.get('date').value ? form.get('date').value : '========='}}</strong></span>
@@ -84,16 +84,16 @@
                 </thead>
                 <tbody>
                 <tr style="height:20px;">
-                    <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                                formControlName="khatawala">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('khatawala').value ? form.get('khatawala').value : '========='}}</strong></span>
+                    <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                                formControlName="khatawala" readonly>
+                        <span class=" print-only nepaliFont font14"><strong>{{form.get('khatawala').value ? form.get('khatawala').value : '========='}}</strong></span>
                     </td>
                     <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                                formControlName="accountNo">
+                                formControlName="accountNo" readonly>
                         <span class=" print-only nepaliFont"><strong>{{form.get('accountNo').value ? form.get('accountNo').value : '========='}}</strong></span>
                     </td>
                     <td> <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                                formControlName="rokkaAmount">
+                                formControlName="rokkaAmount" readonly>
                         <span class=" print-only nepaliFont"><strong>{{form.get('rokkaAmount').value ? form.get('rokkaAmount').value : '========='}}</strong></span>
                     </td>
                 </tr>
@@ -105,64 +105,71 @@
                 <tr>
                     <td>ऋणीको नाम</td>
                     <td class="text-left">
-                       <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                              formControlName="borrowerName">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value : '========='}}</strong></span>
+                       <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                              formControlName="borrowerName" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value : '========='}}</strong></span>
                     </td>
                 </tr>
                 <tr>
                     <td>ऋणीको बाबु/आमाको नाम</td>
                     <td class="text-left">
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="borrowerFatherName">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerFatherName').value ? form.get('borrowerFatherName').value : '========='}}</strong></span>
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="borrowerFatherName" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('borrowerFatherName').value ? form.get('borrowerFatherName').value : '========='}}</strong></span>
                     </td>
                 </tr>
                 <tr>
                     <td>ऋणीको बाजे/बजैको नाम</td>
                     <td class="text-left">
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="borrowerGrandFatherName">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerGrandFatherName').value ? form.get('borrowerGrandFatherName').value : '========='}}</strong></span>
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="borrowerGrandFatherName" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('borrowerGrandFatherName').value ? form.get('borrowerGrandFatherName').value : '========='}}</strong></span>
                     </td>
                 </tr>
                 <tr>
                     <td>ऋणीको ठेगाना</td>
-                    <td class="text-left">
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="borrowerAddress">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('borrowerAddress').value ? form.get('borrowerAddress').value : '========='}}</strong></span>
+                    <td class="text-left" *ngIf="loanCategory === 'INDIVIDUAL'">
+                        <span class="font14 nepaliFont">{{this.customerData?.customerPermanentAddress?.district ? this.customerData?.customerPermanentAddress?.district : '==========='}}</span>,
+                        <span class="font14 nepaliFont">{{this.customerData?.customerPermanentAddress?.municipality ? this.customerData?.customerPermanentAddress?.municipality : '==========='}}</span>,
+                        वडा नं. <span class="nepaliFont">{{this.customerData?.customerPermanentAddress?.wardNo ? this.customerData?.customerPermanentAddress?.wardNo : '==========='}}</span>,
+                        <span class="font14 nepaliFont">{{this.customerData?.customerPermanentAddress?.tole ? this.customerData?.customerPermanentAddress?.tole : '==========='}}</span>
+                    </td>
+                    <td class="text-left" *ngIf="loanCategory === 'INSTITUTION'">
+                        <span class="font14 nepaliFont">{{this.customerData?.institutionRegisteredAddress?.district ? this.customerData?.institutionRegisteredAddress?.district : '==========='}}</span>,
+                        <span class="font14 nepaliFont">{{this.customerData?.institutionRegisteredAddress?.municipality ? this.customerData?.institutionRegisteredAddress?.municipality : '==========='}}</span>,
+                        <span class="nepaliFont nepaliFont">{{this.customerData?.institutionRegisteredAddress?.wardNo ? this.customerData?.institutionRegisteredAddress?.wardNo : '==========='}}</span>,
+                        <span class="font14 nepaliFont">{{this.customerData?.institutionRegisteredAddress?.tole ? this.customerData?.institutionRegisteredAddress?.tole : '==========='}}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>दर्ता नं. र मिति</td>
                     <td class="text-left">
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="regNo">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('regNo').value ? form.get('regNo').value : '========='}}</strong></span>
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="regDate">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('regDate').value ? form.get('regDate').value : '========='}}</strong></span>
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="regNo" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('regNo').value ? form.get('regNo').value : '========='}}</strong></span>
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="regDate" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('regDate').value ? form.get('regDate').value : '========='}}</strong></span>
                     </td>
                 </tr>
                 <tr>
                     <td>दर्ता भएको कार्यालयको नाम</td>
                     <td class="text-left">
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="regOffice">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('regOffice').value ? form.get('regOffice').value : '========='}}</strong></span>
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="regOffice" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('regOffice').value ? form.get('regOffice').value : '========='}}</strong></span>
                     </td>
                 </tr>
                 <tr>
                     <td>कर्जा रकम</td>
                     <td class="text-left">
                         रु.<input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="amount">
+                               formControlName="amount" readonly>
                         <span class=" print-only nepaliFont"><strong>{{form.get('amount').value ? form.get('amount').value : '========='}}</strong></span>
                         /– (अक्षरेपी रुपैया
-                        <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                               formControlName="amountInWords">
-                        <span class=" print-only nepaliFont"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value : '========='}}</strong></span>)
+                        <input type="text" class="nepaliFont disable-print form-control-sm form-field font14"
+                               formControlName="amountInWords" readonly>
+                        <span class="print-only nepaliFont font14"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value : '========='}}</strong></span>)
                     </td>
                 </tr>
                 </tbody>
@@ -173,48 +180,48 @@
             बैंकलाई दिएको छु ।
             <br>
             <p><strong>धितो मन्जुरी दिनेको विवरण </strong></p>
-            नाम :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            नाम :<input  type="text" class="preetiFont form-field form-control-sm disable-print"
                          formControlName="collateralName">
-            <span class="print-only preetiFont font24"><strong>{{form.get('collateralName').value ? form.get('collateralName').value : '========='}}</strong></span>
+            <span class="print-only preetiFont"><strong>{{form.get('collateralName').value ? form.get('collateralName').value : '========='}}</strong></span>
             <br>
-            बाबुको नाम :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            बाबुको नाम :<input  type="text" class="preetiFont form-field form-control-sm disable-print"
                                 formControlName="collateralFatherName">
-            <span class="print-only preetiFont font24"><strong>{{form.get('collateralFatherName').value ? form.get('collateralFatherName').value : '========='}}</strong></span>
+            <span class="print-only preetiFont"><strong>{{form.get('collateralFatherName').value ? form.get('collateralFatherName').value : '========='}}</strong></span>
             <br>
-            बाजेको नाम :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            बाजेको नाम :<input  type="text" class="preetiFont form-field form-control-sm disable-print"
                                 formControlName="collateralGrandFatherName">
-            <span class="print-only preetiFont font24"><strong>{{form.get('collateralGrandFatherName').value ? form.get('collateralGrandFatherName').value : '========='}}</strong></span>
+            <span class="print-only preetiFont"><strong>{{form.get('collateralGrandFatherName').value ? form.get('collateralGrandFatherName').value : '========='}}</strong></span>
             <br>
-            ठेगाना :<input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            ठेगाना :<input  type="text" class="preetiFont form-field form-control-sm disable-print"
                             formControlName="collateralAddress">
-            <span class="print-only preetiFont font24"><strong>{{form.get('collateralAddress').value ? form.get('collateralAddress').value : '========='}}</strong></span>
+            <span class="print-only preetiFont"><strong>{{form.get('collateralAddress').value ? form.get('collateralAddress').value : '========='}}</strong></span>
             <br>
             दस्तखत :<span style="margin-left: 25rem">दा.</span><span style="margin-left: 8rem">वा.</span><br>
-            ईति संवत् <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            ईति संवत् <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                               formControlName="itiSambatYear">
-            <span class="print-only preetiFont font24"><strong>{{form.get('itiSambatYear').value ? form.get('itiSambatYear').value : '========='}}</strong></span>
+            <span class="print-only nepaliFont"><strong>{{form.get('itiSambatYear').value ? form.get('itiSambatYear').value : '========='}}</strong></span>
 
             साल
-            <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                     formControlName="itiSambatMonth">
-            <span class="print-only preetiFont font24"><strong>{{form.get('itiSambatMonth').value ? form.get('itiSambatMonth').value : '========='}}</strong></span>
+            <span class="print-only nepaliFont"><strong>{{form.get('itiSambatMonth').value ? form.get('itiSambatMonth').value : '========='}}</strong></span>
 
-            महिना <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            महिना <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                          formControlName="itiSambatDay">
-            <span class="print-only preetiFont font24"><strong>{{form.get('itiSambatDay').value ? form.get('itiSambatDay').value : '========='}}</strong></span>
+            <span class="print-only nepaliFont"><strong>{{form.get('itiSambatDay').value ? form.get('itiSambatDay').value : '========='}}</strong></span>
 
-            गते रोज <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            गते रोज <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                            formControlName="roj">
-            <span class="print-only preetiFont font24"><strong>{{form.get('roj').value ? form.get('roj').value : '========='}}</strong></span>
+            <span class="print-only nepaliFont"><strong>{{form.get('roj').value ? form.get('roj').value : '========='}}</strong></span>
 
             शुभम् ________________________।
             <br>
-            सनाखत साक्षी : धनी बैंकमा <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            सनाखत साक्षी : धनी बैंकमा <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                                               formControlName="role">
-            <span class="print-only preetiFont font24"><strong>{{form.get('role').value ? form.get('role').value : '========='}}</strong></span>
-            पदमा कार्यरत <input  type="text" class="preetiFont font24 form-field form-control-sm font-size-normal disable-print"
+            <span class="print-only nepaliFont"><strong>{{form.get('role').value ? form.get('role').value : '========='}}</strong></span>
+            पदमा कार्यरत <input  type="text" class="nepaliFont form-field form-control-sm disable-print"
                                  formControlName="rolePerson">
-            <span class="print-only preetiFont font24"><strong>{{form.get('rolePerson').value ? form.get('rolePerson').value : '========='}}</strong></span>
+            <span class="print-only nepaliFont"><strong>{{form.get('rolePerson').value ? form.get('rolePerson').value : '========='}}</strong></span>
             <div>
                 <button type="submit"
                         class="btn btn-primary float-right disable-print d-print-none"

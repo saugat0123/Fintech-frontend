@@ -19,6 +19,7 @@ export class GuarantorViewComponent implements OnInit {
   promoter = [];
   promoterBackground = [];
   cgid;
+  promoterCheck = false;
   constructor() { }
 
   ngOnInit() {
@@ -55,6 +56,7 @@ export class GuarantorViewComponent implements OnInit {
       if (!ObjectUtil.isEmpty(currentGuarantor)) {
         this.promoterBackground = currentGuarantor.loanHolder.guarantors.guarantorList.map(d => {
           if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
+            this.promoterCheck = true;
             return d;
           }
         });
