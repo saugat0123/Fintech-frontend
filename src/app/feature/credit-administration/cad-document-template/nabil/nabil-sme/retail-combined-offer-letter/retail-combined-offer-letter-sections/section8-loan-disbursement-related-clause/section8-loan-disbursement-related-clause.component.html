@@ -2,7 +2,7 @@
     <div class="row">
         <form [formGroup]="form">
             <div>
-                <b>ऋण प्रवाह सम्बन्धी शर्तहरुः</b>
+                <span style="font-weight: bold">ऋण प्रवाह सम्बन्धी शर्तहरुः</span>
                 <!--Housing Loan-->
                 <div *ngIf="purchaseArray.length > 0" class="mt-4">
                     <ng-container *ngFor="let val of purchaseArray; let i1 = index"
