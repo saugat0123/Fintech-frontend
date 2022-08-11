@@ -57,42 +57,11 @@ export class SecuritySummaryComponent implements OnInit {
     @Output() downloadSiteVisitDocument = new EventEmitter();
     proposedSecurity1: { securityName: string, considerValue: number, marketValue: number, distressValue: number } [] = [];
     existingSecurity1: { securityName: string, considerValue: number, marketValue: number, distressValue: number } [] = [];
-    // existingAsPropose1: {securityName: string, considerValue: number, marketValue: number,
-    //     distressValue: number, totalMV: number, totalFMV: number, totalDV: number} [] = [];
     proposedSecurity2: { securityName: string, totalAmount } [] = [];
     existingSecurity2: { securityName: string, totalAmount } [] = [];
     existingAsPropose2: { securityName: string, totalAmount } [] = [];
-    totalProposeSecurityAmount = 0;
-    totalExistingSecurityAmount = 0;
     totalExistingAsProposedSecurityAmount = 0;
-    allTotalMV = 0;
-    allTotalFMV = 0;
-    allTotalDV = 0;
-    allTotalMVEx = 0;
-    allTotalFMVEx = 0;
-    allTotalDVEx = 0;
-    allTotalMVAsPs = 0;
-    allTotalFMVAsPs = 0;
-    allTotalDVAsPs = 0;
-    allTotalProposedAmount = 0;
-    allTotalExistingAmount = 0;
-    allTotalExistingAsProposedAmount = 0;
-    allProposedSecurityArray: {
-        securityName: string, considerValue: number, marketValue: number,
-        distressValue: number, totalMV: number, totalFMV: number, totalDV: number
-    } [] = [];
-    allExistingSecurityArray: {
-        securityName: string, considerValue: number, marketValue: number,
-        distressValue: number, totalMV: number, totalFMV: number, totalDV: number
-    } [] = [];
-    allExistingAsProposedSecurityArray: {
-        securityName: string, considerValue: number, marketValue: number,
-        distressValue: number, totalMV: number, totalFMV: number, totalDV: number
-    } [] = [];
-    allProposedSecurity: { securityName: string, totalAmount } [] = [];
     allExistingSecurity: { securityName: string, totalAmount } [] = [];
-    allExistingAsProposeSecurity: { securityName: string, totalAmount } [] = [];
-
     existingSecurityOnly = [];
     realEstateExistingTotal = {
         marketValue: 0,
