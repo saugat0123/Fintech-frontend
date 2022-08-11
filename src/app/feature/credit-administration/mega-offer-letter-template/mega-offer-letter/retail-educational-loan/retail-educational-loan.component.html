@@ -1241,11 +1241,7 @@
         </div>
       </nb-card-body>
       <nb-card-footer class="mb-3">
-        <button [disabled]="!initialInfoPrint" nbButton status="info" [useExistingCss]="true" class="mb-4 float-right"
-                ngxPrint printSectionId="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">Print
-        </button>
+        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="retailEducationPrint" class="mr-2 custom-color" >Print</button>
       </nb-card-footer>
     </nb-card>
 </div>
-<app-retail-educational-loan-print [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                                   *ngIf="initialInfoPrint"  [letter]="form.value" hidden></app-retail-educational-loan-print>
