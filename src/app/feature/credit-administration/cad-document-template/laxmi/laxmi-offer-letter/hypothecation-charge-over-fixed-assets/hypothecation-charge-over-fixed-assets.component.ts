@@ -32,6 +32,8 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
   nepaliData;
   amount;
   customerInfo;
+  collateralDetails = [];
+  landDetails = [];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -61,6 +63,18 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+      if (!ObjectUtil.isEmpty(this.nepaliData)) {
+        this.nepaliData.collateralDetails.forEach((val) => {
+          const plantMachineryData = val.plantMachineryDetail;
+          const landData = val.landAndBuildingDetail;
+          if (!ObjectUtil.isEmpty(plantMachineryData)) {
+            this.collateralDetails.push(plantMachineryData);
+          }
+          if (!ObjectUtil.isEmpty(landData)) {
+            this.landDetails.push(landData);
+          }
+        });
+      }
     }
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.form.patchValue(JSON.parse(this.initialInfoPrint));
@@ -92,9 +106,10 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenshipNo,
         representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
         representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
-        citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
-        citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
-        citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+        debtorMortgageDistrict: this.landDetails[0].district,
+        debtorMortgageMunicipality: this.landDetails[0].municipality,
+        debtorMortgageWardNo: this.landDetails[0].wardNo,
+        kittaNumber: this.landDetails[0].plotNo,
         nepaliName1: this.nepaliData.nepaliName,
         englishName1: this.nepaliData.name,
         dateOfBirth1: this.nepaliData.dateOfBirth,
@@ -134,7 +149,6 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         customerPerWardNo: this.nepaliData.permanentWard,
         customerTempAddress: customerTempAddress ? customerTempAddress : '',
         customerAge: this.nepaliData.age,
-        citizenshipNo: this.nepaliNumber.transform(this.cadData.assignedLoan[0].customerInfo.citizenshipNumber, 'preeti'),
         citizenshipIssueDistrict: this.nepaliData.citizenshipIssueDistrict,
         citizenshipIssueDate: this.nepaliData.citizenshipIssueDate,
         customerName: this.nepaliData.name,
@@ -156,10 +170,20 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         companyPanNumber: this.nepaliData.panNo,
         companyPanIssueOffice: this.nepaliData.panIssueOffice,
         companyPanIssueDate: this.nepaliData.panIssueDate,
-        akhtiyarPerson1: this.nepaliData.authorizedPersonDetail.name,
-        citizenshipNoCompany1: this.nepaliData.authorizedPersonDetail.citizenshipNo,
-        citizenshipDateCompany1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
-        citizenshipOffice1: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+        companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
+        companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
+        companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
+        companyRepresentativeHusbandName: this.nepaliData.authorizedPersonDetail.husbandName,
+        companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
+        companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
+        companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
+        representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenshipNo,
+        representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
+        representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+        debtorMortgageDistrict: this.landDetails[0].district,
+        debtorMortgageMunicipality: this.landDetails[0].municipality,
+        debtorMortgageWardNo: this.landDetails[0].wardNo,
+        kittaNumber: this.landDetails[0].plotNo,
         nepaliName1: this.nepaliData.nepaliName,
         englishName1: this.nepaliData.name,
         dateOfBirth1: this.nepaliData.dateOfBirth,
@@ -277,8 +301,6 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
       citizenshipIssueDate: [undefined],
       rupees: [undefined],
       amount: [undefined],
-      plantOrMachineryDescription: [undefined],
-      rupees1: [undefined],
       debtorMortgageDistrict: [undefined],
       debtorMortgageMunicipality: [undefined],
       kittaNumber: [undefined],
