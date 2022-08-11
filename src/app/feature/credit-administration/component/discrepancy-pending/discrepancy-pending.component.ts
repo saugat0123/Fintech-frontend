@@ -7,6 +7,12 @@ import {RouterUtilsService} from '../../utils/router-utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {User} from '../../../admin/modal/user';
+import {RoleType} from '../../../admin/modal/roleType';
+import {UserService} from '../../../../@core/service/user.service';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-discrepancy-pending',
@@ -26,11 +32,13 @@ export class DiscrepancyPendingComponent implements OnInit {
   toggleArray: { toggled: boolean, files: any, fileToggled: boolean}[] = [];
   currentIndexArray: { currentIndex: number }[] = [];
   docStatus = 'DISCREPANCY_PENDING';
-
+  user: User = new User();
+  roleType = RoleType;
   constructor(private service: CreditAdministrationService,
               private router: Router,
               private routeService: RouterUtilsService,
-              private spinnerService: NgxSpinnerService) {
+              private spinnerService: NgxSpinnerService,
+              private userService: UserService, private modalService: NgbModal) {
   }
 
   static loadData(other: DiscrepancyPendingComponent) {
@@ -57,9 +65,9 @@ export class DiscrepancyPendingComponent implements OnInit {
         });
         other.toggleArray.push({toggled: false, files: data, fileToggled: false});
       });
+      other.userDetail();
       // tslint:disable-next-line:max-line-length
       other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
-      console.log(other.loanList);
       other.pageable = PaginationUtils.getPageable(res.detail);
       other.spinner = false;
 
@@ -87,5 +95,35 @@ export class DiscrepancyPendingComponent implements OnInit {
     this.searchObj = Object.assign(value, {docStatus: this.docStatus ? 'PARTIAL_DISCREPANCY_PENDING' : 'DISCREPANCY_PENDING'});
     DiscrepancyPendingComponent.loadData(this);
   }
+  userDetail() {
+    this.userService.getLoggedInUser().subscribe((res: any) => {
+      this.user = res.detail;
+
+    });
+  }
+  openAssignPopUp(data: CustomerApprovedLoanCadDocumentation) {
+    const comp = this.modalService.open(AssignPopUpComponent);
+    const dataCad = {
+      cadId: data.id,
+      branch: data.loanHolder.branch,
+      associateId: data.loanHolder.associateId,
+      id: data.loanHolder.id,
+      customerType: data.loanHolder.customerType,
+      idNumber: data.loanHolder.idNumber,
+      idRegDate: data.loanHolder.idRegDate,
+      idRegPlace: data.loanHolder.idRegPlace,
+      name: data.loanHolder.customerType,
+      customerLoanDtoList: data.assignedLoan,
+      discrepancy: data.discrepancy
+    };
+    comp.componentInstance.cadData = dataCad;
+    comp.componentInstance.disbursementDataAssign = true;
+    comp.result.then(() => {
+      DiscrepancyPendingComponent.loadData(this);
+    }, () => {
+      DiscrepancyPendingComponent.loadData(this);
+    });
+  }
+
 
 }
