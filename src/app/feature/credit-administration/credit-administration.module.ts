@@ -60,6 +60,7 @@ import {CiclViewComponent} from '../loan-information-view/cicl-view/cicl-view.co
 import {NepaliPatroModule} from 'nepali-patro';
 import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
 import {MegaModule} from './cad-document-template/mega/mega.module';
+import {DiscrepancyPendingComponent} from './component/discrepancy-pending/discrepancy-pending.component';
 
 
 @NgModule({
@@ -109,7 +110,7 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
     DisbursementModalComponent,
     PreviewCadComponent,
     CadReportComponent,
-    CiclViewComponent],
+    CiclViewComponent, DiscrepancyPendingComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -138,7 +139,7 @@ import {MegaModule} from './cad-document-template/mega/mega.module';
     SecurityComplianceCertificateComponent,
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
-    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
+    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent, DiscrepancyPendingComponent],
   exports: [CadFileSetupComponent, CiclViewComponent],
   providers: [RouterUtilsService]
 })
