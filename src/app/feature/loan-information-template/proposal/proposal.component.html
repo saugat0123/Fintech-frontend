@@ -559,29 +559,27 @@
                                                            id="serviceCharge" appDecimalNumber>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="customerType !== 'INDIVIDUAL'">
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">
-                                                    Forex(OnSale)
+                                                    Forex
                                                 </td>
                                                 <td colspan="4">
                                                     <table class="table-borderless table-sm" style="width: 100%">
+                                                        <tbody>
                                                         <td class="border-right">
-
                                                             <input rows="1" class="form-control mt-1 mb-1"
                                                                    formControlName="forexOnSale"
-                                                                   id="forexOnsale">paisa discount / USD on sale
-
-                                                        </td>
-                                                        <td  style="vertical-align: middle;font-weight: bold; text-align: center" class="border-right">
-                                                            <strong> Forex(OnPurchase)</strong>
+                                                                   id="forexOnSale">paisa discount / USD on sale
+                                                            flat
                                                         </td>
                                                         <td>
                                                             <input rows="1" class="form-control mt-1 mb-1"
                                                                    formControlName="forexOnPurchase"
-                                                                   id="forexOnpurchase">paisa / USD premium on purchase
-                                                        </td>
-                                                    </table>
+                                                                   id="forexOnPurchase">paisa / USD premium on purchase
 
+                                                        </td>
+                                                        </tbody>
+                                                    </table>
                                                 </td>
                                             </tr>
                                             <tr>
