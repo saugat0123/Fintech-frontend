@@ -27,7 +27,7 @@
                     <tr>
                         <td>१. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
                                       formControlName="bankName1">
-                            <span class="print-only nepaliFont"><strong>{{form.get('bankName1').value ? form.get('bankName1').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <span class="print-only nepaliFont"><strong>{{form.get('bankName1').value ? form.get('bankName1').value : '=========='}}</strong></span> बैंक/वित्तीय संस्था<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt1')" [checked]="this.form.get('currentCapitalDebt1').value" formcontrolName="currentCapitalDebt1"></nb-checkbox> चालु पुँजी कर्जा<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan1')" [checked]="this.form.get('periodicLoan1').value" formcontrolName="periodicLoan1"></nb-checkbox> आवधिक कर्जा<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan1')" [checked]="this.form.get('otherLoan1').value" formcontrolName="otherLoan1"></nb-checkbox> अन्य कर्जा<br>
@@ -60,7 +60,7 @@
                     <tr>
                         <td>२. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
                                       formControlName="bankName2">
-                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName2').value ? form.get('bankName2').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName2').value ? form.get('bankName2').value : '=========='}}</strong></span> बैंक/वित्तीय संस्था<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt2')" [checked]="this.form.get('currentCapitalDebt2').value" formcontrolName="currentCapitalDebt2"></nb-checkbox> चालु पुँजी कर्जा<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan2')" [checked]="this.form.get('periodicLoan2').value" formcontrolName="periodicLoan2"></nb-checkbox> आवधिक कर्जा<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan2')" [checked]="this.form.get('otherLoan2').value" formcontrolName="otherLoan2"></nb-checkbox> अन्य कर्जा<br>
@@ -93,7 +93,7 @@
                     <tr>
                         <td>३. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
                                       formControlName="bankName3">
-                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName3').value ? form.get('bankName3').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName3').value ? form.get('bankName3').value : '=========='}}</strong></span> बैंक/वित्तीय संस्था<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt3')" [checked]="this.form.get('currentCapitalDebt3').value" formcontrolName="currentCapitalDebt3"></nb-checkbox> चालु पुँजी कर्जा<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'periodicLoan3')" [checked]="this.form.get('periodicLoan3').value" formcontrolName="periodicLoan3"></nb-checkbox> आवधिक कर्जा<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'otherLoan3')" [checked]="this.form.get('otherLoan3').value" formcontrolName="otherLoan3"></nb-checkbox> अन्य कर्जा<br>
@@ -125,7 +125,7 @@
                     <tr>
                         <td>४. <input type="text" class="nepaliFont disable-print form-control-sm form-field"
                                       formControlName="bankName4">
-                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName4').value ? form.get('bankName4').value : '===`======'}}</strong></span> बैंक/वित्तीय संस्था<br>
+                            <span class=" print-only nepaliFont"><strong>{{form.get('bankName4').value ? form.get('bankName4').value : '=========='}}</strong></span> बैंक/वित्तीय संस्था<br>
                             <nb-checkbox (change)="checkChecked($event.target.checked, 'currentCapitalDebt4')" [checked]="this.form.get('currentCapitalDebt4').value" formcontrolName="currentCapitalDebt4"></nb-checkbox>
                                <!-- <span *ngIf="form.get('currentCapitalDebt4').value" class="print-only"><em class="fas fa-check-circle px-2"></em></span>
                                 <span *ngIf="!form.get('currentCapitalDebt4').value" class="print-only"><em class="fas fa-times-circle px-2"></em></span>-->
@@ -187,9 +187,9 @@
             </table>
            <p>उपरोक्त बमोजिम म/हामीले घोषणा गरेको विवरण ठीक छ, झुट्ठा ठहरे कानुन बमोजिम कारवाही भएमा मञ्जुरी छ भनी सही गर्ने:</p>
             <p>व्यक्तिको नाम/फर्म, कम्पनी र संस्थाको नाम र छाप
-                <input type="text" class="nepaliFont disable-print form-control-sm form-field"
-                                                                      formControlName="borrowerName">
-                <span class=" print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value : '========='}}</strong></span>
+                <input type="text" class="nepaliFont disable-print form-control-sm form-field font-size-normal"
+                       formControlName="borrowerName" readonly>
+                <span class=" print-only nepaliFont font14"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value : '========='}}</strong></span>
             </p>
             <p>अधिकार प्राप्त अधिकारीको दस्तखत :</p>
             <div>
