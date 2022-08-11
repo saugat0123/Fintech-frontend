@@ -9,11 +9,12 @@ import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ValuatorService} from '../valuator.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../../branch/branch.service';
 import {Branch} from '../../../modal/branch';
 import {ValuatingField} from '../../../modal/valuatingField';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         private formBuilder: FormBuilder,
         private branchService: BranchService,
         private el: ElementRef,
+        private date: DatePipe,
     ) {
 
     }
@@ -94,7 +96,12 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         }
         this.valuatorForm.patchValue({
             valuatingField: ValuatingField.values()
-        })
+        });
+        if (!ObjectUtil.isEmpty(this.model.data)) {
+            this.setContactPerson(JSON.parse(this.model.data));
+        } else {
+            this.addContactPerson();
+        }
     }
 
     buildForm() {
@@ -151,8 +158,63 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 this.model.isAllBranch],
             version: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.version)) ? undefined :
-                this.model.version]
+                this.model.version],
+            legalStatus: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.legalStatus)) ? undefined :
+                this.model.legalStatus],
+            agreementReviewDate: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.agreementReviewDate)) ? undefined :
+                this.date.transform(this.model.agreementReviewDate, 'yyy-MM-dd')],
+            agreementExpiryDate: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.agreementExpiryDate)) ? undefined :
+                this.date.transform(this.model.agreementExpiryDate, 'yyyy-MM-dd')],
+            securityType: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.securityType)) ? undefined :
+                this.model.securityType],
+            referenceNumber: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.referenceNumber)) ? undefined :
+                this.model.referenceNumber],
+            securityValue: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.securityValue)) ? undefined :
+                this.model.securityValue],
+            securityExpiryDate: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.securityExpiryDate)) ? undefined :
+                this.date.transform(this.model.securityExpiryDate, 'yyyy-MM-dd')],
+            contactPerson: this.formBuilder.array([]),
         });
+    }
+
+    private contactPersonFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined],
+            email: [undefined],
+            phone: [undefined],
+            signingAuthority: [undefined],
+        });
+    }
+
+    setContactPerson(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            const control = this.valuatorForm.get('contactPerson') as FormArray;
+            data.forEach((singleData) => {
+                control.push(
+                    this.formBuilder.group({
+                        name: [singleData.name],
+                        email: [singleData.email],
+                        phone: [singleData.phone],
+                        signingAuthority: [singleData.signingAuthority],
+                    })
+                );
+            });
+        }
+    }
+
+    addContactPerson() {
+        (this.valuatorForm.get('contactPerson') as FormArray).push(this.contactPersonFormGroup());
+    }
+
+    removeContactPerson(index: number) {
+        (this.valuatorForm.get('contactPerson') as FormArray).removeAt(index);
     }
 
     get valuatorFormControl() {
@@ -244,6 +306,8 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         this.model = this.valuatorForm.value;
         this.model.valuatingFields = this.valuatorForm.get('valuatingField').value;
         this.model.valuatingField = JSON.stringify(this.valuatorForm.get('valuatingField').value);
+        this.model.data = JSON.stringify(this.valuatorForm.get('contactPerson').value);
+        console.log('Data::', this.model);
         this.service.save(this.model).subscribe(() => {
             if (this.model.id == null) {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
