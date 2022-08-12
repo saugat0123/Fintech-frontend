@@ -185,6 +185,8 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   isShareLoan = false;
   loanTagEnum = LoanTag;
   @Input() combinedLoan: any;
+  check = false;
+  thisClient;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -212,6 +214,11 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   fullSettlement = false;
 
   ngOnInit() {
+    this.thisClient = this.loanDataHolder.loanHolder.clientType;
+    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+      this.check = true;
+    }
     console.log('loanholder::::', this.loanDataHolder);
     this.getLoanDataHolder();
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {

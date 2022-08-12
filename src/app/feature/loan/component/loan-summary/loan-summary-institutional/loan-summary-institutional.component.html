@@ -8,6 +8,19 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
+            <div *ngIf="check" class="col-md-12">
+                <p><strong class="header text-left">Purpose of Loan </strong></p>
+                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
+                    <ng-container *ngIf="loan?.id" class="summary">
+                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
+                        <ul>
+                            <li>
+                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                            </li>
+                        </ul>
+                    </ng-container>
+                </ng-container>
+            </div>
             <!--                release and replacement-->
             <ng-container>
                 <hr class="print-line">
@@ -47,10 +60,10 @@
                    <hr class="print-line">
                    <div class="row  mt-1">
                        <div>
-                           <div class="col-md-12">
+                           <div *ngIf="!check" class="col-md-12">
                                <p><strong class="header text-left">Purpose of Loan </strong></p>
                                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
-                                   <ng-container *ngIf="loan?.id">
+                                   <ng-container *ngIf="loan?.id" class="summary">
                                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
                                        <ul>
                                            <li>
@@ -90,9 +103,9 @@
                                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
                                    class="col-md-12 text-left"><strong class="header">Financial</strong></p>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialSummary"
-                                                              [summaryOnly]="true" [financialJson]="financial['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
+                                                              [summaryOnly]="true" [financialJson]="financial ?  (financial['executiveSummaryData'] | jsonParse) : ''"  [title]="'executiveSummaryData'"></app-financial-json-parser>
                                    <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialSummary"
-                                                              [summaryOnly]="true" [financialJson]="financial['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
+                                                              [summaryOnly]="true" [financialJson]="financial ? (financial['cashFlowData'] | jsonParse) : ''"  [title]="'cashFlowData'"></app-financial-json-parser>
                            </div>
                            </ng-template>
                            <ng-container *ngIf="!smallBusiness">
@@ -162,7 +175,7 @@
                                            <b class="header">Summary of Environment & Social Risk Assessment</b>
                                        </div>
                                    </div>
-                                   <table class="table table-sm table-bordered table-hover sb-small text-center">
+                                   <table class="table table-sm table-bordered table-hover sb-small text-center summary">
                                        <thead>
                                        <tr class="sb-bg-gray">
                                            <th>S.N</th>
@@ -229,7 +242,7 @@
                    <div class="col-md-12">
                        <hr class="print-line">
                        <p><strong class="header">Detail of Present Proposal of the Facility</strong></p>
-                       <table class="table table-bordered text-center table-sm sb-small">
+                       <table class="table table-bordered text-center table-sm sb-small summary">
                            <tbody>
                            <tr>
                                <th>Credit Facility</th>
@@ -300,7 +313,7 @@
                 <div class="col-md-12">
                     <p><strong class="header">Authority Section</strong></p>
                     <table
-                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
                         <thead>
                         <tr class="sb-bg-gray">
                             <th>S.N</th>
@@ -392,7 +405,7 @@
                 </div>
             </div>
 
-            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
+            <div *ngIf="signatureList.length > 0" class="row summary justify-content-between px-3"
                  id="signatureDiv">
                 <div class="col-md-12 print-only">
                     <p><strong class="header">Approval Chain</strong></p>

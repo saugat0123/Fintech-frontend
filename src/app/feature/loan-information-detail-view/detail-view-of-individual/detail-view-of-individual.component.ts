@@ -73,6 +73,8 @@ export class DetailViewOfIndividualComponent implements OnInit {
   @Input() combinedLoan: LoanDataHolder [];
   toggleChecklist = [];
   toggleId = [];
+  check = false;
+  thisClient;
 
   constructor(
       private modalService: NgbModal,
@@ -96,6 +98,11 @@ export class DetailViewOfIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loan.paperChecklist)) {
       const obj = JSON.parse(this.loanDataHolder.loan.paperChecklist);
       this.checklistChecked = obj.checklistChecked;
+    }
+    this.thisClient = this.loanDataHolder.loanHolder.clientType;
+    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+      this.check = true;
     }
     // Setting CRG- Alpha data --
     if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {

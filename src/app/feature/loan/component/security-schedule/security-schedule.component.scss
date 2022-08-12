@@ -1,3 +1,16 @@
 table, th, td {
   border: 1px solid black !important;
 }
+@media print {
+.summary {
+    * {
+      font-family: Preeti !important;
+      font-size: 10pt !important;
+    }
+    .p .header {
+      font-family: Cambria !important;
+      font-size: 20pt !important;
+      padding-top: 32px !important;
+    }
+  }
+}

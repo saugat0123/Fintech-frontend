@@ -1,4 +1,4 @@
-<div *ngIf="guarantorData?.length > 0" class="row">
+<div *ngIf="guarantorData?.length > 0" class="row summary">
   <hr class="print-line">
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Guarantor Details'}}</strong></p>
@@ -7,7 +7,7 @@
         <tr>
           <td>
             <table
-                    class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                    class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
 
               <tbody>
               <tr>
@@ -50,7 +50,7 @@
             </table>
           </td>
           <td *ngFor="let subGuarantor of guarantor; let ii = index;">
-            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
               <tbody>
               <tr>
                 <td class="text-left pl-2">{{subGuarantor?.name || 'N/A'}}</td>
@@ -98,15 +98,15 @@
   </div>
 </div>
 
-<div *ngIf="promoter?.length > 0 && customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION'" class="row">
+<div *ngIf="promoterCheck && customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION'" class="row summary">
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/ Proprietor/ Partner Details'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoter; let i= index">
-      <table class="table table-condensed table-sm table-responsive-md text-center table-sm sb-small" style="table-layout: fixed; width: 100%">
+      <table class="table table-condensed table-sm table-responsive-md text-center table-sm sb-small summary" style="table-layout: fixed; width: 100%">
         <tr>
           <td>
             <table
-                    class="table table1 table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
+                    class="table table1 table-condensed table-bordered table-sm table-responsive-md table-sm sb-small summary">
 
               <tbody>
               <tr>
@@ -157,7 +157,7 @@
 
           </td>
           <td *ngFor="let subGuarantor of guarantor; let ii = index;">
-            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md table-sm sb-small">
+            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md table-sm sb-small summary">
               <tbody>
               <tr>
                 <td class="text-left pl-2">{{subGuarantor?.name || 'N/A'}}</td>
@@ -215,7 +215,7 @@
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
-      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.background?.length > 0" class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
     <thead class="sb-bg-gray">
 <tr>
   <th>Previous/Other Associations</th>
@@ -238,7 +238,7 @@
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Undivided Family Members'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
-      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.familyDetails?.length > 0" class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+      <table  *ngIf="(guarantor?.promoterData | jsonParse)?.familyDetails?.length > 0" class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
     <thead class="sb-bg-gray">
 <tr>
   <th>S.N</th>

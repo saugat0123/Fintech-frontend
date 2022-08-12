@@ -4,7 +4,7 @@
             <div class="row"
                  *ngFor="let personalGuarantor of personalGuarantorNepDataArray; let i = index"
                  formArrayName="personalGuarantee">
-                <div class="col-md-12" [formGroupName]="i">
+                <div class="col-md-12" [formGroupName]="i.toString()">
                     <p class="text-left"><strong> विषय:— <u>व्यक्तिगत जमानतको लिखत</u></strong></p>
                     <p>लिखितम् जमानीको लिखत गराई लिनेका नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा
                         नं.१ हात्तिसार स्थित केन्द्रिय कार्यालय भएको <strong>लक्ष्मी बैंक लिमिटेडको</strong> जिल्ला
@@ -315,8 +315,8 @@
                                 <tr>
                                     <td>कर्जा स्वीकृती/कर्जा प्रस्ताव पत्र नं. र मिति</td>
                                     <td>
-                                        {{this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo ? this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo : '==========='}}, &nbsp;
-                                        {{this.loanHolderNepData?.miscellaneousDetail?.offerIssueDate ? this.loanHolderNepData?.miscellaneousDetail?.offerIssueDate : '==========='}}</td>
+                                        {{this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo ? this.loanHolderNepData?.miscellaneousDetail?.offerReferenceNo : '_____________'}}, &nbsp;
+                                        {{this.loanHolderNepData?.miscellaneousDetail?.offerIssueDate ? this.loanHolderNepData?.miscellaneousDetail?.offerIssueDate : '_____________'}}</td>
                                 </tr>
                                 <tr>
                                     <td>ऋणीले उपभोग गर्ने वा गरेको कर्जा रकम (अंक र अक्षरमा)</td>
@@ -451,6 +451,7 @@
                                                 </td>
                                                 <div class="disable-print">
                                                     <button (click)="removeAssets(i, j)"
+                                                            *ngIf="form.get(['personalGuarantee', i, 'assets'])['controls'].length > 1"
                                                             class="align-self-end btn btn-sm btn-danger btn-primary" value="Delete">Delete
                                                     </button>
                                                 </div>
@@ -503,6 +504,7 @@
                                                 </td>
                                                 <div class="disable-print">
                                                     <button (click)="removeLiabilities(i, ij)"
+                                                            *ngIf="form.get(['personalGuarantee', i, 'liabilities'])['controls'].length > 1"
                                                             class="align-self-end btn btn-sm btn-danger btn-primary" value="Delete">Delete
                                                     </button>
                                                 </div>
@@ -546,7 +548,7 @@
             </div>
             <div *ngIf="form.get('personalGuarantee')['length'] === 0" class="row">
                 <div class="col-md-12">
-                    <p>Could not find any corporate guarantors details.</p>
+                    <p>Could not find any personal guarantee details, please fill personal guarantee details</p>
                 </div>
             </div>
             <div>

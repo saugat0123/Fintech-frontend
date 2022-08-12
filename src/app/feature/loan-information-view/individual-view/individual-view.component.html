@@ -1,8 +1,8 @@
-<div *ngIf="individual && !isJointInfo" class="row">
+<div *ngIf="individual && !isJointInfo" class="row summary">
     <ng-container *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" >
         <div class="col-md-12">
             <p><b class="header">Address Verification</b></p>
-            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
+            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
                 <tr class="sb-bg-gray">
                     <th colspan="6">Permanent Address</th>
                 </tr>
@@ -44,15 +44,15 @@
             </table>
         </div>
     </ng-container>
-<div class="col-md-12 mt-3">
+<div class="col-md-12 mt-3 summary">
     <hr class="print-line">
     <p><strong class="header">Applicant/Guarantor Profile</strong></p>
 </div>
-    <div *ngIf="!isRemit" class="borrower_class col-md-12">
+    <div *ngIf="!isRemit" class="borrower_class col-md-12 summary">
         <p class="sub-header"><strong class="sub-header">Applicant Details</strong></p>
         <div>
             <table
-                    class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
                 <tr class="text-left">
                     <td class="sb-bg-gray pl-2">Name</td>
                     <td class="pl-2 text-left">{{loanDataHolder?.customerInfo?.customerName}}</td>
@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td class="sb-bg-gray text-left pl-2">Customer ID</td>
-                    <td class="text-left pl-2">{{loanDataHolder?.customerInfo?.customerCode || 'N/A'}}</td>
+                    <td class="text-left pl-2">{{loanDataHolder?.loanHolder?.customerCode || 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td class="sb-bg-gray text-left pl-2">Account Number</td>
@@ -108,12 +108,12 @@
             </table>
         </div>
     </div>
-    <div *ngIf="individual?.customerRelatives?.length > 0" class="borrower_class col-md-12">
+    <div *ngIf="individual?.customerRelatives?.length > 0" class="borrower_class col-md-12 summary">
         <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
             <div class="col-md-12">
                 <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
                 <table
-                        class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
                     <thead>
                     <tr class="sb-bg-gray">
                         <th>Name</th>
@@ -149,9 +149,9 @@
         </div>
     </div>
     <ng-container *ngIf="isRemit">
-        <div class="col-md-12">
+        <div class="col-md-12 summary">
             <p><b> Proposal</b></p>
-            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
                 <tr>
                     <th>Limit</th>
                     <th>{{loanDataHolder?.proposal?.proposedLimit}}</th>
@@ -199,9 +199,9 @@
 <!--            </div>-->
 <!--        </div>-->
         <div class="row mt-1" *ngIf="isRemit">
-            <div class="col-md-12">
+            <div class="col-md-12 summary">
                 <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
-                <table class="table table1 table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+                <table class="table table1 table-condensed table-bordered table-responsive-md table-sm sb-small text-center summary">
                     <thead class="sb-bg-gray">
                     <tr>
                         <th>Particulars</th>
@@ -247,7 +247,7 @@
         <div class="row mt-1">
             <div class="col-md-12">
         <table
-                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
            <!-- <tr class="sb-bg-gray">
                 <th colspan="2">Introduction</th>
             </tr>
@@ -296,10 +296,10 @@
         </div>
     </div>
 
-    <div class="col-md-12" *ngIf="isRemit">
+    <div class="col-md-12 summary" *ngIf="isRemit">
         <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
         <table
-                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
             <thead class="sb-bg-gray">
             <tr>
                 <td><b>Particular</b></td>
@@ -333,19 +333,19 @@
             </tr>
             </tbody>
         </table>
-        <div class="border">
+        <div class="border summary">
             <p>* Income from migration work is only accepted for DBR calculation in case of pre migration loan and Livelihood Improvement Loan. However, 50% of the income from proposed business can be considered on case of Women Empowerment Loan</p>
         </div>
     </div>
 </div>
-<div *ngIf="isJointInfo" class="row">
+<div *ngIf="isJointInfo" class="row summary">
     <div class="col-md-12 text-center">
         <p class="sub-header text-left" ><strong   class="header">Joint Details</strong></p>
         <ng-container *ngFor="let joint of jointInfo">
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
                     <td>
-                        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
                             <tr class="text-left">
                                 <td class="sb-bg-gray pl-2">Name</td>
                             </tr>
@@ -400,7 +400,7 @@
                         </table>
                         </td>
                     <td *ngFor="let info of joint">
-                        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
                             <tr>
                                 <td class="text-left pl-2">{{info?.customerName || 'N/A'}}</td>
                             </tr>
@@ -465,7 +465,7 @@
                 </tr>
             </table>
             <p class="sub-header" ><strong   class="header">Family Details</strong></p>
-            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
+            <table  class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary" *ngFor="let info of joint">
                 <tbody>
                 <tr class="sb-bg-gray">
                     <th>Name</th>
@@ -489,7 +489,7 @@
                 </tbody>
             </table>
         </ng-container>
-        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
             <tr class="sb-bg-gray">
                 <th colspan="7">Permanent Address</th>
             </tr>
@@ -540,7 +540,7 @@
     </div>
 </div>
 <div *ngIf="isJointInfo" class="col-md-12 text-center">
-    <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+    <table class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
         <tbody>
         <!--<tr class="sb-bg-gray">
             <th colspan="2">Introduction</th>

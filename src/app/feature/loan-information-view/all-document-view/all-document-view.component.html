@@ -1,4 +1,4 @@
-<nb-card class="modal-dialog-scrollable">
+<nb-card class="modal-dialog-scrollable summary">
   <nb-card-header>
           <span>
             <span><strong class="header">Loan Documents</strong></span>
@@ -11,12 +11,12 @@
           </span>
   </nb-card-header>
   <nb-card-body>
-  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row">
-    <div class="col-md-12">
-      <p><strong>Loan Documents</strong></p>
+  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row summary">
+    <div class="col-md-12 header">
+      Loan Documents
     </div>
     <div class="col-md-12">
-      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center summary">
         <thead>
         <tr class="sb-bg-gray">
           <th class="sn">S.N</th>
@@ -44,7 +44,7 @@
   <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row">
     <div class="col-md-12">
       <p><strong>Customer General Document</strong></p>
-      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center summary">
         <tr class="sb-bg-gray">
           <th class="sn">SN</th>
           <th>Document</th>
@@ -73,7 +73,7 @@
   <div *ngIf="minOneGuarantorDoc" class="row">
     <div class="col-md-12">
       <p><strong>Guarantor Documents</strong></p>
-      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center summary">
         <thead>
         <tr class="sb-bg-gray">
           <th class="sn">S.N</th>
@@ -110,7 +110,7 @@
   <div *ngIf="minOneInsuranceDoc" class="row">
     <div class="col-md-12">
       <p><strong>Insurance Documents</strong></p>
-      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center summary">
         <thead>
         <tr class="sb-bg-gray">
           <th class="sn">S.N</th>
@@ -150,7 +150,7 @@
     <div class="col-md-12">
       <p><strong>Cad Documents</strong></p>
 <!--      <p *ngIf="affiliatedId"><i> CBS Loan File Number:</i>{{loanDataHolder?.cbsLoanFileNumber}}</p>-->
-      <table class="table table-condensed table-bordered table-sm sb-small text-center">
+      <table class="table table-condensed table-bordered table-sm sb-small text-center summary">
         <thead class="sb-bg-gray">
         <tr>
           <th class="sn">S.N</th>

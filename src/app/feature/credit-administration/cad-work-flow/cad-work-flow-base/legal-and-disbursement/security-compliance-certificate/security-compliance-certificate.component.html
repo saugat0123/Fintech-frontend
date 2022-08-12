@@ -102,14 +102,21 @@
     <form [formGroup]="sccForm">
       <p class="header"><b>1. Approved Facilities </b></p>
       <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
-      <p class="header"><b>2. CIB and KYC </b></p>
+      <p class="sub-header mt-2"><strong>Remark</strong></p>
+      <textarea rows="4" id="remark" class="form-control disable-print" style="color: black"
+                formControlName="approvedRemark"
+                placeholder="Remark"></textarea>
+      <span class="print-only">{{sccData?.approvedRemark}}</span>
+      <p class="header mt-3"><b>2. Regulatory Requirement </b></p>
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>
         <tr class="text-white sb-bg-dark">
           <th>CIB Obtained On</th>
           <th>STR Obtained On</th>
+          <th>STR Lapsed On</th>
           <th>IFF Obtained On</th>
           <th>KYC(Aanushuchi 2.6) Obtained On</th>
+          <th>IRD Submission No.</th>
           <th>Declaration Obtained On</th>
           <th>CA Approved By/ Date</th>
         </tr>
@@ -137,6 +144,16 @@
             <nb-datepicker #strObtained></nb-datepicker>
           </td>
           <td>
+            <span class="print-only">{{sccData?.strLapsed}}</span>
+            <input [nbDatepicker]="strLapsed"
+                   class="form-control rounded disable-print"
+                   formControlName="strLapsed"
+                   [disabled]="!isMaker"
+                   id="strLapsed" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #strLapsed></nb-datepicker>
+          </td>
+          <td>
             <span class="print-only">{{sccData?.iffObtained}}</span>
             <input [nbDatepicker]="iffObtained"
                    class="form-control rounded disable-print"
@@ -155,6 +172,13 @@
                    type="text"/>
             <nb-datepicker #kyc></nb-datepicker>
             <span class="print-only">{{sccData?.kyc}}</span>
+          </td>
+          <td>
+            <input class="form-control rounded disable-print"
+                   formControlName="irdSubmission"
+                   id="irdSubmission" placeholder="Enter IRD Submission No."
+                   type="text"/>
+            <span class="print-only">{{sccData?.irdSubmission}}</span>
           </td>
           <td>
             <input [nbDatepicker]="declaration"
@@ -360,23 +384,23 @@
       <p class="header"><b>6.Document CheckList</b></p>
       <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
       <app-document-checklist-view-lite #documentChecklistViewLite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
-      <p class="header"><b>7. Valuation; Drawdown and Repayment Schedule</b></p>
+      <p class="header"><b>7. Valuation Schedule</b></p>
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>
         <tr class="text-white sb-bg-dark">
           <th>Valuation</th>
           <th>Makuri Ref. No. from Valuator Assignment Process</th>
           <th>Verification of Signature of Valuator</th>
-          <th>Draw down %under NTA</th>
+          <!--<th>Draw down %under NTA</th>
           <th>Draw down %under FMV</th>
           <th>Draw down %under Tax Invoice</th>
-          <th>Declaration Obtained On</th>
+          <th>Declaration Obtained On</th>-->
         </tr>
         <tr class="text-white sb-bg-dark">
           <th colspan="2">Full Report</th>
-          <th colspan ="3">YES/NO</th>
-          <th>EMI Start Date</th>
-          <th>EMI ENd Date</th>
+          <th colspan ="1">YES/NO</th>
+          <!--<th>EMI Start Date</th>
+          <th>EMI ENd Date</th>-->
         </tr>
         </thead>
         <tbody>
@@ -393,7 +417,7 @@
             <input class="disable-print" formControlName="verification" type="text" nbInput [disabled]="!isMaker">
             <span class="print-only">{{sccData?.verification}}</span>
           </td>
-          <td>
+          <!--<td>
             <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownNTA}}</span>
           </td>
@@ -408,8 +432,93 @@
           <td>
             <input class="disable-print" formControlName="obtained" type="text" nbInput [disabled]="!isMaker">
             <span class="print-only">{{sccData?.obtained}}</span>
+          </td>-->
+        </tr>
+        </tbody>
+      </table>
+      <p class="header"><b>8. Drawdown & Repayment Schedule</b></p>
+      <table class="table table-bordered table-hover table-sm sb-small text-center ">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>Approved Facility</th>
+          <th>Draw down %under NTA</th>
+          <th>Draw down %under FMV</th>
+          <th>Draw down %under Tax Invoice</th>
+          <th>Repayment Schedule</th>
+          <th>
+            <div class="disable-print">
+              <ng-select formControlName="emiType">
+                <ng-option value="EMI">EMI</ng-option>
+                <ng-option value="EQI">EQI</ng-option>
+                <ng-option value="EQPI">EQPI</ng-option>
+              </ng-select>
+            </div>
+            <span class="print-only">{{sccData?.emiType}}</span>
+          </th>
+          <th class="disable-print">Action</th>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="4"></th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th class="disable-print"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let drawDownDetail of sccForm.get('drawDownDetails')['controls']; let i = index"
+                      formArrayName="drawDownDetails">
+        <ng-container [formGroupName]="i">
+        <tr>
+          <td>
+            <input class="disable-print" formControlName="facilityName" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.facilityName : ''}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownNTA : ''}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownFMV : ''}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownTax : ''}}</span>
+          </td>
+          <td>
+            <span class="print-only">{{sccData?.drawDownDetails ? (sccData?.drawDownDetails[i]?.emiStartDate | date) : ''}}</span>
+            <input [nbDatepicker]="emiStartDate"
+                   class="form-control rounded disable-print"
+                   formControlName="emiStartDate"
+                   [disabled]="!isMaker"
+                   id="emiStartDate"
+                   type="text"/>
+            <nb-datepicker #emiStartDate></nb-datepicker>
+          </td>
+          <td>
+            <span class="print-only">{{sccData?.drawDownDetails ? (sccData?.drawDownDetails[i]?.emiEndDate | date) : ''}}</span>
+            <input [nbDatepicker]="emiEndDate"
+                   class="form-control rounded disable-print"
+                   formControlName="emiEndDate"
+                   [disabled]="!isMaker"
+                   id="emiEndDate"
+                   type="text"/>
+            <nb-datepicker #emiEndDate></nb-datepicker>
+          </td>
+          <td class="cursor disable-print">
+            <span>
+               <em *ngIf="sccForm.get('drawDownDetails')['length'] > 1" (click)="removeDrawDown(i)"
+                   nbTooltip="remove"
+                   nbTooltipStatus = "danger"
+                   class="fa fa-trash bg-transparent text-danger">
+               </em>
+              <em *ngIf="i === (sccForm.get('drawDownDetails')['length'] - 1)" (click)="addDrawDownDetail()"
+                  nbTooltip="add"  nbTooltipStatus = "success"  class="px-2 fa fa-plus-circle text-success"></em>
+             </span>
           </td>
         </tr>
+        </ng-container>
+        </ng-container>
         </tbody>
       </table>
       <div>
@@ -420,7 +529,7 @@
         <span class="print-only" [innerHTML]="sccData?.notes || 'N/A' | safeHtml"></span>
       </div>
       <div>
-        <p class="header"><b>8.Discrepancy: </b></p>
+        <p class="header"><b>9.Discrepancy: </b></p>
         <ckeditor class="disable-print"
                   formControlName="discrepancy"
                   [config]="ckeConfig"></ckeditor>
@@ -428,7 +537,7 @@
       </div>
 
       <div>
-        <p class="header"><b>9.Receipt of Lodgment: </b></p>
+        <p class="header"><b>10.Receipt of Lodgment: </b></p>
         <p>This is to certify that the original copies of all the documents listed in the point no. 6 (Document Check List) above have been received for lodgment in the vault</p>
       </div>
       <div class="row text-center">
@@ -448,7 +557,7 @@
         </div>
       </div>
       <div>
-        <p class="header"><b>10.	Instruction to Credit Operations:: </b></p>
+        <p class="header"><b>11.	Instruction to Credit Operations:: </b></p>
         <ckeditor class="disable-print"
                   formControlName="instruction"
                   [config]="ckeConfig"></ckeditor>
@@ -481,7 +590,7 @@
           <p><b>Legal</b></p>
         </div>
         <div class="col-md-2 border">
-          <p><b><u>Verified By</u></b></p>
+          <p><b><u>Limit Implemented By</u></b></p>
           <!--        <p class="hide">.</p>-->
           <div class="box"></div>
           <p><b>CRC</b></p>

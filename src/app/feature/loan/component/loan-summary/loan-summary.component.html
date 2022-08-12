@@ -101,7 +101,9 @@
                                 <br>
                                 <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
                                 <br>
-                                <div><strong class="float-left">Product:</strong>
+                                <div *ngIf="thisClient != 'CORPORATE' && thisClient != 'INFRASTRUCTURE_AND_PROJECT' &&
+                                thisClient != 'MID_MARKET' && thisClient != 'BUSINESS_DEVELOPMENT'">
+                                    <strong class="float-left">Product:</strong>
                                     <table id="table-border" class="table table-bordered table-condensed table-responsive-md text-center table-sm sb-small">
                                         <thead>
                                         <tr class="sb-bg-gray">
@@ -127,48 +129,9 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date:</strong>
-                                    <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
-                                        <thead>
-                                        <tr class="sb-bg-gray">
-                                            <td>Facility Name</td>
-                                            <td>Last Review Date</td>
-                                            <td>Next Review Date</td>
-                                        </tr>
-                                        </thead>
-                                        <tr *ngFor="let allLoan of proposedLoan">
-                                          <ng-container *ngIf="allLoan?.reviewDate?.data">
-                                              <td>
-                                                  {{allLoan?.loan?.name}}
-                                              </td>
-                                              <td>
-                                                  <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
-                                              </td>
-                                              <td>
-                                                  <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
-                                              </td>
-                                          </ng-container>
-                                        </tr>
-                                    </table>
-                                </div>
+
                                 <br>
-                                <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
-                            <span><strong>Review Date: </strong>
-                                <ng-container *ngIf="naChecked; else date">
-                                    {{'NA'}}
-                                </ng-container>
-                                <ng-template #date>
-                                    <br>
-                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
-                                    <br>
-                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
-                                </ng-template>
-                            </span>
-<!--                                    <div>-->
-<!--                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>-->
-<!--                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
-<!--                                    </div>-->
-                                </ng-container>
+
                                 <br>
                                 <div class="float-right" *ngIf="loanDataHolder?.isSol">
                                     <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
@@ -178,7 +141,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="report-header">
-                                <div class="report-header-heading header">{{client}}</div>
+<!--                                <div class="report-header-heading header">{{client}}</div>-->
                                 <div class="report-header-sub-heading">
                                     <span> Credit Appraisal </span>
                                     <br/>
@@ -214,15 +177,57 @@
                             </div>
                             <div class="row sb-small mb-1">
                                 <div class="col-md-12">
-                                    <span> <b>Application Received On:</b> {{loanDataHolder.createdAt | date}} </span>
+                                    <span> <b>Application Created On:</b> {{loanDataHolder.createdAt | date}} </span>
                                     <span class=""><b>
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
                                         )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
                     </span>
+                                    <br>
+                                    <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
+                            <span><strong>Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date>
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}}
+                                    <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
+                                </ng-template>
+                            </span>
+                                        <!--                                    <div>-->
+                                        <!--                                        <strong *ngIf="loanDataHolder?.creditRisk">Credit Risk Grade:</strong>-->
+                                        <!--                                        <p class="badge badge-info">{{loanDataHolder?.creditRisk}}</p>-->
+                                        <!--                                    </div>-->
+                                    </ng-container>
 
                                 </div>
+                            </div>
+                            <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date:</strong>
+                                <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
+                                    <thead>
+                                    <tr class="sb-bg-gray">
+                                        <td>Facility Name</td>
+                                        <td>Last Review Date</td>
+                                        <td>Next Review Date</td>
+                                    </tr>
+                                    </thead>
+                                    <tr *ngFor="let allLoan of proposedLoan">
+                                        <ng-container *ngIf="allLoan?.reviewDate?.data">
+                                            <td>
+                                                {{allLoan?.loan?.name}}
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                            <td>
+                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>

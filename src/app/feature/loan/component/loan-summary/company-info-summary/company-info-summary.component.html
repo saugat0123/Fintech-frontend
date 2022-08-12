@@ -1,9 +1,9 @@
-<div class="row">
+<div class="row summary">
     <div class="col-md-12">
       <p><strong class="header">Business Information</strong></p>
       <p  class="sub-header"><strong class="sub-header">Business Profile</strong></p>
       <table
-          class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
+          class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr>
           <td><b>Nature Of business</b></td>
           <td>{{companyJsonData?.majorProductService}}</td>
@@ -68,7 +68,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="1"></td>
+
           <td><b>VAT Number</b></td>
           <td>
             <div class="row">
@@ -100,11 +100,11 @@
         </tr>-->
 
         <tr>
-          <td>
+          <td *ngIf="companyInfo?.establishmentDate">
             <b>Business Operation Since(if Other than registration date)(AD/BS)</b>
           </td>
           <td colspan="2">
-            {{companyInfo?.establishmentDate | date}} ({{companyInfo?.establishmentDate |engNepDate: false}})
+            {{companyInfo?.establishmentDate | date}} {{companyInfo?.establishmentDate |engNepDate: false}}
           </td>
         </tr>
         <tr>
@@ -128,17 +128,19 @@
         </tr>
         <tr>
           <td>
+            <div><b> Key Contact Person/Position</b></div>
             <div><b>Name</b></div>
             <div><b>Contact Number</b></div>
             <div><b>E-mail address:</b></div>
             <div><b>Functional Position</b></div>
           </td>
           <td>
-            <div><b> Key Contact Person/Position</b></div>
             <ng-container *ngIf="contact != undefined || contact != null">
+              <div><b>Details</b></div>
               <div>{{contact[0]?.contactName}}</div>
               <div>{{contact[0]?.contactNumber}}</div>
-              <div>{{contact[0]?.email}}</div>
+              <div *ngIf="contact[0]?.contactEmail; else noemail">{{contact[0]?.contactEmail}}</div>
+              <ng-template #noemail>NA</ng-template>
               <div>{{contact[0]?.functionalPosition}}</div>
             </ng-container>
           </td>
@@ -205,10 +207,13 @@
           <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
         <tr>
+          <td><b>Customer ID</b></td>
+          <td>{{loanDataHolder?.loanHolder.customerCode}}</td>
+        </tr>
+        <tr>
           <td><b>Account Number</b></td>
           <td>{{getAccountNumber(accountNumberList)}}</td>
         </tr>
-
         <tr>
           <td><b>IRD report obtained and attached</b></td>
           <td>{{companyJsonData?.irdReport || 'N/A'}}</td>
@@ -224,7 +229,7 @@
     </div>
 
   <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
-  <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+  <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
     <thead>
     <tr class="sb-bg-gray">
       <th class="sn">S.No</th>
@@ -252,7 +257,7 @@
   </div>
 
 <div class="col-md-12">
-  <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail">
+  <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
     <tr class="sb-bg-gray">
       <th>Business Process </th>
     </tr>
