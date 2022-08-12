@@ -10,6 +10,7 @@ import {FormBuilderService} from '../service/form-builder.service';
 import {Forms} from '../model/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormType} from '../constants/formType';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-form-builder-add',
@@ -252,5 +253,16 @@ export class FormBuilderAddComponent implements OnInit {
             }
         }
 
+    }
+    moveItem(event: CdkDragDrop<FormType[]>) {
+        console.log('moved', event);
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+            transferArrayItem(event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex);
+        }
     }
 }
