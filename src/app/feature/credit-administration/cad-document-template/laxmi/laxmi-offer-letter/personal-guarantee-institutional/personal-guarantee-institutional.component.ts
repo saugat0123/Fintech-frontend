@@ -65,6 +65,7 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
     this.loadPersonalGuarantorData();
     this.buildForm();
     this.fillFreeText();
+      console.log('this.loanHolderNepData', this.loanHolderNepData);
   }
   loadPersonalGuarantorData() {
     if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
