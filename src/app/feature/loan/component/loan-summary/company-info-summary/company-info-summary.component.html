@@ -251,6 +251,38 @@
     </div>
   </div>
 
+  <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
+    <div class="text-center">
+      <p class="float-left sub-header" ><strong  class="sub-header">{{'Insurance Details'}}</strong></p>
+      <ng-container>
+        <table
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
+
+          <tbody>
+          <tr>
+            <td class="text-left sb-bg-gray pl-2">S.N</td>
+            <td class="text-left sb-bg-gray pl-2">Insured Company</td>
+            <td class="text-left sb-bg-gray pl-2">Policy Number</td>
+            <td class="sb-bg-gray text-left pl-2">Insured Amount</td>
+            <td class="sb-bg-gray text-left pl-2">Premium Amount</td>
+            <td class="sb-bg-gray text-left pl-2">Asset Insured</td>
+            <td class="sb-bg-gray text-left pl-2">Remark</td>
+          </tr>
+          <tr *ngFor="let ins of insurance; let i = index;">
+            <td class="text-left pl-2">{{i+1}}</td>
+            <td class="text-left pl-2">{{ins?.company || 'N/A'}}</td>
+            <td class="text-left pl-2">{{ins?.policyNumber || 'N/A'}}</td>
+            <td class="text-left pl-2">{{ins?.insuredAmount || 0}}</td>
+            <td class="text-left pl-2">{{ins?.premiumAmount || 0}}</td>
+            <td class="text-left pl-2">{{ins?.assetInsured || 'N/A'}}</td>
+            <td class="text-left pl-2">{{ins?.remark || 'N/A'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
+  </div>
+
 <div class="col-md-12">
   <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
     <tr class="sb-bg-gray">

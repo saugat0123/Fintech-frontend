@@ -29,11 +29,13 @@ export class CompanyInfoSummaryComponent implements OnInit {
   clientName = Clients;
   accountNumberList = [];
   accountNumbers;
+  insurance;
 
 
   constructor() { }
 
   ngOnInit() {
+    this.insurance = this.loanDataHolder.insurance;
     if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
         (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList) &&
             this.loanDataHolder.loanHolder.guarantors.guarantorList.length > 0)) {
