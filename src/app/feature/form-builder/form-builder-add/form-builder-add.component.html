@@ -179,15 +179,18 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="row">
+                            <div   class="row" cdkDropList
+                                  [cdkDropListData]="formFields" (cdkDropListDropped)="moveItem($event)">
 
-                                <div *ngFor="let field of formFields;let i=index"
-                                     [ngClass]="FormType.FORM_ARRAY === field.type ? 'col-md-12':field?.settings[2]?.value">
+                                <div   cdkDrag *ngFor="let field of formFields;let i=index"
+                                      [cdkDragData]="field"
+                                                                       [ngClass]="FormType.FORM_ARRAY === field.type ? 'col-md-12':field?.settings[2]?.value">
+                                    <a class=" float-right"><i class="fa fa-arrows"></i></a>
 
-                                    <div [ngSwitch]="field.type" (click)="goToSettings(field.id)" class="cursor">
+                                    <div     [ngSwitch]="field.type" (click)="goToSettings(field.id)" class="cursor">
 
-                                        <div *ngSwitchCase=FormType.TEXT>
-                                            <app-input-text-add [field]="field"
+                                        <div  *ngSwitchCase=FormType.TEXT>
+                                            <app-input-text-add  [field]="field"
                                                                 [selectedField]="selectedField"
                                                                 *ngIf="field"
                                                                 (removeField)="removeElement(i,field?.id)">
@@ -195,37 +198,37 @@
                                             </app-input-text-add>
                                         </div>
 
-                                        <div *ngSwitchCase=FormType.DATE>
-                                            <app-input-date-add *ngIf="field"
+                                        <div  *ngSwitchCase=FormType.DATE>
+                                            <app-input-date-add   *ngIf="field"
                                                                 [calendarType]="calendarType"
                                                                 [field]="field"
                                                                 [selectedField]="selectedField"
                                                                 (removeField)="removeElement(i,field?.id)"></app-input-date-add>
                                         </div>
 
-                                        <div *ngSwitchCase=FormType.TEXTAREA>
-                                            <app-input-textarea-add [field]="field" *ngIf="field"
+                                        <div  *ngSwitchCase=FormType.TEXTAREA>
+                                            <app-input-textarea-add  [field]="field" *ngIf="field"
                                                                     [selectedField]="selectedField"
                                                                     (removeField)="removeElement(i,field?.id)">
 
                                             </app-input-textarea-add>
                                         </div>
 
-                                        <div *ngSwitchCase=FormType.BREAK>
-                                            <app-line-break-add [field]="field" *ngIf="field"
+                                        <div  *ngSwitchCase=FormType.BREAK>
+                                            <app-line-break-add  [field]="field" *ngIf="field"
                                                                 [selectedField]="selectedField"
                                                                 (removeField)="removeElement(i,field?.id)"></app-line-break-add>
 
                                         </div>
 
 
-                                        <div *ngSwitchCase=FormType.SELECT>
-                                            <app-input-select-add [field]="field" *ngIf="field"
+                                        <div  *ngSwitchCase=FormType.SELECT>
+                                            <app-input-select-add  [field]="field" *ngIf="field"
                                                                   [selectedField]="selectedField"
                                                                   (removeField)="removeElement(i,field?.id)"></app-input-select-add>
                                         </div>
 
-                                        <div *ngSwitchCase=FormType.ADDRESS>
+                                        <div  *ngSwitchCase=FormType.ADDRESS>
                                             <div class="form-group" [id]="field?.id">
                                                 <div class="clearfix">
 
@@ -245,8 +248,8 @@
                                             </div>
                                         </div>
 
-                                        <div *ngSwitchCase=FormType.RADIO>
-                                            <app-input-radio-add [field]="field"
+                                        <div  *ngSwitchCase=FormType.RADIO>
+                                            <app-input-radio-add  [field]="field"
                                                                  [selectedField]="selectedField"
                                                                  (removeField)="removeElement(i,field?.id)"></app-input-radio-add>
                                         </div>
@@ -265,7 +268,7 @@
 
 
                                                 </div>
-                                                <div [ngClass]="selectedField?.id == field?.id?'border border-danger':'border'">
+                                                <div  [ngClass]="selectedField?.id == field?.id?'border border-danger':'border'">
                                                     <app-input-array-add
                                                             [formFields]="field?.fields" [isArraySelected]="isArraySelected"></app-input-array-add>
                                                 </div>
