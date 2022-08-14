@@ -1,9 +1,20 @@
+<div class="row">
+    <div class="col-md-12 table-sm sb-small">
+        The Customer shall submit stock statements on quarterly basis, along with list of debtors and creditors with
+        aging; however, the Bank may ask for stock statements from the customer any time. The drawing power on the FBWC
+        limits shall be calculated on the basis of Net Trading Assets as per the stock statements, and limits shall be
+        adjusted in the system accordingly.
+        <br>
+        <br>
+        Review of last 4 quarters NTA statement are as under;
+    </div>
+</div>
+
 <div class="row p-3">
     <table
             class="table table-bordered table-hover table-sm sb-small">
         <tr class="sb-bg-dark text-white text-center">
-            <td></td>
-            <td colspan="5">Current Year({{currentYear[0].year}})</td>
+            <td colspan="5">Current Year({{currentYear[0]?.year}})</td>
         </tr>
         <tr class="sb-bg-dark text-white text-center">
             <th scope="col">Net Trading Assets (NTA)</th>

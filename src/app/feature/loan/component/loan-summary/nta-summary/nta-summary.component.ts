@@ -24,6 +24,7 @@ export class NtaSummaryComponent implements OnInit {
         this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
     this.currentYearData = this.ntaData.filter(d => d.isCurrentYear === true);
+    this.currentYear = this.fiscalYears.filter(f => f.isCurrentYear === true);
   }
 
 }

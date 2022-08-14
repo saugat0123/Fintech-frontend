@@ -98,7 +98,8 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             valuatingField: ValuatingField.values()
         });
         if (!ObjectUtil.isEmpty(this.model.data)) {
-            this.setContactPerson(JSON.parse(this.model.data));
+            const data = JSON.parse(this.model.data);
+            this.setContactPerson(data.contactPerson);
         } else {
             this.addContactPerson();
         }
@@ -306,7 +307,10 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         this.model = this.valuatorForm.value;
         this.model.valuatingFields = this.valuatorForm.get('valuatingField').value;
         this.model.valuatingField = JSON.stringify(this.valuatorForm.get('valuatingField').value);
-        this.model.data = JSON.stringify(this.valuatorForm.get('contactPerson').value);
+        const dataObject = {
+            contactPerson: this.valuatorForm.get('contactPerson').value,
+        };
+        this.model.data = JSON.stringify(dataObject);
         console.log('Data::', this.model);
         this.service.save(this.model).subscribe(() => {
             if (this.model.id == null) {
