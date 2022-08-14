@@ -229,7 +229,33 @@
 
       </table>
     </div>
-  <ng-container *ngIf="check">
+  <div class="col-md-12" *ngIf="newGuarantor?.length > 0 && isCorporate">
+    <div class="text-center">
+      <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
+      <ng-container>
+        <table
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
+
+          <tbody>
+          <tr>
+            <td class="text-left sb-bg-gray pl-2">S.N</td>
+            <td class="text-left sb-bg-gray pl-2">Name</td>
+            <td class="sb-bg-gray text-left pl-2">Designation</td>
+            <td class="text-left sb-bg-gray pl-2">Share holding (%)</td>
+          </tr>
+          <tr *ngFor="let g of newGuarantor; let i = index;">
+            <td class="text-left pl-2">{{i+1}}</td>
+            <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
+            <td class="text-left pl-2">{{g?.guarantorType || 'N/A'}}</td>
+            <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -248,7 +274,7 @@
   </ng-container>
 
 
-  <ng-container *ngIf="check">
+  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -267,7 +293,7 @@
   </ng-container>
 
 
-  <ng-container *ngIf="check">
+  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -293,7 +319,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="check">
+  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -307,7 +333,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="check">
+  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -335,7 +361,7 @@
 
 
 
-  <ng-container *ngIf="check">
+  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr *ngIf="checkedData?.waiverChecked" class="sb-bg-gray">
@@ -365,7 +391,59 @@
       </table>
     </div>
   </ng-container>
-  <div class="col-md-12" *ngIf="newGuarantor?.length > 0">
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12 form-group">
+      <hr class="print-line">
+      <div class="row">
+        <div class="col-md-12 text-left">
+          <p class="font-weight-bold">Summary of Environment & Social Risk Assessment</p>
+        </div>
+      </div>
+      <table class="table table-sm table-bordered table-hover sb-small text-center summary">
+        <thead>
+        <tr class="sb-bg-gray">
+          <th>S.N</th>
+          <th>Particulars</th>
+          <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody class="text-left">
+        <tr>
+          <td>1</td>
+          <td class="text-left">Falls under Exclusion and critical sector list</td>
+          <td class="text-center">
+            {{'NO'}}
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="text-left">E & S Due Diligence process Applicable</td>
+          <td class="text-center">
+            {{'NO'}}
+
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="text-left">Level of Risk</td>
+          <td class="text-center">
+            {{'NA'}}
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="text-left">Falls under Exclusion and critical sector list</td>
+          <td class="text-center">
+            {{'NA'}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <div class="col-md-12" *ngIf="newGuarantor?.length > 0 && !isCorporate">
     <div class="text-center">
       <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
       <ng-container>
@@ -424,10 +502,10 @@
   </div>
 
 
-  <div class="col-md-12" *ngIf="check">
+  <div class="col-md-12" *ngIf="isCorporate">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Security Inspection'}}</strong></p>
   </div>
-    <div class="col-md-12" *ngIf="check">
+    <div class="col-md-12" *ngIf="isCorporate">
       <table class="table table-sm sb-small table-bordered text-center">
         <thead>
         <tr class="sb-bg-gray">
@@ -459,13 +537,13 @@
 
 
 <div class="col-md-12">
-  <hr class="print-line" *ngIf="check">
-  <p class="header" *ngIf="check"><strong class="header">Customer Background</strong></p>
+  <hr class="print-line" *ngIf="isCorporate">
+  <p class="header" *ngIf="isCorporate"><strong class="header">Customer Background</strong></p>
   <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
-    <tr *ngIf="check" class="sb-bg-gray">
+    <tr *ngIf="isCorporate" class="sb-bg-gray">
       <th>Business Objectives </th>
     </tr>
-    <tr *ngIf="check">
+    <tr *ngIf="isCorporate">
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.BusinessIndustryOutlook : 'N/A' | safeHtml"></span></td>
     </tr>
     <tr class="sb-bg-gray">
@@ -474,10 +552,10 @@
     <tr>
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.technicalAspect : 'N/A' | safeHtml"></span></td>
     </tr>
-    <tr *ngIf="check" class="sb-bg-gray">
+    <tr *ngIf="isCorporate" class="sb-bg-gray">
       <th>Raw Materials</th>
     </tr>
-    <tr *ngIf="check">
+    <tr *ngIf="isCorporate">
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk'] || 'N/A'"></td>
     </tr>
     <tr class="sb-bg-gray">
@@ -493,7 +571,7 @@
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
     </tr>
 
-<ng-container *ngIf="check">
+<ng-container *ngIf="isCorporate">
   <tr class="sb-bg-gray">
     <th>Marketing and distribution Strategies</th>
   </tr>

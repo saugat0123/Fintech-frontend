@@ -8,7 +8,7 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
-            <div *ngIf="check" class="col-md-12">
+            <div *ngIf="isCorporate" class="col-md-12">
                 <p><strong class="header text-left">Purpose of Loan </strong></p>
                 <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                     <ng-container *ngIf="loan?.id" class="summary">
@@ -36,6 +36,9 @@
                 <!--                    existing security-->
                 <app-security-summary *ngIf="approvedSecurity?.length > 0" [securities]="approvedSecurity"></app-security-summary>
 
+                <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+
+
             </ng-container>
             <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
             <!-- Customer Share Security  -->
@@ -52,7 +55,7 @@
                        <app-company-info-summary [approveSheet]="notApprove"
                                                  [companyInfo]="loanDataHolder?.companyInfo"
                                                  [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-                       <app-guarantor-view  [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+                       <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
                    </div>
                </div>
@@ -60,7 +63,7 @@
                    <hr class="print-line">
                    <div class="row  mt-1">
                        <div>
-                           <div *ngIf="!check" class="col-md-12">
+                           <div *ngIf="!isCorporate" class="col-md-12">
                                <p><strong class="header text-left">Purpose of Loan </strong></p>
                                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                                    <ng-container *ngIf="loan?.id" class="summary">
@@ -202,7 +205,7 @@
                                        <tr>
                                            <td>3</td>
                                            <td class="text-left">Level of Risk</td>
-                                           <td>
+                                           <td class="text-center">
                                                {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
 
 
@@ -211,7 +214,7 @@
                                        <tr>
                                            <td>4</td>
                                            <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                           <td>
+                                           <td class="text-center">
                                                {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
 
                                            </td>
@@ -220,7 +223,7 @@
                                    </table>
                                </div>
                            </ng-container>
-                           <div class="col-md-12" *ngIf="!check">
+                           <div class="col-md-12" *ngIf="!isCorporate">
                            <ng-container *ngIf="checkedData?.waiverChecked">
                                <hr class="print-line">
                                <p><strong class="header">Waivers</strong></p>

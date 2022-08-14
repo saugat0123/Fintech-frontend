@@ -5,7 +5,7 @@
             [proposalData]="proposalData"
             [loanDataHolder]="loanDataHolder"></app-proposal-summary>
 </ng-container>
-<div *ngIf="check" class = "col-md-12">
+<div *ngIf="isCorporate" class = "col-md-12">
     <p><strong class="header text-left">Purpose of Loan </strong></p>
     <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
         <ng-container *ngIf="loan?.id">
@@ -33,6 +33,8 @@
     <!--                    existing security-->
     <app-security-summary *ngIf="approvedSecurity?.length > 0"
                           [securities]="approvedSecurity"></app-security-summary>
+    <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+
 </ng-container>
 <!-- Customer Share Security  -->
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
@@ -51,7 +53,7 @@
         <app-company-info-summary [approveSheet]="notApprove"
                                   [companyInfo]="loanDataHolder?.companyInfo"
                                   [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-        <app-guarantor-view  [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+        <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
     </div>
 </div>
@@ -59,7 +61,7 @@
 <hr class="print-line">
 <ng-container>
     <div class="row  mt-3">
-            <div *ngIf="!check" class = "col-md-12">
+            <div *ngIf="!isCorporate" class = "col-md-12">
                 <p><strong class="header text-left">Purpose of Loan </strong></p>
                 <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                     <ng-container *ngIf="loan?.id">
@@ -211,7 +213,7 @@
                     </table>
                 </div>
             </ng-container>
-            <ng-container *ngIf="checkedData?.waiverChecked && !check">
+            <ng-container *ngIf="checkedData?.waiverChecked && !isCorporate">
                 <div class="col-md-12">
                     <hr class="print-line">
                     <p><strong class="header">Waivers</strong></p>
@@ -219,7 +221,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="checkedData?.deviationChecked && !check">
+            <ng-container *ngIf="checkedData?.deviationChecked && !isCorporate">
                 <div class="col-md-12">
                     <hr class="print-line">
                     <p><strong class="header">Deviation</strong></p>

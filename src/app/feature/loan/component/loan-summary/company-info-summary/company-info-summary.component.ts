@@ -30,16 +30,16 @@ export class CompanyInfoSummaryComponent implements OnInit {
   accountNumberList = [];
   accountNumbers;
   insurance;
-  thisClient;
-  check = false;
+  clientType;
+  isCorporate = false;
   checkedData;
   constructor() { }
 
   ngOnInit() {
-    this.thisClient = this.loanDataHolder.loanHolder.clientType;
-    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
-      this.check = true;
+    this.clientType = this.loanDataHolder.loanHolder.clientType;
+    if (this.clientType === 'CORPORATE' || this.clientType === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.clientType === 'MID_MARKET' || this.clientType === 'BUSINESS_DEVELOPMENT') {
+      this.isCorporate = true;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
