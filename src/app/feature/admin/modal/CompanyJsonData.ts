@@ -31,4 +31,5 @@ export class CompanyJsonData {
   irdReport: string;
   accountDetails: any;
   otherRemarks: string;
+  marketingStrategies: any;
 }

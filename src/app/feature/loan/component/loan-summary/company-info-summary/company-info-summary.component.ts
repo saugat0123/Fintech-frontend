@@ -32,7 +32,6 @@ export class CompanyInfoSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('this is company info',this.companyInfo);
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
