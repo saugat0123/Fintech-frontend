@@ -2,30 +2,30 @@
     <div class="row">
         <form [formGroup]="form" *ngIf="isFixed || isFloating">
             <div>
-                <b>
+                <span style="font-weight: bold">
                     ब्याजदर सम्बन्धी शर्तहरुः
                     <br>
-                </b>
+                </span>
                 <ng-container *ngIf="isFloating">
                     <!--For all loans where Floating interest rate has been choosen on the box templete-->
-                    <b>
+                    <span style="font-weight: bold">
                         परिवर्तनीय ब्याजदर सम्बन्धमा
-                    </b>
+                    </span>
                     <br>
                     <div style="margin-left: 20px">
                         <ul>
                             <li>
                                 हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव साईट (Website)
-                                तथा राष्ट्रियस्तरको पत्रिकामा <b>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</b>
-                                प्रकाशित गरिनेछ । यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो <b>त्रैमासिक औसत आधार दर
-                                (Quarterly Average Base Rate)</b>मा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम
+                                तथा राष्ट्रियस्तरको पत्रिकामा <span style="font-weight: bold">त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</span>
+                                प्रकाशित गरिनेछ । यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो <span style="font-weight: bold">त्रैमासिक औसत आधार दर
+                                (Quarterly Average Base Rate)</span>मा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम
                                 (Quarterly Average Base Rate) थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
                             </li>
                             <li>
-                                बैंकको <b>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</b>मा हुने उतार
+                                बैंकको <span style="font-weight: bold">त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</span>मा हुने उतार
                                 चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको आधिकारिक वेव साईट (Website)
-                                मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने <b>त्रैमासिक औसत
-                                आधार दर (Quarterly Average Base Rate)</b> मा जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक
+                                मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने <span style="font-weight: bold">त्रैमासिक औसत
+                                आधार दर (Quarterly Average Base Rate)</span> मा जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक
                                 त्रैमास पछिको महिनाहरु अर्थात श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दर समायोजन
                                 तथा संसोधन गरीनेछ ।
                             </li>
@@ -56,7 +56,7 @@
                 </ng-container>
                 <ng-container *ngIf="isFixed">
                     <!--For all loans where Fixed interest rate has been choosen on the box templete-->
-                    <b>स्थिर ब्याजदर सम्बन्धमा</b>
+                    <span style="font-weight: bold">स्थिर ब्याजदर सम्बन्धमा</span>
                     <div style="margin-left: 20px">
                         <ul>
                             <li>

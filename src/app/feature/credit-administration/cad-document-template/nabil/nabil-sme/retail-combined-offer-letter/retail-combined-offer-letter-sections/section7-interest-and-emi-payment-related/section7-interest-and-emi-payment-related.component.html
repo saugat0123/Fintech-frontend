@@ -2,7 +2,7 @@
     <div class="row">
         <form>
             <div>
-                <b>साँवा, ब्याज वा किस्ता भुक्तानी सम्बन्धी शर्तहरुः</b>
+                <span style="font-weight: bold">साँवा, ब्याज वा किस्ता भुक्तानी सम्बन्धी शर्तहरुः</span>
                 <br>
                 <div>
                     <ul>
@@ -11,8 +11,8 @@
                             तपाईंको {{(isLoanSelected && !isEducationClassE && isRegularBasis) ? loanNameMainNepaliWithoutEducation :
                             (isLoanSelected && isEducationClassE && !isRegularBasis) ? loanNameWithoutPersonalLoan :
                             (isLoanSelected && !isEducationClassE && !isRegularBasis) ? loanNepaliWithoutPersonalEducation :
-                            (!isLoanSelected && isEducationClassE && !isRegularBasis) ? 'शिक्षा ऋण' :
-                            (!isLoanSelected && !isEducationClassE && isRegularBasis) ? 'व्यक्तिगत कर्जा' :
+                            (!isLoanSelected && isEducationClassE && !isRegularBasis) ? onlyEducationLoan :
+                            (!isLoanSelected && !isEducationClassE && isRegularBasis) ? onlyPersonalLoan :
                                 loanNepaliNameEducation}} वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा तपाईंको खाताबाट
                             कट्टा गरिनेछ ।
                         </li>

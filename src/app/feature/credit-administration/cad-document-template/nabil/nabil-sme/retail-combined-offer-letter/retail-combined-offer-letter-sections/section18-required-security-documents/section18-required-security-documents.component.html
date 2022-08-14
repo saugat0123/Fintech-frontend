@@ -2,9 +2,9 @@
     <div class="row">
         <form [formGroup]="form">
             <div>
-                <b>
+                <span style="font-weight: bold">
                     आवश्यक कागजात सम्बन्धी शर्तः
-                </b>
+                </span>
                 <nb-checkbox class="d-print-none" #showNew
                              formControlName="newOrAdditionalLoan">
                     Show Requirement Document Clause
@@ -239,11 +239,11 @@
 
                 <ng-container *ngIf="initialInfo?.existingLoanForm?.isExistingLoan === true">
                     <!--Not required in new case-->
-                    <b>
+                    <span style="font-weight: bold">
                         यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको
                         पक्षमा गरिदिएका सम्पूर्ण सुरक्षण कागजपत्रहरु तथा सोमा उल्लिखित शर्त बन्देजहरु मान्य
                         र बैध रहनेछन् ।
-                    </b>
+                    </span>
                 </ng-container>
             </div>
         </form>
