@@ -1,44 +1,37 @@
-<nb-card [nbSpinner]="spinner" accent="primary"
-         nbSpinnerStatus="primary"
-         nbSpinnerSize="large"
->
+<nb-card [nbSpinner]="spinner" accent="primary">
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
-                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISBURSEMENT_APPROVED'"></app-filter>
+                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="docStatus"></app-filter>
             </div>
         </div>
-        <h6 class="text-center">Disbursement Approved</h6>
+        <h6 class="text-center">{{(docStatus | replace: '_':' ')}}</h6>
     </nb-card-header>
     <nb-card-body>
         <table class="table table-bordered table-hover table-sm sb-small text-center ">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <td>S.N</td>
+                <th>S.N</th>
                 <th>Branch</th>
                 <th>Province</th>
-                <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
+                <th>Customer Name</th>
                 <th>Type</th>
                 <th>Loan Document No</th>
-                <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Approved On <em class="fas fa-sort"></em></th>
-                <th *ngIf="isMaker">Add Exposure</th>
                 <th>Comments</th>
-                <th>Preview</th>
-
+                <th>DEFERRAL</th>
+                <th>Action</th>
 
             </tr>
             </thead>
             <tbody>
             <ng-container *ngFor="let model of loanList;let i=index">
-                <tr class="cursor">
-                    <td (click)="loadSummary(model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.branch?.name}}</td>
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.branch?.province?.name}}</td>
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
-                    <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
-                    <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
-                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
-                    <td *ngIf="isMaker"><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
+                <tr class="cursor" >
+                    <td (click)="loadProfile(model?.id,model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
@@ -46,16 +39,14 @@
                             <em class="fa fa-eye"></em>
                         </a></td>
                     <td>
-                        <a class="px-2 cursor"
-                           (click)="routeService.previewCadDoc(model?.id)"
-                           nbTooltip="click to view detail ">
-                            <em class="fas fa-info-circle text-info"></em>
-                        </a>
-                        <a class="px-2 cursor" *ngIf="isMaker"
-                           (click)="openModal(popUp,model)"
-                           nbTooltip="click to re disburse this file ">
+                        <a class="px-2 cursor" *ngIf="toggleArray[i]?.files?.length > 0"
+                           (click)="model?.id ? toggleArray[i].fileToggled = !toggleArray[i].fileToggled:''"
+                           nbTooltip="click to view files ">
                             <em class="fa fa-file"></em>
-                        </a>
+                        </a></td>
+                    <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
+                                                                                                                                     nbTooltip="click to assign"><em
+                            class="fa fa-user"></em></a>
                     </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
@@ -76,7 +67,7 @@
                     <tr *ngFor="let previousList of model?.previousList ; let j = index">
                         <td>{{j + 1}}</td>
                         <td>
-                            {{previousList?.lastModifiedAt | date : 'medium'}}
+                            {{previousList?.lastModifiedAt | date}}
                         </td>
                         <td>
                             <div class="col-md-12">
@@ -112,7 +103,7 @@
                     </tr>
                     <tr>
                         <td>{{currentIndexArray[i].currentIndex + 1 }}</td>
-                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
+                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date}}</td>
                         <td>
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-center">
@@ -151,34 +142,32 @@
                         <td colspan="8">.</td>
                     </tr>
                 </ng-container>
+                <ng-container *ngIf="toggleArray[i].fileToggled">
+                    <tr>
+                        <td colspan="10"><b>Post Approval Deferral Documents </b></td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <th colspan="2">S.N</th>
+                        <th colspan="5">Document Name</th>
+                        <th colspan="4">Remarks</th>
+                    </tr>
+
+                    <tr *ngFor="let data of toggleArray[i]?.files ; let j = index">
+                        <td colspan="2">{{j + 1}}</td>
+                        <td colspan="5">
+                            {{data}}
+                        </td>
+                        <td colspan="4">DEFERRAL</td>
+                    </tr>
+
+                </ng-container>
+
             </ng-container>
             </tbody>
         </table>
         <!-- ===================table-pagination==================== -->
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
-        <ng-template #popUp>
-            <div class="modal-header">
-                <h4 class="modal-title pull-left">Confirmation</h4>
-                <a class="close pull-right cursor" aria-label="Close" (click)="close()">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-            </div>
-            <div class="modal-body">
-                Do you want to re disburse this Document?
-                <div class="col-md-12">
-                    <form>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="close()">
-                                NO
-                            </button>
-                            <button type="submit" class="btn btn-success float-right" (click)="reDisburse(selectedCadData)">YES
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </ng-template>
 
     </nb-card-body>
 </nb-card>
