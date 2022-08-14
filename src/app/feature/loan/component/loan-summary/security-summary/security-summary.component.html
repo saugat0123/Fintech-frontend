@@ -991,7 +991,7 @@
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="6">Corporate Guarantee</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="7">Corporate Guarantee</th>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
@@ -1000,6 +1000,7 @@
                         <th>Key person</th>
                         <th>Email address</th>
                         <th>Phone number</th>
+                        <th>Amount</th>
                     </tr>
                     <tr *ngFor="let corporateGuarantee of formData['initialForm']['corporateGuarantee']; let i= index">
                         <td>{{i + 1}}</td>
@@ -1008,6 +1009,7 @@
                         <td class="text-left pl-1">{{corporateGuarantee?.keyPerson}}</td>
                         <td class="text-left pl-1">{{corporateGuarantee?.email}}</td>
                         <td class="text-right pr-1">{{corporateGuarantee?.phoneNumber}}</td>
+                        <td class="text-right pr-1">{{corporateGuarantee?.amount}}</td>
                     </tr>
                 </table>
             </div>

@@ -69,7 +69,9 @@ export class InsuranceComponent implements OnInit {
                 policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber)],
                 policyDocumentPath: [ObjectUtil.setUndefinedIfNull(data.policyDocumentPath)],
                 remark: [ObjectUtil.setUndefinedIfNull(data.remark)],
-                assetInsured: [ObjectUtil.setUndefinedIfNull(data.assetInsured)]});
+                assetInsured: [ObjectUtil.setUndefinedIfNull(data.assetInsured)],
+                averageStock: [ObjectUtil.setUndefinedIfNull(data.averageStock)],
+        });
     }
     addEmptyForm() {
         const formArray = this.form.get('formArray') as FormArray;
