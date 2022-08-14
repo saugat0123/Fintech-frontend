@@ -106,6 +106,12 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   buildSccForm() {
     this.sccForm = this.formBuilder.group({
+      dateOfScc: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.dateOfScc) ? new Date() :
+              new Date(this.sccData.dateOfScc)],
+      purposeOfScc: [ObjectUtil.isEmpty(this.sccData) ? '' :
+          ObjectUtil.isEmpty(this.sccData.purposeOfScc) ? '' :
+              this.sccData.purposeOfScc],
       cibObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
               new Date(this.sccData.cibObtained)],

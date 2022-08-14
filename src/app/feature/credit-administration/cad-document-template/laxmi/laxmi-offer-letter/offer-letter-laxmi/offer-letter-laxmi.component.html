@@ -1796,7 +1796,11 @@
                                         </td>
                                     </tr>
                                     <tr *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
-                                        <td colspan="1"></td>
+                                        <td colspan="1">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </td>
                                         <td colspan="6">धितोमा राखिदिएको शेयर बिक्रिको लागि गरिदिएको लिखत ।</td>
                                     </tr>
                                 </ng-container>
@@ -3732,13 +3736,20 @@
                            formControlName="empoweredName">
                     <span class="nepaliFont font-size-normal print-only">
                 <b>{{offerLetterForm?.get('empoweredName').value ? offerLetterForm?.get('empoweredName').value : '========='}}</b></span>
+                    <br class="print-only">
                     <br>
                     दस्तखत : <input type="text"
                                     class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                     formControlName="signature1">
                     <span class="nepaliFont font-size-normal print-only">
-                <b>{{offerLetterForm?.get('signature1').value ? offerLetterForm?.get('signature1').value : '========='}}</b></span>
-
+                <b>{{offerLetterForm?.get('signature1').value ? offerLetterForm?.get('signature1').value : ''}}</b></span>
+                    <br>
+                    <br class="print-only">
+                    दस्तखत मिति : <input type="text"
+                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="signatureDate">
+                    <span class="nepaliFont font-size-normal print-only">
+                <b>{{offerLetterForm?.get('signatureDate').value ? offerLetterForm?.get('signatureDate').value : '========='}}</b></span>
                     <div class="disable-print">
                         <button [disabled]="spinner" type="submit" class="btn btn-primary float-right" nbButton
                                 status="success">
