@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../model/loanData';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {Guarantor} from '../../../model/guarantor';
 
 @Component({
   selector: 'app-company-info-summary',
@@ -15,6 +16,7 @@ import {Clients} from '../../../../../../environments/Clients';
 export class CompanyInfoSummaryComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
   @Input() loanDataHolder: LoanDataHolder;
+  newGuarantor = [];
   businessType = BusinessType;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
   contact = [];
@@ -27,11 +29,26 @@ export class CompanyInfoSummaryComponent implements OnInit {
   clientName = Clients;
   accountNumberList = [];
   accountNumbers;
+  insurance;
 
 
   constructor() { }
 
   ngOnInit() {
+<<<<<<< HEAD
+=======
+    this.insurance = this.loanDataHolder.insurance;
+    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
+        (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList) &&
+            this.loanDataHolder.loanHolder.guarantors.guarantorList.length > 0)) {
+      this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
+        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor') {
+          this.newGuarantor.push(val);
+        }
+      });
+    }
+
+>>>>>>> bc83931e0be5cadbf2ec8a8a0629c9516be3468b
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
