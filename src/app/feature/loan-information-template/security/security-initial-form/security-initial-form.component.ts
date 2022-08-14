@@ -584,6 +584,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         email: [singleData.email],
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
+                        amount: [singleData.amount],
                     })
                 );
             });
@@ -1328,6 +1329,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 email: [undefined],
                 phoneNumber: [undefined],
                 otherDetail: [undefined],
+                amount: [undefined],
             }
         );
     }

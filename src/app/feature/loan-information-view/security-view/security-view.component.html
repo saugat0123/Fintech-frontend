@@ -642,7 +642,7 @@
       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
              *ngFor="let corporateGuarantee of securityData['initialForm']['corporateGuarantee']; let i= index">
         <tr>
-          <th class="text-center" colspan="6">{{i + 1 }}. Corporate Guarantee</th>
+          <th class="text-center" colspan="7">{{i + 1 }}. Corporate Guarantee</th>
         </tr>
         <tr class="sb-bg-dark text-white">
           <th class="sn">S.N</th>
@@ -651,6 +651,7 @@
           <th>Key person</th>
           <th>Email address</th>
           <th>Phone number</th>
+          <th>Amount</th>
         </tr>
         <tr>
           <td rowspan="3">{{i + 1}}</td>
@@ -659,6 +660,7 @@
           <td class="text-left pl-1">{{corporateGuarantee?.keyPerson}}</td>
           <td class="text-left pl-1">{{corporateGuarantee?.email}}</td>
           <td class="text-right pr-1">{{corporateGuarantee?.phoneNumber}}</td>
+          <td class="text-right pr-1">{{corporateGuarantee?.amount}}</td>
         </tr>
         <tr class="sb-bg-dark text-white">
           <th class="text-center" colspan="5">
