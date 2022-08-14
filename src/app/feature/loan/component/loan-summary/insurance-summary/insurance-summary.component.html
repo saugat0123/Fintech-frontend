@@ -14,6 +14,7 @@
         <th>S.N</th>
         <th>Policy Number</th>
         <th>Assets Insured</th>
+        <th>Average Stock</th>
         <th>Insured value(Amount In NRP)</th>
         <th>Premium Amount</th>
         <th>Insurance Company</th>
@@ -28,6 +29,7 @@
         <td>{{i+1}}.</td>
         <td class="text-right pr-1">{{insurance?.policyNumber}}</td>
         <td class="text-left pl-1">{{insurance?.assetInsured}}</td>
+        <td class="text-left pl-1">{{insurance?.averageStock}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
         <td class="text-left pl-1">{{insurance?.company}}</td>
