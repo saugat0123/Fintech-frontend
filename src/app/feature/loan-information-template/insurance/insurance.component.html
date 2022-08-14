@@ -30,6 +30,10 @@
                                 <option *ngFor="let assets of assetsInsured" [ngValue]="assets">{{assets}}</option>
                             </select>
                         </div>
+                        <div class="col-md-4 form-group">
+                            <label for="averageStock"><strong>Average Stock</strong></label>
+                            <input class="form-control" formControlName="averageStock" id="averageStock" type="number">
+                        </div>
                     </div>
 
             <div class="form-group">
