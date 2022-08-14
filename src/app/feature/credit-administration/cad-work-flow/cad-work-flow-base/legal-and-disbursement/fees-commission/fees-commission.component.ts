@@ -99,8 +99,8 @@ export class FeesCommissionComponent implements OnInit {
     loanFeeDetails() {
         return this.formBuilder.group({
             feeType: [undefined, Validators.required],
-            feePercent: [0, Validators.required],
-            feeAmount: [0, Validators.required],
+            feePercent: [0],
+            feeAmount: [0],
         });
     }
 

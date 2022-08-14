@@ -185,7 +185,7 @@ export class SecurityTotalSummaryComponent implements OnInit {
                     const data = JSON.parse(d.data);
                     this.totalIndividualSec.landBuilding.rv += data.landConsideredValue || 0;
                     this.totalIndividualSec.landBuilding.mv += data.totalMarketValue || 0;
-                    this.totalIndividualSec.landBuilding.fmv += (data.distressValue + data.apartmentDistressValue);
+                    this.totalIndividualSec.landBuilding.fmv += (Number(data.fairMarketValue) + Number(data.totalCost));
                     this.totalIndividualSec.landBuilding.added = true;
                 }
             });

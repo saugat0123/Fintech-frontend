@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div  class="col-md-12 py-4 px-3" *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'DISCREPANCY_PENDING' && cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
-                  <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'" formControlName="discrepancy">Discrepancy Case?</nb-checkbox>
+                  <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'" formControlName="discrepancy">Full Discrepancy Case?</nb-checkbox>
 
                 </div>
                 <div class="form-group col-md-12 py-3">
