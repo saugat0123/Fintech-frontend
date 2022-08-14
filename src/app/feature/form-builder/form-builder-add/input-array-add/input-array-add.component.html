@@ -9,9 +9,9 @@
     </div>
 </div>
 <div class="col-md-12">
-    <div class="row">
+    <div cdkDropList (cdkDropListDropped)="moveItem($event)" [cdkDropListData]="formFields" class="row">
 
-        <div *ngFor="let field of formFields;let i=index"
+        <div cdkDrag *ngFor="let field of formFields;let i=index"
              [class]="field?.settings[2]?.value">
 
             <div [ngSwitch]="field.type" class="cursor" [nbPopover]="fieldSettings" [nbPopoverPlacement]="'left'"
