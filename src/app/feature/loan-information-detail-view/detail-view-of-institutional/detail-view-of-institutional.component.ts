@@ -77,7 +77,7 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   toggleId = [];
   isCorporate = false;
   thisClient;
-
+  facilityUtilization;
   constructor(
       private fiscalYearService: FiscalYearService,
       private toastService: ToastService,
@@ -91,6 +91,7 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
         this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
       this.isCorporate = true;
     }
+    this.facilityUtilization = JSON.parse(this.loanDataHolder.loanHolder.facilityUtilization);
     this.currentIndex = this.loanDataHolder.previousList.length;
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.disable();

@@ -94,6 +94,11 @@
                                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
                                               [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                                               [loanDataHolder]="loanDataHolder"></app-cicl-view>
+
+
+                               <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking && isCorporate"
+                                                          [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+
                                <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
                                    <hr class="print-line">
                                    <app-financial-account-information [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"

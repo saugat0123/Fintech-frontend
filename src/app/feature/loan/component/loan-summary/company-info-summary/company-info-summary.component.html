@@ -602,10 +602,10 @@
     <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['latestBusinessUpdates']"></td>
   </tr>
 </ng-container>
-    <tr class="sb-bg-gray">
+    <tr *ngIf="!isCorporate" class="sb-bg-gray">
       <th>Risk & Mitigants</th>
     </tr>
-    <tr>
+    <tr *ngIf="!isCorporate">
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
     </tr>
   </table>
