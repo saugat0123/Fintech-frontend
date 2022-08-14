@@ -211,7 +211,7 @@
                     </table>
                 </div>
             </ng-container>
-            <ng-container *ngIf="checkedData?.waiverChecked">
+            <ng-container *ngIf="checkedData?.waiverChecked && !check">
                 <div class="col-md-12">
                     <hr class="print-line">
                     <p><strong class="header">Waivers</strong></p>
@@ -219,7 +219,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="checkedData?.deviationChecked">
+            <ng-container *ngIf="checkedData?.deviationChecked && !check">
                 <div class="col-md-12">
                     <hr class="print-line">
                     <p><strong class="header">Deviation</strong></p>

@@ -1,37 +1,32 @@
 <div class="row summary">
     <div class="col-md-12">
         <nb-card-header>
-            <p class="text-left"><strong class="header">Net Trading Assets</strong></p>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-left sub-header"><strong>1. Yearly Working Capital Position</strong><br>
-                    <span [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml"></span></p>
+            <p class="text-left"><strong class="header">Working Capital Assessment & Justification Of Limits</strong></p>
+<!--            <div class="row">-->
+                <p class="text-left sub-header"><strong>1. Yearly Working Capital Position</strong><br></p>
+                <div class="col-md-12  table-sm" style="width: 100%;" [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-left sub-header"><strong>2. Periodic Working Capital Position</strong><br>
-                    <span [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml"></span></p>
+<!--            </div>-->
+<!--            <div class="row">-->
+                <p class="text-left sub-header"><strong>2. Periodic Working Capital Position</strong><br></p>
+                <div class="col-md-12 " [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-left sub-header"><strong>Justification Field</strong><br>
-                    <span [innerHTML]="ntaData?.justificationField ? ntaData?.justificationField : 'N/A' | safeHtml"></span></p>
+<!--            </div>-->
+<!--            <div class="row">-->
+                <p class="text-left sub-header"><strong>Justification Field</strong><br></p>
+                <div [innerHTML]="ntaData?.justificationField ? ntaData?.justificationField : 'N/A' | safeHtml" class="col-md-12">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-left sub-header"><strong>3. Current Assets</strong><br>
-                    <span [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml"></span></p>
+<!--            </div>-->
+<!--            <div class="row">-->
+                <p class="text-left sub-header"><strong>3. Current Assets</strong><br></p>
+                <div [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml" class="col-md-12 ">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-left sub-header"><strong>Remarks</strong><br>
-                    <span [innerHTML]="ntaData?.remarks ? ntaData?.remarks : 'N/A' | safeHtml"></span></p>
+<!--            </div>-->
+<!--            <div class="row">-->
+                <p class="text-left sub-header"><strong>Remarks</strong><br></p>
+                <div class="col-md-12" [innerHTML]="ntaData?.remarks ? ntaData?.remarks : 'N/A' | safeHtml">
                 </div>
-            </div>
+<!--            </div>-->
         </nb-card-header>
     </div>
 </div>

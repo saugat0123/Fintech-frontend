@@ -220,7 +220,7 @@
                                    </table>
                                </div>
                            </ng-container>
-                           <div class="col-md-12">
+                           <div class="col-md-12" *ngIf="!check">
                            <ng-container *ngIf="checkedData?.waiverChecked">
                                <hr class="print-line">
                                <p><strong class="header">Waivers</strong></p>

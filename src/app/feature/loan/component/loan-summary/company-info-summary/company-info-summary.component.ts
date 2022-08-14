@@ -32,6 +32,7 @@ export class CompanyInfoSummaryComponent implements OnInit {
   insurance;
   thisClient;
   check = false;
+  checkedData;
   constructor() { }
 
   ngOnInit() {
@@ -40,12 +41,16 @@ export class CompanyInfoSummaryComponent implements OnInit {
         this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
       this.check = true;
     }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+      this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
+      // this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
+    }
     this.insurance = this.loanDataHolder.insurance;
     if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
         (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList) &&
             this.loanDataHolder.loanHolder.guarantors.guarantorList.length > 0)) {
       this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
-        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor') {
+        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor' || val.guarantorType === 'Shareholder') {
           this.newGuarantor.push(val);
         }
       });
