@@ -40,7 +40,9 @@ export class CompanyInfoSummaryComponent implements OnInit {
         (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList) &&
             this.loanDataHolder.loanHolder.guarantors.guarantorList.length > 0)) {
       this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
-        this.newGuarantor.push(val);
+        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor') {
+          this.newGuarantor.push(val);
+        }
       });
     }
 
