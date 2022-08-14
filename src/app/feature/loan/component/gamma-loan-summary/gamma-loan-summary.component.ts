@@ -127,6 +127,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   crgGammaGrade;
   crgGammaScore = 0;
   crgGammaSummary = false;
+  crgGammaPremiumRange;
 
   // credit risk alpha variables --
   creditGradeAlphaStatusBadge;
@@ -323,9 +324,10 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
       const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
       this.crgGammaGrade = crgParsedData.grade;
       this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
-      if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+      this.crgGammaPremiumRange = crgParsedData.premiumRange;
+      if (this.crgGammaGrade === 'A' || this.crgGammaGrade === 'B') {
         this.crgGammaGradeStatusBadge = 'badge badge-success';
-      } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+      } else if (this.crgGammaGrade === 'C' || this.crgGammaGrade === 'D') {
         this.crgGammaGradeStatusBadge = 'badge badge-danger';
       } else {
         this.crgGammaGradeStatusBadge = 'badge badge-warning';

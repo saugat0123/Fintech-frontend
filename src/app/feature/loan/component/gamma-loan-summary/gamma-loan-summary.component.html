@@ -688,16 +688,16 @@
                                     class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                 <thead>
                                 <tr class="text-white sb-bg-dark">
-                                    <th>Credit Risk Grading (Flavour)</th>
-                                    <th>Credit Risk Grade</th>
-                                    <th>Credit Risk Score</th>
+                                    <th>Grade</th>
+                                    <th>Score</th>
+                                    <th>Premium Range</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr *ngIf="crgGammaSummary">
-                                    <td class="text-left pl-1">Gamma</td>
                                     <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
                                     <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
+                                    <td class="text-right pr-1"><span><strong> {{ crgGammaPremiumRange }}</strong></span></td>
                                 </tr>
                                 </tbody>
                             </table>
