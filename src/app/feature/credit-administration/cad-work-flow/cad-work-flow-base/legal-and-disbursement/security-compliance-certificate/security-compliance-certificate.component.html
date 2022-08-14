@@ -17,6 +17,7 @@
 
   </nb-card-header>
   <nb-card-body>
+    <form [formGroup]="sccForm">
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
 <!--      <tr>-->
 <!--        <th>Unit</th>-->
@@ -52,13 +53,24 @@
 <!--      </tr>-->
       <tr>
         <th>Purpose of SCC</th>
-        <td>purpose</td>
+        <td>
+          <input class="form-control rounded disable-print" formControlName="purposeOfScc" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData ? sccData?.purposeOfScc : 'N/A'}}</span>
+        </td>
         <th>RM/Branch</th>
         <td>rm</td>
       </tr>
       <tr>
         <th>Date</th>
-        <td>date</td>
+        <td>
+          <input [nbDatepicker]="dateOfScc"
+                 class="form-control rounded disable-print"
+                 formControlName="dateOfScc"
+                 id="dateOfScc"
+                 type="text"/>
+          <nb-datepicker #dateOfScc></nb-datepicker>
+         <span class="print-only">{{sccData ? sccData?.dateOfScc : ''}}</span>
+        </td>
         <th>Customer ID</th>
         <td>{{cadFile?.loanHolder?.customerCode}}</td>
       </tr>
@@ -99,7 +111,6 @@
         <td>{{olRefNumber}}</td>
       </tr>
     </table>
-    <form [formGroup]="sccForm">
       <p class="header"><b>1. Approved Facilities </b></p>
       <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
       <p class="sub-header mt-2"><strong>Remark</strong></p>
@@ -384,7 +395,7 @@
       <p class="header"><b>6.Document CheckList</b></p>
       <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
       <app-document-checklist-view-lite #documentChecklistViewLite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
-      <p class="header"><b>7. Valuation Schedule</b></p>
+      <p class="header"><b>7. Valuation Details</b></p>
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>
         <tr class="text-white sb-bg-dark">

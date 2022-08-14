@@ -309,6 +309,9 @@
                 </app-facility-utilization>
             </div>
             <hr class="print-line">
+            <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                                   [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+            <hr class="print-line">
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong class="header">Authority Section</strong></p>
