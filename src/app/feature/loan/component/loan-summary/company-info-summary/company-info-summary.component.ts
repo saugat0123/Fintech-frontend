@@ -35,8 +35,6 @@ export class CompanyInfoSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-<<<<<<< HEAD
-=======
     this.insurance = this.loanDataHolder.insurance;
     if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
         (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList) &&
@@ -47,8 +45,6 @@ export class CompanyInfoSummaryComponent implements OnInit {
         }
       });
     }
-
->>>>>>> bc83931e0be5cadbf2ec8a8a0629c9516be3468b
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
