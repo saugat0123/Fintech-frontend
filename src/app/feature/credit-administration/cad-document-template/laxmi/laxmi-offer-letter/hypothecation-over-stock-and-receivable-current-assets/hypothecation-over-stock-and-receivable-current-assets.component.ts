@@ -68,11 +68,50 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         }
         this.checkStockAndReceivable();
         this.checkInitialData();
+        if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+            this.form.patchValue(JSON.parse(this.initialInfoPrint));
+            this.form.patchValue({
+                branchDistrict: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchDistrict : '',
+                branchMun: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchMunVdc : '',
+                branchWardNo: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchWardNo : '',
+                branchName: this.nepaliData.branchDetail ? this.nepaliData.branchDetail.branchNameInNepali : '',
+                companyName: this.nepaliData.nepaliName ? this.nepaliData.nepaliName : '',
+                companyRegistrationNo: this.nepaliData.registrationNo ? this.nepaliData.registrationNo : '',
+                registrationNikayaName: this.nepaliData.companyRegOffice ? this.nepaliData.companyRegOffice : '',
+                registrationDate: this.nepaliData.regIssueDate ? this.nepaliData.regIssueDate : '',
+                companyPanNumber: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+                companyPanIssueOffice: this.nepaliData.panIssueOffice ? this.nepaliData.panIssueOffice : '',
+                companyPanIssueDate: this.nepaliData.panIssueDate ? this.nepaliData.panIssueDate : '',
+                companyRegDistrict: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.district : '',
+                companyRegVdc: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.municipality : '',
+                companyRegWardNo: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.wardNo : '',
+                companyRegTole: this.nepaliData.institutionRegisteredAddress ? this.nepaliData.institutionRegisteredAddress.tole : '',
+                companyRegTempDistrict: this.nepaliData.institutionCurrentAddress ? this.nepaliData.institutionCurrentAddress.district : '',
+                companyRegTempVdc: this.nepaliData.institutionCurrentAddress ? this.nepaliData.institutionCurrentAddress.municipality : '',
+                companyRegTempWardNo: this.nepaliData.institutionCurrentAddress ? this.nepaliData.institutionCurrentAddress.wardNo : '',
+                companyRegTempTole: this.nepaliData.institutionCurrentAddress ? this.nepaliData.institutionCurrentAddress.tole : '',
+                companyRepresentativeName: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.name : '',
+                companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.grandFatherName : '',
+                companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.fatherName : '',
+                companyRepresentativeHusbandName: this.nepaliData.authorizedPersonDetail ? ObjectUtil.setUndefinedIfNull(this.nepaliData.authorizedPersonDetail.husbandName) : '',
+                companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress ? this.nepaliData.authorizedPersonAddress.district : '',
+                companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress ? this.nepaliData.authorizedPersonAddress.municipality : '',
+                companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress ? this.nepaliData.authorizedPersonAddress.wardNo : '',
+                representativeCitizenNumber: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.citizenshipNo : '',
+                representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.citizenshipIssueDate : '',
+                representativeCitizenOffice: this.nepaliData.authorizedPersonDetail ? this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict : '',
+                stockValue: this.stock ? this.stock.stocksReceivablesValue.stockValue : '',
+                debtValue: this.stock ? this.stock.stocksReceivablesValue.receivableValue : '',
+                proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
+                amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
+            });
+        } else {
+            this.patchForm();
+        }
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            customerName: [undefined],
             office: [undefined],
             issuedOffice: [undefined],
             registrationNumber: [undefined],
@@ -152,6 +191,7 @@ export class HypothecationOverStockAndReceivableCurrentAssetsComponent implement
         });
     }
 patchForm() {
+    if (!ObjectUtil.isEmpty(this.nepaliData)) {
         this.form.patchValue({
             branchDistrict: ObjectUtil.setUndefinedIfNull(this.nepaliData.branchDetail.branchDistrict),
             branchMun: this.nepaliData.branchDetail.branchMunVdc,
@@ -175,73 +215,19 @@ patchForm() {
             companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
             companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
             companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
-            companyRepresentativeHusbandName: ObjectUtil.setUndefinedIfNull (this.nepaliData.authorizedPersonDetail.husbandName),
+            companyRepresentativeHusbandName: ObjectUtil.setUndefinedIfNull(this.nepaliData.authorizedPersonDetail.husbandName),
             companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
             companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
             companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
             representativeCitizenNumber: this.nepaliData.authorizedPersonDetail.citizenshipNo,
             representativeCitizenIssueDate: this.nepaliData.authorizedPersonDetail.citizenshipIssueDate,
             representativeCitizenOffice: this.nepaliData.authorizedPersonDetail.citizenshipIssueDistrict,
+            stockValue: this.stock ? this.stock.stocksReceivablesValue.stockValue : '',
+            debtValue: this.stock ? this.stock.stocksReceivablesValue.receivableValue : '',
         });
+    }
 }
 
-  fillNepaliData() {
-    if (!ObjectUtil.isEmpty(this.nepaliData)) {
-      this.form.patchValue({
-          branchDistrict: this.nepaliData.branchDistrict,
-          branchMun: this.nepaliData.branchMun,
-          branchWardNo: this.nepaliData.branchWardNo,
-          branchName: this.nepaliData.branchName,
-          companyName: this.nepaliData.companyName,
-          companyRegistrationNo: this.nepaliData.companyRegistrationNo,
-          registrationNikayaName: this.nepaliData.registrationNikayaName,
-          registrationDate: this.nepaliData.registrationDate,
-          companyPanNumber: this.nepaliData.companyPanNumber,
-          companyPanIssueOffice: this.nepaliData.companyPanIssueOffice,
-          companyPanIssueDate: this.nepaliData.companyPanIssueDate,
-          companyRegDistrict: this.nepaliData.companyRegDistrict,
-          companyRegVdc: this.nepaliData.companyRegVdc,
-          companyRegWardNo: this.nepaliData.companyRegWardNo,
-          companyRegTole: this.nepaliData.companyRegTole,
-          companyRegTempDistrict: this.nepaliData.companyRegTempDistrict,
-          companyRegTempVdc: this.nepaliData.companyRegTempVdc,
-          companyRegTempWardNo: this.nepaliData.companyRegTempWardNo,
-          companyRegTempTole: this.nepaliData.companyRegTempTole,
-          companyRepresentativeName: this.nepaliData.companyRepresentativeName,
-          companyRepresentativeGrandFatherName: this.nepaliData.companyRepresentativeGrandFatherName,
-          companyRepresentativeFatherName: this.nepaliData.companyRepresentativeFatherName,
-          companyRepresentativeHusbandName: this.nepaliData.companyRepresentativeHusbandName,
-          companyRepresentativeDistrict: this.nepaliData.companyRepresentativeDistrict,
-          companyRepresentativeVdc: this.nepaliData.companyRepresentativeVdc,
-          companyRepresentativeWardNo: this.nepaliData.companyRepresentativeWardNo,
-          representativeCitizenNumber: this.nepaliData.representativeCitizenNumber,
-          representativeCitizenIssueDate: this.nepaliData.representativeCitizenIssueDate,
-          representativeCitizenOffice: this.nepaliData.representativeCitizenOffice,
-          districtOne: this.nepaliData.districtOne,
-          municipalityOne: this.nepaliData.municipalityOne,
-          wardNum: this.nepaliData.wardNum,
-          ageOne: this.nepaliData.ageOne,
-          sakshiName: this.nepaliData.sakshiName,
-          districtTwo: this.nepaliData.districtTwo,
-          municipalityTwo: this.nepaliData.municipalityTwo,
-          wardNumTwo: this.nepaliData.wardNumTwo,
-          ageTwo: this.nepaliData.ageTwo,
-          sakshiNameTwo: this.nepaliData.sakshiNameTwo,
-          role: this.nepaliData.role,
-          roleName: this.nepaliData.roleName,
-          itiSambatYear: this.nepaliData.itiSambatYear,
-          itiSambatMonth: this.nepaliData.itiSambatMonth,
-          itiSambatDay: this.nepaliData.itiSambatDay,
-          roj: this.nepaliData.roj,
-          stockValue: this.stock ? this.stock.stocksReceivablesValue.stockValue : '',
-          debtValue: this.stock ? this.stock.stocksReceivablesValue.receivableValue : '',
-          customerName: this.nepaliData.name,
-        proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
-        amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
-      });
-        this.patchForm();
-    }
-  }
     onSubmit() {
         this.spinner = true;
         let flag = true;
@@ -291,7 +277,6 @@ patchForm() {
                 amountInWords: this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(this.amount))
             });
         } else {
-            this.fillNepaliData();
             this.form.patchValue({
                 proposedAmount: this.nepaliNumber.transform(this.amount, 'preeti'),
                 amountInWords: this.nepaliCurrencyWordPipe.transform(this.amount)
