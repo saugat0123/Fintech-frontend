@@ -19,7 +19,7 @@
         <tr>
           <td rowspan="6"><b>RegistrationDetail</b></td>
           <td><b>Dept/office</b></td>
-          <td>{{companyInfo?.legalStatus?.panRegistrationOffice}}</td>
+          <td>{{((companyInfo?.legalStatus?.registeredOffice | replace: '_': ' ') | titlecase)}}</td>
         </tr>
         <tr>
           <td></td>
@@ -215,11 +215,22 @@
           <td><b>Account Number</b></td>
           <td colspan="3">{{getAccountNumber(accountNumberList)}}</td>
         </tr>
-
-        <tr>
-          <td><b>IRD report obtained and attached</b></td>
-          <td colspan="3">{{companyJsonData?.irdReport || 'N/A'}}</td>
+        <tr *ngIf="check">
+          <td colspan="4" class="text-center font-weight-bold"> IRD Submission report</td>
         </tr>
+        <tr *ngIf="check">
+          <td><b>Last obtained for FY</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.lastFYIRD}}</td>
+        </tr>
+        <tr *ngIf="check">
+          <td><b>Justification for deviation</b></td>
+          <td colspan="3" [innerHTML]="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.justifyIRD | safeHtml"></td>
+        </tr>
+
+<!--        <tr>-->
+<!--          <td><b>IRD report obtained and attached</b></td>-->
+<!--          <td colspan="3">{{companyJsonData?.irdReport || 'N/A'}}</td>-->
+<!--        </tr>-->
 
 <!--        Obligor Code for SRDB only-->
         <tr *ngIf="approveSheet === 'approveSheet' && client === clientName.SHINE_RESUNGA">
@@ -229,7 +240,6 @@
 
       </table>
     </div>
-
   <div class="col-md-12" *ngIf="newGuarantor?.length > 0">
     <div class="text-center">
       <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
@@ -290,11 +300,23 @@
 
 <div class="col-md-12">
   <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+    <tr *ngIf="client" class="sb-bg-gray">
+      <th>Business Objectives </th>
+    </tr>
+    <tr *ngIf="client">
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.BusinessIndustryOutlook : 'N/A' | safeHtml"></span></td>
+    </tr>
     <tr class="sb-bg-gray">
       <th>Business Process </th>
     </tr>
     <tr>
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.technicalAspect : 'N/A' | safeHtml"></span></td>
+    </tr>
+    <tr *ngIf="client" class="sb-bg-gray">
+      <th>Raw Materials</th>
+    </tr>
+    <tr *ngIf="client">
+      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk'] || 'N/A'"></td>
     </tr>
     <tr class="sb-bg-gray">
       <th>Major Buyers</th>
@@ -308,6 +330,38 @@
     <tr>
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
     </tr>
+
+<ng-container *ngIf="client">
+  <tr class="sb-bg-gray">
+    <th>Marketing and distribution Strategies</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
+  </tr>
+
+
+  <tr class="sb-bg-gray">
+    <th>Pricing & Competitors Overview</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
+  </tr>
+
+  <tr class="sb-bg-gray">
+    <th>Future plan</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['futurePlan']"></td>
+  </tr>
+
+
+  <tr class="sb-bg-gray">
+    <th>Latest Business Updates</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['latestBusinessUpdates']"></td>
+  </tr>
+</ng-container>
     <tr class="sb-bg-gray">
       <th>Risk & Mitigants</th>
     </tr>

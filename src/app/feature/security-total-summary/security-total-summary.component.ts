@@ -184,7 +184,7 @@ export class SecurityTotalSummaryComponent implements OnInit {
                 if (d.securityType.toString() === 'LAND_BUILDING_SECURITY') {
                     const data = JSON.parse(d.data);
                     this.totalIndividualSec.landBuilding.rv += data.landConsideredValue || 0;
-                    this.totalIndividualSec.landBuilding.mv += data.totalMarketValue || 0;
+                    this.totalIndividualSec.landBuilding.mv += data.considerValue || 0;
                     this.totalIndividualSec.landBuilding.fmv += (Number(data.fairMarketValue) + Number(data.totalCost));
                     this.totalIndividualSec.landBuilding.added = true;
                 }

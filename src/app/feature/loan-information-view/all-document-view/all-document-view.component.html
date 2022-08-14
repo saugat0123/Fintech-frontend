@@ -1,7 +1,7 @@
 <nb-card class="modal-dialog-scrollable summary">
   <nb-card-header>
           <span>
-            <span><strong class="header">Loan Documents</strong></span>
+<!--            <span><strong class="header">Loan Documents</strong></span>-->
             <button class="float-right sb-small sb-bg-gray disable-print"
                     *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath"
                     (click)=getDocPath()> Download All Document</button>
@@ -12,10 +12,10 @@
   </nb-card-header>
   <nb-card-body>
   <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row summary">
-    <div class="col-md-12 header">
-      Loan Documents
-    </div>
     <div class="col-md-12">
+      <p class="col-md-12 header">
+        <strong>Loan Documents</strong>
+      </p>
       <table class="table table-condensed table-bordered table-sm sb-small text-center summary">
         <thead>
         <tr class="sb-bg-gray">
