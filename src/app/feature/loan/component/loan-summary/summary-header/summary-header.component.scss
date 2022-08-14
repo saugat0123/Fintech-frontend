@@ -1,1 +1,10 @@
 @import '../sme-loan-summary/sme-loan-summary.component';
+
+@media print {
+  .print-padding {
+    //padding: 40px;
+    //margin: 40px;
+    padding-bottom: 135px;
+    margin-left: 110px;
+  }
+}
