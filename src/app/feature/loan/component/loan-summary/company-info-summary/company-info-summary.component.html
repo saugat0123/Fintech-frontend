@@ -207,14 +207,11 @@
           <td><b>SubSector</b></td>
           <td colspan="3">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
+<!--        <tr>-->
+<!--          <td><b>Customer ID</b></td>-->
+<!--          <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>-->
+<!--        </tr>-->
         <tr>
-<<<<<<< HEAD
-          <td><b>Customer ID</b></td>
-          <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>
-        </tr>
-        <tr>
-=======
->>>>>>> bc83931e0be5cadbf2ec8a8a0629c9516be3468b
           <td><b>Account Number</b></td>
           <td colspan="3">{{getAccountNumber(accountNumberList)}}</td>
         </tr>
@@ -297,7 +294,7 @@
       <th>Business Process </th>
     </tr>
     <tr>
-      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? (companyJsonData?.marketScenario)?.technicalAspect : 'N/A' | safeHtml"></span></td>
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.technicalAspect : 'N/A' | safeHtml"></span></td>
     </tr>
     <tr class="sb-bg-gray">
       <th>Major Buyers</th>
