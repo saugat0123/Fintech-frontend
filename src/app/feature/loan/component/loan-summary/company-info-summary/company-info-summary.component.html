@@ -247,7 +247,7 @@
                 <tr *ngFor="let g of newGuarantor; let i = index;">
                   <td class="text-left pl-2">{{i+1}}</td>
                   <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
-                  <td class="text-left pl-2">N/A</td>
+                  <td class="text-left pl-2">{{g?.guarantorType || 'N/A'}}</td>
                   <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
                 </tr>
                 </tbody>
