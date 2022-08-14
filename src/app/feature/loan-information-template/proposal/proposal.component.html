@@ -559,6 +559,29 @@
                                                            id="serviceCharge" appDecimalNumber>
                                                 </td>
                                             </tr>
+                                            <tr *ngIf="customerType !== 'INDIVIDUAL'">
+                                                <td style="vertical-align: middle;font-weight: bold; text-align: center">
+                                                    Forex
+                                                </td>
+                                                <td colspan="4">
+                                                    <table class="table-borderless table-sm" style="width: 100%">
+                                                        <tbody>
+                                                        <td class="border-right">
+                                                            <input rows="1" class="form-control mt-1 mb-1"
+                                                                   formControlName="forexOnSale"
+                                                                   id="forexOnSale">paisa discount / USD on sale
+                                                            flat
+                                                        </td>
+                                                        <td>
+                                                            <input rows="1" class="form-control mt-1 mb-1"
+                                                                   formControlName="forexOnPurchase"
+                                                                   id="forexOnPurchase">paisa / USD premium on purchase
+
+                                                        </td>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td style="vertical-align: middle;font-weight: bold; text-align: center">
                                                     Other
@@ -669,23 +692,23 @@
                                         </table>
                                     </div>
                                 </div>
-                                <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="title" for="specialCovenant"><strong>Special
-                                                Covenants/Conditions, If Any</strong></label>
-                                            <ckeditor
-                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"
-                                                    formControlName="specialCovenant" id="specialCovenant"
-                                                    name="specialCovenant"
-                                                    [config]="ckeConfig"></ckeditor>
-                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"
-                                                 class="text-danger">
-                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-container>
+<!--                                <ng-container *ngIf="!fromProfile && customerType === 'INSTITUTION'">-->
+<!--                                    <div class="col-md-12">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="title" for="specialCovenant"><strong>Special-->
+<!--                                                Covenants/Conditions, If Any</strong></label>-->
+<!--                                            <ckeditor-->
+<!--                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.specialCovenant.errors }"-->
+<!--                                                    formControlName="specialCovenant" id="specialCovenant"-->
+<!--                                                    name="specialCovenant"-->
+<!--                                                    [config]="ckeConfig"></ckeditor>-->
+<!--                                            <div *ngIf="(submitted) && formControls.specialCovenant.invalid"-->
+<!--                                                 class="text-danger">-->
+<!--                                                <span *ngIf="formControls.specialCovenant.errors.required">Special Covenants/Conditions is required.</span>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </ng-container>-->
                                 <ng-container *ngIf="customerType === 'INSTITUTION'">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -718,13 +741,13 @@
                                     </div>
 
                                 </ng-container>
-                                <div class="col-md-12 form-group" *ngIf="!fromProfile">
-                                    <b>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, <em>(IF ANY)</em></b>
-                                    <div>
-                                        <ckeditor formControlName="waiverConclusionRecommendation"
-                                                  [config]="ckeConfig"></ckeditor>
-                                    </div>
-                                </div>
+<!--                                <div class="col-md-12 form-group" *ngIf="!fromProfile">-->
+<!--                                    <b>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, <em>(IF ANY)</em></b>-->
+<!--                                    <div>-->
+<!--                                        <ckeditor formControlName="waiverConclusionRecommendation"-->
+<!--                                                  [config]="ckeConfig"></ckeditor>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                         </form>
                     </div>

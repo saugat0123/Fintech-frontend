@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {LoanDataHolder} from '../../../../../model/loanData';
 
 @Component({
   selector: 'app-upto-disbursement-modality',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upto-disbursement-modality.component.scss']
 })
 export class UptoDisbursementModalityComponent implements OnInit {
+  @Input() customerAllLoanList: LoanDataHolder[];
 
   constructor() { }
 

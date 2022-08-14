@@ -69,38 +69,46 @@
                                        type="text"/>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="title" for="plotNumber">Plot No.</label>
-                                <input class="form-control rounded" formControlName="plotNumber"
-                                       id="plotNumber"
-                                       name="plotNumber" placeholder="Plot No."
-                                       type="text"/>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="title" for="areaFormat">Area Format</label>
-                                <!--  <input class="form-control rounded" formControlName="areaFormat"
-                                         id="areaFormat"
-                                         name="areaFormat" placeholder="area format"
-                                         type="text"/>-->
-                                <nb-select formControlName="areaFormat" placeholder="select area format" id="areaFormat"
-                                           fullWidth>
-                                    <nb-option *ngFor="let format of areaFormat" [value]="format">{{format}}</nb-option>
-                                </nb-select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="title" for="area">Area</label>
-                                <input class="form-control rounded" formControlName="area"
-                                       id="ba"
-                                       name="area" placeholder="Area"
-                                       type="text"/>
-                            </div>
-                        </div>
                     </div>
+                    <div class="row" *ngFor="let lo of land?.get('locationDetail')['controls']; let li = index" formArrayName="locationDetail" >
+                        <ng-container [formGroupName]="li">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="plotNumber">Plot No. {{li + 1}}</label>
+                                    <input class="form-control rounded" formControlName="plotNumber"
+                                           id="plotNumber"
+                                           name="plotNumber" placeholder="Plot No."
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="areaFormat">Area Format {{li + 1}}</label>
+                                    <nb-select formControlName="areaFormat" placeholder="select area format" id="areaFormat"
+                                               fullWidth>
+                                        <nb-option *ngFor="let format of areaFormat" [value]="format">{{format}}</nb-option>
+                                    </nb-select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="area">Area {{li + 1}}</label>
+                                    <input class="form-control rounded" formControlName="area"
+                                           id="ba"
+                                           name="area" placeholder="Area"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="com-md-3" style="padding-top: 25px" *ngIf="land?.get('locationDetail')?.length > 1">
+                                <button class="btn btn-danger" (click)="deleteLocationDetail('landDetails', i, li)">Delete</button>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary" (click)="addLocationDetail('landDetails', i)">Add More</button>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -1049,38 +1057,78 @@
                                            type="text"/>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="plotNumber">Plot
-                                        No.</label>
-                                    <input class="form-control rounded"
-                                           [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('plotNumber').errors || landAndBuilding.get('plotNumber').invalid) }"
-                                           formControlName="plotNumber"
-                                           name="plotNumber" placeholder="Plot No."
-                                           type="text"/>
-                                </div>
+                        </div>
+                            <div class="row pt-2" *ngFor="let lo of landAndBuilding?.get('locationDetail')['controls']; let lbi = index" formArrayName="locationDetail" >
+                                <ng-container class="col-md-12" [formGroupName]="lbi">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title" for="landBuildingPlotNumber">Plot No. {{lbi + 1}}</label>
+                                            <input class="form-control rounded" formControlName="plotNumber"
+                                                   id="landBuildingPlotNumber"
+                                                   name="plotNumber" placeholder="Plot No."
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title" for="landBuildingAreaFormat">Area Format {{lbi + 1}}</label>
+                                            <nb-select formControlName="areaFormat" placeholder="select area format" id="landBuildingAreaFormat"
+                                                       fullWidth>
+                                                <nb-option *ngFor="let format of areaFormat" [value]="format">{{format}}</nb-option>
+                                            </nb-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="title" for="landBuildingArea">Area {{lbi + 1}}</label>
+                                            <input class="form-control rounded" formControlName="area"
+                                                   id="landBuildingArea"
+                                                   name="area" placeholder="Area"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="com-md-3" style="padding-top: 25px" *ngIf="landAndBuilding?.get('locationDetail')?.length > 1">
+                                        <button class="btn btn-danger" (click)="deleteLocationDetail('landBuilding', i, lbi)">Delete</button>
+                                    </div>
+                                </ng-container>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="areaFormat">Area
-                                        Format</label>
-                                    <select class="form-control rounded"
-                                            formControlName="areaFormat"
-                                            name="areaFormat">
-                                        <option [value]="null">Select Area Format</option>
-                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
-                                    </select>
-                                </div>
+
+                            <div>
+                                <button class="btn btn-primary" (click)="addLocationDetail('landBuilding', i)">Add More</button>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="area">Area</label>
-                                    <input class="form-control rounded"
-                                           formControlName="area"
-                                           name="area" placeholder="Area"
-                                           type="text"/>
-                                </div>
-                            </div>
+                        <div class="row pt-2">
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="plotNumber">Plot-->
+<!--                                        No.</label>-->
+<!--                                    <input class="form-control rounded"-->
+<!--                                           [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('plotNumber').errors || landAndBuilding.get('plotNumber').invalid) }"-->
+<!--                                           formControlName="plotNumber"-->
+<!--                                           name="plotNumber" placeholder="Plot No."-->
+<!--                                           type="text"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="areaFormat">Area-->
+<!--                                        Format</label>-->
+<!--                                    <select class="form-control rounded"-->
+<!--                                            formControlName="areaFormat"-->
+<!--                                            name="areaFormat">-->
+<!--                                        <option [value]="null">Select Area Format</option>-->
+<!--                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label class="title" for="area">Area</label>-->
+<!--                                    <input class="form-control rounded"-->
+<!--                                           formControlName="area"-->
+<!--                                           name="area" placeholder="Area"-->
+<!--                                           type="text"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="landConsideredValue">Land Market Value</label>
