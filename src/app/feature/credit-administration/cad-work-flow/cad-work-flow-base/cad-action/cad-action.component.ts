@@ -137,8 +137,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
-        console.log('currentUserRole', this.currentUserRole);
-        console.log('LocalStorageUtil.getStorage().roleName.toLowerCase()', LocalStorageUtil.getStorage().roleName.toLowerCase());
         if ((this.currentUserRole === RoleType.APPROVAL || this.currentUserRole === RoleType.MAKER) && this.cadOfferLetterApprovedDoc.docStatus !== CadDocStatus.DISCREPANCY_PENDING) {
             this.isMakerOrApproval = true;
         }
