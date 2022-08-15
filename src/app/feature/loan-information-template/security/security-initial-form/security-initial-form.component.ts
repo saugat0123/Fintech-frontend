@@ -508,6 +508,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     forProposed: [singleData.forProposed],
                     forExisting: [singleData.forExisting],
                     existingAsProposed: [singleData.existingAsProposed],
+                    plantMachineryChecked: [singleData.plantMachineryChecked],
+                    plantMachineryModel: [singleData.plantMachineryModel],
+                    plantMachineryAmount: [singleData.plantMachineryAmount],
                 })
             );
         });
@@ -659,6 +662,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     forProposed: [singleData.forProposed],
                     forExisting: [singleData.forExisting],
                     existingAsProposed: [singleData.existingAsProposed],
+                    plantMachineryChecked: [singleData.plantMachineryChecked],
+                    plantMachineryModel: [singleData.plantMachineryModel],
+                    plantMachineryAmount: [singleData.plantMachineryAmount],
                 })
             );
             if (!ObjectUtil.isEmpty(Data)) {
@@ -765,6 +771,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     forProposed: [singleData.forProposed],
                     forExisting: [singleData.forExisting],
                     existingAsProposed: [singleData.existingAsProposed],
+                    plantMachineryChecked: [singleData.plantMachineryChecked],
+                    plantMachineryModel: [singleData.plantMachineryModel],
+                    plantMachineryAmount: [singleData.plantMachineryAmount],
                 })
             );
         });
@@ -1341,6 +1350,9 @@ export class SecurityInitialFormComponent implements OnInit {
             forProposed: [undefined],
             forExisting: [undefined],
             existingAsProposed: [undefined],
+            plantMachineryChecked: [false],
+            plantMachineryModel: [undefined],
+            plantMachineryAmount: [undefined],
         });
     }
 
@@ -1369,6 +1381,9 @@ export class SecurityInitialFormComponent implements OnInit {
             forProposed: [undefined],
             forExisting: [undefined],
             existingAsProposed: [undefined],
+            plantMachineryChecked: [false],
+            plantMachineryModel: [undefined],
+            plantMachineryAmount: [undefined],
         });
     }
     LandBuildingDetailsFormGroup() {
@@ -1442,6 +1457,9 @@ export class SecurityInitialFormComponent implements OnInit {
             forProposed: [undefined],
             forExisting: [undefined],
             existingAsProposed: [undefined],
+            plantMachineryChecked: [false],
+            plantMachineryModel: [undefined],
+            plantMachineryAmount: [undefined],
         });
     }
 
@@ -2391,6 +2409,16 @@ export class SecurityInitialFormComponent implements OnInit {
                     })
                 );
             });
+        }
+    }
+
+    plantMachineryCheck(checked, securityName: string, index: number) {
+        if (checked) {
+            this.securityForm.get([securityName, index, 'plantMachineryChecked']).patchValue(checked);
+        } else {
+            this.securityForm.get([securityName, index, 'plantMachineryChecked']).patchValue(checked);
+            this.securityForm.get([securityName, index, 'plantMachineryModel']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryAmount']).patchValue(null);
         }
     }
 }
