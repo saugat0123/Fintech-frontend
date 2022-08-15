@@ -1,6 +1,6 @@
-<section class="enable-print">
+<section class="enable-print" id="print-block">
     <nb-card *ngIf="!spinner">
-        <nb-card-body id="print-block">
+        <nb-card-body >
             <div class="row disable-print">
                 <div class="col-md-12">
                     <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="text-left pl-2">
                                                 Outcome:
-                                                <span><strong> {{ccblData?.thresholdOutcome }}</strong></span>
+                                                <span><strong> {{ccblData?.thresholdOutcome }} {{ccblData?.waiverValue === 'Yes' ? '(Waiver has been proposed)' : ''}}</strong></span>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +185,9 @@
                                            [customerAllLoanList]="customerAllLoanList"
                                            [isDetailedView]="isDetailedView"
                                            [isExecutive]="true"
-                                           [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
+                                           [totalProposed]="totalProposedLimit">
+
+                </app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isSaneView">
                 <div class="row">
@@ -340,17 +342,20 @@
                     </div>
                 </div>
             </ng-container>
-            <div style="page-break-after: always !important;"></div>
-            <div class="col-md-12">
-                <hr>
-                <app-summary-header [loanCategory]="loanDataHolder?.loanHolder?.customerType"
-                                    [loanDataHolder]="loanDataHolder"
-                                    [crgCCbl]="(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)"
-                                    [isJointInfo]="loanDataHolder?.loanHolder?.isJointCustomer"
-                                    [currentDocAction]="loanDataHolder?.currentStage?.docAction?.toString()">
-                </app-summary-header>
-                <hr>
-            </div>
+<!--            <div style="page-break-after: always !important;"></div>-->
+        </nb-card-body>
+    </nb-card>
+
+    <div class="row page-break">
+        <div class="col-md-12" >
+            <app-summary-header [loanCategory]="loanDataHolder?.loanHolder?.customerType"
+                                [loanDataHolder]="loanDataHolder"
+                                [crgCCbl]="(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)"
+                                [isJointInfo]="loanDataHolder?.loanHolder?.isJointCustomer"
+                                [currentDocAction]="loanDataHolder?.currentStage?.docAction?.toString()">
+            </app-summary-header>
+        </div>
+        <div class="col-md-12">
             <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million [loanDataHolder]="loanDataHolder"
                                       [fiscalYear]="fiscalYearArray"
@@ -369,11 +374,13 @@
                                        [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
-            <div style="page-break-after: always !important;"></div>
-            <ng-container *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
+            <ng-container class="page-break" *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
                                   [fixedAssetsData]="fixedAssetsData"></app-annexure-one>
             </ng-container>
-        </nb-card-body>
-    </nb-card>
+
+        </div>
+    </div>
+
+
 </section>

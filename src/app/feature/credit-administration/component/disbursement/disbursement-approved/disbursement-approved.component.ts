@@ -12,6 +12,10 @@ import * as CryptoJS from 'crypto-js';
 import {AdditionalExposureComponent} from '../additional-exposure/additional-exposure.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {ToastService} from '../../../../../@core/utils';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-disbursement-approved',
@@ -32,13 +36,17 @@ export class DisbursementApprovedComponent implements OnInit {
   encryptUrlArray: { url: string }[] = [];
   currentIndexArray: { currentIndex: number }[] = [];
   asc = false;
-
+  selectedCadData: any;
   constructor(private service: CreditAdministrationService,
               private router: Router,
               private spinnerService: NgxSpinnerService,
               private nbModel: NgbModal,
               private nbDialogService: NbDialogService,
-              public routeService: RouterUtilsService) {
+              public routeService: RouterUtilsService,
+              private cadService: CreditAdministrationService,
+              private toastService: ToastService,
+              private routerService: RouterUtilsService,
+              private modalService:  NgbModal) {
   }
 
   static loadData(other: DisbursementApprovedComponent) {
@@ -112,5 +120,37 @@ export class DisbursementApprovedComponent implements OnInit {
     this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_APPROVED', sortBy: sortBy, sortOrder: dir});
     DisbursementApprovedComponent.loadData(this);
   }
-
+  reDisburse(data: CustomerApprovedLoanCadDocumentation) {
+    const cad = {
+      toRole: data.cadCurrentStage.toRole,
+      toUser: data.cadCurrentStage.toUser,
+      cadId: data.id,
+      docAction: 'RE_INITIATE',
+      comment: 'Re Disbursement',
+      documentStatus: CadDocStatus.OFFER_PENDING,
+      isBackwardForMaker: true,
+      discrepancy: false,
+      partialDiscrepancy: false,
+    };
+    this.spinnerService.show();
+    this.cadService.saveAction(cad).subscribe((response: any) => {
+      this.spinnerService.hide();
+      this.close();
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Moved File To Offer Pending'));
+      this.routerService.routeOnConditionProfileOrSummary(data.id, data);
+      this.spinner = false;
+    }, error => {
+      this.spinnerService.hide();
+      this.close();
+      this.toastService.show(new Alert(AlertType.ERROR, 'Opps!!! Something Went Wrong'));
+      this.spinner = false;
+    });
+  }
+  close() {
+    this.modalService.dismissAll();
+  }
+  openModal(modal, model) {
+    this.selectedCadData = model;
+    this.modalService.open(modal, {size: 'xl', backdrop: true});
+  }
 }
