@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KaloSuchiBorrowerComponent } from './kalo-suchi-borrower.component';
+import { KaloSuchiBorrowerComponent } from './kalo-suchi-borrower-company.component';
 
 describe('KaloSuchiBorrowerComponent', () => {
   let component: KaloSuchiBorrowerComponent;

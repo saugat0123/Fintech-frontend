@@ -16,7 +16,7 @@ import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
-import {KaloSuchiBorrowerComponent} from './kalo-suchi-borrower/kalo-suchi-borrower.component';
+import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {NgxPrintModule} from 'ngx-print';
 
 @NgModule({
@@ -28,14 +28,14 @@ import {NgxPrintModule} from 'ngx-print';
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
-    KaloSuchiBorrowerComponent,
+    KaloSuchiBorrowerCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    KaloSuchiBorrowerComponent],
+    KaloSuchiBorrowerCompanyComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -58,7 +58,7 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    KaloSuchiBorrowerComponent
+    KaloSuchiBorrowerCompanyComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]

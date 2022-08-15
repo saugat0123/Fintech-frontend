@@ -12,15 +12,15 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-kalo-suchi-borrower',
-  templateUrl: './kalo-suchi-borrower.component.html',
-  styleUrls: ['./kalo-suchi-borrower.component.scss']
+  selector: 'app-kalo-suchi-borrower-company',
+  templateUrl: './kalo-suchi-borrower-company.component.html',
+  styleUrls: ['./kalo-suchi-borrower-company.component.scss']
 })
-export class KaloSuchiBorrowerComponent implements OnInit {
+export class KaloSuchiBorrowerCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  kaloSuchiBorrower: FormGroup;
+  kaloSuchiBorrowerCompany: FormGroup;
   nepData;
 
   constructor(private formBuilder: FormBuilder,
@@ -36,7 +36,7 @@ export class KaloSuchiBorrowerComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.kaloSuchiBorrower.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.kaloSuchiBorrowerCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -46,7 +46,7 @@ export class KaloSuchiBorrowerComponent implements OnInit {
   }
 
   buildForm() {
-    this.kaloSuchiBorrower = this.formBuilder.group({
+    this.kaloSuchiBorrowerCompany = this.formBuilder.group({
       address: [undefined],
       metropolitian: [undefined],
       approver: [undefined],
@@ -106,13 +106,13 @@ export class KaloSuchiBorrowerComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrower.value);
+          singleCadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrower.value);
+        cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -121,7 +121,7 @@ export class KaloSuchiBorrowerComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrower.value);
+      cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
