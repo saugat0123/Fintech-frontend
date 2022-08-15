@@ -58,13 +58,14 @@
               <div class="col-md-4">
                 <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}})
                 <span class="float-right">
-              |
             </span>
               </div>
              <div class="col-md-4">
-               <b>Registered Office</b>: {{companyInfo?.legalStatus.panRegistrationOffice}}
              </div>
             </div>
+          </td>
+          <td>
+            <b>Registered Office</b>: {{companyInfo?.legalStatus.panRegistrationOffice}}
           </td>
         </tr>
         <tr>
@@ -84,10 +85,10 @@
               |
             </span>
               </div>
-             <div class="col-md-4">
-               <b>Registered Office</b>: {{companyInfo?.legalStatus.vatRegistrationOffice}}
-             </div>
             </div>
+          </td>
+          <td>
+              <b>Registered Office</b>: {{companyInfo?.legalStatus.vatRegistrationOffice}}
           </td>
         </tr>
        <!-- <tr>
@@ -113,18 +114,18 @@
         </tr>
         <tr>
           <td><b>Registered Address</b></td>
-          <td  colspan="2">({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}, {{companyLocationData?.municipalityVdc?.name}}),
-            {{companyLocationData?.ward}},  {{companyLocationData?.address1}} , {{companyLocationData?.address2}}</td>
+          <td  colspan="2">
+             {{companyLocationData?.address1}}</td>
         </tr>
         <tr>
           <td><b>Project Address</b></td>
-          <td  colspan="2">({{projectAddress?.province?.name}},{{projectAddress?.district?.name}}, {{projectAddress?.municipalityVdc?.name}}),
-            {{projectAddress?.ward}},  {{projectAddress?.address1}} , {{projectAddress?.address2}}</td>
+          <td  colspan="2">
+            {{projectAddress?.address1}}</td>
         </tr>
         <tr>
           <td><b>Correspondence Address</b></td>
-          <td  colspan="2">({{correspondenceAddress?.province?.name}},{{correspondenceAddress?.district?.name}}, {{correspondenceAddress?.municipalityVdc?.name}}),
-            {{correspondenceAddress?.ward}},  {{correspondenceAddress?.address1}} , {{correspondenceAddress?.address2}}</td>
+          <td  colspan="2">
+            {{correspondenceAddress?.address1}} </td>
         </tr>
         <tr>
           <td>
@@ -177,7 +178,7 @@
 
         <tr>
           <td><b>Authorized / Issue / Paid Up Capital</b></td>
-          <td colspan="2">NPR. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
+          <td colspan="3">NPR. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
             / NPR. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
             / NPR. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
         </tr>
@@ -185,75 +186,106 @@
         <ng-container *ngIf="client === clientName?.ICFC">
           <tr *ngIf="companyInfo?.capital?.fixedCapital > 0">
             <td><b>Fixed Capital</b></td>
-            <td colspan="2">NPR. {{companyInfo?.capital?.fixedCapital |currencyFormatter}}</td>
+            <td colspan="3">NPR. {{companyInfo?.capital?.fixedCapital |currencyFormatter}}</td>
           </tr>
           <tr *ngIf="companyInfo?.capital?.workingCapital > 0">
             <td><b>Working(Current) Capital</b></td>
-            <td colspan="2">NPR. {{companyInfo?.capital?.workingCapital |currencyFormatter}}</td>
+            <td colspan="3">NPR. {{companyInfo?.capital?.workingCapital |currencyFormatter}}</td>
           </tr>
           <tr *ngIf="companyInfo?.capital?.totalCapital > 0">
             <td><b>Total  Capital</b></td>
-            <td colspan="2">NPR. {{companyInfo?.capital?.totalCapital |currencyFormatter}}</td>
+            <td colspan="3">NPR. {{companyInfo?.capital?.totalCapital |currencyFormatter}}</td>
           </tr>
         </ng-container>
 
         <tr>
           <td><b>Business Segment</b></td>
-          <td>{{loanDataHolder?.loanHolder['clientType'] | clientType}}</td>
+          <td colspan="3">{{loanDataHolder?.loanHolder['clientType'] | clientType}}</td>
 
         </tr>
         <tr>
           <td><b>SubSector</b></td>
-          <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
+          <td colspan="3">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
-        <tr>
-          <td><b>Customer ID</b></td>
-          <td>{{loanDataHolder?.loanHolder.customerCode}}</td>
-        </tr>
+<!--        <tr>-->
+<!--          <td><b>Customer ID</b></td>-->
+<!--          <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>-->
+<!--        </tr>-->
         <tr>
           <td><b>Account Number</b></td>
-          <td>{{getAccountNumber(accountNumberList)}}</td>
+          <td colspan="3">{{getAccountNumber(accountNumberList)}}</td>
         </tr>
+
         <tr>
           <td><b>IRD report obtained and attached</b></td>
-          <td>{{companyJsonData?.irdReport || 'N/A'}}</td>
+          <td colspan="3">{{companyJsonData?.irdReport || 'N/A'}}</td>
         </tr>
 
 <!--        Obligor Code for SRDB only-->
         <tr *ngIf="approveSheet === 'approveSheet' && client === clientName.SHINE_RESUNGA">
           <td><b>Obligor Code</b></td>
-          <td>{{loanDataHolder?.loanHolder?.obligor}}</td>
+          <td colspan="3">{{loanDataHolder?.loanHolder?.obligor}}</td>
         </tr>
 
       </table>
     </div>
 
-  <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
-  <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
-    <thead>
-    <tr class="sb-bg-gray">
-      <th class="sn">S.No</th>
-      <th>Shareholder/Promoters</th>
-      <th>Designation</th>
-      <th>Share holding(%)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let share of companyJsonData.proprietorList; let i=index">
-      <tr>
-        <td>{{i+1}}</td>
-        <td class="text-left pl-1">{{share?.name}}</td>
-        <td class="text-left pl-1">{{share?.type}}</td>
-        <td class="text-right pr-1">{{share?.share}}%</td>
-      </tr>
-    </ng-container>
-    <tr>
-      <th colspan="3" class="text-left pl-1">Total</th>
-      <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
-    </tr>
+  <div class="col-md-12" *ngIf="newGuarantor?.length > 0">
+    <div class="text-center">
+      <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
+      <ng-container>
+              <table
+                      class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
 
-    </tbody>
-  </table>
+                <tbody>
+                <tr>
+                  <td class="text-left sb-bg-gray pl-2">S.N</td>
+                  <td class="text-left sb-bg-gray pl-2">Name</td>
+                  <td class="sb-bg-gray text-left pl-2">Designation</td>
+                  <td class="text-left sb-bg-gray pl-2">Share holding (%)</td>
+                </tr>
+                <tr *ngFor="let g of newGuarantor; let i = index;">
+                  <td class="text-left pl-2">{{i+1}}</td>
+                  <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
+                  <td class="text-left pl-2">N/A</td>
+                  <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
+                </tr>
+                </tbody>
+              </table>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
+    <div class="text-center">
+      <p class="float-left sub-header" ><strong  class="sub-header">{{'Insurance Details'}}</strong></p>
+      <ng-container>
+        <table
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
+
+          <tbody>
+          <tr>
+            <td class="text-left sb-bg-gray pl-2">S.N</td>
+            <td class="text-left sb-bg-gray pl-2">Insured Company</td>
+            <td class="text-left sb-bg-gray pl-2">Policy Number</td>
+            <td class="sb-bg-gray text-left pl-2">Insured Amount</td>
+            <td class="sb-bg-gray text-left pl-2">Premium Amount</td>
+            <td class="sb-bg-gray text-left pl-2">Asset Insured</td>
+            <td class="sb-bg-gray text-left pl-2">Remark</td>
+          </tr>
+          <tr *ngFor="let ins of insurance; let i = index;">
+            <td class="text-left pl-2">{{i+1}}</td>
+            <td class="text-left pl-2">{{ins?.company || 'N/A'}}</td>
+            <td class="text-left pl-2">{{ins?.policyNumber || 'N/A'}}</td>
+            <td class="text-left pl-2">{{ins?.insuredAmount || 0}}</td>
+            <td class="text-left pl-2">{{ins?.premiumAmount || 0}}</td>
+            <td class="text-left pl-2">{{ins?.assetInsured || 'N/A'}}</td>
+            <td class="text-left pl-2">{{ins?.remark || 'N/A'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
   </div>
 
 <div class="col-md-12">
@@ -262,7 +294,7 @@
       <th>Business Process </th>
     </tr>
     <tr>
-      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground ? companyJsonData?.companyBackground : 'N/A' | safeHtml"></span></td>
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.technicalAspect : 'N/A' | safeHtml"></span></td>
     </tr>
     <tr class="sb-bg-gray">
       <th>Major Buyers</th>

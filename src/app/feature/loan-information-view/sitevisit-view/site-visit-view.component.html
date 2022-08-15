@@ -152,36 +152,6 @@
         <td>
             <table class="table table-bordered table-responsive-md text-center">
                 <tr class="sb-bg-gray">
-                    <th>S.N</th>
-                    <th>Insured item</th>
-                    <th>Insurance Coverage</th>
-                    <th>Insured Amount</th>
-                    <th>Insurance Validity</th>
-                    <th>Insurance Company</th>
-                    <th>Endorsement</th>
-                </tr>
-                <tbody *ngFor="let insurance of insuranceData; let i= index">
-                <tr class="text-left">
-                    <td>{{i+1}}.</td>
-                    <td>{{insurance?.assetInsured}}</td>
-                    <td>{{insurance.policyType}}</td>
-                    <td>NPR. {{insurance?.insuredAmount | currencyFormatter}}</td>
-                    <td>{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
-                    <td>{{insurance?.company}}</td>
-                    <td>{{insurance?.endorsement}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <p class="text-left">Are the policies solely endorsed to us? Yes/No</p>
-        </td>
-    </tr>
-    <tr class="sb-bg-gray">
-        <th>3. Insurance of Stock and Fixed Assets (including collateral assets)</th>
-    </tr>
-    <tr>
-        <td>
-            <table class="table table-bordered table-responsive-md text-center">
-                <tr class="sb-bg-gray">
                     <th>Particulars</th>
                     <th>Amount (NPR ‘000s)</th>
                 </tr>
@@ -206,6 +176,36 @@
                     <td>{{formData['businessSiteVisitDetails']['proposedLimitNta']}}</td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    <tr class="sb-bg-gray">
+        <th>3. Insurance of Stock and Fixed Assets (including collateral assets)</th>
+    </tr>
+    <tr>
+        <td>
+            <table class="table table-bordered table-responsive-md text-center">
+                <tr class="sb-bg-gray">
+                    <th>S.N</th>
+                    <th>Insured item</th>
+                    <th>Insurance Coverage</th>
+                    <th>Insured Amount</th>
+                    <th>Insurance Validity</th>
+                    <th>Insurance Company</th>
+                    <th>Endorsement</th>
+                </tr>
+                <tbody *ngFor="let insurance of insuranceData; let i= index">
+                <tr class="text-left">
+                    <td>{{i+1}}.</td>
+                    <td>{{insurance?.assetInsured}}</td>
+                    <td>{{insurance.policyType}}</td>
+                    <td>NPR. {{insurance?.insuredAmount | currencyFormatter}}</td>
+                    <td>{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
+                    <td>{{insurance?.company}}</td>
+                    <td>{{insurance?.endorsement}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="text-left">Are the policies solely endorsed to us? Yes/No</p>
         </td>
     </tr>
     <tr class="text-left">

@@ -91,7 +91,7 @@
             </ng-container>
             <ng-template #financials>
                 <div class="col-md-12">
-                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'"
+                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
                     class="col-md-12 text-left"><strong class="header">Financial</strong></p>
                 <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
                                            [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
@@ -391,7 +391,7 @@
 <div *ngIf="signatureList.length > 0" class="row justify-content-between"
      id="signatureDiv">
     <div class="col-md-12 print-only">
-        <p><strong   class="header summary">Approval Chain</strong></p>
+<!--        <p><strong   class="header summary">Approval Chain</strong></p>-->
     </div>
     <div *ngFor="let previous of signatureList; let i=index;"
          class="col-md-3">

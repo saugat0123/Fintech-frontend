@@ -3,6 +3,7 @@ import {FormType} from '../../constants/formType';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Inputs} from '../../constants/inputs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-input-array-add',
@@ -94,6 +95,9 @@ export class InputArrayAddComponent implements OnInit, OnChanges {
                 myElements[i].style.display = 'none';
             }
         }
+    }
+    moveItem(event: CdkDragDrop<FormType[]>) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
 
 }

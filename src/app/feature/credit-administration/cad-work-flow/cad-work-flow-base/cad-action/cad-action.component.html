@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card style="height: 30%">
     <nb-card-header>
         <div class="clearfix" *ngIf="!isOpened">
             <div class="float-left">
@@ -101,6 +101,12 @@
                          class="error-message"
                          style="color: red;">comment is required
                     </div>
+                </div>
+                <div class="form-group col-md-12 py-3" *ngIf="isCrc">
+                    <label for="loanContractNo">Loan Contract No.:</label>
+                    <input class="form-control" formControlName="loanContractNo" id="loanContractNo" rows="10"
+                           name="text"
+                    />
                 </div>
                 <div  class="col-md-12 py-4 px-3" *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'DISCREPANCY_PENDING' && cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
                   <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'" formControlName="discrepancy">Discrepancy Case?</nb-checkbox>
