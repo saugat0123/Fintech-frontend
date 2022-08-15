@@ -49,7 +49,16 @@
                                     <label for="cbsClientCode">CBS Client Code</label>
                                     <input class="form-control" formControlName="cbsClientCode" id="cbsClientCode">
                                 </div>
+
+                           <!--     guarantor details -->
+                                <div class="col-md-4">
+                                    <label for="guarantor">Choose Guarantor</label>
+                                    <select (input)="setPropiter($event?.target?.value, i)" class="form-control" formControlName="guaranotor" id="guarantor">
+                                        <option *ngFor="let data of propiterList;let i = index;" [value]="data | json">{{data?.name}}</option>
+                                    </select>
+                                </div>
                             </div><br>
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">

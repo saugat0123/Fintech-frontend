@@ -20,6 +20,7 @@ import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.
 import {CompanyService} from '../../admin/component/company/company.service';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {CompanyInfoService} from '../../admin/service/company-info.service';
+import {CompanyJsonData} from '../../admin/modal/CompanyJsonData';
 
 @Component({
     selector: 'app-guarantor',
@@ -62,7 +63,8 @@ export class GuarantorComponent implements OnInit {
     isExistingCustomerValue: any;
     isExistingCustomer = [];
     companyInfo: any;
-    companyJsonData: any
+    companyJsonData: CompanyJsonData;
+    propiterList = [];
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -76,7 +78,6 @@ export class GuarantorComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.customerInfo, 'customer info')
         this.buildForm();
         this.getProvince();
         this.getAllDistrict();
@@ -88,15 +89,13 @@ export class GuarantorComponent implements OnInit {
         this.isExistingCustomerValue = this.isExistingCustomer;
         this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerLoanList = res.detail;
-            console.log(this.customerLoanList, 'customerLoanList');
         });
         // this.customerInfoService.detail(this.customerInfo.id).subscribe(response => {
         //     console.log(response, 'response');
         // });
         this.companyInfoService.detail(this.customerInfo.associateId).subscribe(response => {
             this.companyJsonData = JSON.parse(response.detail.companyJsonData);
-            console.log(this.companyJsonData, 'company json Data');
-            console.log(response.detail.filter(d => d.companyJsonData.proprietorList !== null));
+            this.propiterList = this.companyJsonData.proprietorList;
         });
 
 
@@ -420,5 +419,24 @@ export class GuarantorComponent implements OnInit {
          this.isExistingCustomerValue[index] = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
     }
 
+    setPropiter(event, index) {
+        const data = JSON.parse(event);
+        const group = this.form.get(['guarantorDetails', index]) as FormGroup;
+        group.patchValue({
+            name: data.name,
+            citizenNumber: data.citizenshipNum,
+            province: data.province,
+            district: data.district,
+            municipalities: data.municipalityVdc,
+            issuedYear: new Date(data.issuedDate),
+            issuedPlace: data.issuedPlace,
+            contactNumber: data.contactNo,
+            fatherName: data.fatherName,
+            grandFatherName: data.grandFatherName,
+            dateOfBirth: new Date(data.dateOfBirth),
+            permanentAddressLineOne: data.addressLine1,
+            permanentAddressLineTwo: data.addressLine2
+        });
+    }
 }
 
