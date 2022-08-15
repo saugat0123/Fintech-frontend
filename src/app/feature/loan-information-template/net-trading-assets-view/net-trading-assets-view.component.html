@@ -4,12 +4,12 @@
             <p class="text-left"><strong class="header">Working Capital Assessment & Justification Of Limits</strong></p>
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>1. Yearly Working Capital Position</strong><br></p>
-                <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; padding: 20px" [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml">
+                <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white" [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml">
                 </table>
 <!--            </div>-->
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>2. Periodic Working Capital Position</strong><br></p>
-            <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%;" [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml">
+            <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white" [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml">
             </table>
 <!--            </div>-->
 <!--            <div class="row">-->
@@ -19,7 +19,7 @@
 <!--            </div>-->
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>3. Current Assets</strong><br></p>
-                <table style="width: 100%; padding: 20px;"  [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml" class="col-md-12 ">
+                <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white"  [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml" >
                 </table>
 <!--            </div>-->
 <!--            <div class="row">-->
