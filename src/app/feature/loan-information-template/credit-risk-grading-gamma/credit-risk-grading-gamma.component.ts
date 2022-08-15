@@ -35,6 +35,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     totalPoints = 0;
     grading: string;
     formDataForEdit;
+    premiumRange: string;
 
     constructor(
         private crgGroupService: CrgGroupService,
@@ -83,7 +84,8 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     buildFormAndCheckEdit() {
         const crgFormGroupObject = {
             totalPoint: 0,
-            grade: null
+            grade: null,
+            premiumRange: null,
         };
         this.totalPointMapper = new Map<string, number>();
         if (!ObjectUtil.isEmpty(this.formData)) {
@@ -111,6 +113,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             this.grading = this.formDataForEdit.grade;
             this.creditRiskGrading.patchValue(this.formDataForEdit);
             this.calculateTotalViaMap();
+            this.calculatePremiumRange();
         }
     }
 
@@ -118,6 +121,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
         this.totalPointMapper.set(field, point);
         this.creditRiskGrading.get(`${field}Parameter`).patchValue(parameter);
         this.calculateTotalViaMap();
+        this.calculatePremiumRange();
     }
 
     calculateTotalViaMap() {
@@ -128,18 +132,37 @@ export class CreditRiskGradingGammaComponent implements OnInit {
             });
             this.totalPoints = total;
             this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
-            if (this.totalPoints >= 90) {
-                this.grading = 'Not Eligible for new loans';
-            } else if (this.totalPoints >= 75 && this.totalPoints < 90) {
-                this.grading = 'Acceptable';
-            } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-                this.grading = 'Good';
-            } else if (this.totalPoints >= 50 && this.totalPoints < 65) {
-                this.grading = 'Very Good';
-            } else if (this.totalPoints < 50) {
-                this.grading = 'Excellent';
+            if (this.totalPoints > 85) {
+                this.grading = 'A';
+            } else if (this.totalPoints > 70 && this.totalPoints <= 85) {
+                this.grading = 'B';
+            } else if (this.totalPoints >= 60 && this.totalPoints <= 70) {
+                this.grading = 'C';
+            } else if (this.totalPoints < 60) {
+                this.grading = 'D';
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
+        }
+    }
+
+    calculatePremiumRange() {
+        if (this.totalPointMapper.size === this.crgQuestionsList.length) {
+            let total = 0;
+            this.totalPointMapper.forEach(data => {
+                total = total + Number(data);
+            });
+            this.totalPoints = total;
+            this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
+            if (this.totalPoints > 85) {
+                this.premiumRange = '4.00% to 4.50%';
+            } else if (this.totalPoints > 70 && this.totalPoints <= 85) {
+                this.premiumRange = '4.60% to 5.20%';
+            } else if (this.totalPoints >= 60 && this.totalPoints <= 70) {
+                this.premiumRange = '5.30% to 6.00%';
+            } else if (this.totalPoints < 60) {
+                this.premiumRange = '6.20% to 7.50%';
+            }
+            this.creditRiskGrading.get('premiumRange').patchValue(this.premiumRange);
         }
     }
 

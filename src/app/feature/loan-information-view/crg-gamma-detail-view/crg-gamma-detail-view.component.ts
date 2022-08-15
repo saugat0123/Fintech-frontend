@@ -27,7 +27,7 @@ export class CrgGammaDetailViewComponent implements OnInit {
         answer: null,
         score: null,
       };
-      if (!(key.includes(`Parameter`) || key === `totalPoint` || key === `grade`)) {
+      if (!(key.includes(`Parameter`) || key === `totalPoint` || key === `grade` || key === `premiumRange`)) {
         ansModel.question = key;
         ansModel.answer = this.crgGammaData[`${key}Parameter`];
         ansModel.score = value;
