@@ -174,6 +174,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Data'));
             this.spinner = false;
             this.close();
+            this.ngOnInit();
             this.responseCadData.emit(res.detail);
 
         }, error => {
