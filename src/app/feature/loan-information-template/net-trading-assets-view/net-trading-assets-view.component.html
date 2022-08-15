@@ -4,13 +4,13 @@
             <p class="text-left"><strong class="header">Working Capital Assessment & Justification Of Limits</strong></p>
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>1. Yearly Working Capital Position</strong><br></p>
-                <div class="col-md-12  table-sm" style="width: 100%;" [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml">
-                </div>
+                <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; padding: 20px" [innerHTML]="ntaData?.yearlyWorkingCapital ? ntaData?.yearlyWorkingCapital : 'N/A' | safeHtml">
+                </table>
 <!--            </div>-->
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>2. Periodic Working Capital Position</strong><br></p>
-                <div class="col-md-12 " [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml">
-                </div>
+            <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%;" [innerHTML]="ntaData?.periodicWorkingCapital ? ntaData?.periodicWorkingCapital : 'N/A' | safeHtml">
+            </table>
 <!--            </div>-->
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>Justification Field</strong><br></p>
@@ -19,8 +19,8 @@
 <!--            </div>-->
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>3. Current Assets</strong><br></p>
-                <div [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml" class="col-md-12 ">
-                </div>
+                <table style="width: 100%; padding: 20px;"  [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml" class="col-md-12 ">
+                </table>
 <!--            </div>-->
 <!--            <div class="row">-->
                 <p class="text-left sub-header"><strong>Remarks</strong><br></p>
