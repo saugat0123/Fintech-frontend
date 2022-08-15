@@ -13,7 +13,7 @@ export class LoanStatusPipe implements PipeTransform {
             return 'RETURNED';
         }
         if ('FORWARD' === value) {
-            return 'FORWARDED';
+            return 'SUPPORTED';
         }
         if ('RE_INITIATE' === value) {
             return 'RE INITIATED';
@@ -25,7 +25,10 @@ export class LoanStatusPipe implements PipeTransform {
             return 'TRANSFERRED';
         }
         if ('DUAL_APPROVAL_PENDING' === value) {
-            return 'Appproved';
+            return 'FIRST APPROVED';
+        }
+        if ('HSOV_PENDING' === value) {
+            return 'FIRST APPROVED';
         }
         if ('OFFER_PENDING' === value) {
             return 'SECURITY_DOCUMENT_PENDING';

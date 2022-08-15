@@ -30,17 +30,27 @@ export class CompanyInfoSummaryComponent implements OnInit {
   accountNumberList = [];
   accountNumbers;
   insurance;
-
-
+  clientType;
+  isCorporate = false;
+  checkedData;
   constructor() { }
 
   ngOnInit() {
+    this.clientType = this.loanDataHolder.loanHolder.clientType;
+    if (this.clientType === 'CORPORATE' || this.clientType === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.clientType === 'MID_MARKET' || this.clientType === 'BUSINESS_DEVELOPMENT') {
+      this.isCorporate = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+      this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
+      // this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
+    }
     this.insurance = this.loanDataHolder.insurance;
     if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
         (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors.guarantorList) &&
             this.loanDataHolder.loanHolder.guarantors.guarantorList.length > 0)) {
       this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
-        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor') {
+        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor' || val.guarantorType === 'Shareholder') {
           this.newGuarantor.push(val);
         }
       });

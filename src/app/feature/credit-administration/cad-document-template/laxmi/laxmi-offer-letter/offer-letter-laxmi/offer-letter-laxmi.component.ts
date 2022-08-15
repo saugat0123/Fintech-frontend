@@ -116,6 +116,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     buildForm() {
         this.offerLetterForm = this.formBuilder.group({
             signature1: [undefined],
+            signatureDate: [undefined],
             refNo: [undefined],
             empoweredName: [undefined],
             signature2: [undefined],

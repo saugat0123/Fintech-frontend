@@ -19,7 +19,7 @@
         <tr>
           <td rowspan="6"><b>RegistrationDetail</b></td>
           <td><b>Dept/office</b></td>
-          <td>{{companyInfo?.legalStatus?.panRegistrationOffice}}</td>
+          <td>{{((companyInfo?.legalStatus?.registeredOffice | replace: '_': ' ') | titlecase)}}</td>
         </tr>
         <tr>
           <td></td>
@@ -207,19 +207,19 @@
           <td><b>SubSector</b></td>
           <td colspan="3">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
-<!--        <tr>-->
-<!--          <td><b>Customer ID</b></td>-->
-<!--          <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>-->
-<!--        </tr>-->
+        <tr>
+          <td><b>Customer ID</b></td>
+          <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>
+        </tr>
         <tr>
           <td><b>Account Number</b></td>
           <td colspan="3">{{getAccountNumber(accountNumberList)}}</td>
         </tr>
 
-        <tr>
-          <td><b>IRD report obtained and attached</b></td>
-          <td colspan="3">{{companyJsonData?.irdReport || 'N/A'}}</td>
-        </tr>
+<!--        <tr>-->
+<!--          <td><b>IRD report obtained and attached</b></td>-->
+<!--          <td colspan="3">{{companyJsonData?.irdReport || 'N/A'}}</td>-->
+<!--        </tr>-->
 
 <!--        Obligor Code for SRDB only-->
         <tr *ngIf="approveSheet === 'approveSheet' && client === clientName.SHINE_RESUNGA">
@@ -229,8 +229,221 @@
 
       </table>
     </div>
+  <div class="col-md-12" *ngIf="newGuarantor?.length > 0 && isCorporate">
+    <div class="text-center">
+      <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
+      <ng-container>
+        <table
+                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
 
-  <div class="col-md-12" *ngIf="newGuarantor?.length > 0">
+          <tbody>
+          <tr>
+            <td class="text-left sb-bg-gray pl-2">S.N</td>
+            <td class="text-left sb-bg-gray pl-2">Name</td>
+            <td class="sb-bg-gray text-left pl-2">Designation</td>
+            <td class="text-left sb-bg-gray pl-2">Share holding (%)</td>
+          </tr>
+          <tr *ngFor="let g of newGuarantor; let i = index;">
+            <td class="text-left pl-2">{{i+1}}</td>
+            <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
+            <td class="text-left pl-2">{{g?.guarantorType || 'N/A'}}</td>
+            <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+        <tr >
+          <td colspan="4" class="text-center font-weight-bold sb-bg-gray"> IRD Submission report</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Last obtained for FY</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.lastFYIRD}}</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Justification for deviation</b></td>
+          <td colspan="3" [innerHTML]="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.justifyIRD | safeHtml"></td>
+        </tr>
+      </table>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+        <tr >
+          <td colspan="4" class="text-center font-weight-bold sb-bg-gray"> Tax Clearance Report</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Last obtained for FY</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.lastFYTax}}</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Justification for deviation</b></td>
+          <td colspan="3" [innerHTML]="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.justifyTax | safeHtml"></td>
+        </tr>
+      </table>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+        <tr >
+          <td colspan="4" class="text-center font-weight-bold sb-bg-gray">External Credit Rating</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>External Rating Agency Name</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.agencyName}}</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Rating Report Date</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.reportDate}}</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Long Term Rating</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.longTermRating}}</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Short Term Rating</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.shortTermRating}}</td>
+        </tr>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+        <tr >
+          <td colspan="4" class="text-center font-weight-bold sb-bg-gray">MOA/AOA Declaration</td>
+        </tr>
+        <tr>
+          <td colspan="1"><b>Present request is in line with company’s bylaws/MOA/AOA</b></td>
+          <td colspan="3">{{(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.moaAoa}}</td>
+        </tr>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+        <tr >
+          <td colspan="4" class="text-center font-weight-bold sb-bg-gray">Consortium Meeting Details</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-sm sb-small table-bordered text-center">
+        <thead>
+        <tr class="sb-bg-gray">
+          <th>Date</th>
+          <th>Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of (loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.meetingDetails">
+          <td>{{data?.meetingDate | date}}</td>
+          <td>{{data?.meetingPurpose}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+        <tr *ngIf="checkedData?.waiverChecked" class="sb-bg-gray">
+          <th>Waiver </th>
+        </tr>
+        <tr *ngIf="checkedData?.waiverChecked">
+          <td class="text-left pl-1"><span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+        </tr>
+
+        <tr *ngIf="checkedData?.deviationChecked" class="sb-bg-gray">
+          <th>Deviation </th>
+        </tr>
+        <tr *ngIf="checkedData?.deviationChecked">
+          <td class="text-left pl-1"><span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+        </tr>
+      </table>
+    </div>
+    <hr class="print-line" >
+    <div class="col-md-12" >
+      <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary" *ngIf="checkedData?.debtChecked">
+        <tr  class="sb-bg-gray">
+          <th>Debt Structure and Control </th>
+        </tr>
+        <tr >
+          <td class="text-left pl-1"><span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.termsAndCondition || 'N/A' | safeHtml"></span></td>
+        </tr>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isCorporate">
+    <div class="col-md-12 form-group">
+      <hr class="print-line">
+      <div class="row">
+        <div class="col-md-12 text-left">
+          <p class="font-weight-bold">Summary of Environment & Social Risk Assessment</p>
+        </div>
+      </div>
+      <table class="table table-sm table-bordered table-hover sb-small text-center summary">
+        <thead>
+        <tr class="sb-bg-gray">
+          <th>S.N</th>
+          <th>Particulars</th>
+          <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody class="text-left">
+        <tr>
+          <td>1</td>
+          <td class="text-left">Falls under Exclusion and critical sector list</td>
+          <td class="text-center">
+            {{'NO'}}
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="text-left">E & S Due Diligence process Applicable</td>
+          <td class="text-center">
+            {{'NO'}}
+
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="text-left">Level of Risk</td>
+          <td class="text-center">
+            {{'NA'}}
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="text-left">Falls under Exclusion and critical sector list</td>
+          <td class="text-center">
+            {{'NA'}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <div class="col-md-12" *ngIf="newGuarantor?.length > 0 && !isCorporate">
     <div class="text-center">
       <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
       <ng-container>
@@ -247,7 +460,7 @@
                 <tr *ngFor="let g of newGuarantor; let i = index;">
                   <td class="text-left pl-2">{{i+1}}</td>
                   <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
-                  <td class="text-left pl-2">N/A</td>
+                  <td class="text-left pl-2">{{g?.guarantorType || 'N/A'}}</td>
                   <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
                 </tr>
                 </tbody>
@@ -288,13 +501,62 @@
     </div>
   </div>
 
+
+  <div class="col-md-12" *ngIf="isCorporate">
+    <p class="float-left sub-header" ><strong  class="sub-header">{{'Security Inspection'}}</strong></p>
+  </div>
+    <div class="col-md-12" *ngIf="isCorporate">
+      <table class="table table-sm sb-small table-bordered text-center">
+        <thead>
+        <tr class="sb-bg-gray">
+          <th>Security Type</th>
+          <th>Date of Inspection</th>
+          <th>Report Filed</th>
+          <th>Approved Frequency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of (loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.securityInspection">
+            <td>
+              {{data?.securityType}}
+            </td>
+            <td>
+           {{data?.dateOfInspection | date}}
+            </td>
+            <td>
+             {{data?.reportField}}
+            </td>
+            <td>
+             {{data?.approvedFrequency}}
+            </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
 <div class="col-md-12">
+  <hr class="print-line" *ngIf="isCorporate">
+  <p class="header" *ngIf="isCorporate"><strong class="header">Customer Background</strong></p>
   <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+    <tr *ngIf="isCorporate" class="sb-bg-gray">
+      <th>Business Objectives </th>
+    </tr>
+    <tr *ngIf="isCorporate">
+      <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.BusinessIndustryOutlook : 'N/A' | safeHtml"></span></td>
+    </tr>
     <tr class="sb-bg-gray">
       <th>Business Process </th>
     </tr>
     <tr>
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.marketScenario ? companyJsonData?.marketScenario?.technicalAspect : 'N/A' | safeHtml"></span></td>
+    </tr>
+    <tr *ngIf="isCorporate" class="sb-bg-gray">
+      <th>Raw Materials</th>
+    </tr>
+    <tr *ngIf="isCorporate">
+      <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk'] || 'N/A'"></td>
     </tr>
     <tr class="sb-bg-gray">
       <th>Major Buyers</th>
@@ -308,10 +570,42 @@
     <tr>
       <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
     </tr>
-    <tr class="sb-bg-gray">
+
+<ng-container *ngIf="isCorporate">
+  <tr class="sb-bg-gray">
+    <th>Marketing and distribution Strategies</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
+  </tr>
+
+
+  <tr class="sb-bg-gray">
+    <th>Pricing & Competitors Overview</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
+  </tr>
+
+  <tr class="sb-bg-gray">
+    <th>Future plan</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['futurePlan']"></td>
+  </tr>
+
+
+  <tr class="sb-bg-gray">
+    <th>Latest Business Updates</th>
+  </tr>
+  <tr>
+    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['latestBusinessUpdates']"></td>
+  </tr>
+</ng-container>
+    <tr *ngIf="!isCorporate" class="sb-bg-gray">
       <th>Risk & Mitigants</th>
     </tr>
-    <tr>
+    <tr *ngIf="!isCorporate">
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
     </tr>
   </table>

@@ -139,9 +139,6 @@
             <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none font14"
                                       formControlName="borrowerPermanentVdc">
               <span class="print-only preetiFont font14">{{this.form.get('borrowerPermanentVdc').value || ''}}</span>
-              <span class="ml-3"> हालको न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none font14"
-                                                             formControlName="borrowerTempVdc"></span>
-              <span class="print-only preetiFont font14">{{this.form.get('borrowerTempVdc').value || ''}}</span> </td>
           </tr>
           <tr>
             <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
@@ -161,9 +158,7 @@
             <td> न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none font14"
                                       formControlName="borrowerCurrentVdc">
               <span class="print-only preetiFont font14">{{this.form.get('borrowerCurrentVdc').value || ''}}</span>
-              <span class="ml-3"> हालको न.पा./गा.पा.: <input type="text" class="nepaliFont form-control-sm form-field d-print-none font14"
-                                                             formControlName="borrowerCurrentTempVdc"></span>
-              <span class="print-only preetiFont font14">{{this.form.get('borrowerCurrentTempVdc').value || ''}}</span> </td>
+
           </tr>
           <tr>
             <td>वडा नं.<input type="text" class="nepaliFont form-control-sm form-field d-print-none"
@@ -390,22 +385,6 @@
         मन्जुरीनामा वा अख्तियारीे कागजातको माग गरेमा यसै लिखतबाट चलन चलाई वा कार्यान्व्यन गरी गराई लिनुहोला भनी
         यसै लिखतबाट मन्जुरी प्रदान गरेको छु ।
       </div>
-
-      इति सम्बत <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
-                       formControlName="itisambatYear">
-      <span class="print-only preetiFont font24">{{this.form.get('itisambatYear').value || ''}}</span>
-      साल
-      <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
-             formControlName="itisambatMonth">
-      <span class="print-only preetiFont font24">{{this.form.get('itisambatMonth').value || ''}}</span>
-      महिना
-      <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
-             formControlName="itisambatDay">
-      <span class="print-only preetiFont font24">{{this.form.get('itisambatDay').value || ''}}</span>
-      गते रोज
-      <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
-             formControlName="roj">
-      <span class="print-only preetiFont font24">{{this.form.get('roj').value || ''}}</span> शुभम्।
       <div class="col-md-12 viewFull">
         <p class="text-center"><strong><u>साक्षी</u></strong></p>
         <div class="row">
@@ -446,6 +425,22 @@
           <input class="nepaliFont form-control-sm form-field d-print-none" formControlName="roleName"/>
           <span class="print-only preetiFont font24">{{this.form.get('roleName').value || ''}}</span>
         </div>
+        <br>
+        इति सम्बत <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+                         formControlName="itisambatYear">
+        <span class="print-only preetiFont font24">{{this.form.get('itisambatYear').value || ''}}</span>
+        साल
+        <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+               formControlName="itisambatMonth">
+        <span class="print-only preetiFont font24">{{this.form.get('itisambatMonth').value || ''}}</span>
+        महिना
+        <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+               formControlName="itisambatDay">
+        <span class="print-only preetiFont font24">{{this.form.get('itisambatDay').value || ''}}</span>
+        गते रोज
+        <input type="text" class="nepaliFont form-control-sm form-field d-print-none"
+               formControlName="roj">
+        <span class="print-only preetiFont font24">{{this.form.get('roj').value || ''}}</span> शुभम्।
       </div>
       <div>
         <button type="submit"
