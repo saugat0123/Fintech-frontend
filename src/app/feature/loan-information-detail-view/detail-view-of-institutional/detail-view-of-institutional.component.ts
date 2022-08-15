@@ -78,6 +78,7 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   isCorporate = false;
   thisClient;
   facilityUtilization;
+  customerReportingInfo = [];
   constructor(
       private fiscalYearService: FiscalYearService,
       private toastService: ToastService,
@@ -86,6 +87,12 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
+        && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
+      this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
+        this.customerReportingInfo.push(rep);
+      });
+    }
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
     if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
         this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
