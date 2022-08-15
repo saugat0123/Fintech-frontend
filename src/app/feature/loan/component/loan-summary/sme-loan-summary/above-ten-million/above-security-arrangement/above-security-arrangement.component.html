@@ -10,7 +10,7 @@
                         <th>Owner</th>
                         <th>Location</th>
                         <th>Plot #</th>
-                        <th>Area (Ropani)</th>
+                        <th>Area</th>
                         <th>MV</th>
                         <th>FMV</th>
                         <th>DV</th>
@@ -42,75 +42,111 @@
         <strong *ngIf="proposedSecurity1?.length > 0">Proposed</strong>
         <div class="row" *ngIf="proposedSecurity1?.length > 0">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot #</th>
-                        <th>Area (Ropani)</th>
-                        <th>MV</th>
-                        <th>FMV</th>
-                        <th>DV</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of proposedSecurity1; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.owner}}</td>
-                            <td>{{detail?.location}}</td>
-                            <td>{{detail?.plot}}</td>
-                            <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue | currencyFormatter}}</td>
-                            <td>{{detail?.marketValue | currencyFormatter}}</td>
-                            <td>{{detail?.distressValue | currencyFormatter}}</td>
+                <div *ngFor="let detail of proposedSecurity1; let i = index">
+                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>Owner</th>
+                            <th>Location</th>
+                            <th>Plot #</th>
+                            <th>Area (Ropani)</th>
+                            <th>MV</th>
+                            <th>FMV</th>
+                            <th>DV</th>
+                        </tr>
+                        <ng-container>
+                            <tr>
+                                <td class="text-center">{{i + 1}}</td>
+                                <td>{{detail?.owner}}</td>
+                                <td>{{detail?.location}}</td>
+                                <td>{{detail?.plot}}</td>
+                                <td>{{detail?.area}}</td>
+                                <td>{{detail?.considerValue | currencyFormatter}}</td>
+                                <td>{{detail?.marketValue | currencyFormatter}}</td>
+                                <td>{{detail?.distressValue | currencyFormatter}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="font-weight-bold">Total</td>
+                                <td class="font-weight-bold">{{(totalMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                                <td class="font-weight-bold">{{(totalFMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                                <td class="font-weight-bold">{{(totalDV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            </tr>
+                        </ng-container>
+                    </table>
+                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <tr>
+                            <th class="sb-bg-dark text-white">Zoning Type</th>
+                            <td>{{detail?.collateralData?.zoningType || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{(totalMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalFMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalDV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
+                            <th class="sb-bg-dark text-white">Access Road</th>
+                            <td>{{detail?.collateralData.accessRoad || 'NA'}}</td>
                         </tr>
-                    </ng-container>
-                </table>
+                        <tr>
+                            <th class="sb-bg-dark text-white">SetBack/Adverse</th>
+                            <td>{{detail?.collateralData?.setBack || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-dark text-white">Google Co-ordinates</th>
+                            <td>{{detail?.collateralData.coordinate || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-dark text-white">Latest Collateral Visited By</th>
+                            <td>{{detail?.collateralData.visitedBy || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-dark text-white">Latest Collateral Visit Date</th>
+                            <td>{{detail?.collateralData.visitDate ? (detail?.collateralData.visitDate | date) : 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-dark text-white">Valuator Name</th>
+                            <td>{{detail?.valuatorName || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <th class="sb-bg-dark text-white">Valuation Date</th>
+                            <td>{{detail?.valuationDate ? (detail?.valuationDate | date) : 'NA'}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <p><strong> c. Security (to be obtained)</strong></p>
-        <strong *ngIf="existingAsPropose1?.length > 0">Existing as a Proposed</strong>
-        <div class="row" *ngIf="existingAsPropose1?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot #</th>
-                        <th>Area (Ropani)</th>
-                        <th>MV</th>
-                        <th>FMV</th>
-                        <th>DV</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of existingAsPropose1; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.owner}}</td>
-                            <td>{{detail?.location}}</td>
-                            <td>{{detail?.plot}}</td>
-                            <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue | currencyFormatter}}</td>
-                            <td>{{detail?.marketValue | currencyFormatter}}</td>
-                            <td>{{detail?.distressValue | currencyFormatter}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{(totalMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalFMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalDVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
-        </div>
-    </div>
+<!--    <div class="col-md-12">-->
+<!--        <p><strong> c. Security (to be obtained)</strong></p>-->
+<!--        <strong *ngIf="existingAsPropose1?.length > 0">Existing as a Proposed</strong>-->
+<!--        <div class="row" *ngIf="existingAsPropose1?.length > 0">-->
+<!--            <div class="col-md-12">-->
+<!--                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--                    <tr class="sb-bg-dark text-white">-->
+<!--                        <th>S.N</th>-->
+<!--                        <th>Owner</th>-->
+<!--                        <th>Location</th>-->
+<!--                        <th>Plot #</th>-->
+<!--                        <th>Area (Ropani)</th>-->
+<!--                        <th>MV</th>-->
+<!--                        <th>FMV</th>-->
+<!--                        <th>DV</th>-->
+<!--                    </tr>-->
+<!--                    <ng-container>-->
+<!--                        <tr *ngFor="let detail of existingAsPropose1; let i= index">-->
+<!--                            <td class="text-center">{{i + 1}}</td>-->
+<!--                            <td>{{detail?.owner}}</td>-->
+<!--                            <td>{{detail?.location}}</td>-->
+<!--                            <td>{{detail?.plot}}</td>-->
+<!--                            <td>{{detail?.area}}</td>-->
+<!--                            <td>{{detail?.considerValue | currencyFormatter}}</td>-->
+<!--                            <td>{{detail?.marketValue | currencyFormatter}}</td>-->
+<!--                            <td>{{detail?.distressValue | currencyFormatter}}</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td colspan="5" class="font-weight-bold">Total</td>-->
+<!--                            <td class="font-weight-bold">{{(totalMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>-->
+<!--                            <td class="font-weight-bold">{{(totalFMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>-->
+<!--                            <td class="font-weight-bold">{{(totalDVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>-->
+<!--                        </tr>-->
+<!--                    </ng-container>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
