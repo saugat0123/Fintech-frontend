@@ -132,6 +132,19 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Legal Status of the Company</label>
+                    <div>
+                        <ng-select formControlName="legalStatus" placeholder="Select Legal Status">
+                            <ng-option value="Proprietorship">Proprietorship</ng-option>
+                            <ng-option value="Partnership">Partnership</ng-option>
+                            <ng-option value="Private Limited Company">Private Limited Company</ng-option>
+                        </ng-select>
+                    </div>
+                    <hr>
+                </div>
+            </div>
             <div class="row form-group">
                 <div class="col-md-6">
                     <label>Valuating Type</label>
@@ -160,6 +173,78 @@
                     <div *ngIf="valuatorFormControl.bankAssociateDate.invalid && submitted" class="invalid-feedback">
                         Bank Associate Date is required!
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <h5>Agreement</h5>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <label>Agreement Review Date</label>
+                    <input nbInput fullWidth type="date" formControlName="agreementReviewDate">
+                </div>
+                <div class="col-md-6">
+                    <label>Agreement Expire Date</label>
+                    <input nbInput fullWidth type="date" formControlName="agreementExpiryDate">
+                </div>
+                <div class="col-md-12">
+                    <h5>Security</h5>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <label>Security Type</label>
+                    <div>
+                        <ng-select placeholder="Select Type" formControlName="securityType">
+                            <ng-option value="Fix Deposit">Fix Deposit</ng-option>
+                            <ng-option value="Bank Guarantee">Bank Guarantee</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Guarantee Reference Number</label>
+                    <div>
+                       <input nbInput fullWidth type="text" formControlName="referenceNumber">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Security Value</label>
+                    <div>
+                        <input nbInput fullWidth type="number" formControlName="securityValue">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Security Expire Date</label>
+                    <div>
+                        <input nbInput fullWidth type="date" formControlName="securityExpiryDate">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h5>Contact Person</h5>
+                </div>
+                <div class="col-md-12" *ngFor="let contact of valuatorForm.get('contactPerson')['controls']; let i = index" formArrayName="contactPerson">
+                    <div [formGroupName]="i.toString()" class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                                <input nbInput fullWidth type="text" formControlName="name">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Email</label>
+                                <input nbInput fullWidth type="email" formControlName="email">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Phone</label>
+                                <input nbInput fullWidth type="text" formControlName="phone">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="font-italic font-weight-bold">(Check only if the person is signing authority)</label>
+                                <nb-checkbox formControlName="signingAuthority">Signing Authority</nb-checkbox>
+                            </div>
+                        <div class="col-md-12 text-right" *ngIf="i>0">
+                            <button nbButton size="tiny" status="danger" (click)="removeContactPerson(i)"><nb-icon icon="trash-outline"></nb-icon></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-left mt-2">
+                    <button nbButton size="tiny" status="success" (click)="addContactPerson()"><nb-icon icon="plus-outline"></nb-icon></button>
                 </div>
             </div>
             <div class="row form-group">

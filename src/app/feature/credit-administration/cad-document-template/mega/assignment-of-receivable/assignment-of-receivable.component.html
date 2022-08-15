@@ -1,4 +1,5 @@
 <div class="container nep text-justify">
+    <!--div class="row">-->
     <form [formGroup]="assignmentOfReceivable" class="nep" id="assignmentOfReceivablePrint">
         <div class="form-group align">
             <div class="logo-container print-only">
@@ -11,6 +12,8 @@
                 <strong><u>(Assignment of Receivables)</u></strong>
             </h6>
             <p>
+                लिखितम् धनीका नाम प्रचलित नेपाल कानून बमोजिम संस्थापित तथा संचालित काठमाण्डौ जिल्ला,
+                काठमाण्डौ महानगरपालिका वडा नम्बर २८ कमलादी स्थित सेञ्चुरी कमर्सियल बैंक नेपाल लिमिटेडको
                 लिखितम् धनिका नाम काठमाडौं जिल्ला काठमाडौं महानगरपालिका वडा नं.२८ स्थित पुतलीसडकमा मुख्य कार्यालय रही
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="address" type="text"/>
                 <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('address').value ? assignmentOfReceivable.get('address').value  : '========='}}</b></span>

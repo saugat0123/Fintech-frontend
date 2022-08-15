@@ -13,8 +13,7 @@ export class NtaSummaryComponent implements OnInit {
   ntaData = [];
   currentFiscalYearIndex: number;
   currentYearData;
-  prevYearData;
-  prevFiscalYearIndex: number;
+  currentYear = [];
 
   fiscalYearArray = new Array<FiscalYear>();
 
@@ -22,21 +21,10 @@ export class NtaSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.currentFiscalYearIndex = this.fiscalYears.indexOf(
-       this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
+        this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
-    this.ntaData.forEach((value , index) => {
-      if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
-        this.currentYearData = value;
-      }
-    });
-
-    this.ntaData.forEach(value => {
-      if (this.fiscalYears[this.currentFiscalYearIndex].id > 1 ) {
-        this.prevFiscalYearIndex = this.fiscalYears.length - 1;
-        if (value.id === this.fiscalYears[this.prevFiscalYearIndex].id) {
-          this.prevYearData = value;
-        }}
-    });
+    this.currentYearData = this.ntaData.filter(d => d.isCurrentYear === true);
+    this.currentYear = this.fiscalYears.filter(f => f.isCurrentYear === true);
   }
 
 }

@@ -15,7 +15,7 @@
                                   <th>Security</th>
                                   <th>Owner</th>
                                   <th>Location</th>
-                                  <th>Plot No.</th>
+                                  <th>{{formData['initialForm']['landDetails'][0]['locationDetail'] ? 'Plot No., Area Format, Area' : 'Plot No.'}}</th>
                                   <th>Valuation Date and Valuator Name</th>
                               </tr>
                               </thead>
@@ -24,7 +24,18 @@
                                   <td>Land - {{i+1}}</td>
                                   <td>{{landDetails?.owner || 'NA'}}</td>
                                   <td>{{landDetails?.location || 'NA'}}</td>
-                                  <td>{{landDetails?.plotNumber || 'NA'}}</td>
+                                  <td>
+                                      <ng-container *ngIf="landDetails['locationDetail']; else oldFormat">
+                                          <span *ngFor="let loDetail of landDetails['locationDetail']">
+                                              {{loDetail?.plotNumber}}, {{loDetail?.areaFormat}}, {{loDetail?.area}}
+                                              <br>
+                                          </span>
+                                      </ng-container>
+
+                                      <ng-template #oldFormat>
+                                          <span>{{landDetails?.plotNumber || 'NA'}}</span>
+                                      </ng-template>
+                                  </td>
                                   <td>{{landDetails?.landValuatorDate ? (landDetails?.landValuatorDate | date) : 'NA'}}, {{landDetails?.landValuator?.name || 'NA'}}</td>
                               </tr>
                               </tbody>
@@ -63,7 +74,7 @@
                                   <th>Security</th>
                                   <th>Owner</th>
                                   <th>Location</th>
-                                  <th>Plot No.</th>
+                                  <th>{{formData['initialForm']['landBuilding'][0]['locationDetail'] ? 'Plot No., Area Format, Area' : 'Plot No.'}}</th>
                                   <th>Valuation Date and Valuator Name</th>
                               </tr>
                               </thead>
@@ -72,7 +83,16 @@
                                   <td>Land Building - {{i+1}}</td>
                                   <td>{{landBuilding?.owner || 'NA'}}</td>
                                   <td>{{landBuilding?.location || 'NA'}}</td>
-                                  <td>{{landBuilding?.plotNumber || 'NA'}}</td>
+                                  <td>
+                                      <ng-container *ngIf="landBuilding['locationDetail']; else oldFormatlb">
+                                          <span *ngFor="let loDetail of landBuilding['locationDetail']">
+                                              {{loDetail?.plotNumber}}, {{loDetail?.areaFormat}}, {{loDetail?.area}}
+                                          </span>
+                                      </ng-container>
+                                      <ng-template #oldFormatlb>
+                                          {{landBuilding?.plotNumber || 'NA'}}
+                                      </ng-template>
+                                  </td>
                                   <td>{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'NA'}}, {{landBuilding?.buildingValuatorDate?.name || 'NA'}}</td>
                               </tr>
                               </tbody>

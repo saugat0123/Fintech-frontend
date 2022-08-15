@@ -1,6 +1,6 @@
-<section class="enable-print">
+<section class="enable-print" id="print-block">
     <nb-card *ngIf="!spinner">
-        <nb-card-body id="print-block">
+        <nb-card-body >
             <div class="row disable-print">
                 <div class="col-md-12">
                     <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="text-left pl-2">
                                                 Outcome:
-                                                <span><strong> {{ccblData?.thresholdOutcome }}</strong></span>
+                                                <span><strong> {{ccblData?.thresholdOutcome }} {{ccblData?.waiverValue === 'Yes' ? '(Waiver has been proposed)' : ''}}</strong></span>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +184,10 @@
                 <app-executive-summary-sme *ngIf="loaded" [loanDataHolder]="loanDataHolder"
                                            [customerAllLoanList]="customerAllLoanList"
                                            [isDetailedView]="isDetailedView"
-                                           [totalProposed]="totalProposedLimit"></app-executive-summary-sme>
+                                           [isExecutive]="true"
+                                           [totalProposed]="totalProposedLimit">
+
+                </app-executive-summary-sme>
             </ng-container>
             <ng-container *ngIf="isSaneView">
                 <div class="row">
@@ -203,6 +206,7 @@
                                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
                                 <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
                                                                     [isDetailedView]="isDetailedView"
+                                                                    [isExecutive]="isExecutive"
                                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
 
                             </li>
@@ -297,6 +301,10 @@
                                 <p><strong>COVENANTS:</strong></p>
                                 <app-upto-convenants></app-upto-convenants>
                             </li>
+<!--                            <li>-->
+<!--                                <p><strong>SPECIAL COVENANTS:</strong></p>-->
+<!--                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialCovenant || 'NA'"></span>-->
+<!--                            </li>-->
                             <li>
                                 <p><strong>DISBURSEMENT MODALITY:</strong></p>
                                 <span [innerHTML]="proposalView?.disbursementCriteria || 'NA' | safeHtml"></span>
@@ -307,7 +315,7 @@
                             </li>
                             <li>
                                 <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
-                                <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
+                                <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
                             </li>
                             <li>
                                 <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
@@ -334,12 +342,27 @@
                     </div>
                 </div>
             </ng-container>
+<!--            <div style="page-break-after: always !important;"></div>-->
+        </nb-card-body>
+    </nb-card>
+
+    <div class="row page-break">
+        <div class="col-md-12" >
+            <app-summary-header [loanCategory]="loanDataHolder?.loanHolder?.customerType"
+                                [loanDataHolder]="loanDataHolder"
+                                [crgCCbl]="(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)"
+                                [isJointInfo]="loanDataHolder?.loanHolder?.isJointCustomer"
+                                [currentDocAction]="loanDataHolder?.currentStage?.docAction?.toString()">
+            </app-summary-header>
+        </div>
+        <div class="col-md-12">
             <ng-container *ngIf="isUpToTenMillion">
                 <app-upto-ten-million [loanDataHolder]="loanDataHolder"
                                       [fiscalYear]="fiscalYearArray"
                                       [isDetailedView]="isDetailedView"
                                       [totalProposed]="totalProposedLimit"
                                       [fixedAssetsData]="fixedAssetsData"
+                                      [isExecutive]="false"
                                       [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion">
@@ -348,13 +371,16 @@
                                        [isDetailedView]="isDetailedView"
                                        [fixedAssetsData]="fixedAssetsData"
                                        [fiscalYear]="fiscalYearArray"
+                                       [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
-            <div style="page-break-after: always !important;"></div>
-            <ng-container *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
+            <ng-container class="page-break" *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
                                   [fixedAssetsData]="fixedAssetsData"></app-annexure-one>
             </ng-container>
-        </nb-card-body>
-    </nb-card>
+
+        </div>
+    </div>
+
+
 </section>

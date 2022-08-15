@@ -9,6 +9,7 @@ export class ReadmoreModelComponent implements OnInit {
 
   @Input()
   comments: any;
+  amounts: any;
 
   constructor() {
   }
