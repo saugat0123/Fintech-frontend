@@ -1041,6 +1041,41 @@
                                 लागु हुने छैन ।
                             </td>
                         </tr>
+                        <tr *ngFor="let test of offerLetterForm.get('feesDetails')['controls']; let i = index"
+                            formArrayName="feesDetails">
+                            <ng-container [formGroupName]="i">
+                                <td>{{(6 + i + 1) |nepaliNumber}}</td>
+                                <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherFeeTitle"
+                                      placeholder="अन्य शुल्क, हर्जना तथा दस्तुरहरु"
+                                      rows="3"></textarea>
+                                    <span class="nepaliFont font-size-normal print-only">
+                                <b>{{offerLetterForm?.get(['feesDetails', i, 'otherFeeTitle'])?.value ?
+                                    offerLetterForm?.get(['feesDetails', i, 'otherFeeTitle'])?.value : '========='}}</b></span>
+                                </td>
+                                <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherFeeContent"
+                                      placeholder="अन्य शुल्क, हर्जना तथा दस्तुरहरु"
+                                      rows="3"></textarea>
+                                    <span class="nepaliFont font-size-normal print-only">
+                                <b>{{offerLetterForm?.get(['feesDetails', i, 'otherFeeContent'])?.value ?
+                                    offerLetterForm?.get(['feesDetails', i, 'otherFeeContent'])?.value : ''}}</b></span>
+                                </td>
+                                <div class="disable-print">
+                                    <button (click)="removeSecurity(i, 'feesDetails')"
+                                            *ngIf="offerLetterForm?.get('feesDetails')['length'] > 0"
+                                            class="btn btn-success" nbButton size="small"
+                                            status="primary">Delete
+                                    </button>
+                                </div>
+                            </ng-container>
+                        </tr>
+                        <div class="text-right disable-print">
+                            <input (click)="addOtherFees()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
                     </table>
                 </div>
             </div>

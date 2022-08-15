@@ -88,6 +88,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setRemarks(initialInfo.purpose);
             this.setMoreSecurity(initialInfo.moreSecurity);
             this.setOtherCovenants(initialInfo.covenant);
+            this.setOtherFees(initialInfo.feesDetails);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);
             this.setEventDefaul1(initialInfo.eventDefault1);
@@ -187,6 +188,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             penalInterestOtherCheck: [false],
             penalInterestOther: [undefined],
             purpose: this.formBuilder.array([]),
+            feesDetails: this.formBuilder.array([]),
             covenant: this.formBuilder.array([]),
             eventDefault: this.formBuilder.array([]),
             eventDefault1: this.formBuilder.array([]),
@@ -1019,6 +1021,27 @@ export class OfferLetterLaxmiComponent implements OnInit {
             data.forEach(singleData => {
                 dataArray.push(this.formBuilder.group({
                     otherCovenant: [singleData.otherCovenant]
+                }));
+            });
+        }
+    }
+
+    addOtherFees() {
+        (this.offerLetterForm.get('feesDetails') as FormArray).push(
+            this.formBuilder.group({
+                otherFeeTitle: [undefined],
+                otherFeeContent: [undefined]
+            })
+        );
+    }
+
+    setOtherFees(data) {
+        const dataArray = this.offerLetterForm.get('feesDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherFeeTitle: [singleData.otherFeeTitle ? singleData.otherFeeTitle : ''],
+                    otherFeeContent: [singleData.otherFeeContent ? singleData.otherFeeContent : '']
                 }));
             });
         }
