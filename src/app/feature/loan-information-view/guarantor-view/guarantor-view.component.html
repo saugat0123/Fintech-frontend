@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<div *ngIf="promoterCheck && customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION'" class="row summary">
+<div *ngIf="promoterCheck && customerAllLoanList[0]?.loanHolder?.customerType === 'INSTITUTION' && !check" class="row summary">
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/ Proprietor/ Partner Details'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoter; let i= index">
@@ -211,7 +211,7 @@
     </ng-container>
   </div>
 </div>
-<div *ngIf="promoterBackground?.length > 0 &&  !individual" class="row">
+<div *ngIf="promoterBackground?.length > 0 &&  !individual && !check" class="row">
   <div class="col-md-12 text-center">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Promoter/Proprietor/Partner Background'}}</strong></p>
     <ng-container *ngFor="let guarantor of promoterBackground; let i= index">
@@ -246,8 +246,6 @@
   <th>Relation</th>
   <th>Age</th>
   <th>Profession</th>
-  <th>Promoter/Proprietor/Partner Background</th>
-  <th>Type</th>
 </tr>
     </thead>
         <tbody>
@@ -257,8 +255,6 @@
           <td>{{promoter?.relation}}</td>
           <td>{{promoter?.age}}</td>
           <td>{{promoter?.profession}}</td>
-          <td>{{guarantor?.name}}</td>
-          <td>{{guarantor?.guarantorType}}</td>
         </tr>
         </tbody>
       </table>

@@ -29,10 +29,10 @@
                         <table class="table table-border">
                             <tr>
                                 <td>कर्जा स्वीकृती/प्रस्ताव पत्र नं. र मिति</td>
-                                <td><span [ngClass]="nepaliData?.miscellaneousDetail?.offerReferenceNo ? 'nepaliFont' : ''">
+                                <td>
                                     {{this.nepaliData?.miscellaneousDetail?.offerReferenceNo ? this.nepaliData?.miscellaneousDetail?.offerReferenceNo : '_________________'}}, &nbsp;
                                     {{this.nepaliData?.miscellaneousDetail?.offerIssueDate ? this.nepaliData?.miscellaneousDetail?.offerIssueDate : '_________________'}}
-                                </span></td>
+                                </td>
                             </tr>
                             <tr>
                                 <td>माथी उल्लेखित धनी बैंकको कर्जा स्वीकृती/प्रस्ताव पत्र बमोजिम उपभोग गरेको/गर्ने जम्मा कर्जा रकम (अंक र अक्षरमा)</td>
@@ -49,95 +49,72 @@
                             <tr>
                                 <td>ऋणीको नाम :</td>
                                 <td><span [ngClass]="nepaliData?.nepaliName ? 'nepaliFont font14' : ''">{{this.nepaliData?.nepaliName ? this.nepaliData?.nepaliName : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>ऋणीको बाजे/ससुराको नाम :</td>
                                 <td><span [ngClass]="nepaliData?.grandFatherName ? 'nepaliFont font14' : ''">{{this.nepaliData?.grandFatherName ? this.nepaliData?.grandFatherName : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>ऋणीको बाबुको नाम :</td>
                                 <td><span [ngClass]="nepaliData?.fatherName ? 'nepaliFont' : ''">{{this.nepaliData?.fatherName ? this.nepaliData?.fatherName : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>ऋणीको पतिको नाम :</td>
                                 <td><span [ngClass]="nepaliData?.husbandName ? 'nepaliFont' : ''">{{this.nepaliData?.husbandName ? this.nepaliData?.husbandName : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>नागरिकता प्रमाणपत्र नं. :</td>
                                 <td><span [ngClass]="nepaliData?.citizenshipNo ? 'nepaliFont' : ''">{{this.nepaliData?.citizenshipNo ? this.nepaliData?.citizenshipNo : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>नागरिकता जारी गर्ने कार्यालय :</td>
                                 <td><span [ngClass]="nepaliData?.citizenshipIssueDistrict ? 'nepaliFont' : ''">{{this.nepaliData?.citizenshipIssueDistrict ? this.nepaliData?.citizenshipIssueDistrict : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>नागरिकता जारी भएको मिति :</td>
                                 <td><span [ngClass]="nepaliData?.citizenshipIssueDate ? 'nepaliFont' : ''">{{this.nepaliData?.citizenshipIssueDate ? this.nepaliData?.citizenshipIssueDate : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>स्थायी लेखा नं. :</td>
                                 <td><span [ngClass]="nepaliData?.panNo ? 'nepaliFont' : ''">{{this.nepaliData?.panNo ? this.nepaliData?.panNo : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>स्थायी लेखा जारी गर्ने कार्यालय :</td>
                                 <td><span [ngClass]="nepaliData?.panIssueOffice ? 'nepaliFont' : ''">{{this.nepaliData?.panIssueOffice ? this.nepaliData?.panIssueOffice : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td>स्थायी लेखा जारी मिति :</td>
                                 <td><span [ngClass]="nepaliData?.panIssueDate ? 'nepaliFont' : ''">{{this.nepaliData?.panIssueDate ? this.nepaliData?.panIssueDate : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td rowspan="3">ऋणीको स्थायी ठेगाना :</td>
-                                <td>जिल्ला :  <span [ngClass]="nepaliData?.institutionRegisteredAddress?.district ? 'nepaliFont' : ''">{{this.nepaliData?.institutionRegisteredAddress?.district ? this.nepaliData?.institutionRegisteredAddress?.district : '_________________'}}</span></td>
-                                <td>जिल्ला :</td>
+                                <td>जिल्ला :  <span [ngClass]="nepaliData?.customerPermanentAddress?.district ? 'nepaliFont' : ''">{{this.nepaliData?.customerPermanentAddress?.district ? this.nepaliData?.customerPermanentAddress?.district : '_________________'}}</span></td>
                             </tr>
                             <tr>
-                                <td> न.पा./गा.पा. :  <span [ngClass]="nepaliData?.institutionRegisteredAddress?.municipality ? 'nepaliFont' : ''">{{this.nepaliData?.institutionRegisteredAddress?.municipality ? this.nepaliData?.institutionRegisteredAddress?.municipality : '_________________'}}</span></td>
-                                <td> न.पा./गा.पा. :</td>
+                                <td> न.पा./गा.पा. :  <span [ngClass]="nepaliData?.customerPermanentAddress?.municipality ? 'nepaliFont' : ''">{{this.nepaliData?.customerPermanentAddress?.municipality ? this.nepaliData?.customerPermanentAddress?.municipality : '_________________'}}</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    वडा नं. :  <span [ngClass]="nepaliData?.institutionRegisteredAddress?.wardNo ? 'nepaliFont' : ''">{{this.nepaliData?.institutionRegisteredAddress?.wardNo ? this.nepaliData?.institutionRegisteredAddress?.wardNo : '_________________'}}</span> &nbsp;
-                                    टोल :  <span [ngClass]="nepaliData?.institutionRegisteredAddress?.tole ? 'nepaliFont' : ''">{{this.nepaliData?.institutionRegisteredAddress?.tole ? this.nepaliData?.institutionRegisteredAddress?.tole : '_________________'}}</span>
-                                </td>
-                                <td>
-                                    वडा नं. :
-                                    टोल :
+                                    वडा नं. :  <span [ngClass]="nepaliData?.customerPermanentAddress?.wardNo ? 'nepaliFont' : ''">{{this.nepaliData?.customerPermanentAddress?.wardNo ? this.nepaliData?.customerPermanentAddress?.wardNo : '_________________'}}</span> &nbsp;
+                                    टोल :  <span [ngClass]="nepaliData?.customerPermanentAddress?.tole ? 'nepaliFont' : ''">{{this.nepaliData?.customerPermanentAddress?.tole ? this.nepaliData?.customerPermanentAddress?.tole : '_________________'}}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td rowspan="3">ऋणीको हालको ठेगाना :</td>
-                                <td>जिल्ला :  <span [ngClass]="nepaliData?.institutionCurrentAddress?.district ? 'nepaliFont' : ''">{{this.nepaliData?.institutionCurrentAddress?.district ? this.nepaliData?.institutionCurrentAddress?.district : '_________________'}}</span></td>
-                                <td>जिल्ला :</td>
+                                <td>जिल्ला :  <span [ngClass]="nepaliData?.customerTemporaryAddress?.district ? 'nepaliFont' : ''">{{this.nepaliData?.customerTemporaryAddress?.district ? this.nepaliData?.customerTemporaryAddress?.district : '_________________'}}</span></td>
                             </tr>
                             <tr>
-                                <td> न.पा./गा.पा. :  <span [ngClass]="nepaliData?.institutionCurrentAddress?.municipality ? 'nepaliFont' : ''">{{this.nepaliData?.institutionCurrentAddress?.municipality ? this.nepaliData?.institutionCurrentAddress?.municipality : '_________________'}}</span></td>
-                                <td> न.पा./गा.पा. :</td>
+                                <td> न.पा./गा.पा. :  <span [ngClass]="nepaliData?.customerTemporaryAddress?.municipality ? 'nepaliFont' : ''">{{this.nepaliData?.customerTemporaryAddress?.municipality ? this.nepaliData?.customerTemporaryAddress?.municipality : '_________________'}}</span></td>
                             </tr>
                             <tr>
                                 <td>
-                                    वडा नं. :  <span [ngClass]="nepaliData?.institutionCurrentAddress?.wardNo ? 'nepaliFont' : ''">{{this.nepaliData?.institutionCurrentAddress?.wardNo ? this.nepaliData?.institutionCurrentAddress?.wardNo : '_________________'}}</span> &nbsp;
-                                    टोल :  <span [ngClass]="nepaliData?.institutionCurrentAddress?.tole ? 'nepaliFont' : ''">{{this.nepaliData?.institutionCurrentAddress?.tole ? this.nepaliData?.institutionCurrentAddress?.tole : '_________________'}}</span>
-                                </td>
-                                <td>
-                                    वडा नं. :
-                                    टोल :
+                                    वडा नं. :  <span [ngClass]="nepaliData?.customerTemporaryAddress?.wardNo ? 'nepaliFont' : ''">{{this.nepaliData?.customerTemporaryAddress?.wardNo ? this.nepaliData?.customerTemporaryAddress?.wardNo : '_________________'}}</span> &nbsp;
+                                    टोल :  <span [ngClass]="nepaliData?.customerTemporaryAddress?.tole ? 'nepaliFont' : ''">{{this.nepaliData?.customerTemporaryAddress?.tole ? this.nepaliData?.customerTemporaryAddress?.tole : '_________________'}}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>सम्पर्क फोन/मोवाईल नं.</td>
                                 <td><span [ngClass]="nepaliData?.contactNo ? 'nepaliFont' : ''">{{this.nepaliData?.contactNo ? this.nepaliData?.contactNo : '_________________'}}</span></td>
-                                <td></td>
                             </tr>
                         </table>
                     </div>

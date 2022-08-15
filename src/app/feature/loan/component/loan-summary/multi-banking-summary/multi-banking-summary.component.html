@@ -1,4 +1,3 @@
-<hr class="print-line">
 <div class="row mt-2">
     <div class="col-md-12">
         <p  class="header"><strong   class="header">Multi Banking/Consortium Financing</strong></p>
@@ -6,7 +5,7 @@
         <ng-container *ngIf="multiBankingData?.isMultiBanking">
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark">
+                <tr class="sb-bg-gray font-weight-bold">
                     <td>First Pari Passu Agreement Date</td>
                     <td>Latest Pari Passu Agreement Date</td>
                 </tr>
@@ -20,7 +19,7 @@
             </table>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>S.N</th>
                     <th>Bank Name</th>
                     <th>Date</th>
@@ -54,7 +53,7 @@
         <ng-container *ngIf="multiBankingData?.isConsortium">
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark">
+                <tr class="sb-bg-gray">
                     <td>First Facilities Agreement Date</td>
                     <td>Latest Facilities Agreement Date</td>
                 </tr>
@@ -68,7 +67,7 @@
             </table>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>S.N</th>
                     <th>Bank Name</th>
                     <th>Date</th>
@@ -100,7 +99,7 @@
         <br>
         <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
             <thead>
-            <tr class="sb-bg-dark text-white">
+            <tr class="sb-bg-gray">
                 <th>Lead Bank</th>
                 <th>Financial Information of the Borrower</th>
                 <th>Last Audited Year</th>
@@ -129,5 +128,13 @@
             </tbody>
         </table>
 
+      <table  class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+          <tr  class="sb-bg-gray text-center font-weight-bold">
+              <td>Remarks</td>
+          </tr>
+          <tr>
+              <td>{{multiBankingData?.remark}}</td>
+          </tr>
+      </table>
     </div>
 </div>

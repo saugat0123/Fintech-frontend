@@ -469,14 +469,18 @@
                                         <td class="text-left pl-2">Land Realisable Rate</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left pl-2">Apartments Realisable Rate</td>
+                                        <td class="text-left pl-2">Building Realisable Rate</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left pl-2">Total Market Value</td>
+                                        <td class="text-left pl-2">Land Market Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left pl-2">Total Realisable Value</td>
+                                        <td class="text-left pl-2">Building Market Value</td>
                                     </tr>
+
+
+
+
                                     <tr>
                                         <td class="text-left pl-2">Valuation Date(AD)</td>
                                     </tr>
@@ -510,10 +514,15 @@
 
 
                                     <tr> <td class="text-left pl-2"> {{(landBuilding?.landBuildingRate) || 'N/A'}}</td></tr>
-                                    <tr> <td class="text-left pl-2"> {{(landBuilding?.apartmentRatesss) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2"> {{(landBuilding?.apartmentRate) || 'N/A'}}</td></tr>
 
-                                    <tr>  <td class="text-left pl-2">NPR. {{(landBuilding?.considerValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-left pl-2">NPR. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
+
+                                    <tr> <td class="text-left pl-2">NPR. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-left pl-2">NPR. {{(landBuilding?.apartmentDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
+
+
+
+
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuatorDate ? (landBuilding?.buildingValuatorDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.landBuildingFirstValuationDate ? (landBuilding?.landBuildingFirstValuationDate | date) : 'N/A'}}</td></tr>
                                     <tr>  <td class="text-left pl-2">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>

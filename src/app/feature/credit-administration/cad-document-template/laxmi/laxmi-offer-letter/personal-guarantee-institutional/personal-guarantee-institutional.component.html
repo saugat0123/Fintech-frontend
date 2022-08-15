@@ -244,17 +244,17 @@
                                 </tr>
                                 <tr>
                                     <td>नागरिकता प्रमाणपत्र नं./दर्ता नं.:</td>
-                                    <td class="nepaliFont">{{this.loanHolderNepData?.registrationNo ? this.loanHolderNepData?.registrationNo : '==========='}}</td>
+                                    <td class="nepaliFont">{{this.loanHolderNepData?.citizenshipNo ? this.loanHolderNepData?.citizenshipNo : '==========='}}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>नागरिकता जारी गर्ने कार्यालय/दर्ता भएको कार्यालय :</td>
-                                    <td><span style="font-family: Preeti">{{this.loanHolderNepData?.companyRegOffice ? this.loanHolderNepData?.companyRegOffice : '==========='}}</span></td>
+                                    <td><span style="font-family: Preeti">{{this.loanHolderNepData?.citizenshipIssueDistrict ? this.loanHolderNepData?.citizenshipIssueDistrict : '==========='}}</span></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>नागरिकता जारी भएको मिति/दर्ता मिति :</td>
-                                    <td class="nepaliFont">{{this.loanHolderNepData?.regIssueDate ? this.loanHolderNepData?.regIssueDate : '==========='}}</td>
+                                    <td class="nepaliFont">{{this.loanHolderNepData?.citizenshipIssueDate ? this.loanHolderNepData?.citizenshipIssueDate : '==========='}}</td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -274,17 +274,17 @@
                                 </tr>
                                 <tr>
                                     <td rowspan="3">ऋणीको स्थायी ठेगाना :</td>
-                                    <td>जिल्ला : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionRegisteredAddress?.district ? this.loanHolderNepData?.institutionRegisteredAddress?.district : '==========='}}</span></td>
+                                    <td>जिल्ला : <span style="font-family: Preeti">{{ this.loanHolderNepData?.customerPermanentAddress?.district ? this.loanHolderNepData?.customerPermanentAddress?.district : '==========='}}</span></td>
                                     <td>जिल्ला :</td>
                                 </tr>
                                 <tr>
-                                    <td>न.पा./गा.पा. : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionRegisteredAddress?.municipality ? this.loanHolderNepData?.institutionRegisteredAddress?.municipality : '===========' }}</span></td>
+                                    <td>न.पा./गा.पा. : <span style="font-family: Preeti">{{ this.loanHolderNepData?.customerPermanentAddress?.municipality ? this.loanHolderNepData?.customerPermanentAddress?.municipality : '===========' }}</span></td>
                                     <td>न.पा./गा.पा. :</td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        वडा नं. : <span class="nepaliFont">{{ this.loanHolderNepData?.institutionRegisteredAddress?.wardNo ? this.loanHolderNepData?.institutionRegisteredAddress?.wardNo : '==========='}}</span>  &nbsp;
-                                        टोल : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionRegisteredAddress?.tole ? this.loanHolderNepData?.institutionRegisteredAddress?.tole : '==========='}}</span>
+                                        वडा नं. : <span class="nepaliFont">{{ this.loanHolderNepData?.customerPermanentAddress?.wardNo ? this.loanHolderNepData?.customerPermanentAddress?.wardNo : '==========='}}</span>  &nbsp;
+                                        टोल : <span style="font-family: Preeti">{{ this.loanHolderNepData?.customerPermanentAddress?.tole ? this.loanHolderNepData?.customerPermanentAddress?.tole : '==========='}}</span>
                                     </td>
                                     <td>
                                         वडा नं. :
@@ -292,17 +292,17 @@
                                 </tr>
                                 <tr>
                                     <td rowspan="3">ऋणीको हालको ठेगाना :</td>
-                                    <td>जिल्ला : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionCurrentAddress?.district ? this.loanHolderNepData?.institutionCurrentAddress?.district : '==========='}}</span></td>
+                                    <td>जिल्ला : <span style="font-family: Preeti">{{ this.loanHolderNepData?.customerTemporaryAddress?.district ? this.loanHolderNepData?.customerTemporaryAddress?.district : '==========='}}</span></td>
                                     <td>जिल्ला :</td>
                                 </tr>
                                 <tr>
-                                    <td>न.पा./गा.पा. : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionCurrentAddress?.municipality ? this.loanHolderNepData?.institutionCurrentAddress?.municipality : '==========='}}</span></td>
+                                    <td>न.पा./गा.पा. : <span style="font-family: Preeti">{{ this.loanHolderNepData?.customerTemporaryAddress?.municipality ? this.loanHolderNepData?.customerTemporaryAddress?.municipality : '==========='}}</span></td>
                                     <td>न.पा./गा.पा. :</td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        वडा नं. : <span class="nepaliFont">{{ this.loanHolderNepData?.institutionCurrentAddress?.wardNo ? this.loanHolderNepData?.institutionCurrentAddress?.wardNo : '==========='}}</span> &nbsp;
-                                        टोल : <span style="font-family: Preeti">{{ this.loanHolderNepData?.institutionCurrentAddress?.tole ? this.loanHolderNepData?.institutionCurrentAddress?.tole : '==========='}}</span>
+                                        वडा नं. : <span class="nepaliFont">{{ this.loanHolderNepData?.customerTemporaryAddress?.wardNo ? this.loanHolderNepData?.customerTemporaryAddress?.wardNo : '==========='}}</span> &nbsp;
+                                        टोल : <span style="font-family: Preeti">{{ this.loanHolderNepData?.customerTemporaryAddress?.tole ? this.loanHolderNepData?.customerTemporaryAddress?.tole : '==========='}}</span>
                                     </td>
                                     <td>
                                         वडा नं. :
@@ -416,7 +416,7 @@
                                         <span class="print-only nepaliFont">{{form.get(['personalGuarantee', i, 'sopDate'])?.value ? form.get(['personalGuarantee', i, 'sopDate'])?.value  : '========='}}</span>
                                     </strong></p>
                                     <p><strong class="text-left">जमानी वस्ने व्यक्तिको सम्पत्ति तथा दायित्वको विवरण (STATEMENT OF POSITION)</strong></p>
-                                    <p class="text-left">जमानी दिनेको नाम : <span>{{ personalGuarantor?.name ? personalGuarantor?.name : '' }}</span></p>
+                                    <p class="text-left">जमानी दिनेको नाम : <span class="nepaliFont">{{ personalGuarantor?.name ? personalGuarantor?.name : '' }}</span></p>
                                     <p class="text-left">सम्पत्ति <em>(यदि कुनै प्रकारको रोक्का, दृष्टिबन्धक आदि भए कृपया जानकारी गराउनु होला)</em></p>
                                     <table class="table table-bordered table-responsive-md">
                                         <thead>

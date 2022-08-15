@@ -94,7 +94,7 @@
                 <div class="form-group col-md-12 py-3">
                     <label for="comment">Comment:</label>
                     <textarea [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
-                              class="form-control" formControlName="comment" id="comment" rows="10"
+                              class="form-control" formControlName="comment" id="comment" rows="3"
                               name="text"
                     ></textarea>
                     <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
@@ -102,8 +102,14 @@
                          style="color: red;">comment is required
                     </div>
                 </div>
+                <div class="form-group col-md-12 py-3" *ngIf="isCrc">
+                    <label for="loanContractNo">Loan Contract No.:</label>
+                    <input class="form-control" formControlName="loanContractNo" id="loanContractNo"
+                           name="text"
+                    />
+                </div>
                 <div  class="col-md-12 py-4 px-3" *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'DISCREPANCY_PENDING' && cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
-                  <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'" formControlName="discrepancy">Discrepancy Case?</nb-checkbox>
+                  <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'" formControlName="discrepancy">Full Discrepancy Case?</nb-checkbox>
 
                 </div>
                 <div class="form-group col-md-12 py-3">

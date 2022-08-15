@@ -14,7 +14,7 @@ export class CompanyJsonData {
   businessObjective: string = undefined;
   rawMaterialSourcing: string = undefined;
   rawMaterialAvailability: string = undefined;
-  marketScenario: string = undefined;
+  marketScenario: any;
   groupsBackGround: string = undefined;
   legalReviewRemark: string = undefined;
   businessGiven: string = undefined;
