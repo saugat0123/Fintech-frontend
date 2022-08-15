@@ -75,9 +75,9 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   @Input() combinedLoan: LoanDataHolder [];
   toggleChecklist = [];
   toggleId = [];
-  check = false;
+  isCorporate = false;
   thisClient;
-
+  facilityUtilization;
   constructor(
       private fiscalYearService: FiscalYearService,
       private toastService: ToastService,
@@ -89,8 +89,9 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
     if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
         this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
-      this.check = true;
+      this.isCorporate = true;
     }
+    this.facilityUtilization = JSON.parse(this.loanDataHolder.loanHolder.facilityUtilization);
     this.currentIndex = this.loanDataHolder.previousList.length;
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.disable();

@@ -467,7 +467,7 @@ export class UIComponent implements OnInit, DoCheck {
             }
             this.tableHeads = [];
             // @ts-ignore
-            elem += '<div class="row">  <table class="table text-center table-responsive d-flex justify-content-center">'
+            elem += '<div class="row text-center justify-content-center">  <table style="width: 100% !important;">'
                 + element.innerHTML.split('page-break-after:always').join(' ') + '</table> </div>  <br style="clear: both;"> ';
         });
         if (ObjectUtil.isEmpty(elem)) {

@@ -8,7 +8,7 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
-            <div *ngIf="check" class="col-md-12">
+            <div *ngIf="isCorporate" class="col-md-12">
                 <p><strong class="header text-left">Purpose of Loan </strong></p>
                 <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                     <ng-container *ngIf="loan?.id" class="summary">
@@ -36,6 +36,9 @@
                 <!--                    existing security-->
                 <app-security-summary *ngIf="approvedSecurity?.length > 0" [securities]="approvedSecurity"></app-security-summary>
 
+                <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+
+
             </ng-container>
             <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
             <!-- Customer Share Security  -->
@@ -52,7 +55,7 @@
                        <app-company-info-summary [approveSheet]="notApprove"
                                                  [companyInfo]="loanDataHolder?.companyInfo"
                                                  [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-                       <app-guarantor-view  [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+                       <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
                    </div>
                </div>
@@ -60,7 +63,7 @@
                    <hr class="print-line">
                    <div class="row  mt-1">
                        <div>
-                           <div *ngIf="!check" class="col-md-12">
+                           <div *ngIf="!isCorporate" class="col-md-12">
                                <p><strong class="header text-left">Purpose of Loan </strong></p>
                                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
                                    <ng-container *ngIf="loan?.id" class="summary">
@@ -91,6 +94,11 @@
                                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
                                               [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                                               [loanDataHolder]="loanDataHolder"></app-cicl-view>
+
+
+                               <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking && isCorporate"
+                                                          [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+
                                <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
                                    <hr class="print-line">
                                    <app-financial-account-information [financialAssessmentData]="loanDataHolder?.loanHolder?.financialAssessmentData"
@@ -202,7 +210,7 @@
                                        <tr>
                                            <td>3</td>
                                            <td class="text-left">Level of Risk</td>
-                                           <td>
+                                           <td class="text-center">
                                                {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
 
 
@@ -211,7 +219,7 @@
                                        <tr>
                                            <td>4</td>
                                            <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                           <td>
+                                           <td class="text-center">
                                                {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
 
                                            </td>
@@ -220,7 +228,7 @@
                                    </table>
                                </div>
                            </ng-container>
-                           <div class="col-md-12">
+                           <div class="col-md-12" *ngIf="!isCorporate">
                            <ng-container *ngIf="checkedData?.waiverChecked">
                                <hr class="print-line">
                                <p><strong class="header">Waivers</strong></p>
@@ -413,26 +421,27 @@
                 <div class="col-md-12 print-only">
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>
-                <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-3 padding-0-125">
-                    <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
-                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
-                        </div>
-                        <hr class="border-dark m-0">
-                        <div class="row justify-content-center signature mx-auto">
-                            <div class="print-only signature-padding"></div>
-                            <img align="middle" alt="signature"
-                                 class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
-                        </div>
-                        <div class="text-center signature-detail sb-bg-gray">
-                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">
-                                ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
-                                )</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
-                                ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                <div class="row col-md-12 summary" style="height: 210px; max-height: 210px">
+                    <div *ngFor="let previous of signatureList; let i=index;"
+                         class="col-md-3 padding-0-125">
+                        <div class="signature-block" style="height: 100%;">
+                            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
+                                <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
+                            </div>
+                            <hr class="border-dark m-0">
+                            <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                                <div class="print-only signature-padding"></div>
+                                <img align="middle" alt="signature" style="height: 100%; width: 100%"
+                                     class="img-thumbnail border-0 signature-height signature-width"
+                                     src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
+                            </div>
+                            <div class="text-center signature-detail sb-bg-gray">
+                                <span class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</span>
+                                <span class="m-0 sb-small">
+                                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})
+                                </span>
+                                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

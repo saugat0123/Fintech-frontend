@@ -76,6 +76,7 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         });
       }
     }
+    console.log('nepali data::', this.nepaliData);
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.form.patchValue(JSON.parse(this.initialInfoPrint));
       this.form.patchValue({

@@ -21,8 +21,14 @@ export class GuarantorViewComponent implements OnInit {
   cgid;
   promoterCheck = false;
   constructor() { }
-
+  thisClient;
+  check = false;
   ngOnInit() {
+    this.thisClient = this.customerAllLoanList[this.customerAllLoanList.length -1].loanHolder.clientType;
+    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+      this.check = true;
+    }
     if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
       this.guarantorData = [];
       this.customerAllLoanList.forEach((d) => {
@@ -54,13 +60,9 @@ export class GuarantorViewComponent implements OnInit {
       });
     }
       if (!ObjectUtil.isEmpty(currentGuarantor)) {
-        this.promoterBackground = currentGuarantor.loanHolder.guarantors.guarantorList.map(d => {
-          if (d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor') {
-            this.promoterCheck = true;
-            return d;
-          }
-        });
+        this.promoterBackground = currentGuarantor.loanHolder.guarantors.guarantorList.filter(d => d.guarantorType === 'Promoter' || d.guarantorType === 'Partner' || d.guarantorType === 'Proprietor');
       }
+    this.promoterCheck = this.promoterBackground.length > 0;
     this.promoter = this.constructGuarantor(this.promoterBackground);
   }
 

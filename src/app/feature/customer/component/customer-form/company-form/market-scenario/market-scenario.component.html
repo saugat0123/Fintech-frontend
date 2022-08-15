@@ -80,21 +80,21 @@
             </div>
         </div>
         <div class="col-md-12" *ngIf="!smallBusiness && !deprivedSector && !microFinancialService">
-            <div class="form-group">
-                <label for="marketDemandService"><strong>Demand of Product/Service</strong></label> <br>
-                <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"
-                                name="marketDemandService" id="marketDemandService">
-                    <nb-radio value="lowDemand">Low Demand</nb-radio>
-                    <nb-radio value="moderateDemand">Moderate Demand</nb-radio>
-                    <nb-radio value="highDemand">High Demand</nb-radio>
-                </nb-radio-group>
-                <div *ngIf="submitted && form.marketDemandService?.errors "
-                     class="small text-danger">
-                    <div *ngIf="form.marketDemandService?.errors.required">
-                        Market Demand Product/Service is required
-                    </div>
-                </div>
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="marketDemandService"><strong>Demand of Product/Service</strong></label> <br>-->
+<!--                <nb-radio-group class="close d-inline-flex float-left" formControlName="marketDemandService"-->
+<!--                                name="marketDemandService" id="marketDemandService">-->
+<!--                    <nb-radio value="lowDemand">Low Demand</nb-radio>-->
+<!--                    <nb-radio value="moderateDemand">Moderate Demand</nb-radio>-->
+<!--                    <nb-radio value="highDemand">High Demand</nb-radio>-->
+<!--                </nb-radio-group>-->
+<!--                <div *ngIf="submitted && form.marketDemandService?.errors "-->
+<!--                     class="small text-danger">-->
+<!--                    <div *ngIf="form.marketDemandService?.errors.required">-->
+<!--                        Market Demand Product/Service is required-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <div class="col-md-6">
             <div class="form-group">

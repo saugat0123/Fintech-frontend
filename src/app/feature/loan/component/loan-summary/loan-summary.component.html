@@ -79,6 +79,11 @@
 <!--                                      >{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>-->
 <!--                            </div>-->
 
+                            <div *ngIf="thisClient === 'CORPORATE' || thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+                                thisClient === 'MID_MARKET' || thisClient === 'BUSINESS_DEVELOPMENT'">
+                                <strong>Credit Risk Grade:</strong>
+                                <span class="badge badge-info">  {{loanDataHolder?.creditRisk || '0'}}</span>
+                            </div>
                             <div>
                                 <strong>Loan Status:</strong>
                                 <span class="badge badge-info"

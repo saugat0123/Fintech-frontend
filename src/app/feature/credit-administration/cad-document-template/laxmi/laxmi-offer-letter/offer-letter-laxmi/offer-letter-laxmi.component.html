@@ -703,8 +703,8 @@
                                                             [value]="cf">{{cf}}</option>
                                                 </select>
                                                 <span class="print-only">
-                                                    <b>{{offerLetterForm?.get('commissionFrequency')?.value ?
-                                                        offerLetterForm?.get('commissionFrequency')?.value : '========='}}</b>
+                                                    <b>{{offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value ?
+                                                        offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value : '__________________'}}</b>
                                                 </span>
                                             </ng-container>
                                             <span class="disable-print float-right">
