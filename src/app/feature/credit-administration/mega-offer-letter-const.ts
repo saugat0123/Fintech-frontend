@@ -10,7 +10,8 @@ export enum MegaOfferLetterConst {
     RETAIL_EDUCATIONAL_ENGLISH,
     RETAIL_LOAN_AGAINST_INSURANCE,
     OFFER_LETTER_CONSENT,
-    PERSONAL_OFFER_LETTER_RENEWALS
+    PERSONAL_OFFER_LETTER_RENEWALS,
+    OFFER_LETTER_EDUCATION_LOAN_NEPALI
 }
 
 export namespace MegaOfferLetterConst {
@@ -38,6 +39,8 @@ export namespace MegaOfferLetterConst {
           return 'Offer Letter Consent';
          case MegaOfferLetterConst.PERSONAL_OFFER_LETTER_RENEWALS:
           return 'Personal Offer Letter';
+          case MegaOfferLetterConst.OFFER_LETTER_EDUCATION_LOAN_NEPALI:
+              return 'Education Loan Nepali';
       }
     }
 
