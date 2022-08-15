@@ -1,4 +1,4 @@
-<nb-card style="height: 30%">
+<nb-card">
     <nb-card-header>
         <div class="clearfix" *ngIf="!isOpened">
             <div class="float-left">
@@ -94,7 +94,7 @@
                 <div class="form-group col-md-12 py-3">
                     <label for="comment">Comment:</label>
                     <textarea [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
-                              class="form-control" formControlName="comment" id="comment" rows="10"
+                              class="form-control" formControlName="comment" id="comment" rows="3"
                               name="text"
                     ></textarea>
                     <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
