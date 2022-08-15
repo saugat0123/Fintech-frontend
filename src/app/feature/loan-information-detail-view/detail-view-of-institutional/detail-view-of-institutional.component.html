@@ -1,3 +1,4 @@
+<div class="summary">
 <ng-container *ngIf="proposalData?.data !== null">
     <app-proposal-summary
             *ngIf="proposalSummary"
@@ -217,7 +218,7 @@
                         </div>
                     </div>
                     <p class="text-right">(Amount in NPR ‘000s)</p>
-                    <table  class="table table-sm table-bordered table-hover sb-small text-center">
+                    <table  class="table table-sm table-bordered table-hover sb-small text-center summary">
                         <thead>
                         <tr class="sb-bg-gray">
                             <th>S.N</th>
@@ -248,7 +249,7 @@
                             <b class="header">Summary of Environment & Social Risk Assessment</b>
                         </div>
                     </div>
-                    <table class="table table-sm table-bordered table-hover sb-small text-center">
+                    <table class="table table-sm table-bordered table-hover sb-small text-center summary">
                         <thead>
                         <tr class="sb-bg-gray">
                             <th>S.N</th>
@@ -312,11 +313,11 @@
     </div>
 </ng-container>
 
-<div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
+<div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row summary">
     <div class="col-md-12">
         <hr class="print-line">
         <p ><strong   class="header">Detail of Present Proposal of the Facility</strong></p>
-        <table class="table table-bordered text-center table-sm sb-small">
+        <table class="table table-bordered text-center table-sm sb-small summary">
             <tbody>
             <tr>
                 <th>Credit Facility</th>
@@ -392,7 +393,7 @@
     <div class="col-md-12">
         <p><strong   class="header">Authority Section</strong></p>
         <table
-                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
             <thead>
             <tr class="sb-bg-gray">
                 <th>S.N</th>
@@ -484,7 +485,7 @@
 <div *ngIf="signatureList.length > 0" class="row justify-content-between"
      id="signatureDiv">
     <div class="col-md-12 print-only">
-<!--        <p><strong   class="header">Approval Chain</strong></p>-->
+<!--        <p><strong   class="header summary">Approval Chain</strong></p>-->
     </div>
     <div class="row col-md-12 summary" style="height: 210px; max-height: 210px">
         <div *ngFor="let previous of signatureList; let i=index;"
@@ -549,4 +550,4 @@
                      [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                      [loanDataHolder]="loanDataHolder"
                      [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
-
+</div>
