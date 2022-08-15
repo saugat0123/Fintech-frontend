@@ -7,7 +7,7 @@ import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CalendarType} from '../../../@core/model/calendar-type';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-net-trading-assets',

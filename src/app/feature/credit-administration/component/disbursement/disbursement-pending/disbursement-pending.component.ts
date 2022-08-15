@@ -111,7 +111,8 @@ export class DisbursementPendingComponent implements OnInit {
       idRegDate: data.loanHolder.idRegDate,
       idRegPlace: data.loanHolder.idRegPlace,
       name: data.loanHolder.customerType,
-      customerLoanDtoList: data.assignedLoan
+      customerLoanDtoList: data.assignedLoan,
+      discrepancy: data.discrepancy
     };
     comp.componentInstance.cadData = dataCad;
     comp.componentInstance.disbursementDataAssign = true;

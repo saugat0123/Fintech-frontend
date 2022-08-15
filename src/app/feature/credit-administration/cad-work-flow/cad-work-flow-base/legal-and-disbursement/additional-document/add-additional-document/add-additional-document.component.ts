@@ -7,6 +7,7 @@ import {CreditAdministrationService} from '../../../../../service/credit-adminis
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../../../@core/utils';
+import {RemarksEnum} from '../../../../../../admin/modal/remarksEnum';
 
 @Component({
     selector: 'app-add-additional-document',
@@ -19,6 +20,7 @@ export class AddAdditionalDocumentComponent implements OnInit {
     addDocForm: FormGroup;
     spinner = false;
     uploadFile;
+    remarkOption = RemarksEnum.enumObject();
 
     constructor(private formBuilder: FormBuilder,
                 private toastService: ToastService,
@@ -96,6 +98,9 @@ export class AddAdditionalDocumentComponent implements OnInit {
     }
 
     save() {
+        if (this.uploadFile) {
+            this.addDocForm.get('remarks').patchValue('OBTAINED');
+        }
         this.cadData.additionalDocumentList.push(this.addDocForm.value);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved  data!!!'));

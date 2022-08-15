@@ -26,6 +26,8 @@ import {
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {DmsLoanFileComponent} from '../../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-cad-action',
@@ -68,7 +70,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     roleType = RoleType;
     isOpened = false;
     forApproveMaker = [];
-
+    currentUserRole: string;
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -91,6 +93,9 @@ export class CadActionComponent implements OnInit, OnChanges {
     unAssign = false;
     checked = false;
     pathValueData;
+    isMakerOrApproval = false;
+    isDiscrepancy = false;
+
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -108,13 +113,21 @@ export class CadActionComponent implements OnInit, OnChanges {
                 private routerUtilsService: RouterUtilsService,
                 private nbDialogService: NbDialogService,
                 private loanFormService: LoanFormService,
+                private spinnerService: NgxSpinnerService
     ) {
     }
 
     ngOnInit() {
-        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
+        this.currentUserRole = LocalStorageUtil.getStorage().roleType;
+        if (this.cadOfferLetterApprovedDoc.discrepancy) {
+            this.isDiscrepancy = true;
+        }
+        if ((this.currentUserRole === RoleType.APPROVAL || this.currentUserRole === RoleType.MAKER)
+            && this.cadOfferLetterApprovedDoc.docStatus !== CadDocStatus.DISCREPANCY_PENDING) {
+            this.isMakerOrApproval = true;
+        }
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
         } else {
@@ -203,7 +216,9 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     postAction() {
         this.isForApproveMaker = false;
+        this.spinnerService.show();
         this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
+            this.spinnerService.hide();
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
@@ -233,6 +248,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     }, error1 => this.toastService.show(new Alert(AlertType.ERROR, error1.error.message)));
                     break;
             }
+            this.spinnerService.hide();
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
         });
@@ -283,7 +299,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
-                    screenShotDocPath: [undefined]
+                    screenShotDocPath: [undefined],
+                    discrepancy: [this.isDiscrepancy]
                 }
             );
             const approvalType = 'CAD';
@@ -300,6 +317,9 @@ export class CadActionComponent implements OnInit, OnChanges {
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
+            const discrepancyApproved = this.cadOfferLetterApprovedDoc.discrepancy && !this.cadOfferLetterApprovedDoc.discrepancyApproved;
+            console.log('this is discrepancy approved', discrepancyApproved);
+            console.log('this is discrepancy approved', newDocStatus);
             this.popUpTitle = this.approvedLabel;
             if (newDocStatus === '0') {
                 this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));
@@ -308,14 +328,16 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.formAction = this.formBuilder.group(
                 {
                     cadId: [this.cadId],
-                    docAction: [newDocStatus],
+                    docAction: [discrepancyApproved ? 'DISCREPANCY_APPROVED' : newDocStatus],
                     comment: [undefined, Validators.required],
-                    documentStatus: [newDocStatus],
+                    documentStatus: [discrepancyApproved ? 'OFFER_PENDING' : newDocStatus],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    screenShotDocPath: [undefined]
+                    screenShotDocPath: [undefined],
+                    discrepancy: [this.isDiscrepancy],
+
 
                 }
             );
@@ -330,7 +352,9 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    screenShotDocPath: [undefined]
+                    screenShotDocPath: [undefined],
+                    discrepancy: [this.isDiscrepancy],
+
                 }
             );
 
@@ -360,6 +384,8 @@ export class CadActionComponent implements OnInit, OnChanges {
             return '0';
         } else if (this.currentStatus === 'DISBURSEMENT_APPROVED') {
             return '0';
+        } else if (this.currentStatus === 'PARTIAL_DISCREPANCY_PENDING' && this.currentUserRole === 'CAD_LEGAL') {
+            return 'LEGAL_APPROVED';
         } else {
             return 'DISBURSEMENT_APPROVED';
         }
