@@ -235,7 +235,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         // Calculating accumulatedProfitBOrDValue --
         const accumulatedProfitBOrDValue = profitAfterTax.controls['value'].value === 0 ? 0 :
-            (index <= 0 ? accumulatedProfitBOrD.controls['value'].value
+            (index <= 0 ? accumulatedProfitBOrD.controls['value'].value.toFixed(2)
                 : ((this.incomeStatementForm.get('netProfitTransferredToBalanceSheet') as FormArray)
                     .controls[index - 1] as FormGroup).controls['value'].value);
         accumulatedProfitBOrD.controls['value'].setValue(Number(accumulatedProfitBOrDValue));
@@ -305,6 +305,10 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         this.financialService.netCashFlowTotal(cashFlowStatement, index);
         this.financialService.closingCashTotal(cashFlowStatement, index);
         this.financialService.differenceCFSTotal(cashFlowStatement, index);
+
+        if (headingTitle === 'accumulatedProfitBOrD') {
+            this.checkForLatterFiscalYearChanges(index);
+        }
 
         //
         // Key Indicators Calculation--
