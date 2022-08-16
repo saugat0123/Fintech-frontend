@@ -31,3 +31,45 @@ nb-card{
   font-size: 22px;
   font-family: Preeti;
 }
+
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 20px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
+  .disable-print {
+    display: none;
+  }
+}
+
+span {
+  line-height: 1;
+}
+
+.preetiFont {
+  font-family: Preeti;
+}
+
+.size16 {
+  font-size: 16px;
+}
+
+thead{ display:table-row-group }
