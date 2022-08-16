@@ -13,13 +13,12 @@ import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
-import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
+import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
+import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {NgxPrintModule} from 'ngx-print';
 import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
-
-
 
 @NgModule({
   declarations: [LoanDeedCompanyComponent,
@@ -30,12 +29,14 @@ import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-gua
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
+    KaloSuchiBorrowerCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
+    LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
+    KaloSuchiBorrowerCompanyComponent,
     CorporateGuaranteeComponent],
   imports: [
     CommonModule,
@@ -44,23 +45,24 @@ import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-gua
     NbButtonModule,
     NgxPrintModule
   ],
-    exports: [
-        AssignmentOfReceivableComponent,
-        DeedHypoOfMachineryComponent,
-        HypoOfStockComponent,
-        LoanDeedCompanyComponent,
-        ManjurinamaForCompanyComponent,
-        PersonalGuaranteeCompanyComponent,
-        PersonalGuaranteeJointBorrowerComponent,
-        PersonalGuaranteePersonToPersonComponent,
-        PromissoryNoteSingleBorrowerComponent,
-        TrustReceiptNepaliLimitComponent,
-        LoanDeedMultipleComponent,
-        LoanDeedSingleComponent,
-        PromissoryNoteCompanyComponent,
-        PromissoryNoteJointComponent,
-        CorporateGuaranteeComponent
-    ],
+  exports: [
+    AssignmentOfReceivableComponent,
+    DeedHypoOfMachineryComponent,
+    HypoOfStockComponent,
+    LoanDeedCompanyComponent,
+    ManjurinamaForCompanyComponent,
+    PersonalGuaranteeCompanyComponent,
+    PersonalGuaranteeJointBorrowerComponent,
+    PersonalGuaranteePersonToPersonComponent,
+    PromissoryNoteSingleBorrowerComponent,
+    TrustReceiptNepaliLimitComponent,
+    LoanDeedMultipleComponent,
+    LoanDeedIndividualComponent,
+    PromissoryNoteCompanyComponent,
+    PromissoryNoteJointComponent,
+    KaloSuchiBorrowerCompanyComponent,
+    CorporateGuaranteeComponent
+  ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
 
