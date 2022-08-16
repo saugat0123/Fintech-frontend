@@ -281,8 +281,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     buildForm() {
-        // @ts-ignore
-        // @ts-ignore
         this.companyInfoFormGroup = this.formBuilder.group({
 
             // Company Information
