@@ -17,6 +17,7 @@ import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.compo
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
+import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
 
 
 
@@ -34,7 +35,8 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent],
+    PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -42,22 +44,23 @@ import {NgxPrintModule} from 'ngx-print';
     NbButtonModule,
     NgxPrintModule
   ],
-  exports: [
-    AssignmentOfReceivableComponent,
-    DeedHypoOfMachineryComponent,
-    HypoOfStockComponent,
-    LoanDeedCompanyComponent,
-    ManjurinamaForCompanyComponent,
-    PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteePersonToPersonComponent,
-    PromissoryNoteSingleBorrowerComponent,
-    TrustReceiptNepaliLimitComponent,
-    LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
-    PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent
-  ],
+    exports: [
+        AssignmentOfReceivableComponent,
+        DeedHypoOfMachineryComponent,
+        HypoOfStockComponent,
+        LoanDeedCompanyComponent,
+        ManjurinamaForCompanyComponent,
+        PersonalGuaranteeCompanyComponent,
+        PersonalGuaranteeJointBorrowerComponent,
+        PersonalGuaranteePersonToPersonComponent,
+        PromissoryNoteSingleBorrowerComponent,
+        TrustReceiptNepaliLimitComponent,
+        LoanDeedMultipleComponent,
+        LoanDeedSingleComponent,
+        PromissoryNoteCompanyComponent,
+        PromissoryNoteJointComponent,
+        CorporateGuaranteeComponent
+    ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
 
