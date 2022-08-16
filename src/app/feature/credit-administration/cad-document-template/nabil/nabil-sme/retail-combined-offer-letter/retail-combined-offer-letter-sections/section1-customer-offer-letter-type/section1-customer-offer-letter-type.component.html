@@ -3,7 +3,7 @@
         <form [formGroup]="form" class="col-md-12 p-0">
             <ng-container *ngIf="NCELL else otherClauses">
                 <!--For NCELL Housing Only-->
-                <b>बिषयः ऋणकर्जा सुविधा बारे ।</b>
+                <span style="font-weight: bold">बिषयः ऋणकर्जा सुविधा बारे ।</span>
                 <br>
                 महोदय,
                 <br>
@@ -23,7 +23,7 @@
             <ng-template #otherClauses>
                 <ng-container *ngIf="loanOption === 'New'">
                     <!--For New Customer-->
-                    <b>बिषयः ऋणकर्जा सुविधा बारे ।</b>
+                    <span style="font-weight: bold">बिषयः ऋणकर्जा सुविधा बारे ।</span>
                     <br>
                     महोदय,
                     <br>
@@ -41,7 +41,7 @@
 
                 <ng-container *ngIf="loanOption === 'Plain Renewal'">
                     <!--For existing customer - Plain Renewal-->
-                    <b>बिषयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</b>
+                    <span style="font-weight: bold">बिषयः ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</span>
                     <br>
                     महोदय,
                     <br>
@@ -66,7 +66,7 @@
 
                 <ng-container *ngIf="loanOption === 'Renewal with Enhancement or Additional Loan'">
                     <!--For existing customer - Renewal with enhancement or additional loan-->
-                    <b>बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</b>
+                    <span style="font-weight: bold">बिषयः थप/अतिरिक्त सुविधाहरु सहित ऋणकर्जा सुविधा नबिकरण/पुनरावलोकन बारे ।</span>
                     <br>
                     महोदय,
                     <br>
@@ -93,7 +93,7 @@
 
                 <ng-container *ngIf="loanOption === 'Additional Loan'">
                     <!--For Existing customer - Additional loan-->
-                    <b>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</b>
+                    <span style="font-weight: bold">बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</span>
                     <br>
                     महोदय,
                     <br>

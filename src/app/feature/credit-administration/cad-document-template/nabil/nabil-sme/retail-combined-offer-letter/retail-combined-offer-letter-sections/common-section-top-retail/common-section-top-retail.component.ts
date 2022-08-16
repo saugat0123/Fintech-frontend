@@ -30,6 +30,7 @@ export class CommonSectionTopRetailComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
       this.loanHolderInfo = JSON.parse(this.cadData.loanHolder.nepData);
+      console.log('loanHolderInfo', this.loanHolderInfo);
     }
     this.fillform();
   }
@@ -74,7 +75,7 @@ export class CommonSectionTopRetailComponent implements OnInit {
     this.form.patchValue({
       referenceNumber: this.refNum ? this.refNum : '',
       sanctionLetterDate: this.sanctionLetterDate ? this.sanctionLetterDate : '',
-      nameOfBorrower : this.loanHolderInfo.name ? this.loanHolderInfo.name.np : '',
+      nameOfBorrower : this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       addressOfBorrower : this.address ? this.address : '',
     });
   }

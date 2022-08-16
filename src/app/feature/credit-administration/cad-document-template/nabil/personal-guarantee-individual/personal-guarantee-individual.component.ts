@@ -243,7 +243,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                   homeBankName = this.offerDocumentDetails.loan.nameOfBankCT ? this.offerDocumentDetails.loan.nameOfBankCT : '';
               } else {
                   // tslint:disable-next-line:max-line-length
-                  approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : this.offerDocumentDetails.dateofApprovalNepali ? this.offerDocumentDetails.dateofApprovalNepali.en.eDate : '';
+                  approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.nDate : this.offerDocumentDetails.dateofApprovalNepali ? this.offerDocumentDetails.dateofApprovalNepali.en.nDate : '';
               }
               if (this.docName === 'DDSL Without Subsidy') {
                   const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ?

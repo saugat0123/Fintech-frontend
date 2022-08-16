@@ -345,7 +345,9 @@ export class LoanDeedIndividualComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval) ||
           !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval))) {
         if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD') {
-          approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+          const approveDateAD = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+          const approveDate = this.datePipe.transform(approveDateAD ? approveDateAD : '');
+          approvedDate = this.englishNepaliDatePipe.transform(approveDate || '', true);
         } else {
           approvedDate = (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali) &&
               !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalNepali.ct)) ?

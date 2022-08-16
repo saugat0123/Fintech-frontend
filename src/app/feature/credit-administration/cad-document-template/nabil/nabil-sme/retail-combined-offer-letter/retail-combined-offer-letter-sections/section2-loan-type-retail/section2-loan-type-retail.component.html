@@ -11,7 +11,7 @@
                         <ng-container [formGroupName]="i1">
                             <td width="10%" class="font-weight-bold">प्रकरण <br/>{{(i1+1) | nepaliWord}})</td>
                             <td>
-                                <b>कर्जा प्रकार :
+                                <span style="font-weight: bold">कर्जा प्रकार :
                                     <ng-container>
                                         {{val?.facilityName ? val?.facilityName : '_________________'}}
                                     </ng-container>
@@ -26,7 +26,7 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '______________________'}}</span>मात्र)<br>
-                                    प्रयोजन :</b> <input class="form-field form-control-sm d-print-none"
+                                    प्रयोजन :</span> <input class="form-field form-control-sm d-print-none"
                                                          name="purposeOfLoan"
                                                          formControlName="purposeOfLoan"
                                                          type="text"/>
@@ -36,7 +36,7 @@
                                     <!--For Floating Interest rate Case-->
                                     <ng-container *ngIf="val?.facilityNameEnglish === 'HOME LOAN COMBINED' || val?.facilityNameEnglish === 'AUTO LOAN COMBINED' || val?.facilityNameEnglish === 'MORTGAGE LOAN COMBINED' || (val?.facilityNameEnglish === 'EDUCATION LOAN COMBINED' && (val?.securityType === 'LAND' || val.securityType === 'LAND_BUILDING')) || val?.facilityNameEnglish === 'PERSONAL LOAN COMBINED'">
                                         <br>
-                                        <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                         <input class="form-field form-control-sm d-print-none"
                                                name="baseRate"
                                                formControlName="baseRate"
@@ -58,7 +58,7 @@
                                     </ng-container>
                                     <ng-container *ngIf="val?.facilityNameEnglish === 'PERSONAL OVERDRAFT COMBINED' || val?.facilityNameEnglish === 'NABIL SAHAYATRI KARJA' || val?.facilityNameEnglish === 'PERSONAL OVERDRAFT WITHOUT COLLATERAL COMBINED'">
                                         <br>
-                                        <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                         <input class="form-field form-control-sm d-print-none"
                                                name="baseRate"
                                                formControlName="baseRate"
@@ -80,7 +80,7 @@
                                     </ng-container>
                                     <ng-container *ngIf="val?.securityType === 'TD'">
                                         <br>
-                                        <b>ब्याजदर :</b> त्रैमासिक मासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
+                                        <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक मासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
                                         (Quarterly Average Base Rate or Time Deposit rate whichever is higher)
                                         <input class="form-field form-control-sm d-print-none"
                                                name="baseRate"
@@ -104,7 +104,7 @@
                                     </ng-container>
                                     <ng-container *ngIf="val?.facilityNameEnglish === 'NABIL SHARE LOAN POD COMBINED' || val?.facilityNameEnglish === 'SHARE LOAN DEMAND COMBINED'">
                                         <br>
-                                        <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                         <input class="form-field form-control-sm d-print-none"
                                                name="baseRate"
                                                formControlName="baseRate"
@@ -137,10 +137,10 @@
                                     रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                 </ng-container>
                                 <br>
-                                <ng-container *ngIf="initialData?.existingLoanForm?.existingLoanFormArray.length > 1">
+                                <ng-container *ngIf="initialData?.existingLoanForm?.existingLoanFormArray.length > 0">
                                     <!--For existing loans that could be multiple)-->
-                                    <b>(अरु शर्त तथा बन्देजनामाहरु यस अघिनै यहांले स्वीकार्नु भएको ऋणकर्जा सुविधा
-                                        स्वीकृति पत्र अनुसार नै हुनेछ ।)</b>
+                                    <span style="font-weight: bold">(अरु शर्त तथा बन्देजनामाहरु यस अघिनै यहांले स्वीकार्नु भएको ऋणकर्जा सुविधा
+                                        स्वीकृति पत्र अनुसार नै हुनेछ ।)</span>
                                 </ng-container>
                             </td>
                         </ng-container>
@@ -156,7 +156,7 @@
                                 {{(initialData?.existingLoanForm?.existingLoanFormArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : धितो कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : धितो कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -168,7 +168,7 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountWordsCT || '______________________'}}</span>मात्र)<br>
-                                    प्रयोजन :</b><input class="form-field form-control-sm d-print-none"
+                                    प्रयोजन :</span><input class="form-field form-control-sm d-print-none"
                                                         name="purposeOfLoan"
                                                         formControlName="purposeOfLoan"
                                                         type="text"/>
@@ -176,7 +176,7 @@
                                 प्रयोजनका निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ् ।<br>
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -200,7 +200,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -209,16 +209,17 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने
-                                घर/जग्गाको निकृष्ट
-                                स्थितिको मूल्याङकन (Distress Situation Value) को
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने
+                                घर/जग्गाको
+                                बजार मूल्यको मूल्याङकन (Fair Market Value) को ३० प्रतिशत बराबर रकम वा
+                                निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
                                        formControlName="margin"
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.marginPercentCT || '______________'}}</span>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ |<br>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -231,7 +232,7 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAdminWordsCT || '_________________________'}}</span>
                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।<br>
-                                <b>चुक्ता भुक्तानी :</b> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
                                 यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="emiAmountInFigure"
@@ -252,7 +253,7 @@
                                 सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु
                                 पर्नेछ ।
                                 <br/>
-                                <b>द्रष्टब्य :</b> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको
+                                <span style="font-weight: bold">द्रष्टब्य :</span> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको
                                 प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले ब्याज
                                 भुक्तानी गर्नुपर्नेछ ।
                             </td>
@@ -271,7 +272,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : आवास कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : आवास कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -283,17 +284,17 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span>
-                                    मात्र)</b>
+                                    मात्र)</span>
                                 <ng-container *ngIf="val?.homeLoanCase === 'CONSTRUCTION'">
                                     <br/>
                                     <!--Construction case -->
-                                    <b>प्रयोजन :</b> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ
+                                    <span style="font-weight: bold">प्रयोजन :</span> भवन निर्माण गर्ने प्रयोजनको निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ
                                     ।
                                 </ng-container>
                                 <ng-container *ngIf="val?.homeLoanCase === 'PURCHASE'">
                                     <br/>
                                     <!--For purchase case and First Home buyer-->
-                                    <b>प्रयोजन :</b>
+                                    <span style="font-weight: bold">प्रयोजन :</span>
                                     <input class="form-field form-control-sm d-print-none"
                                            name="purposeOfLoan"
                                            formControlName="purposeOfLoan"
@@ -304,7 +305,7 @@
                                 <ng-container *ngIf="val?.homeLoanCase === 'TAKEOVER'">
                                     <br/>
                                     <!--For TakeOver Case-->
-                                    <b>प्रयोजन :</b>
+                                    <span style="font-weight: bold">प्रयोजन :</span>
                                     <input class="form-field form-control-sm d-print-none"
                                            name="purposeOfLoan"
                                            formControlName="purposeOfLoan"
@@ -315,7 +316,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -339,7 +340,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -352,7 +353,7 @@
                                         *ngIf="(val?.NcellStaffCheck && val?.homeLoanCase !== 'CONSTRUCTION') else nonNcellClauses">
                                     <br/>
                                     <!--For NCELL Only-->
-                                    <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको
+                                    <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको
                                     पक्षमा धितो
                                     लेखिदिने घर/जग्गाको बजार मूल्यको मूल्याङकन (Fair Market Value) को
                                     <input class="form-field form-control-sm d-print-none"
@@ -369,7 +370,7 @@
                                             *ngIf="(val?.firstTimeHomeBuyerCheck && val?.homeLoanCase !== 'CONSTRUCTION') else otherClauses">
                                         <br/>
                                         <!--New Home buyer-->
-                                        <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत
+                                        <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत
                                         बैंकको पक्षमा धितो
                                         लेखिदिने घर/जग्गाको बजार मूल्यको मूल्याङकन (Fair Market Value) को
                                         <input class="form-field form-control-sm d-print-none"
@@ -386,7 +387,7 @@
                                                 *ngIf="val?.homeLoanCase === 'TAKEOVER' || val?.homeLoanCase === 'PURCHASE'">
                                             <br/>
                                             <!--Purchase case and Take over case-->
-                                            <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत
+                                            <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत
                                             बैंकको पक्षमा धितो
                                             लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                             <input class="form-field form-control-sm d-print-none"
@@ -402,7 +403,7 @@
                                         <ng-container *ngIf="val?.homeLoanCase === 'CONSTRUCTION'">
                                             <br/>
                                             <!--Construction-->
-                                            <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत
+                                            <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत
                                             बैंकको पक्षमा धितोबन्धक
                                             लेखिदिने
                                             जग्गामा बन्न लाग्ने घरको निर्माण लागतको १०० प्रतिशत वा जग्गा र निर्माणीत
@@ -419,7 +420,7 @@
 
                                 <ng-container>
                                     <br/>
-                                    <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                    <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                     <input class="form-field form-control-sm d-print-none"
                                            name="loanAdminFeeInFigure"
                                            formControlName="loanAdminFeeInFigure"
@@ -434,7 +435,7 @@
                                     मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 </ng-container>
                                 <br>
-                                <b>चुक्ता भुक्तानी :</b> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
                                 यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="emiAmountInFigure"
@@ -456,7 +457,7 @@
                                 पर्नेछ ।
                                 <ng-container *ngIf="!val?.moratoriumPeriodCheck">
                                     <br/>
-                                    <b>द्रष्टब्य :</b> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी
+                                    <span style="font-weight: bold">द्रष्टब्य :</span> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी
                                     पात्रोको
                                     प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले
                                     ब्याज
@@ -466,7 +467,7 @@
                                         *ngIf="val?.homeLoanCase === 'CONSTRUCTION' && val?.moratoriumPeriodCheck">
                                     <br/>
                                     <!--Incase of construction with moratorium period-->
-                                    <b>द्रष्टब्य :</b>
+                                    <span style="font-weight: bold">द्रष्टब्य :</span>
                                     <input class="form-field form-control-sm d-print-none"
                                            name="moratoriumPeriod"
                                            formControlName="moratoriumPeriod"
@@ -493,7 +494,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जाको प्रकार : सवारी साधन कर्जा<br>
+                                <span style="font-weight: bold">कर्जाको प्रकार : सवारी साधन कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -505,10 +506,10 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span>मात्र)
-                                </b>
+                                </span>
                                     <ng-container *ngIf="val?.autoLoanType === 'PERSONAL'">
                                         <br/>
-                                        <b>प्रयोजन : </b>  <input class="form-field form-control-sm d-print-none"
+                                        <span style="font-weight: bold">प्रयोजन : </span>  <input class="form-field form-control-sm d-print-none"
                                                        name="purposeOfLoan"
                                                        formControlName="purposeOfLoan"
                                                        type="text"/>
@@ -519,7 +520,7 @@
                                 <ng-container *ngIf="val?.autoLoanType === 'COMMERCIAL'">
                                     <br/>
                                     <!--Commercial Auto Loan Case-->
-                                    <b>प्रयोजन : </b> <input class="form-field form-control-sm d-print-none"
+                                    <span style="font-weight: bold">प्रयोजन : </span> <input class="form-field form-control-sm d-print-none"
                                                           name="purposeOfLoan"
                                                           formControlName="purposeOfLoan"
                                                           type="text"/>
@@ -536,7 +537,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -560,7 +561,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर : </b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर : </span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -570,7 +571,7 @@
                                     <br/>
                                 </ng-container>
                                 <br>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power): </b> सवारी साधनको भ्याट बिल (VAT Bill) मुल्यको
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power): </span> सवारी साधनको भ्याट बिल (VAT Bill) मुल्यको
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
                                        formControlName="margin"
@@ -578,7 +579,7 @@
                                 <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                                 <br/>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -591,7 +592,7 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span> मात्र)
                                 तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।<br/>
-                                <b>चुक्ता भुक्तानी :</b> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
                                 यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="emiAmountInFigure"
@@ -610,7 +611,7 @@
                                 <span class="print-only font-weight-bold">{{val?.numberOfInstallmentsCT || '_________________'}}</span>
                                 सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु
                                 पर्नेछ ।<br/>
-                                <b>द्रष्टब्य :</b> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको
+                                <span style="font-weight: bold">द्रष्टब्य :</span> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको
                                 प्रत्येक २०
                                 तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले ब्याज भुक्तानी
                                 गर्नुपर्नेछ ।
@@ -632,7 +633,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -644,9 +645,9 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span>
-                                    मात्र)</b>
+                                    मात्र)</span>
                                 <br/>
-                                <b>प्रयोजन :</b>
+                                <span style="font-weight: bold">प्रयोजन :</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -656,7 +657,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर : त्रैमासिक औसत आधार दर</b> (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर : त्रैमासिक औसत आधार दर</span> (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -682,7 +683,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -691,9 +692,10 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
-                                लेखिदिएको
-                                घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
+                                लेखिदिएको घर/जग्गाको
+                                बजार मूल्यको मूल्याङकन (Fair Market Value) को ३० प्रतिशत बराबर रकम वा
+                                निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
                                        formControlName="margin"
@@ -701,7 +703,7 @@
                                 <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
                                 प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                                 <br/>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -715,7 +717,7 @@
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span>
                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 <br/>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
+                                <span style="font-weight: bold">सुविधा समाप्ति/पुनरावलोकन मिति :</span>
                                 {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanExpiryDate"
@@ -742,7 +744,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : नविल सहयात्री कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : नविल सहयात्री कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -753,9 +755,9 @@
                                            name="loanAmountInWords"
                                            formControlName="loanAmountInWords"
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</b>
+                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</span>
                                 <br/>
-                                <b>प्रयोजनः</b>
+                                <span style="font-weight: bold">प्रयोजनः</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -765,7 +767,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -790,7 +792,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -799,8 +801,10 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाहरुको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
-                                लेखिदिएको घर/जग्गाको निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाहरुको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
+                                लेखिदिएको घर/जग्गाको
+                                बजार मूल्यको मूल्याङकन (Fair Market Value) को ३० प्रतिशत बराबर रकम वा
+                                निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
                                        formControlName="margin"
@@ -808,7 +812,7 @@
                                 <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span> प्रतिशत
                                 बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                                 <br/>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -821,7 +825,7 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span> मात्र)
                                 तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।<br>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
+                                <span style="font-weight: bold">सुविधा समाप्ति/पुनरावलोकन मिति :</span>
                                 {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanExpiryDate"
@@ -849,7 +853,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा विना धितो<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : व्यक्तिगत अधिविकर्ष कर्जा विना धितो<br>
                                     रकम : रु.<input class="form-field form-control-sm d-print-none"
                                                     name="loanAmountInFigure"
                                                     formControlName="loanAmountInFigure"
@@ -861,8 +865,8 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span>
-                                    मात्र)</b><br>
-                                <b>प्रयोजन :</b>
+                                    मात्र)</span><br>
+                                <span style="font-weight: bold">प्रयोजन :</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -872,7 +876,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -898,7 +902,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -907,7 +911,7 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.<input
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.<input
                                     class="form-field form-control-sm d-print-none"
                                     name="loanAdminFeeInFigure"
                                     formControlName="loanAdminFeeInFigure"
@@ -921,7 +925,7 @@
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span>
                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 <br/>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
+                                <span style="font-weight: bold">सुविधा समाप्ति/पुनरावलोकन मिति :</span>
                                 {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanExpiryDate"
@@ -951,7 +955,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : अधिविकर्ष कर्जा (नबिल शेयर कर्जा)<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : अधिविकर्ष कर्जा (नबिल शेयर कर्जा)<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -962,8 +966,8 @@
                                            name="loanAmountInWords"
                                            formControlName="loanAmountInWords"
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</b><br>
-                                <b>प्रयोजन :</b>
+                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</span><br>
+                                <span style="font-weight: bold">प्रयोजन :</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -973,7 +977,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -998,7 +1002,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1007,7 +1011,7 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> सुरक्षण विवरण (क) मा उल्लेख गरीएको सूचिकृत
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> सुरक्षण विवरण (क) मा उल्लेख गरीएको सूचिकृत
                                 कम्पनी(हरु) को साधारण शेयरको नेपाल स्टक एक्सचेञ्ज लि. मा निर्धारित मूल्य अनुसार गत १८०
                                 कारोवार दिनको औसत न्युनतम मूल्यको वा वर्तमान न्यूनतम बजार मूल्यको अधिकतम ७० प्रतिशत वा
                                 स्विकृत कर्जा सिमा मध्ये जुन कम हुन्छ, सो भन्दा बढी कर्जा प्रवाह गरिने छैन ।<br>
@@ -1016,7 +1020,7 @@
                                 अधिकतम २५ प्रतिशत वा संस्थापक शेयरको अन्तिम बजार मूल्यको ५० प्रतिशत वा स्विकृत कर्जा
                                 सिमा मध्ये जुन कम हुन्छ, सो भन्दा बढी कर्जा प्रवाह गरिने छैन ।
                                 <br/>
-                                <b>मार्जिन :</b> ऋणीलाई शेयरको धितोमा उपलब्ध गराईने कर्जाको मार्जिन माथि उल्लिखित प्रवाह
+                                <span style="font-weight: bold">मार्जिन :</span> ऋणीलाई शेयरको धितोमा उपलब्ध गराईने कर्जाको मार्जिन माथि उल्लिखित प्रवाह
                                 गर्न सकिने सिमा अनुसारकै अनुपातमा कुनै पनि बखत कायम भइरहनु पर्नेछ । शेयरहरुको मुल्य कम
                                 हुन गई मार्जिन राखेको अनुपात कायम नभएमा बैंकले ऋणीलाई एसएमएस, ईमेल वा अन्य कुनै पनि
                                 माध्यमबाट सूचना प्रदान गर्न सक्नेछ । ऋणीले त्यस्तो सूचनाको मितिले अधिकतम ७ दिन भित्र
@@ -1028,7 +1032,7 @@
                                 मार्जिन कायम राख्न वा सम्पूर्ण कर्जा असुल गर्न सक्नेछ । यस सम्बन्धमा ऋणी वा
                                 जमानतकर्तालाई पूर्वसूचना दिन जरुरी हुने छैन ।
                                 <br/>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -1042,7 +1046,7 @@
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span> मात्र)
                                 तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 <br/>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
+                                <span style="font-weight: bold">सुविधा समाप्ति/पुनरावलोकन मिति :</span>
                                 {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanExpiryDate"
@@ -1073,7 +1077,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>
+                                <span style="font-weight: bold">
                                     कर्जा प्रकार : शेयर कर्जा डिमाण्ड
                                     <input class="form-field form-control-sm d-print-none"
                                            name="freeText"
@@ -1092,8 +1096,8 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)
-                                    ।</b><br>
-                                <b>प्रयोजन : </b>
+                                    ।</span><br>
+                                <span style="font-weight: bold">प्रयोजन : </span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -1103,7 +1107,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <br/>
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर : त्रैमासिक औसत आधार दर </b>(Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर : त्रैमासिक औसत आधार दर </span>(Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -1128,7 +1132,7 @@
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <br/>
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1137,7 +1141,7 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b>सुरक्षण विवरण (क) मा उल्लेख गरीएको सूचिकृत
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span>सुरक्षण विवरण (क) मा उल्लेख गरीएको सूचिकृत
                                 कम्पनी(हरु) को साधारण शेयरको नेपाल स्टक एक्सचेञ्ज लि. मा निर्धारित मूल्य अनुसार गत १८०
                                 कारोवार दिनको औसत न्युनतम मूल्यको वा वर्तमान न्यूनतम बजार मूल्यको अधिकतम ७० प्रतिशत वा
                                 स्विकृत कर्जा सिमा मध्ये जुन कम हुन्छ, सो भन्दा बढी कर्जा प्रवाह गरिने छैन ।<br>
@@ -1146,7 +1150,7 @@
                                 अधिकतम २५ प्रतिशत वा संस्थापक शेयरको अन्तिम बजार मूल्यको ५० प्रतिशत वा स्विकृत कर्जा
                                 सिमा मध्ये जुन कम हुन्छ, सो भन्दा बढी कर्जा प्रवाह गरिने छैन ।
                                 <br/>
-                                <b>मार्जिन :</b> ऋणीलाई शेयरको धितोमा उपलब्ध गराईने कर्जाको मार्जिन माथि उल्लिखित प्रवाह
+                                <span style="font-weight: bold">मार्जिन :</span> ऋणीलाई शेयरको धितोमा उपलब्ध गराईने कर्जाको मार्जिन माथि उल्लिखित प्रवाह
                                 गर्न सकिने सिमा अनुसारकै अनुपातमा कुनै पनि बखत कायम भइरहनु पर्नेछ । शेयरहरुको मुल्य कम
                                 हुन गई मार्जिन राखेको अनुपात कायम नभएमा बैंकले ऋणीलाई एसएमएस, ईमेल वा अन्य कुनै पनि
                                 माध्यमबाट सूचना प्रदान गर्न सक्नेछ । ऋणीले त्यस्तो सूचनाको मितिले अधिकतम ७ दिन भित्र
@@ -1158,7 +1162,7 @@
                                 मार्जिन कायम राख्न वा सम्पूर्ण कर्जा असुल गर्न सक्नेछ । यस सम्बन्धमा ऋणी वा
                                 जमानतकर्तालाई पूर्वसूचना दिन जरुरी हुने छैन ।
                                 <br/>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.<input
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.<input
                                     class="form-field form-control-sm d-print-none"
                                     name="loanAdminFeeInFigure"
                                     formControlName="loanAdminFeeInFigure"
@@ -1172,7 +1176,7 @@
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span> मात्र)
                                 तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 <br/>
-                                <b>सुविधा समाप्ति/पुनरावलोकन मिति :</b>
+                                <span style="font-weight: bold">सुविधा समाप्ति/पुनरावलोकन मिति :</span>
                                 {{val?.loanExpiryDateType === 'AD' ? 'ई. स. ' : val?.loanExpiryDateType === 'BS' ? 'वि.स.' : ''}}
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanExpiryDate"
@@ -1204,7 +1208,7 @@
                                 (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : शैक्षिक कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1214,8 +1218,8 @@
                                            name="loanAmountInWords"
                                            formControlName="loanAmountInWords"
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</b><br>
-                                <b>प्रयोजन :</b>
+                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</span><br>
+                                <span style="font-weight: bold">प्रयोजन :</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -1224,7 +1228,7 @@
                                 गर्ने प्रयोजनका निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।<br/>
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
                                     (Quarterly Average Base Rate or Time Deposit rate whichever is higher)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
@@ -1250,7 +1254,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1259,7 +1263,7 @@
                                     रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा ग्रहणाधिकार
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा ग्रहणाधिकार
                                 (Lien) र/वा हकाधिकार हुने गरी राखिदिने रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="fixedDepositAmountInFigure"
@@ -1280,7 +1284,7 @@
                                 <span class="print-only font-weight-bold">{{val?.FDNumberCT || '_________________'}}</span>
                                 को ९० प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न
                                 सकिनेछ ।<br>
-                                <b>चुक्ता भुक्तानी :</b> व्याज भुक्तानी नेपाली पात्रो बमोजिम त्रैमासिक रुपमा र साँवा
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> व्याज भुक्तानी नेपाली पात्रो बमोजिम त्रैमासिक रुपमा र साँवा
                                 भुक्तानी परिपक्क (Maturity) समयमा गर्नु पर्नेछ ।
                             </td>
                         </ng-container>
@@ -1305,7 +1309,7 @@
                                 (educationLoanAustraliaAgainstTDArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : शैक्षिक कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1315,8 +1319,8 @@
                                             name="loanAmountInWords"
                                             formControlName="loanAmountInWords"
                                             type="text"/>
-                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</b><br>
-                                <b>प्रयोजन :</b>
+                                    <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)</span><br>
+                                <span style="font-weight: bold">प्रयोजन :</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -1326,7 +1330,7 @@
                                 <br/>
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ
                                     (Quarterly Average Base Rate or Time Deposit rate whichever is higher)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
@@ -1341,7 +1345,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1350,7 +1354,7 @@
                                     रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा ग्रहणाधिकार
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा ग्रहणाधिकार
                                 (Lien) र/वा हकाधिकार हुने गरी राखिदिने रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="fixedDepositAmountInFigure"
@@ -1371,7 +1375,7 @@
                                 <span class="print-only font-weight-bold">{{val?.FDNumberCT || '_________________'}}</span>
                                 को ९० प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न
                                 सकिनेछ |<br>
-                                <b>चुक्ता भुक्तानी :</b> व्याज भुक्तानी नेपाली पात्रो बमोजिम त्रैमासिक रुपमा र साँवा
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> व्याज भुक्तानी नेपाली पात्रो बमोजिम त्रैमासिक रुपमा र साँवा
                                 भुक्तानी परिपक्क (Maturity) समयमा गर्नु पर्नेछ ।
                             </td>
                         </ng-container>
@@ -1397,7 +1401,7 @@
                                 (educationLoanOtherAgainstTDArray.length) +(i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा<br>
+                                <span style="font-weight: bold">कर्जा प्रकार : शैक्षिक कर्जा<br>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
                                                    formControlName="loanAmountInFigure"
@@ -1409,7 +1413,7 @@
                                                         type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)
                                     <br/>
-                                    प्रयोजन : </b>
+                                    प्रयोजन : </span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -1420,11 +1424,11 @@
                                 <br/>
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
-                                           type="text"/>>
+                                           type="text"/>
                                     <span class="print-only font-weight-bold">{{initialData?.retailGlobalForm?.baseRateCT || '_________________'}}</span> +
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestPremium"
@@ -1443,7 +1447,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                    <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1452,7 +1456,7 @@
                                     रुपमा तिर्नु बुझाउनु पर्नेछ |
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
                                 लेखिदिने/लेखिदिएको घर/जग्गाको
                                 बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value) कोे
                                 <input class="form-field form-control-sm d-print-none"
@@ -1462,7 +1466,7 @@
                                 <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
                                 प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                                 <br/>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -1474,7 +1478,7 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span> मात्र) तपाईंको खातामा खर्च
                                 जनाई कटृा गरी लिईनेछ ।<br>
-                                <b>चुक्ता भुक्तानी :</b> मासिक किस्ता (Equated Monthly Installment) साँवा र
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> मासिक किस्ता (Equated Monthly Installment) साँवा र
                                 ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="emiAmountInFigure"
@@ -1495,7 +1499,7 @@
                                 पर्नेछ ।
                                 <div *ngIf="val?.moratoriumPeriodCheck">
                                     <!--If Mention in CFR-->
-                                    <b>द्रष्टब्य :</b>
+                                    <span style="font-weight: bold">द्रष्टब्य :</span>
                                     <input class="form-field form-control-sm d-print-none"
                                            name="moratoriumPeriod"
                                            formControlName="moratoriumPeriod"
@@ -1530,7 +1534,7 @@
                                 (educationLoanAustraliaArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : शैक्षिक कर्जा
+                                <span style="font-weight: bold">कर्जा प्रकार : शैक्षिक कर्जा
                                     <br/>
                                     रकमः रु.<input class="form-field form-control-sm d-print-none"
                                                    name="loanAmountInFigure"
@@ -1542,7 +1546,7 @@
                                            formControlName="loanAmountInWords"
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)<br>
-                                    प्रयोजन :</b>
+                                    प्रयोजन :</span>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="purposeOfLoan"
                                        formControlName="purposeOfLoan"
@@ -1552,7 +1556,7 @@
                                 <br/>
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -1575,7 +1579,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1584,7 +1588,7 @@
                                     रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</b> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
+                                <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो
                                 लेखिदिने/लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम
                                 मूल्य (Distress Value)
                                 कोे <input class="form-field form-control-sm d-print-none"
@@ -1593,7 +1597,7 @@
                                            type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.marginInPercentageCT || '_________________'}}</span>
                                 प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -1605,7 +1609,7 @@
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span> मात्र) तपाईंको खातामा खर्च
                                 जनाई कटृा गरी लिईनेछ ।<br>
-                                <b>चुक्ता भुक्तानी :</b> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
                                 यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="emiAmountInFigure"
@@ -1627,7 +1631,7 @@
                                 <ng-container *ngIf="val?.moratoriumPeriodCheck">
                                     <br/>
                                     <!--If Mention in CFR-->
-                                    <b>द्रष्टब्य :</b> <input class="form-field form-control-sm d-print-none"
+                                    <span style="font-weight: bold">द्रष्टब्य :</span> <input class="form-field form-control-sm d-print-none"
                                                               name="moratoriumPeriod"
                                                               formControlName="moratoriumPeriod"
                                                               type="text"/>
@@ -1662,8 +1666,8 @@
                                 (educationLoanOtherCountriesArray.length) + (i1 + 1) | nepaliWord}})
                             </td>
                             <td>
-                                <b>कर्जा प्रकार : व्यक्तिगत कर्जा विनाधितो<br>
-                                    रकमः </b> रु.<input class="form-field form-control-sm d-print-none"
+                                <span style="font-weight: bold">कर्जा प्रकार : व्यक्तिगत कर्जा विनाधितो<br>
+                                    रकमः </span> रु.<input class="form-field form-control-sm d-print-none"
                                                         name="loanAmountInFigure"
                                                         formControlName="loanAmountInFigure"
                                                         type="text"/>
@@ -1674,7 +1678,7 @@
                                        formControlName="loanAmountInWords"
                                        type="text"/>
                                 <span class="print-only font-weight-bold">{{val?.loanAmountInWordsCT || '_________________'}}</span> मात्र)<br>
-                                <b>प्रयोजन :</b> <input class="form-field form-control-sm d-print-none"
+                                <span style="font-weight: bold">प्रयोजन :</span> <input class="form-field form-control-sm d-print-none"
                                                         name="purposeOfLoan"
                                                         formControlName="purposeOfLoan"
                                                         type="text"/>
@@ -1682,7 +1686,7 @@
                                 प्रयोजनका निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ् ।<br>
                                 <ng-container *ngIf="val?.interestRateType === 'FLOATING_INTEREST'">
                                     <!--(For Floating Interest rate Case)-->
-                                    <b>ब्याजदर :</b> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                    <span style="font-weight: bold">ब्याजदर :</span> त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
                                     <input class="form-field form-control-sm d-print-none"
                                            name="baseRate"
                                            formControlName="baseRate"
@@ -1706,7 +1710,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.interestRateType === 'FIXED_INTEREST'">
                                     <!--This clause is for Fixed interest rate-->
-                                    <b>स्थिर ब्याज दर</b> (Fixed Interest Rate) बार्षिक
+                                    <span style="font-weight: bold">स्थिर ब्याज दर</span> (Fixed Interest Rate) बार्षिक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="interestRate"
                                            formControlName="interestRate"
@@ -1715,7 +1719,7 @@
                                     प्रतिशत का दरले मासिक रुपमा तिर्नु बुझाउनु पर्नेछ ।
                                     <br/>
                                 </ng-container>
-                                <b>ऋण प्रशासनिक शुल्क :</b> ऋण प्रशासनिक शुल्क बापत रु.
+                                <span style="font-weight: bold">ऋण प्रशासनिक शुल्क :</span> ऋण प्रशासनिक शुल्क बापत रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="loanAdminFeeInFigure"
                                        formControlName="loanAdminFeeInFigure"
@@ -1729,7 +1733,7 @@
                                 <span class="print-only font-weight-bold">{{val?.loanAdminFeeInWordsCT || '_________________'}}</span>
                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 <br>
-                                <b>चुक्ता भुक्तानी :</b> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
+                                <span style="font-weight: bold">चुक्ता भुक्तानी :</span> मासिक किस्ता (Equated Monthly Installment) साँवा र ब्याज सहितको
                                 यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <input class="form-field form-control-sm d-print-none"
                                        name="emiAmountInFigure"
@@ -1752,7 +1756,7 @@
                                 पर्नेछ ।<br>
                                 <ng-container *ngIf="val?.repaymentCase === 'REGULAR_BASIS'">
                                     <!--On Regular Basis-->
-                                    <b>द्रष्टब्य :</b> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी
+                                    <span style="font-weight: bold">द्रष्टब्य :</span> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी
                                     पात्रोको प्रत्येक २०
                                     तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले ब्याज भुक्तानी
                                     गर्नुपर्नेछ ।
@@ -1760,7 +1764,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val?.repaymentCase === 'ON_CASE_BASIS'">
                                     <!--On Case Basis-->
-                                    <b>द्रष्टब्य :</b> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी
+                                    <span style="font-weight: bold">द्रष्टब्य :</span> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी
                                     पात्रोको प्रत्येक
                                     <input class="form-field form-control-sm d-print-none"
                                            name="freeDate"

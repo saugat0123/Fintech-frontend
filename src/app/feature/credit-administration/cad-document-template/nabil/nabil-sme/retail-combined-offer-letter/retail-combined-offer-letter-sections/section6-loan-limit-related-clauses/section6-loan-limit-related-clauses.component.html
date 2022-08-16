@@ -2,7 +2,7 @@
     <div class="row">
     <form [formGroup]="form">
         <div>
-            <b>कर्जा उपयोग सीमाः तथा सो सम्बन्धी शर्तहरुः</b>
+            <span style="font-weight: bold">कर्जा उपयोग सीमाः तथा सो सम्बन्धी शर्तहरुः</span>
             <br>
             <ul>
                 <li>
@@ -23,7 +23,7 @@
                     मात्र) भन्दा बढी हुनु हुनेछैन । <!--Total Limit-->
                 </li>
                 <li *ngIf="isMortgageLoan || isHomeLoan || isAutoLoan || isPersonalLoan || isOthers">
-                    {{filteredLoanName}}<ng-container *ngIf="filteredLoanName.length > 0 && isOthers">,</ng-container><span *ngIf="isOthers">शिक्षा ऋण</span>
+                    {{filteredLoanName}}<ng-container *ngIf="filteredLoanName.length > 0 && isOthers">,</ng-container><span *ngIf="isOthers"> शैक्षिक कर्जा</span>
                     सिमा यदि आंशिक वा पूर्ण भुक्तानी भएपश्चात भुक्तानी भएको रकम पूनःकर्जा स्वरुप उपयोग गर्न सकिनेछैन ।
                     <!--For Mortgage loan/Housing loan/Vehicle Loan/Personal Loan/Education loan – Other Countries-->
                 </li>
