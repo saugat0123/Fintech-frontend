@@ -26,6 +26,7 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
     initialInformation: any;
     translatedFormGroup: FormGroup;
     loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
+    filteredLoanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -57,11 +58,19 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
         this.loanConfigService.getAllByLoanCategory('INDIVIDUAL').subscribe((response: any) => {
             console.log(response);
             this.loanFacilityList = response.detail;
+            this.setFilteredLoanList();
             console.log(response.detail);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
+    }
+
+    setFilteredLoanList() {
+        if (!ObjectUtil.isEmpty(this.loanFacilityList)) {
+            this.filteredLoanFacilityList = this.loanFacilityList.filter((val) =>
+                val.offerLetterConst === 'COMBINED_LETTER');
+        }
     }
 
     private buildForm(): FormGroup {
