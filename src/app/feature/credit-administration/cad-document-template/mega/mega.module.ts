@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.component';
 import { PersonalGuaranteeJointBorrowerComponent } from './personal-guarantee-joint-borrower/personal-guarantee-joint-borrower.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
@@ -14,6 +13,7 @@ import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
+import {LoanDeedInstitutionPrivateLimitedComponent} from './loan-deed-institution-private-limited/loan-deed-institution-private-limited.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
@@ -21,8 +21,7 @@ import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
-  declarations: [LoanDeedCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
+  declarations: [PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteeCompanyComponent,
     PersonalGuaranteePersonToPersonComponent,
     ManjurinamaForCompanyComponent,
@@ -31,6 +30,7 @@ import {NgxPrintModule} from 'ngx-print';
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
+    LoanDeedInstitutionPrivateLimitedComponent,
     LoanDeedMultipleComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
@@ -46,13 +46,13 @@ import {NgxPrintModule} from 'ngx-print';
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
-    LoanDeedCompanyComponent,
     ManjurinamaForCompanyComponent,
     PersonalGuaranteeCompanyComponent,
     PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteePersonToPersonComponent,
     PromissoryNoteSingleBorrowerComponent,
     TrustReceiptNepaliLimitComponent,
+    LoanDeedInstitutionPrivateLimitedComponent,
     LoanDeedMultipleComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
