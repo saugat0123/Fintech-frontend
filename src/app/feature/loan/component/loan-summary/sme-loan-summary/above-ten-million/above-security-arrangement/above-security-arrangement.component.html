@@ -69,13 +69,13 @@
                                 <td>{{l?.area}} {{l?.areaFormat}}</td>
                             </tr>
                             <tr>
-                                <td colspan="4">Building</td>
+                                <td colspan="4" class="pl-1 text-white text-left sb-bg-dark">Building</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4">land and Building</td>
+                                <td colspan="4" class="pl-1 text-white text-left sb-bg-dark">land and Building</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -93,13 +93,13 @@
                                     <b>Plant and Machinery </b>
                                 </td>
                                 <td>
-                                    <span *ngIf="detail?.plantAndMachinery">{{detail?.plantMachineryData?.amount}}</span>
+                                    <span>{{detail?.plantMachineryData?.amountMV}}</span>
                                 </td>
                                 <td>
-                                    <span *ngIf="detail?.plantAndMachinery">{{detail?.plantMachineryData?.amount}}</span>
+                                    <span>{{detail?.plantMachineryData?.amountFMV}}</span>
                                 </td>
                                 <td>
-<!--                                    <span>{{calcPlantDV(detail?.plantMachineryData?.amount)}}</span>-->
+                                    <span>{{detail?.plantMachineryData?.amountDV}}</span>
                                 </td>
                             </tr>
                             <tr>

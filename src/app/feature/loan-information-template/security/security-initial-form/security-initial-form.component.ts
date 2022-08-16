@@ -858,6 +858,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     model: [singleData.model],
                     quotation: [singleData.quotation],
+                    quotationDv: [singleData.quotationDv],
+                    quotationMV: [singleData.quotationMV],
                     supplier: [singleData.supplier],
                     downPay: [singleData.downPay],
                     loanExp: [singleData.loanExp],
@@ -1500,6 +1502,8 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             model: ['', Validators.required],
             quotation: ['', Validators.required],
+            quotationMV: [''],
+            quotationDv: [''],
             supplier: [''],
             downPay: [''],
             loanExp: [''],
