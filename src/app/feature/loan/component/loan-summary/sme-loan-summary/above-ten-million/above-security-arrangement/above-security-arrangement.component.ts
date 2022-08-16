@@ -26,8 +26,11 @@ export class AboveSecurityArrangementComponent implements OnInit {
   proposedSecurity1: {
     owner: string,
     location: string,
-    plot: string,
-    area: string,
+    locationDetail: [{
+      plotNumber: string,
+      areaFormat: string,
+      area: string,
+    }],
     considerValue: number,
     marketValue: number,
     distressValue: number,
@@ -40,10 +43,17 @@ export class AboveSecurityArrangementComponent implements OnInit {
     collateralData: {
       zoningType: string,
       accessRoad: string,
-      setBack: string,
+      setBack: {
+        river: string,
+        road: string;
+        highTension: string;
+      },
       visitedBy: string
       visitDate: string
-      coordinate: string;
+      coordinate: {
+        longitude: string,
+        latitude: string;
+      };
     },
     valuatorName: string,
     valuationDate: string;
@@ -84,16 +94,9 @@ export class AboveSecurityArrangementComponent implements OnInit {
         if (this.landSelected) {
           landDetail.forEach((d, i) => {
             let collateralData = null;
-            let setback = null;
-            let cordinate = null;
             this.collateralSiteVisitService.getCollateralByLatestDateOfVisit(this.securityId, d.uuid).subscribe((res: any) => {
               if (!ObjectUtil.isEmpty(res.detail)) {
                 collateralData = JSON.parse(res.detail.siteVisitJsonData);
-                // setback = collateralData.roadSetbacks.toString().concat('/')
-                //     .collateralData.riverOrCanalSetbacks.toString().concat('/')
-                //     .collateralData.highTensionSetbacks.toString();
-                // cordinate = collateralData.fixedAssetsLongitude.toString().concat(',')
-                //     .concat(collateralData.fixedAssetsLatitude).toString();
                 console.log('collateralData', collateralData);
               }
               if (d.forProposed) {
@@ -104,8 +107,7 @@ export class AboveSecurityArrangementComponent implements OnInit {
                 this.proposedSecurity1.push({
                   owner: d.owner,
                   location: d.location,
-                  plot: d.plotNumber,
-                  area: d.areaFormat,
+                  locationDetail: d.locationDetail,
                   considerValue: d.landConsideredValue,
                   marketValue: d.marketValue,
                   distressValue: d.distressValue,
@@ -118,10 +120,17 @@ export class AboveSecurityArrangementComponent implements OnInit {
                   collateralData: {
                     zoningType: ObjectUtil.isEmpty(collateralData) ? null : collateralData.typeOfProperty,
                     accessRoad: ObjectUtil.isEmpty(collateralData) ? null : collateralData.roadAccessFrom,
-                    setBack: ObjectUtil.isEmpty(collateralData) ? null : setback,
+                    setBack: {
+                      road: ObjectUtil.isEmpty(collateralData) ? null : collateralData.roadSetbacks,
+                      river: ObjectUtil.isEmpty(collateralData) ? null : collateralData.riverOrCanalSetbacks,
+                      highTension: ObjectUtil.isEmpty(collateralData) ? null : collateralData.highTensionSetbacks
+                    },
                     visitedBy: ObjectUtil.isEmpty(collateralData) ? null : collateralData.personContacted,
                     visitDate: ObjectUtil.isEmpty(collateralData) ? null : collateralData.date,
-                    coordinate: ObjectUtil.isEmpty(collateralData) ? null : cordinate,
+                    coordinate: {
+                      longitude: ObjectUtil.isEmpty(collateralData) ? null : collateralData.fixedAssetsLongitude,
+                      latitude: ObjectUtil.isEmpty(collateralData) ? null : collateralData.fixedAssetsLatitude,
+                    }
                   },
                   valuatorName: d.landValuator,
                   valuationDate: d.landValuatorDate
@@ -211,4 +220,9 @@ export class AboveSecurityArrangementComponent implements OnInit {
     });
   }
 
+  calcPlantDV(data) {
+    const finalDv = (0.8 * Number(data));
+    console.log('before return', finalDv);
+    return finalDv;
+  }
 }

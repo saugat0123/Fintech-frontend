@@ -38,72 +38,100 @@
         </div>
     </div>
     <div class="col-md-12">
-        <p><strong> b. Security (to be obtained)</strong></p>
-        <strong *ngIf="proposedSecurity1?.length > 0">Proposed</strong>
         <div class="row" *ngIf="proposedSecurity1?.length > 0">
             <div class="col-md-12">
                 <div *ngFor="let detail of proposedSecurity1; let i = index">
+                    <p><strong> b. Security (to be obtained)</strong></p>
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <tr class="sb-bg-dark text-white">
-                            <th>S.N</th>
+<!--                            <th>S.N</th>-->
                             <th>Owner</th>
                             <th>Location</th>
                             <th>Plot #</th>
-                            <th>Area (Ropani)</th>
+                            <th>Area</th>
                             <th>MV</th>
                             <th>FMV</th>
                             <th>DV</th>
                         </tr>
                         <ng-container>
                             <tr>
-                                <td class="text-center">{{i + 1}}</td>
-                                <td>{{detail?.owner}}</td>
-                                <td>{{detail?.location}}</td>
-                                <td>{{detail?.plot}}</td>
-                                <td>{{detail?.area}}</td>
-                                <td>{{detail?.considerValue | currencyFormatter}}</td>
-                                <td>{{detail?.marketValue | currencyFormatter}}</td>
-                                <td>{{detail?.distressValue | currencyFormatter}}</td>
+<!--                                <td class="text-center">{{i + 1}}</td>-->
+                                <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.owner}}</td>
+                                <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.location}}</td>
+                                <td></td>
+                                <td></td>
+                                <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.considerValue | currencyFormatter}}</td>
+                                <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.marketValue | currencyFormatter}}</td>
+                                <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.distressValue | currencyFormatter}}</td>
+                            </tr>
+                            <tr *ngFor="let l of detail?.locationDetail">
+                                <td>{{l?.plotNumber}}</td>
+                                <td>{{l?.area}} {{l?.areaFormat}}</td>
                             </tr>
                             <tr>
-                                <td colspan="5" class="font-weight-bold">Total</td>
+                                <td colspan="4" class="pl-1 text-white">
+                                    <b class="sb-bg-dark text-left">Land Owner Type: </b> {{detail?.typeOfProperty || 'NA'}}
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="sb-bg-dark text-left pl-1 text-white">
+                                    <b>Plant and Machinery </b>
+                                </td>
+                                <td>
+                                    <span *ngIf="detail?.plantAndMachinery">{{detail?.plantMachineryData?.amount}}</span>
+                                </td>
+                                <td>
+                                    <span *ngIf="detail?.plantAndMachinery">{{detail?.plantMachineryData?.amount}}</span>
+                                </td>
+                                <td>
+                                    <span>{{calcPlantDV(detail?.plantMachineryData?.amount)}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="font-weight-bold">Total</td>
                                 <td class="font-weight-bold">{{(totalMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
                                 <td class="font-weight-bold">{{(totalFMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
                                 <td class="font-weight-bold">{{(totalDV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
                             </tr>
                         </ng-container>
                     </table>
-                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <table class="table table-condensed table-bordered table-responsive-md text-left pl-1 table-sm sb-small">
                         <tr>
-                            <th class="sb-bg-dark text-white">Zoning Type</th>
+                            <th class="sb-bg-dark text-white tableHeight">Zoning Type</th>
                             <td>{{detail?.collateralData?.zoningType || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">Access Road</th>
-                            <td>{{detail?.collateralData.accessRoad || 'NA'}}</td>
+                            <th class="sb-bg-dark text-white tableHeight">Access Road</th>
+                            <td>{{detail?.collateralData?.accessRoad || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">SetBack/Adverse</th>
-                            <td>{{detail?.collateralData?.setBack || 'NA'}}</td>
+                            <th class="sb-bg-dark text-white tableHeight">SetBack/Adverse</th>
+                            <td>{{detail?.collateralData?.setBack?.road || 'NA'}}/
+                                {{detail?.collateralData?.setBack?.river || 'NA'}}/
+                                {{detail?.collateralData?.setBack?.highTension || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">Google Co-ordinates</th>
-                            <td>{{detail?.collateralData.coordinate || 'NA'}}</td>
+                            <th class="sb-bg-dark text-white tableHeight">Google Co-ordinates</th>
+                            <td>{{detail?.collateralData?.coordinate?.longitude || 'NA'}},
+                                {{detail?.collateralData?.coordinate?.latitude || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">Latest Collateral Visited By</th>
-                            <td>{{detail?.collateralData.visitedBy || 'NA'}}</td>
+                            <th class="sb-bg-dark text-white tableHeight">Latest Collateral Visited By</th>
+                            <td>{{detail?.collateralData?.visitedBy || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">Latest Collateral Visit Date</th>
-                            <td>{{detail?.collateralData.visitDate ? (detail?.collateralData.visitDate | date) : 'NA'}}</td>
+                            <th class="sb-bg-dark text-white tableHeight">Latest Collateral Visit Date</th>
+                            <td>{{detail?.collateralData?.visitDate ? (detail?.collateralData?.visitDate | date) : 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">Valuator Name</th>
+                            <th class="sb-bg-dark text-white tableHeight">Valuator Name</th>
                             <td>{{detail?.valuatorName || 'NA'}}</td>
                         </tr>
                         <tr>
-                            <th class="sb-bg-dark text-white">Valuation Date</th>
+                            <th class="sb-bg-dark text-white tableHeight">Valuation Date</th>
                             <td>{{detail?.valuationDate ? (detail?.valuationDate | date) : 'NA'}}</td>
                         </tr>
                     </table>
