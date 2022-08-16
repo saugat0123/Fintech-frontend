@@ -40,9 +40,9 @@
         <app-trust-receipt-nepali-limit *ngSwitchCase="cadTemplate.TRUST_RECEIPT_NEPALI_LIMIT"
                                         [cadData]="cadData" [documentId]="documentId"
                                         [customerLoanId]="customerLoanId"></app-trust-receipt-nepali-limit>
-        <app-loan-deed-single *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE" [cadData]="cadData"
+        <app-loan-deed-individual *ngSwitchCase="cadTemplate.LOAN_DEED_INDIVIDUAL" [cadData]="cadData"
                               [documentId]="documentId"
-                              [customerLoanId]="customerLoanId"></app-loan-deed-single>
+                              [customerLoanId]="customerLoanId"></app-loan-deed-individual>
         <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE" [cadData]="cadData"
                                 [documentId]="documentId"
                                 [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
@@ -53,7 +53,9 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
-
+        <app-kalo-suchi-borrower-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_COMPANY"
+                                   [cadData]="cadData" [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId"></app-kalo-suchi-borrower-company>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
