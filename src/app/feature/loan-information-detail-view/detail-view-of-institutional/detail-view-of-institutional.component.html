@@ -1,4 +1,8 @@
 <div class="summary">
+    <ng-container>
+        <app-only-business-profile *ngIf="isCorporate"  [companyInfo]="loanDataHolder?.companyInfo"
+                                    [loanDataHolder]="loanDataHolder"></app-only-business-profile>
+    </ng-container>
     <ng-container *ngIf="proposalData?.data !== null">
         <app-proposal-summary
                 *ngIf="proposalSummary"
@@ -62,13 +66,8 @@
     <hr class="print-line">
     <div class="row">
         <div class="col-md-12">
-            <!--<app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
-                                   [calendarType]="calendarType"
-                                   [formValue]="loanDataHolder?.companyInfo"
-                                   [loanId]="loanId"
-                                   [loanDataHolder]="loanDataHolder"
-                                   [customerInfo]="loanDataHolder?.loanHolder"></app-company-info-view>-->
             <app-company-info-summary [approveSheet]="notApprove"
+                                      [showOnlyProfile] ="isCorporate"
                                       [companyInfo]="loanDataHolder?.companyInfo"
                                       [loanDataHolder]="loanDataHolder"></app-company-info-summary>
             <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
@@ -110,72 +109,73 @@
             <div class="col-md-12" *ngIf="isCorporate">
                 <p><strong class="header text-left">Facility Utilization</strong></p>
                 <table class="table table-bordered table-responsive-md table-sm sb-small table-hover summary">
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.overdraftUtilization" class="sb-bg-gray">
                         <td>Overdraft utilization</td>
                     </tr>
-                    <tr>
-                        <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white" [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></table>
+                    <tr *ngIf="facilityUtilization?.overdraftUtilization">
+                        <table
+                                class="col-md-12
+                                 table-sm table-bordered
+                                  table-responsive-sm border-dark"
+                                style="width: 100%; border: white"
+                                [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></table>
                     </tr>
 
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.remarks" class="sb-bg-gray">
                         <td>Remarks</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.remarks">
                         <td [innerHTML]="facilityUtilization?.remarks | safeHtml"></td>
                     </tr>
 
-                    <tr class="sb-bg-gray">
+                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.otherFacilityUtilization">
                         <td>Other Facility Utilization</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.otherFacilityUtilization">
                         <td [innerHTML]="facilityUtilization?.otherFacilityUtilization | safeHtml"></td>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.remarks1" class="sb-bg-gray">
                         <td>Remarks</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.remarks1">
                         <td [innerHTML]="facilityUtilization?.remarks1 | safeHtml"></td>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.letterOfCreditIssued" >
                         <td>Letter of Credit issued</td>
                     </tr>
-                    <tr>
-                        <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white;" [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></table>
+                    <tr *ngIf="facilityUtilization?.letterOfCreditIssued" >
+                        <table class="col-md-12
+                          table-sm table-bordered table-responsive-sm border-dark"
+                               style="width: 100%; border: white;" [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></table>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.remarks2"  class="sb-bg-gray">
                         <td>Remarks</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.remarks2" >
                         <td [innerHTML]="facilityUtilization?.remarks2 | safeHtml"></td>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.bankGuaranteeIssued"  class="sb-bg-gray">
                         <td>Bank Guarantee issued</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.bankGuaranteeIssued" >
                         <td [innerHTML]="facilityUtilization?.bankGuaranteeIssued | safeHtml"></td>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.remarks3"  class="sb-bg-gray">
                         <td>Remarks</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.remarks3" >
                         <td [innerHTML]="facilityUtilization?.remarks3 | safeHtml"></td>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.oneOffLoansApproved" >
                         <td>One off loans approved</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.oneOffLoansApproved" >
                         <td [innerHTML]="facilityUtilization?.oneOffLoansApproved | safeHtml"></td>
                     </tr>
-                    <tr class="sb-bg-gray">
+                    <tr *ngIf="facilityUtilization?.remarks4" class="sb-bg-gray">
                         <td>Remarks</td>
                     </tr>
-                    <tr>
-                        <td [innerHTML]="facilityUtilization?.remarks4 | safeHtml"></td>
-                    </tr>
-                    <tr class="sb-bg-gray">
-                        <td>Remarks</td>
-                    </tr>
-                    <tr>
+                    <tr *ngIf="facilityUtilization?.remarks4">
                         <td [innerHTML]="facilityUtilization?.remarks4 | safeHtml"></td>
                     </tr>
 
@@ -241,6 +241,17 @@
                 <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
                                              [loanDataHolder]="loanDataHolder"
                                              [netTradingAssets]="loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
+            </div>
+            <div class="col-md-12" *ngIf="isCorporate">
+                <hr class="print-line">
+                <app-income-from-account-summery
+                        [formData]="loanDataHolder?.loanHolder?.incomeFromAccount">
+                </app-income-from-account-summery>
+                <hr class="print-line">
+                <app-comments [commentData]="loanDataHolder?.loanHolder?.data"
+                              [view]="true"
+                              [fromProfile]="true"></app-comments>
+
             </div>
             <ng-container *ngIf="smallBusiness">
                 <div class="col-md-12 form-group">
@@ -467,14 +478,6 @@
 
                     <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
                     <td class="text-left">
-                        <!--                    <div class="pl-1 disable-print" [innerHTML]="customSafePipe(-->
-                        <!--                                    previousList?.comment?.length > 50 ?-->
-                        <!--                                    previousList?.comment?.substring(0, 49) :-->
-                        <!--                                    previousList?.comment)">-->
-                        <!--                    </div>-->
-                        <!--                    <a (click)="open(previousList?.comment)"-->
-                        <!--                       *ngIf="previousList?.comment?.length > 50"-->
-                        <!--                       class="text-left pl-1 disable-print">read more ....</a>-->
                         <div>
                             <span class="pl-1 justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>
                         </div>
@@ -503,14 +506,6 @@
 
                     <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                     <td class="text-left">
-                        <!-- <div class="pl-1 disable-print">
-                                         <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                         loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                         loanDataHolder?.currentStage?.comment)"></span>
-                         </div>
-                         <a (click)="open(loanDataHolder.currentStage.comment)"
-                            *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                            class="text-left pl-1 disable-print">read more ....</a>-->
                         <div>
                             <span class="pl-1 print-only text-justify pr-1"
                                   [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
@@ -554,17 +549,6 @@
         </div>
     </div>
     <br>
-
-    <!--<div *ngIf="financialKeys?.length > 0 ">-->
-    <!--    <ng-container *ngFor="let title of financialKeys">-->
-    <!--        <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>-->
-    <!--        <hr>-->
-    <!--        <div class="row">-->
-    <!--            <app-financial-json-parser-->
-    <!--                    [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>-->
-    <!--        </div>-->
-    <!--    </ng-container>-->
-    <!--</div>-->
     <hr *ngIf="loanDataHolder?.loanHolder?.creditChecklist" class="print-line">
     <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                [formData]="loanDataHolder?.loanHolder?.creditChecklist"

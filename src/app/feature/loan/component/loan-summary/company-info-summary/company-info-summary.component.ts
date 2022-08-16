@@ -16,6 +16,7 @@ import {Guarantor} from '../../../model/guarantor';
 export class CompanyInfoSummaryComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() showOnlyProfile: boolean;
   newGuarantor = [];
   businessType = BusinessType;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
@@ -33,13 +34,17 @@ export class CompanyInfoSummaryComponent implements OnInit {
   clientType;
   isCorporate = false;
   checkedData;
+  ntaData;
   constructor() { }
 
   ngOnInit() {
     this.clientType = this.loanDataHolder.loanHolder.clientType;
     if ((this.clientType === 'CORPORATE' || this.clientType === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.clientType === 'MID_MARKET' || this.clientType === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
+        this.clientType === 'MID_MARKET' || this.clientType === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType.toString() === 'INSTITUTION') {
       this.isCorporate = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
+      this.ntaData = JSON.parse(this.loanDataHolder.loanHolder.netTradingAssets.data);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
