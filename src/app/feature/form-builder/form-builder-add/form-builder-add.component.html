@@ -129,6 +129,7 @@
                                     </div>
 
 
+
                                     <div class="form-group " *ngIf="set?.type == 'dropdown'">
 
                                         <label>{{set.name}}</label>
@@ -138,6 +139,26 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div *ngFor="let data of selectedField?.condition; let i = index">
+                                    <div class="form-group" *ngIf="data?.type == 'radioCheck'">
+                                        <nb-checkbox [(ngModel)]="data.checked">Enable Radio Condition</nb-checkbox>
+                                        <ng-container *ngIf="data?.checked">
+                                            <label>Radio Check Condition</label>
+                                            <select #datax [(ngModel)]="data.radioId"
+                                                    name="radioCheck{{i}}" class="form-control">
+                                                <option *ngFor="let op of getFilteredFormByType(FormType.RADIO);"
+                                                        [value]="op?.id">{{op.settings[0]?.value}}</option>
+                                            </select>
+                                                <label>Radio Data</label>
+                                                <select [(ngModel)]="data.value"
+                                                        class="form-control">
+                                                    <option *ngFor="let op of getCurrentFormById(datax?.value)?.settings[5]?.possibleValue"
+                                                            [value]="op?.Text">{{op?.Text}}</option>
+                                                </select>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
                             </nb-tab>
                         </nb-tabset>
                     </nb-card-body>
@@ -184,7 +205,7 @@
 
                                 <div   cdkDrag *ngFor="let field of formFields;let i=index"
                                       [cdkDragData]="field"
-                                                                       [ngClass]="FormType.FORM_ARRAY === field.type ? 'col-md-12':field?.settings[2]?.value">
+                                                                       [ngClass]="FormType.FORM_ARRAY === field.type || FormType.BUTTON === field.type ? 'col-md-12':field?.settings[2]?.value">
                                     <a class=" float-right"><i class="fa fa-arrows"></i></a>
 
                                     <div     [ngSwitch]="field.type" (click)="goToSettings(field.id)" class="cursor">
@@ -253,7 +274,11 @@
                                                                  [selectedField]="selectedField"
                                                                  (removeField)="removeElement(i,field?.id)"></app-input-radio-add>
                                         </div>
-
+                                        <div *ngSwitchCase=FormType.BUTTON>
+                                    <app-input-add-button [field]="field" *ngIf="field"
+                                                          [selectedField]="selectedField"
+                                                          (removeField)="removeElement(i,field?.id)" ></app-input-add-button>
+                                        </div>
                                         <div *ngSwitchCase=FormType.FORM_ARRAY>
                                             <div class="form-group" [id]="field?.id">
                                                 <div class="clearfix">

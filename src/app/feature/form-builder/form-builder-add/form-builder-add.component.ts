@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
 import {Inputs} from '../constants/inputs';
 import {NbTabComponent, NbTabsetComponent} from '@nebular/theme';
 import {Editor} from '../../../@core/utils/constants/editor';
@@ -17,7 +17,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
     templateUrl: './form-builder-add.component.html',
     styleUrls: ['./form-builder-add.component.scss']
 })
-export class FormBuilderAddComponent implements OnInit {
+export class FormBuilderAddComponent implements OnInit, AfterContentChecked {
     TITLE_ERROR = 'Form name is Required';
     EMPTY_FORM_ERROR = 'Form Field is Required';
     EMPTY_FORM_ARRAY_ERROR = 'Form ARRAY is Required!!Either Remove or add field';
@@ -52,7 +52,7 @@ export class FormBuilderAddComponent implements OnInit {
                 private route: ActivatedRoute,
                 private formBuilderService: FormBuilderService,
                 private router: Router,
-                private spinnerService: NgxSpinnerService) {
+                private spinnerService: NgxSpinnerService, private ref: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -256,5 +256,16 @@ export class FormBuilderAddComponent implements OnInit {
     }
     moveItem(event: CdkDragDrop<FormType[]>) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    }
+
+    getCurrentFormById(id) {
+        const data = this.formFields.filter(d => d.id === Number(id))[0];
+        return data ? data : null;
+    }
+    getFilteredFormByType(id) {
+        return this.formFields.filter(d => d.type === id);
+    }
+    ngAfterContentChecked(): void {
+        this.ref.detectChanges();
     }
 }

@@ -5,7 +5,8 @@
             <div *ngFor="let field of config;let i=index"
                  [ngClass]="FormType.FORM_ARRAY === field.type ? 'col-md-12':field?.settings[2]?.value">
 
-            <div [ngSwitch]="field.type">
+            <div [ngSwitch]="field.type"
+                 *ngIf="(objectUtil.isEmpty(field?.condition[0]?.value) || (field?.condition[0]?.checked && field?.condition[0]?.value === dynamicFormGroup.get(field?.condition[0]?.radioId)?.value))">
 
                     <div *ngSwitchCase=FormType.TEXT>
                         <app-input-text-form

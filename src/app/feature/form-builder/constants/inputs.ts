@@ -11,6 +11,7 @@ export class Inputs {
         this.formType.INPUT_LINEBREAK,
         this.formType.INPUT_ADDRESS,
         this.formType.INPUT_RADIO,
-        this.formType.INPUT_ARRAY
+        this.formType.INPUT_ARRAY,
+        this.formType.INPUT_BUTTON
     ];
 }

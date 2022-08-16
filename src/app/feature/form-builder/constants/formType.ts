@@ -10,6 +10,7 @@ export class FormType {
     static BREAK = 'break';
     static CHECKBOX = 'checkbox';
     static FORM_ARRAY = 'formArray';
+    static BUTTON = 'button';
 
 
     static COLSPAN = [{
@@ -70,6 +71,33 @@ export class FormType {
         },
     ];
 
+    static BUTTON_TYPE = [
+        {
+            'id': 'Submit',
+            'value': '1',
+            'type': 'Submit',
+        }, {
+            'id': 'Next',
+            'value': '2',
+            'type': 'Next',
+        }];
+    static BUTTON_POSITION = [
+        {
+            'id': 'Left',
+            'value': 'float-left',
+            'type': 'float-left',
+        }, {
+            'id': 'Right',
+            'value': 'float-right',
+            'type': 'float-right',
+        },
+        {
+            'id': 'Center',
+            'value': 'd-flex justify-content-center',
+            'type': 'd-flex justify-content-center',
+        }
+        ];
+
     INPUT_TEXT = {
         'name': 'Text',
         'type': FormType.TEXT,
@@ -101,9 +129,15 @@ export class FormType {
             'value': '1',
             'type': 'dropdown',
             'possibleValues': FormType.INPUT_TYPE,
-        },
-
-        ]
+        }
+        ],
+        'condition': [{
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
     };
 
     INPUT_DATE = {
@@ -130,7 +164,14 @@ export class FormType {
             'value': false
         },
 
-        ]
+        ],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
     };
 
     INPUT_SELECT = {
@@ -175,7 +216,15 @@ export class FormType {
             },
 
 
-        ]
+        ],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+
+        }]
     };
 
     INPUT_TEXTAREA = {
@@ -214,7 +263,14 @@ export class FormType {
                 'type': 'number'
             },
 
-        ]
+        ],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
     };
 
     INPUT_LINEBREAK = {
@@ -239,7 +295,14 @@ export class FormType {
                 'value': 'sb-middle',
                 'type': 'dropdown',
                 'possibleValues': FormType.FONT_SIZE
-            }]
+            }],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
     };
 
     INPUT_ADDRESS = {
@@ -264,7 +327,14 @@ export class FormType {
             'value': false
         },
 
-        ]
+        ],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
     };
 
     INPUT_RADIO = {
@@ -309,7 +379,14 @@ export class FormType {
             },
 
 
-        ]
+        ],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
     };
 
     INPUT_CHECKBOX = {
@@ -335,6 +412,50 @@ export class FormType {
     INPUT_ARRAY = {
         'name': 'Form Array',
         'type': FormType.FORM_ARRAY,
-        'fields': []
+        'fields': [],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
+
     };
+
+    INPUT_BUTTON = {
+        'name': 'Button',
+        'type': FormType.BUTTON,
+        'colspan': 'col-md-12',
+        'settings': [{
+            'name': 'Field Label',
+            'value': 'Single Button',
+            'type': 'text'
+        }, {
+            'name': 'Button Type',
+            'value': '1',
+            'type': 'dropdown',
+            'possibleValues': FormType.BUTTON_TYPE,
+        }, {
+            'name': 'Button Position',
+            'value': 'float-left',
+            'type': 'dropdown',
+            'possibleValues': FormType.BUTTON_POSITION,
+        },
+            {
+                'name': 'General options',
+                'type': 'checkBoxZone',
+                'key': 'Required',
+                'value': false
+            },
+        ],
+        'condition': [ {
+            'name': 'Radio Checked',
+            'value': '',
+            'radioId': '',
+            'type': 'radioCheck',
+            'checked': false
+        }]
+    };
+
 }

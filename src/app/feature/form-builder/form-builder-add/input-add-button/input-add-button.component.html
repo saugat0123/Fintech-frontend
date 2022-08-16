@@ -1,0 +1,15 @@
+<div class="clearfix dynamic-button">
+    <div [ngClass]="field?.settings[2]?.value">
+        <div class="row">
+            <div class="float-right">
+                <nb-icon icon="minus-square-outline" status="warning"
+                         (click)="removeElement()"
+                         *ngIf="selectedField?.id == field?.id">
+                </nb-icon>
+            </div>
+            <!--                                            <input type="file"  />-->
+            <button   nbButton>{{field?.settings[0]?.value}}</button>
+        </div>
+    </div>
+</div>
+

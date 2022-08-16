@@ -26,12 +26,14 @@ export class DynamicFormsComponent implements OnInit, AfterViewChecked {
     isFormBuild = false;
     FormType = FormType;
     INPUT_TYPE = FormType.INPUT_TYPE;
-
+    objectUtil = ObjectUtil;
 
     constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {
+        console.log('this is obj', this.objectUtil.isEmpty(''));
+        console.log('this is obj', this.config);
         this.dynamicFormGroup = this.createGroup(this.config, this.editPreviousValue);
         if (!ObjectUtil.isEmpty(this.dynamicFormGroup.controls)) {
             this.isFormBuild = true;
