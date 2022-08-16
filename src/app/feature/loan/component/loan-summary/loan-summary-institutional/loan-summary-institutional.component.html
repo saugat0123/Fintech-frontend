@@ -178,6 +178,17 @@
 
                            </div>
 
+                           <div *ngIf="isCorporate && loanDataHolder?.loanHolder?.accountStrategy">
+                               <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                   <tr class="sb-bg-gray">
+                                       <th>Account Strategy</th>
+                                   </tr>
+                                   <tr>
+                                       <td class="text-left pl-1"> {{loanDataHolder?.loanHolder?.accountStrategy}}</td>
+                                   </tr>
+                               </table>
+                           </div>
+
                            <ng-container *ngIf="smallBusiness">
                                <div class="col-md-12 form-group">
                                    <hr class="print-line">

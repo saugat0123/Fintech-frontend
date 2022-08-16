@@ -422,19 +422,16 @@
             </table>
         </div>
     </div>
-    <hr class="print-line" *ngIf="isCorporate && loanDataHolder?.companyInfo?.accountStrategy">
-    <div class="row" *ngIf="isCorporate && loanDataHolder?.companyInfo?.accountStrategy">
-        <div class="col-md-12">
-            <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
-                <tr class="sb-bg-gray">
-                    <th class="header">Account Strategy</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1"><span
-                            [innerHTML]="loanDataHolder?.companyInfo?.accountStrategy | safeHtml"></span></td>
-                </tr>
-            </table>
-        </div>
+    <hr class="print-line" *ngIf="isCorporate && loanDataHolder?.loanHolder?.accountStrategy">
+    <div *ngIf="isCorporate && loanDataHolder?.loanHolder?.accountStrategy">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <tr class="sb-bg-gray">
+                <th>Account Strategy</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"> {{loanDataHolder?.loanHolder?.accountStrategy}}</td>
+            </tr>
+        </table>
     </div>
     <hr class="print-line">
     <div class="row mt-3">
