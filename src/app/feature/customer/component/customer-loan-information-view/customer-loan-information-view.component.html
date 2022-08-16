@@ -76,7 +76,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="isIndividual && customerInfo?.financial">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INDIVIDUAL' && customerInfo?.financial">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemFinancial>
             <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -113,7 +113,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="!isIndividual && customerInfo?.financial">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && customerInfo?.financial">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemFinancial>
             <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -249,7 +249,8 @@
             </nb-card-header>
             <nb-card-body >
               <h6 *ngIf=" customerInfo?.securities.length === 0" class="text-danger">Note: This customer has no current security.</h6>
-<!--            <app-security-summary [securities]="customerInfo?.securities"></app-security-summary>-->
+            <app-security-summary [securities]="customerInfo?.securities" [pending]="true"></app-security-summary>
+            <app-security-summary [securities]="customerInfo?.approvedSecurities"></app-security-summary>
             </nb-card-body>
           </nb-card>
         </ng-template>

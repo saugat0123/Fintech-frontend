@@ -24,12 +24,12 @@ export class GuarantorViewComponent implements OnInit {
   thisClient;
   check = false;
   ngOnInit() {
-    this.thisClient = this.customerAllLoanList[this.customerAllLoanList.length -1].loanHolder.clientType;
-    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
-      this.check = true;
-    }
     if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.thisClient = this.customerAllLoanList[this.customerAllLoanList.length -1].loanHolder.clientType;
+      if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+          this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+        this.check = true;
+      }
       this.guarantorData = [];
       this.customerAllLoanList.forEach((d) => {
        if (!ObjectUtil.isEmpty(d.taggedGuarantors)) {
@@ -45,7 +45,9 @@ export class GuarantorViewComponent implements OnInit {
     this.guarantorData =  this.guarantorData
         .filter((value, index) => guarantorIds.indexOf(value.id) === index);
     this.newGuarantor = this.constructGuarantor(this.guarantorData);
-    this.filterPromoter();
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.filterPromoter();
+    }
   }
   filterPromoter() {
     let currentGuarantor;
