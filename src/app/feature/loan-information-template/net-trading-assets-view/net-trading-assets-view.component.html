@@ -29,13 +29,11 @@
     </div>
 </div>
 
-<hr class="print-line">
 <div class="row summary">
     <div class="col-md-12">
+        <hr class="print-line">
+        <p class="header"><strong class="header">Risk & Mitigants</strong></p>
         <table  class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
-            <tr class="sb-bg-gray">
-                <th>Risk & Mitigants</th>
-            </tr>
             <tr>
                 <td class="text-left pl-1"><span [innerHTML]="companyJson?.businessManagementRisk | safeHtml"></span></td>
             </tr>

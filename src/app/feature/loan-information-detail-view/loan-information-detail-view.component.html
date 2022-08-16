@@ -31,13 +31,6 @@
                                 <span class="badge badge-danger">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
                             </div>
 
-<!--                            <div class="text-left">-->
-<!--                                <strong>-->
-<!--                                Approving Level:-->
-<!--                                </strong>-->
-<!--                                <span class="badge badge-danger">{{loanDataHolder?.approvingLevel?.toString() | titlecase}}</span>-->
-<!--                            </div>-->
-
                             <div class="text-left">
                                 <strong>
                                 Loan Status:
@@ -58,6 +51,11 @@
                                     <b>Branch Code: {{loanDataHolder?.branch.branchCode}}</b>
                                 </div>
                                 <br/>
+
+                                <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>
+                                <br>
+                                <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>
+                                <br>
                                 <div *ngIf="thisClient != 'CORPORATE' && thisClient != 'INFRASTRUCTURE_AND_PROJECT' &&
                                 thisClient != 'MID_MARKET' && thisClient != 'BUSINESS_DEVELOPMENT'">
                                     <strong class="float-left">Product:</strong>
@@ -70,7 +68,7 @@
                                             <td>CRG</td>
                                         </tr>
                                         </thead>
-                                        <tr *ngFor="let allLoan of allLoanList">
+                                        <tr *ngFor="let allLoan of combinedLoanList">
                                             <td>
                                                 {{allLoan?.loan?.name}}
                                             </td>
@@ -146,7 +144,7 @@
                     </span>
                                 </div>
                             </div>
-                            <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date: </strong>
+                            <div *ngIf="(smallBusiness || deprivedSector || consumerFinance || microFinancialService) && hasLastReview"><strong class="float-left">Review Date: </strong>
                                 <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
                                     <thead>
                                     <tr class="sb-bg-gray">
@@ -155,7 +153,7 @@
                                         <td>Next Review Date</td>
                                     </tr>
                                     </thead>
-                                    <tr *ngFor="let allLoan of allLoanList">
+                                    <tr *ngFor="let allLoan of combinedLoanList">
                                         <ng-container *ngIf="allLoan?.reviewDate?.data">
                                             <td>
                                                 {{allLoan?.loan?.name}}
@@ -173,7 +171,6 @@
                             <ng-container class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate && !smallBusiness && !deprivedSector && !microFinancialService && !consumerFinance">
                             <span><strong>Review Date: </strong>
                                 <ng-container *ngIf="naChecked; else date">
-                                    {{'NA'}}
                                 </ng-container>
                                 <ng-template #date>
                                     <br>

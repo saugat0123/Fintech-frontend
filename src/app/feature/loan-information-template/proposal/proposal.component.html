@@ -208,9 +208,9 @@
                                                 class="form-control" formControlName="commissionFrequency"
                                                 id="commissionFrequency" name="commissionFrequency">
                                             <option [ngValue]="null" hidden>Select Commission Frequency</option>
-                                            <option value="MONTH">Per Month</option>
-                                            <option value="QUARTER">Per Quarter</option>
-                                            <option value="ANNUM">Per Annum</option>
+                                            <option value="p.m.">Per Month</option>
+                                            <option value="p.q.">Per Quarter</option>
+                                            <option value="p.a.">Per Annum</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.commissionFrequency.invalid"
                                              class="invalid-feedback">
