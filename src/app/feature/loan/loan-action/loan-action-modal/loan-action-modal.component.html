@@ -9,14 +9,26 @@
         </nb-card-header>
         <nb-card-body>
             <form [formGroup]="formAction" role="form">
+                <div class="col-md-12 mb-1 mt-1"  *ngIf="!customerLoanHolder?.isHsov && !customerLoanHolder?.dualApproval">
+                    <div *ngIf="isMaker">
+                            <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
+                                         [disabled]="dual || loanTag"
+                                         [checked]="customerLoanHolder.isHsov"> HSOV ?
+                            </nb-checkbox>
 
+&nbsp;
+                            <nb-checkbox class="cursor" (checkedChange)="dualApproval($event)"
+                                         [disabled]="hsov || loanTag"
+                                         [checked]="customerLoanHolder.dualApproval"> Dual Aproval?
+                            </nb-checkbox>
+                    </div>
+                </div>
                 <p *ngIf="additionalDetails?.hasDeferredDocs" class="text-danger">
                     This loan contains deferred documents that are not uploaded.
                 </p>
 
-                <div *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING' || docAction== 'HSOV_PENDING'" class="row">
-
-                    <div class="col-md-12 form-group">
+                <div  *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING' || docAction== 'HSOV_PENDING'" class="row">
+                    <div class="col-md-12 mt-1  form-group">
                         <label class="toRole">TO</label>
                         <select (change)="getUserList(this.formAction.get('toRole').value)"
                                 class="form-control form-control-sm"
@@ -36,7 +48,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="userList?.length > 1 && showUserList" class="row">
+                <div *ngIf="userList?.length > 1 && showUserList" class="row mt-1">
                     <div class="col-md-12 form-group">
                         <label class="toUser" for="toUser">To User</label>
                         <select class="form-control form-control-sm" formControlName="toUser" id="toUser"
@@ -47,17 +59,6 @@
                         </select>
                     </div>
                 </div>
-<!--                <div *ngIf="docAction== 'HSOV_PENINDG' && showUserList && !isMaker" class="row">-->
-<!--                    <div class="col-md-12 form-group">-->
-<!--                        <label class="toUser" for="toUser">Send HSOV To</label>-->
-<!--                        <select class="form-control form-control-sm" formControlName="toUser" id="toHSOV"-->
-<!--                                name="toUser">-->
-<!--                            <option *ngFor="let user of hsovUserList"-->
-<!--                                    [ngValue]="user">-->
-<!--                                {{user.username}}-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                </div>-->
 
                 <div class="row">
                     <div class="col-md-12">
@@ -70,25 +71,6 @@
                         <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
                              class="error-message"
                              style="color: red;">comment is required
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="!customerLoanHolder?.isHsov && !customerLoanHolder?.dualApproval">
-                    <div *ngIf="isMaker">
-                        <div class="col-md-12">
-                            <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
-                                         [disabled]="dual || loanTag"
-                                         [checked]="customerLoanHolder.isHsov">Is HSOV Needed
-                            </nb-checkbox>
-                        </div>
-                    </div>
-                    <div *ngIf="isMaker">
-                        <div class="col-md-12">
-                            <nb-checkbox class="cursor" (checkedChange)="dualApproval($event)"
-                                         [disabled]="hsov || loanTag"
-                                         [checked]="customerLoanHolder.dualApproval">Dual Aproval Needed
-                            </nb-checkbox>
                         </div>
                     </div>
                 </div>
