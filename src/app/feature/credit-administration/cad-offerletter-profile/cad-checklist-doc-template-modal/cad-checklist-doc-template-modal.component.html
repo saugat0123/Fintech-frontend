@@ -53,6 +53,12 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
+        <app-kalo-suchi-borrower-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_COMPANY"
+                                   [cadData]="cadData" [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId"></app-kalo-suchi-borrower-company>
+        <app-corporate-guarantee *ngSwitchCase="cadTemplate.CORPORATE_GUARANTEE"
+                                   [cadData]="cadData" [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId"></app-corporate-guarantee>
 
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
