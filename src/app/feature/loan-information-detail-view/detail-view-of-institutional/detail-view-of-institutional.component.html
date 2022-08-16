@@ -114,7 +114,7 @@
                         <td>Overdraft utilization</td>
                     </tr>
                     <tr>
-                        <td [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></td>
+                        <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white" [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></table>
                     </tr>
 
                     <tr class="sb-bg-gray">
@@ -140,7 +140,7 @@
                         <td>Letter of Credit issued</td>
                     </tr>
                     <tr>
-                        <td [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></td>
+                        <table class="col-md-12  table-sm table-bordered table-responsive-sm border-dark" style="width: 100%; border: white;" [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></table>
                     </tr>
                     <tr class="sb-bg-gray">
                         <td>Remarks</td>

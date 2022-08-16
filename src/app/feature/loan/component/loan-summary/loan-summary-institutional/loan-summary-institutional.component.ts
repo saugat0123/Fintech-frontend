@@ -216,8 +216,8 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
   ngOnInit() {
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
-    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+    if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.isCorporate = true;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)

@@ -37,8 +37,8 @@ export class CompanyInfoSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.clientType = this.loanDataHolder.loanHolder.clientType;
-    if (this.clientType === 'CORPORATE' || this.clientType === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.clientType === 'MID_MARKET' || this.clientType === 'BUSINESS_DEVELOPMENT') {
+    if ((this.clientType === 'CORPORATE' || this.clientType === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.clientType === 'MID_MARKET' || this.clientType === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.isCorporate = true;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {

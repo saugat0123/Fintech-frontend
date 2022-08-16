@@ -94,8 +94,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       });
     }
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
-    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+    if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.isCorporate = true;
     }
     this.facilityUtilization = JSON.parse(this.loanDataHolder.loanHolder.facilityUtilization);
