@@ -1,26 +1,26 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CadFile} from '../../../model/CadFile';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {Document} from '../../../../admin/modal/document';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CadFile} from '../../../model/CadFile';
+import {Document} from '../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-assignment-of-receivable',
-  templateUrl: './assignment-of-receivable.component.html',
-  styleUrls: ['./assignment-of-receivable.component.scss']
+  selector: 'app-kalo-suchi-borrower-company',
+  templateUrl: './kalo-suchi-borrower-company.component.html',
+  styleUrls: ['./kalo-suchi-borrower-company.component.scss']
 })
-export class AssignmentOfReceivableComponent implements OnInit {
+export class KaloSuchiBorrowerCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  assignmentOfReceivable: FormGroup;
+  kaloSuchiBorrowerCompany: FormGroup;
   nepData;
 
   constructor(private formBuilder: FormBuilder,
@@ -36,7 +36,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.assignmentOfReceivable.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.kaloSuchiBorrowerCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -46,18 +46,26 @@ export class AssignmentOfReceivableComponent implements OnInit {
   }
 
   buildForm() {
-    this.assignmentOfReceivable = this.formBuilder.group({
-      act: [undefined],
-      ministryName: [undefined],
-      metropolitian: [undefined],
-      authorizedIndividual: [undefined],
+    this.kaloSuchiBorrowerCompany = this.formBuilder.group({
       address: [undefined],
+      metropolitian: [undefined],
+      approver: [undefined],
+      debtor: [undefined],
       department: [undefined],
       mantralaya: [undefined],
       officeName: [undefined],
       regNo: [undefined],
+      approverDistrict: [undefined],
+      approverMunicipality: [undefined],
+      approverWard: [undefined],
+      approverAddress: [undefined],
+      approverCurProvince: [undefined],
+      approverCurDistrict: [undefined],
+      approverCurMunicipality: [undefined],
+      approverCurWard: [undefined],
+      ward: [undefined],
       regDate: [undefined],
-      metropolitan: [undefined],
+      metropolitan1: [undefined],
       wardNo: [undefined],
       partnershipForm: [undefined],
       representativeName: [undefined],
@@ -65,26 +73,28 @@ export class AssignmentOfReceivableComponent implements OnInit {
       sonOrDaughter: [undefined],
       wife: [undefined],
       district: [undefined],
+      permanentAdd: [undefined],
+      curProvince: [undefined],
+      curDistrict: [undefined],
+      curMunicipality: [undefined],
+      curWard: [undefined],
       metropolitan2: [undefined],
       age: [undefined],
       mrOrMrs: [undefined],
       ownerBankNum: [undefined],
       documentWritenDate: [undefined],
-      loanAmount: [undefined],
-      loanAmountInWords: [undefined],
-      dueDate: [undefined],
-      witness1: [undefined],
-      witness2: [undefined],
+      rupees: [undefined],
+      rupessInWord: [undefined],
       sambatYear: [undefined],
       sambatMonth: [undefined],
-      sambatDate: [undefined],
       sambatDay: [undefined],
-      shubham: [undefined],
       sambatDocumentWrittenInWord: [undefined],
       witnessSignature: [undefined],
       witnessDistrict: [undefined],
       witnessMunicipality: [undefined],
       witnessVdc: [undefined],
+      creditInfo1: [undefined],
+      creditInfo2: [undefined],
       witnessAge: [undefined],
       witnessEvidence: [undefined],
     });
@@ -96,13 +106,13 @@ export class AssignmentOfReceivableComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.assignmentOfReceivable.value);
+          singleCadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.assignmentOfReceivable.value);
+        cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -111,7 +121,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.assignmentOfReceivable.value);
+      cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -122,7 +132,7 @@ export class AssignmentOfReceivableComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-      }, error => {
+    }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
