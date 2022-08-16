@@ -422,12 +422,16 @@ export class GuarantorComponent implements OnInit {
     setPropiter(event, index) {
         const data = JSON.parse(event);
         const group = this.form.get(['guarantorDetails', index]) as FormGroup;
+        console.log('This is the test data !', event);
+        this.getDistrict(data.province.id, index);
+        this.getMunicipalities(data.district.id, index);
         group.patchValue({
             name: data.name,
             citizenNumber: data.citizenshipNum,
-            province: data.province,
-            district: data.district,
-            municipalities: data.municipalityVdc,
+            province: data.province.id,
+            wardNumber: data.holderPercentWardNumber,
+            district: data.district.id,
+            municipalities: data.municipalityVdc.id,
             issuedYear: new Date(data.issuedDate),
             issuedPlace: data.issuedPlace,
             contactNumber: data.contactNo,
