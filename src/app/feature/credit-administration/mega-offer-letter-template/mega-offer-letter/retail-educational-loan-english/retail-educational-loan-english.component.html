@@ -6,302 +6,609 @@
     <div class="col-md-12 viewFull" >
         <form (ngSubmit)="submit()" [formGroup]="form" class="nep">
             <div class="row mb-2">
-                <div class="col-md-6">
-                    <b>Ref No:</b> <input class="yellow-form-field form-control-sm"
+                <div class="col-md-12">
+                    <b>Ref No:CFOL/CCBL/</b> <input class="yellow-form-field form-control-sm"
                                           formControlName="referenceNo"
-                                          placeholder="2076/77-MBNL-CAD-RET-2148"
-                                          style="width: 280px"
-                                          type="text"/>
+                                          style="width: 100px"
+                                          type="text"/>2079-80/<input class="yellow-form-field form-control-sm"
+                                                                      formControlName="referenceNo1"
+                                                                      style="width: 100px"
+                                                                      type="text"/>
                 </div>
-                <div style="left:650px; position: absolute">
+                <div class="col-md-12">
                     <p>Date: <input class="yellow-form-field form-control-sm"
                                     formControlName="date"
-                                    placeholder="12th Jan, 2020"
                                     type="text"></p>
                 </div>
             </div>
             <br>
             <b> Name: <input class="yellow-form-field form-control-sm"
                              formControlName="guarantor"
-                             placeholder="Mr. Prashant Dallakoti, Raj kumar Dallakoti and Mrs. Min Kumari Dallakoti"
                              type="text"/>
             </b><br>
             <b>Permanent Address: <input class="yellow-form-field form-control-sm"
-                                         formControlName="permanentAddress"
-                                         placeholder="Khairahani Ward no 3 , Chitwan"
-                                         type="text"/>
-            </b><br>
+                                         formControlName="gPermanentDistrict"
+                                         type="text"/>District
+            </b>
+            <b><input class="yellow-form-field form-control-sm"
+                      formControlName="gPermanentVdc"
+                      type="text"/>V.D.C
+            </b>
+            <b>Ward no: <input class="yellow-form-field form-control-sm"
+                               formControlName="gPermanentWardNo"
+                               type="text"/></b>
+            <br>
             <b>
                 Current Address: <input class="yellow-form-field form-control-sm"
-                                        formControlName="currentAddress"
-                                        placeholder="Chainpur Municipality Ward no.-3, Chitwan"
-                                        type="text"/>
-            </b><br>
+                                        formControlName="gCurrentDistrict"
+                                        type="text"/>District
+            </b>
+            <b><input class="yellow-form-field form-control-sm"
+                      formControlName="gCurrentMunicipality"
+                      type="text"/>Municipality
+            </b>
+            <b>Ward no: <input class="yellow-form-field form-control-sm"
+                               formControlName="gCurrentWardNo"
+                               type="text"/>
+            </b>
+            <br>
             <b>
                 Contact No: <input class="yellow-form-field form-control-sm"
-                                   formControlName="contactNo"
-                                   placeholder="9855054779"
+                                   formControlName="gContactNo"
                                    type="text"/>
+                <br>
+                <b>
+                    Email ID: <input class="yellow-form-field form-control-sm"
+                                       formControlName="gEmailId"
+                                       type="text"/>
+
+                </b>
             </b><br><br><br>
-            <div class="text-center">
-                <b>SUBJECT: EDUCATION LOAN FACILITY </b>
-            </div>
-            <p class="mb-2">Dear Sir/Madam</p><br>
-            With reference to your application for <b>EDUCATION LOAN</b> facility, we are pleased to offer the
-            following line of
-            credit subject to the terms and conditions outlined below:<br>
-            <table class="table table-bordered">
+            <b>Re.: Credit Facilities Offer Letter</b>
+            <p class="mb-2">Dear Mr.<input class="yellow-form-field form-control-sm"
+            formControlName="aName" type="text"/></p><br>
+            We, Century Commercial Bank Limited (“the Bank”) are pleased to advise you (“the Borrowers”)
+            under mentioned facilities (“the Facility”) on the terms and conditions stated herein below:
+            <br>
+            <table>
                 <thead>
                 <tr>
-                    <th style="width: 20%"><h6>A. EDUCATION LOAN</h6></th>
-                    <th><input class="yellow-form-field form-control-sm"
-                               formControlName="educationalLoan"
-                               placeholder="NPR 4,000,000.00"
-                               type="text"/>
-                        (In words <input
-                                class="yellow-form-field form-control-sm"
-                                formControlName="educationLoanInWord"
-                                placeholder="Nepalese Rupees Four Million"/> Only).
-                    </th>
+                    <th style="width: 20%"><h4 class="text-left">1 <u>FACILITY DETAILS</u></h4></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong>Purpose </strong></td>
-                    <td>For the study of <input class="yellow-form-field form-control-sm"
-                                                formControlName="purpose"
-                                                placeholder="Bachelor of Information Technology (CRICOS Code 098239M)"
-                                                type="text"/>at the
+                    <td><strong>1.1 Facility</strong></td>
+                    <td><b>Education Loan</b></td>
+                </tr>
+                <tr>
+                    <td><strong>1.2 Limit</strong></td>
+                    <td>A Maximun of <b>NPR</b><input class="yellow-form-field form-control-sm"
+                                                  formControlName="fdRs"
+                                                  type="text"/>(Nepalese Rupees<input class="yellow-form-field form-control-sm"
+                                                                                       formControlName="fdRsInWord"
+                                                                                       type="text"/> only).<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>1.3 Purpose</strong></td>
+                    <td>To meet tuition fees, living expenses, overseas student health insurance of Miss/Mr.
                         <input class="yellow-form-field form-control-sm"
-                               formControlName="studyLocation"
-                               placeholder=" M/s King Own Institute,Australia"
-                               type="text"/>
-                        for <input class="yellow-form-field form-control-sm"
-                                   formControlName="applicantName"
-                                   placeholder="Mr Prashant Dallakoti"
-                                   type="text"/> .
+                                formControlName="doaName"
+                                type="text"/>(Daughter of Applicant) to study<input class="yellow-form-field form-control-sm"
+                                                                                    formControlName="course"
+                                                                                    type="text"/>
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>Margin</strong></td>
-                    <td>52.39 % of the Fair Market Value of the Land .</td>
+                    <td><strong>1.4 Disbursement</strong></td>
+                    <td>Disbursement shall be done upon completion of legal documentations & bank’s procedure.
+                        Disbursement on phase-wise basis shall be allowed.</td>
                 </tr>
                 <tr>
-                    <td><strong>Interest</strong></td>
-                    <td>12.50% p.a. (Base rate 10.19% +Premium rate 2.31%) or as
-                        specified by us time to time.<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Service Charge</strong></td>
-                    <td>1 % of loan amount and CIC fee of NPR 2600 payable upfront.</td>
-                </tr>
-                <tr>
-                    <td><strong>Tenure</strong></td>
-                    <td>15 years (Including Moratorium Period of 10 Months).</td>
-                </tr>
-                <tr>
-                    <td><strong>Repayment</strong></td>
+                    <td><strong>1.5 Tenure</strong></td>
                     <td><input class="yellow-form-field form-control-sm"
-                               formControlName="month"
-                               placeholder="170"
-                               type="text"/>
-                        monthly installments of <input class="form-control-sm yellow-form-field"
-                                                       formControlName="installment"
-                                                       placeholder="NPR 50,307.31"/>
-                        (In words: <input class="form-control-sm yellow-form-field"
-                                          formControlName="installmentInWord"
-                                          placeholder="Nepalese Rupees Fifty Thousand Three Hundred Seven and 31/100"
-                                          type="text"/> Only) each including principal plus interest as per
-                        attached tentative schedule.
+                               formControlName="fdDate"
+                               type="text"/>Year from the date of drawdown..</td>
+                </tr>
+                <tr>
+                    <td><strong>1.6 Repayment</strong></td>
+                    <td>In<input class="yellow-form-field form-control-sm"
+                               formControlName="fdEmi"
+                               type="text"/>EMIs. Client has to serve monthly interest only on the 10th day
+                                            of each month as per Gregorian calendar.
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>1.7 Interest</strong></td>
+                    <td>Interest will be charged on EMI basis at the rate of <input class="yellow-form-field form-control-sm"
+                               formControlName="fdPercentage"
+                               type="text"/>%(BR+<input class="yellow-form-field form-control-sm"
+                                                       formControlName="fdBrPercentage"
+                                                       type="text"/>.%) per annum or as specified by the Bank/Nepal
+                                            Rastra Bank from time to time. Interest will be charged on the 10th day
+                                            of each month as per Gregorian calendar and at the time of final repayment.
+                    </td>
+                </tr>
+                </tbody>
+            </table><br>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">2 <u>FEES & CHARGES</u></h4></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>2.1 Processing Fee</strong></td>
+                    <td><input class="yellow-form-field form-control-sm"
+                                  formControlName="fcPercentage"
+                                  type="text"/>.% of the loan amount shall be charged upfront.</td>
+                </tr>
+                <tr>
+                    <td><strong>2.2 CIC Charge</strong></td>
+                    <td>On Actual Basis</td>
+                </tr>
+                <tr>
+                    <td><strong>2.3 Commitment Charges</strong></td>
+                    <td>As per NRB Circulars /Product Paper.</td>
+                </tr>
+                <tr>
+                    <td><strong>2.4 Loan Swap Charges</strong></td>
+                    <td>As per NRB Circulars/Product Paper.</td>
+                </tr>
+                <tr>
+                    <td><strong>2.5 Loan Prepayment Charges </strong></td>
+                    <td>As per NRB Circulars/Product Paper</td>
+                </tr>
+                </tbody>
+            </table><br>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">3 <u>SECURITY</u></h4></th>
+                </tr>
+                </thead>
+                </table>
+            <table>
+                <tbody>
+                <tr>
+                    <td><strong>3.1</strong></td>
+                    <td>Registered mortgage over land owned by Mr.<input class="yellow-form-field form-control-sm"
+                                  formControlName="foaName"
+                                  type="text"/>(Father of Applicant), located at<input class="yellow-form-field form-control-sm"
+                                                                                       formControlName="sDistrict"
+                                                                                       type="text"/>District,
+                        <input class="yellow-form-field form-control-sm"
+                               formControlName="sVdc"
+                               type="text"/>V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                                                  formControlName="sWardNo"
+                                                                  type="text"/>having Plot No.
+                        <input class="yellow-form-field form-control-sm"
+                               formControlName="sPlotNo"
+                               type="text"/>with land area of<input class="yellow-form-field form-control-sm"
+                                                                    formControlName="sArea"
+                                                                    type="text"/>(R-A-P-D).The Fair market value of the proposed collateral has been certified NPR
+                        <input class="yellow-form-field form-control-sm"
+                               formControlName="sFmvNpr"
+                               type="text"/>Nepalese Rupees<input class="yellow-form-field form-control-sm"
+                                                                  formControlName="sFmvNprInWord"
+                                                                  type="text"/>only) by bank’s authorized valuator, M/s
+                        <input class="yellow-form-field form-control-sm"
+                               formControlName="sValuatorName"
+                               type="text"/>(P) Ltd.
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>3.2</strong></td>
+                    <td>Personal Guarantee of Mr.<input class="yellow-form-field form-control-sm"
+                                                        formControlName="aName"
+                                                        type="text"/>(Applicant), Mr.
+                        <input class="yellow-form-field form-control-sm"
+                               formControlName="foaName"
+                               type="text"/> Father of Applicant), and Miss<input class="yellow-form-field form-control-sm"
+                                                                                  formControlName="doaName"
+                                                                                  type="text"/>(Daughter of Applicant) for full coverage. </td>
+                </tr>
+                <tr>
+                    <td><strong>3.3</strong></td>
+                    <td>Promissory note, Debit Authority </td>
+                </tr>
+                <tr>
+                    <td><strong>3.4</strong></td>
+                    <td>Loan- Deed for the full exposure.</td>
+                </tr>
+                <tr>
+                    <td><strong>3.5</strong></td>
+                    <td>Letter of Continuity</td>
+                </tr>
+                <tr>
+                    <td><strong>3.6</strong></td>
+                    <td>The Borrowers  agree that any assets that the Borrowers have placed as security to the
+                        Bank to secure any other credit facilities availed by the Borrower or entities promoted/owned by
+                        the Borrower or a related party of the Borrower as per NRB directives on grouping of entities under
+                        a different Credit Facility Letter (s) shall also be construed as security for the credit facilities
+                        advised herein above and the Bank retains the right to recover full or partial outstanding from such
+                        securities in the event of default.</td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">4 <u>Interest</u></h4></th>
+                </tr>
+                </thead>
+                <tbody>
+                <td>
+                    Interest on the facilities will be charged at the rate as indicated and shall continue to be so charged
+                    in arrears at quarterly intervals as the case may be until otherwise specified. The Bank reserves the
+                    right at any time to give notice and change the rate of interest as the Bank may decide. In the event
+                    of default in observance of any of the terms and conditions under which the facilities have been granted,
+                    or the drawings under the said facilities at any time exceeding limits mentioned under the said facilities,
+                    interest for the exceeded amount will be charged in the account without giving notice at a rate which will
+                    not be less than 2.00% per annum. Further, the unpaid equated installment shall attract interest at
+                    the rate of 2.00% p.a., higher than the Bank's highest rate.</td>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">5 <u>REVIEW</u></h4></th>
+                </tr>
+                </thead>
+                <tbody>
+            <td>
+                The facility will be terminated on <input class="yellow-form-field form-control-sm"
+                                                          formControlName="reviewYears"
+                                                          type="text"/>.Years from the date of drawdown. Hence, review date is not applicable.
+            </td>
+                </tbody>
+
+            </table>
+            <table>
+                <thead>
+                <tr>`
+                    <th style="width: 20%"><h4 class="text-left">6 <u>INSPECTION</u></h4></th>
+                </tr>
+                </thead>
+                <tbody>
+                <td>
+                The Bank will carry out inspections of hypothecated / mortgaged assets from time to time with or without
+                prior arrangements, as the Bank considers necessary. All costs related to such inspections shall be borne
+                by the Borrowers.</td>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">7 <u>COVENANTS</u></h4></th>
+                </tr>
+                </thead>
+                </table>
+            <div>
+                Until the facilities are terminated or whilst any amount or commitments remain outstanding the Borrower hereby covenants with the Bank to:
+            </div>
+            <table>
+                <tbody>
+                <tr>
+                <td><strong>7.1</strong></td>
+                <td>Comply at all times with the prevalent laws as may be amended from time to time.</td>
+                </tr>
+                <tr>
+                <td><strong>7.2</strong></td>
+                <td>Not to avail any additional finance from other lending institutions without first obtaining
+                    written approval from the Bank.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.3</strong></td>
+                    <td>Not utilize the facilities hereby agreed to be granted or any portion thereof for any
+                        purpose other than for the purposes as outlined against individual facilities above.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.4</strong></td>
+                    <td>Offer all of the Borrower’s other banking business in the first instance to the Bank.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.5</strong></td>
+                    <td>Not allow change of ownership or control of the Borrowers or its affairs without the Bank’s prior consent.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.6</strong></td>
+                    <td>Not make any material change in the nature of the Borrower’s business or undertake 	any diversification of
+                        the Borrower’s trading or manufacturing activities, as carried on at the date hereof without the bank’s prior consent</td>
+                </tr>
+                <tr>
+                    <td><strong>7.7</strong></td>
+                    <td>Maintain and safeguard the legal existence of the business and not be involved in any
+                        action which may deprive its power of doing business.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.8</strong></td>
+                    <td>Not mortgage or pledge any of the Borrower’s assets to any other Bank, financial
+                        institution or lender without the Bank’s prior consent.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.9</strong></td>
+                    <td>Maintain and keep in good condition the property(ies)/assets pledged to the Bank.</td>
+                </tr>
+                <tr>
+                    <td><strong>7.10</strong></td>
+                    <td>Take all precautions to preserve the Borrower’s/Bank’s rights in case of any dispute
+                        arisen on the property pledged to the Bank. </td>
+                </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">8 <u>SPECIAL COVENANTS</u></h4></th>
+                </tr>
+                </thead>
+            </table>
+                <div>
+                    The Borrowers shall further covenant with the Bank that:
+                </div>
+            <table>
+                <tbody>
+                <tr>
+                    <td><strong>8.1</strong></td>
+                    <td>All expenditures which are incidental to the availing of the facilities shall be paid by the Borrowers.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.2</strong></td>
+                    <td>8.2	The Bank may debit or credit any of the Borrowers accounts, if necessary to keep credit
+                        facility account in order. To this effect, the Borrowers shall maintain sufficient funds in the account.
+                        If the accounts does not have sufficient funds, the balance still due under the defaulted amount
+                        shall attract penal rate of interest in accordance with the rules of the 	Bank. In case of invocation
+                        of guarantee, the guarantee amount shall be debited from the Borrowers account.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.3</strong></td>
+                    <td>The Borrowers shall promptly pay and discharge all taxes, fees, levy etc and all labour
+                        claims except those that may be contested in good faith.8.4</td>
+                </tr>
+                <tr>
+                    <td><strong>8.4</strong></td>
+                    <td>The Borrowers and  / or Guarantor is/ are prohibited from holding 1% or more shares of 	Century
+                        Commercial bank Limited, and undertakes to the Bank that it does not so hold 1% or more shares of the Bank.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.5</strong></td>
+                    <td>The Borrowers shall agree that the Bank may recommend credit information bureau and/or
+                        any other competent authority to initiate any action against the borrowers or all concerned as
+                        provisioned in Nepal Rastra Bank directives and/or prevailing laws of land.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.6</strong></td>
+                    <td>The Borrowers hereby indemnifies and shall hold harmless the Bank against any loss or
+                        damage due to the Borrower’s non-compliance with any of the terms and conditions of this agreement.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.7</strong></td>
+                    <td>The Borrowers hereby confirm that this agreement has been read or explained in 	its/his/her own
+                        language and have fully understood and executed this Agreement of its/his/her own free will and consent.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.8</strong></td>
+                    <td>The Borrowers shall take all precautions to preserve the Borrower’s/Bank’s rights in case
+                        of any dispute arisen on the property pledged to the Bank.</td>
+                </tr>
+                <tr>
+                    <td><strong>8.9</strong></td>
+                    <td>8.9	The Bank may debit or credit or lien account of Borrowers
+                        (Account no: <input class="yellow-form-field form-control-sm"
+                                            formControlName="scAccountNo"
+                                            type="text"/>and <input class="yellow-form-field form-control-sm"
+                                                                    formControlName="scAccountNo1"
+                                                                    type="text"/>.) if necessary to keep Borrowers credit
+                        facility account in order. In this process if Borrowers account is overdrawn, penal interest will
+                        be charged on the excess amount unit overdrawn balance is settled.</td>
+                </tr>
+                </tbody>
+            </table><br>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">9 <u> EVENT OF DEFAULT</u></h4></th>
+                </tr>
+                </thead>
+            </table>
+            <div>In case of the happening of any of the following events, hereinafter called “Events of Default,” namely:</div>
+            <table>
+                <tbody>
+                <tr>
+                    <td class="vertical-align: top"><strong>9.1</strong></td>
+                    <td>Any statement, representation or warranty made in this agreement or any correspondence
+                        or application for the loan, or on any financial statements, projections or data furnished by
+                        the Borrowers in connection with its application for the loan, proving to be untrue, false or
+                        misleading in any material respect.</td>
+                </tr>
+                <tr>
+                    <td><strong>9.2</strong></td>
+                    <td>Any material facts or information pertaining to the Borrower’s corporate status, legal
+                        existence or entity or to the Borrower’s financial condition, commitment or obligations or
+                        expansion programme(s) or capital expenditures of the Borrowers, not being specifically
+                        made known to the Bank or being suppressed from the knowledge of the Bank.</td>
+                </tr>
+                <tr>
+                    <td><strong>9.3</strong></td>
+                    <td>If the Borrowers shall default in the payment of any installments of principal or of interest
+                        as and when the same shall become due.</td>
+                </tr>
+                <tr>
+                    <td><strong>9.4</strong></td>
+                    <td>If the Borrowers shall default in the observance and performance of any covenants and / or conditions.</td>
+                </tr>
+                <tr>
+                    <td><strong>9.5</strong></td>
+                    <td>If an extra-ordinary situation shall arise which in the opinion of the Bank, shall make it
+                        improbable that the Borrowers will be able to perform its obligations under this agreement and
+                        in this respect the opinion of the Bank shall be conclusive, final and binding on the Borrowers.</td>
+                </tr>
+                <tr>
+                    <td><strong>9.6</strong></td>
+                    <td>If distress or execution is levied or issued by an order of any legal authority against any
+                        part of the Borrower’s assets(s) / property (ies).</td>
+                </tr>
+                <tr>
+                    <td><strong>9.7</strong></td>
+                    <td>If the Borrowers ceases to carry on business or makes significant change(s) in the nature of
+                        operation of the business.</td>
+                </tr>
+                <tr>
+                    <td><strong>9.8</strong></td>
+                    <td>If the Borrower shall take or permit to be taken any proceedings whereby the asset(s)/property
+                        (ies) hereby agreed to be charged or any part thereof shall or may be assigned to a
+                        receiver/liquidator if a receiver/liquidator shall be appointed by the 	Borrowers or by any
+                        legal authority.  </td>
+                </tr>
+                <tr>
+                    <td><strong>9.9</strong></td>
+                    <td>If all or any substantial part of the Borrower's assets or business shall be condemned
+                        seized or appropriated or any action be taken by any government or other legal authority
+                        or other party or any persons, establishment or institution for the Borrower's winding up
+                        or for the suspensions of the Borrower's operations.
+                        If the Borrowers fail to pay any of the Borrower’s debts to others when due.
+                        The Bank shall have any or all of the following rights:
+                        <ol type="a">
+                            <li>To declare all outstanding loans together with interest and all other sums due to become immediately payable.</li>
+                            <li>To charge interest at the rate provided by Clause 3 herein.</li>
+                            <li>To take possession of all security and apply the sale proceeds of same against the Borrower’s obligations.</li>
+                            <li> To terminate some or all of its obligations under the agreement.</li>
+                            <li> To change some of the conditions on which one or more of the facilities are made available.</li>
+                            <li> To require cash cover for contingent liabilities under any of the facilities; (contingent liabilities are financials obligations on account of guarantees / indemnities and import / export letters of credit that could come due in the normal course of business).</li>
+                            <li> To waive some or all of its rights arising from an event of default.</li>
+                            <li>To preclude entire moveable and immovable property of the borrowers and the guarantors and the members of their family apart from ones that are specially mortgaged or pledged to the Bank.</li>
+                            <li>To hold all the monies in any or all of the Borrower's account with the Bank.</li>
+                            <li>To treat the last notice delivered or served to the Borrowers as an exclusive evidence of lapse of repayment date and initiate recovery actions against the Borrowers under Bank and Financial Institutions Act, 2073 or any other appropriate laws prevailing at the time of initiating recovery actions.</li>
+                            <li>To initiate any or all recovery actions as provided for under prevailing laws to recover its dues.</li>
+                            <li> In the event of the Borrowers availing other credit facilities not specified in this Credit Facility.</li>
+                            <li>  Letter and in the event of default by the Borrowers in respect of such other credit facilities,
+                                the same shall also be construed as a default on the credit facilities extended under this
+                                Credit Facility Letter and in such event (s) of default, the Bank is fully entitled to recall
+                                it's entire exposure and declare the credit facilities sanctioned under this Credit
+                                Facility Letter due and payable immediately.</li>
+                        </ol>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div class="">
                 <div>
-                    <b class="mt-1">Prepayment allowed after one year with 1% levy on amount prepaid.
-                        However, loan prepaid before one year shall
-                        attract a prepayment charge of 2% on the loan amount prepaid. In case of loan SWAP,
-                        prepayment charge of 3% applicable</b>
-                </div>
-                <div>
-                    <div>
-                        <strong>Note:</strong>
-                    </div>
-                    Installment due date shall be on 13th of every English month commencing from the subsequent
-                    month after a moratorium period of 10 months.
-                    However, you shall service interest on monthly basis during the Moratorium Perod
-                </div>
+                Please evidence your acceptance of the foregoing by signing and returning the enclosed duplicate copy
+                of this letter. This facility offer remains valid for acceptance for a period of 30 days from the date hereof.
+                The Bank may withdraw the offer prior to acceptance in the event of any circumstances, which could adversely
+                    affect the basis on which this offer is made.</div>
+            <br>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">10 <u>REPRESENTATIONS</u></h4></th>
+                </tr>
+                </thead>
+            </table>
+            <div>Borrowers represent the following statements are true</div>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+            <ol type="a">
+                <li>All transaction documents are legally binding;</li>
+                <li>There is no present or known potential Event of Default existing;</li>
+                <li>There is no pending legal action against the Borrowers or the guarantors;</li>
+                <li>There is no contravention of any law, license, memorandum or articles of association.</li>
+            </ol>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">11 <u>WAIVER</u></h4></th>
+                </tr>
+                </thead>
+            </table>
+            <div>The Bank’s rights under this agreement cannot be waived except by written notice waiving the particular right.
+               <br> In particular:
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <ol type="a">
+                            <li>The Bank does not waive any right in connection with this agreement merely because the Bank does not exercise it, or does not exercise it as soon as possible and</li>
+                            <li>If the Bank exercises a right once or partly, it does not mean that the Bank cannot exercise that right or other rights again.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">12 <u>LAW AND JURISDICTION </u></h4></th>
+                </tr>
+                </thead>
+            </table>
+            <div>
+                This agreement shall be subject to the laws and jurisdiction of Nepal.
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%"><h4 class="text-left">13 <u>NOTICES </u></h4></th>
+                </tr>
+                </thead>
+            </table>
+            <div>
+                Notices shall be given by mail or fax at the following addresses:<br>
+                <dl>
+                    <dt>Bank :</dt>
+                    <dd>Century Commercial Bank Limited</dd>
+                    <dd>Head Office: Putalisadak ,Kathmandu, Nepal </dd>
+                    <dd>P.O.Box: 26100</dd>
+                    <dd>Tel : 01- 4390612/13</dd>
+                    <dd>Fax :  01-4441422</dd>
+                    <dt>Borrower :</dt>
+                    <dd> Mr.<input class="yellow-form-field form-control-sm"
+                                  formControlName="borrowerName"
+                                  type="text"/></dd>
+                    <dd> Permanent Address:<input class="yellow-form-field form-control-sm"
+                                                 formControlName="borrowerPermanentDistrict"
+                                                 type="text"/>District,<input class="yellow-form-field form-control-sm"
+                                                                              formControlName="borrowerPermanentVdc"
+                                                                              type="text"/>
+                        V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                                     formControlName="borrowerPermanentWardNo"
+                                                     type="text"/>.</dd>
+                    <dd> Current Address:<input class="yellow-form-field form-control-sm"
+                                                 formControlName="borrowerCurrentDistrict"
+                                                 type="text"/>District,<input class="yellow-form-field form-control-sm"
+                                                                              formControlName="borrowerCurrentMunicipality"
+                                                                              type="text"/>
+                        Municipality, Ward no.<input class="yellow-form-field form-control-sm"
+                                                     formControlName="borrowerCurrentWardNo"
+                                                     type="text"/>.</dd>
+                    <dd> Contact no:<input class="yellow-form-field form-control-sm"
+                                          formControlName="borrowerContactNo"
+                                          type="text"/></dd>
+                    <dd> Email Id:<input class="yellow-form-field form-control-sm"
+                                        formControlName="borrowerEmailId"
+                                        type="text"/> </dd>
+                </dl>
             </div>
             <br>
-            <div>
-                <h6>Securities:</h6>
-                <div class="row">
-                    <div class="col-md-1"> i) </div>
-                    <div class="col-md-11">
-                        <p> Mortgage of following land in Bank's favor. </p>
-                        <p> Owner : Ms. Min Kumari Dallakoti .</p>
-                        <p> Location : Chainpur Ward No. 3(Ka), Chitwan</p>
-                        <p> Plot No. : 105</p>
-                        <p> Land Area : (0-5-0 B-K-D)</p>
-                        <p> ( B-K-D stands for Bigaha Katha Dhur )</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="">
-                    <b>B.</b>
-                    <P class="ml-4">The limit when repaid/settled (partial or full) shall not be reinstated by
-                        the extent of
-                        the amount repaid/settled.</P>
-                </div>
-            </div>
-            <div class="">
-                <b>C.</b>
-                <div class="ml-4">
-                    a) On the due date of payment of the principal and/or interest, you shall have
-                    sufficient funds in your account in which case the said account shall be debited for
-                    the
-                    principal amount and/or the interest amount due, by way of repayment of the same.
-                    <br>
-                    b) In the event that you do not have sufficient funds in the said account on the due
-                    date of
-                    payment of principal and/or interest, your account shall be debited for whatever
-                    balance
-                    there
-                    is in your account. This balance will be first used to offset the interest and the
-                    remaining
-                    amount will be used to offset the principal, if applicable.
-                </div>
-            </div>
-            <div class="">
-                <b>D.</b>
-                <div class="ml-4">
-                    Disbursement of NPR 4,000,000 /- shall be made into your current a/c to be opened with Mega
-                    Bank
-                    Nepal Limited, as per your request to disburse the loan, upon completion of all
-                    loan/security
-                    documents including Mortgage Deed in the following manner:<br>
-                    (1) AUD 32,638 or the amount specified in the offer letter whichever is lower, in first
-                    phase
-                    for Tution Fee, Processing Fee and OSHC. However, in case of Living cost applicable amount
-                    shall
-                    be disbursed after the written request of customer .<br>
-                    (2) Remaining amount or the amount specified in the offer letter, in Second phase, after
-                    completion of first semester upon client’s request backed by letter from college. Separate
-                    memo
-                    to be raised for payment of second installment.<br>
-                </div>
-            </div>
-            <div class="">
-                <b>E.</b><br>
-                <div class="ml-4">
-                    You shall be deemed to have expressly undertaken that all the information supplied to the
-                    Bank
-                    with regard to the approved facility is correct.<br>
-                </div>
-            </div>
-            <div class="">
-                <b>F.</b> <br>
-                <div class="ml-4">
-                    The Service Charge including Documentation Fee and CIC charges shall be paid/deposited to
-                    the
-                    Bank upfront and is non refundable. The Bank shall not be liable for the fate of your Visa
-                    due
-                    to whatsoever reason.<br>
-                </div>
-            </div>
-            <div class="">
-                <b>G.</b><br>
-                <div class="ml-4">
-                    If any of the terms and conditions of the sanction letter is violated, the Bank shall treat
-                    the
-                    same as default. In case of default(s) partial or full, penal interest will be charged 2%
-                    p.a.
-                    on Overdue Interest and Principle for the delayed period or subject to the rules and
-                    regulations
-                    of the Bank. The bank reserves the right to initiate legal action including publication of
-                    notice in the paper with your photograph at any time without any prior notice to you, for
-                    recovery to the Bank, in case of default in repayment of installment/interest dues.<br>
-                </div>
-            </div>
-            <div class="">
-                <b>H.</b><br>
-                <div class="ml-4">
-                    In the event of any material and/or adverse change in the business condition(s), the Bank
-                    reserves the right to call back the facility(s) by giving an appropriate notice and
-                    assigning
-                    reason(s) thereof.<br>
-                </div>
-            </div>
-            <div class="">
-                <b>I</b><br>
-                <div class="ml-4">
-                    The Bank reserves the right to revise the interest rate from time to time as per rules and
-                    regulation of the Bank and in compliance with Nepal Rastra Bank guidelines/regulations.<br>
-                </div>
-            </div>
-            <div class=" ">
-                <b>J.</b><br>
-                <div class="ml-4">
-                    The delivery of the notice from the Bank to you at the last known address in the Bank’s
-                    record
-                    shall be effective delivery.<br>
-                </div>
-            </div>
-            <div class="">
-                <b>K.</b>
-                <div class="ml-4">
-                    You shall pay all government taxes viz. Malpot, House Tax and other bills viz. electricity
-                    bill,
-                    water supply bill etc.
-                    (wherever applicable) in time at your own cost and submit the copy of the same in the Bank
-                    on an
-                    annual basis.
-                </div>
-            </div>
-            <div class="">
-                <b>L.</b>
-                <div class="ml-4">
-                    You shall call on the Bank and be required to execute the following loan documents.<br>
-                    1. Promissory Note for <input class="yellow-form-field form-control-sm"
-                                                  formControlName="promissory"
-                                                  placeholder="NPR 4,000,000.00"
-                                                  type="text"/><br>
-                    2. Loan Deed for <input class="yellow-form-field form-control-sm"
-                                            formControlName="loanDeed"
-                                            placeholder="NPR 4,000,000.00"
-                                            type="text"/><br>
-                    3. Mortgage of land in the Bank's favor amounting <input
-                        class="yellow-form-field form-control-sm"
-                        formControlName="morgage"
-                        placeholder="NPR 4,000,000.00"
-                        type="text"/><br>
-                    4. Personal guarantee of <input class="yellow-form-field form-control-sm"
-                                                    formControlName="personalGuarantee"
-                                                    placeholder="Mr. Pukar Dallakoti, Mr. Ganga Bahadur Dallakoti, Mr. Govinda
-                        Dallakoti, Mrs. Nikita Neupane Dallakoti and Mrs Sunita Dallakoti"/> for NPR 4,000,000.00<br>
-                    5. Complete Valuation Report.<br>
-                    6. Consent from legal heirs of the land owners for mortgage<br>
-                </div>
-            </div>
-            <br>
-            Please sign and return the duplicate of this letter, indicating your acceptance and understanding of the
-            above terms and conditions by 12th <input class="yellow-form-field form-control-sm"
-                                                      formControlName="returnmonth"
-                                                      placeholder=" Feb 2020"
-                                                      type="text"/> (One month from the date of issuance), failing
-            which this offer stands cancelled.<br><br>
-            Yours sincerely <br> <br>
+            Yours faithfully,<br>
+            For and on behalf of<br>
+            Century Commercial Bank Ltd.<br><br>
             <div class="row mt-5">
                 <div class="col-md-6">
                     <div class="col-md-12">
                         <p class="text-center">-----------------------------</p>
                     </div>
                     <div class="col-md-12">
-                        <p class="text-center">Officer-Credit Administration</p>
-                        <p class="text-center"> (Kumar Neupane) </p>
+                        <p class="text-center">Authorized Signature</p>
+                        <p class="text-center"> Century Commercial Bank Ltd </p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -309,44 +616,94 @@
                         <p class="text-center">-----------------------------</p>
                     </div>
                     <div class="col-md-12">
-                        <p class="text-center"> Officer-Credit Administration</p>
-                        <p class="text-center"> (Nagendra Prasad Pant) </p>
+                        <p class="text-center"> Authorized Signature</p>
+                        <p class="text-center"> Century Commercial Bank Ltd. </p>
                     </div>
                 </div>
             </div>
             <br>
-            <div class="mb-4">
-                <div class="row">
-                    <div class="col-md-1"> 1) </div>
-                    <div class="col-md-11">
-                        In the event, if I/we fail to make the payment to you, on demand and such payment is not made
-                        within the time given by the Bank under Nepal Rastra Bank (NRB), Credit Information Bureau, black
-                        listing provision, I/we hereby accept the <b>Black Listing</b> decision of the Bank with the full
-                        knowledge of black listing provision.
-                        I/we shall not sue or file any claim/case against the Bank's decision. In case, if we lodge/file any
-                        claim/case against the Bank's decision, I/we undertake to bear all
-                        the liabilities and consequences arising out of such claim to the Bank.
-                        I/we also undertake to educate to my/our heir (s) and ask them to undertake the entire liability
-                        including dues to the Bank, in case of my/our demise or lunacy.
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-1"> 2) </div>
-                    <div class="col-md-11">
-                        I/We confirm acceptance of above laid down terms and conditions.
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-1"> 3) </div>
-                    <div class="col-md-11">
-                        I/We hereby acknowledge your right to cancel any or all the line (s) of credit at any time with
-                        or without prior notice to us.
-                        In the event of the line (s) being cancelled by you, I/we undertake to pay you on demand all
-                        outstanding balances together with accrued interest and charges.
-                    </div>
-                </div>
-            </div>
+            <div>
+                <p class="text-center">-----------------------------</p>
+            </div><br>
+            Mr.<input class="yellow-form-field form-control-sm"
+                      formControlName="ccbName"
+                      type="text"/><br>
+            Permanent Address:<input class="yellow-form-field form-control-sm"
+                                     formControlName="ccbPermanentDistrict"
+                                     type="text"/>District,<input class="yellow-form-field form-control-sm"
+                                                                  formControlName="ccbPermanentVdc"
+                                                                  type="text"/><br>
+            V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                         formControlName="ccbPermanentWardNo"
+                                         type="text"/>.<br>
+            Current Address:<input class="yellow-form-field form-control-sm"
+                                   formControlName="ccbCurrentDistrict"
+                                   type="text"/>District,<input class="yellow-form-field form-control-sm"
+                                                                formControlName="ccbCurrentMunicipality"
+                                                                type="text"/><br>
+            Municipality, Ward no.<input class="yellow-form-field form-control-sm"
+                                         formControlName="ccbCurrentWardNo"
+                                         type="text"/>.<br>
+            Contact no:<input class="yellow-form-field form-control-sm"
+                              formControlName="ccbContactNo"
+                              type="text"/><br>
+            Email Id:<input class="yellow-form-field form-control-sm"
+                            formControlName="ccbEmailId"
+                            type="text"/><br>
+            Date: <input class="yellow-form-field form-control-sm"
+                         formControlName="date1"
+                         type="text">
+            <br><br><br>
+            <dl>
+                <dd>Century Commercial Bank Limited</dd>
+                <dd>Putalisadak, Kathmandu,</dd>
+                <dd>Nepal</dd>
+            </dl>
             <br>
+            Dear Sir/Madam,
+            <br>
+            I/We acknowledge receipt of your Credit Facilities Offer Letter dated <input class="yellow-form-field form-control-sm"
+                                                      formControlName="date2"
+                                                      type="text"/>Ref No:CFOL/CCBL/
+            <input class="yellow-form-field form-control-sm"
+                   formControlName="referenceNo"
+                   style="width: 100px"
+                   type="text"/>/2079-80/<input class="yellow-form-field form-control-sm"
+                                                formControlName="referenceNo1"
+                                                style="width: 100px"
+                                                type="text"/>of which the attached is a true copy and I/we hereby confirm my/our agreement to the terms and conditions set out therein.
+            <br>
+            Yours faithfully,<br><br>
+            <div>
+                <p class="text-center">-----------------------------</p>
+            </div><br>
+
+            Mr.<input class="yellow-form-field form-control-sm"
+                      formControlName="name1"
+                      type="text"/><br>
+            Permanent Address:<input class="yellow-form-field form-control-sm"
+                                          formControlName="permanentDistrict1"
+                                          type="text"/>District,<input class="yellow-form-field form-control-sm"
+                                                                       formControlName="permanentVdc1"
+                                                                       type="text"/><br>
+            V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                             formControlName="permanentWardNo1"
+                                             type="text"/><br>
+            Current Address:<input class="yellow-form-field form-control-sm"
+                                        formControlName="currentDistrict1"
+                                        type="text"/>District,<input class="yellow-form-field form-control-sm"
+                                                                      formControlName="currentMunicipality1"
+                                                                      type="text"/><br>
+            Municipality, Ward no.<input class="yellow-form-field form-control-sm"
+                                         formControlName="currentWardNo1"
+                                         type="text"/><br>
+            Contact no:<input class="yellow-form-field form-control-sm"
+                                   formControlName="contactNo1"
+                                   type="text"/><br>
+            Email Id:<input class="yellow-form-field form-control-sm"
+                                 formControlName="emailId1"
+                                 type="text"/>
+            <br><br><br>
             <div class="row">
                 <div class="col-md-12 text-right">
                     <button nbButton status="success" type="submit">Save</button>
@@ -363,7 +720,5 @@
             </nb-card-footer>
         </nb-card>
 </div>
-<app-retail-educational-loan-english-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
-                                           hidden></app-retail-educational-loan-english-print>
 
 
