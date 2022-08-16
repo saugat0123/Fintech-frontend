@@ -1,5 +1,6 @@
 <ol>
-    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION" class="font-weight-bold">
+    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+    customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION" class="font-weight-bold">
         <span> Present financing arrangement: None/Sole /multiple banking /consortium</span> <br>
         <span class="font-weight-normal"> If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks,
         and details of credit facilities</span> as
@@ -73,11 +74,13 @@
         </div>
     </li>
 
-    <li class="font-weight-bold" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li class="font-weight-bold" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+    customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">
         <span> Report from the existing BFIs in case of swap</span>
         <span class="font-weight-normal"> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date)
             : 'N/A'}})</span>
-        <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION && checkedData?.swapChecked"
+        <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+        customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION && checkedData?.swapChecked"
              class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
@@ -175,7 +178,8 @@
 
     <li class="font-weight-bold">
         <span> Past performance with the Bank:</span>
-        <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION; else sana"
+        <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+        customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION; else sana"
              class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
@@ -219,7 +223,8 @@
         </ng-template>
     </li>
 
-    <li class="font-weight-bold" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li class="font-weight-bold" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+    customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">
         <span> Account strategy: {{multiBankingData?.accountStrategy ? '' : 'NA'}}</span>
         <div class="container">
             <span [innerHTML]="multiBankingData?.accountStrategy | safeHtml"></span>
@@ -227,7 +232,8 @@
     </li>
 
     <li class="font-weight-bold"
-        *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
+        *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+        customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
         <span> Average Utilization and Transaction Record of facilities by the customer during the last 12 months with CCBL</span>
         <div class="row">
             <div class="col-md-12">

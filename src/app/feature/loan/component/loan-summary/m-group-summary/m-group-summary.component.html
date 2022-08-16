@@ -3,7 +3,8 @@
         <div class="col-md-12">
             <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         </div>
-        <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION">
+        <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION ||
+        customerCategory===customerCategoryType.AGRICULTURE_ABOVE_TEN_MILLION">
             <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
                 <thead>
                 <tr class="sb-bg-dark text-white">
@@ -18,7 +19,9 @@
             </table>
         </div>
     </div>
-    <li *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION || customerCategory === 'executing' || customerType === 'INDIVIDUAL'"
+    <li *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION ||
+    customerCategory !== customerCategoryType.AGRICULTURE_ABOVE_TEN_MILLION || customerCategory === 'executing' ||
+    customerType === 'INDIVIDUAL'"
         class="font-weight-bold">
         <span> Group Limit {{groupPosition?.length > 0 ? '' : ': NA'}}</span>
         <div class="row">

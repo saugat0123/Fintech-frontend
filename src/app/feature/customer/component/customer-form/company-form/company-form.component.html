@@ -1104,11 +1104,14 @@
                                                   #companyOtherDetailComponent></app-company-other-detail>
                         <hr>
                         <div>
-                            <h5>5. {{(customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION) ?
+                            <h5>5. {{(customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION) ||
+                            (customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION) ?
                                 'BUSINESS RELATED INFORMATION' : 'BACKGROUND INFORMATION' }}</h5>
-                            <h6 *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]">5.1 The Customer:</h6>
+                            <h6 *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory] ||
+                            customerCate?.AGRICULTURE_ABOVE_TEN_MILLION === customerCate[customerCategory]">5.1 The Customer:</h6>
                         </div>
-                        <ng-container *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory]; else smeUpToTen">
+                        <ng-container *ngIf="customerCate?.SME_ABOVE_TEN_MILLION === customerCate[customerCategory] ||
+                        customerCate?.AGRICULTURE_ABOVE_TEN_MILLION === customerCate[customerCategory]; else smeUpToTen">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
