@@ -37,6 +37,23 @@
                 <app-security-summary *ngIf="approvedSecurity?.length > 0" [securities]="approvedSecurity"></app-security-summary>
 
                 <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+                <ng-container>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="sub-header"><strong>Customer Reporting Information</strong></p>
+                            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                <tr class="sb-bg-gray">
+                                    <td>S.N</td>
+                                    <td>Description</td>
+                                </tr>
+                                <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
+                                    <td>{{i+1}}</td>
+                                    <td>{{reporting?.description}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </ng-container>
 
 
             </ng-container>
@@ -142,6 +159,7 @@
                                                         [loanDataHolder] = "loanDataHolder"
                                                         [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
                            </div>
+
                            <ng-container *ngIf="smallBusiness">
 <!--                               <div class="col-md-12 form-group">-->
 <!--                                   <div class="row">-->

@@ -70,6 +70,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     deprivedSector = false;
     microFinancialService = false;
     thisClient;
+    customerReportingInfo = [];
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -87,6 +88,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
     ngOnInit() {
         this.spinner.show();
         this.loadSummary();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
+            && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
+            this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
+                this.customerReportingInfo.push(rep);
+            });
+        }
         this.customerLoanService.detail(this.customerId).subscribe((response) => {
             this.loanDataHolder = response.detail;
             this.getAllLoans(this.loanDataHolder.loanHolder.id);

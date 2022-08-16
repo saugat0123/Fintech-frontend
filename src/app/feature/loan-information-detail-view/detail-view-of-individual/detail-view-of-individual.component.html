@@ -89,6 +89,23 @@
     </div>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                    [loanDataHolder]="loanDataHolder"></app-cicl-view>
+    <ng-container>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="sub-header"><strong>Customer Reporting Information</strong></p>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-gray">
+                        <td>S.N</td>
+                        <td>Description</td>
+                    </tr>
+                    <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
+                        <td>{{i+1}}</td>
+                        <td>{{reporting?.description}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </ng-container>
     <app-dbr *ngIf="financial" [financialData]="financial" [proposalData]="proposalData"></app-dbr>
     <ng-container *ngIf="checkedData?.waiverChecked">
         <hr class="print-line">

@@ -257,7 +257,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         this.loanDataHolder = this.loanData;
         this.thisClient = this.loanDataHolder.loanHolder.clientType;
-        console.log('client:::::', this.thisClient);
         // this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;

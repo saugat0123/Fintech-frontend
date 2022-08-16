@@ -94,6 +94,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     isForApproveMaker = false;
     selectedTemplate;
     commentVar;
+    loanContractVal;
     hasRequierdDocument = false;
     toUser;
     toRole;
@@ -106,6 +107,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     updatedToRole;
     returnedFromLegal = false;
     partialDiscrepancy = false;
+    isCrc = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -149,6 +151,9 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
         if (this.currentCADStage.toRole.id.toString() === this.roleId) {
             this.inMyBucket = true;
+        }
+        if (LocalStorageUtil.getStorage().roleName.toLowerCase() === 'credit risk control') {
+            this.isCrc = true;
         }
         try {
             if (this.cadOfferLetterApprovedDoc.previousList.length > 1) {
@@ -293,6 +298,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             switch (error.status) {
                 case 417:
                     this.commentVar = this.formAction.get('comment').value;
+                    this.loanContractVal = this.formAction.get('loanContractNo').value;
                     // tslint:disable-next-line:max-line-length
                     this.cadService.getMakerUserByBranchID
                     (this.cadOfferLetterApprovedDoc.loanHolder.branch.id).subscribe((resUser: any) => {
@@ -306,7 +312,8 @@ export class CadActionComponent implements OnInit, OnChanges {
                                 toRole: this.forApproveMaker[this.forApproveMaker.length - 1].role,
                                 toUser: this.forApproveMaker[this.forApproveMaker.length - 1],
                                 customApproveSelection: true,
-                                comment: this.commentVar
+                                comment: this.commentVar,
+                                loanContractNo: this.loanContractVal,
 
                             });
                         }
@@ -381,6 +388,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
+                    loanContractNo: [undefined],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
                     discrepancy: [this.isDiscrepancy],
@@ -445,6 +453,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [newDocStatus],
                     comment: [undefined, Validators.required],
+                    loanContractNo: [undefined],
                     documentStatus: [newDocStatus],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
@@ -462,6 +471,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
+                    loanContractNo: [undefined],
                     documentStatus: [this.backwardDocStatus()],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],

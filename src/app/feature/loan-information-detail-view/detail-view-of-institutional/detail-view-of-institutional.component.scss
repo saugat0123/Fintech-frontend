@@ -17,3 +17,27 @@ hr.print-line {
     }
   }
 }
+@media print {
+  .summary {
+    * {
+      font-family: Cambria !important;
+      font-size: 18pt !important;
+    }
+    .p .header {
+      font-family: Cambria !important;
+      font-size: 20pt !important;
+      padding-top: 32px !important;
+    }
+    .header {
+      font-family: Cambria !important;
+      font-size: 20pt !important;
+      padding-top: 32px !important;
+    }
+    .sub-header {
+      font-family: Cambria !important;
+      font-size: 18pt !important;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  }
+}

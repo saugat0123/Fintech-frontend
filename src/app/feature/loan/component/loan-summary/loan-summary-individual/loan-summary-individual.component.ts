@@ -211,8 +211,15 @@ export class LoanSummaryIndividualComponent implements OnInit {
 
   consumerFinance = false;
   smallBusiness = false;
+  customerReportingInfo = [];
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
+        && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
+      this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
+        this.customerReportingInfo.push(rep);
+      });
+    }
     this.getLoanDataHolder();
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
@@ -236,8 +243,6 @@ export class LoanSummaryIndividualComponent implements OnInit {
     }
 
     this.individual = this.loanDataHolder.customerInfo;
-
-    console.log('data::', this.individual);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
