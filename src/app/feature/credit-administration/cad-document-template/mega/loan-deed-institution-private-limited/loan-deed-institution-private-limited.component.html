@@ -4,6 +4,7 @@
             <form (ngSubmit)="submit()" [formGroup]="loanDeedInstitutionPrivateLimited" class="nepali" id="loanDeedInstitutionPrivateLimitedPrint">
                 <div class="nep">
                     <div>
+                        <br>
                         <p class="text-center" style="font-size:16pt;"><b>विषयः ऋण तमसुक</b></p>
                         <p>
                             लिलिखितम् लिखत गरी लिने धनीका नाम काठमाण्डौं जिल्ला का.म.न.पा.वडा नं.२८, पूतलीसडक स्थित प्रधान कार्यालय रही
@@ -81,18 +82,7 @@
                                    type="text"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('signature').value ? loanDeedInstitutionPrivateLimited.get('signature').value  : '========='}}</b></span>
                             ले हस्ताक्षर गरी यो लिखतमा सहीछाप गरी तपाईं धनी बैंकलाई दियौं र यसको दोहरी समेत बुझिलियौं ।
                         </p>
-                        <p>
-                        जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु <input class="form-field form-control-sm nepaliFont disable-print"
-                                                                     formControlName="amount"
-                                                                     placeholder=""
-                                                                     type="text" size="8"/> /-<span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('amount').value ? loanDeedInstitutionPrivateLimited.get('amount').value  : '========='}}</b></span>
-                        (अक्षरेपि
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="writtenAmount"
-                               placeholder=""
-                               type="text"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('writtenAmount').value ? loanDeedInstitutionPrivateLimited.get('writtenAmount').value  : '========='}}</b></span>
-                        रुपैयाँ मात्र)
-                        </p>
+
                         <p class="text-center"><b>स्विकृत ऋणकर्जाको विवरण</b></p>
                         <table border="1" width="100%">
                             <thead>
@@ -160,6 +150,18 @@
                             </tr>
                             </tbody>
                         </table>
+                        <p>
+                            जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु <input class="form-field form-control-sm nepaliFont disable-print"
+                                                                      formControlName="amount"
+                                                                      placeholder=""
+                                                                      type="text" size="8"/> /-<span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('amount').value ? loanDeedInstitutionPrivateLimited.get('amount').value  : '========='}}</b></span>
+                            (अक्षरेपि
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="writtenAmount"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('writtenAmount').value ? loanDeedInstitutionPrivateLimited.get('writtenAmount').value  : '========='}}</b></span>
+                            रुपैयाँ मात्र)
+                        </p>
                         <br />
                         <p><b><U>सुरक्षणहरु</U></b></p>
                         <p class="text-center"><b><U>तपसिल</U></b></p>
