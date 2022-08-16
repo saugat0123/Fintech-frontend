@@ -1,7 +1,12 @@
 <div class="tab-pane fade active show" id="proposal">
     <div class="row">
         <div class="col-md-12">
-            <nb-card>
+            <nb-card [nbSpinner]="spinner">
+                <nb-card-header *ngIf="fromSummary">
+                    <div class="float-right">
+                        <button nbButton style="cursor: pointer" size="tiny" (click)="close()">x</button>
+                    </div>
+                </nb-card-header>
                 <nb-card-body>
                  <div class="col-md-12">
 
@@ -34,6 +39,11 @@
                     </div>
 
                 </nb-card-body>
+                <nb-card-footer *ngIf="fromSummary">
+                    <div  class="float-right">
+                        <button nbButton size="tiny" status="success" (click)="onUpdate()">Update</button>
+                    </div>
+                </nb-card-footer>
             </nb-card>
         </div>
     </div>
