@@ -232,18 +232,32 @@
                     </div>
 
                     <div class="row" *ngIf="land?.get('plantMachineryChecked').value">
-                        <div class="form-group col-md-4 ml-2">
+                        <div class="form-group col-md-3">
                             <label>Model</label>
                             <input class="form-control rounded" formControlName="plantMachineryModel"
                                    id="plantMachineryModel"
                                    name="plantMachineryModel" placeholder="Model Number"
                                    type="text"/>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>Amount</label>
-                            <input class="form-control rounded" formControlName="plantMachineryAmount"
-                                   id="plantMachineryAmount"
-                                   name="plantMachineryAmount" placeholder="Amount"
+                        <div class="form-group col-md-3">
+                            <label>Market Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryMV"
+                                   name="plantMachineryMV" placeholder="Market Value"
+                                   type="number"/>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Fair Market Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryFMV"
+                                   name="plantMachineryFMV" placeholder="Fair Market Value"
+                                   type="number"/>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Distress Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryDV"
+                                   name="plantMachineryDV" placeholder="Distress Value"
                                    type="number"/>
                         </div>
                     </div>
@@ -705,18 +719,33 @@
                             </div>
 
                             <div class="row" *ngIf="building?.get('plantMachineryChecked')?.value">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label>Model</label>
-                                    <input class="form-control rounded" formControlName="plantMachineryModel"
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryModel"
                                            id="landBuildingPlantMachineryModel"
                                            name="plantMachineryModel" placeholder="Model Number"
                                            type="text"/>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label>Amount</label>
-                                    <input class="form-control rounded" formControlName="plantMachineryAmount"
-                                           id="landBuildingPlantMachineryAmount"
-                                           name="plantMachineryAmount" placeholder="Amount"
+                                <div class="form-group col-md-3">
+                                    <label>Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryMV"
+                                           name="plantMachineryMV" placeholder="Market Value"
+                                           type="number"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Fair Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryFMV"
+                                           name="plantMachineryFMV" placeholder="Fair Market Value"
+                                           type="number"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryDV"
+                                           name="plantMachineryDV" placeholder="Distress Value"
                                            type="number"/>
                                 </div>
                             </div>
@@ -1171,6 +1200,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="marketValue">Land Fair Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="marketValue"
+                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('marketValue').errors)}"
+                                           name="marketValue"
+                                           placeholder="Fair Market Value"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="distressValue">Land Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="distressValue"
+                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('distressValue').errors)}"
+                                           name="distressValue"
+                                           placeholder="Distress Value"
+                                           type="text"/>
+                                </div>
+                            </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -1183,6 +1234,42 @@
                                             type="text"/>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="buildingConsideredValues">Building Market Value</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="considerValue"
+                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('considerValue').errors)}"
+                                            id="buildingConsideredValues"
+                                            placeholder="Market Rate"
+                                            name="considerValue"
+                                            type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="area">Building Fair Market Value
+                                    </label>
+                                    <input class="form-control rounded"
+                                           formControlName="totalCost"
+                                           name="totalCost" placeholder="Building Cost"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="distressValue">Building Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="buildingDistressValue"
+                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('buildingDistressValue').errors)}"
+                                           name="buildingDistressValue"
+                                           placeholder="Distress Value"
+                                           type="text"/>
+                                </div>
+                            </div>
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="title" for="area">Total building area
@@ -1213,39 +1300,7 @@
                                            type="number"/>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="area">Building Cost
-                                    </label>
-                                    <input class="form-control rounded"
-                                           formControlName="totalCost"
-                                           name="totalCost" placeholder="Building Cost"
-                                           type="number"/>
-                                </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="marketValue">Fair Market Value</label>
-                                    <input class="form-control rounded"
-                                           formControlName="marketValue"
-                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('marketValue').errors)}"
-                                           name="marketValue"
-                                           placeholder="Fair Market Value"
-                                           type="number"/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="distressValue">Distress Value</label>
-                                    <input class="form-control rounded"
-                                           formControlName="distressValue"
-                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('distressValue').errors)}"
-                                           name="distressValue"
-                                           placeholder="Distress Value"
-                                           type="text"/>
-                                </div>
-                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="title" for="governmentRate">Government Rate</label>
@@ -1256,19 +1311,6 @@
                                             id="governmentRate"
                                             placeholder="Rate"
                                             name="landBuildingRate"
-                                            type="number" appDecimalNumber/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="consideredValues">Market Rate</label>
-                                    <input
-                                            class="form-control rounded"
-                                            formControlName="considerValue"
-                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('considerValue').errors)}"
-                                            id="consideredValues"
-                                            placeholder="Market Rate"
-                                            name="considerValue"
                                             type="number" appDecimalNumber/>
                                 </div>
                             </div>
@@ -1407,18 +1449,32 @@
                         </div>
 
                         <div class="row" *ngIf="landAndBuilding?.get('plantMachineryChecked')?.value">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label>Model</label>
                                 <input class="form-control rounded" formControlName="plantMachineryModel"
                                        id="buildingPlantMachineryModel"
                                        name="plantMachineryModel" placeholder="Model Number"
                                        type="text"/>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label>Amount</label>
-                                <input class="form-control rounded" formControlName="plantMachineryAmount"
-                                       id="buildingPlantMachineryAmount"
-                                       name="plantMachineryAmount" placeholder="Amount"
+                            <div class="form-group col-md-3">
+                                <label>Market Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="plantMachineryMV"
+                                       name="plantMachineryMV" placeholder="Market Value"
+                                       type="number"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Fair Market Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="plantMachineryFMV"
+                                       name="plantMachineryFMV" placeholder="Fair Market Value"
+                                       type="number"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Distress Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="plantMachineryDV"
+                                       name="plantMachineryDV" placeholder="Distress Value"
                                        type="number"/>
                             </div>
                         </div>

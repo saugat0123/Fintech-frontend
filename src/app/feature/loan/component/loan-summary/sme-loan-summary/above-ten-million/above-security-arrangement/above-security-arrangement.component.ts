@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {Security} from '../../../../../model/security';
 import {ShareSecurity} from '../../../../../../admin/modal/shareSecurity';
@@ -17,6 +17,8 @@ export class AboveSecurityArrangementComponent implements OnInit {
   @Input() docStatus;
   formData: Object;
   @Input() collateralSiteVisit;
+
+  alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
   landSelected = false;
   apartmentSelected = false;
@@ -58,10 +60,12 @@ export class AboveSecurityArrangementComponent implements OnInit {
     valuatorName: string,
     valuationDate: string;
   } [] = [];
-  existingSecurity1: { owner: string, location: string, plot: string, area: string,
+  existingSecurity1: {
+    owner: string, location: string, plot: string, area: string,
     considerValue: number, marketValue: number, distressValue: number
   } [] = [];
-  existingAsPropose1: { owner: string, location: string, plot: string, area: string,
+  existingAsPropose1: {
+    owner: string, location: string, plot: string, area: string,
     considerValue: number, marketValue: number, distressValue: number
   } [] = [];
 
@@ -76,7 +80,8 @@ export class AboveSecurityArrangementComponent implements OnInit {
   totalDVAsPs = 0;
   securityId: number;
 
-  constructor(private collateralSiteVisitService: CollateralSiteVisitService) { }
+  constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
+  }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.security)) {
@@ -92,109 +97,18 @@ export class AboveSecurityArrangementComponent implements OnInit {
         this.checkSecurityInSelectedArray('Land and Building Security');
         this.checkSecurityInSelectedArray('ApartmentSecurity');
         if (this.landSelected) {
-          landDetail.forEach((d, i) => {
-            let collateralData = null;
-            this.collateralSiteVisitService.getCollateralByLatestDateOfVisit(this.securityId, d.uuid).subscribe((res: any) => {
-              if (!ObjectUtil.isEmpty(res.detail)) {
-                collateralData = JSON.parse(res.detail.siteVisitJsonData);
-                console.log('collateralData', collateralData);
-              }
-              if (d.forProposed) {
-                this.totalMV += Number(d.landConsideredValue);
-                this.totalFMV += Number(d.marketValue);
-                this.totalDV += Number(d.distressValue);
-
-                this.proposedSecurity1.push({
-                  owner: d.owner,
-                  location: d.location,
-                  locationDetail: d.locationDetail,
-                  considerValue: d.landConsideredValue,
-                  marketValue: d.marketValue,
-                  distressValue: d.distressValue,
-                  typeOfProperty: d.typeOfProperty,
-                  plantAndMachinery: d.plantMachineryChecked,
-                  plantMachineryData: {
-                    modelNo: d.plantMachineryModel,
-                    amount: d.plantMachineryAmount,
-                  },
-                  collateralData: {
-                    zoningType: ObjectUtil.isEmpty(collateralData) ? null : collateralData.typeOfProperty,
-                    accessRoad: ObjectUtil.isEmpty(collateralData) ? null : collateralData.roadAccessFrom,
-                    setBack: {
-                      road: ObjectUtil.isEmpty(collateralData) ? null : collateralData.roadSetbacks,
-                      river: ObjectUtil.isEmpty(collateralData) ? null : collateralData.riverOrCanalSetbacks,
-                      highTension: ObjectUtil.isEmpty(collateralData) ? null : collateralData.highTensionSetbacks
-                    },
-                    visitedBy: ObjectUtil.isEmpty(collateralData) ? null : collateralData.personContacted,
-                    visitDate: ObjectUtil.isEmpty(collateralData) ? null : collateralData.date,
-                    coordinate: {
-                      longitude: ObjectUtil.isEmpty(collateralData) ? null : collateralData.fixedAssetsLongitude,
-                      latitude: ObjectUtil.isEmpty(collateralData) ? null : collateralData.fixedAssetsLatitude,
-                    }
-                  },
-                  valuatorName: d.landValuator,
-                  valuationDate: d.landValuatorDate
-                });
-
-              }
-
-
-              if (d.forExisting) {
-                this.totalMVEx += Number(d.landConsideredValue);
-                this.totalFMVEx += Number(d.marketValue);
-                this.totalDVEx += Number(d.distressValue);
-                this.existingSecurity1.push({
-                  owner: d.owner,
-                  location: d.location,
-                  plot: d.plotNumber,
-                  area: d.areaFormat,
-                  considerValue: d.landConsideredValue,
-                  marketValue: d.marketValue,
-                  distressValue: d.distressValue,
-                });
-
-              }
-            });
+          landDetail.forEach((d) => {
+           this.getSecurityAndFixedCollateralData(d.uuid, d);
           });
 
         }
-
-        console.log('proposedSecurity1', this.proposedSecurity1);
-
         // const landBuildings = this.formData['initialForm']['landBuilding'];
-        // landBuildings.forEach((d, i) => {
-        //   if (d.forProposed) {
-        //     this.totalMV += Number(d.landConsideredValue);
-        //     this.totalFMV += Number(d.marketValue);
-        //     this.totalDV += Number(d.distressValue);
-        //
-        //     // this.proposedSecurity1.push({
-        //     //   owner: d.owner,
-        //     //   location: d.location,
-        //     //   plot: d.plotNumber,
-        //     //   area: d.areaFormat,
-        //     //   considerValue: d.landConsideredValue,
-        //     //   marketValue: d.marketValue,
-        //     //   distressValue: d.distressValue,
-        //     // });
-        //
-        //   }
-        //   if (d.forExisting) {
-        //     this.totalMVEx += Number(d.landConsideredValue);
-        //     this.totalFMVEx += Number(d.marketValue);
-        //     this.totalDVEx += Number(d.distressValue);
-        //     this.existingSecurity1.push({
-        //       owner: d.owner,
-        //       location: d.location,
-        //       plot: d.plotNumber,
-        //       area: d.areaFormat,
-        //       considerValue: d.landConsideredValue,
-        //       marketValue: d.marketValue,
-        //       distressValue: d.distressValue,
-        //     });
-        //
-        //   }
-        // });
+        if (this.landBuilding) {
+          landBuildingDetail.forEach((d) => {
+            this.getSecurityAndFixedCollateralData(d.uuid, d);
+          });
+        }
+        console.log('proposedSecurity1', this.proposedSecurity1);
       }
     }
   }
@@ -224,5 +138,70 @@ export class AboveSecurityArrangementComponent implements OnInit {
     const finalDv = (0.8 * Number(data));
     console.log('before return', finalDv);
     return finalDv;
+  }
+
+  getSecurityAndFixedCollateralData(uuid: string, d: any) {
+    let collateralData = null;
+    this.collateralSiteVisitService.getCollateralByLatestDateOfVisit(this.securityId, uuid).subscribe((res: any) => {
+      if (!ObjectUtil.isEmpty(res.detail)) {
+        collateralData = JSON.parse(res.detail.siteVisitJsonData);
+        console.log('collateralData', collateralData);
+      }
+      if (d.forProposed) {
+        this.totalMV += Number(d.landConsideredValue);
+        this.totalFMV += Number(d.marketValue);
+        this.totalDV += Number(d.distressValue);
+
+        this.proposedSecurity1.push({
+          owner: d.owner,
+          location: d.location,
+          locationDetail: d.locationDetail,
+          considerValue: d.landConsideredValue,
+          marketValue: d.marketValue,
+          distressValue: d.distressValue,
+          typeOfProperty: d.typeOfProperty,
+          plantAndMachinery: d.plantMachineryChecked,
+          plantMachineryData: {
+            modelNo: d.plantMachineryModel,
+            amount: ObjectUtil.isEmpty(d.plantMachineryAmount) ? 0 : d.plantMachineryAmount,
+          },
+          collateralData: {
+            zoningType: ObjectUtil.isEmpty(collateralData) ? null : collateralData.typeOfProperty,
+            accessRoad: ObjectUtil.isEmpty(collateralData) ? null : collateralData.roadAccessFrom,
+            setBack: {
+              road: ObjectUtil.isEmpty(collateralData) ? null : collateralData.roadSetbacks,
+              river: ObjectUtil.isEmpty(collateralData) ? null : collateralData.riverOrCanalSetbacks,
+              highTension: ObjectUtil.isEmpty(collateralData) ? null : collateralData.highTensionSetbacks
+            },
+            visitedBy: ObjectUtil.isEmpty(collateralData) ? null : collateralData.personContacted,
+            visitDate: ObjectUtil.isEmpty(collateralData) ? null : collateralData.date,
+            coordinate: {
+              longitude: ObjectUtil.isEmpty(collateralData) ? null : collateralData.fixedAssetsLongitude,
+              latitude: ObjectUtil.isEmpty(collateralData) ? null : collateralData.fixedAssetsLatitude,
+            }
+          },
+          valuatorName: d.landValuator,
+          valuationDate: d.landValuatorDate
+        });
+
+      }
+
+
+      if (d.forExisting) {
+        this.totalMVEx += Number(d.landConsideredValue);
+        this.totalFMVEx += Number(d.marketValue);
+        this.totalDVEx += Number(d.distressValue);
+        this.existingSecurity1.push({
+          owner: d.owner,
+          location: d.location,
+          plot: d.plotNumber,
+          area: d.areaFormat,
+          considerValue: d.landConsideredValue,
+          marketValue: d.marketValue,
+          distressValue: d.distressValue,
+        });
+
+      }
+    });
   }
 }

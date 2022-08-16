@@ -510,7 +510,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     existingAsProposed: [singleData.existingAsProposed],
                     plantMachineryChecked: [singleData.plantMachineryChecked],
                     plantMachineryModel: [singleData.plantMachineryModel],
-                    plantMachineryAmount: [singleData.plantMachineryAmount],
+                    plantMachineryMV: [singleData.plantMachineryMV],
+                    plantMachineryFMV: [singleData.plantMachineryFMV],
+                    plantMachineryDV: [singleData.plantMachineryDV],
                 })
             );
         });
@@ -664,7 +666,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     existingAsProposed: [singleData.existingAsProposed],
                     plantMachineryChecked: [singleData.plantMachineryChecked],
                     plantMachineryModel: [singleData.plantMachineryModel],
-                    plantMachineryAmount: [singleData.plantMachineryAmount],
+                    plantMachineryMV: [singleData.plantMachineryMV],
+                    plantMachineryFMV: [singleData.plantMachineryFMV],
+                    plantMachineryDV: [singleData.plantMachineryDV],
                 })
             );
             if (!ObjectUtil.isEmpty(Data)) {
@@ -711,6 +715,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     costPerSquare: [singleData.costPerSquare],
                     totalCost: [singleData.totalCost],
                     landConsideredValue: [singleData.landConsideredValue],
+                    buildingDistressValue: [singleData.buildingDistressValue],
                     typeOfProperty: [singleData.typeOfProperty],
                     buildingValuator: [singleData.buildingValuator],
                     buildingValuatorDate: [ObjectUtil.isEmpty(singleData.buildingValuatorDate) ?
@@ -773,7 +778,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     existingAsProposed: [singleData.existingAsProposed],
                     plantMachineryChecked: [singleData.plantMachineryChecked],
                     plantMachineryModel: [singleData.plantMachineryModel],
-                    plantMachineryAmount: [singleData.plantMachineryAmount],
+                    plantMachineryMV: [singleData.plantMachineryMV],
+                    plantMachineryFMV: [singleData.plantMachineryFMV],
+                    plantMachineryDV: [singleData.plantMachineryDV],
                 })
             );
         });
@@ -1352,7 +1359,9 @@ export class SecurityInitialFormComponent implements OnInit {
             existingAsProposed: [undefined],
             plantMachineryChecked: [false],
             plantMachineryModel: [undefined],
-            plantMachineryAmount: [undefined],
+            plantMachineryMV: [undefined],
+            plantMachineryFMV: [undefined],
+            plantMachineryDV: [undefined],
         });
     }
 
@@ -1383,7 +1392,9 @@ export class SecurityInitialFormComponent implements OnInit {
             existingAsProposed: [undefined],
             plantMachineryChecked: [false],
             plantMachineryModel: [undefined],
-            plantMachineryAmount: [undefined],
+            plantMachineryMV: [undefined],
+            plantMachineryFMV: [undefined],
+            plantMachineryDV: [undefined],
         });
     }
     LandBuildingDetailsFormGroup() {
@@ -1404,6 +1415,7 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingStaffRepresentativeName: [undefined],
             buildingBranch: [undefined],
             landConsideredValue: [undefined],
+            buildingDistressValue: [undefined],
             typeOfProperty: [undefined],
             ownershipTransferDate: [undefined],
             ownershipTransferThrough: [undefined],
@@ -1459,7 +1471,9 @@ export class SecurityInitialFormComponent implements OnInit {
             existingAsProposed: [undefined],
             plantMachineryChecked: [false],
             plantMachineryModel: [undefined],
-            plantMachineryAmount: [undefined],
+            plantMachineryMV: [undefined],
+            plantMachineryFMV: [undefined],
+            plantMachineryDV: [undefined],
         });
     }
 
@@ -2418,7 +2432,9 @@ export class SecurityInitialFormComponent implements OnInit {
         } else {
             this.securityForm.get([securityName, index, 'plantMachineryChecked']).patchValue(checked);
             this.securityForm.get([securityName, index, 'plantMachineryModel']).patchValue(null);
-            this.securityForm.get([securityName, index, 'plantMachineryAmount']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryMV']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryFMV']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryDV']).patchValue(null);
         }
     }
 }

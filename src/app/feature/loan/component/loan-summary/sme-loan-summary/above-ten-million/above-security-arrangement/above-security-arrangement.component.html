@@ -41,7 +41,7 @@
         <div class="row" *ngIf="proposedSecurity1?.length > 0">
             <div class="col-md-12">
                 <div *ngFor="let detail of proposedSecurity1; let i = index">
-                    <p><strong> b. Security (to be obtained)</strong></p>
+                    <p><strong> {{alphabet?.charAt(i)}}. Security (to be obtained)</strong></p>
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <tr class="sb-bg-dark text-white">
 <!--                            <th>S.N</th>-->
@@ -69,10 +69,22 @@
                                 <td>{{l?.area}} {{l?.areaFormat}}</td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="pl-1 text-white">
-                                    <b class="sb-bg-dark text-left">Land Owner Type: </b> {{detail?.typeOfProperty || 'NA'}}
-                                </td>
+                                <td colspan="4">Building</td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">land and Building</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="pl-1 text-white text-left sb-bg-dark">
+                                    <b>Ownership Type: </b>
+                                </td>
+                                <td colspan="2" class="text-left pl-1"> {{detail?.typeOfProperty || 'NA'}}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -87,7 +99,7 @@
                                     <span *ngIf="detail?.plantAndMachinery">{{detail?.plantMachineryData?.amount}}</span>
                                 </td>
                                 <td>
-                                    <span>{{calcPlantDV(detail?.plantMachineryData?.amount)}}</span>
+<!--                                    <span>{{calcPlantDV(detail?.plantMachineryData?.amount)}}</span>-->
                                 </td>
                             </tr>
                             <tr>
