@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
@@ -12,72 +12,68 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-promissory-note-company',
-  templateUrl: './promissory-note-company.component.html',
-  styleUrls: ['./promissory-note-company.component.scss']
+  selector: 'app-letter-of-continuity-company',
+  templateUrl: './letter-of-continuity-company.component.html',
+  styleUrls: ['./letter-of-continuity-company.component.scss']
 })
-export class PromissoryNoteCompanyComponent implements OnInit {
-
-  promissoryNoteCompany: FormGroup;
+export class LetterOfContinuityCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  letterOfContinuityCompany: FormGroup;
+  nepData;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService,
+  ) { }
 
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.promissoryNoteCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.letterOfContinuityCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    // this.fillForm();
   }
-
   buildForm() {
-    this.promissoryNoteCompany = this.formBuilder.group({
+    this.letterOfContinuityCompany = this.formBuilder.group({
+      branchNameNepali: [undefined],
+      actYear: [undefined],
+      registrationIssueDate: [undefined],
+      panNo: [undefined],
+      gender: [undefined],
+      vdcMunicipality: [undefined],
+      wardNum: [undefined],
+      tole: [undefined],
+      borrowerNameNepali: [undefined],
+      authGrandfatherOrFatherInLaw: [undefined],
+      sachiOne: [undefined],
+      sachiTwo: [undefined],
       year: [undefined],
       month: [undefined],
-      day: [undefined],
-      branch: [undefined],
-      ministry: [undefined],
-      actName: [undefined],
-      actDate: [undefined],
-      department: [undefined],
-      office: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      name: [undefined],
-      proprietorName: [undefined],
-      annualRate: [undefined],
-      amount: [undefined],
-      amountInWords: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      nameOfWitness: [undefined],
-      addressOfWitness: [undefined],
-      nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined],
-      date1: [undefined],
-      district: [undefined],
-      wardNo: [undefined],
-      borrowerNameInNepali: [undefined]
+      date: [undefined],
+      roj: [undefined],
     });
   }
-
-  changeToNepAmount(event: any, target, from) {
-    this.promissoryNoteCompany.get([target]).patchValue(event.nepVal);
-    this.promissoryNoteCompany.get([from]).patchValue(event.val);
-  }
-
-  patchFunction(target) {
-    const patchValue1 = this.promissoryNoteCompany.get([target]).value;
-    return patchValue1;
-  }
+  // fillForm() {
+  //    this.letterOfContinuityCompany.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
+  //    this.letterOfContinuityCompany.get('registrationIssueDate').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('panNo').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('gender').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('vdcMunicipality').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('wardNum').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('tole').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('borrowerNameNepali').patchValue(this.nepData.branchDetail.branchNameNepali);
+  //    this.letterOfContinuityCompany.get('authGrandfatherOrFatherInLaw').patchValue(this.nepData.branchDetail.branchNameNepali);
+  // }
 
   submit() {
     let flag = true;
@@ -85,13 +81,13 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.letterOfContinuityCompany.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.letterOfContinuityCompany.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -100,7 +96,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.letterOfContinuityCompany.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -108,13 +104,12 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-      console.log(this.cadData.id, 'caddata');
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
     });
   }

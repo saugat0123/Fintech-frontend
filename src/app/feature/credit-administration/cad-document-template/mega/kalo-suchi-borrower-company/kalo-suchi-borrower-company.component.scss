@@ -1,35 +1,37 @@
+.longInput {
+  width: 400px;
+}
+
+.shortInput {
+  width: 50px;
+}
+
 .nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
+  margin: 10px 50px;
 }
+
 .form-field {
   background: yellow;
   margin: 0px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
+
   &:focus {
     outline: none;
   }
-  .table-row{
-    width:32px;
-  }
-  .container-name div {
-    display: inline-block;
-    width: 500px;
-    min-height: 50px;
-    background-color: #eee;
-    height: auto;
-  }
 }
-nb-card{
-  max-height: 900px;
+
+li {
+  list-style-type: none;
 }
-.nepaliFont{
-  font-size: 24px;
-  font-family: Preeti;
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
 }
 
 @media screen {
@@ -55,21 +57,5 @@ nb-card{
     margin: 10px 70px;
   }
 
-  .disable-print {
-    display: none;
-  }
 }
 
-span {
-  line-height: 1;
-}
-
-.preetiFont {
-  font-family: Preeti;
-}
-
-.size16 {
-  font-size: 18px;
-}
-
-thead{ display:table-row-group }

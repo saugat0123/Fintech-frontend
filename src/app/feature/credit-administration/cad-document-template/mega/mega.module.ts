@@ -13,13 +13,15 @@ import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
-import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
+import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
+import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {NgxPrintModule} from 'ngx-print';
+import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
+import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
-
-
+import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 
 @NgModule({
   declarations: [LoanDeedCompanyComponent,
@@ -30,20 +32,24 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
+    KaloSuchiBorrowerCompanyComponent,
+    KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
+    LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        NbCardModule,
-        NbButtonModule,
-        NgxPrintModule,
-        MegaOfferLetterTemplateModule
-    ],
+    PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent,
+    LetterOfContinuityCompanyComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NbCardModule,
+    NbButtonModule,
+    NgxPrintModule,
+    MegaOfferLetterTemplateModule
+  ],
   exports: [
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
@@ -56,9 +62,14 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     PromissoryNoteSingleBorrowerComponent,
     TrustReceiptNepaliLimitComponent,
     LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
+    LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent
+    PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent,
+    KaloSuchiBorrowerCompanyComponent,
+    CorporateGuaranteeComponent,
+    LetterOfContinuityCompanyComponent,
+    KaloSuchiBorrowerPgCompanyComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]

@@ -70,7 +70,7 @@
                         <span class="print-only nepaliFont"><strong>{{personalGuaranteeCompany.get('date').value ? personalGuaranteeCompany.get('date').value  : '========='}}</strong></span>
                         गतेको ऋण स्विकृति पत्रानुसार स्विकृत ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा  रु
                         <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
-                              [name]="patchFunction('amountInWords')" class="disable-print"></app-custom-input>
+                              [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
                         <span class="print-only nepaliFont"><b>{{personalGuaranteeCompany.get('amount').value ? personalGuaranteeCompany.get('amount').value  : '========='}}</b></span>
                         (अक्षरेपि  <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
                                           formControlName="amountInWords"
