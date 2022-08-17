@@ -56,6 +56,8 @@ export class AlphaDetailViewComponent implements OnInit {
   siteVisitDocuments: Array<SiteVisitDocument>;
   requestedLoanType;
   loanType = LoanType;
+  updateLogData: any;
+  updateLogPresent = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -102,6 +104,11 @@ export class AlphaDetailViewComponent implements OnInit {
         this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
         this.isJointCustomer = true;
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.updateLog)) {
+      this.updateLogPresent = true;
+      const updatedLog = this.loanDataHolder.updateLog;
+      this.updateLogData = JSON.parse(updatedLog.updateLogData);
     }
   }
 

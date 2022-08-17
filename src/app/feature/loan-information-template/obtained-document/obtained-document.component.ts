@@ -29,6 +29,7 @@ export class ObtainedDocumentComponent implements OnInit {
         documents: Array<ObtainableDoc>(),
         OtherDocuments: null
     };
+    commentForUpdate: string;
     loanDataHolder: LoanDataHolder;
 
     constructor(
@@ -116,11 +117,12 @@ export class ObtainedDocumentComponent implements OnInit {
         this.obtainableDocuments.documents = this.obtainabledDocument;
         this.obtainableDocuments.OtherDocuments = this.otherDocument;
         this.loanDataHolder.data = JSON.stringify(this.obtainableDocuments);
+        this.loanDataHolder.updateLogComment = this.commentForUpdate;
         this.spinner = true;
         this.customerLoanService.save(this.loanDataHolder).subscribe(res => {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated document'));
-            this.nbgActiveModal.close();
+            this.nbgActiveModal.close('SUCCESS');
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error updating document'));
             console.error(error);
@@ -130,5 +132,9 @@ export class ObtainedDocumentComponent implements OnInit {
 
     close() {
         this.nbgActiveModal.close();
+    }
+
+    onCommentChange(event) {
+        this.commentForUpdate = event.target.value;
     }
 }

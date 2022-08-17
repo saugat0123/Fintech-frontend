@@ -1280,6 +1280,30 @@
                 <hr>
             </div>
 
+            <div class="row" *ngIf="updateLogPresent">
+                <div class="col-md-12">
+                    <p><strong>Authority Comments for Proposal Update</strong></p>
+                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <thead>
+                        <tr class="sb-bg-dark text-white">
+                            <th>S.N</th>
+                            <th>User</th>
+                            <th>Comments</th>
+                            <th>Commented At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let updateLog of updateLogData; let i=index;">
+                                <td>{{i+1}}</td>
+                                <td>{{updateLog?.user?.name}} ({{updateLog?.user.role?.roleName}})</td>
+                                <td>{{updateLog?.comment}}</td>
+                                <td>{{updateLog?.createdAt | date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div [ngClass]="clientName.ICFC === client? 'col-md-12 disable-print': 'col-md-12'">
                     <p><strong>Authority Section</strong></p>
@@ -1556,10 +1580,13 @@
                         <!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
                         <!--                    </div>-->
                     </div>
+                    <div class="form-group">
+                        <textarea class="form-control" formControlName="updateComment" id="comment" rows="3" placeholder="Reason for update"></textarea>
+                    </div>
 
                     <!-- Save Button -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
+                        <button type="submit" class="btn btn-primary" [disabled]="proposalForm?.invalid" style="cursor: pointer"><i class="fa fa-save"></i></button>
                     </div>
                 </form>
             </div>
