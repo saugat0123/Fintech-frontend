@@ -1,116 +1,177 @@
-<div class="row">
-    <div class="col-md-12">
-        <p><strong> a. Security (already obtained)</strong></p>
-        <strong *ngIf="existingSecurity1?.length > 0">Existing</strong>
-        <div class="row" *ngIf="existingSecurity1?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot #</th>
-                        <th>Area (Ropani)</th>
-                        <th>MV</th>
-                        <th>FMV</th>
-                        <th>DV</th>
+<div class="row" *ngIf="proposedSecurity1?.length > 0">
+    <div class="col-md-12 ml-3">
+        <div *ngFor="let detail of proposedSecurity1; let i = index">
+            <p>
+                <strong> {{alphabet?.charAt(i)}} {{detail?.purpose ? '. ' + detail?.securityName + ' (to be obtained)' :
+                    '. ' + detail?.securityName + ' (already obtained)'}}</strong></p>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr class="sb-bg-dark text-white">
+                    <th>Owner</th>
+                    <th>Location</th>
+                    <th>Plot #</th>
+                    <th>Area</th>
+                    <th>MV</th>
+                    <th>FMV</th>
+                    <th>DV</th>
+                </tr>
+                <ng-container>
+                    <tr>
+                        <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.owner || 'NA'}}</td>
+                        <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.location || 'NA'}}</td>
+                        <td></td>
+                        <td></td>
+                        <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.marketValue | currencyFormatter}}</td>
+                        <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.fairMarketValue | currencyFormatter}}</td>
+                        <td [attr.rowspan]="detail?.locationDetail?.length + 1">{{detail?.distressValue | currencyFormatter}}</td>
                     </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of existingSecurity1; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.owner}}</td>
-                            <td>{{detail?.location}}</td>
-                            <td>{{detail?.plot}}</td>
-                            <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue | currencyFormatter}}</td>
-                            <td>{{detail?.marketValue | currencyFormatter}}</td>
-                            <td>{{detail?.distressValue | currencyFormatter}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{(totalMVEx?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalFMVEx?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalDVEx?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                        </tr>
+                    <tr *ngFor="let l of detail?.locationDetail">
+                        <td>{{l?.plotNumber || 'NA'}}</td>
+                        <td>{{l?.area}} {{l?.areaFormat || 'NA'}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="4" class="pl-1 text-left">
+                            <b>Ownership Type: <span
+                                    class="font-weight-normal">{{detail?.typeOfProperty || 'NA'}}</span></b>
+                        </th>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="pl-1 text-left">Building</th>
+                        <th colspan="2">Building Area: <span class="font-weight-normal">{{detail?.building?.area || 'NA'}}</span></th>
+                        <td>{{(detail?.building?.marketValue | currencyFormatter) || 'NA'}}</td>
+                        <td>{{(detail?.building?.fairMarketValue | currencyFormatter) || 'NA'}}</td>
+                        <td>{{(detail?.building?.distressValue | currencyFormatter) || 'NA'}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="4" class="pl-1 text-left">land and Building</th>
+                        <td>{{(detail?.landBuilding?.marketValue | currencyFormatter) || 'NA'}}</td>
+                        <td>{{(detail?.landBuilding?.fairMarketValue | currencyFormatter) || 'NA'}}</td>
+                        <td>{{(detail?.landBuilding?.distressValue | currencyFormatter) || 'NA'}}</td>
+                    </tr>
+
+                    <tr>
+                        <th colspan="4" class="text-left pl-1">
+                            <b>Plant and Machinery </b>
+                        </th>
+                        <td>
+                            <span>{{(detail?.plantMachineryData?.amountMV | currencyFormatter) || 'NA'}}</span>
+                        </td>
+                        <td>
+                            <span>{{(detail?.plantMachineryData?.amountFMV | currencyFormatter) || 'NA'}}</span>
+                        </td>
+                        <td>
+                            <span>{{(detail?.plantMachineryData?.amountDV | currencyFormatter) || 'NA'}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">Total</td>
+                        <td class="font-weight-bold">{{(detail?.totalMV | currencyFormatter) || 'NA'}}</td>
+                        <td class="font-weight-bold">{{(detail?.totalFMV | currencyFormatter) || 'NA'}}</td>
+                        <td class="font-weight-bold">{{(detail?.totalDV | currencyFormatter) || 'NA'}}</td>
+                    </tr>
+                </ng-container>
+            </table>
+            <table class="table table-condensed table-bordered table-responsive-md text-left pl-1 table-sm sb-small">
+                <tr>
+                    <th class="tableHeight">Zoning Type</th>
+                    <td>{{detail?.collateralData?.zoningType || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">Access Road</th>
+                    <td>{{detail?.collateralData?.accessRoad || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">SetBack/Adverse</th>
+                    <td>{{detail?.collateralData?.setBack?.road || 'NA'}}/
+                        {{detail?.collateralData?.setBack?.river || 'NA'}}/
+                        {{detail?.collateralData?.setBack?.highTension || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">Google Co-ordinates</th>
+                    <td>{{detail?.collateralData?.coordinate?.longitude || 'NA'}},
+                        {{detail?.collateralData?.coordinate?.latitude || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">Latest Collateral Visited By</th>
+                    <td>{{detail?.collateralData?.visitedBy || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">Latest Collateral Visit Date</th>
+                    <td>{{detail?.collateralData?.visitDate ? (detail?.collateralData?.visitDate | date) : 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">Valuator Name</th>
+                    <td>{{detail?.valuatorName || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th class="tableHeight">Valuation Date</th>
+                    <td>{{detail?.valuationDate ? (detail?.valuationDate | date) : 'NA'}}</td>
+                </tr>
+            </table>
+            <table class="table table-condensed table-bordered table-responsive-md text-left pl-1 table-sm sb-small">
+                <tr>
+                    <th rowspan="6" class="pt-5 text-center">Type of fixed assets-wise breakdown</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>MV</th>
+                    <th>FMV</th>
+                    <th>DV</th>
+                </tr>
+                <tr>
+                    <th>Land</th>
+                    <ng-container *ngIf="((detail?.securityName === 'Land Security')
+                        || (detail?.securityName === 'Land and Building Security')); else other">
+                        <td>{{detail?.marketValue | currencyFormatter}}</td>
+                        <td>{{detail?.fairMarketValue | currencyFormatter}}</td>
+                        <td>{{detail?.distressValue | currencyFormatter}}</td>
                     </ng-container>
-                </table>
-            </div>
+                </tr>
+                <tr>
+                    <th>Building and other Construction</th>
+                    <ng-container *ngIf="detail?.securityName === 'Land and Building Security'; else building">
+                        <td>{{detail?.landBuilding?.marketValue | currencyFormatter}}</td>
+                        <td>{{detail?.landBuilding?.fairMarketValue | currencyFormatter}}</td>
+                        <td>{{detail?.landBuilding?.distressValue | currencyFormatter}}</td>
+                    </ng-container>
+                    <ng-template #building>
+                        <ng-container *ngIf="detail?.securityName === 'Building Security'; else other">
+                            <td>{{detail?.building?.marketValue | currencyFormatter}}</td>
+                            <td>{{detail?.building?.fairMarketValue | currencyFormatter}}</td>
+                            <td>{{detail?.building?.distressValue | currencyFormatter}}</td>
+                        </ng-container>
+                    </ng-template>
+                </tr>
+                <tr>
+                    <th>Plant and Machinery</th>
+                    <ng-container *ngIf="detail?.plantAndMachinery ||
+                        detail.securityName === 'Plant and Machinery Security'; else other">
+                        <td>{{detail?.plantMachineryData?.amountMV | currencyFormatter}}</td>
+                        <td>{{detail?.plantMachineryData?.amountFMV | currencyFormatter}}</td>
+                        <td>{{detail?.plantMachineryData?.amountDV | currencyFormatter}}</td>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <th>{{detail?.totalMV}}</th>
+                    <th>{{detail?.totalFMV}}</th>
+                    <th>{{detail?.totalDV}}</th>
+                </tr>
+                <ng-template #other>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </ng-template>
+            </table>
         </div>
-    </div>
-    <div class="col-md-12">
-        <p><strong> b. Security (to be obtained)</strong></p>
-        <strong *ngIf="proposedSecurity1?.length > 0">Proposed</strong>
-        <div class="row" *ngIf="proposedSecurity1?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot #</th>
-                        <th>Area (Ropani)</th>
-                        <th>MV</th>
-                        <th>FMV</th>
-                        <th>DV</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of proposedSecurity1; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.owner}}</td>
-                            <td>{{detail?.location}}</td>
-                            <td>{{detail?.plot}}</td>
-                            <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue | currencyFormatter}}</td>
-                            <td>{{detail?.marketValue | currencyFormatter}}</td>
-                            <td>{{detail?.distressValue | currencyFormatter}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{(totalMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalFMV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalDV?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <p><strong> c. Security (to be obtained)</strong></p>
-        <strong *ngIf="existingAsPropose1?.length > 0">Existing as a Proposed</strong>
-        <div class="row" *ngIf="existingAsPropose1?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot #</th>
-                        <th>Area (Ropani)</th>
-                        <th>MV</th>
-                        <th>FMV</th>
-                        <th>DV</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of existingAsPropose1; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.owner}}</td>
-                            <td>{{detail?.location}}</td>
-                            <td>{{detail?.plot}}</td>
-                            <td>{{detail?.area}}</td>
-                            <td>{{detail?.considerValue | currencyFormatter}}</td>
-                            <td>{{detail?.marketValue | currencyFormatter}}</td>
-                            <td>{{detail?.distressValue | currencyFormatter}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{(totalMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalFMVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                            <td class="font-weight-bold">{{(totalDVAsPs?.toFixed(2) || 0.0) | currencyFormatter}}</td>
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
+        <div>
+            <p>
+                <span class="table-sm sb-small">
+                    <b>Remark/Note:- </b>
+                </span>
+                <span class="table-sm sb-small text-justify pl-1 pr-1">{{formData['initialForm']['remark']}}</span>
+            </p>
         </div>
     </div>
 </div>
