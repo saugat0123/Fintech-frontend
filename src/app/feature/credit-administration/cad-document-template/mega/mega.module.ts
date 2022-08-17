@@ -19,6 +19,8 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {NgxPrintModule} from 'ngx-print';
 import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
+import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 
 @NgModule({
@@ -31,13 +33,13 @@ import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-compa
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
     KaloSuchiBorrowerCompanyComponent,
+    KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     LoanDeedMultipleComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    KaloSuchiBorrowerCompanyComponent,
     CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent],
   imports: [
@@ -45,8 +47,9 @@ import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-compa
     ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
-    NgxPrintModule
-  ],
+    NgxPrintModule,
+        MegaOfferLetterTemplateModule
+    ],
   exports: [
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
@@ -62,10 +65,12 @@ import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-compa
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent,
     KaloSuchiBorrowerCompanyComponent,
     CorporateGuaranteeComponent,
-    LetterOfContinuityCompanyComponent
-],
+    LetterOfContinuityCompanyComponent,
+    KaloSuchiBorrowerPgCompanyComponent
+  ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
 
