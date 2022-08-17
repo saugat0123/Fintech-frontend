@@ -20,6 +20,8 @@ import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/k
 import {NgxPrintModule} from 'ngx-print';
 import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
 import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
+import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 
 @NgModule({
   declarations: [LoanDeedCompanyComponent,
@@ -38,14 +40,16 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    CorporateGuaranteeComponent],
+    CorporateGuaranteeComponent,
+    LetterOfContinuityCompanyComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
-    NgxPrintModule
-  ],
+    NgxPrintModule,
+        MegaOfferLetterTemplateModule
+    ],
   exports: [
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
@@ -63,6 +67,8 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
     PromissoryNoteJointComponent,
     CorporateGuaranteeComponent,
     KaloSuchiBorrowerCompanyComponent,
+    CorporateGuaranteeComponent,
+    LetterOfContinuityCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
