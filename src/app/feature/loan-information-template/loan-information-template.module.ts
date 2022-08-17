@@ -84,6 +84,7 @@ const COMPONENTS = [
     FixAssetCollateralComponent,
     SecurityTableComponent,
     CreateDocumentComponent,
+    ObtainedDocumentComponent
 ];
 
 

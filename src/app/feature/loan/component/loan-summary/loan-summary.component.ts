@@ -15,7 +15,7 @@ import {ApprovalLimitService} from '../../../admin/component/approvallimit/appro
 import {LoanStage} from '../../model/loanStage';
 import {environment} from '../../../../../environments/environment';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
@@ -51,6 +51,7 @@ import {ObtainableDoc} from '../../../loan-information-template/obtained-documen
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProposalService} from '../../../loan-update/service/proposal.service';
 import {MinimumAmountValidator} from '../../../../@core/validator/minimum-amount-validator';
+import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
 
 @Component({
     selector: 'app-loan-summary',
@@ -72,6 +73,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     @Input() nepaliDate;
     @Input() combinedLoanId: number;
     hasMissingDeferredDocs = false;
+
+    @ViewChild('obtainedDocument', {static: false})
+    obtainedDocument: ObtainedDocumentComponent;
 
     client: string;
     clientName = Clients;
@@ -216,6 +220,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     companyInfoId: any;
     mGroupInfo: any;
     requestedLoanType;
+    cadObtainableDocuments = {
+        documents: Array<ObtainableDoc>(),
+        OtherDocuments: null
+    };
+
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -236,6 +245,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private ngbModal: NgbModal,
         private formBuilder: FormBuilder,
         private proposalService: ProposalService
     ) {
@@ -844,6 +854,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     openModel(model) {
         this.buildForm();
         this.modalService.open(model);
+    }
+
+    openDocModel() {
+        const fromSummary = true;
+        const options: NgbModalOptions = {
+            size: 'lg',
+            scrollable: true
+        };
+        const modalRef = this.ngbModal.open(ObtainedDocumentComponent, options);
+        modalRef.componentInstance.fromSummary = fromSummary;
     }
 
     get formControls() {
