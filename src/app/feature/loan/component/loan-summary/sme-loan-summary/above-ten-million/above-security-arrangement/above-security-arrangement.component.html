@@ -37,7 +37,8 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th colspan="4" class="pl-1 text-left">Building</th>
+                        <th colspan="2" class="pl-1 text-left">Building</th>
+                        <th colspan="2">Building Area: <span class="font-weight-normal">{{detail?.building?.area || 'NA'}}</span></th>
                         <td>{{(detail?.building?.marketValue | currencyFormatter) || 'NA'}}</td>
                         <td>{{(detail?.building?.fairMarketValue | currencyFormatter) || 'NA'}}</td>
                         <td>{{(detail?.building?.distressValue | currencyFormatter) || 'NA'}}</td>
@@ -87,24 +88,24 @@
                         {{detail?.collateralData?.setBack?.highTension || 'NA'}}</td>
                 </tr>
                 <tr>
-                    <th class="sb-bg-dark text-white tableHeight">Google Co-ordinates</th>
+                    <th class="tableHeight">Google Co-ordinates</th>
                     <td>{{detail?.collateralData?.coordinate?.longitude || 'NA'}},
                         {{detail?.collateralData?.coordinate?.latitude || 'NA'}}</td>
                 </tr>
                 <tr>
-                    <th class="sb-bg-dark text-white tableHeight">Latest Collateral Visited By</th>
+                    <th class="tableHeight">Latest Collateral Visited By</th>
                     <td>{{detail?.collateralData?.visitedBy || 'NA'}}</td>
                 </tr>
                 <tr>
-                    <th class="sb-bg-dark text-white tableHeight">Latest Collateral Visit Date</th>
+                    <th class="tableHeight">Latest Collateral Visit Date</th>
                     <td>{{detail?.collateralData?.visitDate ? (detail?.collateralData?.visitDate | date) : 'NA'}}</td>
                 </tr>
                 <tr>
-                    <th class="sb-bg-dark text-white tableHeight">Valuator Name</th>
+                    <th class="tableHeight">Valuator Name</th>
                     <td>{{detail?.valuatorName || 'NA'}}</td>
                 </tr>
                 <tr>
-                    <th class="sb-bg-dark text-white tableHeight">Valuation Date</th>
+                    <th class="tableHeight">Valuation Date</th>
                     <td>{{detail?.valuationDate ? (detail?.valuationDate | date) : 'NA'}}</td>
                 </tr>
             </table>
