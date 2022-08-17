@@ -19,6 +19,7 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {NgxPrintModule} from 'ngx-print';
 import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
+import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 
 @NgModule({
@@ -30,6 +31,7 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
     KaloSuchiBorrowerCompanyComponent,
+    KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     LoanDeedInstitutionPrivateLimitedComponent,
@@ -62,8 +64,9 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent,
     KaloSuchiBorrowerCompanyComponent,
-    CorporateGuaranteeComponent
+    KaloSuchiBorrowerPgCompanyComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]

@@ -23,9 +23,7 @@ import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
 import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
 import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
-import {
-    RetailLoanAgainstInsuranceComponent
-} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
+import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
 import { OfferLetterConsentComponent } from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
 import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal-offer-letter-renewals/personal-offer-letter-renewals.component';
 
