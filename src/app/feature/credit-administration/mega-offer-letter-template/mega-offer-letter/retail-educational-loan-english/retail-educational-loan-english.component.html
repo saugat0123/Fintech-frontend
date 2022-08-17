@@ -4,69 +4,65 @@
                   nbSpinnerMessage="Saving Retail Educational Loan English offer letter.....">
             <nb-card-body>
     <div class="col-md-12 viewFull" >
-        <form (ngSubmit)="submit()" [formGroup]="form" class="nep">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="nep" id="personalOfferLetterRenewalsPrint">
             <div class="row mb-2">
                 <div class="col-md-12">
-                    <b>Ref No:CFOL/CCBL/</b> <input class="yellow-form-field form-control-sm"
+                    Ref No:CFOL/CCBL/<input class="yellow-form-field form-control-sm disable-print"
                                           formControlName="referenceNo"
                                           style="width: 100px"
-                                          type="text"/>2079-80/<input class="yellow-form-field form-control-sm"
+                                          type="text"/><span class="print-only"><strong>{{form.get('referenceNo').value ? form.get('referenceNo').value  : '========='}}</strong></span>
+                    2079-80/<input class="yellow-form-field form-control-sm disable-print"
                                                                       formControlName="referenceNo1"
                                                                       style="width: 100px"
-                                                                      type="text"/>
+                                                                      type="text"/><span class="print-only"><strong>{{form.get('referenceNo1').value ? form.get('referenceNo1').value  : '========='}}</strong></span>
                 </div>
                 <div class="col-md-12">
-                    <p>Date: <input class="yellow-form-field form-control-sm"
+                    <p>Date: <input class="yellow-form-field form-control-sm disable-print"
                                     formControlName="date"
-                                    type="text"></p>
+                                    type="text"><span class="print-only"><strong>{{form.get('date').value ? form.get('date').value  : '========='}}</strong></span></p>
                 </div>
             </div>
             <br>
-            <b> Name: <input class="yellow-form-field form-control-sm"
+             Name: <input class="yellow-form-field form-control-sm disable-print"
                              formControlName="guarantor"
-                             type="text"/>
-            </b><br>
-            <b>Permanent Address: <input class="yellow-form-field form-control-sm"
+                             type="text"/><span class="print-only"><strong>{{form.get('guarantor').value ? form.get('guarantor').value  : '========='}}</strong></span>
+            <br>
+            Permanent Address: <input class="yellow-form-field form-control-sm disable-print"
                                          formControlName="gPermanentDistrict"
-                                         type="text"/>District
-            </b>
-            <b><input class="yellow-form-field form-control-sm"
+                                         type="text"/><span class="print-only"><strong>{{form.get('gPermanentDistrict').value ? form.get('gPermanentDistrict').value  : '========='}}</strong></span>
+            District
+            <input class="yellow-form-field form-control-sm disable-print"
                       formControlName="gPermanentVdc"
-                      type="text"/>V.D.C
-            </b>
-            <b>Ward no: <input class="yellow-form-field form-control-sm"
-                               formControlName="gPermanentWardNo"
-                               type="text"/></b>
-            <br>
-            <b>
-                Current Address: <input class="yellow-form-field form-control-sm"
-                                        formControlName="gCurrentDistrict"
-                                        type="text"/>District
-            </b>
-            <b><input class="yellow-form-field form-control-sm"
-                      formControlName="gCurrentMunicipality"
-                      type="text"/>Municipality
-            </b>
-            <b>Ward no: <input class="yellow-form-field form-control-sm"
-                               formControlName="gCurrentWardNo"
-                               type="text"/>
-            </b>
-            <br>
-            <b>
-                Contact No: <input class="yellow-form-field form-control-sm"
-                                   formControlName="gContactNo"
-                                   type="text"/>
-                <br>
-                <b>
-                    Email ID: <input class="yellow-form-field form-control-sm"
-                                       formControlName="gEmailId"
-                                       type="text"/>
+                      type="text"/><span class="print-only"><strong>{{form.get('gPermanentVdc').value ? form.get('gPermanentVdc').value  : '========='}}</strong></span>
+            V.D.C
 
-                </b>
-            </b><br><br><br>
+            Ward no: <input class="yellow-form-field form-control-sm disable-print"
+                               formControlName="gPermanentWardNo"
+                               type="text"/><span class="print-only"><strong>{{form.get('gPermanentWardNo').value ? form.get('gPermanentWardNo').value  : '========='}}</strong></span>
+            <br>
+                Current Address: <input class="yellow-form-field form-control-sm disable-print"
+                                        formControlName="gCurrentDistrict"
+                                        type="text"/><span class="print-only"><strong>{{form.get('gCurrentDistrict').value ? form.get('gCurrentDistrict').value  : '========='}}</strong></span>
+            District
+            <input class="yellow-form-field form-control-sm disable-print"
+                      formControlName="gCurrentMunicipality"
+                      type="text"/><span class="print-only"><strong>{{form.get('gCurrentMunicipality').value ? form.get('gCurrentMunicipality').value  : '========='}}</strong></span>
+            Municipality
+            Ward no: <input class="yellow-form-field form-control-sm disable-print"
+                               formControlName="gCurrentWardNo"
+                               type="text"/><span class="print-only"><strong>{{form.get('gCurrentWardNo').value ? form.get('gCurrentWardNo').value  : '========='}}</strong></span>
+            <br>
+                Contact No: <input class="yellow-form-field form-control-sm disable-print"
+                                   formControlName="gContactNo"
+                                   type="text"/><span class="print-only"><strong>{{form.get('gContactNo').value ? form.get('gContactNo').value  : '========='}}</strong></span>
+                <br>
+                    Email ID: <input class="yellow-form-field form-control-sm disable-print"
+                                       formControlName="gEmailId"
+                                       type="text"/><span class="print-only"><strong>{{form.get('gEmailId').value ? form.get('gEmailId').value  : '========='}}</strong></span>
+            <br><br><br>
             <b>Re.: Credit Facilities Offer Letter</b>
-            <p class="mb-2">Dear Mr.<input class="yellow-form-field form-control-sm"
-            formControlName="aName" type="text"/></p><br>
+            <p class="mb-2">Dear Mr.<input class="yellow-form-field form-control-sm disable-print"
+            formControlName="aName" type="text"/><span class="print-only"><strong>{{form.get('aName').value ? form.get('aName').value  : '========='}}</strong></span></p><br>
             We, Century Commercial Bank Limited (“the Bank”) are pleased to advise you (“the Borrowers”)
             under mentioned facilities (“the Facility”) on the terms and conditions stated herein below:
             <br>
@@ -78,54 +74,60 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong>1.1 Facility</strong></td>
+                    <td class="align-text-top"><strong>1.1 Facility</strong></td>
                     <td><b>Education Loan</b></td>
                 </tr>
                 <tr>
-                    <td><strong>1.2 Limit</strong></td>
-                    <td>A Maximun of <b>NPR</b><input class="yellow-form-field form-control-sm"
+                    <td class="align-text-top"><strong>1.2 Limit</strong></td>
+                    <td>A Maximun of <b>NPR</b><input class="yellow-form-field form-control-sm disable-print"
                                                   formControlName="fdRs"
-                                                  type="text"/>(Nepalese Rupees<input class="yellow-form-field form-control-sm"
+                                                  type="text"/><span class="print-only"><strong>{{form.get('fdRs').value ? form.get('fdRs').value  : '========='}}</strong></span>
+                        (Nepalese Rupees<input class="yellow-form-field form-control-sm disable-print"
                                                                                        formControlName="fdRsInWord"
-                                                                                       type="text"/> only).<br>
+                                                                                       type="text"/><span class="print-only"><strong>{{form.get('fdRsInWord').value ? form.get('fdRsInWord').value  : '========='}}</strong></span>
+                        only).<br>
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>1.3 Purpose</strong></td>
+                    <td class="align-text-top"><strong>1.3 Purpose</strong></td>
                     <td>To meet tuition fees, living expenses, overseas student health insurance of Miss/Mr.
-                        <input class="yellow-form-field form-control-sm"
+                        <input class="yellow-form-field form-control-sm disable-print"
                                 formControlName="doaName"
-                                type="text"/>(Daughter of Applicant) to study<input class="yellow-form-field form-control-sm"
-                                                                                    formControlName="course"
-                                                                                    type="text"/>
+                                type="text"/><span class="print-only"><strong>{{form.get('doaName').value ? form.get('doaName').value  : '========='}}</strong></span>
+                        (Daughter of Applicant) to study<input class="yellow-form-field form-control-sm disable-print"
+                                                               formControlName="course"
+                                                               type="text"/><span class="print-only"><strong>{{form.get('course').value ? form.get('course').value  : '========='}}</strong></span>
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>1.4 Disbursement</strong></td>
+                    <td class="align-text-top"><strong>1.4 Disbursement</strong></td>
                     <td>Disbursement shall be done upon completion of legal documentations & bank’s procedure.
                         Disbursement on phase-wise basis shall be allowed.</td>
                 </tr>
                 <tr>
-                    <td><strong>1.5 Tenure</strong></td>
-                    <td><input class="yellow-form-field form-control-sm"
+                    <td class="align-text-top"><strong>1.5 Tenure</strong></td>
+                    <td><input class="yellow-form-field form-control-sm disable-print"
                                formControlName="fdDate"
-                               type="text"/>Year from the date of drawdown..</td>
+                               type="text"/><span class="print-only"><strong>{{form.get('fdDate').value ? form.get('fdDate').value  : '========='}}</strong></span>
+                        Year from the date of drawdown..</td>
                 </tr>
                 <tr>
-                    <td><strong>1.6 Repayment</strong></td>
-                    <td>In<input class="yellow-form-field form-control-sm"
+                    <td class="align-text-top"><strong>1.6 Repayment</strong></td>
+                    <td>In<input class="yellow-form-field form-control-sm disable-print"
                                formControlName="fdEmi"
-                               type="text"/>EMIs. Client has to serve monthly interest only on the 10th day
-                                            of each month as per Gregorian calendar.
+                               type="text"/><span class="print-only"><strong>{{form.get('fdEmi').value ? form.get('fdEmi').value  : '========='}}</strong></span>
+                        EMIs. Client has to serve monthly interest only on the 10th day of each month as per Gregorian calendar.
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>1.7 Interest</strong></td>
-                    <td>Interest will be charged on EMI basis at the rate of <input class="yellow-form-field form-control-sm"
+                    <td class="align-text-top"><strong>1.7 Interest</strong></td>
+                    <td>Interest will be charged on EMI basis at the rate of <input class="yellow-form-field form-control-sm disable-print"
                                formControlName="fdPercentage"
-                               type="text"/>%(BR+<input class="yellow-form-field form-control-sm"
+                               type="text"/><span class="print-only"><strong>{{form.get('fdPercentage').value ? form.get('fdPercentage').value  : '========='}}</strong></span>
+                        %(BR+<input class="yellow-form-field form-control-sm disable-print"
                                                        formControlName="fdBrPercentage"
-                                                       type="text"/>.%) per annum or as specified by the Bank/Nepal
+                                                       type="text"/><span class="print-only"><strong>{{form.get('fdBrPercentage').value ? form.get('fdBrPercentage').value  : '========='}}</strong></span>
+                        .%) per annum or as specified by the Bank/Nepal
                                             Rastra Bank from time to time. Interest will be charged on the 10th day
                                             of each month as per Gregorian calendar and at the time of final repayment.
                     </td>
@@ -141,9 +143,10 @@
                 <tbody>
                 <tr>
                     <td><strong>2.1 Processing Fee</strong></td>
-                    <td><input class="yellow-form-field form-control-sm"
+                    <td><input class="yellow-form-field form-control-sm disable-print"
                                   formControlName="fcPercentage"
-                                  type="text"/>.% of the loan amount shall be charged upfront.</td>
+                                  type="text"/><span class="print-only"><strong>{{form.get('fcPercentage').value ? form.get('fcPercentage').value  : '========='}}</strong></span>
+                        % of the loan amount shall be charged upfront.</td>
                 </tr>
                 <tr>
                     <td><strong>2.2 CIC Charge</strong></td>
@@ -173,57 +176,69 @@
             <table>
                 <tbody>
                 <tr>
-                    <td><strong>3.1</strong></td>
-                    <td>Registered mortgage over land owned by Mr.<input class="yellow-form-field form-control-sm"
+                    <td class="align-text-top"><strong>3.1</strong></td>
+                    <td>Registered mortgage over land owned by Mr.<input class="yellow-form-field form-control-sm disable-print"
                                   formControlName="foaName"
-                                  type="text"/>(Father of Applicant), located at<input class="yellow-form-field form-control-sm"
+                                  type="text"/><span class="print-only"><strong>{{form.get('foaName').value ? form.get('foaName').value  : '========='}}</strong></span>
+                        (Father of Applicant), located at<input class="yellow-form-field form-control-sm disable-print"
                                                                                        formControlName="sDistrict"
-                                                                                       type="text"/>District,
-                        <input class="yellow-form-field form-control-sm"
+                                                                                       type="text"/><span class="print-only"><strong>{{form.get('sDistrict').value ? form.get('sDistrict').value  : '========='}}</strong></span>
+                        District,
+                        <input class="yellow-form-field form-control-sm disable-print"
                                formControlName="sVdc"
-                               type="text"/>V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                               type="text"/><span class="print-only"><strong>{{form.get('sVdc').value ? form.get('sVdc').value  : '========='}}</strong></span>
+                        V.D.C, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                                                   formControlName="sWardNo"
-                                                                  type="text"/>having Plot No.
-                        <input class="yellow-form-field form-control-sm"
+                                                                  type="text"/><span class="print-only"><strong>{{form.get('sWardNo').value ? form.get('sWardNo').value  : '========='}}</strong></span>
+                        having Plot No.
+                        <input class="yellow-form-field form-control-sm disable-print"
                                formControlName="sPlotNo"
-                               type="text"/>with land area of<input class="yellow-form-field form-control-sm"
+                               type="text"/><span class="print-only"><strong>{{form.get('sPlotNo').value ? form.get('sPlotNo').value  : '========='}}</strong></span>
+                        with land area of<input class="yellow-form-field form-control-sm disable-print"
                                                                     formControlName="sArea"
-                                                                    type="text"/>(R-A-P-D).The Fair market value of the proposed collateral has been certified NPR
-                        <input class="yellow-form-field form-control-sm"
+                                                                    type="text"/><span class="print-only"><strong>{{form.get('sArea').value ? form.get('sArea').value  : '========='}}</strong></span>
+                        (R-A-P-D).The Fair market value of the proposed collateral has been certified NPR
+                        <input class="yellow-form-field form-control-sm disable-print"
                                formControlName="sFmvNpr"
-                               type="text"/>Nepalese Rupees<input class="yellow-form-field form-control-sm"
+                               type="text"/><span class="print-only"><strong>{{form.get('sFmvNpr').value ? form.get('sFmvNpr').value  : '========='}}</strong></span>
+                        Nepalese Rupees<input class="yellow-form-field form-control-sm disable-print"
                                                                   formControlName="sFmvNprInWord"
-                                                                  type="text"/>only) by bank’s authorized valuator, M/s
-                        <input class="yellow-form-field form-control-sm"
+                                                                  type="text"/><span class="print-only"><strong>{{form.get('sFmvNprInWord').value ? form.get('sFmvNprInWord').value  : '========='}}</strong></span>
+                        only) by bank’s authorized valuator, M/s
+                        <input class="yellow-form-field form-control-sm disable-print"
                                formControlName="sValuatorName"
-                               type="text"/>(P) Ltd.
+                               type="text"/><span class="print-only"><strong>{{form.get('sValuatorName').value ? form.get('sValuatorName').value  : '========='}}</strong></span>
+                        (P) Ltd.
                     </td>
                 </tr>
                 <tr>
-                    <td><strong>3.2</strong></td>
-                    <td>Personal Guarantee of Mr.<input class="yellow-form-field form-control-sm"
+                    <td class="align-text-top"><strong>3.2</strong></td>
+                    <td>Personal Guarantee of Mr.<input class="yellow-form-field form-control-sm disable-print"
                                                         formControlName="aName"
-                                                        type="text"/>(Applicant), Mr.
-                        <input class="yellow-form-field form-control-sm"
+                                                        type="text"/><span class="print-only"><strong>{{form.get('aName').value ? form.get('aName').value  : '========='}}</strong></span>
+                        (Applicant), Mr.
+                        <input class="yellow-form-field form-control-sm disable-print"
                                formControlName="foaName"
-                               type="text"/> Father of Applicant), and Miss<input class="yellow-form-field form-control-sm"
+                               type="text"/> <span class="print-only"><strong>{{form.get('foaName').value ? form.get('foaName').value  : '========='}}</strong></span>
+                        Father of Applicant), and Miss<input class="yellow-form-field form-control-sm disable-print"
                                                                                   formControlName="doaName"
-                                                                                  type="text"/>(Daughter of Applicant) for full coverage. </td>
+                                                                                  type="text"/><span class="print-only"><strong>{{form.get('doaName').value ? form.get('doaName').value  : '========='}}</strong></span>
+                        (Daughter of Applicant) for full coverage. </td>
                 </tr>
                 <tr>
-                    <td><strong>3.3</strong></td>
+                    <td class="align-text-top"><strong>3.3</strong></td>
                     <td>Promissory note, Debit Authority </td>
                 </tr>
                 <tr>
-                    <td><strong>3.4</strong></td>
+                    <td class="align-text-top"><strong>3.4</strong></td>
                     <td>Loan- Deed for the full exposure.</td>
                 </tr>
                 <tr>
-                    <td><strong>3.5</strong></td>
+                    <td class="align-text-top"><strong>3.5</strong></td>
                     <td>Letter of Continuity</td>
                 </tr>
                 <tr>
-                    <td><strong>3.6</strong></td>
+                    <td class="align-text-top"><strong>3.6</strong></td>
                     <td>The Borrowers  agree that any assets that the Borrowers have placed as security to the
                         Bank to secure any other credit facilities availed by the Borrower or entities promoted/owned by
                         the Borrower or a related party of the Borrower as per NRB directives on grouping of entities under
@@ -259,16 +274,16 @@
                 </thead>
                 <tbody>
             <td>
-                The facility will be terminated on <input class="yellow-form-field form-control-sm"
+                The facility will be terminated on <input class="yellow-form-field form-control-sm disable-print"
                                                           formControlName="reviewYears"
-                                                          type="text"/>.Years from the date of drawdown. Hence, review date is not applicable.
+                                                          type="text"/><span class="print-only"><strong>{{form.get('reviewYears').value ? form.get('reviewYears').value  : '========='}}</strong></span>.Years from the date of drawdown. Hence, review date is not applicable.
             </td>
                 </tbody>
 
             </table>
             <table>
                 <thead>
-                <tr>`
+                <tr>
                     <th style="width: 20%"><h4 class="text-left">6 <u>INSPECTION</u></h4></th>
                 </tr>
                 </thead>
@@ -292,48 +307,48 @@
             <table>
                 <tbody>
                 <tr>
-                <td><strong>7.1</strong></td>
+                <td class="align-text-top"><strong>7.1</strong></td>
                 <td>Comply at all times with the prevalent laws as may be amended from time to time.</td>
                 </tr>
                 <tr>
-                <td><strong>7.2</strong></td>
+                <td class="align-text-top"><strong>7.2</strong></td>
                 <td>Not to avail any additional finance from other lending institutions without first obtaining
                     written approval from the Bank.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.3</strong></td>
+                    <td class="align-text-top"><strong>7.3</strong></td>
                     <td>Not utilize the facilities hereby agreed to be granted or any portion thereof for any
                         purpose other than for the purposes as outlined against individual facilities above.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.4</strong></td>
+                    <td class="align-text-top"><strong>7.4</strong></td>
                     <td>Offer all of the Borrower’s other banking business in the first instance to the Bank.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.5</strong></td>
+                    <td class="align-text-top"><strong>7.5</strong></td>
                     <td>Not allow change of ownership or control of the Borrowers or its affairs without the Bank’s prior consent.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.6</strong></td>
+                    <td class="align-text-top"><strong>7.6</strong></td>
                     <td>Not make any material change in the nature of the Borrower’s business or undertake 	any diversification of
                         the Borrower’s trading or manufacturing activities, as carried on at the date hereof without the bank’s prior consent</td>
                 </tr>
                 <tr>
-                    <td><strong>7.7</strong></td>
+                    <td class="align-text-top"><strong>7.7</strong></td>
                     <td>Maintain and safeguard the legal existence of the business and not be involved in any
                         action which may deprive its power of doing business.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.8</strong></td>
+                    <td class="align-text-top"><strong>7.8</strong></td>
                     <td>Not mortgage or pledge any of the Borrower’s assets to any other Bank, financial
                         institution or lender without the Bank’s prior consent.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.9</strong></td>
+                    <td class="align-text-top"><strong>7.9</strong></td>
                     <td>Maintain and keep in good condition the property(ies)/assets pledged to the Bank.</td>
                 </tr>
                 <tr>
-                    <td><strong>7.10</strong></td>
+                    <td class="align-text-top"><strong>7.10</strong></td>
                     <td>Take all precautions to preserve the Borrower’s/Bank’s rights in case of any dispute
                         arisen on the property pledged to the Bank. </td>
                 </tr>
@@ -352,11 +367,11 @@
             <table>
                 <tbody>
                 <tr>
-                    <td><strong>8.1</strong></td>
+                    <td class="align-text-top"><strong>8.1</strong></td>
                     <td>All expenditures which are incidental to the availing of the facilities shall be paid by the Borrowers.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.2</strong></td>
+                    <td class="align-text-top"><strong>8.2</strong></td>
                     <td>8.2	The Bank may debit or credit any of the Borrowers accounts, if necessary to keep credit
                         facility account in order. To this effect, the Borrowers shall maintain sufficient funds in the account.
                         If the accounts does not have sufficient funds, the balance still due under the defaulted amount
@@ -364,44 +379,45 @@
                         of guarantee, the guarantee amount shall be debited from the Borrowers account.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.3</strong></td>
+                    <td class="align-text-top"><strong>8.3</strong></td>
                     <td>The Borrowers shall promptly pay and discharge all taxes, fees, levy etc and all labour
                         claims except those that may be contested in good faith.8.4</td>
                 </tr>
                 <tr>
-                    <td><strong>8.4</strong></td>
+                    <td class="align-text-top"><strong>8.4</strong></td>
                     <td>The Borrowers and  / or Guarantor is/ are prohibited from holding 1% or more shares of 	Century
                         Commercial bank Limited, and undertakes to the Bank that it does not so hold 1% or more shares of the Bank.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.5</strong></td>
+                    <td class="align-text-top"><strong>8.5</strong></td>
                     <td>The Borrowers shall agree that the Bank may recommend credit information bureau and/or
                         any other competent authority to initiate any action against the borrowers or all concerned as
                         provisioned in Nepal Rastra Bank directives and/or prevailing laws of land.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.6</strong></td>
+                    <td class="align-text-top"><strong>8.6</strong></td>
                     <td>The Borrowers hereby indemnifies and shall hold harmless the Bank against any loss or
                         damage due to the Borrower’s non-compliance with any of the terms and conditions of this agreement.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.7</strong></td>
+                    <td class="align-text-top"><strong>8.7</strong></td>
                     <td>The Borrowers hereby confirm that this agreement has been read or explained in 	its/his/her own
                         language and have fully understood and executed this Agreement of its/his/her own free will and consent.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.8</strong></td>
+                    <td class="align-text-top"><strong>8.8</strong></td>
                     <td>The Borrowers shall take all precautions to preserve the Borrower’s/Bank’s rights in case
                         of any dispute arisen on the property pledged to the Bank.</td>
                 </tr>
                 <tr>
-                    <td><strong>8.9</strong></td>
+                    <td class="align-text-top"><strong>8.9</strong></td>
                     <td>8.9	The Bank may debit or credit or lien account of Borrowers
-                        (Account no: <input class="yellow-form-field form-control-sm"
+                        (Account no: <input class="yellow-form-field form-control-sm disable-print"
                                             formControlName="scAccountNo"
-                                            type="text"/>and <input class="yellow-form-field form-control-sm"
+                                            type="text"/><span class="print-only"><strong>{{form.get('scAccountNo').value ? form.get('scAccountNo').value  : '========='}}</strong></span>
+                        and <input class="yellow-form-field form-control-sm disable-print"
                                                                     formControlName="scAccountNo1"
-                                                                    type="text"/>.) if necessary to keep Borrowers credit
+                                                                    type="text"/><span class="print-only"><strong>{{form.get('scAccountNo1').value ? form.get('scAccountNo1').value  : '========='}}</strong></span>.) if necessary to keep Borrowers credit
                         facility account in order. In this process if Borrowers account is overdrawn, penal interest will
                         be charged on the excess amount unit overdrawn balance is settled.</td>
                 </tr>
@@ -418,53 +434,53 @@
             <table>
                 <tbody>
                 <tr>
-                    <td class="vertical-align: top"><strong>9.1</strong></td>
+                    <td class="align-text-top"><strong>9.1</strong></td>
                     <td>Any statement, representation or warranty made in this agreement or any correspondence
                         or application for the loan, or on any financial statements, projections or data furnished by
                         the Borrowers in connection with its application for the loan, proving to be untrue, false or
                         misleading in any material respect.</td>
                 </tr>
                 <tr>
-                    <td><strong>9.2</strong></td>
+                    <td class="align-text-top"><strong>9.2</strong></td>
                     <td>Any material facts or information pertaining to the Borrower’s corporate status, legal
                         existence or entity or to the Borrower’s financial condition, commitment or obligations or
                         expansion programme(s) or capital expenditures of the Borrowers, not being specifically
                         made known to the Bank or being suppressed from the knowledge of the Bank.</td>
                 </tr>
                 <tr>
-                    <td><strong>9.3</strong></td>
+                    <td class="align-text-top"><strong>9.3</strong></td>
                     <td>If the Borrowers shall default in the payment of any installments of principal or of interest
                         as and when the same shall become due.</td>
                 </tr>
                 <tr>
-                    <td><strong>9.4</strong></td>
+                    <td class="align-text-top"><strong>9.4</strong></td>
                     <td>If the Borrowers shall default in the observance and performance of any covenants and / or conditions.</td>
                 </tr>
                 <tr>
-                    <td><strong>9.5</strong></td>
+                    <td class="align-text-top"><strong>9.5</strong></td>
                     <td>If an extra-ordinary situation shall arise which in the opinion of the Bank, shall make it
                         improbable that the Borrowers will be able to perform its obligations under this agreement and
                         in this respect the opinion of the Bank shall be conclusive, final and binding on the Borrowers.</td>
                 </tr>
                 <tr>
-                    <td><strong>9.6</strong></td>
+                    <td class="align-text-top"><strong>9.6</strong></td>
                     <td>If distress or execution is levied or issued by an order of any legal authority against any
                         part of the Borrower’s assets(s) / property (ies).</td>
                 </tr>
                 <tr>
-                    <td><strong>9.7</strong></td>
+                    <td class="align-text-top"><strong>9.7</strong></td>
                     <td>If the Borrowers ceases to carry on business or makes significant change(s) in the nature of
                         operation of the business.</td>
                 </tr>
                 <tr>
-                    <td><strong>9.8</strong></td>
+                    <td class="align-text-top"><strong>9.8</strong></td>
                     <td>If the Borrower shall take or permit to be taken any proceedings whereby the asset(s)/property
                         (ies) hereby agreed to be charged or any part thereof shall or may be assigned to a
                         receiver/liquidator if a receiver/liquidator shall be appointed by the 	Borrowers or by any
                         legal authority.  </td>
                 </tr>
                 <tr>
-                    <td><strong>9.9</strong></td>
+                    <td class="align-text-top"><strong>9.9</strong></td>
                     <td>If all or any substantial part of the Borrower's assets or business shall be condemned
                         seized or appropriated or any action be taken by any government or other legal authority
                         or other party or any persons, establishment or institution for the Borrower's winding up
@@ -570,31 +586,33 @@
                     <dd>Tel : 01- 4390612/13</dd>
                     <dd>Fax :  01-4441422</dd>
                     <dt>Borrower :</dt>
-                    <dd> Mr.<input class="yellow-form-field form-control-sm"
+                    <dd> Mr.<input class="yellow-form-field form-control-sm disable-print"
                                   formControlName="borrowerName"
-                                  type="text"/></dd>
-                    <dd> Permanent Address:<input class="yellow-form-field form-control-sm"
+                                  type="text"/><span class="print-only"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span></dd>
+                    <dd> Permanent Address:<input class="yellow-form-field form-control-sm disable-print"
                                                  formControlName="borrowerPermanentDistrict"
-                                                 type="text"/>District,<input class="yellow-form-field form-control-sm"
-                                                                              formControlName="borrowerPermanentVdc"
-                                                                              type="text"/>
-                        V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                                 type="text"/><span class="print-only"><strong>{{form.get('borrowerPermanentDistrict').value ? form.get('borrowerPermanentDistrict').value  : '========='}}</strong></span>
+                        District,<input class="yellow-form-field form-control-sm disable-print"
+                                        formControlName="borrowerPermanentVdc"
+                                        type="text"/><span class="print-only"><strong>{{form.get('borrowerPermanentVdc').value ? form.get('borrowerPermanentVdc').value  : '========='}}</strong></span>
+                        V.D.C, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                                      formControlName="borrowerPermanentWardNo"
-                                                     type="text"/>.</dd>
-                    <dd> Current Address:<input class="yellow-form-field form-control-sm"
+                                                     type="text"/>.<span class="print-only"><strong>{{form.get('borrowerPermanentWardNo').value ? form.get('borrowerPermanentWardNo').value  : '========='}}</strong></span></dd>
+                    <dd> Current Address:<input class="yellow-form-field form-control-sm disable-print"
                                                  formControlName="borrowerCurrentDistrict"
-                                                 type="text"/>District,<input class="yellow-form-field form-control-sm"
-                                                                              formControlName="borrowerCurrentMunicipality"
-                                                                              type="text"/>
-                        Municipality, Ward no.<input class="yellow-form-field form-control-sm"
+                                                 type="text"/><span class="print-only"><strong>{{form.get('borrowerCurrentDistrict').value ? form.get('borrowerCurrentDistrict').value  : '========='}}</strong></span>
+                        District,<input class="yellow-form-field form-control-sm disable-print"
+                                        formControlName="borrowerCurrentMunicipality"
+                                        type="text"/><span class="print-only"><strong>{{form.get('borrowerCurrentMunicipality').value ? form.get('borrowerCurrentMunicipality').value  : '========='}}</strong></span>
+                        Municipality, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                                      formControlName="borrowerCurrentWardNo"
-                                                     type="text"/>.</dd>
-                    <dd> Contact no:<input class="yellow-form-field form-control-sm"
+                                                     type="text"/>.<span class="print-only"><strong>{{form.get('borrowerCurrentWardNo').value ? form.get('borrowerCurrentWardNo').value  : '========='}}</strong></span></dd>
+                    <dd> Contact no:<input class="yellow-form-field form-control-sm disable-print"
                                           formControlName="borrowerContactNo"
-                                          type="text"/></dd>
-                    <dd> Email Id:<input class="yellow-form-field form-control-sm"
+                                          type="text"/><span class="print-only"><strong>{{form.get('borrowerContactNo').value ? form.get('borrowerContactNo').value  : '========='}}</strong></span></dd>
+                    <dd> Email Id:<input class="yellow-form-field form-control-sm disable-print"
                                         formControlName="borrowerEmailId"
-                                        type="text"/> </dd>
+                                        type="text"/> <span class="print-only"><strong>{{form.get('borrowerEmailId').value ? form.get('borrowerEmailId').value  : '========='}}</strong></span></dd>
                 </dl>
             </div>
             <br>
@@ -625,34 +643,37 @@
             <div>
                 <p class="text-center">-----------------------------</p>
             </div><br>
-            Mr.<input class="yellow-form-field form-control-sm"
+            Mr.<input class="yellow-form-field form-control-sm disable-print"
                       formControlName="ccbName"
-                      type="text"/><br>
-            Permanent Address:<input class="yellow-form-field form-control-sm"
+                      type="text"/><br><span class="print-only"><strong>{{form.get('ccbName').value ? form.get('ccbName').value  : '========='}}</strong></span>
+            Permanent Address:<input class="yellow-form-field form-control-sm disable-print"
                                      formControlName="ccbPermanentDistrict"
-                                     type="text"/>District,<input class="yellow-form-field form-control-sm"
-                                                                  formControlName="ccbPermanentVdc"
-                                                                  type="text"/><br>
-            V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                     type="text"/><span class="print-only"><strong>{{form.get('ccbPermanentDistrict').value ? form.get('ccbPermanentDistrict').value  : '========='}}</strong></span>
+            District,<input class="yellow-form-field form-control-sm disable-print"
+                            formControlName="ccbPermanentVdc"
+                            type="text"/><span class="print-only"><strong>{{form.get('ccbPermanentVdc').value ? form.get('ccbPermanentVdc').value  : '========='}}</strong></span><br>
+            V.D.C, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                          formControlName="ccbPermanentWardNo"
-                                         type="text"/>.<br>
-            Current Address:<input class="yellow-form-field form-control-sm"
+                                         type="text"/>.<span class="print-only"><strong>{{form.get('ccbPermanentWardNo').value ? form.get('ccbPermanentWardNo').value  : '========='}}</strong></span><br>
+            Current Address:<input class="yellow-form-field form-control-sm disable-print"
                                    formControlName="ccbCurrentDistrict"
-                                   type="text"/>District,<input class="yellow-form-field form-control-sm"
-                                                                formControlName="ccbCurrentMunicipality"
-                                                                type="text"/><br>
-            Municipality, Ward no.<input class="yellow-form-field form-control-sm"
+                                   type="text"/>
+            <span class="print-only"><strong>{{form.get('ccbCurrentDistrict').value ? form.get('ccbCurrentDistrict').value  : '========='}}</strong></span>
+            District,<input class="yellow-form-field form-control-sm disable-print"
+                            formControlName="ccbCurrentMunicipality"
+                            type="text"/><span class="print-only"><strong>{{form.get('ccbCurrentMunicipality').value ? form.get('ccbCurrentMunicipality').value  : '========='}}</strong></span><br>
+            Municipality, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                          formControlName="ccbCurrentWardNo"
-                                         type="text"/>.<br>
-            Contact no:<input class="yellow-form-field form-control-sm"
+                                         type="text"/>.<span class="print-only"><strong>{{form.get('ccbCurrentWardNo').value ? form.get('ccbCurrentWardNo').value  : '========='}}</strong></span><br>
+            Contact no:<input class="yellow-form-field form-control-sm disable-print"
                               formControlName="ccbContactNo"
-                              type="text"/><br>
-            Email Id:<input class="yellow-form-field form-control-sm"
+                              type="text"/><span class="print-only"><strong>{{form.get('ccbContactNo').value ? form.get('ccbContactNo').value  : '========='}}</strong></span><br>
+            Email Id:<input class="yellow-form-field form-control-sm disable-print"
                             formControlName="ccbEmailId"
-                            type="text"/><br>
-            Date: <input class="yellow-form-field form-control-sm"
+                            type="text"/><span class="print-only"><strong>{{form.get('ccbEmailId').value ? form.get('ccbEmailId').value  : '========='}}</strong></span><br>
+            Date: <input class="yellow-form-field form-control-sm disable-print"
                          formControlName="date1"
-                         type="text">
+                         type="text"><span class="print-only"><strong>{{form.get('date1').value ? form.get('date1').value  : '========='}}</strong></span>
             <br><br><br>
             <dl>
                 <dd>Century Commercial Bank Limited</dd>
@@ -662,50 +683,54 @@
             <br>
             Dear Sir/Madam,
             <br>
-            I/We acknowledge receipt of your Credit Facilities Offer Letter dated <input class="yellow-form-field form-control-sm"
+            I/We acknowledge receipt of your Credit Facilities Offer Letter dated <input class="yellow-form-field form-control-sm disable-print"
                                                       formControlName="date2"
-                                                      type="text"/>Ref No:CFOL/CCBL/
-            <input class="yellow-form-field form-control-sm"
+                                                      type="text"/><span class="print-only"><strong>{{form.get('date2').value ? form.get('date2').value  : '========='}}</strong></span>
+            Ref No:CFOL/CCBL/
+            <input class="yellow-form-field form-control-sm disable-print"
                    formControlName="referenceNo"
                    style="width: 100px"
-                   type="text"/>/2079-80/<input class="yellow-form-field form-control-sm"
+                   type="text"/>/2079-80/<input class="yellow-form-field form-control-sm disable-print"
                                                 formControlName="referenceNo1"
                                                 style="width: 100px"
-                                                type="text"/>of which the attached is a true copy and I/we hereby confirm my/our agreement to the terms and conditions set out therein.
+                                                type="text"/><span class="print-only"><strong>{{form.get('referenceNo1').value ? form.get('referenceNo1').value  : '========='}}</strong></span>
+            of which the attached is a true copy and I/we hereby confirm my/our agreement to the terms and conditions set out therein.
             <br>
             Yours faithfully,<br><br>
             <div>
                 <p class="text-center">-----------------------------</p>
             </div><br>
 
-            Mr.<input class="yellow-form-field form-control-sm"
+            Mr.<input class="yellow-form-field form-control-sm disable-print"
                       formControlName="name1"
-                      type="text"/><br>
-            Permanent Address:<input class="yellow-form-field form-control-sm"
+                      type="text"/><span class="print-only"><strong>{{form.get('name1').value ? form.get('name1').value  : '========='}}</strong></span><br>
+            Permanent Address:<input class="yellow-form-field form-control-sm disable-print"
                                           formControlName="permanentDistrict1"
-                                          type="text"/>District,<input class="yellow-form-field form-control-sm"
-                                                                       formControlName="permanentVdc1"
-                                                                       type="text"/><br>
-            V.D.C, Ward no.<input class="yellow-form-field form-control-sm"
+                                          type="text"/><span class="print-only"><strong>{{form.get('permanentDistrict1').value ? form.get('permanentDistrict1').value  : '========='}}</strong></span>
+            District,<input class="yellow-form-field form-control-sm disable-print"
+                            formControlName="permanentVdc1"
+                            type="text"/><span class="print-only"><strong>{{form.get('permanentVdc1').value ? form.get('permanentVdc1').value  : '========='}}</strong></span><br>
+            V.D.C, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                              formControlName="permanentWardNo1"
-                                             type="text"/><br>
-            Current Address:<input class="yellow-form-field form-control-sm"
+                                             type="text"/><span class="print-only"><strong>{{form.get('permanentWardNo1').value ? form.get('permanentWardNo1').value  : '========='}}</strong></span><br>
+            Current Address:<input class="yellow-form-field form-control-sm disable-print"
                                         formControlName="currentDistrict1"
-                                        type="text"/>District,<input class="yellow-form-field form-control-sm"
-                                                                      formControlName="currentMunicipality1"
-                                                                      type="text"/><br>
-            Municipality, Ward no.<input class="yellow-form-field form-control-sm"
+                                        type="text"/><span class="print-only"><strong>{{form.get('currentDistrict1').value ? form.get('currentDistrict1').value  : '========='}}</strong></span>
+            District,<input class="yellow-form-field form-control-sm disable-print"
+                            formControlName="currentDistrict1"
+                            type="text"/><span class="print-only"><strong>{{form.get('currentDistrict1').value ? form.get('currentDistrict1').value  : '========='}}</strong></span><br>
+            Municipality, Ward no.<input class="yellow-form-field form-control-sm disable-print"
                                          formControlName="currentWardNo1"
-                                         type="text"/><br>
-            Contact no:<input class="yellow-form-field form-control-sm"
+                                         type="text"/><span class="print-only"><strong>{{form.get('currentWardNo1').value ? form.get('currentWardNo1').value  : '========='}}</strong></span><br>
+            Contact no:<input class="yellow-form-field form-control-sm disable-print"
                                    formControlName="contactNo1"
-                                   type="text"/><br>
-            Email Id:<input class="yellow-form-field form-control-sm"
+                                   type="text"/><span class="print-only"><strong>{{form.get('contactNo1').value ? form.get('contactNo1').value  : '========='}}</strong></span><br>
+            Email Id:<input class="yellow-form-field form-control-sm disable-print"
                                  formControlName="emailId1"
-                                 type="text"/>
+                            type="text"/><span class="print-only"><strong>{{form.get('emailId1').value ? form.get('emailId1').value  : '========='}}</strong></span>
             <br><br><br>
             <div class="row">
-                <div class="col-md-12 text-right">
+                <div class="col-md-12 text-right disable-print">
                     <button nbButton status="success" type="submit">Save</button>
                 </div>
             </div>
@@ -714,9 +739,7 @@
     </div>
             </nb-card-body>
             <nb-card-footer class="mb-3">
-                <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
-                         ngxPrint printSectionId="{{offerLetterConst.RETAIL_EDUCATIONAL_ENGLISH}}Print">Print
-                </button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalOfferLetterRenewalsPrint" class="mr-2 custom-color" >Print</button>
             </nb-card-footer>
         </nb-card>
 </div>

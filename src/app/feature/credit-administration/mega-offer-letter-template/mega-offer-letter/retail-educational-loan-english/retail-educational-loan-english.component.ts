@@ -125,7 +125,7 @@ export class RetailEducationalLoanEnglishComponent implements OnInit {
             fcPercentage: [undefined],
             reviewYears: [undefined],
             scAccountNo: [undefined],
-            scAccountNo1: [undefined],
+            scAccountNo1: [undefined]
 
         });
     }
