@@ -499,7 +499,8 @@ export class ProposalComponent implements OnInit {
             justification: [undefined],
             currentRequest: [undefined],
             repay: [undefined],
-            requestType: [undefined]
+            requestType: [undefined],
+            purposeChecked: [undefined]
         });
     }
 
@@ -628,6 +629,7 @@ export class ProposalComponent implements OnInit {
             this.proposalData.data = JSON.stringify(this.proposalForm.value);
             this.loan.proposal = this.proposalData;
             this.spinner.show();
+            this.loan.proposal.collateralRequirement = 0;
             this.loanFormService.save(this.loan).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan'));
                 this.loan = response.detail;

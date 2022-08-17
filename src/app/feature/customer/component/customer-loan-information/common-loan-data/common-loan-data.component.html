@@ -78,8 +78,48 @@
                     </div>
                 </div>
 
+                <h6><strong>Additional Description</strong></h6>
+
+                <ng-container *ngIf="isSbk">
+                    <div class="col-md-12 form-group">
+
+                        <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
+                                     [checked]="borrowChecked"><b>Borrowing Case</b>
+                        </nb-checkbox>
+                        <div *ngIf="borrowChecked && isCorporate">
+                            <ckeditor formControlName="borrowingCase"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                        <div *ngIf="borrowChecked && !isCorporate">
+                            <select class="form-control" formControlName = "borrowingCase">
+                                <option value="Short Term Sale Growth">Short Term Sale Growth</option>
+                                <option value="Long Term Sale Growth">Long Term Sale Growth</option>
+                                <option value="Increase In Working Investment">Increase In Working Investment</option>
+                                <option value="Inventory Slowdown">Inventory Slowdown</option>
+                                <option value="Account Receivables Slowdown">Account Receivables Slowdown</option>
+                                <option value="Fixed Assets Replacement & Expansion">Fixed Assets Replacement & Expansion</option>
+                                <option value="Restructuring Liabilities">Restructuring Liabilities</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div *ngIf="borrowChecked && !isCorporate && commonLoanData.get('borrowingCase')?.value === 'Other'">
+                            <ckeditor formControlName="justificationChangeHistorical"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+
+                        <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
+                                     [checked]="endUseChecked"><b>End use of Fund</b>
+                        </nb-checkbox>
+                        <div *ngIf="endUseChecked">
+                            <ckeditor formControlName="endUseOfFund"
+                                      [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </ng-container>
+
                 <div class="col-md-12 form-group">
-                    <h6><strong>Additional Description</strong></h6>
                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
                                  [checked]="waiverChecked">
                         <b>Waiver</b>
@@ -120,38 +160,6 @@
                                   formControlName="riskConclusionRecommendation"></ckeditor>
                     </div>
                 </div>
-                <div class="col-md-12 form-group" *ngIf="customerInfo?.clientType !=='CONSUMER_FINANCE'">
-
-                    <nb-checkbox (change)="checkChecked($event.target?.checked,'debt')"
-                                 [checked]="debtChecked"><b>Debt Structure and Control</b>
-                    </nb-checkbox>
-                    <div *ngIf="debtChecked">
-                        <ckeditor [config]="ckeConfig"
-                                  formControlName="termsAndCondition"></ckeditor>
-                    </div>
-                </div>
-                <ng-container *ngIf="isSbk">
-                    <div class="col-md-12 form-group">
-
-                        <nb-checkbox (change)="checkChecked($event.target.checked,'borrow')"
-                                     [checked]="borrowChecked"><b>Borrowing Case</b>
-                        </nb-checkbox>
-                        <div *ngIf="borrowChecked">
-                            <ckeditor formControlName="borrowingCase"
-                                      [config]="ckeConfig"></ckeditor>
-                        </div>
-                    </div>
-                    <div class="col-md-12 form-group">
-
-                        <nb-checkbox (change)="checkChecked($event.target.checked,'endUse')"
-                                     [checked]="endUseChecked"><b>End use of Fund</b>
-                        </nb-checkbox>
-                        <div *ngIf="endUseChecked">
-                            <ckeditor formControlName="endUseOfFund"
-                                      [config]="ckeConfig"></ckeditor>
-                        </div>
-                    </div>
-                </ng-container>
                 <div class="col-md-12">
                     <div class="form-group">
                         <nb-checkbox (change)="checkChecked($event.target?.checked,'net')"
@@ -255,6 +263,16 @@
 
                         </table>
 
+                    </div>
+                </div>
+                <div class="col-md-12 form-group" *ngIf="customerInfo?.clientType !=='CONSUMER_FINANCE'">
+
+                    <nb-checkbox (change)="checkChecked($event.target?.checked,'debt')"
+                                 [checked]="debtChecked"><b>Debt Structure and Control</b>
+                    </nb-checkbox>
+                    <div *ngIf="debtChecked">
+                        <ckeditor [config]="ckeConfig"
+                                  formControlName="termsAndCondition"></ckeditor>
                     </div>
                 </div>
                 <div class="col-md-12 form-group">

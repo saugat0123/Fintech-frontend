@@ -28,16 +28,17 @@
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="netProfitHistorical" name="netProfitHistorical">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.netProfitHistorical ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.netProfitHistorical === true ? 'YES' : financialData?.netProfitHistorical === false ?  'NO' : 'NA'}}</span>
                                 </td>
                                 <td>
                                     <nb-radio-group *ngIf="fromLoan"  class="d-inline-flex disable-print" formControlName="netProfitProjected" name="netProfitProjected">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.netProfitProjected ? 'YES' : 'NO'}}</span>
-
+                                    <span *ngIf="!fromLoan">{{financialData?.netProfitProjected === true ? 'YES' : financialData?.netProfitProjected === false ?  'NO' : 'NA'}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -47,16 +48,17 @@
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="deRatioHistorical" name="deRatioHistorical">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.deRatioHistorical ? 'YES' : 'NO'}}</span>
-
+                                    <span *ngIf="!fromLoan">{{financialData?.deRatioHistorical === true ? 'YES' : financialData?.deRatioHistorical === false ?  'NO' : 'NA'}}</span>
                                 </td>
                                 <td>
                                     <nb-radio-group  *ngIf="fromLoan" class="d-inline-flex disable-print" formControlName="deRatioProjected" name="deRatioProjected">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.deRatioProjected ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.deRatioProjected === true ? 'YES' : financialData?.deRatioProjected === false ?  'NO' : 'NA'}}</span>
 
                                 </td>
                             </tr>
@@ -70,7 +72,7 @@
                                         <nb-radio [value]="false">No</nb-radio>
                                         <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.deRatioProjected ? 'YES' : !financialData?.deRatioProjected ? 'NO': 'NA'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.nonPerformingLoan === true ? 'YES' : financialData?.nonPerformingLoan === false ?  'NO' : 'NA'}}</span>
 
                                 </td>
                             </tr>
@@ -84,15 +86,17 @@
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="capitalLoanHistorical" name="capitalLoanHistorical">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.capitalLoanHistorical ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.capitalLoanHistorical === true ? 'YES' : financialData?.capitalLoanHistorical === false ?  'NO' : 'NA'}}</span>
                                 </td>
                                 <td>
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="capitalLoanProjected" name="capitalLoanProjected">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.capitalLoanProjected ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.capitalLoanProjected === true ? 'YES' : financialData?.capitalLoanProjected === false ?  'NO' : 'NA'}}</span>
 
                                 </td>
                             </tr>
@@ -103,8 +107,9 @@
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="iscrHistorical" name="iscrHistorical">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.iscrHistorical ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.iscrHistorical === true ? 'YES' : financialData?.iscrHistorical === false ?  'NO' : 'NA'}}</span>
                                     <br>
                                     Ratio: <input *ngIf="fromLoan" class="cellInput text-center" name="iscrProjected" formControlName="iscrProjected"
                                         type="text">
@@ -114,8 +119,9 @@
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="iscrRatioHistorical" name="iscrRatioHistorical">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.iscrRatioHistorical ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.iscrRatioHistorical === true ? 'YES' : financialData?.iscrRatioHistorical === false ?  'NO' : 'NA'}}</span>
                                     <br>
                                     Ratio: <input *ngIf="fromLoan" class="cellInput text-center" name="iscrRatioProjected" formControlName="iscrRatioProjected"
                                         type="text">
@@ -129,8 +135,9 @@
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="repayment" name="repayment">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.repayment ? 'YES' : 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.repayment === true ? 'YES' : financialData?.repayment === false ?  'NO' : 'NA'}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -142,15 +149,16 @@
                                         <nb-radio [value]="false">No</nb-radio>
                                         <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.cashFlowHistorical ? 'YES' : !financialData?.cashFlowHistorical ? 'NO': 'NA'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.cashFlowHistorical === true ? 'YES' : financialData?.cashFlowHistorical === false ?  'NO' : 'NA'}}</span>
 
                                 </td>
                                 <td>
                                     <nb-radio-group *ngIf="fromLoan" class="d-inline-flex" formControlName="cashFlowProjected" name="cashFlowProjected">
                                         <nb-radio [value]="true">Yes</nb-radio>
                                         <nb-radio [value]="false">No</nb-radio>
+                                        <nb-radio [value]="'na'">NA</nb-radio>
                                     </nb-radio-group>
-                                    <span *ngIf="!fromLoan">{{financialData?.cashFlowProjected ? 'YES': 'NO'}}</span>
+                                    <span *ngIf="!fromLoan">{{financialData?.cashFlowProjected === true ? 'YES' : financialData?.cashFlowProjected === false ?  'NO' : 'NA'}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -230,7 +238,7 @@
                             </tr>
                             <tr>
                                 <td>10</td>
-                                <td class="text-left">STL booked during review period: Y/NA</td>
+                                <td class="text-left">STL booked during review period:</td>
                                 <td colspan="2" class="text-left">
                                     Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="stlBookedNumber" formControlName="stlBookedNumber"
                                         type="text">
@@ -243,7 +251,7 @@
                             </tr>
                             <tr>
                                 <td>11</td>
-                                <td class="text-left">LC booked during the review period: Y/NA</td>
+                                <td class="text-left">LC booked during the review period:</td>
                                 <td colspan="2" class="text-left">
                                     Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="lcBookedNumber" formControlName="lcBookedNumber"
                                         type="text">
@@ -256,7 +264,7 @@
                             </tr>
                             <tr>
                                 <td>12</td>
-                                <td class="text-left">TR booked during review period: Y/NA</td>
+                                <td class="text-left">TR booked during review period:</td>
                                 <td colspan="2" class="text-left">
                                     Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="trNumber" formControlName="trNumber"
                                         type="text">
@@ -268,7 +276,7 @@
                             </tr>
                             <tr>
                                 <td>13</td>
-                                <td class="text-left">DN/IR issued during review period: Y/NA</td>
+                                <td class="text-left">DN/IR issued during review period:</td>
                                 <td colspan="2" class="text-left">
                                     Number: <input *ngIf="fromLoan" class=" text-center disable-print" name="dnIrIssuedNum" formControlName="dnIrIssuedNum"
                                         type="text">
@@ -298,13 +306,13 @@
             </div>
             <div class="row" *ngIf="fromLoan">
                 <div class="col-md-12 form-group summary">
-                    <b>Justification for change (Historical)</b>
+                    <b>Justification for change (Historical) - Applicable for loan amount above NPR 5 million</b>
                     <div class="mt-2">
                         <ckeditor [config]="ckeConfig" formControlName="changeHistorical"></ckeditor>
                     </div>
                 </div>
                 <div class="col-md-12 form-group summary">
-                    <b>Justification for change (Projection)</b>
+                    <b>Justification for change (Projection) - Applicable for loan amount above NPR 5 million</b>
                     <div class="mt-2">
                         <ckeditor [config]="ckeConfig" formControlName="changeProjection"></ckeditor>
                     </div>

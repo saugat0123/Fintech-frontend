@@ -70,7 +70,7 @@
                                     [ngModelOptions]="{standalone: true}">
                                 <option [ngValue]="null" hidden selected>Select</option>
                                 <ng-container *ngFor="let scheme of customerInfo?.existingExposures;">
-                                    <option *ngIf="scheme?.id" [value]="scheme?.id">{{scheme?.loanConfig?.name}}
+                                    <option *ngIf="scheme?.id" [value]="scheme?.loanId ? scheme?.loanId : scheme?.id">{{scheme?.loanConfig?.name}}
                                         : {{(scheme?.proposalData | jsonParse)?.proposedLimit}}</option>
                                 </ng-container>
                             </select>

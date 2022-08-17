@@ -93,10 +93,14 @@
             </div>
             <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                 <hr class="print-line">
-                <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left"
-                                                                                    style="display: flex"
-                                                                                    [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span>
-                </p>
+                <p><strong class="header text-left">Borrowing Case: </strong></p>
+                <ul>
+                    <li>
+                                       <span class="text-left"
+                                             style="display: flex"
+                                             [innerHTML]="proposalAllData?.borrowingCase === 'Other'? proposalAllData?.justificationChangeHistorical : proposalAllData?.borrowingCase  | safeHtml"></span>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
                 <hr class="print-line">

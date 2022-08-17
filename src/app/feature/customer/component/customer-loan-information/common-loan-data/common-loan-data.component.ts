@@ -53,15 +53,16 @@ export class CommonLoanDataComponent implements OnInit {
     files = [];
     isSbk = false;
     requestTypeEnum = [
-        {key: 'UPDATE_LOAN_INFORMATION', value: 'Update Loan Information'},
-        {key: 'RENEWED_LOAN', value: 'Renew Loan'},
-        {key: 'ENHANCED_LOAN', value: 'Enhance Loan'},
-        {key: 'PARTIAL_SETTLEMENT_LOAN', value: 'Partial Settle Loan'},
-        {key: 'FULL_SETTLEMENT_LOAN', value: 'Full Settle Loan'},
-        {key: 'RENEW_WITH_ENHANCEMENT', value: 'Renew With Enhancement'},
+        {key: 'NEW_LOAN', value: 'New Loan'},
+        {key: 'RENEWED_LOAN', value: 'Renewal'},
+        {key: 'ENHANCED_LOAN', value: 'Enhancement'},
+        {key: 'PARTIAL_SETTLEMENT_LOAN', value: 'Partial Settlement'},
+        {key: 'FULL_SETTLEMENT_LOAN', value: 'Full Settlement'},
+        {key: 'RENEW_WITH_ENHANCEMENT', value: 'Renewal With Enhancement'},
         {key: 'DIARY_NOTE', value: 'Diary Note'},
     ];
-
+    thisClient;
+    isCorporate = false;
     constructor(private toastService: ToastService,
                 private customerInfoService: CustomerInfoService,
                 private customerService: CustomerService,
@@ -76,8 +77,13 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+        if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' || this.customerInfo.clientType === 'DEPRIVED_SECTOR' || this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES') {
             this.isSbk = true;
+        }
+        this.thisClient = this.customerInfo.clientType;
+        if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+            this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.customerInfo.customerType === 'INSTITUTION') {
+            this.isCorporate = true;
         }
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildProposalCommonForm();
@@ -109,7 +115,8 @@ export class CommonLoanDataComponent implements OnInit {
             total: [undefined],
             totals: [undefined],
             files: [undefined],
-            requestType: [undefined]
+            requestType: [undefined],
+            justificationChangeHistorical: [undefined]
         });
     }
 

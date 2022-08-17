@@ -578,23 +578,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralRequirement"><strong>Collateral requirement
-                                            (in%)</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.collateralRequirement.errors }"
-                                                class="form-control"
-                                                formControlName="collateralRequirement" id="collateralRequirement"
-                                                name="collateralRequirement"
-                                                placeholder="Collateral requirement" type="number" appDecimalNumber/>
-                                        <div *ngIf="(submitted) && formControls.collateralRequirement.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.collateralRequirement.errors.required">Collateral requirement is required.</span>
-                                        </div>
-
-                                    </div>
-                                </div>
                                 <div class="col-md-4 form-group">
                                     <div>
                                         <label class="title" for="collateralRequirement"><strong>Swap Fee</strong></label>
@@ -677,22 +660,40 @@
                                         <span *ngIf="formControls.prepaymentSwapCommitment.errors">Prepayment/Commitment/Swap Charge Description</span>
                                     </div>
                                 </div>
-                                <div class="col-md-12" >
+                                <div class="col-md-12" *ngIf="(loan?.loanType !== 'PARTIAL_SETTLEMENT_LOAN' &&
+                                loan?.loanType !== 'FULL_SETTLEMENT_LOAN' && loan?.loanType !== 'OTHERS') || (!loan?.parentId)">
+                                        <label class="title" for="collateralRequirement"><strong>Draw Down</strong></label>
+                                        <ckeditor
+                                                [config]="ckeConfig"
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.collateralRequirement.errors }"
+                                                formControlName="collateralRequirement" id="collateralRequirement"
+                                        ></ckeditor>
+                                        <div *ngIf="(submitted) && formControls.collateralRequirement.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls.collateralRequirement.errors.required">Collateral requirement is required.</span>
+                                        </div>
+
+                                </div>
+
+                                <div class="col-md-12" *ngIf="(loan?.loanType !== 'PARTIAL_SETTLEMENT_LOAN' &&
+                                loan?.loanType !== 'FULL_SETTLEMENT_LOAN' && loan?.loanType !== 'OTHERS') || (!loan?.parentId)">
                                     <div class="form-group">
                                         <div class="d-flex align-items-center">
-                                            <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Purpose of Loan</b></label>
+                                            <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Purpose
+                                                of Loan</b></label>
                                             <nb-checkbox (change)="checkChecked($event.target.checked,'purpose')"
-                                                         [checked]="purposeChecked">
+                                                         formControlName = "purposeChecked">
                                                 <b>Others</b>
                                             </nb-checkbox>
                                         </div>
-                                        <ng-select *ngIf="!purposeChecked" [items]="purposes"
+                                        <ng-select *ngIf="!proposalForm?.get('purposeChecked')?.value"
+                                                   [items]="purposes"
                                                    [multiple]="false"
                                                    bindLabel="name"
                                                    bindValue="name"
                                                    formControlName="purposeOfLoan">
                                         </ng-select>
-                                        <ckeditor *ngIf="purposeChecked" formControlName="purposeOfLoan"></ckeditor>
+                                        <ckeditor *ngIf="proposalForm?.get('purposeChecked')?.value" formControlName="purposeOfLoan"></ckeditor>
                                     </div>
                                 </div>
                                 <div class="col-md-12" *ngIf="loanType === 'FULL_SETTLEMENT_LOAN' || loanType === 'PARTIAL_SETTLEMENT_LOAN'">
@@ -1032,8 +1033,7 @@
                                     </div>
                                 </ng-container>
                             </div>
-                            <ng-container  *ngIf="fromProfile">
-                                <div class="col-md-12" *ngIf="loanType === 'OTHERS'">
+                            <ng-container  *ngIf="fromProfile && loanType === 'OTHERS'">
                                     <div class="col-md-12" >
                                         <div class="form-group">
                                             <div class="d-flex align-items-center">
@@ -1050,7 +1050,6 @@
                                             <ckeditor  formControlName="justification"></ckeditor>
                                         </div>
                                     </div>
-                                </div>
                             </ng-container>
                         </form>
 <!--                        <div class="col-md-12 form-group" *ngIf="loanType !== 'FULL_SETTLEMENT_LOAN'">-->

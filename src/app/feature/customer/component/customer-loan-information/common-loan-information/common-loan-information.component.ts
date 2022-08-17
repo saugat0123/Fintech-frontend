@@ -563,7 +563,7 @@ export class CommonLoanInformationComponent implements OnInit {
     }
 
     onSelect(event, i) {
-        const data: ExistingExposure [] = this.commonLoans.filter(d => d.id === Number(event));
-        this.commonLoans[i].witInType = data[0].loanId ? 0 : 1;
+        // const data: ExistingExposure [] = this.commonLoans.filter(d => d.id === Number(event));
+        // this.commonLoans[i].witInType = data[0].loanId ? 0 : 1;
     }
 }
