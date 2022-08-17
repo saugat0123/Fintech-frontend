@@ -589,7 +589,6 @@
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                         <input [ngClass]="{'is-invalid': (apartmentSelected) && (building.get('buildArea').errors)}"
-                                               (input)="calculateBuildUpAreaRate(i, 'building')"
                                                class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="Build Up Area (Sq.ft)"
@@ -609,7 +608,7 @@
                                         <input class="form-control rounded" formControlName="totalCost"
                                                id="totalCost"
                                                name="totalCost" placeholder="Total Cost"
-                                               type="number" readonly/>
+                                               type="number"/>
                                     </div>
                                 </div>
 

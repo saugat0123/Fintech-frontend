@@ -376,7 +376,7 @@ export class AboveSecurityArrangementComponent implements OnInit {
               fairMarketValue: ObjectUtil.isEmpty(d.buildingFairMarketValue) ? 0 : d.buildingFairMarketValue,
               marketValue: ObjectUtil.isEmpty(d.totalCost) ? 0 : d.totalCost,
               distressValue: ObjectUtil.isEmpty(d.buildingDistressValue) ? 0 : d.buildingDistressValue,
-              area: d.buildingArea,
+              area: d.buildArea,
             }
           });
         });
