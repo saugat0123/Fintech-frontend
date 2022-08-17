@@ -59,6 +59,9 @@
         <app-corporate-guarantee *ngSwitchCase="cadTemplate.CORPORATE_GUARANTEE"
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"></app-corporate-guarantee>
+        <app-letter-of-continuity-company *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_COMPANY"
+                                          [cadData]="cadData" [documentId]="documentId"
+                                          [customerLoanId]="customerLoanId"></app-letter-of-continuity-company>
 
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
