@@ -77,7 +77,10 @@ export class CommonLoanDataComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' || this.customerInfo.clientType === 'DEPRIVED_SECTOR' || this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES') {
+        if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'
+            || this.customerInfo.clientType === 'DEPRIVED_SECTOR' ||
+            this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES' ||
+            this.customerInfo.clientType === 'CONSUMER_FINANCE') {
             this.isSbk = true;
         }
         this.thisClient = this.customerInfo.clientType;
