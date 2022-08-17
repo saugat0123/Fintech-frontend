@@ -67,7 +67,8 @@ const COMPONENTS = [
         RetailLoanAgainstInsuranceComponent,
         OfferLetterConsentComponent,
         PersonalOfferLetterRenewalsComponent,
-        OfferLetterEducationLoanNepaliComponent
+        OfferLetterEducationLoanNepaliComponent,
+        CustomInputComponent
     ],
     imports: [
         ThemeModule,
