@@ -1945,31 +1945,19 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="quotation">Quotation/Valuation Amount(MV)</label>
-                                <input [ngClass]="{ 'is-invalid': (plantSelected) && (plant.get('quotationMV').errors ||
-                                    plant.get('quotationMV').invalid) }"
-                                       class="form-control rounded" formControlName="quotationMV"
+                                <input class="form-control rounded" formControlName="quotationMV"
                                        id="quotationMV"
                                        name="quotationMV" placeholder="Quotation/Valuation Amount"
                                        type="text"/>
-                                <div *ngIf="(plantSelected) && (plant.get('quotationMV').invalid)"
-                                     class="invalid-feedback">
-                                    <div *ngIf="plant.get('quotationMV').errors.required">Quotation amount is required</div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="quotationDv">Quotation/Valuation Amount(DV)</label>
-                                <input [ngClass]="{ 'is-invalid': (plantSelected) && (plant.get('quotationDv').errors ||
-                                    plant.get('quotation').invalid) }"
-                                       class="form-control rounded" formControlName="quotationDv"
+                                <input class="form-control rounded" formControlName="quotationDv"
                                        id="quotationDv"
                                        name="quotationDv" placeholder="Quotation/Valuation Amount"
                                        type="text"/>
-                                <div *ngIf="(plantSelected) && (plant.get('quotationDv').invalid)"
-                                     class="invalid-feedback">
-                                    <div *ngIf="plant.get('quotationDv').errors.required">Quotation amount is required</div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
