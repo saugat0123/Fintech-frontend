@@ -61,4 +61,10 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     return this.http.get(req.url, {headers: req.header});
   }
 
+  public getCollateralByLatestDateOfVisit(id: number, uuid: string): Observable<any> {
+    const api = `${this.getApi()}/latest-collateral-visit/${id}?uuid=${uuid}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
+
 }
