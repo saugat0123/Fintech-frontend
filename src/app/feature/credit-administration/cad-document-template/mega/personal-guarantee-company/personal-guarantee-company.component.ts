@@ -32,7 +32,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
               private routerUtilsService: RouterUtilsService) { }
   ngOnInit(): void {
     this.buildForm();
-    const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
+   // const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -42,25 +42,25 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.guarantorData = Object.values(this.nepData.guarantorDetails);
+      //this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
-    if (!ObjectUtil.isEmpty(guarantorList)) {
-      const guarantorDetails = this.personalGuaranteeCompany.get('personalGuaranteeCompany') as FormArray;
-      console.log('list' , guarantorList);
-      console.log('details' , guarantorDetails);
-      // guarantorList.forEach(e => {
-      //   guarantorDetails.push(
-      //       this.formBuilder.group({
-      //         guarantorName : e.name,
-      //         date : e.issuedYear,
-      //         guarantorIssueDistrict : e.issuedPlace,
-      //         guarantorAddress : e.district,
-      //         guarantorRelationship : e.relationship,
-      //         citizenshipNo : e.citizenNumber
-      //       })
-      //   ); }
-      // );
-    }
+    // if (!ObjectUtil.isEmpty(guarantorList)) {
+    //   const guarantorDetails = this.personalGuaranteeCompany.get('personalGuaranteeCompany') as FormArray;
+    //   console.log('list' , guarantorList);
+    //   console.log('details' , guarantorDetails);
+    //   // guarantorList.forEach(e => {
+    //   //   guarantorDetails.push(
+    //   //       this.formBuilder.group({
+    //   //         guarantorName : e.name,
+    //   //         date : e.issuedYear,
+    //   //         guarantorIssueDistrict : e.issuedPlace,
+    //   //         guarantorAddress : e.district,
+    //   //         guarantorRelationship : e.relationship,
+    //   //         citizenshipNo : e.citizenNumber
+    //   //       })
+    //   //   ); }
+    //   // );
+    // }
   }
 
 
@@ -84,8 +84,8 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       companyName: [undefined],
       companyRegistrationNumber: [undefined],
       registeredDate: [undefined],
-      loanAmount: [undefined],
-      loanAmountInWord: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
       loanApprovalDate: [undefined],
       documentWrittenYear: [undefined],
       documentWrittenMonth: [undefined],
@@ -97,7 +97,24 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       witnessAge: [undefined],
       witnessName: [undefined],
       docWrittenWeek: [undefined],
+      borrowerTempDis: [undefined],
+      MunicipalityOrVdc: [undefined],
+      name: [undefined],
+      perWardNo: [undefined],
+      perMun: [undefined],
+      perDis: [undefined],
+      borrowerStateNo: [undefined],
     });
+  }
+
+  changeToNepAmount(event: any, target, from) {
+    this.personalGuaranteeCompany.get(target).patchValue(event.nepVal);
+    this.personalGuaranteeCompany.get(from).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.personalGuaranteeCompany.get(target).value;
+    return patchValue1;
   }
 
   submit() {

@@ -1,36 +1,20 @@
-.longInput{
-  width: 400px;
+.nepaliFont {
+  font-size: 26px;
+  font-family: Preeti;
 }
-
-.shortInput{
-  width: 50px;
+.timesNewRoman {
+  font-family: 'Times New Roman'
 }
-
-.nep {
-  font-size: 16px;
-  line-height: 1.9;
-  text-align: justify;
-  text-justify: inter-word;
-  margin: 10px 50px;
-}
-
 .form-field {
   background: yellow;
-  margin: 0px 5px 5px 5px;
+  margin: 0px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  &:focus {
-    outline: none;
-  }
 }
 
 li {
   list-style-type: none;
-}
-
-input::-webkit-input-placeholder {
-  font-size: 16px;
 }
 
 @media screen {
@@ -40,7 +24,6 @@ input::-webkit-input-placeholder {
 
   .disable-print {
     display: inline;
-
   }
 }
 
@@ -55,18 +38,8 @@ input::-webkit-input-placeholder {
     text-justify: inter-word;
     margin: 10px 70px;
   }
-
 }
-
-.preetiFont {
-  font-family: Preeti;
+ol.conditional-list li {
+  list-style: devanagari;
+  line-height: 30px !important;
 }
-
-.size18 {
-  font-size: 18px;
-}
-
-.timesNewRoman {
-  font-family: 'Times New Roman'
-}
-
