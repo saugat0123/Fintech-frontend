@@ -50,7 +50,6 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
     this.loanDeedInstitutionPrivateLimited = this.formBuilder.group({
       branch: [undefined],
       act: [undefined],
-      temporaryProvince: [undefined],
       registrationOffice: [undefined],
       registrationIssuedDate: [undefined],
       registrationNo: [undefined],
@@ -62,8 +61,13 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
       offerLetterIssuedDate: [undefined],
       signature: [undefined],
       amount: [undefined],
-      writtenAmount: [undefined],
+      amount2: [undefined],
+      totalAmount: [undefined],
+      amountInWords: [undefined],
+      amountInWords2: [undefined],
+      totalAmountInWords: [undefined],
       loanFacilityType: [undefined],
+      loanFacilityType2: [undefined],
       FACOwnerName: [undefined],
       FACOwnerDistrict: [undefined],
       FACOwnerMunicipalityVDC: [undefined],
@@ -76,7 +80,7 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      time: [undefined],
+      time: [undefined]
     });
 
   }
@@ -119,5 +123,14 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.loanDeedInstitutionPrivateLimited.get([target]).patchValue(event.nepVal);
+    this.loanDeedInstitutionPrivateLimited.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.loanDeedInstitutionPrivateLimited.get([target]).value;
+    return patchValue1;
   }
 }

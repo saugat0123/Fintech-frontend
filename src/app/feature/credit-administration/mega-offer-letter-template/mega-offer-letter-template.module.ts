@@ -66,7 +66,8 @@ const COMPONENTS = [
         RetailProfessionalLoanComponent,
         RetailLoanAgainstInsuranceComponent,
         OfferLetterConsentComponent,
-        PersonalOfferLetterRenewalsComponent
+        PersonalOfferLetterRenewalsComponent,
+        CustomInputComponent
     ],
     imports: [
         ThemeModule,

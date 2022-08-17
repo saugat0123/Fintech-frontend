@@ -11,7 +11,7 @@ import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assi
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
-import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
+import {LoanDeedInstitutionPartnershipFormComponent} from './loan-deed-institution-partnership-form/loan-deed-institution-partnership-form.component';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {LoanDeedInstitutionPrivateLimitedComponent} from './loan-deed-institution-private-limited/loan-deed-institution-private-limited.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
@@ -19,6 +19,7 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {NgxPrintModule} from 'ngx-print';
 import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -32,7 +33,7 @@ import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-gua
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     LoanDeedInstitutionPrivateLimitedComponent,
-    LoanDeedMultipleComponent,
+    LoanDeedInstitutionPartnershipFormComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
@@ -43,7 +44,8 @@ import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-gua
     ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MegaOfferLetterTemplateModule
   ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -56,7 +58,7 @@ import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-gua
     PromissoryNoteSingleBorrowerComponent,
     TrustReceiptNepaliLimitComponent,
     LoanDeedInstitutionPrivateLimitedComponent,
-    LoanDeedMultipleComponent,
+    LoanDeedInstitutionPartnershipFormComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,

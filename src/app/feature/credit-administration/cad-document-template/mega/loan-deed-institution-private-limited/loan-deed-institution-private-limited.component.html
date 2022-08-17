@@ -1,4 +1,4 @@
-<div class="container nep text-justify">
+<div class="container nep text-justify nepaliFont">
     <div class="row">
         <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
             <form (ngSubmit)="submit()" [formGroup]="loanDeedInstitutionPrivateLimited" class="nepali" id="loanDeedInstitutionPrivateLimitedPrint">
@@ -70,7 +70,7 @@
                             ब्याज, कमिशन, शुल्क आदि स्वीकृत ऋणकर्जा तथा बैंकिङ सुविधाहरु तल उल्लेखित खण्डखण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको मिति भित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिग सुविधा नवीकरण भएमा नवीकरण भएको बखत तपाई धनी
                             बैंकले ऋणीका नाममा जारी गर्ने ऋण स्वीकृति पत्रमा तोकिएको मिति भित्रमा तपांई धनी बैंकलाई तिर्नु बुझाउनु पर्ने ऋणकर्जाको सम्पूर्ण सांवा ब्याज चुक्ता भुक्तानी गर्नेछौं । स्वीकृत ऋणकर्जा तथा भविष्यमा थप प्राप्त गरेमा सो समेतको सुरक्षण वापत हामी ऋणी कम्पनीको
                             निजि श्रोत साधनबाट तथा तपाई धनी बैंकबाट प्राप्त गरेको ऋणकर्जा समेतबाट हाल खरिदरआयात गरेको, श्रृृजना गरेको तथा यस उप्रान्त खरिद र आयात गर्ने श्रृजना गर्ने लगायतका सम्पूर्ण चल अचल जायजेथा तथा हामी ऋणी कम्पनीले भुक्तानी प्राप्त गर्न बांकी रकमहरु
-                            (Account Receivables) समेत यसै लिखतबाट तपाई धनी बैंकको नाममा धितोवन्धक लेखिदिएकाछौं । सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छुटृै लिखतबाट तपाई धनी बैंकको नाममा धितोबन्धकको लिखत लेखिदिई सकेको छौ । प्राप्त
+                            <span class="timesNewRoman"> (Account Receivables)</span> समेत यसै लिखतबाट तपाई धनी बैंकको नाममा धितोवन्धक लेखिदिएकाछौं । सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छुटृै लिखतबाट तपाई धनी बैंकको नाममा धितोबन्धकको लिखत लेखिदिई सकेको छौ । प्राप्त
                             ऋण कर्जाको तपाई धनी बैंकलाई तिर्र्नु बुझाउनु पर्ने सांवा व्याज आदी यसै लिखत तथा उल्लेखित ऋण स्विकृति पत्रानुसार तोकिएको शर्त बमोजिम नतिरे नवुझाएमा वा तिर्न बुझाउन आलटाल गरी बांकी राखेमा वा किस्ता खिलाफि गरेमा वा ऋण स्वीकृति पत्र तथा यसै लिखतको
                             कुनै शर्त बन्देजहरु उल्लंघन गरेमा समेत हामी ऋणी कम्पनीको नाउंमा तपाईं धनी बैंकमा खोलेको निक्षेप खातामा रहेको रकमबाट कटृा गरी तथा उपरोक्त बमोजिम धितो लेखिदिएको चल अचल श्रीसम्पत्ति बैंक तथा वित्तीय संस्था सम्बन्धी ऐन २०७३ बमोजिम तथा तपाई धनी
                             बैंकको नियमानुसार कव्जा गरी लिलाम विक्री गरी र वा अन्य व्यवस्था गरी तपाई धनी बैंकको सम्पूर्ण लेना रकम असुल उपर गरी लिनुहोला । कथम्कदाचित धितो लेखिदिएको श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम विक्री हुन नसकेमा वा लिलाम विक्री गर्दा समेत तपाई धनी
@@ -103,16 +103,17 @@
                                     कर्जा
                                 </td>
                                 <td>
-                                    रु <input class="form-field form-control-sm nepaliFont disable-print"
-                                              formControlName="amount"
-                                              placeholder=""
-                                              type="text" size="8"/> /-<span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('amount').value ? loanDeedInstitutionPrivateLimited.get('amount').value  : '========='}}</b></span>
-                                    (अक्षरेपि
-                                    <input class="form-field form-control-sm nepaliFont disable-print"
-                                           formControlName="writtenAmount"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('writtenAmount').value ? loanDeedInstitutionPrivateLimited.get('writtenAmount').value  : '========='}}</b></span>
-                                    रुपैयाँ मात्र)
+                                    <strong>रु
+                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                                          [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
+                                        <span class="print-only nepaliFont"><strong>{{loanDeedInstitutionPrivateLimited.get('amount').value ? loanDeedInstitutionPrivateLimited.get('amount').value  : '========='}}</strong></span>
+                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                               formControlName="amountInWords"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedInstitutionPrivateLimited.get('amountInWords').value ? loanDeedInstitutionPrivateLimited.get('amountInWords').value  : '========='}}</strong></span>
+                                        मात्र<span class="timesNewRoman">)</span>
+                                    </strong>
                                 </td>
                                 <td>
                                     ऋण स्वीकृती पत्र अनुसार
@@ -123,23 +124,24 @@
                             </tr>
                             <tr>
                                 <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="loanFacilityType"
+                                           formControlName="loanFacilityType2"
                                            placeholder=""
                                            type="text" size="7" />
-                                    <span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('loanFacilityType').value ? loanDeedInstitutionPrivateLimited.get('loanFacilityType').value  : '========='}}</b></span>
+                                    <span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('loanFacilityType2').value ? loanDeedInstitutionPrivateLimited.get('loanFacilityType2').value  : '========='}}</b></span>
                                     कर्जा
                                 </td>
                                 <td>
-                                    रु <input class="form-field form-control-sm nepaliFont disable-print"
-                                              formControlName="amount"
-                                              placeholder=""
-                                              type="text" size="8"/> /-<span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('amount').value ? loanDeedInstitutionPrivateLimited.get('amount').value  : '========='}}</b></span>
-                                    (अक्षरेपि
-                                    <input class="form-field form-control-sm nepaliFont disable-print"
-                                           formControlName="writtenAmount"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('writtenAmount').value ? loanDeedInstitutionPrivateLimited.get('writtenAmount').value  : '========='}}</b></span>
-                                    रुपैयाँ मात्र)
+                                    <strong>रु
+                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords2', 'amount2')"
+                                                          [name]="patchFunction('amount2')" class="disable-print"></app-custom-input>
+                                        <span class="print-only nepaliFont"><strong>{{loanDeedInstitutionPrivateLimited.get('amount2').value ? loanDeedInstitutionPrivateLimited.get('amount2').value  : '========='}}</strong></span>
+                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                               formControlName="amountInWords2"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedInstitutionPrivateLimited.get('amountInWords2').value ? loanDeedInstitutionPrivateLimited.get('amountInWords2').value  : '========='}}</strong></span>
+                                        मात्र<span class="timesNewRoman">)</span>
+                                    </strong>
                                 </td>
                                 <td>
                                     ऋण स्वीकृती पत्र अनुसार
@@ -151,16 +153,17 @@
                             </tbody>
                         </table>
                         <p>
-                            जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु <input class="form-field form-control-sm nepaliFont disable-print"
-                                                                      formControlName="amount"
-                                                                      placeholder=""
-                                                                      type="text" size="8"/> /-<span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('amount').value ? loanDeedInstitutionPrivateLimited.get('amount').value  : '========='}}</b></span>
-                            (अक्षरेपि
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="writtenAmount"
+                            <strong>जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु
+                            <app-custom-input (eventEmit)="changeToNepAmount($event, 'totalAmountInWords', 'totalAmount')"
+                                              [name]="patchFunction('totalAmount')" class="disable-print"></app-custom-input>
+                            <span class="print-only nepaliFont"><strong>{{loanDeedInstitutionPrivateLimited.get('totalAmount').value ? loanDeedInstitutionPrivateLimited.get('totalAmount').value  : '========='}}</strong></span>
+                            <span class="timesNewRoman">/- (</span>अक्षरेपि
+                            <input class="form-field form-control-sm nepaliFont disable-print col-5"
+                                   formControlName="totalAmountInWords"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('writtenAmount').value ? loanDeedInstitutionPrivateLimited.get('writtenAmount').value  : '========='}}</b></span>
-                            रुपैयाँ मात्र)
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedInstitutionPrivateLimited.get('totalAmountInWords').value ? loanDeedInstitutionPrivateLimited.get('totalAmountInWords').value  : '========='}}</strong></span>
+                            मात्र<span class="timesNewRoman">)</span>
+                        </strong>
                         </p>
                         <br />
                         <p><b><U>सुरक्षणहरु</U></b></p>
@@ -177,9 +180,9 @@
                             <thead>
                             <tr>
                                 <th>जिल्ला</th>
-                                <th>न.पा/गा.वि.स</th>
-                                <th>वडा नं./सिट नं..</th>
-                                <th>कित्ता नं.</th>
+                                <th>न<span class="timesNewRoman">.</span>पा<span class="timesNewRoman">/</span>गा<span class="timesNewRoman">.</span>वि<span class="timesNewRoman">.</span>स</th>
+                                <th>वडा नं<span class="timesNewRoman">./</span>सिट नं<span class="timesNewRoman">.</span></th>
+                                <th>कित्ता नं<span class="timesNewRoman">.</span></th>
                                 <th>क्षेत्रफल</th>
                             </tr>
                             </thead>
@@ -202,7 +205,7 @@
                                            formControlName="FACOwnerWardNo"
                                            placeholder=""
                                            type="text" size="3"/><span class="print-only nepaliFont"><b>{{loanDeedInstitutionPrivateLimited.get('FACOwnerWardNo').value ? loanDeedInstitutionPrivateLimited.get('FACOwnerWardNo').value  : '========='}}</b></span>
-                                    /
+                                    <span class="timesNewRoman">/</span>
                                     <input class="form-field form-control-sm nepaliFont disable-print"
                                            formControlName="nakshaSeatNo"
                                            placeholder=""
