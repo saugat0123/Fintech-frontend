@@ -12,16 +12,16 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-company',
-  templateUrl: './loan-deed-company.component.html',
-  styleUrls: ['./loan-deed-company.component.scss']
+  selector: 'app-loan-deed-institution-private-limited',
+  templateUrl: './loan-deed-institution-private-limited.component.html',
+  styleUrls: ['./loan-deed-institution-private-limited.component.scss']
 })
-export class LoanDeedCompanyComponent implements OnInit {
+export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
 
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  loanDeedCompany: FormGroup;
+  loanDeedInstitutionPrivateLimited: FormGroup;
   nepData;
   guarantorData;
   submitted = false;
@@ -36,7 +36,7 @@ export class LoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.loanDeedInstitutionPrivateLimited.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -47,62 +47,40 @@ export class LoanDeedCompanyComponent implements OnInit {
   }
 
   buildForm() {
-    this.loanDeedCompany = this.formBuilder.group({
+    this.loanDeedInstitutionPrivateLimited = this.formBuilder.group({
       branch: [undefined],
-      temporaryProvince: [undefined],
-      permanentDistrict: [undefined],
-      permanentMunicipalityVDC: [undefined],
-      permanentWardNo: [undefined],
-      registrarRegistrationOffice: [undefined],
-      registrarRegistrationOfficeProvince: [undefined],
-      registrarRegistrationOfficeDistrict: [undefined],
-      registrarRegistrationOfficeMunicipalityVDC: [undefined],
-      registrarRegistrationOfficeWardNo: [undefined],
+      act: [undefined],
+      registrationOffice: [undefined],
+      registrationIssuedDate: [undefined],
       registrationNo: [undefined],
-      registrationDate: [undefined],
-      grandParents: [undefined],
-      parents: [undefined],
-      temporaryDistrict: [undefined],
-      temporaryMunicipalityVDC: [undefined],
-      temporaryWardNo: [undefined],
-      temporaryAddress: [undefined],
-      age: [undefined],
-      relation: [undefined],
-      citizenshipNo: [undefined],
-      issueDate: [undefined],
-      issueDistrict: [undefined],
-      date2: [undefined],
-      date3: [undefined],
-      loan: [undefined],
-      purpose: [undefined],
-      sNo: [undefined],
-      landOwnerName: [undefined],
+      registrationOfficeDistrict: [undefined],
+      registrationOfficeMunicipalityVDC: [undefined],
+      registrationOfficeWardNo: [undefined],
+      borrowerName: [undefined],
+      authorizedPersonName: [undefined],
+      offerLetterIssuedDate: [undefined],
+      signature: [undefined],
       amount: [undefined],
+      amount2: [undefined],
+      totalAmount: [undefined],
       amountInWords: [undefined],
-      municipalityVDC: [undefined],
-      wardNo: [undefined],
-      seatNo: [undefined],
-      kNo: [undefined],
+      amountInWords2: [undefined],
+      totalAmountInWords: [undefined],
+      loanFacilityType: [undefined],
+      loanFacilityType2: [undefined],
+      FACOwnerName: [undefined],
+      FACOwnerDistrict: [undefined],
+      FACOwnerMunicipalityVDC: [undefined],
+      FACOwnerWardNo: [undefined],
+      nakshaSeatNo: [undefined],
+      plotNo: [undefined],
       area: [undefined],
-      rNoDate: [undefined],
-      rohbarBankEmployeeName: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      guarantorName: [undefined],
-      guarantorName2: [undefined],
+      witnessName: [undefined],
+      witnessName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      time: [undefined],
-      districtOfWitness: [undefined],
-      municipalityVDCOfWitness: [undefined],
-      wardNoOfWitness: [undefined],
-      ageOfWitness: [undefined],
-      relationOfWitness: [undefined],
-      districtOfWitness2: [undefined],
-      municipalityVDCOfWitness2: [undefined],
-      wardNoOfWitness2: [undefined],
-      ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined]
+      time: [undefined]
     });
 
   }
@@ -114,13 +92,13 @@ export class LoanDeedCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPrivateLimited.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPrivateLimited.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -129,7 +107,7 @@ export class LoanDeedCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPrivateLimited.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -145,5 +123,14 @@ export class LoanDeedCompanyComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.loanDeedInstitutionPrivateLimited.get([target]).patchValue(event.nepVal);
+    this.loanDeedInstitutionPrivateLimited.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.loanDeedInstitutionPrivateLimited.get([target]).value;
+    return patchValue1;
   }
 }

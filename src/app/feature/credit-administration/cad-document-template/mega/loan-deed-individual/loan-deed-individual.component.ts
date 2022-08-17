@@ -62,7 +62,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       individualName: [undefined],
       offerLetterIssuedDate: [undefined],
       amount: [undefined],
-      writtenAmount: [undefined],
+      amountInWords: [undefined],
       loanFacilityType: [undefined],
       FACOwnerName: [undefined],
       FACOwnerDistrict: [undefined],
@@ -76,11 +76,9 @@ export class LoanDeedIndividualComponent implements OnInit {
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      time: [undefined],
+      time: [undefined]
     });
   }
-
-
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -118,5 +116,14 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.loanDeedIndividual.get([target]).patchValue(event.nepVal);
+    this.loanDeedIndividual.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.loanDeedIndividual.get([target]).value;
+    return patchValue1;
   }
 }
