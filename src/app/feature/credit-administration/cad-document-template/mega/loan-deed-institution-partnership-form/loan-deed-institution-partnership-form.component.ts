@@ -12,16 +12,18 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-promissory-note-company',
-  templateUrl: './promissory-note-company.component.html',
-  styleUrls: ['./promissory-note-company.component.scss']
+  selector: 'app-loan-deed-institution-partnership-form',
+  templateUrl: './loan-deed-institution-partnership-form.component.html',
+  styleUrls: ['./loan-deed-institution-partnership-form.component.scss']
 })
-export class PromissoryNoteCompanyComponent implements OnInit {
+export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
 
-  promissoryNoteCompany: FormGroup;
+  loanDeedInstitutionPartnershipForm: FormGroup;
+  multipleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -33,51 +35,66 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.promissoryNoteCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.loanDeedInstitutionPartnershipForm.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.multipleData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
   }
 
+
   buildForm() {
-    this.promissoryNoteCompany = this.formBuilder.group({
+    this.loanDeedInstitutionPartnershipForm = this.formBuilder.group({
+      registrationOffice: [undefined],
+      registrationIssuedDate: [undefined],
+      registrationNo: [undefined],
+      registrationOfficeDistrict: [undefined],
+      registrationOfficeMunicipalityVDC: [undefined],
+      registrationOfficeWardNo: [undefined],
+      borrowerName: [undefined],
+      authorizedPersonGrandfatherName: [undefined],
+      authorizedPersonFatherName: [undefined],
+      authorizedPersonHusbandName: [undefined],
+      authorizedPersonDistrict: [undefined],
+      authorizedPersonMunicipalityVDC: [undefined],
+      authorizedPersonWardNo: [undefined],
+      authorizedPersonAge: [undefined],
+      authorizedPersonName: [undefined],
+      authorizedPersonGrandfatherName2: [undefined],
+      authorizedPersonFatherName2: [undefined],
+      authorizedPersonHusbandName2: [undefined],
+      authorizedPersonDistrict2: [undefined],
+      authorizedPersonMunicipalityVDC2: [undefined],
+      authorizedPersonWardNo2: [undefined],
+      authorizedPersonAge2: [undefined],
+      authorizedPersonName2: [undefined],
+      offerLetterIssuedDate: [undefined],
+      amount: [undefined],
+      amount2: [undefined],
+      totalAmount: [undefined],
+      amountInWords: [undefined],
+      amountInWords2: [undefined],
+      totalAmountInWords: [undefined],
+      loanFacilityType: [undefined],
+      loanFacilityType2: [undefined],
+      FACOwnerName: [undefined],
+      FACOwnerDistrict: [undefined],
+      FACOwnerMunicipalityVDC: [undefined],
+      FACOwnerWardNo: [undefined],
+      nakshaSeatNo: [undefined],
+      plotNo: [undefined],
+      area: [undefined],
+      witnessName: [undefined],
+      witnessName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      branch: [undefined],
-      ministry: [undefined],
-      actName: [undefined],
-      actDate: [undefined],
-      department: [undefined],
-      office: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      name: [undefined],
-      proprietorName: [undefined],
-      annualRate: [undefined],
-      amount: [undefined],
-      amountInWords: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      nameOfWitness: [undefined],
-      addressOfWitness: [undefined],
-      nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined],
-      date1: [undefined],
-      district: [undefined],
-      wardNo: [undefined],
-      borrowerNameInNepali: [undefined]
+      time: [undefined]
     });
   }
 
-  changeToNepAmount(event: any, target, from) {
-    this.promissoryNoteCompany.get([target]).patchValue(event.nepVal);
-    this.promissoryNoteCompany.get([from]).patchValue(event.val);
-  }
-
-  patchFunction(target) {
-    const patchValue1 = this.promissoryNoteCompany.get([target]).value;
-    return patchValue1;
-  }
 
   submit() {
     let flag = true;
@@ -85,13 +102,13 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPartnershipForm.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPartnershipForm.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -100,7 +117,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.promissoryNoteCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPartnershipForm.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -111,11 +128,19 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-      console.log(this.cadData.id, 'caddata');
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.loanDeedInstitutionPartnershipForm.get([target]).patchValue(event.nepVal);
+    this.loanDeedInstitutionPartnershipForm.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.loanDeedInstitutionPartnershipForm.get([target]).value;
+    return patchValue1;
   }
 }
