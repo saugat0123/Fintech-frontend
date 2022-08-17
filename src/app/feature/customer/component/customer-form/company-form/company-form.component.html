@@ -686,11 +686,11 @@
                            <h5>3.Primary Contact Person Details</h5>
                        </div>
                        <div
-                           *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index"
+                           *ngFor="let contact of companyInfoFormGroup?.get('contactPersons')['controls']; let c = index"
                            class="border-bottom border-dark m-4"
                            formArrayName="contactPersons">
                            <div [formGroupName]="c" class="row">
-                               <div *ngIf="companyInfoFormGroup.get('contactPersons').length>1"
+                               <div *ngIf="companyInfoFormGroup?.get('contactPersons').length>1"
                                     class="col-md-12">
                                    <input (click)="removeContactPersons(c)"
                                           class="float-right btn btn-sm btn-danger btn-primary"
@@ -700,15 +700,15 @@
                                    <div class="form-group">
                                        <label><strong>Name</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactName').errors }"
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact?.get('contactName').errors }"
                                            class="form-control"
                                            formControlName="contactName" id="contactName"
                                            placeholder="Name"
                                            type="text">
                                        <div
-                                           *ngIf="(submitted) &&  contact.get('contactName').invalid"
+                                           *ngIf="(submitted) &&  contact?.get('contactName')?.invalid"
                                            class="invalid-feedback">
-                                           <div *ngIf=" contact.get('contactName').errors.required">
+                                           <div *ngIf=" contact?.get('contactName')?.errors?.required">
                                                Name is required
                                            </div>
                                        </div>
@@ -719,16 +719,16 @@
                                    <div class="form-group">
                                        <label><strong>Contact Number</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }"
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact?.get('contactNumber')?.errors }"
                                            class="form-control"
                                            formControlName="contactNumber" id="contactNumber"
                                            placeholder="Contact Number"
                                            type="text">
                                        <div
-                                           *ngIf="(submitted) && contact.get('contactNumber').invalid"
+                                           *ngIf="(submitted) && contact?.get('contactNumber')?.invalid"
                                            class="invalid-feedback">
                                            <div
-                                               *ngIf="contact.get('contactNumber').errors.required">
+                                               *ngIf="contact?.get('contactNumber')?.errors?.required">
                                                Contact Number is required
                                            </div>
                                        </div>
@@ -738,15 +738,15 @@
                                    <div class="form-group">
                                        <label><strong>Email</strong></label>
                                        <input
-                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact?.get('contactEmail')?.errors }"
                                            class="form-control"
                                            formControlName="contactEmail"
                                            id="contactEmail" placeholder="Email"
                                            type="email">
                                        <div
-                                           *ngIf="(submitted) && contact.get('contactEmail').errors"
+                                           *ngIf="(submitted) && contact?.get('contactEmail')?.errors"
                                            class="invalid-feedback">
-                                           <div *ngIf="contact.get('contactEmail').errors.required">
+                                           <div *ngIf="contact?.get('contactEmail')?.errors?.required">
                                                Contact Email is required
                                            </div>
                                        </div>
@@ -757,21 +757,21 @@
                                        <label for="functionalPosition"><strong>Functional
                                            Position</strong></label>
                                        <select
-                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('functionalPosition').errors }"
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact?.get('functionalPosition')?.errors }"
                                            class="form-control"
                                            formControlName="functionalPosition"
                                            id="functionalPosition"
                                            name="functionalPosition">
                                            <option [value]="null">Select Position</option>
                                            <option *ngFor="let designations of designation"
-                                                   [ngValue]="designations.id">{{designations.name}}</option>
+                                                   [ngValue]="designations?.id">{{designations?.name}}</option>
                                        </select>
 
                                        <div
-                                           *ngIf="(submitted) && contact.get('functionalPosition').invalid"
+                                           *ngIf="(submitted) && contact?.get('functionalPosition')?.invalid"
                                            class="invalid-feedback">
                                            <div
-                                               *ngIf="contact.get('functionalPosition').errors.required">
+                                               *ngIf="contact?.get('functionalPosition')?.errors?.required">
                                                Functional Position is required
                                            </div>
                                        </div>
@@ -780,7 +780,7 @@
                            </div>
                        </div>
                        <div class="col-md-12">
-                           <input *ngIf="companyInfoFormGroup.get('contactPersons')['length']<2" (click)="addContactPersons()"
+                           <input *ngIf="companyInfoFormGroup?.get('contactPersons')['length']<2" (click)="addContactPersons()"
                                   class="btn btn-sm btn-flat btn-primary float-right"
                                   type="button"
                                   value="Add Secondary Contact"/>

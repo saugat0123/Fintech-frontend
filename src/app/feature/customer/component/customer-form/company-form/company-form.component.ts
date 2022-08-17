@@ -469,8 +469,10 @@ export class CompanyFormComponent implements OnInit {
                     this.additionalFieldData.registrationType],
                 licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseHolderName],
-                licenseExpiryDate: [this.additionalFieldData.licenseExpiryDate],
-                licenseIssuedDate: [this.additionalFieldData.licenseIssuedDate],
+                licenseExpiryDate: [ObjectUtil.isEmpty( this.additionalFieldData.licenseExpiryDate) ? undefined :
+                    new Date( this.additionalFieldData.licenseExpiryDate)],
+                licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData.licenseIssuedDate) ? undefined :
+                    new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
@@ -768,7 +770,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalityVdcList = response.detail;
-                this.municipalityVdcList.sort((a,b) => a.name.localeCompare(b.name));
+                this.municipalityVdcList.sort((a, b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.municipalityVdcList.forEach(municipality => {
