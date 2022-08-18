@@ -1,7 +1,3 @@
-import {
-  PromissoryNotePartnershipFirmComponent
-} from '../../credit-administration/cad-document-template/mega/promissory-note-partnership-firm/promissory-note-partnership-firm.component';
-
 export enum CadCheckListTemplateEnum {
   ASSIGNMENT_OF_RECEIVABLE = '1000',
   DEED_HYPO_OF_MACHINERY_COMPONENT= '1001',
@@ -23,4 +19,6 @@ export enum CadCheckListTemplateEnum {
   LETTER_OF_CONTINUITY_COMPANY = '1035',
   LETTER_OF_CONTINUITY_PARTNERSHIP = '1038',
   PROMISSORY_NOTE_PARTNERSHIP_FIRM = '1044',
+  LETTER_0F_CONTINUITY_PROPRIETORSHIP = '1039'
+
 }
