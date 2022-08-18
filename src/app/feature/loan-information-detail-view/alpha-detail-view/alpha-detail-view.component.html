@@ -363,3 +363,26 @@
     </div>
 </div>
 <hr>
+<div class="row" *ngIf="updateLogPresent">
+    <div class="col-md-12">
+        <p><strong>Authority Comments for Proposal Update</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>S.N</th>
+                <th>User</th>
+                <th>Comments</th>
+                <th>Commented At</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let updateLog of updateLogData; let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{updateLog?.user?.name}} ({{updateLog?.user.role?.roleName}})</td>
+                <td>{{updateLog?.comment}}</td>
+                <td>{{updateLog?.createdAt | date}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

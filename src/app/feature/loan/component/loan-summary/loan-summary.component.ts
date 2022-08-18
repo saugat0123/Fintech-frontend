@@ -52,6 +52,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProposalService} from '../../../loan-update/service/proposal.service';
 import {MinimumAmountValidator} from '../../../../@core/validator/minimum-amount-validator';
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
+import {UpdateLog} from '../../model/update-log';
 
 @Component({
     selector: 'app-loan-summary',
@@ -224,6 +225,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         documents: Array<ObtainableDoc>(),
         OtherDocuments: null
     };
+    updateLogData: any;
+    updateLogPresent = false;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -319,6 +322,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (this.isFixedDeposit) {
             this.loanNatureSelected = false;
             this.fundableNonFundableSelcted = false;
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.updateLog)) {
+            this.updateLogPresent = true;
+            const updatedLog = this.loanDataHolder.updateLog;
+            this.updateLogData = JSON.parse(updatedLog.updateLogData);
         }
     }
 
@@ -864,6 +872,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         };
         const modalRef = this.ngbModal.open(ObtainedDocumentComponent, options);
         modalRef.componentInstance.fromSummary = fromSummary;
+        modalRef.result.then((res: any) => {
+            if (res === 'SUCCESS') {
+                this.refresh();
+            }
+        });
     }
 
     get formControls() {
@@ -879,6 +892,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.formDataForEdit['serviceCharge'] = (this.proposalForm.controls['serviceCharge'].value);
 
         this.proposalData.data = JSON.stringify(this.formDataForEdit);
+        this.proposalData.updateLogComment = this.proposalForm.controls['updateComment'].value;
         this.proposalData.proposedLimit = this.proposalForm.controls['proposedLimit'].value;
 
         this.proposalService.saveProposal(this.proposalData.id, this.proposalData).subscribe(() => {
@@ -899,14 +913,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             baseRate: [undefined],
             premiumRateOnBaseRate: [undefined],
             serviceChargeMethod: [undefined],
-            serviceCharge: [undefined]
+            serviceCharge: [undefined],
+            updateComment: [undefined, Validators.required],
         });
 
         // Fill form values
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.formDataForEdit = JSON.parse(this.loanDataHolder.proposal.data);
             if (this.formDataForEdit !== null && this.formDataForEdit !== undefined && !ObjectUtil.isEmpty(this.formDataForEdit)) {
-                this.proposalForm.setValue({
+                this.proposalForm.patchValue({
                     proposedLimit: this.formDataForEdit['proposedLimit'],
                     baseRate: this.formDataForEdit['baseRate'],
                     interestRate: this.formDataForEdit['interestRate'],
