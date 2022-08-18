@@ -1,0 +1,201 @@
+<div class="row summary">
+    <div class="col-md-12">
+        <p><strong class="header">Business Information</strong></p>
+        <p  class="sub-header"><strong class="sub-header">Business Profile</strong></p>
+        <table
+                class="table table-condensed table-bordered table-responsive-md table-sm  company-detail summary">
+            <tr>
+                <td><b>Nature Of business</b></td>
+                <td>{{companyJsonData?.majorProductService}}</td>
+                <td><b>Relationship Start (with group) (AD/BS)</b>: {{companyJsonData?.relationshipSince | date}}
+                    ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <td><b>Sister Concerns</b></td>
+                <td>{{companyJsonData?.sisterConcern || 'N/A'}}</td>
+                <td><b>Relationship Since (with customer) (AD/BS)</b>: {{companyJsonData?.relationshipSinceWithCustomer | date}}
+                    ({{companyJsonData?.relationshipSinceWithCustomer |engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <td rowspan="6"><b>RegistrationDetail</b></td>
+                <td><b>Dept/office</b></td>
+                <td>{{((companyInfo?.legalStatus?.registeredOffice | replace: '_': ' ') | titlecase)}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Date(AD/BS)</b></td>
+                <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
+            </tr>
+            <tr>
+                <td><b>Regd. Number</b></td>
+                <td>{{companyInfo?.registrationNumber}}</td>
+            </tr>
+            <tr>
+                <td><b>Regd. District</b></td>
+                <td>{{companyInfo?.legalStatus?.registrationDistrict}}</td>
+            </tr>
+            <tr>
+                <td><b>Registered at Udhyog Bibhag?</b></td>
+                <td>{{companyInfo?.legalStatus?.udhyogBibhag}}</td>
+            </tr>
+            <tr>
+                <td><b>PAN Number</b></td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{companyInfo?.panNumber}}
+                            <span class="float-right">
+              |
+            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}})
+                            <span class="float-right">
+            </span>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <b>Registered Office</b>: {{companyInfo?.legalStatus.panRegistrationOffice}}
+                </td>
+            </tr>
+            <tr>
+
+                <td><b>VAT Number</b></td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{companyInfo?.vatNo}}
+                            <span class="float-right">
+              |
+            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.vatRegistrationDate | date}} ({{companyInfo?.legalStatus?.vatRegistrationDate |engNepDate: false}})
+                            <span class="float-right">
+              |
+            </span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <b>Registered Office</b>: {{companyInfo?.legalStatus.vatRegistrationOffice}}
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="companyInfo?.establishmentDate">
+                    <b>Business Operation Since(if Other than registration date)(AD/BS)</b>
+                </td>
+                <td colspan="2">
+                    {{companyInfo?.establishmentDate | date}} {{companyInfo?.establishmentDate |engNepDate: false}}
+                </td>
+            </tr>
+            <tr>
+                <td><b>Issue Place</b></td>
+                <td colspan="2">{{companyInfo?.issuePlace}}</td>
+            </tr>
+            <tr>
+                <td><b>Registered Address</b></td>
+                <td  colspan="2">
+                    {{companyLocationData?.address1}}</td>
+            </tr>
+            <tr>
+                <td><b>Project Address</b></td>
+                <td  colspan="2">
+                    {{projectAddress?.address1}}</td>
+            </tr>
+            <tr>
+                <td><b>Correspondence Address</b></td>
+                <td  colspan="2">
+                    {{correspondenceAddress?.address1}} </td>
+            </tr>
+            <tr>
+                <td>
+                    <div><b> Key Contact Person/Position</b></div>
+                    <div><b>Name</b></div>
+                    <div><b>Contact Number</b></div>
+                    <div><b>E-mail address:</b></div>
+                    <div><b>Functional Position</b></div>
+                </td>
+                <td>
+                    <ng-container *ngIf="contact != undefined || contact != null">
+                        <div><b>Details</b></div>
+                        <div>{{contact[0]?.contactName}}</div>
+                        <div>{{contact[0]?.contactNumber}}</div>
+                        <div *ngIf="contact[0]?.contactEmail; else noemail">{{contact[0]?.contactEmail}}</div>
+                        <ng-template #noemail>NA</ng-template>
+                        <div>{{contact[0]?.functionalPosition}}</div>
+                    </ng-container>
+                </td>
+                <td>
+                    <div> <b>Alternative Contact Person</b></div>
+                    <ng-container *ngIf="contact?.length > 1">
+                        <div>{{contact[1]?.contactName}}</div>
+                        <div>{{contact[1]?.contactNumber}}</div>
+                        <div>{{contact[1]?.email}}</div>
+                        <div>{{contact[1]?.functionalPosition}}</div>
+                    </ng-container>
+                    <span *ngIf="contact?.length == 1">N/A</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td><b>Authorized / Issue / Paid Up Capital</b></td>
+                <td colspan="3">NPR. {{companyInfo?.capital?.authorizedCapital |currencyFormatter}}
+                    / NPR. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
+                    / NPR. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
+            </tr>
+
+
+            <tr>
+                <td><b>Business Segment</b></td>
+                <td colspan="3">{{loanDataHolder?.loanHolder['clientType'] | clientType}}</td>
+
+            </tr>
+            <tr>
+                <td><b>SubSector</b></td>
+                <td colspan="3">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
+            </tr>
+            <tr>
+                <td><b>Customer ID</b></td>
+                <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>
+            </tr>
+            <tr>
+                <td><b>Account Number</b></td>
+                <td colspan="3">{{getAccountNumber(accountNumberList)}}</td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="col-md-12" *ngIf="newGuarantor?.length > 0">
+        <div class="text-center">
+            <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
+            <ng-container>
+                <table
+                        class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
+
+                    <tbody>
+                    <tr>
+                        <td class="text-left sb-bg-gray pl-2">S.N</td>
+                        <td class="text-left sb-bg-gray pl-2">Name</td>
+                        <td class="sb-bg-gray text-left pl-2">Designation</td>
+                        <td class="text-left sb-bg-gray pl-2">Share holding (%)</td>
+                    </tr>
+                    <tr *ngFor="let g of newGuarantor; let i = index;">
+                        <td class="text-left pl-2">{{i+1}}</td>
+                        <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{g?.guarantorType || 'N/A'}}</td>
+                        <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </div>
+    </div>
+
+</div>

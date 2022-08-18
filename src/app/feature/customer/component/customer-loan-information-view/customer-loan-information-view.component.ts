@@ -25,7 +25,6 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   fiscalYearArray: Array<FiscalYear>;
   @Input() isMicroCustomer: boolean;
   isIndividual = false;
-
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, private  fiscalYearService: FiscalYearService) {
   }
@@ -34,6 +33,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }
+    this.customerInfo.securities = this.customerInfo.securities ? this.customerInfo.securities : [];
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
     });

@@ -1,212 +1,267 @@
-<ng-container *ngIf="proposalData?.data !== null">
-    <app-proposal-summary
-            *ngIf="proposalSummary"
-            [customerAllLoanList]="customerAllLoanList"
-            [proposalData]="proposalData"
-            [loanDataHolder]="loanDataHolder"></app-proposal-summary>
-</ng-container>
-<div *ngIf="isCorporate" class = "col-md-12">
-    <p><strong class="header text-left">Purpose of Loan </strong></p>
-    <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
-        <ng-container *ngIf="loan?.id">
-            <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-            <ul>
-                <li>
-                    <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                </li>
-            </ul>
-        </ng-container>
+<div class="summary">
+    <ng-container>
+        <app-only-business-profile *ngIf="isCorporate"  [companyInfo]="loanDataHolder?.companyInfo"
+                                    [loanDataHolder]="loanDataHolder"></app-only-business-profile>
     </ng-container>
-</div>
-<!--                release and replacement-->
-<ng-container>
-    <hr class="print-line">
-    <p><strong class="header">Security Schedule</strong></p>
-    <app-security-total-summary [securities]="loanSecurity"
-                                [approvedSec]="approvedSecurity"
-                                [loanHolder]="loanDataHolder?.loanHolder"
-                                [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
-    <!--                    proposed security-->
-    <app-security-summary *ngIf="loanSecurity?.length > 0"
-                          [securities]="loanSecurity"
-                          [pending]="true"></app-security-summary>
-    <!--                    existing security-->
-    <app-security-summary *ngIf="approvedSecurity?.length > 0"
-                          [securities]="approvedSecurity"></app-security-summary>
-    <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+    <ng-container *ngIf="proposalData?.data !== null">
+        <app-proposal-summary
+                *ngIf="proposalSummary"
+                [customerAllLoanList]="customerAllLoanList"
+                [proposalData]="proposalData"
+                [loanDataHolder]="loanDataHolder"></app-proposal-summary>
+    </ng-container>
+<!--    <div *ngIf="isCorporate" class="col-md-12">-->
+<!--        <p><strong class="header text-left">Purpose of Loan </strong></p>-->
+<!--        <ng-container *ngFor="let loan of customerAllLoanList; let i = index">-->
+<!--            <ng-container *ngIf="loan?.id">-->
+<!--                <span><strong>{{ loan?.loan?.name }}</strong></span> <br>-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </ng-container>-->
+<!--        </ng-container>-->
+<!--    </div>-->
+    <!--                release and replacement-->
+    <ng-container>
+        <hr class="print-line">
+        <p><strong class="header">Security Schedule</strong></p>
+        <app-security-total-summary [securities]="loanSecurity"
+                                    [approvedSec]="approvedSecurity"
+                                    [loanHolder]="loanDataHolder?.loanHolder"
+                                    [customerAllLoanList]="customerAllLoanList"></app-security-total-summary>
+        <!--                    proposed security-->
+        <app-security-summary *ngIf="loanSecurity?.length > 0"
+                              [securities]="loanSecurity"
+                              [pending]="true"></app-security-summary>
+        <!--                    existing security-->
+        <app-security-summary *ngIf="approvedSecurity?.length > 0"
+                              [securities]="approvedSecurity"></app-security-summary>
+        <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
-</ng-container>
-<!-- Customer Share Security  -->
-<app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
-                                [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
-</app-customer-share-detail-view>
-
-<hr class="print-line">
-<div class="row">
-    <div class="col-md-12">
-        <!--<app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
-                               [calendarType]="calendarType"
-                               [formValue]="loanDataHolder?.companyInfo"
-                               [loanId]="loanId"
-                               [loanDataHolder]="loanDataHolder"
-                               [customerInfo]="loanDataHolder?.loanHolder"></app-company-info-view>-->
-        <app-company-info-summary [approveSheet]="notApprove"
-                                  [companyInfo]="loanDataHolder?.companyInfo"
-                                  [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-        <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
-
-    </div>
-</div>
-
-<hr class="print-line">
-<ng-container>
-    <div class="row  mt-3">
-            <div *ngIf="!isCorporate" class = "col-md-12">
-                <p><strong class="header text-left">Purpose of Loan </strong></p>
-                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
-                    <ng-container *ngIf="loan?.id">
-                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                        <ul>
-                            <li>
-                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                            </li>
-                        </ul>
-                    </ng-container>
-                </ng-container>
+    </ng-container>
+    <ng-container>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="sub-header"><strong>Customer Reporting Information</strong></p>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-gray">
+                        <td>S.N</td>
+                        <td>Description</td>
+                    </tr>
+                    <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
+                        <td>{{i + 1}}</td>
+                        <td>{{reporting?.description}}</td>
+                    </tr>
+                </table>
             </div>
+        </div>
+    </ng-container>
+    <!-- Customer Share Security  -->
+    <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
+                                    [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
+    </app-customer-share-detail-view>
+
+    <hr class="print-line">
+    <div class="row">
+        <div class="col-md-12">
+            <app-company-info-summary [approveSheet]="notApprove"
+                                      [showOnlyProfile] ="isCorporate"
+                                      [companyInfo]="loanDataHolder?.companyInfo"
+                                      [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+            <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+
+        </div>
+    </div>
+
+    <hr class="print-line">
+    <ng-container>
+        <div class="row  mt-3">
+<!--            <div *ngIf="!isCorporate" class="col-md-12">-->
+<!--                <p><strong class="header text-left">Purpose of Loan </strong></p>-->
+<!--                <ng-container *ngFor="let loan of customerAllLoanList; let i = index">-->
+<!--                    <ng-container *ngIf="loan?.id">-->
+<!--                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>-->
+<!--                        <ul>-->
+<!--                            <li>-->
+<!--                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </ng-container>-->
+<!--                </ng-container>-->
+<!--            </div>-->
             <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                 <hr class="print-line">
-                <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span></p>
+                <p><strong class="header text-left">Borrowing Case: </strong></p>
+                <ul>
+                    <li>
+                                       <span class="text-left"
+                                             style="display: flex"
+                                             [innerHTML]="proposalAllData?.borrowingCase === 'Other'? proposalAllData?.justificationChangeHistorical : proposalAllData?.borrowingCase  | safeHtml"></span>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
                 <hr class="print-line">
-                <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span></p>
+                <p><strong class="header text-left">End Use Of Fund: </strong> <span class="text-left"
+                                                                                     style="display: flex"
+                                                                                     [innerHTML]="proposalAllData?.endUseOfFund || 'N/A' | safeHtml"></span>
+                </p>
             </div>
 
-        <div class="col-md-12" *ngIf="isCorporate">
-            <p><strong class="header text-left">Facility Utilization</strong></p>
-            <table class="table table-bordered table-responsive-md table-sm sb-small table-hover summary">
-                <tr class="sb-bg-gray">
-                   <td>Overdraft utilization</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></td>
-                </tr>
+            <div class="col-md-12" *ngIf="isCorporate">
+                <p><strong class="header text-left">Facility Utilization</strong></p>
+                <table class="table table-bordered table-responsive-md table-sm sb-small table-hover summary">
+                    <tr *ngIf="facilityUtilization?.overdraftUtilization" class="sb-bg-gray">
+                        <td>Overdraft utilization</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.overdraftUtilization">
+                        <table
+                                class="col-md-12
+                                 table-sm table-bordered
+                                  table-responsive-sm border-dark"
+                                style="width: 100%; border: white"
+                                [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></table>
+                    </tr>
 
-                <tr class="sb-bg-gray">
-                    <td>Remarks</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.remarks | safeHtml"></td>
-                </tr>
+                    <tr *ngIf="facilityUtilization?.remarks" class="sb-bg-gray">
+                        <td>Remarks</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks">
+                        <td [innerHTML]="facilityUtilization?.remarks | safeHtml"></td>
+                    </tr>
 
-                <tr class="sb-bg-gray">
-                    <td>Other Facility Utilization</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.otherFacilityUtilization | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>Remarks</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.remarks1 | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>Letter of Credit issued</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></td>
-                </tr>
-                 <tr class="sb-bg-gray">
-                    <td>Remarks</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.remarks2 | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>Bank Guarantee issued</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.bankGuaranteeIssued | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>Remarks</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.remarks3 | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>One off loans approved</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.oneOffLoansApproved | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>Remarks</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.remarks4 | safeHtml"></td>
-                </tr>
-                <tr class="sb-bg-gray">
-                    <td>Remarks</td>
-                </tr>
-                <tr>
-                    <td [innerHTML]="facilityUtilization?.remarks4 | safeHtml"></td>
-                </tr>
+                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.otherFacilityUtilization">
+                        <td>Other Facility Utilization</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.otherFacilityUtilization">
+                        <td [innerHTML]="facilityUtilization?.otherFacilityUtilization | safeHtml"></td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks1" class="sb-bg-gray">
+                        <td>Remarks</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks1">
+                        <td [innerHTML]="facilityUtilization?.remarks1 | safeHtml"></td>
+                    </tr>
+                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.letterOfCreditIssued" >
+                        <td>Letter of Credit issued</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.letterOfCreditIssued" >
+                        <table class="col-md-12
+                          table-sm table-bordered table-responsive-sm border-dark"
+                               style="width: 100%; border: white;" [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></table>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks2"  class="sb-bg-gray">
+                        <td>Remarks</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks2" >
+                        <td [innerHTML]="facilityUtilization?.remarks2 | safeHtml"></td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.bankGuaranteeIssued"  class="sb-bg-gray">
+                        <td>Bank Guarantee issued</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.bankGuaranteeIssued" >
+                        <td [innerHTML]="facilityUtilization?.bankGuaranteeIssued | safeHtml"></td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks3"  class="sb-bg-gray">
+                        <td>Remarks</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks3" >
+                        <td [innerHTML]="facilityUtilization?.remarks3 | safeHtml"></td>
+                    </tr>
+                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.oneOffLoansApproved" >
+                        <td>One off loans approved</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.oneOffLoansApproved" >
+                        <td [innerHTML]="facilityUtilization?.oneOffLoansApproved | safeHtml"></td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks4" class="sb-bg-gray">
+                        <td>Remarks</td>
+                    </tr>
+                    <tr *ngIf="facilityUtilization?.remarks4">
+                        <td [innerHTML]="facilityUtilization?.remarks4 | safeHtml"></td>
+                    </tr>
 
-            </table>
-        </div>
+                </table>
+            </div>
 
             <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.cicl">
-                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                               [loanDataHolder]="loanDataHolder"></app-cicl-view>
             </div>
-        <div class="col-md-12">
-            <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking && isCorporate"
-                                       [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
-        </div>
-            <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking && isCorporate"
+                                           [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
+            </div>
+            <ng-container
+                    *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && smallBusiness; else financials">
                 <div class="col-md-12">
-                    <app-financial-account-information [financialFormValue]="loanDataHolder"></app-financial-account-information>
+                    <hr class="print-line">
+                    <app-financial-account-information
+                            [financialFormValue]="loanDataHolder"></app-financial-account-information>
                 </div>
             </ng-container>
             <ng-template #financials>
                 <div class="col-md-12">
-                <p  *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
-                    class="col-md-12 text-left"><strong class="header">Financial</strong></p>
-                <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
-                                           [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"  [title]="'executiveSummaryData'"></app-financial-json-parser>
-                <app-financial-json-parser *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialData"
-                                           [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"  [title]="'cashFlowData'"></app-financial-json-parser>
+                    <hr class="print-line">
+                    <p *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
+                       class="col-md-12 text-left"><strong class="header">Financial</strong></p>
+                    <app-financial-json-parser
+                            *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION' && financialData"
+                            [summaryOnly]="true" [financialJson]="financialData['executiveSummaryData'] | jsonParse"
+                            [title]="'executiveSummaryData'"></app-financial-json-parser>
+                    <app-financial-json-parser
+                            *ngIf="loanDataHolder?.loanHolder?.customerType === 'INSTITUTION'&& financialData"
+                            [summaryOnly]="true" [financialJson]="financialData['cashFlowData'] | jsonParse"
+                            [title]="'cashFlowData'"></app-financial-json-parser>
                 </div>
             </ng-template>
             <ng-container *ngIf="!smallBusiness">
-                <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
+                <div class="col-md-12"
+                     *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical">
                     <hr class="print-line">
                     <p><strong class="header text-left">Justification for Change (Historical): </strong></p>
-                        <div
-                              [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></div>
+                    <div
+                            [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeHistorical || 'N/A' | safeHtml"></div>
 
                 </div>
-                <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection">
+                <div class="col-md-12"
+                     *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection">
                     <hr class="print-line">
                     <p><strong class="header text-left">Justification for Change (Projection)
-                        : </strong>                    </p>
+                        : </strong></p>
                     <div class=""
-                                          [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></div>
+                         [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.changeProjection || 'N/A' | safeHtml"></div>
                 </div>
-                <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks">
+                <div class="col-md-12"
+                     *ngIf="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks">
                     <hr class="print-line">
                     <p><strong class="header text-left">Remarks
-                        : </strong> </p>
+                        : </strong></p>
                     <div
-                                          [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
+                            [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
                 </div>
             </ng-container>
             <div *ngIf="netTradingAssetsSummary" class="col-md-12">
+                <hr class="print-line">
                 <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"
-                                             [loanDataHolder] = "loanDataHolder"
-                                             [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
+                                             [loanDataHolder]="loanDataHolder"
+                                             [netTradingAssets]="loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
+            </div>
+            <div class="col-md-12" *ngIf="isCorporate">
+                <hr class="print-line">
+                <app-income-from-account-summery
+                        [formData]="loanDataHolder?.loanHolder?.incomeFromAccount">
+                </app-income-from-account-summery>
+
+                <hr class="print-line">
+                <p><strong class="header">Audit Comments and Compliance</strong></p>
+                <app-comments [commentData]="loanDataHolder?.loanHolder?.data"
+                              [view]="true"
+                              [fromProfile]="true"></app-comments>
+
             </div>
             <ng-container *ngIf="smallBusiness">
                 <div class="col-md-12 form-group">
@@ -217,7 +272,7 @@
                         </div>
                     </div>
                     <p class="text-right">(Amount in NPR ‘000s)</p>
-                    <table  class="table table-sm table-bordered table-hover sb-small text-center">
+                    <table class="table table-sm table-bordered table-hover sb-small text-center summary">
                         <thead>
                         <tr class="sb-bg-gray">
                             <th>S.N</th>
@@ -229,8 +284,9 @@
                         </tr>
                         </thead>
                         <tbody class="text-left">
-                        <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index" style="text-align: center;">
-                            <ng-container >
+                        <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index"
+                            style="text-align: center;">
+                            <ng-container>
                                 <td>{{i + 1}}</td>
                                 <td>{{fixedAssets?.particular || 'NA'}}</td>
                                 <td>{{fixedAssets?.unit || 'NA'}}</td>
@@ -242,13 +298,13 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12 form-group" >
+                <div class="col-md-12 form-group">
                     <div class="row">
                         <div class="col-md-12 text-left">
                             <b class="header">Summary of Environment & Social Risk Assessment</b>
                         </div>
                     </div>
-                    <table class="table table-sm table-bordered table-hover sb-small text-center">
+                    <table class="table table-sm table-bordered table-hover sb-small text-center summary">
                         <thead>
                         <tr class="sb-bg-gray">
                             <th>S.N</th>
@@ -261,20 +317,20 @@
                             <td>1</td>
                             <td class="text-left">Falls under Exclusion and critical sector list</td>
                             <td class="text-center">
-                                {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES': 'NO'}}
+                                {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES' : 'NO'}}
                             </td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td class="text-left">E & S Due Diligence process Applicable</td>
                             <td class="text-center">
-                                {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES': 'NO'}}
+                                {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES' : 'NO'}}
 
                             </td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td class="text-left">Level of Risk </td>
+                            <td class="text-left">Level of Risk</td>
                             <td>
                                 {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
 
@@ -283,7 +339,7 @@
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td class="text-left">Falls under Exclusion and critical sector list </td>
+                            <td class="text-left">Falls under Exclusion and critical sector list</td>
                             <td>
                                 {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
 
@@ -297,7 +353,8 @@
                 <div class="col-md-12">
                     <hr class="print-line">
                     <p><strong class="header">Waivers</strong></p>
-                    <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
+                    <div class="col-md-12 table-condensed table-responsive-md"
+                         [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml">
                     </div>
                 </div>
             </ng-container>
@@ -305,248 +362,225 @@
                 <div class="col-md-12">
                     <hr class="print-line">
                     <p><strong class="header">Deviation</strong></p>
-                    <div class="col-md-12 table-condensed table-responsive-md" [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
+                    <div class="col-md-12 table-condensed table-responsive-md"
+                         [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml">
                     </div>
                 </div>
             </ng-container>
+        </div>
+    </ng-container>
+
+    <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row summary">
+        <div class="col-md-12">
+            <hr class="print-line">
+            <p><strong class="header">Detail of Present Proposal of the Facility</strong></p>
+            <table class="table table-bordered text-center table-sm sb-small summary">
+                <tbody>
+                <tr>
+                    <th>Credit Facility</th>
+                    <td>{{loanDataHolder?.loan?.name}}</td>
+
+                    <th>Proposed Limit</th>
+                    <td>{{dmsLoanFile?.proposedAmount
+                    || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
+
+                    <th>Interest Rate</th>
+                    <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
+
+                    <th>Tenure Duration In Month</th>
+                    <td>{{(dmsLoanFile?.tenureDuration
+                        || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
+
+                </tr>
+                <tr>
+                    <th>Loan Administration Fee</th>
+                    <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                        {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
+                        {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                    </td>
+
+                    <th>FMV Funding Percentage</th>
+                    <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
+
+                    <th>Total FMV</th>
+                    <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
+
+                    <th>Total DV</th>
+                    <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
+
+                    <th>Total Loan Limit</th>
+                    <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
+                </tr>
+                <tr>
+                    <th>Institution Exposure</th>
+                    <td>{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
+
+                    <th>Group Exposure</th>
+                    <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
+
+                    <th>Debt Service Coverage
+                        Ratio
+                    </th>
+                    <td>{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+
+                    <th>Dealing Product Name</th>
+                    <td>{{dmsLoanFile?.dealingProductName}}</td>
+                </tr>
+                <tr>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</ng-container>
-
-<div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
-    <div class="col-md-12">
-        <hr class="print-line">
-        <p ><strong   class="header">Detail of Present Proposal of the Facility</strong></p>
-        <table class="table table-bordered text-center table-sm sb-small">
-            <tbody>
-            <tr>
-                <th>Credit Facility</th>
-                <td>{{loanDataHolder?.loan?.name}}</td>
-
-                <th>Proposed Limit</th>
-                <td>{{dmsLoanFile?.proposedAmount
-                || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
-
-                <th>Interest Rate</th>
-                <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
-
-                <th>Tenure Duration In Month</th>
-                <td>{{(dmsLoanFile?.tenureDuration
-                    || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-
-            </tr>
-            <tr>
-                <th>Loan Administration Fee</th>
-                <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
-                    {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                    {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
-                </td>
-
-                <th>FMV Funding Percentage</th>
-                <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
-
-                <th>Total FMV</th>
-                <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
-
-                <th>Total DV</th>
-                <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
-
-                <th>Total Loan Limit</th>
-                <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
-            </tr>
-            <tr>
-                <th>Institution Exposure</th>
-                <td>{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
-
-                <th>Group Exposure</th>
-                <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
-
-                <th>Debt Service Coverage
-                    Ratio
-                </th>
-                <td>{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
-
-                <th>Dealing Product Name</th>
-                <td>{{dmsLoanFile?.dealingProductName}}</td>
-            </tr>
-            <tr>
-            </tr>
-            </tbody>
-        </table>
+    <hr class="print-line" *ngIf="isCorporate && loanDataHolder?.loanHolder?.accountStrategy">
+    <div class="row" *ngIf="isCorporate && loanDataHolder?.loanHolder?.accountStrategy">
+        <div class="col-md-12">
+            <p class="header"><strong class="header text-left">Account Strategy </strong></p>
+            <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="loanDataHolder?.loanHolder?.accountStrategy | safeHtml"></span></td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
-<hr class="print-line" *ngIf="isCorporate && loanDataHolder?.companyInfo?.accountStrategy">
-<div class="row" *ngIf="isCorporate && loanDataHolder?.companyInfo?.accountStrategy">
-    <div class="col-md-12">
-        <table  class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
-            <tr class="sb-bg-gray">
-                <th class="header">Account Strategy</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="loanDataHolder?.companyInfo?.accountStrategy | safeHtml"></span></td>
-            </tr>
-        </table>
+    <hr class="print-line">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <p><strong class="header">Authority Section</strong></p>
+            <table
+                    class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
+                <thead>
+                <tr class="sb-bg-gray">
+                    <th>S.N</th>
+                    <th>Date</th>
+                    <th>From User</th>
+
+                    <th>To User</th>
+
+                    <th>Status</th>
+                    <th class="cmt-width">Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td class="text-left pl-1">
+                        {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
+                    </td>
+                    <td class="text-left">
+                        <div class="pl-1">
+                            {{previousList?.fromUser?.name}}</div>
+                        <div class="pl-1">
+                            <span>({{previousList?.fromRole?.roleName}})</span>
+                        </div>
+                    </td>
+
+                    <td class="text-left">
+                        <div class="pl-1">
+                            {{previousList?.toUser?.name}}</div>
+                        <div class="pl-1">
+                            ({{previousList?.toRole?.roleName}})
+                        </div>
+                    </td>
+
+                    <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
+                    <td class="text-left">
+                        <div>
+                            <span class="pl-1 justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{currentIndex + 1}}</td>
+                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                        ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
+                    </td>
+                    <td class="text-left">
+                        <div class="pl-1">
+                            {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                        <div class="pl-1">
+                            <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                        </div>
+                    </td>
+
+                    <td class="text-left">
+                        <div class="pl-1">
+                            {{loanDataHolder?.currentStage?.toUser?.name}}</div>
+                        <div class="pl-1">
+                            <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                        </div>
+                    </td>
+
+                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
+                    <td class="text-left">
+                        <div>
+                            <span class="pl-1 print-only text-justify pr-1"
+                                  [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<hr class="print-line">
-<div class="row mt-3">
-    <div class="col-md-12">
-        <p><strong   class="header">Authority Section</strong></p>
-        <table
-                class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-gray">
-                <th>S.N</th>
-                <th>Date</th>
-                <th>From User</th>
 
-                <th>To User</th>
-
-                <th>Status</th>
-                <th class="cmt-width">Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                <td>{{i + 1}}</td>
-                <td class="text-left pl-1">
-                    {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
-                </td>
-                <td class="text-left">
-                    <div class="pl-1">
-                        {{previousList?.fromUser?.name}}</div>
-                    <div class="pl-1">
-                        <span>({{previousList?.fromRole?.roleName}})</span>
+    <div *ngIf="signatureList.length > 0" class="row justify-content-between"
+         id="signatureDiv">
+        <div class="col-md-12 print-only">
+            <!--        <p><strong   class="header summary">Approval Chain</strong></p>-->
+        </div>
+        <div class="row col-md-12 summary" style="height: 210px; max-height: 210px">
+            <div *ngFor="let previous of signatureList; let i=index;"
+                 class="col-md-3 padding-0-125">
+                <div class="signature-block" style="height: 100%;">
+                    <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
+                        <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                     </div>
-                </td>
-
-                <td class="text-left">
-                    <div class="pl-1">
-                        {{previousList?.toUser?.name}}</div>
-                    <div class="pl-1">
-                        ({{previousList?.toRole?.roleName}})
+                    <hr class="border-dark m-0">
+                    <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                        <div class="print-only signature-padding"></div>
+                        <img align="middle" alt="signature" style="height: 100%; width: 100%"
+                             class="img-thumbnail border-0 signature-height signature-width"
+                             src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                     </div>
-                </td>
-
-                <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
-                <td class="text-left">
-<!--                    <div class="pl-1 disable-print" [innerHTML]="customSafePipe(-->
-<!--                                    previousList?.comment?.length > 50 ?-->
-<!--                                    previousList?.comment?.substring(0, 49) :-->
-<!--                                    previousList?.comment)">-->
-<!--                    </div>-->
-<!--                    <a (click)="open(previousList?.comment)"-->
-<!--                       *ngIf="previousList?.comment?.length > 50"-->
-<!--                       class="text-left pl-1 disable-print">read more ....</a>-->
-                    <div>
-                        <span class="pl-1 justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>{{currentIndex + 1}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
-                <td class="text-left">
-                    <div class="pl-1">
-                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                    <div class="pl-1">
-                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                </td>
-
-                <td class="text-left">
-                    <div class="pl-1">
-                        {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                    <div class="pl-1">
-                        <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                </td>
-
-                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
-                <td class="text-left">
-                   <!-- <div class="pl-1 disable-print">
-                                    <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment)"></span>
-                    </div>
-                    <a (click)="open(loanDataHolder.currentStage.comment)"
-                       *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                       class="text-left pl-1 disable-print">read more ....</a>-->
-                    <div>
-                        <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div *ngIf="signatureList.length > 0" class="row justify-content-between"
-     id="signatureDiv">
-    <div class="col-md-12 print-only">
-<!--        <p><strong   class="header">Approval Chain</strong></p>-->
-    </div>
-    <div class="row col-md-12 summary" style="height: 210px; max-height: 210px">
-        <div *ngFor="let previous of signatureList; let i=index;"
-             class="col-md-3 padding-0-125">
-            <div class="signature-block" style="height: 100%;">
-                <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
-                    <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
-                </div>
-                <hr class="border-dark m-0">
-                <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
-                    <div class="print-only signature-padding"></div>
-                    <img align="middle" alt="signature" style="height: 100%; width: 100%"
-                         class="img-thumbnail border-0 signature-height signature-width"
-                         src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
-                </div>
-                <div class="text-center signature-detail sb-bg-gray">
-                    <span class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</span>
-                    <span class="m-0 sb-small">
-                                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})
+                    <div class="text-center signature-detail sb-bg-gray">
+                        <span class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</span>
+                        <span class="m-0 sb-small">
+                                    ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
+                            )
                                 </span>
-                    <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}</p>
+                        <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<br>
-
-<!--<div *ngIf="financialKeys?.length > 0 ">-->
-<!--    <ng-container *ngFor="let title of financialKeys">-->
-<!--        <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>-->
-<!--        <hr>-->
-<!--        <div class="row">-->
-<!--            <app-financial-json-parser-->
-<!--                    [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>-->
-<!--        </div>-->
-<!--    </ng-container>-->
-<!--</div>-->
-<hr *ngIf="loanDataHolder?.loanHolder?.creditChecklist" class="print-line">
-<app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
-                           [formData]="loanDataHolder?.loanHolder?.creditChecklist"
-                           [fromProfile]="false"
-                           [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
-<hr class="print-line">
-<!--Product Paper Checklist-->
-<div *ngIf="toggleChecklist !== null">
-    <p><strong class="header">Product Paper Checklist</strong></p>
-</div>
-<ng-container *ngFor="let loan of combinedLoan; let i = index">
-    <ng-container *ngIf="toggleChecklist[i] !== null">
-        <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
-                                     *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
+    <br>
+    <hr *ngIf="loanDataHolder?.loanHolder?.creditChecklist" class="print-line">
+    <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                               [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                               [fromProfile]="false"
+                               [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+    <hr class="print-line">
+    <!--Product Paper Checklist-->
+    <div *ngIf="toggleChecklist !== null">
+        <p><strong class="header">Product Paper Checklist</strong></p>
+    </div>
+    <ng-container *ngFor="let loan of combinedLoan; let i = index">
+        <ng-container *ngIf="toggleChecklist[i] !== null">
+            <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
+                                         *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
+        </ng-container>
     </ng-container>
-</ng-container>
-<ng-container *ngIf="loanDataHolder?.loanHolder?.securities[0]?.collateralSiteVisits">
-<hr class="print-line">
-</ng-container>
-<app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
-                           [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
+    <ng-container *ngIf="loanDataHolder?.loanHolder?.securities[0]?.collateralSiteVisits">
+        <hr class="print-line">
+    </ng-container>
+    <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
+                               [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
-<app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
-                     [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
-                     [loanDataHolder]="loanDataHolder"
-                     [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
-
+    <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
+                         [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                         [loanDataHolder]="loanDataHolder"
+                         [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
+</div>

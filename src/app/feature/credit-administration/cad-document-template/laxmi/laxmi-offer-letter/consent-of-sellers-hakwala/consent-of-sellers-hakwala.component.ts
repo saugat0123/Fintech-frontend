@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
@@ -10,7 +10,6 @@ import {ToastService} from '../../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {json} from 'd3';
 
 @Component({
   selector: 'app-consent-of-sellers-hakwala',
@@ -26,6 +25,10 @@ export class ConsentOfSellersHakwalaComponent implements OnInit {
   offerLetterConst = CadCheckListTemplateEnum;
   initialInfoPrint;
   customerData;
+  loanHolderData;
+  collateralDataDetails = [];
+  collateralDataArray: Array<any> = new Array<any>();
+  freeText: Array<any> = new Array<any>();
   constructor(
       private formBuilder: FormBuilder,
       private administrationService: CreditAdministrationService,
@@ -36,126 +39,135 @@ export class ConsentOfSellersHakwalaComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.initialInfoPrint = singleCadFile.supportedInformation;
-        }
-      });
-    }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.customerData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.loadCollateralData();
+    this.buildForm();
     this.fillForm();
+  }
+  loadCollateralData() {
+    if (!ObjectUtil.isEmpty(this.customerData)) {
+      this.loanHolderData = this.customerData;
+      this.loanHolderData.collateralDetails.forEach((val) => {
+        this.collateralDataDetails.push(val);
+      });
+    }
+    this.collateralDataDetails = Array.from(
+        new Set(
+            this.collateralDataDetails.map((val) => JSON.stringify(val))
+        )
+    ).map((val) => JSON.parse(val));
   }
   buildForm() {
     this.form = this.formBuilder.group({
-      customerName1: [undefined],
-      customerName2: [undefined],
-      date: [undefined],
-      acceptorName: [undefined],
-      acceptorAddress: [undefined],
-      acceptorCitizenshipNo: [undefined],
-      acceptanceDate: [undefined],
-      acceptorIssuedOffice: [undefined],
-      acceptorRelation: [undefined],
-      acceptorNameTwo: [undefined],
-      acceptorAddressTwo: [undefined],
-      acceptorCitizenshipNoTwo: [undefined],
-      acceptanceDateTwo: [undefined],
-      acceptorIssuedOfficeTwo: [undefined],
-      acceptorRelationTwo: [undefined],
-      acceptorNameThree: [undefined],
-      acceptorAddressThree: [undefined],
-      acceptorCitizenshipNoThree: [undefined],
-      acceptanceDateThree: [undefined],
-      acceptorIssuedOfficeThree: [undefined],
-      acceptorRelationThree: [undefined],
-      acceptorNameFour: [undefined],
-      acceptorAddressFour: [undefined],
-      acceptorCitizenshipNoFour: [undefined],
-      acceptanceDateFour: [undefined],
-      acceptorIssuedOfficeFour: [undefined],
-      acceptorRelationFour: [undefined],
-      ownerName: [undefined],
-      itiSambatYear: [undefined],
-      itiSambatMonth: [undefined],
-      itiSambatDay: [undefined],
-      roj: [undefined],
+      consentOfSellerHakwala: this.formBuilder.array([]),
     });
+    if (this.collateralDataDetails.length > 0) {
+      this.consentOfSellerHakwalaForm();
+    }
   }
+
+  consentOfSellerHakwalaForm() {
+    if (!ObjectUtil.isEmpty(this.collateralDataDetails)) {
+      this.collateralDataDetails.forEach(val => {
+        if (val.collateralType === 'land_and_building') {
+          this.collateralDataArray.push(val);
+          const FormArrayData = (this.form.get('consentOfSellerHakwala') as FormArray);
+          FormArrayData.push(this.formBuilder.group({
+                customerName1: val.sellerName ? val.sellerName : '',
+                date: [undefined],
+                customerName2: val.nameInNepali ? val.nameInNepali : '',
+                acceptor: this.formBuilder.array([]),
+                ownerName: val.sellerName ? val.sellerName : '',
+                itiSambatYear: [undefined],
+                itiSambatMonth: [undefined],
+                itiSambatDay: [undefined],
+                roj: [undefined],
+              })
+          );
+        }
+      });
+    }
+  }
+
   setFreeText() {
-    const freeText = {
-      customerName1: this.form.get('customerName1') ? this.form.get('customerName1').value : '',
-      customerName2: this.form.get('customerName2') ? this.form.get('customerName2').value : '',
-      date: this.form.get('') ? this.form.get('').value : '',
-      acceptorName: this.form.get('acceptorName') ? this.form.get('acceptorName').value : '',
-      acceptorAddress: this.form.get('acceptorAddress') ? this.form.get('acceptorAddress').value : '',
-      acceptorCitizenshipNo: this.form.get('acceptorCitizenshipNo') ? this.form.get('acceptorCitizenshipNo').value : '',
-      acceptanceDate: this.form.get('acceptanceDate') ? this.form.get('acceptanceDate').value : '',
-      acceptorIssuedOffice: this.form.get('acceptorIssuedOffice') ? this.form.get('acceptorIssuedOffice').value : '',
-      acceptorRelation: this.form.get('acceptorRelation') ? this.form.get('acceptorRelation').value : '',
-      acceptorNameTwo: this.form.get('acceptorNameTwo') ? this.form.get('acceptorNameTwo').value : '',
-      acceptorAddressTwo: this.form.get('acceptorAddressTwo') ? this.form.get('acceptorAddressTwo').value : '',
-      acceptorCitizenshipNoTwo: this.form.get('acceptorCitizenshipNoTwo') ? this.form.get('acceptorCitizenshipNoTwo').value : '',
-      acceptanceDateTwo: this.form.get('acceptanceDateTwo') ? this.form.get('acceptanceDateTwo').value : '',
-      acceptorIssuedOfficeTwo: this.form.get('acceptorIssuedOfficeTwo') ? this.form.get('acceptorIssuedOfficeTwo').value : '',
-      acceptorRelationTwo: this.form.get('acceptorRelationTwo') ? this.form.get('acceptorRelationTwo').value : '',
-      acceptorNameThree: this.form.get('acceptorNameThree') ? this.form.get('acceptorNameThree').value : '',
-      acceptorAddressThree: this.form.get('acceptorAddressThree') ? this.form.get('acceptorAddressThree').value : '',
-      acceptorCitizenshipNoThree: this.form.get('acceptorCitizenshipNoThree') ? this.form.get('acceptorCitizenshipNoThree').value : '',
-      acceptanceDateThree: this.form.get('acceptanceDateThree') ? this.form.get('acceptanceDateThree').value : '',
-      acceptorIssuedOfficeThree: this.form.get('acceptorIssuedOfficeThree') ? this.form.get('acceptorIssuedOfficeThree').value : '',
-      acceptorRelationThree: this.form.get('acceptorRelationThree') ? this.form.get('acceptorRelationThree').value : '',
-      acceptorNameFour: this.form.get('acceptorNameFour') ? this.form.get('acceptorNameFour').value : '',
-      acceptorAddressFour: this.form.get('acceptorAddressFour') ? this.form.get('acceptorAddressFour').value : '',
-      acceptorCitizenshipNoFour: this.form.get('acceptorCitizenshipNoFour') ? this.form.get('acceptorCitizenshipNoFour').value : '',
-      acceptanceDateFour: this.form.get('acceptanceDateFour') ? this.form.get('acceptanceDateFour').value : '',
-      acceptorIssuedOfficeFour: this.form.get('acceptorIssuedOfficeFour') ? this.form.get('acceptorIssuedOfficeFour').value : '',
-      acceptorRelationFour: this.form.get('acceptorRelationFour') ? this.form.get('acceptorRelationFour').value : '',
-      ownerName: this.form.get('ownerName') ? this.form.get('ownerName').value : '',
-      itiSambatYear: this.form.get('itiSambatYear') ? this.form.get('itiSambatYear').value : '',
-      itiSambatMonth: this.form.get('itiSambatMonth') ? this.form.get('itiSambatMonth').value : '',
-      itiSambatDay: this.form.get('itiSambatDay') ? this.form.get('itiSambatDay').value : '',
-      roj: this.form.get('roj') ? this.form.get('roj').value : '',
-    };
-    return JSON.stringify(freeText);
+    const free = this.form.value;
+    for (let val = 0; val < free.consentOfSellerHakwala.length; val++) {
+      const tempFreeText = {
+        date: this.form.get('') ? this.form.get('').value : '',
+        acceptor: this.form.get(['consentOfSellerHakwala', val, 'acceptor']).value ?
+            this.form.get(['consentOfSellerHakwala', val, 'acceptor']).value : '',
+        itiSambatYear: this.form.get(['consentOfSellerHakwala', val, 'itiSambatYear']) ? this.form.get(['consentOfSellerHakwala', val, 'itiSambatYear']).value : '',
+        itiSambatMonth: this.form.get(['consentOfSellerHakwala', val, 'itiSambatMonth']) ? this.form.get(['consentOfSellerHakwala', val, 'itiSambatMonth']).value : '',
+        itiSambatDay: this.form.get(['consentOfSellerHakwala', val, 'itiSambatDay']) ? this.form.get(['consentOfSellerHakwala', val, 'itiSambatDay']).value : '',
+        roj: this.form.get(['consentOfSellerHakwala', val, 'roj']) ? this.form.get(['consentOfSellerHakwala', val, 'roj']).value : '',
+      };
+      this.freeText.push(tempFreeText);
+    }
+    return JSON.stringify(this.freeText);
   }
   fillForm() {
-    this.form.patchValue({
-      customerName1: this.initialInfoPrint ? this.initialInfoPrint.customerName1 : '',
-      customerName2: this.initialInfoPrint ? this.initialInfoPrint.customerName2 : '',
-      date: this.initialInfoPrint ? this.initialInfoPrint.date : '',
-      acceptorName: this.initialInfoPrint ? this.initialInfoPrint.acceptorName : '',
-      acceptorAddress: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddress : '',
-      acceptorCitizenshipNo: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNo : '',
-      acceptanceDate: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDate : '',
-      acceptorIssuedOffice: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOffice : '',
-      acceptorRelation: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelation : '',
-      acceptorNameTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorNameTwo : '',
-      acceptorAddressTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddressTwo : '',
-      acceptorCitizenshipNoTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNoTwo : '',
-      acceptanceDateTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDateTwo : '',
-      acceptorIssuedOfficeTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOfficeTwo : '',
-      acceptorRelationTwo: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelationTwo : '',
-      acceptorNameThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorNameThree : '',
-      acceptorAddressThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddressThree : '',
-      acceptorCitizenshipNoThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNoThree : '',
-      acceptanceDateThree: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDateThree : '',
-      acceptorIssuedOfficeThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOfficeThree : '',
-      acceptorRelationThree: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelationThree : '',
-      acceptorNameFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorNameFour : '',
-      acceptorAddressFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorAddressFour : '',
-      acceptorCitizenshipNoFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorCitizenshipNoFour : '',
-      acceptanceDateFour: this.initialInfoPrint ? this.initialInfoPrint.acceptanceDateFour : '',
-      acceptorIssuedOfficeFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorIssuedOfficeFour : '',
-      acceptorRelationFour: this.initialInfoPrint ? this.initialInfoPrint.acceptorRelationFour : '',
-      ownerName: this.initialInfoPrint ? this.initialInfoPrint.ownerName : '',
-      itiSambatYear: this.initialInfoPrint ? this.initialInfoPrint.itiSambatYear : '',
-      itiSambatMonth: this.initialInfoPrint ? this.initialInfoPrint.itiSambatMonth : '',
-      itiSambatDay: this.initialInfoPrint ? this.initialInfoPrint.itiSambatDay : '',
-      roj: this.initialInfoPrint ? this.initialInfoPrint.roj : '',
+    if  (this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            this.initialInfoPrint = JSON.parse(singleCadFile.supportedInformation);
+          }
+        });
+        const freeText = this.form.value;
+        if (this.initialInfoPrint !== null) {
+          for (let val = 0; val < freeText.consentOfSellerHakwala.length; val++) {
+            this.form.get(['consentOfSellerHakwala', val, 'date']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].date : '');
+            this.form.get(['consentOfSellerHakwala', val, 'itiSambatYear']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].itiSambatYear : '');
+            this.form.get(['consentOfSellerHakwala', val, 'itiSambatMonth']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].itiSambatMonth : '');
+            this.form.get(['consentOfSellerHakwala', val, 'itiSambatDay']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].itiSambatDay : '');
+            this.form.get(['consentOfSellerHakwala', val, 'roj']).patchValue(this.initialInfoPrint ?
+                this.initialInfoPrint[val].roj : '');
+            if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
+              this.setAcceptor(val, this.initialInfoPrint[val].acceptor);
+            } else {
+              this.addAcceptors(val);
+            }
+          }
+        }
+      }
+    }
+  }
+  setAcceptor(i, acceptorData) {
+    const controls = this.form.get(['consentOfSellerHakwala', i, 'acceptor']) as FormArray;
+    acceptorData.forEach(val => {
+      controls.push(
+          this.formBuilder.group({
+            acceptorName: [val.acceptorName],
+            acceptorAddress: [val.acceptorAddress],
+            acceptorCitizenshipNo: [val.acceptorCitizenshipNo],
+            acceptanceDate: [val.acceptanceDate],
+            acceptorIssuedOffice: [val.acceptorIssuedOffice],
+            acceptorRelation: [val.acceptorRelation]
+          })
+      );
     });
+  }
+  addAcceptors(i) {
+    const acceptors = this.form.get(['consentOfSellerHakwala', i, 'acceptor']) as FormArray;
+    acceptors.push(
+        this.formBuilder.group({
+          acceptorName: [undefined],
+          acceptorAddress: [undefined],
+          acceptorCitizenshipNo: [undefined],
+          acceptanceDate: [undefined],
+          acceptorIssuedOffice: [undefined],
+          acceptorRelation: [undefined],
+        })
+    );
+  }
+  removeAcceptor(i) {
+    (<FormArray>this.form.get(['consentOfSellerHakwala', i, 'acceptor'])).removeAt(i);
   }
   onSubmit() {
     this.spinner = true;

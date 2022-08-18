@@ -187,6 +187,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   @Input() combinedLoan: any;
   isCorporate = false;
   thisClient;
+  customerReportingInfo = [];
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -215,11 +216,16 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
 
   ngOnInit() {
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
-    if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
-        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
+    if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+        this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.isCorporate = true;
     }
-    console.log('loanholder::::', this.loanDataHolder);
+    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
+        && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
+        this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
+        this.customerReportingInfo.push(rep);
+      });
+    }
     this.getLoanDataHolder();
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
       this.fullSettlement = true;

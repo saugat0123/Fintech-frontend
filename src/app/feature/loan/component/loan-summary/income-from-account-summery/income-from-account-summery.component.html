@@ -6,7 +6,7 @@
             <span><strong>Earning From Customer</strong></span>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>Particular</th>
                     <th>Earning projected in last review period</th>
                     <th>During review period</th>
@@ -14,26 +14,26 @@
                 </tr>
                 </thead>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Loan Processing Charge</b></td>
+                    <td class="sb-bg-gray   text-left pl-1"><b>Loan Processing Charge</b></td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.processingLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.processingDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.processingNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Loan renewal charge</b></td>
+                    <td class="sb-bg-gray  text-left pl-1"><b>Loan renewal charge</b></td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.renewalLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.renewalDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.renewalNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Exchange Earning</b></td>
+                    <td class="sb-bg-gray  text-left pl-1"><b>Exchange Earning</b></td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.exchangeLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.exchangeDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.exchangeNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Fees and commission</b></td>
+                    <td class="sb-bg-gray  text-left pl-1"><b>Fees and commission</b></td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.feeCommissionLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
@@ -42,7 +42,7 @@
                         NPR. {{incomeFromAccount?.feeCommissionNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Other Charges</b></td>
+                    <td class="sb-bg-gray  text-left pl-1"><b>Other Charges</b></td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.otherChargesLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
@@ -51,92 +51,117 @@
                         NPR. {{incomeFromAccount?.otherChargesNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Gross Interest</b></td>
+                    <td class="sb-bg-gray  text-left pl-1"><b>Gross Interest</b></td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.grossLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.grossDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.grossNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Overdraft</td>
+                    <td class="sb-bg-gray  text-left pl-1">Overdraft</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.overDraftLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.overDraftDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.overDraftNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">TR Loan</td>
+                    <td class="sb-bg-gray  text-left pl-1">TR Loan</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.trLoanLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.trLoanDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.trLoanNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Demand Loan</td>
+                    <td class="sb-bg-gray  text-left pl-1">Demand Loan</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.demandLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.demandDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.demandNextReview |currencyFormatter}}</td>
                 </tr>
                 <ng-container *ngIf="incomeFromAccount?.grossSubCateGory?.length > 0">
                     <tr *ngFor="let data of incomeFromAccount?.grossSubCateGory; let index = index">
-                        <td class="sb-bg-secondary text-white text-left pl-1">{{data?.name}}</td>
+                        <td class="sb-bg-gray  text-left pl-1">{{data?.name}}</td>
                         <td class="text-right pr-1">NPR. {{data?.grossLast}}</td>
                         <td class="text-right pr-1">NPR. {{data?.grossDuring}}</td>
                         <td class="text-right pr-1">NPR. {{data?.grossNext}}</td>
                     </tr>
                 </ng-container>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1"><b>Total</b></td>
+                    <td class="sb-bg-gray  text-left pl-1"><b>Total</b></td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.totalLastReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.totalDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.totalNextReview |currencyFormatter}}</td>
                 </tr>
             </table>
+            <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+                <thead>
+                <tr class="sb-bg-gray">
+                    <th>Remark</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.earningRemarkInstitutional"></td>
+                </tr>
+                </tbody>
+            </table>
 
             <span><strong>Profitability From Customer</strong></span>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>Particular</th>
                     <th>Amount in NRP</th>
                 </tr>
                 </thead>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Interest Income</td>
+                    <td class="sb-bg-gray  text-left pl-1">Interest Income</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.interestIncome |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Cost at Base Rate</td>
+                    <td class="sb-bg-gray  text-left pl-1">Cost at Base Rate</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.costBaseRate |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Net Interest Surplus</td>
+                    <td class="sb-bg-gray  text-left pl-1">Net Interest Surplus</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.netInterestSurplus |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Commission / Fees Income</td>
+                    <td class="sb-bg-gray  text-left pl-1">Commission / Fees Income</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.feeCommission |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Other Income</td>
+                    <td class="sb-bg-gray  text-left pl-1">Other Income</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.otherIncome |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Capital cost allocated - Non Funded</td>
+                    <td class="sb-bg-gray  text-left pl-1">Capital cost allocated - Non Funded</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.capitalCost |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Economic Profit</td>
+                    <td class="sb-bg-gray  text-left pl-1">Economic Profit</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.economicProfit |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Economic Profit Percentage</td>
+                    <td class="sb-bg-gray  text-left pl-1">Economic Profit Percentage</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.economicProfitPercentage |currencyFormatter}}</td>
                 </tr>
             </table>
+            <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+                <thead>
+                <tr class="sb-bg-gray">
+                    <th>Remark</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.incomeFromTheAccount"></td>
+                </tr>
+                </tbody>
+            </table>
+
 
             <span><strong>Risk Based Pricing</strong></span>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>S.No</th>
                     <th>Facility</th>
                     <th>Target Pricing</th>
@@ -147,38 +172,52 @@
                 <tbody>
                 <tr *ngFor="let risk of incomeFromAccount?.riskBasedPrice; let ind = index">
                     <td class="sn">{{ind + 1}}</td>
-                    <td class="sb-bg-secondary text-white text-left pl-1">{{risk?.facility}}</td>
+                    <td class="sb-bg-gray  text-left pl-1">{{risk?.facility}}</td>
                     <td class="text-right pr-1">NPR. {{risk?.targetPricing}}</td>
                     <td class="text-right pr-1">NPR. {{risk?.exitingInterestRate}}</td>
                     <td class="text-right pr-1">NPR. {{risk?.difference}}</td>
                 </tr>
                 </tbody>
             </table>
+            <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+                <thead>
+                <tr class="sb-bg-gray">
+                    <th>Remark</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.riskRemark"></td>
+                </tr>
+                </tbody>
+            </table>
+
+
         </ng-container>
         <ng-template #inst>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
-                <tr class="sb-bg-dark text-white">
+                <tr class="sb-bg-gray">
                     <th>Particular</th>
                     <th>During Review Period</th>
                     <th>Projected For next Review Period</th>
                 </tr>
                 </thead>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Gross Interest</td>
+                    <td class="sb-bg-gray  text-left pl-1">Gross Interest</td>
                     <td class="text-right pr-1">NPR. {{incomeFromAccount?.interestDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.interestAfterNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Free and Commission</td>
+                    <td class="sb-bg-gray  text-left pl-1">Free and Commission</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.commissionDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.commissionAfterNextReview |currencyFormatter}}</td>
                 </tr>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Loan Processing Charge</td>
+                    <td class="sb-bg-gray  text-left pl-1">Loan Processing Charge</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
                     <td class="text-right pr-1">
@@ -186,7 +225,7 @@
                 </tr>
                 <ng-container *ngIf="srdbAffiliatedId">
                     <tr>
-                        <td class="sb-bg-secondary text-white text-left pl-1">LC Commission</td>
+                        <td class="sb-bg-gray  text-left pl-1">LC Commission</td>
                         <td class="text-right pr-1">
                             NPR. {{incomeFromAccount?.lcCommissionDuringReview |currencyFormatter}}</td>
                         <td class="text-right pr-1">
@@ -194,7 +233,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="sb-bg-secondary text-white text-left pl-1">Guarantee Commission</td>
+                        <td class="sb-bg-gray  text-left pl-1">Guarantee Commission</td>
                         <td class="text-right pr-1">
                             NPR. {{incomeFromAccount?.guaranteeCommissionDuringReview |currencyFormatter}}</td>
                         <td class="text-right pr-1">
@@ -203,7 +242,7 @@
                     </tr>
                 </ng-container>
                 <tr>
-                    <td class="sb-bg-secondary text-white text-left pl-1">Other Charges</td>
+                    <td class="sb-bg-gray  text-left pl-1">Other Charges</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.otherChargesDuringReview |currencyFormatter}}
                     </td>
@@ -212,7 +251,7 @@
                     </td>
                 </tr>
                 <tr class="font-weight-bold">
-                    <td class="sb-bg-secondary text-white text-left pl-1">Total</td>
+                    <td class="sb-bg-gray  text-left pl-1">Total</td>
                     <td class="text-right pr-1">
                         NPR. {{incomeFromAccount?.totalIncomeDuringReview |currencyFormatter}}
                     </td>
@@ -221,18 +260,6 @@
                 </tr>
             </table>
         </ng-template>
-        <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>Remark</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.incomeFromTheAccount"></td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
 

@@ -70,6 +70,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     deprivedSector = false;
     microFinancialService = false;
     thisClient;
+    customerReportingInfo = [];
+    hasLastReview = false;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -87,6 +89,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
     ngOnInit() {
         this.spinner.show();
         this.loadSummary();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
+            && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
+            this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
+                this.customerReportingInfo.push(rep);
+            });
+        }
         this.customerLoanService.detail(this.customerId).subscribe((response) => {
             this.loanDataHolder = response.detail;
             this.getAllLoans(this.loanDataHolder.loanHolder.id);
@@ -303,9 +311,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
                         loan.proposal = prop;
                         loan.loan = e.loanConfig;
                         loan.securities = [];
+                        loan.id = e.loanId || e.id;
                         loan.documentStatus = e.docStatus;
                         loan.loanType = (e.loanType) as LoanType;
                         loan.withIn = e.withIn;
+                        loan.withInLoan  = e.exposureWithInId;
                         this.customerAllLoanList.push(loan);
                     }
                 });
@@ -319,7 +329,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                     .filter((value, index, self) => approvedId.indexOf(value.id) === index);
             }
         }
-
+        this.hasLastReview = this.combinedLoanList.filter(d => !ObjectUtil.isEmpty(d.reviewDate) && !ObjectUtil.isEmpty(d.reviewDate.data)).length > 0;
     }
 
     customSafePipe(val) {

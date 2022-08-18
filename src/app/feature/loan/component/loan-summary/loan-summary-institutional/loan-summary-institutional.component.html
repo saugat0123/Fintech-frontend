@@ -1,6 +1,10 @@
 <section class="enable-print summary">
     <div id="print-block">
         <div class="summary">
+            <ng-container>
+                <app-only-business-profile *ngIf="isCorporate"  [companyInfo]="loanDataHolder?.companyInfo"
+                                           [loanDataHolder]="loanDataHolder"></app-only-business-profile>
+            </ng-container>
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -8,19 +12,19 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
-            <div *ngIf="isCorporate" class="col-md-12">
-                <p><strong class="header text-left">Purpose of Loan </strong></p>
-                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
-                    <ng-container *ngIf="loan?.id" class="summary">
-                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                        <ul>
-                            <li>
-                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                            </li>
-                        </ul>
-                    </ng-container>
-                </ng-container>
-            </div>
+<!--            <div *ngIf="isCorporate" class="col-md-12">-->
+<!--                <p><strong class="header text-left">Purpose of Loan </strong></p>-->
+<!--                <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">-->
+<!--                    <ng-container *ngIf="loan?.id" class="summary">-->
+<!--                        <span><strong>{{ loan?.loan?.name }}</strong></span> <br>-->
+<!--                        <ul>-->
+<!--                            <li>-->
+<!--                                <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </ng-container>-->
+<!--                </ng-container>-->
+<!--            </div>-->
             <!--                release and replacement-->
             <ng-container>
                 <hr class="print-line">
@@ -37,14 +41,32 @@
                 <app-security-summary *ngIf="approvedSecurity?.length > 0" [securities]="approvedSecurity"></app-security-summary>
 
                 <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+                <ng-container>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="sub-header"><strong>Customer Reporting Information</strong></p>
+                            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                <tr class="sb-bg-gray">
+                                    <td>S.N</td>
+                                    <td>Description</td>
+                                </tr>
+                                <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
+                                    <td>{{i+1}}</td>
+                                    <td>{{reporting?.description}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </ng-container>
 
 
             </ng-container>
-            <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
-            <!-- Customer Share Security  -->
             <app-customer-share-summary *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                         [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
             </app-customer-share-summary>
+            <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
+            <!-- Customer Share Security  -->
+
            <ng-container>
                <hr class="print-line">
                <p [hidden]="loanCategory === 'INSTITUTION'"><strong class="header">Applicant/Guarantor
@@ -53,6 +75,7 @@
                <div class="row">
                    <div class="col-md-12">
                        <app-company-info-summary [approveSheet]="notApprove"
+                                                 [showOnlyProfile] ="isCorporate"
                                                  [companyInfo]="loanDataHolder?.companyInfo"
                                                  [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                        <app-guarantor-view *ngIf="!isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
@@ -63,25 +86,30 @@
                    <hr class="print-line">
                    <div class="row  mt-1">
                        <div>
-                           <div *ngIf="!isCorporate" class="col-md-12">
-                               <p><strong class="header text-left">Purpose of Loan </strong></p>
-                               <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">
-                                   <ng-container *ngIf="loan?.id" class="summary">
-                                       <span><strong>{{ loan?.loan?.name }}</strong></span> <br>
-                                       <ul>
-                                           <li>
-                                               <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                                           </li>
-                                       </ul>
-                                   </ng-container>
-                               </ng-container>
-                           </div>
+<!--                           <div *ngIf="!isCorporate" class="col-md-12">-->
+<!--                               <p><strong class="header text-left">Purpose of Loan </strong></p>-->
+<!--                               <ng-container  *ngFor="let loan of customerAllLoanList; let i = index">-->
+<!--                                   <ng-container *ngIf="loan?.id" class="summary">-->
+<!--                                       <span><strong>{{ loan?.loan?.name }}</strong></span> <br>-->
+<!--                                       <ul>-->
+<!--                                           <li>-->
+<!--                                               <span [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan || 'N/A' | safeHtml"></span>-->
+<!--                                           </li>-->
+<!--                                       </ul>-->
+<!--                                   </ng-container>-->
+<!--                               </ng-container>-->
+<!--                           </div>-->
                            <div class="col-md-12" *ngIf="checkedData?.borrowChecked">
                                <hr class="print-line">
-                               <p><strong class="header text-left">Borrowing Case: </strong> <span class="text-left"
-                                                                                                   style="display: flex"
-                                                                                                   [innerHTML]="proposalAllData?.borrowingCase || 'N/A' | safeHtml"></span>
-                               </p>
+                               <p><strong class="header text-left">Borrowing Case:</strong></p>
+
+                               <ul>
+                                   <li>
+                                       <span class="text-left"
+                                           style="display: flex"
+                                             [innerHTML]="proposalAllData?.borrowingCase === 'Other'? proposalAllData?.justificationChangeHistorical : proposalAllData?.borrowingCase  | safeHtml"></span>
+                                   </li>
+                               </ul>
                            </div>
                            <div class="col-md-12" *ngIf="checkedData?.endUseChecked">
                                <hr class="print-line">
@@ -142,40 +170,20 @@
                                                         [loanDataHolder] = "loanDataHolder"
                                                         [netTradingAssets] = "loanDataHolder.loanHolder.netTradingAssets"></app-net-trading-assets-view>
                            </div>
+
+                           <div class="col-md-12" *ngIf="isCorporate">
+                               <hr class="print-line">
+                               <app-income-from-account-summery
+                                       [formData]="loanDataHolder?.loanHolder?.incomeFromAccount">
+                               </app-income-from-account-summery>
+                               <hr class="print-line">
+                               <app-comments [commentData]="loanDataHolder?.loanHolder?.data"
+                                             [view]="true"
+                                             [fromProfile]="true"></app-comments>
+
+                           </div>
+
                            <ng-container *ngIf="smallBusiness">
-<!--                               <div class="col-md-12 form-group">-->
-<!--                                   <div class="row">-->
-<!--                                       <div class="col-md-12 text-left">-->
-<!--                                           <b class="header">Fixed Assets Summary (proposed hypothecation)</b>-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-<!--                                   <p class="text-right">(Amount in NPR ‘000s)</p>-->
-<!--                                   <table class="table table-sm table-bordered table-hover sb-small text-center">-->
-<!--                                       <thead>-->
-<!--                                       <tr class="sb-bg-gray">-->
-<!--                                           <th>S.N</th>-->
-<!--                                           <th>Particulars</th>-->
-<!--                                           <th>Unit</th>-->
-<!--                                           <th>Rate</th>-->
-<!--                                           <th>Total</th>-->
-<!--                                           <th>Remarks</th>-->
-<!--                                       </tr>-->
-<!--                                       </thead>-->
-<!--                                       <tbody class="text-left">-->
-<!--                                       <tr *ngFor="let fixedAssets of proposalAllData?.fixedAssetsSummary; let i = index"-->
-<!--                                           style="text-align: center;">-->
-<!--                                           <ng-container>-->
-<!--                                               <td>{{i + 1}}</td>-->
-<!--                                               <td>{{fixedAssets?.particular || 'NA'}}</td>-->
-<!--                                               <td>{{fixedAssets?.unit || 'NA'}}</td>-->
-<!--                                               <td>{{fixedAssets?.rate || 'NA'}}</td>-->
-<!--                                               <td>{{fixedAssets?.total || 'NA'}}</td>-->
-<!--                                               <td>{{fixedAssets?.remarks || 'NA'}}</td>-->
-<!--                                           </ng-container>-->
-<!--                                       </tr>-->
-<!--                                       </tbody>-->
-<!--                                   </table>-->
-<!--                               </div>-->
                                <div class="col-md-12 form-group">
                                    <hr class="print-line">
                                    <div class="row">

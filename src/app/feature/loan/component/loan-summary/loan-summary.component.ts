@@ -257,7 +257,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         this.loanDataHolder = this.loanData;
         this.thisClient = this.loanDataHolder.loanHolder.clientType;
-        console.log('client:::::', this.thisClient);
         // this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
@@ -586,7 +585,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 const loan = new LoanDataHolder();
                                 const prop = new Proposal();
                                 prop.data = e.proposalData;
-                                loan.id = e.loanId;
+                                loan.id = e.loanId || e.id;
                                 prop.proposedLimit = e.originalLimit;
                                 loan.proposal = prop;
                                 loan.loan = e.loanConfig;
@@ -594,6 +593,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 loan.documentStatus = e.docStatus;
                                 loan.loanType = e.loanType as LoanType;
                                 loan.withIn = e.withIn;
+                                loan.withInLoan  = e.exposureWithInId;
                                 this.customerAllLoanList.push(loan);
                             }
                         });

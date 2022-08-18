@@ -282,4 +282,8 @@ export class ProposalSummaryComponent implements OnInit {
         const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
         return interestRate;
     }
+
+    getWithinLoan(id) {
+       return  this.customerAllLoanList.filter(d => d.id === id)[0].loan.name;
+    }
 }

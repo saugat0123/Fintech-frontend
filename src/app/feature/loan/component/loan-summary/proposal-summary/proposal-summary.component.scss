@@ -31,4 +31,14 @@ table, th, td {
       font-weight: bold;
     }
   }
+  table, th, td {
+    border: 1px solid black !important;
+  }
+  .tablex {
+    width: 100%;
+    table-layout: fixed;
+    .sub {
+      width: 4% !important;
+    }
+  }
 }

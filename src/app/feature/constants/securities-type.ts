@@ -11,8 +11,8 @@ export enum SecuritiesType {
     // PERSONAL_GUARANTEE = 'Personal Guarantee',
     INSURANCE_POLICY_SECURITY = 'Insurance Policy Security',
     // ASSIGNMENT_OF_RECEIVABLES = 'Assignment of Receivables',
-    LEASE_ASSIGNMENT = 'Lease Assignment'
-    // OTHER_SECURITY = 'Other Security'
+    LEASE_ASSIGNMENT = 'Lease Assignment',
+    OTHER_SECURITY = 'Other Security'
 }
 
 export namespace SecuritiesType {
