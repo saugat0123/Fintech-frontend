@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.component';
 import { PersonalGuaranteeJointBorrowerComponent } from './personal-guarantee-joint-borrower/personal-guarantee-joint-borrower.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
@@ -12,8 +11,9 @@ import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assi
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
-import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
+import {LoanDeedInstitutionPartnershipFormComponent} from './loan-deed-institution-partnership-form/loan-deed-institution-partnership-form.component';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
+import {LoanDeedInstitutionPrivateLimitedComponent} from './loan-deed-institution-private-limited/loan-deed-institution-private-limited.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
@@ -25,8 +25,7 @@ import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-compa
 import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivable/letter-of-continuity-partnership/letter-of-continuity-partnership.component';
 
 @NgModule({
-  declarations: [LoanDeedCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
+  declarations: [PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteeCompanyComponent,
     PersonalGuaranteePersonToPersonComponent,
     ManjurinamaForCompanyComponent,
@@ -37,10 +36,13 @@ import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivab
     KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
-    LoanDeedMultipleComponent,
+    LoanDeedInstitutionPrivateLimitedComponent,
+    LoanDeedInstitutionPartnershipFormComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
+    KaloSuchiBorrowerCompanyComponent,
+    CorporateGuaranteeComponent,
     CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent],
@@ -50,27 +52,25 @@ import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivab
     NbCardModule,
     NbButtonModule,
     NgxPrintModule,
-        MegaOfferLetterTemplateModule
-    ],
+    MegaOfferLetterTemplateModule
+  ],
   exports: [
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
-    LoanDeedCompanyComponent,
     ManjurinamaForCompanyComponent,
     PersonalGuaranteeCompanyComponent,
     PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteePersonToPersonComponent,
     PromissoryNoteSingleBorrowerComponent,
     TrustReceiptNepaliLimitComponent,
-    LoanDeedMultipleComponent,
+    LoanDeedInstitutionPrivateLimitedComponent,
+    LoanDeedInstitutionPartnershipFormComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     CorporateGuaranteeComponent,
     KaloSuchiBorrowerCompanyComponent,
-    CorporateGuaranteeComponent,
-    LetterOfContinuityCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     LetterOfContinuityPartnershipComponent
   ],
