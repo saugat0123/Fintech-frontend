@@ -640,6 +640,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
                 queryParams: {
                   loanConfigId: this.loanConfigId,
                   customerId: this.customerId,
+                  catalogue: true
                 }
               });
         }
