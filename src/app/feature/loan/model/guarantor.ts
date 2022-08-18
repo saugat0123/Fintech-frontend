@@ -40,4 +40,5 @@ export class Guarantor {
     checkedSameAsCurrent: boolean;
     isExistingCustomer: any;
     cbsClientCode: any;
+    existingProprietor: string;
 }

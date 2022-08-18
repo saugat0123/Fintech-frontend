@@ -45,6 +45,12 @@
                                         <option value="NO">NO</option>
                                     </select>
                                 </div>
+                                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+                                    <label for="existingProprietor">Existing Proprietor</label>
+                                    <ng-select (ngModelChange)="onProprietorSelect($event, i)" formControlName="existingProprietor" id="existingProprietor">
+                                        <ng-option *ngFor="let proprietor of proprietorList" [value]="proprietor">{{proprietor?.name}}</ng-option>
+                                    </ng-select>
+                                </div>
                                 <div *ngIf="isExistingCustomerValue[i] === 'YES'" class="col-md-6">
                                     <label for="cbsClientCode">CBS Client Code</label>
                                     <input class="form-control" formControlName="cbsClientCode" id="cbsClientCode">

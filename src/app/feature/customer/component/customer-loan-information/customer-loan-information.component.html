@@ -247,7 +247,9 @@
                          (guarantorDataEmitter)="saveGuarantor($event)"
                          [calendarType]="calendarType"
                          [fromProfile]="true"
-                         [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>
+                         [guarantorDetailValue]="customerInfo?.guarantors"
+                         [customerInfo]="customerInfo"
+                          [companyInfo]="companyInfo"></app-guarantor>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <nb-accordion-item #itemInsurance *ngIf="!isMicroCustomer">

@@ -20,6 +20,7 @@ import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.
 import {CompanyService} from '../../admin/component/company/company.service';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {CompanyInfoService} from '../../admin/service/company-info.service';
+import {CompanyInfo} from '../../admin/modal/company-info';
 
 @Component({
     selector: 'app-guarantor',
@@ -33,6 +34,7 @@ export class GuarantorComponent implements OnInit {
     @Output() guarantorDataEmitter = new EventEmitter();
     @Input() fromProfile: boolean;
     @Input() customerInfo;
+    @Input() companyInfo: CompanyInfo;
 
     form: FormGroup;
     submitted = false;
@@ -61,8 +63,9 @@ export class GuarantorComponent implements OnInit {
     referencedLoanList = [];
     isExistingCustomerValue: any;
     isExistingCustomer = [];
-    companyInfo: any;
-    companyJsonData: any
+    companyJsonData: any;
+    proprietorList: any;
+
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -76,7 +79,6 @@ export class GuarantorComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.customerInfo, 'customer info')
         this.buildForm();
         this.getProvince();
         this.getAllDistrict();
@@ -95,10 +97,15 @@ export class GuarantorComponent implements OnInit {
         // });
         this.companyInfoService.detail(this.customerInfo.associateId).subscribe(response => {
             this.companyJsonData = JSON.parse(response.detail.companyJsonData);
-            console.log(this.companyJsonData, 'company json Data');
-            console.log(response.detail.filter(d => d.companyJsonData.proprietorList !== null));
+            // console.log(this.companyJsonData, 'company json Data');
+            // console.log(response.detail.filter(d => d.companyJsonData.proprietorList !== null));
         });
-
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            if (!ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
+                const data = JSON.parse(this.companyInfo.companyJsonData);
+                this.proprietorList = data.proprietorList;
+            }
+        }
 
 
 
@@ -246,6 +253,7 @@ export class GuarantorComponent implements OnInit {
             background: [ObjectUtil.setUndefinedIfNull(data.background)],
             guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress)],
             checkedSameAsCurrent: [ObjectUtil.isEmpty(data.checkedSameAsCurrent) ? false : data.checkedSameAsCurrent],
+            existingProprietor: [ObjectUtil.setUndefinedIfNull(data.existingProprietor)],
         });
 
     }
@@ -418,6 +426,37 @@ export class GuarantorComponent implements OnInit {
     }
     getExistingCustomerValue(index: number) {
          this.isExistingCustomerValue[index] = this.form.get(['guarantorDetails', index, 'isExistingCustomer']).value;
+    }
+
+    onProprietorSelect(proprietor: any, index: number) {
+        this.setProprietorInfo(proprietor, index);
+    }
+
+    setProprietorInfo(proprietor, index: number) {
+        this.form.get(['guarantorDetails', index, 'name']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.name));
+        if (!ObjectUtil.isEmpty(proprietor.province)) {
+            this.form.get(['guarantorDetails', index, 'province']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.province.id));
+            this.getDistrict(proprietor.province.id, index);
+        }
+        if (!ObjectUtil.isEmpty(proprietor.district)) {
+            this.form.get(['guarantorDetails', index, 'district']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.district.id));
+            this.getMunicipalities(proprietor.district.id, index);
+            // tslint:disable-next-line:max-line-length
+            this.form.get(['guarantorDetails', index, 'municipalities']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.municipalityVdc.id));
+        }
+        this.form.get(['guarantorDetails', index, 'citizenNumber']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.citizenshipNum));
+        this.form.get(['guarantorDetails', index, 'issuedYear']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.issuedDate));
+        this.form.get(['guarantorDetails', index, 'issuedPlace']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.issuedPlace));
+        this.form.get(['guarantorDetails', index, 'contactNumber']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.contactNo));
+        this.form.get(['guarantorDetails', index, 'fatherName']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.fatherName));
+        this.form.get(['guarantorDetails', index, 'grandFatherName']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.grandFatherName));
+        // tslint:disable-next-line:max-line-length
+        this.form.get(['guarantorDetails', index, 'wardNumber']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.holderPercentWardNumber));
+        // tslint:disable-next-line:max-line-length
+        this.form.get(['guarantorDetails', index, 'permanentAddressLineOne']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.addressLine1));
+        // tslint:disable-next-line:max-line-length
+        this.form.get(['guarantorDetails', index, 'permanentAddressLineTwo']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.addressLine2));
+        this.form.get(['guarantorDetails', index, 'dateOfBirth']).setValue(ObjectUtil.setUndefinedIfNull(proprietor.dateOfBirth));
     }
 
 }
