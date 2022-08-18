@@ -39,6 +39,7 @@ export class AddAdditionalDocumentComponent implements OnInit {
             docPath: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.docPath],
             uploadOn: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.uploadOn],
             remarks: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.remarks],
+            obtainedOn: [ObjectUtil.isEmpty(this.additionalDocument) ? new Date() : new Date(this.additionalDocument.obtainedOn)],
             version: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.version]
         });
     }

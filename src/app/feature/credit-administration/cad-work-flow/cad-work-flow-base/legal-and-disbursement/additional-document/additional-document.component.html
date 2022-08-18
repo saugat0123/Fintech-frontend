@@ -19,6 +19,7 @@
                 <th>S.N</th>
                 <th>Document Name</th>
                 <th>Attachment</th>
+                <th>Obtained Date</th>
                 <th>Remarks</th>
                 <th
                         *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&
@@ -34,6 +35,7 @@
                 <td>{{i+1}}</td>
                 <td>{{data?.docName}}</td>
                 <td class="cursor" (click)="commonService.openDocument(data?.docPath)"><em [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+                <td>{{data?.obtainedOn | date}}</td>
                 <td>{{data?.remarks}}</td>
                 <td (click)="editDoc(data)"
                     *ngIf="cadData?.docStatus !== 'LEGAL_APPROVED' &&

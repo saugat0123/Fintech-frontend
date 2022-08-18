@@ -69,7 +69,7 @@
                  id="dateOfScc"
                  type="text"/>
           <nb-datepicker #dateOfScc></nb-datepicker>
-         <span class="print-only">{{sccData ? sccData?.dateOfScc : ''}}</span>
+         <span class="print-only">{{sccData ? (sccData?.dateOfScc | date) : ''}}</span>
         </td>
         <th>Customer ID</th>
         <td>{{cadFile?.loanHolder?.customerCode}}</td>
@@ -113,11 +113,20 @@
     </table>
       <p class="header"><b>1. Approved Facilities </b></p>
       <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
-      <p class="sub-header mt-2"><strong>Remarks</strong></p>
-      <textarea rows="4" id="remark" class="form-control disable-print" style="color: black"
-                formControlName="approvedRemark"
-                placeholder="Remark"></textarea>
-      <span class="print-only">{{sccData?.approvedRemark}}</span>
+      <div class="form-group disable-print">
+        <nb-checkbox (checkedChange)="checkChecked($event)"
+                     [checked]="sccForm?.get('remarkChecked')?.value">
+          <b>Remarks</b>
+        </nb-checkbox>
+        <div *ngIf="sccForm.get('remarkChecked')?.value">
+          <ckeditor [config]="ckeConfig"
+                    formControlName="approvedRemark"></ckeditor>
+        </div>
+      </div>
+      <strong class="print-only">Remarks</strong>
+      <ng-container class="print-only" *ngIf="sccForm.get('remarkChecked')?.value">
+        <span [innerHTML]="sccData?.approvedRemark | safeHtml"></span>
+      </ng-container>
       <p class="header mt-3"><b>2. Regulatory Requirement </b></p>
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>
@@ -135,7 +144,7 @@
         <tbody>
         <tr>
           <td>
-            <span class="print-only">{{sccData?.cibObtained}}</span>
+            <span class="print-only">{{sccData?.cibObtained | date}}</span>
             <input [nbDatepicker]="cibPicked"
                    class="form-control rounded disable-print"
                    formControlName="cibObtained"
@@ -145,7 +154,7 @@
             <nb-datepicker #cibPicked></nb-datepicker>
           </td>
           <td>
-            <span class="print-only">{{sccData?.strObtained}}</span>
+            <span class="print-only">{{sccData?.strObtained | date}}</span>
             <input [nbDatepicker]="strObtained"
                    class="form-control rounded disable-print"
                    formControlName="strObtained"
@@ -155,7 +164,7 @@
             <nb-datepicker #strObtained></nb-datepicker>
           </td>
           <td>
-            <span class="print-only">{{sccData?.strLapsed}}</span>
+            <span class="print-only">{{sccData?.strLapsed | date}}</span>
             <input [nbDatepicker]="strLapsed"
                    class="form-control rounded disable-print"
                    formControlName="strLapsed"
@@ -165,7 +174,7 @@
             <nb-datepicker #strLapsed></nb-datepicker>
           </td>
           <td>
-            <span class="print-only">{{sccData?.iffObtained}}</span>
+            <span class="print-only">{{sccData?.iffObtained | date}}</span>
             <input [nbDatepicker]="iffObtained"
                    class="form-control rounded disable-print"
                    formControlName="iffObtained"
@@ -182,7 +191,7 @@
                    id="kyc" placeholder="Enter the date"
                    type="text"/>
             <nb-datepicker #kyc></nb-datepicker>
-            <span class="print-only">{{sccData?.kyc}}</span>
+            <span class="print-only">{{sccData?.kyc | date}}</span>
           </td>
           <td>
             <input class="form-control rounded disable-print"
@@ -199,7 +208,7 @@
                    id="declaration" placeholder="Enter the date"
                    type="text"/>
             <nb-datepicker #declaration></nb-datepicker>
-            <span class="print-only">{{sccData?.declaration}}</span>
+            <span class="print-only">{{sccData?.declaration | date}}</span>
           </td>
           <td>
             <input [nbDatepicker]="caApproved"
@@ -209,7 +218,7 @@
                    id="caApproved" placeholder="Enter the date"
                    type="text"/>
             <nb-datepicker #caApproved></nb-datepicker>
-            <span class="print-only">{{sccData?.caApproved}}</span>
+            <span class="print-only">{{sccData?.caApproved | date}}</span>
           </td>
         </tr>
         </tbody>
@@ -399,17 +408,18 @@
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>
         <tr class="text-white sb-bg-dark">
-          <th>Valuation</th>
+          <th>Valuator Name</th>
           <th>Makuri Ref. No. from Valuator Assignment Process</th>
-          <th>Verification of Signature of Valuator</th>
+          <th>Verification of Signature of Valuator?</th>
           <!--<th>Draw down %under NTA</th>
           <th>Draw down %under FMV</th>
           <th>Draw down %under Tax Invoice</th>
           <th>Declaration Obtained On</th>-->
         </tr>
         <tr class="text-white sb-bg-dark">
-          <th colspan="2">Full Report</th>
-          <th colspan ="1">YES/NO</th>
+          <th></th>
+          <th>Full Report Obtained? (YES/NO)</th>
+          <th>YES/NO</th>
           <!--<th>EMI Start Date</th>
           <th>EMI ENd Date</th>-->
         </tr>
@@ -455,23 +465,14 @@
           <th>Draw down %under NTA</th>
           <th>Draw down %under FMV</th>
           <th>Draw down %under Tax Invoice</th>
-          <th>Repayment Schedule</th>
-          <th>
-            <div class="disable-print">
-              <ng-select formControlName="emiType">
-                <ng-option value="EMI">EMI</ng-option>
-                <ng-option value="EQI">EQI</ng-option>
-                <ng-option value="EQPI">EQPI</ng-option>
-              </ng-select>
-            </div>
-            <span class="print-only">{{sccData?.emiType}}</span>
-          </th>
+          <th colspan="3">Repayment Schedule</th>
           <th class="disable-print">Action</th>
         </tr>
         <tr class="text-white sb-bg-dark">
           <th colspan="4"></th>
           <th>Start Date</th>
           <th>End Date</th>
+          <th>Frequency</th>
           <th class="disable-print"></th>
         </tr>
         </thead>
@@ -516,6 +517,16 @@
                    type="text"/>
             <nb-datepicker #emiEndDate></nb-datepicker>
           </td>
+          <td>
+            <div class="disable-print">
+              <ng-select formControlName="emiType">
+                <ng-option value="EMI">EMI</ng-option>
+                <ng-option value="EQI">EQI</ng-option>
+                <ng-option value="EQPI">EQPI</ng-option>
+              </ng-select>
+            </div>
+            <span class="print-only">{{sccData?.drawDownDetails ? (sccData?.drawDownDetails[i]?.emiType | date) : ''}}</span>
+          </td>
           <td class="cursor disable-print">
             <span>
                <em *ngIf="sccForm.get('drawDownDetails')['length'] > 1" (click)="removeDrawDown(i)"
@@ -533,14 +544,14 @@
         </tbody>
       </table>
       <div>
-        <p><b>Notes:</b></p>
+        <p><b>9. Notes:</b></p>
         <ckeditor class="disable-print"
                   formControlName="notes"
                   [config]="ckeConfig"></ckeditor>
         <span class="print-only" [innerHTML]="sccData?.notes || 'N/A' | safeHtml"></span>
       </div>
       <div>
-        <p class="header"><b>9.Discrepancy: </b></p>
+        <p class="header"><b>10. Discrepancy: </b></p>
         <ckeditor class="disable-print"
                   formControlName="discrepancy"
                   [config]="ckeConfig"></ckeditor>
@@ -548,7 +559,7 @@
       </div>
 
       <div>
-        <p class="header"><b>10.Receipt of Lodgment: </b></p>
+        <p class="header"><b>11. Receipt of Lodgment: </b></p>
         <p>This is to certify that the original copies of all the documents listed in the point no. 6 (Document Check List) above have been received for lodgment in the vault</p>
       </div>
       <div class="row text-center">
@@ -568,7 +579,7 @@
         </div>
       </div>
       <div>
-        <p class="header"><b>11.	Instruction to Credit Operations:: </b></p>
+        <p class="header"><b>12. Instruction to Credit Operations:: </b></p>
         <ckeditor class="disable-print"
                   formControlName="instruction"
                   [config]="ckeConfig"></ckeditor>
@@ -581,26 +592,19 @@
       <!--    </ol>-->
 
       <div class="row header">
-
         <div class="col-md-3 border">
           <p><b><u>Prepared by</u></b></p>
           <!--        <p>Name:.....................</p>-->
           <div class="box"></div>
           <p><b>CSU/Branch</b></p>
         </div>
-        <div class="col-md-2 border">
-          <p><b><u>Reviewed By</u></b></p>
-          <!--        <p>Name:.....................</p>-->
-          <div class="box"></div>
-          <p><b>BM</b></p>
-        </div>
-        <div class="col-md-2 border">
+        <div class="col-md-3 border">
           <p><b><u> Vetted  by</u></b></p>
           <!--        <p>Name:.....................</p>-->
           <div class="box"></div>
           <p><b>Legal</b></p>
         </div>
-        <div class="col-md-2 border">
+        <div class="col-md-3 border">
           <p><b><u>Limit Implemented By</u></b></p>
           <!--        <p class="hide">.</p>-->
           <div class="box"></div>
