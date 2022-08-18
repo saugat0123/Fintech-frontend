@@ -26,7 +26,6 @@ import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-in
 import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
 import { OfferLetterConsentComponent } from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
 import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal-offer-letter-renewals/personal-offer-letter-renewals.component';
-import {LetterOfContinuityCompanyComponent} from '../cad-document-template/mega/letter-of-continuity-company/letter-of-continuity-company.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -49,12 +48,10 @@ const COMPONENTS = [
     SmeComponent,
     SmePrintComponent,
     PersonalOfferLetterRenewalsComponent,
-    LetterOfContinuityCompanyComponent
-
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent, LetterOfContinuityCompanyComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -68,7 +65,6 @@ const COMPONENTS = [
         OfferLetterConsentComponent,
         PersonalOfferLetterRenewalsComponent,
         CustomInputComponent,
-        LetterOfContinuityCompanyComponent
     ],
     imports: [
         ThemeModule,
