@@ -10,6 +10,7 @@ export class CadFile extends BaseEntity {
     uploadedDate: Date;
     amount: number;
     remarks: string;
+    obtainedOn: string;
 
 
 }

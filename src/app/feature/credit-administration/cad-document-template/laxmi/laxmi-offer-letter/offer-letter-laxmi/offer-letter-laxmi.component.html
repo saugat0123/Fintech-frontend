@@ -61,6 +61,14 @@
                     <b>{{offerLetterForm?.get('attention')?.value ? offerLetterForm?.get('attention')?.value : '========='}}</b>
                 </span>
             </span>
+            <p class="text-center">
+                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherTitle">
+                   <strong> विषयः कर्जा नवीकरण/पुनरावलोकन गरिएको बारे ।</strong>
+                </ng-container>
+                <ng-template #otherTitle>
+                    <strong>विषयः कर्जा स्वीकृत गरिएको बारे । </strong>
+                </ng-template>
+            </p>
             <div class="row font-size-normal">
                 <div class="col-md-12">
                     <p class="text-left">महाशय,</p>
@@ -92,12 +100,14 @@
 
             <div class="row">
                 <div class="col-md-12">
+                    <p><strong>१. कर्जा तथा सुविधाको विवरण:</strong></p>
                     <ng-container *ngFor="let data of offerLetterForm?.get('purpose')['controls']; let i = index"
                                   formArrayName="purpose">
                         <table [formGroupName]="i"
                                class="table table-bordered table-responsive-md text-left pl-1 table-sm">
                             <tbody [ngClass]="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value ? '' : 'disable-print'">
                             <tr class="sb-bg-dark">
+                                <th></th>
                                 <th width="30%">
                                     <b> सुविधा (Facility) </b>
                                 </th>
@@ -118,6 +128,11 @@
                             <tbody>
                             <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value">
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>स्वीकृत कर्जा सीमा (Approved Loan Limit)</td>
                                     <td>
                                         <span *ngIf="!offerLetterForm?.get(['purpose', i, 'otherLimitChecked'])?.value">
@@ -153,6 +168,11 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>उद्देश्य(Purpose)</td>
                                     <td>
                                         <select class="form-control font-size-normal disable-print"
@@ -185,6 +205,11 @@
 
                                 <tr>
                                     <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
+                                    <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value ? '' : 'disable-print'">
                                     स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)
                                 </span>
@@ -214,6 +239,11 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
                                      कर्जा झिक्न पाउने अवधि (Drawdown Period)
@@ -261,6 +291,11 @@
 
                                 <tr>
                                     <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
+                                    <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
                                     सांवाको किस्ता तिर्ने छुट अवधि (Moratarium Period)
                                 </span>
@@ -307,6 +342,11 @@
 
                                 <tr>
                                     <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
+                                    <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'repaymentNeeded'])?.value ? '' : 'disable-print'">
                                     कर्जा सुविधाको भुक्तानी (Repayment)
                                 </span>
@@ -328,7 +368,7 @@
                                             <option [value]="null" hidden>Select Repayment</option>
                                             <option value="FIXED">निश्चित ईएमआई योजना</option>
                                             <option value="MIXED">मिश्रित दर भुक्तानी</option>
-                                            <option value="QUARTERLY">त्रैमासिक मूल किस्ता</option>
+                                            <!--<option value="QUARTERLY">त्रैमासिक मूल किस्ता</option>-->
                                             <option value="OTHER">Other</option>
                                         </select>
                                     </span>
@@ -362,9 +402,10 @@
                                         <b>{{offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value ?
                                             offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value : '========='}}</b></span>
                                         वरावरी मासिक किस्तामा (साँवा तथा व्याज) कर्जा
-                            भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी कर्जा प्रवाह भएको आगामी
-                            अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी
-                            गर्नु पर्नेछ । अंतिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।
+                            भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी पुरा कर्जा
+                            प्रवाह भएको वा
+                            ग्रेस पिरियड समाप्त भएको आगामी अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी
+                            महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अंतिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।
                             </span>
                                     <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'MIXED'">
                                 बैंकले लागु गरेको हालको कर्जा स्कीम योजना अनुरुप वार्षिक
@@ -409,7 +450,7 @@
                             महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अन्तिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा
                             केही घटी/बढी हुनसक्छ ।
                             </span>
-                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'QUARTERLY'">
+                                    <!--<span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'QUARTERLY'">
                                 निम्न उल्लेखित तालिका बमोजिम ऋणीले जम्मा
                                         <input type="text"
                                                [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value"
@@ -456,12 +497,17 @@
                                     </table>
                                     <p>कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) वा पुरा कर्जा झिक्न पाउने अवधि (DrawDown Period)
                                         समाप्त भए पश्चात प्रत्येक त्रैमासको अन्तिम महिना (अक्टोवर, जनवरी, अप्रिल र जुलाई) को १४ तारिखमा गर्नुपर्नेछ ।</p>
-                            </span>
+                            </span>-->
                                 </span>
                                     </td>
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value ? '' : 'disable-print'">
                                     अवधि पुग्ने मिति (Maturity)
@@ -508,6 +554,11 @@
 
                                 <tr>
                                     <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
+                                    <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value ? '' : 'disable-print'">
                                     कर्जा अवधि (Tenure)
                                 </span>
@@ -534,6 +585,11 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>
                                         <span [ngClass]="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value ? '' : 'disable-print'">व्याज (Interest)</span>
                                         <span class="float-right disable-print">
@@ -675,6 +731,11 @@
 
                                 <tr *ngIf="!offerLetterForm?.get(['purpose', i, 'isFunded'])?.value || offerLetterForm?.get(['purpose', i, 'isFunded'])?.value !== null">
                                     <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
+                                    <td>
                                         <span [ngClass]="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value ? '' : 'disable-print'">कमिसन (Commission)</span>
                                         <span class="float-right disable-print">
                                     <nb-checkbox
@@ -728,6 +789,11 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
                                     प्रशासनिक शुल्क (Administration Fee)
@@ -801,13 +867,29 @@
                                 <tr *ngFor="let rem of offerLetterForm?.get(['purpose', i, 'addRemark'])['controls']; let ix = index"
                                     formArrayName="addRemark">
                                     <ng-container [formGroupName]="ix">
-                                        <td colspan="2">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                              [value]="rem?.get('remark')?.value"
-                                              (change)="remarkValueChange($event?.target?.value, ix, i)"
+                                        <td>
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                    <textarea class="form-control form-field font-size-normal disable-print"
+                                              [value]="rem?.get('remarkTitle')?.value"
+                                              (change)="remarkValueChange($event?.target?.value, ix, i, 'remarkTitle')"
                                               rows="3">
                                     </textarea>
-                                            <span class="nepaliFont font-size-normal print-only">
+                                            <span class="font-size-normal print-only">
+                                        <b>{{rem?.get('remarkTitle')?.value ?
+                                            rem?.get('remarkTitle')?.value : '========='}}</b>
+                                    </span>
+                                        </td>
+                                        <td>
+                                    <textarea class="form-control form-field font-size-normal disable-print"
+                                              [value]="rem?.get('remark')?.value"
+                                              (change)="remarkValueChange($event?.target?.value, ix, i, 'remark')"
+                                              rows="3">
+                                    </textarea>
+                                            <span class="font-size-normal print-only">
                                         <b>{{rem?.get('remark')?.value ?
                                             rem?.get('remark')?.value : '========='}}</b>
                                     </span>
@@ -1512,7 +1594,11 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1"></td>
+                                    <td colspan="1">
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td colspan="6">
                                         <span *ngIf="!offerLetterForm?.get('reRegisterOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
@@ -1897,14 +1983,14 @@
                                             मात्र) को <strong>व्यक्तिगत जमानतको</strong>
                                             लिखत बैंकलाई उपलब्ध
                                             <span *ngIf="!offerLetterForm?.get(['personalGuarantee', pin, 'renewWithChecked'])?.value">
-                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
+                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गराउनु पर्नेछ ।'}}
                                             </span>
                                             <span *ngIf="offerLetterForm?.get(['personalGuarantee', pin, 'renewWithChecked'])?.value">
                                                 <select class="form-control font-size-normal disable-print selectWidth"
                                                         [value]="offerLetterForm?.get(['personalGuarantee', pin, 'renewWithWord']).value"
                                                         (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'renewWithWord')">
                                                     <option [value]="null" hidden>Select Word</option>
-                                                    <option *ngFor="let word of documentWord"
+                                                    <option *ngFor="let word of documentWord2"
                                                             [value]="word">{{word}}</option>
                                                 </select>
                                                 <span class="print-only">
@@ -1991,14 +2077,14 @@
                                             मात्र) को <strong>संस्थागत जमानतको</strong>
                                             लिखत बैंकलाई उपलब्ध
                                             <span *ngIf="!offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithChecked'])?.value">
-                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
+                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गराउनु पर्नेछ ।'}}
                                             </span>
                                             <span *ngIf="offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithChecked'])?.value">
                                                 <select class="form-control font-size-normal disable-print selectWidth"
                                                         [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithWord']).value"
                                                         (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'renewWithWord')">
                                                     <option [value]="null" hidden>Select Word</option>
-                                                    <option *ngFor="let word of documentWord"
+                                                    <option *ngFor="let word of documentWord2"
                                                             [value]="word">{{word}}</option>
                                                 </select>
                                                 <span class="print-only">
@@ -2443,14 +2529,14 @@
                                         <b>{{offerLetterForm?.get('loanAmountWord').value ? offerLetterForm?.get('loanAmountWord').value : '========='}}</b></span>मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप
                                 गरी बैंकलाई उपलव्ध
                                 <span *ngIf="!offerLetterForm?.get('karjaRenewChecked').value">
-                                    {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
+                                    {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गराउनु पर्नेछ ।'}}
                                 </span>
                                 <span *ngIf="offerLetterForm?.get('karjaRenewChecked').value">
                                     <select class="form-control font-size-normal disable-print selectWidth"
                                             [value]="offerLetterForm?.get('shareWord').value"
                                             (change)="wordChange($event?.target?.value, 'shareWord')">
                                         <option [value]="null" hidden>Select Word</option>
-                                        <option *ngFor="let pur of documentWord"
+                                        <option *ngFor="let pur of documentWord2"
                                                 [value]="pur">{{pur}}</option>
                                     </select>
                                     <span class="print-only">
@@ -2506,14 +2592,14 @@
                                         <b>{{offerLetterForm?.get('promiseAmountWord').value ? offerLetterForm?.get('promiseAmountWord').value : '========='}}</b></span>मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही
                                 छाप गरी बैंकलाई उपलव्ध
                                 <span *ngIf="!offerLetterForm?.get('creditLetterRenewChecked').value">
-                                    {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
+                                    {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गराउनु पर्नेछ ।'}}
                                 </span>
                                 <span *ngIf="offerLetterForm?.get('creditLetterRenewChecked').value">
                                     <select class="form-control font-size-normal disable-print selectWidth"
                                             [value]="offerLetterForm?.get('creditLetterWord').value"
                                             (change)="wordChange($event?.target?.value, 'creditLetterWord')">
                                         <option [value]="null" hidden>Select Word</option>
-                                        <option *ngFor="let pur of documentWord"
+                                        <option *ngFor="let pur of documentWord2"
                                                 [value]="pur">{{pur}}</option>
                                     </select>
                                     <span class="print-only">
@@ -3589,7 +3675,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center"><strong>९. स्वीकारोक्ति <em class="sb-medium">(Acceptance)</em> :</strong>
+                    <p class="text-center"><strong>९. स्वीकारोक्ति (Acceptance) :</strong>
                     </p>
                     <table class="table table-bordered table-responsive-md table-sm">
                         <tr>

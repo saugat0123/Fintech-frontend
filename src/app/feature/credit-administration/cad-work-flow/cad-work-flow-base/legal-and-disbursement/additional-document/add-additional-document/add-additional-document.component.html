@@ -36,7 +36,18 @@
 <!--                        <textarea class="cellInput" rows="3" formControlName="remarks"></textarea>-->
                     </td>
                 </tr>
-
+                <tr>
+                    <td class="font-weight-bold">Obtained Date</td>
+                    <td class="font-weight-bold">:</td>
+                    <td>
+                        <input class="cellInput"
+                               [nbDatepicker]="obtainedDate"
+                               formControlName="obtainedOn"
+                               id="obtainedOn"
+                               name="obtainedOn">
+                        <nb-datepicker #obtainedDate></nb-datepicker>
+                    </td>
+                </tr>
 
             </table>
         </div>

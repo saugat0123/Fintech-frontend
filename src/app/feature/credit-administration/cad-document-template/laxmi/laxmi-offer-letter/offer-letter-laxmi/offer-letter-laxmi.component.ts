@@ -48,6 +48,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     existingOfferLetter = false;
     loanType = [];
     documentWord = [' गर्नुपर्नेछ |', ' गराएको यथावत रहने छ |'];
+    documentWord2 = [' गराउनु पर्नेछ |', ' गराएको यथावत रहने छ |'];
     hypoDocument = [' गरिदिनु पर्नेछ |', ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।'];
     commissionFreq = ['मासिक', 'त्रैमासिक', 'वार्षिक', 'अर्ध वार्षिक'];
 
@@ -1284,6 +1285,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     addRemark(i: number) {
         const controls = this.offerLetterForm.get(['purpose' , i, 'addRemark']) as FormArray;
         controls.push(this.formBuilder.group({
+            remarkTitle: [undefined],
             remark: [undefined]
         }));
     }
@@ -1298,6 +1300,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             if (!ObjectUtil.isEmpty(d.addRemark)) {
                 d.addRemark.forEach(r => {
                     remark.push(this.formBuilder.group({
+                        remarkTitle: [r.remarkTitle],
                         remark: [r.remark],
                     }));
                 });
@@ -1305,11 +1308,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
         });
     }
 
-    remarkValueChange(value: any, ix: number, i: number) {
+    remarkValueChange(value: any, ix: number, i: number, key: string) {
         const rem = this.offerLetterForm.get(['purpose', i, 'addRemark']) as FormArray;
-        rem.at(ix).patchValue({
-            remark: value
-        });
+        rem.at(ix).get(key).patchValue(value);
     }
 
     setCrossSecurityData(data) {

@@ -5,5 +5,6 @@ export class AdditionalDocument extends BaseEntity {
     docPath: string;
     uploadOn: Date;
     remarks: string;
+    obtainedOn: Date;
 
 }

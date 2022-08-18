@@ -17,6 +17,7 @@
                     <th *ngIf="client === clientList.LAXMIBANK || client === clientList.PROGRESSIVE">Generate</th>
                     <th>Amount</th>
                     <th>Remarks</th>
+                    <th>Obtained Date</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -52,8 +53,9 @@
                         </td>
                         <td>{{data.amount}}</td>
                         <td>{{data.remarks}}</td>
+                        <td>{{data.obtainedOn | date}}</td>
                         <td class="cursor"><i
-                                (click)="openSaveEditForm(saveEditOtherDocInfo,0,data.id,data.amount,data.remarks)"
+                                (click)="openSaveEditForm(saveEditOtherDocInfo,0,data.id,data.amount,data.remarks, data.obtainedOn)"
                                 class="fa fa-edit"></i>
                         </td>
 
@@ -100,12 +102,25 @@
                                 [value]="option.key">{{option.value}}</option>
                     </select></td>
                 </tr>
+                <tr>
+                    <td class="font-weight-bold">Obtained Date</td>
+                    <td class="font-weight-bold">:</td>
+                    <td>
+                        <!--<app-calendar (messageToEmit)="saveEditParam.obtainedOn"
+                                       [ePreDate]="saveEditParam.obtainedOn"></app-calendar>-->
+                        <input class="cellInput"
+                               [(ngModel)]="saveEditParam.obtainedOn"
+                               type="date"
+                               id="obtainedOn"
+                               name="obtainedOn">
+                    </td>
+                </tr>
             </table>
 
             <div class="clearfix">
                 <div class="float-right">
                     <button
-                            (click)="saveText(saveEditParam.loanId,saveEditParam.documentId,saveEditParam.amount,saveEditParam.remarks)"
+                            (click)="saveText(saveEditParam.loanId,saveEditParam.documentId,saveEditParam.amount,saveEditParam.remarks, saveEditParam.obtainedOn)"
                             class="m-2" nbButton size="tiny">Save
                     </button>
                 </div>

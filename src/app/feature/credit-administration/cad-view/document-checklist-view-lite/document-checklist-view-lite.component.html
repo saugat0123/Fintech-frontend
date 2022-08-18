@@ -22,10 +22,6 @@
                 <tbody>
                 <ng-container>
                     <tr *ngFor="let data of requiredDocuments;let i =index"
-                        (click)="previewDoc(data?.url,data?.displayName)"
-                        class="cursor"
-                        [nbTooltipStatus]="data?.url === null? 'danger':''"
-                        [nbTooltip]="data?.url === null? data?.displayName + ' has not been uploaded':'click to view '+data?.displayName"
                     formArrayName="obtainedFormData">
                         <ng-container [formGroupName]="i">
                         <td>{{i + 1}}</td>
@@ -34,16 +30,13 @@
                             <span *ngIf="!data?.amount">-</span></td>
                         <td><span *ngIf="data?.uploadedDate">{{(data?.uploadedDate | date)}}</span>
                             <span *ngIf="!data?.uploadedDate">-</span></td>
-                        <td>
-                            <input [nbDatepicker]="customerCitizenshipIssuedDate"
-                                   class="form-control disable-print" formControlName="obtainedDate"
-                                   id="obtainedDate"
-                                   name="obtainedDate">
-                            <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
-                            <span class="show-print">{{(obtainedOnForm.get(['obtainedFormData',i, 'obtainedDate'])?.value | date) || '-'}}</span>
-                        </td>
+                        <td><span *ngIf="data?.obtainedOn">{{data?.obtainedOn | date}}</span>
+                            <span *ngIf="!data?.obtainedOn">-</span></td>
                         <td>{{data?.remarks || '-'}}</td>
-                        <td class="cursor">
+                        <td (click)="previewDoc(data?.url,data?.displayName)"
+                            class="cursor"
+                            [nbTooltipStatus]="data?.url === null? 'danger':''"
+                            [nbTooltip]="data?.url === null? data?.displayName + ' has not been uploaded':'click to view '+data?.displayName">
                             <em *ngIf="data?.url" class="fas fa-check-circle text-success"></em>
                             <em *ngIf="!data?.url" class="fas fa-times-circle text-danger"></em>
                         </td>
@@ -84,6 +77,7 @@
                                                    </a>
                                                 </span>
                     </td>
+                    <td>{{cusOfferLetter?.draftUploadDate | date}}</td>
                     <td>
                                                 <span [ngStyle]="{'color': (cusOfferLetter?.pathSigned == null) ? 'red': 'limegreen'}">
                                                     <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
@@ -95,6 +89,7 @@
                                                    </a>
                                                 </span>
                     </td>
+                    <td>{{cusOfferLetter?.signUploadDate | date}}</td>
                 </tr>
                 </tbody>
             </table>
