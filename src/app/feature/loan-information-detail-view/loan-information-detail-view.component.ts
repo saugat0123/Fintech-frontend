@@ -52,6 +52,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaScore = 0;
     crgGammaGradeStatusBadge;
     crgGammaGrade;
+    crgGammaPremiumRange;
     isJointInfo = false;
     jointInfo = [];
     obtainableDocuments = Array<ObtainableDoc>();
@@ -102,9 +103,10 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 const crgParsedData = JSON.parse(this.loanDataHolder.crgGamma.data);
                 this.crgGammaGrade = crgParsedData.grade;
                 this.crgGammaScore = ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
-                if (this.crgGammaGrade === 'Superior' || this.crgGammaGrade === 'Good') {
+                this.crgGammaPremiumRange = crgParsedData.premiumRange;
+                if (this.crgGammaGrade === 'A' || this.crgGammaGrade === 'B') {
                     this.crgGammaGradeStatusBadge = 'badge badge-success';
-                } else if (this.crgGammaGrade === 'Bad & Loss' || this.crgGammaGrade === 'Doubtful') {
+                } else if (this.crgGammaGrade === 'C' || this.crgGammaGrade === 'D') {
                     this.crgGammaGradeStatusBadge = 'badge badge-danger';
                 } else {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';

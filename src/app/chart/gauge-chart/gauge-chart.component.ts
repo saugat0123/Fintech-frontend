@@ -54,7 +54,7 @@ export class GaugeChartComponent implements AfterViewInit, OnChanges {
         labelFormat: d3.format('d'),
         labelInset: 10,
 
-        arcColorFn: d3.interpolateHsl(d3.rgb('#8aed13'), d3.rgb('#9e3140'))
+        arcColorFn: d3.interpolateHsl(d3.rgb('#9e3140'), d3.rgb('#8aed13'))
       };
       let range;
       let r;
