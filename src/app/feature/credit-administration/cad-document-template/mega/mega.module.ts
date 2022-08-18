@@ -4,7 +4,7 @@ import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.
 import { PersonalGuaranteeJointBorrowerComponent } from './personal-guarantee-joint-borrower/personal-guarantee-joint-borrower.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
-import { PersonalGuaranteePersonToPersonComponent } from './personal-guarantee-person-to-person/personal-guarantee-person-to-person.component';
+import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { ManjurinamaForCompanyComponent } from './manjurinama-for-company/manjurinama-for-company.component';
 import { TrustReceiptNepaliLimitComponent } from './trust-receipt-nepali-limit/trust-receipt-nepali-limit.component';
 import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-borrower/promissory-note-single-borrower.component';
@@ -17,6 +17,7 @@ import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.compo
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 
 
 
@@ -24,7 +25,7 @@ import {NgxPrintModule} from 'ngx-print';
   declarations: [LoanDeedCompanyComponent,
     PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteePersonToPersonComponent,
+    PersonalGuaranteeIndividualComponent,
     ManjurinamaForCompanyComponent,
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
@@ -35,13 +36,14 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NbCardModule,
-    NbButtonModule,
-    NgxPrintModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NbCardModule,
+        NbButtonModule,
+        NgxPrintModule,
+        MegaOfferLetterTemplateModule
+    ],
   exports: [
     AssignmentOfReceivableComponent,
     DeedHypoOfMachineryComponent,
@@ -50,7 +52,7 @@ import {NgxPrintModule} from 'ngx-print';
     ManjurinamaForCompanyComponent,
     PersonalGuaranteeCompanyComponent,
     PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteePersonToPersonComponent,
+    PersonalGuaranteeIndividualComponent,
     PromissoryNoteSingleBorrowerComponent,
     TrustReceiptNepaliLimitComponent,
     LoanDeedMultipleComponent,

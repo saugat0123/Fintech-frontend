@@ -16,7 +16,7 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
   templateUrl: './personal-guarantee-individual.component.html',
   styleUrls: ['./personal-guarantee-individual.component.scss']
 })
-export class PersonalGuaranteePersonToPersonComponent implements OnInit {
+export class PersonalGuaranteeIndividualComponent implements OnInit {
 
   personalGuaranteeIndividual: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
