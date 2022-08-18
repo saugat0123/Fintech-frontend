@@ -13,6 +13,6 @@ export class Document {
     containsTemplate: boolean;
     amount: number;
     remarks: string;
-    obtainedOn: string;
+    obtainedOn: Date;
     uploadedDate: Date;
 }
