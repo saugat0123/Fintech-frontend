@@ -108,7 +108,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
         if (!ObjectUtil.isEmpty(this.nepaliData)) {
             this.offerLetterForm.patchValue({
-                borrowerName: this.nepaliData.name,
+                borrowerName: this.nepaliData.nepaliName,
             });
         }
     }

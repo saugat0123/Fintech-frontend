@@ -2,6 +2,7 @@ export enum LaxmiOfferLetterConst {
     LETTER_OF_COMMITMENT,
     PERSONAL_GUARANTEE,
     OFFER_LETTER,
+    VARIATION_OFFER_LETTER,
 }
 
 export namespace LaxmiOfferLetterConst {
@@ -13,6 +14,8 @@ export namespace LaxmiOfferLetterConst {
                 return 'PG';
             case LaxmiOfferLetterConst.OFFER_LETTER:
                 return 'Offer Letter';
+            case LaxmiOfferLetterConst.VARIATION_OFFER_LETTER:
+                return 'Variation Offer Letter';
         }
     }
 

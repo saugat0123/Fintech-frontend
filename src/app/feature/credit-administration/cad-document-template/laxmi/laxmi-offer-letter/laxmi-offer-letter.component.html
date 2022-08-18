@@ -25,6 +25,10 @@
                         [cadData]="cadOfferLetterApprovedDoc"
                 ></app-offer-letter-laxmi>
             </div>
+            <app-variation-offer-letter
+                    *ngSwitchCase=offerLetterConst.VARIATION_OFFER_LETTER
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-variation-offer-letter>
         </div>
     </nb-card-body>
 </nb-card>
