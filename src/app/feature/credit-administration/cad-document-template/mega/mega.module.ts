@@ -72,6 +72,7 @@ import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivab
     CorporateGuaranteeComponent,
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
+    LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
