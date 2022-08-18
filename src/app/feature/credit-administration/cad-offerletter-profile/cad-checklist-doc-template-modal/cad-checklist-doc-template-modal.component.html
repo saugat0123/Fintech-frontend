@@ -69,7 +69,9 @@
         <app-letter-of-continuity-partnership *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_PARTNERSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
                                               [customerLoanId]="customerLoanId"></app-letter-of-continuity-partnership>
-
+        <app-promissory-note-partnership-firm *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PARTNERSHIP_FIRM"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-promissory-note-partnership-firm>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
