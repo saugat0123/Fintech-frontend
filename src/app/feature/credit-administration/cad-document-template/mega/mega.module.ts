@@ -23,6 +23,7 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
+import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -45,7 +46,8 @@ import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-p
     CorporateGuaranteeComponent,
     CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
-    LetterOfContinuityPartnershipComponent],
+    LetterOfContinuityPartnershipComponent,
+    LetterOfContinuityProprietorshipComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -73,7 +75,8 @@ import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-p
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     LetterOfContinuityCompanyComponent,
-    LetterOfContinuityPartnershipComponent
+    LetterOfContinuityPartnershipComponent,
+    LetterOfContinuityProprietorshipComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
