@@ -50,6 +50,8 @@ export class FixAssetCollateralComponent implements OnInit {
     modelBody: string;
     isSiteVisitPresent: boolean;
     security_id_for_delete: string;
+    documentName;
+    docId;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -109,7 +111,7 @@ export class FixAssetCollateralComponent implements OnInit {
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
             this.isSiteVisitPresent = true;
-            this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
+            this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments.filter(s => s.docDeleted === 0);
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
             this.getDistrictsById(this.collateralData.province.id, null);
             this.getMunicipalitiesById(this.collateralData.district.id, null);
@@ -343,6 +345,12 @@ export class FixAssetCollateralComponent implements OnInit {
         this.modelService.open(model);
     }
 
+    public deleteCollateralUploadModel(model, documentName: string, docId: number): void {
+        this.documentName = documentName;
+        this.docId = docId;
+        this.modelService.open(model);
+    }
+
     public deleteSiteVisit(deleteId, model): void {
         if (deleteId === 'single') {
             this.collateralSiteVisitService.deleteSiteVisit(this.collateralSiteVisit.id, this.collateralSiteVisit.siteVisitDate)
@@ -366,6 +374,23 @@ export class FixAssetCollateralComponent implements OnInit {
                     this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
                     console.error(error);
                 });
+        }
+    }
+
+    public deleteCollateral(docId: number, docName: string): void {
+        if (!ObjectUtil.isEmpty(docId)) {
+            this.collateralSiteVisitService.deleteCollateralUpload(this.collateralSiteVisit.id,
+                this.collateralSiteVisit.siteVisitDate, docId).subscribe((res: any) => {
+                    this.siteVisitDocument = this.siteVisitDocument.filter(sd => sd.id !== docId);
+                    this.modelService.dismissAll();
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted ' + docName));
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete ' + docName));
+            });
+        } else {
+            this.siteVisitDocument = this.siteVisitDocument.filter(f => f.docName !== docName);
+            this.modelService.dismissAll();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted ' + docName));
         }
     }
 }
