@@ -39,10 +39,14 @@
                      </div>
                     </div>
 
+                    <div>
+                        <textarea class="form-control" rows="4" placeholder="Comment for update" (change)="onCommentChange($event)" [(ngModel)]="commentForUpdate"></textarea>
+                    </div>
+
                 </nb-card-body>
                 <nb-card-footer *ngIf="fromSummary">
                     <div  class="float-right">
-                        <button nbButton size="tiny" status="success" (click)="onUpdate()">Update</button>
+                        <button nbButton size="tiny" status="success" [disabled]="commentForUpdate === undefined" (click)="onUpdate()">Update</button>
                     </div>
                 </nb-card-footer>
             </nb-card>

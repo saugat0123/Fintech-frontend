@@ -37,6 +37,7 @@ import {Comments} from '../../admin/modal/comments';
 import {CrgMicro} from './CrgMicro';
 import {CustomerLoanDto} from './CustomerLoanDto';
 import {CollateralSiteVisitDto} from './collateralSiteVisitDto';
+import {UpdateLog} from './update-log';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -104,4 +105,6 @@ export class LoanDataHolder extends BaseEntity {
     customerLoanDtoList: Array<CustomerLoanDto>;
     collateralSiteVisits: Array<CollateralSiteVisitDto>;
     zipPath: String;
+    updateLogComment: string;
+    updateLog: UpdateLog;
 }
