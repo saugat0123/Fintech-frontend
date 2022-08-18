@@ -35,6 +35,7 @@ export class FinancialCcblComponent implements OnInit {
     restUrl = ApiConfig.URL;
 
     ngOnInit() {
+        console.log('customerInfo', this.customerInfo);
         this.ckEditor = Editor.CK_CONFIG;
         if (!ObjectUtil.isEmpty(this.customerInfo.financialCcbl)) {
             this.data = JSON.parse(this.customerInfo.financialCcbl);
@@ -48,6 +49,7 @@ export class FinancialCcblComponent implements OnInit {
         this.formGroup = this.formBuilder.group({
             financialHighlight: [data ? data.financialHighlight : undefined],
             financialFigure: [data ? data.financialFigure : DefaultTable.key_Figure()],
+            financialFigureComment: [data ? data.financialFigureComment : undefined],
             assesment: [data ? data.assesment : undefined],
             assesment2: [data ? data.assesment2 : undefined],
             assesment3: [data ? data.assesment3 : undefined],

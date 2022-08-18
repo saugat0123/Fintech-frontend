@@ -24,6 +24,10 @@
                         <div class="form-group">
                             <label><strong>Key Financial Figure</strong></label>
                             <ckeditor [config]="ckEditor" formControlName="financialFigure"></ckeditor>
+                            <ng-container *ngIf="customerInfo?.customerCategory === 'SANA_BYABASAYI'">
+                                <label><strong>Comments/Explanation</strong></label>
+                                <ckeditor [config]="ckEditor" formControlName="financialFigureComment"></ckeditor>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -45,13 +49,15 @@
                                 <label>Comment:</label><br>
                                 <ckeditor [config]="ckEditor" formControlName="assessmentComment"></ckeditor>
                                 <li>
-                                    <strong>ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)
+                                    <strong>{{customerInfo?.customerCategory === 'SANA_BYABASAYI' ? 'FIXED ASSETS REQUIREMENT: '
+                                        : 'ASSESSMENT OF TERM LOAN: '}}</strong> (Amounts in Million)
                                 </li>
                                 <ckeditor [config]="ckEditor" formControlName="assesment2"></ckeditor>
                                 <label>Comment:</label><br>
                                 <ckeditor [config]="ckEditor" formControlName="assessmentComment2"></ckeditor>
                                 <li>
-                                    <strong>ASSESSMENT OF OTHER CREDIT FACILITIES:</strong> (Amounts in Million)
+                                    <strong>{{customerInfo?.customerCategory === 'SANA_BYABASAYI' ? 'OTHER EXPENSES: '
+                                        : 'ASSESSMENT OF OTHER CREDIT FACILITIES:'}}</strong> (Amounts in Million)
                                 </li>
                                 <ckeditor [config]="ckEditor" formControlName="assesment3"></ckeditor>
                                 <label>Comment:</label><br>
@@ -99,10 +105,14 @@
                     <li><strong>FB Working capital assessment</strong></li> (Amounts in Million)
                     <table  style="width: 100%"  class= "ck-table"[innerHTML]="data?.data?.assesment || 'NA' | safeHtml" ></table>
                     <table  style="width: 100%" [innerHTML]="data?.data?.assessmentComment || 'NA' | safeHtml" ></table>
-                    <li class="text-uppercase"> <strong>ASSESSMENT OF TERM LOAN</strong></li> (Amounts in Million)
+                    <li class="text-uppercase">
+                        <strong>{{customerInfo?.customerCategory === 'SANA_BYABASAYI' ? 'FIXED ASSETS REQUIREMENT: '
+                        : 'ASSESSMENT OF TERM LOAN: '}}</strong>
+                    </li> (Amounts in Million)
                     <table  style="width: 100%"  class= "ck-table"[innerHTML]="data?.data?.assesment2 || 'NA' | safeHtml" ></table>
                     <table  style="width: 100%" [innerHTML]="data?.data?.assessmentComment2 || 'NA' | safeHtml" ></table>
-                    <li class="text-uppercase"><strong>ASSESSMENT OF OTHER CREDIT FACILITIES: </strong></li> (Amounts in Million)
+                    <li class="text-uppercase"><strong>{{customerInfo?.customerCategory === 'SANA_BYABASAYI' ? 'OTHER EXPENSES: '
+                        : 'ASSESSMENT OF OTHER CREDIT FACILITIES:'}} </strong></li> (Amounts in Million)
                     <table  style="width: 100%"  class= "ck-table"[innerHTML]="data?.data?.assesment3 || 'NA' | safeHtml" ></table>
                     <table  style="width: 100%" [innerHTML]="data?.data?.assessmentComment3 || 'NA' | safeHtml" ></table>
                 </ol>
