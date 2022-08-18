@@ -550,10 +550,15 @@
                                 <i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
                             </span>
                             <span *ngIf="doc?.isApproved;else templateRef"  data-toggle="tooltip"
-                                  nbTooltip="This document contained approved loan and cannot be edit">
+                                  nbTooltip="This document is contained in approved loan and cannot be edited">
                                     <a class="fa fa-edit cursor ml-1"></a>
                                 </span>
+                            <span class="ml-2">
+                                <i (click)="deleteCollateralUploadModel(deleteModel, doc?.docName, doc?.id)" class="fas fa-trash"></i>
+                            </span>
                         </td>
+
+
                         <ng-template #templateRef>
                             <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
                         </ng-template>
@@ -578,6 +583,28 @@
             <button nbButton size="tiny" status="success" class="float-right" (click)="onClose(confirmModel)">NO</button>
         </nb-card-footer>
     </nb-card>
+</ng-template>
+<ng-template #deleteModel>
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <a (click)="onClose()" aria-label="Close"
+               class="close cursor" data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="nav  navbar-right pull-left">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+      <span class="py-4">
+        Do you want to delete {{documentName}}?
+      </span>
+        </div>
+        <div class="modal-footer">
+            <div class="d-flex justify-content-end pb-md-3">
+                <button  (click)="deleteCollateral(docId, documentName)" class="btn btn-success float-right" type="submit">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
 </ng-template>
 
 

@@ -4,6 +4,7 @@ import {BaseService} from '../../../../../@core/BaseService';
 import {CollateralSiteVisit} from './CollateralSiteVisit';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
+import {SiteVisitDocument} from './site-visit-document';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,12 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
 
   public deleteAllSiteVisit(securityId: number, securityName: string): Observable<any> {
     const api = `${this.getApi()}/delete-all-site-visit/${securityId}/${securityName}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.delete(req.url, {headers: req.header});
+  }
+
+  public deleteCollateralUpload(id: number, siteVisitDate: Date, docId: number): Observable<any> {
+    const api = `${this.getApi()}/delete-site-visit-document/${id}/${siteVisitDate}/${docId}`;
     const req = ApiUtils.getRequest(api);
     return this.http.delete(req.url, {headers: req.header});
   }
