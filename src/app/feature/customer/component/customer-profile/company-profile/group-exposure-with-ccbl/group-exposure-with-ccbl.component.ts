@@ -148,6 +148,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.outstandingOverdue = this.formControls.outstandingOverdue.value;
     mGroup.groupPosition = JSON.stringify(groupLimit.value);
     mGroup.companyGroup = JSON.stringify(companyGroup.value);
+    mGroup.securityHeld = this.formControls.securityHeld.value;
     // mGroup.companyGroup = companyGroup.value;
     mGroup.totalAmount = JSON.stringify(totalAmount);
     return mGroup;
