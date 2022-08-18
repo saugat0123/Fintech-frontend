@@ -26,6 +26,7 @@ import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe
 import { CkEditorComponent } from './ck-editor/ck-editor.component';
 import {CKEditorModule} from 'ng2-ckeditor';
 import {NbCardModule} from '@nebular/theme';
+import {NepaliCurrencyWordPreetiPipe} from './pipe/nepali-currency-word-preeti.pipe';
 
 
 const DATA_SERVICES = [];
@@ -40,7 +41,8 @@ export const NB_CORE_PROVIDERS = [
     LoanStatusPipe,
     EngToNepaliNumberPipe,
     NepaliCurrencyWordPipe,
-    NepaliCurrencyFormatterPipe
+    NepaliCurrencyFormatterPipe,
+    NepaliCurrencyWordPreetiPipe
 ];
 
 const UTILITY_MODULES = [
@@ -76,7 +78,8 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
         AmountWordPipe,
         NepaliCurrencyFormatterPipe,
-        CkEditorComponent
+        CkEditorComponent,
+        NepaliCurrencyWordPreetiPipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -96,7 +99,8 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
         AmountWordPipe,
         NepaliCurrencyFormatterPipe,
-        CkEditorComponent
+        CkEditorComponent,
+        NepaliCurrencyWordPreetiPipe
 
     ], entryComponents: [LoginPopUp]
 })
