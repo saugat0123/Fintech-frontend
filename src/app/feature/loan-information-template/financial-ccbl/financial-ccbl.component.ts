@@ -35,7 +35,6 @@ export class FinancialCcblComponent implements OnInit {
     restUrl = ApiConfig.URL;
 
     ngOnInit() {
-        console.log('customerInfo', this.customerInfo);
         this.ckEditor = Editor.CK_CONFIG;
         if (!ObjectUtil.isEmpty(this.customerInfo.financialCcbl)) {
             this.data = JSON.parse(this.customerInfo.financialCcbl);
@@ -56,7 +55,9 @@ export class FinancialCcblComponent implements OnInit {
             assessmentComment: [data ? data.assessmentComment : undefined],
             assessmentComment2: [data ? data.assessmentComment2 : undefined],
             assessmentComment3: [data ? data.assessmentComment3 : undefined],
-            commentFinancialHighlight: [data ? data.commentFinancialHighlight : undefined]
+            commentFinancialHighlight: [data ? data.commentFinancialHighlight : undefined],
+            justification: [data ? data.justification : undefined],
+            justificationComment: [data ? data.justificationComment : undefined]
         });
     }
     upload(event) {

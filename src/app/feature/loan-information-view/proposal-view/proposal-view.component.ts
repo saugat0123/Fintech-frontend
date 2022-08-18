@@ -237,7 +237,6 @@ export class ProposalViewComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     const changes = this.iterableDiffer.diff(this.customerAllLoanList);
     if (changes) {
-      console.log('customerAllLoanList', this.customerAllLoanList);
       this.getLoanConfig();
     }
   }
