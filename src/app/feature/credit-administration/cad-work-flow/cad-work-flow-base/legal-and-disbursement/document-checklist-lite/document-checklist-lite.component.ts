@@ -272,7 +272,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                         singleDocument.url = singleCadFile.path;
                         singleDocument.amount = singleCadFile.amount;
                         singleDocument.remarks = singleCadFile.remarks;
-                        singleDocument.obtainedOn = new Date(singleCadFile.obtainedOn);
+                        singleDocument.obtainedOn = singleCadFile.obtainedOn;
                         singleDocument.uploadedDate = singleCadFile.uploadedDate;
                     }
                 });
