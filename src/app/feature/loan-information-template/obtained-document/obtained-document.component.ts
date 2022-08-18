@@ -55,9 +55,10 @@ export class ObtainedDocumentComponent implements OnInit {
             this.customerLoanService.detail(res.customerId).subscribe(singleDoc => {
                 this.loanDataHolder = singleDoc.detail;
                 const details = JSON.parse(singleDoc.detail.data);
-                details.documents.forEach( doc => {
-                    this.documents.forEach( prevDoc => {
-                        if ( doc.name === prevDoc.name) {
+                if (!ObjectUtil.isEmpty(details)) {
+                details.documents.forEach(doc => {
+                    this.documents.forEach(prevDoc => {
+                        if (doc.name === prevDoc.name) {
                             prevDoc.checked = true;
                             const document = new ObtainableDoc();
                             document.name = prevDoc.name;
@@ -66,11 +67,14 @@ export class ObtainedDocumentComponent implements OnInit {
                         }
                     });
                 });
+            }
 
+                if (!ObjectUtil.isEmpty(details)) {
                 if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
                    this.showOtherDocuments = true;
                    this.otherDocValue = details.OtherDocuments;
                    this.otherDocument = details.OtherDocuments;
+                    }
                 }
                 this.spinner = false;
             }, error => {
