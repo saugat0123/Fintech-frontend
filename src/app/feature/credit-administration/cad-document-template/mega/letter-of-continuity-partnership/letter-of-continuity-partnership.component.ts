@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CreditAdministrationService} from '../../../../service/credit-administration.service';
-import {ToastService} from '../../../../../../@core/utils';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
-import {CadOfferLetterModalComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadFile} from '../../../../model/CadFile';
-import {Document} from '../../../../../admin/modal/document';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CadFile} from '../../../model/CadFile';
+import {Document} from '../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-letter-of-continuity-partnership',
