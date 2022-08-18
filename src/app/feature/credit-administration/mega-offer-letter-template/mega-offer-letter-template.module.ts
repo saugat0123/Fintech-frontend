@@ -48,13 +48,12 @@ const COMPONENTS = [
     RetailLoanAgainstInsuranceComponent,
     SmeComponent,
     SmePrintComponent,
-    PersonalOfferLetterRenewalsComponent,
-    LetterOfContinuityCompanyComponent
+    PersonalOfferLetterRenewalsComponent
 
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent, LetterOfContinuityCompanyComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -67,8 +66,7 @@ const COMPONENTS = [
         RetailLoanAgainstInsuranceComponent,
         OfferLetterConsentComponent,
         PersonalOfferLetterRenewalsComponent,
-        CustomInputComponent,
-        LetterOfContinuityCompanyComponent
+        CustomInputComponent
     ],
     imports: [
         ThemeModule,
