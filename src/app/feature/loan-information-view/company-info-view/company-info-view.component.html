@@ -36,8 +36,8 @@
                 <th>Mobile Number</th>
                 <th>LandLine Number</th>
                 <th>Major products/Service</th>
-                <th>Relationship Since (with group)(AD/BS)</th>
-                <th>Relationship Since (with customer)(AD/BS)</th>
+                <th>Relationship Since (with group)</th>
+                <th>Relationship Since (with customer)</th>
                 <th>Client Type</th>
                 <th>Sub Sector</th>
                 <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
@@ -47,8 +47,8 @@
                 <td class="text-right pr-1">{{formValue?.contactNum}}</td>
                 <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSinceWithCustomer | date}} ({{companyJsonData?.relationshipSinceWithCustomer | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince }} </td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSinceWithCustomer }}</td>
                 <td class="text-left pl-1">{{(loanDataHolder?.loanHolder?.clientType) | clientType}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>

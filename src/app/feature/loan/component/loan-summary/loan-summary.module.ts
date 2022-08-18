@@ -51,6 +51,7 @@ import {
 import {FeatureModule} from '../../../feature.module';
 import {SecurityTotalSummaryModule} from '../../../security-total-summary/security-total-summary.module';
 import {FacilityUtilizationModule} from '../facility-utilization/facility-utilization.module';
+import { OnlyBusinessProfileComponent } from './company-info-summary/only-business-profile/only-business-profile.component';
 
 
 const COMPONENTS = [
@@ -80,7 +81,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 @NgModule({
     declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent,  LoanSummaryInstitutionalComponent,
         LoanSummaryIndividualComponent,
-        CustomerShareSummaryComponent],
+        CustomerShareSummaryComponent,
+        OnlyBusinessProfileComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -127,6 +129,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         LoanSummaryInstitutionalComponent,
         LoanSummaryIndividualComponent,
         CompanyInfoSummaryComponent,
+        OnlyBusinessProfileComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

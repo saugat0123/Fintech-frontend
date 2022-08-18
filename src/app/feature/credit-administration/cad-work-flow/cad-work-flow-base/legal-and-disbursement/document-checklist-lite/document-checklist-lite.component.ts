@@ -37,7 +37,8 @@ export class DocumentChecklistLiteComponent implements OnInit {
         loanId: undefined,
         documentId: undefined,
         amount: undefined,
-        remarks: undefined
+        remarks: undefined,
+        obtainedOn: undefined
     };
     remarkOption = RemarksEnum.enumObject();
 
@@ -79,6 +80,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                                 singleDocument.url = singleCadFile.path;
                                 singleDocument.amount = singleCadFile.amount;
                                 singleDocument.remarks = singleCadFile.remarks;
+                                singleDocument.obtainedOn = singleCadFile.obtainedOn;
                                 singleDocument.uploadedDate = singleCadFile.uploadedDate;
                             }
                         });
@@ -181,7 +183,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
         this.displaySelectedData();
     }
 
-    saveText(customerLoanId, documentId, amount, remarks) {
+    saveText(customerLoanId, documentId, amount, remarks, obtainedOn) {
         this.spinner = true;
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -190,6 +192,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                     flag = false;
                     singleCadFile.amount = amount;
                     singleCadFile.remarks = remarks;
+                    singleCadFile.obtainedOn = obtainedOn;
                 }
             });
             if (flag) {
@@ -197,6 +200,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 const document = new Document();
                 cadFile.amount = amount;
                 cadFile.remarks = remarks;
+                cadFile.obtainedOn = obtainedOn;
                 document.id = documentId;
                 cadFile.cadDocument = document;
                 cadFile.customerLoanId = customerLoanId;
@@ -207,6 +211,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
             const document = new Document();
             cadFile.amount = amount;
             cadFile.remarks = remarks;
+            cadFile.obtainedOn = obtainedOn;
             document.id = documentId;
             cadFile.cadDocument = document;
             cadFile.customerLoanId = customerLoanId;
@@ -227,11 +232,12 @@ export class DocumentChecklistLiteComponent implements OnInit {
         });
     }
 
-    openSaveEditForm(template, loanId, docId, amount, remarks) {
+    openSaveEditForm(template, loanId, docId, amount, remarks, obtainedOn) {
         this.saveEditParam.loanId = loanId;
         this.saveEditParam.documentId = docId;
         this.saveEditParam.amount = amount;
         this.saveEditParam.remarks = remarks;
+        this.saveEditParam.obtainedOn = obtainedOn;
 
         this.modelService.open(template);
     }
@@ -266,6 +272,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                         singleDocument.url = singleCadFile.path;
                         singleDocument.amount = singleCadFile.amount;
                         singleDocument.remarks = singleCadFile.remarks;
+                        singleDocument.obtainedOn = singleCadFile.obtainedOn;
                         singleDocument.uploadedDate = singleCadFile.uploadedDate;
                     }
                 });

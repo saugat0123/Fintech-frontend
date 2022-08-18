@@ -1,9 +1,9 @@
 <div class="row summary">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="!showOnlyProfile">
       <p><strong class="header">Business Information</strong></p>
       <p  class="sub-header"><strong class="sub-header">Business Profile</strong></p>
       <table
-          class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+          class="table table-condensed table-bordered table-responsive-md table-sm  company-detail summary">
         <tr>
           <td><b>Nature Of business</b></td>
           <td>{{companyJsonData?.majorProductService}}</td>
@@ -229,32 +229,6 @@
 
       </table>
     </div>
-  <div class="col-md-12" *ngIf="newGuarantor?.length > 0 && isCorporate">
-    <div class="text-center">
-      <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
-      <ng-container>
-        <table
-                class="table table1 table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small summary">
-
-          <tbody>
-          <tr>
-            <td class="text-left sb-bg-gray pl-2">S.N</td>
-            <td class="text-left sb-bg-gray pl-2">Name</td>
-            <td class="sb-bg-gray text-left pl-2">Designation</td>
-            <td class="text-left sb-bg-gray pl-2">Share holding (%)</td>
-          </tr>
-          <tr *ngFor="let g of newGuarantor; let i = index;">
-            <td class="text-left pl-2">{{i+1}}</td>
-            <td class="text-left pl-2">{{g?.name || 'N/A'}}</td>
-            <td class="text-left pl-2">{{g?.guarantorType || 'N/A'}}</td>
-            <td class="text-left pl-2">{{(g?.guarantorJson | jsonParse)?.sharePercent || 'N/A'}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </div>
-  </div>
-
   <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
@@ -295,6 +269,18 @@
 
   <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
+      <table class="col-md-12  table-sm table-bordered table-responsive-sm">
+        <tr >
+          <td colspan="4" class="text-center font-weight-bold sb-bg-gray">Current Assets</td>
+        </tr>
+        <tr>
+          <td><table class="col-md-12  table-sm table-bordered table-responsive-sm" style="width: 100%; border: white"  [innerHTML]="ntaData?.currentAssets ? ntaData?.currentAssets : 'N/A' | safeHtml" >
+          </table></td>
+        </tr>
+      </table>
+
+    </div>
+    <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
           <td colspan="4" class="text-center font-weight-bold sb-bg-gray">External Credit Rating</td>
@@ -317,9 +303,6 @@
         </tr>
       </table>
     </div>
-  </ng-container>
-
-  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -331,9 +314,6 @@
         </tr>
       </table>
     </div>
-  </ng-container>
-
-  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
@@ -357,11 +337,6 @@
         </tbody>
       </table>
     </div>
-  </ng-container>
-
-
-
-  <ng-container *ngIf="isCorporate">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr *ngIf="checkedData?.waiverChecked" class="sb-bg-gray">
@@ -390,9 +365,6 @@
         </tr>
       </table>
     </div>
-  </ng-container>
-
-  <ng-container *ngIf="isCorporate">
     <div class="col-md-12 form-group">
       <hr class="print-line">
       <div class="row">
@@ -443,6 +415,7 @@
     </div>
   </ng-container>
 
+
   <div class="col-md-12" *ngIf="newGuarantor?.length > 0 && !isCorporate">
     <div class="text-center">
       <p class="float-left sub-header" ><strong  class="sub-header">{{'Shareholder Details'}}</strong></p>
@@ -469,7 +442,7 @@
     </div>
   </div>
 
-  <div class="col-md-12" *ngIf="client === clientName?.LAXMIBANK">
+  <div class="col-md-12">
     <div class="text-center">
       <p class="float-left sub-header" ><strong  class="sub-header">{{'Insurance Details'}}</strong></p>
       <ng-container>

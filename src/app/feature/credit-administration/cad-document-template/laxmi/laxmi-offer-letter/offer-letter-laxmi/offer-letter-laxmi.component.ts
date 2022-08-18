@@ -48,6 +48,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     existingOfferLetter = false;
     loanType = [];
     documentWord = [' गर्नुपर्नेछ |', ' गराएको यथावत रहने छ |'];
+    documentWord2 = [' गराउनु पर्नेछ |', ' गराएको यथावत रहने छ |'];
     hypoDocument = [' गरिदिनु पर्नेछ |', ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।'];
     commissionFreq = ['मासिक', 'त्रैमासिक', 'वार्षिक', 'अर्ध वार्षिक'];
 
@@ -88,6 +89,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setRemarks(initialInfo.purpose);
             this.setMoreSecurity(initialInfo.moreSecurity);
             this.setOtherCovenants(initialInfo.covenant);
+            this.setOtherFees(initialInfo.feesDetails);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);
             this.setEventDefaul1(initialInfo.eventDefault1);
@@ -187,6 +189,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             penalInterestOtherCheck: [false],
             penalInterestOther: [undefined],
             purpose: this.formBuilder.array([]),
+            feesDetails: this.formBuilder.array([]),
             covenant: this.formBuilder.array([]),
             eventDefault: this.formBuilder.array([]),
             eventDefault1: this.formBuilder.array([]),
@@ -1024,6 +1027,27 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
+    addOtherFees() {
+        (this.offerLetterForm.get('feesDetails') as FormArray).push(
+            this.formBuilder.group({
+                otherFeeTitle: [undefined],
+                otherFeeContent: [undefined]
+            })
+        );
+    }
+
+    setOtherFees(data) {
+        const dataArray = this.offerLetterForm.get('feesDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherFeeTitle: [singleData.otherFeeTitle ? singleData.otherFeeTitle : ''],
+                    otherFeeContent: [singleData.otherFeeContent ? singleData.otherFeeContent : '']
+                }));
+            });
+        }
+    }
+
     addEventDefault() {
         (this.offerLetterForm.get('eventDefault') as FormArray).push(
             this.formBuilder.group({
@@ -1261,6 +1285,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     addRemark(i: number) {
         const controls = this.offerLetterForm.get(['purpose' , i, 'addRemark']) as FormArray;
         controls.push(this.formBuilder.group({
+            remarkTitle: [undefined],
             remark: [undefined]
         }));
     }
@@ -1275,6 +1300,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             if (!ObjectUtil.isEmpty(d.addRemark)) {
                 d.addRemark.forEach(r => {
                     remark.push(this.formBuilder.group({
+                        remarkTitle: [r.remarkTitle],
                         remark: [r.remark],
                     }));
                 });
@@ -1282,11 +1308,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
         });
     }
 
-    remarkValueChange(value: any, ix: number, i: number) {
+    remarkValueChange(value: any, ix: number, i: number, key: string) {
         const rem = this.offerLetterForm.get(['purpose', i, 'addRemark']) as FormArray;
-        rem.at(ix).patchValue({
-            remark: value
-        });
+        rem.at(ix).get(key).patchValue(value);
     }
 
     setCrossSecurityData(data) {

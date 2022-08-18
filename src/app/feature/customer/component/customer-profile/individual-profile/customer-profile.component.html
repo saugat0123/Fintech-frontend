@@ -184,7 +184,12 @@
                     </form>
 
                 </div>
-                <div class="col-md-6 sb-small" style="overflow-y: auto; height:200px;">
+                <div class="col-md-1 sb-small">
+                    <div class="d-flex" style="height: 200px;">
+                        <div class="vr"></div>
+                    </div>
+                </div>
+                <div class="col-md-5 sb-small" style="overflow-y: auto; height:200px;">
                     <ng-container class="bg-light" style="height: 200px">
                         <ng-container>
                             <div class="row justify-content-lg-start">
@@ -400,14 +405,14 @@
                         [isMicroCustomer]="customer?.isMicroCustomer"
                         [fromProfile]="false"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
-                <!--<app-customer-loan-information-view *ngIf=" !isEditable"
+                <app-customer-loan-information-view *ngIf=" !isEditable"
                                                     [customerInfo]="customerInfo"
                                                     [customerType]="customerType"
                                                     [fromProfile]="true"
-                                                    [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>-->
+                                                    [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>
             </div>
         </div>
-        <nb-card accent="primary">
+        <nb-card accent="primary" *ngIf="maker">
             <nb-card-header>
                 <strong class="float-left">Apply Loan</strong>
                 <div class="px-2 float-right">

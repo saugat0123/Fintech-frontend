@@ -215,11 +215,11 @@
                   status="danger" type="button" (click)="saveCompanyInfoDetail()">Save
           </button>
         </div>
-        <div class="px-2">
-          <button (click)="openModal(additionalInformation)"
-                  nbButton size="small" type="button">Additional Information
-          </button>
-        </div>
+<!--        <div class="px-2">-->
+<!--          <button (click)="openModal(additionalInformation)"-->
+<!--                  nbButton size="small" type="button">Additional Information-->
+<!--          </button>-->
+<!--        </div>-->
 <!--        <div class="px-2">-->
 <!--          <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
 <!--                  nbButton size="small" type="button">Combine Loan-->
@@ -301,12 +301,19 @@
             [fromProfile]="false"
             [companyInfo]="companyInfo"></app-customer-loan-information>
       </div>
+      <div class="col-md-12">
+        <app-customer-loan-information-view *ngIf=" !isEditable"
+                                            [customerInfo]="customerInfo"
+                                            [customerType]="customerType"
+                                            [fromProfile]="true"
+                                            ></app-customer-loan-information-view>
+      </div>
     </div>
   </nb-card-body>
 </nb-card>
 
 
-<div class="row">
+<div class="row" *ngIf="maker">
   <div class="col-md-12">
     <nb-card accent="primary">
       <nb-card-header>

@@ -70,6 +70,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.buildSccForm();
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
+      if (!ObjectUtil.isEmpty(this.sccData.remarkChecked)) {
+        this.checkChecked(this.sccData.remarkChecked);
+      }
       if (!ObjectUtil.isEmpty(this.sccData.drawDownDetails)) {
         if (this.sccData.drawDownDetails.length > 0) {
           this.sccData.drawDownDetails.forEach(val => {
@@ -192,8 +195,6 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       verification: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.verification) ? undefined : this.sccData.verification],
       drawDownDetails: this.formBuilder.array([]),
-      emiType: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.emiType) ? undefined : this.sccData.emiType],
       notes: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.notes) ? undefined : this.sccData.notes],
       discrepancy: [ObjectUtil.isEmpty(this.sccData) ? undefined :
@@ -206,7 +207,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(this.sccData.vaultNo) ? undefined : this.sccData.vaultNo],
       obtainedDate: [undefined],
       approvedRemark: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.approvedRemark) ? undefined : this.sccData.approvedRemark]
+          ObjectUtil.isEmpty(this.sccData.approvedRemark) ? undefined : this.sccData.approvedRemark],
+      remarkChecked: [false]
     });
   }
 
@@ -227,15 +229,13 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       drawDownFMV: [undefined],
       drawDownTax: [undefined],
       facilityName: [undefined],
+      emiType: [undefined],
       emiStartDate: [new Date()],
       emiEndDate: [new Date()],
     }));
   }
 
   setDrawDownDetail(val) {
-    // const managementData = (this.managementFormGroup.get('managementTeams') as FormArray);
-    // currentData.forEach((singleData, index) => {
-    //   managementData.push(this.formBuilder.group({
     (this.sccForm.get('drawDownDetails') as FormArray).push(this.formBuilder.group({
       drawDownNTA: [ObjectUtil.isEmpty(val) ? undefined :
           ObjectUtil.isEmpty(val.drawDownNTA) ? undefined : val.drawDownNTA],
@@ -245,6 +245,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(val.drawDownTax) ? undefined : val.drawDownTax],
       facilityName: [ObjectUtil.isEmpty(val) ? undefined :
           ObjectUtil.isEmpty(val.facilityName) ? undefined : val.facilityName],
+      emiType: [ObjectUtil.isEmpty(val) ? undefined :
+          ObjectUtil.isEmpty(val.emiType) ? undefined : val.emiType],
       emiStartDate: [ObjectUtil.isEmpty(val) ? new Date() :
           ObjectUtil.isEmpty(val.caApproved) ? new Date() :
               new Date(val.caApproved)],
@@ -350,6 +352,15 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
+  }
+
+  checkChecked(event) {
+      if (event) {
+        this.sccForm.get('remarkChecked').setValue(true);
+      } else {
+        this.sccForm.get('remarkChecked').setValue(false);
+        this.sccForm.get('approvedRemark').setValue(null);
+      }
   }
 
 }

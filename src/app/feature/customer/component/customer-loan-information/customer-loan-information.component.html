@@ -903,6 +903,7 @@
           <nb-card-body>
             <app-facility-utilization [fromProfile]="true"
                                [customerInfo]="customerInfo"
+                                      [facilityUtilizationData]="customerInfo?.facilityUtilization"
                                (emitter)="update($event);saveCustomerInfo()">
             </app-facility-utilization>
           </nb-card-body>
