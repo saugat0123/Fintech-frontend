@@ -80,6 +80,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   totalProposalAmount = 0;
   totalProposedAmountByGuarantor = 0;
   totalRequiredCollateral = 0;
+  companyInfoId: any;
   collateralDtoData = {
     totalRequiredCollateral: 0,
     totalFMV_ConsiderValue: 0,
@@ -116,6 +117,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.initial();
+    this.activatedRoute.queryParams.subscribe((data) => {
+      this.companyInfoId = data.customerInfoId;
+    });
     this.loanActionList = [{
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
@@ -371,15 +375,18 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
-  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
+  onClick(loanConfigId: number, customerId: number, currentStage: LoanStage, docStatus) {
     this.modalService.dismissAll();
     this.spinnerService.show();
     if (!ObjectUtil.isEmpty(currentStage)) {
-      if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
+      if (((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) ||
+          ((currentStage.toUser.id.toString() !== this.currentUserId) &&
+          (this.currentUserRoleType === 'MAKER') && (docStatus === 'PENDING'))) {
         this.router.navigate(['/home/loan/summary'], {
           queryParams: {
             loanConfigId: loanConfigId,
-            customerId: customerId
+            customerId: customerId,
+            customerInfoId: this.companyInfoId
           }
         });
       } else {
@@ -387,7 +394,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           queryParams: {
             loanConfigId: loanConfigId,
             customerId: customerId,
-            catalogue: true
+            catalogue: true,
+            customerInfoId: this.companyInfoId
           }
         });
       }
@@ -396,7 +404,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         queryParams: {
           loanConfigId: loanConfigId,
           customerId: customerId,
-          catalogue: true
+          catalogue: true,
+          customerInfoId: this.companyInfoId
         }
       });
     }
