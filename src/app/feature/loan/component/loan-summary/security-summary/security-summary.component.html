@@ -1,8 +1,10 @@
 <div class="row mt-3">
     <div class="col-md-12">
-        <p><strong>Security (already obtained)</strong></p>
-        <strong *ngIf="allExistingSecurityArray?.length > 0 || allExistingSecurity?.length > 0">Existing</strong>
-        <div class="row" *ngIf="allExistingSecurityArray?.length > 0">
+        <span *ngIf="existingSecurityOnly?.length > 0 || nonEstateExistingSecurityOnly?.length > 0">
+            <p><strong>Security (already obtained)</strong></p>
+            <strong>Existing</strong>
+        </span>
+        <div class="row" *ngIf="existingSecurityOnly?.length > 0">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
@@ -13,100 +15,52 @@
                         <th>DV</th>
                     </tr>
                     <ng-container>
-                        <tr *ngFor="let detail of allExistingSecurityArray; let i= index">
+                        <tr *ngFor="let detail of existingSecurityOnly; let i= index">
                             <td class="text-center">{{i + 1}}</td>
                             <td>{{detail?.securityName}}</td>
-                            <td>{{detail?.considerValue}}</td>
-                            <td>{{detail?.marketValue}}</td>
-                            <td>{{detail?.distressValue}}</td>
+                            <td>{{detail?.considerValue | currencyFormatter}}</td>
+                            <td>{{detail?.marketValue | currencyFormatter}}</td>
+                            <td>{{detail?.distressValue | currencyFormatter}}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{allTotalMVEx?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{allTotalFMVEx?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{allTotalDVEx?.toFixed(2) || 0.0}}</td>
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
-        </div>
-        <div class="row" *ngIf="allExistingSecurity?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Real estate collateral</th>
-                        <th>Amount</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of allExistingSecurity; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.securityName}}</td>
-                            <td>NPR {{detail?.totalAmount}} million</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">NPR {{allTotalExistingAmount?.toFixed(2) || 0.0}} million</td>
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
-        </div>
-        <p><strong>Security (to be obtained)</strong></p>
-        <strong *ngIf="allProposedSecurityArray?.length > 0 || allProposedSecurity?.length > 0">Proposed</strong>
-        <div class="row" *ngIf="allProposedSecurityArray?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Real estate collateral</th>
-                        <th>MV</th>
-                        <th>FMV</th>
-                        <th>DV</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of allProposedSecurityArray; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.securityName}}</td>
-                            <td>{{detail?.totalMV}}</td>
-                            <td>{{detail?.totalFMV}}</td>
-                            <td>{{detail?.totalDV}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{allTotalMV?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{allTotalFMV?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{allTotalDV?.toFixed(2) || 0.0}}</td>
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
-        </div>
-        <div class="row" *ngIf="allProposedSecurity?.length > 0">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr class="sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Real estate collateral</th>
-                        <th>Amount</th>
-                    </tr>
-                    <ng-container>
-                        <tr *ngFor="let detail of allProposedSecurity; let i= index">
-                            <td class="text-center">{{i + 1}}</td>
-                            <td>{{detail?.securityName}}</td>
-                            <td>NPR {{detail?.totalAmount}} million</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">NPR {{allTotalProposedAmount?.toFixed(2) || 0.0}} million</td>
+                            <td class="font-weight-bold">{{realEstateExistingTotal?.considerValue | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{realEstateExistingTotal?.marketValue | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{realEstateExistingTotal?.distressValue | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
             </div>
         </div>
 
-        <strong *ngIf="allExistingAsProposedSecurityArray?.length > 0 || allExistingAsProposeSecurity?.length > 0">Existing as Proposed</strong>
-        <div class="row" *ngIf="allExistingAsProposedSecurityArray?.length > 0">
+        <div class="row" *ngIf="nonEstateExistingSecurityOnly?.length > 0">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Real estate collateral</th>
+                        <th>Amount</th>
+                    </tr>
+                    <ng-container>
+                        <tr *ngFor="let detail of nonEstateExistingSecurityOnly; let i= index">
+                            <td class="text-center">{{i + 1}}</td>
+                            <td>{{detail?.securityName}}</td>
+                            <td>{{detail?.totalAmount}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="font-weight-bold">Total</td>
+                            <td class="font-weight-bold">Rs. {{nonRealEstateExistingTotal?.totalAmount | currencyFormatter}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+
+        <span *ngIf="proposeAndExistingSecurity?.length > 0 || nonEstateProposeExistingSecurity?.length > 0">
+            <p><strong>Security (to be obtained)</strong></p>
+            <strong>Proposed</strong>
+        </span>
+        <div class="row" *ngIf="proposeAndExistingSecurity?.length > 0">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
@@ -117,7 +71,7 @@
                         <th>DV</th>
                     </tr>
                     <ng-container>
-                        <tr *ngFor="let detail of allExistingAsProposedSecurityArray; let i= index">
+                        <tr *ngFor="let detail of proposeAndExistingSecurity; let i= index">
                             <td class="text-center">{{i + 1}}</td>
                             <td>{{detail?.securityName}}</td>
                             <td>{{detail?.considerValue}}</td>
@@ -126,15 +80,15 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">{{allTotalMVAsPs?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{allTotalFMVAsPs?.toFixed(2) || 0.0}}</td>
-                            <td class="font-weight-bold">{{allTotalDVAsPs?.toFixed(2) || 0.0}}</td>
+                            <td class="font-weight-bold">{{realEstateProposeTotal?.considerValue | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{realEstateProposeTotal?.marketValue | currencyFormatter}}</td>
+                            <td class="font-weight-bold">{{realEstateProposeTotal?.distressValue | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
             </div>
         </div>
-        <div class="row" *ngIf="allExistingAsProposeSecurity?.length > 0">
+        <div class="row" *ngIf="nonEstateProposeExistingSecurity?.length > 0">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
@@ -143,18 +97,18 @@
                         <th>Amount</th>
                     </tr>
                     <ng-container>
-                        <tr *ngFor="let detail of allExistingAsProposeSecurity; let i= index">
+                        <tr *ngFor="let detail of nonEstateProposeExistingSecurity; let i= index">
                             <td class="text-center">{{i + 1}}</td>
                             <td>{{detail?.securityName}}</td>
-                            <td>NPR {{detail?.totalAmount}} million</td>
+                            <td>{{detail?.totalAmount | currencyFormatter}}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="font-weight-bold">Total</td>
-                            <td class="font-weight-bold">NPR {{allTotalExistingAsProposedAmount?.toFixed(2) || 0.0}} million</td>
+                            <td class="font-weight-bold">Rs. {{nonRealEstateProposeTotal?.totalAmount | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
                 </table>
             </div>
         </div>
-    </div>
+
 </div>

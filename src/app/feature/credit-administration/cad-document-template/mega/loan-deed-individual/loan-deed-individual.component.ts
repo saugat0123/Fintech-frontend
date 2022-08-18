@@ -12,13 +12,13 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-single',
-  templateUrl: './loan-deed-single.component.html',
-  styleUrls: ['./loan-deed-single.component.scss']
+  selector: 'app-loan-deed-individual',
+  templateUrl: './loan-deed-individual.component.html',
+  styleUrls: ['./loan-deed-individual.component.scss']
 })
-export class LoanDeedSingleComponent implements OnInit {
+export class LoanDeedIndividualComponent implements OnInit {
 
-  loanDeedSingle: FormGroup;
+  loanDeedIndividual: FormGroup;
   singleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
@@ -35,7 +35,7 @@ export class LoanDeedSingleComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedSingle.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.loanDeedIndividual.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -45,73 +45,53 @@ export class LoanDeedSingleComponent implements OnInit {
   }
 
   buildForm() {
-    this.loanDeedSingle = this.formBuilder.group({
+    this.loanDeedIndividual = this.formBuilder.group({
       branch: [undefined],
-      name: [undefined],
-      temporaryProvince: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      husbandName: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      parents: [undefined],
+      permanentTole: [undefined],
+      temporaryProvince: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
-      temporaryAddress: [undefined],
       age: [undefined],
-      relation: [undefined],
-      citizenshipNo: [undefined],
-      issueDate: [undefined],
-      issueDistrict: [undefined],
-      loanRequestDate: [undefined],
-      loan: [undefined],
-      purpose: [undefined],
-      annualRate: [undefined],
-      onePerson: [undefined],
-      sNo: [undefined],
-      landOwnerName: [undefined],
-      landOwnerMunicipalityVDC: [undefined],
-      landOwnerWardNo: [undefined],
+      individualName: [undefined],
+      offerLetterIssuedDate: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      timeDuration: [undefined],
-      seatNo: [undefined],
-      kNo: [undefined],
+      loanFacilityType: [undefined],
+      FACOwnerName: [undefined],
+      FACOwnerDistrict: [undefined],
+      FACOwnerMunicipalityVDC: [undefined],
+      FACOwnerWardNo: [undefined],
+      nakshaSeatNo: [undefined],
+      plotNo: [undefined],
       area: [undefined],
-      rNoDate: [undefined],
-      rohbarBankEmployeeName: [undefined],
-      guarantorName: [undefined],
-      guarantorName2: [undefined],
+      witnessName: [undefined],
+      witnessName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      time: [undefined],
-      districtOfWitness: [undefined],
-      municipalityVDCOfWitness: [undefined],
-      wardNoOfWitness: [undefined],
-      ageOfWitness: [undefined],
-      relationOfWitness: [undefined],
-      districtOfWitness2: [undefined],
-      municipalityVDCOfWitness2: [undefined],
-      wardNoOfWitness2: [undefined],
-      ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined]
+      time: [undefined]
     });
   }
-
-
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedSingle.value);
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedIndividual.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedSingle.value);
+        cadFile.initialInformation = JSON.stringify(this.loanDeedIndividual.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -120,7 +100,7 @@ export class LoanDeedSingleComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedSingle.value);
+      cadFile.initialInformation = JSON.stringify(this.loanDeedIndividual.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -136,5 +116,14 @@ export class LoanDeedSingleComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.loanDeedIndividual.get([target]).patchValue(event.nepVal);
+    this.loanDeedIndividual.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.loanDeedIndividual.get([target]).value;
+    return patchValue1;
   }
 }

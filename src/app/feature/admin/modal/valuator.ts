@@ -25,4 +25,12 @@ export class Valuator {
   inactiveComment: string;
   isAllBranch: boolean;
   valuatingFields: any[];
+  data: string;
+  legalStatus: string;
+  agreementReviewDate: Date;
+  agreementExpiryDate: Date;
+  securityType: string;
+  referenceNumber: string;
+  securityValue: number;
+  securityExpiryDate: Date;
 }
