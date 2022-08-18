@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PersonalGuaranteePersonToPersonComponent } from './personal-guarantee-person-to-person.component';
+import { PersonalGuaranteePersonToPersonComponent } from './personal-guarantee-individual.component';
 
 describe('PersonalGuaranteePersonToPersonComponent', () => {
   let component: PersonalGuaranteePersonToPersonComponent;

@@ -13,12 +13,12 @@ import {RouterUtilsService} from '../../../utils/router-utils.service';
 
 @Component({
   selector: 'app-personal-guarantee-person-to-person',
-  templateUrl: './personal-guarantee-person-to-person.component.html',
-  styleUrls: ['./personal-guarantee-person-to-person.component.scss']
+  templateUrl: './personal-guarantee-individual.component.html',
+  styleUrls: ['./personal-guarantee-individual.component.scss']
 })
 export class PersonalGuaranteePersonToPersonComponent implements OnInit {
 
-  personalGuarantee: FormGroup;
+  personalGuaranteeIndividual: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -36,7 +36,7 @@ export class PersonalGuaranteePersonToPersonComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.personalGuarantee.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.personalGuaranteeIndividual.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -47,60 +47,71 @@ export class PersonalGuaranteePersonToPersonComponent implements OnInit {
   }
 
   buildForm() {
-    this.personalGuarantee = this.formBuilder.group({
-      officeDistrict: [undefined],
-      municipalityName: [undefined],
-      officeWardNo: [undefined],
-      officeBranch: [undefined],
-      grandFatherName: [undefined],
-      fatherName: [undefined],
+    this.personalGuaranteeIndividual = this.formBuilder.group({
       districtName: [undefined],
-      municipalityOrVdc: [undefined],
+      municipalityName: [undefined],
       wardNo: [undefined],
-      guarantorAge: [undefined],
+      branchName: [undefined],
+      GrandFatherName: [undefined],
+      grandChildrenName: [undefined],
+      districtName2: [undefined],
+      municipalityName2: [undefined],
+      wardNo2: [undefined],
+      age: [undefined],
       guarantorName: [undefined],
       citizenshipNo: [undefined],
-      citizenshipIssuedDate: [undefined],
-      citizenshipIssuedOffice: [undefined],
-      borrowerGrandFather: [undefined],
-      borrowerFatherName2: [undefined],
-      borrowerDistrict: [undefined],
-      borrowerMunicipalityOrVdc: [undefined],
-      borrowerWardNo: [undefined],
-      borrowerAge: [undefined],
-      borrowerName: [undefined],
-      borrowerCitizenshipNo: [undefined],
-      borrowerCitizenshipIssuedDate: [undefined],
-      borrowerCitizenshipIssuedOffice: [undefined],
-      loanAmount: [undefined],
-      loanAmountInWord: [undefined],
+      date: [undefined],
+      districtAdministrationOfficeName: [undefined],
+      registeredOffice: [undefined],
+      companyName: [undefined],
+      companyRegistrationNumber: [undefined],
+      registeredDate: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
       loanApprovalDate: [undefined],
       documentWrittenYear: [undefined],
       documentWrittenMonth: [undefined],
       documentWrittenDay: [undefined],
-      documentWrittenWeek: [undefined],
       bankStaffName: [undefined],
       witnessDistrict: [undefined],
       witnessMunicipalityOrVdc: [undefined],
       witnessWardNo: [undefined],
       witnessAge: [undefined],
       witnessName: [undefined],
-
+      docWrittenWeek: [undefined],
+      borrowerTempDis: [undefined],
+      MunicipalityOrVdc: [undefined],
+      name: [undefined],
+      perWardNo: [undefined],
+      perMun: [undefined],
+      perDis: [undefined],
+      borrowerStateNo: [undefined],
     });
   }
+
+  changeToNepAmount(event: any, target, from) {
+    this.personalGuaranteeIndividual.get(target).patchValue(event.nepVal);
+    this.personalGuaranteeIndividual.get(from).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.personalGuaranteeIndividual.get(target).value;
+    return patchValue1;
+  }
+
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.personalGuarantee.value);
+          singleCadFile.initialInformation = JSON.stringify(this.personalGuaranteeIndividual.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.personalGuarantee.value);
+        cadFile.initialInformation = JSON.stringify(this.personalGuaranteeIndividual.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -109,7 +120,7 @@ export class PersonalGuaranteePersonToPersonComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.personalGuarantee.value);
+      cadFile.initialInformation = JSON.stringify(this.personalGuaranteeIndividual.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -125,7 +136,7 @@ export class PersonalGuaranteePersonToPersonComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
     });
-    console.log(this.personalGuarantee.value);
+    console.log(this.personalGuaranteeIndividual.value);
   }
 
 }
