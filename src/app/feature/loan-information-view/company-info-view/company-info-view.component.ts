@@ -69,7 +69,6 @@ export class CompanyInfoViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
-      console.log('company json data::', this.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);
       this.contactPersonJsonData = JSON.parse(this.formValue.contactPersons);
       this.businessAndIndustry = JSON.parse(this.formValue.businessAndIndustry);
