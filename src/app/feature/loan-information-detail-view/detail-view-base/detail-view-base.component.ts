@@ -12,6 +12,7 @@ import {Clients} from '../../../../environments/Clients';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -26,7 +27,6 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() comment;
   @Input() formData;
   fiscalYearArray: Array<FiscalYear>;
-  customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
   megaGroupEnabled = environment.MEGA_GROUP;
   dataFromComments: any;
@@ -39,6 +39,12 @@ export class DetailViewBaseComponent implements OnInit {
   showCadDoc = false;
   securityId: number;
   siteVisitDocuments: Array<SiteVisitDocument>;
+  checkedData;
+  proposalAllData: any;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
+  spinner = false;
+  customerAllLoanList: Array<LoanDataHolder> = [];
   @Output() documents = new EventEmitter();
 
   constructor(private customerLoanService: LoanFormService,
@@ -48,7 +54,8 @@ export class DetailViewBaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllLoans(this.loanDataHolder.loanHolder.id);
+    console.log('load data holder::', this.loanDataHolder);
+    this.getAllLoans(this.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
     });
@@ -67,31 +74,35 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
     }
+    this.checkedData = JSON.parse(this.proposalData.checkedData);
+    this.proposalAllData = JSON.parse(this.proposalData.data);
   }
-
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
+  }
   getAllLoans(customerInfoId: number): void {
     const search = {
       loanHolderId: customerInfoId.toString(),
       isStaged: 'true'
     };
+    this.spinner = true;
     this.customerLoanService.getAllWithSearch(search)
         .subscribe((res: any) => {
           this.customerAllLoanList = res.detail;
+          this.spinner = false;
           // push current loan if not fetched from staged spec response
           if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
             this.customerAllLoanList.push(this.loanDataHolder);
-          }
-          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-          } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList
               .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
           if (combinedLoans.length > 0) {
             const combinedLoanId = combinedLoans[0].combinedLoan.id;
+            this.spinner = true;
             this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
+              this.spinner = false;
               (response.detail as CombinedLoan).loans.forEach((cl) => {
                 const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
                 if (!allLoanIds.includes(cl.id)) {
@@ -100,15 +111,12 @@ export class DetailViewBaseComponent implements OnInit {
               });
             }, err => {
               console.error(err);
+              this.spinner = false;
             });
           }
         }, error => {
           console.error(error);
+          this.spinner = false;
         });
-  }
-
-  checkSiteVisitDocument(event: any) {
-    this.siteVisitDocuments = event;
-    this.documents.emit(this.siteVisitDocuments);
   }
 }

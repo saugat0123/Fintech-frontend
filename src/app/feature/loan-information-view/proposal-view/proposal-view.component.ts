@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Proposal} from '../../admin/modal/proposal';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -13,6 +13,18 @@ import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {SummaryType} from '../../loan/component/SummaryType';
 import {CustomerLoanDto} from '../../loan/model/customerLoanDto';
+import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
+import {CombinedLoanService} from '../../service/combined-loan.service';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {CompanyInfoService} from '../../admin/service/company-info.service';
+import {ToastService} from '../../../@core/utils';
+import {FiscalYearService} from '../../admin/service/fiscal-year.service';
+import {FiscalYear} from '../../admin/modal/FiscalYear';
+import {CustomerType} from '../../customer/model/customerType';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {CompanyInfo} from '../../admin/modal/company-info';
+import {CompanyJsonData} from '../../admin/modal/CompanyJsonData';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 @Component({
   selector: 'app-proposal-view',
@@ -21,8 +33,12 @@ import {CustomerLoanDto} from '../../loan/model/customerLoanDto';
 })
 export class ProposalViewComponent implements OnInit {
   @Input() proposalData: Proposal;
+  @Input() companyJson: CompanyJsonData;
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() loanCategory;
+  @Input() formValue: CompanyInfo;
+  @Output() documents = new EventEmitter();
   public DocStatus = DocStatus;
   public LoanType = LoanType;
   public EnumUtils = EnumUtils;
@@ -51,22 +67,63 @@ export class ProposalViewComponent implements OnInit {
   prepaymentCharge;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
-  @Input() loanCategory;
   customerLoanDtoList: CustomerLoanDto[];
+  fiscalYearArray: Array<FiscalYear>;
+  companyInfo = new CompanyInfo();
+  customerInfo: CustomerInfoData;
+  companyJsonData: CompanyJsonData;
+  siteVisitDocuments: Array<SiteVisitDocument>;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private loanConfigService: LoanConfigService) {
+              private loanConfigService: LoanConfigService,
+              private customerLoanService: LoanFormService,
+              private combinedLoanService: CombinedLoanService,
+              private companyInfoService: CompanyInfoService,
+              private toastService: ToastService,
+              private  fiscalYearService: FiscalYearService) {
   }
 
   ngOnInit() {
+    this.customerInfo = this.loanDataHolder.loanHolder;
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      this.checkCustomerType();
+    }
     this.proposalAllData = JSON.parse(this.proposalData.data);
     this.checkedData = JSON.parse(this.proposalData.checkedData);
     if (this.loanDataHolder.customerLoanDtoList !== null) {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
     }
+    this.getAllFiscalYear();
     this.calculateInterestRate();
     this.getLoanConfig();
     this.checkInstallmentAmount();
+  }
+
+  checkCustomerType() {
+    if (CustomerType[this.customerInfo.customerType] === CustomerType.INSTITUTION) {
+      this.companyInfoService.detail(this.customerInfo.associateId).subscribe((res: any) => {
+        this.companyInfo = res.detail;
+      }, error => {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
+      });
+    }
+  }
+
+  getAllFiscalYear() {
+    this.fiscalYearService.getAll().subscribe({
+      next: (res: any) => {
+        this.fiscalYearArray = res.detail;
+      },
+      error: (err) => {
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable To Fetch Fiscal Year'));
+      },
+      complete: () => {
+
+      }
+    });
   }
 
   public getTotal(key: string): number {
@@ -174,5 +231,10 @@ export class ProposalViewComponent implements OnInit {
     const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
     const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
     return interestRate;
+  }
+
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+    this.documents.emit(this.siteVisitDocuments);
   }
 }

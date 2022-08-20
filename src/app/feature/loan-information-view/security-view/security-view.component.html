@@ -1,4 +1,4 @@
-<div class="col-md-12 ">
+<div class="col-md-12 " *ngIf="securityData">
   <div class="row">
     <p ><strong>{{summaryType === summaryTypeName?.GAMMA ? '10. Security Details' : 'Security Details'}}</strong></p>
   </div>
@@ -718,7 +718,7 @@
   </div>
 
   <!--        apartmentUndercostructions-->
-  <div *ngIf="securityData['underConstructionChecked']" class="row">
+  <div *ngIf="securityData && securityData['underConstructionChecked']" class="row">
     <div class="col-md-12">
       <p class="text-center"><strong>Apartment Under Construction</strong></p>
 
