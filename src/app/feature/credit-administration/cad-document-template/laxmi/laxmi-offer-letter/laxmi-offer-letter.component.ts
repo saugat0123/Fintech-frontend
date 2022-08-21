@@ -12,6 +12,7 @@ export class LaxmiOfferLetterComponent implements OnInit {
 
   @Input() offerLetterType;
   @Input() cadOfferLetterApprovedDoc;
+  @Input() isVariation = false;
   offerLetterConst = LaxmiOfferLetterConst;
   isRemitLoan = false;
   constructor(
