@@ -20,9 +20,13 @@ import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/k
 import {NgxPrintModule} from 'ngx-print';
 import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
 import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
-import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
-import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivable/letter-of-continuity-partnership/letter-of-continuity-partnership.component';
+import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
+import {
+  LetterOfContinuityProprietorshipComponent
+} from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
+import {PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -45,7 +49,7 @@ import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivab
     CorporateGuaranteeComponent,
     CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
-    LetterOfContinuityPartnershipComponent],
+    LetterOfContinuityPartnershipComponent, LetterOfContinuityProprietorshipComponent, PromissoryNotePartnershipFirmComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -73,7 +77,9 @@ import { LetterOfContinuityPartnershipComponent } from './assignment-of-receivab
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     LetterOfContinuityCompanyComponent,
-    LetterOfContinuityPartnershipComponent
+    LetterOfContinuityPartnershipComponent,
+    LetterOfContinuityProprietorshipComponent,
+    PromissoryNotePartnershipFirmComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
