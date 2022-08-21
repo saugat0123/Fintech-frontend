@@ -1,0 +1,49 @@
+<div class="summary">
+    <div class="row">
+        <div class="col-md-12 text-left">
+            <b class="header">Summary of Environment & Social Risk Assessment</b>
+        </div>
+    </div>
+    <table class="table table-sm sb-small table-bordered text-center">
+        <thead>
+        <tr class="sb-bg-gray">
+            <th>S.N</th>
+            <th>Particulars</th>
+            <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody class="text-left">
+        <tr>
+            <td>1</td>
+            <td class="text-left">Falls under Exclusion and critical sector list</td>
+            <td class="text-center">
+                {{esrmData?.criticalSector || 'NA'}}
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="text-left">E & S Due Diligence process Applicable</td>
+            <td class="text-center">
+                {{esrmData?.esDiligence || 'NA'}}
+
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="text-left">Level of Risk</td>
+            <td class="text-center">
+                {{esrmData?.riskLevel || 'NA'}}
+
+
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="text-left">Falls under Exclusion and critical sector list</td>
+            <td class="text-center">
+                {{esrmData?.correctiveActionPlan || 'NA'}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

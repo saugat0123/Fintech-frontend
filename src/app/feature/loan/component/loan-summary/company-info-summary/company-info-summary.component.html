@@ -314,14 +314,14 @@
         </tr>
       </table>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.meetingDetails?.length > 0">
       <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
         <tr >
           <td colspan="4" class="text-center font-weight-bold sb-bg-gray">Consortium Meeting Details</td>
         </tr>
       </table>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.meetingDetails?.length > 0">
       <table class="table table-sm sb-small table-bordered text-center">
         <thead>
         <tr class="sb-bg-gray">
@@ -364,54 +364,7 @@
           <td class="text-left pl-1"><span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.termsAndCondition || 'N/A' | safeHtml"></span></td>
         </tr>
       </table>
-    </div>
-    <div class="col-md-12 form-group">
-      <hr class="print-line">
-      <div class="row">
-        <div class="col-md-12 text-left">
-          <p class="font-weight-bold">Summary of Environment & Social Risk Assessment</p>
-        </div>
-      </div>
-      <table class="table table-sm table-bordered table-hover sb-small text-center summary">
-        <thead>
-        <tr class="sb-bg-gray">
-          <th>S.N</th>
-          <th>Particulars</th>
-          <th>Remarks</th>
-        </tr>
-        </thead>
-        <tbody class="text-left">
-        <tr>
-          <td>1</td>
-          <td class="text-left">Falls under Exclusion and critical sector list</td>
-          <td class="text-center">
-            {{'NO'}}
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td class="text-left">E & S Due Diligence process Applicable</td>
-          <td class="text-center">
-            {{'NO'}}
-
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td class="text-left">Level of Risk</td>
-          <td class="text-center">
-            {{'NA'}}
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td class="text-left">Falls under Exclusion and critical sector list</td>
-          <td class="text-center">
-            {{'NA'}}
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <app-summary-of-environemnt [customerInfo]="loanDataHolder?.loanHolder"></app-summary-of-environemnt>
     </div>
   </ng-container>
 
@@ -475,11 +428,11 @@
   </div>
 
 
-  <div class="col-md-12" *ngIf="isCorporate">
+  <div class="col-md-12" *ngIf="isCorporate && (loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.securityInspection?.length > 0">
     <p class="float-left sub-header" ><strong  class="sub-header">{{'Security Inspection'}}</strong></p>
   </div>
     <div class="col-md-12" *ngIf="isCorporate">
-      <table class="table table-sm sb-small table-bordered text-center">
+      <table class="table table-sm sb-small table-bordered text-center" *ngIf="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.securityInspection?.length > 0">
         <thead>
         <tr class="sb-bg-gray">
           <th>Security Type</th>

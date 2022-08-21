@@ -162,6 +162,8 @@ export class ProposalComponent implements OnInit {
     smallBusiness = false;
     deprivedSector = false;
     microFinancialService = false;
+    isCorporate = false;
+    thisClient;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -192,6 +194,11 @@ export class ProposalComponent implements OnInit {
         }
         if (this.loan.loanHolder.clientType === 'MICRO_FINANCIAL_SERVICES') {
             this.microFinancialService = true;
+        }
+        this.thisClient = this.customerInfo.clientType;
+        if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+            this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.customerInfo.customerType === 'INSTITUTION') {
+            this.isCorporate = true;
         }
         if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
             this.withIn = this.loan.withIn ? this.loan.withIn : false;
@@ -500,7 +507,9 @@ export class ProposalComponent implements OnInit {
             currentRequest: [undefined],
             repay: [undefined],
             requestType: [undefined],
-            purposeChecked: [undefined]
+            purposeChecked: [undefined],
+            totalRemainingTenure: [undefined],
+            totalPaidTenure: [undefined]
         });
     }
 
@@ -608,7 +617,7 @@ export class ProposalComponent implements OnInit {
             } else {
                 this.loan.shareType = this.shareType;
             }
-            if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist)) {
+            if (!ObjectUtil.isEmpty(this.loan.loan.paperChecklist) && !this.isCorporate) {
                 if (!ObjectUtil.isEmpty(JSON.parse(this.loan.loan.paperChecklist).view)) {
                     this.productPaperChecklistComponent.save();
                     this.loan.paperProductChecklist = this.productPaperChecklistComponent.finalCheckList;
@@ -619,10 +628,6 @@ export class ProposalComponent implements OnInit {
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
             }
             if (this.withIn) {
-                // if (ObjectUtil.isEmpty(this.withInLoanId)) {
-                //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Select Within Loan'));
-                //     return;
-                // }
                 this.loan.withIn = this.withIn;
                 this.loan.withInLoan = this.withInLoanId;
             }

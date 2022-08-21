@@ -1157,120 +1157,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <h6>Watch list Provisioning Checklist – as per NRB guidelines</h6>
-                        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
-                            <thead>
-                            <tr>
-                                <th>SN</th>
-                                <th>Parameters</th>
-                                <th *ngIf="fromProfile">Yes</th>
-                                <th *ngIf="fromProfile">No</th>
-                                <th *ngIf="!fromProfile">Yes/No</th>
-                                <th class="width">Remarks</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1.</td>
-                                <td>Is there any overdue in the account with 30+ DPD currently?
-                                </td>
-                                <ng-container *ngIf="fromProfile">
 
-                                    <td *ngFor="let option of optionListRegulatory"><input
-                                            [value]="option" formControlName="overdue" type="radio"></td>
-                                </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.overdue}}</td>
-
-                                <td *ngIf="fromProfile"><input class="form-control" formControlName="overdueRemarks"
-                                                               placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.overdueRemarks}}</td>
-
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>Are there any overdue which have been due for 90 days or more at other FI’s?
-                                </td>
-                                <ng-container *ngIf="fromProfile">
-
-                                    <td *ngFor="let option of optionListRegulatory"><input
-                                            [value]="option" formControlName="fi" type="radio"></td>
-                                </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.fi}}</td>
-
-                                <td  *ngIf="fromProfile"> <input class="form-control" formControlName="fiRemark"
-                                                                 placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.fiRemark}}</td>
-
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>Has the unit incurred net loss for three consecutive years?
-                                </td>
-                                <ng-container *ngIf="fromProfile">
-
-                                    <td *ngFor="let option of optionListRegulatory"><input [value]="option"
-                                                                                           formControlName="unit"
-                                                                                           type="radio"></td>
-                                </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.unit}}</td>
-
-                                <td *ngIf="fromProfile"
-                                ><input class="form-control" formControlName="unitRemark"
-                                        placeholder="Remarks"
-                                ></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.unitRemark}}</td>
-
-                            </tr>
-                            <tr>
-                                <td>4.</td>
-                                <td>Is the Net Worth (Share Capital + Reserves) negative?
-                                </td>
-                                <ng-container *ngIf="fromProfile">
-
-                                    <td *ngFor="let option of optionListRegulatory"><input
-                                            [value]="option" formControlName="netWorths" type="radio"></td>
-                                </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.netWorths}}</td>
-
-                                <td *ngIf="fromProfile"><input class="form-control" formControlName="netWorthsRemark"
-                                                               placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.netWorthsRemark}}</td>
-
-                            </tr>
-                            <tr>
-                                <td>5.</td>
-                                <td>Is Debt to Equity ratio more than 80:20?
-                                </td>
-                                <ng-container *ngIf="fromProfile">
-
-                                    <td *ngFor="let option of optionListRegulatory"><input
-                                            [value]="option" formControlName="der" type="radio"></td>
-                                </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.der}}</td>
-
-                                <td *ngIf="fromProfile"><input class="form-control" formControlName="derRemark"
-                                                               placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.derRemark}}</td>
-
-                            </tr>
-                            <tr>
-                                <td>6.</td>
-                                <td>Has the consortium been formed for multi-banking unit availing the limit of NPR 2 bio?
-                                </td>
-                                <ng-container *ngIf="fromProfile">
-
-                                    <td *ngFor="let option of optionListRegulatory"><input
-                                            [value]="option" formControlName="npr" type="radio"></td>
-                                </ng-container>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.npr}}</td>
-
-                                <td *ngIf="fromProfile"><input class="form-control" formControlName="nprRemark"
-                                                               placeholder="Remarks"></td>
-                                <td *ngIf="!fromProfile">{{dataForEdit?.nprRemark}}</td>
-
-                            </tr>
-                            </tbody>
-                        </table>
                         <h6>Watch list Provisioning Checklist – as per Internal Parameters</h6>
                         <table  class="table table-bordered text-center table-responsive-md table-sm sb-small">
                             <thead>
@@ -1493,6 +1380,120 @@
                         </ng-container>
                     </ng-container>
                 </div>-->
+                <p *ngIf="isCorporate" class="header"><strong class="header">Watch list Provisioning Checklist – as per NRB guidelines</strong></p>
+                <table *ngIf="isCorporate" class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                    <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Parameters</th>
+                        <th *ngIf="fromProfile">Yes</th>
+                        <th *ngIf="fromProfile">No</th>
+                        <th *ngIf="!fromProfile">Yes/No</th>
+                        <th class="width">Remarks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1.</td>
+                        <td>Is there any overdue in the account with 30+ DPD currently?
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="overdue" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.overdue}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="overdueRemarks"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.overdueRemarks}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td>Are there any overdue which have been due for 90 days or more at other FI’s?
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="fi" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.fi}}</td>
+
+                        <td  *ngIf="fromProfile"> <input class="form-control" formControlName="fiRemark"
+                                                         placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.fiRemark}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td>Has the unit incurred net loss for three consecutive years?
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+
+                            <td *ngFor="let option of optionListRegulatory"><input [value]="option"
+                                                                                   formControlName="unit"
+                                                                                   type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.unit}}</td>
+
+                        <td *ngIf="fromProfile"
+                        ><input class="form-control" formControlName="unitRemark"
+                                placeholder="Remarks"
+                        ></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.unitRemark}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td>Is the Net Worth (Share Capital + Reserves) negative?
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="netWorths" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.netWorths}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="netWorthsRemark"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.netWorthsRemark}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td>Is Debt to Equity ratio more than 80:20?
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="der" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.der}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="derRemark"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.derRemark}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td>Has the consortium been formed for multi-banking unit availing the limit of NPR 2 bio?
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="npr" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.npr}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="nprRemark"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.nprRemark}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
             </form>
         </div>
     </div>

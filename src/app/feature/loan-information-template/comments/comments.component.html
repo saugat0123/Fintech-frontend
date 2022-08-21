@@ -17,33 +17,33 @@
                     </tr>
                     <tr *ngIf="!view">
                         <td></td>
-                        <td><input class="form-control disable-print" formControlName="nrbFiscalYear"  nbInput
+                        <td><input class="form-control justify-content-center disable-print" formControlName="nrbFiscalYear"  nbInput
                                    placeholder="Fiscal Year" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="nrbCommentDetails"  nbInput
-                                   placeholder="Comment Details" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="nrbCorrectiveAction"  nbInput
-                                   placeholder="Response/Planned corrective action" type="text"></td>
+                        <td><ckeditor class="disable-print" formControlName="nrbCommentDetails"
+                                    [config]="config" ></ckeditor>
+                        </td>     <td><ckeditor class="disable-print" formControlName="nrbCorrectiveAction"
+                                    [config]="config" ></ckeditor></td>
                     </tr>
                     <tr *ngIf="view">
                         <td></td>
                         <td>{{data?.nrbFiscalYear}}</td>
-                        <td>{{data?.nrbCommentDetails}}</td>
-                        <td>{{data?.nrbCorrectiveAction}}</td>
+                        <td [innerHTML]="data?.nrbCommentDetails | safeHtml"></td>
+                        <td [innerHTML]="data?.nrbCorrectiveAction | safeHtml"></td>
                     </tr>
                     <tr *ngIf="!view">
                         <td></td>
                         <td><input class="form-control disable-print" formControlName="nrbFiscalYearTwo"  nbInput
                                    placeholder="Fiscal Year" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="nrbCommentDetailsTwo"  nbInput
-                                   placeholder="Comment Details" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="nrbCorrectiveActionTwo"  nbInput
-                                   placeholder="Response/Planned corrective action" type="text"></td>
+                        <td><ckeditor class="disable-print" formControlName="nrbCommentDetailsTwo"
+                                      [config]="config"></ckeditor></td>
+                        <td><ckeditor class="disable-print" formControlName="nrbCorrectiveActionTwo"
+                                      [config]="config" ></ckeditor></td>
                     </tr>
                     <tr *ngIf="view">
                         <td></td>
                         <td>{{data?.nrbFiscalYearTwo}}</td>
-                        <td>{{data?.nrbCommentDetailsTwo}}</td>
-                        <td>{{data?.nrbCorrectiveActionTwo}}</td>
+                        <td [innerHTML]="data?.nrbCommentDetailsTwo | safeHtml"></td>
+                        <td [innerHTML]="data?.nrbCorrectiveActionTwo | safeHtml"></td>
                     </tr>
                     <tr [ngClass]="view ? 'sb-bg-gray' : 'sb-bg-dark text-white'">
                         <td>External Audit Comments in last two financial year</td>
@@ -55,31 +55,32 @@
                         <td></td>
                         <td><input class="form-control disable-print" formControlName="externalFiscalYear"  nbInput
                                    placeholder="Fiscal Year" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="externalCommentDetails"  nbInput
-                                   placeholder="Comment Details" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="externalCorrectiveAction"  nbInput
-                                   placeholder="Response/Planned corrective action" type="text"></td>
+                        <td><ckeditor class="disable-print" formControlName="externalCommentDetails"
+                                      [config]="config"></ckeditor></td>
+                        <td><ckeditor class="disable-print" formControlName="externalCorrectiveAction"
+                                      [config]="config"></ckeditor></td>
                     </tr>
                     <tr *ngIf="view">
                         <td></td>
                         <td>{{data?.externalFiscalYear}}</td>
-                        <td>{{data?.externalCommentDetails}}</td>
-                        <td>{{data?.externalCorrectiveAction}}</td>
+                        <td [innerHTML]="data?.externalCommentDetails | safeHtml"></td>
+                        <td [innerHTML]="data?.externalCorrectiveAction | safeHtml"></td>
                     </tr>
                     <tr *ngIf="!view">
                         <td></td>
                         <td><input class="form-control disable-print" formControlName="externalFiscalYearTwo"  nbInput
                                    placeholder="Fiscal Year" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="externalCommentDetailsTwo"  nbInput
-                                   placeholder="Comment Details" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="externalCorrectiveActionTwo"  nbInput
-                                   placeholder="Response/Planned corrective action" type="text"></td>
+
+                        <td><ckeditor class="disable-print" formControlName="externalCommentDetailsTwo"
+                                      [config]="config"></ckeditor></td>
+                        <td><ckeditor class="disable-print" formControlName="externalCorrectiveActionTwo"
+                                      [config]="config"></ckeditor></td>
                     </tr>
                     <tr *ngIf="view">
                         <td></td>
                         <td>{{data?.externalFiscalYearTwo}}</td>
-                        <td>{{data?.externalCommentDetailsTwo}}</td>
-                        <td>{{data?.externalCorrectiveActionTwo}}</td>
+                        <td [innerHTML]="data?.externalCommentDetailsTwo | safeHtml"></td>
+                        <td [innerHTML]="data?.externalCorrectiveActionTwo | safeHtml"></td>
                     </tr>
                     <tr [ngClass]="view ? 'sb-bg-gray' : 'sb-bg-dark text-white'">
                         <td>Internal Audit Comments in last two financial year</td>
@@ -91,31 +92,36 @@
                         <td></td>
                         <td><input class="form-control disable-print" formControlName="internalFiscalYear"  nbInput
                                    placeholder="Fiscal Year" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="internalCommentDetails"  nbInput
-                                   placeholder="Comment Details" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="internalCorrectiveAction"  nbInput
-                                   placeholder="Response/Planned corrective action" type="text"></td>
+
+                        <td><ckeditor class="disable-print" formControlName="internalCommentDetails"
+                                      [config]="config"></ckeditor></td>
+
+                        <td><ckeditor class="disable-print" formControlName="internalCorrectiveAction"
+                                      [config]="config"></ckeditor></td>
+
                     </tr>
                     <tr *ngIf="view">
                         <td></td>
                         <td>{{data?.internalFiscalYear}}</td>
-                        <td>{{data?.internalCommentDetails}}</td>
-                        <td>{{data?.internalCorrectiveAction}}</td>
+                        <td [innerHTML]="data?.internalCommentDetails | safeHtml"></td>
+                        <td [innerHTML]="data?.internalCorrectiveAction | safeHtml"></td>
                     </tr>
                     <tr *ngIf="!view">
                         <td></td>
                         <td><input class="form-control disable-print" formControlName="internalFiscalYearTwo"  nbInput
                                    placeholder="Fiscal Year" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="internalCommentDetailsTwo"  nbInput
-                                   placeholder="Comment Details" type="text"></td>
-                        <td><input class="form-control disable-print" formControlName="internalCorrectiveActionTwo"  nbInput
-                                   placeholder="Response/Planned corrective action" type="text"></td>
+
+                        <td><ckeditor class="disable-print" formControlName="internalCommentDetailsTwo"
+                                      [config]="config"></ckeditor></td>
+
+                        <td><ckeditor class="disable-print" formControlName="internalCorrectiveActionTwo"
+                                      [config]="config"></ckeditor></td>
                     </tr>
                     <tr *ngIf="view">
                         <td></td>
                         <td>{{data?.internalFiscalYearTwo}}</td>
-                        <td>{{data?.internalCommentDetailsTwo}}</td>
-                        <td>{{data?.internalCorrectiveActionTwo}}</td>
+                        <td [innerHTML]="data?.internalCommentDetailsTwo | safeHtml"></td>
+                        <td [innerHTML]="data?.internalCorrectiveActionTwo | safeHtml"></td>
                     </tr>
                     </tbody>
                 </table>

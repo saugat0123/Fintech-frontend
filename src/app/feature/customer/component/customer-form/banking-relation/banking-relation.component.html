@@ -1,54 +1,31 @@
-<div class="row">
-    <div class="col-md-12">
-        <h5>Company Relationship with Bank</h5>
-    </div>
-</div>
+<!--<div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--        <h5>Company Relationship with Bank</h5>-->
+<!--    </div>-->
+<!--</div>-->
 <form (ngSubmit)="onSubmit()" [formGroup]="bankingRelationForm">
-    <nb-card>
-        <nb-card-header>
-            <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
-        </nb-card-header>
-        <nb-card-body>
+<!--    <nb-card>-->
+<!--        <nb-card-header>-->
+<!--            <label for="accountTurnover"><h6>Account Turnover</h6></label>-->
+<!--        </nb-card-header>-->
+<!--        <nb-card-body>-->
 <!--            <div class="form-group">-->
 <!--                <nb-radio-group class="d-contents form-control"-->
-<!--                                formControlName="bankingRelationship"-->
-<!--                                id="bankingRelationship"-->
-<!--                                name="bankingRelationship"-->
-<!--                                [ngClass]="{ 'is-invalid': (submitted) && formControl.bankingRelationship.errors }">-->
-<!--                    <nb-radio *ngFor="let elem of bankingRelationshipList"-->
+<!--                                formControlName="accountTurnover"-->
+<!--                                id="accountTurnover"-->
+<!--                                name="accountTurnover">-->
+<!--                    <nb-radio *ngFor="let elem of accountTurnoverList"-->
 <!--                              [value]="elem?.value">{{elem?.value}}-->
 <!--                    </nb-radio>-->
 <!--                </nb-radio-group>-->
-<!--                <div *ngIf="submitted && formControl.bankingRelationship.errors" class="invalid-feedback">-->
-<!--                    <div *ngIf="formControl.bankingRelationship.errors.required">-->
-<!--                        Banking relation is required-->
-<!--                    </div>-->
+<!--            </div>-->
+<!--            <div *ngIf="submitted && formControl.accountTurnover.errors" class="small text-danger">-->
+<!--                <div *ngIf="formControl.accountTurnover.errors.required">-->
+<!--                    Account Turnover is required-->
 <!--                </div>-->
 <!--            </div>-->
-        </nb-card-body>
-    </nb-card>
-    <nb-card>
-        <nb-card-header>
-            <label for="accountTurnover"><h6>Account Turnover</h6></label>
-        </nb-card-header>
-        <nb-card-body>
-            <div class="form-group">
-                <nb-radio-group class="d-contents form-control"
-                                formControlName="accountTurnover"
-                                id="accountTurnover"
-                                name="accountTurnover">
-                    <nb-radio *ngFor="let elem of accountTurnoverList"
-                              [value]="elem?.value">{{elem?.value}}
-                    </nb-radio>
-                </nb-radio-group>
-            </div>
-            <div *ngIf="submitted && formControl.accountTurnover.errors" class="small text-danger">
-                <div *ngIf="formControl.accountTurnover.errors.required">
-                    Account Turnover is required
-                </div>
-            </div>
-        </nb-card-body>
-    </nb-card>
+<!--        </nb-card-body>-->
+<!--    </nb-card>-->
     <div class="form-group">
         <nb-card>
             <nb-card-header>
@@ -133,45 +110,45 @@
                         </div>
                     </div>
 
-                    <div class="col" *ngIf="!disabledAlpha && !disabledLambda">
-                        <label for="repaymentTrackWithCurrentBank">
-                            <strong>Repayment track in our bank</strong></label><strong
-                            class="text-danger">*</strong>
-                        <select id="repaymentTrackWithCurrentBank" class="form-control text-center"
-                                formControlName="repaymentTrackWithCurrentBank"
-                                [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">
-                            <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
-                            <option *ngFor="let m of repaymentTrack"
-                                    [value]="m?.value">{{m?.value}}</option>
-                        </select>
-                        <div *ngIf="(submitted) && transactionForm?.repaymentTrackWithCurrentBank.invalid"
-                             class="invalid-feedback">
-                            Repayment Track is Required
-                        </div>
-                    </div>
+<!--                    <div class="col" *ngIf="!disabledAlpha && !disabledLambda">-->
+<!--                        <label for="repaymentTrackWithCurrentBank">-->
+<!--                            <strong>Repayment track in our bank</strong></label><strong-->
+<!--                            class="text-danger">*</strong>-->
+<!--                        <select id="repaymentTrackWithCurrentBank" class="form-control text-center"-->
+<!--                                formControlName="repaymentTrackWithCurrentBank"-->
+<!--                                [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">-->
+<!--                            <option [ngValue]="null" hidden selected>&#45;&#45;Select Repayment Track&#45;&#45;</option>-->
+<!--                            <option *ngFor="let m of repaymentTrack"-->
+<!--                                    [value]="m?.value">{{m?.value}}</option>-->
+<!--                        </select>-->
+<!--                        <div *ngIf="(submitted) && transactionForm?.repaymentTrackWithCurrentBank.invalid"-->
+<!--                             class="invalid-feedback">-->
+<!--                            Repayment Track is Required-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </nb-card-body>
         </nb-card>
     </div>
-    <nb-card>
-        <nb-card-header>
-            <label><h6>Repayment History</h6></label></nb-card-header>
-        <nb-card-body>
-            <div class="form-group">
-                <nb-radio-group class="d-contents form-control"
-                                formControlName="repaymentHistory"
-                                name="repaymentHistory">
-                    <nb-radio *ngFor="let history of repaymentHistoryList"
-                              [value]="history?.value">{{history?.value}}</nb-radio>
-                </nb-radio-group>
-                <div *ngIf="submitted && formControl.repaymentHistory.errors" class="small text-danger">
-                    <div *ngIf="formControl.repaymentHistory.errors.required">
-                        Repayment History is required
-                    </div>
-                </div>
-            </div>
-        </nb-card-body>
-    </nb-card>
+<!--    <nb-card>-->
+<!--        <nb-card-header>-->
+<!--            <label><h6>Repayment History</h6></label></nb-card-header>-->
+<!--        <nb-card-body>-->
+<!--            <div class="form-group">-->
+<!--                <nb-radio-group class="d-contents form-control"-->
+<!--                                formControlName="repaymentHistory"-->
+<!--                                name="repaymentHistory">-->
+<!--                    <nb-radio *ngFor="let history of repaymentHistoryList"-->
+<!--                              [value]="history?.value">{{history?.value}}</nb-radio>-->
+<!--                </nb-radio-group>-->
+<!--                <div *ngIf="submitted && formControl.repaymentHistory.errors" class="small text-danger">-->
+<!--                    <div *ngIf="formControl.repaymentHistory.errors.required">-->
+<!--                        Repayment History is required-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </nb-card-body>-->
+<!--    </nb-card>-->
     <div class="col-md-12">
         <div class="form-group">
             <label for="repaymentRemarks"><strong>Remark</strong></label>

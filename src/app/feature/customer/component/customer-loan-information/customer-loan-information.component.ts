@@ -723,16 +723,19 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     }
 
     saveDataFromComments(data: Comments) {
+        this.spinner.show();
         if (ObjectUtil.isEmpty(this.commentsDataResponse)) {
             this.commentsDataResponse = new Comments();
         }
         this.commentsDataResponse = data;
         this.customerInfoService.saveLoanInfo(this.commentsDataResponse, this.customerInfoId, TemplateName.COMMENTS)
         .subscribe(() => {
+            this.spinner.hide();
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Comments!'));
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
+            this.spinner.hide();
             this.nbDialogRef.close();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Comments)!'));

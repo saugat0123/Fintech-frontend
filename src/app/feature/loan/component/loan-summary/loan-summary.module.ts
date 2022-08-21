@@ -52,6 +52,7 @@ import {FeatureModule} from '../../../feature.module';
 import {SecurityTotalSummaryModule} from '../../../security-total-summary/security-total-summary.module';
 import {FacilityUtilizationModule} from '../facility-utilization/facility-utilization.module';
 import { OnlyBusinessProfileComponent } from './company-info-summary/only-business-profile/only-business-profile.component';
+import { SummaryOfEnvironemntComponent } from './company-info-summary/summary-of-environemnt/summary-of-environemnt.component';
 
 
 const COMPONENTS = [
@@ -82,7 +83,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, CollateralSiteVisitComponent,  LoanSummaryInstitutionalComponent,
         LoanSummaryIndividualComponent,
         CustomerShareSummaryComponent,
-        OnlyBusinessProfileComponent],
+        OnlyBusinessProfileComponent,
+        SummaryOfEnvironemntComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -130,6 +132,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         LoanSummaryIndividualComponent,
         CompanyInfoSummaryComponent,
         OnlyBusinessProfileComponent,
+        SummaryOfEnvironemntComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

@@ -524,8 +524,11 @@
                                                     formControlName="managementDesignation"
                                                     id="managementDesignation"
                                                     name="managementDesignation">
-                                                <option [value]="null">Select Designation</option>
-                                                <option [value]="designation?.roleName" *ngFor="let designation of designationList">{{designation?.roleName}}</option>
+                                                <option [value]="null">Select type</option>
+                                                <option *ngFor="let designations of designation"
+                                                        [ngValue]="designations.id">{{designations.name}}</option>
+<!--                                                <option [value]="null">Select Designation</option>-->
+<!--                                                <option [value]="designation?.roleName" *ngFor="let designation of designationList">{{designation?.roleName}}</option>-->
                                             </select>
                                         </div>
                                     </div>
