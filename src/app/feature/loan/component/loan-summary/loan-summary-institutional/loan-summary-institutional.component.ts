@@ -188,7 +188,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   isCorporate = false;
   thisClient;
   customerReportingInfo = [];
-
+  esrmData;
   constructor(
       @Inject(DOCUMENT) private _document: Document,
       private userService: UserService,
@@ -219,6 +219,9 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
         this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.isCorporate = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditChecklist)) {
+      this.esrmData = JSON.parse(this.loanDataHolder.loanHolder.creditChecklist.data);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
         && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {

@@ -111,79 +111,8 @@
             </div>
 
             <div class="col-md-12" *ngIf="isCorporate">
-                <p><strong class="header text-left">Facility Utilization</strong></p>
-                <table class="table table-bordered table-responsive-md table-sm sb-small table-hover summary">
-                    <tr *ngIf="facilityUtilization?.overdraftUtilization" class="sb-bg-gray">
-                        <td>Overdraft utilization</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.overdraftUtilization">
-                        <table
-                                class="col-md-12
-                                 table-sm table-bordered
-                                  table-responsive-sm border-dark"
-                                style="width: 100%; border: white"
-                                [innerHTML]="facilityUtilization?.overdraftUtilization | safeHtml"></table>
-                    </tr>
-
-                    <tr *ngIf="facilityUtilization?.remarks" class="sb-bg-gray">
-                        <td>Remarks</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks">
-                        <td [innerHTML]="facilityUtilization?.remarks | safeHtml"></td>
-                    </tr>
-
-                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.otherFacilityUtilization">
-                        <td>Other Facility Utilization</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.otherFacilityUtilization">
-                        <td [innerHTML]="facilityUtilization?.otherFacilityUtilization | safeHtml"></td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks1" class="sb-bg-gray">
-                        <td>Remarks</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks1">
-                        <td [innerHTML]="facilityUtilization?.remarks1 | safeHtml"></td>
-                    </tr>
-                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.letterOfCreditIssued" >
-                        <td>Letter of Credit issued</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.letterOfCreditIssued" >
-                        <table class="col-md-12
-                          table-sm table-bordered table-responsive-sm border-dark"
-                               style="width: 100%; border: white;" [innerHTML]="facilityUtilization?.letterOfCreditIssued | safeHtml"></table>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks2"  class="sb-bg-gray">
-                        <td>Remarks</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks2" >
-                        <td [innerHTML]="facilityUtilization?.remarks2 | safeHtml"></td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.bankGuaranteeIssued"  class="sb-bg-gray">
-                        <td>Bank Guarantee issued</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.bankGuaranteeIssued" >
-                        <td [innerHTML]="facilityUtilization?.bankGuaranteeIssued | safeHtml"></td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks3"  class="sb-bg-gray">
-                        <td>Remarks</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks3" >
-                        <td [innerHTML]="facilityUtilization?.remarks3 | safeHtml"></td>
-                    </tr>
-                    <tr class="sb-bg-gray" *ngIf="facilityUtilization?.oneOffLoansApproved" >
-                        <td>One off loans approved</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.oneOffLoansApproved" >
-                        <td [innerHTML]="facilityUtilization?.oneOffLoansApproved | safeHtml"></td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks4" class="sb-bg-gray">
-                        <td>Remarks</td>
-                    </tr>
-                    <tr *ngIf="facilityUtilization?.remarks4">
-                        <td [innerHTML]="facilityUtilization?.remarks4 | safeHtml"></td>
-                    </tr>
-
-                </table>
+        <app-facility-utilization
+                [fromProfile]="false" [customerInfo]="loanDataHolder?.loanHolder" ></app-facility-utilization>
             </div>
 
             <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.cicl">
@@ -298,55 +227,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12 form-group">
-                    <div class="row">
-                        <div class="col-md-12 text-left">
-                            <b class="header">Summary of Environment & Social Risk Assessment</b>
-                        </div>
-                    </div>
-                    <table class="table table-sm table-bordered table-hover sb-small text-center summary">
-                        <thead>
-                        <tr class="sb-bg-gray">
-                            <th>S.N</th>
-                            <th>Particulars</th>
-                            <th>Remarks</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-left">
-                        <tr>
-                            <td>1</td>
-                            <td class="text-left">Falls under Exclusion and critical sector list</td>
-                            <td class="text-center">
-                                {{proposalAllData?.summaryEnvironment?.criticalSector ? 'YES' : 'NO'}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="text-left">E & S Due Diligence process Applicable</td>
-                            <td class="text-center">
-                                {{proposalAllData?.summaryEnvironment?.processApplicable ? 'YES' : 'NO'}}
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="text-left">Level of Risk</td>
-                            <td>
-                                {{proposalAllData?.summaryEnvironment?.priority || 'NA'}}
-
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td class="text-left">Falls under Exclusion and critical sector list</td>
-                            <td>
-                                {{proposalAllData?.summaryEnvironment?.criticalSectorList || 'NA'}}
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <app-summary-of-environemnt [customerInfo]="loanDataHolder?.loanHolder"></app-summary-of-environemnt>
                 </div>
             </ng-container>
             <ng-container *ngIf="checkedData?.waiverChecked && !isCorporate">
@@ -387,7 +269,7 @@
                     <th>Interest Rate</th>
                     <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
 
-                    <th>Tenure Duration In Month</th>
+                    <th>Originally Approved Tenure</th>
                     <td>{{(dmsLoanFile?.tenureDuration
                         || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
 
@@ -561,14 +443,15 @@
     <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                [fromProfile]="false"
+                               [isCorporate]="isCorporate"
                                [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
     <hr class="print-line">
     <!--Product Paper Checklist-->
-    <div *ngIf="toggleChecklist !== null">
+    <div *ngIf="toggleChecklist !== null && !isCorporate">
         <p><strong class="header">Product Paper Checklist</strong></p>
     </div>
     <ng-container *ngFor="let loan of combinedLoan; let i = index">
-        <ng-container *ngIf="toggleChecklist[i] !== null">
+        <ng-container *ngIf="toggleChecklist[i] !== null && !isCorporate">
             <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
                                          *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
         </ng-container>

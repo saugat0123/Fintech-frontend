@@ -21,6 +21,7 @@ export class CreditChecklistViewComponent implements OnInit {
   @Input() customerType: CustomerType;
   @Input()
   client = environment.client;
+  @Input() isCorporate;
   clientName = Clients;
 
   formGroupCheckList: FormGroup;
