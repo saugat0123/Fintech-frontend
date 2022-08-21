@@ -232,9 +232,9 @@ export class RetailPrimarySecurityComponent implements OnInit {
     convertWords(formArray, index, origin, dest) {
         const tempFigure = this.retailPrimarySecurityForm.get([formArray, index, origin]).value;
         if (!ObjectUtil.isEmpty(tempFigure)) {
-            this.retailPrimarySecurityForm.get([formArray, index, dest]).patchValue(this.currencyWordPipe.transform(tempFigure));
-            this.retailPrimarySecurityForm.get([formArray, index, dest + 'Trans']).patchValue(this.currencyWordPipe.transform(tempFigure));
-            this.retailPrimarySecurityForm.get([formArray, index, dest + 'CT']).patchValue(this.currencyWordPipe.transform(tempFigure));
+            this.retailPrimarySecurityForm.get([formArray, index, dest]).patchValue(this.currencyWordPipe.transform(tempFigure.toFixed(2)));
+            this.retailPrimarySecurityForm.get([formArray, index, dest + 'Trans']).patchValue(this.currencyWordPipe.transform(tempFigure.toFixed(2)));
+            this.retailPrimarySecurityForm.get([formArray, index, dest + 'CT']).patchValue(this.currencyWordPipe.transform(tempFigure.toFixed(2)));
         }
     }
 

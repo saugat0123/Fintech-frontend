@@ -56,7 +56,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.filteredList)) {
             for (let val = 0; val < this.filteredList.length; val++) {
-                const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+                const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount.toFixed(2));
                 this.importBillsDiscountForm.get(['importBillsDiscountFormArray', val, 'loanAmount']).patchValue(
                     this.filteredList[val] ? this.filteredList[val].loanAmount : '');
                 this.importBillsDiscountForm.get(['importBillsDiscountFormArray', val, 'loanAmountWords']).patchValue(
