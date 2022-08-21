@@ -60,7 +60,7 @@ export class RequestInterceptor implements HttpInterceptor {
                     console.log('err err', err);
                     const messageUrl = err.url.split('/');
                     const isLogOut = messageUrl[messageUrl.length - 1] === 'logout';
-                    if (err instanceof HttpErrorResponse && err.status === 401 && !isLogOut) {
+                    if ((err instanceof HttpErrorResponse && err.status === 401) && !isLogOut) {
                         console.log('token expired ... attempting refresh');
                         return this.handleHttpResponseError(req, next);
                     } else {
