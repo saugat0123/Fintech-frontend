@@ -8,4 +8,6 @@ export class OfferDocument extends BaseEntity{
     pathSigned: string;
     draftPath: string;
     offerDocType: OfferDocType;
+   draftUploadDate: Date;
+   signUploadDate: Date;
 }

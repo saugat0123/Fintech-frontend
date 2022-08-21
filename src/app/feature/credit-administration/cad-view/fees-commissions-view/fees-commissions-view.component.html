@@ -8,15 +8,20 @@
                 <th>Fees Amount</th>
             </tr>
             </thead>
-            <tbody >
+            <tbody>
+            <tr *ngIf="!feeCommission">
+                <td colspan="3" class="text-danger">Fees and Commissions has not been saved yet</td>
+            </tr>
             <ng-container *ngFor="let feeAmount of feeCommission?.feeAmountDetails;  let i = index">
-                <tr>
+                <tr *ngIf="isContainsValidStatus(feeAmount?.loanFeeDetails)">
                     <td colspan="3" class="sb-bg-secondary text-white"><strong>{{feeAmount?.loanName}}</strong></td>
                 </tr>
                 <tr *ngFor="let loanFee of feeAmount?.loanFeeDetails">
-                    <td>{{loanFee?.feeType}}</td>
-                    <td>{{loanFee?.feePercent}}%</td>
-                    <td>{{loanFee?.feeAmount}}</td>
+                    <ng-container *ngIf="loanFee?.isValid">
+                        <td>{{loanFee?.feeType}}</td>
+                        <td>{{loanFee?.feePercent}}%</td>
+                        <td>{{loanFee?.feeAmount}}</td>
+                    </ng-container>
                 </tr>
             </ng-container>
             </tbody>
