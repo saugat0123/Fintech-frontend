@@ -132,6 +132,15 @@ export class PersonalGuaranteeJointBorrowerComponent implements OnInit {
       witnessName2: [undefined]
     });
   }
+  changeToNepAmount(event: any, target, from) {
+    this.personalGuaranteeJoint.get([target]).patchValue(event.nepVal);
+    this.personalGuaranteeJoint.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.personalGuaranteeJoint.get([target]).value;
+    return patchValue1;
+  }
 
   submit() {
     let flag = true;
