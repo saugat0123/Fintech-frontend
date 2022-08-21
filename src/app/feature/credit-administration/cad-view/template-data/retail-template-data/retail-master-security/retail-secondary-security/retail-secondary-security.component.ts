@@ -221,12 +221,15 @@ export class RetailSecondarySecurityComponent implements OnInit {
   }
 
   convertWords(formArray, index, origin, dest) {
-    const tempFigure = this.retailSecondarySecurityForm.get([formArray, index, origin]).value;
-    if (!ObjectUtil.isEmpty(tempFigure)) {
-      this.retailSecondarySecurityForm.get([formArray, index, dest]).patchValue(this.currencyWordPipe.transform(tempFigure));
-      this.retailSecondarySecurityForm.get([formArray, index, dest + 'Trans']).patchValue(this.currencyWordPipe.transform(tempFigure));
-      this.retailSecondarySecurityForm.get([formArray, index, dest + 'CT']).patchValue(this.currencyWordPipe.transform(tempFigure));
-    }
+      const tempFigure = this.retailSecondarySecurityForm.get([formArray, index, origin]).value;
+      if (!ObjectUtil.isEmpty(tempFigure)) {
+          const afterFix = tempFigure.toFixed(2);
+          if (!ObjectUtil.isEmpty(afterFix)) {
+              this.retailSecondarySecurityForm.get([formArray, index, dest]).patchValue(this.currencyWordPipe.transform(afterFix));
+              this.retailSecondarySecurityForm.get([formArray, index, dest + 'Trans']).patchValue(this.currencyWordPipe.transform(afterFix));
+              this.retailSecondarySecurityForm.get([formArray, index, dest + 'CT']).patchValue(this.currencyWordPipe.transform(afterFix));
+          }
+      }
   }
 
   dateConvert(mainArray, index, origin, type) {

@@ -55,7 +55,7 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
-        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount.toFixed(2));
         this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', val, 'loanAmountInFigure']).patchValue(
             this.filteredList[val] ? this.filteredList[val].loanAmount : '');
         this.personalOverDraftWithoutCollateralCombinedForm.get(['personalOverDraftWithoutCollateralCombinedFormArray', val, 'loanAmountInWords']).patchValue(

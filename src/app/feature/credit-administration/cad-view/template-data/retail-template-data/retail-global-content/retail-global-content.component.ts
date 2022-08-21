@@ -178,9 +178,12 @@ export class RetailGlobalContentComponent implements OnInit {
   convertWords(origin, dest) {
     const tempFigure = this.globalForm.get(origin).value;
     if (!ObjectUtil.isEmpty(tempFigure)) {
-      this.globalForm.get(dest).patchValue(this.currencyWordPipe.transform(tempFigure));
-      this.globalForm.get(dest + 'Trans').patchValue(this.currencyWordPipe.transform(tempFigure));
-      this.globalForm.get(dest + 'CT').patchValue(this.currencyWordPipe.transform(tempFigure));
+      const afterFix = tempFigure.toFixed(2);
+      if (!ObjectUtil.isEmpty(afterFix)) {
+        this.globalForm.get(dest).patchValue(this.currencyWordPipe.transform(afterFix));
+        this.globalForm.get(dest + 'Trans').patchValue(this.currencyWordPipe.transform(afterFix));
+        this.globalForm.get(dest + 'CT').patchValue(this.currencyWordPipe.transform(afterFix));
+      }
     }
   }
   async wordsTranslate(word) {

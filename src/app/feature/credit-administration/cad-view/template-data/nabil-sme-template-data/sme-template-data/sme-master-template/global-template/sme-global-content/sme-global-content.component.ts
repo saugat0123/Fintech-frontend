@@ -321,26 +321,26 @@ export class SmeGlobalContentComponent implements OnInit {
       this.globalForm.get('arFinancingCT').patchValue(arFinancing);
     }
     if (!ObjectUtil.isEmpty(serviceChargeInFigure)) {
-      this.globalForm.get('serviceChargeInWords').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure));
-      this.globalForm.get('serviceChargeInWordsTrans').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure));
-      this.globalForm.get('serviceChargeInWordsCT').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure));
+      this.globalForm.get('serviceChargeInWords').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure.toFixed(2)));
+      this.globalForm.get('serviceChargeInWordsTrans').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure.toFixed(2)));
+      this.globalForm.get('serviceChargeInWordsCT').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure.toFixed(2)));
     }
     if (!ObjectUtil.isEmpty(totalFundedLimitInFigure)) {
-      this.globalForm.get('totalFundedLimitInWords').patchValue(this.currencyWordPipe.transform(totalFundedLimitInFigure));
-      this.globalForm.get('totalFundedLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalFundedLimitInFigure));
-      this.globalForm.get('totalFundedLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalFundedLimitInFigure));
+      this.globalForm.get('totalFundedLimitInWords').patchValue(this.currencyWordPipe.transform(totalFundedLimitInFigure.toFixed(2)));
+      this.globalForm.get('totalFundedLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalFundedLimitInFigure.toFixed(2)));
+      this.globalForm.get('totalFundedLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalFundedLimitInFigure.toFixed(2)));
     }
 
     if (!ObjectUtil.isEmpty(totalNonFundedLimitInFigure)) {
-      this.globalForm.get('totalNonFundedLimitInWords').patchValue(this.currencyWordPipe.transform(totalNonFundedLimitInFigure));
-      this.globalForm.get('totalNonFundedLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalNonFundedLimitInFigure));
-      this.globalForm.get('totalNonFundedLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalNonFundedLimitInFigure));
+      this.globalForm.get('totalNonFundedLimitInWords').patchValue(this.currencyWordPipe.transform(totalNonFundedLimitInFigure.toFixed(2)));
+      this.globalForm.get('totalNonFundedLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalNonFundedLimitInFigure.toFixed(2)));
+      this.globalForm.get('totalNonFundedLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalNonFundedLimitInFigure.toFixed(2)));
     }
 
     if (!ObjectUtil.isEmpty(totalLimitInFigure)) {
-      this.globalForm.get('totalLimitInWords').patchValue(this.currencyWordPipe.transform(totalLimitInFigure));
-      this.globalForm.get('totalLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalLimitInFigure));
-      this.globalForm.get('totalLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalLimitInFigure));
+      this.globalForm.get('totalLimitInWords').patchValue(this.currencyWordPipe.transform(totalLimitInFigure.toFixed(2)));
+      this.globalForm.get('totalLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalLimitInFigure.toFixed(2)));
+      this.globalForm.get('totalLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalLimitInFigure.toFixed(2)));
     } else {
       this.globalForm.get('totalLimitInWords').patchValue(this.currencyWordPipe.transform(this.totalLimitInFigure));
       this.globalForm.get('totalLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(this.totalLimitInFigure));
