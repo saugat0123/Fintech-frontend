@@ -33,4 +33,7 @@ export class FeesCommissionsViewComponent implements OnInit {
         return t;
     }
 
+    isContainsValidStatus(loanFeeDetails?: any) {
+        return loanFeeDetails.find(v => v.isValid === true);
+    }
 }

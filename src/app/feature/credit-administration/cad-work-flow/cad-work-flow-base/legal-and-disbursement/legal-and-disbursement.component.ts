@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
@@ -37,7 +37,8 @@ export class LegalAndDisbursementComponent implements OnInit {
     constructor(private activatedRoute: ActivatedRoute,
                 private service: CreditAdministrationService,
                 private userService: UserService,
-                private nbService: NgbModal
+                private nbService: NgbModal,
+                private router: Router
     ) {
     }
 
@@ -63,13 +64,16 @@ export class LegalAndDisbursementComponent implements OnInit {
 
     ngOnInit() {
         this.getUserDetail();
+        this.loadLegalAndDisbursementDetails();
+    }
+
+    loadLegalAndDisbursementDetails() {
         this.cadDocumentId = Number(this.activatedRoute.snapshot.queryParamMap.get('cadDocumentId'));
-            LegalAndDisbursementComponent.loadData(this);
+        LegalAndDisbursementComponent.loadData(this);
 
         if (!ObjectUtil.isEmpty(history.state.tabId)) {
             this.activeTab = history.state.tabId;
         }
-
     }
 
     getUserDetail() {
@@ -105,4 +109,7 @@ export class LegalAndDisbursementComponent implements OnInit {
         pop.componentInstance.cadData = this.cadOfferLetterApprovedDoc;
     }
 
+    onEmitCadResponseData() {
+        this.loadLegalAndDisbursementDetails();
+    }
 }
