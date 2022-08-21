@@ -176,7 +176,8 @@ export class PersonalOverdraftWithoutCollateralCombinedTemplateDataComponent imp
 
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.personalOverDraftWithoutCollateralCombinedForm.get(
-        [arrayName, index, numLabel]).value);
+        [arrayName, index, numLabel]).value ? this.personalOverDraftWithoutCollateralCombinedForm.get(
+        [arrayName, index, numLabel]).value.toFixed(2) : '');
     this.personalOverDraftWithoutCollateralCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
 

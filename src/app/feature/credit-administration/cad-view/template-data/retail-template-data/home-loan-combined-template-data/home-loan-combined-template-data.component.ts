@@ -202,12 +202,14 @@ export class HomeLoanCombinedTemplateDataComponent implements OnInit {
   }
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.homeLoanCombinedForm.get(
-        [arrayName, index, numLabel]).value);
+        [arrayName, index, numLabel]).value ? this.homeLoanCombinedForm.get(
+        [arrayName, index, numLabel]).value.toFixed(2) : '');
     this.homeLoanCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
   public getNumAmountWordDyna(numLabel, wordLabel, index, arrayName, i, innerArray): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.homeLoanCombinedForm.get(
-        [arrayName, index, innerArray, i, numLabel]).value);
+        [arrayName, index, innerArray, i, numLabel]).value ? this.homeLoanCombinedForm.get(
+        [arrayName, index, innerArray, i, numLabel]).value.toFixed(2) : '');
     this.homeLoanCombinedForm.get([arrayName, index, innerArray, i, wordLabel]).patchValue(transformValue);
   }
 

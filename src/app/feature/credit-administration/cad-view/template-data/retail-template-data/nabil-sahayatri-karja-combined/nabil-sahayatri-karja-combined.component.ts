@@ -172,7 +172,8 @@ export class NabilSahayatriKarjaCombinedComponent implements OnInit {
 
     public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
         const transformValue = this.nepaliCurrencyWordPipe.transform(this.nabilSahayatriCombinedForm.get(
-            [arrayName, index, numLabel]).value);
+            [arrayName, index, numLabel]).value ? this.nabilSahayatriCombinedForm.get(
+            [arrayName, index, numLabel]).value.toFixed(2) : '');
         this.nabilSahayatriCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
     }
 

@@ -146,7 +146,8 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
   }
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.personalLoanCombinedForm.get(
-        [arrayName, index, numLabel]).value);
+        [arrayName, index, numLabel]).value ? this.personalLoanCombinedForm.get(
+        [arrayName, index, numLabel]).value.toFixed(2) : '');
     this.personalLoanCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
 
