@@ -418,34 +418,36 @@
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorName']).value}}</strong></span>
                                             </p>
                                             <p>
-                                                <span *ngIf="guarantorsNepData[i]?.gender?.en === 'MALE'; else guarantorFatherRelation">
+                                                <span *ngIf="guarantorsNepData[i]?.gender?.en === 'MALE' ||
+                                                guarantorsNepData[i]?.gender?.en === 'FEMALE' && guarantorsNepData[i]?.guarantorMaritalStatus?.en === 'Unmarried'">
                                                     बाबु :
                                                 </span>
-                                                <ng-template #guarantorFatherRelation>
+                                                <ng-container *ngIf="guarantorsNepData[i]?.gender?.en === 'FEMALE' && guarantorsNepData[i]?.guarantorMaritalStatus?.en === 'Married'">
                                                     <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '1'">
                                                         बाबु :
                                                     </span>
                                                         <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '0'">
                                                         श्रीमान :
                                                     </span>
-                                                </ng-template>
+                                                </ng-container>
                                                 <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorFatherOrHusbandName"
                                                     formControlName="guarantorFatherOrHusbandName" placeholder="बाबु वा श्रीमानको नाम" type="text"/>
                                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorFatherOrHusbandName']).value}}</strong></span>
                                             </p>
                                             <p>
-                                                <span *ngIf="guarantorsNepData[i]?.gender?.en === 'MALE'; else guarantorGrandFatherRelation">
+                                                <span *ngIf="guarantorsNepData[i]?.gender?.en === 'MALE' ||
+                                                guarantorsNepData[i]?.gender?.en === 'FEMALE' && guarantorsNepData[i]?.guarantorMaritalStatus?.en === 'Unmarried'">
                                                     बाजे :
                                                 </span>
-                                                <ng-template #guarantorGrandFatherRelation>
+                                                <ng-container *ngIf="guarantorsNepData[i]?.gender?.en === 'FEMALE' && guarantorsNepData[i]?.guarantorMaritalStatus?.en === 'Married'">
                                                     <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '1'">
                                                         बाजे :
                                                     </span>
                                                     <span *ngIf="guarantorsNepData[i]?.relationMedium && guarantorsNepData[i]?.relationMedium?.en === '0'">
                                                         ससुरा :
                                                     </span>
-                                                </ng-template>
+                                                </ng-container>
                                                 <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorGrandFatherName"
                                                     formControlName="guarantorGrandFatherName" placeholder="बाजे वा ससुराको नाम" type="text"/>
