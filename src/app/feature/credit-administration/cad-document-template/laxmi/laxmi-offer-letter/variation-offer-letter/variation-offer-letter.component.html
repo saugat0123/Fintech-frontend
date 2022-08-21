@@ -4,13 +4,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <strong>रेफ नं.: LXBL/BUD-CSU/
-                    <input type="text" class="form-control-sm form-field disable-print"
-                           formControlName="branchCode">
-                    <span class="print-only">
+                        <input type="text" class="form-control-sm form-field disable-print"
+                               formControlName="branchCode" readonly>
+                        <span class="print-only">
                         <strong>{{form?.get('branchCode')?.value ? form?.get('branchCode')?.value : '_____________'}}</strong></span>/
-                    <input class="form-control-sm form-field disable-print"
-                           formControlName="patraDate">
-                    <span class="print-only">
+                        <input class="form-control-sm form-field disable-print"
+                               formControlName="patraDate" readonly>
+                        <span class="print-only">
                         <strong>{{form?.get('patraDate')?.value ? (form?.get('patraDate')?.value) : '_____________'}}</strong></span>
                     </strong>
                 </div>
@@ -46,13 +46,11 @@
                 <strong>{{form?.get('contactNo')?.value ? form?.get('contactNo')?.value : '========='}}</strong></span>
             <br>
             <strong>
-                <span *ngIf="cadOfferLetterApprovedDoc?.loanHolder?.customerType === 'INSTITUTION'">
                 ध्यानार्थ : <input type="text"
                                    class="nepaliFont form-control-sm form-field disable-print"
                                    formControlName="attention">
                 <span class="nepaliFont print-only">
                     <strong>{{form?.get('attention')?.value ? form?.get('attention')?.value : '========='}}</strong>
-                </span>
                 </span>
             </strong><br>
             <p class="text-center"><strong><u>विषयः कर्जा स्वीकृती वारे ।</u></strong></p>
@@ -82,9 +80,10 @@
                     </span> को कर्जा स्वीकृतिपत्र सहित त्यस पश्चात जारी भएका स्वीकृतिपत्रहरुमा संलग्न बमोजिमका शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको
                     धितो सुरक्षण उपलव्ध गराउने/यथावत राख्ने शर्तमा देहाय वमोजिमको कर्जा सुविधा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
                 </div>
-            </div>
-            <div class="row">
+            </div><br>
+            <div class="row" *ngIf="isVariation">
                 <div class="col-md-12">
+                    <p><strong>कर्जा तथा सुविधाको विवरण:</strong></p>
                     <ng-container *ngFor="let data of form?.get('purpose')['controls']; let i = index"
                                   formArrayName="purpose">
                         <table [formGroupName]="i"
@@ -188,8 +187,6 @@
                                     <td>
                                         <ng-container
                                                 *ngIf="form?.get(['purpose', i, 'drawDownCheck'])?.value">
-                                            <!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
-                                            <!--                                      [config]="ckeConfig"></ckeditor>-->
                                             <textarea
                                                     class="form-control nepaliFont form-field font-size-normal disable-print"
                                                     placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
@@ -379,9 +376,6 @@
                                     <span class="font-size-normal print-only">
                                         <strong>{{form?.get(['purpose', i, 'nepaliRepaymentAmount'])?.value ?
                                             form?.get(['purpose', i, 'nepaliRepaymentAmount'])?.value : '____________'}}</strong></span> ।– (अक्षरेपी रुपैयाँ
-                                        <!--                                <input type="text"-->
-                                        <!--                                       [value]="data?.repaymentAmountWord"-->
-                                        <!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
                                     <span class="font-size-normal nepaliFont">
                                         <strong>{{form?.get(['purpose', i, 'repaymentAmountWord'])?.value ?
                                             form?.get(['purpose', i, 'repaymentAmountWord'])?.value : '========='}}</strong></span> मात्र)
@@ -816,7 +810,7 @@
                         </table>
                     </ng-container>
                 </div>
-            </div>
+            </div><br>
             <div class="row">
                 <div class="col-md-12">
                     <p><strong>धितो सुरक्षण विवरणः</strong></p>
@@ -1784,7 +1778,6 @@
                                        class="btn btn-sm btn-flat btn-primary"
                                        type="button" value="Add More CG"/>
                             </div>
-                            <!--                    </ng-container>-->
                             </tbody>
                             <tbody>
                             <ng-container>
@@ -2411,9 +2404,9 @@
             <p>
                 ऋणी/ऋणीको तर्फवाट अधिकारप्राप्त व्यक्तिको नामः
                 <input type="text"
-                       class="nepaliFont form-control-sm form-field disable-print"
+                       class="nepaliFont form-control-sm form-field disable-print font14"
                        formControlName="authorizedPerson">
-                <span class="nepaliFont print-only">
+                <span class="nepaliFont print-only font14">
                             {{form?.get('authorizedPerson')?.value ? form?.get('authorizedPerson')?.value : '========='}}
                 </span>
             </p>

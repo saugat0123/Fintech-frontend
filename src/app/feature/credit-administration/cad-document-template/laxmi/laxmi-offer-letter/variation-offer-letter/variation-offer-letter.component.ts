@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -10,7 +8,6 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {LoanTag} from '../../../../../loan/model/loanTag';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliCurrencyFormatterPipe} from '../../../../../../@core/pipe/nepali-currency-formatter.pipe';
@@ -38,6 +35,8 @@ export class VariationOfferLetterComponent implements OnInit {
   loanType = [];
   documentWord = [' गर्नुपर्नेछ |', ' गराएको यथावत रहने छ |'];
   hypoDocument = [' गरिदिनु पर्नेछ |', ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।'];
+  commissionFreq = ['मासिक', 'त्रैमासिक', 'वार्षिक', 'अर्ध वार्षिक'];
+  @Input() isVariation = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -58,26 +57,49 @@ export class VariationOfferLetterComponent implements OnInit {
     this.checkOfferLetter();
   }
   checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER);
-      this.fillForm();
-      this.convertProposed();
+    if (this.isVariation) {
+      this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+          === this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER).toString())[0];
+      if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        this.offerLetterDocument = new OfferDocument();
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER);
+        this.fillForm();
+        this.convertProposed();
+      } else {
+        const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        this.existingOfferLetter = true;
+        this.form.patchValue(initialInfo);
+        this.setSecrityData(initialInfo.security);
+        this.setCrossSecurityData(initialInfo.crossSecurity);
+        this.setVehicleData(initialInfo.vehicleSecurity);
+        this.setShareData(initialInfo.shareSecurity);
+        this.setGuarantor(initialInfo.personalGuarantee, 'personalGuarantee');
+        this.setGuarantor(initialInfo.corporateGuarantee, 'corporateGuarantee');
+        this.setMoreSecurity(initialInfo.moreSecurity);
+        this.initialInfoPrint = initialInfo;
+      }
     } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.existingOfferLetter = true;
-      this.form.patchValue(initialInfo);
-      this.setRemarks(initialInfo.purpose);
-      this.setSecrityData(initialInfo.security);
-      this.setCrossSecurityData(initialInfo.crossSecurity);
-      this.setVehicleData(initialInfo.vehicleSecurity);
-      this.setShareData(initialInfo.shareSecurity);
-      this.setGuarantor(initialInfo.personalGuarantee, 'personalGuarantee');
-      this.setGuarantor(initialInfo.corporateGuarantee, 'corporateGuarantee');
-      this.setMoreSecurity(initialInfo.moreSecurity);
-      this.initialInfoPrint = initialInfo;
+      this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+          === this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER_FOR_COLLATERAL).toString())[0];
+      if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        this.offerLetterDocument = new OfferDocument();
+        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER_FOR_COLLATERAL);
+        this.fillForm();
+        this.convertProposed();
+      } else {
+        const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        this.existingOfferLetter = true;
+        this.form.patchValue(initialInfo);
+        this.setRemarks(initialInfo.purpose);
+        this.setSecrityData(initialInfo.security);
+        this.setCrossSecurityData(initialInfo.crossSecurity);
+        this.setVehicleData(initialInfo.vehicleSecurity);
+        this.setShareData(initialInfo.shareSecurity);
+        this.setGuarantor(initialInfo.personalGuarantee, 'personalGuarantee');
+        this.setGuarantor(initialInfo.corporateGuarantee, 'corporateGuarantee');
+        this.setMoreSecurity(initialInfo.moreSecurity);
+        this.initialInfoPrint = initialInfo;
+      }
     }
   }
   fillForm() {
@@ -241,8 +263,7 @@ export class VariationOfferLetterComponent implements OnInit {
         this.loanType.push(l.loanType);
         this.addPurpose(l);
       });
-      const loanShortForm = this.clientTypeShort.transform(this.cadOfferLetterApprovedDoc.loanHolder.clientType);
-      const branchCode = this.cadOfferLetterApprovedDoc.loanHolder.branch.branchCode.concat('-').concat(loanShortForm);
+      const branchCode = (this.cadOfferLetterApprovedDoc.id).toString().padStart(4, '0');
       this.form.get('branchCode').patchValue(branchCode);
       this.form.get('patraDate').patchValue(formatDate(new Date(), 'dd-MM-yyyy', 'en'));
     }
@@ -1165,18 +1186,34 @@ export class VariationOfferLetterComponent implements OnInit {
   }
   submit() {
     this.spinner = true;
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(singleCadFile => {
-        if (singleCadFile.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER).toString()) {
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
-        }
-      });
+    if (this.isVariation) {
+      if (this.existingOfferLetter) {
+        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(singleCadFile => {
+          if (singleCadFile.docName.toString() ===
+              this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER).toString()) {
+            singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          }
+        });
+      } else {
+        const offerDocument = new OfferDocument();
+        offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER);
+        offerDocument.initialInformation = JSON.stringify(this.form.value);
+        this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      }
     } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER);
-      offerDocument.initialInformation = JSON.stringify(this.form.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      if (this.existingOfferLetter) {
+        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(singleCadFile => {
+          if (singleCadFile.docName.toString() ===
+              this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER_FOR_COLLATERAL).toString()) {
+            singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          }
+        });
+      } else {
+        const offerDocument = new OfferDocument();
+        offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.VARIATION_OFFER_LETTER_FOR_COLLATERAL);
+        offerDocument.initialInformation = JSON.stringify(this.form.value);
+        this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      }
     }
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
