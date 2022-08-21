@@ -46,7 +46,7 @@
                 </nb-tab>
                 <nb-tab tabTitle="Fees And Commission" [active]="activeTab === 2">
                     <app-fees-commission *ngIf="cadOfferLetterApprovedDoc"
-                                         [cadData]="cadOfferLetterApprovedDoc"></app-fees-commission>
+                                         [cadData]="cadOfferLetterApprovedDoc" (responseCadData)="onEmitCadResponseData()"></app-fees-commission>
                 </nb-tab>
                 <nb-tab tabTitle="Document CheckList" [active]="activeTab === 3">
                     <app-document-checklist [cadData]="cadOfferLetterApprovedDoc"
