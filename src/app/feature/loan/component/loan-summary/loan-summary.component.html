@@ -1576,13 +1576,44 @@
                                 id="serviceCharge"
                                 name="serviceCharge" placeholder="Service charge"
                                 type="number" appDecimalNumber>
-                        <!--                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"-->
-                        <!--                         class="invalid-feedback">-->
-                        <!--                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>-->
-
-                        <!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
-                        <!--                    </div>-->
                     </div>
+
+                    <div class="form-group" *ngIf="!isFundable && fundableNonFundableSelcted">
+                        <label class="title" for="cashMargin"><strong>Cash Margin</strong>
+                            <input formControlName="cashMarginMethod"
+                                   name="cashMarginMethod" type="radio"
+                                   value="PERCENT"><strong>% </strong>
+                            <input formControlName="cashMarginMethod" name="cashMarginMethod"
+                                   type="radio" value="FLAT"><strong> Flat</strong>
+                        </label>
+                        <input class="form-control" formControlName="cashMargin"
+                               id="cashMargin"
+                               name="cashMargin" placeholder="Cash Margin"
+                               type="number">
+                    </div>
+
+                    <div class="form-group" *ngIf="!isFundable && fundableNonFundableSelcted">
+                        <label class="title" for="commissionPercentage"><strong>Commission (%)</strong></label>
+                        <input class="form-control" formControlName="commissionPercentage"
+                                id="commissionPercentage" name="commissionPercentage"
+                                placeholder="Commission (%)"
+                                type="number">
+                    </div>
+
+                    <div class="form-group" *ngIf="!isFundable && fundableNonFundableSelcted">
+                        <label class="title" for="serviceCharge"><strong>Service Charge </strong>
+                            <input formControlName="serviceChargeMethod"
+                                    name="serviceChargeMethod" type="radio"
+                                    value="PERCENT"><strong>% </strong>
+                            <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
+                                   type="radio" value="FLAT"><strong> Flat</strong>
+                        </label>
+                        <input class="form-control" formControlName="serviceCharge"
+                                id="serviceCharge1"
+                                name="serviceCharge" placeholder="Service charge"
+                                type="number" appDecimalNumber>
+                    </div>
+
                     <div class="form-group">
                         <textarea class="form-control" formControlName="updateComment" id="comment" rows="3" placeholder="Reason for update"></textarea>
                     </div>
