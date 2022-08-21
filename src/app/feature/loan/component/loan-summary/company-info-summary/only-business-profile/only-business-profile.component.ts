@@ -35,11 +35,14 @@ export class OnlyBusinessProfileComponent implements OnInit {
         });
       }
     }
-    this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
-      if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor' || val.guarantorType === 'Shareholder') {
-        this.newGuarantor.push(val);
-      }
-    });
+    if ((!ObjectUtil.isEmpty(this.loanDataHolder.securities) && this.loanDataHolder.securities.length > 0)) {
+      this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
+        if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor' ||
+            val.guarantorType === 'Shareholder') {
+          this.newGuarantor.push(val);
+        }
+      });
+    }
   }
   getAccountNumber(accountNumberList) {
     let accountNumber = '';
