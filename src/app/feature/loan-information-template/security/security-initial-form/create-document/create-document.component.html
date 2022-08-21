@@ -11,14 +11,25 @@
     <nb-card-body>
         <div class="col">
             <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-12 form-group">
-                          <label for="docName"><strong>Document Name</strong></label>
-                          <input required class="form-control" id="docName" name="docName"
-                                 placeholder="Document Name" type="text" (keyup)="checkValue($event)" [(ngModel)]="docName"
-                                 [disabled]="docUpload">
-                      </div>
-                      <div class="col-md-12 form-group">
+                <div class="row">
+                    <form [formGroup]="createDocumentForm">
+                        <div class="col-md-12 form-group">
+                            <label for="docName"><strong>Document Name</strong></label>
+                            <input class="form-control" id="docName" name="docName"
+                                   formControlName="docName"
+                                   [ngClass]="{
+                                'is-invalid': form.docName.invalid && (form.docName.dirty || form.docName.touched),
+                                'is-valid': !form.docName.invalid && (form.docName.dirty || form.docName.touched)
+                                }"
+                                   placeholder="Document Name" type="text"
+                                   [disabled]="docUpload" required>
+                            <div *ngIf="form.docName.invalid && (form.docName.dirty || form.docName.touched)"
+                                 class="invalid-feedback">
+                                Document name required.
+                            </div>
+                        </div>
+                    </form>
+            <div class="col-md-12 form-group">
                           <label><strong>Is File Printable ?</strong></label>
                           <select #doc class="form-control" id="type" [(ngModel)]="isPrintable" name="isPrintable">
                               <option value="YES">Yes</option>
@@ -35,7 +46,7 @@
             </div>
         </div>
         <div>
-            <button [disabled]="!doc.value || docNameChange"  nbButton class="float-right" (click)="create()">Create</button>
+            <button [disabled]="!doc.value " nbButton class="float-right" (click)="create()">Create</button>
         </div>
     </nb-card-body>
 </nb-card>
