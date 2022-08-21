@@ -501,6 +501,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'commissionOtherCheck']).patchValue(checked);
                 }
                 break;
+            case 'tenureOtherCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'tenureOtherCheck']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'tenureValue']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'tenureOtherCheck']).patchValue(checked);
+                }
+                break;
         }
     }
 
@@ -652,7 +660,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 facilityNeeded: [true],
                 otherLimitChecked: [false],
                 otherLimit: [undefined],
-                interestNeeded: [undefined]
+                interestNeeded: [undefined],
+                tenureValue: [undefined],
+                tenureOtherCheck: [undefined]
             })
         );
     }
