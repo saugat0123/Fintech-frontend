@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PersonalGuaranteeJointBorrowerComponent } from './personal-guarantee-joint-borrower/personal-guarantee-joint-borrower.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
-import { PersonalGuaranteePersonToPersonComponent } from './personal-guarantee-person-to-person/personal-guarantee-person-to-person.component';
+import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { ManjurinamaForCompanyComponent } from './manjurinama-for-company/manjurinama-for-company.component';
 import { TrustReceiptNepaliLimitComponent } from './trust-receipt-nepali-limit/trust-receipt-nepali-limit.component';
 import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-borrower/promissory-note-single-borrower.component';
@@ -26,11 +26,12 @@ import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-p
 import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
 import {LoanDeedProprietorshipComponent} from './loan-deed-proprietorship/loan-deed-proprietorship.component';
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
+import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteePersonToPersonComponent,
+    PersonalGuaranteeIndividualComponent,
     ManjurinamaForCompanyComponent,
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
@@ -45,12 +46,14 @@ import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuit
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    KaloSuchiBorrowerCompanyComponent,
+    CorporateGuaranteeComponent,
+    LetterOfSetOffCompanyComponent,
     CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
-    LetterOfContinuityProprietorshipComponent],
+    LetterOfContinuityProprietorshipComponent
+    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -66,7 +69,7 @@ import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuit
     ManjurinamaForCompanyComponent,
     PersonalGuaranteeCompanyComponent,
     PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteePersonToPersonComponent,
+    PersonalGuaranteeIndividualComponent,
     PromissoryNoteSingleBorrowerComponent,
     TrustReceiptNepaliLimitComponent,
     LoanDeedInstitutionPrivateLimitedComponent,
@@ -78,13 +81,11 @@ import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuit
     CorporateGuaranteeComponent,
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
+    LetterOfSetOffCompanyComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
-    LetterOfContinuityProprietorshipComponent
-  ],
-  entryComponents: [DeedHypoOfMachineryComponent
-  ]
-
-})
+    LetterOfContinuityProprietorshipComponent,
+    DeedHypoOfMachineryComponent],
+  })
 export class MegaModule { }

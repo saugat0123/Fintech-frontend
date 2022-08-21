@@ -76,6 +76,10 @@
                                                  [cadData]="cadData" [documentId]="documentId"
                                                  [customerLoanId]="customerLoanId"></app-letter-of-continuity-proprietorship>
 
+        <app-letter-of-set-off-company *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_COMPANY"
+                                            [cadData]="cadData" [documentId]="documentId"
+                                            [customerLoanId]="customerLoanId"></app-letter-of-set-off-company>
+
         <app-promissory-note-partnership-firm *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PARTNERSHIP_FIRM"
                                               [cadData]="cadData" [documentId]="documentId"
                                               [customerLoanId]="customerLoanId"></app-promissory-note-partnership-firm>

@@ -5,20 +5,13 @@
 .shortInput{
   width: 50px;
 }
-.timesNewRoman{
-  font-family: "Times New Roman";
-}
+
 .nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
   margin: 10px 50px;
-}
-.nepaliFont{
-  font-size: 26px;
-  font-family: Preeti;
-
 }
 
 .form-field {
@@ -39,9 +32,12 @@ li {
 input::-webkit-input-placeholder {
   font-size: 16px;
 }
+.timesNewRoman {
+  font-family: 'Times New Roman'
+}
 
 input[type="text"] {
-  font-size:18px;
+  font-size:20px;
 }
 @media screen {
   .print-only {
