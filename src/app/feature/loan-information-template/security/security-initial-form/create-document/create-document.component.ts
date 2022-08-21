@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CollateralSiteVisit} from '../fix-asset-collateral/CollateralSiteVisit';
 import {DmsLoanFileComponent} from '../../../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-create-document',
@@ -25,11 +26,15 @@ export class CreateDocumentComponent implements OnInit {
   docNameChange = false;
   docUpload = false;
   jpegType = 'image/jpeg';
+  createDocumentForm: FormGroup;
+  submitted = false;
 
   constructor(private dialogRef: NbDialogRef<CreateDocumentComponent>,
-              private toastService: ToastService ) { }
+              private toastService: ToastService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
     if (!ObjectUtil.isEmpty(this.editId)) {
       this.docUpload = true;
       const siteVisitDoc = this.siteVisitDocument[this.editId];
@@ -37,8 +42,21 @@ export class CreateDocumentComponent implements OnInit {
       this.isPrintable = siteVisitDoc.isPrintable;
     }
   }
-
+  buildForm() {
+    this.createDocumentForm = this.formBuilder.group({
+      docName: [undefined, Validators.required]
+    });
+  }
+  get form() {
+    return this.createDocumentForm.controls;
+  }
   public create(): void {
+    this.submitted = true;
+    if (this.createDocumentForm.invalid) {
+      this.submitted = false;
+      return;
+    }
+    this.docName = this.createDocumentForm.get('docName').value;
     const siteVisitDoc = new SiteVisitDocument;
     siteVisitDoc.docName = this.docName;
     siteVisitDoc.isPrintable = this.isPrintable;
