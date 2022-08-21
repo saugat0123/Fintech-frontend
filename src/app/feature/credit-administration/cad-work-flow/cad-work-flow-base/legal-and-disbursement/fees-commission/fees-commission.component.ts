@@ -6,6 +6,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-fees-commission',
@@ -19,6 +20,7 @@ export class FeesCommissionComponent implements OnInit {
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     spinner = false;
+    isValid = false;
 
     // todo replace with api from backend predefined data
     feeTypeList = ['STRF', 'LRF', 'LMF', 'CIC', 'LOAN_COMMITMENT_FEE'];
@@ -29,7 +31,8 @@ export class FeesCommissionComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private routerUtilsService: RouterUtilsService,
                 private service: CreditAdministrationService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private router: Router) {
     }
 
     get feeAmountDetails() {
@@ -41,6 +44,7 @@ export class FeesCommissionComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('route :: ', this.router.url);
         this.feeCommissionFormGroup = this.formBuilder.group({
             feeAmountDetails: this.formBuilder.array([])
         });
@@ -63,12 +67,14 @@ export class FeesCommissionComponent implements OnInit {
                     loanId: [value.loanId],
                     loanFeeDetails: this.formBuilder.array([])
                 }));
-                value.loanFeeDetails.forEach(f => {
+                value.loanFeeDetails.forEach((f, j) => {
                     this.loanFeeDetail(index).push(this.formBuilder.group({
-                        feeType: [f.feeType, Validators.required],
-                        feePercent: [f.feePercent, Validators.required],
-                        feeAmount: [f.feeAmount, Validators.required],
+                        feeType: [f.feeType],
+                        feePercent: [f.feePercent],
+                        feeAmount: [f.feeAmount],
+                        isValid: [f.isValid ? f.isValid : false]
                     }));
+                    this.checkValidation(index, j);
                 });
             });
         }
@@ -101,6 +107,7 @@ export class FeesCommissionComponent implements OnInit {
             feeType: [undefined, Validators.required],
             feePercent: [0],
             feeAmount: [0],
+            isValid: [false],
         });
     }
 
@@ -139,5 +146,14 @@ export class FeesCommissionComponent implements OnInit {
         });
         return returnType;
     }
-
+    checkValidation(i, j) {
+        const control = this.loanFeeDetail(i).at(j);
+        if (control.valid) {
+            this.isValid = true;
+            this.feeAmountDetails.at(i).get(['loanFeeDetails', j, 'isValid']).setValue(true);
+            // this.loanFeeDetail(i).setValue(true);
+        } else {
+            this.feeAmountDetails.at(i).get(['loanFeeDetails', j, 'isValid']).setValue(false);
+        }
+    }
 }

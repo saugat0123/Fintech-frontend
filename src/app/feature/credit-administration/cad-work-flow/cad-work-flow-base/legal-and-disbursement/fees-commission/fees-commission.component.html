@@ -37,12 +37,13 @@
                         <tr>
                           <td> <select class="cellInput" id="feeType" formControlName="feeType">
                               <option [value]="null" disabled hidden>Select Fee Type</option>
-                              <option *ngFor="let f of feeTypeList" [value]="f" [disabled]="disablePreviousSelected(feeCommissionForm.get('loanFeeDetails'),f)">{{f}}</option>
+                              <option *ngFor="let f of feeTypeList" [value]="f" [disabled]="disablePreviousSelected(feeCommissionForm.get('loanFeeDetails'),f)"
+                                      (focusout)="checkValidation(i,j)">{{f}}</option>
                           </select></td>
                           <td><input class="cellInput" formControlName="feePercent" name="feePercent" id="feePercent"
-                                     placeholder=" Fee Percent" type="number"></td>
+                                     placeholder=" Fee Percent" type="number" (focusout)="checkValidation(i, j)"></td>
                           <td><input  class="cellInput" formControlName="feeAmount" name="feeAmount" id="feeAmount"
-                                      placeholder="Fees Amount" type="number"></td>
+                                      placeholder="Fees Amount" type="number" (focusout)="checkValidation(i, j)"></td>
                           <td class="cursor">
                               <span>
                                <em *ngIf="feeCommissionForm.get('loanFeeDetails').length > 1" (click)="removeLoanFeeDetails(i ,j)"
@@ -71,6 +72,6 @@
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button [disabled]="feeCommissionFormGroup.invalid" nbButton class="float-right" (click)="submitFeeForm()">Save</button>
+        <button [disabled]="!isValid" nbButton class="float-right" (click)="submitFeeForm()">Save</button>
     </nb-card-footer>
 </nb-card>
