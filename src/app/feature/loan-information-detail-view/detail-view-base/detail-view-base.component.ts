@@ -12,6 +12,7 @@ import {Clients} from '../../../../environments/Clients';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -19,7 +20,7 @@ import {SiteVisitDocument} from '../../loan-information-template/security/securi
   styleUrls: ['./detail-view-base.component.scss']
 })
 export class DetailViewBaseComponent implements OnInit {
-  @Input() loanDataHolder;
+  @Input() loanDataHolder: LoanDataHolder;
   @Input() loanHolder;
   @Input() calendarType;
   @Input() loanId;
@@ -39,6 +40,10 @@ export class DetailViewBaseComponent implements OnInit {
   showCadDoc = false;
   securityId: number;
   siteVisitDocuments: Array<SiteVisitDocument>;
+  checkedData;
+  proposalAllData: any;
+  summaryTypeName = SummaryType;
+  summaryType = environment.summaryType;
   @Output() documents = new EventEmitter();
 
   constructor(private customerLoanService: LoanFormService,
@@ -48,6 +53,8 @@ export class DetailViewBaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
+    this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;

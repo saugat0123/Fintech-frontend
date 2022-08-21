@@ -23,6 +23,9 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
 import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
+import {NtaModule} from '../loan/component/nta/nta.module';
+import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 
 
 @NgModule({
@@ -68,6 +71,8 @@ import {NepaliPatroModule} from 'nepali-patro';
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
+        CbsGroupModule,
+        NtaModule,
 
     ],
     entryComponents: [

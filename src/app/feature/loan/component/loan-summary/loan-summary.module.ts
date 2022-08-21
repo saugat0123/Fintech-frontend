@@ -20,7 +20,6 @@ import {ProposalJustificationSummaryComponent} from './proposal-justification-su
 import { BusinessBackgroundComponent } from './company-info-summary/business-background/business-background.component';
 import { FinancialRiskSummaryComponent } from './financial-risk-summary/financial-risk-summary.component';
 import { CollateralSummaryComponent } from './collateral-summary/collateral-summary.component';
-import { NtaSummaryComponent } from './nta-summary/nta-summary.component';
 import { ProposalTermsAndConditionSummeryComponent } from './proposal-terms-and-condition-summery/proposal-terms-and-condition-summery.component';
 import { ApprovalSheetComponent } from './approval-sheet/approval-sheet.component';
 import {CbsGroupModule} from '../../../cbs-group/cbs-group.module';
@@ -30,12 +29,12 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import { ApprovalSheetDocumentListComponent } from './approval-sheet/approval-sheet-document-list/approval-sheet-document-list.component';
 import {LoanInformationViewModule} from '../../../loan-information-view/loan-information-view.module';
 import {RoleHierarchyChainComponent} from './role-heirarchy-chain/role-hierarchy-chain.component';
-import { NtaMegaSummaryComponent } from './nta-mega-summary/nta-mega-summary.component';
 import { MGroupSummaryComponent } from './m-group-summary/m-group-summary.component';
 import { CommentsSummaryComponent } from './comments-summary/comments-summary.component';
 import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
+import {NtaModule} from '../nta/nta.module';
 
 
 
@@ -55,11 +54,9 @@ const COMPONENTS = [
     FinancialRiskSummaryComponent,
     BusinessBackgroundComponent,
     CollateralSummaryComponent,
-    NtaSummaryComponent,
     ProposalTermsAndConditionSummeryComponent,
     // ApprovalSheetComponent,
     RoleHierarchyChainComponent,
-    NtaMegaSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -77,15 +74,14 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CbsGroupModule,
         NgSelectModule,
         LoanInformationViewModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        NtaModule
     ],
     exports: [
         LoanSummaryComponent,
         CustomerGroupSummaryComponent,
         IncomeFromAccountSummeryComponent,
-        NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
-        NtaMegaSummaryComponent,
         // ApprovalSheetComponent,
         CollateralSummaryComponent,
         ProposalJustificationSummaryComponent,
