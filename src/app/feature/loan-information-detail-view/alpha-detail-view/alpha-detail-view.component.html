@@ -354,7 +354,9 @@
 </div>
 <hr>
 
-<div class="row sb-medium py-2">
+<div class="row sb-medium py-2" *ngIf="loanDataHolder?.loanType === 'NEW_LOAN' ||
+                                            loanDataHolder?.loanType === 'FULL_SETTLEMENT_LOAN' ||
+                                                loanDataHolder?.loanType === 'RENEW_WITH_ENHANCEMENT'">
     <div class="col-md-12">
         <p><strong>Authority Comments</strong></p>
     </div>
