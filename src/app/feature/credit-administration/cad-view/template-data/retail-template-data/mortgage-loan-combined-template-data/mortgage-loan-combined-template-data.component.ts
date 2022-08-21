@@ -58,7 +58,7 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
-        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount.toFixed(2));
         this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', val, 'loanAmount']).patchValue(
             this.filteredList[val] ? this.filteredList[val].loanAmount : '');
         this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', val, 'loanAmountWords']).patchValue(
@@ -287,9 +287,10 @@ export class MortgageLoanCombinedTemplateDataComponent implements OnInit {
     );
   }
 
-  amountInWord(value, index, formControl, wordFormControl) {
-    const amountWord = this.engToNepWord.transform(value);
-    this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, formControl]).patchValue(value);
+  amountInWord(index, formControl, wordFormControl) {
+    const amountWord = this.engToNepWord.transform(
+        this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, formControl]).value ?
+            this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, formControl]).value.toFixed(2) : '');
     this.mortgageCombineLoanForm.get(['mortgageCombineLoanFormArray', index, wordFormControl]).patchValue(
         amountWord ? amountWord : '');
   }

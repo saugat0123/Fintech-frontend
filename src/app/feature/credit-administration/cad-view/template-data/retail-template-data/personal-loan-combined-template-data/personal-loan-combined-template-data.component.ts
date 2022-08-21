@@ -52,7 +52,7 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
-        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount.toFixed(2));
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', val, 'loanAmountInFigure']).patchValue(
             this.filteredList[val] ? this.filteredList[val].loanAmount : '');
         this.personalLoanCombinedForm.get(['personalLoanCombinedFormArray', val, 'loanAmountInWords']).patchValue(
@@ -146,7 +146,8 @@ export class PersonalLoanCombinedTemplateDataComponent implements OnInit {
   }
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.personalLoanCombinedForm.get(
-        [arrayName, index, numLabel]).value);
+        [arrayName, index, numLabel]).value ? this.personalLoanCombinedForm.get(
+        [arrayName, index, numLabel]).value.toFixed(2) : '');
     this.personalLoanCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
 

@@ -54,7 +54,7 @@ export class ShareLoanDemandTemplateDataComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
-        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount.toFixed(2));
         this.shareLoanDemandCombinedForm.get(['shareLoanDemandCombinedFormArray', val, 'loanAmountInFigure']).patchValue(
             this.filteredList[val] ? this.filteredList[val].loanAmount : '');
         this.shareLoanDemandCombinedForm.get(['shareLoanDemandCombinedFormArray', val, 'loanAmountInWords']).patchValue(
@@ -163,7 +163,8 @@ export class ShareLoanDemandTemplateDataComponent implements OnInit {
   }
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.shareLoanDemandCombinedForm.get(
-        [arrayName, index, numLabel]).value);
+        [arrayName, index, numLabel]).value ? this.shareLoanDemandCombinedForm.get(
+        [arrayName, index, numLabel]).value.toFixed(2) : '');
     this.shareLoanDemandCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
 

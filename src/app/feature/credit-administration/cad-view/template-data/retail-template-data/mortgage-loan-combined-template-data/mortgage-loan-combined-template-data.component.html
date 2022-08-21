@@ -177,7 +177,7 @@
                 <div class="row pt-4">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="loanAdmin">Loan Admin Fee</label>
-                        <input (change)="amountInWord($event?.target?.value, i, 'loanAdmin', 'loanAdminWords')"
+                        <input (change)="amountInWord(i, 'loanAdmin', 'loanAdminWords')"
                                class="form-control" formControlName="loanAdmin"
                                fullWidth
                                id="loanAdmin"
@@ -231,7 +231,7 @@
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="emiAmount">EMI Amount</label>
                         <input class="form-control" formControlName="emiAmount"
-                               (change)="amountInWord($event?.target?.value, i, 'emiAmount', 'emiAmountWords')"
+                               (change)="amountInWord(i, 'emiAmount', 'emiAmountWords')"
                                fullWidth
                                id="emiAmount" nbInput
                                shape="semi-round"

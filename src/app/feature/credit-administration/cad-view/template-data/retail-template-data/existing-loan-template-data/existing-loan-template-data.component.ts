@@ -83,7 +83,8 @@ export class ExistingLoanTemplateDataComponent implements OnInit {
 
     public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
         const transformValue = this.currencyWordPipe.transform(this.existingLoanCombinedForm.get(
-            [arrayName, index, numLabel]).value);
+            [arrayName, index, numLabel]).value ? this.existingLoanCombinedForm.get(
+            [arrayName, index, numLabel]).value.toFixed(2) : '');
         this.existingLoanCombinedForm.get([arrayName, index, wordLabel]).patchValue(transformValue);
         this.existingLoanCombinedForm.get([arrayName, index, wordLabel + 'Trans']).patchValue(transformValue);
         this.existingLoanCombinedForm.get([arrayName, index, wordLabel + 'CT']).patchValue(transformValue);
