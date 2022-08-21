@@ -29,6 +29,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NepaliPatroModule} from 'nepali-patro';
 import {MicroSynopsisCreditworthinessComponent} from '../loan/component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
+import {NtaModule} from '../loan/component/nta/nta.module';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import {MicroSynopsisCreditworthinessComponent} from '../loan/component/micro-lo
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
+        NtaModule,
     ]
 })
 export class MicroLoanModule { }

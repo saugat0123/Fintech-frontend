@@ -991,6 +991,18 @@
                             [customerType]="loanDataHolder?.loanHolder?.customerType"
                             [formData]="loanDataHolder?.loanHolder?.financial"></app-financial-view>
 
+        <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
+        </ng-container>
+
+        <ng-template #otherBank>
+            <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                             [fiscalYears]="fiscalYearArray"
+                             [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
+        </ng-template>
+
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <ng-container *ngIf="summaryType === summaryTypeName?.GENERAL">

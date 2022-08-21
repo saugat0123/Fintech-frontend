@@ -23,6 +23,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {FiscalYear} from '../../admin/modal/FiscalYear';
+import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 
 @Component({
   selector: 'app-company-info-view',
@@ -79,9 +81,10 @@ export class CompanyInfoViewComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   securityId: number;
   siteVisitDocuments: Array<SiteVisitDocument>;
+  fiscalYearArray: Array<FiscalYear>;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private loanConfigService: LoanConfigService) {
+              private loanConfigService: LoanConfigService, private fiscalYearService: FiscalYearService) {
   }
 
   ngOnInit() {
@@ -90,6 +93,9 @@ export class CompanyInfoViewComponent implements OnInit {
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
+    this. fiscalYearService.getAll().subscribe( res => {
+      this.fiscalYearArray = res.detail;
+    });
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);

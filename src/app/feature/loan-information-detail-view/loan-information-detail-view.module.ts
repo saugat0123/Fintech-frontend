@@ -18,6 +18,7 @@ import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
 import { GammaDetailViewComponent } from './gamma-detail-view/gamma-detail-view.component';
 import { AlphaDetailViewComponent } from './alpha-detail-view/alpha-detail-view.component';
+import {NtaModule} from '../loan/component/nta/nta.module';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { AlphaDetailViewComponent } from './alpha-detail-view/alpha-detail-view.
         CoreModule,
         CbsGroupModule,
         NepaliPatroModule,
+        NtaModule,
     ],
     entryComponents: [
         ChecklistViewVersionOne,
