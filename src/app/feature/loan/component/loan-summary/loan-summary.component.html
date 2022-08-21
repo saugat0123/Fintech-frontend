@@ -1268,7 +1268,10 @@
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
-            <div class="col-md-12">
+
+            <div class="col-md-12" *ngIf="loanData?.loanType === 'NEW_LOAN' ||
+                                            loanData?.loanType === 'FULL_SETTLEMENT_LOAN' ||
+                                                loanData?.loanType === 'RENEW_WITH_ENHANCEMENT'">
                 <div class="row sb-medium py-2">
                     <div class="col-md-12">
                         <p><strong>Authority Comments</strong></p>
