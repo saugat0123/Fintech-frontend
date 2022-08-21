@@ -44,7 +44,6 @@ export class FeesCommissionComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('route :: ', this.router.url);
         this.feeCommissionFormGroup = this.formBuilder.group({
             feeAmountDetails: this.formBuilder.array([])
         });
@@ -69,7 +68,7 @@ export class FeesCommissionComponent implements OnInit {
                 }));
                 value.loanFeeDetails.forEach((f, j) => {
                     this.loanFeeDetail(index).push(this.formBuilder.group({
-                        feeType: [f.feeType],
+                        feeType: [f.feeType, Validators.required],
                         feePercent: [f.feePercent],
                         feeAmount: [f.feeAmount],
                         isValid: [f.isValid ? f.isValid : false]
