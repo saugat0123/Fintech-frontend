@@ -351,7 +351,7 @@
                                         <input
                                                 class="form-control"
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
-                                                placeholder="Tenure Duration in Months"
+                                                placeholder="Originally Approved Tenure"
                                                 type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
 
                                         <!--                                                                                <input [nbDatepicker]="tenurePicker"-->
@@ -376,6 +376,26 @@
                                         <input
                                                 class="form-control" formControlName="repay"
                                                 name="moratoriumPeriod" placeholder="Example: 4 month"
+                                                type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="isCorporate">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Total Paid Tenure</strong></label>
+                                        <input
+                                                class="form-control" formControlName="totalPaidTenure"
+                                                name="totalPaidTenure" placeholder="Total Paid Tenure"
+                                                type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="isCorporate">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Total Remaining Tenure</strong></label>
+                                        <input
+                                                class="form-control" formControlName="totalRemainingTenure"
+                                                name="totalRemainingTenure" placeholder="Total Remaining Tenure"
                                                 type="text">
                                     </div>
                                 </div>
@@ -967,69 +987,69 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="col-md-12 form-group" *ngIf="isSbk">
-                                            <div class="row">
-                                                <div class="col-md-12 d-flex justify-content-start align-items-center">
-                                                    <nb-checkbox (change)="checkChecked($event.target.checked,'summaryEnv')" [checked]="summaryEnvChecked">
-                                                        <b>Summary of Environment & Social Risk Assessment</b>
-                                                    </nb-checkbox>&nbsp;
-                                                </div>
-                                            </div>
-                                            <table *ngIf="summaryEnvChecked" [formGroup] = "proposalForm.get('summaryEnvironment')" class="table table-sm table-bordered table-hover sb-small text-center">
-                                                <thead>
-                                                <tr class="sb-bg-dark text-white">
-                                                    <th>S.N</th>
-                                                    <th>Particulars</th>
-                                                    <th>Remarks</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody class="text-left">
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td class="text-left">Falls under Exclusion and critical sector list</td>
-                                                    <td class="text-center">
-                                                        <nb-radio-group formControlName="criticalSector" name="criticalSector" class="d-inline-flex">
-                                                            <nb-radio name="criticalSector"  [value]="true">Yes</nb-radio>
-                                                            <nb-radio name="criticalSector" [value]="false">No</nb-radio>
-                                                            <nb-radio name="criticalSector" value='NA'>NA</nb-radio>
-                                                        </nb-radio-group>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td class="text-left">E & S Due Diligence process Applicable</td>
-                                                    <td class="text-center">
-                                                        <nb-radio-group formControlName="processApplicable" name="processApplicable"  class="d-inline-flex">
-                                                            <nb-radio name="processApplicable" [value]="true">Yes</nb-radio>
-                                                            <nb-radio name="processApplicable" [value]="false">No</nb-radio>
-                                                            <nb-radio name="processApplicable" [value]="">NA</nb-radio>
-                                                        </nb-radio-group>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td class="text-left">Level of Risk </td>
-                                                    <td>
-                                                        <ng-select [items]="dropdownPriorities"
-                                                                   [multiple]="false"
-                                                                   bindLabel="name"
-                                                                   bindValue="id"
-                                                                   formControlName="priority"
-                                                                   class="cellInput text-center"
-                                                        >
-                                                        </ng-select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td class="text-left">Falls under Exclusion and critical sector list </td>
-                                                    <td>
-                                                        <input class="cellInput text-center" formControlName="criticalSectorList" type="text">
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+<!--                                        <div class="col-md-12 form-group" *ngIf="isSbk">-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-md-12 d-flex justify-content-start align-items-center">-->
+<!--                                                    <nb-checkbox (change)="checkChecked($event.target.checked,'summaryEnv')" [checked]="summaryEnvChecked">-->
+<!--                                                        <b>Summary of Environment & Social Risk Assessment</b>-->
+<!--                                                    </nb-checkbox>&nbsp;-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <table *ngIf="summaryEnvChecked" [formGroup] = "proposalForm.get('summaryEnvironment')" class="table table-sm table-bordered table-hover sb-small text-center">-->
+<!--                                                <thead>-->
+<!--                                                <tr class="sb-bg-dark text-white">-->
+<!--                                                    <th>S.N</th>-->
+<!--                                                    <th>Particulars</th>-->
+<!--                                                    <th>Remarks</th>-->
+<!--                                                </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody class="text-left">-->
+<!--                                                <tr>-->
+<!--                                                    <td>1</td>-->
+<!--                                                    <td class="text-left">Falls under Exclusion and critical sector list</td>-->
+<!--                                                    <td class="text-center">-->
+<!--                                                        <nb-radio-group formControlName="criticalSector" name="criticalSector" class="d-inline-flex">-->
+<!--                                                            <nb-radio name="criticalSector"  [value]="true">Yes</nb-radio>-->
+<!--                                                            <nb-radio name="criticalSector" [value]="false">No</nb-radio>-->
+<!--                                                            <nb-radio name="criticalSector" value='NA'>NA</nb-radio>-->
+<!--                                                        </nb-radio-group>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr>-->
+<!--                                                    <td>2</td>-->
+<!--                                                    <td class="text-left">E & S Due Diligence process Applicable</td>-->
+<!--                                                    <td class="text-center">-->
+<!--                                                        <nb-radio-group formControlName="processApplicable" name="processApplicable"  class="d-inline-flex">-->
+<!--                                                            <nb-radio name="processApplicable" [value]="true">Yes</nb-radio>-->
+<!--                                                            <nb-radio name="processApplicable" [value]="false">No</nb-radio>-->
+<!--                                                            <nb-radio name="processApplicable" [value]="">NA</nb-radio>-->
+<!--                                                        </nb-radio-group>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr>-->
+<!--                                                    <td>3</td>-->
+<!--                                                    <td class="text-left">Level of Risk </td>-->
+<!--                                                    <td>-->
+<!--                                                        <ng-select [items]="dropdownPriorities"-->
+<!--                                                                   [multiple]="false"-->
+<!--                                                                   bindLabel="name"-->
+<!--                                                                   bindValue="id"-->
+<!--                                                                   formControlName="priority"-->
+<!--                                                                   class="cellInput text-center"-->
+<!--                                                        >-->
+<!--                                                        </ng-select>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                <tr>-->
+<!--                                                    <td>4</td>-->
+<!--                                                    <td class="text-left">Falls under Exclusion and critical sector list </td>-->
+<!--                                                    <td>-->
+<!--                                                        <input class="cellInput text-center" formControlName="criticalSectorList" type="text">-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
                                     </div>
                                 </ng-container>
                             </div>
@@ -1078,7 +1098,7 @@
                                          [reviewData]="loan?.reviewDate">
                         </app-review-date>
                     </div>
-                    <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist && (loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && paperChecklist">
+                    <ng-container *ngIf="fromProfile && loan?.loan?.paperChecklist && (loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && paperChecklist && !isCorporate">
                         <app-product-paper-checklist
                             #productPaperChecklistComponent
                             [loanDataHolder]="loan"

@@ -25,6 +25,18 @@
                         [cadData]="cadOfferLetterApprovedDoc"
                 ></app-offer-letter-laxmi>
             </div>
+            <div *ngSwitchCase=offerLetterConst.VARIATION_OFFER_LETTER>
+                <app-variation-offer-letter
+                        [offerLetterType]="offerLetterType"
+                        [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                        [isVariation]="!isVariation"></app-variation-offer-letter>
+            </div>
+            <div *ngSwitchCase=offerLetterConst.VARIATION_OFFER_LETTER_FOR_COLLATERAL>
+                <app-variation-offer-letter
+                        [offerLetterType]="offerLetterType"
+                        [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                        [isVariation]="isVariation"></app-variation-offer-letter>
+            </div>
         </div>
     </nb-card-body>
 </nb-card>

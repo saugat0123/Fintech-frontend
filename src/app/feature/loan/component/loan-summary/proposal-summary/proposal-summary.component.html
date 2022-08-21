@@ -10,7 +10,9 @@
                 <span *ngIf="!consumerFinance">,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span></span>
             </li>
             <li class="sb-medium"><span><sup>*</sup>  LAF : Loan Administration Fee ,<sup>*</sup> CF : Commitment Fee ,
-                <sup>*</sup> PF : Prepayment Fee,<sup>*</sup> SF : Swap Fee</span>
+                <sup>*</sup> PF : Prepayment Fee,<sup>*</sup> SF : Swap Fee
+                <sup>*</sup> TDM : Tenure Duration in Months,<sup>*</sup> TPT : Total Paid Tenure,
+            <sup>*</sup> TPT : Total Remaining Tenure</span>
             </li>
             <li class="sb-medium"><span><sup>*</sup> <i style="color:red">All Currency in NPR.</i>  </span>
             </li>
@@ -126,7 +128,12 @@
 
                     <td class="text-left">
                         <ng-container *ngIf="loan?.loan?.loanNature === 'Terminating'; else rev ">
-                            {{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month
+                           TDM: {{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths || 'N/A '}} month <br>
+                          <ng-container *ngIf="isCorporate">
+                              TRT: {{(loan?.proposal?.data | jsonParse)?.totalRemainingTenure || 'N/A '}} month <br>
+                              TPT: {{(loan?.proposal?.data | jsonParse)?.totalPaidTenure || 'N/A '}} month <br>
+                          </ng-container>
+
                         </ng-container>
                         <ng-template #rev>
                             <p [class.font-weight-bold]="loan?.documentStatus !== 'APPROVED'">{{(loan?.proposal?.data | jsonParse)?.tenorOfEachDeal || 'N/A '}}</p>

@@ -43,6 +43,7 @@ import { ConsentForLeinComponent } from './laxmi-offer-letter/consent-for-lein/c
 import { StatementOfPositionComponent } from './laxmi-offer-letter/statement-of-position/statement-of-position.component';
 import {AnusuchiComponent} from './laxmi-offer-letter/anusuchi/anusuchi.component';
 import { RemitLoanSelfDeclarationComponent } from './laxmi-offer-letter/remit-loan-self-declaration/remit-loan-self-declaration.component';
+import { VariationOfferLetterComponent } from './laxmi-offer-letter/variation-offer-letter/variation-offer-letter.component';
 
 @NgModule({
     declarations: [LaxmiOfferLetterComponent,
@@ -79,7 +80,8 @@ import { RemitLoanSelfDeclarationComponent } from './laxmi-offer-letter/remit-lo
         ConsentForLeinComponent,
         StatementOfPositionComponent,
         AnusuchiComponent,
-        RemitLoanSelfDeclarationComponent],
+        RemitLoanSelfDeclarationComponent,
+        VariationOfferLetterComponent],
 
     imports: [
         CommonModule,

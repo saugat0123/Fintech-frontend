@@ -79,6 +79,7 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   thisClient;
   facilityUtilization;
   customerReportingInfo = [];
+  esrmData;
   constructor(
       private fiscalYearService: FiscalYearService,
       private toastService: ToastService,
@@ -92,6 +93,9 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
         this.customerReportingInfo.push(rep);
       });
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditChecklist)) {
+      this.esrmData = JSON.parse(this.loanDataHolder.loanHolder.creditChecklist.data);
     }
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
     if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||

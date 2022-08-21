@@ -63,7 +63,8 @@ export class ProposalSummaryComponent implements OnInit {
         isVehicle: any, isShare: any, isGeneral: any, showInstallmentAmount: any, showRepaymentMode: any,
         showPrincipalAmount: any, isFixedDeposit: any, isRevolving: any
     }[] = [];
-
+    thisClient;
+    isCorporate = false;
     ngOnInit() {
 
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
@@ -89,6 +90,11 @@ export class ProposalSummaryComponent implements OnInit {
         }
         if (this.customerAllLoanList.length > 0) {
             this.setToggled();
+        }
+        this.thisClient = this.loanDataHolder.loanHolder.clientType;
+        if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+            this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
+            this.isCorporate = true;
         }
     }
 

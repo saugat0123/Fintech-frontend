@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
@@ -6,6 +6,7 @@ import {Pattern} from '../../../../@core/utils/constants/pattern';
 import {environment} from '../../../../../environments/environment';
 import {RepaymentTrackCurrentBank} from '../../../admin/modal/crg/RepaymentTrackCurrentBank';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {BankingRelationComponent} from '../../../customer/component/customer-form/banking-relation/banking-relation.component';
 
 @Component({
     selector: 'app-facility-utilization',
@@ -30,6 +31,7 @@ export class FacilityUtilizationComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Output() emitter = new EventEmitter();
     @Input() facilityUtilizationData;
+    @ViewChild('bankingRelationComponent', {static: false}) bankingRelationComponent: BankingRelationComponent;
     facilityUtilizatoinForm: FormGroup;
      totals = {
          limit: null,
@@ -50,27 +52,10 @@ export class FacilityUtilizationComponent implements OnInit {
         } else {
             this. fillTable();
         }
-        // if (this.customerInfo.facilityUtilization) {
-        //     this.setFacility();
-        // } else {
-        //    this.addUtilization();
-        // }
     }
 
     buildForm() {
         this.facilityUtilizatoinForm = this.formBuilder.group({
-            // data: this.formBuilder.array([]),
-            // lcIssued: [undefined],
-            // oneLimit: [undefined],
-            // remarks: [undefined],
-            // newCustomerChecked: [false],
-            // accountTransactionForm: this.formBuilder.group({
-            //     creditTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-            //     creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-            //     debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-            //     debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
-            //     repaymentTrackWithCurrentBank: [undefined, Validators.required]
-            // })
             overdraftUtilization: [undefined],
             remarks: [undefined],
             otherFacilityUtilization: [undefined],
@@ -145,6 +130,10 @@ export class FacilityUtilizationComponent implements OnInit {
         if (this.facilityUtilizatoinForm.invalid) {
             this.scrollToFirstInvalidControl();
             return;
+        }
+        this.bankingRelationComponent.onSubmit();
+        if (!ObjectUtil.isEmpty(this.bankingRelationComponent.bankingRelation)) {
+            this.customerInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
         }
       this.customerInfo.facilityUtilization = JSON.stringify(this.facilityUtilizatoinForm.value);
       this.emitter.emit(this.customerInfo);

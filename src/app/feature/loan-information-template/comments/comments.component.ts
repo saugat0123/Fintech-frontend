@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Comments} from '../../admin/modal/comments';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-comments',
@@ -20,6 +21,7 @@ export class CommentsComponent implements OnInit {
     comments;
     auditor;
     data;
+    config = Editor.CK_CONFIG;
     constructor(private formBuilder: FormBuilder) {
     }
 
