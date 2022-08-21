@@ -890,6 +890,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.formDataForEdit['premiumRateOnBaseRate'] = (this.proposalForm.controls['premiumRateOnBaseRate'].value);
         this.formDataForEdit['serviceChargeMethod'] = (this.proposalForm.controls['serviceChargeMethod'].value);
         this.formDataForEdit['serviceCharge'] = (this.proposalForm.controls['serviceCharge'].value);
+        this.formDataForEdit['serviceCharge'] = (this.proposalForm.controls['serviceCharge'].value);
+        this.formDataForEdit['cashMarginMethod'] = (this.proposalForm.controls['cashMarginMethod'].value);
+        this.formDataForEdit['cashMargin'] = (this.proposalForm.controls['cashMargin'].value);
+        this.formDataForEdit['commissionPercentage'] = (this.proposalForm.controls['commissionPercentage'].value);
 
         this.proposalData.data = JSON.stringify(this.formDataForEdit);
         this.proposalData.updateLogComment = this.proposalForm.controls['updateComment'].value;
@@ -915,6 +919,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             serviceChargeMethod: [undefined],
             serviceCharge: [undefined],
             updateComment: [undefined, Validators.required],
+            cashMarginOrFac: [undefined],
+            commissionPercentage: [undefined],
+            cashMarginMethod: [undefined],
+            cashMargin: [undefined],
         });
 
         // Fill form values
@@ -927,7 +935,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     interestRate: this.formDataForEdit['interestRate'],
                     premiumRateOnBaseRate: this.formDataForEdit['premiumRateOnBaseRate'],
                     serviceChargeMethod: this.formDataForEdit['serviceChargeMethod'],
-                    serviceCharge: this.formDataForEdit['serviceCharge']
+                    serviceCharge: this.formDataForEdit['serviceCharge'],
+                    cashMarginMethod: this.formDataForEdit['cashMarginMethod'],
+                    cashMargin: this.formDataForEdit['cashMargin'],
+                    commissionPercentage: this.formDataForEdit['commissionPercentage'],
                 });
             }
         }
