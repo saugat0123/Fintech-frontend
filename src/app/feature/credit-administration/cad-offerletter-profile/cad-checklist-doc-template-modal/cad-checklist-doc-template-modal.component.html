@@ -46,6 +46,9 @@
         <app-loan-deed-institution-partnership-form *ngSwitchCase="cadTemplate.LOAN_DEED_INSTITUTION_PARTNERSHIP_FORM" [cadData]="cadData"
                                 [documentId]="documentId"
                                 [customerLoanId]="customerLoanId"></app-loan-deed-institution-partnership-form>
+        <app-loan-deed-proprietorship *ngSwitchCase="cadTemplate.LOAN_DEED_PROPRIETORSHIP" [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId"></app-loan-deed-proprietorship>
         <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
                                      [customerLoanId]="customerLoanId"></app-promissory-note-company>

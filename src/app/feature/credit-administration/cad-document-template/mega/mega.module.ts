@@ -24,6 +24,7 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
 import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
 import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
+import {LoanDeedProprietorshipComponent} from './loan-deed-proprietorship/loan-deed-proprietorship.component';
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
 
@@ -41,6 +42,7 @@ import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/lett
     HypoOfStockComponent,
     LoanDeedInstitutionPrivateLimitedComponent,
     LoanDeedInstitutionPartnershipFormComponent,
+    LoanDeedProprietorshipComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
@@ -73,6 +75,7 @@ import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/lett
     LoanDeedInstitutionPrivateLimitedComponent,
     LoanDeedInstitutionPartnershipFormComponent,
     LoanDeedIndividualComponent,
+    LoanDeedProprietorshipComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     CorporateGuaranteeComponent,

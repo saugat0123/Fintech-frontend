@@ -293,12 +293,9 @@ export class SecuritySummaryComponent implements OnInit {
                     existingCV += !ObjectUtil.isEmpty(sd1.considerValue) ? Number(sd1.considerValue) : 0;
                     existingDv += !ObjectUtil.isEmpty(sd1.distressValue) ? Number(sd1.distressValue) : 0;
                 });
-                const finalDV = Number(existingDv) + (existingSecurityDetail.length > 0
-                    ? Number(existingSecurityDetail[0].distressValue) : 0);
-                const finalCV = Number(existingCV) + (existingSecurityDetail.length > 0
-                    ? Number(existingSecurityDetail[0].considerValue) : 0);
-                const finalMV = Number(existingMV) + (existingSecurityDetail.length > 0
-                    ? Number(existingSecurityDetail[0].marketValue) : 0);
+                const finalDV = Number(existingDv) + Number(existingSecurityDetail[0].distressValue);
+                const finalCV = Number(existingCV) + Number(existingSecurityDetail[0].considerValue);
+                const finalMV = Number(existingMV) + Number(existingSecurityDetail[0].marketValue);
                 const detail = {
                     securityName: securityName,
                     marketValue: finalMV.toFixed(2),

@@ -47,8 +47,7 @@ const COMPONENTS = [
     RetailLoanAgainstInsuranceComponent,
     SmeComponent,
     SmePrintComponent,
-    PersonalOfferLetterRenewalsComponent
-
+    PersonalOfferLetterRenewalsComponent,
 ];
 
 @NgModule({
@@ -65,7 +64,7 @@ const COMPONENTS = [
         RetailLoanAgainstInsuranceComponent,
         OfferLetterConsentComponent,
         PersonalOfferLetterRenewalsComponent,
-        CustomInputComponent
+        CustomInputComponent,
     ],
     imports: [
         ThemeModule,
