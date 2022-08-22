@@ -26,6 +26,8 @@ import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-p
 import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
+import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-gadi-namasari-company/manjurinama-for-gadi-namasari-company.component';
+import { ManjurinamaForGadiNamasariIndividualComponent } from './manjurinama-for-gadi-namasari-individual/manjurinama-for-gadi-namasari-individual.component';
 import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-for-gadi-namasari-partnership/manjurinama-for-gadi-namasari-partnership.component';
 
 @NgModule({
@@ -46,11 +48,12 @@ import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-fo
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     LetterOfSetOffCompanyComponent,
-    CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
   ],
   imports: [
@@ -85,7 +88,8 @@ import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-fo
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
     DeedHypoOfMachineryComponent,
-    PromissoryNotePartnershipFirmComponent,
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
   ],
 
