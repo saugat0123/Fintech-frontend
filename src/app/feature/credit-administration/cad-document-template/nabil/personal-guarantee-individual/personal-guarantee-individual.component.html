@@ -119,17 +119,19 @@
                                     name="loanAmount"
                                     formControlName="loanAmount"
                                     placeholder="ऋण रकम"
-                                    value="{{nepaliNumber.numberNepali}}"
                                     type="text"/>
-                                    <span class="print-only"><strong>{{nepaliNumber.numberNepali}}</strong></span>/-
+                                    <span class="print-only"><strong>
+                                        {{guarantorindividualGroup.get(['individualGuarantors', i, 'loanAmount']).value}}
+                                    </strong></span>/-
                                 (अक्षरेपी
                                 <input class="form-field form-control-sm d-print-none"
                                     name="loanAmountWords"
                                     formControlName="loanAmountWords"
                                     placeholder="ऋण रकम"
-                                    value="{{nepaliNumber.nepaliWords}}"
                                     type="text"/>
-                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>)
+                                    <span class="print-only"><strong>
+                                        {{guarantorindividualGroup.get(['individualGuarantors', i, 'loanAmountWords']).value}}
+                                    </strong></span>)
                                 तथा भविष्यमा उल्लिखित
                                 ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट
                                 माथवर/हैसियतवाल
