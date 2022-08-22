@@ -86,6 +86,9 @@
         <app-manjurinama-for-gadi-namasari-individual *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_INDIVIDUAL"
                                               [cadData]="cadData" [documentId]="documentId"
                                               [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-individual>
+        <app-manjurinama-for-gadi-namasari-partnership *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_PARTNERSHIP"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-partnership>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
