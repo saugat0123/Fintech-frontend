@@ -111,6 +111,7 @@
                             <th>Ward</th>
                             <th>Email</th>
                             <th>Landline Number</th>
+                            <th>Status</th>
                             <!--<th>Status</th>-->
                             <th *ngIf='editViewBranch === true'>Action</th>
                         </tr>
@@ -132,19 +133,18 @@
                             <td>{{allList.landlineNumber}}</td>
 
 
-                            <!--<td *ngIf='editViewBranch ==true; else status '>-->
-                            <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
-                            <!--(change)="onChange(allList)">-->
-                            <!--<option value="ACTIVE">ACTIVE</option>-->
-                            <!--<option value="INACTIVE">INACTIVE</option>-->
-                            <!--</select>-->
-                            <!--</td>-->
-                            <!--<ng-template #status>-->
-
-                            <!--<td>-->
-                            <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
-                            <!--</td>-->
-                            <!--</ng-template>-->
+                            <td *ngIf='editViewBranch ==true; else status '>
+                            <select class="select-borderless" [(ngModel)]="allList.status" name="status"
+                            (change)="onChange(allList)">
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                            </td>
+                            <ng-template #status>
+                            <td>
+                            <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                            </td>
+                            </ng-template>
                             <td>
                                 <button *ngIf='editViewBranch'
                                         nbButton status="info"
