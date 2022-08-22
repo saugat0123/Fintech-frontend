@@ -27,6 +27,7 @@ export class CadFileSetupComponent implements OnInit {
     responseDocList: Array<Document>;
     documentList = [];
     spinner = false;
+    @Input() loanCycleId: number;
 
     form: FormGroup;
 
@@ -52,7 +53,8 @@ export class CadFileSetupComponent implements OnInit {
 
     initial() {
         this.spinner = true;
-        this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
+        this.documentService.getByLoanCycleAndStatus(!ObjectUtil.isEmpty(this.loanCycleId) ?
+            this.loanCycleId : 12, Status.ACTIVE).subscribe(res => {
             this.responseDocList = res.detail;
             if (this.responseDocList.length > 0) {
                 this.responseDocList.forEach(d => {
