@@ -22,22 +22,47 @@
         <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy'] || 'NA'}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
         <th>Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation || 'NA'}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName || 'NA'}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2 || 'NA'}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName2 || 'NA'}}</td>
         <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisitLongitude'] || 'NA'}}</td>
         <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisiLatitude'] || 'NA'}}</td>
     </tr>
 
+</table>
+<table *ngIf="formData['currentResidentFormChecked'] === true && this.formData['currentResidentDetails'] !== null"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+        <ng-container *ngFor="let d of formData?.currentResidentDetails?.currentResidentStaffRepresentative">
+            <div *ngIf="d?.staffRepresentativeNameDesignation2 === undefined; else oldData">
+                <tr class="text-white sb-bg-dark">
+                    <th>Staff Representative Designation</th>
+                    <th>Staff Representative Name </th>
+                </tr>
+                <tr>
+                    <td>{{d?.staffRepresentativeNameDesignation}}</td>
+                    <td>{{d?.staffRepresentativeName}}</td>
+                </tr>
+            </div>
+            <ng-template #oldData>
+                <tr class="text-white sb-bg-dark">
+                    <th class="sn">SN</th>
+                    <th>Staff Representative Designation 1</th>
+                    <th>Staff Representative Name 1</th>
+                    <th>Staff Representative Designation 2</th>
+                    <th>Staff Representative Name 2</th>
+                </tr>
+                <ng-container *ngFor="let data of formData?.currentResidentDetails; let in = index;">
+                    <tr *ngFor="let staff of data?.currentResidentStaffRepresentative; let i = index">
+                        <td>{{in + 1}}.{{i + 1}}</td>
+                        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{staff.staffRepresentativeName || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2 || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{staff.staffRepresentativeName2 || 'N/A'}}</td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </ng-container>
 </table>
 <table *ngIf="formData['currentResidentFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -132,23 +157,48 @@
         <td class="text-left pl-1">{{data?.objectiveOfVisit}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th class="sn">SN</th>
-        <th>Staff Representative Designation 1</th>
-        <th>Staff Representative Name 1</th>
-        <th>Staff Representative Designation 2</th>
-        <th>Staff Representative Name 2</th>
         <th colspan="2">Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr *ngFor="let data of formData['businessDetails']; let i = index">
-        <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation || 'NA'}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeName || 'NA'}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation2 || 'NA'}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeName2 || 'NA'}}</td>
         <td colspan="2" class="text-right pr-1">{{data?.businessSiteVisitLongitude || 'NA'}}</td>
         <td class="text-right pr-1">{{data?.businessSiteVisitLatitude || 'NA'}}</td>
     </tr>
+</table>
+<table *ngIf="formData['businessSiteVisitFormChecked'] === true && this.formData['businessDetails'] !== null"
+       class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
+    <ng-container *ngFor="let data of formData['businessDetails']">
+        <ng-container *ngFor="let d of data?.staffDetail">
+            <div *ngIf="d?.staffRepresentativeNameDesignation2 === undefined; else oldData">
+                <tr class="text-white sb-bg-dark">
+                    <th>Staff Representative Designation</th>
+                    <th>Staff Representative Name </th>
+                </tr>
+                <tr>
+                    <td>{{d?.staffRepresentativeNameDesignation}}</td>
+                    <td>{{d?.staffRepresentativeName}}</td>
+                </tr>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #oldData>
+        <tr class="text-white sb-bg-dark">
+            <th class="sn">SN</th>
+            <th>Staff Representative Designation 1</th>
+            <th>Staff Representative Name 1</th>
+            <th>Staff Representative Designation 2</th>
+            <th>Staff Representative Name 2</th>
+        </tr>
+        <ng-container *ngFor="let data of formData['businessDetails']; let in = index;">
+            <tr *ngFor="let staff of data?.staffDetail; let i = index">
+                <td>{{in + 1}}.{{i + 1}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation || 'N/A'}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeName || 'N/A'}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2 || 'N/A'}}</td>
+                <td class="text-left pl-1">{{staff.staffRepresentativeName2 || 'N/A'}}</td>
+            </tr>
+        </ng-container>
+    </ng-template>
 </table>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true && this.formData['businessDetails'] !== null"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
