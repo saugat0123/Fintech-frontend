@@ -15,6 +15,7 @@ import {Province} from '../../../modal/province';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {RoleType} from '../../../modal/roleType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Status} from '../../../../../@core/Status';
 
 @Component({
     selector: 'app-user-form',
@@ -51,6 +52,7 @@ export class UserFormComponent implements OnInit {
     roleType = RoleType;
     isCadSuperVisor = false;
     hideCadFile = false;
+    branchStatus = Status;
 
     constructor(
         private service: UserService,
@@ -169,14 +171,14 @@ export class UserFormComponent implements OnInit {
             if (this.selectedRole.roleAccess === RoleAccess.OWN) {
                 this.isSpecific = false;
                 this.branchService.getAll().subscribe((r: any) => {
-                    this.branchList = r.detail;
+                    this.branchList = r.detail.filter((val: any) => val.status === this.branchStatus.ACTIVE);
                 });
             }
 
             if (this.selectedRole.roleAccess === RoleAccess.SPECIFIC) {
                 this.isSpecific = true;
                 this.branchService.getAll().subscribe((re: any) => {
-                    this.branchList = re.detail;
+                    this.branchList = re.detail.filter((val: any) => val.status === this.branchStatus.ACTIVE);
                 });
 
             }
@@ -206,7 +208,7 @@ export class UserFormComponent implements OnInit {
             if (this.model.role !== null) {
                 this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
                     const temp = re.detail;
-                    this.branchList = this.model.branch;
+                    this.branchList = this.model.branch.filter((val: any) => val.status === this.branchStatus.ACTIVE);
                     temp.forEach(t => {
                         this.branchList.push(t);
                     });
@@ -253,14 +255,14 @@ export class UserFormComponent implements OnInit {
             if (role.roleAccess === RoleAccess.OWN) {
                 this.isSpecific = false;
                 this.branchService.getAll().subscribe((r: any) => {
-                    this.branchList = r.detail;
+                    this.branchList = r.detail.filter((val: any) => val.status === this.branchStatus.ACTIVE);
                 });
             }
 
             if (role.roleAccess === RoleAccess.SPECIFIC) {
                 this.isSpecific = true;
                 this.branchService.getAll().subscribe((re: any) => {
-                    this.branchList = re.detail;
+                    this.branchList = re.detail.filter((val: any) => val.status === this.branchStatus.ACTIVE);
                 });
 
             }
