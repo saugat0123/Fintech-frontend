@@ -5,6 +5,7 @@ import {cpus} from 'os';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MGroup} from '../../customer/model/mGroup';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-group-summary-sheet',
@@ -20,6 +21,7 @@ export class GroupSummarySheetComponent implements OnInit {
     gssForm: FormGroup;
     submitData;
     submitted = false;
+    isVisible = false;
 
     constructor(private formBuilder: FormBuilder,
                 private overlay: NgxSpinnerService) {
@@ -34,6 +36,12 @@ export class GroupSummarySheetComponent implements OnInit {
         } else {
             this.buildForm();
             this.addGssData();
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' || this.customerInfo.clientType === 'DEPRIVED_SECTOR'
+                || this.customerInfo.clientType === 'CONSUMER_FINANCE' || this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES') {
+                this.isVisible = true;
+            }
         }
     }
 
@@ -55,6 +63,40 @@ export class GroupSummarySheetComponent implements OnInit {
             totalIncreaseCurrent: [data ? data.totalIncreaseCurrent : undefined],
             otherLiabilities: [data ? data.otherLiabilities : undefined],
             earningProposedRelation: [data ? data.earningProposedRelation : undefined],
+            existingOne: [data ? data.existingOne : undefined],
+            proposedOne: [data ? data.proposedOne : undefined],
+            differenceOne: [data ? data.differenceOne : undefined],
+            existingTwo: [data ? data.existingTwo : undefined],
+            proposedTwo: [data ? data.proposedTwo : undefined],
+            differenceTwo: [data ? data.differenceTwo : undefined],
+            existingThree: [data ? data.existingThree : undefined],
+            proposedThree: [data ? data.proposedThree : undefined],
+            differenceThree: [data ? data.differenceThree : undefined],
+            existingFour: [data ? data.existingFour : undefined],
+            proposedFour: [data ? data.proposedFour : undefined],
+            differenceFour: [data ? data.differenceFour : undefined],
+            existingFive: [data ? data.existingFive : undefined],
+            proposedFive: [data ? data.proposedFive : undefined],
+            differenceFive: [data ? data.differenceFive : undefined],
+            existingSix: [data ? data.existingSix : undefined],
+            proposedSix: [data ? data.proposedSix : undefined],
+            differenceSix: [data ? data.differenceSix : undefined],
+            existingOther: [data ? data.existingOther : undefined],
+            proposedOther: [data ? data.proposedOther : undefined],
+            differenceOther: [data ? data.differenceOther : undefined],
+            totalExisting: [data ? data.totalExisting : undefined],
+            totalProposed: [data ? data.totalProposed : undefined],
+            totalDifference: [data ? data.totalDifference : undefined],
+            expectedLossExisting: [data ? data.expectedLossExisting : undefined],
+            expectedLossProposed: [data ? data.expectedLossProposed : undefined],
+            expectedLossDifference: [data ? data.expectedLossDifference : undefined],
+            existingLoanRatio: [data ? data.existingLoanRatio : undefined],
+            proposedLoanRatio: [data ? data.proposedLoanRatio : undefined],
+            differenceLoanRatio: [data ? data.differenceLoanRatio : undefined],
+            totalLimit: [data ? data.totalLimit : undefined],
+            fmv: [data ? data.fmv : undefined],
+            surplus: [data ? data.surplus : undefined],
+            loanToFmv: [data ? data.loanToFmv : undefined]
         });
     }
     get form() {
@@ -99,6 +141,32 @@ export class GroupSummarySheetComponent implements OnInit {
                 Number(this.gssForm.get(['gssDetails', i, 'nonFundedLimited']).value)).toFixed(2));
         this.gssForm.get(['gssDetails', i, 'totalLimit']).setValue(total);
         this.calculateTotalGss();
+    }
+    calculateTotalExistingSecurity() {
+        let existingTotalAmount = 0;
+        existingTotalAmount = Number((Number(this.gssForm.get('existingOne').value) +
+            Number(this.gssForm.get('existingTwo').value) + Number(this.gssForm.get('existingThree').value) +
+            Number(this.gssForm.get('existingFour').value) + Number(this.gssForm.get('existingFive').value) +
+            Number(this.gssForm.get('existingSix').value) +  Number(this.gssForm.get('existingOther').value)).toFixed(2));
+        this.gssForm.get('totalExisting').setValue(existingTotalAmount);
+    }
+    calculateTotalProposedSecurity() {
+        let proposedTotalAmount = 0;
+        proposedTotalAmount = Number((Number(this.gssForm.get('proposedOne').value) +
+            Number(this.gssForm.get('proposedTwo').value) + Number(this.gssForm.get('proposedThree').value) +
+            Number(this.gssForm.get('proposedFour').value) + Number(this.gssForm.get('proposedFive').value) +
+            Number(this.gssForm.get('proposedSix').value) +  Number(this.gssForm.get('proposedOther').value)).toFixed(2));
+        this.gssForm.get('totalProposed').setValue(proposedTotalAmount);
+    }
+    calculateDifference(Existing, Proposed, Difference) {
+        let difference = 0;
+        difference = Number((Number(this.gssForm.get(Existing).value) - Number(this.gssForm.get(Proposed).value)).toFixed(2));
+        this.gssForm.get(Difference).setValue(difference);
+    }
+    calculateTotalDifference(Existing, Proposed, Difference) {
+        let totalDifference = 0;
+        totalDifference = Number((Number(this.gssForm.get(Existing).value) - Number(this.gssForm.get(Proposed).value)).toFixed(2));
+        this.gssForm.get(Difference).setValue(totalDifference);
     }
     onSubmit() {
         this.overlay.show();
