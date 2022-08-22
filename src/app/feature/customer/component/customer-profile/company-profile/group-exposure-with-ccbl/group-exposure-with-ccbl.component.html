@@ -50,6 +50,15 @@
                       [config]="ckeConfig"></ckeditor>
         </div>
     </div>
+
+    <div class="col-md-12" *ngIf="customerInfo?.customerCategory?.toString() === 'SANA_BYABASAYI'">
+        <div class="form-group">
+            <label for="detailInformation"><b>DETAIL OF SECURITY HELD FOR GROUP EXPOSURE</b></label>
+            <ckeditor id="securityHeld" formControlName="securityHeld"
+                      [config]="ckeConfig"></ckeditor>
+        </div>
+    </div>
+
     <div class="col-md-12" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
         <div class="form-group">
             <label for="outstandingOverdue"><b>Outstanding Overdue and R/E collateral</b></label>

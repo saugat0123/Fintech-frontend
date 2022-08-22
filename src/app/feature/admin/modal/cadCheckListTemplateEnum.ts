@@ -1,11 +1,8 @@
-import {
-  PromissoryNotePartnershipFirmComponent
-} from '../../credit-administration/cad-document-template/mega/promissory-note-partnership-firm/promissory-note-partnership-firm.component';
-
 export enum CadCheckListTemplateEnum {
   ASSIGNMENT_OF_RECEIVABLE = '1000',
   DEED_HYPO_OF_MACHINERY_COMPONENT= '1001',
   HYPO_OF_STOCK = '1002',
+  LOAN_DEED_COMPANY = '1003',
   MANJURINAMA_FOR_COMPANY = '1004',
   PERSONAL_GUARANTEE_COMPANY = '1005',
   PERSONAL_GUARANTEE_JOINT_BORROWER = '1006',
@@ -20,8 +17,10 @@ export enum CadCheckListTemplateEnum {
   KALO_SUCHI_BORROWER_COMPANY = '1029',
   CORPORATE_GUARANTEE = '1033',
   KALO_SUCHI_BORROWER_PG_COMPANY= '1030',
+  LETTER_OF_SET_OFF_COMPANY= '1037',
   LETTER_OF_CONTINUITY_COMPANY = '1035',
   LETTER_OF_CONTINUITY_PARTNERSHIP = '1038',
   PROMISSORY_NOTE_PARTNERSHIP_FIRM = '1044',
+  LETTER_0F_CONTINUITY_PROPRIETORSHIP = '1039',
   MANJURINAMA_FOR_GADI_NAMASARI_COMPANY = '1048',
 }
