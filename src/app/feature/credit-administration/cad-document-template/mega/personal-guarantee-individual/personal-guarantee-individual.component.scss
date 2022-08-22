@@ -32,6 +32,13 @@ li {
 input::-webkit-input-placeholder {
   font-size: 16px;
 }
+.timesNewRoman {
+  font-family: 'Times New Roman'
+}
+
+input[type="text"] {
+  font-size:20px;
+}
 @media screen {
   .print-only {
     display: none;
@@ -55,16 +62,4 @@ input::-webkit-input-placeholder {
     margin: 10px 70px;
   }
 
-}
-
-.preetiFont {
-  font-family: Preeti;
-}
-
-.size16 {
-  font-size: 18px;
-}
-.nepaliFont{
-  font-size: 24px;
-  font-family: Preeti;
 }
