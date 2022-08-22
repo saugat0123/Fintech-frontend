@@ -24,10 +24,12 @@
     height: auto;
   }
 }
-
-p.box-border{
-  border: 1px solid;
-  padding:20px;
+nb-card{
+  max-height: 900px;
+}
+.nepaliFont{
+  font-size: 24px;
+  font-family: Preeti;
 }
 
 @media screen {
@@ -53,4 +55,21 @@ p.box-border{
     margin: 10px 70px;
   }
 
+  .disable-print {
+    display: none;
+  }
 }
+
+span {
+  line-height: 1;
+}
+
+.preetiFont {
+  font-family: Preeti;
+}
+
+.size16 {
+  font-size: 18px;
+}
+
+thead{ display:table-row-group }

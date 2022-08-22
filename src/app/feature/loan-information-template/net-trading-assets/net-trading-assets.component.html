@@ -42,7 +42,7 @@
                                 <th scope="col">Q2</th>
                                 <th scope="col">Q3</th>
                                 <th scope="col">Q4</th>
-                                <th scope="col">Average</th>
+<!--                                <th scope="col">Average</th>-->
                             </tr>
                             </thead>
 
@@ -126,12 +126,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfStock', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfStock', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="valueOfDebtors">
@@ -164,12 +164,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfDebtors', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfDebtors', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="valueOfGoodsInTrans">
@@ -202,12 +202,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfGoodsInTrans', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfGoodsInTrans', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="netTradingAssetsBefore">
@@ -232,12 +232,12 @@
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
                                            readonly type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsBefore', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
                             <tr>
                                 <th>Less: </th>
@@ -276,12 +276,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfCreditors', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['valueOfCreditors', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="netTradingAssetsAfter">
@@ -306,12 +306,12 @@
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
                                            readonly type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsAfter', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssetsAfter', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="drawingPower">
@@ -344,12 +344,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['drawingPower', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['drawingPower', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="drawingPowerAmount">
@@ -374,12 +374,12 @@
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
                                            readonly type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['drawingPowerAmount', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['drawingPowerAmount', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="loanFromUs">
@@ -412,12 +412,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['loanFromUs', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['loanFromUs', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="otherBanksFinancing">
@@ -450,12 +450,12 @@
                                            class="cellInput text-center"
                                            formControlName="q4" type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['otherBanksFinancing', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="totalFacility">
@@ -480,12 +480,12 @@
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
                                            readonly type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           readonly
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           readonly-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
 
                             <tr formGroupName="surplusDeficit">
@@ -510,12 +510,12 @@
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q4"
                                            readonly type="number">
                                 </td>
-                                <td>
-                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'average']).value | currencyFormatter}}</span>
-                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"
-                                           [readonly]="true"
-                                           type="number">
-                                </td>
+<!--                                <td>-->
+<!--                                    <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['surplusDeficit', 'average']).value | currencyFormatter}}</span>-->
+<!--                                    <input *ngIf="fromProfile" class="cellInput text-center" formControlName="average"-->
+<!--                                           [readonly]="true"-->
+<!--                                           type="number">-->
+<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>

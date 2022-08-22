@@ -45,6 +45,9 @@ export class CrgCcblComponent implements OnInit {
     };
     esrm = ['Low', 'Medium', 'High'];
     esrmRating: string;
+    yesNo = ['Yes', 'No'];
+    waiverValue: string;
+    isWaiver = false;
 
     ngOnInit() {
         this.getFiscalYear();
@@ -55,6 +58,7 @@ export class CrgCcblComponent implements OnInit {
             this.thresholdPoint = this.data.thresholdPoint;
             this.thresholdOutcome = this.data.thresholdOutcome;
             this.esrmRating = this.data.esrmRating;
+            this.waiverValue = this.data.waiverValue;
         }
     }
     getFiscalYear() {
@@ -126,7 +130,8 @@ export class CrgCcblComponent implements OnInit {
                         selectedFiscalYear: this.selectedFiscalYear,
                         thresholdPoint: this.thresholdPoint,
                         thresholdOutcome: this.thresholdOutcome,
-                        esrmRating: this.esrmRating
+                        esrmRating: this.esrmRating,
+                        waiverValue: this.waiverValue
                     };
                     this.eventEmitter.emit(JSON.stringify(data));
                     this.spinner.hide();
@@ -145,7 +150,8 @@ export class CrgCcblComponent implements OnInit {
                 selectedFiscalYear: this.selectedFiscalYear,
                 thresholdPoint: this.thresholdPoint,
                 thresholdOutcome: this.thresholdOutcome,
-                esrmRating: this.esrmRating
+                esrmRating: this.esrmRating,
+                waiverValue: this.waiverValue
             };
             this.eventEmitter.emit(JSON.stringify(data));
         }
@@ -171,8 +177,11 @@ export class CrgCcblComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.thresholdPoint)) {
             if (this.thresholdPoint === 'CCBL 8') {
+                this.isWaiver = true;
                 this.thresholdOutcome = 'Decline for new relationship/Exit strategy for Existing relationship';
             } else {
+                this.isWaiver = false;
+                this.waiverValue = null;
                 this.thresholdOutcome = 'Fit';
             }
         }
