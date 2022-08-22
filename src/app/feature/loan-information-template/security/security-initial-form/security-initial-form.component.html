@@ -3301,10 +3301,12 @@
         </div>
         <app-security-document *ngIf="customerType === 'INSTITUTION'" #securityDocument [formValue]="securityDocumentFormValue"></app-security-document>
         <div class="row">
-            <app-cad-file-setup #cadFileSetupComponent [loanCycleId]="14"
-                                [files]="files"
-                                [securityFiles]="true"
-                                (legalFile)="setFiles($event)"></app-cad-file-setup>
+            <div class="col-md-12">
+                <app-cad-file-setup #cadFileSetupComponent [loanCycleId]="14"
+                                    [files]="files"
+                                    [securityFiles]="true"
+                                    (legalFile)="setFiles($event)"></app-cad-file-setup>
+            </div>
         </div>
     </form>
 </div>
