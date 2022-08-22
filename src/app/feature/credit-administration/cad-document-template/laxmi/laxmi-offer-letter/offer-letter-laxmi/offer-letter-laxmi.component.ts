@@ -376,7 +376,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 if (checked) {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
                     this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
-                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'commissionValue']).patchValue(null);
                 } else {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
                 }
