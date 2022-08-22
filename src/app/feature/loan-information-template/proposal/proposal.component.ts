@@ -469,6 +469,7 @@ export class ProposalComponent implements OnInit {
             solConclusionRecommendation: [undefined],
             waiverConclusionRecommendation: [undefined],
             riskConclusionRecommendation: [undefined],
+            proposeOfSubmission: undefined,
             summeryRecommendation: undefined,
             purposeOfLoan: undefined,
             remarkFullOrPartial: undefined,
@@ -1180,6 +1181,7 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('solConclusionRecommendation').setValue(formDataForEdit.solConclusionRecommendation);
         this.proposalForm.get('waiverConclusionRecommendation').setValue(formDataForEdit.waiverConclusionRecommendation);
         this.proposalForm.get('riskConclusionRecommendation').setValue(formDataForEdit.riskConclusionRecommendation);
+        this.proposalForm.get('proposeOfSubmission').setValue(formDataForEdit.proposeOfSubmission);
         this.proposalForm.get('summeryRecommendation').setValue(formDataForEdit.summeryRecommendation);
         this.proposalForm.get('purposeOfLoan').setValue(formDataForEdit.purposeOfLoan);
         this.proposalForm.get('remarkFullOrPartial').setValue(formDataForEdit.remarkFullOrPartial);
