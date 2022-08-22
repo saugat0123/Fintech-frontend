@@ -295,8 +295,10 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                   loanPurpose: [!ObjectUtil.isEmpty(this.loanPurpose) ? this.loanPurpose : ''],
                   nameOfBank: [homeBankName ? homeBankName : ''],
                   dateOfApproval: [!ObjectUtil.isEmpty(approvedDate) ? approvedDate : !ObjectUtil.isEmpty(combinedApprovalDate) ? combinedApprovalDate : ''],
-                  loanAmount: [undefined],
-                  loanAmountWords: [undefined],
+                  loanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(
+                      individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
+                  loanAmountWords: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount ?
+                      individualGuarantorNepData.gurantedAmount.en : '')],
                   guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
                   guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
                   guarantorFatherOrHusbandName: [this.getGuarantorFatherName(individualGuarantorNepData)],
@@ -583,7 +585,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         this.nepaliNumber = JSON.parse(this.cadData.nepData);
     }
 
-  }
+    }
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(
