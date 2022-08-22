@@ -92,35 +92,31 @@
 
 <ng-container class="bg-light" style="overflow-y: scroll; max-height: 200px">
     <h5>Contact Person Details</h5>
-    <ng-container *ngFor="let contactPerson of companyContactPersons">
-        <div class="row">
-            <div class="col-md-7">
-                <span> <strong>Name :</strong></span></div>
-            <div class="col-md-5">{{contactPerson?.contactName}}</div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-7">
-                <span> <strong>Contact Number :</strong></span></div>
-            <div class="col-md-5">{{contactPerson?.contactNumber}}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-7">
-                <span> <strong>Email :</strong></span></div>
-            <div class="col-md-5">{{contactPerson?.contactEmail}}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-7">
-                <span> <strong>Functional Position :</strong></span></div>
-            <div class="col-md-5">{{contactPerson?.functionalPosition}}</div>
-        </div>
-        <hr/>
-    </ng-container>
-    <div class="row justify-content-center" *ngIf="companyContactPersons.length === 0">
-        <span class="text-danger">No contact found</span>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Name :</strong></span></div>
+        <div class="col-md-5">{{companyContactPersons?.residenceOfMainPersonContactPer ?
+            companyContactPersons?.residenceOfMainPersonContactPer : 'NA'}}</div>
     </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Contact Number(Mobile/Phone) :</strong></span></div>
+        <div class="col-md-5">
+            {{companyContactPersons?.residenceOfMainPersonMobile ?
+            companyContactPersons?.residenceOfMainPersonMobile : 'NA'}},
+            {{companyContactPersons?.residenceOfMainPersonPhoneNumber ?
+            companyContactPersons?.residenceOfMainPersonPhoneNumber : 'NA'}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Email :</strong></span></div>
+        <div class="col-md-5">{{companyContactPersons?.residenceOfMainPersonEmail
+            ? companyContactPersons?.residenceOfMainPersonEmail : 'NA'}}</div>
+    </div>
+    <hr/>
 </ng-container>
 
 <div>
@@ -128,25 +124,22 @@
     <div class="row">
         <div class="col-md-7">
             <span> <strong>Address</strong></span></div>
-        <div class="col-md-5">{{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
-            , {{companyLocationData?.municipalityVdc?.name}})</div>
+        <div class="col-md-5">{{companyContactPersons?.registeredOfficeLegalAddress ?
+            companyContactPersons?.registeredOfficeLegalAddress : 'NA'}}</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>Ward :</strong></span></div>
-        <div class="col-md-5">{{companyLocationData?.ward}}</div>
+            <span> <strong>Email :</strong></span></div>
+        <div class="col-md-5">{{companyContactPersons?.registeredOfficeEmail ?
+            companyContactPersons?.registeredOfficeEmail : 'NA'}}</div>
     </div>
 
     <div class="row">
         <div class="col-md-7">
-            <span> <strong>Address Line 1 :</strong></span></div>
-        <div class="col-md-5">{{companyLocationData?.address1}}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-7">
-            <span> <strong>Address Line 2 :</strong></span></div>
-        <div class="col-md-5">{{companyLocationData?.address2}}</div>
+            <span> <strong>Phone Number :</strong></span></div>
+        <div class="col-md-5">{{companyContactPersons?.registeredOfficePhoneNumber ?
+            companyContactPersons?.registeredOfficePhoneNumber : 'NA'}}</div>
     </div>
 </div>
 
