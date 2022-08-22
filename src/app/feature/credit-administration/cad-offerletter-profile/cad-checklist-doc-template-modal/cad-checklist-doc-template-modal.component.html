@@ -72,6 +72,9 @@
         <app-promissory-note-partnership-firm *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PARTNERSHIP_FIRM"
                                               [cadData]="cadData" [documentId]="documentId"
                                               [customerLoanId]="customerLoanId"></app-promissory-note-partnership-firm>
+        <app-manjurinama-for-gadi-namasari-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_COMPANY"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-company>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
