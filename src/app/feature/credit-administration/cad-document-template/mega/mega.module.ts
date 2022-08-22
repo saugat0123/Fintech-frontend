@@ -20,6 +20,15 @@ import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/k
 import {PowerOfAttorneyCompanyComponent} from './power-of-attorney-company/power-of-attorney-company.component';
 import {NgxPrintModule} from 'ngx-print';
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
+import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
+import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
+import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
+import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
+import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
+import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-gadi-namasari-company/manjurinama-for-gadi-namasari-company.component';
+import { ManjurinamaForGadiNamasariIndividualComponent } from './manjurinama-for-gadi-namasari-individual/manjurinama-for-gadi-namasari-individual.component';
+import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-for-gadi-namasari-partnership/manjurinama-for-gadi-namasari-partnership.component';
+import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
 
 
 
@@ -38,6 +47,16 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent,
+    LetterOfSetOffCompanyComponent,
+    LetterOfContinuityCompanyComponent,
+    LetterOfContinuityPartnershipComponent,
+    PromissoryNotePartnershipFirmComponent,
+    LetterOfContinuityProprietorshipComponent,
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ManjurinamaForGadiNamasariPartnershipComponent,
+    ManjurinamaForGadiNamasariProprietorshipComponent,
     PowerOfAttorneyCompanyComponent
   ],
 
@@ -64,10 +83,20 @@ import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/me
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
+    CorporateGuaranteeComponent,
+    KaloSuchiBorrowerCompanyComponent,
+    KaloSuchiBorrowerPgCompanyComponent,
+    LetterOfSetOffCompanyComponent,
+    LetterOfContinuityCompanyComponent,
+    LetterOfContinuityPartnershipComponent,
+    PromissoryNotePartnershipFirmComponent,
+    LetterOfContinuityProprietorshipComponent,
+    DeedHypoOfMachineryComponent,
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ManjurinamaForGadiNamasariPartnershipComponent,
+    ManjurinamaForGadiNamasariProprietorshipComponent,
     PowerOfAttorneyCompanyComponent
   ],
-  entryComponents: [DeedHypoOfMachineryComponent
-  ]
-
 })
 export class MegaModule { }
