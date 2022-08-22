@@ -387,9 +387,11 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="registrationDistrict"><strong>Registration District</strong></label>
-                                    <select formControlName="registrationDistrict" id="registrationDistrict"
+                                    <select formControlName="registrationDistrict"
+                                            id="registrationDistrict"
+                                            name="registrationDistrict"
                                             [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}"
-                                            class="form-control">
+                                            class="form-control custom-select">
                                         <option [value]="null">Select Registration District</option>
                                         <option *ngFor="let district of allDistrict" [value]="district?.name">
                                             {{district?.name}}</option>
@@ -499,9 +501,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="udhyogBibag"><b>Registered at Udhyog Bibhag?</b></label>
-                                    <select formControlName="udhyogBibag" id="udhyogBibag"
-                                            [ngClass]="{'is-invalid':submitted &&  form.udhyogBibag?.errors}"
+                                    <label for="udhyogBibhag"><b>Registered at Udhyog Bibhag?</b></label>
+                                    <select formControlName="udhyogBibhag" id="udhyogBibhag" name="udhyogBibhag"
+                                            [ngClass]="{'is-invalid':submitted &&  form?.udhyogBibhag?.errors}"
                                             class="form-control">
                                         <option [value]="null">--Select Yes/No--</option>
                                         <option value="Yes">Yes</option>

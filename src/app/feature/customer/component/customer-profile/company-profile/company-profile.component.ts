@@ -161,7 +161,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
             this.companyInfo = res.detail;
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
-                this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
+                this.companyLocationData = JSON.parse(this.companyInfo.companyContactDetails);
                 this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
             }
             this.spinner = false;
