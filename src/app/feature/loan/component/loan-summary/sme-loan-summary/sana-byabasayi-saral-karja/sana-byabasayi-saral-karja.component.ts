@@ -17,7 +17,7 @@ export class SanaByabasayiSaralKarjaComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() fixedAssetsData: Array<any>;
   @Input() isExecutive: boolean;
-  customerCategory = CustomerCategory.SANA_BYABASAYI;
+  customerCategory = CustomerCategory.SANA_BYABASAYI;F
   data;
   approveAuth;
   totalAmount;

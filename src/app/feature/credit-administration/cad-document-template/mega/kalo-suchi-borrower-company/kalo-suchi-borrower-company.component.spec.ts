@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KaloSuchiBorrowerComponent } from './kalo-suchi-borrower-company.component';
+import { KaloSuchiBorrowerCompanyComponent } from './kalo-suchi-borrower-company.component';
 
 describe('KaloSuchiBorrowerComponent', () => {
-  let component: KaloSuchiBorrowerComponent;
-  let fixture: ComponentFixture<KaloSuchiBorrowerComponent>;
+  let component: KaloSuchiBorrowerCompanyComponent;
+  let fixture: ComponentFixture<KaloSuchiBorrowerCompanyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KaloSuchiBorrowerComponent ]
+      declarations: [ KaloSuchiBorrowerCompanyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KaloSuchiBorrowerComponent);
+    fixture = TestBed.createComponent(KaloSuchiBorrowerCompanyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
