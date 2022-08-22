@@ -603,10 +603,10 @@ export class CompanyFormComponent implements OnInit {
 
     contactPersonFormGroup(): FormGroup {
         return this.formBuilder.group({
-            contactName: [undefined, Validators.required],
+            contactName: [undefined],
             contactEmail: [undefined],
-            contactNumber: [undefined, Validators.required],
-            functionalPosition: [undefined, Validators.required],
+            contactNumber: [undefined],
+            functionalPosition: [undefined],
         });
     }
 
@@ -616,10 +616,10 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(contactPersons)) {
             contactPersons.forEach(data => {
                 contactPersonFormArray.push(this.formBuilder.group({
-                    contactName: [data.contactName, Validators.required],
+                    contactName: [data.contactName],
                     contactEmail: [data.contactEmail],
-                    contactNumber: [data.contactNumber, Validators.required],
-                    functionalPosition: [data.functionalPosition, Validators.required],
+                    contactNumber: [data.contactNumber],
+                    functionalPosition: [data.functionalPosition],
                 }));
             });
         } else {
