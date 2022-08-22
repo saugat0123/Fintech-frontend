@@ -27,6 +27,7 @@ import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partner
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
 import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-gadi-namasari-company/manjurinama-for-gadi-namasari-company.component';
+import { ManjurinamaForGadiNamasariIndividualComponent } from './manjurinama-for-gadi-namasari-individual/manjurinama-for-gadi-namasari-individual.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -52,7 +53,8 @@ import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-ga
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
     ManjurinamaForGadiNamasariCompanyComponent,
-  ],
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -85,8 +87,8 @@ import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-ga
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
     DeedHypoOfMachineryComponent,
-    PromissoryNotePartnershipFirmComponent,
     ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
   ],
-})
+  })
 export class MegaModule { }
