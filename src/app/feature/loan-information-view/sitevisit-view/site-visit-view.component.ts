@@ -48,6 +48,7 @@ export class SiteVisitViewComponent implements OnInit {
                 case 'currentAssetsInspectionFormChecked' :
                     this.currentAssetsInspectionSummary = true;
             }
+            console.log('formData:::::', this.formData);
         }
     }
 
