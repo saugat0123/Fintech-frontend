@@ -53,6 +53,7 @@ export class SecurityComponent implements OnInit {
     @Input() customerType: CustomerType;
     @Input() customerInfo: CustomerInfoData;
     @Output() refreshEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() onlyCrossCollateral: EventEmitter<boolean> = new EventEmitter<boolean>();
     isEdit = false;
     isSiteVisit = false;
 
@@ -116,19 +117,6 @@ export class SecurityComponent implements OnInit {
     guarantorsDetails: Guarantor = new Guarantor();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     isBusinessLoan = true;
-    shareSecuritySelected = false;
-
-    guaranteeList = SecurityGuarantee.enumObject();
-    locationList = LandAndBuildingLocation.enumObject();
-    coverageList = VehicleSecurityCoverage.enumObject();
-    newCoverage = VehicleSecurityCoverage.getNew();
-
-    apNewCoverage = SecurityCoverageAutoPrivate.getNew();
-    apUsedCoverage = SecurityCoverageAutoPrivate.getUsed();
-
-    acNewCoverage = SecurityCoverageAutoCommercial.getNew();
-    acUsedCoverage = SecurityCoverageAutoCommercial.getUsed();
-
     roadAccess = RoadAccess.enumObject();
     facCategory = FacCategory.enumObject();
 
@@ -467,6 +455,9 @@ export class SecurityComponent implements OnInit {
             const otherSecurityData = this.otherSecurity.otherSecurityForm.value.otherSecurity;
             const securities = this.constructSecurityArray(otherSecurityData, 'OTHER_SECURITY');
             this.securityDataEmitter.emit(securities);
+        }
+        if (ObjectUtil.isEmpty(this.selectedSecurity)) {
+            this.onlyCrossCollateral.emit(true);
         }
     }
 

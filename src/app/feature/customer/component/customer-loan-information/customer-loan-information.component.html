@@ -390,9 +390,18 @@
               </span></a>
           </nb-card-header>
           <nb-card-body>
+            <div class="col-md-12">
+              <div>
+                <app-cross-collateral
+                        #crossCollateralComponent
+                        [customerType]="customerType"
+                        [formData]="customerInfo?.crossCollateral"></app-cross-collateral>
+              </div>
+            </div>
             <app-security #securityComponent
                 (securityDataEmitter)="saveSecurity($event)"
                           (refreshEmitter)="onRefresh()"
+                          (onlyCrossCollateral)="saveCrossCollateral()"
                 [calendarType]="calendarType"
                 [fromProfile]="true"
                 [isMicroCustomer]="false"

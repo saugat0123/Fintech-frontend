@@ -121,13 +121,6 @@ export class ApartmentComponent implements OnInit {
     });
   }
 
-  private getLoanConfig(): void {
-    this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((res: any) => {
-      this.loanList = res.detail;
-    }, error => {
-      this.toastService.show(new Alert(AlertType.DANGER, 'Could not load data!!!'));
-    });
-  }
 
   private branchList(): void {
     this.branchService.getAll().subscribe((res: any) => {
@@ -284,27 +277,6 @@ export class ApartmentComponent implements OnInit {
       this.apartmentForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
       this.apartmentForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
     }
-  }
-
-  public removeCrossCollateralized(securityType: string, cin: number): void {
-    (<FormArray>this.apartmentForm.get(securityType)).removeAt(cin);
-    this.calculateTotalCross(securityType);
-  }
-
-  public addCrossCollateralized(arrayName): void {
-    (this.apartmentForm.get(arrayName) as FormArray).push(this.crossCollateralizedFormGroup());
-  }
-
-  public crossCollateralizedFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      borrowerName: [undefined],
-      facilityName: [undefined],
-      totalExposure: [undefined],
-      rmValue: [undefined],
-      fmvApportion: [undefined],
-      drawDown: [undefined],
-      residualFmv: [undefined],
-    });
   }
 
   public close(): void {
