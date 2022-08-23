@@ -24,6 +24,10 @@
 <!--        </ng-container>-->
 <!--    </div>-->
     <!--                release and replacement-->
+    <app-crg-gamma-detail-view
+            *ngIf="loanDataHolder?.loanHolder?.crgGamma"
+            [formData]="loanDataHolder?.loanHolder?.crgGamma">
+    </app-crg-gamma-detail-view>
     <ng-container>
         <hr class="print-line">
         <app-cross-collateral *ngIf="loanDataHolder?.loanHolder?.crossCollateral"

@@ -15,7 +15,7 @@ export class CrgGammaDetailViewComponent implements OnInit {
 
   ngOnInit() {
     this.crgGammaData = JSON.parse(this.formData.data);
-
+    console.log('thisadasdasd', this.crgGammaData);
     for (const [key, value] of Object.entries(this.crgGammaData)) {
       const ansModel = {
         question: null,
