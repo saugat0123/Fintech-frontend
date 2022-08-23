@@ -171,7 +171,9 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         this.incomeStatementForm.get('operatingExpensesLabelShow').patchValue(incomeStatementFormData.operatingExpensesLabelShow);
         this.incomeStatementForm.get('operatingProfitLabelShow').patchValue(incomeStatementFormData.operatingProfitLabelShow);
         this.incomeStatementForm.get('interestExpensesLabelShow').patchValue(incomeStatementFormData.interestExpensesLabelShow);
+        // tslint:disable-next-line:max-line-length
         this.incomeStatementForm.get('nonOperatingIncomeExpensesLabelShow').patchValue(incomeStatementFormData.nonOperatingIncomeExpensesLabelShow);
+        // tslint:disable-next-line:max-line-length
         this.incomeStatementForm.get('profitBeforeTaxAndStaffBonusLabelShow').patchValue(incomeStatementFormData.profitBeforeTaxAndStaffBonusLabelShow);
         this.incomeStatementForm.get('staffBonusLabelShow').patchValue(incomeStatementFormData.staffBonusLabelShow);
         this.incomeStatementForm.get('profitBeforTaxesLabelShow').patchValue(incomeStatementFormData.profitBeforTaxesLabelShow);
@@ -180,6 +182,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         this.incomeStatementForm.get('dividendDrawingLabelShow').patchValue(incomeStatementFormData.dividendDrawingLabelShow);
         this.incomeStatementForm.get('otherAdjustmentLabelShow').patchValue(incomeStatementFormData.otherAdjustmentLabelShow);
         this.incomeStatementForm.get('accumulatedProfitbdLabelShow').patchValue(incomeStatementFormData.accumulatedProfitbdLabelShow);
+        // tslint:disable-next-line:max-line-length
         this.incomeStatementForm.get('netProfitTransferredToBalanceSheetLabelShow').patchValue(incomeStatementFormData.netProfitTransferredToBalanceSheetLabelShow);
     }
 

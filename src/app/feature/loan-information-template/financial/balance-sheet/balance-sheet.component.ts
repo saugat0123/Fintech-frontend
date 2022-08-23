@@ -204,6 +204,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         this.balanceSheetForm.get('liabilitiesLabelShow').patchValue(incomeStatementFormData.liabilitiesLabelShow);
         this.balanceSheetForm.get('currentLiabilitiesLabelShow').patchValue(incomeStatementFormData.currentLiabilitiesLabelShow);
         this.balanceSheetForm.get('longTermLoanLabelShow').patchValue(incomeStatementFormData.longTermLoanLabelShow);
+        // tslint:disable-next-line:max-line-length
         this.balanceSheetForm.get('otherLongTermLiabilitiesLabelShow').patchValue(incomeStatementFormData.otherLongTermLiabilitiesLabelShow);
         this.balanceSheetForm.get('otherProvisionsLabelShow').patchValue(incomeStatementFormData.otherProvisionsLabelShow);
         this.balanceSheetForm.get('netWorthLabelShow').patchValue(incomeStatementFormData.netWorthLabelShow);
