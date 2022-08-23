@@ -156,11 +156,11 @@
                                         </span>
                                         <textarea
                                                 *ngIf="offerLetterForm?.get(['purpose', i, 'otherLimitChecked'])?.value"
-                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                class="form-control form-field font-size-normal disable-print"
                                                 [value]="offerLetterForm.get(['purpose', i,'otherLimit'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'otherLimit')"
                                                 rows="2"></textarea>
-                                        <span class="print-only nepaliFont font-size-normal"
+                                        <span class="print-only font-size-normal"
                                               *ngIf="offerLetterForm?.get(['purpose', i, 'otherLimitChecked'])?.value">
                                             <b>{{offerLetterForm?.get(['purpose', i, 'otherLimit'])?.value ?
                                                 offerLetterForm?.get(['purpose', i, 'otherLimit'])?.value : '========='}}</b>
@@ -187,7 +187,7 @@
                                         <!--                                      [config]="ckeConfig"></ckeditor>-->
                                         <textarea
                                                 *ngIf="offerLetterForm?.get(['purpose', i, 'purpose'])?.value === 'Other'"
-                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                class="form-control form-field font-size-normal disable-print"
                                                 [value]="offerLetterForm.get(['purpose', i,'otherPurpose'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'otherPurpose')"
                                                 placeholder="अन्य उद्देश्य"
@@ -196,7 +196,7 @@
                                               *ngIf="offerLetterForm?.get(['purpose', i, 'purpose'])?.value !== 'Other'">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'purpose'])?.value ?
                                         offerLetterForm?.get(['purpose', i, 'purpose'])?.value : '========='}}</b></span>
-                                        <span class="nepaliFont print-only font-size-normal"
+                                        <span class="print-only font-size-normal"
                                               *ngIf="offerLetterForm?.get(['purpose', i, 'purpose'])?.value === 'Other'">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'otherPurpose'])?.value ? offerLetterForm?.get(['purpose', i, 'otherPurpose'])?.value
                                         : '========='}}</b></span>
@@ -227,12 +227,12 @@
                                             <!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
                                             <!--                                      [config]="ckeConfig"></ckeditor>-->
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
                                                     [value]="offerLetterForm?.get(['purpose', i, 'drawDown'])?.value"
                                                     (change)="valueChange($event?.target?.value, i, 'drawDown')"
                                                     rows="4"></textarea>
-                                            <span class="nepaliFont print-only font-size-normal"
+                                            <span class="print-only font-size-normal"
                                                   *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
                                 <b>{{offerLetterForm?.get(['purpose', i, 'drawDown'])?.value ?
                                     offerLetterForm?.get(['purpose', i, 'drawDown'])?.value : '========='}}</b></span>
@@ -280,12 +280,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="अन्य कर्जा झिक्न पाउने अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'downPeriodValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont print-only font-size-normal">
+                                    <span class="print-only font-size-normal">
                                 <b>{{offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value ?
                                     offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value : '========='}}</b></span>
                                 </span>
@@ -333,12 +333,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'moratariumValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value ?
                                             offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value : '========='}}</b></span>
                                 </span>
@@ -381,12 +381,12 @@
                                         </select>
                                     </span>
                                     <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'OTHER'">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               [value]="offerLetterForm.get(['purpose', i,'otherRepayment'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'otherRepayment')"
                                               placeholder="अन्य कर्जा सुविधाको भुक्तानी"
                                               rows="2"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                             <b>{{offerLetterForm?.get(['purpose', i, 'otherRepayment'])?.value ?
                                                 offerLetterForm?.get(['purpose', i, 'otherRepayment'])?.value : '========='}}</b>
                                         </span>
@@ -549,12 +549,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="अन्य अवधि पुग्ने मिति"
                                               [value]="offerLetterForm?.get(['purpose', i, 'maturityValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'maturityValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'maturityValue'])?.value ?
                                             offerLetterForm?.get(['purpose', i, 'maturityValue'])?.value : '========='}}</b></span>
                                 </span>
@@ -601,12 +601,12 @@
                                             </nb-checkbox>
                                         </span>
                                         <span *ngIf="offerLetterForm?.get(['purpose', i, 'tenureOtherCheck'])?.value">
-                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                            <textarea class="form-control form-field font-size-normal disable-print"
                                                       placeholder="कर्जा अवधि"
                                                       [value]="offerLetterForm?.get(['purpose', i, 'tenureValue'])?.value"
                                                       (change)="valueChange($event?.target?.value, i, 'tenureValue')"
                                                       rows="4"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                             <b>{{offerLetterForm?.get(['purpose', i, 'tenureValue'])?.value ?
                                                 offerLetterForm?.get(['purpose', i, 'tenureValue'])?.value : '========='}}</b></span>
                                         </span>
@@ -647,12 +647,12 @@
                                 </ng-container>
                             </span>
                                         <span *ngIf="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value === 'OTHER'">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               [value]="offerLetterForm.get(['purpose', i,'otherInterestRate'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'otherInterestRate')"
                                               placeholder="अन्य दर"
                                               rows="2"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'otherInterestRate'])?.value ?
                                         offerLetterForm?.get(['purpose', i, 'otherInterestRate'])?.value : '========='}}</b></span>
                                 </span>
@@ -809,12 +809,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'commissionOtherCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="कमिसन"
                                               [value]="offerLetterForm?.get(['purpose', i, 'commissionValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'commissionValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'commissionValue'])?.value ?
                                             offerLetterForm?.get(['purpose', i, 'commissionValue'])?.value : '========='}}</b></span>
                                 </span>
@@ -886,12 +886,12 @@
                                     </span>
                                     <span *ngIf="offerLetterForm?.get(['purpose', i, 'otherAdFeeChecked'])?.value">
                                         <textarea
-                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                class="form-control form-field font-size-normal disable-print"
                                                 [value]="offerLetterForm?.get(['purpose', i, 'adFeeOther'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'adFeeOther')"
                                                 placeholder="अन्य प्रशासनिक शुल्क"
                                                 rows="4"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                             <b>{{offerLetterForm?.get(['purpose', i, 'adFeeOther'])?.value ?
                                                 offerLetterForm?.get(['purpose', i, 'adFeeOther'])?.value : '========='}}</b>
                                         </span>
@@ -973,11 +973,11 @@
                         </span>
                                     <span *ngIf="!offerLetterForm?.get('swapFee').value">लागु हुने छैन ।</span>
                                     <span *ngIf="offerLetterForm?.get('otherSwapFeeChecked')?.value">
-                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                             <textarea class="form-control form-field font-size-normal disable-print"
                                        formControlName="swapFeeOther"
                                        placeholder="स्वाप शुल्क"
                                        rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('swapFeeOther')?.value ? offerLetterForm?.get('swapFeeOther')?.value : '========='}}</b></span>
                         </span>
                                 </ng-container>
@@ -1009,11 +1009,11 @@
                         </span>
                                     <span *ngIf="!offerLetterForm?.get('prepaymentCharge').value">लागु हुने छैन ।</span>
                                     <span *ngIf="offerLetterForm?.get('prepaymentOtherCheck')?.value">
-                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                             <textarea class="form-control form-field font-size-normal disable-print"
                                        formControlName="prepaymentOther"
                                        placeholder="अवधि अगावै भुक्तानीमा दस्तुर लाग्ने"
                                        rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('prepaymentOther')?.value ? offerLetterForm?.get('prepaymentOther')?.value : '========='}}</b></span>
                         </span>
                                 </ng-container>
@@ -1048,11 +1048,11 @@
                         </span>
                                     <span *ngIf="!offerLetterForm?.get('commitmentFee').value">लागु हुने छैन ।</span>
                                     <span *ngIf="offerLetterForm?.get('commitmentFeeOtherCheck')?.value">
-                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                             <textarea class="form-control form-field font-size-normal disable-print"
                                        formControlName="commitmentFeeOther"
                                        placeholder="प्रतिबद्धता शुल्क दस्तुर लाग्ने"
                                        rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('commitmentFeeOther')?.value ? offerLetterForm?.get('commitmentFeeOther')?.value : '========='}}</b></span>
                         </span>
                                 </ng-container>
@@ -1084,11 +1084,11 @@
                             </nb-checkbox>
                         </span>
                                 <span *ngIf="offerLetterForm?.get('informationFeeOtherCheck')?.value">
-                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                             <textarea class="form-control form-field font-size-normal disable-print"
                                        formControlName="informationFeeOther"
                                        placeholder="कर्जा सूचना शुल्क, धितो सुरक्षण शुल्क, कर्जा सुरक्षण शुल्क, वीमा प्रिमियम शुल्क"
                                        rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('informationFeeOther')?.value ? offerLetterForm?.get('informationFeeOther')?.value : '========='}}</b></span>
                         </span>
                             </td>
@@ -1114,11 +1114,11 @@
                             </nb-checkbox>
                         </span>
                                 <span *ngIf="offerLetterForm?.get('valuationFeeOtherCheck')?.value">
-                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                             <textarea class="form-control form-field font-size-normal disable-print"
                                        formControlName="valuationFeeOther"
                                        placeholder="धितो मुल्यांकन शुल्क"
                                        rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('valuationFeeOther')?.value ? offerLetterForm?.get('valuationFeeOther')?.value : '========='}}</b></span>
                         </span>
                             </td>
@@ -1147,11 +1147,11 @@
                             </nb-checkbox>
                         </span>
                                 <span *ngIf="offerLetterForm?.get('penalInterestOtherCheck')?.value">
-                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                             <textarea class="form-control form-field font-size-normal disable-print"
                                        formControlName="penalInterestOther"
                                        placeholder="हर्जाना व्याज"
                                        rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('penalInterestOther')?.value ? offerLetterForm?.get('penalInterestOther')?.value : '========='}}</b></span>
                         </span>
                             </td>
@@ -1360,10 +1360,10 @@
                                             </span>
                                         <span *ngIf="offerLetterForm?.get('registerMortgageOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="registerMortgageOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{offerLetterForm?.get('registerMortgageOther')?.value ? offerLetterForm?.get('registerMortgageOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1533,10 +1533,10 @@
                                             </span>
                                         <span *ngIf="offerLetterForm?.get('crossCollateralOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="crossCollateralOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{offerLetterForm?.get('crossCollateralOther')?.value ? offerLetterForm?.get('crossCollateralOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1684,10 +1684,10 @@
                                             </span>
                                         <span *ngIf="offerLetterForm?.get('reRegisterOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="reRegisterOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{offerLetterForm?.get('reRegisterOther')?.value ? offerLetterForm?.get('reRegisterOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1796,10 +1796,10 @@
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('vehicleSecurityOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="vehicleSecurityOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{offerLetterForm?.get('vehicleSecurityOther')?.value ? offerLetterForm?.get('vehicleSecurityOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1936,10 +1936,10 @@
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('shareOtherChecked')?.value">
                                                 <textarea
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        class="form-control form-field font-size-normal disable-print"
                                                         formControlName="shareOther"
                                                         rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <b>{{offerLetterForm?.get('shareOther')?.value ? offerLetterForm?.get('shareOther')?.value : '========='}}</b>
                                                 </span>
                                             </span>
@@ -2053,11 +2053,11 @@
                                         </span>
                                         <span *ngIf="offerLetterForm?.get(['personalGuarantee', pin, 'otherChecked'])?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     [value]="offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value"
                                                     (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'other')"
                                                     placeholder="व्यक्तिगत ग्यारेन्टी" rows="4"></textarea>
-                                            <span class="nepaliFont font-size-normal print-only">
+                                            <span class="font-size-normal print-only">
                                                 <b>{{offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value ?
                                                     offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value : '========='}}</b>
                                             </span>
@@ -2147,11 +2147,11 @@
                                         </span>
                                         <span *ngIf="offerLetterForm?.get(['corporateGuarantee', cin, 'otherChecked'])?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value"
                                                     (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'other')"
                                                     placeholder="कर्पोरेट ग्यारेन्टी" rows="4"></textarea>
-                                            <span class="nepaliFont font-size-normal print-only">
+                                            <span class="font-size-normal print-only">
                                                 <b>{{offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value ?
                                                     offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value : '========='}}</b>
                                             </span>
@@ -2236,10 +2236,10 @@
                                     </nb-checkbox>
                                 </span>
                                         <span *ngIf="offerLetterForm?.get('currentAssetsOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="currentAssetsOther"
                                               placeholder="हालको सम्पत्तिको रूपमा सुरक्षा" rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('currentAssetsOther')?.value ? offerLetterForm?.get('currentAssetsOther')?.value : '========='}}</b>
                                     </span>
                                 </span>
@@ -2315,11 +2315,11 @@
                                     </span>
                                 </span>
                                         <span *ngIf="offerLetterForm?.get('fixedAssetOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="fixedAssetOther"
                                               placeholder="स्थिर सम्पत्ति संपार्श्विक रूपमा सुरक्षा"
                                               rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get('fixedAssetOther')?.value ? offerLetterForm?.get('fixedAssetOther')?.value : '========='}}</b></span>
                                 </span>
                                     </td>
@@ -2372,11 +2372,11 @@
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('cashLetterOtherCheck')?.value">
                                                 <textarea
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        class="form-control form-field font-size-normal disable-print"
                                                         formControlName="cashLetterOther"
                                                         placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा"
                                                         rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <b>{{offerLetterForm?.get('cashLetterOther')?.value ? offerLetterForm?.get('cashLetterOther')?.value : '========='}}</b></span>
                                             </span>
                                         </td>
@@ -2407,11 +2407,11 @@
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
                                                 <textarea
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        class="form-control form-field font-size-normal disable-print"
                                                         formControlName="cashGuaranteeOther"
                                                         placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा"
                                                         rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <b>{{offerLetterForm?.get('cashGuaranteeOther')?.value ? offerLetterForm?.get('cashGuaranteeOther')?.value : '========='}}</b></span>
                                                 </span>
                                         </td>
@@ -2461,10 +2461,10 @@
                                 </nb-checkbox>
                             </span>
                                     <span *ngIf="offerLetterForm?.get('personalLoanOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="personalLoanOther"
                                               placeholder="व्यक्तिगत ऋण को मामला मा सुरक्षा" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get('personalLoanOther')?.value ? offerLetterForm?.get('personalLoanOther')?.value : '========='}}</b></span>
                                 </span>
                                 </td>
@@ -2531,10 +2531,10 @@
                                 </nb-checkbox>
                             </span>
                                     <span *ngIf="offerLetterForm?.get('cashlienOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="cashlienOther"
                                               placeholder="नगद ग्रहणाधिकारको रूपमा सुरक्षा" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get('cashlienOther')?.value ? offerLetterForm?.get('cashlienOther')?.value : '========='}}</b></span>
                                 </span>
                                 </td>
@@ -2594,10 +2594,10 @@
                                 </nb-checkbox>
                             </span>
                                     <span *ngIf="offerLetterForm?.get('loanTamsukOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="loanTamsukOther"
                                               placeholder="कर्जा तमसुक" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get('loanTamsukOther')?.value ? offerLetterForm?.get('loanTamsukOther')?.value : '========='}}</b></span>
                                 </span>
                                 </td>
@@ -2657,10 +2657,10 @@
                                         </nb-checkbox>
                                     </span>
                                     <span *ngIf="offerLetterForm?.get('promiseOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="promiseOther"
                                               placeholder="प्रतिज्ञापत्र" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get('promiseOther')?.value ? offerLetterForm?.get('promiseOther')?.value : '========='}}</b></span>
                                 </span>
                                 </td>
@@ -2676,11 +2676,11 @@
                                         </ul>
                                     </td>
                                     <td colspan="6">
-                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                <textarea class="form-control form-field font-size-normal disable-print"
                                           formControlName="otherSecurity"
                                           placeholder="अन्य कर्जा सम्बन्धी लिखत तथा धितो सुरक्षण विवरण"
                                           rows="3"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                     <b>{{offerLetterForm?.get(['moreSecurity', viii, 'otherSecurity'])?.value ?
                                         offerLetterForm?.get(['moreSecurity', viii, 'otherSecurity'])?.value : '========='}}</b>
                                 </span>
@@ -3232,11 +3232,11 @@
                             <ng-container [formGroupName]="ii">
                                 <td>{{(42 + ii + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherCovenant"
                                       placeholder="अन्य शर्त तथा बन्देजहरु"
                                       rows="3"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get(['covenant', ii, 'otherCovenant'])?.value ?
                                     offerLetterForm?.get(['covenant', ii, 'otherCovenant'])?.value : '========='}}</b></span>
                                 </td>
@@ -3389,11 +3389,11 @@
                             <ng-container [formGroupName]="iii">
                                 <td>{{(16 + iii + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherEventDeafult"
                                       placeholder="अन्य कर्जा खिलाफीको अवस्था"
                                       rows="3"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get(['eventDefault', iii, 'otherEventDeafult'])?.value ?
                                     offerLetterForm?.get(['eventDefault', iii, 'otherEventDeafult'])?.value : '========='}}</b></span>
                                 </td>
@@ -3522,11 +3522,11 @@
                             <ng-container [formGroupName]="iv">
                                 <td>{{(11 + iv + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherEventDeafult"
                                       placeholder="अन्य कर्जा खिलाफीको अवस्था"
                                       rows="3"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get(['eventDefault1', iv, 'otherEventDeafult'])?.value ?
                                     offerLetterForm?.get(['eventDefault1', iv, 'otherEventDeafult'])?.value : '========='}}</b></span>
                                 </td>
@@ -3576,11 +3576,11 @@
                             <ng-container [formGroupName]="v">
                                 <td>{{(2 + v + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherPrecedent"
                                       placeholder="अन्य लागू हुने पूर्व शर्त"
                                       rows="3"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get(['precedent', v, 'otherPrecedent'])?.value ?
                                     offerLetterForm?.get(['precedent', v, 'otherPrecedent'])?.value : '========='}}</b></span>
                                 </td>
@@ -3679,11 +3679,11 @@
                             <ng-container [formGroupName]="vi">
                                 <td>{{(7 + vi + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherRepresentation"
                                       placeholder="अन्य घोषणा"
                                       rows="3"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get(['representation', vi, 'otherRepresentation'])?.value ?
                                     offerLetterForm?.get(['representation', vi, 'otherRepresentation'])?.value : '========='}}</b></span>
                                 </td>
@@ -3753,11 +3753,11 @@
                             <ng-container [formGroupName]="vii">
                                 <td>{{(3 + vii + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherAcceptance"
                                       placeholder="अन्य स्वीकारोक्ति"
                                       rows="3"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                 <b>{{offerLetterForm?.get(['acceptance', vii, 'otherAcceptance'])?.value ?
                                     offerLetterForm?.get(['acceptance', vii, 'otherAcceptance'])?.value : '========='}}</b></span>
                                 </td>

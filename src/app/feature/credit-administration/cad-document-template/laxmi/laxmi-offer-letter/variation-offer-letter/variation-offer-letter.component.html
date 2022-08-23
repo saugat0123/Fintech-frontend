@@ -3,7 +3,8 @@
         <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
             <div class="row">
                 <div class="col-sm-12">
-                    <strong>रेफ नं.: LXBL/BUD-CSU/
+                 <span *ngIf="isVariation">
+                        <strong>रेफ नं.: LXBL/BUD-CSU/
                         <input type="text" class="form-control-sm form-field disable-print"
                                formControlName="branchCode" readonly>
                         <span class="print-only">
@@ -13,6 +14,23 @@
                         <span class="print-only">
                         <strong>{{form?.get('patraDate')?.value ? (form?.get('patraDate')?.value) : '_____________'}}</strong></span>
                     </strong>
+                 </span>
+                    <span *ngIf="!isVariation">
+                        <strong>रेफ नं.: LXBL/
+                            <input type="text" class="form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="refNo" placeholder="Ref No." readonly>
+                            <span class="font-size-normal print-only">
+                                <strong>{{form?.get('refNo')?.value ? form?.get('refNo')?.value : '========='}}</strong></span>/
+                              <input class="form-control-sm form-field disable-print"
+                                     formControlName="patraDate" readonly>
+                            <span class="print-only">
+                                <strong>{{form?.get('patraDate')?.value ? (form?.get('patraDate')?.value) : '_____________'}}</strong></span>/
+                            <input type="text" class="form-control-sm form-field disable-print"
+                                   formControlName="branchCode" readonly>
+                            <span class="print-only">
+                                <strong>{{form?.get('branchCode')?.value ? form?.get('branchCode')?.value : '_____________'}}</strong></span>
+                            </strong>
+                        </span>
                 </div>
             </div>
             <div class="row">
@@ -53,10 +71,11 @@
                     <strong>{{form?.get('attention')?.value ? form?.get('attention')?.value : '========='}}</strong>
                 </span>
             </strong><br>
-            <p class="text-center"><strong><u>विषयः कर्जा स्वीकृती वारे ।</u></strong></p>
+            <p class="text-center" *ngIf="isVariation"><strong><u>विषयः कर्जा स्वीकृती वारे ।</u></strong></p>
+            <p class="text-center" *ngIf="!isVariation"><strong><u>विषयः  धितो सुरक्षण परिवर्तन गरिएको बारे ।</u></strong></p>
             <div class="row">
-                <div class="col-md-12">
-                    <p class="text-left">महाशय,</p>
+                <p class="text-left">महाशय,</p>
+                <div class="col-md-12" *ngIf="isVariation">
                     तपाई (अब उप्रान्त <strong>ऋणी</strong> भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त <strong>बैंक</strong> भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही
                     हुँदा बैंकले यस अघि सम्बोधन गरी पठाएको <strong>रेफ नं.: LXBL/BUD-C
                     <input type="text"
@@ -80,6 +99,37 @@
                     </span> को कर्जा स्वीकृतिपत्र सहित त्यस पश्चात जारी भएका स्वीकृतिपत्रहरुमा संलग्न बमोजिमका शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको
                     धितो सुरक्षण उपलव्ध गराउने/यथावत राख्ने शर्तमा देहाय वमोजिमको कर्जा सुविधा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
                 </div>
+                <div class="col-md-12" *ngIf="!isVariation">
+                    तपाई (अब उप्रान्त <strong>ऋणी</strong> भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त <strong>बैंक</strong> भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही
+                    हुँदा बैंकले यस अघि सम्बोधन गरी पठाएको <strong>रेफ नं.: LXBL/
+                    <input type="text"
+                           class="form-control-sm form-field disable-print"
+                           formControlName="refNumber">
+                    <span class="print-only">
+                        <strong>{{form?.get('refNumber')?.value ? form?.get('refNumber')?.value : '_____________'}}</strong>
+                    </span>/
+                    <input type="text"
+                           class="form-control-sm form-field disable-print"
+                           formControlName="refNumberOne">
+                    <span class="print-only">
+                        <strong>{{form?.get('refNumberOne')?.value ? form?.get('refNumberOne')?.value : '_____________'}}</strong>
+                    </span>/
+                    <input type="text"
+                           class="form-control-sm form-field disable-print"
+                           formControlName="refNumberTwo">
+                    <span class="print-only">
+                        <strong>{{form?.get('refNumberTwo')?.value ? form?.get('refNumberTwo')?.value : '_____________'}}</strong>
+                    </span>
+                </strong>, मिति
+                    <input type="text"
+                           class="nepaliFont form-control-sm form-field disable-print"
+                           formControlName="loanApprovalDate">
+                    <span class="nepaliFont print-only">
+                        <strong>{{form?.get('loanApprovalDate')?.value ? form?.get('loanApprovalDate')?.value : '========='}}</strong>
+                    </span> को कर्जा स्वीकृतिपत्र सहित त्यस पश्चात जारी भएका स्वीकृतिपत्रहरुमा संलग्न तथा सोमा उल्लेखित देहाय बमोजिमका शर्त वन्देजहरु समेत पालना गर्न
+                    स्वीकार गरी कर्जा उपलव्ध गराईएकोमा उक्त कर्जा स्विकृतीपत्रमा उल्लेख भएका शर्तवन्देजहरु यथावत कायम रहने गरी अव उप्रान्त तल उल्लेखित धितो रहने शर्तमा
+                    यो स्वीकृती पत्र जारी  गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
+                </div>
             </div><br>
             <div class="row" *ngIf="isVariation">
                 <div class="col-md-12">
@@ -90,6 +140,7 @@
                                class="table table-bordered table-responsive-md text-left pl-1 table-sm">
                             <tbody [ngClass]="form?.get(['purpose', i, 'facilityNeeded'])?.value ? '' : 'disable-print'">
                             <tr class="sb-bg-dark">
+                                <th></th>
                                 <th width="30%">
                                     <strong> सुविधा (Facility) </strong>
                                 </th>
@@ -110,6 +161,11 @@
                             <tbody>
                             <ng-container *ngIf="form?.get(['purpose', i, 'facilityNeeded'])?.value">
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>स्वीकृत कर्जा सीमा (Approved Loan Limit)</td>
                                     <td>
                                         <span *ngIf="!form?.get(['purpose', i, 'otherLimitChecked'])?.value">
@@ -133,11 +189,11 @@
                                         </span>
                                         <textarea
                                                 *ngIf="form?.get(['purpose', i, 'otherLimitChecked'])?.value"
-                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                class="form-control form-field font-size-normal disable-print"
                                                 [value]="form.get(['purpose', i,'otherLimit'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'otherLimit')"
                                                 rows="2"></textarea>
-                                        <span class="print-only nepaliFont font-size-normal"
+                                        <span class="print-only font-size-normal"
                                               *ngIf="form?.get(['purpose', i, 'otherLimitChecked'])?.value">
                                             <strong>{{form?.get(['purpose', i, 'otherLimit'])?.value ?
                                                 form?.get(['purpose', i, 'otherLimit'])?.value : '========='}}</strong>
@@ -145,6 +201,11 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>उद्देश्य(Purpose)</td>
                                     <td>
                                         <select class="form-control font-size-normal disable-print"
@@ -157,7 +218,7 @@
                                         </select>
                                         <textarea
                                                 *ngIf="form?.get(['purpose', i, 'purpose'])?.value === 'Other'"
-                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                class="form-control form-field font-size-normal disable-print"
                                                 [value]="form.get(['purpose', i,'otherPurpose'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'otherPurpose')"
                                                 placeholder="अन्य उद्देश्य"
@@ -166,7 +227,7 @@
                                               *ngIf="form?.get(['purpose', i, 'purpose'])?.value !== 'Other'">
                                     <strong>{{form?.get(['purpose', i, 'purpose'])?.value ?
                                         form?.get(['purpose', i, 'purpose'])?.value : '_____________'}}</strong></span>
-                                        <span class="nepaliFont print-only font-size-normal"
+                                        <span class="print-only font-size-normal"
                                               *ngIf="form?.get(['purpose', i, 'purpose'])?.value === 'Other'">
                                     <strong>{{form?.get(['purpose', i, 'otherPurpose'])?.value ? form?.get(['purpose', i, 'otherPurpose'])?.value
                                         : '========='}}</strong></span>
@@ -174,6 +235,13 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'drawDownCheck'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
                                     <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'drawDownCheck'])?.value ? '' : 'disable-print'">
                                     स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)
@@ -188,12 +256,12 @@
                                         <ng-container
                                                 *ngIf="form?.get(['purpose', i, 'drawDownCheck'])?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
                                                     [value]="form?.get(['purpose', i, 'drawDown'])?.value"
                                                     (change)="valueChange($event?.target?.value, i, 'drawDown')"
                                                     rows="4"></textarea>
-                                            <span class="nepaliFont print-only font-size-normal"
+                                            <span class="print-only font-size-normal"
                                                   *ngIf="form?.get(['purpose', i, 'drawDownCheck'])?.value">
                                 <strong>{{form?.get(['purpose', i, 'drawDown'])?.value ?
                                     form?.get(['purpose', i, 'drawDown'])?.value : '========='}}</strong></span>
@@ -202,6 +270,13 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
                                     <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
                                      कर्जा झिक्न पाउने अवधि (Drawdown Period)
@@ -234,12 +309,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="form?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="अन्य कर्जा झिक्न पाउने अवधि"
                                               [value]="form?.get(['purpose', i, 'downPeriodValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'downPeriodValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont print-only font-size-normal">
+                                    <span class="print-only font-size-normal">
                                 <strong>{{form?.get(['purpose', i, 'downPeriodValue'])?.value ?
                                     form?.get(['purpose', i, 'downPeriodValue'])?.value : '========='}}</strong></span>
                                 </span>
@@ -248,6 +323,13 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
                                     <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
                                     सांवाको किस्ता तिर्ने छुट अवधि (Moratarium Period)
@@ -280,12 +362,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="form?.get(['purpose', i, 'moratariumOtherCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
                                               [value]="form?.get(['purpose', i, 'moratariumValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'moratariumValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <strong>{{form?.get(['purpose', i, 'moratariumValue'])?.value ?
                                             form?.get(['purpose', i, 'moratariumValue'])?.value : '========='}}</strong></span>
                                 </span>
@@ -294,6 +376,13 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'repaymentNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
                                     <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'repaymentNeeded'])?.value ? '' : 'disable-print'">
                                     कर्जा सुविधाको भुक्तानी (Repayment)
@@ -321,12 +410,12 @@
                                         </select>
                                     </span>
                                     <span *ngIf="form?.get(['purpose', i, 'repaymentMode'])?.value === 'OTHER'">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               [value]="form.get(['purpose', i,'otherRepayment'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'otherRepayment')"
                                               placeholder="अन्य कर्जा सुविधाको भुक्तानी"
                                               rows="2"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                             <strong>{{form?.get(['purpose', i, 'otherRepayment'])?.value ?
                                                 form?.get(['purpose', i, 'otherRepayment'])?.value : '========='}}</strong>
                                         </span>
@@ -448,6 +537,13 @@
 
                                 <tr>
                                     <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'maturityNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                    <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'maturityNeeded'])?.value ? '' : 'disable-print'">
                                     अवधि पुग्ने मिति (Maturity)
                                 </span>
@@ -478,12 +574,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="form?.get(['purpose', i, 'maturityOtherCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="अन्य अवधि पुग्ने मिति"
                                               [value]="form?.get(['purpose', i, 'maturityValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'maturityValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <strong>{{form?.get(['purpose', i, 'maturityValue'])?.value ?
                                             form?.get(['purpose', i, 'maturityValue'])?.value : '========='}}</strong></span>
                                 </span>
@@ -492,6 +588,13 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'tenureNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
                                     <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'tenureNeeded'])?.value ? '' : 'disable-print'">
                                     कर्जा अवधि (Tenure)
@@ -520,6 +623,13 @@
 
                                 <tr>
                                     <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'interestNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                    <td>
                                         <span [ngClass]="form?.get(['purpose', i, 'interestNeeded'])?.value ? '' : 'disable-print'">व्याज (Interest)</span>
                                         <span class="float-right disable-print">
                                     <nb-checkbox
@@ -544,12 +654,12 @@
                                 </ng-container>
                             </span>
                                         <span *ngIf="form?.get(['purpose', i, 'rateMode'])?.value === 'OTHER'">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               [value]="form.get(['purpose', i,'otherInterestRate'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'otherInterestRate')"
                                               placeholder="अन्य दर"
                                               rows="2"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <strong>{{form?.get(['purpose', i, 'otherInterestRate'])?.value ?
                                         form?.get(['purpose', i, 'otherInterestRate'])?.value : '========='}}</strong></span>
                                 </span>
@@ -660,6 +770,13 @@
 
                                 <tr *ngIf="!form?.get(['purpose', i, 'isFunded'])?.value || form?.get(['purpose', i, 'isFunded'])?.value !== null">
                                     <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'commissionNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                    <td>
                                         <span [ngClass]="form?.get(['purpose', i, 'commissionNeeded'])?.value ? '' : 'disable-print'">कमिसन (Commission)</span>
                                         <span class="float-right disable-print">
                                     <nb-checkbox
@@ -699,12 +816,12 @@
                                     </nb-checkbox>
                                 </span>
                                             <span *ngIf="form?.get(['purpose', i, 'commissionOtherCheck'])?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               placeholder="कमिसन"
                                               [value]="form?.get(['purpose', i, 'commissionValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'commissionValue')"
                                               rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <strong>{{form?.get(['purpose', i, 'commissionValue'])?.value ?
                                             form?.get(['purpose', i, 'commissionValue'])?.value : '========='}}</strong></span>
                                 </span>
@@ -713,6 +830,13 @@
                                 </tr>
 
                                 <tr>
+                                    <td>
+                                        <span [ngClass]="form?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
+                                    </td>
                                     <td>
                                 <span [ngClass]="form?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
                                     प्रशासनिक शुल्क (Administration Fee)
@@ -769,12 +893,12 @@
                                     </span>
                                     <span *ngIf="form?.get(['purpose', i, 'otherAdFeeChecked'])?.value">
                                         <textarea
-                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                class="form-control form-field font-size-normal disable-print"
                                                 [value]="form?.get(['purpose', i, 'adFeeOther'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'adFeeOther')"
                                                 placeholder="अन्य प्रशासनिक शुल्क"
                                                 rows="4"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                             <strong>{{form?.get(['purpose', i, 'adFeeOther'])?.value ?
                                                 form?.get(['purpose', i, 'adFeeOther'])?.value : '========='}}</strong>
                                         </span>
@@ -785,13 +909,29 @@
                                 <tr *ngFor="let rem of form?.get(['purpose', i, 'addRemark'])['controls']; let ix = index"
                                     formArrayName="addRemark">
                                     <ng-container [formGroupName]="ix">
-                                        <td colspan="2">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                        <td>
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                    <textarea class="form-control form-field font-size-normal disable-print"
+                                              [value]="rem?.get('remarkTitle')?.value"
+                                              (change)="remarkValueChange($event?.target?.value, ix, i, 'remarkTitle')"
+                                              rows="3">
+                                    </textarea>
+                                            <span class="font-size-normal print-only">
+                                        <b>{{rem?.get('remarkTitle')?.value ?
+                                            rem?.get('remarkTitle')?.value : '========='}}</b>
+                                    </span>
+                                        </td>
+                                        <td>
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               [value]="rem?.get('remark')?.value"
                                               (change)="remarkValueChange($event?.target?.value, ix, i)"
                                               rows="3">
                                     </textarea>
-                                            <span class="nepaliFont font-size-normal print-only">
+                                            <span class="font-size-normal print-only">
                                         <strong>{{rem?.get('remark')?.value ?
                                             rem?.get('remark')?.value : '========='}}</strong>
                                     </span>
@@ -920,7 +1060,9 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1"></td>
+                                    <td>
+                                        <span><ul><li></li></ul></span>
+                                    </td>
                                     <td colspan="6">
                                         <span *ngIf="!form?.get('registerMortgageOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
@@ -972,10 +1114,10 @@
                                             </span>
                                         <span *ngIf="form?.get('registerMortgageOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="registerMortgageOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('registerMortgageOther')?.value ? form?.get('registerMortgageOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1069,7 +1211,9 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1"></td>
+                                    <td>
+                                        <span><ul><li></li></ul></span>
+                                    </td>
                                     <td colspan="6">
                                         <span *ngIf="!form?.get('crossCollateralOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
@@ -1145,10 +1289,10 @@
                                             </span>
                                         <span *ngIf="form?.get('crossCollateralOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="crossCollateralOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('crossCollateralOther')?.value ? form?.get('crossCollateralOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1242,7 +1386,9 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1"></td>
+                                    <td>
+                                        <span><ul><li></li></ul></span>
+                                    </td>
                                     <td colspan="6">
                                         <span *ngIf="!form?.get('reRegisterOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
@@ -1294,10 +1440,10 @@
                                             </span>
                                         <span *ngIf="form?.get('reRegisterOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="reRegisterOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('reRegisterOther')?.value ? form?.get('reRegisterOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1377,7 +1523,7 @@
                                                type="button" value="Add More"/>
                                     </div>
                                     <tr>
-                                        <td colspan="1"></td>
+                                        <td><span><ul><li></li></ul></span></td>
                                         <td colspan="6">
                                              <span *ngIf="!form?.get('vehicleSecurityOtherChecked')?.value">
                                             उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि
@@ -1406,10 +1552,10 @@
                                             </span>
                                             <span *ngIf="form?.get('vehicleSecurityOtherChecked')?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     formControlName="vehicleSecurityOther"
                                                     rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('vehicleSecurityOther')?.value ? form?.get('vehicleSecurityOther')?.value : '========='}}</strong>
                                                 </span>
                                         </span>
@@ -1496,12 +1642,8 @@
                                         </div>
                                     </ng-container>
                                     <tr>
-                                        <td colspan="1">
-                                            <span *ngIf="form?.get('shareOtherChecked')?.value">
-                                                <ul>
-                                                    <li></li>
-                                                </ul>
-                                            </span>
+                                        <td>
+                                            <span><ul><li></li></ul></span>
                                         </td>
                                         <td colspan="6">
                                             <span *ngIf="!form?.get('shareOtherChecked')?.value">
@@ -1550,14 +1692,13 @@
                                             </span>
                                             <span *ngIf="form?.get('shareOtherChecked')?.value">
                                                 <textarea
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        class="form-control form-field font-size-normal disable-print"
                                                         formControlName="shareOther"
                                                         rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('shareOther')?.value ? form?.get('shareOther')?.value : '========='}}</strong>
                                                 </span>
                                             </span>
-
                                         </td>
                                     </tr>
                                     <tr *ngIf="!form?.get('shareOtherChecked')?.value">
@@ -1667,11 +1808,11 @@
                                         </span>
                                         <span *ngIf="form?.get(['personalGuarantee', pin, 'otherChecked'])?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     [value]="form?.get(['personalGuarantee', pin, 'other'])?.value"
                                                     (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'other')"
                                                     placeholder="व्यक्तिगत ग्यारेन्टी" rows="4"></textarea>
-                                            <span class="nepaliFont font-size-normal print-only">
+                                            <span class="font-size-normal print-only">
                                                 <strong>{{form?.get(['personalGuarantee', pin, 'other'])?.value ?
                                                     form?.get(['personalGuarantee', pin, 'other'])?.value : '========='}}</strong>
                                             </span>
@@ -1761,11 +1902,11 @@
                                         </span>
                                         <span *ngIf="form?.get(['corporateGuarantee', cin, 'otherChecked'])?.value">
                                             <textarea
-                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    class="form-control form-field font-size-normal disable-print"
                                                     [value]="form?.get(['corporateGuarantee', cin, 'other'])?.value"
                                                     (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'other')"
                                                     placeholder="कर्पोरेट ग्यारेन्टी" rows="4"></textarea>
-                                            <span class="nepaliFont font-size-normal print-only">
+                                            <span class="font-size-normal print-only">
                                                 <strong>{{form?.get(['corporateGuarantee', cin, 'other'])?.value ?
                                                     form?.get(['corporateGuarantee', cin, 'other'])?.value : '========='}}</strong>
                                             </span>
@@ -1849,10 +1990,10 @@
                                     </nb-checkbox>
                                 </span>
                                         <span *ngIf="form?.get('currentAssetsOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="currentAssetsOther"
                                               placeholder="हालको सम्पत्तिको रूपमा सुरक्षा" rows="4"></textarea>
-                                    <span class="nepaliFont font-size-normal print-only">
+                                    <span class="font-size-normal print-only">
                                         <strong>{{form?.get('currentAssetsOther')?.value ? form?.get('currentAssetsOther')?.value : '========='}}</strong>
                                     </span>
                                 </span>
@@ -1928,11 +2069,11 @@
                                     </span>
                                 </span>
                                         <span *ngIf="form?.get('fixedAssetOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="fixedAssetOther"
                                               placeholder="स्थिर सम्पत्ति संपार्श्विक रूपमा सुरक्षा"
                                               rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <strong>{{form?.get('fixedAssetOther')?.value ? form?.get('fixedAssetOther')?.value : '========='}}</strong></span>
                                 </span>
                                     </td>
@@ -1985,11 +2126,11 @@
                                             </span>
                                             <span *ngIf="form?.get('cashLetterOtherCheck')?.value">
                                                 <textarea
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        class="form-control form-field font-size-normal disable-print"
                                                         formControlName="cashLetterOther"
                                                         placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा"
                                                         rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('cashLetterOther')?.value ? form?.get('cashLetterOther')?.value : '========='}}</strong></span>
                                             </span>
                                         </td>
@@ -2020,11 +2161,11 @@
                                             </span>
                                             <span *ngIf="form?.get('cashGuaranteeOtherCheck')?.value">
                                                 <textarea
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        class="form-control form-field font-size-normal disable-print"
                                                         formControlName="cashGuaranteeOther"
                                                         placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा"
                                                         rows="4"></textarea>
-                                                <span class="nepaliFont font-size-normal print-only">
+                                                <span class="font-size-normal print-only">
                                                     <strong>{{form?.get('cashGuaranteeOther')?.value ? form?.get('cashGuaranteeOther')?.value : '========='}}</strong></span>
                                                 </span>
                                         </td>
@@ -2074,10 +2215,10 @@
                                 </nb-checkbox>
                             </span>
                                     <span *ngIf="form?.get('personalLoanOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="personalLoanOther"
                                               placeholder="व्यक्तिगत ऋण को मामला मा सुरक्षा" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <strong>{{form?.get('personalLoanOther')?.value ? form?.get('personalLoanOther')?.value : '========='}}</strong></span>
                                 </span>
                                 </td>
@@ -2144,10 +2285,10 @@
                                 </nb-checkbox>
                             </span>
                                     <span *ngIf="form?.get('cashlienOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="cashlienOther"
                                               placeholder="नगद ग्रहणाधिकारको रूपमा सुरक्षा" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <strong>{{form?.get('cashlienOther')?.value ? form?.get('cashlienOther')?.value : '========='}}</strong></span>
                                 </span>
                                 </td>
@@ -2207,10 +2348,10 @@
                                 </nb-checkbox>
                             </span>
                                     <span *ngIf="form?.get('loanTamsukOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="loanTamsukOther"
                                               placeholder="कर्जा तमसुक" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <strong>{{form?.get('loanTamsukOther')?.value ? form?.get('loanTamsukOther')?.value : '========='}}</strong></span>
                                 </span>
                                 </td>
@@ -2270,10 +2411,10 @@
                                         </nb-checkbox>
                                     </span>
                                     <span *ngIf="form?.get('promiseOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    <textarea class="form-control form-field font-size-normal disable-print"
                                               formControlName="promiseOther"
                                               placeholder="प्रतिज्ञापत्र" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
+                                <span class="font-size-normal print-only">
                                     <strong>{{form?.get('promiseOther')?.value ? form?.get('promiseOther')?.value : '========='}}</strong></span>
                                 </span>
                                 </td>
@@ -2289,11 +2430,11 @@
                                         </ul>
                                     </td>
                                     <td colspan="6">
-                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                <textarea class="form-control form-field font-size-normal disable-print"
                                           formControlName="otherSecurity"
                                           placeholder="अन्य कर्जा सम्बन्धी लिखत तथा धितो सुरक्षण विवरण"
                                           rows="3"></textarea>
-                                        <span class="nepaliFont font-size-normal print-only">
+                                        <span class="font-size-normal print-only">
                                     <strong>{{form?.get(['moreSecurity', viii, 'otherSecurity'])?.value ?
                                         form?.get(['moreSecurity', viii, 'otherSecurity'])?.value : '========='}}</strong>
                                 </span>
@@ -2321,7 +2462,9 @@
                 </div>
             </div>
             <p>
-                अन्य सम्पूर्ण शर्त तथा बन्देजहरु बैंकले यस अघि सम्बोधन गरी पठाएको <strong>रेफ नं.: LXBL/BUD-CSU/
+                अन्य सम्पूर्ण शर्त तथा बन्देजहरु बैंकले यस अघि सम्बोधन गरी पठाएको <strong>रेफ नं.:
+                <span *ngIf="isVariation">
+                    LXBL/BUD-CSU/
                 <input type="text"
                        class="form-control-sm form-field disable-print"
                        formControlName="refNumberThree">
@@ -2333,7 +2476,30 @@
                        formControlName="refNumberFour">
                 <span class="print-only">
                             {{form?.get('refNumberFour')?.value ? form?.get('refNumberFour')?.value : '_____________'}}
-                        </span> मिति
+                        </span>
+                </span>
+                <span *ngIf="!isVariation">
+                    LXBL/
+                    <input type="text"
+                           class="form-control-sm form-field disable-print"
+                           formControlName="refNum">
+                    <span class="print-only">
+                            {{form?.get('refNum')?.value ? form?.get('refNum')?.value : '_____________'}}
+                        </span>/
+                    <input type="text"
+                       class="form-control-sm form-field disable-print"
+                       formControlName="refNumberThree">
+                    <span class="print-only">
+                            {{form?.get('refNumberThree')?.value ? form?.get('refNumberThree')?.value : '_____________'}}
+                        </span>/
+                    <input type="text"
+                       class="form-control-sm form-field disable-print"
+                       formControlName="refNumberFour">
+                    <span class="print-only">
+                            {{form?.get('refNumberFour')?.value ? form?.get('refNumberFour')?.value : '_____________'}}
+                        </span>
+                </span>
+                मिति
                 <input type="text"
                        class="nepaliFont form-control-sm form-field disable-print"
                        formControlName="dateOfLoanApproval">
@@ -2412,6 +2578,13 @@
             </p>
             <p>दस्तखत :</p>
             <p>छाप :</p>
+            <p>
+                दस्तखत मिति :
+                <input type="text"
+                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                       formControlName="signatureDate">
+                <span class="nepaliFont font-size-normal print-only">
+                <b>{{form?.get('signatureDate').value ? form?.get('signatureDate').value : '========='}}</b></span></p>
             <button type="submit" class="btn btn-primary float-right d-print-none" nbButton status="success">
                 Save
             </button>
