@@ -123,8 +123,8 @@
                     formControlName="approvedRemark"></ckeditor>
         </div>
       </div>
-      <strong class="print-only">Remarks</strong>
       <ng-container class="print-only" *ngIf="sccForm.get('remarkChecked')?.value">
+        <strong>Remarks</strong>
         <span [innerHTML]="sccData?.approvedRemark | safeHtml"></span>
       </ng-container>
       <p class="header mt-3"><b>2. Regulatory Requirement </b></p>

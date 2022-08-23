@@ -18,6 +18,7 @@ import {Status} from '../../../../../../@core/Status';
 import {environment} from '../../../../../../../environments/environment';
 import {Clients} from '../../../../../../../environments/Clients';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-document-checklist-lite',
@@ -38,7 +39,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
         documentId: undefined,
         amount: undefined,
         remarks: undefined,
-        obtainedOn: undefined
+        obtainedOn: new Date()
     };
     remarkOption = RemarksEnum.enumObject();
 
@@ -237,7 +238,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
         this.saveEditParam.documentId = docId;
         this.saveEditParam.amount = amount;
         this.saveEditParam.remarks = remarks;
-        this.saveEditParam.obtainedOn = obtainedOn;
+        this.saveEditParam.obtainedOn = new Date(obtainedOn);
 
         this.modelService.open(template);
     }
