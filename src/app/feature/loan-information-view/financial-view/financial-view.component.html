@@ -212,7 +212,8 @@
                         <tr *ngFor="let totalSalesSubCategory of financialData['incomeStatementData']['totalSalesSubCategory']; let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{totalSalesSubCategory.name}}</td>
-                            <td *ngFor="let amounts of totalSalesSubCategory['amount']" class="text-right pr-1">{{amounts['value']?.toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amounts of totalSalesSubCategory['amount']"
+                                class="text-right pr-1">{{amounts['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -226,7 +227,8 @@
                         <tr *ngFor="let category of financialData['incomeStatementData']['costOfGoodsSoldCategory'];let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category.name}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
                         <tbody>
@@ -248,7 +250,8 @@
                         <tr *ngFor="let category of financialData['incomeStatementData']['operatingExpensesCategory'];let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category.name}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -271,7 +274,8 @@
                         <tr *ngFor="let category of financialData['incomeStatementData']['interestExpensesCategory'];let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category.name}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -285,7 +289,8 @@
                         <tr *ngFor="let category of financialData['incomeStatementData']['nonOperatingIncomeOrExpensesCategory'];let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category.name}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -303,7 +308,7 @@
                             <th scope="row">9</th>
                             <td class="text-left pl-1"><b class="text-left pl-1">Staff Bonus</b></td>
                             <td *ngFor="let amount of financialData['incomeStatementData']['staffBonus']" class="text-right pr-1">
-                                <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
 
                         <tbody>
@@ -311,7 +316,7 @@
                             <th scope="row">10</th>
                             <td class="text-left pl-1"><b>Profit Before Taxes</b></td>
                             <td *ngFor="let amount of financialData['incomeStatementData']['profitBeforeTaxes']" class="text-right pr-1">
-                                <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
                         </tbody>
 
@@ -325,7 +330,8 @@
                         <tr *ngFor="let category of financialData['incomeStatementData']['taxesCategory'];let i = index">
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category.name}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -343,7 +349,7 @@
                             <th scope="row">13</th>
                             <td class="text-left pl-1"><b>Dividend/Drawing</b></td>
                             <td *ngFor="let amount of financialData['incomeStatementData']['dividendOrDrawing']" class="text-right pr-1">
-                                <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
                         </tbody>
 
@@ -352,7 +358,7 @@
                             <th scope="row">14</th>
                             <td class="text-left pl-1"><b>Other adjustment</b></td>
                             <td *ngFor="let amount of financialData['incomeStatementData']['otherAdjustment']" class="text-right pr-1">
-                                <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
                         </tbody>
 
@@ -361,7 +367,7 @@
                             <th scope="row">15</th>
                             <td class="text-left pl-1"><b>Accumulated profit b/d</b></td>
                             <td *ngFor="let amount of financialData['incomeStatementData']['accumulatedProfitBOrD']" class="text-right pr-1">
-                                <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
                         </tbody>
 
@@ -413,7 +419,8 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -430,7 +437,8 @@
                         <tr>
                             <th></th>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -446,7 +454,8 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -462,7 +471,8 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
                         <tbody>
@@ -490,7 +500,8 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -506,7 +517,8 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -522,7 +534,8 @@
                         <tr>
                             <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                             <td class="text-left pl-1">{{category['name']}}</td>
-                            <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                            <td *ngFor="let amount of category['amount']"
+                                class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                         </tr>
                         </tbody>
 
@@ -531,7 +544,7 @@
                             <th scope="row">7</th>
                             <td class="text-left pl-1"><b>Other Provisions</b></td>
                             <td *ngFor="let amount of financialData['balanceSheetData']['otherProvisions']" class="text-right pr-1">
-                                <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
                         </tbody>
 
@@ -573,7 +586,7 @@
                             <th scope="row">F</th>
                             <td class="text-left pl-1"><b>Principle Instalment paid/payable during the year</b></td>
                             <td *ngFor="let amount of financialData['balanceSheetData']['principleInstalmentPaidDuringTheYear']" class="text-right pr-1">
-                                <b>Rs. {{amount.value.toFixed(2) | currencyFormatter}}</b></td>
+                                <b>Rs. {{amount.value?.toFixed(2) | currencyFormatter}}</b></td>
                         </tr>
                         </tbody>
 
@@ -1174,7 +1187,7 @@
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
                         <td *ngFor="let amount of category['amount']"
-                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1199,7 +1212,7 @@
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
                         <td *ngFor="let amount of category['amount']"
-                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1225,7 +1238,7 @@
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
                         <td *ngFor="let amount of category['amount']"
-                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1242,7 +1255,7 @@
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
                         <td *ngFor="let amount of category['amount']"
-                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1261,7 +1274,7 @@
                     <th scope="row">9</th>
                     <td class="text-left pl-1"><b class="text-left pl-1">Staff Bonus</b></td>
                     <td *ngFor="let amount of financialData['incomeStatementData']['staffBonus']" class="text-right pr-1">
-                        <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
 
                 <tbody>
@@ -1269,7 +1282,7 @@
                     <th scope="row">10</th>
                     <td class="text-left pl-1"><b>Profit Before Taxes</b></td>
                     <td *ngFor="let amount of financialData['incomeStatementData']['profitBeforeTaxes']" class="text-right pr-1">
-                        <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
 
@@ -1285,7 +1298,7 @@
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
                         <td *ngFor="let amount of category['amount']"
-                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                            class="text-right pr-1">{{amount.value?.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1304,7 +1317,7 @@
                     <th scope="row">13</th>
                     <td class="text-left pl-1"><b>Dividend/Drawing</b></td>
                     <td *ngFor="let amount of financialData['incomeStatementData']['dividendOrDrawing']" class="text-right pr-1">
-                        <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
 
@@ -1313,7 +1326,7 @@
                     <th scope="row">14</th>
                     <td class="text-left pl-1"><b>Other adjustment</b></td>
                     <td *ngFor="let amount of financialData['incomeStatementData']['otherAdjustment']" class="text-right pr-1">
-                        <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
 
@@ -1322,7 +1335,7 @@
                     <th scope="row">15</th>
                     <td class="text-left pl-1"><b>Accumulated profit b/d</b></td>
                     <td *ngFor="let amount of financialData['incomeStatementData']['accumulatedProfitBOrD']" class="text-right pr-1">
-                        <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
 
@@ -1369,7 +1382,7 @@
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1388,7 +1401,7 @@
                     <th></th>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1406,7 +1419,7 @@
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1424,7 +1437,7 @@
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
                 <tbody>
@@ -1455,7 +1468,7 @@
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1473,7 +1486,7 @@
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1491,7 +1504,7 @@
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
                     <td *ngFor="let amount of category['amount']"
-                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                        class="text-right pr-1">{{amount['value']?.toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1500,7 +1513,7 @@
                     <th scope="row">7</th>
                     <td class="text-left pl-1"><b>Other Provisions</b></td>
                     <td *ngFor="let amount of financialData['balanceSheetData']['otherProvisions']" class="text-right pr-1">
-                        <b>Rs. {{amount['value'].toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount['value']?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
 
@@ -1543,7 +1556,7 @@
                     <th scope="row">F</th>
                     <td class="text-left pl-1"><b>Principle Instalment paid/payable during the year</b></td>
                     <td *ngFor="let amount of financialData['balanceSheetData']['principleInstalmentPaidDuringTheYear']" class="text-right pr-1">
-                        <b>Rs. {{amount.value.toFixed(2) | currencyFormatter}}</b></td>
+                        <b>Rs. {{amount.value?.toFixed(2) | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
 
