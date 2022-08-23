@@ -26,6 +26,10 @@ import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-p
 import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
+import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-gadi-namasari-company/manjurinama-for-gadi-namasari-company.component';
+import { ManjurinamaForGadiNamasariIndividualComponent } from './manjurinama-for-gadi-namasari-individual/manjurinama-for-gadi-namasari-individual.component';
+import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-for-gadi-namasari-partnership/manjurinama-for-gadi-namasari-partnership.component';
+import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -46,11 +50,14 @@ import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/lett
     PromissoryNoteJointComponent,
     CorporateGuaranteeComponent,
     LetterOfSetOffCompanyComponent,
-    CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
-    LetterOfContinuityProprietorshipComponent
+    LetterOfContinuityProprietorshipComponent,
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ManjurinamaForGadiNamasariPartnershipComponent,
+    ManjurinamaForGadiNamasariProprietorshipComponent,
     ],
   imports: [
     CommonModule,
@@ -83,6 +90,11 @@ import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/lett
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
-    DeedHypoOfMachineryComponent],
+    DeedHypoOfMachineryComponent,
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ManjurinamaForGadiNamasariPartnershipComponent,
+    ManjurinamaForGadiNamasariProprietorshipComponent,
+  ],
   })
 export class MegaModule { }
