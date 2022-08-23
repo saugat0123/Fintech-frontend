@@ -456,7 +456,7 @@ export class SecurityComponent implements OnInit {
             const securities = this.constructSecurityArray(otherSecurityData, 'OTHER_SECURITY');
             this.securityDataEmitter.emit(securities);
         }
-        if (ObjectUtil.isEmpty(this.selectedSecurity)) {
+        if (ObjectUtil.isEmpty(this.selectedSecurity) && !this.isEdit) {
             this.onlyCrossCollateral.emit(true);
         }
     }
