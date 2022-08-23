@@ -22,6 +22,9 @@
 <!--    </div>-->
 <ng-container>
     <hr class="print-line">
+    <app-cross-collateral *ngIf="loanDataHolder?.loanHolder?.crossCollateral"
+                          [formData]="loanDataHolder?.loanHolder?.crossCollateral"
+                          [readonly]="true"></app-cross-collateral>
     <p><strong class="header">Security Schedule</strong></p>
     <p class="sub-header"><strong>Security Summary</strong></p>
     <app-security-total-summary [securities]="loanSecurity"

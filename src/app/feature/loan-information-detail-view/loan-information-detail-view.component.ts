@@ -309,6 +309,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                         prop.data = e.proposalData;
                         prop.proposedLimit = e.originalLimit;
                         loan.proposal = prop;
+                        loan.loanHolder = this.loanDataHolder.loanHolder;
                         loan.loan = e.loanConfig;
                         loan.securities = [];
                         loan.id = e.loanId || e.id;

@@ -100,5 +100,5 @@ export class CustomerInfoData {
     financialAssessmentData: string;
     accountStrategy: string;
     isJointCustomer: boolean;
-
+    crossCollateral: string;
 }

@@ -390,15 +390,24 @@
               </span></a>
           </nb-card-header>
           <nb-card-body>
+            <div class="col-md-12">
+              <div>
+                <app-cross-collateral
+                        #crossCollateralComponent
+                        [customerType]="customerInfo?.customerType"
+                        [formData]="customerInfo?.crossCollateral"></app-cross-collateral>
+              </div>
+            </div>
             <app-security #securityComponent
-                (securityDataEmitter)="saveSecurity($event)"
+                          (securityDataEmitter)="saveSecurity($event)"
                           (refreshEmitter)="onRefresh()"
-                [calendarType]="calendarType"
-                [fromProfile]="true"
-                [isMicroCustomer]="false"
-                [customerType]="customerInfo?.customerType"
-                [shareSecurity]="customerInfo?.shareSecurity"
-                [customerInfo]="customerInfo"></app-security>
+                          (onlyCrossCollateral)="saveCrossCollateral()"
+                          [calendarType]="calendarType"
+                          [fromProfile]="true"
+                          [isMicroCustomer]="false"
+                          [customerType]="customerInfo?.customerType"
+                          [shareSecurity]="customerInfo?.shareSecurity"
+                          [customerInfo]="customerInfo"></app-security>
           </nb-card-body>
         </nb-card>
       </ng-template>

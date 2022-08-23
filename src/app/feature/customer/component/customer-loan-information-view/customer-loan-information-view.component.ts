@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerType} from '../../model/customerType';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -16,7 +16,7 @@ import {FiscalYear} from '../../../admin/modal/FiscalYear';
   styleUrls: ['./customer-loan-information-view.component.scss']
 })
 export class CustomerLoanInformationViewComponent implements OnInit {
-  @Input() customerInfo: CustomerInfoData;
+  @Input() customerInfo: CustomerInfoData | any;
   @Input() customerType: CustomerType;
   @Input() customerInfoId: number;
   @Input() fromProfile: boolean;
@@ -29,11 +29,14 @@ export class CustomerLoanInformationViewComponent implements OnInit {
               private modalService: NbDialogService, private  fiscalYearService: FiscalYearService) {
   }
 
+
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }
-    this.customerInfo.securities = this.customerInfo.securities ? this.customerInfo.securities : [];
+    if (!ObjectUtil.isEmpty(this.customerInfo.securities)) {
+      this.customerInfo.securities = this.customerInfo.securities ? this.customerInfo.securities : [];
+    }
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
     });
