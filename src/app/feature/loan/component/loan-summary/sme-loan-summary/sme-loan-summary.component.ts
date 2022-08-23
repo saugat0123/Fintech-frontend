@@ -256,7 +256,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
       this.isSaneView = true;
       this.isDetailedView = true;
-    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
+      this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TEN_MILLION') {
       this.isUpToTenMillion = true;
       this.isDetailedView = true;
     } else {

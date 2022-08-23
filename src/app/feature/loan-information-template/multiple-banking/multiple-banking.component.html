@@ -1,7 +1,8 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="multiBankingForm">
-            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+            customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">
                 <div class="col-md-12">
                     <h6><strong>Consortium</strong></h6>
                     <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'consortium')"
@@ -122,7 +123,8 @@
                                 <th>Facilities</th>
                                 <th>Limit</th>
                                 <th>OutStanding</th>
-                                <th *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">Overdue</th>
+                                <th *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+                                customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">Overdue</th>
                                 <th *ngIf="multiBankingForm.get('multiBanking')['length'] > 1">Action</th>
                             </tr>
                             </thead>
@@ -181,7 +183,8 @@
                 </div>
             </div>
             <hr>
-            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+            customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">
                 <div class="col-md-12">
                     <h6><strong>BFIs Swap</strong></h6>
                     <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'swap')"
@@ -263,9 +266,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h6><strong>Past Performance with the Bank:</strong></h6>
-                    <ckeditor formControlName="pastPerformance" *ngIf="customerCate[customerCategory] !== customerCate?.SME_ABOVE_TEN_MILLION"
+                    <ckeditor formControlName="pastPerformance" *ngIf="customerCate[customerCategory] !== customerCate?.SME_ABOVE_TEN_MILLION ||
+                    customerCate[customerCategory] !== customerCate?.AGRICULTURE_ABOVE_TEN_MILLION"
                               [config]="ckeConfig"></ckeditor>
-                    <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+                    <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+                    customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">
                         <div class="col-sm-12">
                             <label><b><i>Delays/Default made during the past 12 months by the borrower/ group:</i></b></label>
                             <ckeditor formControlName="delayRemark"
@@ -294,13 +299,15 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md-12" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+                <div class="col-md-12" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+                customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION">
                     <h6><strong>Account strategy :</strong></h6>
                     <ckeditor formControlName="accountStrategy"
                               [config]="ckeConfig"></ckeditor>
                 </div>
             </div>
-            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
+            <div class="row" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION ||
+            customerCate[customerCategory] === customerCate?.AGRICULTURE_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
                 <div class="col-md-12">
                     <p><strong>Average Utilization of Facilities</strong></p>
                     <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
