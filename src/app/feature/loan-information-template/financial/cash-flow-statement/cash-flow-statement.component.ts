@@ -104,6 +104,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             differenceCFS: this.formBuilder.array([]),
             justificationCashFlowStatement: [undefined],
             additionalCapital: this.formBuilder.array([]),
+            checkKeyPresent: [true],
             cashFromOperatingActivitiesLabelShow: [false],
             netProfitForThePeriodLabelShow: [false],
             adjustmentForNonCashExpensesLabelShow: [false],
@@ -812,6 +813,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.formData['cashFlowStatementData'].justificationCashFlowStatement = this.cashFlowStatementForm.get('justificationCashFlowStatement').value;
+        this.formData['cashFlowStatementData'].checkKeyPresent = this.cashFlowStatementForm.get('checkKeyPresent').value;
         this.formData['cashFlowStatementData'].cashFromOperatingActivitiesLabelShow = this.cashFlowStatementForm.get('cashFromOperatingActivitiesLabelShow').value;
         this.formData['cashFlowStatementData'].netProfitForThePeriodLabelShow = this.cashFlowStatementForm.get('netProfitForThePeriodLabelShow').value;
         this.formData['cashFlowStatementData'].adjustmentForNonCashExpensesLabelShow = this.cashFlowStatementForm.get('adjustmentForNonCashExpensesLabelShow').value;

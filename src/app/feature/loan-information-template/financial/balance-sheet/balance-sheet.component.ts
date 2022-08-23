@@ -176,6 +176,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             differenceBS: this.formBuilder.array([]),
             principleInstalmentPaidDuringTheYear: this.formBuilder.array([]),
             justificationBalanceSheet: [undefined],
+            checkKeyPresent: [true],
             assestLabelShow: [false],
             currentAssetsLabelShow: [false],
             inventoriesLabelShow: [false],

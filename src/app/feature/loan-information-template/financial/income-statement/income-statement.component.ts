@@ -145,6 +145,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             accumulatedProfitBOrD: this.formBuilder.array([]),
             netProfitTransferredToBalanceSheet: this.formBuilder.array([]),
             justificationIncomeStatement: [undefined],
+            checkKeyPresent: [true],
             totalSalesRevenueLabelShow: [false],
             costOfGoodSoldLabelShow: [false],
             grossProfitLabelShow: [false],
