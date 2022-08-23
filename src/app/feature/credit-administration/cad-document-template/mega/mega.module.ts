@@ -27,6 +27,11 @@ import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partner
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
 import { LetterOfSetOffPartnershipComponent } from './letter-of-set-off-partnership/letter-of-set-off-partnership.component';
+import { ManjurinamaForGadiNamasariCompanyComponent } from './manjurinama-for-gadi-namasari-company/manjurinama-for-gadi-namasari-company.component';
+import { ManjurinamaForGadiNamasariIndividualComponent } from './manjurinama-for-gadi-namasari-individual/manjurinama-for-gadi-namasari-individual.component';
+import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-for-gadi-namasari-partnership/manjurinama-for-gadi-namasari-partnership.component';
+import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
+import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan-deed-proprietorship.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -47,12 +52,17 @@ import { LetterOfSetOffPartnershipComponent } from './letter-of-set-off-partners
     PromissoryNoteJointComponent,
     CorporateGuaranteeComponent,
     LetterOfSetOffCompanyComponent,
-    CorporateGuaranteeComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
-    LetterOfSetOffPartnershipComponent
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ManjurinamaForGadiNamasariPartnershipComponent,
+    ManjurinamaForGadiNamasariProprietorshipComponent,
+    LetterOfContinuityProprietorshipComponent,
+    LetterOfSetOffPartnershipComponent,
+    LoanDeedProprietorshipComponent,
     ],
   imports: [
     CommonModule,
@@ -86,6 +96,12 @@ import { LetterOfSetOffPartnershipComponent } from './letter-of-set-off-partners
     PromissoryNotePartnershipFirmComponent,
     LetterOfContinuityProprietorshipComponent,
     DeedHypoOfMachineryComponent,
-    LetterOfSetOffPartnershipComponent],
+    ManjurinamaForGadiNamasariCompanyComponent,
+    ManjurinamaForGadiNamasariIndividualComponent,
+    ManjurinamaForGadiNamasariPartnershipComponent,
+    ManjurinamaForGadiNamasariProprietorshipComponent,
+    LetterOfSetOffPartnershipComponent,
+    LoanDeedProprietorshipComponent,
+  ],
   })
 export class MegaModule { }
