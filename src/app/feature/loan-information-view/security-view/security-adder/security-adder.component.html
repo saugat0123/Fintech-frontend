@@ -206,7 +206,7 @@
                     <td>Rs. {{(autoSecurity?.considerValue)}}</td>
                     <td>{{autoSecurity?.usedAmount}}</td>
                     <td>{{autoSecurity?.freeLimit}}</td>
-                    <td>{{(((autoSecurity?.usedAmount) / (proposedAmount)) * 100).toFixed(8)}} % </td>
+                    <td>{{(((autoSecurity?.usedAmount) / (proposedAmount)) * 100).toFixed(2)}} % </td>
                     <td>
                         <button (click)="removeAutoSecurity(i)"
                                 class="btn btn-sm btn-flat btn-danger">
@@ -243,7 +243,7 @@
                     <td>{{landBuilding?.geoLocation}}</td>
                     <td>{{landBuilding?.usedAmount}}</td>
                     <td>{{landBuilding?.freeLimit}}</td>
-                    <td>{{(((landBuilding?.usedAmount) / (proposedAmount)) * 100)?.toFixed(8) }}</td>
+                    <td>{{(((landBuilding?.usedAmount) / (proposedAmount)) * 100)?.toFixed(2) }}</td>
                     <td>
                         <button (click)="removeLandBuilding(i)"
                                 class="btn btn-sm btn-flat btn-danger">

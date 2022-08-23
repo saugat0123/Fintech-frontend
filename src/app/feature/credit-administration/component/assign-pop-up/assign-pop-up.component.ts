@@ -127,7 +127,8 @@ export class AssignPopUpComponent implements OnInit {
                 docAction: ['ASSIGNED'],
                 comment: ['assigned'],
                 loanHolderId: [this.cadData.id],
-                cadId: [ObjectUtil.isEmpty(this.cadData.cadId) ? undefined : this.cadData.cadId]
+                cadId: [ObjectUtil.isEmpty(this.cadData.cadId) ? undefined : this.cadData.cadId],
+                discrepancy: this.cadData.discrepancy
             });
     }
 

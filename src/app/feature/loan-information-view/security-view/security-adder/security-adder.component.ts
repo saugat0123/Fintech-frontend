@@ -234,7 +234,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                 this.loanHolder.autos.splice(idx, 1);
             }
             const coverage = this.calculateLoanForAutoBuildingCoverage(security.value.usedAmount);
-            this.form.get(['autoForm', idx, 'coverage']).setValue(Number(coverage.toFixed(8)));
+            this.form.get(['autoForm', idx, 'coverage']).setValue(Number(coverage.toFixed(2)));
             this.loanHolder.autos.push(security.value);
         }
         if (key === 'landBuilding') {
@@ -242,7 +242,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
                 this.loanHolder.landBuildings.splice(idx, 1);
             }
             const coverage = this.calculateLoanForLandBuildingCoverage(security.value.usedAmount);
-            this.form.get(['landBuildingForm', idx, 'coverage']).setValue(Number(coverage.toFixed(8)));
+            this.form.get(['landBuildingForm', idx, 'coverage']).setValue(Number(coverage.toFixed(2)));
             this.loanHolder.landBuildings.push(security.value);
         }
         this.selectedSecurity();
@@ -286,7 +286,7 @@ export class SecurityAdderComponent implements OnInit, OnChanges {
         const coverage = (usedAmount / this.proposedLimit) * 100;
         this.limitExceed[index] = freeLimit < 0;
         this.form.get([formControlName, index, 'freeLimit']).setValue(freeLimit);
-        this.form.get([formControlName, index, 'coverage']).setValue(coverage.toFixed(8));
+        this.form.get([formControlName, index, 'coverage']).setValue(coverage.toFixed(2));
     }
     setLimitExceed(array) {
         this.limitExceed = [];

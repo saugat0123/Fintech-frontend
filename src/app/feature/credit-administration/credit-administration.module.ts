@@ -58,6 +58,9 @@ import {PreviewCadComponent} from './component/preview-cad/preview-cad.component
 import {CadReportComponent} from './component/cad-report/cad-report.component';
 import {CiclViewComponent} from '../loan-information-view/cicl-view/cicl-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
+import {MegaModule} from './cad-document-template/mega/mega.module';
+import {DiscrepancyPendingComponent} from './component/discrepancy-pending/discrepancy-pending.component';
 
 
 @NgModule({
@@ -107,21 +110,23 @@ import {NepaliPatroModule} from 'nepali-patro';
     DisbursementModalComponent,
     PreviewCadComponent,
     CadReportComponent,
-    CiclViewComponent],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NbDialogModule.forRoot(),
-    CadDocumentTemplateModule,
-    RouterModule.forChild(routes),
-    NgSelectModule,
-    CoreModule,
-    NgxPrintModule,
-    AngularDraggableModule,
-    NepaliCalendarModule,
-    NepaliPatroModule,
+    CiclViewComponent, DiscrepancyPendingComponent],
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NbDialogModule.forRoot(),
+        CadDocumentTemplateModule,
+        RouterModule.forChild(routes),
+        NgSelectModule,
+        CoreModule,
+        NgxPrintModule,
+        AngularDraggableModule,
+        NepaliCalendarModule,
+        NepaliPatroModule,
+        MegaOfferLetterTemplateModule,
+        MegaModule,
 
-  ],
+    ],
   entryComponents: [
     AssignPopUpComponent,
     VerifyPopUpComponent,
@@ -134,7 +139,7 @@ import {NepaliPatroModule} from 'nepali-patro';
     SecurityComplianceCertificateComponent,
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
-    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
+    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent, DiscrepancyPendingComponent],
   exports: [CadFileSetupComponent, CiclViewComponent],
   providers: [RouterUtilsService]
 })

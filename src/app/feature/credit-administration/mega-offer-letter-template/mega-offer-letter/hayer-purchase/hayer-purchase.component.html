@@ -1,0 +1,1326 @@
+
+<div id="{{offerLetterConst.HIRE_PURCHASE}}" class="nep nepaliFont">
+<nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Saving Hire purchase offer letter.....">
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+          <form (ngSubmit)="submit()" [formGroup]="hayarPurchase" class="nepali" id="hirePurchasePrint">
+            <div>
+              <div>
+                <h6 class="text-center">ऋण स्वीकृति–पत्र</h6>
+                       <table style="width: 100%">
+                         <tr>
+                           <td>
+                             चलानी नं.
+                             <input class="form-field form-control-sm disable-print nepaliFont"
+                                    formControlName="refNo"
+                                    placeholder=""
+                                    type="text"/>
+                             <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('refNo').value ? hayarPurchase.get('refNo').value  : '========='}}</strong></span>
+                             </td>
+                           <td>
+                             <div class="text-right">मिति:
+                               <input class="form-field form-control-sm disable-print nepaliFont"
+                                      formControlName="date"
+                                      placeholder=""/>
+                               <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('date').value ? hayarPurchase.get('date').value  : '========='}}</strong></span>
+                             </div>
+                           </td>
+                         </tr>
+                       </table>
+              </div>
+                <div class="mb-2">श्री
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                                                 formControlName="addressedPerson"
+                                                 placeholder=""
+                                                 type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('addressedPerson').value ? hayarPurchase.get('addressedPerson').value  : '========='}}</strong></span>
+                <div class="row form-group">
+              <span style="margin-left: 18px;">
+                  स्थायी ठेगान:
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="permanentDistrict"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('permanentDistrict').value ? hayarPurchase.get('permanentDistrict').value  : '========='}}</strong></span>
+                जिल्ला
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="permanentMunicipality"
+                       placeholder=""
+                       type="text"/>&nbsp;
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('permanentMunicipality').value ? hayarPurchase.get('permanentMunicipality').value  : '========='}}</strong></span>
+                म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="permanentWard"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('permanentWard').value ? hayarPurchase.get('permanentWard').value  : '========='}}</strong></span>
+                  </span>
+                </div>
+                <div class="row form-group">
+              <span style="margin-left: 18px;">
+                  हालको ठेगाना: हाल
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="currentProvience"
+                         placeholder=""
+                         type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentProvience').value ? hayarPurchase.get('currentProvience').value  : '========='}}</strong></span>
+                प्रदेश नं
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="currentDistrict"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentDistrict').value ? hayarPurchase.get('currentDistrict').value  : '========='}}</strong></span>
+                जिल्ला
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="currentMunicipality"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentMunicipality').value ? hayarPurchase.get('currentMunicipality').value  : '========='}}</strong></span>
+                म.न.पा./उप म.न.पा./न.पा./गाउपालिका  वडा नं.
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="currentWard"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentWard').value ? hayarPurchase.get('currentWard').value  : '========='}}</strong></span>
+                टोल/गाउ
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="currentTole"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentTole').value ? hayarPurchase.get('currentTole').value  : '========='}}</strong></span>
+                घर नं.
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="currentHouseNumber"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentHouseNumber').value ? hayarPurchase.get('currentHouseNumber').value  : '========='}}</strong></span>
+                सडक/मार्ग
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="currentStreet"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('currentStreet').value ? hayarPurchase.get('currentStreet').value  : '========='}}</strong></span>
+              </span>
+                </div>
+              <p>
+                ईमेल :
+                <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="email"
+                       placeholder=""
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('email').value ? hayarPurchase.get('email').value  : '========='}}</strong></span>
+              </p>
+                <p>सम्पर्क टेलिफोन/मोवाइल नंः
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="contactNumber"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('contactNumber').value ? hayarPurchase.get('contactNumber').value  : '========='}}</strong></span>
+                </p>
+                <p>फ्याक्स नं./पोट बक्स नं.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                       formControlName="postBoxNumber"
+                       placeholder=""
+                       type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('postBoxNumber').value ? hayarPurchase.get('postBoxNumber').value  : '========='}}</strong></span>
+                </p>
+              <br>
+              </div>
+            <div>
+              महाशय, <br>
+              तपाई (उप्रान्त “ऋणी/ऋणीहरु” भनिएको) ले यस बैंक (उप्रान्त “बैंक” भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही हुँदा यसै पत्रमा उल्लेखित शर्त
+              वन्देजहरु पालना गर्न स्वीकार गरी देहाय वमोजिमको धितो सुरक्षण उपलव्ध गराए पछि देहाय वमोजिमको कर्जा तथा बैंकिङ्ग सुविधा उपलब्ध हुने गरी कर्जा तथा
+              बैंकिङ्ग सुविधाको सीमा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी गराउँदछौं ।<br>
+              <!--<nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"
+                         [selected]="selectedLoanArray" multiple placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
+                <nb-option *ngFor="let loanType of loanTypes" [value]="loanType?.key">
+                  {{loanType?.value}}
+                </nb-option>
+              </nb-select>
+              <div *ngIf="autoLoan">
+                <div *ngFor="let autoLoan of hayarPurchase.get('autoLoan')['controls']; let autoLoanIndex = index" formArrayName="autoLoan">
+                  <div [formGroupName]="autoLoanIndex">
+                    <div *ngIf="hayarPurchase.get('autoLoan')['length'] > 1">
+                      <button class="btn btn-danger" nbButton size="tiny" (click)="removeAutoLoan(autoLoanIndex)">हटाउनुहोस्</button>
+                    </div>-->
+              <table class="table table-responsive-md table-hover table-bordered">
+                <tr>
+                  <th>१)</th>
+                  <th>कर्जा/बैंकिंङ्ग सुविधाको प्रकार <span class="timesNewRoman">(Facility Type)</span></th>
+                  <th>सवारी साधन कर्जा <span class="timesNewRoman">(Vehicle Loan)</span>
+                    <nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"
+                               [selected]="selectedLoanArray" multiple placeholder="सुविधाको किसिम छनौट गर्नुहोस्" >
+                      <nb-option *ngFor="let loanType of loanTypes" [value]="loanType?.key">
+                        {{loanType?.value}}
+                      </nb-option>
+                    </nb-select>
+                  </th>
+                </tr>
+                <tr>
+                  <td>क)</td>
+                  <td>स्वीकृत सिमा <span class="timesNewRoman">(Sanctioned Limit )</span></td>
+                  <td>अधिकतम
+                    <strong>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'sanctionedLimitInWords', 'sanctionedLimit')"
+                                                        [name]="patchFunction('sanctionedLimit')" class="disable-print"></app-custom-input>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('sanctionedLimit').value ? hayarPurchase.get('sanctionedLimit').value  : '========='}}</strong></span></strong>/-
+                    (अक्षरेपी
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="sanctionedLimitInWords"
+                             placeholder=""
+                             type="text"/>
+                    <span class="print-only preetiFont size16"><strong>{{hayarPurchase.get('sanctionedLimitInWords').value ? hayarPurchase.get('sanctionedLimitInWords').value  : '========='}}</strong></span>
+                    रुपैंया) सम्म मात्र ।
+                  </td>
+                </tr>
+                <tr>
+                  <td>ख)</td>
+                  <td>कर्जाको प्रयोजन <span class="timesNewRoman">(Purpose)</span></td>
+                  <td>
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="units"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('units').value ? hayarPurchase.get('units').value  : '========='}}</strong></span>
+                    थान
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="vehicleModal"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('vehicleModal').value ? hayarPurchase.get('vehicleModal').value  : '========='}}</strong></span>
+                    मोडेलको
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="vehicleName"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('vehicleName').value ? hayarPurchase.get('vehicleName').value  : '========='}}</strong></span>
+                    सवारी साधन खरिद गर्न ।</td>
+                </tr>
+                <tr>
+                  <td>ग)</td>
+                  <td>स्वीकृत कर्जा सुविधा उपभोग गन पाउने अवस्था र सीमाः <span class="timesNewRoman">(Drawdown)</span></td>
+                  <td>
+                    धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा वा सवारी साधनको मूल्य
+                    <span class="timesNewRoman">(VAT Bill)</span> को
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="drawdown"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('drawdown').value ? hayarPurchase.get('drawdown').value  : '========='}}</strong></span>
+                    प्रतिशत सम्म कर्जा रकम उपभोग गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको
+                    रकम सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी रहेको छ । त्यसरी भुक्तानी गरिएको रकम कलमको सम्वन्धमा ऋणी र विक्रेतावीच
+                    भविश्यमा कुनै किसिमको विवाद उत्पन्न भई कुनै किसिमको दायित्व सिर्जना भएमा सो दायित्व ऋणी आफैले व्यहोर्न मन्जुरी व्यक्त गर्दछ ।
+                  </td>
+                </tr>
+                <tr>
+                  <td>घ)</td>
+                  <td>कर्जा सुविधाको भुक्तानी <span class="timesNewRoman">(Repayment)</span></td>
+                  <td>
+                    यो कर्जाको भुक्तानी
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="EMIAmount"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('EMIAmount').value ? hayarPurchase.get('EMIAmount').value  : '========='}}</strong></span>
+                    समान मासिक किस्ता <span class="timesNewRoman">(Equated Monthly Installment- EMI)</span> रुपमा अंग्रेजी महिनाको
+                    ्रत्येक १० तारिख /
+                    समान त्रैमासिक किस्ता <span class="timesNewRoman">(Equated Quartely installement – EQI)</span> रुपमा नेपाली त
+                    ्रैमासको तेश्रो महिनाको अन्तिम दिनमा लिइनेछ, तर
+                    कर्जा प्रवाह भएको पहिलो मासिक/ त्रैमासिक किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो
+                    पटकदेखि नियमित साँवा–ब्याज
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="equiPrincipalInterestEMIAmount"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('equiPrincipalInterestEMIAmount').value ? hayarPurchase.get('equiPrincipalInterestEMIAmount').value  : '========='}}</strong></span>
+                    समान मासिक/त्रैमासिक किस्ता प्रति किस्ता अनुमानित
+                    <strong>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'expectedEMIAmountInWords', 'expectedEMIAmount')"
+                                                 [name]="patchFunction('expectedEMIAmount')" class="disable-print"></app-custom-input>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('expectedEMIAmount').value ? hayarPurchase.get('expectedEMIAmount').value  : '========='}}</strong></span>/-
+                      (अक्षरुपि
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="expectedEMIAmountInWords"
+                           placeholder=""
+                           type="text"/>
+                      <span class="print-only preetiFont size16"><strong>{{hayarPurchase.get('expectedEMIAmountInWords').value ? hayarPurchase.get('expectedEMIAmountInWords').value  : '========='}}</strong></span>
+                    पैसा मात्र)</strong> का दरले बुझाउनु पर्नेछ । भविष्यमा औषत आधार दर /व्याजदर परिवर्तन भएमा कर्जाको
+                    अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन गरि साविकको किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता
+                    संख्या समायोजन नगरी किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता
+                    <span class="timesNewRoman">(Operative Account)</span> बाट खर्च गरिनेछ ।
+                  </td>
+                </tr>
+                <tr>
+                  <td>ङ)</td>
+                  <td>कर्जा अवधि <span class="timesNewRoman">(Tenure)</span></td>
+                  <td>यो कर्जा सुविधा कर्जा प्रवाह भएको मितिले
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="loanTenure"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('loanTenure').value ? hayarPurchase.get('loanTenure').value  : '========='}}</strong></span>
+                    वर्ष सम्मका लागि हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै
+                    ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</td>
+                </tr>
+                <tr>
+                  <td>च)</td>
+                  <td>व्याज <span class="timesNewRoman">(Interest)</span></td>
+                  <td>
+                    बैंकले निर्धारण गरेको औषत आधार दर <span class="timesNewRoman">(Average Base Rate)</span> मा थप
+                    <input class="form-field form-control-sm disable-print nepaliFont"
+                           formControlName="premiumRate"
+                           placeholder=""
+                           type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('premiumRate').value ? hayarPurchase.get('premiumRate').value  : '========='}}</strong></span>
+                    प्रतिशत सम्म प्रिमियम दर <span class="timesNewRoman">(Premium Rate)</span> जोडी
+                    ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम
+                    दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुतmा गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ,
+                    आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम आधार दर
+                    <span class="timesNewRoman">(Base Rate)</span> मा हूने परिवर्तन जानकारीको
+                    लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको
+                    <span class="timesNewRoman">Web Site www.centurybank.com.np</span>  मा समेत राखिनेछ ।
+                  </td>
+                </tr>
+              </table>
+                  </div>
+              <!--</div>
+              <div>
+                <button (click)="addMoreAutoLoan()" type="button" class="btn btn-primary btn-sm float-right " size="tiny">अझै थप्नुहोस्</button>
+              </div>
+            </div>-->
+              <div>
+                <p>
+                  औषत आधार दर <span class="timesNewRoman">(Average Base Rate)</span> आ.ब.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="fiscalYear"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('fiscalYear').value ? hayarPurchase.get('fiscalYear').value  : '========='}}</strong></span>
+                  को
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="nthQuaterly"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('nthQuaterly').value ? hayarPurchase.get('nthQuaterly').value  : '========='}}</strong></span>
+                  त्रैमासिक औसत आधार
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="averageBaseRate"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('averageBaseRate').value ? hayarPurchase.get('averageBaseRate').value  : '========='}}</strong></span>
+                  % रहेको छ ।
+                </p>
+              </div>
+              <div>
+                <p>
+                  <strong>२) दस्तुर तथा शुल्कहरु <span class="timesNewRoman">(Fees & Charges)</span> :</strong>
+                </p>
+              </div>
+              <div>
+                <table class="table table-bordered">
+                  <tr>
+                    <td style="width: 5px">क)</td>
+                    <td>प्रशासनिक शुल्क <span class="timesNewRoman">(Administration Fee)</span></td>
+                    <td>स्वीकृत कर्जा सिमाको
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="administrationFeeRate"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('administrationFeeRate').value ? hayarPurchase.get('administrationFeeRate').value  : '========='}}</strong></span>
+                      प्रतिशतका दरले अग्रिम रुपमा प्रशासनिक शुल्क लाग्नेछ ।</td>
+                  </tr>
+                  <tr>
+                    <td>ख)</td>
+                    <td>कर्जा सुचना शुल्क <span class="timesNewRoman">(CIC Fee)</span></td>
+                    <td>वास्तविक शुल्क ।</td>
+                  </tr>
+                  <tr>
+                    <td>ग)</td>
+                    <td><span class="timesNewRoman">STR</span></td>
+                    <td><b>रु ५००</b>/– (अक्षरुपी पाच सय रुपैंयाँ मात्र)</td>
+                  </tr>
+                  <tr>
+                    <td>घ)</td>
+                    <td>अवधि अगावै भुक्तानीमा लाग्ने दस्तुर <span class="timesNewRoman">(Prepayment Charges)</span></td>
+                    <td>नेपाल राष्ट्र बैंकद्वारा समय समयमा जारी निर्देशन अनुसार</td>
+                  </tr>
+                  <tr>
+                    <td >ङ)</td>
+                    <td><span class="timesNewRoman">Loan Swap Charge</span></td>
+                    <td>नेपाल राष्ट्र बैंकद्वारा समय समयमा जारी निर्देशन अनुसार</td>
+                  </tr>
+                </table>
+              <div>
+                <p>
+                  <strong><u>३.सुरक्षण : </u></strong>
+                </p>
+              </div>
+              <div>
+                <p>
+                  ऋणी कम्पनीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा बैंकिङ्ग सुविधाहरु निम्न बमोजिमको सम्पति तथा लिखतहरुले सुरक्षित राखिनेछ ।
+                </p>
+                <table>
+                  <tr style="vertical-align: top">
+                    <td>क)</td>
+                    <td>
+                      सम्बन्धित यातायात विभाग र/वा कार्यालयवाट
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="vehicleUnits"
+                             placeholder=""
+                             type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('vehicleUnits').value ? hayarPurchase.get('vehicleUnits').value  : '========='}}</strong></span>
+                        थान
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="vehicleModal"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('vehicleModal').value ? hayarPurchase.get('vehicleModal').value  : '========='}}</strong></span>
+                        मोडेलको सवारी साधन
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="input"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('input').value ? hayarPurchase.get('input').value  : '========='}}</strong></span>
+                        )
+                        सेञ्चुरी कमर्सियल बैक लिमिटेडको स्वामित्वमा रहने गरी दर्ता नामसारी गरिदिनू पर्नेछ ।<br>
+                          <input class="disable-print"
+                                 type="checkbox"
+                                 formControlName="checkBoxFreeText"
+                                 id="checkBoxFreeText" (change)="onCheck($event)"/>
+                          <label for="checkBoxFreeText" class="disable-print"><strong>&nbsp;Needed?</strong></label>
+                          <div *ngIf="hayarPurchase.get('checkBoxFreeText').value">
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print ng-pristine ng-valid ng-touched"
+                                      formControlName="moreSecurityClause"
+                                      placeholder=""
+                                      rows="2"></textarea>
+                          </div>
+                      <span class="nepaliFont font-size-normal print-only"><strong>{{hayarPurchase.get('moreSecurityClause').value ? hayarPurchase.get('moreSecurityClause').value  : '========='}}</strong></span>
+                    </td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>ख)</td>
+                    <td>प्रतिज्ञा पत्र <span class="timesNewRoman">(Promissory Note)</span> ।</td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>ग)</td>
+                    <td>
+                      <strong>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'hirePurchaseAndLoanDeedAmountinWords', 'hirePurchaseAndLoanDeedAmount')"
+                                                     [name]="patchFunction('hirePurchaseAndLoanDeedAmount')" class="disable-print"></app-custom-input>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('hirePurchaseAndLoanDeedAmount').value ? hayarPurchase.get('hirePurchaseAndLoanDeedAmount').value  : '========='}}</strong></span></strong>/-
+                      (अक्षरुपी
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="hirePurchaseAndLoanDeedAmountinWords"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only preetiFont size16"><strong>{{hayarPurchase.get('hirePurchaseAndLoanDeedAmountinWords').value ? hayarPurchase.get('hirePurchaseAndLoanDeedAmountinWords').value  : '========='}}</strong></span>
+                      रुपैंया) बराबरको हायर पर्चेज लिखत
+                      <span class="timesNewRoman">(Hire Purchase Deed)</span> र कर्जाको लिखत
+                      <span class="timesNewRoman">(Loan Deed)</span> .  ।
+                    </td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>घ)</td>
+                    <td>सवारी साधन बिक्री वापत ऋणीका तर्फबाट मञ्जुरीनामाको लिखित <span class="timesNewRoman">(Manjurinama Deed)</span> ।</td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>ङ)</td>
+                    <td>
+                      श्री
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="personalGuaranteer1"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('personalGuaranteer1').value ? hayarPurchase.get('personalGuaranteer1').value  : '========='}}</strong></span>
+                      , श्री
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="personalGuaranteer2"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('personalGuaranteer2').value ? hayarPurchase.get('personalGuaranteer2').value  : '========='}}</strong></span>
+                      को तर्फबाट स्वीकृत कर्जा सीमा बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी (Personal Guarantee) ।
+                    </td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>च)</td>
+                    <td>निरन्तरताको पत्र <span class="timesNewRoman">(Letter of Continuity)</span> ।</td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>छ)</td>
+                    <td>
+                      ऋणीले बैंकलाई धितो बन्धक लेखिदिएको सम्पुर्ण चल अचल सम्पत्तिको जोखिम सूरक्षित गर्नको लागि सम्पतिहरु मध्ये भवन/स्टक/स्थिर
+                      सम्पत्ति/सवारी साधनको वास्तविक मूल्य बराबरको बैंकर्स क्लज सहितको
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="insuranceTypeInNepali"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('insuranceTypeInNepali').value ? hayarPurchase.get('insuranceTypeInNepali').value  : '========='}}</strong></span>
+                      वीमा (
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="insuranceTypeInEnglish"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('insuranceTypeInEnglish').value ? hayarPurchase.get('insuranceTypeInEnglish').value  : '========='}}</strong></span>
+                      <span class="timesNewRoman">Insurance</span>)  गराई बैंकको नाममा दरपिठ
+                      <span class="timesNewRoman">(Endorce)</span> गरी वीमालेख तथा वीमा शूल्क तिरेको रसिदको सक्कल प्रति ऋणीले बैंकमा पेश
+                      गर्नू पर्नेछ । विमा गर्दा सम्पत्तिको वास्तविक मुल्य भन्दा
+                      कम रकमको वीमा गर्नू हूदैन । कथंकदाचित सम्पत्तिको वास्तविक मुल्य भन्दा कम रकमको मात्र वीमा भएमा रहेछ र कूनै कारणबाट सम्पत्तिको क्षति
+                      हूदा औसत शर्त <span class="timesNewRoman">(Under Insurance Clause)</span> तथा अन्य कूनै कारणबाट बीमा दावी भूक्तानी
+                      कम प्राप्त हूने भएमा सोको जिम्मेवारी ऋणी (विमित)
+                      आफै हूनेछ, बैंक जवाफदेही हूने छैन । वीमालेखको म्याद समाप्त हूनू अगावै नविकरण गरी नविकरण भएको वीमालेख र नविकरण शूल्क बूझाएको रसिद
+                      सक्कलै प्रति बैंकमा बूझाउनू पर्नेछ । ऋणीले समयमा वीमालेख नविकरण नगराएमा बैंक आफैले साविककै वीमा मूल्यमा नविकरण गराउन सक्नेछ वा
+                      बैंकलाई वीमालेखमा उल्लेखित रकम कम रहेको भन्ने लागेमा वीमालेखको रकम
+                      <span class="timesNewRoman">(Insured Amount)</span> बढाएर समेत वीमालेख नविकरण गराउन सक्नेछ ।
+                      बैकले वीमालेख नविकण गरिदिंदा साविककै वीमा कम्पनी वा अन्य वीमा कम्पनीबाट समेत वीमालेख जारी गराउन सक्नेछ । वीमालेख नविकरण बापत
+                      लाग्ने वीमा शूल्क <span class="timesNewRoman">(Insurance Premimum)</span> ऋणीको खातामा रकम भएमा खाताबाट सोझै खर्च
+                      लेखी वा खातामा आवश्यक रकम नरहेछ भने ऋणीको
+                      नाममा बाध्यतात्मक ऋणकर्जा <span class="timesNewRoman">(Force Loan)</span> कायम गरी वीमा कम्पनीलाई वीमा शूल्क
+                      <span class="timesNewRoman">(Insurance Premimum)</span> भूक्तानी गरिनेछ । त्यसरी
+                      बाध्यतात्मक ऋणकर्जा <span class="timesNewRoman">(Force Loan)</span> कायम भएको रकममा बैंकले प्रकाशित गरेको आधार दरमा सबैभन्दा
+                      बढी प्रिमियम जोडि कायम हुन आउने
+                      ब्याजदरको हिसाबले ब्याज गणना गरी सावा र व्याज असूल उपर गर्नेछ ।
+                    </td>
+                  </tr>
+                  <tr style="vertical-align: top">
+                    <td>ज)</td>
+                    <td>
+                      ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/ ऋणीले प्रबद्र्वन  गरेको वा नेपाल राष्ट्र
+                      बैंकको निर्देशिका बमोजिम एउटै समुहमा बर्गिकरण गरिएको सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण स्विकृति पत्रमा उल्लेख गरे बमोजिम
+                      उपभोग गरेको ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण स्विकृति पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग
+                      सुविधा बापत धितो सुरक्षण दिएको मानिनेछ । यस ऋण स्विकृति पत्रमा उल्लेखित कुनै शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा
+                      ऋणीको मन्जुरी रहनेछ
+                    </td>
+                  </tr>
+                  <tbody *ngFor="let td of hayarPurchase.get('tableData')['controls']; let tdIndex = index"
+                         formArrayName="tableData">
+                  <tr [formGroupName]="tdIndex" style="vertical-align: top">
+                    <td class="nepaliFont">{{ tdIndex+1 | nepaliWord:'pretti'}}_</td>
+                    <td>
+                      <textarea class="form-control nepaliFont form-field font-size-normal disable-print ng-pristine ng-valid ng-touched"
+                                formControlName="additionalSecurityPoint"
+                                placeholder="अन्य सुरक्षणहरु"
+                                rows="2"></textarea>
+                      <span class="nepaliFont font-size-normal print-only">
+                                <strong>{{hayarPurchase?.get(['tableData', tdIndex , 'additionalSecurityPoint'])?.value ?
+                                        hayarPurchase?.get(['tableData', tdIndex , 'additionalSecurityPoint'])?.value : '========='}}</strong></span>
+                    </td>
+                  </tr>
+                    <div class="col-md-12">
+                      <button  class="mt-2 disable-print" nbButton size="tiny" status="primary"
+                               (click)="removeSecurityPoint(tdIndex)"
+                               *ngIf="tdIndex >=0">हटाउनुहोस्
+                      </button>
+                    </div>
+                  </tbody>
+                </table>
+                <br>
+              <div class="row mr-1 mb-3 disable-print">
+                <div class="col-md-12 text-left">
+                  <button (click)="addSecurityPoint()" nbButton size="small" status="info" type="Button">अझै थप्नुहोस्</button>
+                </div>
+              </div>
+              <div>
+                <b><u>४. व्याज <span class="timesNewRoman">(Interest)</span> : </u></b>
+                <p>
+                  यस कर्जा सम्झौतामा उल्लेखित वार्षिक व्याजका दरले तिर्न वांकी कर्जा तथा बैकिङ्ग सुविधामा दैनिक रुपमा व्याज गणना गरी मासिक वा त्रैमासिक रुपमा
+                  वा अन्यथा उल्लेख भएकोमा सोही बमोजिम असुल उपर गरिनेछ । व्याज दर समय समयमा नेपाल राष्ट्र बैंक वा बैंकले निर्धारण गरे वमोजिम परिवर्तन
+                  हुन सक्नेछ । बैंकको निर्णय अनुसार ऋणीलाई सूचित गरी कर्जाको ब्याजदर परिवर्तन र घटिबढी गर्न सकिनेछ, सो बमोजिम व्याजको दर परिवर्तन भएमा
+                  परिवर्तित दरले ब्याज तिर्नु पर्नेछ । कर्जा समयमा भुक्तानी नभएमा वा किस्ता खिलाफी भएको अवस्थामा वा यस ऋण स्वीकृति पत्रमा उल्लेखित शर्त तथा
+                  वन्देजहरुको पालना नगरेमा वा उल्लंघन गरेमा वा स्वीकृत सीमा भन्दा वढी कर्जा उपभोग गरेमा विना पूर्व सूचना यस ऋण स्वीकृति पत्रमा उल्लेखित व्याज
+                  दरमा कम्तीमा २ प्रतिशत थप व्याज लगाई असुल उपर गरिनेछ ।
+                </p>
+              </div>
+              <div>
+                <b><u>५. पुनरावलोकन <span class="timesNewRoman">(Review)</span> :</u></b>
+                  <p>
+                    उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा अवधी समाप्तीको आधारमा प्रदान गरीने हुनाले यस ऋण/कर्जा र/वा बैकिङ्ग सुविधामाथि पुनरावलोकन
+                    गरिने छैन ।
+                  </p>
+              </div>
+              <div>
+                <b><u>६. निरीक्षण <span class="timesNewRoman">(Inspection)</span> :</u></b>
+                  <p>
+                    ऋणीले सुरक्षणमा दिएका चल/अचल सम्पत्तिहरु तथा ऋणीको कारखाना, कार्यालय, गोदाम आदि जुनसुकै बखत ऋणीलाई पूर्व सूचना दिई वा नदिई
+                    बैंकले निरीक्षण गर्न सक्नेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा खर्च ऋणीले गर्नुपर्नेछ ।
+                  </p>
+              </div>
+              <div>
+                <b><u>७. परिशोधन <span class="timesNewRoman">(Repayment)</span> :</u></b>
+                <p>
+                  उल्लेखित ऋण/कर्जा र/वा बैंकिङ्ग सुविधा/सुविधाहरु बैंकले माग गर्ना साथ तुरुन्त फिर्ता भुक्तानी गर्नु पर्नेछ ।
+                </p>
+              </div>
+              <div>
+                <b><u>८. शर्तहरु <span class="timesNewRoman">(Covenants)</span> : </u></b>
+                  <p>
+                    माथि उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधाहरु पूर्ण रुपले चुक्ता भुक्तानी नभएसम्म ऋणीले निम्न बमोजिमका शर्तहरु पूर्ण रुपले पालना गर्नु पर्नेछ ।
+                  </p>
+                <p>
+                  क) &nbsp; बैंकलाई सुरक्षण स्वरुप दिएका सम्पूर्ण चल–अचल सम्पत्ति बैंकलाई मान्य हुने बीमा कम्पनीबाट बैंकलाई प्रथम हितग्राहि बनाई पेश
+                  गर्नुपर्नेछ। सुरक्षण स्वरुप दिईएका चल–अचल सम्पत्तिको प्रकृति अनुसार कम्तीमा निम्न अनुसारको जोखिम <span class="timesNewRoman">(Risk)</span>
+                  लाई खाम्ने गरी बीमा गरेको
+                  हुनुपर्नेछ ।<br>
+                  &nbsp;  – सवारी साधन : &nbsp;  कम्प्रिहेन्सिभ (दुर्घटना तथा तेश्रो पक्ष सहित), हुलदंगा तथा हड्ताल, द्वेषपूर्ण कार्यको नोक्सानी तथा आतकंवाद
+                  बीमा ।
+                </p>
+                <p>
+                  ख) &nbsp; प्रचलित नेपाल कानून, नेपाल राष्ट्र बैंकको निर्देशन तथा बैंकको नीति, नियम तथा सो मा समय समयमा हुने संशोधन समेत पालना गर्न
+                  मंजुर गर्नुका साथै माथि उल्लेखित सम्पूर्ण ऋण/कर्जा र/वा बैंकिङ्ग सुविधा समेत त्यसबाट प्रशासित तथा संचालित हुने कुरामा ऋणी मन्जुर गर्दछ ।
+                </p>
+                <p>
+                  ग) &nbsp; ऋणीले अन्य बैंक तथा वित्तीय संस्थाबाट ऋण कर्जा सुविधा लिनुपर्ने अवस्था आएमा यस बैंकको पूर्व जानकारी गर्नुपर्नेछ ।
+                </p>
+                <p>
+                  घ) &nbsp;	माथिका कुनै पनि ऋण/कर्जा र/वा बैकिङ्ग सुविधा माथि उल्लेखित प्रयोजन वाहेक अन्य प्रयोजनको लागि वा अन्यत्र प्रयोग
+                  गर्ने छैन ।
+                </p>
+                <p>
+                  ङ) &nbsp; ऋणीको उद्देश्य वा व्यवसायको प्रकृतिमा कुनै मूलभूत परिवर्तन गर्ने वा ऋणीको व्यवसायिक वा उत्पादनको प्रकृतिमा कुनै परिवर्तन गर्नेछैन ।
+                </p>
+                <p>
+                  च) &nbsp; ऋणीले आफ्नो कानूनी अस्तित्वको रक्षा गर्नुका साथै आफ्नो अस्तित्वमा खतरा उत्पन्न हुन सक्ने वा आफ्नो  व्यवसाय संचालन गर्ने अधिकारमा
+                  प्रतिकुल प्रभाव पर्न सक्ने कुनै कार्य गर्ने वा त्यस्तो कार्यमा संलग्न हुने छैन ।
+                </p>
+                <p>
+                  छ) &nbsp; ऋणीले आफ्नो कुनै पनि किसिमको चल अचल सम्पत्ति बैकको पूर्व लिखित स्वीकृति नलिई अन्य कुनै बैंक वा वित्तीय संस्था वा लगानीकर्ताको
+                  नाममा वा हितमा सुरक्षण राख्ने वा अन्य कुनै प्रकारले लिखत गरिदिने छैन । साथै  बैंकको नाममा वा हितमा सुरक्षण स्वरुप दिएका सम्पूर्ण चल अचल
+                  सम्पत्तिको उचित स्याहार एवंम संरक्षण गर्नेछ ।  त्यसरी सुरक्षण स्वरुप दिईएका चल अचल सम्पत्ति उपर कुनै किसिमको दावी पर्न आएमा आफ्नो तथा
+                  बैंकको हित रक्षाको लागि उपयुक्त कदम चाल्नेछ ।
+                </p>
+                <p>
+                  ज) &nbsp; प्रचलित नेपाल कानून बमोजिम तिर्नु बुझाउनुपर्ने सम्पूर्ण कर, शुल्क, दस्तुर, रकम/कलम समयमै तिरी बुझाई व्ययभार रहित भै बस्नेछ ।
+                </p>
+                <p>
+                  झ) &nbsp;	बैंकको पूर्व लिखित स्वीकृति नलिई ऋणीले आफ्नो दायित्व नामसारी वा हस्तान्तरण गर्ने वा अन्य कुनै निकायसँग समाहित वा विलय गर्ने वा
+                  हुनेछैन ।
+                </p>
+                <p>
+                  ञ) &nbsp; बैंकले एकल ग्राहक वा ग्राहकसमूहलाई कोष एवं गैह्रकोषमा प्रवाह गर्ने कर्जा सिमा नेपाल राष्ट्र बैंकले समय समयमा तोकेको कर्जा सिमा
+                  <span class="timesNewRoman">(Single Obligor Limit)</span> बमोजिम हुनेछ ।
+                </p>
+                <p>
+                  ट) &nbsp; विषय वा प्रसंगले अर्को अर्थ नलागेमा यस संझौता र यस संझौताको अभिन्न अंगको रुपमा रहेका अन्य लिखतहरुमा प्रयोग भएका एक वचन
+                  जनाउने शब्दले वहुवचन र वहुवचन जनाउने शब्दले एक वचन पनि जनाउने छ ।
+                </p>
+                <p>
+                  ठ) &nbsp; बैंकको सहमति बेगर कारखाना/ब्यवसाय बन्द गर्ने छैन ।
+                </p>
+              </div>
+              <div>
+                <b><u>९. विशेष शर्तहरु <span class="timesNewRoman">(Special Covenants)</span> :</u></b>
+                <p>
+                  ऋणी निम्न विशेष शर्तहरु समेत पालना गर्न मन्जूर गर्दछ ।
+                </p>
+                <p>
+                  क) &nbsp; माथि सुरक्षणमा उल्लेखित सवारी साधन बैंकको नाममा नामसारी भई बैंकलाई मान्य हुने बीमा कम्पनीबाट बैंकलाई प्रथम हितग्राहि बनाई पेश गरे
+                  पछि मात्र बैंकद्वारा ऋणीलाई स्वीकृत कर्जा सुविधा उपलब्ध गराइने छ ।
+                </p>
+                <p>
+                  ख) &nbsp; माथि उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्राप्त गर्दा वा उपभोग गर्दा आइपर्ने सम्पूर्ण खर्चहरु ऋणी स्वयम्ले आफ्नै तर्फबाट गर्नेछ ।
+                </p>
+                <p>
+                  ग) &nbsp; बैंकले प्रचलित नेपाल कानूनमा उल्लेख गरेको वा नेपाल राष्ट्र बैंकको निर्देशनमा उल्लेख गरेको अवस्था परेका ऋणी, सोका संचालक, शेयरधनी,
+                  साझेदार, जमानतकर्ता लगायत सम्पूर्ण सम्बन्धित पक्ष वा व्यक्तिहरु उपर कुनै पनि किसिमको कानून कारवाही चलाउन वा कालो सूचीमा राख्न सम्बन्धित
+                  निकायमा सिफारिश गर्न सक्ने कुरामा ऋणी मन्जूर गर्दछ ।
+                </p>
+                <p>
+                  घ) &nbsp; ऋणको लागी बैंकलाई धितो लेखिदिएको चल अचल सम्पतीहरुको ऋणीले आफ्नै खर्चमा वीमा गरि सो वीमालेख बैंक समक्ष पेश गर्नु पर्नेछ । यस्तो
+                  वीमा ऋण (कर्जा) अबधीभरको लागी गरिएको हुनुपर्ने छ र यस्तो वीमालेखमा अनिबार्य रुपमा बैंकको पक्षमा बैंकर्स क्लज
+                  <span class="timesNewRoman">(Banker’s Clause)</span>
+                  समाबेश गरिएको हुनुपर्ने छ । वीमालेख नबिकरण गर्नुपर्ने भएमा ऋणीले वीमालेखको म्याद सकिनु भन्दा कम्तीमा ७ (सात) दिन पहिले अनिबार्य रुपमा
+                  नबिकरण गरि सो को बिबरण र प्रमाण समेत बैंक समक्ष पेश गर्नुपर्ने छ । यस्तो बीमालेख नबिकरण गरेको छैन भन्ने जानकारी बैंकले पाएमा ऋणीको
+                  खाताबाट रकम कट्टा गरि बैंकले यस्तो वीमालेख नबिकरण गर्नेछ । ऋणीको खातामा पर्याप्त रकम नभएमा यस्तो रकम समेत ऋण दायित्वमा थप गरि
+                  सो मा लाग्ने दस्तुर, १४.५ प्रतिशत ब्याज तथा थप ब्याज समेत असुल उपर गरि बैंकले लिने छ । कथमकदाचित त्यसरी ऋणीले समयावधि भित्र बीमाको
+                  नवीकरण नगरेको कारणले बैंक आफैले ऋणीको तर्फबाट बीमाको नवीकरण गर्दा ऋणी तथा बैंक दुवैबाट बीमाको नवीकरण हुन गै दोहोरो नवीकरण हुन
+                  गएमा बैंकले गरेको नवीकरण मान्य हुनेछ र त्यसरी दोहोरो नवीकरण हुन गै ऋणी लाई पर्न गएको नोक्सानीको जिम्मेवार ऋणी स्वयम हुनेछ ।
+                </p>
+                <p>
+                  ङ) &nbsp; ऋण/कर्जा र/वा बैंकिङ्ग सुविधा वापत लाग्ने विभिन्न दस्तुर, कमिशन एवं शुल्कहरु बैंकले ऋणीलाई सूचीत गरी वा नगरी जुनसुकै समयमा हेरफेर
+                  गर्न सक्नेछ ।
+                </p>
+                <p>
+                  च) &nbsp; यस लिखतमा उल्लेख भएका कर्जा तथा बैंकिङ्ग सुविधाहरु ऋणी फर्मको यस बैंकमा रहेका खाता मार्फत परिचालन (Disbursement) तथा
+                  असुलि <span class="timesNewRoman">(Recovery)</span> गरिनेछ ।
+                </p>
+                <p>
+                  छ) &nbsp; ऋणीले उपभोग गरेको कर्जाको भुक्तानी गर्नेे समय अगावै आंशिक वा पूर्ण वक्यौता रकम माग गर्ने अधिकार बैंकसँग सुरक्षित रहनेछ ।
+                </p>
+                <p>
+                  ज) &nbsp; सूरक्षण वापत रहने सवारी साधनको खरिद मूल्य <span class="timesNewRoman">(VAT Bill)</span> को अधिकतम
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="vatPercent"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('vatPercent').value ? hayarPurchase.get('vatPercent').value  : '========='}}</strong></span>
+                  प्रतिशत वा स्वीकृत कर्जा सिमा
+                  <strong>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'sanctionedLimitInWords', 'sanctionedLimit')"
+                                               [name]="patchFunction('sanctionedLimit')" class="disable-print"></app-custom-input>
+                    <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('sanctionedLimit').value ? hayarPurchase.get('sanctionedLimit').value  : '========='}}</strong></span></strong>/-
+                  (अक्षरेपी रुपैया
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="sanctionedLimitInWords"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only preetiFont size16"><strong>{{hayarPurchase.get('sanctionedLimitInWords').value ? hayarPurchase.get('sanctionedLimitInWords').value  : '========='}}</strong></span>
+                  मात्र) मध्ये जून कम हूनेछ सोही बराबर मात्र कर्जा प्रवाह
+                  गरिनेछ र बाकी रकम ऋणी स्वयंले ब्यहोर्नू पर्नेछ । ऋणीको तर्फवाट भूक्तान गरिएको रकम <span class="timesNewRoman">(Equity)</span> को प्रमाण
+                  <span class="timesNewRoman">(Documentary Evidence)</span>
+                  बैंकमा पेश गर्नू पर्नेछ । ऋणीले लिन सक्ने कर्जा तथा सूविधाको रकम सवारीसाधन/गाडि विक्रेता लाई सोझै भूक्तानी गरेमा ऋणीको मन्जूरी रहेको छ ।
+                </p>
+              </div>
+              <div>
+                <b><u>१०. उल्लघंनको अवस्था <span class="timesNewRoman">(Events of Default)</span> : </u></b>
+                <p>
+                  निम्नानुसार मध्येको कुनै पनि परिस्थिति उत्पन्न भएमा वा पाईएमा “उल्लंघनको अवस्था” भनिनेछ । यदि
+                </p>
+                <p>
+                  क) &nbsp; ऋणीले यस स्वीकृति पत्र बमोजिम प्राप्त गर्ने भएको ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्राप्त गर्नको लागि दिएको आवेदन वा यस स्वीकृति पत्र
+                  बमोजिम दिएको वा स्वीकृति पत्रमा लेखिएको कुनै पनि विवरण उद्घोषण वा <span class="timesNewRoman">Warranty</span> वा कुनै पनि
+                  <span class="timesNewRoman">Correspondence</span> वा कुनै पनि आर्थिक
+                  विवरण वा योजना मूलभूत रुपमा गलत वा  त्रुटीपूर्ण वा मिथ्यापूर्ण सावित हुन गएमा ,
+                </p>
+                <p>
+                  ख) &nbsp; ऋणीको सांगठनिक <span class="timesNewRoman">(Corporate)</span> स्तर, कानूनी अस्तित्व वा ऋणीको आर्थिक स्थिति, कबूलियत वा
+                  उत्तरदायित्व वा बिस्तार योजना वा
+                  कर्जा सापटीको अवस्था वा चालुपुँजी सम्बन्धि विवरण वा पूँजीगत खर्चको बारेमा बैकलाई मूलभूत जानकारी नदिएमा वा त्यस्तो जानकारी लुकाउन खोजेमा ,
+                </p>
+                <p>
+                  ग) &nbsp; ऋणीले यस स्वीकृति पत्र बमोजिम तिर्नुपर्ने समयावधि भित्र साँवाको कुनै किस्ता वा ब्याज तिर्न नसकेको वा ऋणीको संचालन खातामा
+                  पर्याप्त मौज्दात <span class="timesNewRoman">(Sufficient  Balance)</span> नराखेमा वा त्यस्तो बाँकी रहेको रकम साँवाको कुनै किस्ता वा
+                  ब्याज तिर्न अपुग भएमा,
+                </p>
+                <p>
+                  घ) &nbsp; ऋणीले यस स्वीकृति पत्र वा कुनै पनि सुरक्षणको लिखतमा उल्लेखित कुनै पनि शर्त/कबुलियतहरुको पालना नगरेमा वा गर्न नसकेमा,
+                </p>
+                <p>
+                  ङ) &nbsp; ऋणीले बैंकलाई सुरक्षण स्वरुप दिन मन्जुर गरेको कुनै पनि चल–अचल सम्पत्ति वा जायजेथा कुनै पनि कारवाहीको लागि
+                  <span class="timesNewRoman">Receiver or Liquidator</span> लाई प्रदान गरेमा ,
+                </p>
+                <p>
+                  च) &nbsp; कुनै परिस्थितिको सृजना भई बैंकलाई ऋणीले यस स्विकृति पत्र वा कुनै पनि लिखतमा उल्लेखित कुनै पनि शर्त बन्देजहरुको पालना गर्न
+                  असमर्थ छ भन्ने लागेमा यस सम्बन्धमा बैंकको आफ्नो स्वविवेकले गरेको निर्णय अन्तिम मानिनुका साथै ऋणीले अन्तिम निर्णयको रुपमा अनिवार्य
+                  रुपमा पालना गर्नुपर्नेछ ।
+                </p>
+                <p>
+                  छ) &nbsp; कुनै पनि अधिकार प्राप्त निकायबाट ऋणीको कुनै पनि सम्पत्ति रोक्का राख्ने आदेश जारी भएमा ,
+                </p>
+                <p>
+                  ज) &nbsp; ऋणीले बैंकको स्वीकृति बेगर व्यवसायको प्रकृति परिवर्तन गरेमा वा व्यवसाय बन्द गरेमा ,
+                </p>
+                <p>
+                  झ) &nbsp; ऋणीले बैंक बाहेक पनि अन्य कुनै साहूलाई तिर्नुपर्ने कुनै रकम तिर्न नसकेकोमा ,
+                </p>
+                <p>
+                  ञ) &nbsp; कुनै व्यक्ति वा सरकारी वा अधिकार प्राप्त निकायबाट ऋणीको सम्पूर्ण वा आशिंक सम्पत्ति वा व्यवसाय रोक्का, जफत वा भागवण्डा गरिएमा
+                  वा ऋणी वा ऋणीको व्यवसायको निलम्बन वा खारेजीको प्रकृया शुरु गरेमा ।
+                </p>
+                <p>
+                  माथिको कुनै एक वा सबै अवस्था वा परिस्थिति उत्पन्न भएमा बैंकलाई निम्न लिखित अधिकार प्राप्त हुनेछ ।
+                </p>
+                <p>
+                  क) &nbsp; बाँकी रहेको सम्पूर्ण साँवा, ब्याज तथा अन्य लेना रकमहरु तुरुन्त तिर्न लगाउने (माग गर्ने) ।
+                </p>
+                <p>
+                  ख) &nbsp; माथि प्रकरणहरुमा उल्लेख गरे बमोजिम हर्जाना व्याज <span class="timesNewRoman">(Penal Interest)</span> समेत जोडी ब्याज लगाउने ।
+                </p>
+                <p>
+                  ग) &nbsp; ऋणीले सुरक्षण स्वरुप दिएको सम्पूर्ण वा केही सम्पत्ति आफ्नो कब्जामा लिई वा नलिई लिलाम वा बिक्री गर्ने र सो बाट प्राप्त हुन आएको
+                  रकम आफूले ऋणीसँग लिनु पर्ने रकममा समायोजन गर्ने ।
+                </p>
+                <p>
+                  घ) &nbsp; आफूले यस स्वीकृति पत्र वा ऋण/कर्जा र/वा बैंकिङ्ग सुविधासँग सम्बन्धित कुनै पनि लिखतको कुनै पनि शर्त बन्देज पालना नगरी रद्द गर्ने
+                  तथा कुनै पनि ऋण/कर्जा र/वा बैकिङ्ग सुविधाको दिन बाँकी रकम (हिस्सा/अंश) रोक्का गर्ने ।
+                </p>
+                <p>
+                  ङ) ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्रदान गर्दाको अवस्थाको कुनै पनि शर्त बन्देजहरु आफ्नो स्वविवेकले एकलौटी रुपमा परिवर्तन गर्ने ।
+                </p>
+                <p>
+                  च) &nbsp; ऋणीको कुनै पनि सांयोगिक उत्तरदायित्व <span class="timesNewRoman">(Contingent Liability)</span> वापत तुरुन्त नगद सुरक्षण (मार्जिन) राख्न लगाउने ।
+                </p>
+                <p>
+                  छ) &nbsp; ऋणीले तिर्नु बुझाउनुपर्ने रकम समयमै नतिरी नबुझाइ धिङन्याइ गरेमा बैंकद्वारा जारी गरिएको अन्तिम सूचनालाई आधार मानि बैंक तथा वित्तीय
+                  संस्था सम्बन्धी ऐन, २०७३ तथा प्रचलित कानून बमोजिम आफनो सम्पुर्ण लेना रकम असुल उपर गर्ने
+                </p>
+              </div>
+              <div>
+                <b><u>११. पूर्व शर्तहरु <span class="timesNewRoman">(Conditions Precedents)</span> :</u></b>
+                <p>
+                  क) &nbsp; बैंकले प्रस्तुत ऋण स्वीकृति पत्र ऋणीले स्वीकृत गर्नु अगावै जुनसुकै बखत रद्द गर्न सक्नेछ ।
+                </p>
+                <p>
+                  ख) &nbsp; ऋणीलाई स्वीकृत कर्जा तथा बैंकिङ्ग सुविधाहरुको सीमाको अन्तिम/पुनरावलोकन/नवीकरण मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका
+                  कर्जा तथा सुविधाहरु कुनै कारण देखाई वा नदेखाई बैंकले कुनैपनि बेला फिर्ता भुक्तानी माग गर्न सक्नेछ र माग गरेका वखत तत्कालै भुक्तानी गर्नु
+                  पर्ने ऋणीको दायित्व हुनेछ ।
+                </p>
+              </div>
+              <div>
+                <b><u>१२. उद्घोषणहरु <span class="timesNewRoman">(Representations)</span> :</u></b>
+                <p>
+                  ऋणीले निम्न लिखित कुराहरु सत्य भएको कुराको उद्घोषणा गर्दछ ।
+                </p>
+                <p>
+                  क) &nbsp; ऋणीले यस स्वीकृति पत्र बमोजिम गर्ने/गरेका सम्पूर्ण कागजात/लिखतहरु कानूनी रुपले बन्धनकारी छन् ।
+                </p>
+                <p>
+                  ख) &nbsp; ऋणी तथा जमानतकर्ताको विरुद्वमा कुनै कानूनी कारवाही चलिरहेको छैन ।
+                </p>
+                <p>
+                  ग) &nbsp; ऋणीले गरेका कुनै पनि काम-कारवाही, व्यवसाय, बचनवद्वता, लिखत आदि कुनै पनि प्रचलित कानून, ऋणीले प्राप्त गरेको अनुमति पत्र,
+                  प्रबन्ध पत्र तथा नियमावलीको कुनै पनि व्यवस्था विपरित छैन ।
+                </p>
+                <p>
+                  घ) &nbsp; ऋणी तथा जमानतकर्ता कर्जा सूचना केन्द्रको कालोसूचीमा समावेश छैन ।
+                </p>
+                <p>
+                  ङ) &nbsp; ऋणी तथा जमानतकर्ता यस बैंको संस्थापक शेयरधनी वा संस्थापक शेयरधनीको परिवार होईन र/वा यस बैंकको एक प्रतिशत वा सो भन्दा
+                  बढी पब्लिक शेयर <span class="timesNewRoman">(Public Share)</span> लिएको छैन ।
+                </p>
+              </div>
+              <div>
+                <b><u>१३. छुट <span class="timesNewRoman">(Waiver)</span> : </u></b>
+                <p>
+                  बैकको यस स्विकृति पत्र बमोजिमका कुनै पनि अधिकार बैंकले छोडेको वा बैंकले ऋणीलाई छुट दिएको मानिने छैन । खासगरी यस सम्बन्धमा
+                </p>
+                <p>
+                  क) &nbsp; बैंकले आफूले यस सम्झौता बमोजिम प्राप्त गरेको कुनै पनि अधिकारको उपभोग नगरेको वा यथासमयमा उपभोग नगरेको कारणबाट मात्र बैंकले
+                  त्यस्तो अधिकार छोडेको वा छुट दिएको मानिने छैन ।
+                </p>
+                <p>
+                  ख) &nbsp; बैंकले आफूलाई प्राप्त अधिकार मध्ये कुनै एक मात्र अधिकारको प्रयोग गरेको वा आंशिक रुपमा मात्र अधिकारको प्रयोग गरेको कारणले बैंकले
+                  त्यस्तो प्रयोग गर्न पाउने अधिकार छोडेको मानिने छैन र यथासमयमा वा बैंकले चाहेको बखत त्यस्तो अधिकार प्रयोग गर्नबाट बैंक वञ्चित हुने छैन ।
+                </p>
+              </div>
+              <div>
+                <b><u>१४. अवधि (म्याद) :</u></b>
+                <p>
+                  यो स्वीकृति पत्र माथि शुरुमा उल्लेखित मितिबाट ३० दिनको लागि मान्य हुनेछ । अर्थात ऋणीले यो स्वीकृति पत्रमा उल्लेखित मितिबाट ३० दिन भित्र
+                  स्वीकार गरी आफ्नो स्वीकृति बैंक समक्ष पेश गरिसक्नु पर्नेछ । अन्यथा सो म्याद भित्र त्यसरी स्वीकृति दिएको कुरा बैंक समक्ष नपुगेमा यो स्विकृति
+                  पत्र स्वतः रद्द भएको मानिनेछ ।
+                </p>
+              </div>
+              <div>
+                <b><u>१५. कानून तथा अधिकारक्षेत्र :</u></b>
+                <p>
+                  यो स्वीकृति पत्र (ऋणीले स्वीकृति दिई सकेपछि हुने सम्झौता) नेपाल कानून बमोजिम प्रशासित भै नेपालको अदालतको क्षेत्राधिकार क्षेत्रभित्र रहनेछ ।
+                </p>
+              </div>
+              <div>
+                <b><u>१६. सूचना :</u></b>
+                <p>यस ऋण स्वीकृति पत्रका पक्षहरुले एक अर्को पक्षलाई पत्र वा फ्याक्सको माध्यमबाट निम्न लिखित ठेगानामा पत्राचार गर्नेछ ।</p>
+                <table class="table table-bordered">
+                  <tr>
+                    <td style="width: 50%">
+                      <b>बैंक :</b><br><br>
+                      <p><b>सेञ्चुरी कमर्सियल बैंक लिमिटेड,</b></p>
+                      <p>रजिष्टर्ड कार्यालय पुतलिसडक, काठमाण्डौ ।</p>
+                      <p>पोष्ट वक्स नं.
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="bankPostBoxNumber"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('bankPostBoxNumber').value ? hayarPurchase.get('bankPostBoxNumber').value  : '========='}}</strong></span>
+                        ,काठमाण्डौ नेपाल ।
+                      </p>
+                      <p>पोष्ट बक्स नं. २६१००</p>
+                      <p>फोन नं. ४–४१२५७९, ४–४२८३९२</p>
+                      <p>फ्याक्स नंं. ०१–४४४१४२२</p><br>
+                      <p>शाखा कार्यालय,
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="branchOffice"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('branchOffice').value ? hayarPurchase.get('branchOffice').value  : '========='}}</strong></span>
+                        ।</p>
+                    </td>
+                    <td>
+                      <b>ऋणी :</b><br><br>
+                      <p>
+                        श्री
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtor"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtor').value ? hayarPurchase.get('debtor').value  : '========='}}</strong></span>
+                        स्थायी ठेगाना :
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorPermanentDistrict"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentDistrict').value ? hayarPurchase.get('debtorPermanentDistrict').value  : '========='}}</strong></span>
+                        जिल्ला
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorPermanentMunicipality"
+                               placeholder=""
+                               type="text"/>&nbsp;
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentMunicipality').value ? hayarPurchase.get('debtorPermanentMunicipality').value  : '========='}}</strong></span>
+                        म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorPermanentWard"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentWard').value ? hayarPurchase.get('debtorPermanentWard').value  : '========='}}</strong></span>
+                        हालको ठेगाना: हाल
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentProvienceNumber"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentProvienceNumber').value ? hayarPurchase.get('debtorCurrentProvienceNumber').value  : '========='}}</strong></span>
+                        प्रदेश नं
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentDistrict"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentDistrict').value ? hayarPurchase.get('debtorCurrentDistrict').value  : '========='}}</strong></span>
+                        जिल्ला
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentMunicipality"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentMunicipality').value ? hayarPurchase.get('debtorCurrentMunicipality').value  : '========='}}</strong></span>
+                        म.न.पा./उप म.न.पा./न.पा./गाउपालिका  वडा नं.
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentWard"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentWard').value ? hayarPurchase.get('debtorCurrentWard').value  : '========='}}</strong></span>
+                        टोल/गाउ
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentTole"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentTole').value ? hayarPurchase.get('debtorCurrentTole').value  : '========='}}</strong></span>
+                        घर नं.
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentHouseNumber"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentHouseNumber').value ? hayarPurchase.get('debtorCurrentHouseNumber').value  : '========='}}</strong></span>
+                        सडक/मार्ग
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorCurrentStreet"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentStreet').value ? hayarPurchase.get('debtorCurrentStreet').value  : '========='}}</strong></span>
+                      </p>
+                      <p>
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                                      formControlName="email"
+                                      placeholder=""
+                                      type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('email').value ? hayarPurchase.get('email').value  : '========='}}</strong></span>
+                      </p>
+                      <p>
+                        सम्पर्क टेलिफोन/मोवाइल नं. :
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorContactNumber"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorContactNumber').value ? hayarPurchase.get('debtorContactNumber').value  : '========='}}</strong></span>
+                      </p>
+                      <p>
+                        फ्याक्स नं./पोट बक्स नं. :
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="debtorPostBoxNumber"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPostBoxNumber').value ? hayarPurchase.get('debtorPostBoxNumber').value  : '========='}}</strong></span>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div>
+                <p>
+                  यस अघि ऋणी वा ऋणीहरुलाई कुनै ऋण स्वीकृति पत्र दिई सकेको भए तापनि अन्यथा स्पष्ट उल्लेख नभएसम्म यो ऋण स्वीकृति पत्र त्यो भन्दा अलग
+                  थप ऋण स्वीकृति पत्र मानिनेछ ।
+                </p>
+              </div>
+              <div>
+                <p>
+                  कृपया यो ऋण स्वीकृति पत्र उपर तहाँको मन्जूरी (सहमति) को प्रमाण स्वरुप यस ऋण स्वीकृति पत्रको संलग्न प्रति
+                  <span class="timesNewRoman">(Attached Copy)</span> मा
+                  सहीछाप गरि बैंकलाई बुझाउनु होला ।
+                </p>
+              </div>
+              <br>
+              <div>
+                <p>धन्यवाद ।</p>
+              </div>
+              <br>
+              <div>
+                <p>भवदीय,</p>
+              </div>
+              <br><br><br>
+              <div>
+                <p>भवदीय,</p>
+                <table style="width: 100%">
+                  <tr>
+                    <td>
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="leftInputField1"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('leftInputField1').value ? hayarPurchase.get('leftInputField1').value  : '========='}}</strong></span>
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="rightInputField1"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('rightInputField1').value ? hayarPurchase.get('rightInputField1').value  : '========='}}</strong></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="leftInputField2"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('leftInputField2').value ? hayarPurchase.get('leftInputField2').value  : '========='}}</strong></span>
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="rightInputField2"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('rightInputField2').value ? hayarPurchase.get('rightInputField2').value  : '========='}}</strong></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="leftInputField3"
+                             placeholder=""
+                             type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('leftInputField3').value ? hayarPurchase.get('leftInputField3').value  : '========='}}</strong></span>
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="rightInputField3"
+                               placeholder=""
+                               type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('rightInputField3').value ? hayarPurchase.get('rightInputField3').value  : '========='}}</strong></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      निमित्त :सेञ्चुरी कमर्सियल बैंक लि.
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        निमित्त :सेञ्चुरी कमर्सियल बैंक लि.
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <br><br><br><br><br><br><br>
+              <div>
+                <p>सेञ्चुरी कमर्सियल बैंक लिमिटेड,</p>
+                <p>पुतलीसडक, काठमाण्डौं, नेपाल ।</p>
+              </div>
+              <br><br>
+              <div>
+                <p>महोदय, </p><br>
+                <p>सेञ्चुरी कमर्सियल बैंक लि.ले मेरो/हाम्रो नाममा जारी गरेको मिति
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="loanSanctionedDate"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('loanSanctionedDate').value ? hayarPurchase.get('loanSanctionedDate').value  : '========='}}</strong></span>
+                  को ऋण स्वीकृति पत्र राम्रोसंग पढीवाची सुनी
+                  वुझी मेरो/हाम्रो मनोमान राजी खुसीसंग सो पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु म/हामीलाई पूर्ण मन्जुर छ भनी सहीछाप गरि दिएको छु/छौं
+                  । उपरोक्त बमोजिम बैंकबाट प्राप्त हुने ऋण कर्जा तथा सुविधा लगायत अन्य दायित्व तिर्न बुझाउन यस मेरो/हाम्रो पूर्ण मन्जुरी रहेकोले बैंकले जारी
+                  गरेको यस स्वीकृति पत्रमा स्वीकृति <span class="timesNewRoman">(Acceptance)</span> जनाई सोको प्रतिलिपिमा सही छाप गरी तपाई
+                  बैंकलाई दिएँ/दियौं र सोको सक्कल एक प्रति पत्र बुझिलिए/लियौंं ।</p>
+                <p>भवदीय,</p>
+              </div><br><br><br>
+              <div>
+                <p>
+                  श्री
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtor"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtor').value ? hayarPurchase.get('debtor').value  : '========='}}</strong></span>
+                  स्थायी ठेगाना :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorPermanentDistrict"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentDistrict').value ? hayarPurchase.get('debtorPermanentDistrict').value  : '========='}}</strong></span>
+                  जिल्ला
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorPermanentMunicipality"
+                         placeholder=""
+                         type="text"/>&nbsp;
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentMunicipality').value ? hayarPurchase.get('debtorPermanentMunicipality').value  : '========='}}</strong></span>
+                  म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorPermanentWard"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentWard').value ? hayarPurchase.get('debtorPermanentWard').value  : '========='}}</strong></span>
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorPermanentWard2"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPermanentWard2').value ? hayarPurchase.get('debtorPermanentWard2').value  : '========='}}</strong></span>
+                  <br>
+                  हालको ठेगाना: हाल
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentProvienceNumber"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentProvienceNumber').value ? hayarPurchase.get('debtorCurrentProvienceNumber').value  : '========='}}</strong></span>
+                  प्रदेश नं
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentDistrict"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentDistrict').value ? hayarPurchase.get('debtorCurrentDistrict').value  : '========='}}</strong></span>
+                  जिल्ला
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentMunicipality"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentMunicipality').value ? hayarPurchase.get('debtorCurrentMunicipality').value  : '========='}}</strong></span>
+                  म.न.पा./उप म.न.पा./न.पा./गाउपालिका  वडा नं.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentWard"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentWard').value ? hayarPurchase.get('debtorCurrentWard').value  : '========='}}</strong></span>
+                  टोल/गाउ
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentTole"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentTole').value ? hayarPurchase.get('debtorCurrentTole').value  : '========='}}</strong></span>
+                  घर नं.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentHouseNumber"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentHouseNumber').value ? hayarPurchase.get('debtorCurrentHouseNumber').value  : '========='}}</strong></span>
+                  सडक/मार्ग
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorCurrentStreet"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorCurrentStreet').value ? hayarPurchase.get('debtorCurrentStreet').value  : '========='}}</strong></span>
+                </p>
+                <p>
+                  ईमेल :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                                formControlName="email"
+                                placeholder=""
+                                type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('email').value ? hayarPurchase.get('email').value  : '========='}}</strong></span>
+                </p>
+                <p>
+                  सम्पर्क टेलिफोन/मोवाइल नं. :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorContactNumber"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorContactNumber').value ? hayarPurchase.get('debtorContactNumber').value  : '========='}}</strong></span>
+                </p>
+                <p>
+                  फ्याक्स नं./पोट बक्स नं. :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="debtorPostBoxNumber"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('debtorPostBoxNumber').value ? hayarPurchase.get('debtorPostBoxNumber').value  : '========='}}</strong></span>
+                </p>
+              </div>
+              <br><br>
+              <div>
+                <p><b>साक्षी :</b></p>
+                <p>१.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="witness1"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('witness1').value ? hayarPurchase.get('witness1').value  : '========='}}</strong></span>
+                </p>
+                <p>२.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="witness2"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('witness2').value ? hayarPurchase.get('witness2').value  : '========='}}</strong></span>
+                </p>
+              </div>
+              <div>
+                <p>
+                  इति संवत् २०
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="year"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('year').value ? hayarPurchase.get('year').value  : '========='}}</strong></span>
+                  साल
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="month"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('month').value ? hayarPurchase.get('month').value  : '========='}}</strong></span>
+                  महिना
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="date1"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('date1').value ? hayarPurchase.get('date1').value  : '========='}}</strong></span>
+                  गते
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="day"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('day').value ? hayarPurchase.get('day').value  : '========='}}</strong></span>
+                  रोज शुभम् ।
+                </p>
+              </div>
+              <br>
+              <div>
+                <p><u>ब्यक्तिगत जमानीकर्ताको तर्फवाट :-</u></p>
+                <p>यस कर्जा प्रस्तावपत्रमा उल्लेखित कर्जा सुविधा सीमा र सम्पुर्ण शर्त बन्देजहरु म/हामी लाई मान्य भएकोले विना शर्त स्वीकार गर्ने घोषणा सहित पालन
+                  गर्ने प्रतिवद्धता व्यक्त गर्दछु /छौ ।
+                </p>
+                <p>जमानीकर्ताको नाम :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorName"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorName').value ? hayarPurchase.get('guarantorName').value  : '========='}}</strong></span>
+                </p>
+              </div>
+              <br><br>
+              <p> हस्ताक्षर: ..................................................  </p>
+              <div>
+                <table class="table-bordered" style="margin-left: 50px;">
+                  <tr>
+                    <!--<th style="height: 12rem;" class="text-center"><u>दांया</u></th>
+                    <th style="height: 12rem;" class="text-center"><u>बांयाँ</u></th>-->
+                    <td style="height: 150px; width: 200px;" class="text-center">दांया</td>
+                    <td style="height: 150px; width: 200px;" class="text-center">बांयाँ</td>
+                  </tr>
+                </table>
+              </div>
+              <br>
+              <div>
+                <p>
+                  स्थाईठेगाना :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorPermanentDistrict"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorPermanentDistrict').value ? hayarPurchase.get('guarantorPermanentDistrict').value  : '========='}}</strong></span>
+                  जिल्ला
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorPermanentMunicipality"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorPermanentMunicipality').value ? hayarPurchase.get('guarantorPermanentMunicipality').value  : '========='}}</strong></span>
+                  गा.वि.स/न.पा वडा नं
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorPermanentWard1"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorPermanentWard1').value ? hayarPurchase.get('guarantorPermanentWard1').value  : '========='}}</strong></span>
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorPermanentWard2"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorPermanentWard2').value ? hayarPurchase.get('guarantorPermanentWard2').value  : '========='}}</strong></span>
+                  स्थाई ठेगाना भई
+                  हाल
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorCurrentProvience"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorCurrentProvience').value ? hayarPurchase.get('guarantorCurrentProvience').value  : '========='}}</strong></span>
+                  प्रदेश
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorCurrentDistrict"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorCurrentDistrict').value ? hayarPurchase.get('guarantorCurrentDistrict').value  : '========='}}</strong></span>
+                  जिल्ला
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorCurrentMunicipality"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorCurrentMunicipality').value ? hayarPurchase.get('guarantorCurrentMunicipality').value  : '========='}}</strong></span>
+                  न.पा.वडा नं.
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorCurrentWard"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorCurrentWard').value ? hayarPurchase.get('guarantorCurrentWard').value  : '========='}}</strong></span>
+                </p>
+                <p>
+                  ईमेल :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorEmail"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorEmail').value ? hayarPurchase.get('guarantorEmail').value  : '========='}}</strong></span>
+                </p>
+                <p>
+                  सम्पर्क टेलिफोन/मोवाइल नं.:
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorContactNumber"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guarantorContactNumber').value ? hayarPurchase.get('guarantorContactNumber').value  : '========='}}</strong></span>
+                </p>
+                <p>
+                  मिति :
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guaranteedYear"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guaranteedYear').value ? hayarPurchase.get('guaranteedYear').value  : '========='}}</strong></span>
+                  /
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guaranteedMonth"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guaranteedMonth').value ? hayarPurchase.get('guaranteedMonth').value  : '========='}}</strong></span>
+                  /
+                  <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guaranteedDate"
+                         placeholder=""
+                         type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{hayarPurchase.get('guaranteedDate').value ? hayarPurchase.get('guaranteedDate').value  : '========='}}</strong></span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-12 text-right disable-print">
+              <button nbButton status="success" type="submit" >Save</button>
+            </div>
+          </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="mb-3">
+    <button nbButton status="info" [useExistingCss]="true" class="mb-4 float-right" [disabled]="!initialInfoPrint"
+            ngxPrint printSectionId="hirePurchasePrint">Print
+    </button>
+  </nb-card-footer>
+</nb-card>
+</div>
+<app-hayer-purchase-print  *ngIf="initialInfoPrint"
+                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                           [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>
+

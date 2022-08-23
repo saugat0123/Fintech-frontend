@@ -82,6 +82,7 @@ import { AuthoritySectionComponent } from './authority-section/authority-section
 import {RetailRecommendationComponent} from '../../../loan-information-detail-view/retail-recommendation/retail-recommendation.component';
 import { AnnexureOneComponent } from './annexure-one/annexure-one.component';
 import { SecurityDocumentViewComponent } from './sme-loan-summary/above-ten-million/security-document-view/security-document-view.component';
+import { SummaryHeaderComponent } from './summary-header/summary-header.component';
 
 
 const COMPONENTS = [
@@ -135,7 +136,6 @@ const ENTRY_COMPONENTS = [];
     MGroupSummaryComponent,
     CommentsSummaryComponent,
     PreviousSecuritySummaryComponent,
-    SignatureSectionComponent,
     CreditFacilityReportComponent,
     SmeLoanSummaryComponent,
     CurrentStatusTableComponent,
@@ -178,7 +178,8 @@ const ENTRY_COMPONENTS = [];
     AuthoritySectionComponent,
     RetailRecommendationComponent,
     AnnexureOneComponent,
-    SecurityDocumentViewComponent
+    SecurityDocumentViewComponent,
+    SummaryHeaderComponent
   ],
     imports: [
         CommonModule,
@@ -222,7 +223,8 @@ const ENTRY_COMPONENTS = [];
         RetailRecommendationComponent,
         AboveReviewOfCreditFacilitiesComponent,
         NrbStatutoryRemarksStatusComponent,
-        AboveBankSolComponent
+        AboveBankSolComponent,
+        SummaryHeaderComponent
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })

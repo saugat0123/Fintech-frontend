@@ -259,7 +259,10 @@ export class FixAssetCollateralComponent implements OnInit {
             uuid: [this.uuid],
             totalMv: [undefined],
             totalFmv: [undefined],
-            totalDv : [undefined]
+            totalDv : [undefined],
+            roadComment : [undefined],
+            riverCanalComment : [undefined],
+            highTensionComment : [undefined],
         });
     }
 

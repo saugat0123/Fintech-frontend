@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
+          <nb-card class="mt-3">
             <nb-card-header>
               <strong>Generate Offer Letter</strong>
             </nb-card-header>
@@ -415,7 +415,7 @@
           <label for="type">Select Offer Type</label>
           <select [(ngModel)]="docType" class="form-control" id="type">
             <option hidden selected value="null">--Select Type--</option>
-            <option *ngIf="roleType !== 'MAKER'" value="DRAFT">Draft Document</option>
+            <option  value="DRAFT">Draft Document</option>
             <option value="SIGNED">Signed Document</option>
           </select>
         </div>

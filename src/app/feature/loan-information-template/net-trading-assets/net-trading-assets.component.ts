@@ -7,7 +7,7 @@ import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CalendarType} from '../../../@core/model/calendar-type';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-net-trading-assets',
@@ -243,7 +243,7 @@ export class NetTradingAssetsComponent implements OnInit {
             return !ObjectUtil.isEmpty(e);
         });
         ntaFormGroup.get([header, 'average'])
-            .patchValue((Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length).toFixed(8))
+            .patchValue((Number(elementsArray.reduce((x, y) => x + y, 0) / elementsArray.length).toFixed(2))
         );
     }
 

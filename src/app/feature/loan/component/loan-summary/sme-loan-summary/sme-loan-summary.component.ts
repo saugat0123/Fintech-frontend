@@ -205,6 +205,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   ccblData: any;
   fixedAssetsData = [];
   siteVisitJson = [];
+  isExecutive = false;
 
   @Input() crgTotalRiskScore: any;
   data;
@@ -244,25 +245,23 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loanDataHolder = this.loanData;
-//    this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
+   this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.approveAuth = this.data.approvingAuthority;
     }
-    // if (this.loanDataHolder.loanCategory === 'INSTITUTION' &&
-    //     !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-    //     const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-    //     this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
-    //     this.isJointInfo = true;
     if (!ObjectUtil.isEmpty(this.companyInfo)) {
       this.companyInfo = this.loanData.companyInfo;
       this.tempData = JSON.parse(this.companyInfo.companyJsonData);
     }
     if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
       this.isSaneView = true;
+      this.isDetailedView = true;
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
       this.isUpToTenMillion = true;
+      this.isDetailedView = true;
     } else {
       this.isAboveTenMillion = true;
+      this.isDetailedView = true;
     }
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
@@ -540,9 +539,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
             } else {
               this.customerAllLoanList = this.customerAllLoanList.filter(
                   (c: any) =>
-                      c.currentStage.docAction !== 'CLOSED' &&
-                      c.currentStage.docAction !== 'REJECT' &&
-                      c.currentStage.docAction !== 'APPROVED'
+                      c.documentStatus.toString() !== 'CLOSED' &&
+                      c.documentStatus.toString() !== 'REJECT' &&
+                      c.documentStatus.toString() !== 'APPROVED'
               );
             }
           } else {

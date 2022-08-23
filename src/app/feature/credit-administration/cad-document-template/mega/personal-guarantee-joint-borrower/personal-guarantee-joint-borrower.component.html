@@ -1,0 +1,549 @@
+<div class="container nep text-justify">
+    <form (ngSubmit)="submit()" [formGroup]="personalGuaranteeJoint" class="nep" id="personalGuaranteeJointPrint">
+        <h4 class="text-center"><strong>व्यक्तिगत जमानतको लिखत</strong></h4>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका वडा न.२८ पुतलीसडक स्थित मुख्य कार्यालय रही
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="bankBranchName"
+                           formControlName="bankBranchName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('bankBranchName').value ? personalGuaranteeJoint.get('bankBranchName').value  : '========='}}</strong></span>
+                    शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस उप्रान्त <strong>साहु बैंक</strong> भनिएको) को पक्षमा व्यक्तिगत जमानतको लिखत गरी दिने <strong>तपसिल खण्ड ख</strong> मा उल्लेखित व्यक्ति/हरु जसलाई यस उप्रान्त <strong>जमानतदिने</strong> भनिएको छ, आगे
+                    <span *ngFor="let one of guarantorData"></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorGrandFatherName"
+                           formControlName="guarantorGrandFatherName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorGrandFatherName').value ? personalGuaranteeJoint.get('guarantorGrandFatherName').value  : '========='}}</strong></span>
+
+                    को नाति/नातिनी/बुहारी
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</strong></span>,
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</strong></span>
+                    को छोरा/छोरी/पत्नी
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorDistrict"
+                           formControlName="guarantorDistrict"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</strong></span>
+
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorMunicipalityOrVdc"
+                           formControlName="guarantorMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                    गा.वि.स/न.पा वडा नं.
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorWardNo"
+                           formControlName="guarantorWardNo"
+                           placeholder=""
+                           type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</strong></span>
+
+                    स्थाई ठेगाना भई हाल <input class="form-field form-control-sm nepaliFont disable-print"
+                                               name="tempAddDistrict"
+                                               formControlName="tempAddDistrict"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+                        प्रदेश
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempProvinceNo"
+                           formControlName="tempProvinceNo"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempProvinceNo').value ? personalGuaranteeJoint.get('tempProvinceNo').value  : '========='}}</strong></span>
+
+                    जिल्ला
+                     <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="tempAddMunicipality"
+                            formControlName="tempAddMunicipality"
+                            placeholder=""
+                            type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddMunicipality').value ? personalGuaranteeJoint.get('tempAddMunicipality').value  : '========='}}</strong></span>
+                        न.पा वडा नं.
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddWardNo"
+                           formControlName="tempAddWardNo"
+                           placeholder=""
+                           type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddWardNo').value ? personalGuaranteeJoint.get('tempAddWardNo').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddress"
+                           formControlName="tempAddress"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddress').value ? personalGuaranteeJoint.get('tempAddress').value  : '========='}}</strong></span>
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorAge"
+                           formControlName="guarantorAge"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    को/की <input class="form-field form-control-sm nepaliFont disable-print"
+                                 name="guarantorName"
+                                 formControlName="guarantorName"
+                                 placeholder=""
+                                 type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</strong></span>
+                    को नाति/नातिनी/बुहारी
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</strong></span>,
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</strong></span>
+                    को छोरा/छोरी/पत्नी
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorDistrict"
+                           formControlName="guarantorDistrict"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</strong></span>
+
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorMunicipalityOrVdc"
+                           formControlName="guarantorMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                    गा.वि.स/न.पा वडा नं.
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorWardNo"
+                           formControlName="guarantorWardNo"
+                           placeholder=""
+                           type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</strong></span>
+
+                    स्थाई ठेगाना भई हाल <input class="form-field form-control-sm nepaliFont disable-print"
+                                               name="tempAddDistrict"
+                                               formControlName="tempAddDistrict"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+                    प्रदेश
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempProvinceNo"
+                           formControlName="tempProvinceNo"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempProvinceNo').value ? personalGuaranteeJoint.get('tempProvinceNo').value  : '========='}}</strong></span>
+
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddMunicipality"
+                           formControlName="tempAddMunicipality"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddMunicipality').value ? personalGuaranteeJoint.get('tempAddMunicipality').value  : '========='}}</strong></span>
+                    न.पा वडा नं.
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddWardNo"
+                           formControlName="tempAddWardNo"
+                           placeholder=""
+                           type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddWardNo').value ? personalGuaranteeJoint.get('tempAddWardNo').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="tempAddress"
+                           formControlName="tempAddress"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddress').value ? personalGuaranteeJoint.get('tempAddress').value  : '========='}}</strong></span>
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorAge"
+                           formControlName="guarantorAge"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    को/की <input class="form-field form-control-sm nepaliFont disable-print"
+                                 name="guarantorName"
+                                 formControlName="guarantorName"
+                                 placeholder=""
+                                 type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</strong></span>
+                    <strong>गरि २</strong> ऋणी  <strong>(जसलाई यस उप्रान्त ऋणीÞ भनिएको छ)</strong> लाई <strong>बिभिन्न</strong> ऋणकर्जा  सुविधा आवश्यकत्ता भई सोको लागि ऋणीले तपाई साहु बैंकसंग अनुरोध गरेकोमा तपाई साहु बैंकबाट निज ऋणीको नाममा जारी भएको मिति
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="loanApprovalDate"
+                           formControlName="loanApprovalDate"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('loanApprovalDate').value ? personalGuaranteeJoint.get('loanApprovalDate').value  : '========='}}</strong></span>
+                    को ऋण  स्विकृति पत्रानुसार स्विकृत  ऋणकर्जा तथा बैकिंग सुविधा जम्मा
+                    <strong>रु.  </strong>
+                      <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmtInWord', 'loanAmount')"
+                                      [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
+                    <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('loanAmount').value ? personalGuaranteeJoint.get('loanAmount').value  : '========='}}</b></span>/-
+                    <strong> (अक्षेरुपी</strong>
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           formControlName="loanAmtInWord"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('loanAmtInWord').value ? personalGuaranteeJoint.get('loanAmtInWord').value  : '========='}}</strong></span>
+                    <strong>रुपैयाँ मात्र)</strong> को सुरक्षण वापत तपाई साहु बैंकबाट माथवर र हैसियतवाल व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुंदा उल्लेखित ऋणीले मलाई/ हामीलाई जमानत वसी दिनुहोस भनी
+                        अनुरोध गरी तपाईं साहु बैंकमा उपस्थित गराएको तथा तपाई साहु बैंकबाट समेत निज ऋणीले हाल प्राप्त गरेको तथा भविष्यमा समेत प्राप्त गर्ने विभिन्न ऋणकर्जा तथा बैंकिंग सुविधाहरु
+                        वापत साहु बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम व्यक्तिगत रुपमा तिर्ने बुझाउने गरी व्यक्तिगत जमानत दिन तपाईंको मंजुरी छ,छैन भनी सोधनी हुंदा सोमा मेरो चित्त बुझेकोले देहायका
+                        <strong>तपसिल खण्ड क</strong> मा उल्लेखित शर्त वन्देजहरुको अधिनमा रही तपाईं साहु बैंकको पक्षमा आफ्नो राजीखुसिले यो व्यक्तिगत जमानतको लिखत गरिदिंए । निज ऋणीले तपाईं साहु बैंकबाट यसअघि
+                        प्राप्त गरेको उपयोग गरेको तथा यसउप्रान्त प्राप्त गर्ने उपयोग गर्ने विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु वापत तपाईं साहु बैंकलाई समय सयममा किस्ता किस्तामा तिर्नु बुझाउनु पर्ने सांवा व्याज
+                        कमिसन फि शुल्क आदी नतिरी नबुझाई ऋणकर्जा सुविधा सम्वन्धि शर्त बन्देजहरु उलंघन गरेको भनी तपाईं साहु बैंकले म जमानत दिने उपर दावी लिएमा सो दावी लिएको मितिले ७(सात) दिनभित्र
+                        म स्वयं तपाई साहु बैंकमा उपस्थित भई सोधखोज गरी सो रकम कलम चुक्ता भुक्तान गर्नेछु । सो समयभित्र चुक्ता भुक्तान नगरेमा वा तिर्न बुझाउन आलटाल गरी बांकि राखेमा वा धिह्न्याई गरेमा
+                        प्रचलित कानून तथा तपाई साहु बैंकको नियमानुसार म जमानत दिनेलाई ऋणी सरह कारवाही गरी मेरोे घरघरानाको गैह्र चलअचल जायजेथाबाट तपाई साहु बैंकको लेना रकम असूल उपर गरी लिनुहोला ।
+                        पछि एकाले लिए खाएको रकम कलम मैले तिर्नु बुझाउनु पर्ने होईन भनी कहिं कतै कुनै उजुर वाजुर गर्ने छैन, गरे यसै लिखतले बदर गराई लिनु होला भनी मेरोे मनोमान राजिखुसिले तल उल्लेखित
+                        साक्षिहरुको रोहवरमा यो व्यक्तिगत जमानतको लिखतमा सहिछाप गरी तपाईं साहु बैंकलाई बुझाएंं र यसको दोहरी समेत बुझीलिंए ।
+                    </p>
+            </div>
+        </div>
+
+        <div class="col-md-12 text-justify" style="break-before: auto">
+            <p class="font-weight-bold text-center" ><u><strong>तपसिल खण्ड क</strong></u></p>
+            <table class="table table-borderless">
+                <tr>
+                    <td colspan="2"><strong>शर्तवन्देजहरुः</strong></td>
+                </tr>
+                <tr>
+                    <td>१<span class="timesNewRoman">)</span></td>
+                    <td>माथि जुनसुकै कुरा लेखिएको भएता पनि यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा
+                        रकम <strong>रु</strong>  <input class="form-field disable-print form-control-sm nepaliFont"
+                                                       formControlName="loanAmount"
+                                                       placeholder=""
+                                                       type="text"/>
+                        <span class="print-only nepaliFont"><b>{{personalGuaranteeJoint.get('loanAmount').value ? personalGuaranteeJoint.get('loanAmount').value  : '========='}}</b></span>/-
+                        <strong> (अक्षरेपि</strong> <input class="form-field form-control-sm nepaliFont disable-print"
+                                                           formControlName="loanAmtInWord"
+                                                           placeholder=""
+                                                           type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('loanAmtInWord').value ? personalGuaranteeJoint.get('loanAmtInWord').value  : '========='}}</strong></span>
+                        <strong>रुपैयाँ मात्र)</strong><span class="timesNewRoman">)</span>
+                        र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी, शुल्क आदिमा सिमित हुनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>२<span class="timesNewRoman">)</span></td>
+                    <td>ऋणीले प्राप्त गरेको ऋणकर्जा तथा बैकिंग सुविधाहरु वापत साहु बैंकलाई समय समयमा तिर्नु बुझाउनु पर्ने सांवा व्याज फि
+                        कमीसन आदी रकम तिर्ने बुझाउने सम्बन्धमा जमानतदिनेको दायित्व मूख्य ऋणी <span class="timesNewRoman">(Principal Debtor)</span> सरह प्राथमीक दायित्व
+                        <span class="timesNewRoman">(Primary Liability)</span> को रुपमा रहनेछ र सो तिर्न बुझाउन बांकि रकम कलम साहु बैंकले सोझै जमानतदिनेसंग माग गर्न सक्नेछ।
+                        तर, यस लिखतमा लेखिएको कुनै कुराले ऋणी उपर ऋण असूलीको कारवाही गर्न सक्ने साहु बैंकको हकाधिकारमा कुनै वाधा पुग्ने छैन ।</td>
+                </tr>
+                <tr>
+                    <td>३<span class="timesNewRoman">)</span></td>
+                    <td>यस लिखत बमोजिमको व्यक्तिगत जमानत साहु बैंकको लागि ऋणीले प्राप्त गरेको ऋणकर्जा सुविधाको स्वतन्त्र <span class="timesNewRoman">(Independent)</span> सुरक्षण हो ।
+                        ऋणीले साहु बैंकको पक्षमा उपलव्ध गराएको अन्य सुरक्षण वा धितोको कारणवाट यस जमानतको लिखत बमोजिम जमानतदिने उपर
+                        कुनैपनि समयमा दाबी लिन साहु बैंकलाई कुनै वाधा पुग्ने छैन ।</td>
+                </tr>
+                <tr>
+                    <td>४<span class="timesNewRoman">)</span></td>
+                    <td> साहु बैंकले ऋणीबाट लिन असुल गर्नुपर्ने सम्पूर्ण रकम कलम चुक्ता भुक्तान भएको प्रमाणित नभएसम्म यो लिखत
+                        बमोजिम जमानतदिनेको दायित्व निरन्तर रुपमा कायम रहनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>५<span class="timesNewRoman">)</span></td>
+                    <td>जमानतदिनेले यो जमानत फिर्ता लिन चाहेमा साहु बैंकलाई ३ <span class="timesNewRoman">(</span>तीन<span class="timesNewRoman">)</span> महिनाको अग्रिम लिखित सूचना दिनु पर्नेछ ।
+                        तर, सो जमानत फिर्ता लिने दिनसम्म ऋणीले उपयोग गरेको ऋणकर्जा तथा बैंकिग सुविधा वापत साहु बैंकलाई तिर्न बुझाउन
+                        बांकि सांवा, ब्याज, शुल्क आदि रकम कलमको हकमा जमानतदिनेको दायित्व निरन्तर कायमै हुनेछ । साहु बैंकबाट माग हुनासाथ
+                        जमानतदिनेले तिर्नु बुझाउनु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td>६<span class="timesNewRoman">)</span></td>
+                    <td>	ऋणीको नाममा हाल स्विकृत ऋणकर्जा तथा बैंकिग सुविधाहरु साहु बैंकले आफ्नो तजविजमा समयसमयमा नवीकरण,
+                        थपघट वा उल्लेखित ऋण स्विकृति पत्रका कुनै शर्तवन्देज कबुलियत फेरबदल गर्न वा ऋणीले उपलव्ध गराएका अन्य धितो सुरक्षण
+                        परिवर्तन फुकुवा गर्न समेत जमानतदिनेले यसै लिखतबाट मंजुरी दिएको मानिनेछ । साहु बैंकको उल्लेखित कार्यले जमानत दिनेकोे
+                        दायित्वमा कुनै प्रतिकुल असर वा प्रभाव परेको मानिने छैन ।</td>
+                </tr>
+                <tr>
+                    <td>७<span class="timesNewRoman">)</span></td>
+                    <td>ऋणी विघटन, खारेज भएको वा टाट पल्टेको घोषणा गरेको वा ऋणीको उद्योगर व्यवसाय वन्द भएको वा ऋणीको मृत्यु भएको
+                        (प्राकृतिक व्यक्तिको हकमा) वा अन्य यस्तै कुनै कारणबाट कानूनी अस्तित्वमा नरहेको कारणले जमानत दिनेको दायित्वमा कुनै
+                        प्रतिकूल असर वा प्रभाव परेको मानिने छैन र साहु बैंकले जमानत दिने उपर दावी लिएको अवस्थामा जमानतदिनेले यस लिखत बमोजिम
+                        बैंकको लेना रकम तिर्नु बुझाउनु पर्नेछ।</td>
+                </tr>
+                <tr>
+                    <td>८<span class="timesNewRoman">)</span></td>
+                    <td> ऋणी संगठित संस्था भएको स्थितिमा ऋणीको संगठन संरचनामा वा व्यवस्थापनमा वा शेयरधनिहरुमा कुनै
+                        परिवर्तन भएको वा ऋणीको विधान, प्रवन्धपत्र नियमावलीमा संशोधन भएको वा ऋणी अन्य संगठित संस्थामा गाभिएको
+                        <span class="timesNewRoman">(Merged)</span> वा अन्य संस्था ऋणीसंग गाभिएको <span class="timesNewRoman">(Merged)</span> अवस्थामा समेत यस लिखत बमोजिम तिर्नु बुझाउनु पर्ने
+                        जमानत दिनेको दायित्व यथावत कायम रहनेछ । </td>
+                </tr>
+                <tr>
+                    <td>९<span class="timesNewRoman">)</span></td>
+                    <td>ऋणीबाट असूल उपर गरी लिन बांकि रकमको सम्वन्धमा साहु बैंकले जमानत दिने उपर दावी लिंदाका बखत
+                        जारी गर्ने दावी पत्र <span class="timesNewRoman">(Guarantee Invocation Letter)</span> मा उल्लेखित रकम अन्यथा प्रमाणित नभएसम्म
+                        अन्तिम र पूर्ण <span class="timesNewRoman">(Final and Conclusive)</span> मानिनेछ र सोही बमोजिम साहु बैंकले माग गर्नासाथ जमानतदिनेले तिर्न
+                        बुझाउन मंजुर गर्दछ र साहु बैंकको माग दाबी विरुद्ध कुनै उजुर वाजुर गर्ने छैन । </td>
+                </tr>
+                <tr>
+                    <td>१०<span class="timesNewRoman">)</span></td>
+                    <td>ऋणी र साहु बैंकका विच ऋणकर्जा तिर्ने बुझाउने सम्वन्धमा वा ऋण असूली कारवाहीको सन्दर्भमा कुनै विवाद
+                        श्रृजना भई मुद्धा मामीला चलेको अवस्थाले साहु बैंकलाई यो लिखत बमोजिमको रकम कलम जमानतदिनेसंग दावी
+                        गरी लिन कुनै वाधा पुग्ने छैन । </td>
+                </tr>
+                <tr>
+                    <td>११<span class="timesNewRoman">)</span></td>
+                    <td>
+                        कथंकदाचित कानूनको कार्यान्वयनबाट ऋणी नाबालक वा अशक्त वा असक्षम व्यक्ति ठहरी कर्जा दायित्वबाट मुक्त भएमा समेत जमानतदिने
+                        व्यक्ति यो लिखत बमोजिम तिर्नु बुझाउनु पर्ने दायित्वबाट मुक्त हुने छैन ।
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>१२<span class="timesNewRoman">)</span></td>
+                    <td>
+                        साहु बैंकबाट स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु ऋणीले आफ्नो आवश्यकत्ता अनुसार समय समयमा उपयोग गर्न, तिर्न बुझाउन, पुनः उपयोग गर्न सक्नेछ र त्यसरी तिरे बुझाएको, पुनः उपयोग गरेको वा आंशिक चुक्ता भुक्तानी गरेको आधारमा जमानत दिने आफ्नो दायित्वबाट मुक्त हुने छैन । ऋणीले सो ऋणकर्जा सुविधा वापत साहु बैंकलाई चुक्ता भुक्तान गर्न बांकि रकम तिर्नु बुझाउनु जमानत दिनेको दायित्व हुनेछ ।
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>१३<span class="timesNewRoman">)</span></td>
+                    <td>
+                        ऋणीले प्राप्त गरको ऋणकर्जा सुविधाको सुरक्षण वापत यस लिखत अन्तर्गत जमानत दिने बाहेक अन्य व्यक्ति वा पक्षले समेत जमानत दिएको अवस्थामा त्यस्तो जमानत दिने अन्य व्यक्ति वा पक्ष उपर साहु बैंकले दावी नलिएको वा निजहरु कानूनको कार्यान्वयनबाट आफ्नो दायित्वबाट मुक्त भएको कारणले मात्र यस लिखत बमोजिम जमानतदिनेको दायित्वमा कुनै असर पर्ने छैन र साहु बैंकले माग दावी गर्न बाधा पुग्ने छैन । यो लिखत बमोजिमको रकम कलम जमानत दिनेले चुक्ता गर्नु पर्नेछ ।
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>१४<span class="timesNewRoman">)</span></td>
+                    <td>
+                        कथंकदाचित ऋणीले साहु बैंकलाई तिर्नु बुझाउनु पर्ने रकम कलम चुक्ता भुक्तान हुनुअघि नै जमानतदिनेको मृत्यु भएको अवस्थामा जमानतदिनेको शेषपछि निजबाट अंश अपुताली प्राप्त गर्ने निजका अंशियार वा उत्तराधिकारीमा यस लिखत बमोजिमको दायित्व सर्नेछ र निज अंशियार वा उत्तराधिकारीले यस लिखत बमोजिमको रकम कलम साहु बैंकलाई तिर्नु बुझाउनु पर्नेछ ।
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>१५<span class="timesNewRoman">)</span></td>
+                    <td>
+                        यस लिखत अन्तर्गत एकभन्दा बढी व्यक्तिले जमानत दिएको अवस्थामा त्यस्ता जमानत दिने व्यक्तिहरुको साहु बैंक प्रतिको दायित्व व्यक्तिगत वा सामूहिक <span class="timesNewRoman">(joint or several)</span> हुनेछ र साहु बैंकले त्यस्ता जमानतदिने सबै वा कुनै एकजना माथि मात्र पनि जमानत वापतको रकम दावी गर्न सक्नेछ ।
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>१६<span class="timesNewRoman">)</span></td>
+                    <td>
+                        ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको कारणवाट नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम जमानतदिनेलाई कर्जा सूचना केन्द्रको कालोसूचीमा सूचिकृत गरेमा समेत जमानत दिनेको मंजुरी हुनेछ ।
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>१७<span class="timesNewRoman">)</span></td>
+                    <td>
+                        यस लिखत बमोजिम रकम कलम माग दावी लिन परेमा साहु बैंकले जमानत दिनेको यसै लिखतमा उल्लेखित ठेगानामा हाते पत्र वा हुलाक मार्फत रजिष्टर्ड पत्रबाट लिखित सूचना दिन सक्नेछ । हाते पत्रको हकमा पत्र बुझाएको मिति र हुलाक मार्फत पठाएको पत्रको हकमा रजिष्टर्ड गरेको मितिले १५ <span class="timesNewRoman">(</span>पन्ध्र<span class="timesNewRoman">)</span> दिनभित्र जमानत दिनेले सो सूचना रीतपूर्वक प्राप्त गरेको मानिनेछ ।
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-12 text-justify" style="break-before: auto">
+            <p class="font-weight-bold text-center" ><u>तपसिल खण्ड ख</u></p>
+            <table class="table table-borderless">
+                <tr>
+                    <td colspan="2"><strong>जमानतदिने</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        १ <input class="form-field form-control-sm nepaliFont size16 disable-print"
+                 name="guarantorName"
+                 formControlName="guarantorName"
+                 placeholder=""
+                 type="text"size="35"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</strong></span>
+        <br>
+        बाबुः— <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="guarrantorFatherName"
+                      formControlName="guarrantorFatherName"
+                      placeholder=""
+                      type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</strong></span>
+        <br>
+        ससुराः— <input class="form-field form-control-sm nepaliFont disable-print"
+                       name="guarrantorFatherName2"
+                       formControlName="guarrantorFatherName"
+                       placeholder=""
+                       type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName2').value ? personalGuaranteeJoint.get('guarrantorFatherName2').value  : '========='}}</strong></span>
+        <br>
+        पतिः— <input class="form-field form-control-sm nepaliFont disable-print"
+                     name="guarantorName"
+                     formControlName="guarrantorFatherName"
+                     placeholder=""
+                     type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</strong></span>
+        <br>
+        ना.प्र.नं<input class="form-field form-control-sm nepaliFont disable-print"
+                        name="tempAddWardNo"
+                        formControlName="tempAddWardNo"
+                        placeholder=""
+                        type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddWardNo').value ? personalGuaranteeJoint.get('tempAddWardNo').value  : '========='}}</strong></span>
+        जारी मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                         name="loanApprovalDate"
+                         formControlName="loanApprovalDate"
+                         placeholder=""
+                         type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('loanApprovalDate').value ? personalGuaranteeJoint.get('loanApprovalDate').value  : '========='}}</strong></span>
+        जारी गर्ने कार्यालय  जि.प्र.का<input class="form-field form-control-sm nepaliFont disable-print"
+                                             name="guarantorMunicipalityOrVdc"
+                                             formControlName="guarantorMunicipalityOrVdc"
+                                             placeholder=""
+                                             type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+        ठेगाना ः— <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorDistrict"
+                         placeholder=""
+                         type="text"/>
+        <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</strong></span>
+        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="tempAddDistrict"
+                      formControlName="tempAddDistrict"
+                      placeholder=""
+                      type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+        गा.वि.स/न.पा वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                   name="guarantorWardNo"
+                                   formControlName="guarantorWardNo"
+                                   placeholder=""
+                                   type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</strong></span>
+        ,  स्थाई ठेगाना <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="guarantorDistrict"
+                               placeholder=""
+                               type="text"/>
+        <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</strong></span>
+        भई हाल
+        <input class="form-field form-control-sm nepaliFont disable-print"
+               name="tempAddDistrict"
+               formControlName="tempAddDistrict"
+               placeholder=""
+               type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+        प्रदेश <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="tempProvinceNo"
+                      formControlName="tempProvinceNo"
+                      placeholder=""
+                      type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempProvinceNo').value ? personalGuaranteeJoint.get('tempProvinceNo').value  : '========='}}</strong></span>
+        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="tempAddDistrict"
+                      formControlName="tempAddDistrict"
+                      placeholder=""
+                      type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+        न.पा.वडा नं. <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="guarantorWardNo"
+                            formControlName="guarantorWardNo"
+                            placeholder=""
+                            type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</strong></span>
+
+        <br>
+        <br>
+
+        २. <input class="form-field form-control-sm nepaliFont size16 disable-print"
+                 name="guarantorName"
+                 formControlName="guarantorName"
+                 placeholder=""
+                 type="text"size="35"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</strong></span>
+        <br>
+        बाबुः— <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="guarrantorFatherName"
+                      formControlName="guarrantorFatherName"
+                      placeholder=""
+                      type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName').value ? personalGuaranteeJoint.get('guarrantorFatherName').value  : '========='}}</strong></span>
+        <br>
+        ससुराः— <input class="form-field form-control-sm nepaliFont disable-print"
+                       name="guarrantorFatherName2"
+                       formControlName="guarrantorFatherName"
+                       placeholder=""
+                       type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarrantorFatherName2').value ? personalGuaranteeJoint.get('guarrantorFatherName2').value  : '========='}}</strong></span>
+        <br>
+        पतिः— <input class="form-field form-control-sm nepaliFont disable-print"
+                     name="guarantorName"
+                     formControlName="guarrantorFatherName"
+                     placeholder=""
+                     type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorName').value ? personalGuaranteeJoint.get('guarantorName').value  : '========='}}</strong></span>
+        <br>
+        ना.प्र.नं<input class="form-field form-control-sm nepaliFont disable-print"
+                        name="tempAddWardNo"
+                        formControlName="tempAddWardNo"
+                        placeholder=""
+                        type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddWardNo').value ? personalGuaranteeJoint.get('tempAddWardNo').value  : '========='}}</strong></span>
+        जारी मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                         name="loanApprovalDate"
+                         formControlName="loanApprovalDate"
+                         placeholder=""
+                         type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('loanApprovalDate').value ? personalGuaranteeJoint.get('loanApprovalDate').value  : '========='}}</strong></span>
+        जारी गर्ने कार्यालय  जि.प्र.का<input class="form-field form-control-sm nepaliFont disable-print"
+                                             name="guarantorMunicipalityOrVdc"
+                                             formControlName="guarantorMunicipalityOrVdc"
+                                             placeholder=""
+                                             type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value ? personalGuaranteeJoint.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+        ठेगाना ः— <input class="form-field form-control-sm disable-print nepaliFont"
+                         formControlName="guarantorDistrict"
+                         placeholder=""
+                         type="text"/>
+        <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</strong></span>
+        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="tempAddDistrict"
+                      formControlName="tempAddDistrict"
+                      placeholder=""
+                      type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+        गा.वि.स/न.पा वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                   name="guarantorWardNo"
+                                   formControlName="guarantorWardNo"
+                                   placeholder=""
+                                   type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</strong></span>
+        ,  स्थाई ठेगाना <input class="form-field form-control-sm disable-print nepaliFont"
+                               formControlName="guarantorDistrict"
+                               placeholder=""
+                               type="text"/>
+        <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorDistrict').value ? personalGuaranteeJoint.get('guarantorDistrict').value  : '========='}}</strong></span>
+        भई हाल
+        <input class="form-field form-control-sm nepaliFont disable-print"
+               name="tempAddDistrict"
+               formControlName="tempAddDistrict"
+               placeholder=""
+               type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+        प्रदेश <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="tempProvinceNo"
+                      formControlName="tempProvinceNo"
+                      placeholder=""
+                      type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempProvinceNo').value ? personalGuaranteeJoint.get('tempProvinceNo').value  : '========='}}</strong></span>
+        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                      name="tempAddDistrict"
+                      formControlName="tempAddDistrict"
+                      placeholder=""
+                      type="text"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('tempAddDistrict').value ? personalGuaranteeJoint.get('tempAddDistrict').value  : '========='}}</strong></span>
+        न.पा.वडा नं. <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="guarantorWardNo"
+                            formControlName="guarantorWardNo"
+                            placeholder=""
+                            type="text"size="2"/><span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('guarantorWardNo').value ? personalGuaranteeJoint.get('guarantorWardNo').value  : '========='}}</strong></span>
+
+        <br>
+        <br>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-center"> साक्षीहरुः</h5>
+                <p>
+                    १.
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text">
+                    <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('witnessDistrict1').value ? personalGuaranteeJoint.get('witnessDistrict1').value  : '========='}}</strong></span>
+
+                </p>
+                <p>
+                    २.
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text">
+                    <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('witnessDistrict2').value ? personalGuaranteeJoint.get('witnessDistrict2').value  : '========='}}</strong></span>
+
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                ईति सम्वत्
+                <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenYear" formControlName="docWrittenYear" placeholder="२०७......" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('docWrittenYear').value ? personalGuaranteeJoint.get('docWrittenYear').value  : '========='}}</strong></span>
+                साल
+                <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('docWrittenMonth').value ? personalGuaranteeJoint.get('docWrittenMonth').value  : '========='}}</strong></span>
+                महिना
+                <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text"size="2"/>
+                <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('docWrittenDay').value ? personalGuaranteeJoint.get('docWrittenDay').value  : '========='}}</strong></span>
+                गते रोज
+                <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenWeek" formControlName="docWrittenWeek" placeholder="" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{personalGuaranteeJoint.get('docWrittenWeek').value ? personalGuaranteeJoint.get('docWrittenWeek').value  : '========='}}</strong></span>
+                शुभम् ।
+            </div>
+        </div>
+
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteeJointPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalGuaranteeJointPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

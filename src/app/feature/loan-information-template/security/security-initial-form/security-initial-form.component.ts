@@ -220,9 +220,19 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setBuildingDescription(this.formDataForEdit['buildingDetailsDescription']);
             this.setLandDescription(this.formDataForEdit['description']);
             this.setLandDetails(this.formDataForEdit['landDetails']);
+            this.formDataForEdit['landDetails'].forEach((ld, li) => {
+                if (!ObjectUtil.isEmpty(ld.locationDetail)) {
+                    this.setLocationDetail(ld.locationDetail, li, 'landDetails');
+                }
+            });
             this.setBuildingDetails(this.formDataForEdit['buildingDetails']);
             this.setBuildingUnderConstructions(this.formDataForEdit['buildingUnderConstructions']);
             this.setLandBuildingDetails(this.formDataForEdit['landBuilding']);
+            this.formDataForEdit['landBuilding'].forEach((lbd, li) => {
+                if (!ObjectUtil.isEmpty(lbd.locationDetail)) {
+                    this.setLocationDetail(lbd.locationDetail, li, 'landBuilding');
+                }
+            });
             this.setPlantDetails(this.formDataForEdit['plantDetails']);
             this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
             this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
@@ -459,6 +469,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     owner: [singleData.owner],
                     location: [singleData.location],
+                    locationDetail: this.formBuilder.array([]),
                     plotNumber: [singleData.plotNumber],
                     areaFormat: [singleData.areaFormat],
                     area: [singleData.area],
@@ -497,6 +508,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     forProposed: [singleData.forProposed],
                     forExisting: [singleData.forExisting],
                     existingAsProposed: [singleData.existingAsProposed],
+                    plantMachineryChecked: [singleData.plantMachineryChecked],
+                    plantMachineryModel: [singleData.plantMachineryModel],
+                    plantMachineryMV: [singleData.plantMachineryMV],
+                    plantMachineryFMV: [singleData.plantMachineryFMV],
+                    plantMachineryDV: [singleData.plantMachineryDV],
                 })
             );
         });
@@ -648,6 +664,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     forProposed: [singleData.forProposed],
                     forExisting: [singleData.forExisting],
                     existingAsProposed: [singleData.existingAsProposed],
+                    plantMachineryChecked: [singleData.plantMachineryChecked],
+                    plantMachineryModel: [singleData.plantMachineryModel],
+                    plantMachineryMV: [singleData.plantMachineryMV],
+                    plantMachineryFMV: [singleData.plantMachineryFMV],
+                    plantMachineryDV: [singleData.plantMachineryDV],
                 })
             );
             if (!ObjectUtil.isEmpty(Data)) {
@@ -682,9 +703,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     owner: [singleData.owner],
                     location: [singleData.location],
-                    plotNumber: [singleData.plotNumber],
-                    areaFormat: [singleData.areaFormat],
-                    area: [singleData.area],
+                    locationDetail: this.formBuilder.array([]),
+                    // plotNumber: [singleData.plotNumber],
+                    // areaFormat: [singleData.areaFormat],
+                    // area: [singleData.area],
                     marketValue: [singleData.marketValue],
                     distressValue: [singleData.distressValue],
                     description: [singleData.description],
@@ -693,6 +715,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     costPerSquare: [singleData.costPerSquare],
                     totalCost: [singleData.totalCost],
                     landConsideredValue: [singleData.landConsideredValue],
+                    buildingDistressValue: [singleData.buildingDistressValue],
                     typeOfProperty: [singleData.typeOfProperty],
                     buildingValuator: [singleData.buildingValuator],
                     buildingValuatorDate: [ObjectUtil.isEmpty(singleData.buildingValuatorDate) ?
@@ -753,6 +776,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     forProposed: [singleData.forProposed],
                     forExisting: [singleData.forExisting],
                     existingAsProposed: [singleData.existingAsProposed],
+                    plantMachineryChecked: [singleData.plantMachineryChecked],
+                    plantMachineryModel: [singleData.plantMachineryModel],
+                    plantMachineryMV: [singleData.plantMachineryMV],
+                    plantMachineryFMV: [singleData.plantMachineryFMV],
+                    plantMachineryDV: [singleData.plantMachineryDV],
                 })
             );
         });
@@ -830,6 +858,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     model: [singleData.model],
                     quotation: [singleData.quotation],
+                    quotationDv: [singleData.quotationDv],
+                    quotationMV: [singleData.quotationMV],
                     supplier: [singleData.supplier],
                     downPay: [singleData.downPay],
                     loanExp: [singleData.loanExp],
@@ -1291,6 +1321,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             owner: ['', Validators.required],
             location: [''],
+            locationDetail: this.formBuilder.array([this.locationDetailFormGroup()]),
             plotNumber: [''],
             areaFormat: [''],
             area: [''],
@@ -1328,6 +1359,11 @@ export class SecurityInitialFormComponent implements OnInit {
             forProposed: [undefined],
             forExisting: [undefined],
             existingAsProposed: [undefined],
+            plantMachineryChecked: [false],
+            plantMachineryModel: [undefined],
+            plantMachineryMV: [undefined],
+            plantMachineryFMV: [undefined],
+            plantMachineryDV: [undefined],
         });
     }
 
@@ -1356,15 +1392,18 @@ export class SecurityInitialFormComponent implements OnInit {
             forProposed: [undefined],
             forExisting: [undefined],
             existingAsProposed: [undefined],
+            plantMachineryChecked: [false],
+            plantMachineryModel: [undefined],
+            plantMachineryMV: [undefined],
+            plantMachineryFMV: [undefined],
+            plantMachineryDV: [undefined],
         });
     }
     LandBuildingDetailsFormGroup() {
         return this.formBuilder.group({
             owner: [undefined],
             location: undefined,
-            plotNumber: [undefined],
-            areaFormat: undefined,
-            area: undefined,
+            locationDetail: this.formBuilder.array([this.locationDetailFormGroup()]),
             marketValue: [undefined],
             distressValue: [undefined],
             description: undefined,
@@ -1378,6 +1417,7 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingStaffRepresentativeName: [undefined],
             buildingBranch: [undefined],
             landConsideredValue: [undefined],
+            buildingDistressValue: [undefined],
             typeOfProperty: [undefined],
             ownershipTransferDate: [undefined],
             ownershipTransferThrough: [undefined],
@@ -1431,6 +1471,11 @@ export class SecurityInitialFormComponent implements OnInit {
             forProposed: [undefined],
             forExisting: [undefined],
             existingAsProposed: [undefined],
+            plantMachineryChecked: [false],
+            plantMachineryModel: [undefined],
+            plantMachineryMV: [undefined],
+            plantMachineryFMV: [undefined],
+            plantMachineryDV: [undefined],
         });
     }
 
@@ -1457,6 +1502,8 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             model: ['', Validators.required],
             quotation: ['', Validators.required],
+            quotationMV: [''],
+            quotationDv: [''],
             supplier: [''],
             downPay: [''],
             loanExp: [''],
@@ -2349,5 +2396,49 @@ export class SecurityInitialFormComponent implements OnInit {
     }
     setFiles(event) {
         this.files = event;
+    }
+
+    addLocationDetail(securityName: string, index: number) {
+        const landDetails = this.securityForm.get([securityName, index, 'locationDetail']) as FormArray;
+        landDetails.push(this.locationDetailFormGroup());
+    }
+
+    locationDetailFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            plotNumber: [undefined],
+            areaFormat: [undefined],
+            area: [undefined],
+        });
+    }
+
+    deleteLocationDetail(securityName: string, i: number, li: number) {
+        (this.securityForm.get([securityName, i, 'locationDetail']) as FormArray).removeAt(li);
+    }
+
+    setLocationDetail(data, index: number, securityName: string) {
+        const locationControl = this.securityForm.get([securityName, index, 'locationDetail']) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                locationControl.push(
+                    this.formBuilder.group({
+                        plotNumber: [d.plotNumber],
+                        areaFormat: [d.areaFormat],
+                        area: [d.area],
+                    })
+                );
+            });
+        }
+    }
+
+    plantMachineryCheck(checked, securityName: string, index: number) {
+        if (checked) {
+            this.securityForm.get([securityName, index, 'plantMachineryChecked']).patchValue(checked);
+        } else {
+            this.securityForm.get([securityName, index, 'plantMachineryChecked']).patchValue(checked);
+            this.securityForm.get([securityName, index, 'plantMachineryModel']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryMV']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryFMV']).patchValue(null);
+            this.securityForm.get([securityName, index, 'plantMachineryDV']).patchValue(null);
+        }
     }
 }
