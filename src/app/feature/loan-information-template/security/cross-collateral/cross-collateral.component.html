@@ -1,0 +1,110 @@
+<div class="row summary">
+    <div class="col-md-12">
+        <form [formGroup]="crossCollateral">
+           <p class="header"><strong class="header">Cross Collateralized</strong></p>
+            <div *ngIf="!readonly" class="box-header with-border">
+                <nb-checkbox (change)="checkedChange($event?.target?.checked)"
+                             formControlName="crossChecked"
+                             [checked]="crossCollateral?.get('crossChecked')?.value"><i>Cross Collateralized </i>
+                </nb-checkbox>
+            </div>
+            <table *ngIf="crossCollateral?.get('crossChecked')?.value"
+                   class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <tr [ngClass]="readonly ? 'sb-bg-gray' : 'sb-bg-dark text-white'">
+                    <th class="sn">SN</th>
+                    <th>Borrower</th>
+                    <th>Facility</th>
+                    <th>Total Exposure</th>
+                    <th>RM Value</th>
+                    <th>FMV of FAC(Apportioned)</th>
+                    <th>Drawdown(%) of FAC</th>
+                    <th>Residual FMV of FAC</th>
+                    <th *ngIf="crossCollateral?.get('crossArray')['length'] > 0 && !readonly">Action</th>
+                </tr>
+                <tbody>
+                <ng-container *ngFor="let cc of crossCollateral.get('crossArray')['controls']; let apIdx = index"
+                              formArrayName="crossArray">
+                    <tr *ngIf="!readonly" [formGroupName]="apIdx.toString()">
+                        <td class="sn">{{apIdx + 1}}</td>
+                        <td><input class="form-control text-center"
+                                   formControlName="borrowerName"
+                                   placeholder="Borrower"
+                                   type="text"/></td>
+                        <td><select class="form-control" formControlName="facilityName">
+                            <option [value]="null" hidden>Select Facility</option>
+                            <ng-container *ngFor="let list of loanList">
+                                <option *ngIf="!list?.isRemit"
+                                        [value]="list?.shortNames">{{list?.shortNames}}</option>
+                            </ng-container>
+                        </select></td>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="totalExposure"
+                                   placeholder="Total Exposure"
+                                   (change)="calculateTotalCross()"
+                                   type="number"/>
+                        </td>
+                        <td><input class="form-control text-center"
+                                   formControlName="rmValue"
+                                   placeholder="RM Value"
+                                   (change)="calculateTotalCross()"
+                                   type="number"/></td>
+                        <td><input class="form-control text-center"
+                                   formControlName="fmvApportion"
+                                   placeholder="FMV of FAC"
+                                   (change)="calculateTotalCross()"
+                                   type="number"/></td>
+                        <td><input class="form-control text-center"
+                                   formControlName="drawDown"
+                                   placeholder="Drawdown"
+                                   type="text"/></td>
+                        <td><input class="form-control text-center"
+                                   formControlName="residualFmv"
+                                   placeholder="Residual FMV of FAC"
+                                   type="text"/></td>
+                        <td  *ngIf="crossCollateral?.get('crossArray')['length'] > 0 && !readonly">
+                            <input (click)="removeCrossCollateralized( apIdx)"
+                                   class="align-self-end btn btn-sm btn-danger btn-primary"
+                                   type="button" value="Delete"/>
+                        </td>
+                    </tr>
+                    <tr *ngIf="readonly" [formGroupName]="apIdx.toString()">
+                        <td class="sn">{{apIdx + 1}}</td>
+                        <td>{{cc?.get('borrowerName')?.value}}</td>
+                        <td>{{cc?.get('facilityName')?.value}}</td>
+                        <td>{{cc?.get('totalExposure')?.value}}</td>
+                        <td>{{cc?.get('rmValue')?.value}}</td>
+                        <td>{{cc?.get('fmvApportion')?.value}}</td>
+                        <td>{{cc?.get('drawDown')?.value}}</td>
+                        <td>{{cc?.get('residualFmv')?.value}}</td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="crossCollateral?.get('crossArray')?.value?.length > 0">
+                    <td></td>
+                    <td>Total</td>
+                    <td></td>
+                    <td><input [readOnly]="true" class="form-control text-center"
+                               formControlName="exposureTotal"
+                               type="number"></td>
+                    <td><input [readOnly]="true" class="form-control text-center"
+                               formControlName="rmValueTotal"
+                               type="number"></td>
+                    <td><input [readOnly]="true" class="form-control text-center"
+                               formControlName="fmvTotal"
+                               type="number"></td>
+                    <td></td>
+                    <td></td>
+                    <td *ngIf="!readonly"></td>
+                </tr>
+                </tbody>
+                <tr *ngIf="!readonly" class="disable-print">
+                   <td [colSpan]="9">
+                       <input (click)="addCrossCollateralized()" class="btn btn-sm btn-flat btn-primary float-right"
+                              type="button" value="Add More"/>
+                   </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>

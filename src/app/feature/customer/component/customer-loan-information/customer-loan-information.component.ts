@@ -59,6 +59,7 @@ import {
     FinancialAccountInformationComponent
 } from '../../../loan-information-template/financial-account-information/financial-account-information.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
+import {CrossCollateralComponent} from '../../../loan-information-template/security/cross-collateral/cross-collateral.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -151,6 +152,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public commonLoanInformation: CommonLoanInformationComponent;
     @ViewChild('financialAccountInformation', {static: false})
     private financialAccountInformation: FinancialAccountInformationComponent;
+    @ViewChild('crossCollateralComponent', {static: false}) crossCollateralComponent: CrossCollateralComponent;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -209,6 +211,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     smallBusiness = false;
     deprivedSector = false;
     microFinancialService = false;
+    crossData;
     private _securities = new BehaviorSubject<Security[]>([]);
     readonly securities$ = this._securities.asObservable();
 
@@ -405,10 +408,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 .subscribe((response: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
                     this.setSecurity(response.detail.securities);
-                    this.triggerCustomerRefresh.emit();
+                    this.customerInfo = response.detail;
+                    this.saveCrossCollateral();
+                    // this.triggerCustomerRefresh.emit();
                     this.securityComponent.securityInitialState();
                     this.spinner.hide();
-                    this.nbDialogRef.close();
                 }, error => {
                     this.spinner.hide();
                     console.error(error);
@@ -1079,7 +1083,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.nbDialogRef.close();
             this.onRefresh();
             this.spinner.hide();
-            this.triggerCustomerRefresh.emit(true);
+            // this.triggerCustomerRefresh.emit(true);
         }, error => {
             this.spinner.hide();
             this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
@@ -1101,5 +1105,12 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
             });
         }
+    }
+    saveCrossCollateral() {
+        this.crossCollateralComponent.onSubmit();
+        this.crossData = this.crossCollateralComponent.submitData;
+        this.customerInfo.crossCollateral = this.crossData;
+        this.saveCustomerInfo();
+        this.nbDialogRef.close();
     }
 }
