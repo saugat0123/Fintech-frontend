@@ -32,6 +32,7 @@ import { ManjurinamaForGadiNamasariIndividualComponent } from './manjurinama-for
 import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-for-gadi-namasari-partnership/manjurinama-for-gadi-namasari-partnership.component';
 import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
 import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan-deed-proprietorship.component';
+import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprietorship/letter-of-set-off-proprietorship.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -52,6 +53,7 @@ import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan
     PromissoryNoteJointComponent,
     CorporateGuaranteeComponent,
     LetterOfSetOffCompanyComponent,
+    LetterOfSetOffProprietorshipComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
@@ -91,6 +93,7 @@ import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     LetterOfSetOffCompanyComponent,
+    LetterOfSetOffProprietorshipComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
     PromissoryNotePartnershipFirmComponent,
