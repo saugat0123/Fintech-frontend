@@ -253,16 +253,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.companyInfo = this.loanData.companyInfo;
       this.tempData = JSON.parse(this.companyInfo.companyJsonData);
     }
-    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
-      this.isSaneView = true;
-      this.isDetailedView = true;
-    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
-      this.isUpToTenMillion = true;
-      this.isDetailedView = true;
-    } else {
-      this.isAboveTenMillion = true;
-      this.isDetailedView = true;
-    }
+    this.checkCustomerCategoryForDetailView();
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
@@ -886,26 +877,20 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  detailViewCheck() {
-    this.ngxSpinner.show();
-    if (this.isDetailedView) {
-      this.isDetailedView = false;
-      this.isSaneView = false;
-      this.isAboveTenMillion = false;
-      this.isUpToTenMillion = false;
-      this.spinner = false;
-      this.ngxSpinner.hide();
-    } else {
+  checkCustomerCategoryForDetailView() {
+    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_ABOVE_TEN_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_ABOVE_TEN_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
+      this.isAboveTenMillion = true;
       this.isDetailedView = true;
-      if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
-        this.isSaneView = true;
-      } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
-        this.isUpToTenMillion = true;
-      } else {
-        this.isAboveTenMillion = true;
-      }
-      this.spinner = false;
-      this.ngxSpinner.hide();
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+      this.isUpToTenMillion = true;
+      this.isDetailedView = true;
+    } else {
+      this.isSaneView = true;
+      this.isDetailedView = true;
     }
   }
 
