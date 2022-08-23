@@ -42,10 +42,9 @@ export class MultipleBankingComponent implements OnInit {
 
     ngOnInit() {
         this.router.queryParams.subscribe((res: any) => {
-           this.customerType = res.customerType;
+            this.customerType = res.customerType;
         });
         this.buildForm();
-        console.log('customerCategory', this.customerCategory);
         this.checkCustomerCategory(this.customerCategory);
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
             const multiData = JSON.parse(this.multiBankingData.data);
@@ -176,7 +175,6 @@ export class MultipleBankingComponent implements OnInit {
         let termLoan = 0;
         let totalTotal = 0;
         let totalPercent = 0;
-        let totalAmount = 0;
         const array = this.multiBankingForm.get(arrayName) as FormArray;
         array.value.forEach(av => {
             funded += av.funded;

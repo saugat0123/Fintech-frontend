@@ -18,10 +18,15 @@ export class MGroupSummaryComponent implements OnInit {
   customerCategoryType = CustomerCategory;
   groupPosition;
   totalAmount;
+  isAboveTen = false;
+  isBelowTen = false;
+  isWholeSale = false;
+  isSana = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.checkCustomerCategory(this.customerCategory);
     if (!ObjectUtil.isEmpty(this.mGroup)) {
       if (!ObjectUtil.isEmpty(this.mGroup.groupPosition)) {
         this.groupPosition = JSON.parse(this.mGroup.groupPosition);
@@ -29,6 +34,20 @@ export class MGroupSummaryComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.mGroup.totalAmount)) {
         this.totalAmount = JSON.parse(this.mGroup.totalAmount);
       }
+    }
+  }
+
+  checkCustomerCategory(value) {
+    if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+      this.isAboveTen = true;
+    } else if (value === 'SME_UPTO_TEN_MILLION' ||
+        value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
+        value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+      this.isBelowTen = true;
+    } else if (value === 'SANA_BYABASAYI') {
+      this.isSana = true;
+    } else {
+      this.isWholeSale = true;
     }
   }
 
