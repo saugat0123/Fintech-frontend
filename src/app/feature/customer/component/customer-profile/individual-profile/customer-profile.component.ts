@@ -583,6 +583,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             priority: [undefined, Validators.required],
             approvingLevel: [undefined, Validators.required],
             creditRisk: [undefined, Validators.required],
+            loanNumber: [undefined],
             documentStatus: ['UNDER_REVIEW']
         });
 
@@ -593,6 +594,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         this.loan.priority = this.loanForm.get('priority').value;
         this.loan.approvingLevel = this.loanForm.get('approvingLevel').value;
         this.loan.creditRisk = this.loanForm.get('creditRisk').value;
+        this.loan.loanNumber = (this.loanForm.get('loanNumber').value).toString();
         this.loan.documentStatus = this.loanForm.get('documentStatus').value;
         this.loan.loanType = this.selectedLoanType;
         const loanConfig = new LoanConfig();
