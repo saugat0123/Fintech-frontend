@@ -205,9 +205,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value ? '' : 'disable-print'">
@@ -240,9 +242,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
@@ -291,9 +295,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
@@ -342,9 +348,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'repaymentNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'repaymentNeeded'])?.value ? '' : 'disable-print'">
@@ -504,9 +512,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value ? '' : 'disable-print'">
@@ -554,9 +564,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value ? '' : 'disable-print'">
@@ -569,8 +581,9 @@
                                     </nb-checkbox>
                                 </span>
                                     </td>
+                                    <td>
                                     <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value">
-                                        <td colspan="2">
+                                            <ng-container *ngIf="!offerLetterForm?.get(['purpose', i, 'tenureOtherCheck'])?.value">
                                             मिति <input type="text"
                                                         (change)="valueChange($event?.target?.value, i, 'reviewDate')"
                                                         [value]="offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value"
@@ -580,15 +593,34 @@
                                             मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ ।
                                             पुनरावलोकन गर्ने मिति जुनसुकै उल्लेख भएको भएतापनि
                                             बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम भुक्तानी गर्नु पर्नेछ ।
-                                        </td>
+                                        </ng-container>
+                                        <span class="disable-print float-right">
+                                            <nb-checkbox
+                                                    (change)="otherValueCheck($event?.target?.checked, i, 'tenureOtherCheck')"
+                                                    [checked]="offerLetterForm?.get(['purpose', i, 'tenureOtherCheck'])?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                        </span>
+                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'tenureOtherCheck'])?.value">
+                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                      placeholder="कर्जा अवधि"
+                                                      [value]="offerLetterForm?.get(['purpose', i, 'tenureValue'])?.value"
+                                                      (change)="valueChange($event?.target?.value, i, 'tenureValue')"
+                                                      rows="4"></textarea>
+                                        <span class="nepaliFont font-size-normal print-only">
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'tenureValue'])?.value ?
+                                                offerLetterForm?.get(['purpose', i, 'tenureValue'])?.value : '========='}}</b></span>
+                                        </span>
                                     </ng-container>
+                                    </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                         <span [ngClass]="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value ? '' : 'disable-print'">व्याज (Interest)</span>
@@ -599,7 +631,7 @@
                                     </nb-checkbox>
                                 </span>
                                     </td>
-                                    <td colspan="2">
+                                    <td>
                             <span>
                                 <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'interestNeeded'])?.value">
                                        <select class="custom-select disable-print"
@@ -731,9 +763,11 @@
 
                                 <tr *ngIf="!offerLetterForm?.get(['purpose', i, 'isFunded'])?.value || offerLetterForm?.get(['purpose', i, 'isFunded'])?.value !== null">
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                         <span [ngClass]="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value ? '' : 'disable-print'">कमिसन (Commission)</span>
@@ -790,9 +824,11 @@
 
                                 <tr>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                        <span [ngClass]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
+                                            <ul>
+                                                <li></li>
+                                            </ul>
+                                        </span>
                                     </td>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
@@ -1128,7 +1164,7 @@
                             <ng-container [formGroupName]="i">
                                 <td>{{(6 + i + 1) |nepaliNumber}}</td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherFeeTitle"
                                       placeholder="अन्य शुल्क, हर्जना तथा दस्तुरहरु"
                                       rows="3"></textarea>
@@ -1137,7 +1173,7 @@
                                     offerLetterForm?.get(['feesDetails', i, 'otherFeeTitle'])?.value : '========='}}</b></span>
                                 </td>
                                 <td>
-                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                            <textarea class="form-control form-field font-size-normal disable-print"
                                       formControlName="otherFeeContent"
                                       placeholder="अन्य शुल्क, हर्जना तथा दस्तुरहरु"
                                       rows="3"></textarea>
@@ -1272,7 +1308,7 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1"></td>
+                                    <td><span><ul><li></li></ul></span></td>
                                     <td colspan="6">
                                         <span *ngIf="!offerLetterForm?.get('registerMortgageOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
@@ -1421,7 +1457,7 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1"></td>
+                                    <td><span><ul><li></li></ul></span></td>
                                     <td colspan="6">
                                         <span *ngIf="!offerLetterForm?.get('crossCollateralOtherChecked')?.value">
                                         उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
@@ -1594,10 +1630,8 @@
                                     </div>
                                 </ng-container>
                                 <tr>
-                                    <td colspan="1">
-                                        <ul>
-                                            <li></li>
-                                        </ul>
+                                    <td>
+                                        <span><ul><li></li></ul></span>
                                     </td>
                                     <td colspan="6">
                                         <span *ngIf="!offerLetterForm?.get('reRegisterOtherChecked')?.value">
@@ -1733,7 +1767,7 @@
                                                type="button" value="Add More"/>
                                     </div>
                                     <tr>
-                                        <td colspan="1"></td>
+                                        <td><span><ul><li></li></ul></span></td>
                                         <td colspan="6">
                                              <span *ngIf="!offerLetterForm?.get('vehicleSecurityOtherChecked')?.value">
                                             उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि
@@ -1852,12 +1886,8 @@
                                         </div>
                                     </ng-container>
                                     <tr>
-                                        <td colspan="1">
-                                            <span *ngIf="offerLetterForm?.get('shareOtherChecked')?.value">
-                                                <ul>
-                                                    <li></li>
-                                                </ul>
-                                            </span>
+                                        <td>
+                                            <span><ul><li></li></ul></span>
                                         </td>
                                         <td colspan="6">
                                             <span *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
