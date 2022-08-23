@@ -20,6 +20,7 @@ import {NgxNumToWordsModule} from 'ngx-num-to-words';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
+import {NepaliCurrencyPreetiWordPipe} from './pipe/nepali-currency-preeti-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
 import { AmountWordPipe } from './pipe/amount-word.pipe';
 import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe';
@@ -40,7 +41,8 @@ export const NB_CORE_PROVIDERS = [
     LoanStatusPipe,
     EngToNepaliNumberPipe,
     NepaliCurrencyWordPipe,
-    NepaliCurrencyFormatterPipe
+    NepaliCurrencyFormatterPipe,
+    NepaliCurrencyPreetiWordPipe
 ];
 
 const UTILITY_MODULES = [
@@ -76,7 +78,8 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
         AmountWordPipe,
         NepaliCurrencyFormatterPipe,
-        CkEditorComponent
+        CkEditorComponent,
+        NepaliCurrencyPreetiWordPipe
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -96,7 +99,8 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
         AmountWordPipe,
         NepaliCurrencyFormatterPipe,
-        CkEditorComponent
+        CkEditorComponent,
+        NepaliCurrencyPreetiWordPipe
 
     ], entryComponents: [LoginPopUp]
 })
