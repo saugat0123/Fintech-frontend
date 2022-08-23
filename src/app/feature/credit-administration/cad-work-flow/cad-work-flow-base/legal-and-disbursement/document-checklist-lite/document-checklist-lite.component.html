@@ -71,7 +71,7 @@
 <ng-template #saveEditOtherDocInfo>
     <nb-card [nbSpinner]="spinner"
              accent="primary"
-             class="m-0"
+             class="customNepaliDatePickerHeight m-0"
              nbSpinnerMessage="UPDATING....."
              nbSpinnerSize="giant"
              nbSpinnerStatus="primary">
@@ -90,9 +90,7 @@
                     <td class="text-left">
                         <input [(ngModel)]="saveEditParam.amount" class="cellInput" type="number">
                     </td>
-
                 </tr>
-
                 <tr>
                     <td class="font-weight-bold">Remarks
                     <td class="font-weight-bold">:</td>
@@ -106,13 +104,8 @@
                     <td class="font-weight-bold">Obtained Date</td>
                     <td class="font-weight-bold">:</td>
                     <td>
-                        <!--<app-calendar (messageToEmit)="saveEditParam.obtainedOn"
-                                       [ePreDate]="saveEditParam.obtainedOn"></app-calendar>-->
-                        <input class="cellInput"
-                               [(ngModel)]="saveEditParam.obtainedOn"
-                               type="date"
-                               id="obtainedOn"
-                               name="obtainedOn">
+                        <app-calendar (messageToEmit)="saveEditParam.obtainedOn = $event?.eDate"
+                                       [ePreDate]="saveEditParam.obtainedOn"></app-calendar>
                     </td>
                 </tr>
             </table>
