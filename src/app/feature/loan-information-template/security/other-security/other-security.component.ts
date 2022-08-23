@@ -15,9 +15,6 @@ export class OtherSecurityComponent implements OnInit {
     @Input() security: Security;
     @Input() isEdit = false;
     @Input() calendarType: CalendarType;
-    totalDistressValue;
-    totalMarketVAlue;
-    totalConsiderValue;
     submitted = false;
 
     constructor(private formBuilder: FormBuilder) {
@@ -80,26 +77,9 @@ export class OtherSecurityComponent implements OnInit {
         (this.otherSecurityForm.get('otherSecurity') as FormArray).push(this.otherSecurityDetailsFormGroup());
     }
 
-    public calcRealizableValue(type, index): void {
-        if (type === 'security') {
-            const realizableValue = (Number(this.otherSecurityForm.get(['otherSecurity', index, 'distressValue']).value)
+    public calcRealizableValue( index): void {
+            const realizableValue = (Number(this.otherSecurityForm.get(['otherSecurity', index, 'considerValue']).value)
                 * (Number(this.otherSecurityForm.get(['otherSecurity', index, 'realiazableRate']).value)) / 100);
             this.otherSecurityForm.get(['otherSecurity', index, 'realiazableValue']).patchValue(realizableValue);
-            this.otherSecurityForm.get(['otherSecurity', index, 'considerValue']).patchValue(
-                this.otherSecurityForm.get(['otherSecurity', index, 'fairMarketValue']).value);
-        }
-        this.updateOtherSecurityTotal();
-    }
-
-    public updateOtherSecurityTotal(): void {
-        const otherSecurity = this.otherSecurityForm.get('otherSecurity') as FormArray;
-        this.totalMarketVAlue = 0;
-        this.totalConsiderValue = 0;
-        this.totalDistressValue = 0;
-        otherSecurity['value'].forEach(val => {
-            this.totalDistressValue += Number(val['distressValue']);
-            this.totalConsiderValue += Number(val['realiazableValue']);
-            this.totalMarketVAlue += Number(val['fairMarketValue']);
-        });
     }
 }

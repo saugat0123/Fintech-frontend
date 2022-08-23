@@ -31,9 +31,6 @@ export class CustomerLoanInformationViewComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log('this.customerInfo: ', this.customerInfo);
-    console.log('this.customerType: ', this.customerType);
-
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }

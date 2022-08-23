@@ -40,33 +40,24 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title" for="fairMarketValue">Fair Market Value</label>
                             <input
-                                    (change)="updateOtherSecurityTotal()"
-                                    (input)="calcRealizableValue('security', i)"
                                    class="form-control rounded"
                                    formControlName="fairMarketValue"
                                    id="fairMarketValue"
+                                   hidden
+                                    [(ngModel)]="security.get('considerValue').value"
                                    name="fairMarketValue" placeholder="Fair Market Value"
                                    type="text" appDecimalNumber/>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="title" for="distressValue">Market Value</label>
                             <input
-                                    (change)="updateOtherSecurityTotal()"
-                                    (input)="calcRealizableValue('security', i)"
                                    class="form-control rounded"
                                    formControlName="distressValue"
-                                   id="distressValue"
+                                    [(ngModel)]="security.get('considerValue').value"
+                                    id="distressValue"
+                                   hidden
                                    placeholder="Market Value"
                                    name="distressValue"
                                    type="text" appDecimalNumber/>
-                        </div>
-                    </div>
+
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -85,7 +76,7 @@
                         <div class="form-group">
                             <label class="title" for="rate">Realiasable Rate</label>
                             <input
-                                    (input)="calcRealizableValue('security', i)"
+                                    (input)="calcRealizableValue( i)"
                                    class="form-control rounded"
                                    formControlName="realiazableRate"
                                    id="rate"
@@ -98,7 +89,6 @@
                         <div class="form-group">
                             <label for="realiazableValue">Realisable Value</label>
                             <input
-                                    (change)="updateOtherSecurityTotal()"
                                     [ngClass]="{ 'is-invalid': (submitted) && (security.get('realiazableValue').errors ||
                                        security.get('realiazableValue').invalid) }"
                                     class="form-control"
@@ -110,7 +100,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Other Detail</label>
+                            <label>Remarks</label>
                             <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
                         </div>
                     </div>
