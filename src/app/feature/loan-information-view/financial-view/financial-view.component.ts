@@ -47,7 +47,6 @@ export class FinancialViewComponent implements OnInit {
     }
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
-      console.log('Financial Data::', this.financialData);
       if (CustomerType[this.customerType] === CustomerType.INSTITUTION) {
         try {
           this.summaryCheckedList = this.financialData.keyIndicatorsData.summaryCheckList;

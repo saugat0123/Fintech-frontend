@@ -385,8 +385,8 @@
                 </tr>
             </table>
             <p class="float-left"><strong>Balance Sheet</strong></p>
-                    <table *ngIf="financialData['incomeStatementData']['checkKeyPresent'] === undefined ||
-                    financialData['incomeStatementData']['checkKeyPresent'] === null;else balanceSheet"
+                    <table *ngIf="financialData['balanceSheetData']['checkKeyPresent'] === undefined ||
+                    financialData['balanceSheetData']['checkKeyPresent'] === null;else balanceSheet"
                            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -590,7 +590,8 @@
 
             <ng-container *ngIf="!activeClientIsMega">
                 <p class="float-left"><strong>Cashflow Statement</strong></p>
-                <table
+                <table *ngIf="financialData['cashFlowStatementData']['checkKeyPresent'] === undefined ||
+                    financialData['cashFlowStatementData']['checkKeyPresent'] === null;else cashFlowStatement"
                         class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -1172,7 +1173,8 @@
                     <ng-container *ngIf="category.showLabel">
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
-                        <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                        <td *ngFor="let amount of category['amount']"
+                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1196,7 +1198,8 @@
                     <ng-container *ngIf="category.showLabel">
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
-                        <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                        <td *ngFor="let amount of category['amount']"
+                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1221,7 +1224,8 @@
                     <ng-container *ngIf="category.showLabel">
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
-                        <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                        <td *ngFor="let amount of category['amount']"
+                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1237,7 +1241,8 @@
                     <ng-container *ngIf="category.showLabel">
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
-                        <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                        <td *ngFor="let amount of category['amount']"
+                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1279,7 +1284,8 @@
                     <ng-container *ngIf="category.showLabel">
                         <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                         <td class="text-left pl-1">{{category.name}}</td>
-                        <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
+                        <td *ngFor="let amount of category['amount']"
+                            class="text-right pr-1">{{amount.value.toFixed(2) | currencyFormatter}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -1353,7 +1359,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['currentAssetsLabelShow']">
                     <th scope="row">1</th>
                     <td class="text-left pl-1"><b>Current Assets</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['currentAssets'];" class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['currentAssets'];"
+                        class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
                 <tbody
@@ -1361,7 +1368,8 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1369,7 +1377,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['inventoriesLabelShow']">
                     <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(financialData['balanceSheetData']['currentAssetsCategory']['length'])}}</th>
                     <td class="text-left pl-1"><b>Inventories</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['inventories']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['inventories']"
+                        class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1378,7 +1387,8 @@
                 <tr *ngIf="category.showLabel">
                     <th></th>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1386,7 +1396,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['fixedAssetsLabelShow']">
                     <th scope="row">2</th>
                     <td class="text-left pl-1"><b>Fixed Assets</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['fixedAssets'];" class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['fixedAssets'];"
+                        class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
                 <tbody
@@ -1394,7 +1405,8 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1402,7 +1414,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['otherAssetsLabelShow']">
                     <th scope="row">3</th>
                     <td class="text-left pl-1"><b>Other Assets</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['otherAssets'];" class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['otherAssets'];"
+                        class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
                 <tbody
@@ -1410,14 +1423,16 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
                 <tbody>
                 <tr *ngIf="financialData['balanceSheetData']['totalAssetsLabelShow']">
                     <th scope="row">B</th>
                     <td class="text-left pl-1"><b>Total Assets</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['totalAssets']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['totalAssets']"
+                        class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
                 </tr>
                 </tbody>
                 <tbody *ngIf="financialData['balanceSheetData']['liabilitiesLabelShow']">
@@ -1430,7 +1445,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['currentLiabilitiesLabelShow']">
                     <th scope="row">4</th>
                     <td class="text-left pl-1"><b> Current Liabilities</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['currentLiabilities']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['currentLiabilities']"
+                        class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
                 </tr>
                 </tbody>
                 <tbody
@@ -1438,7 +1454,8 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1446,7 +1463,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['longTermLoanLabelShow']">
                     <th scope="row">5</th>
                     <td class="text-left pl-1"><b>Long Term Loan</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['longTermLoan']" class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['longTermLoan']"
+                        class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
                 <tbody
@@ -1454,7 +1472,8 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1462,7 +1481,8 @@
                 <tr *ngIf="financialData['balanceSheetData']['otherLongTermLiabilitiesLabelShow']">
                     <th scope="row">6</th>
                     <td class="text-left pl-1"><b>Other Long Term Liabilities</b></td>
-                    <td *ngFor="let amount of financialData['balanceSheetData']['otherLongTermLiabilities']" class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                    <td *ngFor="let amount of financialData['balanceSheetData']['otherLongTermLiabilities']"
+                        class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
                 </tr>
                 </tbody>
                 <tbody
@@ -1470,7 +1490,8 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{amount['value'].toFixed(2) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1496,7 +1517,8 @@
                 <tr *ngIf="category.showLabel">
                     <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
                     <td class="text-left pl-1">{{category['name']}}</td>
-                    <td *ngFor="let amount of category['amount']" class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                    <td *ngFor="let amount of category['amount']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
                 </tr>
                 </tbody>
 
@@ -1525,6 +1547,287 @@
                 </tr>
                 </tbody>
 
+            </table>
+        </ng-template>
+
+        <ng-template #cashFlowStatement>
+            <table
+                    class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th scope="col" class="sn">S.No</th>
+                    <th scope="col">Particulars</th>
+                    <th *ngFor="let year of financialData['fiscalYear']">
+                        {{year}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['cashFromOperatingActivitiesLabelShow']">
+                    <th scope="row">1</th>
+                    <td class="text-left pl-1"><b> Cash From Operating Activities</b></td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromOperatingActivities']" class="text-right pr-1">
+                        <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['netProfitForThePeriodLabelShow']">
+                    <th scope="row">a</th>
+                    <td class="text-left pl-1">Net Profit for the Period</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['netProfitForThePeriod']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['adjustmentForNonCashExpensesLabelShow']">
+                    <th scope="row"></th>
+                    <td class="text-left pl-1"><b>Adjustment for Non cash Expenses</b></td>
+                    <td *ngFor="let year of financialData['fiscalYear']"></td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['depreciationLabelShow']">
+                    <th scope="row">b</th>
+                    <td class="text-left pl-1">Depreciation</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['depreciation']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['otherAmortizationLabelShow']">
+                    <th scope="row">c</th>
+                    <td class="text-left pl-1">Other Amortization and Non Cash Expenses</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAmortizationAndNonCashExpenses']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['adjustmentForNonCashExpensesLabelShow']">
+                    <th scope="row"></th>
+                    <td class="text-left pl-1"><b>Adjustment for Non cash Expenses</b></td>
+                    <td *ngFor="let year of financialData['fiscalYear']"></td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInInventoryLabelShow']">
+                    <th scope="row">d</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Inventory</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInInventory']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInAccountReceivableLabelShow']">
+                    <th scope="row">e</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Accounts Receivable</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInAccountsReceivable']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInShortTermInvestmentLabelShow']">
+                    <th scope="row">f</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Short Term Investment</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInShortTermInvestment']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInAdvanceDepositLabelShow']">
+                    <th scope="row">g</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Advance and Deposit</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInAdvanceAndDeposit']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentAssetsLabelShow']">
+                    <th scope="row">h</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Other Current Assets</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentAssets']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInCreditorsLabelShow']">
+                    <th scope="row">i</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Creditors</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInCreditors']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentLiabilitiesLabelShow']">
+
+                    <th scope="row">j</th>
+                    <td class="text-left pl-1">(Increase)/Decrease in Other Current Liabilities</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentLiabilities']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['adjustmentForNonPeratingIncomeLabelShow']">
+                    <th scope="row">k</th>
+                    <td class="text-left pl-1">Adjustment For Non Operating Income</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['adjustmentForNonOperatingIncome']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['interestExpensesIncomeLabelShow']">
+                    <th scope="row">l</th>
+                    <td class="text-left pl-1">Interest Expenses</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['interestExpensesCFSa']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['cashFromInvestingActivitiesLabelShow']">
+                    <th scope="row">2</th>
+                    <td class="text-left pl-1"><b>	Cash From Investing Activities</b></td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromInvestingActivities']" class="text-right pr-1">
+                        <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['changedInFiexedAssetsLabelShow']">
+                    <th scope="row">a</th>
+                    <td class="text-left pl-1">Changed in Fixed Assets</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['changedInFixedAsset']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['nonOperatingIncomeExpensesLabelShow']">
+                    <th scope="row">b</th>
+                    <td class="text-left pl-1">Non-Operating income/(Expenses)</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['nonOperatingIncomeExpenses']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['changeInOtherAssetsLabelShow']">
+                    <th scope="row">c</th>
+                    <td class="text-left pl-1">Change in Other Assets</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherAssets']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['changeInOtherLongTermLiabilities'].length > 0">
+                    <ng-container *ngIf="financialData['cashFlowStatementData']['changeInOtherLongTermLiabilitiesLabelShow']">
+                        <th scope="row">d</th>
+                        <td class="text-left pl-1">Change in Other Long Term Liabilities</td>
+                        <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherLongTermLiabilities']"
+                            class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                    </ng-container>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['changeInOtherProvisions'].length > 0">
+                    <ng-container *ngIf="financialData['cashFlowStatementData']['changeInOtherProvisionsLabelShow']">
+                        <th scope="row">e</th>
+                        <td class="text-left pl-1">Change in Other Provisions</td>
+                        <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherProvisions']"
+                            class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                    </ng-container>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['cashFromFinacingActivitiesLabelShow']">
+                    <th scope="row">3</th>
+                    <td class="text-left pl-1"><b>Cash From Financing Activities</b></td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromFinancingActivities']" class="text-right pr-1">
+                        <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['IssueOfShareLabelShow']">
+                    <th scope="row">a</th>
+                    <td class="text-left pl-1">Issue of Share</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['paidUpCapitalEquity']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['shortTermLoanLabelShow']">
+
+                    <th scope="row">b</th>
+                    <td class="text-left pl-1">Short Term Loan</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['shortTermLoan']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['longTermLoanLabelShow']">
+                    <th scope="row">c</th>
+                    <td class="text-left pl-1">Long Term Loan Received/(Paid)</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['longTermLoanReceived']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['dividendDrawingLabelShow']">
+                    <th scope="row">d</th>
+                    <td class="text-left pl-1">Dividend/Drawing</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['dividendDrawing']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['interestExpensesLabelShow']">
+                    <th scope="row">e</th>
+                    <td class="text-left pl-1">Interest Expenses</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['interestExpensesCFSb']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['otherAdjustmentLabelShow']">
+                    <th scope="row">f</th>
+                    <td class="text-left pl-1">Other Adjustments</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAdjustments']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+
+                <tr *ngIf="financialData['cashFlowStatementData']['additionalCapital'] !== undefined">
+                    <ng-container *ngIf="financialData['cashFlowStatementData']['additionalCapitalLabelShow']">
+                        <th scope="row">g</th>
+                        <td class="text-left pl-1">Additional Capital(if any)</td>
+                        <td *ngFor="let amount of financialData['cashFlowStatementData']['additionalCapital']"
+                            class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                    </ng-container>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['netCashFlowLabelShow']">
+                    <th scope="row">4</th>
+                    <td class="text-left pl-1"><b>Net Cash Flow</b></td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['netCashFlow']" class="text-right pr-1">
+                        <b>Rs. {{amount['value']  | currencyFormatter}}</b></td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['openingBalanceLabelShow']">
+                    <th scope="row">a</th>
+                    <td class="text-left pl-1">Add::Opening Balance</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['addOpeningBalance']"
+                        class="text-right pr-1">{{Number(twoDecimalDigit(amount['value'])) | currencyFormatter}}</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['closingCashLabelShow']">
+                    <th scope="row">5</th>
+                    <td class="text-left pl-1"><b>Closing Cash</b></td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['closingCash']" class="text-right pr-1">
+                        <b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                </tr>
+                <tr *ngIf="financialData['cashFlowStatementData']['closingBalanceLabelShow']">
+                    <th scope="row">a</th>
+                    <td class="text-left pl-1">Closing Balance</td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['closingBalance']"
+                        class="text-right pr-1">{{amount.value | currencyFormatter}}</td>
+                </tr>
+
+                <tbody>
+                <tr *ngIf="financialData['cashFlowStatementData']['differenceLabelShow']">
+                    <th scope="row">6</th>
+                    <td class="text-left pl-1"><b>Difference</b></td>
+                    <td *ngFor="let amount of financialData['cashFlowStatementData']['differenceCFS']"
+                        class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
+                </tr>
+                </tbody>
             </table>
         </ng-template>
     </div>
