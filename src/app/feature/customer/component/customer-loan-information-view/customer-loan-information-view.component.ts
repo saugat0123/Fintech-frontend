@@ -34,8 +34,10 @@ export class CustomerLoanInformationViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }
-    if (!ObjectUtil.isEmpty(this.customerInfo.securities)) {
-      this.customerInfo.securities = this.customerInfo.securities ? this.customerInfo.securities : [];
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      if (!ObjectUtil.isEmpty(this.customerInfo.securities)) {
+       this.customerInfo.securities = this.customerInfo.securities ? this.customerInfo.securities : [];
+      }
     }
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
