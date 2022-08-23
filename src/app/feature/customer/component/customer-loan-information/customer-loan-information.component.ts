@@ -410,10 +410,9 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                     this.setSecurity(response.detail.securities);
                     this.customerInfo = response.detail;
                     this.saveCrossCollateral();
-                    this.triggerCustomerRefresh.emit();
+                    // this.triggerCustomerRefresh.emit();
                     this.securityComponent.securityInitialState();
                     this.spinner.hide();
-                    this.nbDialogRef.close();
                 }, error => {
                     this.spinner.hide();
                     console.error(error);
@@ -1084,7 +1083,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.nbDialogRef.close();
             this.onRefresh();
             this.spinner.hide();
-            this.triggerCustomerRefresh.emit(true);
+            // this.triggerCustomerRefresh.emit(true);
         }, error => {
             this.spinner.hide();
             this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
@@ -1112,5 +1111,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         this.crossData = this.crossCollateralComponent.submitData;
         this.customerInfo.crossCollateral = this.crossData;
         this.saveCustomerInfo();
+        this.nbDialogRef.close();
     }
 }

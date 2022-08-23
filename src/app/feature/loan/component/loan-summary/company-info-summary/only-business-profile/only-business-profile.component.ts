@@ -35,7 +35,7 @@ export class OnlyBusinessProfileComponent implements OnInit {
         });
       }
     }
-    if ((!ObjectUtil.isEmpty(this.loanDataHolder.securities) && this.loanDataHolder.securities.length > 0)) {
+    if ((!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) && this.loanDataHolder.loanHolder.guarantors.guarantorList.length > 0)) {
       this.loanDataHolder.loanHolder.guarantors.guarantorList.forEach(val => {
         if (val.guarantorType === 'Promoter' || val.guarantorType === 'Partner' || val.guarantorType === 'Proprietor' ||
             val.guarantorType === 'Shareholder') {

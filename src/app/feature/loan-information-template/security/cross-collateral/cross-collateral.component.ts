@@ -13,6 +13,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 export class CrossCollateralComponent implements OnInit {
     @Input() customerType;
     @Input() formData;
+    @Input() readonly;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -24,7 +25,9 @@ export class CrossCollateralComponent implements OnInit {
     submitData;
 
     ngOnInit() {
-        this.getLoanConfig();
+        if (!this.readonly) {
+            this.getLoanConfig();
+        }
         this.buildForm(!ObjectUtil.isEmpty(this.formData) ? JSON.parse(this.formData) : null);
     }
 
