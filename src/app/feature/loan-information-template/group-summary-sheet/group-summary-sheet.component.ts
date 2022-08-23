@@ -160,11 +160,6 @@ export class GroupSummarySheetComponent implements OnInit {
         difference = Number((Number(this.gssForm.get(Existing).value) - Number(this.gssForm.get(Proposed).value)).toFixed(2));
         this.gssForm.get(Difference).setValue(difference);
     }
-    calculateTotalDifference(Existing, Proposed, Difference) {
-        let totalDifference = 0;
-        totalDifference = Number((Number(this.gssForm.get(Existing).value) - Number(this.gssForm.get(Proposed).value)).toFixed(2));
-        this.gssForm.get(Difference).setValue(totalDifference);
-    }
     onSubmit() {
         this.overlay.show();
         this.submitted = true;
