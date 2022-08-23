@@ -122,6 +122,13 @@
     <div class="row">
         <div class="col-md-12">
             <hr class="print-line">
+            <p><strong class="header"> Proposal Of Submission</strong></p>
+            <span [innerHTML]="proposalAllData?.proposeOfSubmission || 'N/A' | safeHtml"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr class="print-line">
             <p><strong class="header"> Summary and Recommendation</strong></p>
             <span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span>
         </div>

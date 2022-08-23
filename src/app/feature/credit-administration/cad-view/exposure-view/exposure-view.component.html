@@ -77,9 +77,6 @@
         <td colspan="3" *ngIf="!fromScc"></td>
         <td colspan="4" *ngIf="fromScc"></td>
     </tr>
-        <a *ngIf="sccPath" (click)="service.openDocument(sccPath)" class="cursor float-right disable-print" nbTooltip="click to open"> SCC FILE <em
-                [className]="service.SET_CLASS_NAME"></em>
-        </a>
     </tbody>
 </table>
 <div class="col-md-12" *ngIf="disbursementDetailsHistory?.length > 0 && displayHistory">

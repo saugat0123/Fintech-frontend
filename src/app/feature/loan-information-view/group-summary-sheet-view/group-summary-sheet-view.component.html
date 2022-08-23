@@ -114,6 +114,120 @@
                </tbody>
            </table>
         </div>
+        <div class="row" *ngIf="isVisible">
+            <div class="col-md-12 mt-3">
+                <div class="col-md-10"><label><strong>Exposure details</strong></label>
+                    <p class="float-right"><em>(Amount in NPR '000s)</em></p></div>
+                <table class="table table-sm sb-small table-bordered text-left">
+                    <thead>
+                    <tr class="sb-bg-gray">
+                        <th>Particulars</th>
+                        <th>Existing</th>
+                        <th>Proposed</th>
+                        <th>Difference</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>Exposure at Risk</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>RV of Mortgages</td>
+                        <td>{{gssData?.existingOne}}</td>
+                        <td>{{gssData?.proposedOne}}</td>
+                        <td>{{gssData?.differenceOne}}</td>
+                    </tr>
+                    <tr>
+                        <td>RV of private passenger vehicles registered to the Bank</td>
+                        <td>{{gssData?.existingTwo}}</td>
+                        <td>{{gssData?.proposedTwo}}</td>
+                        <td>{{gssData?.differenceTwo}}</td>
+                    </tr>
+                    <tr>
+                        <td>RV of commercial or special use vehicles registered to the Bank</td>
+                        <td>{{gssData?.existingThree}}</td>
+                        <td>{{gssData?.proposedThree}}</td>
+                        <td>{{gssData?.differenceThree}}</td>
+                    </tr>
+                    <tr>
+                        <td>RV of market value of Cash or Marketable Securities pledged</td>
+                        <td>{{gssData?.existingFour}}</td>
+                        <td>{{gssData?.proposedFour}}</td>
+                        <td>{{gssData?.differenceFour}}</td>
+                    </tr>
+                    <tr>
+                        <td>RV of Finished Goods or Commodities under Bank's direct control</td>
+                        <td>{{gssData?.existingFive}}</td>
+                        <td>{{gssData?.proposedFive}}</td>
+                        <td>{{gssData?.differenceFive}}</td>
+                    </tr>
+                    <tr>
+                        <td>RV of Stock and Receivables/Fixed Assets hypothecated to the Bank</td>
+                        <td>{{gssData?.existingSix}}</td>
+                        <td>{{gssData?.proposedSix}}</td>
+                        <td>{{gssData?.differenceSix}}</td>
+                    </tr>
+                    <tr>
+                        <td>Others (Please specify)</td>
+                        <td>{{gssData?.existingOther}}</td>
+                        <td>{{gssData?.proposedOther}}</td>
+                        <td>{{gssData?.differenceOther}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Security</th>
+                        <td>{{gssData?.totalExisting}}</td>
+                        <td>{{gssData?.totalProposed}}</td>
+                        <td>{{gssData?.totalDifference}}</td>
+                    </tr>
+                    <tr>
+                        <th>Expected Loss Given Default (please state absolute values)</th>
+                        <td>{{gssData?.expectedLossExisting}}</td>
+                        <td>{{gssData?.expectedLossProposed}}</td>
+                        <td>{{gssData?.expectedLossDifference}}</td>
+                    </tr>
+                    <tr>
+                        <th>Loan to Security Ratio</th>
+                        <td>{{gssData?.existingLoanRatio}}</td>
+                        <td>{{gssData?.proposedLoanRatio}}</td>
+                        <td>{{gssData?.differenceLoanRatio}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 mt-3">
+                <label><strong>FMV Model </strong> <em>(Please include all loans that require Land and building as per product paper)</em></label>
+                <p class="text-right"><em>(Amount in NPR '000s)</em></p>
+                <table class="table table-sm sb-small table-bordered text-left">
+                    <thead>
+                    <tr class="sb-bg-gray">
+                        <th>Particulars</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Total Limits including proposed limits</td>
+                        <td>{{gssData?.totalLimit}}</td>
+                    </tr>
+                    <tr>
+                        <td>FMV</td>
+                        <td>{{gssData?.fmv}}</td>
+                    </tr>
+                    <tr>
+                        <th>Surplus</th>
+                        <td>{{gssData?.surplus}}</td>
+                    </tr>
+                    <tr>
+                        <th>Loan to FMV (Ratio)</th>
+                        <td>{{gssData?.loanToFmv}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="mt-2">
             <label><strong>Approvals</strong></label>
             <table class="table table-sm sb-small table-bordered">
