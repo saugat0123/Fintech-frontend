@@ -18,17 +18,89 @@
                                    [nbDatepicker]="firstValuationDate"
                                    type="text"/>
                             <app-calendar
-                                    (messageToEmit)="otherSecurityForm.get(['otherSecurity',i,'otherSecurityFirstValuationDate']).patchValue($event?.eDate)"
+                                    (messageToEmit)="otherSecurityForm.get(['otherDetails',i,'otherSecurityFirstValuationDate']).patchValue($event?.eDate)"
                                     *ngIf="calendarType === 'BS'"
-                                    [ePreDate]="otherSecurityForm.get(['otherSecurity',i,'otherSecurityFirstValuationDate']).value"></app-calendar>
+                                    [ePreDate]="otherSecurityForm.get(['otherDetails',i,'otherSecurityFirstValuationDate']).value"></app-calendar>
                             <nb-datepicker #firstValuationDate></nb-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="securityName"><strong>Security Name</strong></label>
+                                <input [ngClass]="{ 'is-invalid': (submitted) && (security.get('securityName').errors || security.get('securityName').invalid) }"
+                                       class="form-control form-control-sm-error rounded" formControlName="securityName"
+                                       id="securityName" name="securityName" placeholder="Security Name" type="text" required/>
+                                <div *ngIf="(submitted) && (security.get('securityName').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="security.get('securityName').errors.required">
+                                        Security name is required
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                            <input
+                                   class="form-control rounded"
+                                   formControlName="fairMarketValue"
+                                   id="fairMarketValue"
+                                   hidden
+                                    [(ngModel)]="security.get('considerValue').value"
+                                   name="fairMarketValue" placeholder="Fair Market Value"
+                                   type="text" appDecimalNumber/>
+                            <input
+                                   class="form-control rounded"
+                                   formControlName="distressValue"
+                                    [(ngModel)]="security.get('considerValue').value"
+                                    id="distressValue"
+                                   hidden
+                                   placeholder="Market Value"
+                                   name="distressValue"
+                                   type="text" appDecimalNumber/>
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="considerValue">Consider Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="considerValue"
+                                   id="considerValue"
+                                   placeholder="Consider Value"
+                                   name="considerValue"
+                                   type="text" appDecimalNumber/>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title" for="rate">Realiasable Rate</label>
+                            <input
+                                    (input)="calcRealizableValue( i)"
+                                   class="form-control rounded"
+                                   formControlName="realiazableRate"
+                                   id="rate"
+                                   placeholder="Rate"
+                                   name="realiazableRate"
+                                   type="number"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="realiazableValue">Realisable Value</label>
+                            <input
+                                    [ngClass]="{ 'is-invalid': (submitted) && (security.get('realiazableValue').errors ||
+                                       security.get('realiazableValue').invalid) }"
+                                    class="form-control"
+                                   formControlName="realiazableValue" disabled
+                                   id="realiazableValue" name="total" placeholder="Realisable Value" readonly>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Other Detail</label>
+                            <label>Remarks</label>
                             <ckeditor formControlName="otherDetail" [config]="ckeConfig"></ckeditor>
                         </div>
                     </div>

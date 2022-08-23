@@ -302,7 +302,7 @@
             [companyInfo]="companyInfo"></app-customer-loan-information>
       </div>
       <div class="col-md-12">
-        <app-customer-loan-information-view *ngIf=" !isEditable"
+        <app-customer-loan-information-view *ngIf=" !isEditable && customerInfo"
                                             [customerInfo]="customerInfo"
                                             [customerType]="customerType"
                                             [fromProfile]="true"

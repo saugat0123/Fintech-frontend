@@ -24,8 +24,8 @@ export class GuarantorViewComponent implements OnInit {
   thisClient;
   check = false;
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
-      this.thisClient = this.customerAllLoanList[this.customerAllLoanList.length -1].loanHolder.clientType;
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList) && this.customerAllLoanList[this.customerAllLoanList.length - 1].loanHolder.clientType) {
+      this.thisClient = this.customerAllLoanList[this.customerAllLoanList.length - 1].loanHolder.clientType;
       if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
           this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
         this.check = true;

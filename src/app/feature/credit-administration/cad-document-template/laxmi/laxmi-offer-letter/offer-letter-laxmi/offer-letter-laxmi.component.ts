@@ -376,7 +376,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 if (checked) {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
                     this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
-                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'commissionValue']).patchValue(null);
                 } else {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
                 }
@@ -499,6 +499,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'commissionValue']).patchValue(null);
                 } else {
                     this.offerLetterForm.get(['purpose', i, 'commissionOtherCheck']).patchValue(checked);
+                }
+                break;
+            case 'tenureOtherCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'tenureOtherCheck']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'tenureValue']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'tenureOtherCheck']).patchValue(checked);
                 }
                 break;
         }
@@ -652,7 +660,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 facilityNeeded: [true],
                 otherLimitChecked: [false],
                 otherLimit: [undefined],
-                interestNeeded: [undefined]
+                interestNeeded: [undefined],
+                tenureValue: [undefined],
+                tenureOtherCheck: [undefined]
             })
         );
     }

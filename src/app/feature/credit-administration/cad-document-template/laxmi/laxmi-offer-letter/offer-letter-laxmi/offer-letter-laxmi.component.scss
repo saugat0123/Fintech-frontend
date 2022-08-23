@@ -10,7 +10,8 @@
 }
 
 .text-justify,
-.text-justify p {
+.text-justify p,
+.text-justify, table, tr, td {
   line-height: 40px;
   text-align: justify;
   text-justify: inter-word;
@@ -120,6 +121,14 @@ input::-webkit-input-placeholder {
 
   .marginFirstPage {
     margin-top: 1in;
+  }
+
+  .text-justify,
+  .text-justify p,
+  .text-justify, table, tr, td {
+    line-height: 40px;
+    text-align: justify;
+    text-justify: inter-word;
   }
 
 }

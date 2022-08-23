@@ -211,6 +211,299 @@
             <textarea rows="5" id="backgroundDetail" formControlName="backgroundDetail" class="form-control"
                       placeholder="Group's Background and associated companies details:"></textarea>
         </div>
+        <div class="row" *ngIf="isVisible">
+        <div class="col-md-12 mt-3">
+            <div class="col-md-10"><label><strong>Exposure details</strong></label>
+                <p class="float-right"><em>(Amount in NPR '000s)</em></p></div>
+            <table class="table table-sm sb-small table-bordered text-left">
+                <thead>
+                <tr class="sb-bg-secondary text-white">
+                    <th>Particulars</th>
+                    <th>Existing</th>
+                    <th>Proposed</th>
+                    <th>Difference</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Exposure at Risk</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>RV of Mortgages</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingOne', 'proposedOne', 'differenceOne')"
+                               class="form-control text-center"
+                               formControlName="existingOne"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingOne', 'proposedOne', 'differenceOne')"
+                               class="form-control text-center"
+                               formControlName="proposedOne"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceOne"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RV of private passenger vehicles registered to the Bank</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingTwo', 'proposedTwo', 'differenceTwo')"
+                               class="form-control text-center"
+                               formControlName="existingTwo"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingTwo', 'proposedTwo', 'differenceTwo')"
+                               class="form-control text-center"
+                               formControlName="proposedTwo"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceTwo"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RV of commercial or special use vehicles registered to the Bank</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingThree', 'proposedThree', 'differenceThree')"
+                               class="form-control text-center"
+                               formControlName="existingThree"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingThree', 'proposedThree', 'differenceThree')"
+                               class="form-control text-center"
+                               formControlName="proposedThree"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceThree"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RV of market value of Cash or Marketable Securities pledged</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingFour', 'proposedFour', 'differenceFour')"
+                               class="form-control text-center"
+                               formControlName="existingFour"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingFour', 'proposedFour', 'differenceFour')"
+                               class="form-control text-center"
+                               formControlName="proposedFour"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceFour"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RV of Finished Goods or Commodities under Bank's direct control</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingFive', 'proposedFive', 'differenceFive')"
+                               class="form-control text-center"
+                               formControlName="existingFive"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingFive', 'proposedFive', 'differenceFive')"
+                               class="form-control text-center"
+                               formControlName="proposedFive"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceFive"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RV of Stock and Receivables/Fixed Assets hypothecated to the Bank</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingSix', 'proposedSix', 'differenceSix')"
+                               class="form-control text-center"
+                               formControlName="existingSix"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingSix', 'proposedSix', 'differenceSix')"
+                               class="form-control text-center"
+                               formControlName="proposedSix"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceSix"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Others (Please specify)</td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('existing');calculateDifference('existingOther', 'proposedOther', 'differenceOther')"
+                               class="form-control text-center"
+                               formControlName="existingOther"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input
+                               (input)="calculateTotalSecurity('proposed');calculateDifference('existingOther', 'proposedOther', 'differenceOther')"
+                               class="form-control text-center"
+                               formControlName="proposedOther"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceOther"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Total Security</th>
+                    <td>
+                        <input (ngModelChange)="calculateDifference('totalExisting', 'totalProposed', 'totalDifference')"
+                               class="form-control text-center"
+                               formControlName="totalExisting"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input (ngModelChange)="calculateDifference('totalExisting', 'totalProposed', 'totalDifference')"
+                               class="form-control text-center"
+                               formControlName="totalProposed"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="totalDifference"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Expected Loss Given Default (please state absolute values)</th>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="expectedLossExisting"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="expectedLossProposed"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="expectedLossDifference"
+                               type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Loan to Security Ratio</th>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="existingLoanRatio"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="proposedLoanRatio"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <input class="form-control text-center"
+                               formControlName="differenceLoanRatio"
+                               type="text"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <div class="col-md-12 mt-3">
+                <label><strong>FMV Model </strong> <em>(Please include all loans that require Land and building as per product paper)</em></label>
+                <p class="text-right"><em>(Amount in NPR '000s)</em></p>
+                <table class="table table-sm sb-small table-bordered text-left">
+                    <thead>
+                    <tr class="sb-bg-secondary text-white">
+                        <th>Particulars</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Total Limits including proposed limits</td>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="totalLimit"
+                                   type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>FMV</td>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="fmv"
+                                   type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Surplus</th>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="surplus"
+                                   type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Loan to FMV (Ratio)</th>
+                        <td>
+                            <input class="form-control text-center"
+                                   formControlName="loanToFmv"
+                                   type="text"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label><strong>Approvals</strong></label>
+            <table class="table table-sm sb-small table-bordered text-center">
+                <tr style="height: 90px">
+                    <td style="width: 50%"></td>
+                    <td style="width: 50%"></td>
+                </tr>
+                <tr>
+                    <th>Group Controller</th>
+                    <th>CAA</th>
+                </tr>
+            </table>
+        </div>
     </div>
     <div class="col-md-12">
         <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">

@@ -827,6 +827,7 @@
               <app-group-summary-sheet [fromProfile]="true"
                                        [calendarType]="calendarType"
                                        [gssData]="customerInfo?.mgroupInfo"
+                                       [customerInfo]="customerInfo"
                                        (gssDataEmitter)="saveGssData($event)">
               </app-group-summary-sheet>
             </nb-card-body>
