@@ -59,7 +59,7 @@
                     <td class="text-left">
                         <ng-container
                                 *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
-                        {{ loan?.loan?.name }} {{loan?.loanNumber ? ((loan?.loanNumber) | inWords): ''}}
+                        {{ loan?.loan?.name }} ({{loan?.loanNumber ? ((loan?.loanNumber) | inWords | titlecase): ''}})
                         <i>{{loan?.withIn ? '(With in ' + (getWithinLoan(loan?.withInLoan) | titlecase) + ')' : ''}}</i>
                     </td>
                     <td class="text-center">
