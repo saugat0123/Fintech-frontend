@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Renderer2} from '@angular/core';
 import {UserService} from '../../admin/component/user/user.service';
 import {DatePipe} from '@angular/common';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -47,7 +47,7 @@ export class CalendarComponent implements OnInit {
   toggleShow = false;
   emitCounter = 0;
 
-  constructor(private userService: UserService, public datepipe: DatePipe, private modalService: NgbModal, ) {
+  constructor(private userService: UserService, public datepipe: DatePipe, private modalService: NgbModal, private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -160,6 +160,8 @@ export class CalendarComponent implements OnInit {
   }
 
   selectedCalendar(value) {
+    const elements = document.getElementsByClassName('customNepaliDatePickerHeight')[0];
+    this.renderer.removeStyle(elements, 'height');
     this.selectedDay = value;
     this.toggleShow = false;
     this.getEnglishDate();
@@ -242,9 +244,12 @@ export class CalendarComponent implements OnInit {
   }
 
   toggleDate() {
+    const elements = document.getElementsByClassName('customNepaliDatePickerHeight')[0];
     if (!this.toggleShow) {
       this.toggleShow = true;
+      this.renderer.setStyle(elements, 'height', '70vh');
     } else {
+      this.renderer.removeStyle(elements, 'height');
       this.toggleShow = false;
     }
 

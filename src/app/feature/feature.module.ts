@@ -23,6 +23,8 @@ import { NewtWorthComponent } from './newt-worth/newt-worth.component';
 import {MemoDetailsComponent} from '../component/dashboard/memo-details/memo-details.component';
 import {GuarantorAdderComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-adder.component';
 import {GuarantorDetailComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
+import {InWordsPipe} from 'ngx-num-to-words';
+import {TitleCasePipe} from '@angular/common';
 
 
 @NgModule({
@@ -57,7 +59,7 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
     // tslint:disable-next-line:max-line-length
     exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent, GuarantorAdderComponent,
         GuarantorDetailComponent],
-      providers: [SafePipe]
+      providers: [SafePipe, InWordsPipe, TitleCasePipe]
     }
 )
 export class FeatureModule {

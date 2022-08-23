@@ -587,6 +587,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 prop.data = e.proposalData;
                                 loan.id = e.loanId || e.id;
                                 prop.proposedLimit = e.originalLimit;
+                                loan.loanHolder = this.loanDataHolder.loanHolder;
                                 loan.proposal = prop;
                                 loan.loan = e.loanConfig;
                                 loan.securities = [];

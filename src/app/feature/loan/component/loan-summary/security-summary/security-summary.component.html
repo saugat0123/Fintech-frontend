@@ -520,6 +520,14 @@
                                     <tr> <td class="text-left pl-2">NPR. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr> <td class="text-left pl-2">NPR. {{(landBuilding?.apartmentDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
 
+                                    <tr>
+                                        <td class="text-left pl-2">
+                                            NPR. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">
+                                            NPR. {{(landBuilding?.apartmentDistressValue | currencyFormatter) || 'N/A'}}</td>
+                                    </tr>
 
 
 
@@ -861,20 +869,63 @@
         </div>
 
         <div class="row" *ngIf="securityOther">
-            <div class="col-md-12">
+            <div class="col-md-12" *ngFor="let otherSecurity of otherArray;">
                 <p class="sub-header"><strong class="sub-header">Other Security</strong></p>
-                <table class="table table1 table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
-                       *ngFor="let otherSecurity of otherArray; let i= index">
-                    <tr class="sb-bg-gray">
-                        <th class="sn">S.N</th>
-                        <th colspan="3">Other Detail</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="4">{{i + 1}}</td>
-
-                        <td class="text-left pl-1" colspan="3" [innerHTML]="otherSecurity?.otherDetail">{{otherSecurity?.otherDetail}}</td>
-                    </tr>
-                </table>
+                    <table class="table table-condensed table-responsive-md text-center table-sm sb-small">
+                        <tr>
+                            <td width="30%">
+                                <table class="table1 table table-condensed table-responsive-md text-left table-sm sb-small sb-bg-gray">
+                                    <tr>
+                                        <td class="text-left pl-2">Security Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">Consider Value</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">Realiasable Rate</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">Realiasable Value</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="35%">
+                                <table class="table1 table table-condensed table-responsive-md table-sm sb-small">
+                                    <tr>
+                                        <td class="text-left pl-2">{{otherSecurity?.securityName || 'N/A'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">{{otherSecurity?.considerValue || 'N/A'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">{{otherSecurity?.realiazableRate || 'N/A'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left pl-2">{{otherSecurity?.realiazableValue || 'N/A'}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table1 table table-condensed table-responsive-md table-sm sb-small">
+                            <tr class="sb-bg-gray">
+                                <td class="text-left pl-2">Remarks</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left pl-2">
+                                    <ng-container *ngIf="containsPTag else otherDetail">
+                                        <span [innerHtml]="otherSecurity?.otherDetail | safeHtml"></span>
+                                    </ng-container>
+                                    <ng-template #otherDetail>
+                                        {{otherSecurity?.otherDetail}}
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 

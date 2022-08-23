@@ -112,6 +112,8 @@ export class VariationOfferLetterComponent implements OnInit {
   }
   buildForm() {
     this.form = this.formBuilder.group({
+      refNo: [undefined],
+      refNum: [undefined],
       branchCode: [undefined],
       patraDate: [undefined],
       date: [undefined],
@@ -119,6 +121,7 @@ export class VariationOfferLetterComponent implements OnInit {
       address: [undefined],
       contactNo: [undefined],
       attention: [undefined],
+      refNumber: [undefined],
       refNumberOne: [undefined],
       refNumberTwo: [undefined],
       loanApprovalDate: [undefined],
@@ -254,7 +257,8 @@ export class VariationOfferLetterComponent implements OnInit {
       staffDesignationOne: [undefined],
       staffDesignationTwo: [undefined],
       loanApprovalLetter: [undefined],
-      authorizedPerson: [undefined]
+      authorizedPerson: [undefined],
+      signatureDate: [undefined],
     });
   }
   parseAssignedLoanData() {
@@ -263,6 +267,9 @@ export class VariationOfferLetterComponent implements OnInit {
         this.loanType.push(l.loanType);
         this.addPurpose(l);
       });
+      const loanShortForm = this.clientTypeShort.transform(this.cadOfferLetterApprovedDoc.loanHolder.clientType);
+      const refNumber = this.cadOfferLetterApprovedDoc.loanHolder.branch.branchCode.concat('-').concat(loanShortForm);
+      this.form.get('refNo').patchValue(refNumber);
       const branchCode = (this.cadOfferLetterApprovedDoc.id).toString().padStart(4, '0');
       this.form.get('branchCode').patchValue(branchCode);
       this.form.get('patraDate').patchValue(formatDate(new Date(), 'dd-MM-yyyy', 'en'));
@@ -592,6 +599,7 @@ export class VariationOfferLetterComponent implements OnInit {
   addRemark(i: number) {
     const controls = this.form.get(['purpose' , i, 'addRemark']) as FormArray;
     controls.push(this.formBuilder.group({
+      remarkTitle: [undefined],
       remark: [undefined]
     }));
   }
@@ -605,6 +613,7 @@ export class VariationOfferLetterComponent implements OnInit {
       if (!ObjectUtil.isEmpty(d.addRemark)) {
         d.addRemark.forEach(r => {
           remark.push(this.formBuilder.group({
+            remarkTitle: [r.remarkTitle],
             remark: [r.remark],
           }));
         });

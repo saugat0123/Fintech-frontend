@@ -5,6 +5,9 @@ import {cpus} from 'os';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MGroup} from '../../customer/model/mGroup';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {InWordsPipe} from 'ngx-num-to-words';
+import {TitleCasePipe} from '@angular/common';
 
 @Component({
     selector: 'app-group-summary-sheet',
@@ -20,9 +23,12 @@ export class GroupSummarySheetComponent implements OnInit {
     gssForm: FormGroup;
     submitData;
     submitted = false;
+    isVisible = false;
 
     constructor(private formBuilder: FormBuilder,
-                private overlay: NgxSpinnerService) {
+                private overlay: NgxSpinnerService,
+                private inWords: InWordsPipe,
+                private titlecase: TitleCasePipe) {
     }
 
     ngOnInit() {
@@ -34,6 +40,12 @@ export class GroupSummarySheetComponent implements OnInit {
         } else {
             this.buildForm();
             this.addGssData();
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            if (this.customerInfo.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' || this.customerInfo.clientType === 'DEPRIVED_SECTOR'
+                || this.customerInfo.clientType === 'CONSUMER_FINANCE' || this.customerInfo.clientType === 'MICRO_FINANCIAL_SERVICES') {
+                this.isVisible = true;
+            }
         }
     }
 
@@ -55,6 +67,40 @@ export class GroupSummarySheetComponent implements OnInit {
             totalIncreaseCurrent: [data ? data.totalIncreaseCurrent : undefined],
             otherLiabilities: [data ? data.otherLiabilities : undefined],
             earningProposedRelation: [data ? data.earningProposedRelation : undefined],
+            existingOne: [data ? data.existingOne : undefined],
+            proposedOne: [data ? data.proposedOne : undefined],
+            differenceOne: [data ? data.differenceOne : undefined],
+            existingTwo: [data ? data.existingTwo : undefined],
+            proposedTwo: [data ? data.proposedTwo : undefined],
+            differenceTwo: [data ? data.differenceTwo : undefined],
+            existingThree: [data ? data.existingThree : undefined],
+            proposedThree: [data ? data.proposedThree : undefined],
+            differenceThree: [data ? data.differenceThree : undefined],
+            existingFour: [data ? data.existingFour : undefined],
+            proposedFour: [data ? data.proposedFour : undefined],
+            differenceFour: [data ? data.differenceFour : undefined],
+            existingFive: [data ? data.existingFive : undefined],
+            proposedFive: [data ? data.proposedFive : undefined],
+            differenceFive: [data ? data.differenceFive : undefined],
+            existingSix: [data ? data.existingSix : undefined],
+            proposedSix: [data ? data.proposedSix : undefined],
+            differenceSix: [data ? data.differenceSix : undefined],
+            existingOther: [data ? data.existingOther : undefined],
+            proposedOther: [data ? data.proposedOther : undefined],
+            differenceOther: [data ? data.differenceOther : undefined],
+            totalExisting: [data ? data.totalExisting : undefined],
+            totalProposed: [data ? data.totalProposed : undefined],
+            totalDifference: [data ? data.totalDifference : undefined],
+            expectedLossExisting: [data ? data.expectedLossExisting : undefined],
+            expectedLossProposed: [data ? data.expectedLossProposed : undefined],
+            expectedLossDifference: [data ? data.expectedLossDifference : undefined],
+            existingLoanRatio: [data ? data.existingLoanRatio : undefined],
+            proposedLoanRatio: [data ? data.proposedLoanRatio : undefined],
+            differenceLoanRatio: [data ? data.differenceLoanRatio : undefined],
+            totalLimit: [data ? data.totalLimit : undefined],
+            fmv: [data ? data.fmv : undefined],
+            surplus: [data ? data.surplus : undefined],
+            loanToFmv: [data ? data.loanToFmv : undefined]
         });
     }
     get form() {
@@ -99,6 +145,20 @@ export class GroupSummarySheetComponent implements OnInit {
                 Number(this.gssForm.get(['gssDetails', i, 'nonFundedLimited']).value)).toFixed(2));
         this.gssForm.get(['gssDetails', i, 'totalLimit']).setValue(total);
         this.calculateTotalGss();
+    }
+    calculateTotalSecurity(key) {
+        let totalAmount = 0;
+        for (let i = 1; i <= 6; i++) {
+            const num = this.titlecase.transform(<string>this.inWords.transform(i));
+            totalAmount += Number(Number(this.gssForm.get(`${key}${num}`).value).toFixed(2));
+        }
+        totalAmount += Number(this.gssForm.get(`${key}Other`).value);
+        this.gssForm.get(`total${this.titlecase.transform(key)}`).setValue(totalAmount);
+    }
+    calculateDifference(Existing, Proposed, Difference) {
+        let difference = 0;
+        difference = Number((Number(this.gssForm.get(Existing).value) - Number(this.gssForm.get(Proposed).value)).toFixed(2));
+        this.gssForm.get(Difference).setValue(difference);
     }
     onSubmit() {
         this.overlay.show();

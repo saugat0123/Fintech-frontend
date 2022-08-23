@@ -60,6 +60,7 @@ export class SecuritySummaryComponent implements OnInit {
     personalArray;
     shareArray;
     plantArray;
+    containsPTag = false;
     constructor() {
     }
 
@@ -189,7 +190,10 @@ export class SecuritySummaryComponent implements OnInit {
             const other = [];
             this.securities.forEach((d) => {
                 if (d.securityType.toString() === 'OTHER_SECURITY') {
-                     other.push(JSON.parse(d.data));
+                    if (d.data.includes('<p>')) {
+                        this.containsPTag = true;
+                        other.push(JSON.parse(d.data));
+                    }
                 }
             });
             this.otherArray = other;
