@@ -420,13 +420,19 @@
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Credit Risk Grade : </strong>
-                    <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>
+                    <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Credit Risk Score : </strong>
                     <span><strong> {{ crgGammaScore }}</strong></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 sb-medium">
+                    <strong>Premium Range : </strong>
+                    <span><strong> {{ crgGammaPremiumRange }}</strong></span>
                 </div>
             </div>
             <!-- End proposal summary-->
