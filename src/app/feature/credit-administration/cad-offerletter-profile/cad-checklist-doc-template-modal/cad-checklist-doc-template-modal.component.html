@@ -95,6 +95,12 @@
         <app-manjurinama-for-gadi-namasari-proprietorship *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_PROPRIETORSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
                                               [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-proprietorship>
+        <app-loan-deed-proprietorship *ngSwitchCase="cadTemplate.LOAN_DEED_PROPRIETORSHIP"
+                                                 [cadData]="cadData" [documentId]="documentId"
+                                                 [customerLoanId]="customerLoanId"></app-loan-deed-proprietorship>
+        <app-letter-of-set-off-proprietorship *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_PROPRIETORSHIP"
+                                           [cadData]="cadData" [documentId]="documentId"
+                                           [customerLoanId]="customerLoanId"></app-letter-of-set-off-proprietorship>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
