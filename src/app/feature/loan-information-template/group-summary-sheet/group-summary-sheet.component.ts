@@ -6,6 +6,8 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MGroup} from '../../customer/model/mGroup';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {InWordsPipe} from 'ngx-num-to-words';
+import {TitleCasePipe} from '@angular/common';
 
 @Component({
     selector: 'app-group-summary-sheet',
@@ -24,7 +26,9 @@ export class GroupSummarySheetComponent implements OnInit {
     isVisible = false;
 
     constructor(private formBuilder: FormBuilder,
-                private overlay: NgxSpinnerService) {
+                private overlay: NgxSpinnerService,
+                private inWords: InWordsPipe,
+                private titlecase: TitleCasePipe) {
     }
 
     ngOnInit() {
@@ -142,21 +146,14 @@ export class GroupSummarySheetComponent implements OnInit {
         this.gssForm.get(['gssDetails', i, 'totalLimit']).setValue(total);
         this.calculateTotalGss();
     }
-    calculateTotalExistingSecurity() {
-        let existingTotalAmount = 0;
-        existingTotalAmount = Number((Number(this.gssForm.get('existingOne').value) +
-            Number(this.gssForm.get('existingTwo').value) + Number(this.gssForm.get('existingThree').value) +
-            Number(this.gssForm.get('existingFour').value) + Number(this.gssForm.get('existingFive').value) +
-            Number(this.gssForm.get('existingSix').value) +  Number(this.gssForm.get('existingOther').value)).toFixed(2));
-        this.gssForm.get('totalExisting').setValue(existingTotalAmount);
-    }
-    calculateTotalProposedSecurity() {
-        let proposedTotalAmount = 0;
-        proposedTotalAmount = Number((Number(this.gssForm.get('proposedOne').value) +
-            Number(this.gssForm.get('proposedTwo').value) + Number(this.gssForm.get('proposedThree').value) +
-            Number(this.gssForm.get('proposedFour').value) + Number(this.gssForm.get('proposedFive').value) +
-            Number(this.gssForm.get('proposedSix').value) +  Number(this.gssForm.get('proposedOther').value)).toFixed(2));
-        this.gssForm.get('totalProposed').setValue(proposedTotalAmount);
+    calculateTotalSecurity(key) {
+        let totalAmount = 0;
+        for (let i = 1; i <= 6; i++) {
+            const num = this.titlecase.transform(<string>this.inWords.transform(i));
+            totalAmount += Number(Number(this.gssForm.get(`${key}${num}`).value).toFixed(2));
+        }
+        totalAmount += Number(this.gssForm.get(`${key}Other`).value);
+        this.gssForm.get(`total${this.titlecase.transform(key)}`).setValue(totalAmount);
     }
     calculateDifference(Existing, Proposed, Difference) {
         let difference = 0;
