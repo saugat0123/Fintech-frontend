@@ -83,6 +83,18 @@
         <app-letter-of-set-off-partnership *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_PARTNERSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
                                               [customerLoanId]="customerLoanId"></app-letter-of-set-off-partnership>
+        <app-manjurinama-for-gadi-namasari-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_COMPANY"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-company>
+        <app-manjurinama-for-gadi-namasari-individual *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_INDIVIDUAL"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-individual>
+        <app-manjurinama-for-gadi-namasari-partnership *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_PARTNERSHIP"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-partnership>
+        <app-manjurinama-for-gadi-namasari-proprietorship *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_PROPRIETORSHIP"
+                                              [cadData]="cadData" [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-proprietorship>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
