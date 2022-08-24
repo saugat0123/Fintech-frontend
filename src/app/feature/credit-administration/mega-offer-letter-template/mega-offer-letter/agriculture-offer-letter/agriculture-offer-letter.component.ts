@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
@@ -33,7 +33,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   offerLetterConst = MegaOfferLetterConst;
   offerLetterDocument: OfferDocument;
   selectedLoanArray = [];
-  selectedNaturalLoanArray = [];
+  selectedNatureOfLoanArray = [];
   nepData;
   external = [];
   loanHolderInfo;
@@ -49,11 +49,16 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     {key: 'YouthClassSelfEmploymentLoan', value: 'युवा बर्ग स्वरोजगार कर्जा (Youth Class Self Employment Loan)'},
     {key: 'OtherLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
   ];
-  naturalLoanTypes = [
+  natureOfLoanTypes = [
       {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
       {key: 'TermLoans', value: 'आवधिक कर्जा (Term Loans)'},
       {key: 'DemandLoans', value: 'माग कर्जा (Demand Loans)'},
-      {key: 'OtherNaturalLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
+      {key: 'OtherNatureOfLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
+  ];
+  loanTypesDropdown = [
+    {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
+    {key: 'TermLoans', value: 'आवधिक कर्जा (Term Loans)'},
+    {key: 'OtherNatureOfLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
   ];
   listOfLoan = [];
   commercialAgricultureAndLivestock = false;
@@ -70,7 +75,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   overdraft = false;
   termLoans = false;
   demandLoans = false;
-  otherNaturalLoans = false;
+  otherNatureOfLoans = false;
 
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   ckeConfig = NepaliEditor.CK_CONFIG;
@@ -92,7 +97,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     this.buildForm();
     this.checkOfferLetterData();
     this.chooseLoanType(this.selectedLoanArray);
-    this.chooseLoanType(this.selectedNaturalLoanArray);
+    this.chooseNatureOfLoanType(this.selectedNatureOfLoanArray);
     this.listOfLoan.push(this.form.get('loanTypeSelectedArray').value);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -237,8 +242,45 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       otherTenureLoan : [undefined],
       noOfEmi: [undefined],
       repaymentTermLoan: [undefined],
-      repaymentEngDate: [undefined]
+      repaymentEngDate: [undefined],
+      proposalData: this.formBuilder.array([this.buildProposalForm()])
     });
+    console.log('form', this.form);
+  }
+
+  buildProposalForm() {
+    return this.formBuilder.group({
+      facilityName: [undefined],
+      natureOfLoan: [undefined],
+      otherNatureOfLoanInNep: [undefined],
+      otherNatureOfLoanInEng: [undefined],
+      overDraftLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
+      demandLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
+      termLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
+      otherLoan: this.formBuilder.array([this.buildNatureOfLoanForm()])
+    });
+  }
+
+  buildNatureOfLoanForm() {
+    return this.formBuilder.group({
+      loanAmount: [undefined],
+      loanNameInWord: [undefined],
+    });
+  }
+
+
+  checkFacilityName(facilityName, index) {
+    this.form.get(['proposalData', index, 'facilityName']).patchValue(facilityName);
+
+  }
+
+  checkNatureOfLoan(natureOfLoan, index) {
+    this.form.get(['proposalData', index, 'natureOfLoan']).patchValue(natureOfLoan);
+  }
+
+  addProposal() {
+    const control = this.form.get('proposalData') as FormArray;
+    control.push(this.buildProposalForm());
   }
 
 
@@ -253,9 +295,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
         this.form.patchValue(initialInfo, {emitEvent: false});
         this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
-        this.selectedNaturalLoanArray = initialInfo.naturalLoanTypeSelectedArray;
+        this.selectedNatureOfLoanArray = initialInfo.natureOfLoanTypeSelectedArray;
         this.chooseLoanType(this.selectedLoanArray);
-        this.chooseNaturalLoanType(this.selectedNaturalLoanArray);
+        this.chooseNatureOfLoanType(this.selectedNatureOfLoanArray);
         console.log(initialInfo);
         this.initialInfoPrint = initialInfo;
         console.log(this.offerLetterDocument);
@@ -276,7 +318,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.AGRICULTURE_OFFER_LETTER)
             .toString()) {
           this.form.get('loanTypeSelectedArray').patchValue(this.selectedLoanArray);
-          this.form.get('naturalLoanTypeSelectedArray').patchValue(this.selectedNaturalLoanArray);
+          this.form.get('natureOfLoanTypeSelectedArray').patchValue(this.selectedNatureOfLoanArray);
           offerLetterPath.initialInformation = JSON.stringify(this.form.value);
         }
       });
@@ -284,7 +326,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AGRICULTURE_OFFER_LETTER);
       this.form.get('loanTypeSelectedArray').patchValue(this.selectedLoanArray);
-      this.form.get('naturalLoanTypeSelectedArray').patchValue(this.selectedNaturalLoanArray);
+      this.form.get('natureOfLoanTypeSelectedArray').patchValue(this.selectedNatureOfLoanArray);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
@@ -365,11 +407,11 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     });
   }
 
-  chooseNaturalLoanType(selectedNaturalLoanTypeArray) {
-    this.selectedNaturalLoanArray = selectedNaturalLoanTypeArray;
-    this.commercialAgricultureAndLivestock = this.educatedYouthSelfEmployment = this.youthProjectLoanForReturneesFromAbroad
-        = this.loansToWomenEntrepreneurs = false;
-    selectedNaturalLoanTypeArray.forEach(selectedValue => {
+  chooseNatureOfLoanType(selectedNatureOfLoanTypeArray) {
+    this.selectedNatureOfLoanArray = selectedNatureOfLoanTypeArray;
+    this.overdraft = this.termLoans = this.demandLoans
+        = this.otherNatureOfLoans = false;
+    selectedNatureOfLoanTypeArray.forEach(selectedValue => {
       switch (selectedValue) {
         case 'Overdraft':
           this.overdraft = true;
@@ -380,10 +422,15 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         case 'DemandLoans':
           this.demandLoans = true;
           break;
-        case 'OtherNaturalLoans':
-          this.otherNaturalLoans = true;
+        case 'OtherNatureOfLoans':
+          this.otherNatureOfLoans = true;
           break;
       }
     });
   }
+
+  removeProposal(index: number) {
+    (this.form.get('proposalData') as FormArray).removeAt(index);
+  }
+
 }
