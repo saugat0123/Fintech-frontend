@@ -50,6 +50,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   olRefNumber;
   documentCheckListData;
   sccPath;
+  baselDetails;
+  gssCode;
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
               private ngbModal: NgbModal,
@@ -64,8 +66,18 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('cadFile :::: ', this.cadFile);
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
+    }
+    if (!ObjectUtil.isEmpty(this.cadFile)) {
+      if (!ObjectUtil.isEmpty(this.cadFile.baselCode)) {
+        this.baselDetails = this.cadFile.baselCode;
+      }
+      if (!ObjectUtil.isEmpty(this.cadFile.loanHolder) && !ObjectUtil.isEmpty(this.cadFile.loanHolder.gssData)) {
+        const data = JSON.parse(this.cadFile.loanHolder.gssData);
+        this.gssCode = data.groupCode ? data.groupCode : '';
+      }
     }
     this.buildSccForm();
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
@@ -138,20 +150,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       caApproved: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.caApproved) ? new Date() :
               new Date(this.sccData.caApproved)],
-      baseII: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.baseII) ? undefined : this.sccData.baseII],
-      nrbSector: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.nrbSector) ? undefined : this.sccData.nrbSector],
-      naics: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.naics) ? undefined : this.sccData.naics],
-      industry: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.industry) ? undefined : this.sccData.industry],
-      customerCode: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.customerCode) ? undefined : this.sccData.customerCode],
       businessUnit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.businessUnit) ? undefined : this.sccData.businessUnit],
-      esrm: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.esrm) ? undefined : this.sccData.esrm],
       cashDeposit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.cashDeposit) ? undefined : this.sccData.cashDeposit],
       cashDepositValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
