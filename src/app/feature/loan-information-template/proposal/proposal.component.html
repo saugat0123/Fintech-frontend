@@ -618,6 +618,53 @@
                                 </div>
                                 </ng-container>
 
+                                <ng-container *ngIf="loanType==='CLOSURE_LOAN'">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralRequirement"><strong>Collateral requirement
+                                                (in%)</strong></label>
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && formControls.collateralRequirement.errors }"
+                                                    class="form-control"
+                                                    formControlName="collateralRequirement" id="collateralRequirement1"
+                                                    name="collateralRequirement"
+                                                    placeholder="Collateral requirement" type="number" appDecimalNumber/>
+                                            <div *ngIf="(submitted) && formControls.collateralRequirement.invalid"
+                                                 class="invalid-feedback">
+                                                <span *ngIf="formControls.collateralRequirement.errors.required">Collateral requirement is required.</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4"
+                                         *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable) || isRevolving)">
+                                        <div class="form-group">
+                                            <label class="title" for="tenorOfEachDeal"><strong>Tenure of each deal</strong></label>
+                                            <input
+                                                    class="form-control"
+                                                    formControlName="tenorOfEachDeal" id="tenorOfEachDeal1"
+                                                    name="tenorOfEachDeal"
+                                                    placeholder="Tenure of each deal" type="text"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4"
+                                         *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
+                                        <div class="form-group">
+                                            <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong></label>
+                                            <input
+                                                    class="form-control"
+                                                    formControlName="commitmentFee" id="commitmentFee1"
+                                                    name="commitmentFee"
+                                                    placeholder="Commitment Fee" type="number" appDecimalNumber/>
+
+                                        </div>
+                                    </div>
+
+                                </ng-container>
+
                                 <ng-container >
                                     <div class="col-md-4">
                                         <div class="form-group">
