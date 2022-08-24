@@ -70,7 +70,6 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
     PowerOfAttorneyCompanyComponent,
-
     LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
