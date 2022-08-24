@@ -1,13 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {Proposal} from '../../admin/modal/proposal';
-import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Security} from '../../loan/model/security';
 import {ProductPaperChecklistComponent} from '../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {ReadmoreModelComponent} from '../../loan/component/readmore-model/readmore-model.component';
 import {NetTradingAssets} from '../../admin/modal/NetTradingAssets';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +29,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   @Input() approvedSecurity: Array<Security> = [];
   @ViewChild('productPaperChecklistComponent', {static: false})
   productPaperChecklistComponent: ProductPaperChecklistComponent;
-  checklistData;
   @Input() loanDataHolder: LoanDataHolder;
   loans;
   paperChecklist;
@@ -46,7 +43,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   senderDetails;
   loanCategory;
   isJointInfo = false;
-  newJointInfo = [];
   notApprove = 'notApprove';
   checkedData;
   proposalAllData;
@@ -61,7 +57,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   securities: any = [];
   documents: [] = [];
   documentUrls = [];
-  documentUrl: string;
   documentNames = [];
   documentName: string;
   document: string;
@@ -81,7 +76,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   customerReportingInfo = [];
   esrmData;
   constructor(
-      private fiscalYearService: FiscalYearService,
       private toastService: ToastService,
       private modalService: NgbModal,
   ) {
@@ -170,12 +164,12 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
     this.flagShareSecurity();
   }
   getFiscalYears() {
-    this.fiscalYearService.getAll().subscribe(response => {
-      this.fiscalYearArray = response.detail;
-    }, error => {
-      console.log(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
-    });
+    // this.fiscalYearService.getAll().subscribe(response => {
+    //   this.fiscalYearArray = response.detail;
+    // }, error => {
+    //   console.log(error);
+    //   this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+    // });
   }
   loanHandler(index: number, length: number, label: string) {
     if (index === length - 1 && index !== 0) {

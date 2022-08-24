@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {LoanConfigService} from '../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../admin/modal/loan-config';
 import {LoanFormService} from '../loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../loan/model/loanData';
@@ -12,8 +11,6 @@ import {DocAction} from '../loan/model/docAction';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {CalendarType} from '../../@core/model/calendar-type';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
-import {Alert, AlertType} from '../../@theme/model/Alert';
-import {FiscalYearService} from '../admin/service/fiscal-year.service';
 import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
@@ -22,6 +19,8 @@ import {SiteVisitDocument} from '../loan-information-template/security/security-
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Proposal} from '../admin/modal/proposal';
 import {LoanType} from '../loan/model/loanType';
+import {DOCUMENT} from '@angular/common';
+import {NbSidebarService} from '@nebular/theme';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -29,7 +28,6 @@ import {LoanType} from '../loan/model/loanType';
     styleUrls: ['./loan-information-detail-view.component.scss']
 })
 export class LoanInformationDetailViewComponent implements OnInit {
-    megaGroupEnabled = environment.MEGA_GROUP;
     allId;
     customerId;
     loanConfigId;
@@ -72,18 +70,18 @@ export class LoanInformationDetailViewComponent implements OnInit {
     thisClient;
     customerReportingInfo = [];
     hasLastReview = false;
-    constructor(private loanConfigService: LoanConfigService,
+    elem;
+    fullScreen = false;
+    constructor(
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
                 private modalService: NgbModal,
-                private fiscalYearService: FiscalYearService,
                 private toastService: ToastService,
                 private combinedLoanService: CombinedLoanService,
                 private spinner: NgxSpinnerService
     ) {
         this.client = environment.client;
         this.clientList = Clients;
-
     }
 
     ngOnInit() {
@@ -97,7 +95,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
         }
         this.customerLoanService.detail(this.customerId).subscribe((response) => {
             this.loanDataHolder = response.detail;
-            this.getAllLoans(this.loanDataHolder.loanHolder.id);
+            this.getAllLoans();
+            this.loanConfig = this.loanDataHolder.loan;
+            if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
+                this.isRemitLoan = true;
+            }
             this.isLoaded = true;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder;
@@ -169,19 +171,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
-                // if (this.allId.catalogue) {
-                //   this.catalogueStatus = true;
-                // }
             });
-        // this.id = this.activatedRoute.snapshot.params['id'];
-        this.loanConfigService.detail(this.loanConfigId).subscribe(
-            (response: any) => {
-                this.loanConfig = response.detail;
-                if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
-                    this.isRemitLoan = true;
-                }
-            }
-        );
     }
 
     onBack() {
@@ -259,15 +249,15 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     getFiscalYears() {
-        this.fiscalYearService.getAll().subscribe(response => {
-            this.fiscalYearArray = response.detail;
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
-        });
+        // this.fiscalYearService.getAll().subscribe(response => {
+        //     this.fiscalYearArray = response.detail;
+        // }, error => {
+        //     console.log(error);
+        //     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+        // });
     }
 
-    getAllLoans(customerInfoId: number): void {
+    getAllLoans(): void {
         this.spinner.show();
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
@@ -338,9 +328,5 @@ export class LoanInformationDetailViewComponent implements OnInit {
             return '';
         }
         return val.replace(/(<([^>]+)>)/gi, '');
-    }
-
-    checkSiteVisitDocument(event: any) {
-        this.siteVisitDocuments = event;
     }
 }

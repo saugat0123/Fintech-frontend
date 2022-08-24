@@ -15,6 +15,11 @@
             [class.left]="position === 'inverse'">
         <nb-action [nbPopover]="notification" badgeStatus="danger" badgeText="{{notificationCount === 0 ? '' : notificationCount.toString()}}" class="control-item"
                    icon="bell-outline" nbPopoverPlacement="bottom"></nb-action>
+        <nb-action class="control-item" >
+            <a (click)="fullScreen ? closeFullscreen() : openFullscreen()" href="javascript:void(0)" class="btn btn-light">
+                <i class="fa fa-arrows-alt fa-2xl" aria-hidden="true"></i>
+            </a>
+        </nb-action>
         <!--        <nb-action class="control-item" icon="nb-email"></nb-action>-->
         <ng-template #notification>
             <app-notification></app-notification>
