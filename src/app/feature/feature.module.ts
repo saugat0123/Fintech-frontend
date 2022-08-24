@@ -62,10 +62,10 @@ import { CrgComponent } from './crg/crg.component';
             UserActivityComponent,
             CrgComponent
         ],
-        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-             CreditRiskGradingGammaComponent, MultipleBankingComponent,
-          InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent, ContactDetailsComponent
-        ],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
+        CreditRiskGradingGammaComponent, MultipleBankingComponent,
+        InstitutionalCrgGammaComponent, GuarantorAdderComponent, GuarantorDetailComponent, ContactDetailsComponent, CrgComponent
+    ],
         providers: [SafePipe],
     entryComponents: [CreditRiskGradingGammaComponent]
     }
