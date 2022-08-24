@@ -57,10 +57,6 @@ const routes: Routes = [
         loadChildren: () => import('./cad-documents/cad-documents.module').then(m => m.CadDocumentsModule)
       },
       {
-        path: 'credit',
-        loadChildren: () => import('./credit-administration/credit-administration.module').then(m => m.CreditAdministrationModule)
-      },
-      {
         path: 'error',
         component: ErrorPageComponent
       },
