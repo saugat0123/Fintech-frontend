@@ -45,6 +45,8 @@
 </div>
 <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
                     [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
+<app-all-document-view *ngIf="loanDataHolder"
+                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 <app-collateral-summary
         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security && summaryType === summaryTypeName?.GENERAL"
         [customerAllLoanList]="customerAllLoanList"
@@ -142,8 +144,6 @@
                                            [fromProfile]="false"></app-credit-risk-grading-gamma>
             <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"
                                 [fromProfile]="false"></app-credit-grading>
-<app-all-document-view *ngIf="loanDataHolder"
-                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 <div *ngIf="!productUtils.CBS_ENABLE">
     <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
                                         [customerAllLoanList]="customerAllLoanList"
