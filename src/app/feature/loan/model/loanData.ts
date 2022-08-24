@@ -124,4 +124,5 @@ export class LoanDataHolder extends BaseEntity {
     shareType;
     reviewDate: ReviewDate;
     loanNumber: number;
+    baselCode: any;
 }
