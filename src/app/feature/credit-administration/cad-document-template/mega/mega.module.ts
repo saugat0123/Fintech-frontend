@@ -39,7 +39,6 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
 import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 
 
-
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
     PersonalGuaranteeCompanyComponent,
@@ -70,7 +69,6 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
     PowerOfAttorneyCompanyComponent,
-
     LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
