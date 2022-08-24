@@ -248,32 +248,66 @@
         <tbody>
         <tr>
           <td>
-            <input class="form-control rounded disable-print" formControlName="baseII" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.baseII}}</span>
+            <ng-container *ngFor="let basel of baselDetails?.BaselCategory;">
+              {{basel}}
+              <span *ngIf="baselDetails?.BaselCategory.length > 1">
+                .<br>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="!baselDetails?.BaselCategory">
+              N/A
+            </ng-container>
           </td>
           <td>
-            <input class="form-control rounded disable-print" formControlName="nrbSector" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.nrbSector}}</span>
+            <ng-container *ngFor="let nrb of baselDetails?.NRBSector;">
+              {{nrb}}
+              <span *ngIf="baselDetails?.NRBSector.length > 1">
+                .<br>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="!baselDetails?.NRBSector">
+              N/A
+            </ng-container>
           </td>
           <td>
-            <input class="form-control rounded disable-print" formControlName="naics" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.naics}}</span>
+            <ng-container *ngFor="let naics of baselDetails?.NAICS;">
+              {{naics}}
+              <span *ngIf="baselDetails?.NAICS.length > 1">
+                .<br>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="!baselDetails?.NAICS">
+              N/A
+            </ng-container>
           </td>
           <td>
-            <input class="form-control rounded disable-print" formControlName="industry" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.industry}}</span>
+            <ng-container *ngFor="let industry of baselDetails?.IndustryClassification;">
+              {{industry}}
+              <span *ngIf="baselDetails?.IndustryClassification.length > 1">
+                .<br>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="!baselDetails?.IndustryClassification">
+              N/A
+            </ng-container>
           </td>
           <td>
-            <input class="form-control rounded disable-print" formControlName="customerCode" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.customerCode}}</span>
+            {{gssCode || 'N/A'}}
           </td>
           <td>
             <input class="form-control rounded disable-print" formControlName="businessUnit" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.businessUnit}}</span>
+            <span class="print-only">{{sccData?.businessUnit || 'N/A'}}</span>
           </td>
           <td>
-            <input class="form-control rounded disable-print" formControlName="esrm" type="text"  [disabled]="!isMaker">
-            <span class="print-only">{{sccData?.esrm}}</span>
+            <ng-container *ngFor="let esrm of baselDetails?.ESRMCategory;">
+              {{esrm}}
+              <span *ngIf="baselDetails?.ESRMCategory.length > 1">
+                .<br>
+              </span>
+            </ng-container>
+            <ng-container *ngIf="!baselDetails?.ESRMCategory">
+              N/A
+            </ng-container>
           </td>
         </tr>
         </tbody>
