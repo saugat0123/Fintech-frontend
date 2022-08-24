@@ -35,6 +35,8 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
 import {
   AssignmentOfReceivablesPartnershipComponent
 } from './assignment-of-receivables-partnership/assignment-of-receivables-partnership.component';
+import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
+import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guarantee.component';
 
 
 
@@ -67,7 +69,7 @@ import {
     ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
-    PowerOfAttorneyCompanyComponent
+    PowerOfAttorneyCompanyComponent,
 
     LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
@@ -111,7 +113,7 @@ import {
     ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
-    PowerOfAttorneyCompanyComponent
+    PowerOfAttorneyCompanyComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
   ],
