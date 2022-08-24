@@ -48,6 +48,15 @@
                                     <td style="width: 50%">{{thresholdOutcome}}</td>
                                 </tr>
                             </table>
+                            <br>
+                            <ng-container *ngIf="isWaiver">
+                                <label>Proceed for waiver?</label>
+                                <nb-select placeholder="Select Yes/No" [(ngModel)]="waiverValue">
+                                    <nb-option name="yesNo" [hidden]="!fromProfile"
+                                               *ngFor="let ans of yesNo" [value]="ans">{{ans}}
+                                    </nb-option>
+                                </nb-select>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="col-sm-6 float-right">
@@ -71,6 +80,7 @@
                                        *ngFor="let es of esrm" [value]="es">{{es}}</nb-option>
                         </nb-select>
                     </div>
+
                 </div>
             </nb-card-body>
         </nb-card>

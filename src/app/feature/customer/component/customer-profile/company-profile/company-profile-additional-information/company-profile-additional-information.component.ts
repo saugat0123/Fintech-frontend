@@ -11,14 +11,14 @@ import {RegisteredOfficeList} from '../../../../../admin/modal/registeredOfficeL
 export class CompanyProfileAdditionalInformationComponent implements OnInit , OnChanges {
   @Input() companyInfo: CompanyInfo;
   @Input() companyLocationData;
-  companyContactPersons = [];
+  companyContactPersons;
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
 
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.companyInfo.contactPersons)) {
-      this.companyContactPersons = JSON.parse(this.companyInfo.contactPersons);
+    if (!ObjectUtil.isEmpty(this.companyInfo.companyContactDetails)) {
+      this.companyContactPersons = JSON.parse(this.companyInfo.companyContactDetails);
     }
   }
 

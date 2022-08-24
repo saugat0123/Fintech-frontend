@@ -61,8 +61,22 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       nameOfWitness: [undefined],
       addressOfWitness: [undefined],
       nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined]
+      addressOfWitness2: [undefined],
+      date1: [undefined],
+      district: [undefined],
+      wardNo: [undefined],
+      borrowerNameInNepali: [undefined]
     });
+  }
+
+  changeToNepAmount(event: any, target, from) {
+    this.promissoryNoteCompany.get([target]).patchValue(event.nepVal);
+    this.promissoryNoteCompany.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.promissoryNoteCompany.get([target]).value;
+    return patchValue1;
   }
 
   submit() {
@@ -97,6 +111,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+      console.log(this.cadData.id, 'caddata');
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
