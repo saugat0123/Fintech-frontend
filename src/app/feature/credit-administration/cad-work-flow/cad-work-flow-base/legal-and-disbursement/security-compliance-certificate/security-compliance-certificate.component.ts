@@ -66,7 +66,6 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('cadFile :::: ', this.cadFile);
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
     }
