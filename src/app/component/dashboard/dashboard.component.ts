@@ -14,7 +14,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 import {LoanConfig} from '../../feature/admin/modal/loan-config';
 import {RolePermissionService} from '../../feature/admin/component/role-permission/role-permission.service';
-import {CreditAdministrationService} from '../../feature/credit-administration/service/credit-administration.service';
 
 
 @Component({
@@ -66,7 +65,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private modalService: NgbModal,
         private route: Router,
         private rolePermissionService: RolePermissionService,
-        private creditAdministrationService: CreditAdministrationService
     ) {
     }
 
@@ -90,7 +88,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
             });
         }
 
-        this.getCustomerOfferLetter();
     }
 
     ngOnInit() {
@@ -168,12 +165,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     proceed() {
         this.setLoanCategory();
         this.newLoan();
-    }
-
-    getCustomerOfferLetter() {
-        this.creditAdministrationService.getCreditOfferLetterCount().subscribe((res: any) => {
-            this.customerApproveCountDto = res.detail;
-        });
     }
 
     private setLoanCategory() {
