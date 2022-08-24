@@ -32,6 +32,9 @@ import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-fo
 import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
 import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan-deed-proprietorship.component';
 import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprietorship/letter-of-set-off-proprietorship.component';
+import {
+  AssignmentOfReceivablesPartnershipComponent
+} from './assignment-of-receivables-partnership/assignment-of-receivables-partnership.component';
 
 
 
@@ -43,6 +46,7 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
+    AssignmentOfReceivablesPartnershipComponent,
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
@@ -79,6 +83,7 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
   ],
   exports: [
     AssignmentOfReceivableComponent,
+    AssignmentOfReceivablesPartnershipComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     ManjurinamaForCompanyComponent,
