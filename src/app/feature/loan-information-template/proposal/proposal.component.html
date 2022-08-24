@@ -22,6 +22,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title">
+                                            <strong>Loan Number</strong>
+                                        </label>
+                                        <input class="form-control"
+                                               [(ngModel)]="loan.loanNumber"
+                                               [ngModelOptions]="{standalone: true}"
+                                               name="loanNumber" placeholder="Loan Number"
+                                               type="number">
+                                    </div>
+                                </div>
                                 <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="outStandingLimit">
