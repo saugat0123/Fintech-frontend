@@ -54,8 +54,11 @@
       <tr>
         <th>Purpose of SCC</th>
         <td>
-          <input class="form-control rounded disable-print" formControlName="purposeOfScc" type="text" nbInput [disabled]="!isMaker">
+          <input class="form-control rounded disable-print" formControlName="purposeOfScc" type="text"  [disabled]="!isMaker">
           <span class="print-only">{{sccData ? sccData?.purposeOfScc : 'N/A'}}</span>
+          <div *ngIf="(sumbit || sccForm.controls['purposeOfScc'].dirty) && sccForm.controls['purposeOfScc'].invalid"
+               class="error-message text-danger text-left">Purpose of SCC is required
+          </div>
         </td>
         <th>RM/Branch</th>
         <td>rm</td>
@@ -152,6 +155,9 @@
                    id="cibObtained" placeholder="Enter the date"
                    type="text"/>
             <nb-datepicker #cibPicked></nb-datepicker>
+            <div *ngIf="(sumbit || sccForm.controls['cibObtained'].dirty) && sccForm.controls['cibObtained'].invalid"
+                 class="error-message text-danger text-left">CIB Obtained is required
+            </div>
           </td>
           <td>
             <span class="print-only">{{sccData?.strObtained | date}}</span>
@@ -192,6 +198,9 @@
                    type="text"/>
             <nb-datepicker #kyc></nb-datepicker>
             <span class="print-only">{{sccData?.kyc | date}}</span>
+            <div *ngIf="(sumbit || sccForm.controls['kyc'].dirty) && sccForm.controls['kyc'].invalid"
+                 class="error-message text-danger text-left">kyc Obtained date of SCC is required
+            </div>
           </td>
           <td>
             <input class="form-control rounded disable-print"
@@ -239,31 +248,31 @@
         <tbody>
         <tr>
           <td>
-            <input class="disable-print" formControlName="baseII" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="baseII" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.baseII}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="nrbSector" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="nrbSector" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.nrbSector}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="naics" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="naics" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.naics}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="industry" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="industry" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.industry}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="customerCode" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="customerCode" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.customerCode}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="businessUnit" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="businessUnit" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.businessUnit}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="esrm" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="esrm" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.esrm}}</span>
           </td>
         </tr>
@@ -285,11 +294,11 @@
           <td>1</td>
           <td> Cash Deposit (as well as certificates of deposit or fixed deposits or other deposits) with Laxmi Bank </td>
           <td>
-            <input class="disable-print" formControlName="cashDeposit" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="cashDeposit" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.cashDeposit}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="cashDepositValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="cashDepositValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.cashDepositValue}}</span>
           </td>
         </tr>
@@ -298,11 +307,11 @@
           <td>2</td>
           <td> Fixed Deposit Receipts/ Certificates of deposits / other deposits of other banks, who fulfill the capital adequacy requirements, subject to a 20% supervisory haircut.</td>
           <td>
-            <input class="disable-print" formControlName="fixDeposit" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="fixDeposit" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.fixDeposit}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="fixDepositValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="fixDepositValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.fixDepositValue}}</span>
           </td>
         </tr>
@@ -311,11 +320,11 @@
           <td>3</td>
           <td> Gold </td>
           <td>
-            <input class="disable-print" formControlName="gold" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="gold" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.gold}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="goldValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="goldValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.goldValue}}</span>
           </td>
         </tr>
@@ -324,11 +333,11 @@
           <td>4</td>
           <td> Securities issued by the Government of Nepal and Nepal Rastra Bank  </td>
           <td>
-            <input class="disable-print" formControlName="securities" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="securities" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.securities}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="securitiesValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="securitiesValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.securitiesValue}}</span>
           </td>
         </tr>
@@ -337,11 +346,11 @@
           <td>5</td>
           <td> Guarantee of the Government </td>
           <td>
-            <input class="disable-print" formControlName="government" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="government" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.government}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="governmentValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="governmentValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.governmentValue}}</span>
           </td>
         </tr>
@@ -350,11 +359,11 @@
           <td>6</td>
           <td> Financial guarantee/ counter guarantee of domestic banks who meet the minimum capital adequacy requirements subject to haircut of 20%.</td>
           <td>
-            <input class="disable-print" formControlName="financial" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="financial" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.financial}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="financialValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="financialValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.financialValue}}</span>
           </td>
         </tr>
@@ -363,11 +372,11 @@
           <td>7</td>
           <td>Securities/ Financial guarantee/ Counter guarantee issued by sovereigns (Country)</td>
           <td>
-            <input class="disable-print" formControlName="counter" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="counter" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.counter}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="counterValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="counterValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.counterValue}}</span>
           </td>
         </tr>
@@ -376,11 +385,11 @@
           <td>8</td>
           <td> Securities/ Financial guarantee/ Counter guarantee issued by MDBs.  </td>
           <td>
-            <input class="disable-print" formControlName="guarantee" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="guarantee" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.guarantee}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="guaranteeValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="guaranteeValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.guaranteeValue}}</span>
           </td>
         </tr>
@@ -389,11 +398,11 @@
           <td>9</td>
           <td>Securities / Financial guarantee/ Counter guarantee issued by banks with ECA rating 2 or better. The supervisory haircut shall be 20% and 50% for the banks with ECA rating of 0-1 and 2 respectively. </td>
           <td>
-            <input class="disable-print" formControlName="eca" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="eca" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.eca}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="ecaValue" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="ecaValue" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.ecaValue}}</span>
 
           </td>
@@ -427,31 +436,31 @@
         <tbody>
         <tr>
           <td>
-            <input class="disable-print" formControlName="valuation" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="valuation" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.valuation}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="makuri" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="makuri" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.makuri}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="verification" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="verification" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.verification}}</span>
           </td>
           <!--<td>
-            <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="drawDownNTA" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownNTA}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="drawDownFMV" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownFMV}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="drawDownTax" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownTax}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="obtained" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="obtained" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.obtained}}</span>
           </td>-->
         </tr>
@@ -482,19 +491,19 @@
         <ng-container [formGroupName]="i">
         <tr>
           <td>
-            <input class="disable-print" formControlName="facilityName" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="facilityName" type="text" [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.facilityName : ''}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="drawDownNTA" type="text" [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownNTA : ''}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="drawDownFMV" type="text" [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownFMV : ''}}</span>
           </td>
           <td>
-            <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
+            <input class="form-control rounded disable-print" formControlName="drawDownTax" type="text"  [disabled]="!isMaker">
             <span class="print-only">{{sccData?.drawDownDetails ? sccData?.drawDownDetails[i]?.drawDownTax : ''}}</span>
           </td>
           <td>

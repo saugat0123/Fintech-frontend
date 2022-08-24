@@ -81,7 +81,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                                 singleDocument.url = singleCadFile.path;
                                 singleDocument.amount = singleCadFile.amount;
                                 singleDocument.remarks = singleCadFile.remarks;
-                                singleDocument.obtainedOn = singleCadFile.obtainedOn;
+                                singleDocument.obtainedOn = singleCadFile.obtainedOn ? new Date(singleCadFile.obtainedOn) : new Date();
                                 singleDocument.uploadedDate = singleCadFile.uploadedDate;
                             }
                         });
@@ -193,7 +193,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                     flag = false;
                     singleCadFile.amount = amount;
                     singleCadFile.remarks = remarks;
-                    singleCadFile.obtainedOn = obtainedOn;
+                    singleCadFile.obtainedOn = new Date(obtainedOn);
                 }
             });
             if (flag) {
@@ -201,7 +201,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 const document = new Document();
                 cadFile.amount = amount;
                 cadFile.remarks = remarks;
-                cadFile.obtainedOn = obtainedOn;
+                cadFile.obtainedOn = new Date(obtainedOn);
                 document.id = documentId;
                 cadFile.cadDocument = document;
                 cadFile.customerLoanId = customerLoanId;
@@ -212,7 +212,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
             const document = new Document();
             cadFile.amount = amount;
             cadFile.remarks = remarks;
-            cadFile.obtainedOn = obtainedOn;
+            cadFile.obtainedOn = new Date(obtainedOn);
             document.id = documentId;
             cadFile.cadDocument = document;
             cadFile.customerLoanId = customerLoanId;
@@ -238,7 +238,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
         this.saveEditParam.documentId = docId;
         this.saveEditParam.amount = amount;
         this.saveEditParam.remarks = remarks;
-        this.saveEditParam.obtainedOn = new Date(obtainedOn);
+        this.saveEditParam.obtainedOn = ObjectUtil.isEmpty(obtainedOn) ? new Date() : new Date(obtainedOn);
 
         this.modelService.open(template);
     }
