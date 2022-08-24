@@ -19,6 +19,9 @@
         <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData"
                            [documentId]="documentId"
                            [customerLoanId]="customerLoanId"></app-hypo-of-stock>
+        <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
+                               [documentId]="documentId"
+                               [customerLoanId]="customerLoanId"></app-loan-deed-company>
         <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
                                      [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
@@ -42,11 +45,8 @@
                                         [customerLoanId]="customerLoanId"></app-trust-receipt-nepali-limit>
         <app-loan-deed-individual *ngSwitchCase="cadTemplate.LOAN_DEED_INDIVIDUAL" [cadData]="cadData"
                               [documentId]="documentId"
-                              [customerLoanId]="customerLoanId"></app-loan-deed-individual>
-        <app-loan-deed-institution-private-limited *ngSwitchCase="cadTemplate.LOAN_DEED_INSTITUTION_PRIVATE_LIMITED" [cadData]="cadData"
-                                                   [documentId]="documentId"
-                                                   [customerLoanId]="customerLoanId"></app-loan-deed-institution-private-limited>
-        <app-loan-deed-institution-partnership-form *ngSwitchCase="cadTemplate.LOAN_DEED_INSTITUTION_PARTNERSHIP_FORM" [cadData]="cadData"
+                              [customerLoanId]="customerLoanId"></app-loan-deed-single>
+        <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE" [cadData]="cadData"
                                 [documentId]="documentId"
                                 [customerLoanId]="customerLoanId"></app-loan-deed-institution-partnership-form>
         <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
@@ -56,6 +56,10 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
+        <app-power-of-attorney-partnership-firm
+                *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_PARTNERSHIP_FIRM" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId"></app-power-of-attorney-partnership-firm>
         <app-power-of-attorney-company
                 *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_COMPANY" [cadData]="cadData"
                 [documentId]="documentId"
