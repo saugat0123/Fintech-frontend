@@ -117,7 +117,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               this.sccData.purposeOfScc, Validators.compose([Validators.required])],
       cibObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+              new Date(this.sccData.cibObtained), Validators.compose([Validators.required])],
       strObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.strObtained) ? new Date() :
               new Date(this.sccData.strObtained)],
@@ -129,7 +129,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               new Date(this.sccData.iffObtained)],
       kyc: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.kyc) ? new Date() :
-              new Date(this.sccData.kyc)],
+              new Date(this.sccData.kyc), Validators.compose([Validators.required])],
       irdSubmission: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.irdSubmission) ? undefined : this.sccData.irdSubmission],
       declaration: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
