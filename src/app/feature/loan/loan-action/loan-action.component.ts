@@ -251,7 +251,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
             queryParams: {
                 loanConfigId: this.loanConfigId,
                 customerId: this.id,
-                customerType: this.customerType
+                customerType: this.customerType,
+                catalogue : this.catalogueStatus
             }
         });
     }

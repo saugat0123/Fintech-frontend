@@ -64,6 +64,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     docAction = DocAction;
     siteVisitDocuments: Array<SiteVisitDocument>;
     showRibbon = false;
+    catalogueStatus = false;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -128,17 +129,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loadSummary() {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
-                this.allId = {
-                    loanConfigId: null,
-                    customerId: null,
-                    catalogue: null
-                };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
-                // if (this.allId.catalogue) {
-                //   this.catalogueStatus = true;
-                // }
+                if (this.allId.catalogue) {
+                  this.catalogueStatus = true;
+                }
             });
         // this.id = this.activatedRoute.snapshot.params['id'];
         this.spinner = true;
