@@ -11,7 +11,6 @@ import {CreditRiskGradingGamma} from '../../admin/modal/creditRiskGradingGamma';
 import {ActivatedRoute} from '@angular/router';
 import {Status} from '../../../@core/Status';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BusinessType} from '../../admin/modal/businessType';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {CompanyInfo} from '../../admin/modal/company-info';
 
@@ -271,22 +270,30 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
                 }
             });
             this.creditRiskGrading.get('totalPoint').patchValue(Number(finalTotal).toFixed(2));
-            if (finalTotal >= 90) {
-                this.grading = 'Virtually zero risk, Accept';
-            } else if (finalTotal >= 75 && finalTotal < 90) {
-                this.grading = 'Lower risk, Accept';
-            } else if (finalTotal >= 65 && finalTotal < 75) {
-                this.grading = 'Low risk, Accept';
-            } else if (finalTotal >= 55 && finalTotal < 65) {
-                this.grading = 'Moderate risk, Accept';
-            } else if (finalTotal >= 45) {
-                this.grading = 'Average risk, Accept';
-            } else if (finalTotal >= 35) {
-                this.grading = 'High risk risk, To be approved from  one level CAD authority';
-            } else if (finalTotal >= 25) {
-                this.grading = 'Pre-default risk, Minimum approving authority to be  CCO';
-            } else if (finalTotal < 25) {
-                this.grading = 'Default risk, Decline';
+            if (finalTotal >= 180) {
+                this.grading = '1A';
+            } else if (finalTotal >= 170 && finalTotal < 180) {
+                this.grading = '1B';
+            } else if (finalTotal >= 160 && finalTotal < 170) {
+                this.grading = '2A';
+            } else if (finalTotal >= 150 && finalTotal < 160) {
+                this.grading = '2B';
+            } else if (finalTotal >= 140 && finalTotal < 150) {
+                this.grading = '3A';
+            } else if (finalTotal >= 130 && finalTotal < 140) {
+                this.grading = '3B';
+            } else if (finalTotal >= 120 && finalTotal < 130) {
+                this.grading = '4A';
+            } else if (finalTotal >= 105 && finalTotal < 120) {
+                this.grading = '4B';
+            } else if (finalTotal >= 90 && finalTotal < 105) {
+                this.grading = '4C';
+            } else if (finalTotal >= 80 && finalTotal < 90) {
+                this.grading = '5';
+            } else if (finalTotal >= 70 && finalTotal < 80) {
+                this.grading = '6';
+            } else if (finalTotal < 70) {
+                this.grading = '7';
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
         }

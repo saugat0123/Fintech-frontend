@@ -7,7 +7,6 @@ import {UserService} from '../../../../@core/service/user.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
@@ -67,7 +66,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanConfig: LoanConfig = new LoanConfig();
 
     @Input() nepaliDate;
-    hasMissingDeferredDocs = false;
 
     client: string;
     clientName = Clients;
@@ -109,10 +107,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     shareSecuritySummary = false;
     proposalSummary = false;
     navigationSubscription;
-    securitySummary = false;
     securityData: Object;
-    approvedSecurityData: Object;
-    approvedShareSecurityData: Object;
     siteVisitData: Object;
     checkGuarantorData = false;
     offerLetterDocuments: {
@@ -169,7 +164,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     fiscalYearArray = [];
     roleType;
     showApprovalSheetInfo = false;
-    notApprove = 'notApprove';
     commentsSummary = false;
     dataFromComments;
     previousSecuritySummary = false;
@@ -196,7 +190,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     reviewDateData;
     multiBankingSummary = false;
     multiBankingData;
-    requestedLoanType;
     checkedData;
     proposalAllData;
     financial;
@@ -223,7 +216,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private dmsLoanService: DmsLoanService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private loanConfigService: LoanConfigService,
         private approvalLimitService: ApprovalLimitService,
         private dateService: DateService,
         private modalService: NgbModal,
@@ -338,7 +330,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     getLoanDataHolder() {
-        this.getAllLoans(this.loanDataHolder.loanHolder.id);
+        this.getAllLoans();
 
         // Setting financial data---
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
@@ -547,7 +539,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.getFiscalYears();
     }
 
-    getAllLoans(customerInfoId: number): void {
+    getAllLoans(): void {
                 if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
                     if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
                             this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe({
