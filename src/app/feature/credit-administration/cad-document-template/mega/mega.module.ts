@@ -37,6 +37,9 @@ import {
 } from './assignment-of-receivables-partnership/assignment-of-receivables-partnership.component';
 import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guarantee.component';
+import {
+  AssignmentOfReceivablesProprietorshipComponent
+} from './assignment-of-receivables-proprietorship/assignment-of-receivables-proprietorship.component';
 
 
 
@@ -49,6 +52,7 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
     AssignmentOfReceivablesPartnershipComponent,
+    AssignmentOfReceivablesProprietorshipComponent,
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
@@ -85,6 +89,7 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
   exports: [
     AssignmentOfReceivableComponent,
     AssignmentOfReceivablesPartnershipComponent,
+    AssignmentOfReceivablesProprietorshipComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     ManjurinamaForCompanyComponent,
