@@ -179,7 +179,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     fundedNonFunded: FormGroup;
 
-
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
@@ -954,5 +953,21 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     refreshCustomerData(event: boolean) {
         this.triggerCustomerRefresh.emit(event);
         this.nbDialogRef.close();
+    }
+
+    saveCrgChecklist(crgData: any) {
+        this.spinner.show();
+        this.customerInfo.crgChecklist = crgData;
+        this.customerInfoService.save(this.customerInfo)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CRG Checklist!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save CRG Checklist!'));
+            });
     }
 }
