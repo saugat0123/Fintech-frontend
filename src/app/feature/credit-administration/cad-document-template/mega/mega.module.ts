@@ -67,7 +67,6 @@ import {
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
     PowerOfAttorneyCompanyComponent,
-
     LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
@@ -80,7 +79,7 @@ import {
     NbCardModule,
     NbButtonModule,
     NgxPrintModule,
-    MegaOfferLetterTemplateModule
+    MegaOfferLetterTemplateModule,
   ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -112,7 +111,10 @@ import {
     ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
-    PowerOfAttorneyCompanyComponent
+    PowerOfAttorneyCompanyComponent,
+    LetterOfSetOffPartnershipComponent,
+    LoanDeedProprietorshipComponent,
+    PowerOfAttorneyCompanyComponent,
   ],
   })
 export class MegaModule { }
