@@ -56,25 +56,10 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
-        <app-kalo-suchi-borrower-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_COMPANY"
-                                   [cadData]="cadData" [documentId]="documentId"
-                                   [customerLoanId]="customerLoanId"></app-kalo-suchi-borrower-company>
-        <app-corporate-guarantee *ngSwitchCase="cadTemplate.CORPORATE_GUARANTEE"
-                                   [cadData]="cadData" [documentId]="documentId"
-                                   [customerLoanId]="customerLoanId"></app-corporate-guarantee>
-        <app-letter-of-continuity-company *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_COMPANY"
-                                          [cadData]="cadData" [documentId]="documentId"
-                                          [customerLoanId]="customerLoanId"></app-letter-of-continuity-company>
-
-        <app-kalo-suchi-borrower-pg-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_COMPANY"
-                                         [cadData]="cadData" [documentId]="documentId"
-                                         [customerLoanId]="customerLoanId"></app-kalo-suchi-borrower-pg-company>
-        <app-letter-of-continuity-partnership *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_PARTNERSHIP"
-                                              [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-letter-of-continuity-partnership>
-        <app-letter-of-continuity-proprietorship *ngSwitchCase="cadTemplate.LETTER_0F_CONTINUITY_PROPRIETORSHIP"
-                                                 [cadData]="cadData" [documentId]="documentId"
-                                                 [customerLoanId]="customerLoanId"></app-letter-of-continuity-proprietorship>
+        <app-power-of-attorney-company
+                *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_COMPANY" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId"></app-power-of-attorney-company>
 
         <app-letter-of-set-off-company *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_COMPANY"
                                             [cadData]="cadData" [documentId]="documentId"
