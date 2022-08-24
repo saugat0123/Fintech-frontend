@@ -16,7 +16,9 @@ import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
+import {PowerOfAttorneyPartnershipFirmComponent} from './power-of-attorney-partnership-firm/power-of-attorney-partnership-firm.component';
 import {NgxPrintModule} from 'ngx-print';
+import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 
 
 
@@ -34,13 +36,15 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent],
+    PromissoryNoteJointComponent,
+  PowerOfAttorneyPartnershipFirmComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MegaOfferLetterTemplateModule
   ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -56,7 +60,8 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent
+    PromissoryNoteJointComponent,
+    PowerOfAttorneyPartnershipFirmComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
