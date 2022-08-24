@@ -13,7 +13,7 @@ import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util
 import {RoleType} from '../../../../../admin/modal/roleType';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Editor} from '../../../../../../@core/utils/constants/editor';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
 import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
@@ -114,7 +114,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               new Date(this.sccData.dateOfScc)],
       purposeOfScc: [ObjectUtil.isEmpty(this.sccData) ? '' :
           ObjectUtil.isEmpty(this.sccData.purposeOfScc) ? '' :
-              this.sccData.purposeOfScc],
+              this.sccData.purposeOfScc, Validators.compose([Validators.required])],
       cibObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
               new Date(this.sccData.cibObtained)],
@@ -285,6 +285,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   save() {
     this.spinner = true;
     this.spinnerService.show();
+    if (this.sccForm.invalid) {
+      this.spinner = false;
+      this.spinnerService.hide();
+      return;
+    }
     if (this.sumbit) {
       this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.obtainedOnForm.get('obtainedFormData').value);
       this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);
