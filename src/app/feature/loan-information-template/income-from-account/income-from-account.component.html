@@ -490,68 +490,161 @@
       <div class="row">
         <div class="col-md-12">
           <span><strong>Risk Based Pricing</strong></span>
+<!--          <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">-->
+<!--            <thead>-->
+<!--            <tr class="sb-bg-secondary text-white">-->
+<!--              <th class="sn">S.No </th>-->
+<!--              <th>Facility</th>-->
+<!--              <th>Target Pricing</th>-->
+<!--              <th>Existing Interest Rate</th>-->
+<!--              <th>Difference</th>-->
+<!--              <th *ngIf="incomeFormGroup.get('riskBasedPrice')['length'] > 1">Action</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody *ngFor="let riskBased of incomeFormGroup.get('riskBasedPrice')['controls']; let i = index"-->
+<!--                   formArrayName="riskBasedPrice">-->
+<!--            <tr [formGroupName]="i">-->
+<!--              <td>{{i+1}}</td>-->
+<!--              <td>-->
+<!--                <input type="text"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Facility"-->
+<!--                       formControlName="facility">-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <input type="number"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Target Pricing"-->
+<!--                       (keyup)="calculateDifference(i)"-->
+<!--                       formControlName="targetPricing">-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <input type="number"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Existing Interest Rate"-->
+<!--                       (keyup)="calculateDifference(i)"-->
+<!--                       formControlName="exitingInterestRate">-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <input type="number"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Difference"-->
+<!--                       readonly formControlName="difference">-->
+<!--              </td>-->
+<!--              <td *ngIf="incomeFormGroup.get('riskBasedPrice')['length'] > 1">-->
+<!--                <input (click)="removeRiskBasedPrice(i)"-->
+<!--                       class="align-self-end btn btn-sm btn-danger btn-primary"-->
+<!--                       type="button" value="Delete"/>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+<!--            <div class="form-group">-->
+<!--              <label for="remark"><strong>Remark</strong></label>-->
+<!--              <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.riskRemark.errors }"-->
+<!--                        class="form-control" formControlName="riskRemark" id="riskRemark"-->
+<!--                        name="riskRemark" placeholder="Risk Remark" rows="3"></textarea>-->
+<!--            </div>-->
+<!--          <div class="float-right">-->
+<!--            <input (click)="addRiskBasedPrice()" class="btn btn-sm btn-flat btn-primary"-->
+<!--                   type="button" value="Add More"/>-->
+<!--          </div>-->
           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-secondary text-white">
-              <th class="sn">S.No </th>
-              <th>Facility</th>
-              <th>Target Pricing</th>
-              <th>Existing Interest Rate</th>
-              <th>Difference</th>
-              <th *ngIf="incomeFormGroup.get('riskBasedPrice')['length'] > 1">Action</th>
+              <th>Risk Adjusted pricing vs. Actual Average pricing</th>
+              <th>Rate</th>
             </tr>
             </thead>
-            <tbody *ngFor="let riskBased of incomeFormGroup.get('riskBasedPrice')['controls']; let i = index"
-                   formArrayName="riskBasedPrice">
-            <tr [formGroupName]="i">
-              <td>{{i+1}}</td>
+            <tbody>
+            <tr>
+              <td>Risk Adjusted Pricing</td>
               <td>
-                <input type="text"
-                       class="form-control"
-                       placeholder="Facility"
-                       formControlName="facility">
+                <input class="form-control text-center"
+                       formControlName="riskAdjustedPricing">
               </td>
+            </tr>
+            <tr>
+              <td>Actual Average pricing</td>
               <td>
-                <input type="number"
-                       class="form-control"
-                       placeholder="Target Pricing"
-                       (keyup)="calculateDifference(i)"
-                       formControlName="targetPricing">
+                <input class="form-control text-center"
+                       formControlName="actualAveragePricing">
               </td>
+            </tr>
+            <tr>
+              <th>Difference in pricing</th>
               <td>
-                <input type="number"
-                       class="form-control"
-                       placeholder="Existing Interest Rate"
-                       (keyup)="calculateDifference(i)"
-                       formControlName="exitingInterestRate">
-              </td>
-              <td>
-                <input type="number"
-                       class="form-control"
-                       placeholder="Difference"
-                       readonly formControlName="difference">
-              </td>
-              <td *ngIf="incomeFormGroup.get('riskBasedPrice')['length'] > 1">
-                <input (click)="removeRiskBasedPrice(i)"
-                       class="align-self-end btn btn-sm btn-danger btn-primary"
-                       type="button" value="Delete"/>
+                <input class="form-control text-center"
+                       formControlName="differenceInPricing">
               </td>
             </tr>
             </tbody>
           </table>
-            <div class="form-group">
-              <label for="remark"><strong>Remark</strong></label>
-              <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.riskRemark.errors }"
-                        class="form-control" formControlName="riskRemark" id="riskRemark"
-                        name="riskRemark" placeholder="Risk Remark" rows="3"></textarea>
-            </div>
-          <div class="float-right">
-            <input (click)="addRiskBasedPrice()" class="btn btn-sm btn-flat btn-primary"
-                   type="button" value="Add More"/>
+          <div class="form-group">
+            <label for="remark"><strong>Remark</strong></label>
+            <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.riskRemark.errors }"
+                      class="form-control" formControlName="riskRemark" id="riskRemark"
+                      name="riskRemark" placeholder="Risk Remark" rows="3"></textarea>
           </div>
         </div>
       </div>
-
+      <div class="row">
+        <div class="col-md-12">
+          <span><strong>Economic Profitabilty Report</strong></span>
+          <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-secondary text-white">
+              <th>Particulars</th>
+              <th>Amount/%</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Operating profit</td>
+              <td>
+                <input class="form-control text-center"
+                       formControlName="operatingProfit">
+              </td>
+            </tr>
+            <tr>
+              <td>Operating profit %</td>
+              <td>
+                <input class="form-control text-center"
+                       formControlName="operatingProfitPercent">
+              </td>
+            </tr>
+            <tr>
+              <td>Net profit</td>
+              <td>
+                <input class="form-control text-center"
+                       formControlName="netProfit">
+              </td>
+            </tr>
+            <tr>
+              <td>Net profit %</td>
+              <td>
+                <input class="form-control text-center"
+                       formControlName="netProfitPercent">
+              </td>
+            </tr>
+            <tr>
+              <td>Economic profit</td>
+              <td>
+                <input class="form-control text-center"
+                       formControlName="economic">
+              </td>
+            </tr>
+            <tr>
+              <td>Economic profit %</td>
+              <td>
+                <input class="form-control text-center"
+                       formControlName="economicProfitPercent">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <nb-card *ngIf="individual">
         <nb-card-header>
           <div class="row d-flex justify-content-center">
