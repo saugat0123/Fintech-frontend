@@ -1,4 +1,13 @@
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -33,7 +42,6 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
-import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
@@ -180,7 +188,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   isCollateralSiteVisit = false;
   age: number;
   isOpen: false;
-  private dialogRef: NbDialogRef<any>;
   refId: number;
   securityId: number;
   siteVisitDocuments: Array<SiteVisitDocument>;
@@ -193,6 +200,7 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   requestedLoanType;
   hidePreviewButton = false;
   zipDocumentName;
+  private dialogRef: NbDialogRef<any>;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -458,47 +466,47 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     this.getFiscalYears();
   }
 
-    getAllLoans(customerInfoId: number): void {
-        const search = {
-            loanHolderId: customerInfoId.toString(),
-            isStaged: 'true'
-        };
-        this.customerLoanService.getAllWithSearch(search)
-            .subscribe((res: any) => {
-                this.customerAllLoanList = res.detail;
-                // push current loan if not fetched from staged spec response
-                if (ObjectUtil.isEmpty(this.requestedLoanType)) {
-                    if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-                        this.customerAllLoanList.push(this.loanDataHolder);
-                    }
-                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-                    } else {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
-                    }
-                } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
-                }
-                // push loans from combined loan if not in the existing array
-                const combinedLoans = this.customerAllLoanList
-                    .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
-                if (combinedLoans.length > 0) {
-                    const combinedLoanId = combinedLoans[0].combinedLoan.id;
-                    this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
-                        (response.detail as CombinedLoan).loans.forEach((cl) => {
-                            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
-                            if (!allLoanIds.includes(cl.id)) {
-                                this.customerAllLoanList.push(cl);
-                            }
-                        });
-                    }, err => {
-                        console.error(err);
-                    });
-                }
-            }, error => {
-                console.error(error);
-            });
-    }
+  getAllLoans(customerInfoId: number): void {
+    const search = {
+      loanHolderId: customerInfoId.toString(),
+      isStaged: 'true'
+    };
+    this.customerLoanService.getAllWithSearch(search)
+    .subscribe((res: any) => {
+      this.customerAllLoanList = res.detail;
+      // push current loan if not fetched from staged spec response
+      if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+        if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+          this.customerAllLoanList.push(this.loanDataHolder);
+        }
+        if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
+          this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+        } else {
+          this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
+        }
+      } else {
+        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
+      }
+      // push loans from combined loan if not in the existing array
+      const combinedLoans = this.customerAllLoanList
+      .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
+      if (combinedLoans.length > 0) {
+        const combinedLoanId = combinedLoans[0].combinedLoan.id;
+        this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
+          (response.detail as CombinedLoan).loans.forEach((cl) => {
+            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+            if (!allLoanIds.includes(cl.id)) {
+              this.customerAllLoanList.push(cl);
+            }
+          });
+        }, err => {
+          console.error(err);
+        });
+      }
+    }, error => {
+      console.error(error);
+    });
+  }
 
   download(i) {
     this.documentUrl = this.documentUrls[i];
@@ -545,25 +553,21 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
 
-
   open(comments) {
     const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
     modalRef.componentInstance.comments = comments;
   }
 
   renewedOrCloseFrom(id, loanId) {
-    this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
-      if (value) {
-        this.router.navigate(['/home/loan/summary'],
-            {
-              queryParams: {
-                loanConfigId: loanId,
-                customerId: id,
-                catalogue: true,
-              }
-            });
-      }
-    });
+
+    this.router.navigate(['/home/loan/summary'],
+        {
+          queryParams: {
+            loanConfigId: loanId,
+            customerId: id,
+            catalogue: true,
+          }
+        });
 
     this.customerId = id;
     this.getLoanDataHolder();
@@ -633,20 +637,18 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
         this.loanConfigId = res.loanConfigId;
         this.customerId = res.customerId;
       });
-      this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
-        if (value) {
-          this.router.navigate(['/home/loan/summary'],
-              {
-                queryParams: {
-                  loanConfigId: this.loanConfigId,
-                  customerId: this.customerId,
-                  catalogue: true
-                }
-              });
-        }
-      });
+
+      this.router.navigate(['/home/loan/summary'],
+          {
+            queryParams: {
+              loanConfigId: this.loanConfigId,
+              customerId: this.customerId,
+              catalogue: true
+            }
+          });
     });
   }
+
   public close() {
     if (this.isOpen) {
       this.dialogRef.close();
@@ -720,6 +722,37 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     this.downloadAll(docPaths);
   }
 
+  checkSiteVisitDocument(event: any) {
+    this.siteVisitDocuments = event;
+  }
+
+  checkDocumentStatus() {
+    if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+      this.hidePreviewButton = true;
+      if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+        this.zipDocumentName = '-documents';
+      } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+        this.zipDocumentName = '-closed-documents';
+      } else {
+        this.zipDocumentName = '-rejected-documents';
+      }
+    } else {
+      this.hidePreviewButton = false;
+    }
+  }
+
+  getCadDocumentByLoanId() {
+    this.activatedRoute.queryParams.subscribe((res) => {
+      this.loanConfigId = res.loanConfigId;
+      this.customerId = res.customerId;
+      this.loanFormService.getCadDocumentByLoanId(this.customerId).subscribe(response => {
+        this.cadDocumentData = response;
+      })
+    });
+  }
+
   // method to make all files as a .zip file
   private downloadAll(documentUrls: string[]): void {
     const zip = new JSZip();
@@ -752,37 +785,6 @@ export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
     } else {
       this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
     }
-  }
-
-  checkSiteVisitDocument(event: any) {
-    this.siteVisitDocuments = event;
-  }
-
-  checkDocumentStatus() {
-    if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
-        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
-        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
-      this.hidePreviewButton = true;
-      if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
-        this.zipDocumentName = '-documents';
-      } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
-        this.zipDocumentName = '-closed-documents';
-      } else {
-        this.zipDocumentName = '-rejected-documents';
-      }
-    } else {
-      this.hidePreviewButton = false;
-    }
-  }
-
-  getCadDocumentByLoanId() {
-    this.activatedRoute.queryParams.subscribe((res) => {
-      this.loanConfigId = res.loanConfigId;
-      this.customerId = res.customerId;
-      this.loanFormService.getCadDocumentByLoanId(this.customerId).subscribe(response=> {
-        this.cadDocumentData = response;
-      })
-    });
   }
 
 }
