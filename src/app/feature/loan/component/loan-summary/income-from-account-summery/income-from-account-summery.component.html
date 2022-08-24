@@ -159,23 +159,57 @@
 
 
             <span><strong>Risk Based Pricing</strong></span>
-            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+<!--            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">-->
+<!--                <thead>-->
+<!--                <tr class="sb-bg-gray">-->
+<!--                    <th>S.No</th>-->
+<!--                    <th>Facility</th>-->
+<!--                    <th>Target Pricing</th>-->
+<!--                    <th>Existing Interest Rate</th>-->
+<!--                    <th>Difference</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr *ngFor="let risk of incomeFromAccount?.riskBasedPrice; let ind = index">-->
+<!--                    <td class="sn">{{ind + 1}}</td>-->
+<!--                    <td class="sb-bg-gray  text-left pl-1">{{risk?.facility}}</td>-->
+<!--                    <td class="text-right pr-1">NPR. {{risk?.targetPricing}}</td>-->
+<!--                    <td class="text-right pr-1">NPR. {{risk?.exitingInterestRate}}</td>-->
+<!--                    <td class="text-right pr-1">NPR. {{risk?.difference}}</td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            <table class="table table-responsive-md table-bordered sb-small text-center table-sm">-->
+<!--                <thead>-->
+<!--                <tr class="sb-bg-gray">-->
+<!--                    <th>Remark</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.riskRemark"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+            <table class="table table-bordered table-responsive-md table-hover text-left table-sm sb-small">
                 <thead>
                 <tr class="sb-bg-gray">
-                    <th>S.No</th>
-                    <th>Facility</th>
-                    <th>Target Pricing</th>
-                    <th>Existing Interest Rate</th>
-                    <th>Difference</th>
+                    <th>Risk Adjusted pricing vs. Actual Average pricing</th>
+                    <th>Rate</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let risk of incomeFromAccount?.riskBasedPrice; let ind = index">
-                    <td class="sn">{{ind + 1}}</td>
-                    <td class="sb-bg-gray  text-left pl-1">{{risk?.facility}}</td>
-                    <td class="text-right pr-1">NPR. {{risk?.targetPricing}}</td>
-                    <td class="text-right pr-1">NPR. {{risk?.exitingInterestRate}}</td>
-                    <td class="text-right pr-1">NPR. {{risk?.difference}}</td>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Risk Adjusted Pricing</td>
+                    <td>{{incomeFromAccount?.riskAdjustedPricing}}</td>
+                </tr>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Actual Average pricing</td>
+                    <td>{{incomeFromAccount?.actualAveragePricing}}</td>
+                </tr>
+                <tr>
+                    <th class="sb-bg-gray  text-left pl-1">Difference in pricing</th>
+                    <td>{{incomeFromAccount?.differenceInPricing}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -191,7 +225,41 @@
                 </tr>
                 </tbody>
             </table>
-
+            <span><strong>Economic Profitabilty Report</strong></span>
+            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-left">
+                <thead>
+                <tr class="sb-bg-gray">
+                    <th>Particulars</th>
+                    <th>Amount/%</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Operating profit</td>
+                    <td>{{incomeFromAccount?.operatingProfit}}</td>
+                </tr>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Operating profit %</td>
+                    <td>{{incomeFromAccount?.operatingProfitPercent}}</td>
+                </tr>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Net profit</td>
+                    <td>{{incomeFromAccount?.netProfit}}</td>
+                </tr>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Net profit %</td>
+                    <td>{{incomeFromAccount?.netProfitPercent}}</td>
+                </tr>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Economic profit</td>
+                    <td>{{incomeFromAccount?.economic}}</td>
+                </tr>
+                <tr>
+                    <td class="sb-bg-gray  text-left pl-1">Economic profit %</td>
+                    <td>{{incomeFromAccount?.economicProfitPercent}}</td>
+                </tr>
+                </tbody>
+            </table>
 
         </ng-container>
         <ng-template #inst>

@@ -134,7 +134,18 @@ export class IncomeFromAccountComponent implements OnInit {
       riskBasedPrice: this.formBuilder.array([]),
       earningRemarkIndividual: [undefined],
       earningRemarkInstitutional: [undefined],
-      riskRemark: [undefined]
+      riskRemark: [undefined],
+      // Risk Based Pricing
+      riskAdjustedPricing: [undefined],
+      actualAveragePricing: [undefined],
+      differenceInPricing: [undefined],
+    //  Economic Profitability Report
+      operatingProfit: [undefined],
+      operatingProfitPercent: [undefined],
+      netProfit: [undefined],
+      netProfitPercent: [undefined],
+      economic: [undefined],
+      economicProfitPercent: [undefined]
     });
   }
 

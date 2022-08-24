@@ -448,7 +448,10 @@
                 <div class="col-md-12" style="max-height: 300px;">
                     <form [formGroup]="loanForm">
                         <div class="row" *ngIf="selectedLoanType && facilityType">
-
+                            <div class="col-md-2">
+                                <label><strong>Loan Number</strong></label>
+                                <input type="number" nbInput formControlName="loanNumber" fullWidth>
+                            </div>
                             <div class="col-md-3">
                                 <label><strong>Priority</strong></label>
                                 <select nbInput class="form-control rounded"
