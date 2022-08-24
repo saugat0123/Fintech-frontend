@@ -21,68 +21,63 @@ import {ThemeModule} from '../../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
-import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
-import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
+import {RetailAgainstInsPrintComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
+import {CustomInputComponent} from './mega-offer-letter/custom-input/custom-input.component';
 import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
-import { OfferLetterConsentComponent } from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
+import {OfferLetterConsentComponent} from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
 import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal-offer-letter-renewals/personal-offer-letter-renewals.component';
 
-import {
-    OfferLetterEducationLoanNepaliComponent
-} from './mega-offer-letter/offer-letter-education-loan-nepali/offer-letter-education-loan-nepali.component';
 
 const COMPONENTS = [
-    MegaOfferLetterComponent,
-    HayerPurchaseComponent,
-    HayerPurchasePrintComponent,
-    RetailEducationalLoanComponent,
-    RetailEducationalLoanPrintComponent,
-    RetailEducationalLoanEnglishComponent,
-    RetailEducationalLoanEnglishPrintComponent,
-    RetailHousingLoanComponent,
-    RetailHousingLoanPrintComponent,
-    RetailHousingLoanPrintComponent,
-    RetailMortgageComponent,
-    RetailMortgagePrintComponent,
-    RetailMortgageLoanComponent,
-    RetailMortgageLoanPrintComponent,
-    RetailProfessionalLoanComponent,
-    RetailProfessionalLoanPrintComponent,
-    RetailLoanAgainstInsuranceComponent,
-    SmeComponent,
-    SmePrintComponent,
-    PersonalOfferLetterRenewalsComponent,
-    OfferLetterEducationLoanNepaliComponent,
+  MegaOfferLetterComponent,
+  HayerPurchaseComponent,
+  HayerPurchasePrintComponent,
+  RetailEducationalLoanComponent,
+  RetailEducationalLoanPrintComponent,
+  RetailEducationalLoanEnglishComponent,
+  RetailEducationalLoanEnglishPrintComponent,
+  RetailHousingLoanComponent,
+  RetailHousingLoanPrintComponent,
+  RetailHousingLoanPrintComponent,
+  RetailMortgageComponent,
+  RetailMortgagePrintComponent,
+  RetailMortgageLoanComponent,
+  RetailMortgageLoanPrintComponent,
+  RetailProfessionalLoanComponent,
+  RetailProfessionalLoanPrintComponent,
+  RetailLoanAgainstInsuranceComponent,
+  SmeComponent,
+  SmePrintComponent,
+  PersonalOfferLetterRenewalsComponent,
 
 
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
-        OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent,
-        OfferLetterEducationLoanNepaliComponent],
-    exports: [
-        HayerPurchaseComponent,
-        RetailEducationalLoanComponent,
-        SmeComponent,
-        RetailEducationalLoanEnglishComponent,
-        RetailHousingLoanComponent,
-        RetailMortgageComponent,
-        RetailMortgageLoanComponent,
-        RetailProfessionalLoanComponent,
-        RetailLoanAgainstInsuranceComponent,
-        OfferLetterConsentComponent,
-        PersonalOfferLetterRenewalsComponent,
-        CustomInputComponent,
-        OfferLetterEducationLoanNepaliComponent
+  declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
+    OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent,
     ],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NgxPrintModule,
-        CoreModule,
-        NbAccordionModule,
-    ]
+  exports: [
+    HayerPurchaseComponent,
+    RetailEducationalLoanComponent,
+    SmeComponent,
+    RetailEducationalLoanEnglishComponent,
+    RetailHousingLoanComponent,
+    RetailMortgageComponent,
+    RetailMortgageLoanComponent,
+    RetailProfessionalLoanComponent,
+    RetailLoanAgainstInsuranceComponent,
+    OfferLetterConsentComponent,
+    PersonalOfferLetterRenewalsComponent,
+    CustomInputComponent,
+  ],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NgxPrintModule,
+    CoreModule,
+    NbAccordionModule,
+  ]
 })
 export class MegaOfferLetterTemplateModule {
 }
