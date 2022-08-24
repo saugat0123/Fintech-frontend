@@ -17,9 +17,8 @@ import {LoanDeedInstitutionPrivateLimitedComponent} from './loan-deed-institutio
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
+import {PowerOfAttorneyCompanyComponent} from './power-of-attorney-company/power-of-attorney-company.component';
 import {NgxPrintModule} from 'ngx-print';
-import { CorporateGuaranteeComponent } from './corporate-guarantee/corporate-guarantee.component';
-import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
@@ -33,6 +32,13 @@ import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-fo
 import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
 import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan-deed-proprietorship.component';
 import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprietorship/letter-of-set-off-proprietorship.component';
+import {
+  AssignmentOfReceivablesPartnershipComponent
+} from './assignment-of-receivables-partnership/assignment-of-receivables-partnership.component';
+import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guarantee.component';
+import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
+
+
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -42,6 +48,7 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
     TrustReceiptNepaliLimitComponent,
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
+    AssignmentOfReceivablesPartnershipComponent,
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
@@ -62,6 +69,8 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
     ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
+    PowerOfAttorneyCompanyComponent,
+
     LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
@@ -76,6 +85,7 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
   ],
   exports: [
     AssignmentOfReceivableComponent,
+    AssignmentOfReceivablesPartnershipComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
     ManjurinamaForCompanyComponent,
@@ -103,6 +113,7 @@ import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprie
     ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
+    PowerOfAttorneyCompanyComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
   ],
