@@ -30,7 +30,7 @@
                 <td>PAN No., date, and place of issue</td>
                 <td>{{companyInfo?.panNumber ? companyInfo?.panNumber : 'NA'}},
                     {{companyInfo?.legalStatus?.panRegistrationDate ? (companyInfo?.legalStatus?.panRegistrationDate | date) : 'NA'}},
-                    {{companyInfo?.legalStatus?.regIssuedPlace ? companyInfo?.legalStatus?.regIssuedPlace : 'NA'}}</td>
+                    {{(companyInfo?.legalStatus?.data | jsonParse)?.regIssuedPlace ? (companyInfo?.legalStatus?.data | jsonParse)?.regIssuedPlace : 'NA'}}</td>
             </tr>
             <tr>
                 <td>Tax cleared up to</td>
