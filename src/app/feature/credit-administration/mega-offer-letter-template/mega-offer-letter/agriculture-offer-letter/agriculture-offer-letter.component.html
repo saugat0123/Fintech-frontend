@@ -193,9 +193,12 @@
                                                 <nb-option *ngFor="let natureOfLoanType of natureOfLoanTypes"
                                                            [value]="natureOfLoanType?.key">
                                                     {{natureOfLoanType?.value}}
+                                                   <!-- <span *ngIf="natureOfLoanType?.value === 'अन्य कर्जाहरु (Other Loans)'">
+                                                    {{proposal.isOtherLoan === true}}
+                                                    </span>-->
                                                 </nb-option>
                                                 </nb-select>
-                                            <p><label>Other Loan Type in Nepali:</label><input class="form-field disable-print form-control-sm nepaliFont"
+                                           <!-- <p *ngIf="proposal.isOtherLoan"><label>Other Loan Type in Nepali:</label><input class="form-field disable-print form-control-sm nepaliFont"
                                                             formControlName="otherNatureOfLoanInNep"
                                                             name="otherNatureOfLoanInNep" type="text"/>
                                                 <span class="print-only nepaliFont">
@@ -206,7 +209,7 @@
                                                       name="otherNatureOfLoanInEng" type="text"/>
                                                 <span class="print-only">
                                             <strong>{{proposal.otherNatureOfLoanInEng ? proposal.otherNatureOfLoanInEng  : '========='}}</strong></span>
-                                            </p>
+                                            </p>-->
                                             </td>
                                         </tr>
                                         </tbody>

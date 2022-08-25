@@ -47,6 +47,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     {key: 'TextileIndustryOperationLoan', value: 'कपडा उधोग सञ्चालन कर्जा (Textile Industry Operation Loan)'},
     {key: 'TrainingLoansFromInstitutionsRecognizedByTheTechnicalEducationAndVocationalTrainingCouncil', value: 'प्राविधिक शिक्षा तथा व्यावसायिक तालिम परिषद््बाट मान्यता प्राप्त संस्थाबाट लिईने तालिम कर्जा (Training loans from institutions recognized by the Technical Education and Vocational Training Council)'},
     {key: 'YouthClassSelfEmploymentLoan', value: 'युवा बर्ग स्वरोजगार कर्जा (Youth Class Self Employment Loan)'},
+    {key: 'AgricultureAndLivestockLoans', value: 'कृषि तथा पशुपन्छी कर्जा (Agriculture and Livestock Loans)'},
+    {key: 'DeprivedClassLoans', value: 'विपन्न वर्ग कर्जा (Deprived Class Loans)'},
+    {key: 'FlexiLoan', value: 'फ्लेक्सी कर्जा (Flexi Loan)'},
     {key: 'OtherLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
   ];
   natureOfLoanTypes = [
@@ -70,6 +73,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   textileIndustryOperation = false;
   trainingLoansFromInstitutionsRecognizedByTheTechnicalEducationAndVocationalTrainingCouncil = false;
   youthClassSelfEmployment = false;
+  agricultureAndLivestockLoans = false;
+  deprivedClassLoans = false;
+  flexiLoan = false;
   otherLoans = false;
 
   overdraft = false;
@@ -243,15 +249,15 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       noOfEmi: [undefined],
       repaymentTermLoan: [undefined],
       repaymentEngDate: [undefined],
-      proposalData: this.formBuilder.array([this.buildProposalForm()])
+      proposalData: this.formBuilder.array([this.buildProposalForm()]),
     });
-    console.log('form', this.form);
   }
 
   buildProposalForm() {
     return this.formBuilder.group({
       facilityName: [undefined],
       natureOfLoan: [undefined],
+      isOtherLoan: false,
       otherNatureOfLoanInNep: [undefined],
       otherNatureOfLoanInEng: [undefined],
       overDraftLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
@@ -298,9 +304,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         this.selectedNatureOfLoanArray = initialInfo.natureOfLoanTypeSelectedArray;
         this.chooseLoanType(this.selectedLoanArray);
         this.chooseNatureOfLoanType(this.selectedNatureOfLoanArray);
-        console.log(initialInfo);
         this.initialInfoPrint = initialInfo;
-        console.log(this.offerLetterDocument);
         this.existingOfferLetter = true;
         this.form.patchValue(initialInfo, {emitEvent: false});
         this.initialInfoPrint = initialInfo;
@@ -370,7 +374,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     this.commercialAgricultureAndLivestock = this.educatedYouthSelfEmployment = this.youthProjectLoanForReturneesFromAbroad
         = this.loansToWomenEntrepreneurs = this.dalitCommunityBusinessDevelopment = this.higherAndTechnicalAndVocationalEducation
         = this.textileIndustryOperation = this.trainingLoansFromInstitutionsRecognizedByTheTechnicalEducationAndVocationalTrainingCouncil
-        = this.youthClassSelfEmployment = false;
+        = this.youthClassSelfEmployment = this.agricultureAndLivestockLoans = this.deprivedClassLoans
+        = this.flexiLoan = false;
     selectedLoanTypeArray.forEach(selectedValue => {
       switch (selectedValue) {
         case 'CommercialAgricultureAndLivestock':
@@ -399,6 +404,15 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
           break;
         case 'YouthClassSelfEmployment':
           this.youthClassSelfEmployment = true;
+          break;
+        case 'AgricultureAndLivestockLoans':
+          this.agricultureAndLivestockLoans = true;
+          break;
+        case 'DeprivedClassLoans':
+          this.deprivedClassLoans = true;
+          break;
+        case 'FlexiLoan':
+          this.flexiLoan = true;
           break;
         case 'OtherLoans':
           this.otherLoans = true;

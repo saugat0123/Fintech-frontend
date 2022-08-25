@@ -1,4 +1,3 @@
-
 export enum MegaOfferLetterConst {
     RETAIL_HOUSING,
     RETAIL_EDUCATIONAL,
