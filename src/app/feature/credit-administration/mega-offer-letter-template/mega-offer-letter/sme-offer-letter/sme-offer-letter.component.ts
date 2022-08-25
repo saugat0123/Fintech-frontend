@@ -13,18 +13,14 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
-import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
-import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+
 
 @Component({
-    selector: 'app-sme',
-    templateUrl: './sme.component.html',
-    styleUrls: ['./sme.component.scss']
+    selector: 'app-sme-offer-letter',
+    templateUrl: './sme-offer-letter.component.html',
+    styleUrls: ['./sme-offer-letter.component.scss']
 })
-export class SmeComponent implements OnInit {
+export class SmeOfferLetterComponent implements OnInit {
     loanForm: FormGroup;
     // todo replace enum constant string compare
     smeLoanHolderInfo;
@@ -833,7 +829,7 @@ export class SmeComponent implements OnInit {
 
     checkOfferLetterData() {
         this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-            === this.offerLetterConst.value(this.offerLetterConst.SME).toString())[0];
+            === this.offerLetterConst.value(this.offerLetterConst.SME_OFFER_LETTER).toString())[0];
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.addMoreOverdraftLoan();
             this.addMoreDemandLoan();
@@ -845,7 +841,7 @@ export class SmeComponent implements OnInit {
             this.addMoreShortTermLoanForm();
             this.addMoreBankGuaranteeForm();
             this.offerLetterDocument = new OfferDocument();
-            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
+            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME_OFFER_LETTER);
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             console.log(initialInfo);
@@ -875,14 +871,14 @@ export class SmeComponent implements OnInit {
 
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-                if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.SME).toString()) {
+                if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.SME_OFFER_LETTER).toString()) {
                     this.loanForm.get('loanTypeSelectedArray').patchValue(this.selectedLoanTypeArray);
                     offerLetterPath.initialInformation = JSON.stringify(this.loanForm.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
-            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME);
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME_OFFER_LETTER);
             this.loanForm.get('loanTypeSelectedArray').patchValue(this.selectedLoanTypeArray);
             offerDocument.initialInformation = JSON.stringify(this.loanForm.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);

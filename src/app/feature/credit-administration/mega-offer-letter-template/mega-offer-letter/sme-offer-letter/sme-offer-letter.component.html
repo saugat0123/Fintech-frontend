@@ -1,4 +1,4 @@
-<div class="nep nepaliFont" id="{{offerLetterConst.SME}}">
+<div class="nep nepaliFont" id="{{offerLetterConst.SME_OFFER_LETTER}}">
     <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="Saving Sme offer letter.....">
@@ -3161,8 +3161,8 @@
         </nb-card-footer>
     </nb-card>
 </div>
-<app-sme-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+<app-sme-offer-letter-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
                [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-               hidden></app-sme-print>
+               hidden></app-sme-offer-letter-print>
 
 
