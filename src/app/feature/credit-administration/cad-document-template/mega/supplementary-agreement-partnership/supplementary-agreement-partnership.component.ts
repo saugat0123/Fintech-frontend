@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
@@ -12,31 +12,33 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-institution-private-limited',
-  templateUrl: './loan-deed-institution-private-limited.component.html',
-  styleUrls: ['./loan-deed-institution-private-limited.component.scss']
+  selector: 'app-supplementary-agreement-partnership',
+  templateUrl: './supplementary-agreement-partnership.component.html',
+  styleUrls: ['./supplementary-agreement-partnership.component.scss']
 })
-export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
+export class SupplementaryAgreementPartnershipComponent implements OnInit {
 
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  loanDeedInstitutionPrivateLimited: FormGroup;
+  supplementaryAgreementPartnership: FormGroup;
   nepData;
   guarantorData;
   submitted = false;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService) {
+  }
 
   ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedInstitutionPrivateLimited.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.supplementaryAgreementPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -47,44 +49,45 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
   }
 
   buildForm() {
-    this.loanDeedInstitutionPrivateLimited = this.formBuilder.group({
+    this.supplementaryAgreementPartnership = this.formBuilder.group({
+      date: [undefined],
       branch: [undefined],
-      act: [undefined],
-      registrationOffice: [undefined],
+      companyRegistrationOffice: [undefined],
       registrationIssuedDate: [undefined],
       registrationNo: [undefined],
-      registrationOfficeDistrict: [undefined],
-      registrationOfficeMunicipalityVDC: [undefined],
-      registrationOfficeWardNo: [undefined],
+      companyDistrict: [undefined],
+      companyMunicipalityVDC: [undefined],
+      companyWardNo: [undefined],
       borrowerName: [undefined],
+      authorizedPersonGrandfatherName: [undefined],
+      authorizedPersonFatherName: [undefined],
+      authorizedPersonHusbandName: [undefined],
+      authorizedPersonDistrict: [undefined],
+      authorizedPersonMunicipalityVDC: [undefined],
+      authorizedPersonWardNo: [undefined],
+      authorizedPersonAge: [undefined],
       authorizedPersonName: [undefined],
+      authorizedPersonGrandfatherName2: [undefined],
+      authorizedPersonFatherName2: [undefined],
+      authorizedPersonHusbandName2: [undefined],
+      authorizedPersonDistrict2: [undefined],
+      authorizedPersonMunicipalityVDC2: [undefined],
+      authorizedPersonWardNo2: [undefined],
+      authorizedPersonAge2: [undefined],
+      authorizedPersonName2: [undefined],
+      date2: [undefined],
       offerLetterIssuedDate: [undefined],
-      signature: [undefined],
       amount: [undefined],
-      amount2: [undefined],
-      totalAmount: [undefined],
       amountInWords: [undefined],
-      amountInWords2: [undefined],
-      totalAmountInWords: [undefined],
-      loanFacilityType: [undefined],
-      loanFacilityType2: [undefined],
-      FACOwnerName: [undefined],
-      FACOwnerDistrict: [undefined],
-      FACOwnerMunicipalityVDC: [undefined],
-      FACOwnerWardNo: [undefined],
-      nakshaSeatNo: [undefined],
-      plotNo: [undefined],
-      area: [undefined],
+      date3: [undefined],
+      receiptNo: [undefined],
+      receiptDate: [undefined],
+      itemDetails: [undefined],
+      itemDetails2: [undefined],
       witnessName: [undefined],
       witnessName2: [undefined],
-      year: [undefined],
-      month: [undefined],
-      day: [undefined],
-      time: [undefined]
     });
-
   }
-
 
   submit() {
     let flag = true;
@@ -92,13 +95,13 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPrivateLimited.value);
+          singleCadFile.initialInformation = JSON.stringify(this.supplementaryAgreementPartnership.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPrivateLimited.value);
+        cadFile.initialInformation = JSON.stringify(this.supplementaryAgreementPartnership.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -107,7 +110,7 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPrivateLimited.value);
+      cadFile.initialInformation = JSON.stringify(this.supplementaryAgreementPartnership.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -124,13 +127,14 @@ export class LoanDeedInstitutionPrivateLimitedComponent implements OnInit {
       this.dialogRef.close();
     });
   }
+
   changeToNepAmount(event: any, target, from) {
-    this.loanDeedInstitutionPrivateLimited.get([target]).patchValue(event.nepVal);
-    this.loanDeedInstitutionPrivateLimited.get([from]).patchValue(event.val);
+    this.supplementaryAgreementPartnership.get([target]).patchValue(event.nepVal);
+    this.supplementaryAgreementPartnership.get([from]).patchValue(event.val);
   }
 
   patchFunction(target) {
-    const patchValue1 = this.loanDeedInstitutionPrivateLimited.get([target]).value;
+    const patchValue1 = this.supplementaryAgreementPartnership.get([target]).value;
     return patchValue1;
   }
 }
