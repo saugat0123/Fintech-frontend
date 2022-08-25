@@ -14,13 +14,13 @@ import {Guarantor} from '../../../../loan/model/guarantor';
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
 
 @Component({
-  selector: 'app-power-of-attorney-partnership-firm',
-  templateUrl: './power-of-attorney-partnership-firm.component.html',
-  styleUrls: ['./power-of-attorney-partnership-firm.component.scss']
+  selector: 'app-power-of-attorney-proprietorship',
+  templateUrl: './power-of-attorney-proprietorship.component.html',
+  styleUrls: ['./power-of-attorney-proprietorship.component.scss']
 })
-export class PowerOfAttorneyPartnershipFirmComponent implements OnInit {
+export class PowerOfAttorneyProprietorshipComponent implements OnInit {
 
-  PowerOfAttorneyPartnershipFirm: FormGroup;
+  PowerOfAttorneyProprietorship: FormGroup;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
@@ -39,7 +39,7 @@ export class PowerOfAttorneyPartnershipFirmComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.PowerOfAttorneyPartnershipFirm.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.PowerOfAttorneyProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -50,7 +50,7 @@ export class PowerOfAttorneyPartnershipFirmComponent implements OnInit {
   }
 
   buildForm() {
-    this.PowerOfAttorneyPartnershipFirm = this.formBuilder.group({
+    this.PowerOfAttorneyProprietorship = this.formBuilder.group({
       bankBranchName: [undefined],
       guarantorGrandFatherName: [undefined],
       guarrantorFatherName: [undefined],
@@ -135,12 +135,12 @@ export class PowerOfAttorneyPartnershipFirmComponent implements OnInit {
     });
   }
   changeToNepAmount(event: any, target, from) {
-    this.PowerOfAttorneyPartnershipFirm.get([target]).patchValue(event.nepVal);
-    this.PowerOfAttorneyPartnershipFirm.get([from]).patchValue(event.val);
+    this.PowerOfAttorneyProprietorship.get([target]).patchValue(event.nepVal);
+    this.PowerOfAttorneyProprietorship.get([from]).patchValue(event.val);
   }
 
   patchFunction(target) {
-    const patchValue1 = this.PowerOfAttorneyPartnershipFirm.get([target]).value;
+    const patchValue1 = this.PowerOfAttorneyProprietorship.get([target]).value;
     return patchValue1;
   }
 
@@ -150,13 +150,13 @@ export class PowerOfAttorneyPartnershipFirmComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.PowerOfAttorneyPartnershipFirm.value);
+          singleCadFile.initialInformation = JSON.stringify(this.PowerOfAttorneyProprietorship.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.PowerOfAttorneyPartnershipFirm.value);
+        cadFile.initialInformation = JSON.stringify(this.PowerOfAttorneyProprietorship.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -165,7 +165,7 @@ export class PowerOfAttorneyPartnershipFirmComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.PowerOfAttorneyPartnershipFirm.value);
+      cadFile.initialInformation = JSON.stringify(this.PowerOfAttorneyProprietorship.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;

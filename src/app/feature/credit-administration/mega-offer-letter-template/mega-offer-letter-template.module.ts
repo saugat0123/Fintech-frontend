@@ -38,7 +38,6 @@ const COMPONENTS = [
   RetailEducationalLoanEnglishPrintComponent,
   RetailHousingLoanComponent,
   RetailHousingLoanPrintComponent,
-  RetailHousingLoanPrintComponent,
   RetailMortgageComponent,
   RetailMortgagePrintComponent,
   RetailMortgageLoanComponent,
