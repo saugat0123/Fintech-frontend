@@ -310,7 +310,7 @@ export class CatalogueComponent implements OnInit {
         this.catalogueService.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanNewRenew').value) ? undefined :
             this.filterForm.get('loanNewRenew').value;
         if (!ObjectUtil.isEmpty(this.filterForm.get('startDate').value) && this.filterForm.get('endDate').value) {
-            this.catalogueService.search.currentStageDate = JSON.stringify({
+            this.catalogueService.search.lastModifiedDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
                 'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
                 'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
