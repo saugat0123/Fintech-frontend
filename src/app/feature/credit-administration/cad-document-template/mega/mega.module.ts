@@ -38,11 +38,8 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
 import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guarantee.component';
 import {PowerOfAttorneyProprietorshipComponent} from './power-of-attorney-proprietorship/power-of-attorney-proprietorship.component';
 import { SupplementaryAgreementCompanyComponent } from './supplementary-agreement-company/supplementary-agreement-company.component';
-import {
-  AssignmentOfReceivablesProprietorshipComponent
-} from './assignment-of-receivables-proprietorship/assignment-of-receivables-proprietorship.component';
-
-
+import {AssignmentOfReceivablesProprietorshipComponent} from './assignment-of-receivables-proprietorship/assignment-of-receivables-proprietorship.component';
+import { SupplementaryAgreementPartnershipComponent } from './supplementary-agreement-partnership/supplementary-agreement-partnership.component';
 import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-letter-company.component';
 
 @NgModule({
@@ -80,7 +77,8 @@ import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-le
     LoanDeedProprietorshipComponent,
     PowerOfAttorneyPartnershipComponent, PowerOfAttorneyProprietorshipComponent,
     SupplementaryAgreementCompanyComponent,
-      ConsentLetterCompanyComponent
+      ConsentLetterCompanyComponent,
+    SupplementaryAgreementPartnershipComponent,
     ],
   imports: [
     CommonModule,
@@ -126,6 +124,7 @@ import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-le
         PowerOfAttorneyProprietorshipComponent,
         SupplementaryAgreementCompanyComponent,
         AssignmentOfReceivablesProprietorshipComponent,
+        SupplementaryAgreementPartnershipComponent,
         ConsentLetterCompanyComponent
   ],
   })
