@@ -10,124 +10,95 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 
 @Component({
-  selector: 'app-promissory-note-partnership-firm',
-  templateUrl: './promissory-note-partnership-firm.component.html',
-  styleUrls: ['./promissory-note-partnership-firm.component.scss']
+  selector: 'app-loan-deed-company',
+  templateUrl: './loan-deed-company.component.html',
+  styleUrls: ['./loan-deed-company.component.scss']
 })
-export class PromissoryNotePartnershipFirmComponent implements OnInit {
+export class LoanDeedCompanyComponent implements OnInit {
 
-  promissoryNotePartnershipFirm: FormGroup;
-  promissoryPartnershipFirm;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  @Input() nepaliAmount: NepaliNumberAndWords;
-
+  loanDeedCompany: FormGroup;
+  nepData;
+  guarantorData;
+  submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.promissoryNotePartnershipFirm.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.loanDeedCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.promissoryPartnershipFirm = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
   }
 
   buildForm() {
-    this.promissoryNotePartnershipFirm = this.formBuilder.group({
+    this.loanDeedCompany = this.formBuilder.group({
       branch: [undefined],
-      temporaryProvince: [undefined],
-      temporaryProvince2: [undefined],
-      permanentDistrict: [undefined],
-      permanentMunicipalityVDC: [undefined],
-      permanentWardNo: [undefined],
-      permanentDistrict2: [undefined],
-      permanentMunicipalityVDC2: [undefined],
-      permanentWardNo2: [undefined],
-      namesOfTheRightPeopleInTheAffidavit: [undefined],
-      namesOfTheRightPeopleInTheAffidavit2: [undefined],
-      grandParents: [undefined],
-      parents: [undefined],
-      grandParents2: [undefined],
-      parents2: [undefined],
-      temporaryDistrict: [undefined],
-      temporaryMunicipalityVDC: [undefined],
-      temporaryWardNo: [undefined],
-      temporaryDistrict2: [undefined],
-      temporaryMunicipalityVDC2: [undefined],
-      temporaryWardNo2: [undefined],
-      age: [undefined],
-      age2: [undefined],
-      relation: [undefined],
-      citizenshipNo: [undefined],
-      issueDate: [undefined],
-      issueDistrict: [undefined],
-      citizenshipNo2: [undefined],
-      issueDate2: [undefined],
-      issueDistrict2: [undefined],
-      annualRate: [undefined],
-      onePerson: [undefined],
-      relation2: [undefined],
+      act: [undefined],
+      registrationOffice: [undefined],
+      registrationIssuedDate: [undefined],
+      registrationNo: [undefined],
+      registrationOfficeDistrict: [undefined],
+      registrationOfficeMunicipalityVDC: [undefined],
+      registrationOfficeWardNo: [undefined],
+      borrowerName: [undefined],
+      authorizedPersonName: [undefined],
+      offerLetterIssuedDate: [undefined],
+      signature: [undefined],
       amount: [undefined],
+      amount2: [undefined],
+      totalAmount: [undefined],
       amountInWords: [undefined],
+      amountInWords2: [undefined],
+      totalAmountInWords: [undefined],
+      loanFacilityType: [undefined],
+      loanFacilityType2: [undefined],
+      FACOwnerName: [undefined],
+      FACOwnerDistrict: [undefined],
+      FACOwnerMunicipalityVDC: [undefined],
+      FACOwnerWardNo: [undefined],
+      nakshaSeatNo: [undefined],
+      plotNo: [undefined],
+      area: [undefined],
+      witnessName: [undefined],
+      witnessName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      nameOfWitness: [undefined],
-      addressOfWitness: [undefined],
-      nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined],
-      ministry: [undefined],
-      actName: [undefined],
-      actDate: [undefined],
-      department: [undefined],
-      office: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      name: [undefined],
-      proprietorName: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      date1: [undefined],
-      date2: [undefined],
-      district: [undefined],
-      wardNo: [undefined],
-      borrowerNameInNepali: [undefined]
+      time: [undefined]
     });
+
   }
-  changeToNepAmount(event: any, target, from) {
-    this.promissoryNotePartnershipFirm.get([target]).patchValue(event.nepVal);
-    this.promissoryNotePartnershipFirm.get([from]).patchValue(event.val);
-  }
-  patchFunction(target) {
-    const patchValue1 = this.promissoryNotePartnershipFirm.get([target]).value;
-    return patchValue1;
-  }
+
+
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.promissoryNotePartnershipFirm.value);
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.promissoryNotePartnershipFirm.value);
+        cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -136,7 +107,7 @@ export class PromissoryNotePartnershipFirmComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.promissoryNotePartnershipFirm.value);
+      cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -152,5 +123,14 @@ export class PromissoryNotePartnershipFirmComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.loanDeedCompany.get([target]).patchValue(event.nepVal);
+    this.loanDeedCompany.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.loanDeedCompany.get([target]).value;
+    return patchValue1;
   }
 }
