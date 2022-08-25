@@ -150,6 +150,15 @@
                                       [cadData]="cadData" [documentId]="documentId"
                                       [customerLoanId]="customerLoanId">
         </app-supplementary-agreement-company>
+        <app-assignment-of-receivables-proprietorship *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLES_PROPRIETORSHIP"
+                                                      [cadData]="cadData" [documentId]="documentId"
+                                                      [customerLoanId]="customerLoanId">
+
+        </app-assignment-of-receivables-proprietorship>
+        <app-supplementary-agreement-partnership *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_PARTNERSHIP"
+                                             [cadData]="cadData" [documentId]="documentId"
+                                             [customerLoanId]="customerLoanId">
+        </app-supplementary-agreement-partnership>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
