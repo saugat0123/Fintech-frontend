@@ -37,8 +37,7 @@ import {AssignmentOfReceivablesPartnershipComponent} from './assignment-of-recei
 import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guarantee.component';
 import {PowerOfAttorneyProprietorshipComponent} from './power-of-attorney-proprietorship/power-of-attorney-proprietorship.component';
-
-
+import { SupplementaryAgreementCompanyComponent } from './supplementary-agreement-company/supplementary-agreement-company.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -72,8 +71,9 @@ import {PowerOfAttorneyProprietorshipComponent} from './power-of-attorney-propri
     PowerOfAttorneyCompanyComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
-  PowerOfAttorneyPartnershipComponent,
-      PowerOfAttorneyProprietorshipComponent],
+    PowerOfAttorneyPartnershipComponent, PowerOfAttorneyProprietorshipComponent,
+    SupplementaryAgreementCompanyComponent,
+    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -116,6 +116,7 @@ import {PowerOfAttorneyProprietorshipComponent} from './power-of-attorney-propri
         KaloSuchiBorrowerPgCompanyComponent,
         CorporateGuaranteeComponent,
         PowerOfAttorneyProprietorshipComponent,
-    ],
+        SupplementaryAgreementCompanyComponent,
+  ],
   })
 export class MegaModule { }
