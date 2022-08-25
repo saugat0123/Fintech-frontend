@@ -150,13 +150,6 @@
                                       [cadData]="cadData" [documentId]="documentId"
                                       [customerLoanId]="customerLoanId">
         </app-supplementary-agreement-company>
-        <app-consent-letter-company *ngSwitchCase="cadTemplate.CONSENT_LETTER_COMPANY"
-                                    [cadData]="cadData" [documentId]="documentId"
-                                    [customerLoanId]="customerLoanId">
-
-        </app-consent-letter-company>
-
-
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
