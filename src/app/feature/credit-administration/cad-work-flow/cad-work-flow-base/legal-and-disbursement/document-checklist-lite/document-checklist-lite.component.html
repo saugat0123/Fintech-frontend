@@ -105,7 +105,7 @@
                     <td class="font-weight-bold">:</td>
                     <td>
                         <app-calendar (messageToEmit)="saveEditParam.obtainedOn = $event?.eDate"
-                                       [ePreDate]="saveEditParam.obtainedOn"></app-calendar>
+                                       [ePreDate]="saveEditParam?.obtainedOn"></app-calendar>
                     </td>
                 </tr>
             </table>

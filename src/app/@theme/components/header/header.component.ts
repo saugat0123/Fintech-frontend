@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 
 import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
@@ -13,6 +13,7 @@ import {NotificationService} from '../notification/service/notification.service'
 import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {PushNotificationsService} from '../../../@core/service/push-notification.service';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -37,7 +38,8 @@ export class HeaderComponent implements OnInit {
   userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}];
 
   notificationCount;
-
+  fullScreen = false;
+  elem;
   constructor(
       private sidebarService: NbSidebarService,
       private menuService: NbMenuService,
@@ -49,7 +51,8 @@ export class HeaderComponent implements OnInit {
       private modalService: NgbModal,
       private socketService: SocketService,
       private notificationService: NotificationService,
-      private _pushNotificationService: PushNotificationsService
+      private _pushNotificationService: PushNotificationsService,
+      @Inject(DOCUMENT) private document: any,
   ) {
 
     this.searchService.onSearchSubmit()
@@ -78,6 +81,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.elem = document.documentElement;
     this.userId = Number(LocalStorageUtil.getStorage().userId);
     this.userFullName = LocalStorageUtil.getStorage().userFullName + ' (' + LocalStorageUtil.getStorage().roleName + ')';
     this.userProfilePicture = LocalStorageUtil.getStorage().userProfilePicture;
@@ -134,6 +138,39 @@ export class HeaderComponent implements OnInit {
     this.socketService.initializeWebSocketConnection();
     this.notificationService.fetchNotifications();
     this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
+  }
+  openFullscreen() {
+    this.sidebarService.toggle(false, 'menu-sidebar');
+    this.layoutService.changeLayoutSize();
+    this.fullScreen = true;
+    if (this.elem.requestFullscreen) {
+      this.elem.requestFullscreen();
+    } else if (this.elem.mozRequestFullScreen) {
+      /* Firefox */
+      this.elem.mozRequestFullScreen();
+    } else if (this.elem.webkitRequestFullscreen) {
+      /* Chrome, Safari and Opera */
+      this.elem.webkitRequestFullscreen();
+    } else if (this.elem.msRequestFullscreen) {
+      /* IE/Edge */
+      this.elem.msRequestFullscreen();
+    }
+  }
+  closeFullscreen() {
+    this.fullScreen = false;
+    this.sidebarService.toggle(false, 'menu-sidebar');
+    if (document.exitFullscreen) {
+      this.document.exitFullscreen();
+    } else if (this.document.mozCancelFullScreen) {
+      /* Firefox */
+      this.document.mozCancelFullScreen();
+    } else if (this.document.webkitExitFullscreen) {
+      /* Chrome, Safari and Opera */
+      this.document.webkitExitFullscreen();
+    } else if (this.document.msExitFullscreen) {
+      /* IE/Edge */
+      this.document.msExitFullscreen();
+    }
   }
 
 }

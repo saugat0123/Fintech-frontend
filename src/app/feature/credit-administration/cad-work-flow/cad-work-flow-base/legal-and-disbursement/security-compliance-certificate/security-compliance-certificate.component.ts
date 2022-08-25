@@ -13,7 +13,7 @@ import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util
 import {RoleType} from '../../../../../admin/modal/roleType';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Editor} from '../../../../../../@core/utils/constants/editor';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
 import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
@@ -50,6 +50,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   olRefNumber;
   documentCheckListData;
   sccPath;
+  baselDetails;
+  gssCode;
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
               private ngbModal: NgbModal,
@@ -66,6 +68,15 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
+    }
+    if (!ObjectUtil.isEmpty(this.cadFile)) {
+      if (!ObjectUtil.isEmpty(this.cadFile.baselCode)) {
+        this.baselDetails = this.cadFile.baselCode;
+      }
+      if (!ObjectUtil.isEmpty(this.cadFile.loanHolder) && !ObjectUtil.isEmpty(this.cadFile.loanHolder.gssData)) {
+        const data = JSON.parse(this.cadFile.loanHolder.gssData);
+        this.gssCode = data.groupCode ? data.groupCode : '';
+      }
     }
     this.buildSccForm();
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
@@ -114,10 +125,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               new Date(this.sccData.dateOfScc)],
       purposeOfScc: [ObjectUtil.isEmpty(this.sccData) ? '' :
           ObjectUtil.isEmpty(this.sccData.purposeOfScc) ? '' :
-              this.sccData.purposeOfScc],
+              this.sccData.purposeOfScc, Validators.compose([Validators.required])],
       cibObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+              new Date(this.sccData.cibObtained), Validators.compose([Validators.required])],
       strObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.strObtained) ? new Date() :
               new Date(this.sccData.strObtained)],
@@ -129,7 +140,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               new Date(this.sccData.iffObtained)],
       kyc: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.kyc) ? new Date() :
-              new Date(this.sccData.kyc)],
+              new Date(this.sccData.kyc), Validators.compose([Validators.required])],
       irdSubmission: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.irdSubmission) ? undefined : this.sccData.irdSubmission],
       declaration: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
@@ -138,20 +149,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       caApproved: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
           ObjectUtil.isEmpty(this.sccData.caApproved) ? new Date() :
               new Date(this.sccData.caApproved)],
-      baseII: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.baseII) ? undefined : this.sccData.baseII],
-      nrbSector: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.nrbSector) ? undefined : this.sccData.nrbSector],
-      naics: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.naics) ? undefined : this.sccData.naics],
-      industry: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.industry) ? undefined : this.sccData.industry],
-      customerCode: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.customerCode) ? undefined : this.sccData.customerCode],
       businessUnit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.businessUnit) ? undefined : this.sccData.businessUnit],
-      esrm: [ObjectUtil.isEmpty(this.sccData) ? undefined :
-          ObjectUtil.isEmpty(this.sccData.esrm) ? undefined : this.sccData.esrm],
       cashDeposit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.cashDeposit) ? undefined : this.sccData.cashDeposit],
       cashDepositValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
@@ -285,6 +284,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   save() {
     this.spinner = true;
     this.spinnerService.show();
+    if (this.sccForm.invalid) {
+      this.spinner = false;
+      this.spinnerService.hide();
+      return;
+    }
     if (this.sumbit) {
       this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.obtainedOnForm.get('obtainedFormData').value);
       this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);

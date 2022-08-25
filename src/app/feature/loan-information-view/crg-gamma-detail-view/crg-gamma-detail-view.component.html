@@ -1,31 +1,33 @@
-<p class="mt-4 text-center"><strong>Credit Risk Grading</strong></p>
+<p class="mt-4 header"><strong class="header">Credit Risk Grading</strong></p>
 <table class="table table-condensed table-bordered table-sm
         table-responsive-md text-center table-sm sb-small">
     <thead>
-    <tr>
-        <th colspan="5">Credit Risk Grading (Gamma)</th>
-    </tr>
-    <tr class="sb-bg-dark text-white">
+<!--    <tr>-->
+<!--        <th colspan="3" class="text-center">Credit Risk Grading (Gamma)</th>-->
+<!--    </tr>-->
+    <tr class="sb-bg-gray">
         <th class="sn">S.N</th>
-        <th>Question</th>
-        <th>Answer</th>
-        <th>Score</th>
+        <th>Types Of Risk</th>
+        <th *ngIf="previousCrgGammaData">Previous Score</th>
+        <th>Current Score</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let crgGammaData of crgGammaList; let i = index">
-        <td class="text-center">{{ i+1 }}</td>
-        <td class="text-left font-weight-bold pl-1">{{ crgGammaData?.question }}</td>
-        <td class="text-left font-weight-bold pl-1">{{ crgGammaData?.answer }}</td>
-        <td class="text-right font-weight-bold pr-1">{{ crgGammaData?.score }}</td>
+    <tr *ngFor="let data of crgGammaData?.groupObject[0]; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{data?.groupName}}</td>
+        <td *ngIf="previousCrgGammaData">{{previousCrgGammaData?.groupObject[0][i]?.groupTotal}}</td>
+        <td>{{data?.groupTotal}}</td>
     </tr>
     <tr>
-        <td colspan="3" class="sb-bg-secondary text-white text-left pl-1"><strong>Total Score :</strong></td>
-        <td colspan="1" class="sb-bg-secondary text-white text-right pr-1"><strong>{{ crgGammaData?.totalPoint }}</strong></td>
+        <td colspan="2" class="sb-bg-gray  text-left pl-1"><strong>Total Score :</strong></td>
+        <td *ngIf="previousCrgGammaData" colspan="1" class="sb-bg-gray  text-right pr-1"><strong>{{ previousCrgGammaData?.totalPoint }}</strong></td>
+        <td colspan="1" class="sb-bg-gray  text-right pr-1"><strong>{{ crgGammaData?.totalPoint }}</strong></td>
     </tr>
     <tr>
-        <td colspan="3" class="sb-bg-secondary text-white text-left pl-1"><strong>Grade :</strong></td>
-        <td colspan="1" class="sb-bg-secondary text-white text-left pl-1"><strong>{{ crgGammaData?.grade }}</strong></td>
+        <td colspan="2" class="sb-bg-gray  text-left pl-1"><strong>Grade :</strong></td>
+        <td *ngIf="previousCrgGammaData" colspan="1" class="sb-bg-gray  text-left pl-1"><strong>{{ previousCrgGammaData?.grade }}</strong></td>
+        <td colspan="1" class="sb-bg-gray  text-left pl-1"><strong>{{ crgGammaData?.grade }}</strong></td>
     </tr>
     </tbody>
 </table>

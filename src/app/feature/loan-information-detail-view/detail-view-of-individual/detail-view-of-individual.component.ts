@@ -169,9 +169,9 @@ export class DetailViewOfIndividualComponent implements OnInit {
       }
     }
   }
-  updateChecklist(event) {
-    this.checklistData = event;
-  }
+  // updateChecklist(event) {
+  //   this.checklistData = event;
+  // }
   customSafePipe(val) {
     if (val == null) {
       return '';
