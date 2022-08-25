@@ -54,14 +54,6 @@
                             </table>
                         </nb-accordion-item-body>
                     </nb-accordion-item>
-<!--                    <nb-accordion-item >-->
-<!--                        <nb-accordion-item-header>-->
-<!--                            Loan Information-->
-<!--                        </nb-accordion-item-header>-->
-<!--                        <nb-accordion-item-body>-->
-
-<!--                        </nb-accordion-item-body>-->
-<!--                    </nb-accordion-item>-->
 <nb-accordion-item>
     <nb-accordion-item-header>
         Post Approval Documents
@@ -71,7 +63,6 @@
 
      <!--SRDB-->
      <app-srdb-offer-letter *ngIf="client == clientList.SHINE_RESUNGA"></app-srdb-offer-letter>
-     <app-excel-offer-letter *ngIf="client == clientList.EXCEL" [offerLetterList]="offerLetterList"></app-excel-offer-letter>
  </nb-accordion-item-body>
 </nb-accordion-item>
 

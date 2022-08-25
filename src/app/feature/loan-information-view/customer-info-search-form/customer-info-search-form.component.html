@@ -12,7 +12,7 @@
           <input
               [ngClass]="{ 'is-invalid': (submitted) && searchControls.idNumber.errors }"
               class="form-control" formControlName="idNumber" id="idNumber"
-              name="idNumber" [placeholder]="placeHolder"
+              name="idNumber" placeholder="placeHolder"
               type="text">
           <div *ngIf="(submitted) && searchControls.idNumber.invalid"
                class="invalid-feedback">

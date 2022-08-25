@@ -8,14 +8,13 @@
     </nb-card-footer>
   </nb-card>
 </ng-template>
-<div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
-  <div *ngIf="customerLoanHolder.documentStatus !== 'APPROVED'">
+<div class="row">
+  <div class="col-sm-9 text-center" *ngIf="customerLoanHolder.documentStatus !== 'APPROVED' && isMyBucketFile">
   <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     APPROVE
-<!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 
   <button (click)="loanAction('forward')" *ngIf="!catalogueStatus"
@@ -23,7 +22,6 @@
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-info">
     SEND FORWARD
-<!--    <i class="col-md-1 fa fa-arrow-circle-up"></i>-->
   </button>
 
   <button (click)="loanAction('backward')" *ngIf="!catalogueStatus"
@@ -32,7 +30,6 @@
           class="btn-sm"
           style="color:lightseagreen;">
     RETURN
-<!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
   <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus"
@@ -41,14 +38,12 @@
           class="btn-sm btn-info"
           style="color:white;">
     BACK TO COMMITTEE
-<!--    <i class="col-md-1 fas fa-angle-double-left"></i>-->
   </button>
 
   <button (click)="onEdit()" *ngIf="!catalogueStatus" [disabled]="!actionsList.roleTypeMaker"
           [ngStyle]="{ 'filter' : (actionsList.roleTypeMaker === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-primary">
     EDIT
-<!--    <i class="col-md-1 fa fa-edit"></i>-->
   </button>
 
   <button (click)="loanAction('close')" *ngIf="!catalogueStatus"
@@ -57,7 +52,6 @@
           class="btn-sm btn-info"
           value="CLOSED">
     CLOSE/SETTLEMENT
-<!--    <i class="col-md-1 fa-close"></i>-->
   </button>
 
   <button (click)="loanAction('reject')" *ngIf="!catalogueStatus"
@@ -66,24 +60,21 @@
           class="btn-sm btn-danger"
           value="REJECTED">
     REJECT
-<!--    <i class="col-md-1 fa fa-ban"></i>-->
   </button>
+    <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus && customerLoanHolder.documentStatus !== 'APPROVED'"
+            class="btn-sm btn-danger">
+      Delete
+      <!--    <i class="col-md-1 fa fa-ban"></i>-->
+    </button>
   </div>
-
-  <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end" *ngIf="!isDetailedView"
+<div class="col-sm-3 float-right">
+  <button [useExistingCss]="true" class="btn-sm btn-warning justify-content-end" *ngIf="!isDetailedView"
           ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
     PRINT
-<!--    <i class="col-md-1 fa fa-print"></i>-->
   </button>
 
-  <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus && customerLoanHolder.documentStatus !== 'APPROVED'"
-          class="btn-sm btn-danger d-flex justify-content-end">
-    Delete
-<!--    <i class="col-md-1 fa fa-ban"></i>-->
-  </button>
-  <button class="btn-sm btn-toolbar d-flex justify-content-end" *ngIf="!isDetailedView" (click)="detailedViewAction()">
+  <button class="btn-sm btn-info justify-content-end" *ngIf="!isDetailedView" (click)="detailedViewAction()">
     DETAILED-VIEW
-<!--    <em class="col-md-1 fa fa-eye"></em>-->
   </button>
   <button (click)="onUploadDocument()"
           *ngIf="showCadDocumentRoute && actionsList.loanApproveStatus && productUtils.CAD_LITE_VERSION"
@@ -92,6 +83,6 @@
     Documents
 <!--    <i class="col-md-1 fa fa-file-upload"></i>-->
   </button>
-
+</div>
 
 </div>

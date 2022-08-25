@@ -13,8 +13,6 @@ import {RouterModule} from '@angular/router';
 import {cadDocumentRoute} from './cad-document-routing';
 import {PostApprovalDocApproveComponent} from './post-approval-doc-approve/post-approval-doc-approve.component';
 import {CadLoginComponent} from './cad-login/cad-login.component';
-import {DpNoteGuarantorComponent} from './cad-document-core/excel-offer-letter/dp-note-guarantor/dp-note-guarantor.component';
-import {ExcelOfferLetterComponent} from './cad-document-core/excel-offer-letter/excel-offer-letter.component';
 
 
 const COMPONENTS = [
@@ -22,8 +20,6 @@ const COMPONENTS = [
     SrdbOfferLetterComponent,
     OfferLetterUploadComponent,
     OfferLetterActionComponent,
-    DpNoteGuarantorComponent,
-    ExcelOfferLetterComponent
 
 ];
 

@@ -27,10 +27,11 @@
         <div>
             <div class="align-content-center">
                 <app-loan-action
-                        *ngIf="loanDataHolder && loaded"
+                        *ngIf="loanDataHolder && loaded && showRibbon"
                         [isDetailedView]="true"
                         [branchId]="loanDataHolder?.branch?.id"
-                        [catalogueStatus]="false"
+                        [catalogueStatus]=catalogueStatus
+                        [isMyBucketFile]="isMyBucketFile"
                         [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
                         [customerLoanHolder]="loanDataHolder"
                         [customerType]="loanDataHolder?.loanCategory"

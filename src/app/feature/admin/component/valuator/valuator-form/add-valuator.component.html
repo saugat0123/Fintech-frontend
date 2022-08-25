@@ -140,7 +140,7 @@
                                [addTag]="addCustomValuatingField"
                                [addTagText] = "null"
                                [multiple]="false"
-                               [placeholder]="placeHolderValuatingType">
+                               placeholder="placeHolderValuatingType">
                         <ng-option *ngFor="let valuatingField of valuatingFieldEnum.values()"
                                    [value]="valuatingField">
                             {{valuatingField}}
@@ -189,7 +189,7 @@
                                [ngClass]="{'is-invalid': submitted && valuatorFormControl.branch.invalid}"
                                bindLabel="name"
                                formControlName="branch"
-                               [placeholder]="placeHolderBranchSelect"
+                               placeholder="placeHolderBranchSelect"
                                *ngIf="showHideBranchInput">
                         <ng-template let-index="index" let-item="item" let-search="searchTerm" ng-option-tmp>
                             {{item['name']}} | <strong>{{item['branchCode']}}</strong>

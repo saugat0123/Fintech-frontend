@@ -49,6 +49,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() branchId;
     @Input() customerLoanHolder: LoanDataHolder;
     @Input() isDetailedView: boolean;
+    @Input() isMyBucketFile: boolean;
     public isMaker = false;
     public committeeRole = false;
     private dialogRef: NbDialogRef<any>;
@@ -247,13 +248,25 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     detailedViewAction() {
-        this.router.navigate(['/home/loan/detailed-summary'], {
-            queryParams: {
-                loanConfigId: this.loanConfigId,
-                customerId: this.id,
-                customerType: this.customerType
-            }
-        });
+        if(this.catalogueStatus) {
+            this.router.navigate(['/home/loan/detailed-summary'], {
+                queryParams: {
+                    loanConfigId: this.loanConfigId,
+                    customerId: this.id,
+                    customerType: this.customerType,
+                    catalogue: true
+                }
+            });
+        } else {
+            this.router.navigate(['/home/loan/detailed-summary'], {
+                queryParams: {
+                    loanConfigId: this.loanConfigId,
+                    customerId: this.id,
+                    customerType: this.customerType,
+
+                }
+            });
+        }
     }
 
     onUploadDocument() {

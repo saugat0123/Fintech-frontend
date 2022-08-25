@@ -22,6 +22,7 @@ import {ObtainableDoc} from '../loan-information-template/obtained-document/obta
 import {LoanType} from '../loan/model/loanType';
 import {SiteVisitDocument} from '../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {DocStatus} from '../loan/model/docStatus';
+import {LocalStorageUtil} from "../../@core/utils/local-storage-util";
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -64,6 +65,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
     docAction = DocAction;
     siteVisitDocuments: Array<SiteVisitDocument>;
     showRibbon = false;
+    catalogueStatus = false;
+    isMyBucketFile = false;
+
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -82,6 +86,10 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            if (this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId &&
+                this.loanDataHolder.currentStage.toRole.id.toString() === LocalStorageUtil.getStorage().roleId) {
+                this.isMyBucketFile = true;
+            }
             this.activeRibbon();
             this.spinner = false;
             this.loaded = true;
@@ -128,17 +136,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loadSummary() {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
-                this.allId = {
-                    loanConfigId: null,
-                    customerId: null,
-                    catalogue: null
-                };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
-                // if (this.allId.catalogue) {
-                //   this.catalogueStatus = true;
-                // }
+                if (this.allId.catalogue) {
+                  this.catalogueStatus = true;
+                }
             });
         // this.id = this.activatedRoute.snapshot.params['id'];
         this.spinner = true;
@@ -231,9 +234,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     activeRibbon() {
-        if (this.loanDataHolder.documentStatus.toString() === 'PENDING' ) {
-            this.showRibbon = false;
-        } else if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.APPROVED) ||
+         if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.APPROVED) ||
             this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.CLOSED) ||
             this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REJECT)) {
             this.showRibbon = false;
