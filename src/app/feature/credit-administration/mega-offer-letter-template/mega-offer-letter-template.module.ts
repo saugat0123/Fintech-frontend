@@ -79,31 +79,6 @@ const COMPONENTS = [
         CoreModule,
         NbAccordionModule,
     ]
-  declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
-    OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent, AgricultureOfferLetterComponent
-    ],
-  exports: [
-    HayerPurchaseComponent,
-    RetailEducationalLoanComponent,
-    SmeComponent,
-    RetailEducationalLoanEnglishComponent,
-    RetailHousingLoanComponent,
-    RetailMortgageComponent,
-    RetailMortgageLoanComponent,
-    RetailProfessionalLoanComponent,
-    RetailLoanAgainstInsuranceComponent,
-    OfferLetterConsentComponent,
-    PersonalOfferLetterRenewalsComponent,
-    CustomInputComponent,
-    AgricultureOfferLetterComponent
-  ],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NgxPrintModule,
-    CoreModule,
-    NbAccordionModule,
-  ]
 })
 export class MegaOfferLetterTemplateModule {
 }
