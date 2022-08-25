@@ -52,6 +52,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
     spinner = false;
+    isMyBucketFile = false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -115,6 +116,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
+            if (this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId &&
+                this.loanDataHolder.currentStage.toRole.id.toString() === LocalStorageUtil.getStorage().roleId) {
+                this.isMyBucketFile = true;
+            }
             this.spinner = false;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;

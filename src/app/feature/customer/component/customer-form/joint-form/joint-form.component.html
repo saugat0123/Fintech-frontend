@@ -92,7 +92,7 @@
                                                     <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('maritalStatus').errors}"
                                                                formControlName="maritalStatus" id="maritalStatus{{i}}"
                                                                [addTagText]="null"
-                                                               [placeholder]="placeHolderForMaritalStatus"
+                                                               placeholder="placeHolderForMaritalStatus"
                                                                [multiple]="false">
                                                         <ng-option *ngFor="let maritalStatus of maritalStatusEnum.values()" [value]="maritalStatus">
                                                             {{maritalStatus}}
