@@ -9,10 +9,12 @@
     </li>
     <li>
         <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
-        <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
-                                            [isDetailedView]="isDetailedView"
-                                            [isExecutive]="isExecutive"
-                                            [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+        <ol>
+            <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                [isDetailedView]="isDetailedView"
+                                                [isExecutive]="isExecutive"
+                                                [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+        </ol>
 
     </li>
     <li>
