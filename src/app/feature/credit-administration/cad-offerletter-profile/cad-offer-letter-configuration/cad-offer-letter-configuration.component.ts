@@ -96,8 +96,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
-            this.setCollaterals(data.collateralDetails);
-            if (!ObjectUtil.isEmpty(this.tempCustomer) ){
+            if (!ObjectUtil.isEmpty(data.collateralDetails)) {
+                this.setCollaterals(data.collateralDetails);
+            } else {
+                this.addCollateral();
+            }
+            if (!ObjectUtil.isEmpty(this.tempCustomer)) {
                 this.setJointCustomer(data.jointCustomerDetails);
             }
         } else {
@@ -302,6 +306,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     addCollateral() {
         (this.userConfigForm.get('collateralDetails') as FormArray).push(this.addCollateralField());
     }
+
     addJointCustomerDetails() {
         (this.userConfigForm.get('jointCustomerDetails') as FormArray).push(this.addJointCustomerField());
     }
@@ -413,49 +418,101 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 citizenshipIssueDistrict: [undefined]
             }),
             // Land and Building Address
-            landAndBuildingDetail: this.formBuilder.group({
-                province: [undefined],
-                district: [undefined],
-                municipality: [undefined],
-                munType: [0],
-                wardNo: [undefined],
-                plotNo: [undefined],
-                tole: [undefined],
-                blockStorey: [undefined],
-                area: [undefined],
-                nakshaSeatNo: [undefined],
-            }),
+            landAndBuildingDetail: this.formBuilder.array([this.landAndBuildingFields()]),
             // Stocks Receivables Value
-            stocksReceivablesValue: this.formBuilder.group({
-                stockValue: [undefined],
-                receivableValue: [undefined],
-            }),
+            stocksReceivablesValue: this.formBuilder.array([this.stocksAndReceivableFields()]),
             // Plant/Machinery/Equipment Detail
-            plantMachineryDetail: this.formBuilder.group({
-                equipmentDetail: [undefined],
-                equipmentValue: [undefined],
-            }),
+            plantMachineryDetail: this.formBuilder.array([this.plantMachineryFields()]),
             // Vehicle Detail
-            vehicleDetail: this.formBuilder.group({
-                vehicleRegNo: [undefined],
-                vehicleModelNo: [undefined]
-            }),
+            vehicleDetail: this.formBuilder.array([this.vehicleFields()]),
             // Fixed Deposit Holder Detail
-            fdHolderDetail: this.formBuilder.group({
-                name: [undefined],
-                fdReceiptNo: [undefined],
-                fdAmount: [undefined],
-                fatherName: [undefined],
-                grandFatherName: [undefined]
-            }),
+            fdHolderDetail: this.formBuilder.array([this.fdHolderFields()]),
             // share Detail
-            shareDetail: this.formBuilder.group({
-                name: [undefined],
-                companyName: [undefined],
-                noOfShares: [undefined],
-                shareType: [undefined]
-            }),
+            shareDetail: this.formBuilder.array([this.shareFields()]),
         });
+    }
+
+    addLandAndBuilding(i) {
+        (this.userConfigForm.get(['collateralDetails', i, 'landAndBuildingDetail']) as FormArray).push(this.landAndBuildingFields());
+    }
+
+    landAndBuildingFields() {
+        return this.formBuilder.group({
+            province: [undefined],
+            district: [undefined],
+            municipality: [undefined],
+            munType: [0],
+            wardNo: [undefined],
+            plotNo: [undefined],
+            tole: [undefined],
+            blockStorey: [undefined],
+            area: [undefined],
+            nakshaSeatNo: [undefined]
+        });
+    }
+
+    addStocksReceivables(i) {
+        (this.userConfigForm.get(['collateralDetails', i, 'stocksReceivablesValue']) as FormArray).push(this.stocksAndReceivableFields());
+    }
+
+    stocksAndReceivableFields() {
+        return this.formBuilder.group({
+            stockValue: [undefined],
+            receivableValue: [undefined],
+        });
+    }
+
+    addPlantMachinery(i) {
+        (this.userConfigForm.get(['collateralDetails', i, 'plantMachineryDetail']) as FormArray).push(this.plantMachineryFields());
+    }
+
+    plantMachineryFields() {
+        return this.formBuilder.group({
+            equipmentDetail: [undefined],
+            equipmentValue: [undefined],
+        });
+    }
+
+    addVehicle(i) {
+        (this.userConfigForm.get(['collateralDetails', i, 'vehicleDetail']) as FormArray).push(this.vehicleFields());
+    }
+
+    vehicleFields() {
+        return this.formBuilder.group({
+            vehicleRegNo: [undefined],
+            vehicleModelNo: [undefined]
+        });
+    }
+
+    addFDHolder(i) {
+        (this.userConfigForm.get(['collateralDetails', i, 'fdHolderDetail']) as FormArray).push(this.fdHolderFields());
+    }
+
+    fdHolderFields() {
+        return this.formBuilder.group({
+            name: [undefined],
+            fdReceiptNo: [undefined],
+            fdAmount: [undefined],
+            fatherName: [undefined],
+            grandFatherName: [undefined]
+        });
+    }
+
+    addShare(i) {
+        (this.userConfigForm.get(['collateralDetails', i, 'shareDetail']) as FormArray).push(this.shareFields());
+    }
+
+    shareFields() {
+        return this.formBuilder.group({
+            name: [undefined],
+            companyName: [undefined],
+            noOfShares: [undefined],
+            shareType: [undefined]
+        });
+    }
+
+    removeCollateralType(i: number, ii: number, securityType) {
+        (this.userConfigForm.get(['collateralDetails', i, securityType]) as FormArray).removeAt(ii);
     }
 
     addJointCustomerField() {
@@ -602,13 +659,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }));
         });
     }
+
     setCollaterals(collateralDetails: any) {
         const formArray = this.userConfigForm.get('collateralDetails') as FormArray;
         if (collateralDetails.length === 0) {
             this.addCollateral();
             return;
         }
-        collateralDetails.forEach(value => {
+        collateralDetails.forEach((value, i) => {
             formArray.push(this.formBuilder.group({
                 collateralOwnerType: [value.collateralOwnerType ? value.collateralOwnerType : ''],
                 collateralType: [value.collateralType ? value.collateralType : ''],
@@ -644,51 +702,124 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                         value.collateralAuthorizedPersonDetail.citizenshipIssueDistrict : '']
                 }),
                 // Land and Building Address
-                landAndBuildingDetail: this.formBuilder.group({
-                    province: [value.landAndBuildingDetail.province ? value.landAndBuildingDetail.province : ''],
-                    district: [value.landAndBuildingDetail.district ? value.landAndBuildingDetail.district : ''],
-                    municipality: [value.landAndBuildingDetail.municipality ? value.landAndBuildingDetail.municipality : ''],
-                    munType: [value.landAndBuildingDetail.munType ? value.landAndBuildingDetail.munType : ''],
-                    wardNo: [value.landAndBuildingDetail.wardNo ? value.landAndBuildingDetail.wardNo : ''],
-                    plotNo: [value.landAndBuildingDetail.plotNo ? value.landAndBuildingDetail.plotNo : ''],
-                    tole: [value.landAndBuildingDetail.tole ? value.landAndBuildingDetail.tole : ''],
-                    blockStorey: [value.landAndBuildingDetail.blockStorey ? value.landAndBuildingDetail.blockStorey : ''],
-                    area: [value.landAndBuildingDetail.area ? value.landAndBuildingDetail.area : ''],
-                    nakshaSeatNo: [value.landAndBuildingDetail.nakshaSeatNo ? value.landAndBuildingDetail.nakshaSeatNo : ''],
-                }),
+                landAndBuildingDetail: this.formBuilder.array([]),
                 // Stocks Receivables Value
-                stocksReceivablesValue: this.formBuilder.group({
-                    stockValue: [value.stocksReceivablesValue.stockValue ? value.stocksReceivablesValue.stockValue : ''],
-                    receivableValue: [value.stocksReceivablesValue.receivableValue ? value.stocksReceivablesValue.receivableValue : ''],
-                }),
+                stocksReceivablesValue: this.formBuilder.array([]),
                 // Plant/Machinery/Equipment Detail
-                plantMachineryDetail: this.formBuilder.group({
-                    equipmentDetail: [value.plantMachineryDetail.equipmentDetail ? value.plantMachineryDetail.equipmentDetail : ''],
-                    equipmentValue: [value.plantMachineryDetail.equipmentValue ? value.plantMachineryDetail.equipmentValue : ''],
-                }),
+                plantMachineryDetail: this.formBuilder.array([]),
                 // Vehicle Detail
-                vehicleDetail: this.formBuilder.group({
-                    vehicleRegNo: [value.vehicleDetail.vehicleRegNo ? value.plantMachineryDetail.equipmentDetail : ''],
-                    vehicleModelNo: [value.vehicleDetail.vehicleModelNo ? value.vehicleDetail.vehicleModelNo : '']
-                }),
+                vehicleDetail: this.formBuilder.array([]),
                 // Fixed Deposit Holder Detail
-                fdHolderDetail: this.formBuilder.group({
-                    name: [value.fdHolderDetail.name ? value.fdHolderDetail.name : ''],
-                    fdReceiptNo: [value.fdHolderDetail.fdReceiptNo ? value.fdHolderDetail.fdReceiptNo : ''],
-                    fdAmount: [value.fdHolderDetail.fdAmount ? value.fdHolderDetail.fdAmount : ''],
-                    fatherName: [value.fdHolderDetail.fatherName ? value.fdHolderDetail.fatherName : ''],
-                    grandFatherName: [value.fdHolderDetail.grandFatherName ? value.fdHolderDetail.grandFatherName : '']
-                }),
+                fdHolderDetail: this.formBuilder.array([]),
                 // share Detail
-                shareDetail: this.formBuilder.group({
-                    name: [value.shareDetail.name ? value.shareDetail.name : ''],
-                    companyName: [value.shareDetail.companyName ? value.shareDetail.companyName : ''],
-                    noOfShares: [value.shareDetail.noOfShares ? value.shareDetail.noOfShares : ''],
-                    shareType: [value.shareDetail.shareType ? value.shareDetail.shareType : '']
-                }),
+                shareDetail: this.formBuilder.array([]),
+            }));
+            if (value.landAndBuildingDetail.length > 0) {
+                this.setLandAndBuilding(value.landAndBuildingDetail, i);
+            } else {
+                this.addLandAndBuilding(i);
+            }
+            if (value.stocksReceivablesValue.length > 0) {
+                this.setStocksReceivables(value.stocksReceivablesValue, i);
+            } else {
+                this.addStocksReceivables(i);
+            }
+            if (value.plantMachineryDetail.length > 0) {
+                this.setPlantMachinery(value.plantMachineryDetail, i);
+            } else {
+                this.addPlantMachinery(i);
+            }
+            if (value.vehicleDetail.length > 0) {
+                this.setVehicle(value.vehicleDetail, i);
+            } else {
+                this.addVehicle(i);
+            }
+            if (value.fdHolderDetail.length > 0) {
+                this.setFDHolder(value.fdHolderDetail, i);
+            } else {
+                this.addFDHolder(i);
+            }
+            if (value.shareDetail.length > 0) {
+                this.setShare(value.shareDetail, i);
+            } else {
+                this.addShare(i);
+            }
+        });
+    }
+
+    setLandAndBuilding(data?: any, i?: number) {
+        const formArray = this.userConfigForm.get(['collateralDetails', i, 'landAndBuildingDetail']) as FormArray;
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                province: [!ObjectUtil.isEmpty(value.province) ? value.province : ''],
+                district: [!ObjectUtil.isEmpty(value.district) ? value.district : ''],
+                municipality: [!ObjectUtil.isEmpty(value.municipality) ? value.municipality : ''],
+                munType: [!ObjectUtil.isEmpty(value.munType) ? value.munType : ''],
+                wardNo: [!ObjectUtil.isEmpty(value.wardNo) ? value.wardNo : ''],
+                plotNo: [!ObjectUtil.isEmpty(value.plotNo) ? value.plotNo : ''],
+                tole: [!ObjectUtil.isEmpty(value.tole) ? value.tole : ''],
+                blockStorey: [!ObjectUtil.isEmpty(value.blockStorey) ? value.blockStorey : ''],
+                area: [!ObjectUtil.isEmpty(value.area) ? value.area : ''],
+                nakshaSeatNo: [!ObjectUtil.isEmpty(value.nakshaSeatNo) ? value.nakshaSeatNo : ''],
             }));
         });
     }
+
+    setStocksReceivables(data?: any, i?: number) {
+        const formArray = this.userConfigForm.get(['collateralDetails', i, 'stocksReceivablesValue']) as FormArray;
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                stockValue: [!ObjectUtil.isEmpty(value.stockValue) ? value.stockValue : ''],
+                receivableValue: [!ObjectUtil.isEmpty(value.receivableValue) ? value.receivableValue : '']
+            }));
+        });
+    }
+
+    setPlantMachinery(data?: any, i?: number) {
+        const formArray = this.userConfigForm.get(['collateralDetails', i, 'plantMachineryDetail']) as FormArray;
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                equipmentDetail: [!ObjectUtil.isEmpty(value.equipmentDetail) ? value.equipmentDetail : ''],
+                equipmentValue: [!ObjectUtil.isEmpty(value.equipmentValue) ? value.equipmentValue : '']
+            }));
+        });
+    }
+
+    setVehicle(data?: any, i?: number) {
+        const formArray = this.userConfigForm.get(['collateralDetails', i, 'vehicleDetail']) as FormArray;
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                vehicleRegNo: [!ObjectUtil.isEmpty(value.vehicleRegNo) ? value.vehicleRegNo : ''],
+                vehicleModelNo: [!ObjectUtil.isEmpty(value.vehicleModelNo) ? value.vehicleModelNo : '']
+            }));
+        });
+    }
+
+    setFDHolder(data?: any, i?: number) {
+        const formArray = this.userConfigForm.get(['collateralDetails', i, 'fdHolderDetail']) as FormArray;
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                name: [!ObjectUtil.isEmpty(value.name) ? value.name : ''],
+                fdReceiptNo: [!ObjectUtil.isEmpty(value.fdReceiptNo) ? value.fdReceiptNo : ''],
+                fdAmount: [!ObjectUtil.isEmpty(value.fdAmount) ? value.fdAmount : ''],
+                fatherName: [!ObjectUtil.isEmpty(value.fatherName) ? value.fatherName : ''],
+                grandFatherName: [!ObjectUtil.isEmpty(value.grandFatherName) ? value.grandFatherName : '']
+            }));
+        });
+    }
+
+    setShare(data?: any, i?: number) {
+        const formArray = this.userConfigForm.get(['collateralDetails', i, 'shareDetail']) as FormArray;
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                name: [!ObjectUtil.isEmpty(value.name) ? value.name : ''],
+                companyName: [!ObjectUtil.isEmpty(value.companyName) ? value.companyName : ''],
+                noOfShares: [!ObjectUtil.isEmpty(value.noOfShares) ? value.noOfShares : ''],
+                shareType: [!ObjectUtil.isEmpty(value.shareType) ? value.shareType : '']
+            }));
+        });
+    }
+
     setJointCustomer(jointCustomer: any) {
         const formArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
         jointCustomer.forEach(value => {
