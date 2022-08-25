@@ -14,7 +14,8 @@ export class FinancialService {
         headingProperty.push(
             {
                 value: 0,
-                year: yearValue
+                year: yearValue,
+                showLabel: false
             }
         );
     }
@@ -25,7 +26,8 @@ export class FinancialService {
             amount.push(
                 {
                     value: 0,
-                    year: yearValue
+                    year: yearValue,
+                    showLabel: false
                 }
             );
         });

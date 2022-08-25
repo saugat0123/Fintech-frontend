@@ -52,6 +52,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             this.setAccumulatedProfitBOrD(incomeStatementFormData.accumulatedProfitBOrD);
             this.setNetProfitTransferredToBalanceSheet(incomeStatementFormData.netProfitTransferredToBalanceSheet);
             this.incomeStatementForm.get('justificationIncomeStatement').patchValue(incomeStatementFormData.justificationIncomeStatement);
+            this.setValueForLabel(incomeStatementFormData);
         }
     }
 
@@ -61,14 +62,16 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             totalSalesSubCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Direct Sales'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 })
             ]),
             costOfGoodsSold: this.formBuilder.array([]),
             costOfGoodsSoldCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Raw Material Consumed'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Labor'],
@@ -84,7 +87,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             operatingExpensesCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Depreciation'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Amortization/Other Non-Cash Expenses'],
@@ -104,7 +108,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             interestExpensesCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Interest on Term Loan'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Interest on Working Capital Loan'],
@@ -115,7 +120,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             nonOperatingIncomeOrExpensesCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Profit/(Loss) on Sale of Fixed Assets'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 })
             ]),
             profitBeforeTaxAndStaffBonus: this.formBuilder.array([]),
@@ -125,7 +131,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             taxesCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Tax'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Tax adjustment of prior year'],
@@ -137,8 +144,47 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             otherAdjustment: this.formBuilder.array([]),
             accumulatedProfitBOrD: this.formBuilder.array([]),
             netProfitTransferredToBalanceSheet: this.formBuilder.array([]),
-            justificationIncomeStatement: [undefined]
+            justificationIncomeStatement: [undefined],
+            checkKeyPresent: [true],
+            totalSalesRevenueLabelShow: [false],
+            costOfGoodSoldLabelShow: [false],
+            grossProfitLabelShow: [false],
+            operatingExpensesLabelShow: [false],
+            operatingProfitLabelShow: [false],
+            interestExpensesLabelShow: [false],
+            nonOperatingIncomeExpensesLabelShow: [false],
+            profitBeforeTaxAndStaffBonusLabelShow: [false],
+            staffBonusLabelShow: [false],
+            profitBeforTaxesLabelShow: [false],
+            taxesLabelShow: [false],
+            profitAfterTaxLabelShow: [false],
+            dividendDrawingLabelShow: [false],
+            otherAdjustmentLabelShow: [false],
+            accumulatedProfitbdLabelShow: [false],
+            netProfitTransferredToBalanceSheetLabelShow: [false],
         });
+    }
+
+    setValueForLabel(incomeStatementFormData) {
+        this.incomeStatementForm.get('totalSalesRevenueLabelShow').patchValue(incomeStatementFormData.totalSalesRevenueLabelShow);
+        this.incomeStatementForm.get('costOfGoodSoldLabelShow').patchValue(incomeStatementFormData.costOfGoodSoldLabelShow);
+        this.incomeStatementForm.get('grossProfitLabelShow').patchValue(incomeStatementFormData.grossProfitLabelShow);
+        this.incomeStatementForm.get('operatingExpensesLabelShow').patchValue(incomeStatementFormData.operatingExpensesLabelShow);
+        this.incomeStatementForm.get('operatingProfitLabelShow').patchValue(incomeStatementFormData.operatingProfitLabelShow);
+        this.incomeStatementForm.get('interestExpensesLabelShow').patchValue(incomeStatementFormData.interestExpensesLabelShow);
+        // tslint:disable-next-line:max-line-length
+        this.incomeStatementForm.get('nonOperatingIncomeExpensesLabelShow').patchValue(incomeStatementFormData.nonOperatingIncomeExpensesLabelShow);
+        // tslint:disable-next-line:max-line-length
+        this.incomeStatementForm.get('profitBeforeTaxAndStaffBonusLabelShow').patchValue(incomeStatementFormData.profitBeforeTaxAndStaffBonusLabelShow);
+        this.incomeStatementForm.get('staffBonusLabelShow').patchValue(incomeStatementFormData.staffBonusLabelShow);
+        this.incomeStatementForm.get('profitBeforTaxesLabelShow').patchValue(incomeStatementFormData.profitBeforTaxesLabelShow);
+        this.incomeStatementForm.get('taxesLabelShow').patchValue(incomeStatementFormData.taxesLabelShow);
+        this.incomeStatementForm.get('profitAfterTaxLabelShow').patchValue(incomeStatementFormData.profitAfterTaxLabelShow);
+        this.incomeStatementForm.get('dividendDrawingLabelShow').patchValue(incomeStatementFormData.dividendDrawingLabelShow);
+        this.incomeStatementForm.get('otherAdjustmentLabelShow').patchValue(incomeStatementFormData.otherAdjustmentLabelShow);
+        this.incomeStatementForm.get('accumulatedProfitbdLabelShow').patchValue(incomeStatementFormData.accumulatedProfitbdLabelShow);
+        // tslint:disable-next-line:max-line-length
+        this.incomeStatementForm.get('netProfitTransferredToBalanceSheetLabelShow').patchValue(incomeStatementFormData.netProfitTransferredToBalanceSheetLabelShow);
     }
 
     // Removing Fiscal Year--
@@ -415,7 +461,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -442,7 +489,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -467,7 +515,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -492,7 +541,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -517,7 +567,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -535,7 +586,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             controls.push(
                 this.formBuilder.group({
                     value: [singleData.value],
-                    year: [singleData.year]
+                    year: [singleData.year],
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -548,7 +600,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setSubCategoryAmount(singleData)
+                    amount: this.setSubCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -587,7 +640,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setCostOfGoodsSoldCategoryAmount(singleData)
+                    amount: this.setCostOfGoodsSoldCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -639,7 +693,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setOperatingExpensesCategoryAmount(singleData)
+                    amount: this.setOperatingExpensesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -691,7 +746,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setInterestExpensesCategoryAmount(singleData)
+                    amount: this.setInterestExpensesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -730,7 +786,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setNonOperatingIncomeOrExpensesCategoryAmount(singleData)
+                    amount: this.setNonOperatingIncomeOrExpensesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -808,7 +865,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setTaxesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });

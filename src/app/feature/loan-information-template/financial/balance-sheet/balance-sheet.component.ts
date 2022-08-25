@@ -49,6 +49,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             this.setDifferenceBS(balanceSheetFormData.differenceBS);
             this.setPrincipleInstalmentPaidDuringTheYear(balanceSheetFormData.principleInstalmentPaidDuringTheYear);
             this.balanceSheetForm.get('justificationBalanceSheet').patchValue(balanceSheetFormData.justificationBalanceSheet);
+            this.setValueForLabel(balanceSheetFormData);
         }
         this.fiscalYear.forEach((y, i) => {
             this.onValueChange('netWorth', i);
@@ -61,7 +62,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             currentAssetsCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Cash/Bank Balance'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Short term investment'],
@@ -88,7 +90,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             inventoriesCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Finished Goods'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['WIP/Raw Materials'],
@@ -99,18 +102,21 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             fixedAssetsCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Net Fixed Assets'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 })
             ]),
             otherAssets: this.formBuilder.array([]),
             otherAssetsCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Long term investment'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Preliminary expenses'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 })
             ]),
             totalAssets: this.formBuilder.array([]),
@@ -118,7 +124,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             currentLiabilitiesCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Short Term Loan'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Creditors'],
@@ -137,7 +144,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             longTermLoanCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Term Loan'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Debentures'],
@@ -155,18 +163,55 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             netWorthCategory: this.formBuilder.array([
                 this.formBuilder.group({
                     name: ['Paid up Capital/Equity'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 }),
                 this.formBuilder.group({
                     name: ['Retained Earning'],
-                    amount: this.formBuilder.array([])
+                    amount: this.formBuilder.array([]),
+                    showLabel: [undefined]
                 })
             ]),
             totalLiabilitiesAndEquity: this.formBuilder.array([]),
             differenceBS: this.formBuilder.array([]),
             principleInstalmentPaidDuringTheYear: this.formBuilder.array([]),
-            justificationBalanceSheet: [undefined]
+            justificationBalanceSheet: [undefined],
+            checkKeyPresent: [true],
+            assestLabelShow: [false],
+            currentAssetsLabelShow: [false],
+            inventoriesLabelShow: [false],
+            fixedAssetsLabelShow: [false],
+            otherAssetsLabelShow: [false],
+            totalAssetsLabelShow: [false],
+            liabilitiesLabelShow: [false],
+            currentLiabilitiesLabelShow: [false],
+            longTermLoanLabelShow: [false],
+            otherLongTermLiabilitiesLabelShow: [false],
+            otherProvisionsLabelShow: [false],
+            netWorthLabelShow: [false],
+            totalLiabilitiesLabelShow: [false],
+            differenceLabelShow: [false],
+            principleInstalmentPaidLabelShow: [false],
         });
+    }
+
+    setValueForLabel(incomeStatementFormData) {
+        this.balanceSheetForm.get('assestLabelShow').patchValue(incomeStatementFormData.assestLabelShow);
+        this.balanceSheetForm.get('currentAssetsLabelShow').patchValue(incomeStatementFormData.currentAssetsLabelShow);
+        this.balanceSheetForm.get('inventoriesLabelShow').patchValue(incomeStatementFormData.inventoriesLabelShow);
+        this.balanceSheetForm.get('fixedAssetsLabelShow').patchValue(incomeStatementFormData.fixedAssetsLabelShow);
+        this.balanceSheetForm.get('otherAssetsLabelShow').patchValue(incomeStatementFormData.otherAssetsLabelShow);
+        this.balanceSheetForm.get('totalAssetsLabelShow').patchValue(incomeStatementFormData.totalAssetsLabelShow);
+        this.balanceSheetForm.get('liabilitiesLabelShow').patchValue(incomeStatementFormData.liabilitiesLabelShow);
+        this.balanceSheetForm.get('currentLiabilitiesLabelShow').patchValue(incomeStatementFormData.currentLiabilitiesLabelShow);
+        this.balanceSheetForm.get('longTermLoanLabelShow').patchValue(incomeStatementFormData.longTermLoanLabelShow);
+        // tslint:disable-next-line:max-line-length
+        this.balanceSheetForm.get('otherLongTermLiabilitiesLabelShow').patchValue(incomeStatementFormData.otherLongTermLiabilitiesLabelShow);
+        this.balanceSheetForm.get('otherProvisionsLabelShow').patchValue(incomeStatementFormData.otherProvisionsLabelShow);
+        this.balanceSheetForm.get('netWorthLabelShow').patchValue(incomeStatementFormData.netWorthLabelShow);
+        this.balanceSheetForm.get('totalLiabilitiesLabelShow').patchValue(incomeStatementFormData.totalLiabilitiesLabelShow);
+        this.balanceSheetForm.get('differenceLabelShow').patchValue(incomeStatementFormData.differenceLabelShow);
+        this.balanceSheetForm.get('principleInstalmentPaidLabelShow').patchValue(incomeStatementFormData.principleInstalmentPaidLabelShow);
     }
 
     removingFiscalYear(fiscalYear, index) {
@@ -512,7 +557,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -537,7 +583,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -562,7 +609,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -587,7 +635,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -612,7 +661,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -637,7 +687,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         control.push(
             this.formBuilder.group({
                 name: [input.value],
-                amount: amount
+                amount: amount,
+                showLabel: [undefined]
             })
         );
         input.value = '';
@@ -669,7 +720,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setCurrentAssetsCategoryAmount(singleData)
+                    amount: this.setCurrentAssetsCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -708,7 +760,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setInventoriesCategoryAmount(singleData)
+                    amount: this.setInventoriesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -747,7 +800,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setFixedAssetsCategoryAmount(singleData)
+                    amount: this.setFixedAssetsCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -786,7 +840,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setOtherAssetsCategoryAmount(singleData)
+                    amount: this.setOtherAssetsCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel],
                 })
             );
         });
@@ -838,7 +893,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setCurrentLiabilitiesCategoryAmount(singleData)
+                    amount: this.setCurrentLiabilitiesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -877,7 +933,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setLongTermLoanCategoryAmount(singleData)
+                    amount: this.setLongTermLoanCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -916,7 +973,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setOtherLongTermLiabilitiesCategoryAmount(singleData)
+                    amount: this.setOtherLongTermLiabilitiesCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });
@@ -969,7 +1027,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setNetWorthCategoryAmount(singleData)
+                    amount: this.setNetWorthCategoryAmount(singleData),
+                    showLabel: [singleData.showLabel]
                 })
             );
         });

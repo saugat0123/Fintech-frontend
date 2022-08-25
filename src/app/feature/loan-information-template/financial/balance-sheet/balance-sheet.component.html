@@ -20,14 +20,22 @@
 
       <tbody>
       <th scope="row">A</th>
-      <td><b>ASSETS</b></td>
+      <td><b>ASSETS</b>
+        <div class="float-right">
+          <nb-checkbox formControlName="assestLabelShow"></nb-checkbox>
+        </div>
+      </td>
       <td *ngFor="let year of fiscalYear" scope="col" class="headingParticular"></td>
       </tbody>
 
       <tbody>
       <tr>
         <th scope="row">1</th>
-        <td><b>Current Assets</b></td>
+        <td><b>Current Assets</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="currentAssetsLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('currentAssets')['controls']; let j = index"
             formArrayName="currentAssets" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -42,6 +50,9 @@
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
         <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
           <a *ngIf="i > 5" (click)="removeCurrentAssetsCategory(i)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -61,7 +72,11 @@
       <tbody>
       <tr>
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(balanceSheetForm.get('currentAssetsCategory')['length'])}}</th>
-        <td><b>Inventories</b></td>
+        <td><b>Inventories</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="inventoriesLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('inventories')['controls']; let j = index"
             formArrayName="inventories" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -75,7 +90,11 @@
              formArrayName="inventoriesCategory">
       <tr [formGroupName]="i">
         <th scope="row"></th>
-        <td>{{category.get('name').value}}</td>
+        <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
             formArrayName="amount">
           <div [formGroupName]="o" class="text-center">
@@ -102,7 +121,11 @@
       <tbody>
       <tr>
         <th scope="row">2</th>
-        <td><b>Fixed Assets</b></td>
+        <td><b>Fixed Assets</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="fixedAssetsLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('fixedAssets')['controls']; let j = index"
             formArrayName="fixedAssets" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -117,6 +140,9 @@
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
         <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
           <a *ngIf="i > 0" (click)="removeFixedAssetsCategory(i)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -148,7 +174,11 @@
       <tbody>
       <tr>
         <th scope="row">3</th>
-        <td><b>Other Assets</b></td>
+        <td><b>Other Assets</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="otherAssetsLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('otherAssets')['controls']; let j = index"
             formArrayName="otherAssets" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -163,6 +193,9 @@
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
         <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
           <a *ngIf="i > 1" (click)="removeOtherAssetsCategory(i)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -194,7 +227,11 @@
       <tbody>
       <tr>
         <th scope="row">B</th>
-        <td class="text-center"><b>Total Assets</b></td>
+        <td class="text-center"><b>Total Assets</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="totalAssetsLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('totalAssets')['controls']; let j = index"
             formArrayName="totalAssets" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -206,14 +243,22 @@
 
       <tbody>
       <th scope="row">C</th>
-      <td><b>LIABILITIES</b></td>
+      <td><b>LIABILITIES</b>
+        <div class="float-right">
+          <nb-checkbox formControlName="liabilitiesLabelShow"></nb-checkbox>
+        </div>
+      </td>
       <td *ngFor="let year of fiscalYear" scope="col" class="headingParticular"></td>
       </tbody>
 
       <tbody>
       <tr>
         <th scope="row">4</th>
-        <td><b>	Current Liabilities</b></td>
+        <td><b>	Current Liabilities</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="currentLiabilitiesLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('currentLiabilities')['controls']; let j = index"
             formArrayName="currentLiabilities" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -228,6 +273,9 @@
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
         <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
           <a *ngIf="i > 3" (click)="removeCurrentLiabilitiesCategory(i)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -259,7 +307,11 @@
       <tbody>
       <tr>
         <th scope="row">5</th>
-        <td><b>Long Term Loan</b></td>
+        <td><b>Long Term Loan</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="longTermLoanLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('longTermLoan')['controls']; let j = index"
             formArrayName="longTermLoan" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -273,7 +325,11 @@
              formArrayName="longTermLoanCategory">
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
-        <td>{{category.get('name').value}}</td>
+        <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
             formArrayName="amount">
           <div [formGroupName]="o" class="text-center">
@@ -288,7 +344,11 @@
       <tbody>
       <tr>
         <th scope="row">6</th>
-        <td><b>Other Long Term Liabilities</b></td>
+        <td><b>Other Long Term Liabilities</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="otherLongTermLiabilitiesLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('otherLongTermLiabilities')['controls']; let j = index"
             formArrayName="otherLongTermLiabilities" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -303,6 +363,9 @@
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
         <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
           <a (click)="removeOtherLongTermLiabilitiesCategory(i)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -334,7 +397,11 @@
       <tbody>
       <tr>
         <th scope="row">7</th>
-        <td><b>Other Provisions</b></td>
+        <td><b>Other Provisions</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="otherProvisionsLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('otherProvisions')['controls']; let j = index"
             formArrayName="otherProvisions" scope="col">
           <div [formGroupName]="j" class="text-center">
@@ -349,7 +416,11 @@
       <tbody>
       <tr>
         <th scope="row">8</th>
-        <td><b>Net Worth</b></td>
+        <td><b>Net Worth</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="netWorthLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('netWorth')['controls']; let j = index"
             formArrayName="netWorth" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -364,6 +435,9 @@
       <tr [formGroupName]="i">
         <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
         <td>{{category.get('name').value}}
+          <div class="float-right">
+            <nb-checkbox formControlName="showLabel"></nb-checkbox>
+          </div>
           <a *ngIf="i > 1" (click)="removeNetWorthCategory(i)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
@@ -396,7 +470,11 @@
       <tbody>
       <tr>
         <th scope="row">D</th>
-        <td class="text-center"><b>Total Liabilities and Equity</b></td>
+        <td class="text-center"><b>Total Liabilities and Equity</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="totalLiabilitiesLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('totalLiabilitiesAndEquity')['controls']; let j = index"
             formArrayName="totalLiabilitiesAndEquity" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -409,7 +487,11 @@
       <tbody>
       <tr>
         <th scope="row">E</th>
-        <td class="text-center"><b>Difference</b></td>
+        <td class="text-center"><b>Difference</b>
+          <div class="float-right">
+            <nb-checkbox formControlName="differenceLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('differenceBS')['controls']; let j = index"
             formArrayName="differenceBS" scope="col">
           <div [formGroupName]="j" class="text-center headingParticular">
@@ -422,7 +504,11 @@
       <tbody>
       <tr>
         <th scope="row">F</th>
-        <td class="text-center">Principle Instalment paid/payable during the year</td>
+        <td class="text-center">Principle Instalment paid/payable during the year
+          <div class="float-right">
+            <nb-checkbox formControlName="principleInstalmentPaidLabelShow"></nb-checkbox>
+          </div>
+        </td>
         <td *ngFor="let amount of balanceSheetForm.get('principleInstalmentPaidDuringTheYear')['controls']; let j = index"
             formArrayName="principleInstalmentPaidDuringTheYear" scope="col">
           <div [formGroupName]="j" class="text-center">
