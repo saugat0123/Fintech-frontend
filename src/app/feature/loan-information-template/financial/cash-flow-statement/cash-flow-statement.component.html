@@ -21,7 +21,11 @@
             <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td><b>	Cash From Operating Activities</b></td>
+                <td><b>	Cash From Operating Activities</b>
+                    <div class="float-right">
+                        <nb-checkbox formControlName="cashFromOperatingActivitiesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('cashFromOperatingActivities')['controls']; let j = index"
                     formArrayName="cashFromOperatingActivities" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -34,7 +38,11 @@
             <tbody>
             <tr>
                 <th scope="row">a</th>
-                <td>Net Profit for the Period</td>
+                <td>Net Profit for the Period
+                    <div class="float-right">
+                        <nb-checkbox formControlName="netProfitForThePeriodLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('netProfitForThePeriod')['controls']; let j = index"
                     formArrayName="netProfitForThePeriod" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -46,14 +54,22 @@
 
             <tbody>
             <th scope="row"></th>
-            <td><b>Adjustment for Non cash Expenses</b></td>
+            <td><b>Adjustment for Non cash Expenses</b>
+                <div class="float-right">
+                    <nb-checkbox formControlName="adjustmentForNonCashExpensesLabelShow"></nb-checkbox>
+                </div>
+            </td>
             <td *ngFor="let year of fiscalYear" scope="col"></td>
             </tbody>
 
             <tbody>
             <tr>
                 <th scope="row">b</th>
-                <td>Depreciation</td>
+                <td>Depreciation
+                    <div class="float-right">
+                        <nb-checkbox formControlName="depreciationLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('depreciation')['controls']; let j = index"
                     formArrayName="depreciation" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -74,7 +90,11 @@
             <tbody>
             <tr>
                 <th scope="row">c</th>
-                <td>Other Amortization and Non Cash Expenses</td>
+                <td>Other Amortization and Non Cash Expenses
+                    <div class="float-right">
+                        <nb-checkbox formControlName="otherAmortizationLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('otherAmortizationAndNonCashExpenses')['controls']; let j = index"
                     formArrayName="otherAmortizationAndNonCashExpenses" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -94,14 +114,22 @@
 
             <tbody>
             <th scope="row"></th>
-            <td><b>Adjustment for Working Capital</b></td>
+            <td><b>Adjustment for Working Capital</b>
+                <div class="float-right">
+                    <nb-checkbox formControlName="adujtmentForWorkingCapitalLabelShow"></nb-checkbox>
+                </div>
+            </td>
             <td *ngFor="let year of fiscalYear" scope="col"></td>
             </tbody>
 
             <tbody>
             <tr>
                 <th scope="row">d</th>
-                <td>(Increase)/Decrease in Inventory</td>
+                <td>(Increase)/Decrease in Inventory
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInInventoryLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInInventory')['controls']; let j = index"
                     formArrayName="increaseDecreaseInInventory" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -122,7 +150,11 @@
             <tbody>
             <tr>
                 <th scope="row">e</th>
-                <td>(Increase)/Decrease in Accounts Receivable</td>
+                <td>(Increase)/Decrease in Accounts Receivable
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInAccountReceivableLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInAccountsReceivable')['controls']; let j = index"
                     formArrayName="increaseDecreaseInAccountsReceivable" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -143,7 +175,11 @@
             <tbody>
             <tr>
                 <th scope="row">f</th>
-                <td>(Increase)/Decrease in Short Term Investment</td>
+                <td>(Increase)/Decrease in Short Term Investment
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInShortTermInvestmentLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInShortTermInvestment')['controls']; let j = index"
                     formArrayName="increaseDecreaseInShortTermInvestment" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -164,7 +200,11 @@
             <tbody>
             <tr>
                 <th scope="row">g</th>
-                <td>(Increase)/Decrease in Advance and Deposit</td>
+                <td>(Increase)/Decrease in Advance and Deposit
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInAdvanceDepositLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInAdvanceAndDeposit')['controls']; let j = index"
                     formArrayName="increaseDecreaseInAdvanceAndDeposit" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -185,7 +225,11 @@
             <tbody>
             <tr>
                 <th scope="row">h</th>
-                <td>(Increase)/Decrease in Other Current Assets</td>
+                <td>(Increase)/Decrease in Other Current Assets
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInOtherCurrentAssetsLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssets')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentAssets" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -206,7 +250,11 @@
             <tbody>
             <tr>
                 <th scope="row">i</th>
-                <td>Increase/(Decrease) in Creditors</td>
+                <td>Increase/(Decrease) in Creditors
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInCreditorsLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInCreditors')['controls']; let j = index"
                     formArrayName="increaseDecreaseInCreditors" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -227,7 +275,11 @@
             <tbody>
             <tr>
                 <th scope="row">j</th>
-                <td>Increase/(Decrease) in Other Current Liabilities</td>
+                <td>Increase/(Decrease) in Other Current Liabilities
+                    <div class="float-right">
+                        <nb-checkbox formControlName="increaseDecreaseInOtherCurrentLiabilitiesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -248,7 +300,11 @@
             <tbody>
             <tr>
                 <th scope="row">k</th>
-                <td>Adjustment For Non Operating Income</td>
+                <td>Adjustment For Non Operating Income
+                    <div class="float-right">
+                        <nb-checkbox formControlName="adjustmentForNonPeratingIncomeLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('adjustmentForNonOperatingIncome')['controls']; let j = index"
                     formArrayName="adjustmentForNonOperatingIncome" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -269,7 +325,11 @@
             <tbody>
             <tr>
                 <th scope="row">l</th>
-                <td>Interest Expenses</td>
+                <td>Interest Expenses
+                    <div class="float-right">
+                        <nb-checkbox formControlName="interestExpensesIncomeLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('interestExpensesCFSa')['controls']; let j = index"
                     formArrayName="interestExpensesCFSa" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -290,7 +350,11 @@
             <tbody>
             <tr>
                 <th scope="row">2</th>
-                <td><b>	Cash From Investing Activities</b></td>
+                <td><b>	Cash From Investing Activities</b>
+                    <div class="float-right">
+                        <nb-checkbox formControlName="cashFromInvestingActivitiesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('cashFromInvestingActivities')['controls']; let j = index"
                     formArrayName="cashFromInvestingActivities" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -303,7 +367,11 @@
             <tbody>
             <tr>
                 <th scope="row">a</th>
-                <td>Changed in Fixed Assets</td>
+                <td>Changed in Fixed Assets
+                    <div class="float-right">
+                        <nb-checkbox formControlName="changedInFiexedAssetsLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changedInFixedAsset')['controls']; let j = index"
                     formArrayName="changedInFixedAsset" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -324,7 +392,11 @@
             <tbody>
             <tr>
                 <th scope="row">b</th>
-                <td>Non-Operating income/(Expenses)</td>
+                <td>Non-Operating income/(Expenses)
+                    <div class="float-right">
+                        <nb-checkbox formControlName="nonOperatingIncomeExpensesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('nonOperatingIncomeExpenses')['controls']; let j = index"
                     formArrayName="nonOperatingIncomeExpenses" scope="col">
                     <div (change)="handleFirstYearInputChanges()" [formGroupName]="j" class="text-center">
@@ -345,7 +417,11 @@
             <tbody>
             <tr>
                 <th scope="row">c</th>
-                <td>Change in Other Assets</td>
+                <td>Change in Other Assets
+                    <div class="float-right">
+                        <nb-checkbox formControlName="changeInOtherAssetsLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherAssets')['controls']; let j = index"
                     formArrayName="changeInOtherAssets" scope="col">
                     <div (change)="handleFirstYearInputChanges()" [formGroupName]="j" class="text-center">
@@ -366,7 +442,11 @@
             <tbody>
             <tr *ngIf="formData['cashFlowStatementData']['changeInOtherLongTermLiabilities'].length > 0">
                 <th scope="row">d</th>
-                <td>Change in Other Long Term Liabilities</td>
+                <td>Change in Other Long Term Liabilities
+                    <div class="float-right">
+                        <nb-checkbox formControlName="changeInOtherLongTermLiabilitiesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherLongTermLiabilities')['controls']; let j = index"
                     formArrayName="changeInOtherLongTermLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -387,7 +467,11 @@
             <tbody>
             <tr *ngIf="formData['cashFlowStatementData']['changeInOtherProvisions'].length > 0">
                 <th scope="row">e</th>
-                <td>Change in Other Provisions</td>
+                <td>Change in Other Provisions
+                    <div class="float-right">
+                        <nb-checkbox formControlName="changeInOtherProvisionsLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherProvisions')['controls']; let j = index"
                     formArrayName="changeInOtherProvisions" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -408,7 +492,11 @@
             <tbody>
             <tr>
                 <th scope="row">3</th>
-                <td><b>Cash From Financing Activities</b></td>
+                <td><b>Cash From Financing Activities</b>
+                    <div class="float-right">
+                        <nb-checkbox formControlName="cashFromFinacingActivitiesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('cashFromFinancingActivities')['controls']; let j = index"
                     formArrayName="cashFromFinancingActivities" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -421,7 +509,11 @@
             <tbody>
             <tr>
                 <th scope="row">a</th>
-                <td>Issue of Share</td>
+                <td>Issue of Share
+                    <div class="float-right">
+                        <nb-checkbox formControlName="IssueOfShareLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('paidUpCapitalEquity')['controls']; let j = index"
                     formArrayName="paidUpCapitalEquity" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -442,7 +534,11 @@
             <tbody>
             <tr>
                 <th scope="row">b</th>
-                <td>Short Term Loan</td>
+                <td>Short Term Loan
+                    <div class="float-right">
+                        <nb-checkbox formControlName="shortTermLoanLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('shortTermLoan')['controls']; let j = index"
                     formArrayName="shortTermLoan" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -463,7 +559,11 @@
             <tbody>
             <tr>
                 <th scope="row">c</th>
-                <td>Long Term Loan Received/(Paid)</td>
+                <td>Long Term Loan Received/(Paid)
+                    <div class="float-right">
+                        <nb-checkbox formControlName="longTermLoanLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('longTermLoanReceived')['controls']; let j = index"
                     formArrayName="longTermLoanReceived" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -484,7 +584,11 @@
             <tbody>
             <tr>
                 <th scope="row">d</th>
-                <td>Dividend/Drawing</td>
+                <td>Dividend/Drawing
+                    <div class="float-right">
+                        <nb-checkbox formControlName="dividendDrawingLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('dividendDrawing')['controls']; let j = index"
                     formArrayName="dividendDrawing" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -505,7 +609,11 @@
             <tbody>
             <tr>
                 <th scope="row">e</th>
-                <td>Interest Expenses</td>
+                <td>Interest Expenses
+                    <div class="float-right">
+                        <nb-checkbox formControlName="interestExpensesLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('interestExpensesCFSb')['controls']; let j = index"
                     formArrayName="interestExpensesCFSb" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -526,7 +634,11 @@
             <tbody>
             <tr>
                 <th scope="row">f</th>
-                <td>Other Adjustments</td>
+                <td>Other Adjustments
+                    <div class="float-right">
+                        <nb-checkbox formControlName="otherAdjustmentLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('otherAdjustments')['controls']; let j = index"
                     formArrayName="otherAdjustments" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -547,7 +659,11 @@
             <tbody>
             <tr *ngIf="formData['cashFlowStatementData'].additionalCapital !== undefined">
                 <th scope="row">g</th>
-                <td>Additional Capital(if any)</td>
+                <td>Additional Capital(if any)
+                    <div class="float-right">
+                        <nb-checkbox formControlName="additionalCapitalLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('additionalCapital')['controls']; let j = index"
                     formArrayName="additionalCapital" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -568,7 +684,11 @@
             <tbody>
             <tr>
                 <th scope="row">4</th>
-                <td><b>Net Cash Flow</b></td>
+                <td><b>Net Cash Flow</b>
+                    <div class="float-right">
+                        <nb-checkbox formControlName="netCashFlowLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('netCashFlow')['controls']; let j = index"
                     formArrayName="netCashFlow" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -581,7 +701,11 @@
             <tbody>
             <tr>
                 <th scope="row">a</th>
-                <td>Add:Opening Balance</td>
+                <td>Add:Opening Balance
+                    <div class="float-right">
+                        <nb-checkbox formControlName="openingBalanceLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('addOpeningBalance')['controls']; let j = index"
                     formArrayName="addOpeningBalance">
                     <div [formGroupName]="j" class="text-center">
@@ -603,7 +727,11 @@
             <tbody>
             <tr>
                 <th scope="row">5</th>
-                <td><b>Closing Cash</b></td>
+                <td><b>Closing Cash</b>
+                    <div class="float-right">
+                        <nb-checkbox formControlName="closingCashLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('closingCash')['controls']; let j = index"
                     formArrayName="closingCash" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -616,7 +744,11 @@
             <tbody>
             <tr>
                 <th scope="row">a</th>
-                <td>Closing Balance</td>
+                <td>Closing Balance
+                    <div class="float-right">
+                        <nb-checkbox formControlName="closingBalanceLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('closingBalance')['controls']; let j = index"
                     formArrayName="closingBalance" scope="col">
                     <div [formGroupName]="j" class="text-center">
@@ -629,7 +761,11 @@
             <tbody>
             <tr>
                 <th scope="row">6</th>
-                <td><b>Difference</b></td>
+                <td><b>Difference</b>
+                    <div class="float-right">
+                        <nb-checkbox formControlName="differenceLabelShow"></nb-checkbox>
+                    </div>
+                </td>
                 <td *ngFor="let amount of cashFlowStatementForm.get('differenceCFS')['controls']; let j = index"
                     formArrayName="differenceCFS" scope="col">
                     <div [formGroupName]="j" class="text-center">

@@ -65,6 +65,7 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             if (!ObjectUtil.isEmpty(cashFlowStatementData.additionalCapital)) {
                 this.setAdditionalCapital(cashFlowStatementData.additionalCapital);
             }
+            this.setValueForLabel(cashFlowStatementData);
         }
     }
 
@@ -103,7 +104,101 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             differenceCFS: this.formBuilder.array([]),
             justificationCashFlowStatement: [undefined],
             additionalCapital: this.formBuilder.array([]),
+            checkKeyPresent: [true],
+            cashFromOperatingActivitiesLabelShow: [false],
+            netProfitForThePeriodLabelShow: [false],
+            adjustmentForNonCashExpensesLabelShow: [false],
+            depreciationLabelShow: [false],
+            otherAmortizationLabelShow: [false],
+            adujtmentForWorkingCapitalLabelShow: [false],
+            increaseDecreaseInInventoryLabelShow: [false],
+            increaseDecreaseInAccountReceivableLabelShow: [false],
+            increaseDecreaseInShortTermInvestmentLabelShow: [false],
+            increaseDecreaseInAdvanceDepositLabelShow: [false],
+            increaseDecreaseInOtherCurrentAssetsLabelShow: [false],
+            increaseDecreaseInCreditorsLabelShow: [false],
+            increaseDecreaseInOtherCurrentLiabilitiesLabelShow: [false],
+            adjustmentForNonPeratingIncomeLabelShow: [false],
+            interestExpensesIncomeLabelShow: [false],
+            cashFromInvestingActivitiesLabelShow: [false],
+            changedInFiexedAssetsLabelShow: [false],
+            nonOperatingIncomeExpensesLabelShow: [false],
+            changeInOtherAssetsLabelShow: [false],
+            changeInOtherLongTermLiabilitiesLabelShow: [false],
+            changeInOtherProvisionsLabelShow: [false],
+            cashFromFinacingActivitiesLabelShow: [false],
+            IssueOfShareLabelShow: [false],
+            shortTermLoanLabelShow: [false],
+            longTermLoanLabelShow: [false],
+            dividendDrawingLabelShow: [false],
+            interestExpensesLabelShow: [false],
+            otherAdjustmentLabelShow: [false],
+            additionalCapitalLabelShow: [false],
+            netCashFlowLabelShow: [false],
+            openingBalanceLabelShow: [false],
+            closingCashLabelShow: [false],
+            closingBalanceLabelShow: [false],
+            differenceLabelShow: [false],
         });
+    }
+
+    setValueForLabel(cashFlowStatementData) {
+        this.cashFlowStatementForm.get('cashFromOperatingActivitiesLabelShow')
+            .patchValue(cashFlowStatementData.cashFromOperatingActivitiesLabelShow);
+        this.cashFlowStatementForm.get('netProfitForThePeriodLabelShow')
+            .patchValue(cashFlowStatementData.netProfitForThePeriodLabelShow);
+        this.cashFlowStatementForm.get('adjustmentForNonCashExpensesLabelShow')
+            .patchValue(cashFlowStatementData.adjustmentForNonCashExpensesLabelShow);
+        this.cashFlowStatementForm.get('depreciationLabelShow')
+            .patchValue(cashFlowStatementData.depreciationLabelShow);
+        this.cashFlowStatementForm.get('otherAmortizationLabelShow')
+            .patchValue(cashFlowStatementData.otherAmortizationLabelShow);
+        this.cashFlowStatementForm.get('adujtmentForWorkingCapitalLabelShow')
+            .patchValue(cashFlowStatementData.adujtmentForWorkingCapitalLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInInventoryLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInInventoryLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInAccountReceivableLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInAccountReceivableLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInShortTermInvestmentLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInShortTermInvestmentLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInAdvanceDepositLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInAdvanceDepositLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssetsLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInOtherCurrentAssetsLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInCreditorsLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInCreditorsLabelShow);
+        this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilitiesLabelShow')
+            .patchValue(cashFlowStatementData.increaseDecreaseInOtherCurrentLiabilitiesLabelShow);
+        this.cashFlowStatementForm.get('adjustmentForNonPeratingIncomeLabelShow')
+            .patchValue(cashFlowStatementData.adjustmentForNonPeratingIncomeLabelShow);
+        this.cashFlowStatementForm.get('interestExpensesIncomeLabelShow')
+            .patchValue(cashFlowStatementData.interestExpensesIncomeLabelShow);
+        this.cashFlowStatementForm.get('cashFromInvestingActivitiesLabelShow')
+            .patchValue(cashFlowStatementData.cashFromInvestingActivitiesLabelShow);
+        this.cashFlowStatementForm.get('changedInFiexedAssetsLabelShow')
+            .patchValue(cashFlowStatementData.changedInFiexedAssetsLabelShow);
+        this.cashFlowStatementForm.get('nonOperatingIncomeExpensesLabelShow')
+            .patchValue(cashFlowStatementData.nonOperatingIncomeExpensesLabelShow);
+        this.cashFlowStatementForm.get('changeInOtherAssetsLabelShow')
+            .patchValue(cashFlowStatementData.changeInOtherAssetsLabelShow);
+        this.cashFlowStatementForm.get('changeInOtherLongTermLiabilitiesLabelShow')
+            .patchValue(cashFlowStatementData.changeInOtherLongTermLiabilitiesLabelShow);
+        this.cashFlowStatementForm.get('changeInOtherProvisionsLabelShow')
+            .patchValue(cashFlowStatementData.changeInOtherProvisionsLabelShow);
+        this.cashFlowStatementForm.get('cashFromFinacingActivitiesLabelShow')
+            .patchValue(cashFlowStatementData.cashFromFinacingActivitiesLabelShow);
+        this.cashFlowStatementForm.get('IssueOfShareLabelShow').patchValue(cashFlowStatementData.IssueOfShareLabelShow);
+        this.cashFlowStatementForm.get('shortTermLoanLabelShow').patchValue(cashFlowStatementData.shortTermLoanLabelShow);
+        this.cashFlowStatementForm.get('longTermLoanLabelShow').patchValue(cashFlowStatementData.longTermLoanLabelShow);
+        this.cashFlowStatementForm.get('dividendDrawingLabelShow').patchValue(cashFlowStatementData.dividendDrawingLabelShow);
+        this.cashFlowStatementForm.get('interestExpensesLabelShow').patchValue(cashFlowStatementData.interestExpensesLabelShow);
+        this.cashFlowStatementForm.get('otherAdjustmentLabelShow').patchValue(cashFlowStatementData.otherAdjustmentLabelShow);
+        this.cashFlowStatementForm.get('additionalCapitalLabelShow').patchValue(cashFlowStatementData.additionalCapitalLabelShow);
+        this.cashFlowStatementForm.get('netCashFlowLabelShow').patchValue(cashFlowStatementData.netCashFlowLabelShow);
+        this.cashFlowStatementForm.get('openingBalanceLabelShow').patchValue(cashFlowStatementData.openingBalanceLabelShow);
+        this.cashFlowStatementForm.get('closingCashLabelShow').patchValue(cashFlowStatementData.closingCashLabelShow);
+        this.cashFlowStatementForm.get('closingBalanceLabelShow').patchValue(cashFlowStatementData.closingBalanceLabelShow);
+        this.cashFlowStatementForm.get('differenceLabelShow').patchValue(cashFlowStatementData.differenceLabelShow);
     }
 
     // Removing Fiscal Year--
@@ -556,7 +651,6 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
             + Number(interestExpensesCFSa)).toFixed(2));
 
         const cashFromOperatingActivities = (this.cashFlowStatementForm.get('cashFromOperatingActivities') as FormArray).value[0].value;
-        console.log('cashFromOperatingActivities', cashFromOperatingActivities);
         const addOpeningBalance = (this.cashFlowStatementForm.get('addOpeningBalance') as FormArray).value[0].value;
 
         /** For cashFromInvestingActivities **/
@@ -719,6 +813,45 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.formData['cashFlowStatementData'].justificationCashFlowStatement = this.cashFlowStatementForm.get('justificationCashFlowStatement').value;
+        this.formData['cashFlowStatementData'].checkKeyPresent = this.cashFlowStatementForm.get('checkKeyPresent').value;
+        this.formData['cashFlowStatementData'].cashFromOperatingActivitiesLabelShow = this.cashFlowStatementForm.get('cashFromOperatingActivitiesLabelShow').value;
+        this.formData['cashFlowStatementData'].netProfitForThePeriodLabelShow = this.cashFlowStatementForm.get('netProfitForThePeriodLabelShow').value;
+        this.formData['cashFlowStatementData'].adjustmentForNonCashExpensesLabelShow = this.cashFlowStatementForm.get('adjustmentForNonCashExpensesLabelShow').value;
+        this.formData['cashFlowStatementData'].depreciationLabelShow = this.cashFlowStatementForm.get('depreciationLabelShow').value;
+        // tslint:disable-next-line:max-line-length
+        this.formData['cashFlowStatementData'].otherAmortizationLabelShow = this.cashFlowStatementForm.get('otherAmortizationLabelShow').value;
+        this.formData['cashFlowStatementData'].adujtmentForWorkingCapitalLabelShow = this.cashFlowStatementForm.get('adujtmentForWorkingCapitalLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInInventoryLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInInventoryLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInAccountReceivableLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInAccountReceivableLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInShortTermInvestmentLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInShortTermInvestmentLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInAdvanceDepositLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInAdvanceDepositLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInOtherCurrentAssetsLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssetsLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInCreditorsLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInCreditorsLabelShow').value;
+        this.formData['cashFlowStatementData'].increaseDecreaseInOtherCurrentLiabilitiesLabelShow = this.cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilitiesLabelShow').value;
+        this.formData['cashFlowStatementData'].adjustmentForNonPeratingIncomeLabelShow = this.cashFlowStatementForm.get('adjustmentForNonPeratingIncomeLabelShow').value;
+        this.formData['cashFlowStatementData'].interestExpensesIncomeLabelShow = this.cashFlowStatementForm.get('interestExpensesIncomeLabelShow').value;
+        this.formData['cashFlowStatementData'].cashFromInvestingActivitiesLabelShow = this.cashFlowStatementForm.get('cashFromInvestingActivitiesLabelShow').value;
+        this.formData['cashFlowStatementData'].changedInFiexedAssetsLabelShow = this.cashFlowStatementForm.get('changedInFiexedAssetsLabelShow').value;
+        this.formData['cashFlowStatementData'].nonOperatingIncomeExpensesLabelShow = this.cashFlowStatementForm.get('nonOperatingIncomeExpensesLabelShow').value;
+        // tslint:disable-next-line:max-line-length
+        this.formData['cashFlowStatementData'].changeInOtherAssetsLabelShow = this.cashFlowStatementForm.get('changeInOtherAssetsLabelShow').value;
+        this.formData['cashFlowStatementData'].changeInOtherLongTermLiabilitiesLabelShow = this.cashFlowStatementForm.get('changeInOtherLongTermLiabilitiesLabelShow').value;
+        this.formData['cashFlowStatementData'].changeInOtherProvisionsLabelShow = this.cashFlowStatementForm.get('changeInOtherProvisionsLabelShow').value;
+        this.formData['cashFlowStatementData'].cashFromFinacingActivitiesLabelShow = this.cashFlowStatementForm.get('cashFromFinacingActivitiesLabelShow').value;
+        this.formData['cashFlowStatementData'].IssueOfShareLabelShow = this.cashFlowStatementForm.get('IssueOfShareLabelShow').value;
+        this.formData['cashFlowStatementData'].shortTermLoanLabelShow = this.cashFlowStatementForm.get('shortTermLoanLabelShow').value;
+        this.formData['cashFlowStatementData'].longTermLoanLabelShow = this.cashFlowStatementForm.get('longTermLoanLabelShow').value;
+        this.formData['cashFlowStatementData'].dividendDrawingLabelShow = this.cashFlowStatementForm.get('dividendDrawingLabelShow').value;
+        // tslint:disable-next-line:max-line-length
+        this.formData['cashFlowStatementData'].interestExpensesLabelShow = this.cashFlowStatementForm.get('interestExpensesLabelShow').value;
+        this.formData['cashFlowStatementData'].otherAdjustmentLabelShow = this.cashFlowStatementForm.get('otherAdjustmentLabelShow').value;
+        // tslint:disable-next-line:max-line-length
+        this.formData['cashFlowStatementData'].additionalCapitalLabelShow = this.cashFlowStatementForm.get('additionalCapitalLabelShow').value;
+        this.formData['cashFlowStatementData'].netCashFlowLabelShow = this.cashFlowStatementForm.get('netCashFlowLabelShow').value;
+        this.formData['cashFlowStatementData'].openingBalanceLabelShow = this.cashFlowStatementForm.get('openingBalanceLabelShow').value;
+        this.formData['cashFlowStatementData'].closingCashLabelShow = this.cashFlowStatementForm.get('closingCashLabelShow').value;
+        this.formData['cashFlowStatementData'].closingBalanceLabelShow = this.cashFlowStatementForm.get('closingBalanceLabelShow').value;
+        this.formData['cashFlowStatementData'].differenceLabelShow = this.cashFlowStatementForm.get('differenceLabelShow').value;
 
         this.saveAdjustmentForWorkingCapital();
         const firstYearOpeningBalanceFormData = this.cashFlowStatementForm.get('addOpeningBalance') as FormArray;
