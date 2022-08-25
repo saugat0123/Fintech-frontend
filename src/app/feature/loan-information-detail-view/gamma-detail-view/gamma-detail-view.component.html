@@ -207,6 +207,7 @@
             <!-- End Insurance Details-->
             <!-- Start Guarantor Details-->
             <li *ngIf="loanDataHolder?.taggedGuarantors?.length > 0">
+                <p><strong>Guarantor Details</strong></p>
                 <app-guarantor-view
                         [guarantorData]="loanDataHolder?.taggedGuarantors"
                         [loanCategory]="loanDataHolder?.loanCategory"></app-guarantor-view>

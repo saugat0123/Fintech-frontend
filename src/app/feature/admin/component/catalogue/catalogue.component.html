@@ -161,7 +161,7 @@
                 <th>Loan Type</th>
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
-                <th>Created On</th>
+                <th>Approved/Modified</th>
                 <th *ngIf="showBranchProvince">Branch Province</th>
                 <th>Action</th>
             </tr>
@@ -240,7 +240,7 @@
                 </td>
                 <td>
                     <div (click)="onClick(model?.loan?.id,model?.id)">
-                        {{model?.createdAt | date}}
+                        {{model?.lastModifiedAt | date}}
                     </div>
                 </td>
                 <td (click)="onClick(model?.loan?.id,model?.id)"
