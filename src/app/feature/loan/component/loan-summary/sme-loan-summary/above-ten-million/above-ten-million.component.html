@@ -130,7 +130,7 @@
                                         [docStatus]="loanDataHolder?.documentStatus"></app-above-security-arrangement>
         <div>
             <p class="text-uppercase"><strong>15.5 Insurances</strong></p>
-            <app-insurance-summary *ngIf="loanDataHolder?.insurance; else notAvailable"
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance?.length > 0; else notAvailable"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
         </div>
     </li>
