@@ -6,10 +6,10 @@ import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-crg',
-  templateUrl: './crg.component.html',
-  styleUrls: ['./crg.component.scss']
+  templateUrl: './crg-individual.component.html',
+  styleUrls: ['./crg-individual.component.scss']
 })
-export class CrgComponent implements OnInit {
+export class CrgIndividualComponent implements OnInit {
   @Output() crgChecklistEmitter = new EventEmitter();
   @Input() fromProfile;
   @Input() formData;

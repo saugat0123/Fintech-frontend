@@ -291,7 +291,7 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-credit-grading #CrgComponent *ngIf="customerInfo?.creditRiskGrading; else noCrg"
+              <app-credit-grading #CrgIndividualComponent *ngIf="customerInfo?.creditRiskGrading; else noCrg"
                                   [formData]="customerInfo?.creditRiskGrading"
                                   [fromProfile]="false"></app-credit-grading>
               <ng-template #noCrg>Not Available</ng-template>

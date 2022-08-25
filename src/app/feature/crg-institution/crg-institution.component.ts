@@ -6,10 +6,10 @@ import {ObjectUtil} from '../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-crg-long',
-  templateUrl: './crg-long.component.html',
-  styleUrls: ['./crg-long.component.scss']
+  templateUrl: './crg-institution.component.html',
+  styleUrls: ['./crg-institution.component.scss']
 })
-export class CrgLongComponent implements OnInit {
+export class CrgInstitutionComponent implements OnInit {
   @Output() crgLongChecklistEmitter = new EventEmitter();
   @Input() fromProfile;
   @Input() formData;

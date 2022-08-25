@@ -71,7 +71,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public financialComponent: FinancialComponent;
     @ViewChild('itemFinancial', {static: false})
     private itemFinancial: NbAccordionItemComponent;
-    @ViewChild('CrgComponent', {static: false})
+    @ViewChild('CrgIndividualComponent', {static: false})
     public CrgComponent: CreditGradingComponent;
     @ViewChild('itemCrg', {static: false})
     private itemCrg: NbAccordionItemComponent;
