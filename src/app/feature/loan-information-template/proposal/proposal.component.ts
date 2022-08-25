@@ -220,7 +220,8 @@ export class ProposalComponent implements OnInit {
         this.loanFormService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             if (this.withInLoanId) {
-                this.parentProposedAmount = JSON.parse(this.customerGroupLoanList.filter(d => d.id === Number(this.withInLoanId))[0].proposal.data).proposedLimit;
+                this.parentProposedAmount = JSON.parse(this.customerGroupLoanList.filter(d =>
+                    d.id === Number(this.withInLoanId))[0].proposal.data).proposedLimit;
             }
             this.customerGroupLoanList
                 .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
