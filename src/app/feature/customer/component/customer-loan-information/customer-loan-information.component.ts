@@ -970,4 +970,20 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save CRG Checklist!'));
             });
     }
+
+    saveCrgLongChecklist(crgLongData: any) {
+        this.spinner.show();
+        this.customerInfo.crgLongChecklist = crgLongData;
+        this.customerInfoService.save(this.customerInfo)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CRG Checklist!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save CRG Checklist!'));
+            });
+    }
 }

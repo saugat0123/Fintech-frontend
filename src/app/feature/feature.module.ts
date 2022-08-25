@@ -27,6 +27,7 @@ import {GuarantorDetailComponent} from './loan/component/loan-main-template/guar
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
 import { CrgComponent } from './crg/crg.component';
+import { CrgLongComponent } from './crg-long/crg-long.component';
 
 
 @NgModule({
@@ -60,11 +61,12 @@ import { CrgComponent } from './crg/crg.component';
             GuarantorDetailComponent,
             ContactDetailsComponent,
             UserActivityComponent,
-            CrgComponent
+            CrgComponent,
+            CrgLongComponent
         ],
     exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
         CreditRiskGradingGammaComponent, MultipleBankingComponent,
-        InstitutionalCrgGammaComponent, GuarantorAdderComponent, GuarantorDetailComponent, ContactDetailsComponent, CrgComponent
+        InstitutionalCrgGammaComponent, GuarantorAdderComponent, GuarantorDetailComponent, ContactDetailsComponent, CrgComponent, CrgLongComponent
     ],
         providers: [SafePipe],
     entryComponents: [CreditRiskGradingGammaComponent]
