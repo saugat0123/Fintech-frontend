@@ -12,13 +12,13 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-institution-partnership-form',
-  templateUrl: './loan-deed-institution-partnership-form.component.html',
-  styleUrls: ['./loan-deed-institution-partnership-form.component.scss']
+  selector: 'app-loan-deed-partnership',
+  templateUrl: './loan-deed-partnership.component.html',
+  styleUrls: ['./loan-deed-partnership.component.scss']
 })
-export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
+export class LoanDeedPartnershipComponent implements OnInit {
 
-  loanDeedInstitutionPartnershipForm: FormGroup;
+  loanDeedPartnership: FormGroup;
   multipleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
@@ -35,7 +35,7 @@ export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedInstitutionPartnershipForm.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.loanDeedPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -46,7 +46,7 @@ export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
 
 
   buildForm() {
-    this.loanDeedInstitutionPartnershipForm = this.formBuilder.group({
+    this.loanDeedPartnership = this.formBuilder.group({
       registrationOffice: [undefined],
       registrationIssuedDate: [undefined],
       registrationNo: [undefined],
@@ -102,13 +102,13 @@ export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPartnershipForm.value);
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedPartnership.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPartnershipForm.value);
+        cadFile.initialInformation = JSON.stringify(this.loanDeedPartnership.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -117,7 +117,7 @@ export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedInstitutionPartnershipForm.value);
+      cadFile.initialInformation = JSON.stringify(this.loanDeedPartnership.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -135,12 +135,12 @@ export class LoanDeedInstitutionPartnershipFormComponent implements OnInit {
     });
   }
   changeToNepAmount(event: any, target, from) {
-    this.loanDeedInstitutionPartnershipForm.get([target]).patchValue(event.nepVal);
-    this.loanDeedInstitutionPartnershipForm.get([from]).patchValue(event.val);
+    this.loanDeedPartnership.get([target]).patchValue(event.nepVal);
+    this.loanDeedPartnership.get([from]).patchValue(event.val);
   }
 
   patchFunction(target) {
-    const patchValue1 = this.loanDeedInstitutionPartnershipForm.get([target]).value;
+    const patchValue1 = this.loanDeedPartnership.get([target]).value;
     return patchValue1;
   }
 }
