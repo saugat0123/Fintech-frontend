@@ -150,6 +150,10 @@
                                       [cadData]="cadData" [documentId]="documentId"
                                       [customerLoanId]="customerLoanId">
         </app-supplementary-agreement-company>
+        <app-consent-letter-company *ngSwitchCase="cadTemplate.CONSENT_LETTER_COMPANY"
+                                             [cadData]="cadData" [documentId]="documentId"
+                                             [customerLoanId]="customerLoanId">
+        </app-consent-letter-company>
         <app-assignment-of-receivables-proprietorship *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLES_PROPRIETORSHIP"
                                                       [cadData]="cadData" [documentId]="documentId"
                                                       [customerLoanId]="customerLoanId">
