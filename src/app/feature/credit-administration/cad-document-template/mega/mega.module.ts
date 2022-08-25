@@ -16,6 +16,7 @@ import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-indi
 import {LoanDeedInstitutionPrivateLimitedComponent} from './loan-deed-institution-private-limited/loan-deed-institution-private-limited.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
+import {PowerOfAttorneyPartnershipFirmComponent} from './power-of-attorney-partnership-firm/power-of-attorney-partnership-firm.component';
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {PowerOfAttorneyCompanyComponent} from './power-of-attorney-company/power-of-attorney-company.component';
 import {NgxPrintModule} from 'ngx-print';
@@ -72,14 +73,16 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
     LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
-    ],
+    PromissoryNoteJointComponent,
+    PromissoryNoteJointComponent,
+  PowerOfAttorneyPartnershipFirmComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
     NgxPrintModule,
-    MegaOfferLetterTemplateModule
+    MegaOfferLetterTemplateModule,
   ],
   exports: [
     AssignmentOfReceivableComponent,
@@ -97,9 +100,9 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    CorporateGuaranteeComponent,
+    PowerOfAttorneyPartnershipFirmComponent,
+    PromissoryNoteJointComponent,
     KaloSuchiBorrowerCompanyComponent,
-    KaloSuchiBorrowerPgCompanyComponent,
     LetterOfSetOffCompanyComponent,
     LetterOfSetOffProprietorshipComponent,
     LetterOfContinuityCompanyComponent,
@@ -114,6 +117,7 @@ import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-comp
     PowerOfAttorneyCompanyComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
+    PowerOfAttorneyCompanyComponent,
   ],
   })
 export class MegaModule { }
