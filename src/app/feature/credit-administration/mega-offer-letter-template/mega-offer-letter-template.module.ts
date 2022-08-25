@@ -78,8 +78,6 @@ const COMPONENTS = [
         CoreModule,
         NbAccordionModule,
     ]
-
-
 })
 export class MegaOfferLetterTemplateModule {
 }
