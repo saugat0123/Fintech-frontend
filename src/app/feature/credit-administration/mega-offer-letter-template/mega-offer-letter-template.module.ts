@@ -38,7 +38,6 @@ const COMPONENTS = [
   RetailEducationalLoanEnglishPrintComponent,
   RetailHousingLoanComponent,
   RetailHousingLoanPrintComponent,
-  RetailHousingLoanPrintComponent,
   RetailMortgageComponent,
   RetailMortgagePrintComponent,
   RetailMortgageLoanComponent,
@@ -54,30 +53,31 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
-    OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent,
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
+        OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent,
+        ],
+    exports: [
+        HayerPurchaseComponent,
+        RetailEducationalLoanComponent,
+        SmeComponent,
+        RetailEducationalLoanEnglishComponent,
+        RetailHousingLoanComponent,
+        RetailMortgageComponent,
+        RetailMortgageLoanComponent,
+        RetailProfessionalLoanComponent,
+        RetailLoanAgainstInsuranceComponent,
+        OfferLetterConsentComponent,
+        PersonalOfferLetterRenewalsComponent,
+        CustomInputComponent,
+        CustomInputComponent,
     ],
-  exports: [
-    HayerPurchaseComponent,
-    RetailEducationalLoanComponent,
-    SmeComponent,
-    RetailEducationalLoanEnglishComponent,
-    RetailHousingLoanComponent,
-    RetailMortgageComponent,
-    RetailMortgageLoanComponent,
-    RetailProfessionalLoanComponent,
-    RetailLoanAgainstInsuranceComponent,
-    OfferLetterConsentComponent,
-    PersonalOfferLetterRenewalsComponent,
-    CustomInputComponent,
-  ],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NgxPrintModule,
-    CoreModule,
-    NbAccordionModule,
-  ]
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NgxPrintModule,
+        CoreModule,
+        NbAccordionModule,
+    ]
 })
 export class MegaOfferLetterTemplateModule {
 }
