@@ -406,6 +406,7 @@
               <table class="table-bordered" style="width: 100%;">
                   <tbody class="text-center">
                   <tr>
+                      <th>घर/जग्गा धनीको नाम थर</th>
                       <th>जिल्ला</th>
                       <th>नगर/गा.वि.स.</th>
                       <th>वडा न.</th>
@@ -415,6 +416,7 @@
                   </tbody>
                   <tbody>
                   <tr *ngFor="let security of offerDocumentDetails?.securityDetails[0]?.securities; let i = index">
+                      <td>{{security?.securityOwnersNameCT}}</td>
                       <td>{{security?.securityOwnersDistrictCT}}</td>
                       <td>{{security?.securityOwnersMunicipalityCT}}</td>
                       <td>{{security?.securityOwnersWardNoCT}}</td>
@@ -429,6 +431,7 @@
               <table class="table-bordered" style="width: 100%;">
                   <tbody class="text-center">
                   <tr>
+                      <th>घर/जग्गा धनीको नाम थर</th>
                       <th>जिल्ला</th>
                       <th>नगर/गा.वि.स.</th>
                       <th>वडा न.</th>
@@ -438,6 +441,7 @@
                   </tbody>
                   <tbody>
                   <tr *ngFor="let security of offerDocumentDetails?.loan?.securities; let i = index">
+                      <td>{{security?.securityOwnersNameCT}}</td>
                       <td>{{security?.securityOwnersDistrictCT}}</td>
                       <td>{{security?.securityOwnersMunicipalityCT}}</td>
                       <td>{{security?.securityOwnersWardNoCT}}</td>

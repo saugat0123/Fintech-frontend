@@ -100,6 +100,7 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
     }
+    console.log('Offer documnl:', this.offerDocumentDetails);
     this.getLoanDetails();
     await this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) &&
