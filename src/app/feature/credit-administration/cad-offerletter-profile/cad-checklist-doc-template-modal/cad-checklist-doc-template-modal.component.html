@@ -76,6 +76,11 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-power-of-attorney-partnership>
+        <app-power-of-attorney-proprietorship
+                *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_PROPRIETORSHIP" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-proprietorship>
         <app-power-of-attorney-company
                 *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_COMPANY" [cadData]="cadData"
                 [documentId]="documentId"
