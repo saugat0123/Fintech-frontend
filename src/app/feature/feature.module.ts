@@ -26,6 +26,7 @@ import {LoanModule} from './loan/loan.module';
 import {GuarantorDetailComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
+import { CrgComponent } from './crg/crg.component';
 
 
 @NgModule({
@@ -58,12 +59,13 @@ import {UserActivityComponent} from './admin/component/user/user-activity/user-a
             GuarantorAdderComponent,
             GuarantorDetailComponent,
             ContactDetailsComponent,
-            UserActivityComponent
+            UserActivityComponent,
+            CrgComponent
         ],
-        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-             CreditRiskGradingGammaComponent, MultipleBankingComponent,
-          InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent, ContactDetailsComponent
-        ],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
+        CreditRiskGradingGammaComponent, MultipleBankingComponent,
+        InstitutionalCrgGammaComponent, GuarantorAdderComponent, GuarantorDetailComponent, ContactDetailsComponent, CrgComponent
+    ],
         providers: [SafePipe],
     entryComponents: [CreditRiskGradingGammaComponent]
     }

@@ -57,6 +57,7 @@ export class CustomerInfoData {
     netTradingAssets: NetTradingAssets;
     bankingRelationship: string;
     creditChecklist: CreditChecklistGeneral;
+    crgChecklist: string;
     obligor: string;
     customerCode: string;
     subSectorDetailCode: string;

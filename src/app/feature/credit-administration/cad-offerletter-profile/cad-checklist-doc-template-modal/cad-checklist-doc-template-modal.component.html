@@ -9,101 +9,142 @@
       <div [ngSwitch]="documentId">
         <app-assignment-of-receivable *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLE"
                                       [cadData]="cadData" [documentId]="documentId"
-                                      [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
+                                      [customerLoanId]="customerLoanId">
+        </app-assignment-of-receivable>
+        <app-assignment-of-receivables-partnership *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLES_PARTNERSHIP"
+                                      [cadData]="cadData" [documentId]="documentId"
+                                      [customerLoanId]="customerLoanId">
+        </app-assignment-of-receivables-partnership>
         <app-deed-hypo-of-machinery *ngSwitchCase="cadTemplate.DEED_HYPO_OF_MACHINERY_COMPONENT"
                                     [cadData]="cadData" [documentId]="documentId"
-                                    [customerLoanId]="customerLoanId"></app-deed-hypo-of-machinery>
+                                    [customerLoanId]="customerLoanId">
+        </app-deed-hypo-of-machinery>
         <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData"
                            [documentId]="documentId"
-                           [customerLoanId]="customerLoanId"></app-hypo-of-stock>
+                           [customerLoanId]="customerLoanId">
+        </app-hypo-of-stock>
+        <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
+                               [documentId]="documentId"
+                               [customerLoanId]="customerLoanId">
+        </app-loan-deed-company>
         <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
-                                     [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
+                                     [customerLoanId]="customerLoanId">
+        </app-manjurinama-for-company>
         <app-personal-guarantee-company *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"
                                         [cadData]="cadData" [documentId]="documentId"
-                                        [customerLoanId]="customerLoanId"></app-personal-guarantee-company>
+                                        [customerLoanId]="customerLoanId">
+        </app-personal-guarantee-company>
         <app-personal-guarantee-joint-borrower
             *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_JOINT_BORROWER" [cadData]="cadData"
             [documentId]="documentId"
-            [customerLoanId]="customerLoanId"></app-personal-guarantee-joint-borrower>
+            [customerLoanId]="customerLoanId">
+        </app-personal-guarantee-joint-borrower>
         <app-personal-guarantee-person-to-person
             *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON" [cadData]="cadData"
             [documentId]="documentId"
-            [customerLoanId]="customerLoanId"></app-personal-guarantee-person-to-person>
+            [customerLoanId]="customerLoanId">
+        </app-personal-guarantee-person-to-person>
         <app-promissory-note-single-borrower
             *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER" [cadData]="cadData"
             [documentId]="documentId" [customerLoanId]="customerLoanId"
-            [nepaliAmount]="nepaliNumber"></app-promissory-note-single-borrower>
+            [nepaliAmount]="nepaliNumber">
+        </app-promissory-note-single-borrower>
         <app-trust-receipt-nepali-limit *ngSwitchCase="cadTemplate.TRUST_RECEIPT_NEPALI_LIMIT"
                                         [cadData]="cadData" [documentId]="documentId"
-                                        [customerLoanId]="customerLoanId"></app-trust-receipt-nepali-limit>
+                                        [customerLoanId]="customerLoanId">
+        </app-trust-receipt-nepali-limit>
         <app-loan-deed-individual *ngSwitchCase="cadTemplate.LOAN_DEED_INDIVIDUAL" [cadData]="cadData"
                               [documentId]="documentId"
-                              [customerLoanId]="customerLoanId"></app-loan-deed-individual>
-        <app-loan-deed-institution-private-limited *ngSwitchCase="cadTemplate.LOAN_DEED_INSTITUTION_PRIVATE_LIMITED" [cadData]="cadData"
-                                                   [documentId]="documentId"
-                                                   [customerLoanId]="customerLoanId"></app-loan-deed-institution-private-limited>
-        <app-loan-deed-institution-partnership-form *ngSwitchCase="cadTemplate.LOAN_DEED_INSTITUTION_PARTNERSHIP_FORM" [cadData]="cadData"
+                              [customerLoanId]="customerLoanId">
+        </app-loan-deed-individual>
+        <app-loan-deed-partnership *ngSwitchCase="cadTemplate.LOAN_DEED_PARTNERSHIP" [cadData]="cadData"
                                 [documentId]="documentId"
-                                [customerLoanId]="customerLoanId"></app-loan-deed-institution-partnership-form>
+                                [customerLoanId]="customerLoanId">
+        </app-loan-deed-partnership>
         <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
-                                     [customerLoanId]="customerLoanId"></app-promissory-note-company>
+                                     [customerLoanId]="customerLoanId">
+        </app-promissory-note-company>
         <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
-                                   [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
-        <app-kalo-suchi-borrower-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_COMPANY"
-                                   [cadData]="cadData" [documentId]="documentId"
-                                   [customerLoanId]="customerLoanId"></app-kalo-suchi-borrower-company>
-        <app-corporate-guarantee *ngSwitchCase="cadTemplate.CORPORATE_GUARANTEE"
-                                   [cadData]="cadData" [documentId]="documentId"
-                                   [customerLoanId]="customerLoanId"></app-corporate-guarantee>
-        <app-letter-of-continuity-company *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_COMPANY"
-                                          [cadData]="cadData" [documentId]="documentId"
-                                          [customerLoanId]="customerLoanId"></app-letter-of-continuity-company>
-
-        <app-kalo-suchi-borrower-pg-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_COMPANY"
-                                         [cadData]="cadData" [documentId]="documentId"
-                                         [customerLoanId]="customerLoanId"></app-kalo-suchi-borrower-pg-company>
-        <app-letter-of-continuity-partnership *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_PARTNERSHIP"
-                                              [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-letter-of-continuity-partnership>
-        <app-letter-of-continuity-proprietorship *ngSwitchCase="cadTemplate.LETTER_0F_CONTINUITY_PROPRIETORSHIP"
-                                                 [cadData]="cadData" [documentId]="documentId"
-                                                 [customerLoanId]="customerLoanId"></app-letter-of-continuity-proprietorship>
-
+                                   [nepaliAmount]="nepaliNumber">
+        </app-promissory-note-joint>
+        <app-power-of-attorney-partnership
+                *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_PARTNERSHIP" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-partnership>
+        <app-power-of-attorney-company
+                *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_COMPANY" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-company>
         <app-letter-of-set-off-company *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_COMPANY"
                                             [cadData]="cadData" [documentId]="documentId"
-                                            [customerLoanId]="customerLoanId"></app-letter-of-set-off-company>
-
-        <app-promissory-note-partnership-firm *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PARTNERSHIP_FIRM"
+                                            [customerLoanId]="customerLoanId">
+        </app-letter-of-set-off-company>
+        <app-promissory-note-partnership *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PARTNERSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-promissory-note-partnership-firm>
+                                              [customerLoanId]="customerLoanId">
+        </app-promissory-note-partnership>
         <app-letter-of-set-off-partnership *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_PARTNERSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-letter-of-set-off-partnership>
+                                              [customerLoanId]="customerLoanId">
+        </app-letter-of-set-off-partnership>
         <app-manjurinama-for-gadi-namasari-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_COMPANY"
                                               [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-company>
+                                              [customerLoanId]="customerLoanId">
+        </app-manjurinama-for-gadi-namasari-company>
         <app-manjurinama-for-gadi-namasari-individual *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_INDIVIDUAL"
                                               [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-individual>
+                                              [customerLoanId]="customerLoanId">
+        </app-manjurinama-for-gadi-namasari-individual>
         <app-manjurinama-for-gadi-namasari-partnership *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_PARTNERSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-partnership>
+                                              [customerLoanId]="customerLoanId">
+        </app-manjurinama-for-gadi-namasari-partnership>
         <app-manjurinama-for-gadi-namasari-proprietorship *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_GADI_NAMASARI_PROPRIETORSHIP"
                                               [cadData]="cadData" [documentId]="documentId"
-                                              [customerLoanId]="customerLoanId"></app-manjurinama-for-gadi-namasari-proprietorship>
+                                              [customerLoanId]="customerLoanId">
+        </app-manjurinama-for-gadi-namasari-proprietorship>
         <app-loan-deed-proprietorship *ngSwitchCase="cadTemplate.LOAN_DEED_PROPRIETORSHIP"
                                                  [cadData]="cadData" [documentId]="documentId"
-                                                 [customerLoanId]="customerLoanId"></app-loan-deed-proprietorship>
+                                                 [customerLoanId]="customerLoanId">
+        </app-loan-deed-proprietorship>
         <app-letter-of-set-off-proprietorship *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_PROPRIETORSHIP"
                                            [cadData]="cadData" [documentId]="documentId"
-                                           [customerLoanId]="customerLoanId"></app-letter-of-set-off-proprietorship>
+                                           [customerLoanId]="customerLoanId">
+        </app-letter-of-set-off-proprietorship>
+        <app-kalo-suchi-borrower-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_COMPANY"
+                                           [cadData]="cadData" [documentId]="documentId"
+                                           [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-company>
+        <app-corporate-guarantee *ngSwitchCase="cadTemplate.CORPORATE_GUARANTEE"
+                                         [cadData]="cadData" [documentId]="documentId"
+                                         [customerLoanId]="customerLoanId">
+        </app-corporate-guarantee>
+        <app-kalo-suchi-borrower-pg-company *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_COMPANY"
+                                 [cadData]="cadData" [documentId]="documentId"
+                                 [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-pg-company>
+        <app-letter-of-continuity-company *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_COMPANY"
+                                 [cadData]="cadData" [documentId]="documentId"
+                                 [customerLoanId]="customerLoanId">
+        </app-letter-of-continuity-company>
+        <app-letter-of-continuity-partnership *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_PARTNERSHIP"
+                                 [cadData]="cadData" [documentId]="documentId"
+                                 [customerLoanId]="customerLoanId">
+        </app-letter-of-continuity-partnership>
+        <app-letter-of-continuity-proprietorship *ngSwitchCase="cadTemplate.LETTER_0F_CONTINUITY_PROPRIETORSHIP"
+                                 [cadData]="cadData" [documentId]="documentId"
+                                 [customerLoanId]="customerLoanId">
+        </app-letter-of-continuity-proprietorship>
         <app-supplementary-agreement-company *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_COMPANY"
                                       [cadData]="cadData" [documentId]="documentId"
-                                      [customerLoanId]="customerLoanId"></app-supplementary-agreement-company>
+                                      [customerLoanId]="customerLoanId">
+        </app-supplementary-agreement-company>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
