@@ -21,8 +21,9 @@
        <div class="form-group">
            <form [formGroup]="basicInfo" class="form-horizontal">
            <!--    <button (click)="showHideNep()">NepDate</button>-->
-           <nb-tabset fullWidth>
-               <nb-tab tabTitle="Individual Detail">
+               <div class="col-md-2" style="margin-top: 20px; margin-left: 40%; margin-right: 60%">
+                   <p class="text-center title">INDIVIDUAL DETAIL</p>
+               </div>
                        <!-- START ROW -->
                        <!--        <div class="row">-->
                        <!--          <div class="col-md-4">-->
@@ -914,11 +915,9 @@
 <!--                       </div>-->
                        <!-- END ROW -->
 
-               </nb-tab>
 <!--               <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">-->
 <!--                   <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>-->
 <!--               </nb-tab>-->
-           </nb-tabset>
            </form>
        </div>
     </nb-card-body>

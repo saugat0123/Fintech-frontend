@@ -1,14 +1,14 @@
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
     <div class="col-md-12">
     <p class="text-center"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
-    <ng-container *ngFor="let security of loanDataHolder?.securities; let i = index;">
+    <ng-container *ngFor="let security of securityDetails; let i = index;">
         <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
             <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
              security?.securityType === 'LAND_BUILDING_SECURITY' || security?.securityType === 'APARTMENT_SECURITY'">
                 <div>
                     <div class="d-flex justify-content-between mb-3" style="margin-right: 25%;">
                         <div class="right-content">
-                            <strong>Date: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                            <strong>Date: </strong><span>{{(collateral?.siteVisitJsonData | jsonParse)?.date || ''}}</span>
                         </div>
                     </div>
                     <p><strong>Customer Name:
@@ -17,7 +17,7 @@
                             : loanDataHolder?.customerInfo?.customerName}}
                     </strong></p>
                     <p><strong>Date of
-                        Inspection: </strong><span>{{collateral?.siteVisitJsonData?.date || ''}}</span>
+                        Inspection: </strong><span>{{(collateral?.siteVisitJsonData | jsonParse)?.date || ''}}</span>
                     </p>
                     <table class="table table-sm table-bordered sb-small">
                         <thead>
@@ -39,24 +39,24 @@
                                 <label><strong>Current Address: </strong></label>
                                 <div class="row col-lg-12">
                                     <div class="col-lg-6">State:
-                                        <span>{{collateral?.siteVisitJsonData?.province?.name || ''}}</span>
+                                        <span>{{(collateral?.siteVisitJsonData | jsonParse)?.province?.name || ''}}</span>
                                     </div>
                                     <div class="col-lg-6">District:
-                                        <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
+                                        <span>{{(collateral?.siteVisitJsonData | jsonParse)?.district?.name || ''}}</span>
                                     </div>
                                     <div class="col-lg-6">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
-                                        <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
+                                        <span>{{(collateral?.siteVisitJsonData | jsonParse)?.municipalityVdc?.name || ''}}</span>
                                     </div>
                                     <div class="col-lg-6">Ward No.:
-                                        <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                        <span>{{(collateral?.siteVisitJsonData | jsonParse)?.ward || ''}}</span></div>
                                 </div>
                                 <label><strong>Details as per Title Deed (Lal Purja): </strong></label>
                                 <div class="row col-md-12">
                                     <div class="col-lg-4">Plot No.: <span>{{security?.data?.plotNumber || ''}}</span></div>
                                     <div class="col-lg-4">Area of Land: <span>{{security?.data?.area || ''}}</span></div>
-                                    <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' && collateral?.siteVisitJsonData?.building === 'YES'">
+                                    <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' && (collateral?.siteVisitJsonData | jsonParse)?.building === 'YES'">
                                         <div class="col-lg-4">Total Plinth Area of Building:
-                                            <span>{{collateral?.siteVisitJsonData?.buildingArea || ''}}</span>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.buildingArea || ''}}</span>
                                         </div>
                                     </ng-container>
                                     <ng-container *ngIf="security?.securityType === 'LAND_BUILDING_SECURITY'">
@@ -66,25 +66,25 @@
                                     </ng-container>
                                     <ng-container>
                                         <div class="col-lg-4">District:
-                                            <span>{{collateral?.siteVisitJsonData?.district?.name || ''}}</span>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.district?.name || ''}}</span>
                                         </div>
                                         <div class="col-lg-8">Metropolitan/Sub-Metro/Municipality/Rural Municipality:
-                                            <span>{{collateral?.siteVisitJsonData?.municipalityVdc?.name || ''}}</span>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.municipalityVdc?.name || ''}}</span>
                                         </div>
                                         <div class="col-lg-4">Ward No:
-                                            <span>{{collateral?.siteVisitJsonData?.ward || ''}}</span></div>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.ward || ''}}</span></div>
                                         <div class="col-lg-4">Access:
                                             <span>{{security?.data?.roadAccessBluePrint || 'No'}}</span>
                                         </div>
                                         <div class="col-lg-4">Width of Road:
-                                            <span>{{collateral?.siteVisitJsonData?.roadWidth || ''}}</span>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.roadWidth || ''}}</span>
                                         </div>
                                         <div class="col-lg-4">Blacktopped:
-                                            <span>{{collateral?.siteVisitJsonData?.roadApproach === 'Black Topped Road' ? 'Yes' : ('No (' + collateral?.siteVisitJsonData?.roadApproach + ')')}}</span>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.roadApproach === 'Black Topped Road' ? 'Yes' : ('No (' + (collateral?.siteVisitJsonData | jsonParse)?.roadApproach + ')')}}</span>
                                         </div>
                                         <div class="col-lg-4">Boundary Remark:
-                                            <span>{{collateral?.siteVisitJsonData?.roadAccessFrom ?
-                                                'Road Access From ' + collateral?.siteVisitJsonData?.roadAccessFrom : ''}}</span>
+                                            <span>{{(collateral?.siteVisitJsonData | jsonParse)?.roadAccessFrom ?
+                                                'Road Access From ' + (collateral?.siteVisitJsonData | jsonParse)?.roadAccessFrom : ''}}</span>
                                         </div>
                                     </ng-container>
                                 </div>
@@ -93,7 +93,7 @@
                         <tr>
                             <td>
                                 <label>3. Ownership status of property is not Guthi/Mohi</label><br>
-                                <label>Remarks: <span>{{collateral?.siteVisitJsonData?.guthi === true ? 'Yes' : 'No'}}</span>
+                                <label>Remarks: <span>{{(collateral?.siteVisitJsonData | jsonParse)?.guthi === true ? 'Yes' : 'No'}}</span>
                                 </label>
                             </td>
                         </tr>
@@ -102,7 +102,7 @@
                                 <label>4. Is there any noticeable remark on/to/near the property e.g. river; temple,
                                     playing ground etc.?</label><br>
                                 <label>Remarks:
-                                    <span>{{collateral?.siteVisitJsonData?.noticeableRemark === true ? 'Yes' : 'No'}}</span></label>
+                                    <span>{{(collateral?.siteVisitJsonData | jsonParse)?.noticeableRemark === true ? 'Yes' : 'No'}}</span></label>
                             </td>
                         </tr>
                         <tr>
@@ -130,68 +130,70 @@
                             <td>
                                 <label>6. Are all the applicable taxes current/Tax Payment Receipt seen?</label><br>
                                 <label>Remarks:
-                                    <span>{{collateral?.siteVisitJsonData?.taxes === true ? 'Yes' : 'No'}}</span></label>
+                                    <span>{{(collateral?.siteVisitJsonData | jsonParse)?.taxes === true ? 'Yes' : 'No'}}</span></label>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label>7. Other Comments/Remarks: </label><br>
                                 <ul>
-                                    <li *ngIf="collateral?.siteVisitJsonData?.roadSetbacks"><label>Road Setback: </label> {{collateral?.siteVisitJsonData?.roadSetbacks}}</li>
-                                    <li *ngIf="collateral?.siteVisitJsonData?.riverOrCanalSetbacks"><label>River/Canal Setback: </label> {{collateral?.siteVisitJsonData?.riverOrCanalSetbacks}}</li>
-                                    <li *ngIf="collateral?.siteVisitJsonData?.highTensionSetbacks"><label>High-tension Setback: </label> {{collateral?.siteVisitJsonData?.highTensionSetbacks}}</li>
-                                    <li *ngIf="collateral?.siteVisitJsonData?.majorMarketPlaces ||
-                                                collateral?.siteVisitJsonData?.schoolOrCollege ||
-                                                collateral?.siteVisitJsonData?.hospitalOrNursingHome"><strong>Vicinity to the Basic Amenities</strong>
+                                    <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.roadSetbacks"><label>Road Setback: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.roadSetbacks}}</li>
+                                    <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.riverOrCanalSetbacks"><label>River/Canal Setback: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.riverOrCanalSetbacks}}</li>
+                                    <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.highTensionSetbacks"><label>High-tension Setback: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.highTensionSetbacks}}</li>
+                                    <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.majorMarketPlaces ||
+                                                (collateral?.siteVisitJsonData | jsonParse)?.schoolOrCollege ||
+                                                (collateral?.siteVisitJsonData | jsonParse)?.hospitalOrNursingHome"><strong>Vicinity to the Basic Amenities</strong>
                                         <ul>
-                                            <li *ngIf="collateral?.siteVisitJsonData?.majorMarketPlaces"><label>Major Market Place: </label> {{collateral?.siteVisitJsonData?.majorMarketPlaces}}</li>
-                                            <li *ngIf="collateral?.siteVisitJsonData?.schoolOrCollege"><label>School/Colleges: </label> {{collateral?.siteVisitJsonData?.schoolOrCollege}}</li>
-                                            <li *ngIf="collateral?.siteVisitJsonData?.hospitalOrNursingHome"><label>Hospital/Nursing Home: </label> {{collateral?.siteVisitJsonData?.hospitalOrNursingHome}}</li>
+                                            <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.majorMarketPlaces"><label>Major Market Place: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.majorMarketPlaces}}</li>
+                                            <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.schoolOrCollege"><label>School/Colleges: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.schoolOrCollege}}</li>
+                                            <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.hospitalOrNursingHome"><label>Hospital/Nursing Home: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.hospitalOrNursingHome}}</li>
                                         </ul>
                                     </li>
-                                    <li *ngIf="collateral?.siteVisitJsonData?.fixedAssetsLatitude ||
-                                                collateral?.siteVisitJsonData?.fixedAssetsLongitude"><strong>Location Detail</strong>
+                                    <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.fixedAssetsLatitude ||
+                                                (collateral?.siteVisitJsonData | jsonParse)?.fixedAssetsLongitude"><strong>Location Detail</strong>
                                         <ul>
-                                            <li *ngIf="collateral?.siteVisitJsonData?.fixedAssetsLongitude"><label>Longitude: </label> {{collateral?.siteVisitJsonData?.fixedAssetsLongitude}}</li>
-                                            <li *ngIf="collateral?.siteVisitJsonData?.fixedAssetsLatitude"><label>Latitude: </label> {{collateral?.siteVisitJsonData?.fixedAssetsLatitude}}</li>
+                                            <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.fixedAssetsLongitude"><label>Longitude: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.fixedAssetsLongitude}}</li>
+                                            <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.fixedAssetsLatitude"><label>Latitude: </label> {{(collateral?.siteVisitJsonData | jsonParse)?.fixedAssetsLatitude}}</li>
                                         </ul>
                                     </li>
-                                    <li *ngIf="collateral?.siteVisitJsonData?.commentAboutFAC">{{collateral?.siteVisitJsonData?.commentAboutFAC}}</li>
+                                    <li *ngIf="(collateral?.siteVisitJsonData | jsonParse)?.commentAboutFAC">{{(collateral?.siteVisitJsonData | jsonParse)?.commentAboutFAC}}</li>
                                 </ul>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <label><strong>Location sketch attached.</strong></label>
-                    <table class="table table-bordered table-sm sb-small">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="row col-md-12">
-                                    <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
-                                        <div class="col-md-12 mt-2">
-                                            <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
-                                                 class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
-                                        </div>
-                                    </ng-container>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+              <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
+                  <ng-container *ngIf="doc?.docPath">
+                      <label><strong>Location sketch attached.</strong></label>
+                          <table class="table table-bordered table-sm sb-small">
+                              <tbody>
+                              <tr>
+                                  <td>
+                                      <div class="row col-md-12">
+                                              <div class="col-md-12 mt-2">
+                                                  <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
+                                                       class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
+                                              </div>
+                                      </div>
+                                  </td>
+                              </tr>
+                              </tbody>
+                          </table>
+                  </ng-container>
+              </ng-container>
                     <table class="table text-center">
                         <tbody>
                         <tr>
                             <td><br><br>
                                 ______________________________________<br>
-                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName || ''}}</span><br>
-                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation || ''}}</span><br>
+                                Name of Inspector: <span>{{(collateral?.siteVisitJsonData | jsonParse)?.staffs?.staffRepresentativeName || ''}}</span><br>
+                                Position: <span>{{(collateral?.siteVisitJsonData | jsonParse)?.staffs?.staffRepresentativeNameDesignation || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
                             <td><br><br>
                                 ______________________________________<br>
-                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName2 || ''}}</span><br>
-                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation2 || ''}}</span><br>
+                                Name of Inspector: <span>{{(collateral?.siteVisitJsonData | jsonParse)?.staffs?.staffRepresentativeName2 || ''}}</span><br>
+                                Position: <span>{{(collateral?.siteVisitJsonData | jsonParse)?.staffs?.staffRepresentativeNameDesignation2 || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
                         </tr>
@@ -210,7 +212,7 @@
                         </tr>
                         <tr>
                             <td width="20%"><strong>Nearest Landmark to FAC</strong></td>
-                            <td>{{collateral?.siteVisitJsonData?.commentAboutFAC || ''}}</td>
+                            <td>{{(collateral?.siteVisitJsonData | jsonParse)?.commentAboutFAC || ''}}</td>
                         </tr>
                         <tr>
                             <td width="20%"><strong>Site Visited By</strong></td>

@@ -24,6 +24,7 @@ export class CollateralSiteVisitComponent implements OnInit {
   siteVisitJson = [];
   random;
   security: Security;
+  securityDetails = [];
   isCollateralSiteVisitPresent = false;
 
   constructor() {
@@ -41,7 +42,8 @@ export class CollateralSiteVisitComponent implements OnInit {
               });
               return value;
           });
-          this.loanDataHolder.securities.forEach((security: Security) => {
+          this.loanDataHolder.loanHolder.securities.forEach((security: Security) => {
+              this.securityDetails.push(security);
               if (!ObjectUtil.isEmpty(security.collateralSiteVisits)) {
                   this.isCollateralSiteVisitPresent = true;
                  /* security.collateralSiteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
