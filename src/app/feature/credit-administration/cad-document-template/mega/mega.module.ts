@@ -40,6 +40,7 @@ import {PowerOfAttorneyProprietorshipComponent} from './power-of-attorney-propri
 import { SupplementaryAgreementCompanyComponent } from './supplementary-agreement-company/supplementary-agreement-company.component';
 import {AssignmentOfReceivablesProprietorshipComponent} from './assignment-of-receivables-proprietorship/assignment-of-receivables-proprietorship.component';
 import { SupplementaryAgreementPartnershipComponent } from './supplementary-agreement-partnership/supplementary-agreement-partnership.component';
+import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-letter-company.component';
 import { SupplementaryAgreementProprietorshipComponent } from './supplementary-agreement-proprietorship/supplementary-agreement-proprietorship.component';
 
 @NgModule({
@@ -77,6 +78,7 @@ import { SupplementaryAgreementProprietorshipComponent } from './supplementary-a
     LoanDeedProprietorshipComponent,
     PowerOfAttorneyPartnershipComponent, PowerOfAttorneyProprietorshipComponent,
     SupplementaryAgreementCompanyComponent,
+      ConsentLetterCompanyComponent,
     SupplementaryAgreementPartnershipComponent,
     SupplementaryAgreementProprietorshipComponent,
     ],
@@ -125,7 +127,8 @@ import { SupplementaryAgreementProprietorshipComponent } from './supplementary-a
         SupplementaryAgreementCompanyComponent,
         AssignmentOfReceivablesProprietorshipComponent,
         SupplementaryAgreementPartnershipComponent,
-        SupplementaryAgreementProprietorshipComponent
+        ConsentLetterCompanyComponent,
+        SupplementaryAgreementProprietorshipComponent,
   ],
   })
 export class MegaModule { }
