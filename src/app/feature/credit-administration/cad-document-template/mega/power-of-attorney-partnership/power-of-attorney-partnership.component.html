@@ -1,5 +1,5 @@
 <div class="container nep text-justify nepaliFont">
-    <form (ngSubmit)="submit()" [formGroup]="PowerOfAttorneyPartnershipFirm" class="nep" id="PowerOfAttorneyPartnershipFirmPrint">
+    <form (ngSubmit)="submit()" [formGroup]="PowerOfAttorneyPartnership" class="nep" id="PowerOfAttorneyPartnershipPrint">
         <h5 class="text-center"><strong>वारेसनामा</strong></h5>
         <h5 class="text-center"><u><strong>(Power of Attorney)</strong></u></h5>
         <div class="row">
@@ -9,73 +9,73 @@
                                             name="date"
                                             formControlName="date"
                                             placeholder=""
-                                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('date').value ? PowerOfAttorneyPartnershipFirm.get('date').value  : '========='}}</strong></span>
+                                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('date').value ? PowerOfAttorneyPartnership.get('date').value  : '========='}}</strong></span>
                     २०२० बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग <input class="form-field form-control-sm nepaliFont disable-print"
                                                                name="bankBranchName"
                                                                formControlName="bankBranchName"
                                                                placeholder=""
-                                                               type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('bankBranchName').value ? PowerOfAttorneyPartnershipFirm.get('bankBranchName').value  : '========='}}</strong></span>
+                                                               type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('bankBranchName').value ? PowerOfAttorneyPartnership.get('bankBranchName').value  : '========='}}</strong></span>
                     कार्यालयमा मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                               name="date"
                                               formControlName="date"
                                               placeholder=""
-                                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('date').value ? PowerOfAttorneyPartnershipFirm.get('date').value  : '========='}}</strong></span>
+                                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('date').value ? PowerOfAttorneyPartnership.get('date').value  : '========='}}</strong></span>
                     मा दर्ता भई सा.फ.र.न  <input class="form-field form-control-sm nepaliFont disable-print"
                                                 name="registerNum"
                                                 formControlName="registerNum"
                                                 placeholder=""
-                                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('registerNum').value ? PowerOfAttorneyPartnershipFirm.get('registerNum').value  : '========='}}</strong></span>
+                                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('registerNum').value ? PowerOfAttorneyPartnership.get('registerNum').value  : '========='}}</strong></span>
                     कायम भई, <input class="form-field form-control-sm nepaliFont disable-print"
                                     name="tempAddDistrict"
                                     formControlName="tempAddDistrict"
                                     placeholder=""
-                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('tempAddDistrict').value ? PowerOfAttorneyPartnershipFirm.get('tempAddDistrict').value  : '========='}}</strong></span>
+                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('tempAddDistrict').value ? PowerOfAttorneyPartnership.get('tempAddDistrict').value  : '========='}}</strong></span>
                     जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
                                    name="guarantorMunicipalityOrVdc"
                                    formControlName="guarantorMunicipalityOrVdc"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyPartnershipFirm.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyPartnership.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
                     गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
                                                name="guarantorWardNo"
                                                formControlName="guarantorWardNo"
                                                placeholder=""
-                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorWardNo').value ? PowerOfAttorneyPartnershipFirm.get('guarantorWardNo').value  : '========='}}</strong></span>
+                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorWardNo').value ? PowerOfAttorneyPartnership.get('guarantorWardNo').value  : '========='}}</strong></span>
                     स्थित ठेगाना रहेको श्री <input class="form-field form-control-sm nepaliFont disable-print"
                                                    name="guarantorName"
                                                    formControlName="guarantorName"
                                                    placeholder=""
-                                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorName').value ? PowerOfAttorneyPartnershipFirm.get('guarantorName').value  : '========='}}</strong></span>
+                                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorName').value ? PowerOfAttorneyPartnership.get('guarantorName').value  : '========='}}</strong></span>
                     का साझेदारहरु <input class="form-field form-control-sm nepaliFont disable-print"
                                          name="guarantorGrandFatherName"
                                          formControlName="guarantorGrandFatherName"
                                          placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnershipFirm.get('guarantorGrandFatherName').value ? PowerOfAttorneyPartnershipFirm.get('guarantorGrandFatherName').value  : '========='}}</b></span>
+                                         type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnership.get('guarantorGrandFatherName').value ? PowerOfAttorneyPartnership.get('guarantorGrandFatherName').value  : '========='}}</b></span>
 
                     को नाति
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarrantorFatherName"
                            formControlName="guarrantorFatherName"
                            placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnershipFirm.get('guarrantorFatherName').value ? PowerOfAttorneyPartnershipFirm.get('guarrantorFatherName').value  : '========='}}</b></span>
+                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnership.get('guarrantorFatherName').value ? PowerOfAttorneyPartnership.get('guarrantorFatherName').value  : '========='}}</b></span>
                     को छोरा
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorDistrict"
                            formControlName="guarantorDistrict"
                            placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnershipFirm.get('guarantorDistrict').value ? PowerOfAttorneyPartnershipFirm.get('guarantorDistrict').value  : '========='}}</b></span>
+                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnership.get('guarantorDistrict').value ? PowerOfAttorneyPartnership.get('guarantorDistrict').value  : '========='}}</b></span>
 
                     जिल्ला
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorMunicipalityOrVdc"
                            formControlName="guarantorMunicipalityOrVdc"
                            placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnershipFirm.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyPartnershipFirm.get('guarantorMunicipalityOrVdc').value  : '========='}}</b></span>
+                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnership.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyPartnership.get('guarantorMunicipalityOrVdc').value  : '========='}}</b></span>
                     गा.वि.स/न.पा.वडा नं.
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorWardNo"
                            formControlName="guarantorWardNo"
                            placeholder=""
-                           type="text" size="2"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnershipFirm.get('guarantorWardNo').value ? PowerOfAttorneyPartnershipFirm.get('guarantorWardNo').value  : '========='}}</b></span>
+                           type="text" size="2"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnership.get('guarantorWardNo').value ? PowerOfAttorneyPartnership.get('guarantorWardNo').value  : '========='}}</b></span>
                     बस्ने वर्ष
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            name="guarantorAge"
@@ -87,23 +87,23 @@
                               name="guarantorName"
                               formControlName="guarantorName"
                               placeholder=""
-                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorName').value ? PowerOfAttorneyPartnershipFirm.get('guarantorName').value  : '========='}}</strong></span>
+                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorName').value ? PowerOfAttorneyPartnership.get('guarantorName').value  : '========='}}</strong></span>
                     समेत दुई (२) आगे म/हामी ऋणीको अनुरोधमा सेञ्चुरी कमर्सियल बैंक लिमिटेड बाट  मेरो/हाम्रो नाममा जारी भएको
                     मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                 name="date"
                                 formControlName="date"
                                 placeholder=""
-                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('date').value ? PowerOfAttorneyPartnershipFirm.get('date').value  : '========='}}</strong></span>
+                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('date').value ? PowerOfAttorneyPartnership.get('date').value  : '========='}}</strong></span>
                     गतेको ऋण स्वीकृति पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा
                     <strong>रु.  </strong>
                     <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmtInWord', 'loanAmount')"
                                       [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
-                    <span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnershipFirm.get('loanAmount').value ? PowerOfAttorneyPartnershipFirm.get('loanAmount').value  : '========='}}</b></span>/-
+                    <span class="print-only nepaliFont"><b>{{PowerOfAttorneyPartnership.get('loanAmount').value ? PowerOfAttorneyPartnership.get('loanAmount').value  : '========='}}</b></span>/-
                     <strong> (अक्षेरुपी</strong>
                     <input class="form-field form-control-sm nepaliFont disable-print"
                            formControlName="loanAmtInWord"
                            placeholder=""
-                           type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('loanAmtInWord').value ? PowerOfAttorneyPartnershipFirm.get('loanAmtInWord').value  : '========='}}</strong></span>
+                           type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('loanAmtInWord').value ? PowerOfAttorneyPartnership.get('loanAmtInWord').value  : '========='}}</strong></span>
                     <strong>रुपैयाँ मात्र)</strong>
                     स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको
                     (Account Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील,
@@ -169,28 +169,28 @@
                                                                 name="guarantorName"
                                                                 formControlName="guarantorName"
                                                                 placeholder=""
-                                                                type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorName').value ? PowerOfAttorneyPartnershipFirm.get('guarantorName').value  : '========='}}</strong></span>
+                                                                type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorName').value ? PowerOfAttorneyPartnership.get('guarantorName').value  : '========='}}</strong></span>
                 <br>
                 ठेगाना <span class="timesNewRoman">:</span>  <input class="form-field form-control-sm disable-print nepaliFont"
                                                                     formControlName="guarantorDistrict"
                                                                     placeholder=""
                                                                     type="text"/>
-                <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorDistrict').value ? PowerOfAttorneyPartnershipFirm.get('guarantorDistrict').value  : '========='}}</strong></span>
+                <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorDistrict').value ? PowerOfAttorneyPartnership.get('guarantorDistrict').value  : '========='}}</strong></span>
                 जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
                               name="tempAddDistrict"
                               formControlName="tempAddDistrict"
                               placeholder=""
-                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('tempAddDistrict').value ? PowerOfAttorneyPartnershipFirm.get('tempAddDistrict').value  : '========='}}</strong></span>
+                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('tempAddDistrict').value ? PowerOfAttorneyPartnership.get('tempAddDistrict').value  : '========='}}</strong></span>
                 गा<span class="timesNewRoman">.</span>वि<span class="timesNewRoman">.</span>स<span class="timesNewRoman">/</span>न<span class="timesNewRoman">.</span>पा वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
                                                                                                                                                                                        name="guarantorWardNo"
                                                                                                                                                                                        formControlName="guarantorWardNo"
                                                                                                                                                                                        placeholder=""
-                                                                                                                                                                                       type="text"size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('guarantorWardNo').value ? PowerOfAttorneyPartnershipFirm.get('guarantorWardNo').value  : '========='}}</strong></span><br>
+                                                                                                                                                                                       type="text"size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('guarantorWardNo').value ? PowerOfAttorneyPartnership.get('guarantorWardNo').value  : '========='}}</strong></span><br>
                 आधिकारिक प्रतिनिधिको नाम <span class="timesNewRoman">:</span> <input class="form-field form-control-sm nepaliFont size16 disable-print"
                                                                                      name="staffName"
                                                                                      formControlName="staffName"
                                                                                      placeholder=""
-                                                                                     type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('staffName').value ? PowerOfAttorneyPartnershipFirm.get('staffName').value  : '========='}}</strong></span>
+                                                                                     type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('staffName').value ? PowerOfAttorneyPartnership.get('staffName').value  : '========='}}</strong></span>
 
 
                 <br>
@@ -203,13 +203,13 @@
                         <p>
                             १.
                             <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text"size="28">
-                            <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('witnessDistrict1').value ? PowerOfAttorneyPartnershipFirm.get('witnessDistrict1').value  : '========='}}</strong></span>
+                            <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('witnessDistrict1').value ? PowerOfAttorneyPartnership.get('witnessDistrict1').value  : '========='}}</strong></span>
 
                         </p>
                         <p>
                             २.
                             <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text"size="28">
-                            <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('witnessDistrict2').value ? PowerOfAttorneyPartnershipFirm.get('witnessDistrict2').value  : '========='}}</strong></span>
+                            <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('witnessDistrict2').value ? PowerOfAttorneyPartnership.get('witnessDistrict2').value  : '========='}}</strong></span>
 
                         </p>
                     </div>
@@ -218,24 +218,24 @@
                     <div class="col-md-12">
                         ईति सम्वत् २०
                         <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenYear" formControlName="docWrittenYear" placeholder="" type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('docWrittenYear').value ? PowerOfAttorneyPartnershipFirm.get('docWrittenYear').value  : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('docWrittenYear').value ? PowerOfAttorneyPartnership.get('docWrittenYear').value  : '========='}}</strong></span>
                         साल
                         <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('docWrittenMonth').value ? PowerOfAttorneyPartnershipFirm.get('docWrittenMonth').value  : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('docWrittenMonth').value ? PowerOfAttorneyPartnership.get('docWrittenMonth').value  : '========='}}</strong></span>
                         महिना
                         <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text"size="2"/>
-                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('docWrittenDay').value ? PowerOfAttorneyPartnershipFirm.get('docWrittenDay').value  : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('docWrittenDay').value ? PowerOfAttorneyPartnership.get('docWrittenDay').value  : '========='}}</strong></span>
                         गते रोज
                         <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenWeek" formControlName="docWrittenWeek" placeholder="" type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnershipFirm.get('docWrittenWeek').value ? PowerOfAttorneyPartnershipFirm.get('docWrittenWeek').value  : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyPartnership.get('docWrittenWeek').value ? PowerOfAttorneyPartnership.get('docWrittenWeek').value  : '========='}}</strong></span>
                         शुभम् ।
                     </div>
                 </div>
 
                 <div class="row disable-print">
                     <div class="col-md-12 text-right">
-                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="PowerOfAttorneyPartnershipFirmPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
-                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="PowerOfAttorneyPartnershipFirmPrint" class="mr-2 custom-color" >Print</button>
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="PowerOfAttorneyPartnershipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="PowerOfAttorneyPartnershipPrint" class="mr-2 custom-color" >Print</button>
                         <button nbButton status="success" (click)="submit()">Save</button>
                     </div>
                 </div>

@@ -11,19 +11,19 @@ import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assi
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
-import {LoanDeedInstitutionPartnershipFormComponent} from './loan-deed-institution-partnership-form/loan-deed-institution-partnership-form.component';
+import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
-import {LoanDeedInstitutionPrivateLimitedComponent} from './loan-deed-institution-private-limited/loan-deed-institution-private-limited.component';
+import {LoanDeedCompanyComponent} from './loan-deed-company/loan-deed-company.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
-import {PowerOfAttorneyPartnershipFirmComponent} from './power-of-attorney-partnership-firm/power-of-attorney-partnership-firm.component';
+import {PowerOfAttorneyPartnershipComponent} from './power-of-attorney-partnership/power-of-attorney-partnership.component';
 import {KaloSuchiBorrowerCompanyComponent} from './kalo-suchi-borrower-company/kalo-suchi-borrower-company.component';
 import {PowerOfAttorneyCompanyComponent} from './power-of-attorney-company/power-of-attorney-company.component';
 import {NgxPrintModule} from 'ngx-print';
 import {MegaOfferLetterTemplateModule} from '../../mega-offer-letter-template/mega-offer-letter-template.module';
 import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
 import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
-import { PromissoryNotePartnershipFirmComponent} from './promissory-note-partnership-firm/promissory-note-partnership-firm.component';
+import { PromissoryNotePartnershipComponent} from './promissory-note-partnership/promissory-note-partnership.component';
 import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
 import { LetterOfSetOffCompanyComponent } from './letter-of-set-off-company/letter-of-set-off-company.component';
 import { LetterOfSetOffPartnershipComponent } from './letter-of-set-off-partnership/letter-of-set-off-partnership.component';
@@ -54,8 +54,8 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
     HypoOfStockComponent,
-    LoanDeedInstitutionPrivateLimitedComponent,
-    LoanDeedInstitutionPartnershipFormComponent,
+    LoanDeedCompanyComponent,
+    LoanDeedPartnershipComponent,
     LoanDeedIndividualComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
@@ -64,19 +64,16 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     LetterOfSetOffProprietorshipComponent,
     LetterOfContinuityCompanyComponent,
     LetterOfContinuityPartnershipComponent,
-    PromissoryNotePartnershipFirmComponent,
+    PromissoryNotePartnershipComponent,
     LetterOfContinuityProprietorshipComponent,
     ManjurinamaForGadiNamasariCompanyComponent,
     ManjurinamaForGadiNamasariIndividualComponent,
     ManjurinamaForGadiNamasariPartnershipComponent,
     ManjurinamaForGadiNamasariProprietorshipComponent,
     PowerOfAttorneyCompanyComponent,
-    LetterOfContinuityProprietorshipComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
-    PromissoryNoteJointComponent,
-    PromissoryNoteJointComponent,
-  PowerOfAttorneyPartnershipFirmComponent],
+  PowerOfAttorneyPartnershipComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -85,40 +82,39 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     NgxPrintModule,
     MegaOfferLetterTemplateModule,
   ],
-  exports: [
-    AssignmentOfReceivableComponent,
-    AssignmentOfReceivablesPartnershipComponent,
-    DeedHypoOfMachineryComponent,
-    HypoOfStockComponent,
-    ManjurinamaForCompanyComponent,
-    PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteeIndividualComponent,
-    PromissoryNoteSingleBorrowerComponent,
-    TrustReceiptNepaliLimitComponent,
-    LoanDeedInstitutionPrivateLimitedComponent,
-    LoanDeedInstitutionPartnershipFormComponent,
-    LoanDeedIndividualComponent,
-    PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent,
-    PowerOfAttorneyPartnershipFirmComponent,
-    PromissoryNoteJointComponent,
-    KaloSuchiBorrowerCompanyComponent,
-    LetterOfSetOffCompanyComponent,
-    LetterOfSetOffProprietorshipComponent,
-    LetterOfContinuityCompanyComponent,
-    LetterOfContinuityPartnershipComponent,
-    PromissoryNotePartnershipFirmComponent,
-    LetterOfContinuityProprietorshipComponent,
-    DeedHypoOfMachineryComponent,
-    ManjurinamaForGadiNamasariCompanyComponent,
-    ManjurinamaForGadiNamasariIndividualComponent,
-    ManjurinamaForGadiNamasariPartnershipComponent,
-    ManjurinamaForGadiNamasariProprietorshipComponent,
-    PowerOfAttorneyCompanyComponent,
-    LetterOfSetOffPartnershipComponent,
-    LoanDeedProprietorshipComponent,
-    PowerOfAttorneyCompanyComponent,
-  ],
+    exports: [
+        AssignmentOfReceivableComponent,
+        AssignmentOfReceivablesPartnershipComponent,
+        DeedHypoOfMachineryComponent,
+        HypoOfStockComponent,
+        ManjurinamaForCompanyComponent,
+        PersonalGuaranteeCompanyComponent,
+        PersonalGuaranteeJointBorrowerComponent,
+        PersonalGuaranteeIndividualComponent,
+        PromissoryNoteSingleBorrowerComponent,
+        TrustReceiptNepaliLimitComponent,
+        LoanDeedCompanyComponent,
+        LoanDeedPartnershipComponent,
+        LoanDeedIndividualComponent,
+        PromissoryNoteCompanyComponent,
+        PromissoryNoteJointComponent,
+        PowerOfAttorneyPartnershipComponent,
+        KaloSuchiBorrowerCompanyComponent,
+        LetterOfSetOffCompanyComponent,
+        LetterOfSetOffProprietorshipComponent,
+        LetterOfContinuityCompanyComponent,
+        LetterOfContinuityPartnershipComponent,
+        PromissoryNotePartnershipComponent,
+        LetterOfContinuityProprietorshipComponent,
+        ManjurinamaForGadiNamasariCompanyComponent,
+        ManjurinamaForGadiNamasariIndividualComponent,
+        ManjurinamaForGadiNamasariPartnershipComponent,
+        ManjurinamaForGadiNamasariProprietorshipComponent,
+        PowerOfAttorneyCompanyComponent,
+        LetterOfSetOffPartnershipComponent,
+        LoanDeedProprietorshipComponent,
+        KaloSuchiBorrowerPgCompanyComponent,
+        CorporateGuaranteeComponent,
+    ],
   })
 export class MegaModule { }
