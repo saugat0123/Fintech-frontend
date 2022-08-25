@@ -24,13 +24,12 @@
                            [customerLoanId]="customerLoanId">
         </app-hypo-of-stock>
         <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
-                           [customerLoanId]="customerLoanId"></app-hypo-of-stock>
-        <app-loan-deed-institution-private-limited *ngSwitchCase="cadTemplate.LOAN_DEED_INSTITUTION_PRIVATE_LIMITED" [cadData]="cadData"
+                           [customerLoanId]="customerLoanId">
+        </app-loan-deed-company>
+        <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
                                [documentId]="documentId"
                                [customerLoanId]="customerLoanId">
-
         </app-loan-deed-company>
-                               [customerLoanId]="customerLoanId"></app-loan-deed-institution-private-limited>
         <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
                                      [customerLoanId]="customerLoanId">
@@ -63,8 +62,7 @@
                               [customerLoanId]="customerLoanId">
         </app-loan-deed-individual>
         <app-loan-deed-partnership *ngSwitchCase="cadTemplate.LOAN_DEED_PARTNERSHIP" [cadData]="cadData"
-                              [customerLoanId]="customerLoanId"></app-loan-deed-individual>
-
+                              [customerLoanId]="customerLoanId">
         </app-loan-deed-partnership>
         <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
                                      [cadData]="cadData" [documentId]="documentId"
@@ -161,7 +159,6 @@
         <app-assignment-of-receivables-proprietorship *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLES_PROPRIETORSHIP"
                                                       [cadData]="cadData" [documentId]="documentId"
                                                       [customerLoanId]="customerLoanId">
-
         </app-assignment-of-receivables-proprietorship>
         <app-supplementary-agreement-partnership *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_PARTNERSHIP"
                                              [cadData]="cadData" [documentId]="documentId"

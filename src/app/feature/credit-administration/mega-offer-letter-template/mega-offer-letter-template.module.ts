@@ -70,6 +70,7 @@ const COMPONENTS = [
         PersonalOfferLetterRenewalsComponent,
         CustomInputComponent,
         CustomInputComponent,
+        AgricultureOfferLetterComponent,
     ],
     imports: [
         ThemeModule,
