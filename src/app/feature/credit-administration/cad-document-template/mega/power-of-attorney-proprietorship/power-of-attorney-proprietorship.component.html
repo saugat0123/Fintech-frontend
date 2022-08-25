@@ -1,0 +1,231 @@
+<div class="container nep text-justify nepaliFont">
+    <form (ngSubmit)="submit()" [formGroup]="PowerOfAttorneyProprietorship" class="nep" id="PowerOfAttorneyProprietorshipPrint">
+        <h5 class="text-center"><strong>वारेसनामा</strong></h5>
+        <h5 class="text-center"><u><strong>(Power of Attorney)</strong></u></h5>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    लिखितम प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४
+                    बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग <input class="form-field form-control-sm nepaliFont disable-print"
+                                                                                    name="bankBranchName"
+                                                                                    formControlName="bankBranchName"
+                                                                                    placeholder=""
+                                                                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('bankBranchName').value ? PowerOfAttorneyProprietorship.get('bankBranchName').value  : '========='}}</strong></span>
+                    कार्यालयमा मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                                           name="date"
+                                           formControlName="date"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('date').value ? PowerOfAttorneyProprietorship.get('date').value  : '========='}}</strong></span>
+                    मा दर्ता भई प्रा.फ.र.न <input class="form-field form-control-sm nepaliFont disable-print"
+                                                 name="registerNum"
+                                                 formControlName="registerNum"
+                                                 placeholder=""
+                                                 type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('registerNum').value ? PowerOfAttorneyProprietorship.get('registerNum').value  : '========='}}</strong></span>
+                    कायम भई, <input class="form-field form-control-sm nepaliFont disable-print"
+                                    name="tempAddDistrict"
+                                    formControlName="tempAddDistrict"
+                                    placeholder=""
+                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('tempAddDistrict').value ? PowerOfAttorneyProprietorship.get('tempAddDistrict').value  : '========='}}</strong></span>
+                    जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
+                                   name="guarantorMunicipalityOrVdc"
+                                   formControlName="guarantorMunicipalityOrVdc"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyProprietorship.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                    गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                               name="guarantorWardNo"
+                                               formControlName="guarantorWardNo"
+                                               placeholder=""
+                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorWardNo').value ? PowerOfAttorneyProprietorship.get('guarantorWardNo').value  : '========='}}</strong></span>
+                    स्थित ठेगाना रहेको श्री <input class="form-field form-control-sm nepaliFont disable-print"
+                                                   name="guarantorName"
+                                                   formControlName="guarantorName"
+                                                   placeholder=""
+                                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
+                    का प्रोप्राईटर <input class="form-field form-control-sm nepaliFont disable-print"
+                                         name="guarantorGrandFatherName"
+                                         formControlName="guarantorGrandFatherName"
+                                         placeholder=""
+                                         type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyProprietorship.get('guarantorGrandFatherName').value ? PowerOfAttorneyProprietorship.get('guarantorGrandFatherName').value  : '========='}}</b></span>
+
+                    को नाति
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarrantorFatherName"
+                           formControlName="guarrantorFatherName"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyProprietorship.get('guarrantorFatherName').value ? PowerOfAttorneyProprietorship.get('guarrantorFatherName').value  : '========='}}</b></span>
+                    को छोरा
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorDistrict"
+                           formControlName="guarantorDistrict"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyProprietorship.get('guarantorDistrict').value ? PowerOfAttorneyProprietorship.get('guarantorDistrict').value  : '========='}}</b></span>
+
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorMunicipalityOrVdc"
+                           formControlName="guarantorMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyProprietorship.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyProprietorship.get('guarantorMunicipalityOrVdc').value  : '========='}}</b></span>
+                    गा.वि.स/न.पा.वडा नं.
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorWardNo"
+                           formControlName="guarantorWardNo"
+                           placeholder=""
+                           type="text" size="2"/><span class="print-only nepaliFont"><b>{{PowerOfAttorneyProprietorship.get('guarantorWardNo').value ? PowerOfAttorneyProprietorship.get('guarantorWardNo').value  : '========='}}</b></span>
+                    बस्ने वर्ष
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorAge"
+                           formControlName="guarantorAge"
+                           placeholder=""
+                           type="text"
+                           size="3"/>
+                    को <input class="form-field form-control-sm nepaliFont disable-print"
+                              name="guarantorName"
+                              formControlName="guarantorName"
+                              placeholder=""
+                              type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
+                    आगे म/हामी ऋणीको अनुरोधमा सेञ्चुरी कमर्सियल बैंक लिमिटेड बाट  मेरो/हाम्रो नाममा जारी भएको
+                    मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                                name="date"
+                                formControlName="date"
+                                placeholder=""
+                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('date').value ? PowerOfAttorneyProprietorship.get('date').value  : '========='}}</strong></span>
+                    गतेको ऋण स्वीकृति पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा
+                    <strong>रु.  </strong>
+                    <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmtInWord', 'loanAmount')"
+                                      [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
+                    <span class="print-only nepaliFont"><b>{{PowerOfAttorneyProprietorship.get('loanAmount').value ? PowerOfAttorneyProprietorship.get('loanAmount').value  : '========='}}</b></span>/-
+                    <strong> (अक्षेरुपी</strong>
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           formControlName="loanAmtInWord"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('loanAmtInWord').value ? PowerOfAttorneyProprietorship.get('loanAmtInWord').value  : '========='}}</strong></span>
+                    <strong>रुपैयाँ मात्र)</strong>
+                    स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको
+                    (Account Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील,
+                    ववित्तीय उपकरण आदि हामी ऋणीको हकमा बुझीलिन सेञ्चुरी कमर्सियल बैंक लिमिटेड
+                    (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ) लाई यसै लिखतबाट
+                    मेरो/हाम्रो वारेस नियुक्त गरेका छौं र वारेसका हैसियतले सेञ्चुरी कमर्सियल बैंक  लिमिटेडले
+                    देहायको कुनै वा सबै कार्य गर्न सक्नेछ:
+
+
+                <div class="col-md-12 text-justify" style="break-before: auto">
+
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><span class="timesNewRoman">(</span>१<span class="timesNewRoman">)</span></td>
+                            <td>म<span class="timesNewRoman">/</span>हामीलाई रकम भुक्तानी गर्नुपर्ने दायित्व भएका कुनैपनि व्यक्ति, व्यक्तिहरु, फर्म, कम्पनी,
+                                सरकारी, गै¥हसरकारी कार्यालय, संघसंस्थामा सम्पर्क गरी मेरो<span class="timesNewRoman">/</span>हाम्रो तर्फबाट रकम असुल गर्न वा प्राप्त गर्न,</td>
+                        </tr>
+                        <tr>
+                            <td><span class="timesNewRoman">(</span>२<span class="timesNewRoman">)</span></td>
+                            <td>मेरो<span class="timesNewRoman">/</span>हाम्रो हकमा प्राप्त गरेको चेक, ड्राफ्ट वा यस्तै वित्तीय उपकरणहरुमा हस्ताक्षर गर्न, पृष्ठांकन गर्न, प्राप्त रकम वापत
+                                मेरो<span class="timesNewRoman">/</span>हाम्रो तर्फबाट प्राप्ति रसिद <span class="timesNewRoman">(acknowledgement receipt)</span> जारी गर्न,</td>
+                        </tr>
+                        <tr>
+                            <td><span class="timesNewRoman">(</span>३<span class="timesNewRoman">)</span></td>
+                            <td>मेरो<span class="timesNewRoman">/</span>हाम्रो हकमा प्राप्त गरेको रकम मेरो<span class="timesNewRoman">/</span>हाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,</td>
+                        </tr>
+                        <tr>
+                            <td><span class="timesNewRoman">(</span>४<span class="timesNewRoman">)</span></td>
+                            <td> मेरो<span class="timesNewRoman">/</span>हाम्रो हकमा रकम प्राप्त गर्ने सिलसिलामा कुनैपनि सरकारी, गै¥हसरकारी कार्यालयमा प्रतिनिधित्व गर्न,
+                                निवेदन दिन, निवेदन प्रमाणित गर्न, कुनैपनि लिखत गरीदिन र रकम प्राप्त गर्ने सिलसिलामा आईपर्ने सबै कार्य गर्न,</td>
+                        </tr>
+                        <tr>
+                            <td><span class="timesNewRoman">(</span>५<span class="timesNewRoman">)</span></td>
+                            <td>माथि उल्लेख भए अनुसार बैंकले मेरो<span class="timesNewRoman">/</span>हाम्रो नाममा स्वीकृत गरेको कर्जा सुविधाको सांवा, ब्याज, थप ब्याज वा सोही कर्जा सुविधाको
+                                कारणबाट बैंकमा परेको थप दायित्व समेत सम्पूर्ण रकम कलम चुक्ता भुक्तान नभएसम्म यो वारेसनामा वैध रही अरद्धनीय <span class="timesNewRoman">(irrevocable)</span>
+                                हुनेछ र यो वारेसनामा प्रस्तुत गरेपछि मेरो<span class="timesNewRoman">/</span>हाम्रो थप स्वीकृति वा सहमति विना नै म<span class="timesNewRoman">/</span>हामीलाई भुक्तानी दिनुपर्ने रकम वारेस सेञ्चुरी कमर्सियल बैक
+                                लिमिटेड <span class="timesNewRoman">(</span>वा यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधि<span class="timesNewRoman">)</span> लाई भुक्तानी दिन यसै लिखतबाट सम्बन्धित सबैलाई जानकारी गराएका छौं,</td>
+                        </tr>
+                        <tr>
+                            <td><span class="timesNewRoman">(</span>६<span class="timesNewRoman">)</span></td>
+                            <td>यो वारेसनामा दिएको कारणले मात्र मेरो<span class="timesNewRoman">/</span>हाम्रो बैंकप्रतिको दायित्वमा कुनै परिवर्तन हुने छैन र मैले र हामीले बैंकको पक्षमा गरीदिएको कर्जा
+                                सुविधा सम्बन्धी लिखतहरुबाट प्राप्त म <span class="timesNewRoman">/</span>हामीबाट बैंकको लेना असुल गर्ने अधिकारमा कुनै असर पर्ने छैन ।</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12 text-justify" style="break-before: auto">
+                    <p>यो वारेसनामा अनुसार मेरो<span class="timesNewRoman">/</span>हाम्रो वारेस सेञ्चुरी कमर्सियल बैंक लिमिटेडले गरेको कुनैपनि काम कारवाही म<span class="timesNewRoman">/</span>हामी
+                        आफैंले गरे सरह मानिनेछ र यो वारेसनामा अनुसार कुनैपनि काम कारवाही गर्दा वारेस सेन्चुरी कमर्सियल बैक लिमिटेडले कुनै लागत
+                        वा खर्च व्यहोर्न परेमा त्यस्तो लागत वा खर्च सेञ्चुरी कमर्सियल बैंक लिमिटेडलाई म <span class="timesNewRoman">/</span> हामीले सोधभर्ना दिई बैंकलाई सबै किसिमको
+                        दायित्वबाट उन्मुक्ति <span class="timesNewRoman">(indemnify)</span> गर्ने प्रतिवद्धता सहित सेञ्चुरी कमर्सियल बैंक लिमिटेडमा बसी देहायका
+                        साक्षीको रोहवरमा यो वारेसनामामा सहीछाप गरीदियौं ।</p>
+                </div>
+
+                <div class="col-md-12 text-justify" style="break-before: auto">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td colspan="2"><u><strong>वारेसनामा लेखीदिनेको</strong></u></td>
+                        </tr>
+                    </table>
+                </div>
+
+                नाम <span class="timesNewRoman">:</span> <input class="form-field form-control-sm nepaliFont size16 disable-print"
+                                                                name="guarantorName"
+                                                                formControlName="guarantorName"
+                                                                placeholder=""
+                                                                type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
+                <br>
+                ठेगाना <span class="timesNewRoman">:</span>  <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                    formControlName="guarantorDistrict"
+                                                                    placeholder=""
+                                                                    type="text"size="33"/><br>
+                आधिकारिक प्रतिनिधिको नाम <span class="timesNewRoman">:</span> <input class="form-field form-control-sm nepaliFont size16 disable-print"
+                                                                                     name="staffName"
+                                                                                     formControlName="staffName"
+                                                                                     placeholder=""
+                                                                                     type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('staffName').value ? PowerOfAttorneyProprietorship.get('staffName').value  : '========='}}</strong></span>
+
+
+                <br>
+                <br>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6> साक्षीः</h6>
+                        <p>
+                            १.
+                            <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text"size="28">
+                            <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('witnessDistrict1').value ? PowerOfAttorneyProprietorship.get('witnessDistrict1').value  : '========='}}</strong></span>
+
+                        </p>
+                        <p>
+                            २.
+                            <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict2" formControlName="witnessDistrict2" placeholder="" type="text"size="28">
+                            <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('witnessDistrict2').value ? PowerOfAttorneyProprietorship.get('witnessDistrict2').value  : '========='}}</strong></span>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        ईति सम्वत् २०
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenYear" formControlName="docWrittenYear" placeholder="" type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('docWrittenYear').value ? PowerOfAttorneyProprietorship.get('docWrittenYear').value  : '========='}}</strong></span>
+                        साल
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('docWrittenMonth').value ? PowerOfAttorneyProprietorship.get('docWrittenMonth').value  : '========='}}</strong></span>
+                        महिना
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text"size="2"/>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('docWrittenDay').value ? PowerOfAttorneyProprietorship.get('docWrittenDay').value  : '========='}}</strong></span>
+                        गते रोज
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenWeek" formControlName="docWrittenWeek" placeholder="" type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('docWrittenWeek').value ? PowerOfAttorneyProprietorship.get('docWrittenWeek').value  : '========='}}</strong></span>
+                        शुभम् ।
+                    </div>
+                </div>
+
+                <div class="row disable-print">
+                    <div class="col-md-12 text-right">
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="PowerOfAttorneyProprietorshipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="PowerOfAttorneyProprietorshipPrint" class="mr-2 custom-color" >Print</button>
+                        <button nbButton status="success" (click)="submit()">Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
