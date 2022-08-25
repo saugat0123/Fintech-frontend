@@ -37,7 +37,7 @@ export namespace MegaOfferLetterConst {
           return 'Retail Loan Against Insurance';
         case MegaOfferLetterConst.OFFER_LETTER_CONSENT:
           return 'Offer Letter Consent';
-         case MegaOfferLetterConst.PERSONAL_OFFER_LETTER_RENEWALS:
+        case MegaOfferLetterConst.PERSONAL_OFFER_LETTER_RENEWALS:
           return 'Personal Offer Letter';
           case MegaOfferLetterConst.LOAN_AGAINST_SHARE:
               return 'Loan Against Share';
