@@ -334,6 +334,19 @@
 
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <nb-checkbox class="title"
+                                                 (change)="checkChecked($event.target.checked,'subsidizedLoan')"
+                                                 [checked]="subsidizedLoanChecked"><strong style="font-size: 16px">Subsidy</strong>
+                                    </nb-checkbox>
+                                    <input *ngIf="subsidizedLoanChecked"
+                                           [ngClass]="{ 'is-invalid': (submitted) && formControls.subsidizedLoan.errors }"
+                                           class="form-control"
+                                           (change)="calculateInterestRate()"
+                                           formControlName="subsidizedLoan" id="subsidizedLoan"
+                                           name="subsidizedLoan"
+                                           placeholder="Subsidy Rate" type="number" appDecimalNumber/>
+                                </div>
                                 <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="existingDateOfExpiry"><strong>Existing Date of
@@ -430,7 +443,7 @@
                                                            type="number"
                                                            [(ngModel)]="interestLimit" formControlName="interestRate"
                                                            type="number"
-                                                           (input)="checkRepaymentMode(); checkCustomRepaymentMode()">
+                                                           (change)="checkRepaymentMode(); checkCustomRepaymentMode(); calculateInterestRate()">
                                                 </td>
                                                 <td>
                                                     <input rows="1" class="form-control mt-1 mb-1" type="text"

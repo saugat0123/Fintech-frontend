@@ -220,7 +220,8 @@ export class ProposalComponent implements OnInit {
         this.loanFormService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             if (this.withInLoanId) {
-                this.parentProposedAmount = JSON.parse(this.customerGroupLoanList.filter(d => d.id === Number(this.withInLoanId))[0].proposal.data).proposedLimit;
+                this.parentProposedAmount = JSON.parse(this.customerGroupLoanList.filter(d =>
+                    d.id === Number(this.withInLoanId))[0].proposal.data).proposedLimit;
             }
             this.customerGroupLoanList
                 .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
@@ -239,9 +240,11 @@ export class ProposalComponent implements OnInit {
         });
 
         this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
+            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value) +
+                Number(this.proposalForm.get('subsidizedLoan').value)).toFixed(2)));
         this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
+            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value) +
+                Number(this.proposalForm.get('subsidizedLoan').value)).toFixed(2)));
         // this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
         this.checkInstallmentAmount();
         this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => {
@@ -640,6 +643,7 @@ export class ProposalComponent implements OnInit {
                     this.subsidizedLoanChecked = false;
                     this.proposalForm.get('subsidizedLoan').setValue(null);
                     this.proposalForm.get('subsidyLoanType').setValue(null);
+                    this.calculateInterestRate();
                 }
                 break;
             case 'swapChVar':
@@ -898,11 +902,11 @@ export class ProposalComponent implements OnInit {
     }
 
   calculateInterestRate() {
-    const baseRate = Number(this.proposalForm.get('baseRate').value);
-    const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
-    const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
-    const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
-    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+      const baseRate = Number(this.proposalForm.get('baseRate').value);
+      const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
+      const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
+      const iRate = (baseRate + premiumRateOnBaseRate - discountRate );
+      return this.proposalForm.get('interestRate').setValue(Number(iRate).toFixed(2));
   }
 
   onChange() {
