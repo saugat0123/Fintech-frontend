@@ -101,6 +101,9 @@
         <app-letter-of-set-off-proprietorship *ngSwitchCase="cadTemplate.LETTER_OF_SET_OFF_PROPRIETORSHIP"
                                            [cadData]="cadData" [documentId]="documentId"
                                            [customerLoanId]="customerLoanId"></app-letter-of-set-off-proprietorship>
+        <app-supplementary-agreement-company *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_COMPANY"
+                                      [cadData]="cadData" [documentId]="documentId"
+                                      [customerLoanId]="customerLoanId"></app-supplementary-agreement-company>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
