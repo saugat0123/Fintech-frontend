@@ -113,7 +113,7 @@ export class GuarantorComponent implements OnInit {
     const formArray1 = this.form.get('guarantorDetails') as FormArray;
     formArray1.controls.forEach((control, index) => {
       if (ObjectUtil.isEmpty(control.get('guarantorType').value)) {
-        this.controlValidation(['citizenNumber', 'dateOfBirth', 'fatherName', 'grandFatherName',
+        this.controlValidation(['citizenNumber', 'dateOfBirth', 'fatherName',
           'guarantorLegalDocumentAddress' , 'issuedPlace', 'issuedYear', 'panNumber', 'registrationNumber', 'relationship'],
             false, index);
       }
@@ -192,8 +192,7 @@ export class GuarantorComponent implements OnInit {
         Validators.required
       ],
       grandFatherName: [
-        ObjectUtil.setUndefinedIfNull(data.grandFatherName),
-        Validators.required
+        ObjectUtil.setUndefinedIfNull(data.grandFatherName)
       ],
       relationship: [
         ObjectUtil.setUndefinedIfNull(data.relationship),
@@ -396,7 +395,7 @@ export class GuarantorComponent implements OnInit {
     switch (guaranteeName) {
       case 'personalGuarantor':
         this.controlValidation(['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName',
-          'grandFatherName', 'relationship'], true, i);
+          'relationship'], true, i);
         this.controlValidation(['registrationNumber', 'panNumber'], false, i);
         if (!ObjectUtil.isEmpty(this.customerInfo)) {
           if (this.customerInfo.customerType === 'INSTITUTION') {
@@ -406,7 +405,7 @@ export class GuarantorComponent implements OnInit {
         break;
       case 'corporateGuarantor':
         this.controlValidation(['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName',
-          'grandFatherName', 'relationship'], false, i);
+          'relationship'], false, i);
         this.controlValidation(['registrationNumber', 'panNumber'], true, i);
         break;
     }
