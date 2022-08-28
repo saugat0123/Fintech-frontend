@@ -84,7 +84,8 @@ import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-
     SupplementaryAgreementPartnershipComponent,
     VehicleLoanDeedCompanyComponent,
     ConsentLetterIndividualComponent,
-      GeneralLetterOfHypothecationCompanyComponent
+      GeneralLetterOfHypothecationCompanyComponent,
+      AssignmentOfReceivablesProprietorshipComponent,
     ],
   imports: [
     CommonModule,
