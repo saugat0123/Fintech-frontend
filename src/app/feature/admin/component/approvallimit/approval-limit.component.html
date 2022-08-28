@@ -73,6 +73,7 @@
                         <th>S.N</th>
                         <th>Loan</th>
                         <th>Amount</th>
+                        <th>Renewable Amount</th>
                         <th>Authorities</th>
                         <th>Approval Type</th>
                         <th>Action</th>
@@ -88,6 +89,9 @@
                             {{allList?.loanCategory?.name}}
                         </td>
                         <td class="d-flex justify-content-end pr-1">Rs. {{allList.amount | currencyFormatter}}</td>
+                        <td>
+                            Rs. {{allList.renewalAmount === null ? 'N/A' : allList.renewalAmount | currencyFormatter }}
+                        </td>
                         <td>{{allList?.authorities?.roleName}}</td>
                         <td>{{allList.loanApprovalType}}</td>
                         <td>
