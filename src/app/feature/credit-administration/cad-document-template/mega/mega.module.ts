@@ -41,6 +41,7 @@ import { SupplementaryAgreementCompanyComponent } from './supplementary-agreemen
 import {AssignmentOfReceivablesProprietorshipComponent} from './assignment-of-receivables-proprietorship/assignment-of-receivables-proprietorship.component';
 import { SupplementaryAgreementPartnershipComponent } from './supplementary-agreement-partnership/supplementary-agreement-partnership.component';
 import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-letter-company.component';
+import {VehicleLoanDeedCompanyComponent} from './vehicle-loan-deed-company/vehicle-loan-deed-company.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -75,10 +76,12 @@ import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-le
     PowerOfAttorneyCompanyComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
-    PowerOfAttorneyPartnershipComponent, PowerOfAttorneyProprietorshipComponent,
+    PowerOfAttorneyPartnershipComponent,
+    PowerOfAttorneyProprietorshipComponent,
     SupplementaryAgreementCompanyComponent,
     ConsentLetterCompanyComponent,
     SupplementaryAgreementPartnershipComponent,
+    VehicleLoanDeedCompanyComponent,
     ],
   imports: [
     CommonModule,
@@ -125,7 +128,8 @@ import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-le
         SupplementaryAgreementCompanyComponent,
         AssignmentOfReceivablesProprietorshipComponent,
         SupplementaryAgreementPartnershipComponent,
-        ConsentLetterCompanyComponent
+        ConsentLetterCompanyComponent,
+        VehicleLoanDeedCompanyComponent
   ],
   })
 export class MegaModule { }
