@@ -180,6 +180,11 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-general-letter-of-hypothecation-company>
+        <app-general-letter-of-hypothecation-propietorship
+                *ngSwitchCase="cadTemplate.GENERAL_LETTER_OF_HYPOTHECATION_PROPIETORSHIP" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-general-letter-of-hypothecation-propietorship>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
