@@ -42,6 +42,7 @@ import {AssignmentOfReceivablesProprietorshipComponent} from './assignment-of-re
 import { SupplementaryAgreementPartnershipComponent } from './supplementary-agreement-partnership/supplementary-agreement-partnership.component';
 import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-letter-company.component';
 import {VehicleLoanDeedCompanyComponent} from './vehicle-loan-deed-company/vehicle-loan-deed-company.component';
+import { ConsentLetterIndividualComponent } from './consent-letter-individual/consent-letter-individual.component';
 import { VehicleLoanDeedIndividualComponent } from './vehicle-loan-deed-individual/vehicle-loan-deed-individual.component';
 
 @NgModule({
@@ -83,6 +84,7 @@ import { VehicleLoanDeedIndividualComponent } from './vehicle-loan-deed-individu
     ConsentLetterCompanyComponent,
     SupplementaryAgreementPartnershipComponent,
     VehicleLoanDeedCompanyComponent,
+    ConsentLetterIndividualComponent,
     VehicleLoanDeedIndividualComponent,
     ],
   imports: [
@@ -132,6 +134,7 @@ import { VehicleLoanDeedIndividualComponent } from './vehicle-loan-deed-individu
         SupplementaryAgreementPartnershipComponent,
         ConsentLetterCompanyComponent,
         VehicleLoanDeedCompanyComponent,
+        ConsentLetterIndividualComponent,
         VehicleLoanDeedIndividualComponent
   ],
   })
