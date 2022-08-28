@@ -29,8 +29,9 @@
     <nb-card-body>
         <div class="form-group">
             <form [formGroup]="companyInfoFormGroup" class="form-horizontal">
-               <nb-tabset fullWidth>
-                   <nb-tab tabTitle="Company Detail">
+                <div class="col-md-2" style="margin-left: 40%; margin-right: 60%">
+                    <p class="text-center title">COMPANY DETAIL</p>
+                </div>
                        <div>
                            <div class="row">
                                <div class="col-md-4" *ngIf="microCustomer">
@@ -1832,7 +1833,6 @@
 
 <!--                           </table>-->
 <!--                       </ng-container>-->
-                   </nb-tab>
                  <!--  new tab detail start from here-->
 <!--                   <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">-->
 <!--                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha)</em></em>-->
@@ -1982,12 +1982,11 @@
 <!--&lt;!&ndash;                           <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>&ndash;&gt;-->
 <!--                   </nb-tab>-->
                    <!--micro customer detail-->
-                   <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
+                   <div *ngIf="microCustomer" class="col-md-2" style="margin-left: 40%; margin-right: 60%">
+                       <p class="text-center title">MICRO CUSTOMER</p>
                        <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'" #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
                        <app-micro-individual-form *ngIf="microCustomerType == 'DIRECT'" #microIndividualFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
-
-                   </nb-tab>
-               </nb-tabset>
+                   </div>
             </form>
         </div>
     </nb-card-body>
