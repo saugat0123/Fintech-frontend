@@ -55,7 +55,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6" *ngIf="model.loanCategory.isRenewable">
+                    <div class="col-md-6" *ngIf="isRenewable">
                         <label for="amount">Renewal Amount</label>
                         <input type="text" class="form-control" placeholder="amount" id="renewalAmount"
                                [(ngModel)]="model.renewalAmount" name="renewalAmount" #approvalAmount="ngModel"
