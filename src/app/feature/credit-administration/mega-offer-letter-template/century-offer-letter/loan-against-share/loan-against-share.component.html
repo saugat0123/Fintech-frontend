@@ -5,7 +5,8 @@
              nbSpinnerMessage="Saving Loan against Share....."
              id="{{offerLetterConst?.LOAN_AGAINST_SHARE}}">
         <nb-card-body>
-            <form [formGroup]="form">
+            <form [formGroup]="form" class="nep">
+                <div class="container text-justify nep nb-card-body__viewFull" style="width: 100%">
                 <h6 class="text-center">ऋण स्वीकृति पत्र</h6>
                 <p class="text-right"> मिति:
                     <input class="form-fields form-control-sm nepaliFont col-3 disable-print"
@@ -15,67 +16,94 @@
                     <span class="print-only nepaliFont">{{form?.get('date')?.value}}</span>
                 </p>
                 <div class="row text-center">
-                    <p><strong>चलानी नं. <input class="form-fields form-control-sm nepaliFont" formControlName="chalaniNo"
+                    <p><strong>चलानी नं. <input class="form-fields form-control-sm nepaliFont disable-print" formControlName="chalaniNo"
                                              name="chalaniNo"
-                                             type="text"></strong></p>
+                                             type="text"></strong>
+                        <span class="print-only nepaliFont">{{form?.get('chalaniNo')?.value}}</span>
+                    </p>
                 </div>
                 <div class="row text-center">
-                    <p>श्री<input class="form-fields form-control-sm nepaliFont" formControlName="shree" name="shree" type="text"></p>
+                    <p>श्री <input class="form-fields form-control-sm nepaliFont disable-print" formControlName="shree" name="shree" type="text">
+                        <span class="print-only nepaliFont">{{form?.get('shree')?.value}}</span>
+                    </p>
                 </div>
                 <div class="row">
-                    <p>स्थायी ठेगाना<input class="form-fields form-control-sm nepaliFont"
+                    <p>स्थायी ठेगाना <input class="form-fields form-control-sm nepaliFont disable-print"
                                        formControlName="permanentAddress"
                                        name="permanentAddress"
                                        placeholder=""
-                                           type="text"/>जिल्ला<input class="form-fields form-control-sm nepaliFont"
+                                           type="text"/><span class="print-only nepaliFont">{{form?.get('permanentAddress')?.value}}</span>
+                        जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
                                                                       formControlName="district"
                                                                        name="district"
                                                                        placeholder=""
-                                                                       type="text"/>म.न.पा./उप.म.न.पा./न.पा./गा.वि.स वडा नं.<input class="form-fields form-control-sm nepaliFont"
-                                           formControlName="vdcMuncipality" name="vdcMuncipality" placeholder="" type="text"/>हालको ठेगाना<input class="form-fields form-control-sm nepaliFont"
+                                                                       type="text"/><span class="print-only nepaliFont">{{form?.get('district')?.value}}</span>
+                        म.न.पा./उप.म.न.पा./न.पा./गा.वि.स वडा नं.<input class="form-fields form-control-sm nepaliFont disable-print"
+                                           formControlName="vdcMuncipality" name="vdcMuncipality" placeholder="" type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('vdcMuncipality')?.value}}</span>
+                        हालको ठेगाना<input class="form-fields form-control-sm nepaliFont disable-print"
                                            formControlName="temporaryAddress"
                                            name="temporaryAddress"
                                            placeholder=""
-                                           type="text"/>प्रदेश न.<input class="form-fields form-control-sm nepaliFont"
+                                           type="text"/><span class="print-only nepaliFont">{{form?.get('temporaryAddress')?.value}}</span>
+                        प्रदेश न.<input class="form-fields form-control-sm nepaliFont disable-print"
                                                                          formControlName="provinanceNo"
                                                                          name="provinanceNo"
                                                                          placeholder=""
-                                                                         type="text"/>जिल्ला<input class="form-fields form-control-sm nepaliFont"
+                                                                         type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('provinanceNo')?.value}}</span>
+                        जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
                                                                                                      formControlName="provinanceDistrict"
                                                                                                      name="provinanceDistrict"
                                                                                                      placeholder=""
-                                                                                                     type="text"/>म.न.पा./उप.म.न.पा./न.पा./गाउपालिका वडा नं.<input class="form-fields form-control-sm nepaliFont"
+                                                                                                     type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('provinanceDistrict')?.value}}</span>
+                        म.न.पा./उप.म.न.पा./न.पा./गाउपालिका वडा नं.<input class="form-fields form-control-sm nepaliFont disable-print"
                                                                                                      formControlName="provinanceMuncipality"
                                                                                                      name="provinanceMuncipality"
                                                                                                      placeholder=""
-                                                                                                     type="text"/>टोल/गाउ<input class="form-fields form-control-sm nepaliFont"
+                                                                                                     type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('provinanceMuncipality')?.value}}</span>
+                        टोल/गाउ <input class="form-fields form-control-sm nepaliFont disable-print"
                                                                                                       formControlName="provinanceTole"
                                                                                                      name="provinanceTole"
                                                                                                      placeholder=""
-                                                                                                     type="text"/>घर नं.<input class="form-fields form-control-sm nepaliFont"
+                                                                                                     type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('provinanceTole')?.value}}</span>
+                        घर नं.<input class="form-fields form-control-sm nepaliFont disable-print"
                                                                                                      formControlName="provinanceHouseNo"
                                                                                                      name="provinanceHouseNo"
                                                                                                      placeholder=""
-                                                                                                     type="text"/>सडक/मार्ग<input class="form-fields form-control-sm nepaliFont"
+                                                                                                     type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('provinanceHouseNo')?.value}}</span>
+                        सडक/मार्ग <input class="form-fields form-control-sm nepaliFont disable-print"
                                                                                                      formControlName="road"
                                                                                                      name="road"
                                                                                                      placeholder=""
-                                                                                                     type="text"/> </p>
+                                                                                                     type="text"/>
+                        <span class="print-only nepaliFont">{{form?.get('road')?.value}}</span>
+                    </p>
                 </div>
                 <div class="row text-center">
-                    <p>ईमेल: <input class="form-fields form-control-sm" formControlName="email"
+                    <p>ईमेल: <input class="form-fields form-control-sm disable-print" formControlName="email"
                                                 name="email"
-                                                type="text"/></p>
+                                                type="text"/>
+                    <span class="print-only">{{form?.get('email')?.value}}</span>
+                    </p>
                 </div>
                 <div class="row text-center">
-                    <p>सम्पर्क टेलिफोन/मोवाइल नं. <input class="form-fields form-control-sm nepaliFont" formControlName="contactPhoneNo"
+                    <p>सम्पर्क टेलिफोन/मोवाइल नं. <input class="form-fields form-control-sm nepaliFont disable-print" formControlName="contactPhoneNo"
                                     name="contactPhoneNo"
-                                    type="text"></p>
+                                    type="text">
+                    <span class="print-only nepaliFont">{{form?.get('contactPhoneNo')?.value}}</span>
+                    </p>
                 </div>
                 <div class="row text-center">
-                    <p>फ्याक्स नं./पोट बक्स नं. <input class="form-fields form-control-sm nepaliFont" formControlName="faxNo"
+                    <p>फ्याक्स नं./पोट बक्स नं. <input class="form-fields form-control-sm nepaliFont disable-print" formControlName="faxNo"
                                                          name="faxNo"
-                                                         type="text"></p>
+                                                         type="text">
+                    <span class="print-only nepaliFont">{{form?.get('faxNo')?.value}}</span>
+                    </p>
                 </div>
                 <br>
                 <div>
@@ -91,32 +119,42 @@
                          *ngFor="let controls of form.get('loanAgainstShare')['controls']; let i=index"
                          formArrayName="loanAgainstShare">
                         <div class="col-md-12" [formGroupName]="i">
-                            <i (click)="removeloanAgainstShare(i)" size="small" class="float-right fa fa-trash"
+                            <i (click)="removeloanAgainstShare(i)" size="small" class="float-right fa fa-trash disable-print"
                                *ngIf="form.get('loanAgainstShare')['length']>1"></i>
                             <br><br>
-                            <div class="row">
-                                <table class="table table-bordered" >
+                            <div>
+                                <table class="table table-bordered table-responsive-md" >
                                     <tr>
-                                        <td class="col-md-1"><strong>१.{{i + 1 | nepaliNumber: 'unicode'}})</strong></td>
-                                        <td class="col-md-4"><strong>कर्जा सुविधाको प्रकार (Facility Type)</strong></td>
-                                        <td><select class="form-control text-dark col-md-7" formControlName="facilityType">
+                                        <td><strong>१.{{i + 1 | nepaliNumber: 'unicode'}})</strong></td>
+                                        <td><strong>कर्जा सुविधाको प्रकार (Facility Type)</strong></td>
+                                        <td><select class="form-control text-dark disable-print" formControlName="facilityType">
                                             <option [value]="null" hidden>Select Facility Type</option>
-                                            <option value="demandLoan">शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)</option>
-                                            <option value="overdraftLoan">शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)</option>
-                                        </select></td>
+                                            <option value="शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)">
+                                                शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)
+                                            </option>
+                                            <option value="शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)">
+                                                शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)</option>
+                                        </select>
+                                            <span class="print-only">{{controls?.get('facilityType')?.value}}</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>क)</td>
                                         <td>स्वीकृत सिमा (Sanctioned Limit )</td>
-                                        <td>अधिकतम <strong>रु</strong><input class="form-fields form-control-sm nepaliFont"
+                                        <td>अधिकतम <strong>रु</strong>
+                                             <input class="form-fields form-control-sm nepaliFont disable-print"
                                         formControlName="adhiktamAmount"
                                         name="adhiktamAmount"
                                         placeholder=""
-                                        type="text"/>(अक्षरेपी<input class="form-fields form-control-sm nepaliFont"
+                                        type="text"/>
+                                            <span class="print-only nepaliFont">{{controls?.get('adhiktamAmount')?.value}}</span>
+                                            (अक्षरेपी <input class="form-fields form-control-sm nepaliFont disable-print"
                                         formControlName="amountInWord"
                                         name="amountInWord"
                                         placeholder=""
-                                        type="text"/>रुपैंया) सम्म मात्र ।</td>
+                                        type="text"/>
+                                            <span class="print-only nepaliFont">{{controls?.get('amountInWord')?.value}}</span>
+                                            रुपैंया) सम्म मात्र ।</td>
                                     </tr>
                                     <tr>
                                         <td>ख)</td>
@@ -127,16 +165,20 @@
                                         <td>ग)</td>
                                         <td>स्वीकृत कर्जा सुविधा उपभोग गन पाउने अवस्था र सीमा (Drawdown)</td>
                                         <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि
-                                            स्वीकृत कर्जा तथा सुविधा वा सुरक्षणमा दिईएको साधारण शेयरको<input class="form-fields form-control-sm nepaliFont"
+                                            स्वीकृत कर्जा तथा सुविधा वा सुरक्षणमा दिईएको साधारण शेयरको <input class="form-fields form-control-sm nepaliFont disable-print"
                                             formControlName="sadharanShare"
                                             name="sadharanShare"
                                             placeholder=""
-                                            type="text"/>कार्य दिनको औसत मूल्य वा साधारण शेयरको अन्तिम कारोबारको मूल्यमध्ये जुन कम हुन्छ सो रकमको आधारमा बढीमा
-                                            <input class="form-fields form-control-sm nepaliFont"
+                                            type="text"/>
+                                            <span class="print-only nepaliFont">{{controls?.get('sadharanShare')?.value}}</span>
+                                            कार्य दिनको औसत मूल्य वा साधारण शेयरको अन्तिम कारोबारको मूल्यमध्ये जुन कम हुन्छ सो रकमको आधारमा बढीमा
+                                             <input class="form-fields form-control-sm nepaliFont disable-print"
                                             formControlName="maximumAmount"
                                             name="maximumAmount"
                                             placeholder=""
-                                            type="text"/>प्रतिशत तर कर्जा प्रवाह कुनै पनि बखत स्वीकृत सीमा भन्दा बढि हुनेछैन ।
+                                            type="text"/>
+                                            <span class="print-only nepaliFont">{{controls?.get('maximumAmount')?.value}}</span>
+                                            प्रतिशत तर कर्जा प्रवाह कुनै पनि बखत स्वीकृत सीमा भन्दा बढि हुनेछैन ।
                                             तर धितो सुरक्षणमा रहने संस्थापक शेयरको हकमा मुल्यांकन गर्दा साधारण शेयरको पछिल्लो १८०
                                             कार्य दिनको औसत मूल्यको ५० प्रतिशत वा संस्थापक शेयरको अन्तिम कारोबारको मूल्यमध्ये जुन
                                             कम हुन्छ सो रकमको आधारमा बढीमा <strong>५०</strong> प्रतिशत रकमसम्म कर्जा प्रवाह गर्न सकिने छ ।
@@ -145,11 +187,13 @@
                                     <tr>
                                         <td>घ)</td>
                                         <td>स्विकृत सीमाको समाप्ति मिति (Limit Expiry Date)</td>
-                                        <td>स्वीकृत शेयर धितो कर्जाको सीमा अवधि<input class="form-fields form-control-sm nepaliFont"
+                                        <td>स्वीकृत शेयर धितो कर्जाको सीमा अवधि <input class="form-fields form-control-sm nepaliFont disable-print"
                                         formControlName="limitExpiryDate"
                                         name="limitExpiryDate"
                                         placeholder=""
-                                        type="text">वर्ष सम्मका लागि मात्र हुनेछ । उल्लेखित सीमा अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्नेछ ।
+                                        type="text">
+                                            <span class="print-only nepaliFont">{{controls?.get('limitExpiryDate')?.value}}</span>
+                                            वर्ष सम्मका लागि मात्र हुनेछ । उल्लेखित सीमा अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्नेछ ।
                                             तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा
                                              नदिर्ई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</td>
                                     </tr>
@@ -162,11 +206,13 @@
                                     <tr>
                                         <td>च)</td>
                                         <td>व्याज (Interest)</td>
-                                        <td>बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप<input class="form-fields form-control-sm nepaliFont"
+                                        <td>बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप <input class="form-fields form-control-sm nepaliFont disable-print"
                                         formControlName="interestAmount"
                                         placeholder=""
                                         name="interestAmount"
-                                        type="text"/> प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग
+                                        type="text"/>
+                                            <span class="print-only nepaliFont">{{controls?.get('interestAmount')?.value}}</span>
+                                            प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग
                                             गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम
                                             दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुतmा गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी
                                             लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ ।
@@ -177,19 +223,23 @@
                                 </div>
                         </div>
                     </div>
-                    <button (click)="addEmptyLoanAgainstShareForm()" nbButton size="small" status="info" type="Button">
+                    <button (click)="addEmptyLoanAgainstShareForm()" nbButton size="small" status="info" type="Button" class="disable-print">
                         थप्नुहोस् (ADD+)..
                     </button>
                         <br>
-                        <div><p>औषत आधार दर (Average Base Rate)<input class="form-fields form-control-sm nepaliFont"
+                        <div><p>औषत आधार दर (Average Base Rate) <input class="form-fields form-control-sm nepaliFont disable-print"
                         formControlName="avarageBaseRate"
                         name="avarageBaseRate"
                         placeholder=""
-                        type="text">प्रतिशत<input class="form-fields form-control-sm nepaliFont"
+                        type="text">
+                            <span class="print-only nepaliFont">{{form?.get('avarageBaseRate')?.value}}</span>
+                            प्रतिशत <input class="form-fields form-control-sm nepaliFont disable-print"
                         formControlName="pratisat"
                         name="pratisat"
                         placeholder=""
-                        type="text">महिना</p></div>
+                        type="text">
+                            <span class="print-only nepaliFont">{{form?.get('pratisat')?.value}}</span>
+                            महिना</p></div>
                     <br>
                     <div>
                         <h6><strong><u>२.दस्तुर तथा शुल्कहरु (Fees & Charges):</u></strong></h6>
@@ -197,11 +247,13 @@
                             <tr>
                                 <td>क)</td>
                                 <td>प्रक्रिया शुल्क (Administrative Charge)</td>
-                                <td>स्वीकृत कर्जा रकमको<input class="form-fields form-control-sm nepaliFont"
+                                <td>स्वीकृत कर्जा रकमको <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="approvedKarjaAmount"
                                 name="approvedKarjaAmount"
                                 placeholder=""
-                                type="text">प्रतिशतका दरले प्रक्रिया शुल्क लाग्नेछ ।</td>
+                                type="text">
+                                    <span class="print-only nepaliFont">{{form?.get('approvedKarjaAmount')?.value}}</span>
+                                    प्रतिशतका दरले प्रक्रिया शुल्क लाग्नेछ ।</td>
                             </tr>
                             <tr>
                                 <td>ख)</td>
@@ -211,11 +263,13 @@
                             <tr>
                                 <td>ग)</td>
                                 <td>Loan swap charge</td>
-                                <td>बाकी कर्जा बख्यौताको<input class="form-fields form-control-sm nepaliFont"
+                                <td>बाकी कर्जा बख्यौताको <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="remainingLoan"
                                 name="remainingLoan"
                                 placeholder=""
-                                type="text">% मात्र</td>
+                                type="text">
+                                    <span class="print-only nepaliFont">{{form?.get('remainingLoan')?.value}}</span>
+                                    % मात्र</td>
                             </tr>
                             <tr>
                                 <td>घ)</td>
@@ -233,48 +287,61 @@
                         </div>
                         <div class="row">
                             <div class="col-md-1 text-center">क)</div>
-                            <div class="col-md-11">बैकलाई मान्यहुने शेयरहरु धितो सुरक्षणको<input class="form-fields form-control-sm nepaliFont"
+                            <div class="col-md-11">बैकलाई मान्यहुने शेयरहरु धितो सुरक्षणको <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="dhitoSurachankoName"
                             name="dhitoSurachankoName"
                             placeholder=""
-                            type="text">को नाममा रहेको शेयर) उपलब्ध गराए अनुसार स्वीकृत कर्जा सिमा भित्र रहने गरी कर्जा सुबिधा उपभोग गर्न पाउने छ ।</div>
+                            type="text">
+                                <span class="print-only nepaliFont">{{form?.get('dhitoSurachankoName')?.value}}</span>
+                                को नाममा रहेको शेयर) उपलब्ध गराए अनुसार स्वीकृत कर्जा सिमा भित्र रहने गरी कर्जा सुबिधा उपभोग गर्न पाउने छ ।</div>
 
                         </div>
                         <div class="row">
                             <div class="col-md-1 text-center">ख)</div>
-                            <div class="col-md-11">श्री<input class="form-fields form-control-sm nepaliFont"
+                            <div class="col-md-11">श्री <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="sriName"
                             name="sriName"
                             placeholder=""
-                            type="text"/>ले रु<input class="form-fields form-control-sm nepaliFont"
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('sriName')?.value}}</span>
+                                ले रु <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="amount"
                             name="amount"
                             placeholder=""
-                            type="text">/- (अक्षरेप्ाि <input class="form-fields form-control-sm nepaliFont"
+                            type="text">
+                                <span class="print-only nepaliFont">{{form?.get('amount')?.value}}</span> /- (अक्षरेप्ाि <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="amountInWords"
                             name="amountInwords"
                             placeholder=""
-                            type="text"/>रुपैंया मात्र) तिर्न कबुल गरेकोे प्रतिज्ञा पत्र <strong>(Promissory Note)</strong></div>
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('amountInWords')?.value}}</span>
+                                रुपैंया मात्र) तिर्न कबुल गरेकोे प्रतिज्ञा पत्र <strong>(Promissory Note)</strong></div>
                         </div>
                         <div class="row">
                         <div class="col-md-1 text-center">ग)</div>
-                            <div class="col-md-11">रु<input class="form-fields form-control-sm nepaliFont"
+                            <div class="col-md-11">रु <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="loanDeedAmount"
                             name="loanDeedAmount"
                             placeholder=""
-                            type="text"/>/- (अक्षरेप्ाि <input class="form-fields form-control-sm nepaliFont"
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('loanDeedAmount')?.value}}</span>
+                                /- (अक्षरेप्ाि <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="rupaiyaMatra"
                             name="rupaiyaMatra"
                             placeholder=""
-                            type="text"/>रुपैंया मात्र) तिन को कर्जाको लिखत <strong>(Loan Deed)</strong>। </div>
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('rupaiyaMatra')?.value}}</span>
+                                रुपैंया मात्र) तिन को कर्जाको लिखत <strong>(Loan Deed)</strong>। </div>
                         </div>
                         <div class="row">
                             <div class="col-md-1 text-center">घ)</div>
-                            <div class="col-md-11">श्री<input class="form-fields form-control-sm nepaliFont"
+                            <div class="col-md-11">श्री <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="personalGuarantorName"
                             name="personalGuarantorName"
                             placeholder=""
-                            type="text">को तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी <strong>(Personal Guarantee)</strong>।</div>
+                            type="text">
+                                <span class="print-only nepaliFont">{{form?.get('personalGuarantorName')?.value}}</span>
+                                को तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी <strong>(Personal Guarantee)</strong>।</div>
                         </div>
                         <div class="row">
                             <div class="col-md-1 text-center">ङ)</div>
@@ -312,11 +379,13 @@
                         <div class="row">
                         <div class="col-md-11">उल्लेखित अधिविकर्ष कर्जा/वा बैकिङ्ग सुविधाको पुनरावलोकन ऋण/कर्जा कार्य–संपादन सन्तोषजनक रहेको
                             खण्डमा कर्जा प्रवाह गरेको एक वर्षमा गरिने छ । यदि कार्यसम्पादन सन्तोषजनक पाईएको खण्डमा कर्जा सुविधाको (संस्थापक शेयरको
-                            धितोमा प्रबाह भएको कर्जा सुविधा बाहेक)अवधि थप<input class="form-fields form-control-sm nepaliFont"
+                            धितोमा प्रबाह भएको कर्जा सुविधा बाहेक)अवधि थप <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="extendedTime"
                             name="extendedTime"
                             placeholder=""
-                            type="text">वर्षको लागि बढाउन सकिनेछ , अन्यथा ऋणीले सम्पूर्ण बक्यौता रकम राफसाफ गर्नु पर्नेछ ।</div>
+                            type="text">
+                            <span class="print-only nepaliFont">{{form?.get('extendedTime')?.value}}</span>
+                            वर्षको लागि बढाउन सकिनेछ , अन्यथा ऋणीले सम्पूर्ण बक्यौता रकम राफसाफ गर्नु पर्नेछ ।</div>
                         </div>
                         <h6>६.<strong><u>निरीक्षण :</u></strong></h6>
                         <div class="row">
@@ -619,101 +688,134 @@
                         <p>यस स्विकृति पत्र (सम्झौता पत्र) का कुनै पनि पक्षले अर्का पक्षलाई पत्र वा फ्याक्सको माध्यमबाट
                             निम्न लिखित ठेगानामा पत्राचार गर्नुपर्नेछ ।</p>
                         <br>
-                        <div class="row">
+                        <div>
                         <table class="table table-bordered">
                             <tr>
-                                <td class="col-md-5">
+                                <td>
                                 <h6><strong>बैंक:</strong></h6>
                                 <p><strong>सेञ्चुरी कमर्सियल बैंक लिमिटेड,</strong></p><br>
                                 <p>रजिष्टर्ड कार्यालय पुतलिसडक, काठमाण्डौ ।</p><br>
-                                <p>पोष्ट वक्स नं.<input class="form-fields form-control-sm nepaliFont"
+                                <p>पोष्ट वक्स नं. <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="postBoxNumber"
                                 name="postBoxNumber"
                                 placeholder=""
-                                type="text"/>,काठमाण्डौ नेपाल ।</p><br>
+                                type="text"/>
+                                    <span class="print-only nepaliFont">{{form?.get('postBoxNumber')?.value}}</span>
+                                    ,काठमाण्डौ नेपाल ।</p><br>
                                 <p><strong>मार्फत:</strong></p><br>
-                                <p><input class="form-fields form-control-sm nepaliFont"
+                                <p><input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="marfat"
                                 name="marfat"
                                 placeholder=""
-                                type="text"/>लिमिटेड,</p><br>
-                                <p>शाखा कार्यालय,<input class="form-fields form-control-sm nepaliFont"
+                                type="text"/>
+                                    <span class="print-only nepaliFont">{{form?.get('marfat')?.value}}</span>
+                                    लिमिटेड,</p><br>
+                                <p>शाखा कार्यालय, <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="sakhaKaryalaya"
                                 name="sakhaKaryalaya"
                                 placeholder=""
-                                type="text"/>।</p><br>
-                                <p>टेलिफोन नं.<input class="form-fields form-control-sm nepaliFont"
+                                type="text"/>
+                                    <span class="print-only nepaliFont">{{form?.get('sakhaKaryalaya')?.value}}</span>।</p><br>
+                                <p>टेलिफोन नं. <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="telephoneNumber"
                                 name="telephoneNumber"
                                 placeholder=""
-                                type="text"/></p><br>
-                                <p>फ्याक्स नं.<input class="form-fields form-control-sm nepaliFont"
+                                type="text"/><span class="print-only nepaliFont">{{form?.get('telephoneNumber')?.value}}</span></p><br>
+                                <p>फ्याक्स नं. <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="faxNumber2"
                                 name="faxNumber2"
                                 placeholder=""
-                                type="text"></p>
+                                type="text">
+                                    <span class="print-only nepaliFont">{{form?.get('faxNumber2')?.value}}</span>
+                                </p>
                                 </td>
-                                <td class="col-md-7">
+                                <td>
                                     <h6><strong>ऋणी:</strong></h6>
-                                    <p>श्री<input class="form-fields form-control-sm nepaliFont"
+                                    <p>श्री <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="name2"
                                     name="name2"
                                     placeholder=""
-                                    type="text"/></p><br>
-                                    <p>स्थाई ठेगाना:<input class="form-fields form-control-sm nepaliFont"
+                                    type="text"/>
+                                        <span class="print-only nepaliFont">{{form?.get('name2')?.value}}</span>
+                                    </p><br>
+                                    <p>स्थाई ठेगाना: <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="permanentAddress2"
                                     name="permanentAddress2"
                                     placeholder=""
-                                    type="text"/> जिल्ला<input class="form-fields form-control-sm nepaliFont"
+                                    type="text"/>
+                                        <span class="print-only nepaliFont">{{form?.get('permanentAddress2')?.value}}</span>
+                                        जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="district2"
                                     name="district2"
-                                    type="text"> म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('district2')?.value}}</span>
+                                        म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं. <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="vdcMuncipalityWordNo"
                                     name="vdcMuncipalityWordNo"
                                     placeholder=""
-                                    type="text"></p><br>
-                                    <p>हालको ठेगाना:<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('vdcMuncipalityWordNo')?.value}}</span>
+                                    </p><br>
+                                    <p>हालको ठेगाना: <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="halkoThegana"
                                     name="halkoThegana"
                                     placeholder=""
-                                    type="text">प्रदेश/प्रदेश नं<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('halkoThegana')?.value}}</span>
+                                        प्रदेश/प्रदेश नं <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="pradeshPradeshNo"
                                     name="pradeshPradeshNo"
                                     placeholder=""
-                                    type="text"></p>
-                                    <p>जिल्ला<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('pradeshPradeshNo')?.value}}</span>
+                                    </p>
+                                    <p>जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="zila"
                                     name="zila"
                                     placeholder=""
-                                    type="text"></p>
-                                    <p>म.न.पा./उपम.न.पा./न.पा./गाउपालिका वडा नं.<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('zila')?.value}}</span>
+                                    </p>
+                                    <p>म.न.पा./उपम.न.पा./न.पा./गाउपालिका वडा नं. <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="mahanagarpalikaGaupalika"
                                     name="mahanagarpalikaGaupalika"
                                     placeholder=""
-                                    type="text"/></p>
-                                    <p>टोल/गाउ<input class="form-fields form-control-sm nepaliFont"
+                                    type="text"/>
+                                        <span class="print-only nepaliFont">{{form?.get('mahanagarpalikaGaupalika')?.value}}</span>
+                                    </p>
+                                    <p>टोल/गाउ <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="toleGaau"
                                     name="toleGaau"
-                                    type="text"> घर नं.<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('toleGaau')?.value}}</span>
+                                        घर नं. <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="gharNO"
                                     name="gharNo"
                                     placeholder=""
-                                    type="text"></p>
-                                    <p>सडक/मार्ग<input class="form-fields form-control-sm nepaliFont"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('gharNO')?.value}}</span>
+                                    </p>
+                                    <p>सडक/मार्ग <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="sadakMarga"
                                     name="sadakMarga"
                                     placeholder=""
-                                    type="text"></p><br>
-                                    <p>ईमेल:<input class="form-fields form-control-sm"
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('sadakMarga')?.value}}</span>
+                                    </p><br>
+                                    <p>ईमेल: <input class="form-fields form-control-sm disable-print"
                                     formControlName="email2"
                                     name="email2"
                                     placeholder=""
-                                    type="text"/></p><br>
-                                    <p>सम्पर्क टेलिफोन/मोवाइल नं. :<input class="form-fields form-control-sm nepaliFont"
+                                    type="text"/>
+                                        <span class="print-only">{{form?.get('email2')?.value}}</span>
+                                    </p><br>
+                                    <p>सम्पर्क टेलिफोन/मोवाइल नं.: <input class="form-fields form-control-sm nepaliFont disable-print"
                                     formControlName="samparkMobileNo"
                                     name="samparkMobileNo"
                                     placeholder=""
-                                    type="text"></p>
+                                    type="text">
+                                        <span class="print-only nepaliFont">{{form?.get('samparkMobileNo')?.value}}</span>
+                                    </p>
                                 </td>
                             </tr>
                         </table>
@@ -727,29 +829,37 @@
                         <div class="row col-md-12">
                             <div class="col-md-6">
                             <p>..........................................................</p>
-                            <p>नाम <input class="form-fields form-control-sm nepaliFont"
+                            <p>नाम <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="name3"
                             name="name3"
                             placeholder=""
-                            type="text"></p>
-                            <p>पद<input class="form-fields form-control-sm nepaliFont"
+                            type="text">
+                                <span class="print-only nepaliFont">{{form?.get('name3')?.value}}</span>
+                            </p>
+                            <p>पद <input class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="post"
                             name="post"
                             placeholder=""
-                            type="text"></p>
+                            type="text">
+                                <span class="print-only nepaliFont">{{form?.get('post')?.value}}</span>
+                            </p>
                             </div>
                             <div class="text-right col-md-6">
                             <p>.........................................................</p>
-                            <p>नाम <input class="form-fields form-control-sm nepaliFont"
+                            <p>नाम <input class="form-fields form-control-sm nepaliFont disable-print"
                                 formControlName="name4"
                                 name="name4"
                                 placeholder=""
-                                type="text"></p>
-                                <p>पद <input class="form-fields form-control-sm nepaliFont"
+                                type="text">
+                                <span class="print-only nepaliFont">{{form?.get('name4')?.value}}</span>
+                            </p>
+                                <p>पद <input class="form-fields form-control-sm nepaliFont disable-print"
                                  formControlName="post2"
                                  name="post2"
                                  placeholder=""
-                                 type="text"></p>
+                                 type="text">
+                                    <span class="print-only nepaliFont">{{form?.get('post2')?.value}}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -759,97 +869,261 @@
                         <p>पुतलीसडक, काठमाण्डौं,</p>
                         <p>नेपाल</p><br>
                         <p>महोदय,</p><br>
-                        <P>सेञ्चुरी कमर्सियल बैंक लि.ले मेरो/हाम्रो नाममा जारी गरेको मिति <input class="form-fields form-control-sm nepaliFont"
+                        <P>सेञ्चुरी कमर्सियल बैंक लि.ले मेरो/हाम्रो नाममा जारी गरेको मिति <input class="form-fields form-control-sm nepaliFont disable-print"
                         formControlName="garekoMiti"
                         name="garekoMiti"
                         placeholder=""
-                        type="text"/>को ऋण स्विकृति पत्र राम्रोसंग पढीवाची सुनी
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('garekoMiti')?.value}}</span>
+                            को ऋण स्विकृति पत्र राम्रोसंग पढीवाची सुनी
                              वुझी मेरो/हाम्रो मनोमान राजी खुसीसंग सो पत्रमा उल्लेखित
                             सम्पूर्ण शर्त तथा बन्देजहरु म/हामीलाई पूर्ण मन्जुर छ भनी सहीछाप गरि दिएको छु/छौं । उपरोक्त
                             बमोजिम बैंकबाट प्राप्त हुने ऋण कर्जा तथा सुविधा लगायत अन्य दायित्व तिर्न बुझाउन यस मेरो÷हाम्रो
                             पूर्ण मन्जुरी रहेकोले बैंकले जारी गरेको यस स्वीकृति पत्रमा स्विकृति (Acceptance) जनाई सोको
                             प्रतिलिपिमा सही छाप गरी तपाई बैंकलाई दिएँ/दियौं र सोको सक्कल एक प्रति पत्र बुझिलिए/लियौंं ।</P><br>
                         <td>................................</td>
-                        <p>श्री<input class="form-fields form-control-sm nepaliFont form-group"
+                        <div class="row">
+                        <p>श्री <input class="form-fields form-control-sm nepaliFont form-group disable-print"
                         formControlName="name5"
                         name="name5"
                         placeholder=""
-                        type="text"></p>
-<!--                        <P>स्थाई ठेगाना:<input class="form-fields form-control-sm nepaliFont"-->
-<!--                        formControlName="permanentAddress2"-->
-<!--                        name="permanentAddress2"-->
-<!--                        placeholder=""-->
-<!--                        type="text">जिल्ला<input class="form-fields form-control-sm nepaliFont form-inline form-group"-->
-<!--                            formControlName="zila2"-->
-<!--                            name="zila2"-->
-<!--                            placeholder=""-->
-<!--                        type="text">म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.<input class="form-fields form-control-sm nepaliFont form-inline form-group"-->
-<!--                        formControlName="gabishaWardNo"-->
-<!--                        name="gabishaWardNo"-->
-<!--                        placeholder=""-->
-<!--                        type="text">हालको ठेगाना:<input class="form-fields form-control-sm nepaliFont form-inline form-group"-->
-<!--                        formControlName="recentAddress"-->
-<!--                        name="recentAddress"-->
-<!--                        placeholder=""-->
-<!--                        type="text">प्रदेश/प्रदेश नं</p>-->
+                        type="text">
+                            <span class="print-only nepaliFont">{{form?.get('name5')?.value}}</span>
+                        </p>
+                        </div>
+                        <div class="row">
+                        <p>स्थाई ठेगाना: <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="permanentAddress3"
+                        name="permanentAddress3"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('permanentAddress3')?.value}}</span>
+                            जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
+                            formControlName="zila3"
+                            name="zila3"
+                            placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('zila3')?.value}}</span>
+                            म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.<input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="gabishaWardNo2"
+                        name="gabishaWardNo2"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('gabishaWardNo2')?.value}}</span>
+                            हालको ठेगाना: <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="recentAddress2"
+                        name="recentAddress2"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('recentAddress2')?.value}}</span>
+                            प्रदेश/प्रदेश नं <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="pradeshProvinanceNo1"
+                        name="pradeshProvinanceNo1"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('pradeshProvinanceNo1')?.value}}</span>
+                            जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="districtZila"
+                        name="districtZila"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('districtZila')?.value}}</span>
+                            म.न.पा./उपम.न.पा./न.पा./गाउपालिका वडा नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="nagarpalikaGaupalika3"
+                        name="nagarpalikaGaupalika3"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('nagarpalikaGaupalika3')?.value}}</span>
+                            टोल/गाउ <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="toleGaau4"
+                        name="toleGaau4"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('toleGaau4')?.value}}</span>
+                            घर नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="homeNo2"
+                        name="homeNo2"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('homeNo2')?.value}}</span>
+                        </p>
+                        </div>
+                        <div class="row">
+                            <p>सडक/मार्ग <input class="form-fields form-control-sm nepaliFont disable-print"
+                            formControlName="roadWay1"
+                            name="roadWay1"
+                            placeholder=""
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('roadWay1')?.value}}</span>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p> ईमेल: <input class="form-fields form-control-sm disable-print"
+                            formControlName="email3"
+                            name="email3"
+                            placeholder=""
+                            type="text"/>
+                                <span class="print-only">{{form?.get('email3')?.value}}</span>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p>सम्पर्क टेलिफोन/मोवाइल नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                            formControlName="samparkaMobileNo"
+                            name="samparkaMobileNo"
+                            placeholder=""
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('samparkaMobileNo')?.value}}</span>
+                            </p>
+                        </div>
+                        <p>दस्तखत..............................</p>
+                        <br><br>
+                        <p><strong>साक्षी</strong></p><br>
+                        <div class="row">
+                            <div class="col-md-1">१।</div>
+                            <div class="col-md-11"> <input class="form-fields form-control-sm nepaliFont disable-print"
+                            formControlName="saakshi1"
+                            name="saakshi1"
+                            placeholder=""
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('saakshi1')?.value}}</span>
+                            </div>
+                            <br><br>
+                            <div class="col-md-1">२।</div>
+                            <div class="col-md-11"> <input class="form-fields form-control-sm nepaliFont disable-print"
+                            formControlName="saakshi2"
+                            name="saakshi2"
+                            placeholder=""
+                            type="text"/>
+                                <span class="print-only nepaliFont">{{form?.get('saakshi2')?.value}}</span>
+                            </div>
+                        </div>
+                        <br><br>
+                        <p class="text-left"> मिति:
+                             <input class="form-fields form-control-sm nepaliFont col-3 disable-print"
+                                   formControlName="date2"
+                                   placeholder=""
+                                   type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('date2')?.value}}</span>
+                            गते रोज <input class="form-fields form-control-sm nepaliFont col-3 disable-print"
+                            formControlName="gateyRoj"
+                            name="gateyRoj"
+                            placeholder=""
+                            type="text"/><span class="print-only nepaliFont">{{form?.get('gateyRoj')?.value}}</span> शुभम् ।
+                        </p>
+                        <br>
+                        <p><u>ब्यक्तिगत जमानीकर्ताको तर्फवाट:</u></p>
+                        <p>यस कर्जा प्रस्तावपत्रमा उल्लेखित कर्जा सुविधा सीमा र सम्पुर्ण शर्त बन्देजहरु म/हामी लाई मान्य
+                            भएकोले विना शर्त स्वीकार गर्ने घोषणा सहित पालन गर्ने प्रतिवद्धता व्यक्त गर्दछु /छौ ।</p>
+                        <p>जमानीकर्ताको नाम: <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="jamanikartakoName"
+                        name="jamanikartakoName"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('jamanikartakoName')?.value}}</span>
+                        </p><br>
+                        <p>हस्ताक्षरः ..................................</p>
+                        <div class="row">
+                            <table class="text-center table table-bordered col-md-4">
+                                <tr>
+                                    <td style="height: 150px">दांया</td>
+                                    <td style="height: 150px">बांयाँ</td>
+                                </tr>
 
-
-
-                          ...........
-                        हालको ठेगाना :.................प्रदेश/प्रदेश नं ........ जिल्ला ...........
-                        म.न.पा./उपम.न.पा./न.पा./गाउपालिका वडा नं. ..... टोल/गाउ ............... घर नं. ..............
-                        सडक/मार्ग .................
-                        ईमेल ः .....................................
-                        सम्पर्क टेलिफोन÷मोवाइल नं.ः ..................
-                        दस्तखत....................
-
-
-                        साक्षी
-
-                        १।
-                        .........................................................................................................................
-
-                        २।
-                        .........................................................................................................................
-
+                            </table>
+                        </div>
                     </div>
-
+                    <br>
+                    <div class="row col-md-12">
+                        <p>स्थाईठेगाना: <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="permanentAddress7"
+                        name="permanentAddress7"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('permanentAddress7')?.value}}</span>
+                            जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="district7"
+                        name="district7"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('district7')?.value}}</span>
+                            म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="mahanagarpalika7"
+                        name="mahanagarpalika7"
+                        placeholder=""
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('mahanagarpalika7')?.value}}</span>
+                            हालको ठेगाना <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="recentAddress7"
+                        name="recentAddress7"
+                            type="text"/>प
+                            <span class="print-only nepaliFont">{{form?.get('recentAddress7')?.value}}</span>
+                            ्रदेश/प्रदेश.नं <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="pradeshNo7"
+                        name="pradeshNo7"
+                        type="text">
+                            <span class="print-only nepaliFont">{{form?.get('pradeshNo7')?.value}}</span>
+                            जिल्ला <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="pradeshDistrict7"
+                        name="pradeshDistrict7"
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('pradeshDistrict7')?.value}}</span>
+                            म.न.पा./उपम.न.पा./न.पा./गाउपालिका.वडा.नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="pradeshMahanagarpalika7"
+                        name="pradeshMahanagarpalika7"
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('pradeshMahanagarpalika7')?.value}}</span>
+                            टोल/गाउ <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="pradeshToleGaau7"
+                        name="pradeshToleGaau"
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('pradeshToleGaau7')?.value}}</span>
+                            घर नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                        formControlName="pradeshGharNo7"
+                        name="pradeshGharNo7"
+                        type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('pradeshGharNo7')?.value}}</span>
+                            सडक/मार्ग <input class="form-fields form-control-sm nepaliFont disable-print"
+                                                     formControlName="sadakMarga7"
+                                                     name="sadakMarga7"
+                                                     type="text"/>
+                            <span class="print-only nepaliFont">{{form?.get('sadakMarga7')?.value}}</span>
+                        </p>
+                    </div>
+                    <br>
+                    <p>ईमेल: <input class="form-fields form-control-sm disable-print"
+                    formControlName="email7"
+                    name="email7"
+                    type="text">
+                        <span class="print-only">{{form?.get('email7')?.value}}</span>
+                    </p>
+                    <br>
+                    <p>सम्पर्क टेलिफोन/मोवाइल नं. <input class="form-fields form-control-sm nepaliFont disable-print"
+                    formControlName="contactNumber7"
+                    name="contactNumber7"
+                    type="text">
+                    <span class="print-only nepaliFont">{{form?.get('contactNumber7')?.value}}</span>
+                    </p>
+                    <br>
+                    <p>मिति: <input class="form-fields form-control-sm nepaliFont disable-print"
+                    formControlName="date7"
+                    name="date7"
+                    type="text">
+                    <span class="print-only nepaliFont">{{form?.get('date7')?.value}}</span>
+                    </p>
                 </div>
-
-                <!--                <div class="row form-group">-->
-<!--                 <p><strong>१. ऋण/कर्जा तथा बैंकिङ्ग सुविधाको विवरण :</strong></p>-->
-<!--               <table class="table table-bordered">-->
-<!--                   <tr>-->
-<!--                       <td style="width: 5%"><strong>१.१)</strong></td>-->
-<!--                       <td><strong>कर्जा सुविधाको प्रकार (Facility Type)</strong></td>-->
-<!--                       <td><select class="form-control text-dark">-->
-<!--                           <option>Select Loan Type</option>-->
-<!--                           <option>शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)</option>-->
-<!--                           <option>शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)</option>-->
-<!--                       </select></td>-->
-<!--                   </tr>-->
-<!--                   <tr>-->
-<!--                       <td>क)</td>-->
-<!--                       <td>स्वीकृत सिमा (Sanctioned Limit)</td>-->
-<!--                       <td>अधिकतम <strong>रु</strong><input class="form-fields form-control-sm nepaliFont"-->
-<!--                                                            formControlName="amount"-->
-<!--                                                            name="adhiktamRs"-->
-<!--                                                            placeholder=""-->
-<!--                                                            type="text"/>अक्षरेपी<input class="form-fields from-control-sm nepaliFont"-->
-<!--                                                            formControlName="amountInWord"></td>-->
-<!--                   </tr>-->
-<!--               </table>-->
-
-<!--                </div>-->
                 <div class="row">
-                    <div class="col-md-12 text-right">
-                        <button ngxPrint printSectionId="{{offerLetterConst?.LOAN_AGAINST_SHARE}}">Print</button>
+                    <div class="col-md-12 text-right disable-print">
                         <button (click)="submit()" nbButton status="success" type="submit">Save</button>
                     </div>
                 </div>
+                </div>
             </form>
-<button ngxPrint printSectionId="{{offerLetterConst?.LOAN_AGAINST_SHARE}}"></button>
         </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button [useExistingCss]="true"
+            class="mb-4 btn btn-primary float-right disable-print"
+            nbButton ngxPrint printSectionId="{{offerLetterConst?.LOAN_AGAINST_SHARE}}">Print</button>
+        </nb-card-footer>
     </nb-card>
     </div>
 

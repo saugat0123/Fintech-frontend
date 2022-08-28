@@ -47,7 +47,7 @@ export class LoanAgainstShareComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
-                private nepPercentWordPipe: NepaliPercentWordPipe,) {
+                private nepPercentWordPipe: NepaliPercentWordPipe) {
     }
 
     ngOnInit() {
@@ -113,7 +113,37 @@ export class LoanAgainstShareComponent implements OnInit {
             post2: [undefined],
             garekoMiti: [undefined],
             name5: [undefined],
-            shree: [undefined]
+            shree: [undefined],
+            permanentAddress3: [undefined],
+            zila3: [undefined],
+            gabishaWardNo2: [undefined],
+            recentAddress2: [undefined],
+            pradeshProvinanceNo1: [undefined],
+            districtZila: [undefined],
+            nagarpalikaGaupalika3: [undefined],
+            toleGaau4: [undefined],
+            homeNo2: [undefined],
+            roadWay1: [undefined],
+            email3: [undefined],
+            samparkaMobileNo: [undefined],
+            saakshi1: [undefined],
+            saakshi2: [undefined],
+            date2: [undefined],
+            gateyRoj: [undefined],
+            jamanikartakoName: [undefined],
+            permanentAddress7: [undefined],
+            district7: [undefined],
+            mahanagarpalika7: [undefined],
+            recentAddress7: [undefined],
+            pradeshNo7: [undefined],
+            pradeshDistrict7: [undefined],
+            pradeshMahanagarpalika7: [undefined],
+            pradeshToleGaau7: [undefined],
+            pradeshGharNo7: [undefined],
+            sadakMarga7: [undefined],
+            email7: [undefined],
+            contactNumber7: [undefined],
+            date7: [undefined]
         });
     }
 
