@@ -23,10 +23,14 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   proposalData;
   ciclData;
   customerCate = CustomerCategory;
+  isAboveTen = false;
+  isBelowTen = false;
+  isWholeSale = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.checkCustomerCategory(this.customerCategory);
     if (!ObjectUtil.isEmpty(this.multiBanking)) {
       this.multiBankingData = JSON.parse(this.multiBanking.data);
       this.checkedData = JSON.parse(this.multiBanking.checkedData);
@@ -36,6 +40,18 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.proposal)) {
       this.proposalData = JSON.parse(this.proposal.data);
+    }
+  }
+
+  checkCustomerCategory(value) {
+    if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+      this.isAboveTen = true;
+    } else if (value === 'SME_UPTO_TEN_MILLION' ||
+        value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
+        value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+      this.isBelowTen = true;
+    } else {
+      this.isWholeSale = true;
     }
   }
 
