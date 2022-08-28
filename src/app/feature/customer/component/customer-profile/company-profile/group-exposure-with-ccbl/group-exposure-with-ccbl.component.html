@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+    <div class="col-md-12" *ngIf="isAboveTen">
         <div class="form-group">
             <label for="detailInformation"><b>DETAIL INFORMATION</b></label>
             <ckeditor id="detailInformation" formControlName="detailInformation"
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div class="col-md-12" *ngIf="customerInfo?.customerCategory?.toString() === 'SANA_BYABASAYI'">
+    <div class="col-md-12" *ngIf="isSana || isBelowTen">
         <div class="form-group">
             <label for="detailInformation"><b>DETAIL OF SECURITY HELD FOR GROUP EXPOSURE</b></label>
             <ckeditor id="securityHeld" formControlName="securityHeld"
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div class="col-md-12" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+    <div class="col-md-12" *ngIf="customerInfo?.customerType === 'INSTITUTION' && (isAboveTen || isWholeSale) ">
         <div class="form-group">
             <label for="outstandingOverdue"><b>Outstanding Overdue and R/E collateral</b></label>
             <ckeditor id="outstandingOverdue" formControlName="outstandingOverdue"
