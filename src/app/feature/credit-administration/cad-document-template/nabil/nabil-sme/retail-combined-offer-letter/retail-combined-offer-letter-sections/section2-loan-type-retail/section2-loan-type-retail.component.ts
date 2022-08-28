@@ -19,6 +19,9 @@ export class Section2LoanTypeRetailComponent implements OnInit {
   freeTextVal: any = {};
   shareLoanFreeTextArray: Array<any> = new Array<any>();
   personalLoanFreeTextArray: Array<any> = new Array<any>();
+  mortgageLoanFreeTextArray: Array<any> = new Array<any>();
+  nabilSahayatriLoanFreeTextArray: Array<any> = new Array<any>();
+  personalOverdraftFreeTextArray: Array<any> = new Array<any>();
   tempInformation;
   finalFacility;
   facilityNames: Array<String> = [];
@@ -321,7 +324,8 @@ export class Section2LoanTypeRetailComponent implements OnInit {
       loanAdminFeeInWords: [undefined],
       emiAmountInFigure: [undefined],
       emiAmountInWords: [undefined],
-      totalNumberOfInstallment: [undefined]
+      totalNumberOfInstallment: [undefined],
+      drawingPowerFreeText: [undefined]
     });
   }
   setExistingLoanFormArray() {
@@ -367,6 +371,36 @@ export class Section2LoanTypeRetailComponent implements OnInit {
               !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i]) &&
               !ObjectUtil.isEmpty(this.tempInformation.section2.personalLoanFreeText[i].freeDate) ?
                   this.tempInformation.section2.personalLoanFreeText[i].freeDate : '');
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialData) &&
+          !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm) &&
+          !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+        this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray.forEach((val, i) => {
+          this.form.get(['mortgageCombineLoanFormArray', i, 'drawingPowerFreeText']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section2.mortgageLoanFreeText[i]) &&
+              !ObjectUtil.isEmpty(this.tempInformation.section2.mortgageLoanFreeText[i].drawingPowerFreeText) ?
+                  this.tempInformation.section2.mortgageLoanFreeText[i].drawingPowerFreeText : '');
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialData) &&
+          !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+        this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.forEach((val, i) => {
+          this.form.get(['nabilSahayatriLoanFormArray', i, 'freeText']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section2.nabilSahayatriFreeText[i]) &&
+              !ObjectUtil.isEmpty(this.tempInformation.section2.nabilSahayatriFreeText[i].freeText) ?
+                  this.tempInformation.section2.nabilSahayatriFreeText[i].freeText : '');
+        });
+      }
+      if (!ObjectUtil.isEmpty(this.initialData) &&
+          !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm) &&
+          !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+        this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.forEach((val, i) => {
+          this.form.get(['personalOverdraftLoanFormArray', i, 'freeText']).patchValue(
+              !ObjectUtil.isEmpty(this.tempInformation.section2.personalOverdraftFreeText[i]) &&
+              !ObjectUtil.isEmpty(this.tempInformation.section2.personalOverdraftFreeText[i].freeText) ?
+                  this.tempInformation.section2.personalOverdraftFreeText[i].freeText : '');
         });
       }
     }
@@ -928,8 +962,53 @@ export class Section2LoanTypeRetailComponent implements OnInit {
     this.freeTextVal = {
       loanDemandFreeText: this.shareLoanFreeText(),
       personalLoanFreeText: this.personalLoanFreeText(),
+      mortgageLoanFreeText: this.mortgageLoanFreeText(),
+      nabilSahayatriFreeText: this.nabilSahayatriFreeText(),
+      personalOverdraftFreeText: this.personalOverdraftFreeText(),
     };
     return this.freeTextVal;
+  }
+  personalOverdraftFreeText() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm) &&
+        !ObjectUtil.isEmpty(this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray)) {
+      for (let val = 0; val < this.initialData.personalOverdraftCombinedForm.personalOverdraftCombinedFormArray.length; val++) {
+        const tempFreeText = {
+          freeText: this.form.get(['personalOverdraftLoanFormArray', val, 'freeText']).value ?
+              this.form.get(['personalOverdraftLoanFormArray', val, 'freeText']).value : '',
+        };
+        this.personalOverdraftFreeTextArray.push(tempFreeText);
+      }
+      return this.personalOverdraftFreeTextArray;
+    }
+  }
+  mortgageLoanFreeText() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm) &&
+        !ObjectUtil.isEmpty(this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray)) {
+      for (let val = 0; val < this.initialData.mortgageCombineForm.mortgageCombineLoanFormArray.length; val++) {
+        const tempFreeText = {
+          drawingPowerFreeText: this.form.get(['mortgageCombineLoanFormArray', val, 'drawingPowerFreeText']).value ?
+              this.form.get(['mortgageCombineLoanFormArray', val, 'drawingPowerFreeText']).value : '',
+        };
+        this.mortgageLoanFreeTextArray.push(tempFreeText);
+      }
+      return this.mortgageLoanFreeTextArray;
+    }
+  }
+  nabilSahayatriFreeText() {
+    if (!ObjectUtil.isEmpty(this.initialData) &&
+        !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm) &&
+        !ObjectUtil.isEmpty(this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray)) {
+      for (let val = 0; val < this.initialData.nabilSahayatriCombinedForm.nabilSahayatriCombinedFormArray.length; val++) {
+        const tempFreeText = {
+          freeText: this.form.get(['nabilSahayatriLoanFormArray', val, 'freeText']).value ?
+              this.form.get(['nabilSahayatriLoanFormArray', val, 'freeText']).value : '',
+        };
+        this.nabilSahayatriLoanFreeTextArray.push(tempFreeText);
+      }
+      return this.nabilSahayatriLoanFreeTextArray;
+    }
   }
   shareLoanFreeText() {
     if (!ObjectUtil.isEmpty(this.initialData) &&
