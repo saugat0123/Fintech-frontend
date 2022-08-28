@@ -167,6 +167,10 @@
                                                  [cadData]="cadData" [documentId]="documentId"
                                                  [customerLoanId]="customerLoanId">
         </app-vehicle-loan-deed-company>
+        <app-consent-letter-individual *ngSwitchCase="cadTemplate.CONSENT_LETTER_INDIVIDUAL"
+                                       [cadData]="cadData" [documentId]="documentId"
+                                       [customerLoanId]="customerLoanId">
+        </app-consent-letter-individual>
         <app-kalo-suchi-borrower-individual *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_INDIVIDUAL"
                                          [cadData]="cadData" [documentId]="documentId"
                                          [customerLoanId]="customerLoanId">

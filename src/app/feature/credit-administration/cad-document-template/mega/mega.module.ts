@@ -58,6 +58,7 @@ import {
 } from './supplementary-agreement-partnership/supplementary-agreement-partnership.component';
 import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-letter-company.component';
 import {VehicleLoanDeedCompanyComponent} from './vehicle-loan-deed-company/vehicle-loan-deed-company.component';
+import {ConsentLetterIndividualComponent} from './consent-letter-individual/consent-letter-individual.component';
 import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-individual/kalo-suchi-borrower-individual.component';
 
 @NgModule({
@@ -99,6 +100,7 @@ import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-indivi
         ConsentLetterCompanyComponent,
         SupplementaryAgreementPartnershipComponent,
         VehicleLoanDeedCompanyComponent,
+        ConsentLetterIndividualComponent,
         KaloSuchiBorrowerIndividualComponent,
     ],
     imports: [
@@ -148,8 +150,10 @@ import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-indivi
         SupplementaryAgreementPartnershipComponent,
         ConsentLetterCompanyComponent,
         VehicleLoanDeedCompanyComponent,
+        ConsentLetterIndividualComponent,
         KaloSuchiBorrowerIndividualComponent
     ],
 })
+
 export class MegaModule {
 }
