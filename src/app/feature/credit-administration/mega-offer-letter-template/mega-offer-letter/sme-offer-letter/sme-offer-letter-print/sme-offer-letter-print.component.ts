@@ -4,11 +4,11 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerAp
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-sme-print',
-  templateUrl: './sme-print.component.html',
-  styleUrls: ['./sme-print.component.scss']
+  selector: 'app-sme-offer-letter-print',
+  templateUrl: './sme-offer-letter-print.component.html',
+  styleUrls: ['./sme-offer-letter-print.component.scss']
 })
-export class SmePrintComponent implements OnInit {
+export class SmeOfferLetterPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
   loanHolderInfo;
