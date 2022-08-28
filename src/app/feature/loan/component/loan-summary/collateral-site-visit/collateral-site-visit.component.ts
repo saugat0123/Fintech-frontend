@@ -15,6 +15,7 @@ import {
 })
 export class CollateralSiteVisitComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() securities;
   url;
   securityData;
   siteVisitDocuments = [];
@@ -42,18 +43,31 @@ export class CollateralSiteVisitComponent implements OnInit {
               });
               return value;
           });
-          this.loanDataHolder.loanHolder.securities.forEach((security: Security) => {
-              this.securityDetails.push(security);
-              if (!ObjectUtil.isEmpty(security.collateralSiteVisits)) {
+          // this.loanDataHolder.loanHolder.securities.forEach((security: Security) => {
+          //     this.securityDetails.push(security);
+          //     if (!ObjectUtil.isEmpty(security.collateralSiteVisits)) {
+          //         this.isCollateralSiteVisitPresent = true;
+          //        /* security.collateralSiteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
+          //             this.siteVisitJson.push(JSON.parse(collateralSiteVisit.siteVisitJsonData));
+          //             if (!ObjectUtil.isEmpty(collateralSiteVisit.siteVisitDocuments)) {
+          //                 collateralSiteVisit.siteVisitDocuments.forEach((siteVisitDocument: SiteVisitDocument) => {
+          //                     this.siteVisitDocuments.push(siteVisitDocument);
+          //                 });
+          //             }
+          //         });*/
+          //     }
+          // });
+      }
+      if (!ObjectUtil.isEmpty(this.securities)) {
+          const proposedSecurity = this.securities.map(d => d.id);
+          this.securityDetails =  this.securities
+              .filter((value, index) => proposedSecurity.indexOf(value.id) === index);
+      }
+      if (!ObjectUtil.isEmpty(this.securityDetails)) {
+          this.securityDetails.forEach((val) => {
+              const collateralSiteVisitDetails = val.collateralSiteVisits;
+              if (!ObjectUtil.isEmpty(collateralSiteVisitDetails)) {
                   this.isCollateralSiteVisitPresent = true;
-                 /* security.collateralSiteVisits.forEach((collateralSiteVisit: CollateralSiteVisit) => {
-                      this.siteVisitJson.push(JSON.parse(collateralSiteVisit.siteVisitJsonData));
-                      if (!ObjectUtil.isEmpty(collateralSiteVisit.siteVisitDocuments)) {
-                          collateralSiteVisit.siteVisitDocuments.forEach((siteVisitDocument: SiteVisitDocument) => {
-                              this.siteVisitDocuments.push(siteVisitDocument);
-                          });
-                      }
-                  });*/
               }
           });
       }
