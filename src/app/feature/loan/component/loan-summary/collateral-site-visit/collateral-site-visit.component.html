@@ -1,7 +1,7 @@
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
     <div class="col-md-12">
     <p class="text-center"><strong class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
-    <ng-container *ngFor="let security of loanDataHolder?.securities; let i = index;">
+    <ng-container *ngFor="let security of securityDetails; let i = index;">
         <ng-container *ngFor="let collateral of security?.collateralSiteVisits; let i2 = index;">
             <ng-container *ngIf="security?.securityType === 'LAND_SECURITY' ||
              security?.securityType === 'LAND_BUILDING_SECURITY' || security?.securityType === 'APARTMENT_SECURITY'">
@@ -162,36 +162,38 @@
                         </tr>
                         </tbody>
                     </table>
-                    <label><strong>Location sketch attached.</strong></label>
-                    <table class="table table-bordered table-sm sb-small">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="row col-md-12">
-                                    <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
-                                        <div class="col-md-12 mt-2">
-                                            <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
-                                                 class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
-                                        </div>
-                                    </ng-container>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+              <ng-container *ngFor="let doc of collateral?.siteVisitDocuments;">
+                  <ng-container *ngIf="doc?.docPath">
+                      <label><strong>Location sketch attached.</strong></label>
+                          <table class="table table-bordered table-sm sb-small">
+                              <tbody>
+                              <tr>
+                                  <td>
+                                      <div class="row col-md-12">
+                                              <div class="col-md-12 mt-2">
+                                                  <img [src]="url +'/'+ doc?.docPath + doc?.docName +'.jpg'" alt="{{doc?.docName}}"
+                                                       class="figure-img img-fluid rounded img-medium" style="cursor: pointer"/>
+                                              </div>
+                                      </div>
+                                  </td>
+                              </tr>
+                              </tbody>
+                          </table>
+                  </ng-container>
+              </ng-container>
                     <table class="table text-center">
                         <tbody>
                         <tr>
                             <td><br><br>
                                 ______________________________________<br>
-                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName || ''}}</span><br>
-                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation || ''}}</span><br>
+                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs?.staffRepresentativeName || ''}}</span><br>
+                                Position: <span>{{collateral?.siteVisitJsonData?.staffs?.staffRepresentativeNameDesignation || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
                             <td><br><br>
                                 ______________________________________<br>
-                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeName2 || ''}}</span><br>
-                                Position: <span>{{collateral?.siteVisitJsonData?.staffs[0]?.staffRepresentativeNameDesignation2 || ''}}</span><br>
+                                Name of Inspector: <span>{{collateral?.siteVisitJsonData?.staffs?.staffRepresentativeName2 || ''}}</span><br>
+                                Position: <span>{{collateral?.siteVisitJsonData?.staffs?.staffRepresentativeNameDesignation2 || ''}}</span><br>
                                 Branch/Unit: {{loanDataHolder?.branch?.name}}<br>
                             </td>
                         </tr>
