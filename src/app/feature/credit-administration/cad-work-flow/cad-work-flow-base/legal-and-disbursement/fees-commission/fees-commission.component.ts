@@ -125,6 +125,7 @@ export class FeesCommissionComponent implements OnInit {
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Fee/Commission data!!!'));
             this.responseCadData.emit(res.detail);
+            this.cadData = res.detail;
             this.spinner = false;
         }, error => {
             console.log(error);
