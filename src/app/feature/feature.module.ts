@@ -28,20 +28,22 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
 import { CrgIndividualComponent } from './credit-risk-grading/component/crg-individual/crg-individual.component';
 import { CrgInstitutionComponent } from './credit-risk-grading/component/crg-institution/crg-institution.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
-        imports: [
-            FeatureRoutingModule,
-            ThemeModule,
-            NbAccordionModule,
-            NgxChartsModule,
-            NbSelectModule,
-            NbDatepickerModule.forRoot(),
-            NgSelectModule,
-            DragDropModule,
-            NepaliCalendarModule
-        ],
+    imports: [
+        FeatureRoutingModule,
+        ThemeModule,
+        NbAccordionModule,
+        NgxChartsModule,
+        NbSelectModule,
+        NbDatepickerModule.forRoot(),
+        NgSelectModule,
+        DragDropModule,
+        NepaliCalendarModule,
+        NepaliPatroModule
+    ],
         declarations: [
             FeatureComponent,
             DashboardComponent,
