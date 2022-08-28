@@ -62,6 +62,7 @@ import {ConsentLetterIndividualComponent} from './consent-letter-individual/cons
 import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-individual/kalo-suchi-borrower-individual.component';
 import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
 
+import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -103,6 +104,8 @@ import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-par
         VehicleLoanDeedCompanyComponent,
         ConsentLetterIndividualComponent,
         KaloSuchiBorrowerIndividualComponent,
+        GeneralLetterOfHypothecationCompanyComponent,
+        AssignmentOfReceivablesProprietorshipComponent,
         KaloSuchiBorrowerPartnershipComponent,
     ],
     imports: [
@@ -154,6 +157,7 @@ import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-par
         VehicleLoanDeedCompanyComponent,
         ConsentLetterIndividualComponent,
         KaloSuchiBorrowerIndividualComponent,
+        GeneralLetterOfHypothecationCompanyComponent,
         KaloSuchiBorrowerPartnershipComponent
     ],
 })
