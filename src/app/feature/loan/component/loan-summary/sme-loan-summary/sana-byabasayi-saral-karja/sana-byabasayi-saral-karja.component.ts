@@ -17,7 +17,7 @@ export class SanaByabasayiSaralKarjaComponent implements OnInit {
   @Input() customerAllLoanList: LoanDataHolder[];
   @Input() fixedAssetsData: Array<any>;
   @Input() isExecutive: boolean;
-  customerCategory = CustomerCategory.SANA_BYABASAYI;
+  customerCategory;
   data;
   approveAuth;
   totalAmount;
@@ -28,6 +28,7 @@ export class SanaByabasayiSaralKarjaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.customerCategory = this.loanDataHolder.loanHolder.customerCategory;
     this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
       this.approveAuth = this.data.approvingAuthority;
