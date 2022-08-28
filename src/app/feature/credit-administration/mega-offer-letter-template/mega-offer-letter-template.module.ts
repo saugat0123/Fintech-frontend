@@ -69,7 +69,6 @@ const COMPONENTS = [
         OfferLetterConsentComponent,
         PersonalOfferLetterRenewalsComponent,
         CustomInputComponent,
-        CustomInputComponent,
         AgricultureOfferLetterComponent,
     ],
     imports: [
