@@ -61,6 +61,7 @@ import {VehicleLoanDeedCompanyComponent} from './vehicle-loan-deed-company/vehic
 import {ConsentLetterIndividualComponent} from './consent-letter-individual/consent-letter-individual.component';
 import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-individual/kalo-suchi-borrower-individual.component';
 import { VehicleLoanDeedIndividualComponent } from './vehicle-loan-deed-individual/vehicle-loan-deed-individual.component';
+import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
 
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 @NgModule({
@@ -107,6 +108,7 @@ import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-
         GeneralLetterOfHypothecationCompanyComponent,
         AssignmentOfReceivablesProprietorshipComponent,
         VehicleLoanDeedIndividualComponent,
+        KaloSuchiBorrowerPartnershipComponent,
     ],
     imports: [
         CommonModule,
@@ -158,8 +160,10 @@ import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-
         ConsentLetterIndividualComponent,
         KaloSuchiBorrowerIndividualComponent,
         GeneralLetterOfHypothecationCompanyComponent,
-        VehicleLoanDeedIndividualComponent
+        VehicleLoanDeedIndividualComponent,
+        KaloSuchiBorrowerPartnershipComponent
     ],
 })
 
 export class MegaModule { }
+
