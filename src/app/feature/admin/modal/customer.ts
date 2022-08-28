@@ -4,6 +4,7 @@ import {District} from './district';
 import {Province} from './province';
 import {Gender} from '../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../@core/model/enum/marital-status';
+import {CustomerCategory} from '../../customer/model/customerCategory';
 
 export class Customer {
     id: number;
@@ -49,4 +50,6 @@ export class Customer {
     isJointCustomer: boolean;
     panNumber: string;
     sameAddress: boolean;
+    isAgriculture: boolean;
+    customerCategory: CustomerCategory;
 }

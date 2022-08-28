@@ -26,6 +26,7 @@ import {environment, environment as env} from '../../../../../../environments/en
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {CkEditorComponent} from '../../../../../@core/ck-editor/ck-editor.component';
+import {CustomerCategory} from '../../../model/customerCategory';
 
 @Component({
     selector: 'app-customer-form',
@@ -59,6 +60,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     @Input() subSectorDetailCodeInput: any;
     @Input() gender;
     @Input() maritalStatus;
+    @Input() customerCategory;
     @Input() customerLegalDocumentAddress;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -88,6 +90,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     sameAddress = false;
+    isAgriculture = false;
+    checkedStatus = false;
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -102,6 +106,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     relationArray: RelationshipList = new RelationshipList();
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus.enumObject();
+    customerCateEnum = CustomerCategory.enumObject();
+    customerCateEnum1;
     placeHolderForMaritalStatus;
     individualJsonData: IndividualJsonData = new IndividualJsonData();
 
@@ -115,6 +121,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     @ViewChild('eckEditor', {static: false}) ckEditor: CkEditorComponent;
 
     ngOnInit() {
+        this.filterCustomerCateEnum();
         this.getProvince();
         this.getAllDistrict();
         this.getSubSector();
@@ -125,6 +132,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             if (this.customer.sameAddress !== undefined) {
                 this.sameAddress = this.customer.sameAddress;
             }
+            this.checkedStatus = this.customer.isAgriculture;
             this.customer.customerCode = this.customerIdInput;
             if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
                 this.customer.bankingRelationship = this.bankingRelationshipInput;
@@ -148,6 +156,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         }
     }
 
+    filterCustomerCateEnum() {
+        this.customerCateEnum1 = this.customerCateEnum.filter(value =>
+            value.value === CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL || value.value === CustomerCategory.AGRICULTURE_UPTO_TWO_MILLION
+        );
+        console.log('customerCateEnum1', this.customerCateEnum1);
+    }
     onCloseCreateCustomer() {
         this.onClose();
     }
@@ -254,6 +268,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.ckEditor.onSubmit();
+        this.customer.isAgriculture = this.checkedStatus;
         if (this.ckEditor.form.invalid) {
             return;
         }
@@ -328,6 +343,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
                     this.customer.sameAddress = this.sameAddress;
+                    this.customer.isAgriculture = this.basicInfo.get('isAgriculture').value;
+                    if (this.checkedStatus) {
+                        this.customer.customerCategory = this.basicInfo.get('customerCategory').value;
+                    } else {
+                        this.customer.customerCategory = null;
+                    }
                     this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
@@ -425,9 +446,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.gender, Validators.required],
             maritalStatus: [this.maritalStatus === null ? undefined :
                 this.maritalStatus],
+            customerCategory : [ObjectUtil.isEmpty(this.customer.customerCategory) ? undefined : this.customer.customerCategory],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress],
             sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress],
+            isAgriculture: [this.customer.isAgriculture === undefined ? undefined : this.customer.isAgriculture],
             accountDetails: this.formBuilder.array([]),
         });
 
@@ -700,5 +723,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     checkValue(value: any) {
         console.log('maritalStatusEnum maritalStatusEnum', this.maritalStatusEnum);
         console.log('value value', value);
+    }
+    checked(data) {
+        this.checkedStatus = data.target.checked;
     }
 }

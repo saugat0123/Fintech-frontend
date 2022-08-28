@@ -76,6 +76,11 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-power-of-attorney-partnership>
+        <app-power-of-attorney-proprietorship
+                *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_PROPRIETORSHIP" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-proprietorship>
         <app-power-of-attorney-company
                 *ngSwitchCase="cadTemplate.POWER_OF_ATTORNEY_COMPANY" [cadData]="cadData"
                 [documentId]="documentId"
@@ -141,6 +146,40 @@
                                  [cadData]="cadData" [documentId]="documentId"
                                  [customerLoanId]="customerLoanId">
         </app-letter-of-continuity-proprietorship>
+        <app-supplementary-agreement-company *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_COMPANY"
+                                      [cadData]="cadData" [documentId]="documentId"
+                                      [customerLoanId]="customerLoanId">
+        </app-supplementary-agreement-company>
+        <app-consent-letter-company *ngSwitchCase="cadTemplate.CONSENT_LETTER_COMPANY"
+                                             [cadData]="cadData" [documentId]="documentId"
+                                             [customerLoanId]="customerLoanId">
+        </app-consent-letter-company>
+        <app-assignment-of-receivables-proprietorship *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLES_PROPRIETORSHIP"
+                                                      [cadData]="cadData" [documentId]="documentId"
+                                                      [customerLoanId]="customerLoanId">
+
+        </app-assignment-of-receivables-proprietorship>
+        <app-supplementary-agreement-partnership *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_PARTNERSHIP"
+                                             [cadData]="cadData" [documentId]="documentId"
+                                             [customerLoanId]="customerLoanId">
+        </app-supplementary-agreement-partnership>
+        <app-vehicle-loan-deed-company *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_COMPANY"
+                                                 [cadData]="cadData" [documentId]="documentId"
+                                                 [customerLoanId]="customerLoanId">
+        </app-vehicle-loan-deed-company>
+        <app-consent-letter-individual *ngSwitchCase="cadTemplate.CONSENT_LETTER_INDIVIDUAL"
+                                       [cadData]="cadData" [documentId]="documentId"
+                                       [customerLoanId]="customerLoanId">
+        </app-consent-letter-individual>
+        <app-kalo-suchi-borrower-individual *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_INDIVIDUAL"
+                                         [cadData]="cadData" [documentId]="documentId"
+                                         [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-individual>
+        <app-general-letter-of-hypothecation-company
+                *ngSwitchCase="cadTemplate.GENERAL_LETTER_OF_HYPOTHECATION_COMPANY" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-general-letter-of-hypothecation-company>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>

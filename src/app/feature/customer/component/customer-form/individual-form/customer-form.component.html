@@ -57,6 +57,29 @@
 <!--                                   </select>-->
 <!--                               </div>-->
 <!--                           </div>-->
+                           <div class="col-md-12 mb-3">
+                               <nb-checkbox formControlName="isAgriculture" [checked]="checkedStatus" (change)="checked($event)">
+                                   isAgriculture
+                               </nb-checkbox>
+                           </div>
+                           <div class="col-md-12 mb-3" *ngIf="checkedStatus">
+                               <div class="d-flex">
+                                   <label><strong>Customer Category</strong></label>
+                               </div>
+                               <div class="form-group">
+                                   <label for="customerCategory"><strong></strong></label>
+                                   <select [ngClass]="{'is-invalid': submitted && basicInfoControls.customerCategory.errors}"
+                                           (change)="checkValue($event?.target?.value)"
+                                           formControlName="customerCategory"
+                                           id="customerCategory"
+                                           class="custom-select">
+                                       <option [value]="null" hidden>Select Customer Category</option>
+                                       <option *ngFor="let customerCategory of customerCateEnum1" [value]="customerCategory?.key">
+                                           {{customerCategory?.value}}
+                                       </option>
+                                   </select>
+                               </div>
+                           </div>
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Name</strong></label>

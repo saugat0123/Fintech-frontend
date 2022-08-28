@@ -11,11 +11,11 @@ import {RetailHousingLoanPrintComponent} from './mega-offer-letter/retail-housin
 import {RetailMortgageComponent} from './mega-offer-letter/retail-mortgage/retail-mortgage.component';
 import {RetailMortgagePrintComponent} from './mega-offer-letter/retail-mortgage/retail-mortgage-print/retail-mortgage-print.component';
 import {RetailProfessionalLoanPrintComponent} from './mega-offer-letter/retail-professional-loan/retail-professional-loan-print/retail-professional-loan-print.component';
-import {SmeComponent} from './mega-offer-letter/sme/sme.component';
+import {SmeOfferLetterComponent} from './mega-offer-letter/sme-offer-letter/sme-offer-letter.component';
 import {RetailMortgageLoanPrintComponent} from './mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan-print/retail-mortgage-loan-print.component';
 import {RetailProfessionalLoanComponent} from './mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
 import {RetailMortgageLoanComponent} from './mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan.component';
-import {SmePrintComponent} from './mega-offer-letter/sme/sme-print/sme-print.component';
+import {SmeOfferLetterPrintComponent} from './mega-offer-letter/sme-offer-letter/sme-offer-letter-print/sme-offer-letter-print.component';
 import {MegaOfferLetterComponent} from './mega-offer-letter/mega-offer-letter.component';
 import {ThemeModule} from '../../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
@@ -45,8 +45,8 @@ const COMPONENTS = [
   RetailProfessionalLoanComponent,
   RetailProfessionalLoanPrintComponent,
   RetailLoanAgainstInsuranceComponent,
-  SmeComponent,
-  SmePrintComponent,
+  SmeOfferLetterComponent,
+  SmeOfferLetterPrintComponent,
   PersonalOfferLetterRenewalsComponent,
 
 
@@ -59,7 +59,7 @@ const COMPONENTS = [
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
-        SmeComponent,
+        SmeOfferLetterComponent,
         RetailEducationalLoanEnglishComponent,
         RetailHousingLoanComponent,
         RetailMortgageComponent,
