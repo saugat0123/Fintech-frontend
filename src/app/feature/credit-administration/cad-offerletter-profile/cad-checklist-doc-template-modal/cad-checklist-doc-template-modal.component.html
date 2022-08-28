@@ -171,6 +171,10 @@
                                        [cadData]="cadData" [documentId]="documentId"
                                        [customerLoanId]="customerLoanId">
         </app-consent-letter-individual>
+        <app-kalo-suchi-borrower-individual *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_INDIVIDUAL"
+                                         [cadData]="cadData" [documentId]="documentId"
+                                         [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-individual>
         <app-general-letter-of-hypothecation-company
                 *ngSwitchCase="cadTemplate.GENERAL_LETTER_OF_HYPOTHECATION_COMPANY" [cadData]="cadData"
                 [documentId]="documentId"
