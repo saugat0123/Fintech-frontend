@@ -436,7 +436,7 @@
           </nb-card>
         </ng-template>
       </div>
-      <div *ngIf="customerInfo?.customerType === 'INDIVIDUAL'" class="col-md-4">
+      <div *ngIf="customerInfo?.customerType === 'INDIVIDUAL' && customer?.isAgriculture" class="col-md-4">
         <div class="row">
           <nb-card #crgChecklist class="col-md-11 py-2">
             <a (click)="openModel(crgChecklistTemplate)" class="cursor info-label">

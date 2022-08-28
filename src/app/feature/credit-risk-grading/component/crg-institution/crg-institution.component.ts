@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CalendarType} from '../../@core/model/calendar-type';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {ObjectUtil} from '../../@core/utils/ObjectUtil';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-crg-long',

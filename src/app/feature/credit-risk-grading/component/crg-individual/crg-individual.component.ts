@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CalendarType} from '../../@core/model/calendar-type';
-import {ObjectUtil} from '../../@core/utils/ObjectUtil';
+import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({

@@ -26,8 +26,8 @@ import {LoanModule} from './loan/loan.module';
 import {GuarantorDetailComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
-import { CrgIndividualComponent } from './crg-individual/crg-individual.component';
-import { CrgInstitutionComponent } from './crg-institution/crg-institution.component';
+import { CrgIndividualComponent } from './credit-risk-grading/component/crg-individual/crg-individual.component';
+import { CrgInstitutionComponent } from './credit-risk-grading/component/crg-institution/crg-institution.component';
 
 
 @NgModule({
@@ -64,9 +64,18 @@ import { CrgInstitutionComponent } from './crg-institution/crg-institution.compo
             CrgIndividualComponent,
             CrgInstitutionComponent
         ],
-    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-        CreditRiskGradingGammaComponent, MultipleBankingComponent,
-        InstitutionalCrgGammaComponent, GuarantorAdderComponent, GuarantorDetailComponent, ContactDetailsComponent, CrgIndividualComponent, CrgInstitutionComponent
+    exports: [
+        MouseScrollDisableDirective,
+        CommonAddressComponent,
+        CustomerWisePendingComponent,
+        CreditRiskGradingGammaComponent,
+        MultipleBankingComponent,
+        InstitutionalCrgGammaComponent,
+        GuarantorAdderComponent,
+        GuarantorDetailComponent,
+        ContactDetailsComponent,
+        CrgIndividualComponent,
+        CrgInstitutionComponent
     ],
         providers: [SafePipe],
     entryComponents: [CreditRiskGradingGammaComponent]
