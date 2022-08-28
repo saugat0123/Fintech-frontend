@@ -1,0 +1,445 @@
+<div class="container nep text-justify nepaliFont">
+    <form (ngSubmit)="submit()" [formGroup]="HypothecationPropietorship" class="nep" id="HypothecationPropietorshipPrint">
+        <h5 class="text-center"><strong>सेञ्चुरी कमर्सियल बैक  लिमिटेड</strong></h5>
+        <h5 class="text-center"><strong>श्री/सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा—पत्र</strong></h5>
+        <h5 class="text-center"><u><strong>(General Letter of Hypothecation)</strong></u></h5> <br> <br>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    लिखितम यो सम्झौता आज मिति २०
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenYear" formControlName="docWrittenYear" placeholder="" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('docWrittenYear').value ? HypothecationPropietorship.get('docWrittenYear').value  : '========='}}</strong></span>
+                    साल
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenMonth" formControlName="docWrittenMonth" placeholder="" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('docWrittenMonth').value ? HypothecationPropietorship.get('docWrittenMonth').value  : '========='}}</strong></span>
+                    महिना
+                    <input class="form-field form-control-sm nepaliFont disable-print" name="docWrittenDay" formControlName="docWrittenDay" placeholder="" type="text"size="2"/>
+                    <span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('docWrittenDay').value ? HypothecationPropietorship.get('docWrittenDay').value  : '========='}}</strong></span>
+                    गतेका दिन काठमाण्डौ जिल्ला का.म.न.पा.वडा नं. २८, पुतलीसडक स्थित प्रधान कार्यालय रही <input class="form-field form-control-sm nepaliFont disable-print"
+                                                                                                                           name="bankBranchName"
+                                                                                                                           formControlName="bankBranchName"
+                                                                                                                           placeholder=""
+                                                                                                                           type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('bankBranchName').value ? HypothecationPropietorship.get('bankBranchName').value  : '========='}}</strong></span>
+                    स्थित शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यसपछि बैंक भनिएको छ) एकातर्फ र प्राईभेट फर्म
+                    रजिष्ट्रेशन ऐन २०१४ बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग <input class="form-field form-control-sm nepaliFont disable-print"
+                                                                                                   name="Municipality"
+                                                                                                   formControlName="Municipality"
+                                                                                                   placeholder=""
+                                                                                                   type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('Municipality').value ? HypothecationPropietorship.get('Municipality').value  : '========='}}</strong></span>
+                    कार्यालयमा मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                                           name="date"
+                                           formControlName="date"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('date').value ? HypothecationPropietorship.get('date').value  : '========='}}</strong></span>
+
+                    मा दर्ता भई प्रा.फ.र.नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                                name="registerNum"
+                                                formControlName="registerNum"
+                                                placeholder=""
+                                                type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('registerNum').value ? HypothecationPropietorship.get('registerNum').value  : '========='}}</strong></span>
+                    कायम भई, <input class="form-field form-control-sm nepaliFont disable-print"
+                                    name="guarantorDistrict1"
+                                    formControlName="guarantorDistrict1"
+                                    placeholder=""
+                                    type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorDistrict1').value ? HypothecationPropietorship.get('guarantorDistrict1').value  : '========='}}</strong></span>
+                    जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
+                                   name="guarantorMunicipalityOrVdc"
+                                   formControlName="guarantorMunicipalityOrVdc"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorMunicipalityOrVdc').value ? HypothecationPropietorship.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                    गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                               name="guarantorWardNo"
+                                               formControlName="guarantorWardNo"
+                                               placeholder=""
+                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorWardNo').value ? HypothecationPropietorship.get('guarantorWardNo').value  : '========='}}</strong></span>
+                    स्थीत ठेगाना रहेको श्री  <input class="form-field form-control-sm nepaliFont disable-print"
+                                                    name="guarantorName"
+                                                    formControlName="guarantorName"
+                                                    placeholder=""
+                                                    type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorName').value ? HypothecationPropietorship.get('guarantorName').value  : '========='}}</strong></span>
+                    का प्रोप्राईटर <input class="form-field form-control-sm nepaliFont disable-print"
+                                          name="guarantorGrandFatherName"
+                                          formControlName="guarantorGrandFatherName"
+                                          placeholder=""
+                                          type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorGrandFatherName').value ? HypothecationPropietorship.get('guarantorGrandFatherName').value  : '========='}}</strong></span>
+                    को नाती <input class="form-field form-control-sm nepaliFont disable-print"
+                                   name="guarrantorFatherName"
+                                   formControlName="guarrantorFatherName"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarrantorFatherName').value ? HypothecationPropietorship.get('guarrantorFatherName').value  : '========='}}</strong></span>
+                    को छोरा <input class="form-field form-control-sm nepaliFont disable-print"
+                                   name="guarantorDistrict"
+                                   formControlName="guarantorDistrict"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorDistrict').value ? HypothecationPropietorship.get('guarantorDistrict').value  : '========='}}</strong></span>
+                    जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="guarantorMunicipalityOrVdc"
+                           formControlName="guarantorMunicipalityOrVdc"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorMunicipalityOrVdc').value ? HypothecationPropietorship.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                    गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                               name="guarantorWardNo"
+                                               formControlName="guarantorWardNo"
+                                               placeholder=""
+                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorWardNo').value ? HypothecationPropietorship.get('guarantorWardNo').value  : '========='}}</strong></span>
+                    बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print"
+                                      name="guarantorAge"
+                                      formControlName="guarantorAge"
+                                      placeholder=""
+                                      type="text" size="2"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('guarantorAge').value ? HypothecationPropietorship.get('guarantorAge').value  : '========='}}</strong></span>
+                    को <input class="form-field form-control-sm nepaliFont disable-print"
+                              name="AuthorizedPersonName"
+                              formControlName="AuthorizedPersonName"
+                              placeholder=""
+                              type="text"/><span class="print-only nepaliFont"><strong>{{HypothecationPropietorship.get('AuthorizedPersonName').value ? HypothecationPropietorship.get('AuthorizedPersonName').value  : '========='}}</strong></span>
+
+
+
+                    (जसलाई यसपछि  कारणी /ऋणी   भनिएको छ) का बीचमा भएको ठिक सांचो हो ।कारणीको अनुरोधमा
+                    बैंकले कारणीलाई उपलव्ध गराएको वा गराउने नगद कर्जा वा अधिविकर्ष वा कारणीको
+                    अनुरोधमा बैंकले तेश्रो पक्षको हकमा जारी गरेको वा जारी गर्ने जमानत पत्र वा बील्स डिस्काउण्ट/बील्स
+                    पर्चेज सुविधा लगायत कुनैपनि किसिमको एक वा एकभन्दा बढी कर्जा /वा बैंकिंग सुविधा देहायमा
+                    लेखिए बमोजिम सुरक्षित गर्न गराउन दुवै पक्ष मञ्जुर गर्दछन् :
+
+
+                <div class="col-md-12 text-justify" style="break-before: auto">
+
+                    <table class="table table-borderless">
+                        <tr>
+                            <td colspan="2"><u><strong>शर्तवन्देजहरुः</strong></u></td>
+                        </tr>
+                        <tr>
+                            <td>१<span class="timesNewRoman">.</span></td>
+                            <td>
+                                कारणीको नाममा रहेको वा भविष्यमा कारणीको नाममा आउने नेपालभित्र कुनैपनि
+                                स्थानमा रहेको वा कारणीलाई हस्तान्तरण गर्ने प्रयोजनार्थ मार्गस्थ रहेको वा कारणीको
+                                शाखा कार्यालय वा कुनैपनि किसिमको अभिकर्तासंग रहेको वा अभिकर्तालाई बुझाउन
+                                मार्गस्थ रहेको कुनैपनि किसिमको उत्पादन, व्यापारिक वा गै¥ह व्यापारिक सामान,
+                                स्थिर वा चल सम्पत्ति लगायतका मेशिन, यन्त्र, उपकरण औजार, मोटर<span class="timesNewRoman">/</span>लरी लगायतका
+                                सवारी साधन, धातु वा काठका फर्निचर, जिन्सी सामान <span class="timesNewRoman">(</span>कच्चा पदार्थ,
+                                अर्धप्रशोधित वा तयारी सामान चाहे त्यो कारणीले वा अन्य कसैले राखेको
+                                <span class="timesNewRoman">(possess</span> गरेको होस्<span class="timesNewRoman">)</span> वा अर्धप्रशोधन वा पूर्णप्रशोधन गर्ने क्रममा मेशिन,
+                                डाई, जिंक आदिमा रहेको जिन्सी लगायतका कुनैपनि सामान <span class="timesNewRoman">(</span>जसलाई यसपछि
+                                ”सुरक्षित सम्पति” भनिएको छ<span class="timesNewRoman">)</span> मा बैंकको प्रथमाधिकार रहने गरी यसै लिखतबाट
+                                कारणीले बैंकको पक्षमा दृष्टिबन्धक <span class="timesNewRoman">(Hypothecation)</span> लेखीदिएको छ । <br> <br>
+
+                                साथै यस सम्झौताको प्रयोजनार्थ सुरक्षित सम्पति भन्नाले कारणीले असुल उपर गर्न सक्ने अधिकार भएको
+                                कारणीको अभिलेखमा ”आसामी <span class="timesNewRoman">(Book Debts)"</span> भनी खुलाईएको वा कारणीले प्राप्त गर्ने अधिकार भएको
+                                बक्यौता रकम <span class="timesNewRoman">(outstanding values)</span>, प्राप्त गर्न बांकी भुक्तानी
+                                <span class="timesNewRoman">(Receivables)</span>, कारणीले
+                                गरेको वा भविष्यमा गर्न सक्ने दावी, कारणीको अधिकार रहेको कुनैपनि किसिमको लिखत, लगानी सम्बन्धी प्रमाणपत्र,
+                                धितोपत्र, मुद्दती रसिद, कारणीसंग रहेको नगद वा कारणीको नाममा कुनैपनि बैंक वा वित्तीय संस्थामा खोलेको
+                                कुनैपनि किसिमको खातामा रहेको निक्षेप, कारणीको पक्षमा जारी भएको हस्तान्तरण आदेश <span class="timesNewRoman">(Delivery Order)</span>,
+                                स्वामित्व सम्बन्धी लिखत, विनिमय अधिकारपत्र, बिमा प्रलेख वा कारणीको पक्षमा जारी वा श्रृजना भएको वा
+                                भविष्यमा जारी वा श्रृजना हुने अन्य कुनै किसिमको वाणिज्य सम्बन्धी लिखत <span class="timesNewRoman">(Mercantile Document)</span> वा
+                                त्यस्तो आदेश, लिखत, प्रलेख आदिमा निहित अधिकारलाई समेत जनाउनेछ ।</td>
+                        </tr>
+                        <tr>
+                            <td>२<span class="timesNewRoman">.</span></td>
+                            <td>बैंकले कारणीलाई उपलव्ध गराएको वा भविष्यमा उपलव्ध गराउने नगदी कर्जा, अधिविकर्ष, बील्स डिस्काउण्ट,
+                                बील्स पर्चेज, कारणीको अनुरोधमा जारी गरेको वा भविष्यमा जारी गर्ने जमानत पत्र वा श्रृजित दायित्व
+                                वा अन्य कुनैपनि शिर्षक अन्तर्गत कारणीलाई उपलव्ध गराएको वा भविष्यमा उपलव्ध गराउने कर्जा वा बैंकिंग
+                                सुविधा र सो वापत बैंकले समय समयमा तोके बमोजिमको दर तथा गणना विधि बमोजिम हुन आउने ब्याज,
+                                छुट दिएको रकम <span class="timesNewRoman">(discount)</span>, कमिशन, शुल्क, खर्च <span class="timesNewRoman">(</span>कानूनी खर्च समेत<span class="timesNewRoman">)</span>, कारणीबाट बैंकले बक्यौता असुली
+                                गर्ने सिलसिलामा भएको खर्च लगायत बैंक र कारणी बीच यस सम्झौता अन्तर्गतको सम्बन्ध परिपालना गर्ने सम्बन्धमा
+                                बैंकमाथि श्रृजना भएको दायित्व वा ऋण समेतको बैंकले दावी गर्नासाथ भुक्तानी गर्ने प्रयोजनको निमित्त माथि उल्लेखित
+                                सुरक्षित सम्पत्तिमाथि बैंकको प्रथमाधिकार रहने गरी दृष्टिबन्धकस्वरुप कारणीको जिम्मामा रहनेछ ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>३<span class="timesNewRoman">.</span></td>
+                            <td>माथि बूंदा नं<span class="timesNewRoman">.</span> २ मा उल्लेख भए बमोजिम कर्जा वा बैंकिंग सुविधाको सांवा वा ब्याज, छुट दिएको रकम, कमिशन,
+                                शुल्क, खर्च, दायित्व वा ऋण, यो सम्झौता भंग भएको अवस्थामा समेत कारणीले पूर्णरुपमा
+                                चुक्ता गर्ने मितिसम्मको बक्यौता गणना बैंकले असुल उपर गर्न सक्नेछ । साथै नेपाल राष्ट्र बैंकको
+                                निर्देशनमा वा बैंक स्वयंले कुनैपनि समयमा वा समय समयमा कारणीलाई साविकमा तोकेको दर भन्दा
+                                बढी दरले ब्याज, शुल्क, कमिशन आदि तिर्न बुझाउन निर्देशन दिन सक्ने कुरामा कारणी मञ्जुर गर्दछ ।</td>
+                        </tr>
+                        <tr>
+                            <td>४<span class="timesNewRoman">.</span></td>
+                            <td> यो सम्झौताको कारणले मात्र बैंक कारणीलाई कुनै कर्जा वा बैंकिंग सुविधा प्रदान गर्न वा प्रदान गरेको कर्जा वा
+                                बैंकिंग सुविधाको सिमा वृद्धि गर्न वा साविकमा कारणीको नाममा स्वीकृत कर्जा वा बैंकिंग सुविधालाई
+                                निरन्तरता दिन बाध्य नहुने कुरामा कारणी मञ्जुर गर्दछ र साथै साविकमा कारणीको नाममा स्वीकृत
+                                कर्जा वा बैंकिंग सुविधाहरु मध्ये कुनै एक वा सबै कर्जा वा सुविधाको तत्काल बक्यौता रहेको रकम र
+                                सो मा पाकेको ब्याज, शुल्क आदि बैंकको स्वविवेकमा फिर्ता भुक्तानी गर्न माग गर्न सक्नेछ र बैंकले
+                                त्यसरी फिर्ता भुक्तानी माग गरेको अवस्थामा तत्कालै बक्यौता रहेको सांवा, ब्याज, फी, शुल्क, खर्च
+                                आदि तिर्नु बुझाउनु कारणीको दायित्व हुनेछ ।</td>
+                        </tr>
+                        <tr>
+                            <td>५<span class="timesNewRoman">.</span></td>
+                            <td>कारणीले केही रकम छुट <span class="timesNewRoman">(discount)</span>
+                                दिई वा नदिई बैंकलाई बिक्री गरेको कुनैपनि बिल <span class="timesNewRoman">(Bill)</span>, चेक,
+                                विनिमय अधिकार पत्र वा यस्तै अन्य बिक्रीयोग्य उपकरण सम्बन्धित भुक्तानी दिने दायित्व भएको व्यक्ति
+                                <span class="timesNewRoman">(drawee)</span> ले भुक्तानी दिन अस्वीकार <span class="timesNewRoman">(dishonour)</span> गरेमा त्यस्तो उपकरणमा अंकित सांवा मूल्य
+                                तथा बैंकले खरिद गरेको मितिदेखि अस्वीकार भएको मितिसम्म तोकिएको दरले लाग्ने ब्याज, फी, शुल्क आदि
+                                समेत गरी हुन आउने कुल रकम कारणीको नाममा बैंकले खोलेको सम्बन्धित खातामा कारणीलाई विना पूर्वसूचना दिई
+                                खर्च <span class="timesNewRoman">(debit)</span> लेखिने कुरामा कारणी मञ्जुर गर्दछ ।</td>
+                        </tr>
+                        <tr>
+                            <td>६<span class="timesNewRoman">.</span></td>
+                            <td>बैंकले कारणीको अनुरोधमा जारी गरेको जमानत पत्र वा कारणीको हकमा स्वीकार <span class="timesNewRoman">(negotiate)</span>
+                                गरेको प्रतीतपत्र वापत बैंकमाथि श्रृजना भएको दायित्वको रकम यदि बैंकले माग्नासाथ कारणीले फिर्ता
+                                चुक्ता भुक्तान गर्न नसकेमा बैंकले आफुकहां खुलेको कारणीको सम्बन्धित खातामा त्यस्तो श्रृजना भएको
+                                दायित्वको रकम खर्च लेख्नेछ । यदि त्यस्तो दायित्वको रकम विदेशी मुद्रामा भएका खर्च लेख्ने मितिमा बैंकले
+                                तोकेको विनिमय दर बराबर हुन आउने रकम खर्च लेख्नेछ ।</td>
+                        </tr>
+                        <tr>
+                            <td>७<span class="timesNewRoman">.</span></td>
+                            <td>कारणीले बैंकलाई तिर्नु बुझाउनु पर्ने सम्पूर्ण दायित्व पूर्ण चुक्ता भुक्तान नगरेसम्म सुरक्षित
+                                सम्पत्ति कारणीको जोखिम र खर्च <span class="timesNewRoman">(risk and expenses)</span> मा कारणीको जिम्मामा रहनेछ
+                                र त्यसरी कारणीको जिम्मामा रहेको सुरक्षित सम्पत्ति कारणीले आफ्नै खर्चमा बैंकलाई स्वीकारयोग्य
+                                बिमकबाट अग्नि, चट्याह्, विस्फोटन, चोरी, डकैती, आतंकवाद, हुलदंगा, सामाजिक विद्रोह जस्ता
+                                जोखिमबाट वा बैंकले तोके बमोजिमको जोखिमबाट सुरक्षित गराई सो को बिमा प्रलेख र बिमा शुल्क भुक्तानी
+                                गरेको रसिद सक्कलै प्रति बैंकमा बुझाउनु पर्नेछ । साथै बिमा प्रलेखमा <span class="timesNewRoman">"Bankers Clause"</span> अर्थात् बिमा
+                                प्रलेख अन्तर्गत दावी भएको रकम बैंकमा जम्मा हुने व्यवस्था स्पष्ट रुपमा उल्लेख हुनुपर्ने व्यवस्था कारणीले मिलाउनेछ ।
+                                कथंकदाचित कारणीले समयानुकुल बिमा शुल्क तिर्न नसकेमा वा सुरक्षित सामान बिमाबाट सुरक्षित राख्न नसकेमा
+                                बैंकले स्वविवेकमा कारणीको खर्चमा सुरक्षित सामानको उपयुक्त जोखिम विरुद्ध बिमा गराउन सक्नेछ र बिमा
+                                वापत तिरेको खर्च बैंकले कारणीबाट असुल उपर गर्नेछ । तर सुरक्षित सामानको बिमा गराउनु पर्ने प्राथमिक
+                                दायित्व कारणीमा निहित रहनेछ र बैंकले बिमा नगराएको कारणबाट मात्र कारणीले कुनै उन्मुक्ति दावी गर्न पाउने छैन ।
+
+                            </td>
+                        </tr>
+                        <tr> <td>८<span class="timesNewRoman">.</span></td>
+                            <td> बैंकले सुरक्षित सामानको निर्विवादित स्वामी <span class="timesNewRoman">(absolute owner)</span> सरह वा कारणीको अधिकारप्राप्त वारेसको
+                                हैसियतले कुनैपनि समयमा आफ्नो कर्मचारी, प्रतिनिधि, अभिकर्ता वा मनोनित व्यक्ति मार्फत देहायमा उल्लेखित
+                                कुनै वा सबै अधिकारको प्रयोग गर्न सक्ने कुरामा कारणी मञ्जुर गर्दछ <span class="timesNewRoman">:</span>
+                                <table>
+                                    <tr>
+                                        <td><span class="timesNewRoman">(</span>क<span class="timesNewRoman">)</span></td>
+                                        <td>सुरक्षित सामान सबै वा आंशिक रुपमा भण्डारण गरिराखेको स्थानमा विना पूर्वसूचना प्रवेश गर्न
+                                            सुरक्षित सामानको निरीक्षण गर्न, विवरणहरु प्राप्त गर्न, मूल्यांकन गर्न, कारणीको अभिलेख,
+                                            हिसाबकिताबको विवरण र सो संग सम्बन्धित कारोवारको प्रतिवेदन, विवरण प्राप्त गर्न ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="timesNewRoman">(</span>ख<span class="timesNewRoman">)</span></td>
+                                        <td>कारणीले बैंकलाई तिर्नु बुझाउनु पर्ने कुनैपनि रकम नतिरे नबुझाएमा वा यस सम्झौता बमोजिम
+                                            बैंकप्रति निर्वाह गर्नुपर्ने दायित्व निर्वाह नगरेमा वा यस सम्झौताको शर्तबन्देज उल्लंघन गरेमा वा
+                                            सुरक्षित सम्पत्ति हानी नोक्सानी हुने वा सुरक्षित सम्पत्तिको मूल्य घट्ने वा सुरक्षित सम्पत्तिमाथि अन्य
+                                            कुनै तेश्रो पक्षले कब्जा जमाउने <span class="timesNewRoman">(disteress execution attachment)</span> परिस्थिति श्रृजना
+                                            भएमा वा समान प्रकृतिको कार्यविधि अपनाएमा वा कारणी स्वयंले वा तेश्रो पक्षले कारणीलाई टाट पल्टेको
+                                            घोषित गराउन आवेदन दिएमा वा टाट पल्टेको घोषित गरेमा वा कारणीलाई विघटन <span class="timesNewRoman">(dissolution)</span> गर्ने
+                                            निर्णय गरेमा वा बैंकको विचारमा सुरक्षित सम्पत्ति यथास्थितिमा राखीछाड्दा आफ्नो हितको संरक्षण नहुने परिस्थिति
+                                            श्रृजना भएमा बैंकले कुनैपनि समयमा वा पटक पटक गरी सुरक्षित सम्पत्ति सबै वा केही आफ्नो कब्जामा लिई वा
+                                            प्रतिनिधि नियुक्त गरी त्यस्तो प्रतिनिधि मार्फत कब्जामा लिई बैंकको नियमानुसार बिक्री गरी रकम असुल गर्न
+                                            सक्नेछ । साथै रकम असुल गर्ने प्रयोजनका लागि कारणीको आसामीहरु <span class="timesNewRoman">(debtors)</span> लाई निजहरुले कारणीलाई
+                                            तिर्नु बुझाउनु पर्ने रकम सिधै बैंकलाई तिर्न बुझाउन निर्देश गर्नुका साथै बैंकको हित सुरक्षित गर्न कारणीको प्रतिनिधिको
+                                            हैसियतले त्यस्ता आसामी विरुद्ध मुद्दा दायर गर्न वा मिलापत्र गर्न वा मध्यस्थता मार्फत विवाद सल्टाउन बैंक स्वतन्त्र हुनेछ ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="timesNewRoman">(</span>ग<span class="timesNewRoman">)</span></td>
+                                        <td>
+                                            माथि लेखिएका अधिकारहरुको अतिरिक्त बैंकले सुरक्षित सम्पत्ति आफ्नो कब्जामा लिएपछि
+                                            प्रचलित कानून वा परिपाटी बमोजिम धितो लिने व्यक्ति <span class="timesNewRoman">(PAWNEE)</span>
+                                            मा निहित सबै वा कुनैपनि अधिकार समेत प्रयोग गर्न सक्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="timesNewRoman">(</span>घ<span class="timesNewRoman">)</span></td>
+                                        <td>
+                                            सुरक्षित सम्पत्ति बैंकको एकलौटी अधिन, निगरानी र नियन्त्रणमा राख्न वा यस्तो कार्यलाई निर्विवाद
+                                            एवं पारदर्शी बनाउन बैंकले प्रतिनिधि <span class="timesNewRoman">(RECEIVER)</span> तोक्ने लगायतका अन्य कुनैपनि
+                                            उपयुक्त विधि अवलम्बन गर्न सक्नेछ । यस सम्झौता अन्तर्गत बैंकमा निहित कुनैपनि
+                                            अधिकारको प्रयोग गर्दा लागेको सबै खर्चहरु कारणीले व्यहोर्नु पर्नेछ र त्यस्तो खर्चको रकम
+                                            कारणीको नाममा बैंकमा खोलेको कुनै पनि खातामा खर्च लेखी वा बैंकले उपयुक्त ठहराएको अन्य
+                                            कुनैपनि तरिकाबाट असुल उपर गर्नेछ ।
+                                        </td>
+                                    </tr>
+                                </table></td>
+
+                        </tr>
+                        <tr>
+                            <td>९<span class="timesNewRoman">.</span></td>
+                            <td>
+                                बैंक यस सम्झौता अन्तर्गत आफुमा निहित कुनैपनि वा सबै अधिकार प्रयोग गर्न बाध्य हुने छैन र बैंकले आफुमा निहित अधिकार प्रयोग
+                                नगरेको कारणले मात्र कारणीको बैंकप्रतिको दायित्वमा कुनै नकारात्मक असर पर्ने छैन । साथै यस सम्झौता अन्तर्गत बैंकमा निहित अधिकारको
+                                प्रयोग गर्दा कुनै हानी नोक्सानी भएमा समेत बैंक त्यसप्रति जिम्मेवार हुने छैन । कारणीबाट रकम असुल गर्ने वा रकम असुल गर्न कानूनी वा
+                                कुनैपनि वैकल्पिक उपचारको बाटो अवलम्बन गर्न पाउने बैंकको अधिकारमा कुनै असर नपर्ने गरी वा त्यस्तो उपचार विधि अवलम्बन गरिसकेको
+                                अवस्थामा समेत बैंकले माग गर्नासाथ सुरक्षित सम्पत्ति र सुरक्षित सम्पत्तिसंग सम्बन्धित बील, करार, धितोपत्र, विनिमय अधिकार पत्र,
+                                कागजात आदि तत्कालै बैंकलाई हस्तान्तरण गर्न कारणी मञ्जुर गर्दछ । बैंकले कारणीबाट रकम असुल उपर गर्ने सिलसिलामा बैंकले कारणीलाई
+                                दिएको हिसाबकिताबको विवरण, खर्चको विवरण, असुल भएको रकम <span class="timesNewRoman">(</span>यदि कुनै भए<span class="timesNewRoman">)</span> को विवरण यो सम्झौताको प्रयोजनार्थ अन्तिम मानिनेछ ।
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१०<span class="timesNewRoman">.</span></td>
+                            <td>
+                                बैंकले सुरक्षित सम्पत्ति आफ्नो अधिनमा लिएपछि वा कारणीले बैंकलाई हस्तान्तरण गरेपछि त्यस्तो सम्पत्तिको परिमाण, गुण, मूल्य, अवस्था वा सुरक्षामा समेत कुनै ¥हास भएमा बैंक जिम्मेवार हुने छैन ।
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>११<span class="timesNewRoman">.</span></td>
+                            <td>
+                                बैंकको अधिनमा रहेको सुरक्षित सम्पत्ति सबै वा त्यसको केही भाग बिक्री गर्न बैंक स्वतन्त्र हुनेछ र सुरक्षित सम्पत्ति बिक्री गरी असुल भएको रकम
+                                वा बिमकबाट क्षतिपूर्तिस्वरुप प्राप्त रकम वा कारणीको नाममा प्राप्त अन्य कुनैपनि रकम, कारणीले बैंकलाई तत्काल तिर्नु बुझाउनु पर्ने रकम
+                                वापत मिलान गर्न वा कारणीको कारणबाट भविष्यमा बैंकमाथि श्रृजना हुन सक्ने दायित्व वापत आफ्नो नियन्त्रणमा राख्न बैंक स्वतन्त्र हुनेछ ।
+                                साथै सुरक्षित सम्पत्तिको बिक्री वा अन्य किसिमबाट प्राप्त रकम, कारणीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम भन्दा कम भएमा त्यस्तो कम रकम
+                                कानूनी उपचार वा अन्य तरिकाले बैंकले असुल उपर गर्न सक्नेछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१२<span class="timesNewRoman">.</span></td>
+                            <td>
+                                कारणीको सामान्य व्यापारिक कारोवारको सिलसिलामा बिक्री गर्न बाहेक कारणीले बैंकलाई तिर्नु बुझाउनु पर्ने सम्पूर्ण रकम चुक्ता भुक्तान नगरेसम्म कारणीले सुरक्षित सम्पत्ति बिक्री गर्न,
+                                आफ्नो जिम्माबाट अन्यत्र लैजान, तेश्रो पक्षलाई दिन वा सुरक्षित सम्पत्तिको मूल्य वा परिमाणमा ¥हास आउने कुनैपनि किसिमको कार्य गर्ने गराउने छैन ।
+                                त्यस्तै कारणीको नाममा मार्गस्थ रहेको सुरक्षित सम्पत्ति उपयुक्त समयभित्रै कारणीको अधिनस्थ ल्याउनेछ । सामान्य व्यापारिक कारोवारको
+                                सिलसिलामा बिक्री भएका सुरक्षित सम्पत्तिको असुल भएको बिक्री मूल्य बैंकलाई तिर्नु बुझाउनु पर्ने रकम वापत मिलान गर्न बैंकमा आफ्नो नाममा
+                                खोलेको खातामा विना कुनै ढिलासुस्ती जम्मा गर्न पनि कारणी मञ्जुर गर्दछ । कारणीले खरिद वा आयात गरेको सामानको बील अफ लेडिंग
+                                <span class="timesNewRoman">(B/L) /</span>र वा सिपिंग डकुमेण्ट्स ररवा रेल्वे रसिद ररवा सडक यातायात ढुवानी रसिद ररवा स्वामित्व
+                                सम्बन्धी कागजात बैंकको पक्षमा पृष्ठांकन गरी बैंकलाई बुझाउनेछ, यदि नबुझाएमा बैंकले त्यस्तो सामान भण्डारण गरेको कुनै
+                                स्थानमा प्रवेश गरी आफ्नो अधिनमा लिन सक्ने कुरामा कारणी मञ्जुर गर्दछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१३<span class="timesNewRoman">.</span></td>
+                            <td>
+                                सुरक्षित सम्पत्ति, कारणीको बन्द व्यापारबाट प्राप्त रकम, बिमकले क्षतिपूर्ति वापत प्रदान गरेको रकम र कारणीले
+                                आसामीबाट असुल गरेको रकम र यिनीहरुसंग सम्बन्धित सबै कागजपत्रहरु सुरक्षण वापत बैंकको नाममा बांडफांड भएको
+                                रकम बैंकको एकलौटी सम्पत्ति मानिनेछ र बैंकको पूर्वलिखित सहमति प्राप्त नगरी कारणीले अन्य तेश्रो पक्षलाई धितो लेखीदिन,
+                                तेश्रो पक्षको हक <span class="timesNewRoman">(lien)</span> श्रृजना गर्ने वा बैंकको हित प्रतिकुल हुने अन्य कुनै कार्य गर्ने छैन ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१४<span class="timesNewRoman">.</span></td>
+                            <td>
+                                कारणीले आफ्नो जिम्मामा रहेको सबै सुरक्षित सम्पत्तिको विवरण बैंकले तोके बमोजिम हरेक महिना वा त्रिमास
+                                <span class="timesNewRoman">(</span>आषाढ, आश्विन, पौष तथा चैत्र मसान्त<span class="timesNewRoman">)</span> समाप्त भएको ७ दिनभित्र वा बैंकले मागेका बखत उपलव्ध गराउनु पर्नेछ ।
+                                त्यसरी उपलव्ध गराउने विवरणमा सुरक्षित सम्पत्तिको किसिम<span class="timesNewRoman">/</span>नाम, परिमाण, मूल्य, सुरक्षित सम्पत्ति रहेको स्थान उल्लेख
+                                हुनुका साथै सुरक्षित सम्पत्तिको बिमा वापत पछिल्लो पटक बिमा शुल्क तिरेको रसिद पनि संलग्न हुनु पर्नेछ र
+                                कारणीका आसामीहरुको नाम, ठेगाना, आसामीबाट असुल हुन बांकी रकम, धितोपत्र, विनिमय अधिकार पत्र यदि
+                                कुनै भए सो को विवरण समेत उल्लेख गर्नु पर्नेछ । साथै बैंकले मागेका बखत कारणीको हिसाबकिताब, बहीखाता,
+                                प्रतिवेदन, कर लगायतका सरकारी दायित्व तिरेको रसिदरप्रमाण तथा अन्य सूचना उपलव्ध गराउनु कारणीको दायित्व हुनेछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१५<span class="timesNewRoman">.</span></td>
+                            <td>
+                                यस सम्झौता बमोजिम कारणीले गर्नुपर्ने कुनैपनि कार्य, कारणीको तर्फबाट बैंक वा यसका कुनै कर्मचारी वा प्रतिनिधि र अभिकर्ताले कारणीको
+                                वारिस वा प्रतिनिधिको हैसियतले गर्न सक्ने गरी यसै सम्झौताबाट अधिकार प्रदान गर्दछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१६<span class="timesNewRoman">.</span></td>
+                            <td>
+                                यो सम्झौता र यसमा उल्लेखित सुरक्षित सम्पत्तिहरु कारणीले बैंकलाई तिर्नु बुझाउनु पर्ने कुनैपनि किसिमको रकम
+                                वापत सुरक्षणको रुपमा निरन्तर <span class="timesNewRoman">(continuing security)</span> रहिरहनेछ र कथंकदाचित कारणीको नाममा बैंकमा
+                                खुलेको खाता वा खाताहरुमा सकारात्मक निक्षेप मौज्दात <span class="timesNewRoman">(credit balance)</span> नरहेमा मौज्दात रकम थपघट
+                                <span class="timesNewRoman">(fluctuation)</span> भईरहेमा कारणीले आंशिक रकम चुक्ता भुक्तान गरेमा वा कारणी र बैंक बीचको बैंकर—ग्राहक
+                                सम्बन्ध टुटेको अवस्थामा समेत कारणीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम वापत बैंकले सुरक्षित सम्पत्तिमाथि रहेको
+                                आफ्नो अधिकार प्रयोग गर्न सक्नेछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१७<span class="timesNewRoman">.</span></td>
+                            <td>
+                                यस सम्झौतामा उल्लेखित सुरक्षित सम्पत्तिहरु यसअघि अन्य कसैलाई कुनैपनि व्यहोराले लेखीनदिएको कारणीको एकलौटी हकभोग भएको व्यहोरा
+                                कारणी यसै सम्झौताबाट घोषणा गर्दछ र यो सम्झौता भएपछि कारणीको नाममा प्राप्त हुने, आउने वा श्रृजना हुने कुनैपनि सम्पत्तिमा
+                                समेत अन्य कसैको <span class="timesNewRoman">(</span>बैंक बाहेक<span class="timesNewRoman">)</span> हक, दावी नलाग्ने नहुने गरी व्यवस्था गर्न कारणी मञ्जुर गर्दछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१८<span class="timesNewRoman">.</span></td>
+                            <td>
+                                कुनैपनि समयमा कारणीले बैंकलाई तिर्न बांकी ऋणकर्जाको सांवा रकम, सांवा रकममा पाकेको ब्याज र कारणीको तर्फबाट गर्नुपर्ने मार्जिन लगानी समेतको कुल रकम
+                                <span class="timesNewRoman">(outstanding principal + interest accrued + margin = value of charged goods)</span>
+                                लाई खाम्ने गरी सुरक्षित सम्पत्तिको व्यवस्था गर्न कारणी मञ्जुर गर्दछ । कथंकदाचित कुनैपनि समयमा बैंकको स्वविवेकमा सुरक्षित
+                                सम्पत्तिको मूल्य, कारणीले बैंकलाई तिर्नुपर्ने ऋणकर्जाको सांवा, सांवामा पाकेको ब्याज र मार्जिनको रकम भन्दा कम छ भन्ने लागेमा बैंकले थप
+                                सुरक्षणको तत्कालै व्यवस्था गर्न वा त्यस्तो कम भएको मूल्य बराबरको रकम तत्कालै बैंकमा तिर्न बुझाउन कारणीलाई निर्देशन दिन सक्नेछ,
+                                त्यस्तो निर्देशनको पालना गर्नु कारणीको कर्तव्य हुनेछ । यस दफाको प्रयोजनार्थ सुरक्षित सम्पत्तिको मूल्यांकन खरिद मूल्य अथवा बजार मूल्य
+                                जुन घटी हुन्छ सो कायम गरिनेछ, तथापि सुरक्षित सम्पत्ति वा अन्य कुनै थप सुरक्षणको पर्याप्तता वा सो को मूल्य सम्बन्धमा बैंकको निर्णय अन्तिम हुनेछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>१९<span class="timesNewRoman">.</span></td>
+                            <td>
+                                बैंक र कारणीका बीचमा भएको अन्य कुनै लिखत वा सम्झौताले यस सम्झौता अन्तर्गत बैंकमा निहित अधिकारमा कुनै असर पार्ने छैन ।
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>२०<span class="timesNewRoman">.</span></td>
+                            <td>
+                                यस सम्झौता बमोजिम बैंकले प्रयोग गर्न सक्ने कुनैपनि अधिकार कुनै समयमा वा समय समयमा प्रयोग नगरेको कारणले मात्र कारणीले कुनैपनि किसिमको छुट, मिनाहा वा उन्मुक्ति दावी गर्न पाउने छैन ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>२१<span class="timesNewRoman">.</span></td>
+                            <td>
+                                कारणीले यस सम्झौता बमोजिम बैंकको पक्षमा धितो लेखीदिएको सुरक्षित सम्पत्ति मध्ये कुनै वा सबै सम्पत्ति प्रचलित कानून बमोजिम अन्य कुनै सरकारी कार्यालय वा निकायमा त्यसरी धितो दिएको व्यहोरा अभिलिखित गराउनु पर्ने भएमा कारणी त्यस्तो व्यहोरा अभिलेख गर्न र सो वापत कुनै शुल्क, दस्तुर लाग्ने भए सो व्यहोर्न समेत कारणी मञ्जुर गर्दछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>२२<span class="timesNewRoman">.</span></td>
+                            <td>
+                                यस सम्झौता अन्तर्गत कारणीले बैंकप्रति निर्वाह गर्नुपर्ने दायित्वमा अन्य कुनै तेश्रो पक्षको बैंकप्रतिको दायित्व समेत भएको अवस्थामा कारणीलाई कुनै सूचना वा जानकारी नदिई त्यस्तो तेश्रो पक्ष <span class="timesNewRoman">(</span>मुख्य आसामी<span class="timesNewRoman">)</span> संग कारोवार गर्न बैंक स्वतन्त्र हुनुको साथै बैंकले त्यस्तो तेश्रो पक्षलाई कुनै समय दिएको, तेश्रो पक्षबाट रकम असुल गरेको वा तेश्रो पक्षलाई उन्मुक्ति दिएको कारणले कारणीले बैंकप्रति निर्वाह गर्नुपर्ने दायित्वमा कुनै असर पर्ने छैन र कारणीको हैसियत मुख्य ऋणी सरह हुने कुरामा कारणी मञ्जुर गर्दछ ।
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>२३<span class="timesNewRoman">.</span></td>
+                            <td>
+                                यस लिखत अनुसार बैंकको पक्षमा सुरक्षण लेखीदिएको व्यहोरा प्रचलित कानून बमोजिम कुनै सरकारी वा गै¥हसरकारी निकायमा दर्ता वा अभिलेख गराउन पर्ने भएमा सो समेत गर्न गराउन कारणी मञ्जुर गर्दछ ।
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>२४<span class="timesNewRoman">.</span></td>
+                            <td>
+                                बैंकले कारणीलाई दिनुपर्ने कुनैपनि सूचना, म्याद वा जानकारी बैंकको वाहक, प्रतिनिधि, हुलाक, कुरियर सेवा वा विद्युतीय उपकरण जस्ता कुनैपनि माध्यमबाट कारणीको बैंकमा अभिलिखित ठेगानामा बुझाउन सक्नेछ । विद्युतीय उपकरणबाट प्रेषित गरेको कारणीले सोही दिन प्राप्त गरेको मानिनेछ, हुलाक वा कुरियर मार्फत प्रेषित गरेकोमा हुलाक वा कुरियर रसिदमा उल्लेखित ”बुझाएको मिति” मा कारणीले प्राप्त गरेको मानिनेछ र बैंकको ग्राहक वा प्रतिनिधि मार्फत बुझाएकोमा त्यस्तो वाहक<span class="timesNewRoman">/</span>प्रतिनिधिले बुझाएको भनी अभिलेख गरेको मितिमा कारणीले बुझेको   मानिनेछ ।
+
+                            </td>
+                        </tr>
+
+                    </table>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="signature">
+                        <span class="timesNewRoman">.........................................</span><br>
+                        कारणी<span class="timesNewRoman">/</span>ऋणी
+
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="row disable-print">
+                        <div class="col-md-12 text-right">
+                            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="HypothecationPropietorshipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="HypothecationPropietorshipPrint" class="mr-2 custom-color" >Print</button>
+                            <button nbButton status="success" (click)="submit()">Save</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

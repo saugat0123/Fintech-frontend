@@ -64,6 +64,7 @@ import { VehicleLoanDeedIndividualComponent } from './vehicle-loan-deed-individu
 import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
 
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
+import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -109,6 +110,7 @@ import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-
         AssignmentOfReceivablesProprietorshipComponent,
         VehicleLoanDeedIndividualComponent,
         KaloSuchiBorrowerPartnershipComponent,
+        GeneralLetterOfHypothecationPropietorshipComponent,
     ],
     imports: [
         CommonModule,
@@ -161,9 +163,11 @@ import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-
         KaloSuchiBorrowerIndividualComponent,
         GeneralLetterOfHypothecationCompanyComponent,
         VehicleLoanDeedIndividualComponent,
-        KaloSuchiBorrowerPartnershipComponent
+        KaloSuchiBorrowerPartnershipComponent,
+        GeneralLetterOfHypothecationPropietorshipComponent
     ],
 })
+
 
 export class MegaModule { }
 
