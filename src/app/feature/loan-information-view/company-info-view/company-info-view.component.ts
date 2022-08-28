@@ -53,7 +53,7 @@ export class CompanyInfoViewComponent implements OnInit {
       this.contactPersonJsonData = JSON.parse(this.formValue.contactPersons);
       this.businessAndIndustry = JSON.parse(this.formValue.businessAndIndustry);
       this.businessGiven = JSON.parse(this.formValue.businessGiven);
-      this.companyLocationData = this.formValue.companyLocations.address;
+      this.companyLocationData = JSON.parse(this.formValue.companyLocations.address);
     }
     this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
   }
