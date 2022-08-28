@@ -157,7 +157,8 @@ import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-
         VehicleLoanDeedCompanyComponent,
         ConsentLetterIndividualComponent,
         KaloSuchiBorrowerIndividualComponent,
-        GeneralLetterOfHypothecationCompanyComponent
+        GeneralLetterOfHypothecationCompanyComponent,
+        VehicleLoanDeedIndividualComponent
     ],
 })
 
