@@ -12,6 +12,8 @@ import {Alert, AlertType} from '../../model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Pageable} from '../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../@core/utils/PaginationUtils';
+import {RouterUtilsService} from '../../../feature/credit-administration/utils/router-utils.service';
+import {CustomerType} from '../../../feature/customer/model/customerType';
 
 
 @Component({
@@ -55,12 +57,27 @@ export class NotificationComponent implements OnInit {
     message.status = Status.INACTIVE;
     this.notificationService.save(message).subscribe((updateNotification: any) => {
       this.notificationService.fetchNotifications();
-      this.router.navigate(['/home/loan/summary'], {
+      if (message.messageType.toString() === 'REVIEW_DATE') {
+        const customerType = message.message.split(' ')[1];
+        if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
+          this.router.navigate(['/home/customer/profile/' + message.customerId], {
             queryParams: {
-              loanConfigId: message.loanConfigId,
-              customerId: message.customerId
+              customerType: 'INDIVIDUAL',
+              customerInfoId: message.customerId
             }
           });
+        } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
+          this.router.navigate(['/home/customer/company-profile/' + message.customerId],
+              {queryParams: {id: message.customerId, customerType: customerType, companyInfoId: message.customerId, customerInfoId: message.customerId}});
+        }
+      } else {
+        this.router.navigate(['/home/loan/summary'], {
+          queryParams: {
+            loanConfigId: message.loanConfigId,
+            customerId: message.customerId
+          }
+        });
+      }
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Error updating notification status'));
