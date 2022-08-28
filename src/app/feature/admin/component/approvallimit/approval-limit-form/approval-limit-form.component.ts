@@ -9,6 +9,7 @@ import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {ApprovalLimitService} from '../approval-limit.service';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {RoleService} from '../../role-permission/role.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
 
     loanCategory = new LoanConfig();
     authorities = new Role();
+    isRenewable = false;
 
     constructor(
         private service: ApprovalLimitService,
@@ -49,6 +51,10 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
 
             this.loanList = response.detail;
         });
+        if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.loanCategory)
+        && !ObjectUtil.isEmpty(this.model.loanCategory.isRenewable)) {
+            this.isRenewable = this.model.loanCategory.isRenewable;
+        }
     }
 
     ngDoCheck(): void {
@@ -102,6 +108,7 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     setApprovalType(event) {
         const loans = this.loanList.filter(s => s.id === event);
         this.model.loanApprovalType = loans[0].loanCategory;
+        this.isRenewable = loans[0].isRenewable;
     }
 }
 
