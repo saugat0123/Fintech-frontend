@@ -1,0 +1,47 @@
+@import "./src/app/@theme/styles/themes";
+
+.form-fields {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+nb-card {
+  max-height: 900px;
+}
+
+@media screen {
+  .print-only {
+    display: none;
+
+  }
+
+  .disable-print {
+    display: inline;
+  }
+}
+
+@media print {
+  .form-fields {
+    margin: 0px 5px;
+    border: none;
+    border-radius: 0px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+}
+
+@media (min-width: 1600px) {
+  .nb-card-body__viewFull {
+    max-width: 100%;
+  }
+}
