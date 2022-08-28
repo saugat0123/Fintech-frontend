@@ -202,12 +202,12 @@
                 </tr>
                 <tr class="text-left">
                     <td [colSpan]="isRemit ? 8 :12">
-                        <div style="display: flex; white-space: nowrap; height: auto">
+                        <div style="display: flex; height: auto">
                             <p><strong>Purpose: </strong></p>&nbsp;<p
                                 [innerHTML]="(loan?.proposal?.data | jsonParse)?.purposeOfLoan | safeHtml"></p>
                         </div>
                         <div *ngIf="(loan?.proposal?.data | jsonParse)?.collateralRequirement"
-                           style="display: flex;white-space: nowrap;">
+                           style="display: flex;height: auto">
                             <p><strong>Drawdown: </strong></p>
                             &nbsp; <p
                                 [innerHTML]="(loan?.proposal?.data | jsonParse)?.collateralRequirement | safeHtml"></p>
