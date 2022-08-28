@@ -28,7 +28,14 @@ export class NotificationMasterComponent implements OnInit {
       default: 30,
       figureType: 'days',
       options: [15, 30, 45, 60]
-    }]
+    }],
+      [
+        NotificationMasterType.REVIEW_DATE_EXPIRY, {
+        particular: 'Review Date expiry before',
+        default: 30,
+        figureType: 'days',
+        options: [15, 30, 45, 60]
+      }]
   ]);
   private notificationMasterList: Array<NotificationMaster> = new Array<NotificationMaster>();
   public statusEnum = Status;

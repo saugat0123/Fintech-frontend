@@ -13,55 +13,49 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <form [formGroup]="reviewDate" class="form-horizontal">
+        <form class="form-horizontal">
             <div class="row form-group">
                 <div class="col-md-4">
                     <label>Last Review Date</label>
-                    <ng-container *ngIf="lastReviewChecked; else naCheck">
-                        <input class="form-control"
-                               [readOnly]="true"
-                               formControlName="lastReviewDate"
-                               placeholder="Last Review Date"/>
-                    </ng-container>
-                    <ng-template #naCheck>
                         <input type="date"
                                *ngIf="calendarType === 'AD'"
                                class="form-control"
-                               formControlName="lastReviewDate"
+                               [readonly]="reviewDateData?.lastReviewDateChecked"
+                               [(ngModel)]="reviewDateData.lastReviewDate"
+                               name="lastReviewDate"
                                placeholder="Last Review Date"/>
                         <input *ngIf="calendarType === 'BS'"
-                               formControlName="lastReviewDate" hidden>
+                               name="lastReviewDate"
+                               [(ngModel)]="reviewDateData.lastReviewDate"
+                               hidden>
                         <app-calendar *ngIf="calendarType === 'BS'"
-                                      [ePreDate]="reviewDate?.get('lastReviewDate')?.value"></app-calendar>
-                    </ng-template>
+                                      [ePreDate]="reviewDateData.lastReviewDate"></app-calendar>
                     <div class="mt-2">
-                        <nb-checkbox (change)="checkControlChanged($event.target.checked, 'lastReviewDateChecked')"
-                                     [checked]="lastReviewChecked" formControlName="lastReviewDateChecked"><b>NA</b>
+                        <nb-checkbox class="mt-2" name="lastReviewDateCheckd"
+                                     [(ngModel)]="reviewDateData.lastReviewDateChecked"><b>NA</b>
                         </nb-checkbox>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label>Next Review Date</label>
-                    <ng-container *ngIf="nextReviewChecked; else na">
-                        <input class="form-control"
-                               [readOnly]="true"
-                               formControlName="nextReviewDate"
-                               placeholder="Next Review Date"/>
-                    </ng-container>
-                    <ng-template #na>
+
                         <input *ngIf="calendarType === 'AD'"
                                class="form-control"
                                type="date"
-                               formControlName="nextReviewDate"
+                               name="nextReviewDate"
+                               [readonly]="reviewDateData?.nextReviewDateChecked"
+                               [(ngModel)]="reviewDateData.nextReviewDate"
                                placeholder="Next Review Date"/>
                         <input *ngIf="calendarType === 'BS'"
-                               formControlName="nextReviewDate" hidden>
+                               [(ngModel)]="reviewDateData.nextReviewDate"
+                               hidden>
                         <app-calendar *ngIf="calendarType === 'BS'"
-                                      [ePreDate]="reviewDate?.get('nextReviewDate')?.value"></app-calendar>
-                    </ng-template>
+                                      name="nextReviewDate"
+                                      [ePreDate]="reviewDateData.nextReviewDate"></app-calendar>
                     <div class="mt-2">
-                        <nb-checkbox class="mt-2" (change)="checkControlChanged($event.target.checked, 'nextReviewDateChecked')"
-                                     [checked]="nextReviewChecked" formControlName="nextReviewDateChecked"><b>NA</b>
+                        <nb-checkbox class="mt-2" [(ngModel)]="reviewDateData.nextReviewDateChecked"                                name="nextReviewDate"
+                                     name="nextReviewDateChecked"
+                        ><b>NA</b>
                         </nb-checkbox>
                     </div>
                 </div>

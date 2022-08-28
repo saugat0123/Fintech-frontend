@@ -15,10 +15,12 @@
                         tabTitle="{{customerInfo?.customerType === 'INDIVIDUAL' ? 'CUSTOMER DETAIL' : 'COMPANY DETAIL'}}"
                         #personal>
                     <div class="row" *ngIf="customerInfo?.isJointCustomer; else otherSection;">
-                        <ng-container *ngFor="let joint of userConfigForm.get('jointCustomerDetails')['controls']; let i = index;" formArrayName="jointCustomerDetails">
+                        <ng-container
+                                *ngFor="let joint of userConfigForm.get('jointCustomerDetails')['controls']; let i = index;"
+                                formArrayName="jointCustomerDetails">
                             <ng-container [formGroupName]="i">
                                 <div class="col-md-12">
-                                    <p class="text-center"><strong>Joint Customer Detail-{{i+1}}</strong> </p>
+                                    <p class="text-center"><strong>Joint Customer Detail-{{i + 1}}</strong></p>
                                     <hr>
                                 </div>
                                 <div class="col-md-4">
@@ -349,7 +351,8 @@
                                         </div>
                                     </ng-container>
                                 </div>
-                                <div class="col-md-12" *ngIf="(customer?.jointInfo | jsonParse)?.jointCustomerInfo?.length > 1">
+                                <div class="col-md-12"
+                                     *ngIf="(customer?.jointInfo | jsonParse)?.jointCustomerInfo?.length > 1">
                                     <hr class="print-line">
                                 </div>
 
@@ -944,7 +947,8 @@
                                              [hidden]="userConfigForm.get('authorizedPersonDetail')?.get('gender')?.value == 1">
                                             <!--[hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
                                             <div class="form-group">
-                                                <label class="title" for="fatherInLawName">Authorized Person Father In Law
+                                                <label class="title" for="fatherInLawName">Authorized Person Father In
+                                                    Law
                                                     Name</label>
                                                 <input class="form-control rounded nepaliFont"
                                                        formControlName="fatherInLawName"
@@ -968,7 +972,8 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship Issue
+                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship
+                                                    Issue
                                                     Office &
                                                     District</label>
                                                 <input class="form-control rounded nepaliFont"
@@ -981,7 +986,8 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship Issue
+                                                <label class="title" for="citizenshipNo">Authorized Person Citizenship
+                                                    Issue
                                                     Date</label>
                                                 <input class="form-control rounded nepaliFont"
                                                        formControlName="citizenshipIssueDate"
@@ -1713,7 +1719,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION'">
+                                    <div class="col-md-6"
+                                         *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION'">
                                         <div class="form-group">
                                             <label class="title" for="collateralType">Collateral Type</label>
                                             <select class="form-control" formControlName="collateralType"
@@ -1725,7 +1732,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6" *ngIf="collateral?.get('collateralOwnerType')?.value === 'INDIVIDUAL'">
+                                    <div class="col-md-6"
+                                         *ngIf="collateral?.get('collateralOwnerType')?.value === 'INDIVIDUAL'">
                                         <div class="form-group">
                                             <label class="title" for="collateralType">Collateral Type</label>
                                             <select class="form-control" formControlName="collateralType"
@@ -1737,75 +1745,27 @@
                                         </div>
                                     </div>
                                     <div *ngIf="collateral?.get('collateralType')?.value === 'land_and_building'">
-                                    <div class="col-md-12" *ngIf="collateral?.get('collateralOwnerType')?.value">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="title" for="name">FAC Owner Name (in Nepali)</label>
-                                                    <input class="form-control rounded nepaliFont"
-                                                           formControlName="nameInNepali"
-                                                           [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'nameInNepali'])?.errors}"
-                                                           name="nameInNepali" placeholder=""
-                                                           type="text"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="title" for="name">FAC Owner Name (in English)</label>
-                                                    <input class="form-control rounded"
-                                                           formControlName="name"
-                                                           [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'name'])?.errors}"
-                                                           name="name" placeholder=""
-                                                           type="text"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="title" for="name">FAC Seller Name</label>
-                                                    <input class="form-control rounded nepaliFont"
-                                                           formControlName="sellerName"
-                                                           [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'sellerName'])?.errors}"
-                                                           name="sellerName" placeholder=""
-                                                           type="text"/>
-                                                </div>
-                                            </div>
-
-                                            <ng-container
-                                                    *ngIf="collateral?.get('collateralOwnerType')?.value === 'INDIVIDUAL'">
+                                        <div class="col-md-12" *ngIf="collateral?.get('collateralOwnerType')?.value">
+                                            <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="title" for="gender">FAC Owner Gender</label>
-                                                        <select class="form-control" formControlName="gender"
-                                                                [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'gender'])?.errors}">
-                                                            <option [value]="null" hidden>Select Gender</option>
-                                                            <option value="0">महिला</option>
-                                                            <option value="1">पुरुष</option>
-                                                            <!-- <option value="2">अन्य</option>-->
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="title" for="dateOfBirth">FAC Owner Date of Birth
-                                                            (B.S.)</label>
+                                                        <label class="title" for="name">FAC Owner Name (in
+                                                            Nepali)</label>
                                                         <input class="form-control rounded nepaliFont"
-                                                               formControlName="dateOfBirth"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'dateOfBirth'])?.errors}"
-                                                               name="dateOfBirth" placeholder=""
+                                                               formControlName="nameInNepali"
+                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'nameInNepali'])?.errors}"
+                                                               name="nameInNepali" placeholder=""
                                                                type="text"/>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="title" for="citizenshipNo">FAC Owner Citizenship
-                                                            no.</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="citizenshipNo"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'citizenshipNo'])?.errors}"
+                                                        <label class="title" for="name">FAC Owner Name (in
+                                                            English)</label>
+                                                        <input class="form-control rounded"
+                                                               formControlName="name"
+                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'name'])?.errors}"
                                                                name="name" placeholder=""
                                                                type="text"/>
                                                     </div>
@@ -1813,175 +1773,234 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="title" for="citizenshipNo">FAC Owner Citizenship
-                                                            Issue Office & District</label>
+                                                        <label class="title" for="name">FAC Seller Name</label>
                                                         <input class="form-control rounded nepaliFont"
-                                                               formControlName="citizenshipIssueDistrict"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'citizenshipIssueDistrict'])?.errors}"
-                                                               name="name" placeholder=""
+                                                               formControlName="sellerName"
+                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'sellerName'])?.errors}"
+                                                               name="sellerName" placeholder=""
                                                                type="text"/>
                                                     </div>
                                                 </div>
+
+                                                <ng-container
+                                                        *ngIf="collateral?.get('collateralOwnerType')?.value === 'INDIVIDUAL'">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="gender">FAC Owner Gender</label>
+                                                            <select class="form-control" formControlName="gender"
+                                                                    [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'gender'])?.errors}">
+                                                                <option [value]="null" hidden>Select Gender</option>
+                                                                <option value="0">महिला</option>
+                                                                <option value="1">पुरुष</option>
+                                                                <!-- <option value="2">अन्य</option>-->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="dateOfBirth">FAC Owner Date of
+                                                                Birth
+                                                                (B.S.)</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="dateOfBirth"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'dateOfBirth'])?.errors}"
+                                                                   name="dateOfBirth" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="citizenshipNo">FAC Owner
+                                                                Citizenship
+                                                                no.</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="citizenshipNo"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'citizenshipNo'])?.errors}"
+                                                                   name="name" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="citizenshipNo">FAC Owner
+                                                                Citizenship
+                                                                Issue Office & District</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="citizenshipIssueDistrict"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'citizenshipIssueDistrict'])?.errors}"
+                                                                   name="name" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="citizenshipNo">FAC Owner
+                                                                Citizenship
+                                                                Issue Date</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="citizenshipIssueDate"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'citizenshipIssueDate'])?.errors}"
+                                                                   name="name" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="contactNo">FAC Contact/Mobile
+                                                                No.</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="contactNo"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'contactNo'])?.errors}"
+                                                                   name="contactNo" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4"
+                                                         *ngIf="userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 0">
+                                                        <div class="form-group">
+                                                            <label class="relationMedium" for="relationMedium">FAC
+                                                                Relation
+                                                                Medium</label>
+                                                            <select class="form-control"
+                                                                    formControlName="relationMedium"
+                                                                    id="relationMedium"
+                                                                    [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.errors}">
+                                                                <option [value]="null" hidden>Select Relation Medium
+                                                                </option>
+                                                                <option value="0">Married</option>
+                                                                <option value="1">Unmarried</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4"
+                                                         [hidden]="!(userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1) && userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 0">
+                                                        <div class="form-group">
+                                                            <label class="title" for="grandFatherName">FAC Grandfather
+                                                                Name</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="grandFatherName"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'grandFatherName'])?.errors}"
+                                                                   name="grandFatherName" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4"
+                                                         [hidden]="!(userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1) && userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 0">
+                                                        <div class="form-group">
+                                                            <label class="title" for="name">FAC Father Name</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="fatherName"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fatherName'])?.errors}"
+                                                                   name="name" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4"
+                                                         [hidden]="userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1 || userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 1">
+                                                        <div class="form-group">
+                                                            <label class="title" for="husbandName">FAC Husband
+                                                                Name </label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="husbandName"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'husbandName'])?.errors}"
+                                                                   name="husbandName" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4"
+                                                         [hidden]="userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1 || userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 1">
+                                                        <div class="form-group">
+                                                            <label class="title" for="fatherInLawName">FAC Father In Law
+                                                                Name</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="fatherInLawName"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fatherInLawName'])?.errors}"
+                                                                   name="fatherInLawName" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="title" for="citizenshipNo">FAC Owner Citizenship
-                                                            Issue Date</label>
+                                                        <label class="title" for="facAddress">FAC Owner Address</label>
                                                         <input class="form-control rounded nepaliFont"
-                                                               formControlName="citizenshipIssueDate"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'citizenshipIssueDate'])?.errors}"
-                                                               name="name" placeholder=""
+                                                               formControlName="facAddress"
+                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'facAddress'])?.errors}"
+                                                               name="facAddress"
+                                                               id="facAddress" placeholder=""
                                                                type="text"/>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="title" for="contactNo">FAC Contact/Mobile
-                                                            No.</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="contactNo"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'contactNo'])?.errors}"
-                                                               name="contactNo" placeholder=""
-                                                               type="text"/>
+                                                <ng-container
+                                                        *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION'">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="registrationNo">FAC Company
+                                                                Registration No.</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="registrationNo"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'registrationNo'])?.errors}"
+                                                                   name="registrationNo" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-4"
-                                                     *ngIf="userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 0">
-                                                    <div class="form-group">
-                                                        <label class="relationMedium" for="relationMedium">FAC Relation
-                                                            Medium</label>
-                                                        <select class="form-control" formControlName="relationMedium"
-                                                                id="relationMedium"
-                                                                [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.errors}">
-                                                            <option [value]="null" hidden>Select Relation Medium
-                                                            </option>
-                                                            <option value="0">Married</option>
-                                                            <option value="1">Unmarried</option>
-                                                        </select>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="regIssueDate">FAC Company
+                                                                Registration
+                                                                Date</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="regIssueDate"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'regIssueDate'])?.errors}"
+                                                                   name="regIssueDate" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-4"
-                                                     [hidden]="!(userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1) && userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 0">
-                                                    <div class="form-group">
-                                                        <label class="title" for="grandFatherName">FAC Grandfather
-                                                            Name</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="grandFatherName"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'grandFatherName'])?.errors}"
-                                                               name="grandFatherName" placeholder=""
-                                                               type="text"/>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="companyRegOffice">FAC Company
+                                                                Registration Office</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="companyRegOffice"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'companyRegOffice'])?.errors}"
+                                                                   name="companyRegOffice" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-4"
-                                                     [hidden]="!(userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1) && userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 0">
-                                                    <div class="form-group">
-                                                        <label class="title" for="name">FAC Father Name</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="fatherName"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fatherName'])?.errors}"
-                                                               name="name" placeholder=""
-                                                               type="text"/>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="title" for="panNo">PAN No.</label>
+                                                            <input class="form-control rounded nepaliFont"
+                                                                   formControlName="panNo"
+                                                                   [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'panNo'])?.errors}"
+                                                                   name="panNo" placeholder=""
+                                                                   type="text"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-md-4"
-                                                     [hidden]="userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1 || userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 1">
-                                                    <div class="form-group">
-                                                        <label class="title" for="husbandName">FAC Husband Name </label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="husbandName"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'husbandName'])?.errors}"
-                                                               name="husbandName" placeholder=""
-                                                               type="text"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4"
-                                                     [hidden]="userConfigForm?.get(['collateralDetails', i, 'gender'])?.value == 1 || userConfigForm?.get(['collateralDetails', i, 'relationMedium'])?.value == 1">
-                                                    <div class="form-group">
-                                                        <label class="title" for="fatherInLawName">FAC Father In Law
-                                                            Name</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="fatherInLawName"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fatherInLawName'])?.errors}"
-                                                               name="fatherInLawName" placeholder=""
-                                                               type="text"/>
-                                                    </div>
-                                                </div>
-                                            </ng-container>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="title" for="facAddress">FAC Owner Address</label>
-                                                    <input class="form-control rounded nepaliFont"
-                                                           formControlName="facAddress"
-                                                           [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'facAddress'])?.errors}"
-                                                           name="facAddress"
-                                                           id="facAddress" placeholder=""
-                                                           type="text"/>
-                                                </div>
+                                                </ng-container>
                                             </div>
-
-                                            <ng-container
-                                                    *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION'">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="title" for="registrationNo">FAC Company
-                                                            Registration No.</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="registrationNo"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'registrationNo'])?.errors}"
-                                                               name="registrationNo" placeholder=""
-                                                               type="text"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="title" for="regIssueDate">FAC Company Registration
-                                                            Date</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="regIssueDate"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'regIssueDate'])?.errors}"
-                                                               name="regIssueDate" placeholder=""
-                                                               type="text"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="title" for="companyRegOffice">FAC Company
-                                                            Registration Office</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="companyRegOffice"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'companyRegOffice'])?.errors}"
-                                                               name="companyRegOffice" placeholder=""
-                                                               type="text"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="title" for="panNo">PAN No.</label>
-                                                        <input class="form-control rounded nepaliFont"
-                                                               formControlName="panNo"
-                                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'panNo'])?.errors}"
-                                                               name="panNo" placeholder=""
-                                                               type="text"/>
-                                                    </div>
-                                                </div>
-                                            </ng-container>
+                                            <hr>
                                         </div>
-                                        <hr>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
-                            <ng-container *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION' && collateral?.get('collateralType')?.value === 'land_and_building'">
+                            <ng-container
+                                    *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION' && collateral?.get('collateralType')?.value === 'land_and_building'">
                                 <div class="row col-md-12" formGroupName="collateralAuthorizedPersonDetail">
                                     <div class="col-md-12">
                                         <strong>Collateral Authorized Person Detail</strong>
@@ -2053,298 +2072,416 @@
                                 </div>
                                 <hr>
                             </ng-container>
-                            <div class="row col-md-12" formGroupName="landAndBuildingDetail"
+                            <div class="row col-md-12"
                                  *ngIf="collateral?.get('collateralType')?.value === 'land_and_building'">
-                                <div class="col-md-12">
-                                    <strong>Land And Building</strong>
-                                    <div class="offset-10 col-md-2">
-                                        <div class="form-group">
-                                            <select class="form-control" formControlName="munType"
-                                                    [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('munType')?.errors}">
-                                                <option value="0">Municipality</option>
-                                                <option value="1">VDC</option>
-                                            </select>
+                                <ng-container
+                                        *ngFor="let land of collateral.get('landAndBuildingDetail') ['controls']; let l = index;"
+                                        formArrayName="landAndBuildingDetail">
+                                    <ng-container [formGroupName]="l">
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <strong>Land And Building</strong>
+                                            <div class="offset-10 col-md-2">
+                                                <div class="form-group">
+                                                    <select class="form-control" formControlName="munType">
+                                                        <option value="0">Municipality</option>
+                                                        <option value="1">VDC</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="province">Province</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="province"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('province')?.errors}"
-                                               name="province" placeholder=""
-                                               id="province"
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="province">Province</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="province"
+                                                       name="province" placeholder=""
+                                                       id="province"
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="district">District</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="district"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('district')?.errors}"
-                                               name="district" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title"
-                                               for="municipality">{{userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('munType')?.value == 0
-                                            ? 'Municipality' : 'VDC'}}</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="municipality"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('municipality')?.errors}"
-                                               name="municipality" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="wardNo">Ward No.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="wardNo"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('wardNo')?.errors}"
-                                               name="wardNo" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="district">District</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="district"
+                                                       name="district" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title"
+                                                       for="municipality">{{land?.get('munType')?.value == 0
+                                                    ? 'Municipality' : 'VDC'}}</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="municipality"
+                                                       name="municipality" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="wardNo">Ward No.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="wardNo"
+                                                       name="wardNo" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="wardNo">Plot No.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="plotNo"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('plotNo')?.errors}"
-                                               name="plotNo" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="wardNo">Plot No.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="plotNo"
+                                                       name="plotNo" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Tole</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="tole"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('tole')?.errors}"
-                                               name="tole" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Tole</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="tole"
+                                                       name="tole" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Block/Storey</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="blockStorey"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('blockStorey')?.errors}"
-                                               name="blockStorey" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Block/Storey</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="blockStorey"
+                                                       name="blockStorey" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Area</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="area"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('area')?.errors}"
-                                               name="area" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Area</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="area"
+                                                       name="area" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Naksha Seat No.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="nakshaSeatNo"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'landAndBuildingDetail'])?.get('nakshaSeatNo')?.errors}"
-                                               name="nakshaSeatNo" placeholder=""
-                                               type="text"/>
-                                    </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Naksha Seat No.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="nakshaSeatNo"
+                                                       name="nakshaSeatNo" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger float-right"
+                                                    (click)="removeCollateralType(i, l, 'landAndBuildingDetail')"
+                                                    style="position: static">
+                                                <em class="fa fa-trash" style="color: white;"></em>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <div class="col-md-12">
+                                    <button class="btn btn-danger float-right mt-2"
+                                            (click)="addLandAndBuilding(i)" style="position: static">
+                                        Add Land & Building
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="row col-md-12" formGroupName="stocksReceivablesValue"
+                            <div class="row col-md-12"
                                  *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION' && collateral?.get('collateralType')?.value === 'stocks_receivables'">
-                                <div class="col-md-12">
-                                    <strong>Stocks/Receivables Detail</strong>
-                                </div>
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Stock Value</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="stockValue"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'stocksReceivablesValue'])?.get('stockValue')?.errors}"
-                                               name="stockValue" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                <ng-container
+                                        *ngFor="let stock of collateral.get('stocksReceivablesValue') ['controls']; let l = index;"
+                                        formArrayName="stocksReceivablesValue">
+                                    <ng-container [formGroupName]="l">
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <strong>Stocks/Receivables Detail</strong>
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Stock Value</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="stockValue"
+                                                       name="stockValue" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Receivables Value</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="receivableValue"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'stocksReceivablesValue'])?.get('receivableValue')?.errors}"
-                                               name="receivableValue" placeholder=""
-                                               type="text"/>
-                                    </div>
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Receivables Value</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="receivableValue"
+                                                       name="receivableValue" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger float-right"
+                                                    (click)="removeCollateralType(i, l, 'stocksReceivablesValue')"
+                                                    style="position: static">
+                                                <em class="fa fa-trash" style="color: white;"></em>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <div class="col-md-12">
+                                    <button class="btn btn-danger float-right mt-2"
+                                            (click)="addStocksReceivables(i)" style="position: static">
+                                        Add Stocks & Receivables
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="row col-md-12" formGroupName="plantMachineryDetail"
+                            <div class="row col-md-12"
                                  *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION' && collateral?.get('collateralType')?.value === 'plant_machinery_equipment'">
-                                <div class="col-md-12">
-                                    <strong>Plant/Machinery/Equipment Detail</strong>
-                                </div>
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Plant/Machinery/Equipment
-                                            Details</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="equipmentDetail"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'plantMachineryDetail'])?.get('equipmentDetail')?.errors}"
-                                               name="equipmentDetail" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
+                                <ng-container
+                                        *ngFor="let stock of collateral.get('plantMachineryDetail') ['controls']; let l = index;"
+                                        formArrayName="plantMachineryDetail">
+                                    <ng-container [formGroupName]="l">
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <strong>Plant/Machinery/Equipment Detail</strong>
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Plant/Machinery/Equipment
+                                                    Details</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="equipmentDetail"
+                                                       name="equipmentDetail" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Plant/Machinery/Equipment Value</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="equipmentValue"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'plantMachineryDetail'])?.get('equipmentValue')?.errors}"
-                                               name="equipmentValue" placeholder=""
-                                               type="text"/>
-                                    </div>
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Plant/Machinery/Equipment Value</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="equipmentValue"
+                                                       name="equipmentValue" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger float-right"
+                                                    (click)="removeCollateralType(i, l, 'plantMachineryDetail')"
+                                                    style="position: static">
+                                                <em class="fa fa-trash" style="color: white;"></em>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <div class="col-md-12">
+                                    <button class="btn btn-danger float-right mt-2"
+                                            (click)="addPlantMachinery(i)" style="position: static">
+                                        Add Plant & Machinery
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="row col-md-12" formGroupName="vehicleDetail"
+                            <div class="row col-md-12"
                                  *ngIf="collateral?.get('collateralType')?.value === 'vehicle'">
+                                <ng-container
+                                        *ngFor="let stock of collateral.get('vehicleDetail') ['controls']; let l = index;"
+                                        formArrayName="vehicleDetail">
+                                    <ng-container [formGroupName]="l">
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <strong>Vehicle Detail</strong>
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Vehicle Registration No.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="vehicleRegNo"
+                                                       name="vehicleRegNo" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="tole">Vehicle Model No.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="vehicleModelNo"
+                                                       name="vehicleModelNo" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger float-right"
+                                                    (click)="removeCollateralType(i, l, 'vehicleDetail')"
+                                                    style="position: static">
+                                                <em class="fa fa-trash" style="color: white;"></em>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
                                 <div class="col-md-12">
-                                    <strong>Vehicle Detail</strong>
-                                </div>
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Vehicle Registration No.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="vehicleRegNo"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'vehicleDetail'])?.get('vehicleRegNo')?.errors}"
-                                               name="vehicleRegNo" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="tole">Vehicle Model No.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="vehicleModelNo"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'vehicleDetail'])?.get('vehicleModelNo')?.errors}"
-                                               name="vehicleModelNo" placeholder=""
-                                               type="text"/>
-                                    </div>
+                                    <button class="btn btn-danger float-right mt-2"
+                                            (click)="addVehicle(i)" style="position: static">
+                                        Add Vehicle
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="row col-md-12" formGroupName="fdHolderDetail"
+                            <div class="row col-md-12"
                                  *ngIf="collateral?.get('collateralType')?.value === 'fixed_deposit'">
+                                <ng-container
+                                        *ngFor="let stock of collateral.get('fdHolderDetail') ['controls']; let l = index;"
+                                        formArrayName="fdHolderDetail">
+                                    <ng-container [formGroupName]="l">
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <strong>Fixed Holder Detail</strong>
+                                        </div>
+
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Fixed Deposit Holder Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="name"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Fixed Deposit Receipt No.</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="fdReceiptNo"
+                                                       name="fdReceiptNo" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Fixed Deposit Amount</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="fdAmount"
+                                                       name="fdAmount" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Fixed Deposit Father Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="fatherName"
+                                                       name="fatherName" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Fixed Deposit Grandfather Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="grandFatherName"
+                                                       name="grandFatherName" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger float-right"
+                                                    (click)="removeCollateralType(i, l, 'fdHolderDetail')"
+                                                    style="position: static">
+                                                <em class="fa fa-trash" style="color: white;"></em>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
                                 <div class="col-md-12">
-                                    <strong>Fixed Holder Detail</strong>
-                                </div>
-
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="name">Fixed Deposit Holder Name</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="name"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fdHolderDetail'])?.get('name')?.errors}"
-                                               name="name" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="name">Fixed Deposit Receipt No.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="fdReceiptNo"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fdHolderDetail'])?.get('fdReceiptNo')?.errors}"
-                                               name="fdReceiptNo" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="name">Fixed Deposit Amount</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="fdAmount"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'fdHolderDetail'])?.get('fdAmount')?.errors}"
-                                               name="fdAmount" placeholder=""
-                                               type="text"/>
-                                    </div>
+                                    <button class="btn btn-danger float-right mt-2"
+                                            (click)="addFDHolder(i)" style="position: static">
+                                        Add FD Holder
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="row col-md-12" formGroupName="shareDetail"
+                            <div class="row col-md-12"
                                  *ngIf="collateral?.get('collateralType')?.value === 'shares'">
+                                <ng-container
+                                        *ngFor="let stock of collateral.get('shareDetail') ['controls']; let l = index;"
+                                        formArrayName="shareDetail">
+                                    <ng-container [formGroupName]="l">
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <strong>Share Detail</strong>
+                                        </div>
+
+                                        <div class="col-md-4 mt-2">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Shareholder Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="name"
+                                                       name="name" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Company Name</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="companyName"
+                                                       name="companyName" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="name">No. of Shares</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="noOfShares"
+                                                       name="noOfShares" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="title" for="name">Share Type</label>
+                                                <input class="form-control rounded nepaliFont"
+                                                       formControlName="shareType"
+                                                       name="shareType" placeholder=""
+                                                       type="text"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger float-right"
+                                                    (click)="removeCollateralType(i, l, 'shareDetail')"
+                                                    style="position: static">
+                                                <em class="fa fa-trash" style="color: white;"></em>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
                                 <div class="col-md-12">
-                                    <strong>Share Detail</strong>
-                                </div>
-
-                                <div class="col-md-4 mt-2">
-                                    <div class="form-group">
-                                        <label class="title" for="name">Shareholder Name</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="name"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'shareDetail'])?.get('name')?.errors}"
-                                               name="name" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="name">Company Name</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="companyName"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'shareDetail'])?.get('companyName')?.errors}"
-                                               name="companyName" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="name">No. of Shares</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="noOfShares"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'shareDetail'])?.get('noOfShares')?.errors}"
-                                               name="noOfShares" placeholder=""
-                                               type="text"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="name">Share Type</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="shareType"
-                                               [ngClass]="{'is-invalid': submitted && userConfigForm?.get(['collateralDetails', i, 'shareDetail'])?.get('shareType')?.errors}"
-                                               name="shareType" placeholder=""
-                                               type="text"/>
-                                    </div>
+                                    <button class="btn btn-danger float-right mt-2"
+                                            (click)="addShare(i)" style="position: static">
+                                        Add Share
+                                    </button>
                                 </div>
                             </div>
                             <hr>
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-3">
                                 <button class="btn btn-danger float-right" (click)="removeCollateral(i)"
                                         style="position: static">
                                     <em class="fa fa-trash" style="color: white;"></em>
