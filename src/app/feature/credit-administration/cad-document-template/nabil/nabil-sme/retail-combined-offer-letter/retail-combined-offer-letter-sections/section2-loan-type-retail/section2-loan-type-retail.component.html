@@ -211,7 +211,15 @@
                                 </ng-container>
                                 <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने
                                 घर/जग्गाको
-                                बजार मूल्यको मूल्याङकन (Fair Market Value) को ३० प्रतिशत बराबर रकम वा
+                                बजार मूल्यको मूल्याङकन (Fair Market Value) को
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="drawingPowerFreeText"
+                                       formControlName="drawingPowerFreeText"
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{tempInformation?.section2?.mortgageLoanFreeText[i1]?.drawingPowerFreeText || '______________________'}}
+                                </span>
+                                प्रतिशत बराबर रकम वा
                                 निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
@@ -694,7 +702,15 @@
                                 </ng-container>
                                 <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
                                 लेखिदिएको घर/जग्गाको
-                                बजार मूल्यको मूल्याङकन (Fair Market Value) को ३० प्रतिशत बराबर रकम वा
+                                बजार मूल्यको मूल्याङकन (Fair Market Value) को
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="freeText"
+                                       formControlName="freeText"
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{tempInformation?.section2?.personalOverdraftFreeText[i1]?.freeText || '______________________'}}
+                                </span>
+                                प्रतिशत बराबर रकम वा
                                 निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
@@ -803,7 +819,15 @@
                                 </ng-container>
                                 <span style="font-weight: bold">ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power):</span> कर्जाहरुको सुरक्षण वापत बैंकको पक्षमा धितोबन्धक
                                 लेखिदिएको घर/जग्गाको
-                                बजार मूल्यको मूल्याङकन (Fair Market Value) को ३० प्रतिशत बराबर रकम वा
+                                बजार मूल्यको मूल्याङकन (Fair Market Value) को
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="freeText"
+                                       formControlName="freeText"
+                                       type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{tempInformation?.section2?.nabilSahayatriFreeText[i1]?.freeText || '______________________'}}
+                                </span>
+                                प्रतिशत बराबर रकम वा
                                 निकृष्ट स्थितिको मूल्याङकन (Distress Situation Value) को
                                 <input class="form-field form-control-sm d-print-none"
                                        name="margin"
