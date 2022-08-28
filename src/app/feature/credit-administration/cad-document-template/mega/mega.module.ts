@@ -33,13 +33,15 @@ import { ManjurinamaForGadiNamasariPartnershipComponent } from './manjurinama-fo
 import { ManjurinamaForGadiNamasariProprietorshipComponent } from './manjurinama-for-gadi-namasari-proprietorship/manjurinama-for-gadi-namasari-proprietorship.component';
 import { LoanDeedProprietorshipComponent } from './loan-deed-proprietorship/loan-deed-proprietorship.component';
 import {LetterOfSetOffProprietorshipComponent} from './letter-of-set-off-proprietorship/letter-of-set-off-proprietorship.component';
-import {
-  AssignmentOfReceivablesPartnershipComponent
-} from './assignment-of-receivables-partnership/assignment-of-receivables-partnership.component';
+import {AssignmentOfReceivablesPartnershipComponent} from './assignment-of-receivables-partnership/assignment-of-receivables-partnership.component';
 import {KaloSuchiBorrowerPgCompanyComponent} from './kalo-suchi-borrower-pg-company/kalo-suchi-borrower-pg-company.component';
 import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guarantee.component';
-
-
+import {PowerOfAttorneyProprietorshipComponent} from './power-of-attorney-proprietorship/power-of-attorney-proprietorship.component';
+import { SupplementaryAgreementCompanyComponent } from './supplementary-agreement-company/supplementary-agreement-company.component';
+import {AssignmentOfReceivablesProprietorshipComponent} from './assignment-of-receivables-proprietorship/assignment-of-receivables-proprietorship.component';
+import { SupplementaryAgreementPartnershipComponent } from './supplementary-agreement-partnership/supplementary-agreement-partnership.component';
+import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-letter-company.component';
+import {VehicleLoanDeedCompanyComponent} from './vehicle-loan-deed-company/vehicle-loan-deed-company.component';
 
 @NgModule({
   declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -50,6 +52,7 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     PromissoryNoteSingleBorrowerComponent,
     AssignmentOfReceivableComponent,
     AssignmentOfReceivablesPartnershipComponent,
+    AssignmentOfReceivablesProprietorshipComponent,
     KaloSuchiBorrowerCompanyComponent,
     KaloSuchiBorrowerPgCompanyComponent,
     DeedHypoOfMachineryComponent,
@@ -73,7 +76,13 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
     PowerOfAttorneyCompanyComponent,
     LetterOfSetOffPartnershipComponent,
     LoanDeedProprietorshipComponent,
-  PowerOfAttorneyPartnershipComponent],
+    PowerOfAttorneyPartnershipComponent,
+    PowerOfAttorneyProprietorshipComponent,
+    SupplementaryAgreementCompanyComponent,
+    ConsentLetterCompanyComponent,
+    SupplementaryAgreementPartnershipComponent,
+    VehicleLoanDeedCompanyComponent,
+    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -115,6 +124,12 @@ import {CorporateGuaranteeComponent} from './corporate-guarantee/corporate-guara
         LoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgCompanyComponent,
         CorporateGuaranteeComponent,
-    ],
+        PowerOfAttorneyProprietorshipComponent,
+        SupplementaryAgreementCompanyComponent,
+        AssignmentOfReceivablesProprietorshipComponent,
+        SupplementaryAgreementPartnershipComponent,
+        ConsentLetterCompanyComponent,
+        VehicleLoanDeedCompanyComponent
+  ],
   })
 export class MegaModule { }
