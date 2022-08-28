@@ -1,0 +1,164 @@
+<div class="container nep text-justify">
+    <form [formGroup]="form" class="nep" id="formPrint">
+        <div class="form-group align">
+            <div class="logo-container print-only">
+                <div>
+                    <img height="60px" src="../../../../../assets/img/logo.png">
+                </div>
+            </div>
+            <h6 class="text-center">
+                <strong>सेञ्चुरी कमर्सि बैंक लि</strong>
+            </h6>
+            <br>
+
+            <h6 class="text-center">
+                <p><u>ऋणी र जमानतकर्ताले कालो सूचिमा नाम समावेश गर्ने बारेको मञ्जुरीनामा</u></p>
+            </h6>
+            <br>
+            <p>
+                नेपाल राष्ट्र बैंकद्धारा बाणिज्य बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालो सूचि
+                व्यवस्था सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण जानकारी छ । सो निर्देशन बमोजजिम त्यस बैंकबाट लिएको तपसीलमा
+                उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृति
+                पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि, कमिशन, दस्तुर आदि जे जस्तो बुझाउनु पर्छ सो
+                नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा सूचना तथा कालो सूचि
+                व्यवस्था सम्बन्धी निर्देशनको खण्ड ४, ५ र १० को अवस्था सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियम अनुसार
+                कर्जा सूचना केन्द्र लि को कालो सूचिमा समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ । पछि त्यसरी कालो सूचिमा राख्न
+                मिल्ने होइन भन्ने समेत कुनै कुराको उजुर—वाजुर गर्ने छैन, गरे यसै कागजले बदर गरी दिनु होला भनी नेपाल
+                राष्ट्र बैंकको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड १३ वमोजिम यो मन्जुरीनामाको
+                कागज सही–छाप गरी तपाई सेञ्चुरी कमर्सियल बैंक लि. लाई दिएको छु/छौं ।
+            </p>
+            <p style="text-align: center">
+                <u>तपसील</u>
+            </p>
+            <p>
+                ऋणीको नाम :
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="debtor"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('debtor').value ? form.get('debtor').value : '========='}}</b></span>
+            </p>
+            <p>
+                ठेगाना : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district"
+                                type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('district').value ? form.get('district').value : '========='}}</b></span>
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitian"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('metropolitian').value ? form.get('metropolitian').value : '========='}}</b></span>
+                गा.वि.स/न.पा वडा नं
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ward" type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('ward').value ? form.get('ward').value : '========='}}</b></span>
+                ,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="permanentAdd"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('permanentAdd').value ? form.get('permanentAdd').value : '========='}}</b></span>
+                स्थाई ठेगाना भई हाल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="curProvince"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('curProvince').value ? form.get('curProvince').value : '========='}}</b></span>
+                प्रदेश
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="curDistrict"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('curDistrict').value ? form.get('curDistrict').value : '========='}}</b></span>
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="curMunicipality"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('curMunicipality').value ? form.get('curMunicipality').value : '========='}}</b></span>
+                न.पा.वडा नं.
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="curWard"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('curWard').value ? form.get('curWard').value : '========='}}</b></span>
+                <br>
+                कर्जा/सुविधा विवरण :
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanFacilityTypeNep"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('loanFacilityTypeNep').value ? form.get('loanFacilityTypeNep').value : '========='}}</b></span>
+                /(
+                <input class="form-field form-control-sm disable-print" formControlName="loanFacilityTypeEng"
+                       type="text"/>
+                <span class="print-only size16 "><b>{{form.get('loanFacilityTypeEng').value ? form.get('loanFacilityTypeEng').value : '========='}}</b></span>)
+
+                <br>
+
+            <hr>
+            <br>
+
+
+            <p> मञ्जुरी दिनेको नाम :
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approver"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approver').value ? form.get('approver').value : '========='}}</b></span>
+            </p>
+            <br>
+            <p>ऋणीसंगको सम्बन्ध :</p>
+            <p style="margin-left: 50px;">
+                ठेगाना :-
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverDistrict"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverDistrict').value ? form.get('approverDistrict').value : '========='}}</b></span>
+
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="approverMunicipality"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverMunicipality').value ? form.get('approverMunicipality').value : '========='}}</b></span>
+
+                गा.वि.स/न.पा वडा नं.
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverWard"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverWard').value ? form.get('approverWard').value : '========='}}</b></span>
+                ,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverAddress"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverAddress').value ? form.get('approverAddress').value : '========='}}</b></span>
+
+                स्थाई ठेगाना भई हाल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverCurProvince"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverCurProvince').value ? form.get('approverCurProvince').value : '========='}}</b></span>
+
+                प्रदेश
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverCurDistrict"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverCurDistrict').value ? form.get('approverCurDistrict').value : '========='}}</b></span>
+
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="approverCurMunicipality"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverCurMunicipality').value ? form.get('approverCurMunicipality').value : '========='}}</b></span>
+
+                न.पा.वडा नं.
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverCurWard"
+                       type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverCurWard').value ? form.get('approverCurWard').value : '========='}}</b></span>
+            </p>
+            <br>
+            <br>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <p>मिति: <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date"
+                                    type="text"/>
+                        <span class="print-only size16 nepaliFont"><b>{{form.get('date').value ? form.get('date').value : '========='}}</b></span>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        दस्तखत .........................................
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="formPrint" (click)="submit()" class="mr-2" status="basic">Save & Print
+                </button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="formPrint" class="mr-2 custom-color">Print
+                </button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+
+            </div>
+        </div>
+    </form>
+</div>
