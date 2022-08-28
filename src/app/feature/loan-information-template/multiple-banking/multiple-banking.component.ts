@@ -30,6 +30,9 @@ export class MultipleBankingComponent implements OnInit {
     swapChecked = true;
     ckeConfig;
     customerCate = CustomerCategory;
+    isAboveTen = false;
+    isBelowTen = false;
+    isWholeSale = false;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -39,9 +42,10 @@ export class MultipleBankingComponent implements OnInit {
 
     ngOnInit() {
         this.router.queryParams.subscribe((res: any) => {
-           this.customerType = res.customerType;
+            this.customerType = res.customerType;
         });
         this.buildForm();
+        this.checkCustomerCategory(this.customerCategory);
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
             const multiData = JSON.parse(this.multiBankingData.data);
             const checkData = JSON.parse(this.multiBankingData.checkedData);
@@ -171,7 +175,6 @@ export class MultipleBankingComponent implements OnInit {
         let termLoan = 0;
         let totalTotal = 0;
         let totalPercent = 0;
-        let totalAmount = 0;
         const array = this.multiBankingForm.get(arrayName) as FormArray;
         array.value.forEach(av => {
             funded += av.funded;
@@ -332,6 +335,18 @@ export class MultipleBankingComponent implements OnInit {
             this.checkChecked(data['swapChecked'], 'swap');
             this.checkChecked(data['consortiumChecked'], 'consortium');
             this.checkChecked(data['multiBankingChecked'], 'multiBanking');
+        }
+    }
+
+    checkCustomerCategory(value) {
+        if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+            this.isAboveTen = true;
+        } else if (value === 'SME_UPTO_TEN_MILLION' ||
+            value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
+            value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+            this.isBelowTen = true;
+        } else {
+            this.isWholeSale = true;
         }
     }
 }
