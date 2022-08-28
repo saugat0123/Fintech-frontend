@@ -167,6 +167,10 @@
                                                  [cadData]="cadData" [documentId]="documentId"
                                                  [customerLoanId]="customerLoanId">
         </app-vehicle-loan-deed-company>
+        <app-vehicle-loan-deed-individual *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_INDIVIDUAL"
+                                       [cadData]="cadData" [documentId]="documentId"
+                                       [customerLoanId]="customerLoanId">
+        </app-vehicle-loan-deed-individual>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
