@@ -10,6 +10,10 @@
                        [loanDataHolder]="loanDataHolder"
                        [customerAllLoanList]="customerAllLoanList"
                        [proposalData]="proposalData"></app-company-info-view>
+<app-proposal-view *ngIf="loanDataHolder?.proposal"
+                   [customerAllLoanList]="customerAllLoanList"
+                   [proposalData]="proposalData"
+                   [loanDataHolder]="loanDataHolder"></app-proposal-view>
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
@@ -53,11 +57,6 @@
         [security]="loanDataHolder?.security"></app-collateral-summary>
 <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
                            [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
-
-<app-proposal-view *ngIf="loanDataHolder?.proposal"
-                   [customerAllLoanList]="customerAllLoanList"
-                   [proposalData]="proposalData"
-                   [loanDataHolder]="loanDataHolder"></app-proposal-view>
 
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
