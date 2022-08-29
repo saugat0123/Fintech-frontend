@@ -73,6 +73,7 @@ import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partner
 import {KaloSuchiBorrowerPgPartnershipComponent} from './kalo-suchi-borrower-pg-partnership/kalo-suchi-borrower-pg-partnership.component';
 import { GeneralLetterOfHypothecationPartnershipComponent } from './general-letter-of-hypothecation-partnership/general-letter-of-hypothecation-partnership.component';
 import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprietorship/promissory-note-proprietorship.component';
+import { VehicleLoanDeedProprietorshipComponent } from './vehicle-loan-deed-proprietorship/vehicle-loan-deed-proprietorship.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -82,7 +83,6 @@ import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprie
         PromissoryNoteSingleBorrowerComponent,
         AssignmentOfReceivableComponent,
         AssignmentOfReceivablesPartnershipComponent,
-        AssignmentOfReceivablesProprietorshipComponent,
         KaloSuchiBorrowerCompanyComponent,
         KaloSuchiBorrowerPgCompanyComponent,
         DeedHypoOfMachineryComponent,
@@ -124,7 +124,8 @@ import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprie
         KaloSuchiBorrowerProprietorshipComponent,
         KaloSuchiBorrowerPgPartnershipComponent,
         GeneralLetterOfHypothecationPartnershipComponent,
-        PromissoryNoteProprietorshipComponent
+        PromissoryNoteProprietorshipComponent,
+        VehicleLoanDeedProprietorshipComponent
     ],
     imports: [
         CommonModule,
@@ -184,7 +185,8 @@ import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprie
         KaloSuchiBorrowerProprietorshipComponent,
         KaloSuchiBorrowerPgPartnershipComponent,
         GeneralLetterOfHypothecationPartnershipComponent,
-        PromissoryNoteProprietorshipComponent
+        PromissoryNoteProprietorshipComponent,
+        VehicleLoanDeedProprietorshipComponent
     ],
 })
 
