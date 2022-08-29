@@ -52,8 +52,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="industryMarket"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="industryMarket"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('industryMarket')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>MARKET POSITION </th>
@@ -68,8 +74,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="marketPosition"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="marketPosition"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('marketPosition')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>SUPPLIER / CUSTOMER RELATIONSHIP</th>
@@ -84,8 +96,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="supplierRelationship"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="supplierRelationship"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('supplierRelationship')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>MARGINS & PROFITABILITY</th>
@@ -101,8 +119,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="margins"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="margins"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('margins')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>LIQUIDITY & SOLVENCY</th>
@@ -117,8 +141,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="liquidity"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="liquidity"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('liquidity')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>FINANCIAL SUPPORT – MANAGEMENT</th>
@@ -133,8 +163,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialSupport"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialSupport"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('financialSupport')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>FINANCIAL STRUCUTRE</th>
@@ -149,8 +185,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialStructure"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialStructure"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('financialStructure')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>PLANNING / FORECASTS</th>
@@ -165,8 +207,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="planning"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="planning"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('planning')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>RELATIONSHIP WITH CENTURY COMMERCIAL BANK LIMITED</th>
@@ -181,8 +229,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="relationshipWith"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="relationshipWith"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('relationshipWith')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>MANAGEMENT CAPABILITY</th>
@@ -197,8 +251,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="managementCapability"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="managementCapability"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('managementCapability')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     <tr>
                         <th>ENVIRONMENTAL THREATS</th>
@@ -213,8 +273,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="envThreats"
-                                                                     type="radio"></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="envThreats"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('envThreats')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
                     </tr>
                     </tbody>
                 </table>

@@ -11,6 +11,7 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {CoreCapitalService} from '../../../admin/service/core-capital.service';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -19,7 +20,7 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 })
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
-  @Input() loanDataHolder: LoanDataHolder;
+  @Input() customer: Customer;
   @Input() fiscalYear;
 
   companyInfo = new CompanyInfo();
@@ -30,6 +31,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   spinner = false;
   isRetailCustomer = false;
   calendarType: CalendarType = CalendarType.AD;
+  isAgri = false;
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, protected fiscalYearService: FiscalYearService,
@@ -47,6 +49,11 @@ export class CustomerLoanInformationViewComponent implements OnInit {
       }
     });
     this.getFiscalYears();
+    console.log('this.companyInfo', this.companyInfo);
+    console.log('this.customer', this.customer);
+    if (this.customerInfo.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION' || this.customerInfo.customerCategory === 'AGRICULTURE_TWO_TO_TEN_MILLION' || this.customerInfo.customerCategory === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+      this.isAgri = true;
+    }
 
   }
 

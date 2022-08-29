@@ -178,6 +178,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     reviewDate;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     fundedNonFunded: FormGroup;
+    isAgri = false;
 
     constructor(
         private toastService: ToastService,
@@ -281,6 +282,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.checkCrgGamma = true;
             }
         }
+        if (this.companyInfo.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION' || this.companyInfo.customerCategory === 'AGRICULTURE_TWO_TO_TEN_MILLION' || this.companyInfo.customerCategory === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+            this.isAgri = true;
+        }
+
     }
     buildFundedNonFunded() {
         this.fundedNonFunded = this.formBuilder.group({
