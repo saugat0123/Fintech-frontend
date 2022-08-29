@@ -53,6 +53,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
     for (const cat of this.category) {
       if (this.customerInfo.customerCategory === cat) {
         this.isAgri = true;
+        break;
       }
     }
   }

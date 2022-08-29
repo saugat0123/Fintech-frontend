@@ -202,6 +202,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         for (const cat of this.category) {
             if (this.customerInfo.customerCategory === cat) {
                 this.isAgri = true;
+                break;
             }
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.withInData)) {
@@ -287,9 +288,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             if (!ObjectUtil.isEmpty(jsonSec.totalPoint)) {
                 this.checkCrgGamma = true;
             }
-        }
-        if (this.companyInfo.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION' || this.companyInfo.customerCategory === 'AGRICULTURE_TWO_TO_TEN_MILLION' || this.companyInfo.customerCategory === 'AGRICULTURE_ABOVE_TEN_MILLION') {
-            this.isAgri = true;
         }
 
     }
