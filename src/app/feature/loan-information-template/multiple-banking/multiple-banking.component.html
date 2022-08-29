@@ -181,7 +181,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row" *ngIf="isAboveTen">
+            <div class="row" *ngIf="(isAboveTen || isUptoTwoMillion) && !isWithoutCollateral">
                 <div class="col-md-12">
                     <h6><strong>BFIs Swap</strong></h6>
                     <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'swap')"
@@ -260,7 +260,7 @@
                 <hr>
             </div>
 
-            <div class="row">
+            <div class="row" *ngIf="!isWithoutCollateral">
                 <div class="col-md-12">
                     <h6><strong>Past Performance with the Bank:</strong></h6>
                     <ckeditor formControlName="pastPerformance" *ngIf="!isAboveTen && !isWholeSale"
@@ -293,14 +293,14 @@
                 </div>
             </div>
             <br>
-            <div class="row">
+            <div class="row" *ngIf="!isWithoutCollateral">
                 <div class="col-md-12" *ngIf="isAboveTen || isWholeSale">
                     <h6><strong>Account strategy :</strong></h6>
                     <ckeditor formControlName="accountStrategy"
                               [config]="ckeConfig"></ckeditor>
                 </div>
             </div>
-            <div class="row" *ngIf="(isAboveTen || isWholeSale) || customerType === 'INDIVIDUAL'">
+            <div class="row" *ngIf="((isAboveTen || isWholeSale) || customerType === 'INDIVIDUAL') && !isWithoutCollateral">
                 <div class="col-md-12">
                     <p><strong>Average Utilization of Facilities</strong></p>
                     <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
