@@ -1,0 +1,379 @@
+<div class="container nep text-justify">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+            <form (ngSubmit)="submit()" [formGroup]="form" id="formPrint" class="nep">
+                <div class="form-group align">
+                    <div>
+                        <p class="text-center" style="font-size:16pt;"><strong><u>शेयरधनीले गरिदिने कागज </u></strong>
+                        </p>
+                        <p>
+                            लिखितम् <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="branch"
+                                           placeholder=""
+                                           type="text"/><span
+                                class="print-only nepaliFont"><strong>{{form.get('branch').value ? form.get('branch').value : '========='}}</strong></span>
+                            शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यसपछि धनी बैंक भनिएको
+                            छ), ऋण/कर्जा तथा अन्य बैंकिङ सूविधाहरु लिई/उपयोग गरि सोको तमसूक गरिदिनेको
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="branch"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{form.get('branch').value ? form.get('branch').value : '========='}}</strong></span>
+                            शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यसपछि <strong>धनी बैंक </strong>भनिएको
+                            छ), ऋण/कर्जा तथा अन्य बैंकिङ सूविधाहरु लिई/उपयोग गरि सोको तमसूक गरिदिनेको
+                            <strong>नाम श्री
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="grandFatherName"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('grandFatherName').value ? form.get('grandFatherName').value : '========='}}</strong></span>
+                                को नाती/नातिनी/बुहारी
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="fatherName"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('fatherName').value ? form.get('fatherName').value : '========='}}</strong></span>
+                                ,
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="husbandName"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('husbandName').value ? form.get('husbandName').value : '========='}}</strong></span>
+                                को छोरा/छोरी/पत्नी
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="permanentDistrict"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('permanentDistrict').value ? form.get('permanentDistrict').value : '========='}}</strong></span>
+                                जिल्ला
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="permanentMunicipalityVDC"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('permanentMunicipalityVDC').value ? form.get('permanentMunicipalityVDC').value : '========='}}</strong></span>
+                                गा.वि.स/न.पा वडा नं
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="permanentWardNo"
+                                       placeholder=""
+                                       type="text" size="3"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('permanentWardNo').value ? form.get('permanentWardNo').value : '========='}}</strong></span>
+                                ,
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="permanentTole"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('permanentTole').value ? form.get('permanentTole').value : '========='}}</strong></span>
+
+                                स्थाई ठेगाना भई हाल
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="temporaryProvince"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('temporaryProvince').value ? form.get('temporaryProvince').value : '========='}}</strong></span>
+                                प्रदेश
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="temporaryDistrict"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('temporaryDistrict').value ? form.get('temporaryDistrict').value : '========='}}</strong></span>
+                                जिल्ला
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="temporaryMunicipalityVDC"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('temporaryMunicipalityVDC').value ? form.get('temporaryMunicipalityVDC').value : '========='}}</strong></span>
+                                न.पा. वडा नं.
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="temporaryWardNo"
+                                       placeholder=""
+                                       type="text" size="3"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('temporaryWardNo').value ? form.get('temporaryWardNo').value : '========='}}</strong></span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="age"
+                                       placeholder=""
+                                       type="text" size="3"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('age').value ? form.get('age').value : '========='}}</strong></span>
+                                को/की
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="individualName"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{form.get('individualName').value ? form.get('individualName').value : '========='}}</strong></span>
+                                (जसलाई यस उप्रान्त “शेयरधनि”/ऋणी भनिएको छ)</strong>
+                            आगे ऋणीको नाममा तपाई धनी बैंकबाट जारी भएको
+                            <strong>मिति
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="offerLetterIssuedDate"
+                                       placeholder=""
+                                       type="text" size="10"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('offerLetterIssuedDate').value ? form.get('offerLetterIssuedDate').value : '========='}}</strong></span>
+                                गतेकोे ऋण स्विकृति पत्रानुसार स्विकृत ऋणकर्जा सुविधा जम्मा रु
+                                <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                                  [name]="patchFunction('amount')"
+                                                  class="disable-print"></app-custom-input>
+                                <span class="print-only nepaliFont"><strong>{{form.get('amount').value ? form.get('amount').value : '========='}}</strong></span>
+                                /- (अक्षरेपि
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="amountInWords"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"
+                                        size="7"><strong>{{form.get('amountInWords').value ? form.get('amountInWords').value : '========='}}</strong></span>
+                                मात्र )
+                            </strong>
+                            को सुरक्षण वापत ऋणी तथा जमानतवाला शेयरवालाको समेतको छुट्टाछुट्टै नाममा दर्ता कायम धितोपत्र
+                            (शेयर) धितो लेखिदिन आवश्यक भई तपाई धनी बैंकमा म/हामी स्वयं उपस्थित भएको तथा तपाई धनी बैंकबाट
+                            समेत मेरो/हाम्रो नाममा दर्ता कायम धितोपत्र (शेयर) धनि बैंकको नाममा धितोवन्धक लेखिदिन मंजुरी
+                            छ,छैन भनी सोधनी हुंदा सोमा मेरोे/हाम्रो पूर्ण मंजुरी भएको हुंदा प्रचलित कानून बमोजिम स्थापना
+                            भई वित्तिय कारोबार गरिरहेको बैंक तथा बित्तिय संस्थाले जारी गरी धितो पत्र बजारमा सूचिकृत
+                            म/हामी ऋणीको एकलौटी हकभोगको यसअघि अरु कसैलाई कुनै पनि व्यहोराले हक हस्तान्तरण गरी वा भोग वा
+                            दृष्टिबन्धक समेत केही गरी नदिएको अरु कसैलाई भाग वण्डा नलाग्ने अंकित मूल्य रु.१००।का दरका
+                            तपसिल रोक्का पत्रमा सम्पुर्ण बिबरण उल्लेख गरीएको (शेयर धनी नं /प्रमात्र पत्र नं) शेयर यसै
+                            लिखतबाट तपाई धनी बैंकको नाउमा धितोबन्धक लेखिदिई सोको सक्कल प्रमाण पत्रहरु समेत तपाई धनी
+                            बैंकलाई बुझाएको छु/छौं । तपाईं धनी बैंकले उल्लेखित शेयर तथा सो शेयर वापत समय समयमा प्राप्त
+                            हुने बोनस शेयर, लाभांश समेत सम्वन्धित कम्पनीमा रोक्का गर्न समेत यसै लिखतबाट मंजुरी दिएको
+                            छु/छौं । म/हामी ऋणीले धनी बैंकबाट हाल प्राप्त गरेको तथा भविष्यमा प्राप्त गर्ने ऋणकर्जाको
+                            सांवा व्याज रकम उल्लेखित ऋण स्विकृति पत्रमा तोकिए बमोजिम समय समयमा नतिरे नबुझाएमा वा किस्ता
+                            खिलाफी गरेमा वा सो स्विकृति पत्रमा उल्लेखित कुनै शर्तवन्देजहरु उलंघन गरेमा वा सो ऋणकर्जा
+                            नवीकरण भएमा नवीकरण हुदाका बखत तपाई धनी बैंकबाट जारी हुने ऋण स्विकृति पत्रानुसार नतिरे
+                            नबुझाएमा प्रचलित कानून तथा तपाई धनी बैंकको नियमानुसार धितो लेखिदिएको उल्लेखित शेयरहरु
+                            सम्बन्धित धितोपत्र बजार मार्फत विक्रि गरी वा तपाई धनी बैंकको नाममा नामसारी गरी वा अन्य
+                            आवश्यक व्यवस्था गरी आफ्नो लेना रकम असूल उपर गरी लिनु होला । त्यसरी शेयर विक्री वा नामसारी
+                            गर्दा म/हामी शेयरवालाको तर्फबाट गरिदिनु पर्ने लिखत कागजमा सहिछाप गर्न मेरो /हाम्रो तर्फबाट
+                            तपाई धनी बैंक स्वयंले पत्याएको व्यक्तिलाई म शेयरवालाको अभिकत्र्ता वा प्रतिनिधि नियूक्त गर्न
+                            समेत तपाई धनी बैंकलाई यसै लिखतबाट अख्तियारी दिएको छु /छौं। कथंम्कदाचित उक्त शेयरहरु कच्चा
+                            नकरा ठहरी तपाई धनी बैंकको लेना रकम असूल उपर हुन नसकेमा <strong>बैंक तथा वित्तिय संस्था
+                            सम्बन्धि ऐन
+                            २०७३</strong> तथा प्रचलित कानुन बमोजिम मेरो घरघरानाको अन्य चलअचल सम्पत्ति समेतबाट आफ्नो लेना
+                            रकम असूल
+                            उपर गरी लिनु होला <strong>तथा नेपाल राष्ट्र बैंकले जारी गरेको संस्थापक शेयरधनीलाई प्रवाह
+                            गर्ने शेयर
+                            धितो कर्जाको सम्बन्धमा भएको ब्यवस्था बमोजिम कर्जाको भाखा समाप्त भएको अबस्थामा ऋणीले कर्जा
+                            चुत्ता भुत्तान नगरेमा ३५ दिने सुचना दिई</strong> ७ दिन भित्र कालोसूची (Black Listing) मा
+                            <strong>समाबेस गर्ने
+                                वारे</strong> मेरो मंजुरी छ भनी मेरो/हाम्रो मनोमान राजिखुसीले तपसिलका साक्षीहरुको
+                            रोहवरमा धनि बैंकको
+                            कार्यालयमा बसी यो लिखतमा सहिछाप गरीदिएको छु/छौं ।
+                        </p>
+
+                        <p><strong>ऋणकर्जा वा बैंकिङ सुविधा</strong></p>
+                        <ng-container *ngIf="form.get('tableShow').value">
+                            <table class="table table-responsive-md table-bordered">
+                                <thead>
+                                <tr style="page-break-inside: auto">
+                                    <th>ऋणकर्जा वा बैंकिङ सुविधा</th>
+                                    <th>रकम</th>
+                                    <th>ब्याज र कमिसन</th>
+                                    <th>अन्तिम चुक्ता भुक्तान गर्ने वा बहाल मिति</th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let data of form.get('loanData')['controls']; let index = index"
+                                       formArrayName="loanData">
+                                <tr style="page-break-inside: auto">
+                                    <td><input class="form-field form-control-sm nepaliFont disable-print"
+                                               formControlName="loanFacilityType"
+                                               placeholder=""
+                                               type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('loanFacilityType').value ? form.get('loanFacilityType').value : '========='}}</strong></span>
+                                        कर्जा
+                                    </td>
+                                    <td>
+                                        <strong>रु
+                                            <app-custom-input
+                                                    (eventEmit)="changeToNepAmount1($event, index, 'loanData')"
+                                                    [name]="patchFunction1('loanData',index,'amount1')"
+                                                    class="disable-print"></app-custom-input>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('amount1').value ? form.get('amount1').value : '========='}}</strong></span>
+                                            <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                                   formControlName="amountInWords1"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('amountInWords1').value ? form.get('amountInWords1').value : '========='}}</strong></span>
+                                            मात्र )
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        ऋणस्वीकृती पत्रानुसार तिर्ने बुझाउने गरी ।
+                                    </td>
+                                    <td>
+                                        ऋणस्वीकृती पत्रानुसार
+                                    </td>
+                                </tr>
+                                <div class="col-md-12" style="left: 440%;">
+                                    <button
+                                            (click)="removeLoanDetail(index)"
+                                            *ngIf="index >= 0"
+                                            class="mt-sm-2 disable-print" nbButton
+                                            status="primary">हटाउनुहोस्..
+                                    </button>
+                                </div>
+                                </tbody>
+                            </table>
+                        </ng-container>
+                        <div class="row mr-1 mb-3">
+                            <div class="col-md-12 text-right disable-print">
+                                <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                                    थप्नुहोस्..
+                                </button>
+                            </div>
+                        </div>
+                        <br/>
+                        <p class="text-center">
+                            जम्मा ऋण कर्जा–
+                            रु
+                            <app-custom-input
+                                    (eventEmit)="changeToNepAmount($event, 'amountInWords2', 'amount2')"
+                                    [name]="patchFunction('amount2')"
+                                    class="disable-print"></app-custom-input>
+                            <span class="print-only nepaliFont"><strong>{{form.get('amount2').value ? form.get('amount2').value : '========='}}</strong></span>
+                            <span class="timesNewRoman">/- (</span>अक्षरेपि
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="amountInWords2"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{form.get('amountInWords2').value ? form.get('amountInWords2').value : '========='}}</strong></span>
+                            मात्र )
+                        </p>
+                        <p>बैकलाई मान्य हुने शेयरहरु धितो सुरक्षणको रुपमा <input
+                                class="form-field form-control-sm nepaliFont disable-print"
+                                formControlName="facOwnerName"
+                                placeholder=""
+                                type="text"/><span
+                                class="print-only nepaliFont"><strong>{{form.get('facOwnerName').value ? form.get('facOwnerName').value : '========='}}</strong></span>
+                            को नाममा रहेको शेयर उपलब्ध गराए अनुसार स्वीकृत कर्जा सिमा भित्र रहने गरी कर्जा सुबिधा
+                            उपभोग
+                            गर्न पाउने छन् ।</p>
+                        <p class="text-center"><strong><u>धितो सुरक्षण</u></strong></p>
+                        <table class="table table-responsive-md table-bordered">
+                            <thead>
+                            <tr style="page-break-inside: auto">
+                                <th>क्र.सं</th>
+                                <th>शेयरधनीको नाम र शेयर धनी नं. प्र. प्र. नं.</th>
+                                <th>डि.पि आईडि/क्लाईन्ट आईडि</th>
+                                <th>शेयर कित्ता</th>
+                                <th>शेयर जारि गर्ने संस्था</th>
+                                <th>कैफियत</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="page-break-inside: auto">
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="snNo"
+                                           placeholder=""
+                                           type="text"
+                                           size="15"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('snNo').value ? form.get('snNo').value : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="shareholderNameAndCitizenshipNo"
+                                           placeholder=""
+                                           type="text"
+                                           size="15"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('shareholderNameAndCitizenshipNo').value ? form.get('shareholderNameAndCitizenshipNo').value : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="clientId"
+                                           placeholder=""
+                                           type="text"
+                                           size="15"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('clientId').value ? form.get('clientId').value : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="shareKitta"
+                                           placeholder=""
+                                           type="text"
+                                           size="15"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('shareKitta').value ? form.get('shareKitta').value : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="shareIssuingCompany"
+                                           placeholder=""
+                                           type="text"
+                                           size="15"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('shareIssuingCompany').value ? form.get('shareIssuingCompany').value : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="kaifiyat"
+                                           placeholder=""
+                                           type="text"
+                                           size="15"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('kaifiyat').value ? form.get('kaifiyat').value : '========='}}</strong></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div>
+                            <p><strong>साक्षीः</strong></p>
+                            <p>
+                                १. <input class="form-field form-control-sm nepaliFont disable-print"
+                                          formControlName="witnessName"
+                                          placeholder=""
+                                          type="text"/><span
+                                    class="print-only nepaliFont"><strong>{{form.get('witnessName').value ? form.get('witnessName').value : '========='}}</strong></span>
+                                <br>
+                                <br>
+                                २. <input class="form-field form-control-sm nepaliFont disable-print"
+                                          formControlName="witnessName2"
+                                          placeholder=""
+                                          type="text"/><span
+                                    class="print-only nepaliFont"><strong>{{form.get('witnessName2').value ? form.get('witnessName2').value : '========='}}</strong></span>
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                ईति सम्वत् २०
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="year"
+                                       placeholder=""
+                                       type="text" size="2"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('year').value ? form.get('year').value : '========='}}</strong></span>
+                                साल
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="month"
+                                       placeholder=""
+                                       type="text" size="2"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('month').value ? form.get('month').value : '========='}}</strong></span>
+                                महिना
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="day"
+                                       placeholder=""
+                                       type="text" size="2"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('day').value ? form.get('day').value : '========='}}</strong></span>
+                                गते रोज
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="time"
+                                       placeholder=""
+                                       type="text" size="5"/>
+                                <span class="print-only nepaliFont"><strong>{{form.get('time').value ? form.get('time').value : '========='}}</strong></span>
+                                शुभम् ।
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row disable-print">
+                        <div class="col-md-12 text-right">
+                            <button nbButton ngxPrint [useExistingCss]="true"
+                                    styleSheetFile="assets/css/printStyles.scss"
+                                    printSectionId="formPrint" (click)="submit()" class="mr-2"
+                                    status="basic">Save & Print
+                            </button>
+                            <button nbButton ngxPrint [useExistingCss]="true"
+                                    styleSheetFile="assets/css/printStyles.scss"
+                                    printSectionId="formPrint" class="mr-2 custom-color">Print
+                            </button>
+                            <button nbButton status="success" (click)="submit()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

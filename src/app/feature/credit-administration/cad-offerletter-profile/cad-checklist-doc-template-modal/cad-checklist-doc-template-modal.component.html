@@ -203,6 +203,10 @@
                                           [cadData]="cadData" [documentId]="documentId"
                                           [customerLoanId]="customerLoanId">
         </app-vehicle-loan-deed-partnership>
+        <app-share-pledge-deed-first-party-individual *ngSwitchCase="cadTemplate.SHARE_PLEDGE_DEED_FIRST_PARTY_INDIVIDUAL"
+                                           [cadData]="cadData" [documentId]="documentId"
+                                           [customerLoanId]="customerLoanId">
+        </app-share-pledge-deed-first-party-individual>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
