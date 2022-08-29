@@ -64,6 +64,7 @@ import {VehicleLoanDeedIndividualComponent} from './vehicle-loan-deed-individual
 import {KaloSuchiBorrowerPartnershipComponent} from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
 
 import {KaloSuchiBorrowerProprietorshipComponent} from './kalo-suchi-borrower-proprietorship/kalo-suchi-borrower-proprietorship.component';
+import { SupplementaryAgreementProprietorshipComponent } from './supplementary-agreement-proprietorship/supplementary-agreement-proprietorship.component';
 
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
@@ -130,6 +131,9 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         PromissoryNoteProprietorshipComponent,
         VehicleLoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
+        SupplementaryAgreementProprietorshipComponent,
+
+        KaloSuchiBorrowerPgProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent,
     ],
     imports: [
@@ -193,6 +197,7 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         PromissoryNoteProprietorshipComponent,
         VehicleLoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
+        SupplementaryAgreementProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent
     ],
 })

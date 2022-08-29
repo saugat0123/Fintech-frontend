@@ -229,6 +229,10 @@
                                                 [cadData]="cadData" [documentId]="documentId"
                                                 [customerLoanId]="customerLoanId">
         </app-kalo-suchi-borrower-pg-proprietorship>
+        <app-supplementary-agreement-proprietorship *ngSwitchCase="cadTemplate.SUPPLEMENTARY_AGREEMENT_PROPRIETORSHIP"
+                                                 [cadData]="cadData" [documentId]="documentId"
+                                                 [customerLoanId]="customerLoanId">
+        </app-supplementary-agreement-proprietorship>
         <app-share-pledge-deed-first-party-individual *ngSwitchCase="cadTemplate.SHARE_PLEDGE_DEED_FIRST_PARTY_INDIVIDUAL"
                                            [cadData]="cadData" [documentId]="documentId"
                                            [customerLoanId]="customerLoanId">
