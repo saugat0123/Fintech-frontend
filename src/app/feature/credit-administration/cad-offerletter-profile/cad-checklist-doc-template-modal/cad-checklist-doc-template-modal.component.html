@@ -221,6 +221,10 @@
                                             [cadData]="cadData" [documentId]="documentId"
                                             [customerLoanId]="customerLoanId">
         </app-promissory-note-proprietorship>
+        <app-vehicle-loan-deed-proprietorship *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_PROPRIETORSHIP"
+                                                [cadData]="cadData" [documentId]="documentId"
+                                                [customerLoanId]="customerLoanId">
+        </app-vehicle-loan-deed-proprietorship>
         <app-kalo-suchi-borrower-pg-proprietorship *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_PROPRIETORSHIP"
                                                 [cadData]="cadData" [documentId]="documentId"
                                                 [customerLoanId]="customerLoanId">
