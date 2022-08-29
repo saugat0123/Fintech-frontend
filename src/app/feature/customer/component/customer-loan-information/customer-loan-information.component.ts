@@ -179,6 +179,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     fundedNonFunded: FormGroup;
     isAgri = false;
+    category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION'];
 
     constructor(
         private toastService: ToastService,
@@ -198,6 +199,11 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildFundedNonFunded();
+        for (const cat of this.category) {
+            if (this.customerInfo.customerCategory === cat) {
+                this.isAgri = true;
+            }
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.withInData)) {
             this.fundedNonFunded.patchValue(JSON.parse(this.customerInfo.withInData));
         }

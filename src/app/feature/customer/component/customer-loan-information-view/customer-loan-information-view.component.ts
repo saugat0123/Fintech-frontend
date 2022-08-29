@@ -32,6 +32,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   isRetailCustomer = false;
   calendarType: CalendarType = CalendarType.AD;
   isAgri = false;
+  category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION'];
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, protected fiscalYearService: FiscalYearService,
@@ -49,12 +50,11 @@ export class CustomerLoanInformationViewComponent implements OnInit {
       }
     });
     this.getFiscalYears();
-    console.log('this.companyInfo', this.companyInfo);
-    console.log('this.customer', this.customer);
-    if (this.customerInfo.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION' || this.customerInfo.customerCategory === 'AGRICULTURE_TWO_TO_TEN_MILLION' || this.customerInfo.customerCategory === 'AGRICULTURE_ABOVE_TEN_MILLION') {
-      this.isAgri = true;
+    for (const cat of this.category) {
+      if (this.customerInfo.customerCategory === cat) {
+        this.isAgri = true;
+      }
     }
-
   }
 
   checkCustomerType() {
