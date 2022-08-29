@@ -204,7 +204,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
   ccblData: any;
   fixedAssetsData = [];
-  siteVisitJson = [];
   isExecutive = false;
 
   @Input() crgTotalRiskScore: any;
@@ -895,12 +894,16 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    const collateral = {
+      securityName: null,
+      collateralData: null,
+    };
     this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
         .subscribe((response: any) => {
           if (response.detail.length > 0) {
-            response.detail.forEach(rd => {
-              this.fixedAssetsData.push(rd);
-            });
+            collateral.securityName = securityName;
+            collateral.collateralData = response.detail;
+            this.fixedAssetsData.push(collateral);
           }
         }, error => {
           console.error(error);

@@ -1,0 +1,161 @@
+<div class="container nep text-justify">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+            <form (ngSubmit)="submit()" [formGroup]="form" class="nepali" id="promissoryNoteProprietorshipPrint">
+                <div class="nep">
+                    <p>
+                        <p class="text-center" style="font-size:24pt;"><strong>प्रतिज्ञा पत्र</strong></p>
+                        <p class="text-center" style="font-size:24pt;"><strong>(PROMISSORY NOTE)</strong></p><br/><br/>
+                        <p class="box-border mt-4" style="width: 75%">रु
+                            <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                              [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
+                            <span class="print-only nepaliFont"><strong>{{ form.get('amount').value ?  form.get('amount').value  : '========='}}</strong></span>
+                            (अक्षरेपी <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                             formControlName="amountInWords"
+                                             type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('amountInWords').value ?  form.get('amountInWords').value  : '========='}}</strong></span> रुपैयाँ मात्र ।)</p>
+                        <p><span style="color: red">
+                             लिखितम प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४ बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="registrationOffice"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('registrationOffice').value ?  form.get('registrationOffice').value  : '========='}}</strong></span>
+                            कार्यालयमा मिति
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="registrationDate"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('registrationDate').value ?  form.get('registrationDate').value  : '========='}}</strong></span> मा दर्ता भई प्रा.फ.र.न
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="registrationNo"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('registrationNo').value ?  form.get('registrationNo').value  : '========='}}</strong></span> कायम भई
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="registrationDistrict"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('registrationDistrict').value ?  form.get('registrationDistrict').value  : '========='}}</strong></span> जिल्ला,
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="registrationMunVdc"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('registrationMunVdc').value ?  form.get('registrationMunVdc').value  : '========='}}</strong></span> गा.वि.स/न.पा.वडा नं
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="registrationWardNo"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('registrationWardNo').value ?  form.get('registrationWardNo').value  : '========='}}</strong></span>, स्थीत ठेगाना रहेको श्री
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="customerName"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('customerName').value ?  form.get('customerName').value  : '========='}}</strong></span> का प्रोप्राईटर
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="grandFatherName"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('grandFatherName').value ?  form.get('grandFatherName').value  : '========='}}</strong></span> को नाती
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="fatherName"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('fatherName').value ?  form.get('fatherName').value  : '========='}}</strong></span> को छोरा
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="district"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('district').value ?  form.get('district').value  : '========='}}</strong></span> जिल्ला
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="municipality"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('municipality').value ?  form.get('municipality').value  : '========='}}</strong></span> गा.बि.स./न.पा
+                            वडा नं
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="wardNumber"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('wardNumber').value ?  form.get('wardNumber').value  : '========='}}</strong></span> बस्ने बर्ष
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="age"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('age').value ?  form.get('age').value  : '========='}}</strong></span> को
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="name"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('name').value ?  form.get('name').value  : '========='}}</strong></span>
+                        </span>
+                            आगे तपाई श्री सेञ्चुरी कमर्सियल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई
+                            <strong> रु
+                                <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmountInWords', 'loanAmount')"
+                                                  [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
+                                <span class="print-only nepaliFont"><strong>{{ form.get('loanAmount').value ?  form.get('loanAmount').value  : '========='}}</strong></span> /–
+                                (अक्षरेपी <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                                 formControlName="loanAmountInWords"
+                                                 type="text"/>
+                                <span class="print-only preetiFont">
+                                <strong>{{ form.get('loanAmountInWords').value ?  form.get('loanAmountInWords').value  : '========='}}</strong></span> रुपैयाँ मात्र ।)
+                            </strong>
+                            सम्म को रकममा भुक्तानी माग गरेको मितिसम्मको व्याज /कमिशन ऋण स्विकृत पत्रमा उल्लेख भए बमोजिमका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो
+                            प्रतिज्ञापत्रको लिखत गरी तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेड लाई दियँ।
+                        </p>
+                    <div class="text-right"><strong><u>प्रतिज्ञा गर्ने व्यक्तिको</u></strong></div><br/>
+                    <div class="text-right">लेखात्मक सही: _____________________</div><br><br>
+                        <div class="col-sm-3">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="text-center" style="height: 10rem;"> संस्थाको छाप</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p class="text-center"><b><u>साक्षी</u></b><br></p>
+                        <p>
+                            १.  <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                       formControlName="sanchiOne"
+                                       type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('sanchiOne').value ?  form.get('sanchiOne').value  : '========='}}</strong></span><br/>
+                            २.  <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="sanchiTwo"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('sanchiTwo').value ?  form.get('sanchiTwo').value  : '========='}}</strong></span><br/><br/>
+                            ईति सम्बत् २०
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="year"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('year').value ?  form.get('year').value  : '========='}}</strong></span> साल
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="month"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('month').value ?  form.get('month').value  : '========='}}</strong></span> महिना
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="day"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('day').value ?  form.get('day').value  : '========='}}</strong></span> गते रोज
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="roj"
+                                   type="text"/>
+                            <span class="print-only preetiFont">
+                                <strong>{{ form.get('roj').value ?  form.get('roj').value  : '========='}}</strong></span> शुभम् ।
+                        </p>
+                    <div class="row disable-print">
+                        <div class="col-md-12 text-right">
+                            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteProprietorshipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteProprietorshipPrint" class="mr-2 custom-color" >Print</button>
+                            <button nbButton status="success" (click)="submit()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

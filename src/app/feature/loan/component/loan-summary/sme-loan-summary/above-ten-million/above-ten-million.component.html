@@ -127,7 +127,8 @@
         <app-above-security-arrangement *ngIf="loanDataHolder?.security"
                                         [security]="loanDataHolder?.loanHolder?.security"
                                         [shareSecurity]="loanDataHolder?.shareSecurity"
-                                        [docStatus]="loanDataHolder?.documentStatus"></app-above-security-arrangement>
+                                        [docStatus]="loanDataHolder?.documentStatus"
+                                        [fixedAssetsCollateral]="fixedAssetsData"></app-above-security-arrangement>
         <div>
             <p class="text-uppercase"><strong>15.5 Insurances</strong></p>
             <app-insurance-summary *ngIf="loanDataHolder?.insurance?.length > 0; else notAvailable"
