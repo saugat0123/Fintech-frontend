@@ -121,7 +121,7 @@ import { GeneralLetterOfHypothecationPartnershipComponent } from './general-lett
         KaloSuchiBorrowerPgIndividualComponent,
         VehicleLoanDeedPartnershipComponent,
         KaloSuchiBorrowerProprietorshipComponent,
-        KaloSuchiBorrowerPgPartnershipComponent
+        KaloSuchiBorrowerPgPartnershipComponent,
         GeneralLetterOfHypothecationPartnershipComponent,
     ],
     imports: [
@@ -180,7 +180,7 @@ import { GeneralLetterOfHypothecationPartnershipComponent } from './general-lett
         KaloSuchiBorrowerPgIndividualComponent,
         VehicleLoanDeedPartnershipComponent,
         KaloSuchiBorrowerProprietorshipComponent,
-        KaloSuchiBorrowerPgPartnershipComponent
+        KaloSuchiBorrowerPgPartnershipComponent,
         VehicleLoanDeedPartnershipComponent,
         GeneralLetterOfHypothecationPartnershipComponent,
     ],
