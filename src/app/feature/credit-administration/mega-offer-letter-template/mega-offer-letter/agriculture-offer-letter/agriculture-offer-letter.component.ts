@@ -268,8 +268,6 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       surakchyanKittaNo: [undefined],
       surakchyanArea: [undefined],
       surakchyanMulyankankarta: [undefined],
-      surakchyanFmvInWord: [undefined],
-      surakchyanDistressInWord: [undefined],
       noOfVehicle: [undefined],
       vehicleModel: [undefined],
       vehicleNo: [undefined],
@@ -284,7 +282,13 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       month: [undefined],
       day: [undefined],
       roj: [undefined],
-      subham: [undefined]
+      subham: [undefined],
+      surakchyanLoanAmount: [undefined],
+      surakchyanLoanNameInWord: [undefined],
+      surakchyanFmv: [undefined],
+      surakchyanFmvInWord: [undefined],
+      surakchyanDistress: [undefined],
+      surakchyanDistressInWord: [undefined],
     });
   }
 

@@ -875,11 +875,11 @@
                                                     न.पा./उप म.न.पा./
                                                     म.न.पा./गा.वि.स./गा.पा. वडा नं.
                                                     <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanTempMun"
-                                                           name="surakchyanTempMun"
+                                                           formControlName="surakchyanTempWard"
+                                                           name="surakchyanTempWard"
                                                            type="text"/>
                                                     <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanTempMun').value ? form.get('surakchyanTempMun').value  : '========='}}</strong></span>
+                                                    <strong>{{form.get('surakchyanTempWard').value ? form.get('surakchyanTempWard').value  : '========='}}</strong></span>
                                                     ) स्थित् कित्ता नं.
                                                     <input class="form-field disable-print form-control-sm nepaliFont"
                                                            formControlName="surakchyanKittaNo"
@@ -896,16 +896,16 @@
                                                     <strong>{{form.get('surakchyanArea').value ? form.get('surakchyanArea').value  : '========='}}</strong></span>
                                                     (रोपनी/विगाह) को जग्गा तथा सो जग्गाहरुको
                                                     चर्चेको सम्पुर्ण लिगलगापातहरु समेतको रु.
-<!--                                                    <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanLoanNameInWord', 'surakchyanLoanAmount')"-->
-<!--                                                                      [name]="patchFunction('surakchyanLoanAmount')" class="disable-print"></app-custom-input>-->
-<!--                                                    <span class="print-only nepaliFont"><strong>{{form.get('surakchyanLoanAmount').value ? form.get('surakchyanLoanAmount').value  : '========='}}</strong></span>-->
+                                                    <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanLoanNameInWord', 'surakchyanLoanAmount')"
+                                                                      [name]="patchFunction('surakchyanLoanAmount')" class="disable-print"></app-custom-input>
+                                                    <span class="print-only nepaliFont"><strong>{{form.get('surakchyanLoanAmount').value ? form.get('surakchyanLoanAmount').value  : '========='}}</strong></span>
                                                     /— ( अक्षेरेपी
                                                     <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanArea"
-                                                           name="surakchyanArea"
+                                                           formControlName="surakchyanLoanNameInWord"
+                                                           name="surakchyanLoanNameInWord"
                                                            type="text"/>
                                                     <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanArea').value ? form.get('surakchyanArea').value  : '========='}}</strong></span>
+                                                    <strong>{{form.get('surakchyanLoanNameInWord').value ? form.get('surakchyanLoanNameInWord').value  : '========='}}</strong></span>
                                                     मात्र) को धितोबन्धक रजिष्ट्रेशन ।</p>
                                                     <p>बैकका आधिकारीक मूल्याकंनकर्ता
                                                         <input class="form-field disable-print form-control-sm nepaliFont"
@@ -916,9 +916,9 @@
                                                     <strong>{{form.get('surakchyanMulyankankarta').value ? form.get('surakchyanMulyankankarta').value  : '========='}}</strong></span>
                                                         ले गरेको मूल्याकंन अनुसार
                                                         उक्त सम्पत्तिको अहिलेको फेयर मार्केट मूल्य (Fair Market Value) रु
-<!--                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanFmvInWord', 'surakchyanFmv')"-->
-<!--                                                                          [name]="patchFunction('surakchyanFmv')" class="disable-print"></app-custom-input>-->
-<!--                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanFmv').value ? form.get('surakchyanFmv').value  : '========='}}</strong></span>-->
+                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanFmvInWord', 'surakchyanFmv')"
+                                                                          [name]="patchFunction('surakchyanFmv')" class="disable-print"></app-custom-input>
+                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanFmv').value ? form.get('surakchyanFmv').value  : '========='}}</strong></span>
                                                         /— (अक्षरेपि
                                                         <input class="form-field disable-print form-control-sm nepaliFont"
                                                                formControlName="surakchyanFmvInWord"
@@ -928,9 +928,9 @@
                                                     <strong>{{form.get('surakchyanFmvInWord').value ? form.get('surakchyanFmvInWord').value  : '========='}}</strong></span>
                                                         मात्र)
                                                         रहनेछ भने डिष्ट्रेस मूल्य (Distress Value) रु
-<!--                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanDistressInWord', 'surakchyanDistress')"-->
-<!--                                                                          [name]="patchFunction('surakchyanDistress')" class="disable-print"></app-custom-input>-->
-<!--                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanDistress').value ? form.get('surakchyanDistress').value  : '========='}}</strong></span>-->
+                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanDistressInWord', 'surakchyanDistress')"
+                                                                          [name]="patchFunction('surakchyanDistress')" class="disable-print"></app-custom-input>
+                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanDistress').value ? form.get('surakchyanDistress').value  : '========='}}</strong></span>
                                                         /— (अक्षरेपि <input class="form-field disable-print form-control-sm nepaliFont"
                                                                             formControlName="surakchyanDistressInWord"
                                                                             name="surakchyanDistressInWord"
