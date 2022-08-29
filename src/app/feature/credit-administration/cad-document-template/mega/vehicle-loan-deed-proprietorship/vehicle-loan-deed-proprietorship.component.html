@@ -1,0 +1,255 @@
+<div class="container nep text-justify">
+    <!--div class="row">-->
+    <form [formGroup]="vehicleLoanDeedProprietorship" class="nep" id="vehicleLoanDeedProprietorshipPrint">
+        <div class="form-group align">
+            <div class="logo-container print-only">
+                <div>
+                    <img height="60px" src="../../../../../assets/img/logo.png">
+                </div>
+            </div>
+            <h6 class="text-center">
+                <strong><u>सवारी साधन ऋण तमसुक</u></strong><br><br>
+            </h6>
+            <div>
+                लिखितम् धनिका नाम काठमाण्डौँ  जिल्ला काठमाण्डौँ  महानगरपालिका वडा नं. २८, पुतलीसडक स्थित प्रधान कार्यालय रहेको <strong>सेञ्चुरी कमर्सियल बैंक
+                लिमिटेड (जसलाई यस पछि धनि बैंक भनिएको छ )</strong> आगे प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४  बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य
+                विभाग
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegistrationOffice" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('companyRegistrationOffice').value ?
+                    vehicleLoanDeedProprietorship.get('companyRegistrationOffice').value  : '========='}}</strong></span>
+                कार्यालयमा मिति
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="regDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('regDate').value ?
+                    vehicleLoanDeedProprietorship.get('regDate').value  : '========='}}</strong></span>
+                मा दर्ता प्रा.फ.र.न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="regNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('regNo').value ?
+                    vehicleLoanDeedProprietorship.get('regNo').value  : '========='}}</strong></span>
+                कायम भई,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('district').value ?
+                    vehicleLoanDeedProprietorship.get('district').value  : '========='}}</strong></span>
+                जिल्ला,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitan" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('metropolitan').value ?
+                    vehicleLoanDeedProprietorship.get('metropolitan').value  : '========='}}</strong></span>
+                गा.वि.स/न.पा. वडा न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('wardNo').value ?
+                    vehicleLoanDeedProprietorship.get('wardNo').value  : '========='}}</strong></span>,
+                स्थित ठेगाना रहेको श्री
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('borrowerName').value ?
+                    vehicleLoanDeedProprietorship.get('borrowerName').value  : '========='}}</strong></span>
+                (जसलाई यस यसपछि <strong>ऋणी/फर्म</strong> भनिएको छ) का प्रोप्राईटर
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonGrandFather" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonGrandFather').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonGrandFather').value  : '========='}}</strong></span>
+                को नाती
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonFather').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonFather').value  : '========='}}</strong></span>
+                /
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonHusband').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                को छोरा
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrict" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonDistrict').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonDistrict').value  : '========='}}</strong></span>
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonMetropolitan" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonMetropolitan').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonMetropolitan').value  : '========='}}</strong></span>
+                गा.वि.स/न.पा. वडा न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonWardNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonWardNo').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonWardNo').value  : '========='}}</strong></span>
+                बस्ने बर्ष
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonAge" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPersonAge').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPersonAge').value  : '========='}}</strong></span>
+                को
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('authorizedPerson').value ?
+                    vehicleLoanDeedProprietorship.get('authorizedPerson').value  : '========='}}</strong></span>
+                ले धनी बैंकसँग मैले/हामीले तपशिलमा उल्लेखित सवारी साधन खरिदका लागि ऋण कर्जाको आवश्यकता परी तपाई धनी बैंकसँग अनुरोध गरेकोमा तपाई
+                धनी बैंकबाट म/हामी ऋणीको नाउँमा जारी गरेको मिति
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('offerLetterIssuedDate').value ?
+                    vehicleLoanDeedProprietorship.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
+                को ऋण स्वीकृति पत्रानूसार सवारी कर्जा <span class="timesNewRoman">(Auto Loan)</span> कर्जा शिर्षक अन्तर्गत <strong>रु</strong>
+                <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmountInWords', 'loanAmount')"
+                                  [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('loanAmount').value ?
+                    vehicleLoanDeedProprietorship.get('loanAmount').value  : '========='}}</strong></span>
+                <strong>/– (अक्षरेपि</strong>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmountInWords" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('loanAmountInWords').value ?
+                    vehicleLoanDeedProprietorship.get('loanAmountInWords').value  : '========='}}</strong></span>
+                <strong>मात्र)</strong>
+                ऋण/कर्जा लिए/खाएको ठिक, साँचो, सत्य हो । उक्त ऋण/कर्जाको साँवा र धनी बैंकको नीति, नियमानूसारको ब्याज, हर्जाना व्याज एवं अन्य
+                लागेको/लाग्ने दै–दस्तुरहरू समेत देहायको शर्त तथा बन्देजहरूको अधिनमा रही तथा रहने गरी वेमाख गरी, धिङन्याई, आलटाल आदि केही नगरी बैंकले
+                तोकिदिएको भाखा/अवधि/म्याद भित्र चुक्ता भुक्तानी गर्नेछु/गर्नेछौं । भाखा/अवधि भित्र चूक्ता भूक्तानी नगरेमा वा यसमा लेखिएका शर्तहरूको उल्लंघन म/हामी
+                ऋणीले गरेमा भाखा म्याद बाँकि छँदै पनि धनी बैंकले देहाय बमोजिम गरी असूल उपर गरिलिएमा मेरो/हाम्रो मञ्जूर तथा सहमती रहेको छ र सोबाट बैंकलाई
+                मैले/हामीले तिर्नू, बूझाउनू पर्ने रकम असुल उपर नभएमा <strong>बैंक तथा वित्तीय संस्था सम्बन्धि ऐन २०७३, लगायत अन्य प्रचलित कानुन</strong>
+                वा बैंकको नीति नियम बमोजिम गरी म/हाम्रो नाममा नेपाल राज्य भित्र रहेका चल अचल श्रीसम्पत्ति वा जायजेथा तथा कूनै पनि बैंक तथा वित्तीय संस्थामा
+                रहेको निक्षेपको रकमबाट लिलाम, बिक्रि वा कूनै पनि व्यहोरा वा उपायद्वारा पुर्वजानकारी दिई वा नदिईकनै वा जूनसूकै तवरले कब्जा गरी/लिई साथै म/हाम्रो
+                नाममा कुनै पनि बैंक तथा वित्तीय संस्थामा रहेको खाताबाट सम्बन्धित बैंकमा पत्राचार गरि यसै तमसूकको आधारमा मेरो/हाम्रो खाताको उक्त निक्षेपको रकमबाट
+                सिधै कट्टी गरी असूल उपर गरी लिएमा, धितोमा रहेको सामान वा सवारी साधन, उपकरण कब्जामा लिई वा मेरो/हाम्रो नाममा रहेको घर घरानाका चल
+                अचल श्रीसम्पत्तिहरू कब्जामा लिई बैंकलाई उपर्यूक्त लाग्ने किसिमको प्रकृयाद्वारा लिलाम बिक्रि गरि असूल उपर गरिलिनूहोला । सो कर्जा स्वीकृत पत्रमा
+                तोकिएको भाखा भित्र नतिरे नबूझाएमा समेत कर्जा सुचना केन्द्र लि. को कालो सुचीमा समावेश गर्नूहोला, सो गरेमा गराएमा समेत म/हामी ऋणीको पुर्ण
+                मञ्जूरी तथा सहमति रहेको छ भनी मेरो/हाम्रो मनोमानी, राजीखूशी, सहमति र स्वीकृतिले माथि लेखिएको व्यहोरा पढी, वाची, सुनी सोको अर्थ, मतलव
+                र परिणाम समेत जानी, बुझी सम्झी बायाँ किनाराका साक्षीहरूको रोहवरमा <strong>धनी बैंकको प्रधान कार्यालय,</strong> पुतलीसडक,काठमाण्डौं मा
+                बसी यो कर्जा तमसुकमा सहीछाप गरी धनी बैंकलाई चढाएँ/चढायौं । यसको  दोहोरी  समेत बुझिलिएँ/लियौं ।<br><br>
+                <div class="text-center">तपसिल</div>
+                <div><strong><u>यसै ऋण/ कर्जा अन्तर्गत ऋणीले खरीद गर्ने सवारी साधनको विवरण:</u></strong></div><br>
+                <div>१, ईन्जिन नं
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="engineNo" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('engineNo').value ?
+                        vehicleLoanDeedProprietorship.get('engineNo').value  : '========='}}</strong></span>
+                    , च्यासिस नं
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="chassisNo" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('chassisNo').value ?
+                        vehicleLoanDeedProprietorship.get('chassisNo').value  : '========='}}</strong></span>
+                    भएका
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="vehicleCompany" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('vehicleCompany').value ?
+                        vehicleLoanDeedProprietorship.get('vehicleCompany').value  : '========='}}</strong></span>
+                    कम्पनीको
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="vehicleModel" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('vehicleModel').value ?
+                        vehicleLoanDeedProprietorship.get('vehicleModel').value  : '========='}}</strong></span>
+                    मोडेलको, सवारी दर्ता नं.
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="vehicleRegNo" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedProprietorship.get('vehicleRegNo').value ?
+                        vehicleLoanDeedProprietorship.get('vehicleRegNo').value  : '========='}}</strong></span>।
+                </div><br>
+                <div>
+                    उपरोक्त बमोजिम धनी बैंकले म/हामी ऋणीलाई उपलब्ध गराएको कर्जाका थप शर्तहरू देहाय बमोजिम हूने कुरामा समेत मेरा/हाम्रो पुर्ण मञ्जुरी छ ।
+                </div><br>
+                <table>
+                    <tr>
+                        <td>१.</td>
+                        <td>उपरोक्त बमोजिम धनी बैंकले म/हामी ऋणीलाई उपलब्ध गराउने कर्जाको रकम सोझै सवारी साधन बिक्रेतालाई भूक्तानी दिएमा म/हामी
+                            ऋणीको मञ्जुरी छ ।</td>
+                    </tr>
+                    <tr>
+                        <td>२.</td>
+                        <td>उक्त सवारी साधन व्यवहारमा वा व्यवसायमा ल्याउँदा सवारी ऐन तथा प्रचलित नियम कानुनको पालना गर्नेछु/छौं र उक्त ऐन नियमहरू
+                            उल्लघंन हुने गरी वा कानुनले बन्देज गरेको काम कारवाही वा माल सामान ढुवानी गर्ने कार्यमा उक्त सवारी साधन प्रयोग गर्ने छैन
+                            गरे सोको जवाफदेही म/हामी स्वयं हुनेछु/छौ । </td>
+                    </tr>
+                    <tr>
+                        <td>३.</td>
+                        <td>उक्त सवारी साधन प्रयोगमा ल्याउँदा म/हामी स्वयं वा मेरो/हाम्रो कर्मचारी, चालक, लगायतको लापरवाहीले दु्रघटना भई वा अन्य
+                            कूनै पनि अवस्थामा ऐन नियम बमोजिम दण्ड, सजाय, जरिवाना वा क्षतिपुर्ती तिर्न परेमा सोको सम्पुर्ण जवाफदेही म/हामी स्वयं
+                            हुनेछु/छौं ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>४.</td>
+                        <td>तपाईं धनी बैंकको लेना असुल उपर नभएसम्म उक्त सवारी साधन चालु हालतमा राख्ने छु/छौं । सवारी साधनको मुल्यमा असर
+                            पर्ने कुनै पनि काम कारवाही गर्ने छैन/छैनौं ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>५.</td>
+                        <td>उक्त सवारी साधनमा समय समयमा गराउनु पर्ने मर्मत सुधार (सर्भिसिङ) म/हामी आफैंले खर्च व्यहोरी गराउने छु/छौं ।</td>
+                    </tr>
+                    <tr>
+                        <td>६.</td>
+                        <td>आफ्नो खर्चमा उक्त सवारी साधन बीमा कम्पनीबाट सम्पुर्ण जोखिम बेहोर्ने गरी वैंकले भने अनूसार बीमा गराई समय समयमा सो
+                            को नवीकरण समेत गरी सो को प्रमाण कागजात बैंकमा पेश गर्नेछु/छौं । कथंकदाचित सवारी साधनको बीमा वा सो को नवीकरण
+                            गर्न नसकेमा धनी बैंक स्वयंले सो को बीमा तथा नवीकरण गरी सो बापतको प्रिमियम म/हामी ऋणीबाट असूल उपर गरेमा मेरो/हाम्रो
+                            मञ्जुरी छ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>७.</td>
+                        <td>बैंकसँग भएको शर्त सम्झौता भए वमोजिम धनी बैंकलाई बुझाउनु पर्ने किस्ता, साँवा, ब्याज, दै दस्तूर निर्धारित समयमा
+                            नबुझाएमा म/हामी ऋणी तथा जमानीकर्ताको तस्वीर समेत सार्वजनिक गरी कर्जा असुलउपर सम्बन्धी आवश्यक कानुनी कारबाही गरेमा
+                            मेरो/हाम्रो मञ्जुर छ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>८.</td>
+                        <td>उक्त सवारी चलाउँदा कथंकदाचित द्रुघटना भएमा तपाईं धनी बैंकलाई तत्कालै सो को जानकारी दिई सम्बन्धित बीमा कम्पनिबाट
+                            क्षतिपुर्ति असुल उपर गर्न गराउन आवश्यक प्रमाण म/हामी आफैंले जुटाउनेछु/छौं । साथै बीमाबाट प्राप्त भएको रकम जे जति भए
+                            पनि गाडी मर्मतमा लागेको सम्पुर्ण खर्च म/हामी आफैंले व्यहोर्नेछु/छौं ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>९.</td>
+                        <td>प्राप्त ऋण कर्जाको सम्पुर्ण साँवा व्याज तथा अन्य रकम चुक्ता भुक्तान नभएसम्म उक्त सवारी साधन चालु अवस्थामा राख्नेछु/छौं ।
+                            उक्त सवारी साधन जुनसुकै बखत बैंकले निरिक्षण गर्न सक्ने छ । साथै उक्त सवारी साधनको पार्टपुर्जा बिगारी वा सट्टापट्टा अदली
+                            बदली गरे वा असली हालतमा रहे भएको देखिन नआएमा धनी बैंकले यस शर्तनामा बिरुद्ध भएको मानी उक्त सवारी साधन कब्जा
+                            गरी नोक्सानी भएको क्षतिपुर्ति वापत हर्जानाको दावी गरेमा सो बमोजिमको हर्जाना तत्कालै तिर्ने बूझाउनेछु/छौं ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>१०.</td>
+                        <td>उक्त सवारी साधन व्यवहारमा ल्याउँदा बिग्री दु्रघटना परी वा अन्य कारण चालू अवस्थामा नरहेता पनि बैंकलाई तिर्न बुझाउन पर्ने
+                            साँवा तथा ब्याजको संयुक्त किस्ता <span class="timesNewRoman">(Equated Monthly Installments)</span>
+                            तथा अन्य दै दस्तूर निर्धारित समयमा नै तिर्ने बूझाउनेछु ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>११.</td>
+                        <td>उक्त सवारी साधन दर्ता गर्दा तथा व्यवहारमा ल्याउँदा वा चालु राख्न रोड शेष वा अरु किसिमको भैपरि आउने सम्पुर्ण खर्च
+                            म/हामी आफैंले तिर्ने बुझाउनेछु ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>१२.</td>
+                        <td>उक्त सवारी साधनमा <b>सेञ्चुरी कमर्सियल बैंक लिमिटेड</b> बाट सहयोग प्राप्त भनी संकेत पाटी राख्न मेरो/हाम्रो मञ्जुरी छ ।</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <strong><u>साक्षीहरु:</u></strong><br>
+                <p class="ml-lg-5">
+                    १.
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness1" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('witness1').value ?
+                        vehicleLoanDeedProprietorship.get('witness1').value  : '========='}}</b></span><br>
+                    २.
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness2" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('witness2').value ?
+                        vehicleLoanDeedProprietorship.get('witness2').value  : '========='}}</b></span><br>
+                    ३.
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness3" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('witness3').value ?
+                        vehicleLoanDeedProprietorship.get('witness3').value  : '========='}}</b></span><br>
+                    ईति सम्वत् २०७
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatYear" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('sambatYear').value ?
+                        vehicleLoanDeedProprietorship.get('sambatYear').value  : '========='}}</b></span>
+                    साल
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatMonth" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('sambatMonth').value ?
+                        vehicleLoanDeedProprietorship.get('sambatMonth').value  : '========='}}</b></span>
+                    महिना
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatDate" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('sambatDate').value ?
+                        vehicleLoanDeedProprietorship.get('sambatDate').value  : '========='}}</b></span>
+                    गते रोज
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatDay" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('sambatDay').value ?
+                        vehicleLoanDeedProprietorship.get('sambatDay').value  : '========='}}</b></span>
+                    शुभम्
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="shubham" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{vehicleLoanDeedProprietorship.get('shubham').value ?
+                        vehicleLoanDeedProprietorship.get('shubham').value  : '========='}}</b></span>
+                </p>
+            </div>
+        </div>
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="vehicleLoanDeedProprietorshipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="vehicleLoanDeedProprietorshipPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
