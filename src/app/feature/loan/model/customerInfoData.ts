@@ -58,6 +58,7 @@ export class CustomerInfoData {
     bankingRelationship: string;
     creditChecklist: CreditChecklistGeneral;
     crgChecklist: string;
+    crgLongChecklist: string;
     obligor: string;
     customerCode: string;
     subSectorDetailCode: string;
