@@ -21,6 +21,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   form: FormGroup;
+  promissoryProprietorship;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -32,6 +33,16 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.promissoryProprietorship = JSON.parse(this.cadData.loanHolder.nepData);
+    }
   }
 
   buildForm() {
