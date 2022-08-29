@@ -51,45 +51,45 @@ export class AnnexureOneComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     const changes = this.iterableDiffer.diff(this.fixedAssetsData);
-    if (changes) {
-      this.siteVisitJson = [];
-      this.siteVisitDocuments = [];
-      this.collateralSiteVisits = [];
-      if (!ObjectUtil.isEmpty(this.fixedAssetsData)) {
-        // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
-        const map = new Map();
-        this.fixedAssetsData.forEach(f => {
-          const securityName = f.securityName;
-          if (!map.has(securityName)) {
-            this.collateralSiteVisits.push(f);
-          }
-          map.set(securityName, securityName);
-        });
-        const siteVisitDoc = [];
-        this.collateralSiteVisits.forEach(f => {
-          const doc = [];
-          if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-            f.siteVisitDocuments.forEach((sv: SiteVisitDocument) => {
-              if (sv.isPrintable === this.isPrintable) {
-                doc.push(sv);
-              }
-            });
-          }
-          siteVisitDoc.push(doc);
-        });
-        this.siteVisitDocuments = siteVisitDoc;
-        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-          const collateralData = this.collateralSiteVisits.reverse();
-          collateralData.filter(item => {
-            this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-          });
-        } else {
-          this.collateralSiteVisits.filter(item => {
-            this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-          });
-        }
-      }
-    }
+    // if (changes) {
+    //   this.siteVisitJson = [];
+    //   this.siteVisitDocuments = [];
+    //   this.collateralSiteVisits = [];
+    //   if (!ObjectUtil.isEmpty(this.fixedAssetsData)) {
+    //     // code to get recent site visit information as fixedAssetsData json contain sorted data by sitevisitdate order by DESC
+    //     const map = new Map();
+    //     this.fixedAssetsData.forEach(f => {
+    //       const securityName = f.securityName;
+    //       if (!map.has(securityName)) {
+    //         this.collateralSiteVisits.push(f);
+    //       }
+    //       map.set(securityName, securityName);
+    //     });
+    //     const siteVisitDoc = [];
+    //     this.collateralSiteVisits.forEach(f => {
+    //       const doc = [];
+    //       if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+    //         f.siteVisitDocuments.forEach((sv: SiteVisitDocument) => {
+    //           if (sv.isPrintable === this.isPrintable) {
+    //             doc.push(sv);
+    //           }
+    //         });
+    //       }
+    //       siteVisitDoc.push(doc);
+    //     });
+    //     this.siteVisitDocuments = siteVisitDoc;
+    //     if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+    //       const collateralData = this.collateralSiteVisits.reverse();
+    //       collateralData.filter(item => {
+    //         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+    //       });
+    //     } else {
+    //       this.collateralSiteVisits.filter(item => {
+    //         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+    //       });
+    //     }
+    //   }
+    // }
   }
 
   viewDocument(url: string, name: string) {
