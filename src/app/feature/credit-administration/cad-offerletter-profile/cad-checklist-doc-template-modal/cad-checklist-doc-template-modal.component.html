@@ -193,6 +193,12 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-general-letter-of-hypothecation-propietorship>
+
+        <app-kalo-suchi-borrower-pg-individual *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_INDIVIDUAL"
+                                               [cadData]="cadData" [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-pg-individual>
+
         <app-kalo-suchi-borrower-partnership *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PROPRIETORRSHIP"
                                              [cadData]="cadData" [documentId]="documentId"
                                              [customerLoanId]="customerLoanId">
