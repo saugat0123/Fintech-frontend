@@ -93,8 +93,8 @@ export class AddAdditionalDocumentComponent implements OnInit {
             formData.append('customerInfoId', this.cadData.loanHolder.id.toString());
             formData.append('branchId', this.cadData.loanHolder.branch.id.toString());
             this.service.uploadAdditionalDocument(formData).subscribe((res: any) => {
-               type === 'SIGNED' ? this.setDocument('pathSigned', 'signUploadDate', type, res.detail)
-                   : this.setDocument('draftPath', 'draftUploadDate', type, res.detail);
+               type === 'SIGNED' ? this.setDocument('pathSigned', 'signUploadDate', res.detail)
+                   : this.setDocument('draftPath', 'draftUploadDate', res.detail);
                 this.save();
             });
 
@@ -103,7 +103,7 @@ export class AddAdditionalDocumentComponent implements OnInit {
         }
     }
 
-    setDocument(pathControl, dateControl, type, pathLink) {
+    setDocument(pathControl, dateControl, pathLink) {
         this.addDocForm.patchValue({
             pathControl: pathLink,
             dateControl: new Date(),
