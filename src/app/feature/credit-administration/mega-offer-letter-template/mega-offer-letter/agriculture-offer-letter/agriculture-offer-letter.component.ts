@@ -250,6 +250,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       repaymentTermLoan: [undefined],
       repaymentEngDate: [undefined],
       proposalData: this.formBuilder.array([this.buildProposalForm()]),
+      otherLoan: this.formBuilder.array([this.buildOtherLoanForm()]),
     });
   }
 
@@ -264,6 +265,12 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       demandLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
       termLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
       otherLoan: this.formBuilder.array([this.buildNatureOfLoanForm()])
+    });
+  }
+
+  buildOtherLoanForm() {
+    return this.formBuilder.group({
+      otherLoan: [undefined],
     });
   }
 
@@ -289,6 +296,10 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     control.push(this.buildProposalForm());
   }
 
+  addOtherLoan() {
+    const control = this.form.get('otherLoan') as FormArray;
+    control.push(this.buildOtherLoanForm());
+  }
 
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
@@ -447,4 +458,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     (this.form.get('proposalData') as FormArray).removeAt(index);
   }
 
+  removeOtherLoan(index: number) {
+    (this.form.get('otherLoan') as FormArray).removeAt(index);
+  }
 }
