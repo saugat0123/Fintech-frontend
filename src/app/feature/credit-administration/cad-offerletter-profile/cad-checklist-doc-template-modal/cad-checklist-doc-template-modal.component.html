@@ -212,6 +212,11 @@
                                                 [customerLoanId]="customerLoanId">
         </app-kalo-suchi-borrower-pg-partnership>
 
+        <app-general-letter-of-hypothecation-partnership
+                *ngSwitchCase="cadTemplate.GENERAL_LETTER_OF_HYPOTHECATION_PARTNERSHIP" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-general-letter-of-hypothecation-partnership>
         <app-promissory-note-proprietorship *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PROPRIETORSHIP"
                                             [cadData]="cadData" [documentId]="documentId"
                                             [customerLoanId]="customerLoanId">
