@@ -1,0 +1,162 @@
+<ol class="heading-list">
+    <li class="libold">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Date of Association: </strong>{{loanDataHolder?.createdAt | date}}
+                    ({{loanDataHolder?.createdAt | engNepDate:false}})</p>
+            </div>
+            <div class="col-md-6 text-right"
+                 *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+                <p><strong>Late Date of
+                    Inspection: </strong>{{lastDateOfInspection ? (lastDateOfInspection | date) : 'NA'}}
+                    ({{lastDateOfInspection ? (lastDateOfInspection | engNepDate: false) : 'NA'}})</p>
+                <p><strong>Obligation Group (Name/Code): </strong>
+                    {{loanDataHolder?.loanHolder?.mgroupInfo?.groupName ? loanDataHolder?.loanHolder?.mgroupInfo?.groupName : 'NA'}}
+                    /
+                    {{loanDataHolder?.loanHolder?.mgroupInfo?.groupCode ? loanDataHolder?.loanHolder?.mgroupInfo?.groupCode : 'NA'}}
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong>REQUEST OF THE CLIENT : </strong></p>
+        <p class="sb-small">The client has requested us
+            for {{customerAllLoanList?.length > 1 ? 'following loan' :
+                loanDataHolder?.loan?.name + ' of NPR ' + (loanDataHolder?.proposal?.proposedLimit | currencyFormatter) + '@' +
+                (loanDataHolder?.proposal?.data | jsonParse)?.interestRate + '% p.a for ' +
+                ((loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths ? (loanDataHolder?.proposal?.data | jsonParse)?.tenureDurationInMonths / 12 + ' year(s)' : 'NA')  }}</p>
+        <div *ngIf="customerAllLoanList?.length > 1">
+            <ol type="a">
+                <li class="sb-small p-0 m-0" *ngFor="let cal of customerAllLoanList">
+                    {{cal?.loanType | replace: '_' : ' '}} of {{cal?.loan?.name}}<b> of
+                    NPR {{cal?.proposal?.proposedLimit | currencyFormatter}}
+                    @{{(cal.proposal.data | jsonParse)?.interestRate}}% p.a
+                    for {{(cal.proposal.data | jsonParse)?.tenureDurationInMonths ?
+                        (cal.proposal.data | jsonParse)?.tenureDurationInMonths / 12 + ' year(s)' : 'NA'}}
+                </b></li>
+            </ol>
+        </div>
+    </li>
+    <li class="libold">
+        <p><strong>BACKGROUND OF CLIENT: </strong></p>
+        <app-customer-business-activity-or-backgrounds
+                *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
+                [customer]="loanDataHolder.customerInfo"
+                [loanHolder]="loanDataHolder.loanHolder"
+                [tagGuarantor]="loanDataHolder?.taggedGuarantors">
+        </app-customer-business-activity-or-backgrounds>
+    </li>
+
+    <li class="libold">
+        <p><strong>REPAYMENT ANALYSIS: {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
+        <app-financial-view *ngIf="loanHolder?.financial"
+                            [customerType]="loanHolder?.customerType"
+                            [formData]="loanHolder?.financial"></app-financial-view>
+    </li>
+
+    <li class="libold">
+        <p><strong>PURPOSE AND JUSTIFICATION OF CREDIT PROPOSAL: {{loanDataHolder?.proposal ? '' : 'NA'}}</strong></p>
+        <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
+                                              [loanDataHolder]="loanDataHolder"
+                                              [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
+    </li>
+    <li class="libold">
+        <p><strong>SOURCE OF REPAYMENT : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
+        <app-retail-source-of-repayment
+                *ngIf="loanHolder?.financial"
+                [formData]="loanHolder?.financial"></app-retail-source-of-repayment>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong>CURRENT LIMITS AND OUTSTANDING OF THE CLIENT : <em class="text-danger sb-small">Bold
+            row indicates current loan proposal</em> </strong></p>
+        <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                           [customerAllLoanList]="customerAllLoanList"
+                           [proposalData]="loanDataHolder?.proposal"
+                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <!-- group position -->
+        <strong>GROUP EXPOSURE (in NPR.) {{loanDataHolder?.loanHolder?.mgroupInfo ? ('as of ' +
+            (loanDataHolder?.loanHolder.mgroupInfo?.groupExposureDate ? (loanDataHolder?.loanHolder.mgroupInfo?.groupExposureDate | date) : 'NA')) : ': NA'}}</strong>
+        <ol>
+            <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.mgroupInfo"
+                                 [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"
+                                 [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
+        </ol>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p class="text-uppercase">
+            <strong>Profitability {{loanHolder?.incomeFromAccount ? '' : 'NA'}}</strong></p>
+        <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
+                                         [formData]="loanHolder?.incomeFromAccount">
+        </app-income-from-account-summery>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p class="text-uppercase"><strong>Risks
+            : {{loanDataHolder?.loanHolder?.riskAnalysis ? '' : 'NA'}}</strong></p>
+        <app-above-risk-analysis *ngIf="loanDataHolder?.loanHolder?.riskAnalysis"
+                                 [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong
+                class="text-uppercase">Compliance: </strong> {{proposalData?.compliance ? 'We have fully adhered the policy of NRB and internal bank policies.' : 'NA'}}
+        </p>
+        <tr>
+            <td [innerHTML]="proposalData?.compliance || 'NA' | safeHtml"></td>
+        </tr>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong>DETAIL OF INSURANCE: {{loanDataHolder?.insurance?.length > 0 ? '' : 'NA'}}</strong>
+        </p>
+        <app-insurance-summary *ngIf="loanDataHolder?.insurance?.length > 0"
+                               [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES <em>(IF ANY)</em>:
+            {{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation ? '' : ' NA'}}</strong></p>
+        <tr *ngIf="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation">
+            <td [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></td>
+        </tr>
+    </li>
+    <li class="libold">
+        <p class="text-uppercase"><strong>Banking Arrangement
+            : {{loanDataHolder?.loanHolder?.multiBanking ? '' : 'NA'}}</strong></p>
+        <ol>
+            <app-above-banking-arrangement-of-the-customer
+                    *ngIf="loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl"
+                    [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                    [proposal]="loanDataHolder?.proposal"
+                    [isRetailCustomer]="true"
+                    [cicl]="loanDataHolder?.loanHolder?.cicl"
+                    [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
+                    [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
+        </ol>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong>SECURITY DETAILS: {{loanDataHolder?.loanHolder?.security ? '' : ' NA'}}</strong></p>
+        <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security"
+                             [loanDataHolder]="loanDataHolder"
+                             [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
+    </li>
+    <li class="libold">
+        <p><strong>RECOMMENDATION: </strong></p>
+        <app-retail-recommendation *ngIf="loanHolder && customerAllLoanList"
+                                   [loanDataHolder]="loanHolder"
+                                   [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
+    </li>
+    <li class="libold">
+        <app-authority-section [loanDataHolder]="loanDataHolder"></app-authority-section>
+    </li>
+    <div>
+        <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+    </div>
+</ol>

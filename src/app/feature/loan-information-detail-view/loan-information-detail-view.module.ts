@@ -18,13 +18,15 @@ import {AboveRiskAnalysisComponent} from '../loan/component/loan-summary/sme-loa
 import {CustomerKycViewComponent} from './customer-kyc-view/customer-kyc-view.component';
 import {CustomerBusinessActivityOrBackgroundsComponent} from './customer-business-activity-or-backgrounds/customer-business-activity-or-backgrounds.component';
 import {CustomerNetWorthViewComponent} from './customer-net-worth-view/customer-net-worth-view.component';
+import { RetailViewComponent } from './retail-view/retail-view.component';
+import { AgricultureViewComponent } from './agriculture-view/agriculture-view.component';
 
 
 @NgModule({
   declarations: [LoanInformationDetailViewComponent,
     DetailViewBaseComponent, RetailPurposeAndJustificationComponent,
     RetailSourceOfRepaymentComponent, CustomerKycViewComponent,
-      CustomerBusinessActivityOrBackgroundsComponent, CustomerNetWorthViewComponent
+      CustomerBusinessActivityOrBackgroundsComponent, CustomerNetWorthViewComponent, RetailViewComponent, AgricultureViewComponent
   ],
     exports: [
         AboveRiskAnalysisComponent
