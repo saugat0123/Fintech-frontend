@@ -18,14 +18,25 @@
                     <td class="font-weight-bold px-2">:</td>
                     <td class="text-left"><input class="cellInput" formControlName="docName"></td>
                 </tr>
-
+                <tr>
+                    <td class="font-weight-bold"><sup class="text-danger">*</sup>Select Document Type
+                    </td>
+                    <td class="font-weight-bold px-2">:</td>
+                    <td class="text-left">
+                        <select formControlName="docType" class="cellInput" id="docType">
+                            <option hidden selected value="null">--Select Type--</option>
+                            <option value="DRAFT">Draft Document</option>
+                            <option value="SIGNED">Signed Document</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td class="font-weight-bold"><sup class="text-danger">*</sup>upload</td>
                     <td class="font-weight-bold px-2">:</td>
                     <td class="text-left"><input class="cellInput" type="file" (change)="addDocInput($event)"></td>
                 </tr>
                 <tr>
-                    <td class="font-weight-bold px-1">Remarks</td>
+                    <td class="font-weight-bold">Remarks</td>
                     <td class="font-weight-bold px-2">:</td>
                     <td class="text-left">
                         <select formControlName="remarks"  class="cellInput">
