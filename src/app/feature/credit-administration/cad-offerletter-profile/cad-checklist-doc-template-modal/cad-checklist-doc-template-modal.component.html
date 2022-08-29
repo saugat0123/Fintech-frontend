@@ -184,6 +184,10 @@
                                        [cadData]="cadData" [documentId]="documentId"
                                        [customerLoanId]="customerLoanId">
         </app-vehicle-loan-deed-individual>
+        <app-promissory-note-proprietorship *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PROPRIETORSHIP"
+                                       [cadData]="cadData" [documentId]="documentId"
+                                       [customerLoanId]="customerLoanId">
+        </app-promissory-note-proprietorship>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
