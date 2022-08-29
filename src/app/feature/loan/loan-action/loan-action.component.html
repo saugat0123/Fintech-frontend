@@ -8,8 +8,8 @@
     </nb-card-footer>
   </nb-card>
 </ng-template>
-<div class="row">
-  <div class="col-sm-9 text-center" *ngIf="customerLoanHolder.documentStatus !== 'APPROVED' && isMyBucketFile">
+<div class="d-flex {{ catalogueStatus === true ? 'float-right' : 'justify-content-center' }}">
+  <div *ngIf="customerLoanHolder.documentStatus !== 'APPROVED' && isMyBucketFile">
   <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
@@ -62,12 +62,14 @@
     REJECT
   </button>
     <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus && customerLoanHolder.documentStatus !== 'APPROVED'"
+            [disabled]="loanDataHolder?.documentStatus === 'PENDING'"
+            [ngStyle]="{ 'filter' : (loanDataHolder?.documentStatus === 'PENDING')? 'grayscale(50%)': 'grayscale(0%)'}"
             class="btn-sm btn-danger">
       Delete
       <!--    <i class="col-md-1 fa fa-ban"></i>-->
     </button>
   </div>
-<div class="col-sm-3 float-right">
+<div>
   <button [useExistingCss]="true" class="btn-sm btn-warning justify-content-end" *ngIf="!isDetailedView"
           ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
     PRINT

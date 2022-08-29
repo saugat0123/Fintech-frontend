@@ -40,7 +40,7 @@
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : ''">
                                 <a nbTooltip="change loan"  (click)="changeLoan(model.id,model?.loanId)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
                                         class="fa fa-cog"></em></a>&nbsp;
-                                <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
+                                <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER') && model?.documentStatus !== 'PENDING'"><em
                                         class="fa fa-trash"></em></a>&nbsp;
                                 <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
                                         class="fa fa-trash"></em></a>&nbsp;
