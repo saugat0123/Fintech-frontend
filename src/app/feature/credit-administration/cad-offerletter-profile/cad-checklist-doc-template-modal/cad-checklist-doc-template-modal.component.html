@@ -207,6 +207,11 @@
                                              [cadData]="cadData" [documentId]="documentId"
                                              [customerLoanId]="customerLoanId">
         </app-kalo-suchi-borrower-proprietorship>
+        <app-kalo-suchi-borrower-pg-partnership *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_PARTNERSHIP"
+                                                [cadData]="cadData" [documentId]="documentId"
+                                                [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-pg-partnership>
+
         <app-vehicle-loan-deed-proprietorship *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_PROPRIETORSHIP"
                                                 [cadData]="cadData" [documentId]="documentId"
                                                 [customerLoanId]="customerLoanId">
