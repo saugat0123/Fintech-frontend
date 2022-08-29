@@ -68,6 +68,7 @@ import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-le
 import { KaloSuchiBorrowerPgIndividualComponent } from './kalo-suchi-borrower-pg-individual/kalo-suchi-borrower-pg-individual.component';
 
 import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partnership/vehicle-loan-deed-partnership.component';
+import { GeneralLetterOfHypothecationPartnershipComponent } from './general-letter-of-hypothecation-partnership/general-letter-of-hypothecation-partnership.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -116,6 +117,7 @@ import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partner
         GeneralLetterOfHypothecationPropietorshipComponent,
         KaloSuchiBorrowerPgIndividualComponent,
         VehicleLoanDeedPartnershipComponent,
+        GeneralLetterOfHypothecationPartnershipComponent,
     ],
     imports: [
         CommonModule,
@@ -171,7 +173,8 @@ import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partner
         KaloSuchiBorrowerPartnershipComponent,
         GeneralLetterOfHypothecationPropietorshipComponent,
         KaloSuchiBorrowerPgIndividualComponent,
-        VehicleLoanDeedPartnershipComponent
+        VehicleLoanDeedPartnershipComponent,
+        GeneralLetterOfHypothecationPartnershipComponent,
     ],
 })
 
