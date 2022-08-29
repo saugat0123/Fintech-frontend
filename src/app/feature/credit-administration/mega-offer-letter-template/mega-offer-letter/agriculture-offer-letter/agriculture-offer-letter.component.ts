@@ -251,6 +251,40 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       repaymentEngDate: [undefined],
       proposalData: this.formBuilder.array([this.buildProposalForm()]),
       otherLoan: this.formBuilder.array([this.buildOtherLoanForm()]),
+      loanAdminFee: [undefined],
+      loanRenewFee: [undefined],
+      loanAdminFeeNonFunded: [undefined],
+      baseRate: [undefined],
+      dcgfPremium: [undefined],
+      otherLoanName: [undefined],
+      surakchyanName: [undefined],
+      surakchyanDate: [undefined],
+      surakchyanDis: [undefined],
+      surakchyanMun: [undefined],
+      surakchyanWard: [undefined],
+      surakchyanTempDis: [undefined],
+      surakchyanTempMun: [undefined],
+      surakchyanTempWard: [undefined],
+      surakchyanKittaNo: [undefined],
+      surakchyanArea: [undefined],
+      surakchyanMulyankankarta: [undefined],
+      surakchyanFmvInWord: [undefined],
+      surakchyanDistressInWord: [undefined],
+      noOfVehicle: [undefined],
+      vehicleModel: [undefined],
+      vehicleNo: [undefined],
+      reviewLoanType: [undefined],
+      surakchyanPg: [undefined],
+      surakchyanReviewYrs: [undefined],
+      reviewOtherLoan: [undefined],
+      covenant: [undefined],
+      branchAddress: [undefined],
+      loanDate: [undefined],
+      year: [undefined],
+      month: [undefined],
+      day: [undefined],
+      roj: [undefined],
+      subham: [undefined]
     });
   }
 
@@ -369,6 +403,16 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
 
   patchFunction(target) {
     const patchValue1 = this.form.get([target]).value;
+    return patchValue1;
+  }
+
+  changeToNepAmountArray(event: any, i , formArrayName, target, from) {
+    this.form.get([formArrayName, i, target]).patchValue(event.nepVal);
+    this.form.get([formArrayName, i, from]).patchValue(event.val);
+  }
+
+  patchFunctionArray(formArrayName, i, formControlName) {
+    const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
     return patchValue1;
   }
 
