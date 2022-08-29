@@ -113,7 +113,12 @@
                 <th>Document Name</th>
                 <th>Remarks</th>
                 <th>Upload On</th>
-                <th>Attachment</th>
+                <th colspan="2">Attachment</th>
+            </tr>
+            <tr>
+                <td colspan="4"></td>
+                <td>Draft Doc</td>
+                <td>Signed Doc</td>
             </tr>
             </thead>
             <tbody>
@@ -123,8 +128,10 @@
                 <td>{{data?.docName}}</td>
                 <td>{{data?.remarks}}</td>
                 <td><span *ngIf="data?.docPath">{{data?.uploadOn | date}}</span></td>
-                <td class="cursor" (click)="previewDoc(data?.docPath,data?.docName)"><em
-                        [class]="data?.docPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+                <td class="cursor" (click)="previewDoc(data?.draftPath,data?.docName, false)"><em
+                        [class]="data?.draftPath === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+                <td class="cursor" (click)="previewDoc(data?.pathSigned,data?.docName, false)"><em
+                        [class]="data?.pathSigned === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
             </tr>
             </tbody>
         </table>
