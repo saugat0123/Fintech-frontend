@@ -207,6 +207,11 @@
                                              [cadData]="cadData" [documentId]="documentId"
                                              [customerLoanId]="customerLoanId">
         </app-kalo-suchi-borrower-proprietorship>
+        <app-kalo-suchi-borrower-pg-partnership *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PG_PARTNERSHIP"
+                                                [cadData]="cadData" [documentId]="documentId"
+                                                [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-pg-partnership>
+
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
