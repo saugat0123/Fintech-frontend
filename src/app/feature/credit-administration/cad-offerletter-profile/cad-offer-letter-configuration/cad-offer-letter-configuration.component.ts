@@ -86,7 +86,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
         if (!ObjectUtil.isEmpty(this.customer) && !ObjectUtil.isEmpty(this.customerInfo.isJointCustomer)) {
             this.tempCustomer = JSON.parse(this.customer.jointInfo);
-            if (!ObjectUtil.isEmpty(this.tempCustomer.jointCustomerInfo) && ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+            if (!ObjectUtil.isEmpty(this.tempCustomer.jointCustomerInfo)) {
                 this.tempCustomer.jointCustomerInfo.forEach(val => {
                     this.addJointCustomerDetails();
                 });
