@@ -17,6 +17,10 @@
                 </p>
             </div>
         </div>
+        <div class="col-md-12" *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+            <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0"
+                                [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+        </div>
     </li>
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
@@ -61,12 +65,12 @@
                                               [loanDataHolder]="loanDataHolder"
                                               [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
     </li>
-    <li class="libold">
-        <p><strong>SOURCE OF REPAYMENT : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
-        <app-retail-source-of-repayment
-                *ngIf="loanHolder?.financial"
-                [formData]="loanHolder?.financial"></app-retail-source-of-repayment>
-    </li>
+<!--    <li class="libold">-->
+<!--        <p><strong>SOURCE OF REPAYMENT : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>-->
+<!--        <app-retail-source-of-repayment-->
+<!--                *ngIf="loanHolder?.financial"-->
+<!--                [formData]="loanHolder?.financial"></app-retail-source-of-repayment>-->
+<!--    </li>-->
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p><strong>CURRENT LIMITS AND OUTSTANDING OF THE CLIENT : <em class="text-danger sb-small">Bold
