@@ -1,0 +1,286 @@
+<nb-card>
+    <div class="row">
+        <div class="col-md-12 text-right" *ngIf="fromProfile">
+            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                            name="securityInitialInfoCalendarType">
+                <nb-radio value="AD">AD</nb-radio>
+                <nb-radio value="BS">BS</nb-radio>
+            </nb-radio-group>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="crgLongChecklistFormGroup">
+                <div class="form-group col-md-5" style="display: flex">
+                    <label>Date of Checklist: </label>
+                    <ng-container *ngIf="fromProfile">
+                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
+                               class="form-control "
+                               formControlName="dateCheckList" placeholder="Date of checklist">
+                        <app-calendar
+                                (messageToEmit)="crgLongChecklistFormGroup.get('dateCheckList').patchValue($event?.eDate)"
+                                *ngIf="calendarType === 'BS'"
+                                [ePreDate]="crgLongChecklistFormGroup.get('dateCheckList').value"></app-calendar>
+                        <nb-datepicker #dateOfChecklist></nb-datepicker>
+                    </ng-container>
+                </div>
+                <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <thead>
+                    <tr>
+                        <th>Grade</th>
+                        <th *ngFor="let option of optionList">{{option}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>INDUSTRY / MARKET</th>
+                        <td>Stable, excellent growth prospects.</td>
+                        <td>Growing and effective.</td>
+                        <td>Growing in principal areas of operation.</td>
+                        <td>Some growth potential in next 3 – 5 years.</td>
+                        <td>Mature and limited growth potential</td>
+                        <td>Mature. Limited or no growth potential</td>
+                        <td>Mature or in decline with aggressive rivalry.</td>
+                        <td>In decline. Negative outlook.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="industryMarket"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('industryMarket')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>MARKET POSITION </th>
+                        <td>Undisputed leader.</td>
+                        <td>Dominant in principal market.</td>
+                        <td>Strong player. Recognized advantage in product quality or cost. </td>
+                        <td>Good in principal market or dominant niche player.</td>
+                        <td>Good to fair. May be a well-established niche player.</td>
+                        <td>Fair competitive environment. Limited advantage in product, quality or cost.</td>
+                        <td>Weakening. Possibly handicapped by disadvantage in product quality or cost. </td>
+                        <td>Declining with clear weaknesses and limited capability to alter position.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="marketPosition"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('marketPosition')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>SUPPLIER / CUSTOMER RELATIONSHIP</th>
+                        <td>Very strong. Always able to set terms and conditions.</td>
+                        <td>Very strong with ability to set terms and conditions</td>
+                        <td>Strong. Well-established relationships with some ability to influence terms.</td>
+                        <td>Confident, long term relationships established with key suppliers and customers.</td>
+                        <td>Good relationship with suppliers. Debtors effectively managed.</td>
+                        <td>Price-taker. Not able to influence terms of business.</td>
+                        <td>Under pressure from suppliers. Slowing operating cycle. May have lost key suppliers/ customers</td>
+                        <td>imposed</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="supplierRelationship"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('supplierRelationship')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>MARGINS & PROFITABILITY</th>
+                        <td>Attractive and very stable.</td>
+                        <td>Attractive and strong.</td>
+                        <td>Sound and fairly consistent.</td>
+                        <td>Sound and typically above industry average.</td>
+                        <td>Performance over last 3-5 years sufficient to maintain position.</td>
+                        <td>Margin pressure experienced with lower profitability.
+                        </td>
+                        <td>Profitability is likely to be marginal / operating losses may be evident.</td>
+                        <td>Frequent operating losses.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="margins"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('margins')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>LIQUIDITY & SOLVENCY</th>
+                        <td>Very strong and consistent.</td>
+                        <td>Strong and consistent levels of cash cover and solvency maintained.</td>
+                        <td>Relative certainty that cash cover and solvency levels can be maintained.</td>
+                        <td>Stable cash cover over last 3-5 years.</td>
+                        <td>Some pressure on cash cover but adequate to maintain position.</td>
+                        <td>Reduced cash cover. Outlook uncertain.</td>
+                        <td>Marginal operating cash cover bordering on negative.</td>
+                        <td>Negative cash cover.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="liquidity"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('liquidity')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>FINANCIAL SUPPORT – MANAGEMENT</th>
+                        <td>Very strong and cash rich promoters</td>
+                        <td>Strong and able to inject funds when needed</td>
+                        <td>Relatively strong and good access to debt market</td>
+                        <td>Relatively weak however good access to debt market</td>
+                        <td>Weak however good access to debt market</td>
+                        <td>Weak however fair access to debt market</td>
+                        <td>Very weak however fair access to debt market</td>
+                        <td>Very weak and no access to debt market</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialSupport"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('financialSupport')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>FINANCIAL STRUCUTRE</th>
+                        <td>Solid. </td>
+                        <td>Very sound. </td>
+                        <td>Structure sound and better than industry average.</td>
+                        <td>Key indicators above industry average.</td>
+                        <td>Key indicators around industry average.</td>
+                        <td>Key indicators at or below industry average. Higher gearing may feature.</td>
+                        <td>Key indicators towards the bottom of the industry.</td>
+                        <td>Clearly weak financial position.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialStructure"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('financialStructure')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>PLANNING / FORECASTS</th>
+                        <td>Highly developed strategic and financial planning skills.</td>
+                        <td>Strong strategic and financial planning skills. </td>
+                        <td>Strong strategic and financial planning skills.</td>
+                        <td>Strong strategic and financial planning skills.</td>
+                        <td>Relatively sound strategic and financial planning.</td>
+                        <td>Less reliable planning with adverse discrepancy experienced.</td>
+                        <td>Weak projections. Annual forecasts may be unreliable.</td>
+                        <td>Plans typically unavailable.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="planning"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('planning')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>RELATIONSHIP WITH CENTURY COMMERCIAL BANK LIMITED</th>
+                        <td>Excellent relationship over last 5 years</td>
+                        <td>Very confidant. All arrangements observed over last 5 years.</td>
+                        <td>Confident. All arrangements observed over last 3-5 years.</td>
+                        <td>Possibly a good quality customer.</td>
+                        <td>No significant departure from the arrangements over last 12 months.</td>
+                        <td>Relatively new customer. Existing customers may draw heavily on working capital facilities. Occasional excesses may feature.</td>
+                        <td>Excesses / cheque dishonor / additional requests for finance occurring.</td>
+                        <td>Lines of credit fully drawn. No appetite for further lending.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="relationshipWith"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('relationshipWith')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>MANAGEMENT CAPABILITY</th>
+                        <td>Demonstrated capability, highly regarded and thoroughly professional.</td>
+                        <td>Highly regarded and very professional. </td>
+                        <td>Highly regarded and professional within key positions. Well-developed succession plans.</td>
+                        <td>Well regarded with a solid background. Well-structured succession plan.</td>
+                        <td>Solid background and experience. Some evidence of succession planning.</td>
+                        <td>Less solid. Succession loosely or not planned.</td>
+                        <td>Weak in experience, education or track record. </td>
+                        <td>Weak and lacks experience. Succession unarranged. Adverse developments in the owner’s personal situation may be apparent.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="managementCapability"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('managementCapability')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>ENVIRONMENTAL THREATS</th>
+                        <td>No threats in the long term.</td>
+                        <td>No foreseeable threats for next 10 years.</td>
+                        <td>No internal or external threats in next 3-5 years.</td>
+                        <td>No short-term threats however susceptible to economic cycles / conditions.</td>
+                        <td>Dependence on stable economic conditions.</td>
+                        <td>Growing competitive pressure in core business.</td>
+                        <td>Highly competitive environment. Diversification in non core areas may be a concern.</td>
+                        <td>Very limited capability to meet further competitive / economic pressures.</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="envThreats"
+                                                                         type="radio"></td>
+                        </ng-container>
+                        <ng-container *ngIf="!fromProfile">
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgLongChecklistFormGroup?.get('envThreats')?.value === option" class="fa fa-check"></i>
+                        </ng-container>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <nb-card-footer *ngIf="fromProfile">
+        <button (click)="save()" class="btn float-right" nbButton type="submit">Save</button>
+    </nb-card-footer>
+</nb-card>
