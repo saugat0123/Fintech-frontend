@@ -217,6 +217,10 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-general-letter-of-hypothecation-partnership>
+        <app-promissory-note-proprietorship *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_PROPRIETORSHIP"
+                                            [cadData]="cadData" [documentId]="documentId"
+                                            [customerLoanId]="customerLoanId">
+        </app-promissory-note-proprietorship>
         <app-vehicle-loan-deed-proprietorship *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_PROPRIETORSHIP"
                                                 [cadData]="cadData" [documentId]="documentId"
                                                 [customerLoanId]="customerLoanId">
