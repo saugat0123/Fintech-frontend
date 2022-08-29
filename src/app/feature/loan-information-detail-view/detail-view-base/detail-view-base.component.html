@@ -99,9 +99,7 @@
                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                      [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
-                            [fromProfile]="false"
-                            [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
+
 <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
     <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                           [fiscalYears]="fiscalYearArray"
@@ -135,14 +133,10 @@
             [approved]="false"
             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
 </div>
-
-<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
-                              [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>
-
-            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"
-                                           [fromProfile]="false"></app-credit-risk-grading-gamma>
-            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"
-                                [fromProfile]="false"></app-credit-grading>
+<!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
+<!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
+<!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
+<!--                                [fromProfile]="false"></app-credit-grading>-->
 <div *ngIf="!productUtils.CBS_ENABLE">
     <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
                                         [customerAllLoanList]="customerAllLoanList"
