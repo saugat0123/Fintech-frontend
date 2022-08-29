@@ -51,8 +51,8 @@
                     <td class="font-weight-bold">Obtained Date</td>
                     <td class="font-weight-bold">:</td>
                     <td>
-                        <app-calendar class="cellInput" (messageToEmit)="addDocForm.get('obtainedOn').patchValue($event?.eDate)"
-                                       [ePreDate]="addDocForm.get('obtainedOn').value"></app-calendar>
+                        <app-calendar class="cellInput" (messageToEmit)="addDocForm?.get('obtainedOn')?.patchValue($event?.eDate)"
+                                       [ePreDate]="addDocForm?.get('obtainedOn')?.value"></app-calendar>
                     </td>
                 </tr>
 

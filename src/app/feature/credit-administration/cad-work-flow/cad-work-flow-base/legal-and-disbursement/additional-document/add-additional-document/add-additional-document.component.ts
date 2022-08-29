@@ -45,9 +45,13 @@ export class AddAdditionalDocumentComponent implements OnInit {
             pathSigned: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.pathSigned],
             draftPath: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.draftPath],
             // tslint:disable-next-line:max-line-length
-            draftUploadDate: [ObjectUtil.isEmpty(this.additionalDocument.draftUploadDate) ? undefined : new Date(this.additionalDocument.draftUploadDate)],
+            draftUploadDate: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined :
+                ObjectUtil.isEmpty(this.additionalDocument.draftUploadDate) ? undefined :
+                    new Date(this.additionalDocument.draftUploadDate) ],
             // tslint:disable-next-line:max-line-length
-            signUploadDate: [ObjectUtil.isEmpty(this.additionalDocument.signUploadDate) ? undefined : new Date(this.additionalDocument.signUploadDate)]
+            signUploadDate: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined :
+                ObjectUtil.isEmpty(this.additionalDocument.signUploadDate) ? undefined :
+                    new Date(this.additionalDocument.signUploadDate)]
         });
     }
 
@@ -89,27 +93,22 @@ export class AddAdditionalDocumentComponent implements OnInit {
             formData.append('customerInfoId', this.cadData.loanHolder.id.toString());
             formData.append('branchId', this.cadData.loanHolder.branch.id.toString());
             this.service.uploadAdditionalDocument(formData).subscribe((res: any) => {
-                if (this.addDocForm.get('docType').value === 'DRAFT') {
-                    this.addDocForm.patchValue({
-                        draftPath: res.detail,
-                        draftUploadDate: new Date(),
-                        uploadOn: new Date()
-                    });
-                } else if (this.addDocForm.get('docType').value === 'SIGNED') {
-                    this.addDocForm.patchValue({
-                        pathSigned: res.detail,
-                        signUploadDate: new Date(),
-                        uploadOn: new Date()
-                    });
-                }
+               type === 'SIGNED' ? this.setDocument('pathSigned', 'signUploadDate', type, res.detail)
+                   : this.setDocument('draftPath', 'draftUploadDate', type, res.detail);
                 this.save();
             });
 
         } else {
             this.save();
         }
+    }
 
-
+    setDocument(pathControl, dateControl, type, pathLink) {
+        this.addDocForm.patchValue({
+            pathControl: pathLink,
+            dateControl: new Date(),
+            uploadOn: new Date()
+        });
     }
 
     onClose() {
