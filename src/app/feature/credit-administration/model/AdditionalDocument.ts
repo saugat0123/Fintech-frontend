@@ -6,5 +6,9 @@ export class AdditionalDocument extends BaseEntity {
     uploadOn: Date;
     remarks: string;
     obtainedOn: Date;
+    pathSigned: string;
+    draftPath: string;
+    draftUploadDate: Date;
+    signUploadDate: Date;
 
 }
