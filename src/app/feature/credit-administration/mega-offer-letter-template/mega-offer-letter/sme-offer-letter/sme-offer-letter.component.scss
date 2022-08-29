@@ -1,34 +1,31 @@
-.nep {
+.box {
+  border-style: solid;
+
+}
+.nepali {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
+  margin: 10px 50px;
+}
+.timesNewRoman {
+  font-family: "Times New Roman", serif;
 }
 
-.form-field {
+.form-fields {
   background: yellow;
   margin: 0 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0;
-
   &:focus {
     outline: none;
   }
-
-  .table-row {
-    width: 32px;
-  }
-
-  .container-name div {
-    display: inline-block;
-    width: 500px;
-    min-height: 50px;
-    background-color: #eee;
-    height: auto;
-  }
 }
-
+nb-card{
+  max-height: 900px;
+}
 @media screen {
   .print-only {
     display: none;
@@ -36,7 +33,6 @@
 
   .disable-print {
     display: inline;
-
   }
 }
 
@@ -51,14 +47,4 @@
     text-justify: inter-word;
     margin: 10px 70px;
   }
-
-}
-
-.nepaliFont {
-  font-size: 24px;
-  font-family: Preeti;
-}
-
-.timesNewRoman {
-  font-family: 'Times New Roman'
 }
