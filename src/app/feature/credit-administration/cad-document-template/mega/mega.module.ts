@@ -72,6 +72,8 @@ import { KaloSuchiBorrowerPgIndividualComponent } from './kalo-suchi-borrower-pg
 import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partnership/vehicle-loan-deed-partnership.component';
 import {KaloSuchiBorrowerPgPartnershipComponent} from './kalo-suchi-borrower-pg-partnership/kalo-suchi-borrower-pg-partnership.component';
 import { GeneralLetterOfHypothecationPartnershipComponent } from './general-letter-of-hypothecation-partnership/general-letter-of-hypothecation-partnership.component';
+import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprietorship/promissory-note-proprietorship.component';
+import { VehicleLoanDeedProprietorshipComponent } from './vehicle-loan-deed-proprietorship/vehicle-loan-deed-proprietorship.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -81,7 +83,6 @@ import { GeneralLetterOfHypothecationPartnershipComponent } from './general-lett
         PromissoryNoteSingleBorrowerComponent,
         AssignmentOfReceivableComponent,
         AssignmentOfReceivablesPartnershipComponent,
-        AssignmentOfReceivablesProprietorshipComponent,
         KaloSuchiBorrowerCompanyComponent,
         KaloSuchiBorrowerPgCompanyComponent,
         DeedHypoOfMachineryComponent,
@@ -123,6 +124,8 @@ import { GeneralLetterOfHypothecationPartnershipComponent } from './general-lett
         KaloSuchiBorrowerProprietorshipComponent,
         KaloSuchiBorrowerPgPartnershipComponent,
         GeneralLetterOfHypothecationPartnershipComponent,
+        PromissoryNoteProprietorshipComponent,
+        VehicleLoanDeedProprietorshipComponent
     ],
     imports: [
         CommonModule,
@@ -181,8 +184,9 @@ import { GeneralLetterOfHypothecationPartnershipComponent } from './general-lett
         VehicleLoanDeedPartnershipComponent,
         KaloSuchiBorrowerProprietorshipComponent,
         KaloSuchiBorrowerPgPartnershipComponent,
-        VehicleLoanDeedPartnershipComponent,
         GeneralLetterOfHypothecationPartnershipComponent,
+        PromissoryNoteProprietorshipComponent,
+        VehicleLoanDeedProprietorshipComponent
     ],
 })
 
