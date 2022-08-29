@@ -724,8 +724,8 @@
                                     <tbody>
                                     <tr style="page-break-inside: auto">
                                         <td>प्रशासनिक शुल्क (Loan Administration Fee)</td>
-                                        <td>कर्जा सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                formControlName="interestFacilityType"
+                                        <td>स्वीकृत सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                formControlName="loanAdminFee"
                                                                 name="loanAdminFee"
                                                                 type="text"/>
                                             <span class="print-only nepaliFont">
@@ -733,43 +733,52 @@
                                             प्रतिशतका दरले ।</td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>कर्जा सुचना शुल्क (CIC Fee)</td>
-                                        <td>कर्जा सूचना केन्द्रले तोके बमोजिम ।</td>
+                                        <td>कर्जा नविकरण शुल्क (Loan Renewal fee)</td>
+                                        <td>स्वीकृत सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                  formControlName="loanRenewFee"
+                                                                  name="loanRenewFee"
+                                                                  type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('loanRenewFee').value ? form.get('loanRenewFee').value  : '========='}}</strong></span>
+                                            प्रतिशतका दरले ।</td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>STRO charge</td>
-                                        <td>रु. ५,००/– (अक्षरेपि पाँच सय रुपैंया मात्र)</td>
+                                        <td>प्रशासनिक शुल्क गैर कोषमा आधारित कर्जाको हकमा (Loan Administrative Fee for Non- funded facility)</td>
+                                        <td><ckeditor formControlName="loanAdminFeeNonFunded" [config]="ckeConfig" ></ckeditor>
+                                            <span class="print-only nepaliFont">
+                                            <strong>{{form.get('loanAdminFeeNonFunded').value ? form.get('loanAdminFeeNonFunded').value  : '========='}}</strong></span>
+                                        </td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>कर्जा स्वाप शुल्क (Loan swap charge)</td>
-                                        <td>नेपाल राष्ट्र बैंकको नियमानुसार</td>
+                                        <td>कर्जा सुचना तथा सुरक्षित कारोवार दर्ता शुल्क (CIC/STR Fee)</td>
+                                        <td>वास्तविक लागतको आधारमा लाग्नेछ ।</td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>अग्रीम भुत्तानी शुल्क (Prepayment Charges)</td>
+                                        <td>अग्रिम भुक्तानी तथा कर्जा स्थानान्तरण शुल्क (Prepayment and Loan Swap Charge)</td>
                                         <td>नेपाल राष्ट्र बैंकको नियमानुसार</td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
                                         <td>प्रतिवद्धता शुल्क (Commitment Charge)</td>
-                                        <td>कर्जा अवधिमा कर्जाको औसत उपयोग (Average Utilization) ६० प्रतिशत भन्दा कम भएको खण्डमा उपयोग नगरेको कर्जाको
-                                            (Unutilized Amount) मा नेपाल राष्ट्र बैंकको नियमानुर प्रतिवद्धता शुल्क लाग्नेछ ।</td>
+                                        <td>नेपाल राष्ट्र बैंकको नियमानुर प्रतिवद्धता शुल्क लाग्नेछ ।</td>
+                                    </tr>
+                                    <tr>
+                                        <td>आधार दर (Base Rate)</td>
+                                        <td>औषत आधार दर <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="baseRate"
+                                                               name="baseRate"
+                                                               type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('baseRate').value ? form.get('baseRate').value  : '========='}}</strong></span> प्रतिशत रहेकोछ । </td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
                                         <td>DCGF Premium</td>
-                                        <td>व्याज अनुदान निर्देशिका बमोजिम योग्य आवधिक कर्जाको हकमा बाकी बक्यौता सावामा अर्धवार्षिक रुपमा
-                                            <input class="form-field disable-print form-control-sm nepaliFont"
-                                                   formControlName="dcgfPremium"
-                                                   name="dcgfPremium"
-                                                   type="text"/>
+                                        <td><ckeditor formControlName="dcgfPremium" [config]="ckeConfig" ></ckeditor>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('dcgfPremium').value ? form.get('dcgfPremium').value  : '========='}}</strong></span>
-                                            र अधिविकर्ष/माग कर्जाको हकमा स्वीकृत सिमामा अर्धवार्षिक रुपमा
-                                            <input class="form-field disable-print form-control-sm nepaliFont"
-                                                   formControlName="dcgfPremium2"
-                                                   name="dcgfPremium2"
-                                                   type="text"/>
-                                            <span class="print-only nepaliFont">
-                                    <strong>{{form.get('dcgfPremium2').value ? form.get('dcgfPremium2').value  : '========='}}</strong></span>
-                                            विमाको प्रिमियम लाग्नेछ ।</td>
+                                            <strong>{{form.get('dcgfPremium').value ? form.get('dcgfPremium').value  : '========='}}</strong></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>अन्य शुल्कहरुको लागि</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -1753,7 +1762,6 @@
                     </form>
                 </div>
                 </div>
-            </div>
         </nb-card-body>
         <nb-card-footer class="mb-3">
             <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="agricultureOfferLetterPrint" class="mr-2 custom-color" >Print</button>
