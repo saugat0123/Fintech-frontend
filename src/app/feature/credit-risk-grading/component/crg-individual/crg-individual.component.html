@@ -1,5 +1,5 @@
 <nb-card>
-    <div class="row">
+<div class="row">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
                             name="securityInitialInfoCalendarType">
@@ -58,8 +58,9 @@
                                                                      type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
-                        <td *ngFor="let option of optionList"><input [value]="option" formControlName="networth"
-                                                                     type="radio" class="view-only"></td>
+                        <td *ngFor="let option of optionList">
+                            <i *ngIf="crgChecklistFormGroup?.get('networth')?.value === option" class="fa fa-check"></i>
+
                         </ng-container>
                     </tr>
                     <tr>
@@ -80,8 +81,9 @@
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="qualityofAssets"
-                                                                                     type="radio" class="view-only"></td>
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgChecklistFormGroup?.get('qualityofAssets')?.value === option" class="fa fa-check"></i>
+                            </td>
                         </ng-container>
                     </tr>
                     <tr>
@@ -100,12 +102,14 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="levelOfIncome"
+                            <td *ngFor="let option of optionList">
+                                <input [value]="option" formControlName="levelOfIncome"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="levelOfIncome"
-                                                                                     type="radio" class="view-only"></td>
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgChecklistFormGroup?.get('levelOfIncome')?.value === option" class="fa fa-check"></i>
+                            </td>
                         </ng-container>
                     </tr>
                     <tr>
@@ -128,8 +132,10 @@
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="relationship"
-                                                                                     type="radio" class="view-only"></td>
+                            <td *ngFor="let option of optionList">
+                                <i *ngIf="crgChecklistFormGroup?.get('relationship')?.value === option" class="fa fa-check"></i>
+
+                            </td>
                         </ng-container>
                     </tr>
                     </tbody>

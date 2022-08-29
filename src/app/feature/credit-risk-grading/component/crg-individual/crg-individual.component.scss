@@ -1,12 +1,3 @@
 table, td, th {
   vertical-align: middle;
 }
-
-input[type="radio"].view-only {
-  opacity: 0.0;
-}
-
-input[type="radio"]:checked {
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
