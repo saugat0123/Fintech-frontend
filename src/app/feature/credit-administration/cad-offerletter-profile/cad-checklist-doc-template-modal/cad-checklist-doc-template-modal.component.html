@@ -180,10 +180,19 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-general-letter-of-hypothecation-company>
+        <app-kalo-suchi-borrower-partnership *ngSwitchCase="cadTemplate.KALO_SUCHI_BORROWER_PARTNERSHIP"
+                                            [cadData]="cadData" [documentId]="documentId"
+                                            [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-borrower-partnership>
         <app-vehicle-loan-deed-individual *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_INDIVIDUAL"
                                        [cadData]="cadData" [documentId]="documentId"
                                        [customerLoanId]="customerLoanId">
         </app-vehicle-loan-deed-individual>
+        <app-general-letter-of-hypothecation-propietorship
+                *ngSwitchCase="cadTemplate.GENERAL_LETTER_OF_HYPOTHECATION_PROPIETORSHIP" [cadData]="cadData"
+                [documentId]="documentId"
+                [customerLoanId]="customerLoanId">
+        </app-general-letter-of-hypothecation-propietorship>
         <app-vehicle-loan-deed-partnership *ngSwitchCase="cadTemplate.VEHICLE_LOAN_DEED_PARTNERSHIP"
                                           [cadData]="cadData" [documentId]="documentId"
                                           [customerLoanId]="customerLoanId">
