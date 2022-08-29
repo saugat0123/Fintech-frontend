@@ -23,3 +23,14 @@ nb-card{
 .confirm-close{
   height:100%;
 }
+.title {
+  font-size: 14px;
+  font-weight: bolder;
+  color: maroon;
+  border-bottom: solid 3px;
+  border-bottom-color: maroon;
+  padding-bottom: 10px;
+}
+p.title:hover {
+  color: #999999;
+}

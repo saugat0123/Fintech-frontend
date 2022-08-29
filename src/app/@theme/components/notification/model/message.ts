@@ -14,5 +14,6 @@ export class Message {
     status: any;
     date: Date;
     docAction: DocAction;
+    messageType: any;
 
 }

@@ -469,7 +469,8 @@
         <hr class="print-line">
     </ng-container>
     <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.securities"
-                               [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
+                               [loanDataHolder]="loanDataHolder"
+                               [securities]="loanSecurity"></app-collateral-site-visit>
 
     <app-site-visit-view *ngIf="loanDataHolder?.loanHolder?.siteVisit"
                          [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"

@@ -405,6 +405,7 @@
                      [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
 <hr class="print-line" *ngIf="loanDataHolder?.securities">
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
-                           [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
+                           [loanDataHolder]="loanDataHolder"
+                           [securities]="loanSecurity"></app-collateral-site-visit>
 
 </div>

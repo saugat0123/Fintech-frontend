@@ -3,6 +3,14 @@ nb-card{
   overflow-y: scroll;
   width:100vw;
 }
+.template-css{
+  max-height: 95vh !important;
+  height: 92vh !important;
+  max-width: 95vw !important;
+  width: 92vw !important;
+  overflow: auto;
+  margin-top: 20px !important;
+}
 
 .fix-header{
   position: fixed;
@@ -24,4 +32,15 @@ nb-card{
 .confirm-close{
   height:100%;
   width: 100%;
+}
+.title {
+  font-size: 14px;
+  font-weight: bolder;
+  color: maroon;
+  border-bottom: solid 3px;
+  border-bottom-color: maroon;
+  padding-bottom: 10px;
+}
+p.title:hover {
+  color: #999999;
 }

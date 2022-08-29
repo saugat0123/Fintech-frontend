@@ -29,16 +29,16 @@ export class ReviewDateComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.reviewData)) {
       this.reviewDateData = this.reviewData;
-      this.dataForEdit = JSON.parse(this.reviewData.data);
-      this.checked = this.dataForEdit.checked;
-      this.nextReviewChecked = this.dataForEdit.nextReviewDateChecked;
-      this.lastReviewChecked = this.dataForEdit.lastReviewDateChecked;
+      // this.dataForEdit = JSON.parse(this.reviewData.data);
+      // this.checked = this.dataForEdit.checked;
+      // this.nextReviewChecked = this.dataForEdit.nextReviewDateChecked;
+      // this.lastReviewChecked = this.dataForEdit.lastReviewDateChecked;
     }
-    this.buildForm(this.dataForEdit);
-    this.reviewDate.get('lastReviewDate')
-        .patchValue(this.dataForEdit ? this.dataForEdit.lastReviewDate :  '');
-    this.reviewDate.get('nextReviewDate')
-        .patchValue(this.dataForEdit ? this.dataForEdit.nextReviewDate : '');
+    // this.buildForm(this.dataForEdit);
+    // this.reviewDate.get('lastReviewDate')
+    //     .patchValue(this.dataForEdit ? this.dataForEdit.lastReviewDate :  '');
+    // this.reviewDate.get('nextReviewDate')
+    //     .patchValue(this.dataForEdit ? this.dataForEdit.nextReviewDate : '');
   }
 
   buildForm(data) {
@@ -95,7 +95,7 @@ export class ReviewDateComponent implements OnInit {
   }
 
   submitForm() {
-    this.reviewDateData.data = JSON.stringify(this.reviewDate.value);
+    // this.reviewDateData.data = JSON.stringify(this.reviewDate.value);
     this.reviewDateDataEmitter.emit(this.reviewDateData);
   }
 }
