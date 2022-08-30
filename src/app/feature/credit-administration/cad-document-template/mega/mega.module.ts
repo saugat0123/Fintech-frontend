@@ -10,7 +10,7 @@ import {PromissoryNoteSingleBorrowerComponent} from './promissory-note-single-bo
 import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
 import {DeedHypoOfMachineryComponent} from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import {HypoOfStockComponent} from './hypo-of-stock/hypo-of-stock.component';
-import {NbButtonModule, NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {LoanDeedCompanyComponent} from './loan-deed-company/loan-deed-company.component';
@@ -65,6 +65,7 @@ import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-par
 
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
+import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-of-trust-receipt.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -111,6 +112,7 @@ import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-le
         VehicleLoanDeedIndividualComponent,
         KaloSuchiBorrowerPartnershipComponent,
         GeneralLetterOfHypothecationPropietorshipComponent,
+        LetterOfTrustReceiptComponent,
     ],
     imports: [
         CommonModule,
@@ -119,6 +121,7 @@ import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-le
         NbButtonModule,
         NgxPrintModule,
         MegaOfferLetterTemplateModule,
+        NbSpinnerModule,
     ],
     exports: [
         AssignmentOfReceivableComponent,
@@ -164,7 +167,8 @@ import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-le
         GeneralLetterOfHypothecationCompanyComponent,
         VehicleLoanDeedIndividualComponent,
         KaloSuchiBorrowerPartnershipComponent,
-        GeneralLetterOfHypothecationPropietorshipComponent
+        GeneralLetterOfHypothecationPropietorshipComponent,
+        LetterOfTrustReceiptComponent
     ],
 })
 

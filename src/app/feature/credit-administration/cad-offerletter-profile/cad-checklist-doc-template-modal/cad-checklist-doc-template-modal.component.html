@@ -193,6 +193,10 @@
                 [documentId]="documentId"
                 [customerLoanId]="customerLoanId">
         </app-general-letter-of-hypothecation-propietorship>
+        <app-letter-of-trust-receipt *ngSwitchCase="cadTemplate.LETTER_OF_TRUST_RECEIPT"
+                                     [cadData]="cadData"
+                                     [documentId]="documentId"
+                                     [customerLoanId]="customerLoanId"></app-letter-of-trust-receipt>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
