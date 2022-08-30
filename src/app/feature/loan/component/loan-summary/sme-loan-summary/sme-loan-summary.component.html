@@ -233,15 +233,15 @@
                                        [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
-            <ng-container>
-                <app-agriculture-view *ngIf="isUptoTwoMillion"
-                                      [loanDataHolder]="loanDataHolder"
-                                      [customerAllLoanList]="customerAllLoanList"
-                                      [loanHolder]="loanDataHolder?.loanHolder"
-                                      [proposalData]="proposalData"
-                                      [fixedAssetsData]="fixedAssetsData"
-                                      [lastDateOfInspection]="lastDateOfInspection"></app-agriculture-view>
-            </ng-container>
+<!--            <ng-container>-->
+<!--                <app-agriculture-view *ngIf="isUptoTwoMillion"-->
+<!--                                      [loanDataHolder]="loanDataHolder"-->
+<!--                                      [customerAllLoanList]="customerAllLoanList"-->
+<!--                                      [loanHolder]="loanDataHolder?.loanHolder"-->
+<!--                                      [proposalData]="proposalData"-->
+<!--                                      [fixedAssetsData]="fixedAssetsData"-->
+<!--                                      [lastDateOfInspection]="lastDateOfInspection"></app-agriculture-view>-->
+<!--            </ng-container>-->
             <ng-container class="page-break" *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
                                   [fixedAssetsData]="fixedAssetsData"></app-annexure-one>

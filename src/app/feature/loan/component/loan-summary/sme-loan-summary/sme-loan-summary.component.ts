@@ -891,11 +891,10 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.isAboveTenMillion = true;
       this.isDetailedView = true;
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION' ||
         this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isUpToTenMillion = true;
       this.isDetailedView = true;
-    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION') {
-      this.isUptoTwoMillion = true;
     } else {
       this.isSaneView = true;
       this.isDetailedView = true;
