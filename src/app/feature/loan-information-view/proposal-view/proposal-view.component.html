@@ -453,14 +453,6 @@
       <tr>
         <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span> </td>
       </tr>
-      <ng-container *ngIf="checkedData?.waiverChecked ">
-        <tr class="text-white sb-bg-dark">
-          <th>Waiver/Deviation</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
       <ng-container *ngIf="checkedData?.riskChecked">
         <tr class="text-white sb-bg-dark">
           <th>Risk & Mitigation</th>
