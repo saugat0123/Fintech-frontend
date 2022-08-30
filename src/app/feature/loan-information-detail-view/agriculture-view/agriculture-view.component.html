@@ -65,12 +65,10 @@
                                               [loanDataHolder]="loanDataHolder"
                                               [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
     </li>
-<!--    <li class="libold">-->
-<!--        <p><strong>SOURCE OF REPAYMENT : {{loanHolder?.financial ? '' : 'NA'}}</strong></p>-->
-<!--        <app-retail-source-of-repayment-->
-<!--                *ngIf="loanHolder?.financial"-->
-<!--                [formData]="loanHolder?.financial"></app-retail-source-of-repayment>-->
-<!--    </li>-->
+    <li class="libold">
+        <p><strong>INTERNAL REPORTING : </strong></p>
+        <span [innerHTML]="(loanDataHolder?.loanHolder?.siteVisit?.data | jsonParse)?.internalReport || 'NA' | safeHtml"></span>
+    </li>
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p><strong>CURRENT LIMITS AND OUTSTANDING OF THE CLIENT : <em class="text-danger sb-small">Bold
@@ -93,11 +91,15 @@
     </li>
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong class="text-uppercase">Transaction Record of the client</strong></p>
+        <app-transaction-record [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"></app-transaction-record>
+    </li>
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p class="text-uppercase">
             <strong>Profitability {{loanHolder?.incomeFromAccount ? '' : 'NA'}}</strong></p>
         <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
-                                         [formData]="loanHolder?.incomeFromAccount">
-        </app-income-from-account-summery>
+                                         [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
     </li>
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
