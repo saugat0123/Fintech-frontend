@@ -60,11 +60,22 @@ import {ConsentLetterCompanyComponent} from './consent-letter-company/consent-le
 import {VehicleLoanDeedCompanyComponent} from './vehicle-loan-deed-company/vehicle-loan-deed-company.component';
 import {ConsentLetterIndividualComponent} from './consent-letter-individual/consent-letter-individual.component';
 import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-individual/kalo-suchi-borrower-individual.component';
-import { VehicleLoanDeedIndividualComponent } from './vehicle-loan-deed-individual/vehicle-loan-deed-individual.component';
-import { KaloSuchiBorrowerPartnershipComponent } from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
+import {VehicleLoanDeedIndividualComponent} from './vehicle-loan-deed-individual/vehicle-loan-deed-individual.component';
+import {KaloSuchiBorrowerPartnershipComponent} from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
+
+import {KaloSuchiBorrowerProprietorshipComponent} from './kalo-suchi-borrower-proprietorship/kalo-suchi-borrower-proprietorship.component';
+import { SupplementaryAgreementProprietorshipComponent } from './supplementary-agreement-proprietorship/supplementary-agreement-proprietorship.component';
 
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
+import { KaloSuchiBorrowerPgIndividualComponent } from './kalo-suchi-borrower-pg-individual/kalo-suchi-borrower-pg-individual.component';
+
+import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partnership/vehicle-loan-deed-partnership.component';
+import {KaloSuchiBorrowerPgPartnershipComponent} from './kalo-suchi-borrower-pg-partnership/kalo-suchi-borrower-pg-partnership.component';
+import { GeneralLetterOfHypothecationPartnershipComponent } from './general-letter-of-hypothecation-partnership/general-letter-of-hypothecation-partnership.component';
+import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprietorship/promissory-note-proprietorship.component';
+import { VehicleLoanDeedProprietorshipComponent } from './vehicle-loan-deed-proprietorship/vehicle-loan-deed-proprietorship.component';
+import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-pg-proprietorship/kalo-suchi-borrower-pg-proprietorship.component';
 import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-of-trust-receipt.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -112,6 +123,15 @@ import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-
         VehicleLoanDeedIndividualComponent,
         KaloSuchiBorrowerPartnershipComponent,
         GeneralLetterOfHypothecationPropietorshipComponent,
+        KaloSuchiBorrowerPgIndividualComponent,
+        VehicleLoanDeedPartnershipComponent,
+        KaloSuchiBorrowerProprietorshipComponent,
+        KaloSuchiBorrowerPgPartnershipComponent,
+        GeneralLetterOfHypothecationPartnershipComponent,
+        PromissoryNoteProprietorshipComponent,
+        VehicleLoanDeedProprietorshipComponent,
+        KaloSuchiBorrowerPgProprietorshipComponent,
+        SupplementaryAgreementProprietorshipComponent,
         LetterOfTrustReceiptComponent,
     ],
     imports: [
@@ -168,6 +188,15 @@ import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-
         VehicleLoanDeedIndividualComponent,
         KaloSuchiBorrowerPartnershipComponent,
         GeneralLetterOfHypothecationPropietorshipComponent,
+        KaloSuchiBorrowerPgIndividualComponent,
+        VehicleLoanDeedPartnershipComponent,
+        KaloSuchiBorrowerProprietorshipComponent,
+        KaloSuchiBorrowerPgPartnershipComponent,
+        GeneralLetterOfHypothecationPartnershipComponent,
+        PromissoryNoteProprietorshipComponent,
+        VehicleLoanDeedProprietorshipComponent,
+        KaloSuchiBorrowerPgProprietorshipComponent,
+        SupplementaryAgreementProprietorshipComponent,
         LetterOfTrustReceiptComponent
     ],
 })

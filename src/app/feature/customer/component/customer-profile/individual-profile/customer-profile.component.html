@@ -435,7 +435,7 @@
                         [customerInfoId]="customerInfoId"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf=" !isEditable && customerInfo"
-                                                    [customerInfo]="customerInfo"></app-customer-loan-information-view>
+                                                    [customerInfo]="customerInfo" [customer]="customer"></app-customer-loan-information-view>
             </div>
         </div>
 
