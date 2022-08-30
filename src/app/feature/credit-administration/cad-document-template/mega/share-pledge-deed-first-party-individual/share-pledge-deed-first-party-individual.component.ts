@@ -12,143 +12,176 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-share-pledge-deed-first-party-individual',
-  templateUrl: './share-pledge-deed-first-party-individual.component.html',
-  styleUrls: ['./share-pledge-deed-first-party-individual.component.scss']
+    selector: 'app-share-pledge-deed-first-party-individual',
+    templateUrl: './share-pledge-deed-first-party-individual.component.html',
+    styleUrls: ['./share-pledge-deed-first-party-individual.component.scss']
 })
 export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
 
-  form: FormGroup;
-  singleData;
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
-  @Input() documentId: number;
-  @Input() customerLoanId: number;
+    form: FormGroup;
+    cadFile: CadFile;
+    singleData;
+    @Input() letter: any;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    @Input() documentId: number;
+    @Input() customerLoanId: number;
 
-  constructor(private formBuilder: FormBuilder,
-              private administrationService: CreditAdministrationService,
-              private toastService: ToastService,
-              private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+    constructor(private formBuilder: FormBuilder,
+                private administrationService: CreditAdministrationService,
+                private toastService: ToastService,
+                private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+                private routerUtilsService: RouterUtilsService) {
+    }
 
-  ngOnInit() {
-    this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+    ngOnInit() {
+        this.buildForm();
+        this.checkTableData();
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+                }
+            });
         }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
-    }
-  }
-
-  buildForm() {
-    this.form = this.formBuilder.group({
-      loanData: this.formBuilder.array([]),
-      tableShow: true,
-      branch: [undefined],
-      grandFatherName: [undefined],
-      fatherName: [undefined],
-      husbandName: [undefined],
-      permanentDistrict: [undefined],
-      permanentMunicipalityVDC: [undefined],
-      permanentWardNo: [undefined],
-      permanentTole: [undefined],
-      temporaryProvince: [undefined],
-      temporaryDistrict: [undefined],
-      temporaryMunicipalityVDC: [undefined],
-      temporaryWardNo: [undefined],
-      age: [undefined],
-      individualName: [undefined],
-      offerLetterIssuedDate: [undefined],
-      amount: [undefined],
-      amountInWords: [undefined],
-      amount2: [undefined],
-      amountInWords2: [undefined],
-      facOwnerName: [undefined],
-      witnessName: [undefined],
-      witnessName2: [undefined],
-      year: [undefined],
-      month: [undefined],
-      day: [undefined],
-      time: [undefined],
-      snNo: [undefined],
-      shareholderNameAndCitizenshipNo: [undefined],
-      clientId: [undefined],
-      shareKitta: [undefined],
-      shareIssuingCompany: [undefined],
-      kaifiyat: [undefined]
-    });
-  }
-  submit() {
-    let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
+        if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+            this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
         }
-      });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
-    } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
-      this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
-      this.dialogRef.close();
-    });
-  }
-  removeLoanDetail(index) {
-    (this.form.get('loanData') as FormArray).removeAt(index);
-  }
+    buildForm() {
+        this.form = this.formBuilder.group({
+            loanData: this.formBuilder.array([]),
+            tableShow: true,
+            branch: [undefined],
+            grandFatherName: [undefined],
+            fatherName: [undefined],
+            husbandName: [undefined],
+            permanentDistrict: [undefined],
+            permanentMunicipalityVDC: [undefined],
+            permanentWardNo: [undefined],
+            permanentTole: [undefined],
+            temporaryProvince: [undefined],
+            temporaryDistrict: [undefined],
+            temporaryMunicipalityVDC: [undefined],
+            temporaryWardNo: [undefined],
+            age: [undefined],
+            individualName: [undefined],
+            offerLetterIssuedDate: [undefined],
+            amount: [undefined],
+            amountInWords: [undefined],
+            amount2: [undefined],
+            amountInWords2: [undefined],
+            facOwnerName: [undefined],
+            witnessName: [undefined],
+            witnessName2: [undefined],
+            year: [undefined],
+            month: [undefined],
+            day: [undefined],
+            time: [undefined],
+            snNo: [undefined],
+            shareholderNameAndCitizenshipNo: [undefined],
+            clientId: [undefined],
+            shareKitta: [undefined],
+            shareIssuingCompany: [undefined],
+            kaifiyat: [undefined]
+        });
+    }
 
-  addTableData() {
-    (this.form.get('loanData') as FormArray).push(
-        this.formBuilder.group({
-          loanFacilityType: undefined,
-          amountInWords1: undefined,
-          amount1: undefined,
-        })
-    );
-  }
-  changeToNepAmount(event: any, target, from) {
-    this.form.get([target]).patchValue(event.nepVal);
-    this.form.get([from]).patchValue(event.val);
-  }
+    submit() {
+        let flag = true;
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    flag = false;
+                    singleCadFile.initialInformation = JSON.stringify(this.form.value);
+                }
+            });
+            if (flag) {
+                const cadFile = new CadFile();
+                const document = new Document();
+                cadFile.initialInformation = JSON.stringify(this.form.value);
+                document.id = this.documentId;
+                cadFile.cadDocument = document;
+                cadFile.customerLoanId = this.customerLoanId;
+                this.cadData.cadFileList.push(cadFile);
+            }
+        } else {
+            const cadFile = new CadFile();
+            const document = new Document();
+            cadFile.initialInformation = JSON.stringify(this.form.value);
+            document.id = this.documentId;
+            cadFile.cadDocument = document;
+            cadFile.customerLoanId = this.customerLoanId;
+            this.cadData.cadFileList.push(cadFile);
+        }
 
-  patchFunction(target) {
-    const patchValue1 = this.form.get([target]).value;
-    return patchValue1;
-  }
-  changeToNepAmount1(event: any, i , formArrayName) {
-    this.form.get([formArrayName, i, 'loanAmountInWord']).patchValue(event.nepVal);
-    this.form.get([formArrayName, i, 'loanAmount']).patchValue(event.val);
-  }
+        this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+            this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+            this.dialogRef.close();
+        });
+    }
 
-  patchFunction1(formArrayName, i, formControlName) {
-    const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
-    return patchValue1;
-  }
+    // Testing purpose
+    checkTableData() {
+        const initialInfo = JSON.parse(this.cadFile.initialInformation);
+        if (!ObjectUtil.isEmpty(initialInfo)) {
+            this.setTableData(initialInfo.loanData);
+        }
+    }
+
+    removeLoanDetail(index) {
+        (this.form.get('loanData') as FormArray).removeAt(index);
+    }
+
+    addTableData() {
+        return this.formBuilder.group({
+            loanFacilityType: [undefined],
+            amountInWords1: [undefined],
+            amount1: [undefined],
+        });
+    }
+
+    addTableDataForm() {
+        (this.form.get('loanData') as FormArray).push(this.addTableData());
+    }
+
+    setTableData(data) {
+        const formArray = this.form.get('loanData') as FormArray;
+        if (ObjectUtil.isEmpty(data)) {
+            this.addTableData();
+            return;
+        }
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                loanFacilityType: [value.loanFacilityType],
+                amountInWords1: [value.amountInWords1],
+                amount1: [value],
+            }));
+        });
+    }
+
+    changeToNepAmount(event: any, target, from) {
+        this.form.get([target]).patchValue(event.nepVal);
+        this.form.get([from]).patchValue(event.val);
+    }
+
+    patchFunction(target) {
+        const patchValue1 = this.form.get([target]).value;
+        return patchValue1;
+    }
+
+    changeToNepAmount1(event: any, i, formArrayName) {
+        this.form.get([formArrayName, i, 'amountInWords1']).patchValue(event.nepVal);
+        this.form.get([formArrayName, i, 'amount1']).patchValue(event.val);
+    }
+
+    patchFunction1(formArrayName, i, formControlName) {
+        const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
+        return patchValue1;
+    }
 }

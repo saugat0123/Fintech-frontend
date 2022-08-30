@@ -168,14 +168,14 @@
                                     <th>अन्तिम चुक्ता भुक्तान गर्ने वा बहाल मिति</th>
                                 </tr>
                                 </thead>
-                                <tbody *ngFor="let data of form.get('loanData')['controls']; let index = index"
+                                <tbody *ngFor="let data of letter['loanData'];  let index = index"
                                        formArrayName="loanData">
-                                <tr style="page-break-inside: auto">
+                                <tr [formGroupName]="index" style="page-break-inside: auto">
                                     <td><input class="form-field form-control-sm nepaliFont disable-print"
                                                formControlName="loanFacilityType"
                                                placeholder=""
                                                type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{form.get('loanFacilityType').value ? form.get('loanFacilityType').value : '========='}}</strong></span>
+                                        <span class="print-only nepaliFont"><strong>{{data.loanFacilityType ? data.loanFacilityType : '========='}}</strong></span>
                                         कर्जा
                                     </td>
                                     <td>
@@ -184,13 +184,13 @@
                                                     (eventEmit)="changeToNepAmount1($event, index, 'loanData')"
                                                     [name]="patchFunction1('loanData',index,'amount1')"
                                                     class="disable-print"></app-custom-input>
-                                            <span class="print-only nepaliFont"><strong>{{form.get('amount1').value ? form.get('amount1').value : '========='}}</strong></span>
+                                            <span class="print-only nepaliFont"><strong>{{data[amount1] ? data[amount1] : '========='}}</strong></span>
                                             <span class="timesNewRoman">/- (</span>अक्षरेपि
                                             <input class="form-field form-control-sm nepaliFont disable-print"
                                                    formControlName="amountInWords1"
                                                    placeholder=""
                                                    type="text"/>
-                                            <span class="print-only nepaliFont"><strong>{{form.get('amountInWords1').value ? form.get('amountInWords1').value : '========='}}</strong></span>
+                                            <span class="print-only nepaliFont"><strong>{{data.amountInWords1 ? data.amountInWords1 : '========='}}</strong></span>
                                             मात्र )
                                         </strong>
                                     </td>
@@ -204,7 +204,7 @@
                                 <div class="col-md-12" style="left: 440%;">
                                     <button
                                             (click)="removeLoanDetail(index)"
-                                            *ngIf="index >= 0"
+                                            *ngIf="index > 0"
                                             class="mt-sm-2 disable-print" nbButton
                                             status="primary">हटाउनुहोस्..
                                     </button>
@@ -214,7 +214,7 @@
                         </ng-container>
                         <div class="row mr-1 mb-3">
                             <div class="col-md-12 text-right disable-print">
-                                <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                                <button (click)="addTableDataForm()" nbButton size="small" status="info" type="Button">
                                     थप्नुहोस्..
                                 </button>
                             </div>

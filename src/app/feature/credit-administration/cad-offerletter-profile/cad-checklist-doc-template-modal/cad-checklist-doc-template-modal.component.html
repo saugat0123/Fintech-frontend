@@ -233,6 +233,14 @@
                                                  [cadData]="cadData" [documentId]="documentId"
                                                  [customerLoanId]="customerLoanId">
         </app-supplementary-agreement-proprietorship>
+        <app-letter-of-continuity-individual *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_INDIVIDUAL"
+                                          [cadData]="cadData" [documentId]="documentId"
+                                          [customerLoanId]="customerLoanId">
+        </app-letter-of-continuity-individual>
+        <app-letter-of-trust-receipt *ngSwitchCase="cadTemplate.LETTER_OF_TRUST_RECEIPT"
+                                     [cadData]="cadData"
+                                     [documentId]="documentId"
+                                     [customerLoanId]="customerLoanId"></app-letter-of-trust-receipt>
         <app-share-pledge-deed-first-party-individual *ngSwitchCase="cadTemplate.SHARE_PLEDGE_DEED_FIRST_PARTY_INDIVIDUAL"
                                            [cadData]="cadData" [documentId]="documentId"
                                            [customerLoanId]="customerLoanId">
