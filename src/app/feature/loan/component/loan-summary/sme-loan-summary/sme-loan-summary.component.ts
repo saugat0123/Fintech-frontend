@@ -210,6 +210,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   data;
   approveAuth;
   spinner = false;
+  lastDateOfInspection;
+  isUptoTwoMillion = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -257,6 +259,12 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+      const data = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+      if (data.currentResidentFormChecked) {
+        this.lastDateOfInspection = data.currentResidentDetails[data.currentResidentDetails.length - 1].dateOfVisit;
+      }
+    }
 
   }
 
@@ -883,10 +891,11 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.isAboveTenMillion = true;
       this.isDetailedView = true;
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION' ||
         this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isUpToTenMillion = true;
       this.isDetailedView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwoMillion = true;
     } else {
       this.isSaneView = true;
       this.isDetailedView = true;

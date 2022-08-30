@@ -213,8 +213,9 @@
             </ng-container>
         </div>
         <div class="col-md-12">
-            <ng-container *ngIf="isUpToTenMillion">
-                <app-upto-ten-million [loanDataHolder]="loanDataHolder"
+            <ng-container>
+                <app-upto-ten-million *ngIf="isUpToTenMillion"
+                                      [loanDataHolder]="loanDataHolder"
                                       [fiscalYear]="fiscalYearArray"
                                       [isDetailedView]="isDetailedView"
                                       [totalProposed]="totalProposedLimit"
@@ -222,14 +223,24 @@
                                       [isExecutive]="false"
                                       [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
             </ng-container>
-            <ng-container *ngIf="isAboveTenMillion">
-                <app-above-ten-million [loanDataHolder]="loanDataHolder"
+            <ng-container>
+                <app-above-ten-million *ngIf="isAboveTenMillion"
+                                       [loanDataHolder]="loanDataHolder"
                                        [customerAllLoanList]="customerAllLoanList"
                                        [isDetailedView]="isDetailedView"
                                        [fixedAssetsData]="fixedAssetsData"
                                        [fiscalYear]="fiscalYearArray"
                                        [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
+            </ng-container>
+            <ng-container>
+                <app-agriculture-view *ngIf="isUptoTwoMillion"
+                                      [loanDataHolder]="loanDataHolder"
+                                      [customerAllLoanList]="customerAllLoanList"
+                                      [loanHolder]="loanDataHolder?.loanHolder"
+                                      [proposalData]="proposalData"
+                                      [fixedAssetsData]="fixedAssetsData"
+                                      [lastDateOfInspection]="lastDateOfInspection"></app-agriculture-view>
             </ng-container>
             <ng-container class="page-break" *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
