@@ -1,0 +1,186 @@
+<div class="container text-justify" id="letterOfContinuityIndividualPrint" style="line-height: 30px !important;">
+    <form [formGroup]="letterOfContinuityIndividual">
+        <div>
+            <div class="text-center mt-3">
+                <ul><U>निरन्तरताको लिखत <span class="timesNewRoman">(Letter of Continuity)</span></U></ul>
+            </div>
+
+            <div class="text-left mt-5">
+                श्री सेञ्चुरी कमर्सियल बैक लि. <br>
+                पुतलीसडक,काठमाण्डौं <br>
+                शाखा कार्यालय
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branchNameNepali"
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('branchNameNepali').value ? letterOfContinuityIndividual.get('branchNameNepali').value : '========='}}</strong></span>।
+            </div>
+            <br>
+            लिखितम तल हस्ताक्षर गर्ने म श्री
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="grandFatherName"
+                   type="text"/>
+            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('grandFatherName').value ? letterOfContinuityIndividual.get('grandFatherName').value : '========='}}</strong></span>
+            को नाती/नातिनी/बुहारी
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="fatherName"
+                   type="text"/>
+            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('fatherName').value ? letterOfContinuityIndividual.get('fatherName').value : '========='}}</strong></span>
+            /
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="husbandName"
+                   type="text"/>
+            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('husbandName').value ? letterOfContinuityIndividual.get('husbandName').value : '========='}}</strong></span>
+            को छोरा/छोरी/पत्नी
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="permanentDistrict"
+                   placeholder=""
+                   type="text"/>
+            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('permanentDistrict').value ? letterOfContinuityIndividual.get('permanentDistrict').value : '========='}}</strong></span>
+            जिल्ला
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="permanentMunicipalityVDC"
+                   placeholder=""
+                   type="text"/><span
+                class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('permanentMunicipalityVDC').value ? letterOfContinuityIndividual.get('permanentMunicipalityVDC').value : '========='}}</strong></span>
+            गा.वि.स/न.पा वडा नं
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="permanentWardNo"
+                   placeholder=""
+                   type="text" size="3"/><span
+                class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('permanentWardNo').value ? letterOfContinuityIndividual.get('permanentWardNo').value : '========='}}</strong></span>
+            ,
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="permanentTole"
+                   placeholder=""
+                   type="text"/><span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('permanentTole').value ? letterOfContinuityIndividual.get('permanentTole').value  : '========='}}</strong></span>
+            स्थाई ठेगाना भई हाल
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="temporaryProvince"
+                   placeholder=""
+                   type="text"/><span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('temporaryProvince').value ? letterOfContinuityIndividual.get('temporaryProvince').value  : '========='}}</strong></span>
+            प्रदेश
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="temporaryDistrict"
+                   placeholder=""
+                   type="text"/><span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('temporaryDistrict').value ? letterOfContinuityIndividual.get('temporaryDistrict').value  : '========='}}</strong></span>
+            जिल्ला
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="temporaryMunicipalityVDC"
+                   placeholder=""
+                   type="text"/><span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('temporaryMunicipalityVDC').value ? letterOfContinuityIndividual.get('temporaryMunicipalityVDC').value  : '========='}}</strong></span>
+            न.पा. वडा नं.
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="temporaryWardNo"
+                   placeholder=""
+                   type="text" size="3"/><span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('temporaryWardNo').value ? letterOfContinuityIndividual.get('temporaryWardNo').value  : '========='}}</strong></span>
+            बस्ने बर्ष
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="age"
+                   placeholder=""
+                   type="text" size="3"/><span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('age').value ? letterOfContinuityIndividual.get('age').value  : '========='}}</strong></span>
+            को/की
+            <input class="form-field form-control-sm nepaliFont disable-print"
+                   formControlName="borrowerNameNepali"
+                   placeholder=""
+                   type="text"/><span
+                class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('borrowerNameNepali').value ? letterOfContinuityIndividual.get('borrowerNameNepali').value : '========='}}</strong></span>
+            ले अनुरोध गरे अनुरुप तथा त्यस बैंक स्वयंले ईच्छाए अनुरुप त्यस बैंकले आफू समक्ष हाम्रो खाता खोली र / वा हाम्रो नाममा
+            खोलिएको खातालाई निरन्तरता दिई हामीलाई कर्जा, सापटी, डिस्काउण्ट उपलब्ध गराएको वा हाम्र्रोे खातामा रहेको मौज्दात भन्दा
+            बढी रकम झिक्न पाउने अधिविकर्ष सुविधा प्रदान गरेको वा हाम्रो खातामा रहेको भन्दा बढी रकम झिकिसकिएको अवस्थामा त्यसलाई
+            कायमै राख्ने सुविधा दिएकोमा सो बापत देहाय बमोजिम गर्न हामी मञ्जुर गर्दछौं।
+            <br><br>
+            <ol class="conditional-list">
+                <li>
+                    हामीलाई वा हामी मध्ये कुनै एक वा सो भन्दा बढीलाई एकल रुपमा वा संयुक्त रुपमा चल्ती वा अन्य जुनसुकै खाता मार्फत उपलब्ध
+                    भएको वा उपलब्ध हुनसक्ने कर्जा, सापटी, डिस्काउण्ट, खातामा रहेको मौज्दात भन्दा बढी रकम भिक्न पाउने अधिविकर्ष सुविधा तथा
+                    मुख्य ऋणी वा जमानतकर्ता जुनसुकै हैसियतमा त्यस बैंकले हाम्रा नाममा सृजना गरेको वा हाम्रो अनुरोध बमोजिम जुनसुकै खाताका सम्बन्धमा
+                    सृजना हुन सक्ने (कुनै संयुक्त नामको खाताका सम्बन्धमा कुनै एक वा सो भन्दा बढी जिवित खातावालले तिर्न बुझाउनु पर्ने रकम समेत)
+                    त्यस बैंक प्रतिको हाम्रो अन्य कुनै पनि दायित्व बापतको रकम कलम तथा सो मा लाग्ने ब्याज तथा बैंकलाई तिर्नु बुझाउनु पर्ने सबै किसिमको
+                    शुल्क समेत बैंकले माग गर्नासाथ तिर्ने बुझाउने तथा दायित्वबाट मुक्ती लिने कुरालाई प्रत्याभूत गर्दै प्रतिज्ञापत्र तथा अन्य सम्बद्ध सुरक्षण कागजातहरु
+                    त्यस बैंकको पक्षमा गरिदिन हाम्रो मञ्जुरी छ । साथै प्रस्तुत सम्झौतामा हामी जमानतकर्ताको हैसियतमा रहेको अवस्थामा मुख्य ऋणीलाई रकम
+                    तिर्ने बुझाउने सम्बन्धमा भाखा थप गर्ने प्रयोजनका लागि वा अन्य कुनै पनि प्रयोजनका लागि मुख्य ऋणीसंग बैंकले सम्झौता गर्न सक्नेछ ।
+                    त्यस्तो सम्झौताले हामी जमानतकर्ता उपर बैंकको हक, अधिकारमा कुनै प्रतिकुल असर पार्ने छैन ।
+                </li>
+                <li>
+                    हामीले गरिदिएका प्रतिज्ञापत्र तथा अन्य सुरक्षण कागजात बैध रहेको समयावधि भित्र माथि उल्लेखित हाम्रो दायित्व पुरा वा आंशिक रुपमा चुक्ता
+                    फर्छयौट भएकै भए तापनि र समय समयमा हाम्रो खातामा धनात्मक (ऋण रकम भन्दा बढी) मौज्दात रहन सक्ने भए तापनि हामीले गरिदिएका
+                    त्यस्ता प्रतिज्ञापत्र वा कागजातबाट हामी उपर सृजित दायित्व भने निरन्तर कायम रहने कुरालाई हामी प्रत्याभूत गर्दछौं ।
+                </li>
+                <li>
+                    यस सम्झौतामा एक जना व्यक्तिले वा निजका तर्फबाट सहिछाप भएको रहेछ भने यस लिखतमा प्रयुक्त हामी, हाम्रो, हामीलाई, ईत्यादि
+                    शब्दहरु प्रसंग अनुसार म, मेरो, हाम्रो, ईत्यादि उल्लेख भए सरह मानी पढ्नु पर्नेछ । यस सम्झौतामा एक भन्दा बढी पक्षले वा त्यस्तो
+                    एक भन्दा बढी पक्षका तर्फबाट सहिछाप गरिएको रहेछ भने अन्यथा उल्लेख भएको अवस्थामा बाहेक त्यस्ता पक्षहरुको बैंक प्रति संयुक्त तथा
+                    एकल रुपमा जिम्मेवारी तथा दायित्व रहेको मानिनेछ ।
+                </li>
+                <li>
+                    मुख्य ऋणी वा हामी कुनै फर्म, कम्पनी वा संस्थान रहे भएको अवस्थामा यस लिखत अन्तर्गतको हाम्रो जिम्मेवारी हाम्रा उत्तराधिकारी/जिम्मावालको
+                    हकमा समेत बन्धनकारी हुनेछ र फर्म वा कम्पनी वा संस्थानको संगठनात्मक संरचनामा कुनै परिवर्तन भएको अवस्थामा समेत निरन्तर लागू हुनेछ ।
+                    साथै हाम्रो संस्थागत हैसियत “फर्म” रहेछ भने समय समयमा हाम्रो फर्मका सदस्यहरुको संख्या घटेर एक जना मात्र सदस्य कायम रहन गएको
+                    वा फर्ममा एक जना मात्र सदस्य रहेको भए तापनि हाम्रो फर्मका सबै सदस्यहरुका हकमा संयुक्त तथा एकल रुपमा बाध्यकारी हुनेछ ।
+                </li>
+            </ol>
+            <br><br>
+            <div class="col-sm-3 float-right">
+                <table>
+                    <tr>
+                        <td>कारणी/ऋणी</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="borrowerNameNepali"
+                                   type="text"/>
+                            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('borrowerNameNepali').value ? letterOfContinuityIndividual.get('borrowerNameNepali').value : '========='}}</strong></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="clear:right;">
+                <p><strong>साक्षि : </strong></p>
+                १) <input class="form-field form-control-sm nepaliFont disable-print"
+                          formControlName="witness1"
+                          type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('witness1').value ? letterOfContinuityIndividual.get('witness1').value : '========='}}</strong></span><br>
+                <br>
+                २) <input class="form-field form-control-sm nepaliFont disable-print"
+                          formControlName="witness2"
+                          type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('witness2').value ? letterOfContinuityIndividual.get('witness2').value : '========='}}</strong></span><br><br>
+                <p>
+                    ईति सम्वत्
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           formControlName="year"
+                           type="text" size="3"/>
+                    <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('year').value ? letterOfContinuityIndividual.get('year').value : '========='}}</strong></span>
+                    साल
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           formControlName="month"
+                           type="text" size="2"/>
+                    <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('month').value ? letterOfContinuityIndividual.get('month').value : '========='}}</strong></span>
+                    महिना
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           formControlName="day"
+                           type="text" size="2"/>
+                    <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('day').value ? letterOfContinuityIndividual.get('day').value : '========='}}</strong></span>
+                    गते
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           formControlName="time"
+                           type="text" size="4"/>
+                    <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('time').value ? letterOfContinuityIndividual.get('time').value : '========='}}</strong></span>
+                    रोज शुभम ।
+                </p>
+            </div>
+        </div>
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="letterOfContinuityIndividualPrint" (click)="submit()" class="mr-2"
+                        status="basic">Save & Print
+                </button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="letterOfContinuityIndividualPrint" class="mr-2 custom-color">Print
+                </button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
