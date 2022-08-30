@@ -154,6 +154,177 @@
                 </div>
             </nb-card-body>
         </nb-card>
+<!--        project income-->
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
+            <nb-card-header>
+                <h3><strong>Income of Project/ Business</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngFor="let incomeOfProject of financialForm.get('incomeOfProject')['controls']; let projectIncomeIndex = index"
+                     class="border-bottom border-dark m-4"
+                     formArrayName="incomeOfProject">
+                    <div [formGroupName]="projectIncomeIndex">
+
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Particulars</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && incomeOfProject.get('projectParticulars').invalid}"
+                                           formControlName="projectParticulars" placeholder="Particulars"
+                                           type="text" class="form-control">
+                                    <span *ngIf="incomeOfProject.get('projectParticulars').invalid"
+                                          class="invalid-feedback">Particulars is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Quantity</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && incomeOfProject.get('projectQuantity').invalid}"
+                                           formControlName="projectQuantity" placeholder="Quantity"
+                                           type="number" class="form-control">
+                                    <span *ngIf="incomeOfProject.get('projectQuantity').invalid"
+                                          class="invalid-feedback">Quantity is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Rate</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && incomeOfProject.get('projectRate').invalid}"
+                                           formControlName="projectRate" placeholder="Rate"
+                                           type="number" class="form-control">
+                                    <span *ngIf="incomeOfProject.get('projectRate').invalid"
+                                          class="invalid-feedback">Rate is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Amount</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input (input)="totalProjectAmountAddition('incomeOfProject', 'totalProjectIncome')"
+                                           [ngClass]="{'is-invalid': submitted && incomeOfProject.get('projectAmount').invalid}"
+                                           formControlName="projectAmount" placeholder="Amount"
+                                           type="number" class="form-control">
+                                    <span *ngIf="incomeOfProject.get('projectAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-1 ml-0 pl-0 mt-4">
+                                <button (click)="removeProjectIncomeIndex(projectIncomeIndex)"
+                                        *ngIf="financialForm.get('incomeOfProject')['controls'].length > 1"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pl-5">
+                        <label class="title"><strong> Total Income :
+                            Rs.{{financialForm.get('totalProjectIncome').value | currencyFormatter}}</strong></label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addIncomeOfProject()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
+<!--        project expense-->
+        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
+            <nb-card-header>
+                <h3><strong>Expense of Project/ Business</strong></h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngFor="let expenseOfProject of financialForm.get('expenseOfProject')['controls']; let projectExpenseIndex = index"
+                     class="border-bottom border-dark m-4"
+                     formArrayName="expenseOfProject">
+                    <div [formGroupName]="projectExpenseIndex">
+
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Particulars</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && expenseOfProject.get('projectParticulars').invalid}"
+                                           formControlName="projectParticulars" placeholder="Particulars"
+                                           type="text" class="form-control">
+                                    <span *ngIf="expenseOfProject.get('projectParticulars').invalid"
+                                          class="invalid-feedback">Particulars is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Quantity</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && expenseOfProject.get('projectQuantity').invalid}"
+                                           formControlName="projectQuantity" placeholder="Quantity"
+                                           type="number" class="form-control">
+                                    <span *ngIf="expenseOfProject.get('projectQuantity').invalid"
+                                          class="invalid-feedback">Quantity is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"><strong>Rate</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input [ngClass]="{'is-invalid': submitted && expenseOfProject.get('projectRate').invalid}"
+                                           formControlName="projectRate" placeholder="Rate"
+                                           type="number" class="form-control">
+                                    <span *ngIf="expenseOfProject.get('projectRate').invalid"
+                                          class="invalid-feedback">Rate is required</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Amount</strong><strong
+                                            class="text-danger">*</strong></label>
+                                    <input (input)="totalProjectAmountAddition('expenseOfProject', 'totalProjectExpense')"
+                                           [ngClass]="{'is-invalid': submitted && expenseOfProject.get('projectAmount').invalid}"
+                                           formControlName="projectAmount" placeholder="Amount"
+                                           type="number" class="form-control">
+                                    <span *ngIf="expenseOfProject.get('projectAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-1 ml-0 pl-0 mt-4">
+                                <button (click)="removeProjectExpensesIndex(projectExpenseIndex)"
+                                        *ngIf="financialForm.get('expenseOfProject')['controls'].length > 1"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pl-5">
+                        <label class="title"><strong> Total Expense :
+                            Rs.{{financialForm.get('totalProjectExpense').value | currencyFormatter}}</strong></label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addExpenseOfProject()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
 
         <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
             <nb-card-header>
