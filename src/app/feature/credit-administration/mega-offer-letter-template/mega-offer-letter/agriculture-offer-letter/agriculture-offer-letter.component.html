@@ -8,9 +8,8 @@
                 <div class="col-md-12">
                     <form [formGroup]="form" class="nepali" id="agricultureOfferLetterPrint">
                         <div class="row">
-
                             <div class="col-md-12">
-                                <h6 class="text-center preetiFont">C0f :jLs[lt–kq</h6>
+                                <h6 class="text-center">ऋण स्वीकृति–पत्र</h6>
                                 <div class="col-md-6 float-right">
                                     <p class="text-right"> मिति:
                                         <input class="form-field form-control-sm disable-print nepaliFont"
@@ -21,94 +20,100 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6 float-left">
-                                    <p> च नं. <input class="form-field disable-print form-control-sm nepaliFont"
+                                    <p>च नं. <input class="form-field disable-print form-control-sm nepaliFont"
                                                         formControlName="olRefNo"
                                                         name="olRefNo"
                                                         type="text">
                                         <span class="print-only nepaliFont"><strong>{{form.get('olRefNo').value ? form.get('olRefNo').value  : '========='}}</strong></span></p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12">
-                        <div class="mb-2">श्री <input class="form-field disable-print form-control-sm nepaliFont"
+                                 <div class="col-md-6">श्री <input class="form-field disable-print form-control-sm nepaliFont"
                                                       formControlName="borrowerName"
                                                       placeholder=""
                                                       type="text"/>
-                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong>
+                                </span>
+                            </div>
+                            </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <span style="margin-left: 18px;">
-                 स्थाई ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                 स्थाई ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
                                       formControlName="borrowerPerDis"
                                       name="borrowerPerDis"
                                       placeholder=""
                                       type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDis').value ? form.get('borrowerPerDis').value  : '========='}}</strong></span>
-                                                        जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                      formControlName="borrowerPerMun"
-                                                                      name="borrowerPerMun"
-                                                                      placeholder=""
-                                                                      type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerMun').value ? form.get('borrowerPerMun').value  : '========='}}</strong></span>
-                                                        म.न.पा./उप म.न.पा./न.पा./गा.वि.स., वडा नं. <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                                          formControlName="borrowerPerWard"
-                                                                                                          name="borrowerPerWard"
-                                                                                                          placeholder=""
-                                                                                                          type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard').value ? form.get('borrowerPerWard').value  : '========='}}</strong>
-              </span>
-              </span>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDis').value ? form.get('borrowerPerDis').value  : '========='}}</strong></span>
+                                            जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
+                                                          formControlName="borrowerPerMun"
+                                                          name="borrowerPerMun"
+                                                          placeholder=""
+                                                          type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerMun').value ? form.get('borrowerPerMun').value  : '========='}}</strong></span>
+                                            म.न.पा./उप म.न.पा./न.पा./गा.वि.स., वडा नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                      formControlName="borrowerPerWard"
+                                                      name="borrowerPerWard"
+                                                      placeholder=""
+                                                      type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard').value ? form.get('borrowerPerWard').value  : '========='}}</strong>
+                                    </span>
+                                 </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row form-group">
-                            <span style="margin-left: 18px;">
-                  <p>
-                 हालको ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
-                                      formControlName="borrowerTempProvince"
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                             हालको ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
+                                                  formControlName="borrowerTempProvince"
                                       name="borrowerTempProvince"
                                       placeholder=""
                                       type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempProvince').value ? form.get('borrowerTempProvince').value  : '========='}}</strong></span>
-                                                        प्रदेश/प्रदेश नं <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                formControlName="borrowerTempDis"
-                                                                                name="borrowerTempDis"
-                                                                                placeholder=""
-                                                                                type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempDis').value ? form.get('borrowerTempDis').value  : '========='}}</strong></span>
-                                                        जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                      formControlName="borrowerTempMun"
-                                                                      name="borrowerTempMun"
-                                                                      placeholder=""
-                                                                      type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempMun').value ? form.get('borrowerTempMun').value  : '========='}}</strong></span>
-                                                        म.न.पा./उपम.न.पा./न.पा./गाउपालिका
-                                                        वडा नं. <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                       formControlName="borrowerTempWard"
-                                                                       name="borrowerTempWard"
-                                                                       placeholder=""
-                                                                       type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempWard').value ? form.get('borrowerTempWard').value  : '========='}}</strong></span>
-                                                        टोल/गाउ <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                       formControlName="borrowerTempTole"
-                                                                       name="borrowerTempTole"
-                                                                       placeholder=""
-                                                                       type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempTole').value ? form.get('borrowerTempTole').value  : '========='}}</strong></span>
-                                                        घर नं. <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                      formControlName="borrowerHouseNo"
-                                                                      name="borrowerHouseNo"
-                                                                      placeholder=""
-                                                                      type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerHouseNo').value ? form.get('borrowerHouseNo').value  : '========='}}</strong></span>
-                                                        सडक/मार्ग <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                         formControlName="borrowerTempStreet"
-                                                                         name="borrowerTempStreet"
-                                                                         placeholder=""
-                                                                         type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempStreet').value ? form.get('borrowerTempStreet').value  : '========='}}</strong></span></p>
-                      </span>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempProvince').value ? form.get('borrowerTempProvince').value  : '========='}}</strong></span>
+                                        प्रदेश/प्रदेश नं <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                formControlName="borrowerTempDis"
+                                                                name="borrowerTempDis"
+                                                                placeholder=""
+                                                                type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempDis').value ? form.get('borrowerTempDis').value  : '========='}}</strong></span>
+                                        जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
+                                                      formControlName="borrowerTempMun"
+                                                      name="borrowerTempMun"
+                                                      placeholder=""
+                                                      type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempMun').value ? form.get('borrowerTempMun').value  : '========='}}</strong></span>
+                                        म.न.पा./उपम.न.पा./न.पा./गाउपालिका
+                                        वडा नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                       formControlName="borrowerTempWard"
+                                                       name="borrowerTempWard"
+                                                       placeholder=""
+                                                       type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempWard').value ? form.get('borrowerTempWard').value  : '========='}}</strong></span>
+                                        टोल/गाउ <input class="form-field form-control-sm disable-print nepaliFont"
+                                                       formControlName="borrowerTempTole"
+                                                       name="borrowerTempTole"
+                                                       placeholder=""
+                                                       type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempTole').value ? form.get('borrowerTempTole').value  : '========='}}</strong></span>
+                                        घर नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                      formControlName="borrowerHouseNo"
+                                                      name="borrowerHouseNo"
+                                                      placeholder=""
+                                                      type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerHouseNo').value ? form.get('borrowerHouseNo').value  : '========='}}</strong></span>
+                                        सडक/मार्ग <input class="form-field form-control-sm disable-print nepaliFont"
+                                                         formControlName="borrowerTempStreet"
+                                                         name="borrowerTempStreet"
+                                                         placeholder=""
+                                                         type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempStreet').value ? form.get('borrowerTempStreet').value  : '========='}}</strong></span>
+                                </p>
                                 </div>
-                                <div class="row form-group">
+                            </div>
+                        <div class="row form-group">
                             <div class="col-md-12">
                                 <p>ध्यानाकर्षणः अध्यक्ष/संचालक/साझेदार/प्रोपाइटर श्री<input class="form-field form-control-sm disable-print nepaliFont"
                                                                      formControlName="authorizedPerson"
@@ -124,16 +129,16 @@
                                                 formControlName="borrowerEmail"
                                                 name="borrowerEmail"
                                                 placeholder="" type="text"/>
-                                    <span class="print-only"><strong>{{form.get('borrowerEmail').value ? form.get('borrowerEmail').value  : '========='}}</strong></span>
+                                    <span class="print-only"><strong>{{form.get('borrowerEmail').value ? form.get('borrowerEmail').value  : '...............................'}}</strong></span>
                                 </p>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <p>सम्पर्क टेलिफोन/मोवाइल नंः <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                     formControlName="borrowerMobileNo"
-                                                                     name="borrowerMobileNo"
-                                                                     placeholder="" type="text"/>
+                                                             formControlName="borrowerMobileNo"
+                                                             name="borrowerMobileNo"
+                                                             placeholder="" type="text"/>
                                     <span class="print-only nepaliFont"><strong>{{form.get('borrowerMobileNo').value ? form.get('borrowerMobileNo').value  : '========='}}</strong></span>
                                 </p>
                             </div>
@@ -161,8 +166,10 @@
                             </div>
                         </div>
                         <div class="row form-group">
-                            <p class="font-weight-bold">१. <u>ऋण/कर्जा तथा बैकिङ्ग सुविधाको विवरणः</u></p>
-                            <div class="col-md-12" formArrayName="proposalData"
+                            <div class="col-md-12">
+                                <p class="font-weight-bold">१. <u>ऋण/कर्जा तथा बैकिङ्ग सुविधाको विवरणः</u></p>
+                            </div>
+                                <div class="col-md-12" formArrayName="proposalData"
                                  *ngFor="let proposal of form.get('proposalData')['controls']; let pi = index">
                                 <table class="table table-bordered text-justify" [formGroupName]="pi">
                                     <div *ngIf="form.get('proposalData')['length'] > 1">
@@ -173,9 +180,9 @@
                                         <th style="vertical-align: top">१.१)</th>
                                         <th style="width: 30%">कर्जा/बैंकिंङ्ग सुविधाको प्रकार (Facility Type)</th>
                                         <td>
-                                            <label class="font-weight-bold">क) सहुलियतपुर्ण कर्जा शिर्षकहरु (Choose Service Type)</label>
-                                            <nb-select formControlName="facilityName"
-                                                       (change)="checkFacilityName($event?.target?.value, pi)"
+                                            <label class="font-weight-bold disable-print">क) सहुलियतपुर्ण कर्जा शिर्षकहरु (Choose Service Type)</label>
+                                            <nb-select formControlName="facilityType" class="disable-print"
+                                                       (change)="checkFacilityType($event?.target?.value, pi)"
                                                        placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let loanType of loanTypes"
                                                            [value]="loanType?.key">
@@ -190,8 +197,8 @@
                                         <th style="vertical-align: top">१.२)</th>
                                         <th style="width: 30%">Nature of Loan</th>
                                         <td>
-                                            <label class="font-weight-bold">ग) कर्जाका प्रकारहरु (Choose Service Type)</label>
-                                            <nb-select formControlName="natureOfLoan"
+                                            <label class="font-weight-bold disable-print">ग) कर्जाका प्रकारहरु (Choose Service Type)</label>
+                                            <nb-select formControlName="natureOfLoan" class="disable-print"
                                                        (change)="checkNatureOfLoan($event?.target?.value, pi)"
                                                        placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let natureOfLoanType of natureOfLoanTypes"
@@ -216,254 +223,263 @@
                                             </p>-->
                                             </td>
                                         </tr>
-<!--                                    <tr style="page-break-inside: auto">-->
-<!--                                        <td>क)</td>-->
-<!--                                        <td>स्वीकृत सिमा (Sanctioned Limit)</td>-->
-<!--                                        <td>-->
-<!--                                            अधिकतम रु.<app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'loanNameInWordOverdraft', 'loanAmountOverdraft')"-->
+                                    <tr style="page-break-inside: auto">
+                                        <td>क)</td>
+                                        <td>स्वीकृत सिमा (Sanctioned Limit)</td>
+                                        <td>
+                                            अधिकतम रु.
+<!--                                            <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'loanNameInWordOverdraft', 'loanAmountOverdraft')"-->
 <!--                                                                                [name]="patchFunctionArray('proposalData', pi, 'loanAmountOverdraft')" class="disable-print"></app-custom-input>-->
-<!--                                            <span class="print-only nepaliFont"><strong>{{form.get('loanAmountOverdraft').value ? form.get('loanAmountOverdraft').value  : '========='}}</strong></span>/- -->
-<!--                                            (अक्षेरुपी रुपैया-->
-<!--                                            <input class="form-field disable-print form-control-sm preetiFont size16"-->
-<!--                                                   formControlName="loanNameInWordOverdraft"-->
-<!--                                                   name="loanNameInWordOverdraft"-->
-<!--                                                   placeholder="अक्षेरुपी"-->
-<!--                                                   type="text"/>-->
-<!--                                            <span class="print-only preetiFont size16"><strong>{{form.get('loanNameInWordOverdraft').value ? form.get('loanNameInWordOverdraft').value  : '========='}}</strong></span>-->
-<!--                                            मात्र ।) सम्म-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    <tr style="page-break-inside: auto">-->
-<!--                                        <td>ख)</td>-->
-<!--                                        <td>उद्येश्य (Purpose)</td>-->
-<!--                                        <td>कम्पनीको  <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                             formControlName="purposeOverdraft"-->
-<!--                                                             name="purposeOverdraft"-->
-<!--                                                             type="text"/>-->
-<!--                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('purposeOverdraft').value ? form.get('purposeOverdraft').value  : '========='}}-->
-<!--                                    </strong></span> मा लगानी  गर्न ।-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    <tr style="page-break-inside: auto">-->
-<!--                                        <td>ग)</td>-->
-<!--                                        <td>स्वीकृत कर्जा सुविधा उपभोग गन पाउने अवस्था र सीमाः (Drawdown)</td>-->
-<!--                                        <td>स्वीकृत सीमाभित्र रहेर <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                          formControlName="drawdownOverdraft"-->
-<!--                                                                          name="drawdownOverdraft"-->
-<!--                                                                          type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('drawdownOverdraft').value ? form.get('drawdownOverdraft').value  : '========='}}</strong></span>-->
-<!--                                            को-->
-<!--                                            <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                   formControlName="drawdownPercentOverdraft"-->
-<!--                                                   name="drawdownPercentOverdraft"-->
-<!--                                                   type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('drawdownPercentOverdraft').value ? form.get('drawdownPercentOverdraft').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत सम्म ।</td>-->
-<!--                                    </tr>-->
-<!--                                    <tr style="page-break-inside: auto" >-->
-<!--                                        <td>घ)</td>-->
-<!--                                        <td>कर्जा अवधि (Tenure)</td>-->
-<!--                                        <td><p class="font-weight-bold">आवधिक कर्जा भएमा</p>-->
-<!--                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>-->
-<!--                                            <nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"-->
-<!--                                                       [selected]="selectedLoanArray" multiple placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">-->
-<!--                                                <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">-->
-<!--                                                    {{loanTypeDropdown?.value}}-->
-<!--                                                </nb-option>-->
-<!--                                            </nb-select>-->
-<!--                                            <p>यो आवधिक कर्जाको सिमा-->
-<!--                                                <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                       formControlName="tenureTermLoan"-->
-<!--                                                       name="tenureTermLoan"-->
-<!--                                                       type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('tenureTermLoan').value ? form.get('tenureTermLoan').value  : '========='}}</strong></span>-->
-<!--                                                वर्ष सम्मको लागि प्रदान गरिनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>-->
-<!--                                            <p class="font-weight-bold">अधिविकर्ष कर्जा भएमाः </p>-->
-<!--                                            <p>उल्लेखित सीमा र अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्ने गरी चक्रात्मक आधार (Revolving Basis) मा यो कर्जा सुविधा उपलब्ध हुनेछ ।</p>-->
-<!--                                            <p class="font-weight-bold">अन्य कर्जा भएमाः </p>-->
-<!--                                            <p><ckeditor formControlName="otherTenureLoan" id="otherTenureLoan" type="text"-->
-<!--                                                     [config]="ckeConfig"-->
-<!--                                                     [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                         <strong>{{form.get('otherTenureLoan').value ? form.get('otherTenureLoan').value  : '========='}}</strong></span></p>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    <tr style="page-break-inside: auto">-->
-<!--                                        <td>ङ)</td>-->
-<!--                                        <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>-->
-<!--                                        <td><p class="font-weight-bold">आवधिक कर्जा भएमा</p>-->
-<!--                                            <p>ययो कर्जाको भुक्तानी <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                           formControlName="noOfEmi"-->
-<!--                                                                           name="noOfEmi"-->
-<!--                                                                           type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('noOfEmi').value ? form.get('noOfEmi').value  : '========='}}</strong></span>,-->
-<!--                                                <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                       formControlName="repaymentTermLoan"-->
-<!--                                                       name="repaymentTermLoan"-->
-<!--                                                       type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('repaymentTermLoan').value ? form.get('repaymentTermLoan').value  : '========='}}</strong></span>-->
-<!--                                                रुपमा अंग्रेजी महिनाको प्रत्येक <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                                       formControlName="repaymentEngDate"-->
-<!--                                                                                       name="repaymentEngDate"-->
-<!--                                                                                       type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('repaymentEngDate').value ? form.get('repaymentEngDate').value  : '========='}}</strong></span>-->
-<!--                                                तारिखमा लिइनेछ,/प्रत्येक नेपाली त्रैमासको तेश्रो-->
-<!--                                                महिनाको अन्तिम दिन लिइनेछ ।  तर कर्जा प्रवाह भएको पहिलो <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                                                               formControlName="repaymentEngDate"-->
-<!--                                                                                                               name="repaymentEngDate"-->
-<!--                                                                                                               type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('repaymentEngDate').value ? form.get('repaymentEngDate').value  : '========='}}</strong></span>-->
-<!--                                                किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा–ब्याज-->
-<!--                                                <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                       formControlName="noOfEmi"-->
-<!--                                                       name="noOfEmi"-->
-<!--                                                       type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('noOfEmi').value ? form.get('noOfEmi').value  : '========='}}</strong></span>-->
-<!--                                                समान मासिक किस्ता / त्रैमासिक किस्ता प्रति किस्ता अनुमानित रु-->
-<!--                                                <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'emiAmountInWords','emiAmount')"-->
-<!--                                                                  [name]="patchFunctionArray('proposalData', pi, 'emiAmount')" class="disable-print">-->
-<!--                                                </app-custom-input>-->
-<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('emiAmount').value ? form.get('emiAmount').value  : '========='}}</strong></span>-->
-<!--                                                (अक्षरुपि <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                 formControlName="emiAmountInWords"-->
-<!--                                                                 name="emiAmountInWords"-->
-<!--                                                                 type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('emiAmountInWords').value ? form.get('emiAmountInWords').value  : '========='}}</strong></span>-->
-<!--                                                पैसा मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन-->
-<!--                                                गरि साविकको किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी-->
-<!--                                                किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता बाट खर्च गरिनेछ ।</p>-->
-<!--                                            <p class="font-weight-bold">अधिविकर्ष कर्जा भएमाः </p>-->
-<!--                                            <p>यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                                                           formControlName="nextReviewDate"-->
-<!--                                                                                                           name="nextReviewDate"-->
-<!--                                                                                                           type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('nextReviewDate').value ? form.get('nextReviewDate').value  : '========='}}</strong></span>-->
-<!--                                                सम्मका लागि हुनेछ । सन्तोषजनक-->
-<!--                                                कारोवारको अवस्थामा बैंकले स्वीकृत सीमा अवधि पटक पटक बढाउन सक्नेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि-->
-<!--                                                भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>-->
-<!--                                            <p class="font-weight-bold">अन्य कर्जा भएमाः </p>-->
-<!--                                            <p><ckeditor formControlName="otherRepaymentLoan" id="otherRepaymentLoan" type="text"-->
-<!--                                                         [config]="ckeConfig"-->
-<!--                                                         [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                                <strong>{{form.get('otherRepaymentLoan').value ? form.get('otherRepaymentLoan').value  : '========='}}</strong></span>-->
-<!--                                            </p>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    <tr>-->
-<!--                                        <td>च)</td>-->
-<!--                                        <td>व्याज (Interest)</td>-->
-<!--                                        <td>-->
-<!--                                            <p class="font-weight-bold">व्याज अनुदान कर्जा भएमाः</p>-->
-<!--                                            <p>प्रत्येक त्रयमासको अन्त्यमा कायम हुने औसत आधार दर (Average Base Rate) मा-->
-<!--                                            <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                    formControlName="premium"-->
-<!--                                                    name="premium"-->
-<!--                                                    type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत प्रिमियम दर-->
-<!--                                            (Premium Rate) जोडी-->
-<!--                                            <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                       formControlName="subsidy"-->
-<!--                                                                       name="subsidy"-->
-<!--                                                                       type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('subsidy').value ? form.get('subsidy').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत ब्याज अनुदान घटाएर, वा-->
-<!--                                            <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                                  formControlName="interest"-->
-<!--                                                                                  name="interest"-->
-<!--                                                                                  type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('interest').value ? form.get('interest').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत, ब्याजदर कायम गरिनेछ । त्रयमास-->
-<!--                                            भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर-->
-<!--                                            (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै-->
-<!--                                            बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।-->
 
-<!--                                            <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                   formControlName="interestOverdraft"-->
-<!--                                                   name="interestOverdraft"-->
-<!--                                                   type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('interestOverdraft').value ? form.get('interestOverdraft').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज-->
-<!--                                            गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज-->
-<!--                                            बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको-->
-<!--                                            समयलाई जनाउनेछ । बैंकको कायम आधार दर (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा-->
-<!--                                            राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।</p>-->
-<!--                                            <p class="font-weight-bold">अन्य कर्जा भएमाः</p>-->
-<!--                                            <p>बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप-->
-<!--                                                <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                      formControlName="premium"-->
-<!--                                                      name="premium"-->
-<!--                                                      type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>-->
-<!--                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate)-->
-<!--                                                जोडी, वा दिने <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                     formControlName="interestOtherLoan"-->
-<!--                                                                     name="interestOtherLoan"-->
-<!--                                                                     type="text"/>-->
-<!--                                                <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('interestOtherLoan').value ? form.get('interestOtherLoan').value  : '========='}}</strong></span>-->
-<!--                                                प्रतिशत, ब्याजदर कायम गरिनेछ। ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक-->
-<!--                                                रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुुक्ता गरेको दिनमा-->
-<!--                                                त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३-->
-<!--                                                महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक-->
-<!--                                                रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।</p>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    <tr>-->
-<!--                                        <td>छ)</td>-->
-<!--                                        <td>व्याज अनुदान (Interest Subsidy)</td>-->
-<!--                                        <td>सहूलियतपूर्ण कर्जा सूविधाहरु अन्तर्गत निर्धारण गरेको व्याज दर मध्ये-->
-<!--                                            <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                       formControlName="subsidy"-->
-<!--                                                       name="subsidy"-->
-<!--                                                       type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('subsidy').value ? form.get('subsidy').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत व्याज अनुदानको लागि प्रक्रिया मिलाइनेछ ।-->
-<!--                                            ब्याज अनुदान अवधी <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                                     formControlName="subsidyPeriod"-->
-<!--                                                                     name="subsidyPeriod"-->
-<!--                                                                     type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('subsidyPeriod').value ? form.get('subsidyPeriod').value  : '========='}}</strong></span>-->
-<!--                                            वर्ष सम्मको लागि रहने छ । ऋणीले नियमति रुपमा मासिक किस्ता/व्याज नबुझाएको खण्डमा बैंकको-->
-<!--                                            आधार दरमा <input class="form-field disable-print form-control-sm nepaliFont"-->
-<!--                                                             formControlName="premium"-->
-<!--                                                             name="premium"-->
-<!--                                                             type="text"/>-->
-<!--                                            <span class="print-only nepaliFont">-->
-<!--                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>-->
-<!--                                            प्रतिशत प्रिमियम जोडी हून आउने ब्याजदर लागु हुनेछ । भविष्यमा नेपाल राष्ट्र बैंकबा ब्याज अनुदान-->
-<!--                                            सुविधा रोेक्का वा रद्द भएमा प्रचलित व्याजदर अनुरुप कर्जाको ब्याज भुक्तान गर्नु पर्नेछ ।-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
+                                            <input class="form-field disable-print form-control-sm preetiFont size16"
+                                                   formControlName="sanctionedLmt"
+                                                   name="sanctionedLmt"
+                                                   placeholder="!)))))"
+                                                   [value]="proposal?.get('sanctionedLmt')?.value"
+                                                   type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{proposal.sanctionedLmt ? proposal.sanctionedLmt : '========='}}</strong></span>/-
+                                            (अक्षेरुपी रुपैया
+                                            <input class="form-field disable-print form-control-sm preetiFont size16"
+                                                   formControlName="sanctionedLmtInWord"
+                                                   name="sanctionedLmtInWord"
+                                                   placeholder="अक्षेरुपी"
+                                                   type="text"/>
+                                            <span class="print-only preetiFont size16"><strong>{{form.get('sanctionedLmtInWord').value ? form.get('sanctionedLmtInWord').value  : '========='}}</strong></span>
+                                            मात्र ।) सम्म
+                                        </td>
+                                    </tr>
+                                    <tr style="page-break-inside: auto">
+                                        <td>ख)</td>
+                                        <td>उद्येश्य (Purpose)</td>
+                                        <td>कम्पनीको  <input class="form-field disable-print form-control-sm nepaliFont"
+                                                             formControlName="purpose"
+                                                             name="purpose"
+                                                             type="text"/>
+                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('purpose').value ? form.get('purpose').value  : '========='}}
+                                    </strong></span> मा लगानी  गर्न ।
+                                        </td>
+                                    </tr>
+                                    <tr style="page-break-inside: auto">
+                                        <td>ग)</td>
+                                        <td>स्वीकृत कर्जा सुविधा उपभोग गन पाउने अवस्था र सीमाः (Drawdown)</td>
+                                        <td>स्वीकृत सीमाभित्र रहेर <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                          formControlName="drawdown"
+                                                                          name="drawdown"
+                                                                          type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('drawdown').value ? form.get('drawdown').value  : '========='}}</strong></span>
+                                            को
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                   formControlName="drawdownPercent"
+                                                   name="drawdownPercent"
+                                                   type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('drawdownPercent').value ? form.get('drawdownPercent').value  : '========='}}</strong></span>
+                                            प्रतिशत सम्म ।</td>
+                                    </tr>
+                                    <tr style="page-break-inside: auto" >
+                                        <td>घ)</td>
+                                        <td>कर्जा अवधि (Tenure)</td>
+                                        <td><p class="font-weight-bold">आवधिक कर्जा भएमा</p>
+                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                            <nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"
+                                                       [selected]="selectedLoanArray" multiple placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                                <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">
+                                                    {{loanTypeDropdown?.value}}
+                                                </nb-option>
+                                            </nb-select>
+                                            <p>यो आवधिक कर्जाको सिमा
+                                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                                       formControlName="tenureTermLoan"
+                                                       name="tenureTermLoan"
+                                                       type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('tenureTermLoan').value ? form.get('tenureTermLoan').value  : '========='}}</strong></span>
+                                                वर्ष सम्मको लागि प्रदान गरिनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>
+                                            <p class="font-weight-bold">अधिविकर्ष कर्जा भएमाः </p>
+                                            <p>उल्लेखित सीमा र अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्ने गरी चक्रात्मक आधार (Revolving Basis) मा यो कर्जा सुविधा उपलब्ध हुनेछ ।</p>
+                                            <p class="font-weight-bold">अन्य कर्जा भएमाः </p>
+                                            <p><ckeditor formControlName="otherTenureLoan" id="otherTenureLoan" type="text"
+                                                     [config]="ckeConfig"
+                                                     [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
+                                                <span class="print-only nepaliFont">
+                                         <strong>{{form.get('otherTenureLoan').value ? form.get('otherTenureLoan').value  : '========='}}</strong></span></p>
+                                        </td>
+                                    </tr>
+                                    <tr style="page-break-inside: auto">
+                                        <td>ङ)</td>
+                                        <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
+                                        <td><p class="font-weight-bold">आवधिक कर्जा भएमा</p>
+                                            <p>ययो कर्जाको भुक्तानी <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                           formControlName="noOfEmi"
+                                                                           name="noOfEmi"
+                                                                           type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('noOfEmi').value ? form.get('noOfEmi').value  : '========='}}</strong></span>,
+                                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                                       formControlName="repaymentTermLoan"
+                                                       name="repaymentTermLoan"
+                                                       type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('repaymentTermLoan').value ? form.get('repaymentTermLoan').value  : '========='}}</strong></span>
+                                                रुपमा अंग्रेजी महिनाको प्रत्येक <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                       formControlName="repaymentEngDate"
+                                                                                       name="repaymentEngDate"
+                                                                                       type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('repaymentEngDate').value ? form.get('repaymentEngDate').value  : '========='}}</strong></span>
+                                                तारिखमा लिइनेछ,/प्रत्येक नेपाली त्रैमासको तेश्रो
+                                                महिनाको अन्तिम दिन लिइनेछ ।  तर कर्जा प्रवाह भएको पहिलो <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                                               formControlName="repaymentEngDate"
+                                                                                                               name="repaymentEngDate"
+                                                                                                               type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('repaymentEngDate').value ? form.get('repaymentEngDate').value  : '========='}}</strong></span>
+                                                किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा–ब्याज
+                                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                                       formControlName="noOfEmi"
+                                                       name="noOfEmi"
+                                                       type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('noOfEmi').value ? form.get('noOfEmi').value  : '========='}}</strong></span>
+                                                समान मासिक किस्ता / त्रैमासिक किस्ता प्रति किस्ता अनुमानित रु
+                                                <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'emiAmountInWords','emiAmount')"
+                                                                  [name]="patchFunctionArray('proposalData', pi, 'emiAmount')" class="disable-print">
+                                                </app-custom-input>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('emiAmount').value ? form.get('emiAmount').value  : '========='}}</strong></span>
+                                                (अक्षरुपि <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                 formControlName="emiAmountInWords"
+                                                                 name="emiAmountInWords"
+                                                                 type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('emiAmountInWords').value ? form.get('emiAmountInWords').value  : '========='}}</strong></span>
+                                                पैसा मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन
+                                                गरि साविकको किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी
+                                                किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता बाट खर्च गरिनेछ ।</p>
+                                            <p class="font-weight-bold">अधिविकर्ष कर्जा भएमाः </p>
+                                            <p>यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                                           formControlName="nextReviewDate"
+                                                                                                           name="nextReviewDate"
+                                                                                                           type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('nextReviewDate').value ? form.get('nextReviewDate').value  : '========='}}</strong></span>
+                                                सम्मका लागि हुनेछ । सन्तोषजनक
+                                                कारोवारको अवस्थामा बैंकले स्वीकृत सीमा अवधि पटक पटक बढाउन सक्नेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि
+                                                भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>
+                                            <p class="font-weight-bold">अन्य कर्जा भएमाः </p>
+                                            <p><ckeditor formControlName="otherRepaymentLoan" id="otherRepaymentLoan" type="text"
+                                                         [config]="ckeConfig"
+                                                         [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
+                                                <span class="print-only nepaliFont">
+                                                <strong>{{form.get('otherRepaymentLoan').value ? form.get('otherRepaymentLoan').value  : '========='}}</strong></span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>च)</td>
+                                        <td>व्याज (Interest)</td>
+                                        <td>
+                                            <p class="font-weight-bold">व्याज अनुदान कर्जा भएमाः</p>
+                                            <p>प्रत्येक त्रयमासको अन्त्यमा कायम हुने औसत आधार दर (Average Base Rate) मा
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                    formControlName="premium"
+                                                    name="premium"
+                                                    type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>
+                                            प्रतिशत प्रिमियम दर
+                                            (Premium Rate) जोडी
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                       formControlName="subsidy"
+                                                                       name="subsidy"
+                                                                       type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('subsidy').value ? form.get('subsidy').value  : '========='}}</strong></span>
+                                            प्रतिशत ब्याज अनुदान घटाएर, वा
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                  formControlName="interest"
+                                                                                  name="interest"
+                                                                                  type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('interest').value ? form.get('interest').value  : '========='}}</strong></span>
+                                            प्रतिशत, ब्याजदर कायम गरिनेछ । त्रयमास
+                                            भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर
+                                            (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै
+                                            बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
+
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                   formControlName="interest"
+                                                   name="interest"
+                                                   type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('interest').value ? form.get('interest').value  : '========='}}</strong></span>
+                                            प्रतिशत प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज
+                                            गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज
+                                            बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको
+                                            समयलाई जनाउनेछ । बैंकको कायम आधार दर (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा
+                                            राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।</p>
+                                            <p class="font-weight-bold">अन्य कर्जा भएमाः</p>
+                                            <p>बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
+                                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                                      formControlName="premium"
+                                                      name="premium"
+                                                      type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>
+                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate)
+                                                जोडी, वा दिने <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                     formControlName="interestOtherLoan"
+                                                                     name="interestOtherLoan"
+                                                                     type="text"/>
+                                                <span class="print-only nepaliFont">
+                                    <strong>{{form.get('interestOtherLoan').value ? form.get('interestOtherLoan').value  : '========='}}</strong></span>
+                                                प्रतिशत, ब्याजदर कायम गरिनेछ। ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक
+                                                रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुुक्ता गरेको दिनमा
+                                                त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३
+                                                महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक
+                                                रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>छ)</td>
+                                        <td>व्याज अनुदान (Interest Subsidy)</td>
+                                        <td>सहूलियतपूर्ण कर्जा सूविधाहरु अन्तर्गत निर्धारण गरेको व्याज दर मध्ये
+                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                       formControlName="subsidy"
+                                                       name="subsidy"
+                                                       type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('subsidy').value ? form.get('subsidy').value  : '========='}}</strong></span>
+                                            प्रतिशत व्याज अनुदानको लागि प्रक्रिया मिलाइनेछ ।
+                                            ब्याज अनुदान अवधी <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                     formControlName="subsidyPeriod"
+                                                                     name="subsidyPeriod"
+                                                                     type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('subsidyPeriod').value ? form.get('subsidyPeriod').value  : '========='}}</strong></span>
+                                            वर्ष सम्मको लागि रहने छ । ऋणीले नियमति रुपमा मासिक किस्ता/व्याज नबुझाएको खण्डमा बैंकको
+                                            आधार दरमा <input class="form-field disable-print form-control-sm nepaliFont"
+                                                             formControlName="premium"
+                                                             name="premium"
+                                                             type="text"/>
+                                            <span class="print-only nepaliFont">
+                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>
+                                            प्रतिशत प्रिमियम जोडी हून आउने ब्याजदर लागु हुनेछ । भविष्यमा नेपाल राष्ट्र बैंकबा ब्याज अनुदान
+                                            सुविधा रोेक्का वा रद्द भएमा प्रचलित व्याजदर अनुरुप कर्जाको ब्याज भुक्तान गर्नु पर्नेछ ।
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
                                 </table>
-                                </div>
-                                <div>
+                                <div class="disable-print">
                                     <button class="btn btn-success btn-sm" (click)="addProposal()">Add More</button>
                                 </div>
+                            </div>
+
                                                                                                     <!--                            <div class="col-md-12">-->
 <!--                                <table class="table table-bordered text-justify">-->
 <!--                                    <caption class="font-weight-bold" style="caption-side: top; color: black">१. ऋण/कर्जा तथा बैंकिङ्ग सुविधाको विवरणः</caption>-->
@@ -730,6 +746,7 @@
 <!--                                        <td></td>-->
 <!--                                    </tr>-->
 <!--                                </table>-->
+                            <div class="col-md-12">
                                 <table class="table table-bordered">
                                     <caption class="font-weight-bold" style="caption-side: top;color: black">२) <u>दस्तुर तथा शुल्कहरु (Fees & Charges):</u></caption>
                                     <tbody>
@@ -755,7 +772,7 @@
                                     </tr>
                                     <tr style="page-break-inside: auto">
                                         <td>प्रशासनिक शुल्क गैर कोषमा आधारित कर्जाको हकमा (Loan Administrative Fee for Non- funded facility)</td>
-                                        <td><ckeditor formControlName="loanAdminFeeNonFunded" [config]="ckeConfig" ></ckeditor>
+                                        <td><ckeditor formControlName="loanAdminFeeNonFunded" [config]="ckeConfig" class="disable-print"></ckeditor>
                                             <span class="print-only nepaliFont">
                                             <strong>{{form.get('loanAdminFeeNonFunded').value ? form.get('loanAdminFeeNonFunded').value  : '========='}}</strong></span>
                                         </td>
@@ -783,30 +800,30 @@
                                     </tr>
                                     <tr style="page-break-inside: auto">
                                         <td>DCGF Premium</td>
-                                        <td><ckeditor formControlName="dcgfPremium" [config]="ckeConfig" ></ckeditor>
+                                        <td><ckeditor formControlName="dcgfPremium" [config]="ckeConfig" class="disable-print"></ckeditor>
                                             <span class="print-only nepaliFont">
                                             <strong>{{form.get('dcgfPremium').value ? form.get('dcgfPremium').value  : '========='}}</strong></span></td>
                                     </tr>
                                     <tr>
                                         <td>अन्य शुल्कहरुको लागि <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                        formControlName="otherLoanName"
-                                                                        name="otherLoanName"
+                                                                        formControlName="otherFeeName"
+                                                                        name="otherFeeName"
                                                                         type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('otherLoanName').value ? form.get('otherLoanName').value  : '========='}}</strong></span></td>
-                                        <td> <div class="col-md-12" formArrayName="otherLoan"
-                                                  *ngFor="let otherLoan of form.get('otherLoan')['controls']; let i = index">
+                                    <strong>{{form.get('otherFeeName').value ? form.get('otherFeeName').value  : '========='}}</strong></span></td>
+                                        <td> <div class="col-md-12" formArrayName="otherFee"
+                                                  *ngFor="let otherFee of form.get('otherFee')['controls']; let i = index">
                                             <table class="table table-bordered text-justify" [formGroupName]="i">
-                                                <div *ngIf="form.get('otherLoan')['length'] > 1">
-                                                    <button class="btn btn-danger" nbButton size="tiny" (click)="removeOtherLoan(i)">हटाउनुहोस्</button>
+                                                <div *ngIf="form.get('otherFee')['length'] > 1">
+                                                    <button class="btn btn-danger" nbButton size="tiny" (click)="removeOtherFee(i)">हटाउनुहोस्</button>
                                                 </div>
-                                                <tr><ckeditor formControlName="otherLoan" [config]="ckeConfig" ></ckeditor>
+                                                <tr><ckeditor formControlName="otherFee" [config]="ckeConfig" class="disable-print"></ckeditor>
                                                     <span class="print-only nepaliFont">
-                                            <strong>{{form.get('otherLoan').value ? form.get('otherLoan').value  : '========='}}</strong></span></tr>
+                                            <strong>{{form.get('otherFee').value ? form.get('otherFee').value  : '========='}}</strong></span></tr>
                                             </table>
                                         </div>
                                             <div>
-                                                <button class="btn btn-success btn-sm" (click)="addOtherLoan()">Add More</button>
+                                                <button class="btn btn-success btn-sm" (click)="addOtherFee()">Add More</button>
                                             </div>
                                     </td>
                                     </tr>
@@ -816,236 +833,261 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div class="row" style="width: 100%">
-                                    <div class="col-md-12">
-                                        <p class="font-weight-bold">३. <u>सुरक्षणः</u></p>
+                                <div class="row" style="width: 100%;">
+                                    <div class="col-md-12" style="break-before: auto;">
+                                        <p class="font-weight-bold"><u></u></p>
                                         <p>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा बैंकिङ्ग सुविधाहरु निम्न बमोजिमको सम्पति तथा लिखतहरुले सुरक्षित राखिनेछ ।</p>
                                         <table class="table table-borderless">
-                                            <tr>
-                                                <td>क)</td>
-                                                <td><p>
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanName"
-                                                           name="surakchyanName"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanName').value ? form.get('surakchyanName').value  : '========='}}</strong></span>
-                                                    को नाममा मालपोत कार्यालय,
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanDate"
-                                                           name="surakchyanDate"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanDate').value ? form.get('surakchyanDate').value  : '========='}}</strong></span>
-                                                    मा दर्ता श्रेस्ता कायम रहेकोे
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanDis"
-                                                           name="surakchyanDis"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanDis').value ? form.get('surakchyanDis').value  : '========='}}</strong></span>
-                                                    जिल्ला
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanMun"
-                                                           name="surakchyanMun"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanMun').value ? form.get('surakchyanMun').value  : '========='}}</strong></span>
-                                                    गा.वि.स./न.पा./उप म.न.पा./म.न.पा/गा.पा. वडा नं.
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanWard"
-                                                           name="surakchyanWard"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanWard').value ? form.get('surakchyanWard').value  : '========='}}</strong></span>
-                                                    (हाल
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanTempDis"
-                                                           name="surakchyanTempDis"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanTempDis').value ? form.get('surakchyanTempDis').value  : '========='}}</strong></span>
-                                                    जिल्ला
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanTempMun"
-                                                           name="surakchyanTempMun"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanTempMun').value ? form.get('surakchyanTempMun').value  : '========='}}</strong></span>
-                                                    न.पा./उप म.न.पा./
-                                                    म.न.पा./गा.वि.स./गा.पा. वडा नं.
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanTempWard"
-                                                           name="surakchyanTempWard"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanTempWard').value ? form.get('surakchyanTempWard').value  : '========='}}</strong></span>
-                                                    ) स्थित् कित्ता नं.
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanKittaNo"
-                                                           name="surakchyanKittaNo"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanKittaNo').value ? form.get('surakchyanKittaNo').value  : '========='}}</strong></span>
-                                                    को क्षेत्रफल
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanArea"
-                                                           name="surakchyanArea"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanArea').value ? form.get('surakchyanArea').value  : '========='}}</strong></span>
-                                                    (रोपनी/विगाह) को जग्गा तथा सो जग्गाहरुको
-                                                    चर्चेको सम्पुर्ण लिगलगापातहरु समेतको रु.
-                                                    <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanLoanNameInWord', 'surakchyanLoanAmount')"
-                                                                      [name]="patchFunction('surakchyanLoanAmount')" class="disable-print"></app-custom-input>
-                                                    <span class="print-only nepaliFont"><strong>{{form.get('surakchyanLoanAmount').value ? form.get('surakchyanLoanAmount').value  : '========='}}</strong></span>
-                                                    /— ( अक्षेरेपी
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="surakchyanLoanNameInWord"
-                                                           name="surakchyanLoanNameInWord"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanLoanNameInWord').value ? form.get('surakchyanLoanNameInWord').value  : '========='}}</strong></span>
-                                                    मात्र) को धितोबन्धक रजिष्ट्रेशन ।</p>
-                                                    <p>बैकका आधिकारीक मूल्याकंनकर्ता
+                                            <thead>
+                                                <tr style="page-break-inside: auto">
+                                                    <th>३.</th>
+                                                    <th><u>सुरक्षणः</u></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>क)</td>
+                                                    <td><p>
                                                         <input class="form-field disable-print form-control-sm nepaliFont"
-                                                               formControlName="surakchyanMulyankankarta"
-                                                               name="surakchyanMulyankankarta"
+                                                               formControlName="surakchyanName"
+                                                               name="surakchyanName"
                                                                type="text"/>
                                                         <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanMulyankankarta').value ? form.get('surakchyanMulyankankarta').value  : '========='}}</strong></span>
-                                                        ले गरेको मूल्याकंन अनुसार
-                                                        उक्त सम्पत्तिको अहिलेको फेयर मार्केट मूल्य (Fair Market Value) रु
-                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanFmvInWord', 'surakchyanFmv')"
-                                                                          [name]="patchFunction('surakchyanFmv')" class="disable-print"></app-custom-input>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanFmv').value ? form.get('surakchyanFmv').value  : '========='}}</strong></span>
-                                                        /— (अक्षरेपि
+                                                        <strong>{{form.get('surakchyanName').value ? form.get('surakchyanName').value  : '========='}}</strong></span>
+                                                        को नाममा मालपोत कार्यालय,
                                                         <input class="form-field disable-print form-control-sm nepaliFont"
-                                                               formControlName="surakchyanFmvInWord"
-                                                               name="surakchyanFmvInWord"
+                                                               formControlName="surakchyanDate"
+                                                               name="surakchyanDate"
                                                                type="text"/>
                                                         <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanFmvInWord').value ? form.get('surakchyanFmvInWord').value  : '========='}}</strong></span>
-                                                        मात्र)
-                                                        रहनेछ भने डिष्ट्रेस मूल्य (Distress Value) रु
-                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanDistressInWord', 'surakchyanDistress')"
-                                                                          [name]="patchFunction('surakchyanDistress')" class="disable-print"></app-custom-input>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanDistress').value ? form.get('surakchyanDistress').value  : '========='}}</strong></span>
-                                                        /— (अक्षरेपि <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                            formControlName="surakchyanDistressInWord"
-                                                                            name="surakchyanDistressInWord"
-                                                                            type="text"/>
-                                                        <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('surakchyanDistressInWord').value ? form.get('surakchyanDistressInWord').value  : '========='}}</strong></span>
-                                                        मात्र) रहेको छ ।</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>ख)</td>
-                                                <td>सम्बन्धित यातायात विभाग र/वा कार्यालयवाट <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                                                    formControlName="noOfVehicle"
-                                                                                                    name="noOfVehicle"
-                                                                                                    type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('noOfVehicle').value ? form.get('noOfVehicle').value  : '========='}}</strong></span>
-                                                    थान <input class="form-field disable-print form-control-sm nepaliFont"
-                                                               formControlName="vehicleModel"
-                                                               name="vehicleModel"
+                                                        <strong>{{form.get('surakchyanDate').value ? form.get('surakchyanDate').value  : '========='}}</strong></span>
+                                                        मा दर्ता श्रेस्ता कायम रहेकोे
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanDis"
+                                                               name="surakchyanDis"
                                                                type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('vehicleModel').value ? form.get('vehicleModel').value  : '========='}}</strong></span>
-                                                    मोडेलको सवारी साधन
-                                                    <input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="vehicleNo"
-                                                           name="vehicleNo"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('vehicleNo').value ? form.get('vehicleNo').value  : '========='}}</strong></span>) सेञ्चुरी कमर्सियल बैक लिमिटेडको स्वामित्वमा रहने गरी दर्ता नामसारी गरिदिनू पर्नेछ ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ग)</td>
-                                                <td>रु  ........................../— ( अक्षेरेपी .................. मात्र) बराबरको हायर पर्चेज लिखत (Hire Purchase Deed) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>घ)</td>
-                                                <td>सवारी साधन बिक्री वापत ऋणीका तर्फबाट मञ्जुरीनामाको लिखित (Manjurinama Deed)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ङ)</td>
-                                                <td>ऋणी कम्पनी र फर्मकोे नाममा रहेर्को प्लान्ट, मेशिनरी, उपकरण (Plant, Machinery,Equipment) को रू............/-
-                                                    (अक्षरेपी रुपैया ..................... मात्र) उपर माथि उल्लेखित
-                                                    कर्जा सूविधा तथा सो बाट उत्पन्न दायित्वको हद सम्म धनि बैंकको हक रहने गरी गरिदिने हाईपोथिकेसन
-                                                    (Charge over Fixed assets –Plant, Machinery,Equipment ) कायम रहनेछ । </td>
-                                            </tr>
-                                            <tr>
-                                                <td>च)</td>
-                                                <td>आयप्राप्ति अधिकार हस्तान्तरण पत्र (Assignment of Receivables) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>छ)</td>
-                                                <td>वारेसनामा (Power of Attorney) को लिखत । </td>
-                                            </tr>
-                                            <tr>
-                                                <td>ज)</td>
-                                                <td>ऋण कर्जा बराबरको प्रतिज्ञा पत्र (Promissory Note) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>झ)</td>
-                                                <td>निरन्तरताको पत्र (Letter of Continuity) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ञ)</td>
-                                                <td>मोजरा/समायोजन पत्र (Letter of Set-Off) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ट)</td>
-                                                <td>स्वीकृत कर्जा सिमा बराबरको कर्जाको लिखत (Loan Deed)</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ठ)</td>
-                                                <td>श्री सम्पत्ति धितो सुरक्षण लेखीदिएको गोश्वारा—पत्र (General Letter of Hypothecation over stock) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ड)</td>
-                                                <td>श्री <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                formControlName="guarantorName"
-                                                                name="guarantorName"
-                                                                type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>
-                                                    कोे तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी (Personal Guarantee) । </td>
-                                            </tr>
-                                            <tr>
-                                                <td>ढ)</td>
-                                                <td><input class="form-field disable-print form-control-sm nepaliFont"
-                                                           formControlName="guarantorName"
-                                                           name="guarantorName"
-                                                           type="text"/>
-                                                    <span class="print-only nepaliFont">
-                                                    <strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>,
-                                                    को तर्फबाट स्वीकृत कर्जा सिमा बराबरको संस्थागत जमानी (Corporate Guarantee) ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ण)</td>
-                                                <td>ऋणी फर्मको बिक्रीयोग्य सर–सामानहरुको बैंकलाई प्रथम हितग्राही बनाई कम्तीमा स्वीकृत कर्जा रकम बराबरको बैकको पक्षमा
-                                                    आवश्यकता अनुसारको विमालेख ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>त)</td>
-                                                <td>पूरक सम्झौता (Supplementary Agreement) को लिखत ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>थ)</td>
-                                                <td>ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/ ऋणीले प्रबद्र्वन  गरेको वा नेपाल
-                                                    राष्ट्र बैंकको निर्देशिका बमोजिम एउटै समुहमा बर्गिकरण गरिएको सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण स्वीकृति पत्रमा
-                                                    उल्लेख गरे बमोजिम उपभोग गरेको ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण स्वीकृति
-                                                    पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको मानिनेछ । यस ऋण स्वीकृति पत्रमा उल्लेखित कुनै
-                                                    शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा ऋणीको मन्जुरी रहनेछ ।</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ड)</td>
-                                                <td></td>
-                                            </tr>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanDis').value ? form.get('surakchyanDis').value  : '========='}}</strong></span>
+                                                        जिल्ला
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanMun"
+                                                               name="surakchyanMun"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanMun').value ? form.get('surakchyanMun').value  : '========='}}</strong></span>
+                                                        गा.वि.स./न.पा./उप म.न.पा./म.न.पा/गा.पा. वडा नं.
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanWard"
+                                                               name="surakchyanWard"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanWard').value ? form.get('surakchyanWard').value  : '========='}}</strong></span>
+                                                        (हाल
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanTempDis"
+                                                               name="surakchyanTempDis"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanTempDis').value ? form.get('surakchyanTempDis').value  : '========='}}</strong></span>
+                                                        जिल्ला
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanTempMun"
+                                                               name="surakchyanTempMun"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanTempMun').value ? form.get('surakchyanTempMun').value  : '========='}}</strong></span>
+                                                        न.पा./उप म.न.पा./
+                                                        म.न.पा./गा.वि.स./गा.पा. वडा नं.
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanTempWard"
+                                                               name="surakchyanTempWard"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanTempWard').value ? form.get('surakchyanTempWard').value  : '========='}}</strong></span>
+                                                        ) स्थित् कित्ता नं.
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanKittaNo"
+                                                               name="surakchyanKittaNo"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanKittaNo').value ? form.get('surakchyanKittaNo').value  : '========='}}</strong></span>
+                                                        को क्षेत्रफल
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanArea"
+                                                               name="surakchyanArea"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanArea').value ? form.get('surakchyanArea').value  : '========='}}</strong></span>
+                                                        (रोपनी/विगाह) को जग्गा तथा सो जग्गाहरुको
+                                                        चर्चेको सम्पुर्ण लिगलगापातहरु समेतको रु.
+                                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanLoanNameInWord', 'surakchyanLoanAmount')"
+                                                                          [name]="patchFunction('surakchyanLoanAmount')" class="disable-print"></app-custom-input>
+                                                        <span class="print-only nepaliFont"><strong>{{form.get('surakchyanLoanAmount').value ? form.get('surakchyanLoanAmount').value  : '========='}}</strong></span>
+                                                        /— ( अक्षेरेपी
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="surakchyanLoanNameInWord"
+                                                               name="surakchyanLoanNameInWord"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanLoanNameInWord').value ? form.get('surakchyanLoanNameInWord').value  : '========='}}</strong></span>
+                                                        मात्र) को धितोबन्धक रजिष्ट्रेशन ।</p>
+                                                        <p>बैकका आधिकारीक मूल्याकंनकर्ता
+                                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                   formControlName="surakchyanMulyankankarta"
+                                                                   name="surakchyanMulyankankarta"
+                                                                   type="text"/>
+                                                            <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanMulyankankarta').value ? form.get('surakchyanMulyankankarta').value  : '========='}}</strong></span>
+                                                            ले गरेको मूल्याकंन अनुसार
+                                                            उक्त सम्पत्तिको अहिलेको फेयर मार्केट मूल्य (Fair Market Value) रु
+                                                            <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanFmvInWord', 'surakchyanFmv')"
+                                                                              [name]="patchFunction('surakchyanFmv')" class="disable-print"></app-custom-input>
+                                                            <span class="print-only nepaliFont"><strong>{{form.get('surakchyanFmv').value ? form.get('surakchyanFmv').value  : '========='}}</strong></span>
+                                                            /— (अक्षरेपि
+                                                            <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                   formControlName="surakchyanFmvInWord"
+                                                                   name="surakchyanFmvInWord"
+                                                                   type="text"/>
+                                                            <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanFmvInWord').value ? form.get('surakchyanFmvInWord').value  : '========='}}</strong></span>
+                                                            मात्र)
+                                                            रहनेछ भने डिष्ट्रेस मूल्य (Distress Value) रु
+                                                            <app-custom-input (eventEmit)="changeToNepAmount($event, 'surakchyanDistressInWord', 'surakchyanDistress')"
+                                                                              [name]="patchFunction('surakchyanDistress')" class="disable-print"></app-custom-input>
+                                                            <span class="print-only nepaliFont"><strong>{{form.get('surakchyanDistress').value ? form.get('surakchyanDistress').value  : '========='}}</strong></span>
+                                                            /— (अक्षरेपि <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                formControlName="surakchyanDistressInWord"
+                                                                                name="surakchyanDistressInWord"
+                                                                                type="text"/>
+                                                            <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('surakchyanDistressInWord').value ? form.get('surakchyanDistressInWord').value  : '========='}}</strong></span>
+                                                            मात्र) रहेको छ ।</p>
+                                                    </td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ख)</td>
+                                                    <td>सम्बन्धित यातायात विभाग र/वा कार्यालयवाट <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                            formControlName="noOfVehicle"
+                                                                                            name="noOfVehicle"
+                                                                                            type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('noOfVehicle').value ? form.get('noOfVehicle').value  : '========='}}</strong></span>
+                                                        थान <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                   formControlName="vehicleModel"
+                                                                   name="vehicleModel"
+                                                                   type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('vehicleModel').value ? form.get('vehicleModel').value  : '========='}}</strong></span>
+                                                        मोडेलको सवारी साधन
+                                                        <input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="vehicleNo"
+                                                               name="vehicleNo"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('vehicleNo').value ? form.get('vehicleNo').value  : '========='}}</strong></span>) सेञ्चुरी कमर्सियल बैक लिमिटेडको स्वामित्वमा रहने गरी दर्ता नामसारी गरिदिनू पर्नेछ ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ग)</td>
+                                                    <td>रु  <app-custom-input (eventEmit)="changeToNepAmount($event, 'hpAmountInWord', 'hpAmount')"
+                                                                              [name]="patchFunction('hpAmount')" class="disable-print"></app-custom-input>
+                                                        <span class="print-only nepaliFont"><strong>{{form.get('hpAmount').value ? form.get('hpAmount').value  : '========='}}</strong></span>/—
+                                                        (अक्षेरेपी <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                          formControlName="hpAmountInWord"
+                                                                          name="hpAmountInWord"
+                                                                          type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('hpAmountInWord').value ? form.get('hpAmountInWord').value  : '========='}}</strong></span>
+                                                        मात्र) बराबरको हायर पर्चेज लिखत (Hire Purchase Deed) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>घ)</td>
+                                                    <td>सवारी साधन बिक्री वापत ऋणीका तर्फबाट मञ्जुरीनामाको लिखित (Manjurinama Deed)</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ङ)</td>
+                                                    <td>ऋणी कम्पनी र फर्मकोे नाममा रहेर्को प्लान्ट, मेशिनरी, उपकरण (Plant, Machinery,Equipment) को <app-custom-input (eventEmit)="changeToNepAmount($event, 'plantAmountInWord', 'plantAmount')"
+                                                                                                                                                                     [name]="patchFunction('plantAmount')" class="disable-print"></app-custom-input>
+                                                        <span class="print-only nepaliFont"><strong>{{form.get('plantAmount').value ? form.get('plantAmount').value  : '========='}}</strong></span>/—
+                                                        (अक्षेरेपी <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                          formControlName="plantAmountInWord"
+                                                                          name="plantAmountInWord"
+                                                                          type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('plantAmountInWord').value ? form.get('plantAmountInWord').value  : '========='}}</strong></span>
+                                                        मात्र) उपर माथि उल्लेखित
+                                                        कर्जा सूविधा तथा सो बाट उत्पन्न दायित्वको हद सम्म धनि बैंकको हक रहने गरी गरिदिने हाईपोथिकेसन
+                                                        (Charge over Fixed assets –Plant, Machinery,Equipment ) कायम रहनेछ । </td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>च)</td>
+                                                    <td>आयप्राप्ति अधिकार हस्तान्तरण पत्र (Assignment of Receivables) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>छ)</td>
+                                                    <td>वारेसनामा (Power of Attorney) को लिखत । </td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ज)</td>
+                                                    <td>ऋण कर्जा बराबरको प्रतिज्ञा पत्र (Promissory Note) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>झ)</td>
+                                                    <td>निरन्तरताको पत्र (Letter of Continuity) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ञ)</td>
+                                                    <td>मोजरा/समायोजन पत्र (Letter of Set-Off) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ट)</td>
+                                                    <td>स्वीकृत कर्जा सिमा बराबरको कर्जाको लिखत (Loan Deed)</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ठ)</td>
+                                                    <td>श्री सम्पत्ति धितो सुरक्षण लेखीदिएको गोश्वारा—पत्र (General Letter of Hypothecation over stock) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ड)</td>
+                                                    <td>श्री <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                    formControlName="guarantorName"
+                                                                    name="guarantorName"
+                                                                    type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>
+                                                        कोे तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी (Personal Guarantee) । </td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ढ)</td>
+                                                    <td><input class="form-field disable-print form-control-sm nepaliFont"
+                                                               formControlName="guarantorName"
+                                                               name="guarantorName"
+                                                               type="text"/>
+                                                        <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>,
+                                                        को तर्फबाट स्वीकृत कर्जा सिमा बराबरको संस्थागत जमानी (Corporate Guarantee) ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ण)</td>
+                                                    <td>ऋणी फर्मको बिक्रीयोग्य सर–सामानहरुको बैंकलाई प्रथम हितग्राही बनाई कम्तीमा स्वीकृत कर्जा रकम बराबरको बैकको पक्षमा
+                                                        आवश्यकता अनुसारको विमालेख ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>त)</td>
+                                                    <td>पूरक सम्झौता (Supplementary Agreement) को लिखत ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>थ)</td>
+                                                    <td>ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/ ऋणीले प्रबद्र्वन  गरेको वा नेपाल
+                                                        राष्ट्र बैंकको निर्देशिका बमोजिम एउटै समुहमा बर्गिकरण गरिएको सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण स्वीकृति पत्रमा
+                                                        उल्लेख गरे बमोजिम उपभोग गरेको ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण स्वीकृति
+                                                        पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको मानिनेछ । यस ऋण स्वीकृति पत्रमा उल्लेखित कुनै
+                                                        शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा ऋणीको मन्जुरी रहनेछ ।</td>
+                                                </tr>
+                                                <tr style="page-break-inside: auto">
+                                                    <td>ड)</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                     <div class="col-md-12 text-justify" style="break-before: auto">
@@ -1084,7 +1126,7 @@
                                         </p>
                                         <p>उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा अवधि समाप्तीको आधारमा प्रदान गरिने भएकोले पुनरावलोकन गरिनेछैन । </p>
                                         <p><ckeditor formControlName="reviewOtherLoan" id="reviewOtherLoan" type="text"
-                                                     [config]="ckeConfig"
+                                                     [config]="ckeConfig" class="disable-print"
                                                      [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
                                             <span class="print-only nepaliFont">
                                          <strong>{{form.get('reviewOtherLoan').value ? form.get('reviewOtherLoan').value  : '========='}}</strong></span></p>
@@ -1108,7 +1150,7 @@
                                                 <td>क)</td>
                                                 <td>बैंकलाई सुरक्षण स्वरुप दिएका सम्पूर्ण चल–अचल सम्पत्ति बैंकलाई मान्य हुने बीमा कम्पनीबाट बैंकलाई प्रथम हितग्राहि बनाई पेश गर्नुपर्नेछ ।
                                                     <ckeditor formControlName="covenant" id="covenant" type="text"
-                                                              [config]="ckeConfig"
+                                                              [config]="ckeConfig" class="disable-print"
                                                               [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
                                                     <span class="print-only nepaliFont">
                                          <strong>{{form.get('covenant').value ? form.get('covenant').value  : '========='}}</strong></span></td>
@@ -1214,85 +1256,85 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="col-md-12 text-justify" style="break-before: auto">
+                                    <div class="col-md-12 text-justify" style="page-break-inside: auto">
                                         <p class="font-weight-bold">१०. <u>उल्लघंनको अवस्था (Events of Default):</u></p>
-                                        <table class="table table-borderless">
-                                            <tr>
+                                        <table class="table table-borderless" style="page-break-inside: auto">
+                                            <tr style="page-break-inside: auto">
                                                 <td colspan="2">निम्नानुसार मध्येको कुनै पनि परिस्थिति उत्पन्न भएमा वा पाईएमा “उल्लंघनको अवस्था” भनिनेछ । यदि </td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>क)</td>
                                                 <td>ऋणीले यस स्वीकृति पत्र बमोजिम प्राप्त गर्ने भएको ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्राप्त गर्नको लागि दिएको आवेदन वा यस स्वीकृति पत्र बमोजिम दिएको वा
                                                     स्वीकृति पत्रमा लेखिएको कुनै पनि विवरण उद्घोषण वा Warranty वा कुनै पनि Correspondence वा कुनै पनि आर्थिक विवरण वा योजना मूलभूत रुपमा
                                                     गलत वा  त्रुटीपूर्ण वा मिथ्यापूर्ण सावित हुन गएमा ,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ख)</td>
                                                 <td>ऋणीको सांगठनिक (Corporate) स्तर, कानूनी अस्तित्व वा ऋणीको आर्थिक स्थिति, कबूलियत वा उत्तरदायित्व वा बिस्तार योजना वा कर्जा सापटीको अवस्था
                                                     वा चालुपुँजी सम्बन्धि विवरण वा पूँजीगत खर्चको बारेमा बैकलाई मूलभूत जानकारी नदिएमा वा त्यस्तो जानकारी लुकाउन खोजेमा ,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ग)</td>
                                                 <td>ऋणीले यस स्वीकृति पत्र बमोजिम तिर्नुपर्ने समयावधि भित्र साँवाको कुनै किस्ता वा ब्याज तिर्न नसकेको वा ऋणीको संचालन खातामा पर्याप्त मौज्दात
                                                     (Sufficient  Balance) नराखेमा वा त्यस्तो बाँकी रहेको रकम साँवाको कुनै किस्ता वा ब्याज तिर्न अपुग भएमा,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>घ)</td>
                                                 <td> ऋणीले यस स्वीकृति पत्र वा कुनै पनि सुरक्षणको लिखतमा उल्लेखित कुनै पनि शर्त/कबुलियतहरुको पालना नगरेमा वा गर्न नसकेमा,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ङ)</td>
                                                 <td>ऋणीले बैंकलाई सुरक्षण स्वरुप दिन मन्जुर गरेको कुनै पनि चल–अचल सम्पत्ति वा जायजेथा कुनै पनि कारवाहीको लागि Receiver or Liquidator
                                                     लाई प्रदान गरेमा,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>च)</td>
                                                 <td>कुनै परिस्थितिको सृजना भई बैंकलाई ऋणीले यस स्वीकृति पत्र वा कुनै पनि लिखतमा उल्लेखित कुनै पनि शर्त बन्देजहरुको पालना गर्न असमर्थ छ भन्ने लागेमा
                                                     यस सम्बन्धमा बैंकको आफ्नो स्वविवेकले गरेको निर्णय अन्तिम मानिनुका साथै ऋणीले अन्तिम निर्णयको रुपमा अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>छ)</td>
                                                 <td>कुनै पनि अधिकार प्राप्त निकायबाट ऋणीको कुनै पनि सम्पत्ति रोक्का राख्ने आदेश जारी भएमा ,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ज)</td>
                                                 <td> ऋणीले बैंकको स्वीकृति बेगर व्यवसायको प्रकृति परिवर्तन गरेमा वा व्यवसाय बन्द गरेमा ,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>झ)</td>
                                                 <td>ऋणीले बैंक बाहेक पनि अन्य कुनै साहूलाई तिर्नुपर्ने कुनै रकम तिर्न नसकेकोमा ,</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ञ)</td>
                                                 <td>कुनै व्यक्ति वा सरकारी वा अधिकार प्राप्त निकायबाट ऋणीको सम्पूर्ण वा आशिंक सम्पत्ति वा व्यवसाय रोक्का, जफत वा भागवण्डा गरिएमा वा ऋणी वा ऋणीको
                                                     व्यवसायको निलम्बन वा खारेजीको प्रकृया शुरु गरेमा । </td>
                                             </tr>
                                         </table>
                                         <table class="table table-borderless">
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td colspan="2">माथिको कुनै एक वा सबै अवस्था वा परिस्थिति उत्पन्न भएमा बैंकलाई निम्न लिखित अधिकार प्राप्त हुनेछ ।</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>क)</td>
                                                 <td>बाँकी रहेको सम्पूर्ण साँवा, ब्याज तथा अन्य लेना रकमहरु तुरुन्त तिर्न लगाउने (माग गर्ने) ।</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ख)</td>
                                                 <td>ऋणीले सुरक्षण स्वरुप दिएको सम्पूर्ण वा केही सम्पत्ति आफ्नो कब्जामा लिई वा नलिई लिलाम वा बिक्री गर्ने र सो बाट प्राप्त हुन आएको रकम आफूले ऋणीसँग लिनु पर्ने रकममा समायोजन गर्ने ।</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ग)</td>
                                                 <td>आफूले यस स्वीकृति पत्र वा ऋण/कर्जा र/वा बैंकिङ्ग सुविधासँग सम्बन्धित कुनै पनि लिखतको कुनै पनि शर्त बन्देज पालना नगरी रद्द गर्ने तथा कुनै पनि ऋण/कर्जा र/वा बैकिङ्ग सुविधाको दिन बाँकी रकम (हिस्सा/अंश) रोक्का गर्ने ।</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>घ)</td>
                                                 <td>ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्रदान गर्दाको अवस्थाको कुनै पनि शर्त बन्देजहरु आफ्नो स्वविवेकले एकलौटी रुपमा परिवर्तन गर्ने ।</td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>ङ)</td>
                                                 <td>ऋणीको कुनै पनि सांयोगिक उत्तरदायित्व (Contingent Liability) वापत तुरुन्त नगद सुरक्षण (मार्जिन) राख्न लगाउने । </td>
                                             </tr>
-                                            <tr>
+                                            <tr style="page-break-inside: auto">
                                                 <td>च)</td>
                                                 <td>ऋणीले तिर्नु बुझाउनुपर्ने रकम समयमै नतिरी नबुझाइ धिङन्याइ गरेमा बैंकद्वारा जारी गरिएको अन्तिम सूचनालाई आधार मानि बैंक तथा वित्तीय संस्था सम्बन्धी
                                                     ऐन, २०७३ तथा प्रचलित कानून बमोजिम आफनो सम्पुर्ण लेना रकम असुल उपर गर्ने।</td>
@@ -1369,9 +1411,20 @@
                                             समक्ष नपुगेमा यो ऋण स्विकृति स्वतः रद्द भएको मानिनेछ ।
                                         </p>
                                     </div>
-                                    <div class="col-md-12 text-justify" style="break-before: auto">
-                                        <p class="font-weight-bold">१५. <u>कानून तथा अधिकारक्षेत्रः </u></p>
-                                        <p>यो ऋण स्विकृति (ऋणीले स्वीकृति दिई सकेपछि हुने सम्झौता) नेपाल कानून बमोजिम प्रशासित भै नेपालको अदालतको क्षेत्राधिकार क्षेत्रभित्र लागु हुनेछ ।</p>
+                                    <div class="col-md-12 text-justify" style="overflow: visible; display: inline; break-before: auto">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>१५.</th>
+                                                    <th><u>कानून तथा अधिकारक्षेत्रः</u></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="break-inside: avoid">
+                                                <tr>
+                                                    <td colspan="2">यो ऋण स्विकृति (ऋणीले स्वीकृति दिई सकेपछि हुने सम्झौता) नेपाल कानून बमोजिम प्रशासित भै नेपालको अदालतको क्षेत्राधिकार क्षेत्रभित्र लागु हुनेछ ।</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="col-md-12 text-justify" style="break-before: auto">
                                         <p class="font-weight-bold">१६. <u>सूचनाः </u></p>
@@ -1496,7 +1549,7 @@
                                                                     name="borrowerEmail"
                                                                     placeholder=""
                                                                     type="text"/>
-                                                        <span class="print-only"><strong>{{form.get('borrowerEmail').value ? form.get('borrowerEmail').value  : '========='}}</strong></span></p>
+                                                        <span class="print-only"><strong>{{form.get('borrowerEmail').value ? form.get('borrowerEmail').value  : '...............................'}}</strong></span></p>
                                                     <p>सम्पर्क टेलिफोन/मोवाइल नं.ः <input class="form-field form-control-sm disable-print nepaliFont"
                                                                                           formControlName="borrowerMobile"
                                                                                           name="borrowerMobile"
@@ -1580,6 +1633,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12" style="page-break-inside: auto">
+                                            <div class="col-md-12">
                                             <p>भवदीय,</p>
                                             <p class="mb-5 font-weight-bold">ऋणीः</p>
                                             <p>श्री<input class="form-field form-control-sm disable-print nepaliFont"
@@ -1657,7 +1711,7 @@
                                                             name="guarantorEmail"
                                                             placeholder=""
                                                             type="text"/>
-                                                <span class="print-only"><strong>{{form.get('guarantorEmail').value ? form.get('guarantorEmail').value  : '========='}}</strong></span></p>
+                                                <span class="print-only"><strong>{{form.get('guarantorEmail').value ? form.get('guarantorEmail').value  : '...............................'}}</strong></span></p>
                                             <p>सम्पर्क टेलिफोन/मोवाइल नं.ः <input class="form-field form-control-sm disable-print nepaliFont"
                                                                                   formControlName="guarantorMobile"
                                                                                   name="guarantorMobile"
@@ -1693,6 +1747,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
+                                <div class="col-md-12">
                             <p class="text-center">ईति सम्बत <input class="form-field form-control-sm disable-print nepaliFont"
                                                 formControlName="year"
                                                 name="year"
@@ -1724,12 +1780,12 @@
                                              type="text"/>
                                 <span class="print-only nepaliFont"><strong>{{form.get('subham').value ? form.get('subham').value  : '========='}}</strong></span> ।</p>
                             </div>
+                        </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12 text-right disable-print">
                                 <button nbButton status="success" type="submit">Save</button>
                             </div>
-                        </div>
-                        </div>
                         </div>
                     </form>
                 </div>

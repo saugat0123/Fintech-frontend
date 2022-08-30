@@ -162,7 +162,6 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       renewalFee: [undefined],
       avgUtil: [undefined],
       unutilAmt: [undefined],
-      otherFee: [undefined],
       securityDate: [undefined],
       tapasilDate: [undefined],
       tapasilAmt: [undefined],
@@ -250,13 +249,12 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       repaymentTermLoan: [undefined],
       repaymentEngDate: [undefined],
       proposalData: this.formBuilder.array([this.buildProposalForm()]),
-      otherLoan: this.formBuilder.array([this.buildOtherLoanForm()]),
       loanAdminFee: [undefined],
       loanRenewFee: [undefined],
       loanAdminFeeNonFunded: [undefined],
       baseRate: [undefined],
       dcgfPremium: [undefined],
-      otherLoanName: [undefined],
+      otherFeeName: [undefined],
       surakchyanName: [undefined],
       surakchyanDate: [undefined],
       surakchyanDis: [undefined],
@@ -289,39 +287,56 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       surakchyanFmvInWord: [undefined],
       surakchyanDistress: [undefined],
       surakchyanDistressInWord: [undefined],
+      hpAmount: [undefined],
+      hpAmountInWord: [undefined],
+      plantAmount: [undefined],
+      plantAmountInWord: [undefined],
+      otherFee: this.formBuilder.array([this.buildOtherFeeForm()]),
     });
+    console.log('form', this.form);
   }
 
   buildProposalForm() {
     return this.formBuilder.group({
-      facilityName: [undefined],
+      facilityType: [undefined],
       natureOfLoan: [undefined],
       isOtherLoan: false,
       otherNatureOfLoanInNep: [undefined],
       otherNatureOfLoanInEng: [undefined],
-      overDraftLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
-      demandLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
-      termLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
-      otherLoan: this.formBuilder.array([this.buildNatureOfLoanForm()])
+      sanctionedLmt: [undefined],
+      sanctionedLmtInWord: [undefined],
+      purpose: [undefined],
+      drawdown: [undefined],
+      drawdownPercent: [undefined],
+      tenureTermLoan: [undefined],
+      otherTenureLoan: [undefined],
+      noOfEmi: [undefined],
+      repaymentTermLoan: [undefined],
+      repaymentEngDate: [undefined],
+      emiAmount: [undefined],
+      emiAmountInWords: [undefined],
+      nextReviewDate: [undefined],
+      otherRepaymentLoan: [undefined],
+      premium: [undefined],
+      subsidy: [undefined],
+      interest: [undefined],
+      interestOtherLoan: [undefined],
+      subsidyPeriod: [undefined]
+      // overDraftLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
+      // demandLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
+      // termLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
+      // otherLoan: this.formBuilder.array([this.buildNatureOfLoanForm()])
     });
   }
 
-  buildOtherLoanForm() {
+  buildOtherFeeForm() {
     return this.formBuilder.group({
       otherLoan: [undefined],
     });
   }
 
-  buildNatureOfLoanForm() {
-    return this.formBuilder.group({
-      loanAmount: [undefined],
-      loanNameInWord: [undefined],
-    });
-  }
-
-
-  checkFacilityName(facilityName, index) {
-    this.form.get(['proposalData', index, 'facilityName']).patchValue(facilityName);
+  checkFacilityType(facilityType, index) {
+    this.form.get(['proposalData', index, 'facilityType']).patchValue(facilityType);
 
   }
 
@@ -334,9 +349,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     control.push(this.buildProposalForm());
   }
 
-  addOtherLoan() {
-    const control = this.form.get('otherLoan') as FormArray;
-    control.push(this.buildOtherLoanForm());
+  addOtherFee() {
+    const control = this.form.get('otherFee') as FormArray;
+    control.push(this.buildOtherFeeForm());
   }
 
   checkOfferLetterData() {
@@ -506,7 +521,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     (this.form.get('proposalData') as FormArray).removeAt(index);
   }
 
-  removeOtherLoan(index: number) {
-    (this.form.get('otherLoan') as FormArray).removeAt(index);
+  removeOtherFee(index: number) {
+    (this.form.get('otherFee') as FormArray).removeAt(index);
   }
 }
