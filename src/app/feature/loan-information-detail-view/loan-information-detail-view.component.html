@@ -208,6 +208,10 @@
                             <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
                         <div class="float-right">
+                            <span *ngIf="loanDataHolder?.customerInfo?.isAgriculture">
+                                <b>Customer Category: </b> {{loanDataHolder?.loanHolder?.customerCategory | replace: '_':' '}}
+                                <br>
+                            </span>
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                                 ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
                             <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
