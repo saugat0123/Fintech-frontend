@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         </div>
-        <div class="col-md-12" *ngIf="isAboveTen">
+        <div class="col-md-12" *ngIf="isAboveTen || isUptoTwo">
             <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
                 <thead>
                 <tr class="sb-bg-dark text-white">

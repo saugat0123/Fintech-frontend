@@ -22,6 +22,7 @@ export class MGroupSummaryComponent implements OnInit {
   isBelowTen = false;
   isWholeSale = false;
   isSana = false;
+  isUptoTwo = false;
 
   constructor() { }
 
@@ -41,11 +42,12 @@ export class MGroupSummaryComponent implements OnInit {
     if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
       this.isAboveTen = true;
     } else if (value === 'SME_UPTO_TEN_MILLION' ||
-        value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
         value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isBelowTen = true;
     } else if (value === 'SANA_BYABASAYI') {
       this.isSana = true;
+    } else if (value === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwo = true;
     } else {
       this.isWholeSale = true;
     }

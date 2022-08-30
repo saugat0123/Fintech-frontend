@@ -44,12 +44,18 @@
     </li>
     <li class="libold">
         <p><strong>BACKGROUND OF CLIENT: </strong></p>
-        <app-customer-business-activity-or-backgrounds
-                *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
-                [customer]="loanDataHolder.customerInfo"
-                [loanHolder]="loanDataHolder.loanHolder"
-                [tagGuarantor]="loanDataHolder?.taggedGuarantors">
-        </app-customer-business-activity-or-backgrounds>
+        <ng-container *ngIf="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'; else other">
+            <app-customer-business-activity-or-backgrounds
+                    *ngIf="loanDataHolder.loanHolder || loanDataHolder.customerInfo"
+                    [customer]="loanDataHolder.customerInfo"
+                    [loanHolder]="loanDataHolder.loanHolder"
+                    [tagGuarantor]="loanDataHolder?.taggedGuarantors">
+            </app-customer-business-activity-or-backgrounds>
+        </ng-container>
+        <ng-template #other>
+            <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                              [loanHolder]="loanDataHolder?.loanHolder"></app-above-background-of-customer>
+        </ng-template>
     </li>
 
     <li class="libold">
@@ -146,18 +152,18 @@
                     [customerType]="loanDataHolder?.loanHolder?.customerType"></app-above-banking-arrangement-of-the-customer>
         </ol>
     </li>
+    <li class="libold">
+        <p><strong>RECOMMENDATION: </strong></p>
+        <app-retail-recommendation *ngIf="loanHolder && customerAllLoanList"
+                                   [loanDataHolder]="loanHolder"
+                                   [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
+    </li>
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p><strong>SECURITY DETAILS: {{loanDataHolder?.loanHolder?.security ? '' : ' NA'}}</strong></p>
         <app-retail-security *ngIf="loanDataHolder?.loanHolder?.security"
                              [loanDataHolder]="loanDataHolder"
                              [security]="loanDataHolder?.loanHolder?.security"></app-retail-security>
-    </li>
-    <li class="libold">
-        <p><strong>RECOMMENDATION: </strong></p>
-        <app-retail-recommendation *ngIf="loanHolder && customerAllLoanList"
-                                   [loanDataHolder]="loanHolder"
-                                   [customerAllLoanList]="customerAllLoanList"></app-retail-recommendation>
     </li>
     <li class="libold">
         <app-authority-section [loanDataHolder]="loanDataHolder"></app-authority-section>
