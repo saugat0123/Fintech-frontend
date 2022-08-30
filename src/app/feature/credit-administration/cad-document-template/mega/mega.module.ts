@@ -69,13 +69,14 @@ import { SupplementaryAgreementProprietorshipComponent } from './supplementary-a
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
 import { KaloSuchiBorrowerPgIndividualComponent } from './kalo-suchi-borrower-pg-individual/kalo-suchi-borrower-pg-individual.component';
-
 import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partnership/vehicle-loan-deed-partnership.component';
 import {KaloSuchiBorrowerPgPartnershipComponent} from './kalo-suchi-borrower-pg-partnership/kalo-suchi-borrower-pg-partnership.component';
 import { GeneralLetterOfHypothecationPartnershipComponent } from './general-letter-of-hypothecation-partnership/general-letter-of-hypothecation-partnership.component';
 import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import { VehicleLoanDeedProprietorshipComponent } from './vehicle-loan-deed-proprietorship/vehicle-loan-deed-proprietorship.component';
 import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-pg-proprietorship/kalo-suchi-borrower-pg-proprietorship.component';
+import { LetterOfContinuityIndividualComponent } from './letter-of-continuity-individual/letter-of-continuity-individual.component';
+
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -131,6 +132,7 @@ import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-
         VehicleLoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
         SupplementaryAgreementProprietorshipComponent,
+        LetterOfContinuityIndividualComponent,
 
     ],
     imports: [
@@ -194,7 +196,8 @@ import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-
         PromissoryNoteProprietorshipComponent,
         VehicleLoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
-        SupplementaryAgreementProprietorshipComponent
+        SupplementaryAgreementProprietorshipComponent,
+        LetterOfContinuityIndividualComponent,
     ],
 })
 
