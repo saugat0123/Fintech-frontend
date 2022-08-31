@@ -45,6 +45,7 @@
                               <tr class="sb-bg-dark text-white">
                                   <th>Particulars</th>
                                   <th>MV</th>
+                                  <th *ngIf="isVisible">GV</th>
                                   <th>FMV</th>
                                   <th>DV</th>
                               </tr>
@@ -52,6 +53,7 @@
                               <tr *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                                   <td>Land {{i+1}}</td>
                                   <td>{{(landDetails?.landConsideredValue | currencyFormatter) || 'NA'}}</td>
+                                  <td *ngIf="isVisible">{{(landDetails?.governmentValue | currencyFormatter) || 'NA'}}</td>
                                   <td>{{(landDetails?.marketValue | currencyFormatter) || 'NA'}}</td>
                                   <td>{{(landDetails?.distressValue | currencyFormatter) || 'NA'}}</td>
                               </tr>
@@ -102,6 +104,7 @@
                               <tr class="sb-bg-dark text-white">
                                   <th>Particulars</th>
                                   <th>MV</th>
+                                  <th *ngIf="isVisible">GV</th>
                                   <th>FMV</th>
                                   <th>DV</th>
                               </tr>
@@ -109,6 +112,7 @@
                               <tr *ngFor="let landBuilding of formData['initialForm']['landBuilding']; let i= index">
                                   <td>Land & Building {{i+1}}</td>
                                   <td>{{(landBuilding?.considerValue | currencyFormatter)|| 'NA'}}</td>
+                                  <td *ngIf="isVisible">{{(landBuilding?.buildingGovernmentValue | currencyFormatter) || 'NA'}}</td>
                                   <td>{{(landBuilding?.marketValue | currencyFormatter) || 'NA'}}</td>
                                   <td>{{(landBuilding?.distressValue | currencyFormatter) || 'NA'}}</td>
                               </tr>
