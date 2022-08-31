@@ -26,6 +26,8 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   isAboveTen = false;
   isBelowTen = false;
   isWholeSale = false;
+  isUptoTwoMillion = false;
+  isWithoutCollateral = false;
 
   constructor() { }
 
@@ -47,9 +49,12 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
     if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
       this.isAboveTen = true;
     } else if (value === 'SME_UPTO_TEN_MILLION' ||
-        value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
         value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isBelowTen = true;
+    } else if (value === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwoMillion = true;
+    } else if (value === 'AGRICULTURE_WITHOUT_COLLATERAL') {
+      this.isWithoutCollateral = true;
     } else {
       this.isWholeSale = true;
     }
