@@ -111,6 +111,7 @@
         <strong>14.2 Income to the Bank: </strong>
         <app-financial-view [formData]="loanDataHolder?.financial"
                             [data]="loanDataHolder?.financial"
+                            [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                             [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
     </li>
     <li class="font-weight-bold">

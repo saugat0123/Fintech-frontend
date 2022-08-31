@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-md-12 text-center" *ngIf="customerType === 'INDIVIDUAL'">
+    <div class="col-md-12 text-center"
+         *ngIf="customerType === 'INDIVIDUAL' || customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p><strong>Monthly Income / Expenditure Detail</strong></p> <br>
         <div class="row">
             <div class="col-md-6">
-                    <table class="table table-condensed table-bordered table-sm table-responsive-sm text-center table-sm sb-small"
-                           *ngIf="!isBusinessLoan">
+                    <table class="table table-condensed table-bordered table-sm table-responsive-sm text-center table-sm sb-small">
                         <thead>
                         <tr class="text-white sb-bg-dark">
                             <th>Monthly Income</th>
@@ -130,7 +130,7 @@
 
     </div>
 </div>
-<div class="col-md-12" *ngIf="customerType === 'INSTITUTION'">
+<div class="col-md-12" *ngIf="customerType === 'INSTITUTION' && customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
     <label>14.2.1 Income earned by the Bank: last 1 year/Avg. utilization FB limit/s: <strong>{{initialData?.initialForm?.utilization}} %</strong></label>
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
         <thead>

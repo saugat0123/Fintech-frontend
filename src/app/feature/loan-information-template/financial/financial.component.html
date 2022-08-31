@@ -1,360 +1,363 @@
 <form [formGroup]="financialForm" class="form-horizontal mb-2">
     <div>
-        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
-            <nb-card-header>
-                <h3><strong>Income of Borrower</strong></h3>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="row m-2">
-                    <em class="fa fa-info-circle"><em class="ml-2">Note : Remark can be income source detail or
-                        Type detail or any other description.</em></em>
-                </div>
-                <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
-                     class="border-bottom border-dark m-4"
-                     formArrayName="incomeOfBorrower">
-                    <div [formGroupName]="incomeIndex">
-                        <!-- START ROW -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="title"><strong>Income Source</strong></label><strong
-                                        class="text-danger">*</strong>
-                                    <ng-select formControlName="incomeSource"
-                                               [appendTo]="'body'">
-                                        <ng-option value="Salary Income">Salary Income</ng-option>
-                                        <ng-option value="Rental/Lease income from property">Rental/Lease income from property</ng-option>
-                                        <ng-option value="Vehicle Income">Vehicle Income</ng-option>
-                                        <ng-option value="Commission Income">Commission Income</ng-option>
-                                        <ng-option value="Self-professional practices">Self-professional practices</ng-option>
-                                        <ng-option value="Self-Medical practices">Self-Medical practices</ng-option>
-                                        <ng-option value="Freelance Consultancy">Freelance Consultancy</ng-option>
-                                        <ng-option value="Business Income">Business Income</ng-option>
-                                        <ng-option value="Foreign Employment">Foreign Employment/Remitance</ng-option>
-                                        <ng-option value="Agriculture Income">Agriculture Income</ng-option>
-                                        <ng-option value="Share Trading/ Dividend Income">Share Trading/ Dividend Income</ng-option>
-                                        <ng-option value="Pension Income">Pension Income</ng-option>
-                                        <ng-option value="Interest Income">Interest Income</ng-option>
-                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
-                                              class="text-danger small">Income source is required</span>
-                                    </ng-select>
+        <ng-container *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL
+            || customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+            <nb-card>
+                <nb-card-header>
+                    <h3><strong>Income of Borrower</strong></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div class="row m-2">
+                        <em class="fa fa-info-circle"><em class="ml-2">Note : Remark can be income source detail or
+                            Type detail or any other description.</em></em>
+                    </div>
+                    <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="incomeOfBorrower">
+                        <div [formGroupName]="incomeIndex">
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Income Source</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <ng-select formControlName="incomeSource"
+                                                   [appendTo]="'body'">
+                                            <ng-option value="Salary Income">Salary Income</ng-option>
+                                            <ng-option value="Rental/Lease income from property">Rental/Lease income from property</ng-option>
+                                            <ng-option value="Vehicle Income">Vehicle Income</ng-option>
+                                            <ng-option value="Commission Income">Commission Income</ng-option>
+                                            <ng-option value="Self-professional practices">Self-professional practices</ng-option>
+                                            <ng-option value="Self-Medical practices">Self-Medical practices</ng-option>
+                                            <ng-option value="Freelance Consultancy">Freelance Consultancy</ng-option>
+                                            <ng-option value="Business Income">Business Income</ng-option>
+                                            <ng-option value="Foreign Employment">Foreign Employment/Remitance</ng-option>
+                                            <ng-option value="Agriculture Income">Agriculture Income</ng-option>
+                                            <ng-option value="Share Trading/ Dividend Income">Share Trading/ Dividend Income</ng-option>
+                                            <ng-option value="Pension Income">Pension Income</ng-option>
+                                            <ng-option value="Interest Income">Interest Income</ng-option>
+                                            <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
+                                                  class="text-danger small">Income source is required</span>
+                                        </ng-select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="title"><strong>Amount (Monthly)</strong></label><strong
-                                        class="text-danger">*</strong>
-                                    <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
-                                           [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('amount').invalid}"
-                                           class="form-control" formControlName="amount"
-                                           placeholder="Amount (Monthly)" type="number">
-                                    <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Amount (Monthly)</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
+                                               [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('amount').invalid}"
+                                               class="form-control" formControlName="amount"
+                                               placeholder="Amount (Monthly)" type="number">
+                                        <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="title"><strong>Remarks</strong></label><strong
-                                        class="text-danger">*</strong>
-                                    <textarea rows="4" id="remarks" class="form-control" formControlName="remarks"
-                                              placeholder="Remarks"></textarea>
-                                    <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Remarks</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <textarea rows="4" id="remarks" class="form-control" formControlName="remarks"
+                                                  placeholder="Remarks"></textarea>
+                                        <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-1 ml-0 pl-0 mt-4">
-                                <button (click)="removeIncomeIndex(incomeIndex)"
-                                        *ngIf="financialForm.get('incomeOfBorrower')['controls'].length > 1"
-                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
-                                    <em class="fa fa-trash" style="color:white;"></em>
-                                </button>
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeIncomeIndex(incomeIndex)"
+                                            *ngIf="financialForm.get('incomeOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 pl-5">
-                        <label class="title"><strong>Total Income :
-                            Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong>Total Income :
+                                Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
-                               type="button" value="Add More"/>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
-        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
-            <nb-card-header>
-                <h3><strong>Expenses of Borrower</strong></h3>
-            </nb-card-header>
-            <nb-card-body>
-                <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
-                     class="border-bottom border-dark m-4"
-                     formArrayName="expensesOfBorrower">
-                    <div [formGroupName]="expenseIndex">
+                </nb-card-body>
+            </nb-card>
+            <nb-card>
+                <nb-card-header>
+                    <h3><strong>Expenses of Borrower</strong></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="expensesOfBorrower">
+                        <div [formGroupName]="expenseIndex">
 
-                        <!-- START ROW -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Particulars</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('particulars').invalid}"
-                                           formControlName="particulars" placeholder="Particulars"
-                                           type="text" class="form-control">
-                                    <span *ngIf="expensesOfBorrower.get('particulars').invalid"
-                                          class="invalid-feedback">Particulars is required</span>
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Particulars</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('particulars').invalid}"
+                                               formControlName="particulars" placeholder="Particulars"
+                                               type="text" class="form-control">
+                                        <span *ngIf="expensesOfBorrower.get('particulars').invalid"
+                                              class="invalid-feedback">Particulars is required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Amount (Monthly)</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
-                                           [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
-                                           formControlName="amount" placeholder="Amount (Monthly)"
-                                           type="number" class="form-control">
-                                    <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount is required</span>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Amount (Monthly)</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
+                                               [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
+                                               formControlName="amount" placeholder="Amount (Monthly)"
+                                               type="number" class="form-control">
+                                        <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount is required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title"><strong>Remarks</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('remarks').invalid}"
-                                           formControlName="remarks" placeholder="Remarks"
-                                           type="text" class="form-control">
-                                    <span *ngIf="expensesOfBorrower.get('remarks').invalid"
-                                          class="invalid-feedback">Remarks is required</span>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Remarks</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('remarks').invalid}"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text" class="form-control">
+                                        <span *ngIf="expensesOfBorrower.get('remarks').invalid"
+                                              class="invalid-feedback">Remarks is required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-1 ml-0 pl-0 mt-4">
-                                <button (click)="removeExpensesIndex(expenseIndex)"
-                                        *ngIf="financialForm.get('expensesOfBorrower')['controls'].length > 1"
-                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
-                                    <em class="fa fa-trash" style="color:white;"></em>
-                                </button>
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeExpensesIndex(expenseIndex)"
+                                            *ngIf="financialForm.get('expensesOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 pl-5">
-                        <label class="title"><strong> Total Expense :
-                            Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong> Total Expense :
+                                Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
-                               type="button" value="Add More"/>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
+                </nb-card-body>
+            </nb-card>
 
-        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
-            <nb-card-header>
-                <h3><strong>Existing Obligation at CCBL/Other Bank</strong></h3>
-            </nb-card-header>
-            <nb-card-body>
-                <div *ngFor="let data of financialForm.get('obligationAtOtherBank')['controls']; let obligationIndex = index"
-                     class="border-bottom border-dark m-4"
-                     formArrayName="obligationAtOtherBank">
-                    <div [formGroupName]="obligationIndex">
+            <nb-card>
+                <nb-card-header>
+                    <h3><strong>Existing Obligation at CCBL/Other Bank</strong></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let data of financialForm.get('obligationAtOtherBank')['controls']; let obligationIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="obligationAtOtherBank">
+                        <div [formGroupName]="obligationIndex">
 
-                        <!-- START ROW -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Particulars</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && data.get('obliParticulars').invalid}"
-                                           formControlName="obliParticulars" placeholder="Particulars"
-                                           type="text" class="form-control">
-                                    <span *ngIf="data.get('obliParticulars').invalid"
-                                          class="invalid-feedback">Particulars is required</span>
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Particulars</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{'is-invalid': submitted && data.get('obliParticulars').invalid}"
+                                               formControlName="obliParticulars" placeholder="Particulars"
+                                               type="text" class="form-control">
+                                        <span *ngIf="data.get('obliParticulars').invalid"
+                                              class="invalid-feedback">Particulars is required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Amount (Monthly)</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input #value (keyup)="setObligation(value)"
-                                           [ngClass]="{'is-invalid': submitted && data.get('obliAmount').invalid}"
-                                           formControlName="obliAmount" placeholder="Amount (Monthly)"
-                                           type="number" class="form-control">
-                                    <span *ngIf="data.get('obliAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Amount (Monthly)</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input #value (keyup)="setObligation(value)"
+                                               [ngClass]="{'is-invalid': submitted && data.get('obliAmount').invalid}"
+                                               formControlName="obliAmount" placeholder="Amount (Monthly)"
+                                               type="number" class="form-control">
+                                        <span *ngIf="data.get('obliAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title"><strong>Remarks</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && data.get('obliRemarks').invalid}"
-                                           formControlName="obliRemarks" placeholder="Remarks"
-                                           type="text" class="form-control">
-                                    <span *ngIf="data.get('obliRemarks').invalid"
-                                          class="invalid-feedback">Remarks is required</span>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Remarks</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{'is-invalid': submitted && data.get('obliRemarks').invalid}"
+                                               formControlName="obliRemarks" placeholder="Remarks"
+                                               type="text" class="form-control">
+                                        <span *ngIf="data.get('obliRemarks').invalid"
+                                              class="invalid-feedback">Remarks is required</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-1 ml-0 pl-0 mt-4">
-                                <button (click)="removeExpensesIndexObligation(obligationIndex)"
-                                        *ngIf="financialForm.get('obligationAtOtherBank')['controls'].length > 1"
-                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
-                                    <em class="fa fa-trash" style="color:white;"></em>
-                                </button>
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeExpensesIndexObligation(obligationIndex)"
+                                            *ngIf="financialForm.get('obligationAtOtherBank')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 pl-5">
-                        <label class="title"><strong> Total Monthly Obligation at CCBL/Other Bank :
-                            Rs.{{financialForm.get('totalExpenseObligation').value | currencyFormatter}}</strong></label>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong> Total Monthly Obligation at CCBL/Other Bank :
+                                Rs.{{financialForm.get('totalExpenseObligation').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addObligationAtOtherBank()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <input (click)="addObligationAtOtherBank()" class="btn btn-sm btn-flat btn-primary"
-                               type="button" value="Add More"/>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
-        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
-            <nb-card-header>
-                <h3><strong>EMI/Interest of Present Proposal</strong></h3>
-            </nb-card-header>
-            <nb-card-body>
-                <div *ngFor="let data of financialForm.get('emiInterest')['controls']; let emiIndex = index"
-                     class="border-bottom border-dark m-4"
-                     formArrayName="emiInterest">
-                    <div [formGroupName]="emiIndex">
+                </nb-card-body>
+            </nb-card>
+            <nb-card>
+                <nb-card-header>
+                    <h3><strong>EMI/Interest of Present Proposal</strong></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let data of financialForm.get('emiInterest')['controls']; let emiIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="emiInterest">
+                        <div [formGroupName]="emiIndex">
 
-                        <!-- START ROW -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Particulars</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && data.get('emiParticulars').invalid}"
-                                           formControlName="emiParticulars" placeholder="Particulars"
-                                           type="text" class="form-control">
-                                    <span *ngIf="data.get('emiParticulars').invalid"
-                                          class="invalid-feedback">Particulars is required</span>
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Particulars</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{'is-invalid': submitted && data.get('emiParticulars').invalid}"
+                                               formControlName="emiParticulars" placeholder="Particulars"
+                                               type="text" class="form-control">
+                                        <span *ngIf="data.get('emiParticulars').invalid"
+                                              class="invalid-feedback">Particulars is required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Amount (Monthly)</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input #value (keyup)="setObligation(value)"
+                                               [ngClass]="{'is-invalid': submitted && data.get('emiAmount').invalid}"
+                                               formControlName="emiAmount" placeholder="Amount (Monthly)"
+                                               type="number" class="form-control">
+                                        <span *ngIf="data.get('emiAmount').invalid" class="invalid-feedback">Amount is required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Remarks</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{'is-invalid': submitted && data.get('emiRemarks').invalid}"
+                                               formControlName="emiRemarks" placeholder="Remarks"
+                                               type="text" class="form-control">
+                                        <span *ngIf="data.get('emiRemarks').invalid"
+                                              class="invalid-feedback">Remarks is required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeExpensesIndexEmi(emiIndex)"
+                                            *ngIf="financialForm.get('emiInterest')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong> Total Monthly EMI/Interest of Present Proposal :
+                                Rs.{{financialForm.get('totalExpenseEmi').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addEmi()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="title"><strong>Amount (Monthly)</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input #value (keyup)="setObligation(value)"
-                                           [ngClass]="{'is-invalid': submitted && data.get('emiAmount').invalid}"
-                                           formControlName="emiAmount" placeholder="Amount (Monthly)"
-                                           type="number" class="form-control">
-                                    <span *ngIf="data.get('emiAmount').invalid" class="invalid-feedback">Amount is required</span>
-                                </div>
-                            </div>
+            <nb-card>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="totalNetMonthlyIncome"><strong>Total net uncommitted monthly income (UMI)</strong></label>
+                            <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
+                                   [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
+                                   placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title"><strong>Remarks</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && data.get('emiRemarks').invalid}"
-                                           formControlName="emiRemarks" placeholder="Remarks"
-                                           type="text" class="form-control">
-                                    <span *ngIf="data.get('emiRemarks').invalid"
-                                          class="invalid-feedback">Remarks is required</span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-1 ml-0 pl-0 mt-4">
-                                <button (click)="removeExpensesIndexEmi(emiIndex)"
-                                        *ngIf="financialForm.get('emiInterest')['controls'].length > 1"
-                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
-                                    <em class="fa fa-trash" style="color:white;"></em>
-                                </button>
+                            <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
+                                 class="invalid-feedback">Invalid Net Monthly Income
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 pl-5">
-                        <label class="title"><strong> Total Monthly EMI/Interest of Present Proposal :
-                            Rs.{{financialForm.get('totalExpenseEmi').value | currencyFormatter}}</strong></label>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <input (click)="addEmi()" class="btn btn-sm btn-flat btn-primary"
-                               type="button" value="Add More"/>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
 
-        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
-            <nb-card-body>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="totalNetMonthlyIncome"><strong>Total net uncommitted monthly income (UMI)</strong></label>
-                        <input class="form-control" formControlName="totalNetMonthlyIncome" id="totalNetMonthlyIncome"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalNetMonthlyIncome').invalid}"
-                               placeholder="Amount" readonly [value]="numberUtils.isNumber(form.totalIncome.value - form.totalExpense.value).toFixed(2)">
+                        <div class="col-md-4">
+                            <label for="emiWithProposal"><strong>EMI CCBL of present proposal</strong></label><strong
+                                class="text-danger">*</strong>
+                            <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
+                                   [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
+                                   [value]="totalEMICCBL()"
+                                   readonly placeholder="Include EMI of other BFIs" type="number"/>
+                            <div *ngIf="(submitted) && form.emiWithProposal.invalid"
+                                 class="invalid-feedback">
+                                Invalid EMI Amount
+                            </div>
+                        </div>
 
-                        <div *ngIf="(submitted) && form.totalNetMonthlyIncome.invalid"
-                             class="invalid-feedback">Invalid Net Monthly Income
+                        <div class="col-md-4">
+                            <label for="totalEMIInterest"><strong>UMI/TMO</strong></label>
+                            <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
+                                   [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
+                                   placeholder="Total EMI and Interest Expenses" readonly
+                                   [value]="totalEmiMonthlyGross()">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="emiNetMonthly"><strong>GI/TMO</strong></label>
+                            <input class="form-control" formControlName="emiNetMonthly" id="emiNetMonthly"
+                                   [ngClass]="{'is-invalid': submitted && financialForm.get('emiNetMonthly').invalid}"
+                                   placeholder="EMI / Net Monthly Income" readonly
+                                   [value]="totalEmiMonthlyGross()">
+                            <div *ngIf="(submitted) && form.emiNetMonthly.invalid"
+                                 class="invalid-feedback"> EMI / Net Monthly Income is required
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="existingObligationOtherBank"><strong>Existing Obligation at CCBL/Other Bank</strong></label>
+                            <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
+                                   [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
+                                   (change)="totalObligation()" readonly
+                                   placeholder="Amount" appDecimalNumber>
+                            <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
+                                 class="invalid-feedback">Invalid Existing Obligation at CCBL/Other Bank
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-md-4">
-                        <label for="emiWithProposal"><strong>EMI CCBL of present proposal</strong></label><strong
-                            class="text-danger">*</strong>
-                        <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"
-                               [value]="totalEMICCBL()"
-                               readonly placeholder="Include EMI of other BFIs" type="number"/>
-                        <div *ngIf="(submitted) && form.emiWithProposal.invalid"
-                             class="invalid-feedback">
-                            Invalid EMI Amount
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="totalEMIInterest"><strong>UMI/TMO</strong></label>
-                        <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
-                               placeholder="Total EMI and Interest Expenses" readonly
-                               [value]="totalEmiMonthlyGross()">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="emiNetMonthly"><strong>GI/TMO</strong></label>
-                        <input class="form-control" formControlName="emiNetMonthly" id="emiNetMonthly"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('emiNetMonthly').invalid}"
-                               placeholder="EMI / Net Monthly Income" readonly
-                               [value]="totalEmiMonthlyGross()">
-                        <div *ngIf="(submitted) && form.emiNetMonthly.invalid"
-                             class="invalid-feedback"> EMI / Net Monthly Income is required
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="existingObligationOtherBank"><strong>Existing Obligation at CCBL/Other Bank</strong></label>
-                        <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
-                               [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
-                               (change)="totalObligation()" readonly
-                               placeholder="Amount" appDecimalNumber>
-                        <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
-                             class="invalid-feedback">Invalid Existing Obligation at CCBL/Other Bank
-                        </div>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
-        <nb-card *ngIf="customerInfo?.customerType === customerType.INSTITUTION">
+                </nb-card-body>
+            </nb-card>
+        </ng-container>
+        <nb-card *ngIf="customerInfo?.customerType === customerType.INSTITUTION && customerInfo?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
             <nb-card-header>
                 <h3><strong>INCOME TO THE BANK</strong></h3>
             </nb-card-header>
