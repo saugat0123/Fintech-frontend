@@ -49,6 +49,71 @@
                     </table>
             </div>
         </div>
+
+<!--        income and expenditure of project/ business-->
+        <div *ngIf="customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+        <p><strong>Income / Expenditure Detail of Project/ Business</strong></p> <br>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-condensed table-sm table-bordered table-responsive-sm text-center table-sm sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th colspan="4">Expenditure</th>
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Details of Project materials/services</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let expenseOfProject of financialData['initialForm']['expenseOfProject'];">
+                        <td class="text-left pl-1">{{expenseOfProject?.projectParticulars}}</td>
+                        <td class="text-right pr-1">{{expenseOfProject?.projectQuantity}}</td>
+                        <td class="text-right pr-1">{{expenseOfProject?.projectRate}}</td>
+                        <td class="text-right pr-1">Rs. {{expenseOfProject?.projectAmount | currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><strong>Total Expense</strong></td>
+                        <td class="text-right pr-1" colspan="3">
+                            <strong>Rs. {{financialData['initialForm']['totalProjectExpense'] | currencyFormatter}}</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-condensed table-bordered table-sm table-responsive-sm text-center table-sm sb-small"
+                       *ngIf="!isBusinessLoan">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th colspan="4">Income</th>
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Details of Finished Product/service</th>
+                        <th>Quantity to be sold</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let incomeOfProject of financialData['initialForm']['incomeOfProject'];">
+                        <td class="text-left pl-1">{{incomeOfProject?.projectParticulars}}</td>
+                        <td class="text-right pr-1">{{incomeOfProject?.projectQuantity}}</td>
+                        <td class="text-right pr-1">{{incomeOfProject?.projectRate}}</td>
+                        <td class="text-right pr-1">Rs. {{incomeOfProject?.projectAmount | currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><b>Total Income </b></td>
+                        <td class="text-right pr-1" colspan="3">
+                            <b>Rs.{{ financialData['initialForm']['totalProjectIncome'] | currencyFormatter}}</b></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">

@@ -154,7 +154,8 @@
                     <div class="row col-md-4">
                         <div class="form-group">
                             <label class="title" for="governmentValue">Government Value</label>
-                            <input class="form-control rounded"
+                            <input (change)="updateLandSecurityTotal()"
+                                   class="form-control rounded"
                                    formControlName="governmentValue"
                                    id="governmentValue"
                                    placeholder="Government Value"
