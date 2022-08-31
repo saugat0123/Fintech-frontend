@@ -95,6 +95,7 @@ import {CustomerKycViewComponent} from '../../../loan-information-detail-view/cu
 import {
     CustomerNetWorthViewComponent
 } from '../../../loan-information-detail-view/customer-net-worth-view/customer-net-worth-view.component';
+import { DslWholesaleComponent } from './sme-loan-summary/dsl-wholesale/dsl-wholesale.component';
 
 
 const COMPONENTS = [
@@ -196,7 +197,8 @@ const ENTRY_COMPONENTS = [];
       RetailPurposeAndJustificationComponent,
       CustomerBusinessActivityOrBackgroundsComponent,
       CustomerKycViewComponent,
-      CustomerNetWorthViewComponent
+      CustomerNetWorthViewComponent,
+    DslWholesaleComponent
   ],
     imports: [
         CommonModule,
