@@ -10,7 +10,7 @@ describe('LoanDeedProprietorshipComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoanDeedProprietorshipComponent ]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

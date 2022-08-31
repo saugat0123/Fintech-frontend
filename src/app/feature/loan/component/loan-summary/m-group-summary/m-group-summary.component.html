@@ -1,24 +1,22 @@
-<ol>
+<ol [ngClass]="isUptoTwo ? 'marginLe' : ''">
     <div class="row">
         <div class="col-md-12">
             <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         </div>
-        <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION">
+        <div class="col-md-12" *ngIf="isAboveTen || isUptoTwo">
             <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
-                <thead>
                 <tr class="sb-bg-dark text-white">
                     <th>DETAIL INFORMATION</th>
                 </tr>
-                </thead>
                 <tbody>
                 <tr>
-                    <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.detailInformation) || 'NA' "></td>
+                    <td class="text-left pl-1 " [innerHTML]="mGroup?.detailInformation || 'NA' | safeHtml"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <li *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION || customerCategory === 'executing' || customerType === 'INDIVIDUAL'"
+    <li *ngIf="isBelowTen || isSana || customerCategory === 'executing' || (customerType === 'INDIVIDUAL' && !isUptoTwo)"
         class="font-weight-bold">
         <span> GROUP LIMIT {{groupPosition?.length > 0 ? '' : ': NA'}}</span>
         <div class="row">
@@ -92,7 +90,7 @@
         </div>
     </li>
 
-    <li *ngIf="customerCategory === customerCategoryType?.SANA_BYABASAYI" class="font-weight-bold">
+    <li *ngIf="isSana || isBelowTen" class="font-weight-bold">
         <span><strong> DETAIL OF SECURITY HELD FOR GROUP EXPOSURE</strong></span>
         <div class="row">
             <div class="col-md-12">

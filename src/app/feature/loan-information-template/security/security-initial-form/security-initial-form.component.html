@@ -43,18 +43,18 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="owner"><strong>Owner</strong></label>
-                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors || land.get('owner').invalid) }"
+                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land?.get('owner')?.errors || land?.get('owner')?.invalid) }"
                                        class="form-control form-control-sm-error rounded" formControlName="owner"
                                        id="owner" name="owner" placeholder="Owner Name" type="text" required/>
-                                <div *ngIf="(landSelected) && (land.get('owner').invalid)"
+                                <div *ngIf="(landSelected) && (land?.get('owner')?.invalid)"
                                      class="invalid-feedback">
-                                    <div *ngIf="land.get('owner').errors.required">
+                                    <div *ngIf="land?.get('owner')?.errors?.required">
                                         Owner name is required
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                     land.get('landConsideredValue').invalid) }"
                                        class="form-control"
                                        formControlName="landConsideredValue"
-                                       id="landConsideredValue" name="total" placeholder="Market Rate">
+                                       id="landConsideredValue" name="total" placeholder="Market Value">
                                 <div *ngIf="(landSelected) && (land.get('landConsideredValue').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="land.get('landConsideredValue').errors.required">
@@ -149,6 +149,18 @@
                                        name="distressValue"
                                        type="text"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="governmentValue">Government Value</label>
+                            <input (change)="updateLandSecurityTotal()"
+                                   class="form-control rounded"
+                                   formControlName="governmentValue"
+                                   id="governmentValue"
+                                   placeholder="Government Value"
+                                   name="governmentValue"
+                                   type="text"/>
                         </div>
                     </div>
                     <div class="row">
@@ -218,6 +230,50 @@
                                       type="text" maxlength="256"></textarea>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12" style="margin-left: -15px">
+                            <div class="form-group form-inline col-md-4">
+                                <nb-checkbox id="plantMachineryChecked{{i}}" class="ml-2"
+                                             formControlName="plantMachineryChecked"
+                                             (change)="plantMachineryCheck($event?.target.checked, 'landDetails', i)"
+                                             [checked]="land?.get('plantMachineryChecked')?.value">
+                                    Plant and Machinery
+                                </nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="land?.get('plantMachineryChecked').value">
+                        <div class="form-group col-md-3">
+                            <label>Model</label>
+                            <input class="form-control rounded" formControlName="plantMachineryModel"
+                                   id="plantMachineryModel"
+                                   name="plantMachineryModel" placeholder="Model Number"
+                                   type="text"/>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Market Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryMV"
+                                   name="plantMachineryMV" placeholder="Market Value"
+                                   type="number"/>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Fair Market Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryFMV"
+                                   name="plantMachineryFMV" placeholder="Fair Market Value"
+                                   type="number"/>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Distress Value</label>
+                            <input class="form-control rounded"
+                                   formControlName="plantMachineryDV"
+                                   name="plantMachineryDV" placeholder="Distress Value"
+                                   type="number"/>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group form-inline">
@@ -516,7 +572,7 @@
                         <div *ngIf="customerType === 'INSTITUTION'">
                             <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                             <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                            <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                            <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                         </div>
                         <ng-template #apartment>
                             <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
@@ -545,7 +601,6 @@
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                         <input [ngClass]="{'is-invalid': (apartmentSelected) && (building.get('buildArea').errors)}"
-                                               (input)="calculateBuildUpAreaRate(i, 'building')"
                                                class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="Build Up Area (Sq.ft)"
@@ -565,7 +620,7 @@
                                         <input class="form-control rounded" formControlName="totalCost"
                                                id="totalCost"
                                                name="totalCost" placeholder="Total Cost"
-                                               type="number" readonly/>
+                                               type="number"/>
                                     </div>
                                 </div>
 
@@ -646,7 +701,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div *ngIf="securityForm.get(['buildingDetails',i,'apartmentOtherBranchChecked']).value">
-                                        <div class="form-group">
+                                        <div class="form-group col-md-4">
                                             <label>Select Branch</label>
                                             <ng-select
                                                     (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
@@ -659,6 +714,50 @@
                                             </ng-select>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-inline">
+                                        <nb-checkbox id="landBuildingPlantMachineryChecked{{i}}" class="ml-2"
+                                                     formControlName="plantMachineryChecked"
+                                                     (change)="plantMachineryCheck($event?.target.checked, 'buildingDetails', i)"
+                                                     [checked]="building?.get('plantMachineryChecked')?.value">
+                                            Plant and Machinery
+                                        </nb-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="building?.get('plantMachineryChecked')?.value">
+                                <div class="form-group col-md-3">
+                                    <label>Model</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryModel"
+                                           id="landBuildingPlantMachineryModel"
+                                           name="plantMachineryModel" placeholder="Model Number"
+                                           type="text"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryMV"
+                                           name="plantMachineryMV" placeholder="Market Value"
+                                           type="number"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Fair Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryFMV"
+                                           name="plantMachineryFMV" placeholder="Fair Market Value"
+                                           type="number"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plantMachineryDV"
+                                           name="plantMachineryDV" placeholder="Distress Value"
+                                           type="number"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -1028,7 +1127,7 @@
                         <div *ngIf="customerType === 'INSTITUTION'">
                             <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                             <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                            <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                            <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                         </div>
 
                         <div class="row pt-2">
@@ -1097,38 +1196,6 @@
                                 <button class="btn btn-primary" (click)="addLocationDetail('landBuilding', i)">Add More</button>
                             </div>
                         <div class="row pt-2">
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label class="title" for="plotNumber">Plot-->
-<!--                                        No.</label>-->
-<!--                                    <input class="form-control rounded"-->
-<!--                                           [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('plotNumber').errors || landAndBuilding.get('plotNumber').invalid) }"-->
-<!--                                           formControlName="plotNumber"-->
-<!--                                           name="plotNumber" placeholder="Plot No."-->
-<!--                                           type="text"/>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label class="title" for="areaFormat">Area-->
-<!--                                        Format</label>-->
-<!--                                    <select class="form-control rounded"-->
-<!--                                            formControlName="areaFormat"-->
-<!--                                            name="areaFormat">-->
-<!--                                        <option [value]="null">Select Area Format</option>-->
-<!--                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label class="title" for="area">Area</label>-->
-<!--                                    <input class="form-control rounded"-->
-<!--                                           formControlName="area"-->
-<!--                                           name="area" placeholder="Area"-->
-<!--                                           type="text"/>-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="landConsideredValue">Land Market Value</label>
@@ -1144,6 +1211,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="marketValue">Land Fair Market Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="marketValue"
+                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('marketValue').errors)}"
+                                           name="marketValue"
+                                           placeholder="Fair Market Value"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="distressValue">Land Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="distressValue"
+                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('distressValue').errors)}"
+                                           name="distressValue"
+                                           placeholder="Distress Value"
+                                           type="text"/>
+                                </div>
+                            </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -1156,6 +1245,42 @@
                                             type="text"/>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="buildingConsideredValues">Building Market Value</label>
+                                    <input
+                                            class="form-control rounded"
+                                            formControlName="considerValue"
+                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('considerValue').errors)}"
+                                            id="buildingConsideredValues"
+                                            placeholder="Market Value"
+                                            name="considerValue"
+                                            type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="area">Building Fair Market Value
+                                    </label>
+                                    <input class="form-control rounded"
+                                           formControlName="totalCost"
+                                           name="totalCost" placeholder="Building Cost"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="distressValue">Building Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="buildingDistressValue"
+                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('buildingDistressValue').errors)}"
+                                           name="buildingDistressValue"
+                                           placeholder="Distress Value"
+                                           type="text"/>
+                                </div>
+                            </div>
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="title" for="area">Total building area
@@ -1188,61 +1313,15 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="area">Building Cost
-                                    </label>
-                                    <input class="form-control rounded"
-                                           formControlName="totalCost"
-                                           name="totalCost" placeholder="Building Cost"
-                                           type="number"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="marketValue">Fair Market Value</label>
-                                    <input class="form-control rounded"
-                                           formControlName="marketValue"
-                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('marketValue').errors)}"
-                                           name="marketValue"
-                                           placeholder="Fair Market Value"
-                                           type="number"/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="distressValue">Distress Value</label>
-                                    <input class="form-control rounded"
-                                           formControlName="distressValue"
-                                           [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('distressValue').errors)}"
-                                           name="distressValue"
-                                           placeholder="Distress Value"
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="governmentRate">Government Rate</label>
+                                    <label class="title" for="buildingGovernmentValue">Government Value</label>
                                     <input
                                             class="form-control rounded"
-                                            formControlName="governmentRate"
-                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('governmentRate').errors)}"
-                                            id="governmentRate"
-                                            placeholder="Rate"
+                                            formControlName="buildingGovernmentValue"
+                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('buildingGovernmentValue').errors)}"
+                                            id="buildingGovernmentValue"
+                                            placeholder="Government Value"
                                             name="landBuildingRate"
-                                            type="number" appDecimalNumber/>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="title" for="consideredValues">Market Rate</label>
-                                    <input
-                                            class="form-control rounded"
-                                            formControlName="considerValue"
-                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('considerValue').errors)}"
-                                            id="consideredValues"
-                                            placeholder="Market Rate"
-                                            name="considerValue"
-                                            type="number" appDecimalNumber/>
+                                            type="number"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1364,25 +1443,71 @@
                                           rows="5"
                                           type="text" maxlength="256"></textarea>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group form-inline">
-                                        <nb-checkbox id="ownerKycInfoForLandAndBuilding{{i}}" class="ml-2"
-                                                     formControlName="kycCheckForLandAndBuilding"
-                                                     (checkedChange)="ownerKycRelationInfoCheck(securityForm.get(['landBuilding', i,
-                                                      'kycCheckForLandAndBuilding']).value, 'land_building', i)">
-                                            <h6>Owner KYC Applicable</h6>
-                                        </nb-checkbox>
-                                    </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-inline">
+                                    <nb-checkbox id="landBuildingPlantMachineryChecked{{i}}" class="ml-2"
+                                                 formControlName="plantMachineryChecked"
+                                                 (change)="plantMachineryCheck($event?.target.checked, 'landBuilding', i)"
+                                                 [checked]="landAndBuilding?.get('plantMachineryChecked')?.value">
+                                        Plant and Machinery
+                                    </nb-checkbox>
                                 </div>
                             </div>
-                            <div class="form-group" *ngIf="securityForm.get(['landBuilding', i, 'kycCheckForLandAndBuilding']).value === true">
-                                <app-owner-kyc-applicable #ownerKycApplicableLandBuilding
-                                                          [data]="formDataForEdit?.landBuilding[i]?.ownerKycApplicableData"
-                                                          [calendarType]="calendarType"
-                                                          [kycId]="securityId.land_buildingId + i"></app-owner-kyc-applicable>
+                        </div>
+
+                        <div class="row" *ngIf="landAndBuilding?.get('plantMachineryChecked')?.value">
+                            <div class="form-group col-md-3">
+                                <label>Model</label>
+                                <input class="form-control rounded" formControlName="plantMachineryModel"
+                                       id="buildingPlantMachineryModel"
+                                       name="plantMachineryModel" placeholder="Model Number"
+                                       type="text"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Market Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="plantMachineryMV"
+                                       name="plantMachineryMV" placeholder="Market Value"
+                                       type="number"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Fair Market Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="plantMachineryFMV"
+                                       name="plantMachineryFMV" placeholder="Fair Market Value"
+                                       type="number"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Distress Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="plantMachineryDV"
+                                       name="plantMachineryDV" placeholder="Distress Value"
+                                       type="number"/>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-inline">
+                                    <nb-checkbox id="ownerKycInfoForLandAndBuilding{{i}}" class="ml-2"
+                                                 formControlName="kycCheckForLandAndBuilding"
+                                                 (checkedChange)="ownerKycRelationInfoCheck(securityForm.get(['landBuilding', i,
+                                                      'kycCheckForLandAndBuilding']).value, 'land_building', i)">
+                                        <h6>Owner KYC Applicable</h6>
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="securityForm.get(['landBuilding', i, 'kycCheckForLandAndBuilding']).value === true">
+                            <app-owner-kyc-applicable #ownerKycApplicableLandBuilding
+                                                      [data]="formDataForEdit?.landBuilding[i]?.ownerKycApplicableData"
+                                                      [calendarType]="calendarType"
+                                                      [kycId]="securityId.land_buildingId + i"></app-owner-kyc-applicable>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -1656,10 +1781,10 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="landConsideredValueConstruction">Market Rate</label>
+                                        <label for="landConsideredValueConstruction">Market Value</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
-                                               placeholder="Market Rate" type="number">
+                                               placeholder="Market Value" type="number">
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -1811,7 +1936,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -1829,7 +1954,25 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="quotation">Quotation/Valuation Amount</label>
+                                <label class="title" for="quotation">Quotation/Valuation Amount(MV)</label>
+                                <input class="form-control rounded" formControlName="quotationMV"
+                                       id="quotationMV"
+                                       name="quotationMV" placeholder="Quotation/Valuation Amount"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="quotationDv">Quotation/Valuation Amount(DV)</label>
+                                <input class="form-control rounded" formControlName="quotationDv"
+                                       id="quotationDv"
+                                       name="quotationDv" placeholder="Quotation/Valuation Amount"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="quotation">Quotation/Valuation Amount(FMV)</label>
                                 <input [ngClass]="{ 'is-invalid': (plantSelected) && (plant.get('quotation').errors ||
                                     plant.get('quotation').invalid) }"
                                        class="form-control rounded" formControlName="quotation"
@@ -2014,7 +2157,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-10">
@@ -2404,7 +2547,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -2615,9 +2758,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="consideredValue">Market Rate</label>
+                                    <label for="consideredValue">Market Value</label>
                                     <input class="form-control" formControlName="consideredValue"
-                                           id="consideredValue" name="total" placeholder="Market Rate" readonly>
+                                           id="consideredValue" name="total" placeholder="Market Value" readonly>
                                 </div>
                             </div>
                         </div>
@@ -2665,7 +2808,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -2856,7 +2999,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -2943,7 +3086,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -3022,7 +3165,7 @@
                     <div *ngIf="customerType === 'INSTITUTION'">
                         <nb-checkbox formControlName="forProposed"><b>For Proposed Security</b></nb-checkbox>
                         <nb-checkbox class="ml-2" formControlName="forExisting"><b>For Existing Security</b></nb-checkbox>
-                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>
+<!--                        <nb-checkbox class="ml-2" formControlName="existingAsProposed"><b>Use Existing as Proposed Security</b></nb-checkbox>-->
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -3129,9 +3272,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title">Market Rate</label>
+                                <label class="title">Market Value</label>
                                 <input class="form-control rounded" formControlName="consideredValue"
-                                       placeholder="Market Rate"
+                                       placeholder="Market Value"
                                        type="number"/>
                             </div>
                         </div>

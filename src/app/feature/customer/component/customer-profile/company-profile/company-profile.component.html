@@ -432,7 +432,11 @@
               </span></a>
         </nb-card-header>
         <nb-card-body>
-          <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
+          <app-proposal  [loan]="loan"
+                         [customerCategory]="customerInfo?.customerCategory"
+                         [fromProfile]="true"
+                         [customerInfo]="customerInfo"
+                         [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
         </nb-card-body>
       </nb-card>
     </ng-template>

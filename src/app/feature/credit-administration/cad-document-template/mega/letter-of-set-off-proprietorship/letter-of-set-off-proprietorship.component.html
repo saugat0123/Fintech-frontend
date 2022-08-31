@@ -1,0 +1,153 @@
+<div class="container nep text-justify ">
+
+    <form [formGroup]="letterOfSetOffProprietorship" class="nep" id="letterOfSetOffProprietorshipPrint">
+
+        <div class="form-group align">
+            <div class="logo-container print-only">
+                <div>
+                    <img height="60px" src="../../../../../assets/img/logo.png">
+                </div>
+            </div>
+            <h6 class="text-center">
+                <strong> <b><u>मोजरा पत्र <span class="timesNewRoman">(  Letter of  Set off  )</span></u></b> </strong>
+            </h6>
+            <div>
+                लिखितम् प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४ बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegistrationOffice" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('companyRegistrationOffice').value ? letterOfSetOffProprietorship.get('companyRegistrationOffice').value  : '========='}}</b></span>
+                कार्यालयमा मिति
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationIssuedDate" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('registrationIssuedDate').value ? letterOfSetOffProprietorship.get('registrationIssuedDate').value  : '========='}}</b></span>
+                मा दर्ता भई प्रा.फ.र.न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationNumber" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('registrationNumber').value ? letterOfSetOffProprietorship.get('registrationNumber').value  : '========='}}</b></span>
+                कायम भई
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="InstitutionRegisteredDistrict" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('InstitutionRegisteredDistrict').value ? letterOfSetOffProprietorship.get('InstitutionRegisteredDistrict').value  : '========='}}</b></span>
+                जिल्ला,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="InstitutionRegisteredMunicipality" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('InstitutionRegisteredMunicipality').value ? letterOfSetOffProprietorship.get('InstitutionRegisteredMunicipality').value  : '========='}}</b></span>
+                गा.वि.स/न.पा.वडा नं
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="InstitutionRegisteredWard" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('InstitutionRegisteredWard').value ? letterOfSetOffProprietorship.get('InstitutionRegisteredWard').value  : '========='}}</b></span>
+                ,स्थीत ठेगाना रहेको श्री
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerPersonName" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('borrowerPersonName').value ? letterOfSetOffProprietorship.get('borrowerPersonName').value  : '========='}}</b></span>
+                का प्रोप्राईटर
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonGrandfather" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonGrandfather').value ? letterOfSetOffProprietorship.get('authorizedPersonGrandfather').value  : '========='}}</b></span>
+                को नाती
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPerson').value ? letterOfSetOffProprietorship.get('authorizedPerson').value  : '========='}}</b></span>
+                /
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonFather').value ? letterOfSetOffProprietorship.get('authorizedPersonFather').value  : '========='}}</b></span>
+                को छोरा
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrict" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonDistrict').value ? letterOfSetOffProprietorship.get('authorizedPersonDistrict').value  : '========='}}</b></span>
+                जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonMunicipality" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonMunicipality').value ? letterOfSetOffProprietorship.get('authorizedPersonMunicipality').value  : '========='}}</b></span>
+                गा.बि.स./न.पा वडा नं
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonWard" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonWard').value ? letterOfSetOffProprietorship.get('authorizedPersonWard').value  : '========='}}</b></span>
+                बस्ने बर्ष
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonAge" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonAge').value ? letterOfSetOffProprietorship.get('authorizedPersonAge').value  : '========='}}</b></span>
+                को
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPerson1').value ? letterOfSetOffProprietorship.get('authorizedPerson1').value  : '========='}}</b></span>
+                आगे तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस पछि <b>धनी बैंक</b> भनिएको छ)
+                ले म/हाम्रो/ऋणीको अनुरोधमा म/हामी/ऋणीलाई ऋणकर्जा तथा बैकिङ सुबिधाको लागि <b>मिति </b>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementDate" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('agreementDate').value ? letterOfSetOffProprietorship.get('agreementDate').value  : '========='}}</b></span>
+                गतेको ऋण स्विकृति पत्रानुसार स्विकृत ऋणकर्जा तथा बैकिंग सुविधा जम्मा रु
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountToPay" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('amountToPay').value ? letterOfSetOffProprietorship.get('amountToPay').value  : '========='}}</b></span>
+                /–
+                <b>(अक्षरेपि </b>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountToPayInWords" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('amountToPayInWords').value ? letterOfSetOffProprietorship.get('amountToPayInWords').value  : '========='}}</b></span>
+                <b> रुपैयाँ मात्र)</b>
+                सम्मको विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु उपलब्ध गराउनु भए वापत सो ऋणकर्जा तथा बैकिङ सुविधाको चुक्ता
+                भुक्तानी प्रत्याभूति स्वरुप म/हाम्रो नाममा त्यस बैंकको जुन सुकै शाखा कार्यालयमा रहेको हरेक प्रकारको खाता नं.
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="accNum" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('accNum').value ? letterOfSetOffProprietorship.get('accNum').value  : '========='}}</b></span>
+                <b> खाता</b> र/वा मेरो/हाम्रो नाममा
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="accNumAnother" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('accNumAnother').value ? letterOfSetOffProprietorship.get('accNumAnother').value  : '========='}}</b></span>
+                <b> जारी भएको मुद्धति रसिद/राष्ट्रिय बचत पत्र/ट्रेजरी बिल नं.</b>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="TreasuryBillNum" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('TreasuryBillNum').value ? letterOfSetOffProprietorship.get('TreasuryBillNum').value  : '========='}}</b></span>
+                को स्वामित्व उपर तपाई धनी बैंकको ग्रहणाधिकार
+                <span class="timesNewRoman">(Lien)</span>
+                र/वा हकाधिकार हुने गरी यो मोजरा पत्र
+                <span class="timesNewRoman">(Letter of Set off)</span>
+                को लिखत गरी दिएको छु/छौं । कथमकदाचित म/हामी/ऋणीले तपाई धनी बैंकसग लिएको ऋणकर्जा तथा बैकिङ सुविधा वापत तपाई धनी बैंकलाई ति
+                र्न बुझाउन पर्ने रकम नबुझाई वा बुझाउन नसकि बाँकी रहेमा म/हाम्रो नाममा रहेको उल्लेखित जुनसुकै  (माथी बिबरण /खाता  न. भरीएको वा नभरीएको भएता पनी )
+                <b>खाताहरु/ मुद्धति रसिद/राष्ट्रिय बचत पत्र/ट्रेजरी बिल</b>
+                बाट रकम संकलन गरी/रकमान्तरण गरी/ बिक्रि गरी/ नामसारी गरी ऋणकर्जा तथा बैंकिङ सुविधाको साँवा ब्याज वापत समायोजन गरी त्यस्तो तिर्न बाँकी रकम राफसाफ वा हिसाव मिलान
+                <span class="timesNewRoman">(Set off)</span>
+                गर्न यसै मोजरा पत्रबाट तपाईं धनी बैंकलाई अख्तियारी दिएकाछौं । उपरोक्त <b>मुद्धति रसिद</b> नबिकरण गर्न र उक्त नबिकरण भएको मुद्धति रसिद
+                समेत उपर तपाई धनी बैंकको हकाधिकार कायम गर्न समेत म/हाम्रो मन्जूरी छ । उपरोक्त <b>राष्ट्रिय बचत पत्र/ट्रेजरी बिल</b>को अबधि समाप्त
+                <span class="timesNewRoman">(Maturity)</span>
+                भएको अवस्था वा ऋणकर्जा तथा बैकिङ सुविधाहरुको शर्तबन्देजहरु उलंघन भएको अवस्था मध्ये जुन पहिले हुन्छ सो अवस्थामा
+                <b>राष्ट्रिय बचत पत्र/ट्रेजरी बिल</b>को रकम संकलन गर्न/ बिक्रि गर्न/ नामसारी गर्न समेत यसै
+                लिखतबाट अख्तियारी दिएका छौं र प्राप्त अख्तियारी बमोजिम गराई लिएमा मेरो/हाम्रो मञ्जुरी छ । पछि स्पष्ट रुपमा धितो सुरक्षण
+                स्वरुप लेखि नदिएको खाताबाट रकम संकलन गरी/रकमान्तरण गरी/ मुद्धति रसिद/राष्ट्रिय बचत पत्र/ट्रेजरी
+                बिलबाट हिसाव मिलान गरी ऋणकर्जा तथा बैंकिह् सुविधाको साञवा व्याज असुल उपर गर्न मुद्धति रसिद नबिकरण गर्न मिल्ने होइन भन्ने समेत
+                कुनै किसिमको उजूर बाजूर गर्ने छैन/छैनौं, गरे यसै मोजरा पत्र
+                <span class="timesNewRoman">(Letter of Set off)</span>
+                ले बदर गराई लिनु होला । यस लिखत अन्तर्गत हाम्रो दायित्व म/हामी/ऋणीले यस अघि लिएको र/वा म/हामी/ऋणीले तपाई धनी बैंकको उपरोक्त
+                ऋण स्वीकृती पत्रमा उल्लेख गरे बमोजिम हाल लिएको वा भविष्यमा लिने ऋणकर्जा तथा बैकिङ सुविधा (सो ऋणकर्जा तथा बैकिह् सुविधा नवीकरण
+                भएको अवस्थामा नवीकरण गर्ने ऋण स्वीकृती पत्रमा उल्लेख गरे बमोजिम म/हामी/ऋणीले लिने ऋणकर्जा तथा बैकिङ सुविधा) पूर्ण रुपमा चुक्ता
+                भुक्तान नभएसम्म कायम रहने कुरामा र यस लिखत अन्तर्गत एकभन्दा बढी व्यक्तिले मोजरा पत्र दिएको अवस्थामा त्यस्ता मोजरा पत्र दिने
+                व्यक्तिहरुको तपाईं धनी बैंक प्रतिको दायित्व व्यक्तिगत वा सामूहिक
+                <span class="timesNewRoman">joint or several</span>
+                हुने कुरामा समेत म/हाम्रो पूर्ण मन्जुरी छ भनी म/हाम्रो मनोमान राजीखुसीका साथ देहाय बमोजिमका साक्षीहरुको रोहवरमा यो मोजरा पत्रमा
+                सहीछाप गरी तपाई धनी सेञ्चुरी कमर्सियल   बैक लिमिटेड, लाई दिएँ/दियौं ।
+                <br>
+            </div>
+        </div>
+            <br>
+            <p style="padding-left: 690px;"><b>कारणी /ऋणी</b></p>
+            <div>
+                <div style="padding-left: 600px;">
+                    श्री
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="nameOfBorrower" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('nameOfBorrower').value ? letterOfSetOffProprietorship.get('nameOfBorrower').value  : '========='}}</b></span>
+                    का प्रोप्राईटर
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonTwo" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonTwo').value ? letterOfSetOffProprietorship.get('authorizedPersonTwo').value  : '========='}}</b></span>
+                </div>
+                <br>
+                <p style="padding-left: 100px;">साक्षि :</p>
+                १.
+                <br><br>
+                २.
+                <br>
+                इति सम्बत २०
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementYear" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('agreementYear').value ? letterOfSetOffProprietorship.get('agreementYear').value  : '========='}}</b></span>
+                साल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementMonth" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('agreementMonth').value ? letterOfSetOffProprietorship.get('agreementMonth').value  : '========='}}</b></span>
+                महिना
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementDate1" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('agreementDate1').value ? letterOfSetOffProprietorship.get('agreementDate1').value  : '========='}}</b></span>
+                गते रोज
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementTime" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('agreementTime').value ? letterOfSetOffProprietorship.get('agreementTime').value  : '========='}}</b></span>
+                शुभम ।
+            </div>
+
+
+            <div class="row disable-print">
+                <div class="col-md-12 text-right">
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="letterOfSetOffProprietorshipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="letterOfSetOffProprietorshipPrint" class="mr-2 custom-color" >Print</button>
+                    <button nbButton status="success" (click)="submit()">Save</button>
+                </div>
+            </div>
+    </form>
+</div>

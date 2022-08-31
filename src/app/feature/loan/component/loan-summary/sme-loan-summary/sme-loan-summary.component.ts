@@ -1,5 +1,5 @@
 import {DOCUMENT} from '@angular/common';
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild,} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -194,6 +194,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   isUpToTenMillion = false;
   isDetailedView = false;
   isSaneView = false;
+  isDslWholesale = false;
   radioSelected: any;
   viewName = ['Sana Byabasahi Karja', 'Upto Ten Million', 'Above Ten Million'];
   tempData;
@@ -204,13 +205,14 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
   ccblData: any;
   fixedAssetsData = [];
-  siteVisitJson = [];
   isExecutive = false;
 
   @Input() crgTotalRiskScore: any;
   data;
   approveAuth;
   spinner = false;
+  lastDateOfInspection;
+  isUptoTwoMillion = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -253,20 +255,17 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.companyInfo = this.loanData.companyInfo;
       this.tempData = JSON.parse(this.companyInfo.companyJsonData);
     }
-    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
-      this.isSaneView = true;
-      this.isDetailedView = true;
-    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
-      this.isUpToTenMillion = true;
-      this.isDetailedView = true;
-    } else {
-      this.isAboveTenMillion = true;
-      this.isDetailedView = true;
-    }
+    this.checkCustomerCategoryForDetailView();
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+      const data = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+      if (data.currentResidentFormChecked) {
+        this.lastDateOfInspection = data.currentResidentDetails[data.currentResidentDetails.length - 1].dateOfVisit;
+      }
+    }
 
   }
 
@@ -886,36 +885,36 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  detailViewCheck() {
-    this.ngxSpinner.show();
-    if (this.isDetailedView) {
-      this.isDetailedView = false;
-      this.isSaneView = false;
-      this.isAboveTenMillion = false;
-      this.isUpToTenMillion = false;
-      this.spinner = false;
-      this.ngxSpinner.hide();
-    } else {
+  checkCustomerCategoryForDetailView() {
+    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_ABOVE_TEN_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+      this.isAboveTenMillion = true;
       this.isDetailedView = true;
-      if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SANA_BYABASAYI') {
-        this.isSaneView = true;
-      } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION') {
-        this.isUpToTenMillion = true;
-      } else {
-        this.isAboveTenMillion = true;
-      }
-      this.spinner = false;
-      this.ngxSpinner.hide();
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
+      this.isDslWholesale = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+      this.isUpToTenMillion = true;
+      this.isDetailedView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwoMillion = true;
+    } else {
+      this.isSaneView = true;
+      this.isDetailedView = true;
     }
   }
 
   getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    const collateral = {
+      securityName: null,
+      collateralData: null,
+    };
     this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
         .subscribe((response: any) => {
           if (response.detail.length > 0) {
-            response.detail.forEach(rd => {
-              this.fixedAssetsData.push(rd);
-            });
+            collateral.securityName = securityName;
+            collateral.collateralData = response.detail;
+            this.fixedAssetsData.push(collateral);
           }
         }, error => {
           console.error(error);

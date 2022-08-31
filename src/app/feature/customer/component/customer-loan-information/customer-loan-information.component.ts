@@ -71,7 +71,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     public financialComponent: FinancialComponent;
     @ViewChild('itemFinancial', {static: false})
     private itemFinancial: NbAccordionItemComponent;
-    @ViewChild('CrgComponent', {static: false})
+    @ViewChild('CrgIndividualComponent', {static: false})
     public CrgComponent: CreditGradingComponent;
     @ViewChild('itemCrg', {static: false})
     private itemCrg: NbAccordionItemComponent;
@@ -178,7 +178,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     reviewDate;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S. No.</th><th scope="col">Details of Waivers and Deviation</th><th scope="col">Justification for Waiver</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
     fundedNonFunded: FormGroup;
-
+    isAgri = false;
+    category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION'];
 
     constructor(
         private toastService: ToastService,
@@ -198,6 +199,12 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.ckeConfig = Editor.CK_CONFIG;
         this.buildFundedNonFunded();
+        for (const cat of this.category) {
+            if (this.customerInfo.customerCategory === cat) {
+                this.isAgri = true;
+                break;
+            }
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.withInData)) {
             this.fundedNonFunded.patchValue(JSON.parse(this.customerInfo.withInData));
         }
@@ -282,6 +289,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.checkCrgGamma = true;
             }
         }
+
     }
     buildFundedNonFunded() {
         this.fundedNonFunded = this.formBuilder.group({
@@ -954,5 +962,37 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     refreshCustomerData(event: boolean) {
         this.triggerCustomerRefresh.emit(event);
         this.nbDialogRef.close();
+    }
+
+    saveCrgChecklist(crgData: any) {
+        this.spinner.show();
+        this.customerInfo.crgChecklist = crgData;
+        this.customerInfoService.save(this.customerInfo)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CRG Checklist!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save CRG Checklist!'));
+            });
+    }
+
+    saveCrgLongChecklist(crgLongData: any) {
+        this.spinner.show();
+        this.customerInfo.crgLongChecklist = crgLongData;
+        this.customerInfoService.save(this.customerInfo)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CRG Checklist!'));
+                this.nbDialogRef.close();
+                this.triggerCustomerRefresh.emit(true);
+                this.spinner.hide();
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save CRG Checklist!'));
+            });
     }
 }

@@ -1,0 +1,188 @@
+<div class="container nep text-justify nepaliFont">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+            <form (ngSubmit)="submit()" [formGroup]="supplementaryAgreementCompany" class="nepali"
+                  id="supplementaryAgreementCompanyPrint">
+                <div class="nep">
+                    <div>
+                        <div class="text-left mt-5">
+                            <p><strong>मिति : <input class="form-field form-control-sm nepaliFont disable-print"
+                                                     formControlName="date"
+                                                     placeholder=""
+                                                     type="text" size="10"/><span
+                                    class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('date').value ? supplementaryAgreementCompany.get('date').value : '========='}}</strong></span>
+                            </strong><br>
+                                श्री सेञ्चुरी कमर्सियल बैंक लिमिटेड<br>
+                                शाखा कार्यालय
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="branch"
+                                       placeholder=""
+                                       type="text"/><span
+                                        class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('branch').value ? supplementaryAgreementCompany.get('branch').value : '========='}}</strong></span>
+                            </p>
+                            <br>
+                            <p class="text-center">
+                                <strong>बिषयः <U>पूरक सम्झौता (Supplementary Agreement)</U> ।</strong>
+                            </p>
+                            महोदय,
+                        </div>
+                        <br>
+                        <p>
+                            म / हामी कम्पनी ऐन
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="companyAct"
+                                   placeholder=""
+                                   type="text" size="4"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('companyAct').value ? supplementaryAgreementCompany.get('companyAct').value : '========='}}</strong></span>
+                            बमोजिम नेपाल सरकार उद्योग मन्त्रालय
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="companyRegistrationOffice"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('companyRegistrationOffice').value ? supplementaryAgreementCompany.get('companyRegistrationOffice').value : '========='}}</strong></span>
+                            को कार्यालयमा मिति
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="registrationIssuedDate"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('registrationIssuedDate').value ? supplementaryAgreementCompany.get('registrationIssuedDate').value : '========='}}</strong></span>
+                            मा दर्ता भई दर्ता नं
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="registrationNo"
+                                   placeholder=""
+                                   type="text" size="5"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('registrationNo').value ? supplementaryAgreementCompany.get('registrationNo').value : '========='}}</strong></span>
+                            कायम भई,
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="companyDistrict"
+                                   placeholder=""
+                                   type="text"/>
+                            <span class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('companyDistrict').value ? supplementaryAgreementCompany.get('companyDistrict').value : '========='}}</strong></span>
+                            जिल्ला
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="companyMunicipalityVDC"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('companyMunicipalityVDC').value ? supplementaryAgreementCompany.get('companyMunicipalityVDC').value : '========='}}</strong></span>
+                            गा.वि.स/न.पा वडा नं
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="companyWardNo"
+                                   placeholder=""
+                                   type="text" size="3"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('companyWardNo').value ? supplementaryAgreementCompany.get('companyWardNo').value : '========='}}</strong></span>
+                            स्थित रजिष्टर्ड ठेगाना रहेको
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="borrowerName"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('borrowerName').value ? supplementaryAgreementCompany.get('borrowerName').value : '========='}}</strong></span>
+                            को तर्फबाट अख्तियार प्राप्त ऐको संचालक / प्रतिनिधि श्री
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="authorizedPersonName"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('authorizedPersonName').value ? supplementaryAgreementCompany.get('authorizedPersonName').value : '========='}}</strong></span>
+                            ले मिति
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="date2"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('date2').value ? supplementaryAgreementCompany.get('date2').value : '========='}}</strong></span>
+                            मा त्यस बैंकको पक्षमा मेरो र हाम्रो श्री सम्पत्ति धितो सुरक्षण लेखिदिएको मालसामान तथा
+                            मौज्दातको हाइपोथिकेशन (Hypothecation of Goods and Stock) को सन्दर्भमा सोही हाइपोथिकेशनको
+                            अभिन्न अंगको रुपमा रहने गरी यो पूरक सम्झौता गरीदिएका छौं ।
+                        </p>
+                        <br>
+                        <p>
+                            तहांले हाम्रो नाममा जारी गरेको मिति
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="offerLetterIssuedDate"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('offerLetterIssuedDate').value ? supplementaryAgreementCompany.get('offerLetterIssuedDate').value : '========='}}</strong></span>
+                            को ऋण स्वीकृति पत्रअनुसार म र हामीले
+                            <strong>रु
+                                <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                                  [name]="patchFunction('amount')"
+                                                  class="disable-print"></app-custom-input>
+                                <span class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('amount').value ? supplementaryAgreementCompany.get('amount').value : '========='}}</strong></span>
+                                <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                <input class="form-field form-control-sm nepaliFont disable-print col-3"
+                                       formControlName="amountInWords"
+                                       placeholder=""
+                                       type="text"/><span class="print-only nepaliFont"
+                                                          style="font-size: 20px;"><strong>{{supplementaryAgreementCompany.get('amountInWords').value ? supplementaryAgreementCompany.get('amountInWords').value : '========='}}</strong></span>
+                                मात्र<span class="timesNewRoman">)</span>
+                            </strong>
+                            उपयोग / उपभोग गरेको ठिक सांचो हो, र उक्त ऋणकर्जा उपयोग र उपभोग गरे वापत माथि उल्लेखित
+                            मालसामान तथा मौज्दातको हाइपोथिकेशन वा मिति
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="date3"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('date3').value ? supplementaryAgreementCompany.get('date3').value : '========='}}</strong></span>
+                            मा गरीदिएको न्यासमा सामान बुझीलिने गोश्वारा पत्र (General Letter of Trust Receipt) मा
+                            उल्लेखित शर्तबन्देज अनुरुप मेरो / हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="receiptNo"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('receiptNo').value ? supplementaryAgreementCompany.get('receiptNo').value : '========='}}</strong></span>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="receiptDate"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('receiptDate').value ? supplementaryAgreementCompany.get('receiptDate').value : '========='}}</strong></span>
+                            को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा
+                            उल्लेखित सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका छौं :
+                        </p>
+                        <br/>
+                        <p><strong><U>सुरक्षणमा रहेको सामानको विवरण</U></strong></p>
+
+                        <p>
+                            १. <input class="form-field form-control-sm nepaliFont disable-print"
+                                      formControlName="itemDetails"
+                                      placeholder=""
+                                      type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('itemDetails').value ? supplementaryAgreementCompany.get('itemDetails').value : '========='}}</strong></span>
+                            <br>
+                            <br>
+                            २. <input class="form-field form-control-sm nepaliFont disable-print"
+                                      formControlName="itemDetails2"
+                                      placeholder=""
+                                      type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('itemDetails2').value ? supplementaryAgreementCompany.get('itemDetails2').value : '========='}}</strong></span>
+                        </p>
+                        <div class="col-sm-3 float-right">
+                            <table>
+                                <tr>
+                                    <td><span class="timesNewRoman">----------------------</span></td>
+                                </tr>
+                                <tr>
+                                    <td>अधिकृत दस्तखत</td>
+                                </tr>
+                                <tr>
+                                    <td>छापः</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="clear:right;"></div>
+                    </div>
+                </div>
+                <div class="row disable-print">
+                    <div class="col-md-12 text-right">
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                                printSectionId="supplementaryAgreementCompanyPrint" (click)="submit()" class="mr-2"
+                                status="basic">Save & Print
+                        </button>
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                                printSectionId="supplementaryAgreementCompanyPrint" class="mr-2 custom-color">Print
+                        </button>
+                        <button nbButton status="success" (click)="submit()">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="container nep text-justify nepaliFont">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+            <form (ngSubmit)="submit()" [formGroup]="manjurinamaForGadiNamasariCompany" class="nepali" id="manjurinamaForGadiNamasariCompanyPrint">
+                <div class="nep">
+                    <div>
+                        <br>
+                        <p class="text-right"><strong>मिति : <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="date"
+                                   placeholder=""
+                                   type="text" size="10"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariCompany.get('date').value ? manjurinamaForGadiNamasariCompany.get('date').value  : '========='}}</strong></span>
+                        </strong></p>
+                        <div class="text-left mt-5">
+                            श्रीमान् प्रमुखज्यू <br>
+                            कर्जा विभाग <br>
+                            सेञ्चुरी कमर्सियल  बैक लि<span class="timesNewRoman">.</span> <br>
+                            पुतलीसडक, काठमाण्डौं ।<br>
+                            <p class="text-center">
+                                बिषयः गाडि बिक्रि वा नामसारी गरिदिने मञ्जुरी सम्बन्धमा ।
+                            </p>
+                            महोदय,
+                        </div>
+                        <p>
+                            उपरोक्त सम्बन्धमा मैले/हामी/कम्पनीले त्यस बैंकबाट हायरपर्चेज कर्जाको धितो सुरक्षण वापत रहेको धनी त्यस बैंक र ऋणी मेरो/हाम्रो नाम कायम भएको तपसिल मबोजिमको गाडी संग सम्बन्धीत ऋणकर्जाको समय
+                            समयमा तिर्नु बुझाउनु पर्ने किस्ता रकम तथा सो कर्जाको व्याज बैंकले तोकेको समयमा भुक्तानी नगरेमा वा बैंकको कर्जा चुक्ता भुक्तान गर्न बैकको ताकेता पत्रहरु प्राप्त भई वास्ता नगरी कर्जा चुक्ता भुक्तान नगरेमा,
+                            धनि त्यस बैंक भई म/हामी ऋणी कायम रहेको उल्लेखित गाडि तपाई धनी बैंकले अन्य कसैलाई बिक्रि गरेमा वा ऋणी परिवर्तन गरेमा मेरा/हाम्रो सहमती रहेको व्यहोरा जानकारी गराउँदछु/छौं । पछि यस बिषयमा
+                            कहिं कतै उजूरबाजूर गर्ने छैन/छैनौं गरे यसै कागजले बदर होस भनि यो मञ्जुरीनामाको कागज लेखि तपाई धनि बैंकलाई दिएं/दियौं ।
+                        </p>
+                        <br/>
+                        <p class="text-center"><strong><U>तपसिल</U></strong></p>
+
+                        <table class="table-borderless" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>च्यासिस नं<span class="timesNewRoman">.</span></th>
+                                <th>ई<span class="timesNewRoman">.</span>नं<span class="timesNewRoman">.</span></th>
+                                <th>सवारी दर्ता नं<span class="timesNewRoman">.</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="chasisNo"
+                                           placeholder=""
+                                           type="text" size="5"/>
+                                    <span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariCompany.get('chasisNo').value ? manjurinamaForGadiNamasariCompany.get('chasisNo').value  : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="engineNo"
+                                           placeholder=""
+                                           type="text" size="5"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariCompany.get('engineNo').value ? manjurinamaForGadiNamasariCompany.get('engineNo').value  : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="vehicleRegistrationNo"
+                                           placeholder=""
+                                           type="text" size="7"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariCompany.get('vehicleRegistrationNo').value ? manjurinamaForGadiNamasariCompany.get('vehicleRegistrationNo').value  : '========='}}</strong></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+                        <div class="col-sm-3 float-right">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td class="align-bottom" style=" text-align: center; height: 10rem;">मन्जुरीनामा दिने</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br>
+                        <div style="clear:right;">
+                            <p class="text-center"><strong>
+                                श्री
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="borrowerName"
+                                       placeholder=""
+                                       type="text"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariCompany.get('borrowerName').value ? manjurinamaForGadiNamasariCompany.get('borrowerName').value  : '========='}}</strong></span>
+                                को तर्फबाट अख्तियार प्राप्त ऐ.को संचालक/प्रतिनिधि श्री
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="authorizedPersonName"
+                                       placeholder=""
+                                       type="text"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariCompany.get('authorizedPersonName').value ? manjurinamaForGadiNamasariCompany.get('authorizedPersonName').value  : '========='}}</strong></span>
+                            </strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row disable-print">
+                    <div class="col-md-12 text-right">
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="manjurinamaForGadiNamasariCompanyPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                        <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="manjurinamaForGadiNamasariCompanyPrint" class="mr-2 custom-color" >Print</button>
+                        <button nbButton status="success" (click)="submit()">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+<div class="container nep text-justify">
+    <div class="row">
+        <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
+            <form (ngSubmit)="submit()" [formGroup]="promissoryNotePartnership" class="nepali" id="promissoryNotePartnershipPrint">
+                <div class="nep">
+                    <div>
+
+                        <p class="text-center" style="font-size:24pt;"><b>प्रतिज्ञा पत्र</b></p>
+                        <p class="text-center" style="font-size:24pt;"><b>(PROMISSORY NOTE)</b></p>
+
+                        <p class="box-border">रु <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                                                   [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
+                            <span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('amount').value ?  promissoryNotePartnership.get('amount').value  : '========='}}</b></span>
+                            (अक्षरेपी <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                             formControlName="amountInWords"
+                                             placeholder=""
+                                             type="text"/><span class="print-only preetiFont size16"><b>{{ promissoryNotePartnership.get('amountInWords').value ?  promissoryNotePartnership.get('amountInWords').value  : '========='}}</b></span> मात्र ।)</p>
+                        <p>
+                            लिखितम् साझेदारी ऐन २०२० बमोजिम नेपाल सरकार उद्योग मन्त्रालय बाणिज्य विभाग <input class="form-field form-control-sm nepaliFont disable-print"
+                                                                       formControlName="ministry"
+                                                                       placeholder=""
+                                                                       type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('ministry').value ?  promissoryNotePartnership.get('ministry').value  : '========='}}</b></span>
+                            कार्यालयमा मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="date1"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('date1').value ?  promissoryNotePartnership.get('date1').value  : '========='}}</b></span>
+                            मा दर्ता भई दर्ता सा.फ.र.न <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="registrationNo"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('registrationNo').value ?  promissoryNotePartnership.get('registrationNo').value  : '========='}}</b></span>
+                            कायम भई, <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="district"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('district').value ?  promissoryNotePartnership.get('district').value  : '========='}}</b></span>
+                            जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="branch"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('branch').value ?  promissoryNotePartnership.get('branch').value  : '========='}}</b></span>
+                            गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="wardNo"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('wardNo').value ?  promissoryNotePartnership.get('wardNo').value  : '========='}}</b></span>
+                            स्थित रजिष्टर्ड ठेगाना रहेको श्री <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="borrowerNameInNepali"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('borrowerNameInNepali').value ?  promissoryNotePartnership.get('borrowerNameInNepali').value  : '========='}}</b></span>
+                            का साझेदारहरु <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="grandParents"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('grandParents').value ?  promissoryNotePartnership.get('grandParents').value  : '========='}}</b></span>
+                            को नाती <input class="form-field form-control-sm nepaliFont disable-print"
+                                          formControlName="parents"
+                                          placeholder=""
+                                          type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('parents').value ?  promissoryNotePartnership.get('parents').value  : '========='}}</b></span>
+                            को छोरा <input class="form-field form-control-sm nepaliFont disable-print"
+                            formControlName="district"
+                            placeholder=""
+                            type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('district').value ?  promissoryNotePartnership.get('district').value  : '========='}}</b></span>
+                            जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="permanentMunicipalityVDC"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('permanentMunicipalityVDC').value ?  promissoryNotePartnership.get('permanentMunicipalityVDC').value  : '========='}}</b></span>
+                            गा.बि.स./न.पा वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                                        formControlName="wardNo"
+                                                        placeholder=""
+                                                        type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('wardNo').value ?  promissoryNotePartnership.get('wardNo').value  : '========='}}</b></span>
+                            बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print"
+                                      formControlName="date2"
+                                      placeholder=""
+                                      type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('date2').value ?  promissoryNotePartnership.get('date2').value  : '========='}}</b></span>
+                            को <input class="form-field form-control-sm nepaliFont disable-print"
+                                      formControlName="nameOfAuthorizedPerson"
+                                      placeholder=""
+                                      type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('nameOfAuthorizedPerson').value ?  promissoryNotePartnership.get('nameOfAuthorizedPerson').value  : '========='}}</b></span>
+                            .१, र रु <input class="form-field form-control-sm nepaliFont disable-print"
+                                        formControlName="grandParents"
+                                        placeholder=""
+                                        type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('grandParents').value ?  promissoryNotePartnership.get('grandParents').value  : '========='}}</b></span>
+                            को नाती <input class="form-field form-control-sm nepaliFont disable-print"
+                                      formControlName="parents"
+                                      placeholder=""
+                                      type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('parents').value ?  promissoryNotePartnership.get('parents').value  : '========='}}</b></span>
+                            को छोरा <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="district"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('district').value ?  promissoryNotePartnership.get('district').value  : '========='}}</b></span>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                                         formControlName="district"
+                                         placeholder=""
+                                         type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('district').value ?  promissoryNotePartnership.get('district').value  : '========='}}</b></span>
+                            गा.बि.स./न.पा वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="wardNo"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('wardNo').value ?  promissoryNotePartnership.get('wardNo').value  : '========='}}</b></span>
+                            बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="district"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('district').value ?  promissoryNotePartnership.get('district').value  : '========='}}</b></span>
+                            बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="date2"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('date2').value ?  promissoryNotePartnership.get('date2').value  : '========='}}</b></span>
+                            को <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="nameOfAuthorizedPerson"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('nameOfAuthorizedPerson').value ?  promissoryNotePartnership.get('nameOfAuthorizedPerson').value  : '========='}}</b></span>
+                            समेत दुई (२) आगे तपाई श्री सेञ्चुरी कमर्सियल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति÷संस्थालाई
+                            रु<input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="amount"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('amount').value ?  promissoryNotePartnership.get('amount').value  : '========='}}</b></span>
+                            (अक्षरेपी
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                   formControlName="amountInWords"
+                                   placeholder=""
+                                   type="text"/><span class="print-only preetiFont size16"><b>{{ promissoryNotePartnership.get('amountInWords').value ?  promissoryNotePartnership.get('amountInWords').value  : '========='}}</b></span>
+                            मात्र) सम्म को रकममा भुक्तानी माग गरेको मितिसम्मको व्याज /कमिशन ऋण स्विकृत पत्रमा उल्लेख भए बमोजिमका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेड लाई दियँ।</p>
+
+                        <p class="text-right"><b><u>प्रतिज्ञा गर्ने व्यक्तिको</u></b></p><br><br><br>
+                        <p class="text-right">लेखात्मक सही_____________________________________</p>
+                        <div class="col-sm-3">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="text-center" style="height: 10rem;"> संस्थाको छाप</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div><b><u>साक्षी</u></b><br>
+                            १.<input class="form-field form-control-lg nepaliFont disable-print"
+                                     formControlName="name"
+                                     placeholder=""
+                                     type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('name').value ?  promissoryNotePartnership.get('name').value  : '========='}}</b></span><br>
+                            २.<input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="name"
+                                     placeholder=""
+                                     type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('name').value ?  promissoryNotePartnership.get('name').value  : '========='}}</b></span><br>
+                            मिति सम्बत् २०<input class="form-field form-control-sm nepaliFont disable-print"
+                                                 formControlName="year"
+                                                 placeholder=""
+                                                 type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('year').value ?  promissoryNotePartnership.get('year').value  : '========='}}</b></span>
+                            साल <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="month"
+                                       placeholder=""
+                                       type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('month').value ?  promissoryNotePartnership.get('month').value  : '========='}}</b></span>
+                            महिना <input class="form-field form-control-sm nepaliFont disable-print"
+                                         formControlName="day"
+                                         placeholder=""
+                                         type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('day').value ?  promissoryNotePartnership.get('day').value  : '========='}}</b></span>
+                            गते रोज <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="day"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNotePartnership.get('day').value ?  promissoryNotePartnership.get('day').value  : '========='}}</b></span>
+                            शुभम् ।
+                        </div>
+                        <div class="row disable-print">
+                            <div class="col-md-12 text-right">
+                                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNotePartnershipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNotePartnershipPrint" class="mr-2 custom-color" >Print</button>
+                                <button nbButton status="success" (click)="submit()">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

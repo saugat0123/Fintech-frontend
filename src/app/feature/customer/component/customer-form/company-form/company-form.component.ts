@@ -63,7 +63,6 @@ export class CompanyFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() customerCode: any;
     @Input() clientTypeInput: any;
-    @Input() customerCategory: CustomerCategory;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
@@ -135,9 +134,14 @@ export class CompanyFormComponent implements OnInit {
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
     groupTable = '<table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" border="1" cellpadding="1" cellspacing="1" style="width:1000px"><thead><tr><th scope="col">S.No</th><th scope="col">Name of Units</th><th scope="col">Nature of Business</th><th scope="col">Key Person</th><th scope="col">Annual Sales</th><th scope="col">Existing Banker</th><th scope="col">Remarks</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p>';
-    customerCate = CustomerCategory;
+    customerCate = CustomerCategory.enumObject();
     sameAddress = false;
     legalOtherData;
+    customerCategory = [];
+    isAboveTen = false;
+    isBelowTen = false;
+    isWholeSale = false;
+
 
 
     constructor(
@@ -175,9 +179,9 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
+        this.getCustomerCategory();
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.formValue)) {
-            this.customerCategory = this.formValue.customerCategory;
             if (!ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
                 this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
                 this.sameAddress = this.companyJsonData.sameAddress;
@@ -194,18 +198,21 @@ export class CompanyFormComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.companyInfo.companyContactDetails)) {
                 this.contactDetails = this.companyInfo.companyContactDetails;
             }
-
         }
         this.buildForm();
+        // this.checkCustomerCategory();
         this.getAllDistrict();
         this.getCompanyStructure();
         this.getSubSector();
-
-        if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            !ObjectUtil.isEmpty(this.companyJsonData.proprietorList) ?
-                this.setProprietors(this.companyJsonData.proprietorList) : this.addProprietor();
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.checkCustomerCategory(this.companyInfo.customerCategory, false);
+            this.setCompanyInfo(this.companyInfo);
+            this.setProprietors(this.companyJsonData.proprietorList);
+            this.setAccountNumber(this.companyJsonData.accountDetails);
+            this.calculateSharePercent('proprietors', 'totalSharePercent');
         } else {
             this.addProprietor();
+            this.addAccountNumber();
         }
         this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
@@ -223,57 +230,6 @@ export class CompanyFormComponent implements OnInit {
                 });
             }
         );
-
-        if (ObjectUtil.isEmpty(this.formValue)) {
-            this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
-            if (this.customerId !== 0) {
-                this.loanFormService.detail(this.customerId).subscribe(
-                    (response: any) => {
-                        this.commonLocation.getProvince().subscribe(
-                            (responseProvince: any) => {
-                                this.provinceList = responseProvince.detail;
-                                this.provinceList.forEach((province: Province) => {
-                                    if (this.customerInfo !== undefined) {
-                                        if (!ObjectUtil.isEmpty(this.customerInfo.province)) {
-                                            if (province.id === this.customerInfo.province.id) {
-                                                this.companyInfoFormGroup.controls.contactProvince.setValue(province);
-                                                this.getDistricts(province.id, null);
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        );
-                        this.companyInfo = response.detail.companyInfo;
-                        this.buildForm();
-                        this.setCompanyInfo(this.companyInfo);
-                    }
-                );
-            }
-        } else {
-            this.companyInfo = this.formValue;
-            this.setCompanyInfo(this.companyInfo);
-        }
-        this.companyFormField = {
-            showFormField: (!ObjectUtil.isEmpty(this.formValue)),
-            isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
-        };
-        this.calculateSharePercent('proprietors', 'totalSharePercent');
-        if (!ObjectUtil.isEmpty(this.companyInfo)) {
-            if (!ObjectUtil.isEmpty(this.companyJsonData.accountDetails)) {
-                this.setAccountNumber(this.companyJsonData.accountDetails);
-            } else if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
-                this.oldAccountDetails();
-            } else {
-                this.addAccountNumber();
-            }
-        } else {
-            this.addAccountNumber();
-        }
-
-        if (ObjectUtil.isEmpty(this.companyJsonData.group)) {
-            this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
-        }
     }
 
     buildForm() {
@@ -439,7 +395,6 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.rawMaterialAvailability],
 
             // Sister concert
-            // sisterConcern: this.formBuilder.array([]),
             // company background
             businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.businessManagementRisk],
@@ -456,9 +411,8 @@ export class CompanyFormComponent implements OnInit {
             BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.BusinessIndustryOutlook],
             group: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.group],
-
-
+                ObjectUtil.isEmpty(this.companyJsonData.group) ? this.groupTable :
+                    this.companyJsonData.group],
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
@@ -557,7 +511,8 @@ export class CompanyFormComponent implements OnInit {
             promoterNetWorth: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
                 this.companyJsonData.promoterNetWorth],
-            customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined : this.companyInfo.customerCategory]
+            customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
+                this.companyInfo.customerCategory, [Validators.required]]
         });
     }
 
@@ -906,7 +861,7 @@ export class CompanyFormComponent implements OnInit {
             this.companyInfo.accountStrategy = this.formValue.accountStrategy;
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
-        this.companyInfo.customerCategory = this.customerCategory;
+        this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
@@ -1092,6 +1047,38 @@ export class CompanyFormComponent implements OnInit {
             this.companyProjectLocation.addressForm.get('municipalityVdc').patchValue(null);
             this.companyProjectLocation.addressForm.get('ward').patchValue(null);
             this.sameAddress = value;
+        }
+    }
+
+    getCustomerCategory() {
+        this.customerCategory = this.customerCate.filter(f =>
+            f.value !== CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL);
+    }
+
+    checkCustomerCategory(targetValue, editCustomer: boolean) {
+        this.isAboveTen = false;
+        this.isBelowTen = false;
+        this.isWholeSale = false;
+        let value: any = null;
+        if (editCustomer) {
+            const newValue = targetValue.split(':').map(m => m.trim());
+            value = newValue[newValue.length - 1];
+        } else {
+            value = targetValue;
+        }
+        if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+            this.isAboveTen = true;
+            this.companyInfoFormGroup.get('business').patchValue(null);
+            this.companyInfoFormGroup.get('promoterNetWorth').patchValue(null);
+            this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
+        } else if (value === 'SME_UPTO_TEN_MILLION' ||
+            value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
+            value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+            const formControlName = ['promoterBackground', 'lineOfBusiness', 'discriptionWithComment', 'majorBuyersSuppliers', 'group'];
+            formControlName.forEach(f => this.companyInfoFormGroup.get(f).patchValue(null));
+            this.isBelowTen = true;
+        } else {
+            this.isWholeSale = true;
         }
     }
 }

@@ -7,10 +7,12 @@
     </li>
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Purpose of, and Justification for, the Proposal</strong></p>
-        <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
-                                            [isExecutive]="isExecutive"
-                                            [isDetailedView]="isDetailedView"
-                                            [proposalData]="proposalData"></app-proposal-justification-summary>
+        <ol>
+            <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                [isExecutive]="isExecutive"
+                                                [isDetailedView]="isDetailedView"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
+        </ol>
     </li>
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Background of the Customer</strong></p>
@@ -109,6 +111,7 @@
         <strong>14.2 Income to the Bank: </strong>
         <app-financial-view [formData]="loanDataHolder?.financial"
                             [data]="loanDataHolder?.financial"
+                            [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                             [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
     </li>
     <li class="font-weight-bold">
@@ -125,10 +128,11 @@
         <app-above-security-arrangement *ngIf="loanDataHolder?.security"
                                         [security]="loanDataHolder?.loanHolder?.security"
                                         [shareSecurity]="loanDataHolder?.shareSecurity"
-                                        [docStatus]="loanDataHolder?.documentStatus"></app-above-security-arrangement>
+                                        [docStatus]="loanDataHolder?.documentStatus"
+                                        [fixedAssetsCollateral]="fixedAssetsData"></app-above-security-arrangement>
         <div>
             <p class="text-uppercase"><strong>15.5 Insurances</strong></p>
-            <app-insurance-summary *ngIf="loanDataHolder?.insurance; else notAvailable"
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance?.length > 0; else notAvailable"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
         </div>
     </li>

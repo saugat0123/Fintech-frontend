@@ -83,6 +83,19 @@ import {RetailRecommendationComponent} from '../../../loan-information-detail-vi
 import { AnnexureOneComponent } from './annexure-one/annexure-one.component';
 import { SecurityDocumentViewComponent } from './sme-loan-summary/above-ten-million/security-document-view/security-document-view.component';
 import { SummaryHeaderComponent } from './summary-header/summary-header.component';
+import {LoanInformationDetailViewModule} from '../../../loan-information-detail-view/loan-information-detail-view.module';
+import {AgricultureViewComponent} from '../../../loan-information-detail-view/agriculture-view/agriculture-view.component';
+import {
+    RetailPurposeAndJustificationComponent
+} from '../../../loan-information-detail-view/retail-purpose-and-justification/retail-purpose-and-justification.component';
+import {
+    CustomerBusinessActivityOrBackgroundsComponent
+} from '../../../loan-information-detail-view/customer-business-activity-or-backgrounds/customer-business-activity-or-backgrounds.component';
+import {CustomerKycViewComponent} from '../../../loan-information-detail-view/customer-kyc-view/customer-kyc-view.component';
+import {
+    CustomerNetWorthViewComponent
+} from '../../../loan-information-detail-view/customer-net-worth-view/customer-net-worth-view.component';
+import { DslWholesaleComponent } from './sme-loan-summary/dsl-wholesale/dsl-wholesale.component';
 
 
 const COMPONENTS = [
@@ -179,7 +192,13 @@ const ENTRY_COMPONENTS = [];
     RetailRecommendationComponent,
     AnnexureOneComponent,
     SecurityDocumentViewComponent,
-    SummaryHeaderComponent
+    SummaryHeaderComponent,
+      AgricultureViewComponent,
+      RetailPurposeAndJustificationComponent,
+      CustomerBusinessActivityOrBackgroundsComponent,
+      CustomerKycViewComponent,
+      CustomerNetWorthViewComponent,
+    DslWholesaleComponent
   ],
     imports: [
         CommonModule,
@@ -224,7 +243,12 @@ const ENTRY_COMPONENTS = [];
         AboveReviewOfCreditFacilitiesComponent,
         NrbStatutoryRemarksStatusComponent,
         AboveBankSolComponent,
-        SummaryHeaderComponent
+        SummaryHeaderComponent,
+        AgricultureViewComponent,
+        RetailPurposeAndJustificationComponent,
+        CustomerBusinessActivityOrBackgroundsComponent,
+        CustomerKycViewComponent,
+        CustomerNetWorthViewComponent,
     ],
   entryComponents: [...ENTRY_COMPONENTS],
 })

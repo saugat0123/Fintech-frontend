@@ -16,10 +16,6 @@ export class AboveReviewOfCreditFacilitiesComponent implements OnInit, OnChanges
   constructor() { }
 
   ngOnInit() {
-    const reviewDate = !ObjectUtil.isEmpty(this.customerInfo) ?
-        JSON.parse(this.customerInfo.data) : this.customerInfo;
-    this.reviewDate = !ObjectUtil.isEmpty(reviewDate) ?
-        reviewDate.reviewDate : reviewDate;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

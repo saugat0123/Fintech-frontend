@@ -11,51 +11,56 @@ import {RetailHousingLoanPrintComponent} from './mega-offer-letter/retail-housin
 import {RetailMortgageComponent} from './mega-offer-letter/retail-mortgage/retail-mortgage.component';
 import {RetailMortgagePrintComponent} from './mega-offer-letter/retail-mortgage/retail-mortgage-print/retail-mortgage-print.component';
 import {RetailProfessionalLoanPrintComponent} from './mega-offer-letter/retail-professional-loan/retail-professional-loan-print/retail-professional-loan-print.component';
-import {SmeComponent} from './mega-offer-letter/sme/sme.component';
+import {SmeOfferLetterComponent} from './mega-offer-letter/sme-offer-letter/sme-offer-letter.component';
 import {RetailMortgageLoanPrintComponent} from './mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan-print/retail-mortgage-loan-print.component';
 import {RetailProfessionalLoanComponent} from './mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
 import {RetailMortgageLoanComponent} from './mega-offer-letter/retail-mortgage-loan/retail-mortgage-loan.component';
-import {SmePrintComponent} from './mega-offer-letter/sme/sme-print/sme-print.component';
+import {SmeOfferLetterPrintComponent} from './mega-offer-letter/sme-offer-letter/sme-offer-letter-print/sme-offer-letter-print.component';
 import {MegaOfferLetterComponent} from './mega-offer-letter/mega-offer-letter.component';
 import {ThemeModule} from '../../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
-import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
-import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
+import {RetailAgainstInsPrintComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
+import {CustomInputComponent} from './mega-offer-letter/custom-input/custom-input.component';
 import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
-import { OfferLetterConsentComponent } from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
+import {OfferLetterConsentComponent} from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
 import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal-offer-letter-renewals/personal-offer-letter-renewals.component';
+import { LoanAgainstShareComponent } from './mega-offer-letter/loan-against-share/loan-against-share.component';
+
 
 const COMPONENTS = [
-    MegaOfferLetterComponent,
-    HayerPurchaseComponent,
-    HayerPurchasePrintComponent,
-    RetailEducationalLoanComponent,
-    RetailEducationalLoanPrintComponent,
-    RetailEducationalLoanEnglishComponent,
-    RetailEducationalLoanEnglishPrintComponent,
-    RetailHousingLoanComponent,
-    RetailHousingLoanPrintComponent,
-    RetailHousingLoanPrintComponent,
-    RetailMortgageComponent,
-    RetailMortgagePrintComponent,
-    RetailMortgageLoanComponent,
-    RetailMortgageLoanPrintComponent,
-    RetailProfessionalLoanComponent,
-    RetailProfessionalLoanPrintComponent,
-    RetailLoanAgainstInsuranceComponent,
-    SmeComponent,
-    SmePrintComponent,
-    PersonalOfferLetterRenewalsComponent,
+  MegaOfferLetterComponent,
+  HayerPurchaseComponent,
+  HayerPurchasePrintComponent,
+  RetailEducationalLoanComponent,
+  RetailEducationalLoanPrintComponent,
+  RetailEducationalLoanEnglishComponent,
+  RetailEducationalLoanEnglishPrintComponent,
+  RetailHousingLoanComponent,
+  RetailHousingLoanPrintComponent,
+  RetailMortgageComponent,
+  RetailMortgagePrintComponent,
+  RetailMortgageLoanComponent,
+  RetailMortgageLoanPrintComponent,
+  RetailProfessionalLoanComponent,
+  RetailProfessionalLoanPrintComponent,
+  RetailLoanAgainstInsuranceComponent,
+  SmeOfferLetterComponent,
+  SmeOfferLetterPrintComponent,
+  PersonalOfferLetterRenewalsComponent,
+
+
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
+        OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent, LoanAgainstShareComponent,
+        ],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
-        SmeComponent,
+        SmeOfferLetterComponent,
         RetailEducationalLoanEnglishComponent,
         RetailHousingLoanComponent,
         RetailMortgageComponent,
@@ -65,6 +70,8 @@ const COMPONENTS = [
         OfferLetterConsentComponent,
         PersonalOfferLetterRenewalsComponent,
         CustomInputComponent,
+        CustomInputComponent,
+        LoanAgainstShareComponent
     ],
     imports: [
         ThemeModule,

@@ -1,0 +1,169 @@
+<div class="container nep text-justify">
+    <!--div class="row">-->
+    <form [formGroup]="assignmentOfReceivablesProprietorship" class="nep" id="assignmentOfReceivablesProprietorshipPrint">
+        <div class="form-group align">
+            <div class="logo-container print-only">
+                <div>
+                    <img height="60px" src="../../../../../assets/img/logo.png">
+                </div>
+            </div>
+            <h6 class="text-center">
+                <strong><u>भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा</u></strong><br><br>
+                <strong><u><span class="timesNewRoman">(Assignment of Receivables)</span></u></strong>
+            </h6>
+            <p>
+                लिखितम् काठमाण्डौँ जिल्ला का.म.न.पा.वडा नं.२८, पूतलीसडक स्थित प्रधान कार्यालय रही
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branchOfficeAddress" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('branchOfficeAddress').value ?
+                    assignmentOfReceivablesProprietorship.get('branchOfficeAddress').value  : '========='}}</strong></span>
+                स्थित शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस लिखतमा यस पछि <strong>"धनी बैंक"</strong> भनिएको छ), लाई
+                धितो दिई सुरक्षणको लिखत गरीदिनेका नाम प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४ बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegistrationOffice" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('companyRegistrationOffice').value ?
+                    assignmentOfReceivablesProprietorship.get('companyRegistrationOffice').value  : '========='}}</strong></span>
+                कार्यालयमा मिति
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="regDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('regDate').value ?
+                    assignmentOfReceivablesProprietorship.get('regDate').value  : '========='}}</strong></span>
+                मा दर्ता भई प्रा.फ.र.न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="regNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('regNo').value ?
+                    assignmentOfReceivablesProprietorship.get('regNo').value  : '========='}}</strong></span>
+                कायम भई,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('district').value ?
+                    assignmentOfReceivablesProprietorship.get('district').value  : '========='}}</strong></span>
+                जिल्ला,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitan" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('metropolitan').value ?
+                    assignmentOfReceivablesProprietorship.get('metropolitan').value  : '========='}}</strong></span>
+                गा.वि.स/न.पा. वडा न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('wardNo').value ?
+                    assignmentOfReceivablesProprietorship.get('wardNo').value  : '========='}}</strong></span>,
+                स्थित ठेगाना रहेको श्री
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('borrowerName').value ?
+                    assignmentOfReceivablesProprietorship.get('borrowerName').value  : '========='}}</strong></span>
+                का प्रोप्राईटर
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonGrandFather" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonGrandFather').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonGrandFather').value  : '========='}}</strong></span>
+                को नाती
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonFather').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonFather').value  : '========='}}</strong></span>
+                /
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonHusband').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                को छोरा
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrict" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonDistrict').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonDistrict').value  : '========='}}</strong></span>
+                जिल्ला,
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonMetropolitan" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonMetropolitan').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonMetropolitan').value  : '========='}}</strong></span>
+                गा.वि.स/न.पा. वडा न
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonWardNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonWardNo').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonWardNo').value  : '========='}}</strong></span>
+                बस्ने बर्ष
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonAge" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonAge').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPersonAge').value  : '========='}}</strong></span>
+                को
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPerson').value ?
+                    assignmentOfReceivablesProprietorship.get('authorizedPerson').value  : '========='}}</strong></span>
+                आगे हाम्रो नाममा तपाई धनी बैंकबाट हाम्रो व्यापारिक प्रयोजनको लागि जम्मा <strong>रु</strong>
+                <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmountInWords', 'loanAmount')"
+                                  [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('loanAmount').value ?
+                    assignmentOfReceivablesProprietorship.get('loanAmount').value  : '========='}}</strong></span>
+                <strong>/– (अक्षरेपि</strong>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmountInWords" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('loanAmountInWords').value ?
+                    assignmentOfReceivablesProprietorship.get('loanAmountInWords').value  : '========='}}</strong></span>
+                <strong>रुपैयाँ मात्र)</strong>
+                सम्मको विभिन्न ऋण कर्जा तथा बैकिङ्ग सुविधा स्वीकृत भएको हुँदा हामीले सो सिमा <span class="timesNewRoman">(Limit)</span> भित्र रही हाल
+                उपयोग गरिरहेको वा पछि उपयोग गर्ने
+                उल्लेखित ऋणकर्जा तथा बैकिङ्ग सुविधा र सोमा तपाई धनी बैंकको नियमानुसार लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर, ऋण असूलीमा हुने खर्च
+                लगायतका अन्य सम्पूर्ण रकम समेतको सुरक्षण स्वरुप यस अघि कुनै पनि व्यहोराले अन्य कसैको हक अधिकार कायम हुने गरी लिखत गरी नदिएको हाम्रो
+                एकलौटी हक अधिकार कायम रहेका हाम्रो नाममा तपाई धनी बैंकको जुनसुकै शाखा कार्यालय वा अन्य बैंक/वित्तीय संस्थाहरुमा खोलिएको सम्पूर्ण निक्षेप
+                खाताहरुमा हाल जम्मा रहेको तथा पछि जम्मा हुन आउने रकम र हामीले अन्य तेस्रो व्यक्ति/ फर्म/ कम्पनी/ संस्थालाई उधारोमा मालसामानहरु उपलब्ध
+                गराए वापत वा सापटी दिए वापत त्यस्ता व्यक्ति/ फर्म/ कम्पनी/ संस्थालाई खातावही, विल, विजकका आधारमा उठाउन बांकी रहेको उधारो वापतको बांकी
+                वक्यौता रकम वा सापटी रकम, कलम <span class="timesNewRoman">(entire receivables)</span> तपाई धनी बैंकको हामी सरह नै समान
+                हक अधिकार रहने गरी यसै लिखतद्वारा
+                उपरोक्त रकम कलम उपर हामीलाई रहेको हक अधिकार तपाई धनी बैंकका नाममा हक हस्तान्तरण <span class="timesNewRoman">(Assign)</span>
+                गरी दियौ । कथंकदाचित हामीले तपाई धनी
+                बैंकबाट उल्लेखित सिमा भित्र रही हाल प्राप्त गरेको वा पछि प्राप्त गर्ने ऋण /कर्जाको समय, समयमा तिर्न वुझाउन पर्ने सांवा, व्याज, फि, कमिशन,
+                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको मिति
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('offerLetterIssuedDate').value ?
+                    assignmentOfReceivablesProprietorship.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
+                गतेको ऋण स्वीकृति पत्रमा चुक्ता गर्नुपर्ने भनेको म्यादभित्र वा उल्लेखित ऋण/कर्जा तथा बैकिङ्ग सुविधा नवीकरण भएको खण्डमा नवीकरण गर्ने ऋण प्रस्ताव
+                पत्रले चुक्ता गर्नुपर्ने भनेको म्याद भित्र वा सो भन्दा अगावै तपाई धनी बैंकबाट माग भएमा माग गरेको भाखा भित्र नबुझाएमा वा सोको भाखा म्याद नाघेमा
+                वा ऋणकर्जाको दुरुपयोग गरेमा वा तपाई धनी बैंक र हामी विच उल्लेखित ऋणकर्जाका सम्बन्धमा सम्पन्न सम्झौता, मन्जुरीनामा वा अन्य लिखत कागजातमा
+                उल्लेखित कुनै पनि शर्तबन्देज उल्लंघन गरेमा हामीलाई नेपाल राष्ट्र बैंकबाट जारी निर्देशन वा प्रचलित कानून बमोजिम कर्जा सूचना केन्द्र लिमिटेडको कालो
+                सूचिमा राख्ने सिफारिश गरी वा नगरी यसै लिखत बमोजिम तपाई धनी बैंकले हाम्रो निक्षेप खातामा रहेको रकमबाट आवश्यक रकम कलम कटृा गरी वा हामीले
+                तेस्रो व्यक्ति/ फर्म/ कम्पनी/ संस्थासँग उठाउन बांकी रकम कलम वा हामीले तेश्रो व्यक्ति/फर्म/कम्पनी/संस्थालाई दिएको सापटी वापत उठाउन बाँकी रकम
+                वा कुनै अड्डा, अदालत, गैर सरकारी निकायको फैसला वा निर्णयानुसार हामीले पाउने ठहर भएको रकम समेत हामीलाई भए सरहको अधिकार प्रयोग गरी
+                निजहरुबाट सोझै असुल उपर गरी लिनुहोला भनी यो अख्तियारनामा दिई सुरक्षणको लिखत लेखि दियौं । पछि एकाको नाममा रहेको निक्षेपबाट वा एकाले लिन
+                बाँकी रकमबाट अर्काले आफ्नो लेना वापत मिलान हुने गरी कुनै रकम कट्टी गरी लिन पाउने होइन भन्ने समेत कुनै किसिमको उजुर, वाजुर गर्ने छैनौं, गरे
+                यसै लिखतले बदर गराई लिनु होला । साथै तपाई धनी बैंकले हाम्रो निक्षेप खाताहरुको वा हामीले उठाउन बाँकी रहेको रकमहरुको बारेमा विवरण माग गर्नासाथ
+                तुरुन्तै त्यस्तो विवरण बुझाउने छौं, नबुझाएमा वा बुझाउन नसकेमा हामीले शर्त भंग गरेको मानी यसै लिखतमा उल्लेख गरे मुताविक वा हामी बैंकको पक्षमा
+                लेखीदिएको सुरक्षण सम्बन्धी अन्य लिखत अनुसार आफ्नो लेना असुल उपर गरी लिनुहोला । कथंकदाचित यस लिखतमा उल्लेख गरे मुताविक मात्र तपाई धनी
+                बैंकको सम्पूर्ण लेना असुल उपर हुन नसकेमा हाम्रो हक लाग्ने वा हाम्रो नाममा रहेको जुनसुकै चल अचल सम्पत्ति कब्जा गरी सो बाट आफ्नो लेना असुल उपर
+                गरी लिनु भएमा समेत हाम्रो मन्जुरी छ । पछि स्पष्ट रुपमा सुरक्षण वापत लेखि नदिएको सम्पति समात्न पाउने होइन भन्ने समेत कुनै किसिमको उजुर
+                वाजुर गर्ने छैनौं, गरे यसै लिखतले बदर गरी दिनु होला । यस लिखत अन्तर्गत हाम्रो दायित्व हामीले यस अघि लिएको / वा हामीले तपाई धनी बैंकको ऋण
+                प्रस्ताव पत्रमा उल्लेख गरे बमोजिम हाल लिएको वा लिने ऋण /कर्जा तथा बैकिङ्ग सुविधा (सो ऋण /कर्जा तथा बैकिङ्ग सुविधा नवीकरण भएको खण्डमा
+                नवीकरण गर्ने ऋण प्रस्ताव पत्रमा उल्लेख गरे बमोजिम हामीले लिने ऋण /कर्जा तथा बैकिङ्ग सुविधा) पूर्ण रुपमा चुक्ता भुक्तान नभएसम्म कायम रहने
+                कुरामा हाम्रो पूर्ण मन्जुरी छ भनी तपाई धनी बैंकको कार्यालयमा बसी हाम्रो मनोमान राजीखुशीले यो लिखत गरी तपाई धनी बैंकलाई दियौं र यसको एकप्रति
+                दोहरी बुझी लियौं । साक्षी तल उल्लेखित सदर ।
+            </p>
+            <br><br>
+            <p style="text-align: right">
+                दस्तखत
+            </p>
+            <p style="text-align: right">
+                संस्थाको छाप
+            </p><br>
+            <div>
+                <strong><u>साक्षी</u></strong><br>
+                <p class="ml-lg-5">
+                    १.
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness1" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('witness1').value ? assignmentOfReceivablesProprietorship.get('witness1').value  : '========='}}</b></span><br>
+                    २.
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness2" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('witness2').value ? assignmentOfReceivablesProprietorship.get('witness2').value  : '========='}}</b></span><br>
+                    ईति सम्वत् २०
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatYear" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('sambatYear').value ? assignmentOfReceivablesProprietorship.get('sambatYear').value  : '========='}}</b></span>
+                    साल
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatMonth" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('sambatMonth').value ? assignmentOfReceivablesProprietorship.get('sambatMonth').value  : '========='}}</b></span>
+                    महिना
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatDate" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('sambatDate').value ? assignmentOfReceivablesProprietorship.get('sambatDate').value  : '========='}}</b></span>
+                    गते रोज
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatDay" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('sambatDay').value ? assignmentOfReceivablesProprietorship.get('sambatDay').value  : '========='}}</b></span>
+                    शुभम्
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="shubham" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesProprietorship.get('shubham').value ? assignmentOfReceivablesProprietorship.get('shubham').value  : '========='}}</b></span>
+                </p>
+            </div>
+        </div>
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="assignmentOfReceivablesProprietorshipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="assignmentOfReceivablesProprietorshipPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+            </div>
+
+        </div>
+    </form>
+</div>

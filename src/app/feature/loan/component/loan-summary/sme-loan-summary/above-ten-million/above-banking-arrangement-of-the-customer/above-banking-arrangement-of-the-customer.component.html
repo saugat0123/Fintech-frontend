@@ -1,5 +1,5 @@
 <ol>
-    <li *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION" class="font-weight-bold">
+    <li *ngIf="isAboveTen" class="font-weight-bold">
         <span> Present financing arrangement: None/Sole /multiple banking /consortium</span> <br>
         <span class="font-weight-normal"> If consortium arrangement, name of lead bank and other banks; if multiple banking, name of banks,
         and details of credit facilities</span> as
@@ -58,7 +58,7 @@
                         <th>Facilities</th>
                         <th>Limit</th>
                         <th>Outstanding</th>
-                        <th>Overdue</th>
+                        <th *ngIf="isAboveTen || isWholeSale">Overdue</th>
                     </tr>
                     <tr *ngFor="let mul of multiBankingData?.multiBanking; let ii = index">
                         <td>{{ii + 1}}</td>
@@ -66,18 +66,20 @@
                         <td>{{mul?.facilityName}}</td>
                         <td class="text-right pr-1">Rs. {{mul?.limit | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{mul?.outstanding | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{mul?.overDue | currencyFormatter}}</td>
+                        <td class="text-right pr-1" *ngIf="isAboveTen || isWholeSale">
+                            Rs. {{mul?.overDue | currencyFormatter}}
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
     </li>
 
-    <li class="font-weight-bold" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li class="font-weight-bold" *ngIf="(isAboveTen || isUptoTwoMillion) && !isWithoutCollateral">
         <span> Report from the existing BFIs in case of swap</span>
         <span class="font-weight-normal"> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date)
             : 'N/A'}})</span>
-        <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION && checkedData?.swapChecked"
+        <div *ngIf="isAboveTen && checkedData?.swapChecked"
              class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
@@ -108,7 +110,7 @@
         </div>
     </li>
 
-    <li class="font-weight-bold">
+    <li class="font-weight-bold" *ngIf="!isWithoutCollateral">
         <span> Report from CIC</span>
         <span class="font-weight-normal"> (date of report: {{cicl?.cibDate ? (cicl?.cibDate | date) : 'N/A' }})</span>
         <div class="row">
@@ -173,9 +175,9 @@
         </div>
     </li>
 
-    <li class="font-weight-bold">
+    <li class="font-weight-bold" *ngIf="!isWithoutCollateral">
         <span> Past performance with the Bank:</span>
-        <div *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION; else sana"
+        <div *ngIf="isAboveTen || isWholeSale; else uptoOrSana"
              class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
@@ -214,12 +216,12 @@
                 </table>
             </div>
         </div>
-        <ng-template #sana>
+        <ng-template #uptoOrSana>
             <span [innerHTML]="multiBankingData?.pastPerformance || 'NA' | safeHtml"></span>
         </ng-template>
     </li>
 
-    <li class="font-weight-bold" *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION">
+    <li class="font-weight-bold" *ngIf="(isAboveTen || isWholeSale) && !isWithoutCollateral">
         <span> Account strategy: {{multiBankingData?.accountStrategy ? '' : 'NA'}}</span>
         <div class="container">
             <span [innerHTML]="multiBankingData?.accountStrategy | safeHtml"></span>
@@ -227,45 +229,14 @@
     </li>
 
     <li class="font-weight-bold"
-        *ngIf="customerCate[customerCategory] === customerCate?.SME_ABOVE_TEN_MILLION || customerType === 'INDIVIDUAL'">
+        *ngIf="((isAboveTen || isWholeSale) || customerType === 'INDIVIDUAL') && !isWithoutCollateral && !isUptoTwoMillion">
         <span> Average Utilization and Transaction Record of facilities by the customer during the last 12 months with CCBL</span>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                    <tbody class="sb-bg-dark text-white text-center">
-                    <tr>
-                        <th class="sn" rowspan="2">S.N</th>
-                        <th rowspan="2">Facilities</th>
-                        <th rowspan="2">Avg. utilization(%)</th>
-                        <th class="border-top-0 border-bottom-0" rowspan="2" style="color: white"></th>
-                        <th colspan="7">Transaction Records</th>
-                    </tr>
-                    <tr>
-                        <th>Debit</th>
-                        <th>No.</th>
-                        <th>Amount</th>
-                        <th>Credit</th>
-                        <th>No.</th>
-                        <th>Amount</th>
-                    </tr>
-                    </tbody>
-                    <tbody *ngFor="let avg of multiBankingData?.utilization; let iv = index">
-                    <tr>
-                        <td>{{iv + 1}}</td>
-                        <td>{{avg?.facilityName}}</td>
-                        <td>{{avg?.avgUtil}}</td>
-                        <td></td>
-                        <td>{{avg?.debit}}</td>
-                        <td>{{avg?.debitNo}}</td>
-                        <td class="text-right pr-1">Rs. {{avg?.debitAmount | currencyFormatter}}</td>
-                        <td>{{avg?.credit}}</td>
-                        <td>{{avg?.creditNo}}</td>
-                        <td class="text-right pr-1">Rs. {{avg?.creditAmount | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <app-transaction-record [multiBanking]="multiBanking"></app-transaction-record>
+    </li>
+
+    <li class="font-weight-bold" *ngIf="(isWholeSale) || customerType === 'INDIVIDUAL'">
+        <span> Credit History of the customer with CCBL:</span><br>
+        <span class="font-weight-normal">Relationship with the customer started on ..... account performance of the client is till date is satisfactory/not statisfactory.</span>
     </li>
 </ol>
 
