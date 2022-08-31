@@ -10,6 +10,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {CadCheckListTemplateEnum} from '../../../../admin/modal/cadCheckListTemplateEnum';
 
 @Component({
   selector: 'app-share-pledge-deed-first-party-individual',
@@ -19,7 +21,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
 
   form: FormGroup;
-  cadFile = CadFile;
+  cadFile: CadFile;
   singleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
@@ -36,7 +38,9 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.form.patchValue(initialInfo);
+          this.setTableData(initialInfo.loanData);
         }
       });
     }
@@ -83,6 +87,7 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
       kaifiyat: [undefined]
     });
   }
+
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {

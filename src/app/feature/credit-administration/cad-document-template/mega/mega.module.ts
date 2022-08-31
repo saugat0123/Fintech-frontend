@@ -78,6 +78,7 @@ import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-
 import { LetterOfContinuityIndividualComponent } from './letter-of-continuity-individual/letter-of-continuity-individual.component';
 
 import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-of-trust-receipt.component';
+import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-partnership/personal-guarantee-partnership.component';
 import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-first-party-individual/share-pledge-deed-first-party-individual.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -136,6 +137,7 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         SupplementaryAgreementProprietorshipComponent,
         LetterOfContinuityIndividualComponent,
         LetterOfTrustReceiptComponent,
+        PersonalGuaranteePartnershipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent,
     ],
@@ -204,6 +206,7 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         SupplementaryAgreementProprietorshipComponent,
         LetterOfContinuityIndividualComponent,
         LetterOfTrustReceiptComponent,
+        PersonalGuaranteePartnershipComponent,
         SharePledgeDeedFirstPartyIndividualComponent
     ],
 })
