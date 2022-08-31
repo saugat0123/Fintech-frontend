@@ -63,6 +63,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     companyGroup;
     fixedAssetsData = [];
     lastDateOfInspection: any;
+    isDataLoaded = false;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -82,6 +83,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            this.isDataLoaded = true;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
                 this.incomeSource = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
             }
@@ -307,12 +309,16 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     }
 
     getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+        const collateral = {
+            securityName: null,
+            collateralData: null,
+        };
         this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
             .subscribe((response: any) => {
                 if (response.detail.length > 0) {
-                    response.detail.forEach(rd => {
-                        this.fixedAssetsData.push(rd);
-                    });
+                    collateral.securityName = securityName;
+                    collateral.collateralData = response.detail;
+                    this.fixedAssetsData.push(collateral);
                 }
             }, error => {
                 console.error(error);

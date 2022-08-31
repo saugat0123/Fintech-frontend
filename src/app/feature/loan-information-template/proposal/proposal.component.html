@@ -401,7 +401,8 @@
                                 </div>
 
 
-                                <div class="col-md-12" *ngIf="customerType === 'INDIVIDUAL'">
+                                <div class="col-md-12" *ngIf="(customerType === 'INDIVIDUAL')
+                                    || customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
                                     <div class="form-group">
                                         <label class="title"><strong>Compliance</strong></label>
                                         <ckeditor formControlName="compliance"

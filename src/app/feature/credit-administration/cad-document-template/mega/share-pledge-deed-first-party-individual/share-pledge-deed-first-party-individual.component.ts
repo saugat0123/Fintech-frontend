@@ -149,7 +149,7 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
       formArray.push(this.formBuilder.group({
         loanFacilityType: [value.loanFacilityType],
         amountInWords1: [value.amountInWords1],
-        amount1: [value],
+        amount1: [value.amount1],
       }));
     });
   }

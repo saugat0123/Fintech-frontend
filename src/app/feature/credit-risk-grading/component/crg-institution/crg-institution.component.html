@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <form [formGroup]="crgLongChecklistFormGroup">
                 <div class="form-group col-md-5" style="display: flex">
-                    <label>Date of Checklist: </label>
+                    <label>Date of Checklist:&nbsp; </label>
                     <ng-container *ngIf="fromProfile">
                         <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
                                class="form-control "
@@ -23,6 +23,7 @@
                                 [ePreDate]="crgLongChecklistFormGroup.get('dateCheckList').value"></app-calendar>
                         <nb-datepicker #dateOfChecklist></nb-datepicker>
                     </ng-container>
+                    <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
                 </div>
                 <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
@@ -85,7 +86,7 @@
                         <td>Good relationship with suppliers. Debtors effectively managed.</td>
                         <td>Price-taker. Not able to influence terms of business.</td>
                         <td>Under pressure from suppliers. Slowing operating cycle. May have lost key suppliers/ customers</td>
-                        <td>imposed</td>
+                        <td>Restricted supply arrangements imposed. Difficulty in paying creditors and collecting debtors.</td>
                     </tr>
                     <tr>
                         <td></td>

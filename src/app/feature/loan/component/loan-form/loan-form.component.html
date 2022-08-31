@@ -53,6 +53,7 @@
                           [loan]="loanDocument"
                           [loanType]="loanType"
                           [customerInfo]="loanHolder"
+                          [customerCategory]="loanDocument?.loanHolder?.customerCategory"
                           #proposalInfo></app-proposal>
           </ng-template>
 

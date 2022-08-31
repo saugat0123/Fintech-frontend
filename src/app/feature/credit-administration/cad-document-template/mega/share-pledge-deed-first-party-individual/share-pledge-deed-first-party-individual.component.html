@@ -116,10 +116,12 @@
                                 /- (अक्षरेपि
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="amountInWords"
+                                       style="font-size: 18px;"
                                        placeholder=""
-                                       type="text"/><span
-                                        class="print-only nepaliFont"
-                                        size="7"><strong>{{form.get('amountInWords')?.value ? form.get('amountInWords')?.value : '========='}}</strong></span>
+                                       type="text"/>
+                                <span class="print-only nepaliFont"
+                                      style="font-size: 18px;"
+                                      size="7"><strong>{{form.get('amountInWords')?.value ? form.get('amountInWords')?.value : '========='}}</strong></span>
                                 मात्र )
                             </strong>
                             को सुरक्षण वापत ऋणी तथा जमानतवाला शेयरवालाको समेतको छुट्टाछुट्टै नाममा दर्ता कायम धितोपत्र
@@ -182,14 +184,16 @@
                                         <app-custom-input
                                                 (eventEmit)="changeToNepAmount1($event, index, 'loanData')"
                                                 [name]="patchFunction1('loanData',index,'amount1')"
-                                                class="disable-print"></app-custom-input>
+                                                class="disable-print nepaliFont"></app-custom-input>
                                         <span class="print-only nepaliFont"><strong>{{data?.get('amount1')?.value ? data?.get('amount1')?.value : '========='}}</strong></span>
-                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                        /- ( अक्षरेपि
                                         <input class="form-field form-control-sm nepaliFont disable-print"
                                                formControlName="amountInWords1"
+                                               style="font-size: 18px;"
                                                placeholder=""
                                                type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{data?.get('amountInWords1')?.value ? data?.get('amountInWords1')?.value : '========='}}</strong></span>
+                                        <span class="print-only nepaliFont"
+                                              style="font-size: 18px;"><strong>{{data?.get('amountInWords1')?.value ? data?.get('amountInWords1')?.value : '========='}}</strong></span>
                                         मात्र )
                                     </strong>
                                 </td>
@@ -229,9 +233,11 @@
                             /- ( अक्षरेपि
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="amountInWords2"
+                                   style="font-size: 18px;"
                                    placeholder=""
-                                   type="text"/><span
-                                class="print-only nepaliFont"><strong>{{form.get('amountInWords2')?.value ? form.get('amountInWords2')?.value : '========='}}</strong></span>
+                                   type="text"/>
+                            <span class="print-only nepaliFont"
+                                  style="font-size: 18px;"><strong>{{form.get('amountInWords2')?.value ? form.get('amountInWords2')?.value : '========='}}</strong></span>
                             मात्र )
                         </p>
                         <p>बैकलाई मान्य हुने शेयरहरु धितो सुरक्षणको रुपमा <input
