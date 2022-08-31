@@ -1,5 +1,5 @@
 import {DOCUMENT} from '@angular/common';
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild,} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -194,6 +194,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   isUpToTenMillion = false;
   isDetailedView = false;
   isSaneView = false;
+  isDslWholesale = false;
   radioSelected: any;
   viewName = ['Sana Byabasahi Karja', 'Upto Ten Million', 'Above Ten Million'];
   tempData;
@@ -886,10 +887,11 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   checkCustomerCategoryForDetailView() {
     if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_ABOVE_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_ABOVE_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_ABOVE_TEN_MILLION') {
       this.isAboveTenMillion = true;
       this.isDetailedView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
+      this.isDslWholesale = true;
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
         this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isUpToTenMillion = true;

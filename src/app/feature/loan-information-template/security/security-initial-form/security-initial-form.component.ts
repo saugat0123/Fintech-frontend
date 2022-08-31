@@ -158,6 +158,7 @@ export class SecurityInitialFormComponent implements OnInit {
     totaldv = 0;
     totalmv = 0;
     totalcv = 0;
+    totalgv = 0;
 
     totalLandValueRemarks: any;
     dialogRef: NbDialogRef<any>;
@@ -298,6 +299,7 @@ export class SecurityInitialFormComponent implements OnInit {
     eventLandSecurity($event) {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
+        $event['reValuatedGv'] = $event['reValuatedGv'] == null ? 0 : $event['reValuatedGv'];
         $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
         $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
 
@@ -305,6 +307,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value'] = {
                 isReValuated: true,
                 reValuatedDv: 0,
+                reValuatedGv: 0,
                 reValuatedFmv: 0,
                 reValuatedConsideredValue: 0
             };
@@ -312,11 +315,13 @@ export class SecurityInitialFormComponent implements OnInit {
         if ($event['isReValuated']) {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedGv'] = $event['reValuatedGv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
         } else {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedGv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
         }
@@ -328,13 +333,16 @@ export class SecurityInitialFormComponent implements OnInit {
         this.totaldv = 0;
         this.totalmv = 0;
         this.totalcv = 0;
+        this.totalgv = 0;
         landDetails['value'].forEach((sec, index) => {
             if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
                 this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
+                this.totaldv += Number(sec['revaluationData']['reValuatedGv']);
                 this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
                 this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
             } else {
                 this.totaldv += Number(sec['distressValue']);
+                this.totalgv += Number(sec['governmentValue']);
                 this.totalmv += Number(sec['marketValue']);
                 this.totalcv += Number(sec['landConsideredValue']);
             }
@@ -1338,7 +1346,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBranch: [undefined],
             landConsideredValue: [undefined, Validators.required],
             typeOfProperty: [undefined],
-            revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}, Validators.required],
+            revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedGv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}, Validators.required],
             landStaffRepresentativeDesignation: [undefined],
             landStaffRepresentativeName2: [undefined],
             landStaffRepresentativeDesignation2: [undefined],

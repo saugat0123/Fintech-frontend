@@ -128,5 +128,13 @@ export class AssignmentOfReceivableComponent implements OnInit {
       this.dialogRef.close();
     });
   }
+  changeToNepAmount(event: any, target, from) {
+    this.assignmentOfReceivable.get([target]).patchValue(event.nepVal);
+    this.assignmentOfReceivable.get([from]).patchValue(event.val);
+  }
+  patchFunction(target) {
+    const patchValue1 = this.assignmentOfReceivable.get([target]).value;
+    return patchValue1;
+  }
 
 }
