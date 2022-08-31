@@ -385,6 +385,7 @@
             <nb-card-body>
               <app-financial-view *ngIf="customerInfo?.financial; else noIncExp" [formData]="customerInfo?.financial"
                                   [data]="customerInfo?.financial"
+                                  [customerCategory]="customerInfo?.customerCategory"
                                   [customerType]="customerInfo?.customerType"></app-financial-view>
               <ng-template #noIncExp>Not Available</ng-template>
             </nb-card-body>
@@ -552,7 +553,7 @@
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
-            <nb-card-body>
+            <nb-card-body style="max-height: 90vh">
               <app-crg-long
                       [formData]="customerInfo?.crgLongChecklist"
                       [fromProfile]="false"
