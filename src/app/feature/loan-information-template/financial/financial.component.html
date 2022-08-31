@@ -239,7 +239,7 @@
             </nb-card-body>
         </nb-card>
 
-        <nb-card *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">
+        <nb-card *ngIf="customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
             <nb-card-header>
                 <h3><strong>Expense of Project/ Business</strong></h3>
             </nb-card-header>
