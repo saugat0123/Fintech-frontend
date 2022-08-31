@@ -498,7 +498,6 @@ export class FinancialComponent implements OnInit {
 
     setExpensesOfBorrower(currentData) {
         const controls = this.financialForm.get('expensesOfBorrower') as FormArray;
-        console.log('expense controls', controls);
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
