@@ -62,10 +62,8 @@ import {ConsentLetterIndividualComponent} from './consent-letter-individual/cons
 import {KaloSuchiBorrowerIndividualComponent} from './kalo-suchi-borrower-individual/kalo-suchi-borrower-individual.component';
 import {VehicleLoanDeedIndividualComponent} from './vehicle-loan-deed-individual/vehicle-loan-deed-individual.component';
 import {KaloSuchiBorrowerPartnershipComponent} from './kalo-suchi-borrower-partnership/kalo-suchi-borrower-partnership.component';
-
 import {KaloSuchiBorrowerProprietorshipComponent} from './kalo-suchi-borrower-proprietorship/kalo-suchi-borrower-proprietorship.component';
 import { SupplementaryAgreementProprietorshipComponent } from './supplementary-agreement-proprietorship/supplementary-agreement-proprietorship.component';
-
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
 import { KaloSuchiBorrowerPgIndividualComponent } from './kalo-suchi-borrower-pg-individual/kalo-suchi-borrower-pg-individual.component';
@@ -76,9 +74,9 @@ import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprie
 import { VehicleLoanDeedProprietorshipComponent } from './vehicle-loan-deed-proprietorship/vehicle-loan-deed-proprietorship.component';
 import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-pg-proprietorship/kalo-suchi-borrower-pg-proprietorship.component';
 import { LetterOfContinuityIndividualComponent } from './letter-of-continuity-individual/letter-of-continuity-individual.component';
-
 import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-of-trust-receipt.component';
 import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-partnership/personal-guarantee-partnership.component';
+import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-guarantee-proprietorship.component';
 import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-first-party-individual/share-pledge-deed-first-party-individual.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
@@ -138,7 +136,7 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         LetterOfContinuityIndividualComponent,
         LetterOfTrustReceiptComponent,
         PersonalGuaranteePartnershipComponent,
-        KaloSuchiBorrowerPgProprietorshipComponent,
+        PersonalGuaranteeProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent,
     ],
     imports: [
@@ -207,6 +205,7 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         LetterOfContinuityIndividualComponent,
         LetterOfTrustReceiptComponent,
         PersonalGuaranteePartnershipComponent,
+        PersonalGuaranteeProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent
     ],
 })

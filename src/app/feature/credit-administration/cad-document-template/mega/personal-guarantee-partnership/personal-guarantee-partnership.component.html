@@ -7,7 +7,7 @@
                     <img height="60px" src="../../../../../assets/img/logo.png">
                 </div>
             </div>
-            <h4 class="text-center"><U>व्यक्तिगत जमानतको लिखत</U></h4>
+            <h4 class="text-center"><strong><U>व्यक्तिगत जमानतको लिखत</U></strong></h4>
             <div class="row">
                 <div class="col-md-12">
                     <p>
@@ -29,9 +29,9 @@
                         बमोजिम नेपाल सरकार उद्योग मन्त्रालय
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                placeholder=""
-                               formControlName="branchName"
+                               formControlName="companyRegistrationOffice"
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{personalGuaranteePartnership.get('branchName').value ? personalGuaranteePartnership.get('branchName').value : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{personalGuaranteePartnership.get('companyRegistrationOffice').value ? personalGuaranteePartnership.get('companyRegistrationOffice').value : '========='}}</strong></span>
                         को कार्यालयमा मिति
                         <input class="form-field form-control-sm disable-print nepaliFont"
                                formControlName="registrationIssuedDate"
@@ -81,11 +81,11 @@
                                           [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
                         <span class="print-only nepaliFont"><strong>{{personalGuaranteePartnership.get('amount').value ? personalGuaranteePartnership.get('amount').value : '========='}}</strong></span>
                         (अक्षरेपि
-                        <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                        <input class="form-field form-control-sm preetiFont disable-print col-3"
                                formControlName="amountInWords"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only preetiFont size16"><strong>{{personalGuaranteePartnership.get('amountInWords').value ? personalGuaranteePartnership.get('amountInWords').value : '========='}}</strong></span>
+                        <span class="print-only preetiFont" style="font-size: 20px;"><strong>{{personalGuaranteePartnership.get('amountInWords').value ? personalGuaranteePartnership.get('amountInWords').value : '========='}}</strong></span>
                         रुपैयाँ मात्र)
                         सुरक्षण वापत तपाई साहु बैंकबाट माथव र हैसियतवाल व्यक्तिको व्यक्तिगत जमानत समेत माग भएको हुंदा उल्लेखित ऋणीले <strong>मलाई/ हामीलाई</strong>
                         जमानत वसी दिनुहोस भनी अनुरोध गरी तपाईं साहु बैंकमा उपस्थित गराएको तथा तपाई साहु बैंकबाट समेत निज ऋणीले हाल
@@ -117,11 +117,11 @@
                                               type="text"/>
                                 <span class="print-only nepaliFont"><strong>{{personalGuaranteePartnership.get('amount').value ? personalGuaranteePartnership.get('amount').value : '========='}}</strong></span>
                                 <span class="timesNewRoman">/–</span> <span class="timesNewRoman">(</span>अक्षरेपि
-                                <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                <input class="form-field form-control-sm preetiFont disable-print col-3"
                                        formControlName="amountInWords"
                                        placeholder=""
                                        type="text"/>
-                                <span class="print-only preetiFont size16"><strong>{{personalGuaranteePartnership.get('amountInWords').value ? personalGuaranteePartnership.get('amountInWords').value : '========='}}</strong></span>
+                                <span class="print-only preetiFont" style="font-size: 20px;"><strong>{{personalGuaranteePartnership.get('amountInWords').value ? personalGuaranteePartnership.get('amountInWords').value : '========='}}</strong></span>
                                 रुपैयाँ मात्र<span class="timesNewRoman">)</span>
                                 र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी, शुल्क आदिमा सिमित हुनेछ ।
                             </li>
@@ -218,7 +218,7 @@
 
                                         <p><strong><U>जमानतदिने</U></strong></p>
                             </div>
-                            १
+                            १.
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    name="guarantorName"
                                    formControlName="guarantorName"
@@ -252,7 +252,7 @@
                                    formControlName="guarantorCitizenshipNo"
                                    placeholder=""
                                    type="text"
-                                   size="5"/>
+                                   size="10"/>
                             <span class="print-only nepaliFont"><strong>{{personalGuaranteePartnership.get('guarantorCitizenshipNo').value ? personalGuaranteePartnership.get('guarantorCitizenshipNo').value : '========='}}</strong></span>
                             जारी मिति
                             <input
@@ -319,7 +319,7 @@
                             <div class="witness">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5 class="text-center">साक्षीः</h5>
+                                        <p class="font-weight-bold text-center"><U>साक्षीः</U></p>
                                         <p>
                                             १.
                                             <input class="form-field form-control-sm nepaliFont disable-print"

@@ -217,6 +217,10 @@
                                         [cadData]="cadData" [documentId]="documentId"
                                         [customerLoanId]="customerLoanId">
         </app-personal-guarantee-partnership>
+        <app-personal-guarantee-proprietorship *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PROPRIETORSHIP"
+                                            [cadData]="cadData" [documentId]="documentId"
+                                            [customerLoanId]="customerLoanId">
+        </app-personal-guarantee-proprietorship>
         <app-share-pledge-deed-first-party-individual *ngSwitchCase="cadTemplate.SHARE_PLEDGE_DEED_FIRST_PARTY_INDIVIDUAL"
                                            [cadData]="cadData" [documentId]="documentId"
                                            [customerLoanId]="customerLoanId">
