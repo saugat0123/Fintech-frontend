@@ -205,13 +205,14 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
   ccblData: any;
   fixedAssetsData = [];
-  siteVisitJson = [];
   isExecutive = false;
 
   @Input() crgTotalRiskScore: any;
   data;
   approveAuth;
   spinner = false;
+  lastDateOfInspection;
+  isUptoTwoMillion = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -259,6 +260,12 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+      const data = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+      if (data.currentResidentFormChecked) {
+        this.lastDateOfInspection = data.currentResidentDetails[data.currentResidentDetails.length - 1].dateOfVisit;
+      }
+    }
 
   }
 
@@ -886,10 +893,11 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
       this.isDslWholesale = true;
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION' ||
         this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isUpToTenMillion = true;
       this.isDetailedView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwoMillion = true;
     } else {
       this.isSaneView = true;
       this.isDetailedView = true;
@@ -897,12 +905,16 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    const collateral = {
+      securityName: null,
+      collateralData: null,
+    };
     this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
         .subscribe((response: any) => {
           if (response.detail.length > 0) {
-            response.detail.forEach(rd => {
-              this.fixedAssetsData.push(rd);
-            });
+            collateral.securityName = securityName;
+            collateral.collateralData = response.detail;
+            this.fixedAssetsData.push(collateral);
           }
         }, error => {
           console.error(error);

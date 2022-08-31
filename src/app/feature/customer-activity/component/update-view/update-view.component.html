@@ -33,6 +33,7 @@
 
     <app-financial-view *ngIf="activity === 'FINANCIAL_UPDATE' && data"
                         [formData]="data"
+                        [customerCategory]="profile?.customerCategory"
                         [customerType]="profile?.customerType"
     ></app-financial-view>
 
