@@ -51,6 +51,8 @@ export class FinancialComponent implements OnInit {
     totalObligationValue = 0;
     totalExpenses = 0;
     totalEmi = 0;
+    totalProjectExpense = 0;
+    totalProjectIncome = 0;
 
 
     // Risk factors---
@@ -220,11 +222,15 @@ export class FinancialComponent implements OnInit {
             const initialFormData = this.currentFormData['initialForm'];
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
+            this.setIncomeOfProject(initialFormData.incomeOfProject);
+            this.setExpenseOfProject(initialFormData.expenseOfProject);
             this.setObligationAtOtherBank(initialFormData.obligationAtOtherBank);
             this.setEmiInterest(initialFormData.emiInterest);
             this.setProjectedUtilization(initialFormData.projectedUtilizationFreeText);
             this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
+            this.financialForm.get('totalProjectIncome').setValue(initialFormData.totalProjectIncome);
+            this.financialForm.get('totalProjectExpense').setValue(initialFormData.totalProjectExpense);
             this.financialForm.get('totalExpenseObligation').setValue(initialFormData.totalExpenseObligation);
             this.financialForm.get('totalExpenseEmi').setValue(initialFormData.totalExpenseEmi);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
@@ -271,6 +277,16 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('totalIncome').patchValue(this.totalIncome);
         }
 
+        if (!ObjectUtil.isEmpty(data.incomeOfProject)) {
+            data.incomeOfProject.forEach((v: any) => {
+                this.totalProjectIncome = Number(this.totalProjectIncome) + Number(v.projectAmount);
+            });
+        }
+
+        if (this.totalProjectIncome !== 0) {
+            this.financialForm.get('totalProjectIncome').patchValue(this.totalProjectIncome);
+        }
+
         if (!ObjectUtil.isEmpty(data.obligationAtOtherBank)) {
         data.obligationAtOtherBank.forEach((v: any) => {
             this.totalObligationValue = Number(this.totalObligationValue) + Number(v.obliAmount);
@@ -294,17 +310,31 @@ export class FinancialComponent implements OnInit {
         if (this.totalExpenses !== 0) {
             this.financialForm.get('totalExpense').patchValue(this.totalExpenses);
         }
+
+        if (!ObjectUtil.isEmpty(data.expenseOfProject)) {
+            data.expenseOfProject.forEach((v: any) => {
+                this.totalProjectExpense = Number(this.totalProjectExpense) + Number(v.projectAmount);
+            });
+        }
+
+        if (this.totalProjectExpense !== 0) {
+            this.financialForm.get('totalProjectExpense').patchValue(this.totalProjectExpense);
+        }
     }
 
     buildForm() {
         this.financialForm = this.formBuilder.group({
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
+            incomeOfProject: this.formBuilder.array([]),
+            expenseOfProject: this.formBuilder.array([]),
             obligationAtOtherBank: this.formBuilder.array([]),
             emiInterest: this.formBuilder.array([]),
             typeOfSourceOfIncomeObtainedScore: undefined,
             totalIncome: [0],
             totalExpense: [0],
+            totalProjectExpense: [0],
+            totalProjectIncome: [0],
             totalExpenseObligation: [0],
             totalExpenseEmi: [0],
             currentTotal: [0],
@@ -433,6 +463,34 @@ export class FinancialComponent implements OnInit {
                     organization: [singleData.organization],
                     amount: [singleData.amount],
                     remarks: [singleData.remarks],
+                })
+            );
+        });
+    }
+
+    setIncomeOfProject(currentData) {
+        const controls = this.financialForm.get('incomeOfProject') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    projectParticulars: [singleData.projectParticulars],
+                    projectQuantity: [singleData.projectQuantity],
+                    projectRate: [singleData.projectRate],
+                    projectAmount: [singleData.projectAmount],
+                })
+            );
+        });
+    }
+
+    setExpenseOfProject(currentData) {
+        const controls = this.financialForm.get('expenseOfProject') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    projectParticulars: [singleData.projectParticulars],
+                    projectQuantity: [singleData.projectQuantity],
+                    projectRate: [singleData.projectRate],
+                    projectAmount: [singleData.projectAmount],
                 })
             );
         });
@@ -672,6 +730,26 @@ export class FinancialComponent implements OnInit {
         );
     }
 
+    addExpenseOfProject() {
+        const control = this.financialForm.controls.expenseOfProject as FormArray;
+        control.push(this.formBuilder.group({
+            projectParticulars: [undefined, Validators.required],
+            projectQuantity: [undefined, Validators.required],
+            projectRate: [undefined, Validators.required],
+            projectAmount: [undefined, Validators.required],
+        }));
+    }
+
+    addIncomeOfProject() {
+        const control = this.financialForm.controls.incomeOfProject as FormArray;
+        control.push(this.formBuilder.group({
+            projectParticulars: [undefined, Validators.required],
+            projectQuantity: [undefined, Validators.required],
+            projectRate: [undefined, Validators.required],
+            projectAmount: [undefined, Validators.required],
+        }));
+    }
+
     addObligationAtOtherBank() {
         const control = this.financialForm.controls.obligationAtOtherBank as FormArray;
         control.push(
@@ -704,6 +782,16 @@ export class FinancialComponent implements OnInit {
         this.totalAdditionInitialForm('expensesOfBorrower', 'totalExpense');
     }
 
+    removeProjectIncomeIndex(index) {
+        (this.financialForm.get('incomeOfProject') as FormArray).removeAt(index);
+        this.totalProjectAmountAddition('incomeOfProject', 'totalProjectIncome');
+    }
+
+    removeProjectExpensesIndex(index) {
+        (this.financialForm.get('expenseOfProject') as FormArray).removeAt(index);
+        this.totalProjectAmountAddition('expenseOfProject', 'totalProjectExpense');
+    }
+
     removeExpensesIndexObligation(incomeIndex) {
         (this.financialForm.get('obligationAtOtherBank') as FormArray).removeAt(incomeIndex);
         this.totalAdditionInitialFormObligation('obligationAtOtherBank', 'totalExpenseObligation');
@@ -722,6 +810,14 @@ export class FinancialComponent implements OnInit {
         this.financialForm.get(resultControllerName).setValue(Number(total).toFixed(2));
         const totalNetSaving = Number(this.financialForm.get('totalIncome').value) - Number(this.financialForm.get('totalExpense').value);
         this.financialForm.get('netSaving').setValue(Number(totalNetSaving).toFixed(2));
+    }
+
+    totalProjectAmountAddition(formArrayName, resultControllerName) {
+        let total = 0;
+        (this.financialForm.get(formArrayName) as FormArray).controls.forEach(group => {
+            total = Number(group.get('projectAmount').value) + Number(total);
+        });
+        this.financialForm.get(resultControllerName).setValue(Number(total).toFixed(2));
     }
 
     totalAdditionInitialFormObligation(formArrayName, resultControllerName) {

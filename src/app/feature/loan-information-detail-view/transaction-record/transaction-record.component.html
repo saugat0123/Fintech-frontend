@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+            <tbody class="sb-bg-dark text-white text-center">
+            <tr>
+                <th class="sn" rowspan="2">S.N</th>
+                <th rowspan="2">Facilities</th>
+                <th rowspan="2">Avg. utilization(%)</th>
+                <th class="border-top-0 border-bottom-0" rowspan="2" style="color: white"></th>
+                <th colspan="7">Transaction Records</th>
+            </tr>
+            <tr>
+                <th>Debit</th>
+                <th>No.</th>
+                <th>Amount</th>
+                <th>Credit</th>
+                <th>No.</th>
+                <th>Amount</th>
+            </tr>
+            </tbody>
+            <tbody *ngFor="let avg of multiBankingData?.utilization; let iv = index">
+            <tr>
+                <td>{{iv + 1}}</td>
+                <td>{{avg?.facilityName}}</td>
+                <td>{{avg?.avgUtil}}</td>
+                <td></td>
+                <td>{{avg?.debit}}</td>
+                <td>{{avg?.debitNo}}</td>
+                <td class="text-right pr-1">Rs. {{avg?.debitAmount | currencyFormatter}}</td>
+                <td>{{avg?.credit}}</td>
+                <td>{{avg?.creditNo}}</td>
+                <td class="text-right pr-1">Rs. {{avg?.creditAmount | currencyFormatter}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
