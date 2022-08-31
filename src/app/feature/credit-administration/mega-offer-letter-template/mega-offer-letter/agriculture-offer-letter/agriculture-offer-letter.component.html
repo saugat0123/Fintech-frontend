@@ -228,15 +228,8 @@
                                         <td>स्वीकृत सिमा (Sanctioned Limit)</td>
                                         <td>
                                             अधिकतम रु.
-<!--                                            <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'loanNameInWordOverdraft', 'loanAmountOverdraft')"-->
-<!--                                                                                [name]="patchFunctionArray('proposalData', pi, 'loanAmountOverdraft')" class="disable-print"></app-custom-input>-->
-
-                                            <input class="form-field disable-print form-control-sm preetiFont size16"
-                                                   formControlName="sanctionedLmt"
-                                                   name="sanctionedLmt"
-                                                   placeholder="!)))))"
-                                                   [value]="proposal?.get('sanctionedLmt')?.value"
-                                                   type="text"/>
+                                            <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'sanctionedLmtInWord', 'sanctionedLmt')"
+                                                                                [name]="patchFunctionArray('proposalData', pi, 'sanctionedLmt')" class="disable-print"></app-custom-input>
                                             <span class="print-only nepaliFont"><strong>{{proposal.sanctionedLmt ? proposal.sanctionedLmt : '========='}}</strong></span>/-
                                             (अक्षेरुपी रुपैया
                                             <input class="form-field disable-print form-control-sm preetiFont size16"
@@ -244,7 +237,7 @@
                                                    name="sanctionedLmtInWord"
                                                    placeholder="अक्षेरुपी"
                                                    type="text"/>
-                                            <span class="print-only preetiFont size16"><strong>{{form.get('sanctionedLmtInWord').value ? form.get('sanctionedLmtInWord').value  : '========='}}</strong></span>
+                                            <span class="print-only preetiFont size16"><strong>{{proposal.sanctionedLmtInWord ? proposal.sanctionedLmtInWord  : '========='}}</strong></span>
                                             मात्र ।) सम्म
                                         </td>
                                     </tr>
@@ -256,7 +249,7 @@
                                                              name="purpose"
                                                              type="text"/>
                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('purpose').value ? form.get('purpose').value  : '========='}}
+                                    <strong>{{proposal.purpose ? proposal.purpose : '========='}}
                                     </strong></span> मा लगानी  गर्न ।
                                         </td>
                                     </tr>
@@ -268,55 +261,66 @@
                                                                           name="drawdown"
                                                                           type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('drawdown').value ? form.get('drawdown').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.drawdown ? proposal.drawdown  : '========='}}</strong></span>
                                             को
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                    formControlName="drawdownPercent"
                                                    name="drawdownPercent"
                                                    type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('drawdownPercent').value ? form.get('drawdownPercent').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.drawdownPercent ? proposal.drawdownPercent : '========='}}</strong></span>
                                             प्रतिशत सम्म ।</td>
                                     </tr>
                                     <tr style="page-break-inside: auto" >
                                         <td>घ)</td>
                                         <td>कर्जा अवधि (Tenure)</td>
-                                        <td><p class="font-weight-bold">आवधिक कर्जा भएमा</p>
+                                        <td>
                                             <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
-                                            <nb-select #multiLoanSelection (selectedChange)="chooseLoanType(multiLoanSelection.selected)"
-                                                       [selected]="selectedLoanArray" multiple placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                            <nb-select formControlName="selectLoanTypeTenure" class="disable-print"
+                                                       (change)="checkLoanType($event?.target?.value, pi)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">
                                                     {{loanTypeDropdown?.value}}
                                                 </nb-option>
                                             </nb-select>
-                                            <p>यो आवधिक कर्जाको सिमा
+                                            <span *ngIf="proposal.get('selectLoanTypeTenure').value === loanTypesDropdown[0].key">
+                                                <p>यो आवधिक कर्जाको सिमा
                                                 <input class="form-field disable-print form-control-sm nepaliFont"
                                                        formControlName="tenureTermLoan"
                                                        name="tenureTermLoan"
                                                        type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('tenureTermLoan').value ? form.get('tenureTermLoan').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.tenureTermLoan ? proposal.tenureTermLoan : '========='}}</strong></span>
                                                 वर्ष सम्मको लागि प्रदान गरिनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>
-                                            <p class="font-weight-bold">अधिविकर्ष कर्जा भएमाः </p>
-                                            <p>उल्लेखित सीमा र अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्ने गरी चक्रात्मक आधार (Revolving Basis) मा यो कर्जा सुविधा उपलब्ध हुनेछ ।</p>
-                                            <p class="font-weight-bold">अन्य कर्जा भएमाः </p>
-                                            <p><ckeditor formControlName="otherTenureLoan" id="otherTenureLoan" type="text"
-                                                     [config]="ckeConfig"
-                                                     [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
+                                            </span>
+                                            <span *ngIf="proposal.get('selectLoanTypeTenure').value === loanTypesDropdown[1].key">
+                                                <p>उल्लेखित सीमा र अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्ने गरी चक्रात्मक आधार (Revolving Basis) मा यो कर्जा सुविधा उपलब्ध हुनेछ ।</p>
+                                            </span>
+
+                                            <span *ngIf="proposal.get('selectLoanTypeTenure').value === loanTypesDropdown[2].key">
+                                                <ckeditor formControlName="otherTenureLoan" [config]="ckeConfig" class="disable-print"></ckeditor>
                                                 <span class="print-only nepaliFont">
-                                         <strong>{{form.get('otherTenureLoan').value ? form.get('otherTenureLoan').value  : '========='}}</strong></span></p>
+                                                    <strong>{{proposal.otherTenureLoan ? proposal.otherTenureLoan : '========='}}</strong></span>
+                                                </span>
                                         </td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
                                         <td>ङ)</td>
                                         <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
-                                        <td><p class="font-weight-bold">आवधिक कर्जा भएमा</p>
-                                            <p>ययो कर्जाको भुक्तानी <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                           formControlName="noOfEmi"
-                                                                           name="noOfEmi"
-                                                                           type="text"/>
+                                        <td>
+                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                            <nb-select formControlName="selectLoanTypeRepay" class="disable-print"
+                                                       (change)="checkLoanType($event?.target?.value, pi)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                                <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">
+                                                    {{loanTypeDropdown?.value}}
+                                                </nb-option>
+                                            </nb-select>
+                                            <span *ngIf="proposal.get('selectLoanTypeRepay').value === loanTypesDropdown[0].key">
+                                                <p>यो कर्जाको भुक्तानी <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                              formControlName="noOfEmi"
+                                                                              name="noOfEmi"
+                                                                              type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('noOfEmi').value ? form.get('noOfEmi').value  : '========='}}</strong></span>,
+                                                    <strong>{{proposal.noOfEmi ? proposal.noOfEmi : '========='}}</strong></span>,
                                                 <input class="form-field disable-print form-control-sm nepaliFont"
                                                        formControlName="repaymentTermLoan"
                                                        name="repaymentTermLoan"
@@ -328,52 +332,54 @@
                                                                                        name="repaymentEngDate"
                                                                                        type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('repaymentEngDate').value ? form.get('repaymentEngDate').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('repaymentEngDate').value ? proposal.get('repaymentEngDate').value  : '========='}}</strong></span>
                                                 तारिखमा लिइनेछ,/प्रत्येक नेपाली त्रैमासको तेश्रो
                                                 महिनाको अन्तिम दिन लिइनेछ ।  तर कर्जा प्रवाह भएको पहिलो <input class="form-field disable-print form-control-sm nepaliFont"
                                                                                                                formControlName="repaymentEngDate"
                                                                                                                name="repaymentEngDate"
                                                                                                                type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('repaymentEngDate').value ? form.get('repaymentEngDate').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('repaymentEngDate').value ? proposal.get('repaymentEngDate').value  : '========='}}</strong></span>
                                                 किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा–ब्याज
                                                 <input class="form-field disable-print form-control-sm nepaliFont"
                                                        formControlName="noOfEmi"
                                                        name="noOfEmi"
                                                        type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('noOfEmi').value ? form.get('noOfEmi').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('noOfEmi').value ? proposal.get('noOfEmi').value  : '========='}}</strong></span>
                                                 समान मासिक किस्ता / त्रैमासिक किस्ता प्रति किस्ता अनुमानित रु
                                                 <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'emiAmountInWords','emiAmount')"
                                                                   [name]="patchFunctionArray('proposalData', pi, 'emiAmount')" class="disable-print">
                                                 </app-custom-input>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('emiAmount').value ? form.get('emiAmount').value  : '========='}}</strong></span>
+                                                <span class="print-only nepaliFont"><strong>{{proposal.get('emiAmount').value ? proposal.get('emiAmount').value  : '========='}}</strong></span>
                                                 (अक्षरुपि <input class="form-field disable-print form-control-sm nepaliFont"
                                                                  formControlName="emiAmountInWords"
                                                                  name="emiAmountInWords"
                                                                  type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('emiAmountInWords').value ? form.get('emiAmountInWords').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('emiAmountInWords').value ? proposal.get('emiAmountInWords').value  : '========='}}</strong></span>
                                                 पैसा मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन
                                                 गरि साविकको किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी
-                                                किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता बाट खर्च गरिनेछ ।</p>
-                                            <p class="font-weight-bold">अधिविकर्ष कर्जा भएमाः </p>
-                                            <p>यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                                                           formControlName="nextReviewDate"
-                                                                                                           name="nextReviewDate"
-                                                                                                           type="text"/>
-                                                <span class="print-only nepaliFont">
-                                    <strong>{{form.get('nextReviewDate').value ? form.get('nextReviewDate').value  : '========='}}</strong></span>
-                                                सम्मका लागि हुनेछ । सन्तोषजनक
-                                                कारोवारको अवस्थामा बैंकले स्वीकृत सीमा अवधि पटक पटक बढाउन सक्नेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि
-                                                भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>
-                                            <p class="font-weight-bold">अन्य कर्जा भएमाः </p>
-                                            <p><ckeditor formControlName="otherRepaymentLoan" id="otherRepaymentLoan" type="text"
-                                                         [config]="ckeConfig"
-                                                         [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
-                                                <span class="print-only nepaliFont">
-                                                <strong>{{form.get('otherRepaymentLoan').value ? form.get('otherRepaymentLoan').value  : '========='}}</strong></span>
+                                                किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता (Operative Account)
+                                                बाट खर्च गरिनेछ ।
                                             </p>
+                                            </span>
+                                            <span *ngIf="proposal.get('selectLoanTypeRepay').value === loanTypesDropdown[1].key">
+                                                <p>यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले <input class="form-field disable-print form-control-sm nepaliFont"
+                                                                                                               formControlName="nextReviewDate"
+                                                                                                               name="nextReviewDate"
+                                                                                                               type="text"/>
+                                                <span class="print-only nepaliFont">
+                                                    <strong>{{proposal.get('nextReviewDate').value ? proposal.get('nextReviewDate').value  : '========='}}</strong></span>
+                                                सम्मका लागि हुनेछ । सन्तोषजनककारोवारको अवस्थामा बैंकले स्वीकृत सीमा अवधि पटक पटक बढाउन सक्नेछ । तर, बैंकले चाहेको बखतमा सो
+                                                तोकेको समयावधिभन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>
+                                            </span>
+                                            <span *ngIf="proposal.get('selectLoanTypeRepay').value === loanTypesDropdown[2].key">
+                                                <ckeditor formControlName="otherRepaymentLoan" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                                <span class="print-only nepaliFont">
+                                                    <strong>{{proposal.get('otherRepaymentLoan').value ? proposal.get('otherRepaymentLoan').value  : '========='}}</strong>
+                                                </span>
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -387,7 +393,7 @@
                                                     name="premium"
                                                     type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
                                             प्रतिशत प्रिमियम दर
                                             (Premium Rate) जोडी
                                             <input class="form-field disable-print form-control-sm nepaliFont"
@@ -395,14 +401,14 @@
                                                                        name="subsidy"
                                                                        type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('subsidy').value ? form.get('subsidy').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('subsidy').value ? proposal.get('subsidy').value  : '========='}}</strong></span>
                                             प्रतिशत ब्याज अनुदान घटाएर, वा
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                                                   formControlName="interest"
                                                                                   name="interest"
                                                                                   type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('interest').value ? form.get('interest').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('interest').value ? proposal.get('interest').value  : '========='}}</strong></span>
                                             प्रतिशत, ब्याजदर कायम गरिनेछ । त्रयमास
                                             भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर
                                             (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै
@@ -413,7 +419,7 @@
                                                    name="interest"
                                                    type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('interest').value ? form.get('interest').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('interest').value ? proposal.get('interest').value  : '========='}}</strong></span>
                                             प्रतिशत प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज
                                             गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज
                                             बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको
@@ -426,14 +432,14 @@
                                                       name="premium"
                                                       type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
                                                 प्रतिशत सम्म प्रिमियम दर (Premium Rate)
                                                 जोडी, वा दिने <input class="form-field disable-print form-control-sm nepaliFont"
                                                                      formControlName="interestOtherLoan"
                                                                      name="interestOtherLoan"
                                                                      type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{form.get('interestOtherLoan').value ? form.get('interestOtherLoan').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('interestOtherLoan').value ? proposal.get('interestOtherLoan').value  : '========='}}</strong></span>
                                                 प्रतिशत, ब्याजदर कायम गरिनेछ। ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक
                                                 रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुुक्ता गरेको दिनमा
                                                 त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३
@@ -443,30 +449,36 @@
                                     </tr>
                                     <tr>
                                         <td>छ)</td>
-                                        <td>व्याज अनुदान (Interest Subsidy)</td>
-                                        <td>सहूलियतपूर्ण कर्जा सूविधाहरु अन्तर्गत निर्धारण गरेको व्याज दर मध्ये
+                                        <td>व्याज अनुदान (Interest Subsidy)
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkInterestSubsidy"
+                                                   id="checkInterestSubsidy" (change)="onCheck($event?.target?.value, pi,'checkInterestSubsidy')"/>
+                                            <label for="checkInterestSubsidy" class="disable-print"><strong>&nbsp;Needed?</strong></label>
+                                        </td>
+                                        <td><p *ngIf="proposal.get('checkInterestSubsidy').value">सहूलियतपूर्ण कर्जा सूविधाहरु अन्तर्गत निर्धारण गरेको व्याज दर मध्ये
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                        formControlName="subsidy"
                                                        name="subsidy"
                                                        type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('subsidy').value ? form.get('subsidy').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('subsidy').value ? proposal.get('subsidy').value  : '========='}}</strong></span>
                                             प्रतिशत व्याज अनुदानको लागि प्रक्रिया मिलाइनेछ ।
                                             ब्याज अनुदान अवधी <input class="form-field disable-print form-control-sm nepaliFont"
                                                                      formControlName="subsidyPeriod"
                                                                      name="subsidyPeriod"
                                                                      type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('subsidyPeriod').value ? form.get('subsidyPeriod').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('subsidyPeriod').value ? proposal.get('subsidyPeriod').value  : '========='}}</strong></span>
                                             वर्ष सम्मको लागि रहने छ । ऋणीले नियमति रुपमा मासिक किस्ता/व्याज नबुझाएको खण्डमा बैंकको
                                             आधार दरमा <input class="form-field disable-print form-control-sm nepaliFont"
                                                              formControlName="premium"
                                                              name="premium"
                                                              type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('premium').value ? form.get('premium').value  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
                                             प्रतिशत प्रिमियम जोडी हून आउने ब्याजदर लागु हुनेछ । भविष्यमा नेपाल राष्ट्र बैंकबा ब्याज अनुदान
-                                            सुविधा रोेक्का वा रद्द भएमा प्रचलित व्याजदर अनुरुप कर्जाको ब्याज भुक्तान गर्नु पर्नेछ ।
+                                            सुविधा रोेक्का वा रद्द भएमा प्रचलित व्याजदर अनुरुप कर्जाको ब्याज भुक्तान गर्नु पर्नेछ ।</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -751,30 +763,48 @@
                                     <caption class="font-weight-bold" style="caption-side: top;color: black">२) <u>दस्तुर तथा शुल्कहरु (Fees & Charges):</u></caption>
                                     <tbody>
                                     <tr style="page-break-inside: auto">
-                                        <td>प्रशासनिक शुल्क (Loan Administration Fee)</td>
-                                        <td>स्वीकृत सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
+                                        <td>प्रशासनिक शुल्क (Loan Administrative Fee)
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkLoanAdmin"
+                                                   id="checkLoanAdmin" (change)="onCheck2($event,'checkLoanAdmin')"/>
+                                            <label for="checkLoanAdmin" class="disable-print"><strong>&nbsp;Needed?</strong></label></td>
+                                        <td><p *ngIf="form.get('checkLoanAdmin').value">स्वीकृत सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
                                                                 formControlName="loanAdminFee"
                                                                 name="loanAdminFee"
                                                                 type="text"/>
                                             <span class="print-only nepaliFont">
                                     <strong>{{form.get('loanAdminFee').value ? form.get('loanAdminFee').value  : '========='}}</strong></span>
-                                            प्रतिशतका दरले ।</td>
+                                            प्रतिशतका दरले ।</p></td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>कर्जा नविकरण शुल्क (Loan Renewal fee)</td>
-                                        <td>स्वीकृत सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
+                                        <td>कर्जा नविकरण शुल्क (Loan Renewal fee)
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkLoanRenewal"
+                                                   id="checkLoanRenewal" (change)="onCheck2($event,'checkLoanRenewal')"/>
+                                            <label for="checkLoanRenewal" class="disable-print"><strong>&nbsp;Needed?</strong></label></td>
+                                        <td><p *ngIf="form.get('checkLoanRenewal').value">स्वीकृत सिमाको <input class="form-field disable-print form-control-sm nepaliFont"
                                                                   formControlName="loanRenewFee"
                                                                   name="loanRenewFee"
                                                                   type="text"/>
                                             <span class="print-only nepaliFont">
                                     <strong>{{form.get('loanRenewFee').value ? form.get('loanRenewFee').value  : '========='}}</strong></span>
-                                            प्रतिशतका दरले ।</td>
+                                            प्रतिशतका दरले ।
+                                        </p></td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>प्रशासनिक शुल्क गैर कोषमा आधारित कर्जाको हकमा (Loan Administrative Fee for Non- funded facility)</td>
-                                        <td><ckeditor formControlName="loanAdminFeeNonFunded" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                        <td>प्रशासनिक शुल्क गैर कोषमा आधारित कर्जाको हकमा (Loan Administrative Fee for Non- funded facility)
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkLoanAdminFeeNonFunded"
+                                                   id="checkLoanAdminFeeNonFunded" (change)="onCheck2($event,'checkLoanAdminFeeNonFunded')"/>
+                                            <label for="checkLoanAdminFeeNonFunded" class="disable-print"><strong>&nbsp;Needed?</strong></label>
+                                        </td>
+                                        <td><span *ngIf="form.get('checkLoanAdminFeeNonFunded').value"><ckeditor formControlName="loanAdminFeeNonFunded" [config]="ckeConfig" class="disable-print"></ckeditor>
                                             <span class="print-only nepaliFont">
                                             <strong>{{form.get('loanAdminFeeNonFunded').value ? form.get('loanAdminFeeNonFunded').value  : '========='}}</strong></span>
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
@@ -786,8 +816,13 @@
                                         <td>नेपाल राष्ट्र बैंकको नियमानुसार</td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>प्रतिवद्धता शुल्क (Commitment Charge)</td>
-                                        <td>नेपाल राष्ट्र बैंकको नियमानुर प्रतिवद्धता शुल्क लाग्नेछ ।</td>
+                                        <td>प्रतिवद्धता शुल्क (Commitment Charge)
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkCommitment"
+                                                   id="checkCommitment" (change)="onCheck2($event,'checkCommitment')"/>
+                                            <label for="checkCommitment" class="disable-print"><strong>&nbsp;Needed?</strong></label></td>
+                                        <td><p *ngIf="form.get('checkCommitment').value">नेपाल राष्ट्र बैंकको नियमानुर प्रतिवद्धता शुल्क लाग्नेछ ।</p></td>
                                     </tr>
                                     <tr>
                                         <td>आधार दर (Base Rate)</td>
@@ -799,10 +834,16 @@
                                     <strong>{{form.get('baseRate').value ? form.get('baseRate').value  : '========='}}</strong></span> प्रतिशत रहेकोछ । </td>
                                     </tr>
                                     <tr style="page-break-inside: auto">
-                                        <td>DCGF Premium</td>
-                                        <td><ckeditor formControlName="dcgfPremium" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                        <td>DCGF Premium
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkDcgfPremium"
+                                                   id="checkDcgfPremium" (change)="onCheck2($event,'checkDcgfPremium')"/>
+                                            <label for="checkDcgfPremium" class="disable-print"><strong>&nbsp;Needed?</strong></label></td>
+                                        <td><span *ngIf="form.get('checkDcgfPremium').value"><ckeditor formControlName="dcgfPremium" [config]="ckeConfig" class="disable-print"></ckeditor>
                                             <span class="print-only nepaliFont">
-                                            <strong>{{form.get('dcgfPremium').value ? form.get('dcgfPremium').value  : '========='}}</strong></span></td>
+                                            <strong>{{form.get('dcgfPremium').value ? form.get('dcgfPremium').value  : '========='}}</strong></span>
+                                        </span></td>
                                     </tr>
                                     <tr>
                                         <td>अन्य शुल्कहरुको लागि <input class="form-field disable-print form-control-sm nepaliFont"
@@ -810,8 +851,14 @@
                                                                         name="otherFeeName"
                                                                         type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{form.get('otherFeeName').value ? form.get('otherFeeName').value  : '========='}}</strong></span></td>
-                                        <td> <div class="col-md-12" formArrayName="otherFee"
+                                    <strong>{{form.get('otherFeeName').value ? form.get('otherFeeName').value  : '========='}}</strong></span>
+                                            <input class="disable-print"
+                                                   type="checkbox"
+                                                   formControlName="checkOtherLoan"
+                                                   id="checkOtherLoan" (change)="onCheck2($event,'checkOtherLoan')"/>
+                                            <label for="checkOtherLoan" class="disable-print"><strong>&nbsp;Needed?</strong></label>
+                                        </td>
+                                        <td> <div *ngIf="form.get('checkOtherLoan').value"><div class="col-md-12" formArrayName="otherFee"
                                                   *ngFor="let otherFee of form.get('otherFee')['controls']; let i = index">
                                             <table class="table table-bordered text-justify" [formGroupName]="i">
                                                 <div *ngIf="form.get('otherFee')['length'] > 1">
@@ -819,12 +866,13 @@
                                                 </div>
                                                 <tr><ckeditor formControlName="otherFee" [config]="ckeConfig" class="disable-print"></ckeditor>
                                                     <span class="print-only nepaliFont">
-                                            <strong>{{form.get('otherFee').value ? form.get('otherFee').value  : '========='}}</strong></span></tr>
+                                            <strong>{{otherFee.get('otherFee').value ? otherFee.get('otherFee').value  : '========='}}</strong></span></tr>
                                             </table>
                                         </div>
                                             <div>
                                                 <button class="btn btn-success btn-sm" (click)="addOtherFee()">Add More</button>
                                             </div>
+                                        </div>
                                     </td>
                                     </tr>
                                     <tr>
@@ -847,7 +895,8 @@
                                             <tbody>
                                                 <tr style="page-break-inside: auto">
                                                     <td>क)</td>
-                                                    <td><p>
+                                                    <td>
+                                                        <p>
                                                         <input class="form-field disable-print form-control-sm nepaliFont"
                                                                formControlName="surakchyanName"
                                                                name="surakchyanName"
@@ -931,7 +980,7 @@
                                                         <span class="print-only nepaliFont">
                                                         <strong>{{form.get('surakchyanLoanNameInWord').value ? form.get('surakchyanLoanNameInWord').value  : '========='}}</strong></span>
                                                         मात्र) को धितोबन्धक रजिष्ट्रेशन ।</p>
-                                                        <p>बैकका आधिकारीक मूल्याकंनकर्ता
+                                                        <p *ngIf="form.get('securityA').value">बैकका आधिकारीक मूल्याकंनकर्ता
                                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                                    formControlName="surakchyanMulyankankarta"
                                                                    name="surakchyanMulyankankarta"
@@ -962,11 +1011,17 @@
                                                             <span class="print-only nepaliFont">
                                                         <strong>{{form.get('surakchyanDistressInWord').value ? form.get('surakchyanDistressInWord').value  : '========='}}</strong></span>
                                                             मात्र) रहेको छ ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityA"
+                                                                  id="securityA" (change)="onCheck2($event,'securityA')"/>
+                                                            <label for="securityA" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
                                                     </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ख)</td>
-                                                    <td>सम्बन्धित यातायात विभाग र/वा कार्यालयवाट <input class="form-field disable-print form-control-sm nepaliFont"
+                                                    <td>
+                                                        <p  *ngIf="form.get('securityB').value">सम्बन्धित यातायात विभाग र/वा कार्यालयवाट <input class="form-field disable-print form-control-sm nepaliFont"
                                                                                             formControlName="noOfVehicle"
                                                                                             name="noOfVehicle"
                                                                                             type="text"/>
@@ -984,11 +1039,17 @@
                                                                name="vehicleNo"
                                                                type="text"/>
                                                         <span class="print-only nepaliFont">
-                                                        <strong>{{form.get('vehicleNo').value ? form.get('vehicleNo').value  : '========='}}</strong></span>) सेञ्चुरी कमर्सियल बैक लिमिटेडको स्वामित्वमा रहने गरी दर्ता नामसारी गरिदिनू पर्नेछ ।</td>
+                                                        <strong>{{form.get('vehicleNo').value ? form.get('vehicleNo').value  : '========='}}</strong></span>) सेञ्चुरी कमर्सियल बैक लिमिटेडको स्वामित्वमा रहने गरी दर्ता नामसारी गरिदिनू पर्नेछ ।
+                                                    </p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityB"
+                                                                  id="securityB" (change)="onCheck2($event,'securityB')"/>
+                                                            <label for="securityB" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ग)</td>
-                                                    <td>रु  <app-custom-input (eventEmit)="changeToNepAmount($event, 'hpAmountInWord', 'hpAmount')"
+                                                    <td><p *ngIf="form.get('securityC').value">रु  <app-custom-input (eventEmit)="changeToNepAmount($event, 'hpAmountInWord', 'hpAmount')"
                                                                               [name]="patchFunction('hpAmount')" class="disable-print"></app-custom-input>
                                                         <span class="print-only nepaliFont"><strong>{{form.get('hpAmount').value ? form.get('hpAmount').value  : '========='}}</strong></span>/—
                                                         (अक्षेरेपी <input class="form-field disable-print form-control-sm nepaliFont"
@@ -997,16 +1058,33 @@
                                                                           type="text"/>
                                                         <span class="print-only nepaliFont">
                                                         <strong>{{form.get('hpAmountInWord').value ? form.get('hpAmountInWord').value  : '========='}}</strong></span>
-                                                        मात्र) बराबरको हायर पर्चेज लिखत (Hire Purchase Deed) ।</td>
+                                                        मात्र) बराबरको हायर पर्चेज लिखत (Hire Purchase Deed) ।
+                                                    </p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityC"
+                                                                  id="securityC" (change)="onCheck2($event,'securityC')"/>
+                                                            <label for="securityC" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
+                                                    </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>घ)</td>
-                                                    <td>सवारी साधन बिक्री वापत ऋणीका तर्फबाट मञ्जुरीनामाको लिखित (Manjurinama Deed)</td>
+                                                    <td>
+                                                        <p *ngIf="form.get('securityD').value">सवारी साधन बिक्री वापत ऋणीका तर्फबाट मञ्जुरीनामाको लिखित (Manjurinama Deed)
+                                                        </p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityD"
+                                                                  id="securityD" (change)="onCheck2($event,'securityD')"/>
+                                                            <label for="securityD" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
+                                                    </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ङ)</td>
-                                                    <td>ऋणी कम्पनी र फर्मकोे नाममा रहेर्को प्लान्ट, मेशिनरी, उपकरण (Plant, Machinery,Equipment) को <app-custom-input (eventEmit)="changeToNepAmount($event, 'plantAmountInWord', 'plantAmount')"
-                                                                                                                                                                     [name]="patchFunction('plantAmount')" class="disable-print"></app-custom-input>
+                                                    <td>
+                                                        <p *ngIf="form.get('securityE').value">ऋणी कम्पनी र फर्मकोे नाममा रहेर्को प्लान्ट, मेशिनरी, उपकरण (Plant, Machinery,Equipment) को
+                                                            <app-custom-input (eventEmit)="changeToNepAmount($event, 'plantAmountInWord', 'plantAmount')"
+                                                                     [name]="patchFunction('plantAmount')" class="disable-print"></app-custom-input>
                                                         <span class="print-only nepaliFont"><strong>{{form.get('plantAmount').value ? form.get('plantAmount').value  : '========='}}</strong></span>/—
                                                         (अक्षेरेपी <input class="form-field disable-print form-control-sm nepaliFont"
                                                                           formControlName="plantAmountInWord"
@@ -1014,17 +1092,34 @@
                                                                           type="text"/>
                                                         <span class="print-only nepaliFont">
                                                         <strong>{{form.get('plantAmountInWord').value ? form.get('plantAmountInWord').value  : '========='}}</strong></span>
-                                                        मात्र) उपर माथि उल्लेखित
-                                                        कर्जा सूविधा तथा सो बाट उत्पन्न दायित्वको हद सम्म धनि बैंकको हक रहने गरी गरिदिने हाईपोथिकेसन
-                                                        (Charge over Fixed assets –Plant, Machinery,Equipment ) कायम रहनेछ । </td>
+                                                        मात्र) उपर माथि उल्लेखित कर्जा सूविधा तथा सो बाट उत्पन्न दायित्वको हद सम्म धनि बैंकको हक रहने गरी गरिदिने हाईपोथिकेसन (Charge over Fixed
+                                                        assets –Plant, Machinery,Equipment ) कायम रहनेछ ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityE"
+                                                                  id="securityE" (change)="onCheck2($event,'securityE')"/>
+                                                            <label for="securityE" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
+                                                    </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>च)</td>
-                                                    <td>आयप्राप्ति अधिकार हस्तान्तरण पत्र (Assignment of Receivables) ।</td>
+                                                    <td>
+                                                        <p *ngIf="form.get('securityF').value">आयप्राप्ति अधिकार हस्तान्तरण पत्र (Assignment of Receivables) ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityF"
+                                                                  id="securityF" (change)="onCheck2($event,'securityF')"/>
+                                                            <label for="securityF" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
+                                                    </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>छ)</td>
-                                                    <td>वारेसनामा (Power of Attorney) को लिखत । </td>
+                                                    <td><p *ngIf="form.get('securityG').value">वारेसनामा (Power of Attorney) को लिखत ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityG"
+                                                                  id="securityG" (change)="onCheck2($event,'securityG')"/>
+                                                            <label for="securityG" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ज)</td>
@@ -1036,7 +1131,12 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ञ)</td>
-                                                    <td>मोजरा/समायोजन पत्र (Letter of Set-Off) ।</td>
+                                                    <td><p *ngIf="form.get('securityJ').value">मोजरा/समायोजन पत्र (Letter of Set-Off) ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityJ"
+                                                                  id="securityJ" (change)="onCheck2($event,'securityJ')"/>
+                                                            <label for="securityJ" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ट)</td>
@@ -1044,7 +1144,12 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ठ)</td>
-                                                    <td>श्री सम्पत्ति धितो सुरक्षण लेखीदिएको गोश्वारा—पत्र (General Letter of Hypothecation over stock) ।</td>
+                                                    <td><p *ngIf="form.get('securityL').value">श्री सम्पत्ति धितो सुरक्षण लेखीदिएको गोश्वारा—पत्र (General Letter of Hypothecation over stock) ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityL"
+                                                                  id="securityL" (change)="onCheck2($event,'securityL')"/>
+                                                            <label for="securityL" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ड)</td>
@@ -1058,22 +1163,37 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ढ)</td>
-                                                    <td><input class="form-field disable-print form-control-sm nepaliFont"
+                                                    <td><p *ngIf="form.get('securityN').value"><input class="form-field disable-print form-control-sm nepaliFont"
                                                                formControlName="guarantorName"
                                                                name="guarantorName"
                                                                type="text"/>
                                                         <span class="print-only nepaliFont">
                                                         <strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>,
-                                                        को तर्फबाट स्वीकृत कर्जा सिमा बराबरको संस्थागत जमानी (Corporate Guarantee) ।</td>
+                                                        को तर्फबाट स्वीकृत कर्जा सिमा बराबरको संस्थागत जमानी (Corporate Guarantee) ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityN"
+                                                                  id="securityN" (change)="onCheck2($event,'securityN')"/>
+                                                            <label for="securityN" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ण)</td>
-                                                    <td>ऋणी फर्मको बिक्रीयोग्य सर–सामानहरुको बैंकलाई प्रथम हितग्राही बनाई कम्तीमा स्वीकृत कर्जा रकम बराबरको बैकको पक्षमा
-                                                        आवश्यकता अनुसारको विमालेख ।</td>
+                                                    <td><p *ngIf="form.get('securityO').value">ऋणी फर्मको बिक्रीयोग्य सर–सामानहरुको बैंकलाई प्रथम हितग्राही बनाई कम्तीमा स्वीकृत कर्जा रकम बराबरको बैकको पक्षमा
+                                                        आवश्यकता अनुसारको विमालेख ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityO"
+                                                                  id="securityO" (change)="onCheck2($event,'securityO')"/>
+                                                            <label for="securityO" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>त)</td>
-                                                    <td>पूरक सम्झौता (Supplementary Agreement) को लिखत ।</td>
+                                                    <td><p *ngIf="form.get('securityP').value">पूरक सम्झौता (Supplementary Agreement) को लिखत ।</p>
+                                                        <p><input class="disable-print"
+                                                                  type="checkbox"
+                                                                  formControlName="securityP"
+                                                                  id="securityP" (change)="onCheck2($event,'securityP')"/>
+                                                            <label for="securityP" class="disable-print"><strong>&nbsp;Needed?</strong></label></p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>थ)</td>
@@ -1085,7 +1205,21 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ड)</td>
-                                                    <td></td>
+                                                    <td><div class="col-md-12" formArrayName="securityR"
+                                                             *ngFor="let sec of form.get('securityR')['controls']; let i = index">
+                                                        <table class="table table-bordered text-justify" [formGroupName]="i">
+                                                            <div *ngIf="form.get('securityR')['length'] > 1">
+                                                                <button class="btn btn-danger" nbButton size="tiny" (click)="removeSecurity(i)">हटाउनुहोस्</button>
+                                                            </div>
+                                                            <tr><ckeditor formControlName="addSecurity" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                                                <span class="print-only nepaliFont">
+                                                        <strong>{{sec.get('addSecurity').value ? sec.get('addSecurity').value  : '========='}}</strong></span></tr>
+                                                        </table>
+                                                    </div>
+                                                        <div>
+                                                            <button class="btn btn-success btn-sm" (click)="addSecurity()">Add More</button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1125,11 +1259,9 @@
                                             वर्षको लागि बढाउन सकिनेछ , अन्यथा ऋणीले सम्पूर्ण वक्यौता रकम राफसाफ गर्नु पर्नेछ ।
                                         </p>
                                         <p>उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा अवधि समाप्तीको आधारमा प्रदान गरिने भएकोले पुनरावलोकन गरिनेछैन । </p>
-                                        <p><ckeditor formControlName="reviewOtherLoan" id="reviewOtherLoan" type="text"
-                                                     [config]="ckeConfig" class="disable-print"
-                                                     [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
+                                        <ckeditor formControlName="reviewOtherLoan" [config]="ckeConfig" class="disable-print"></ckeditor>
                                             <span class="print-only nepaliFont">
-                                         <strong>{{form.get('reviewOtherLoan').value ? form.get('reviewOtherLoan').value  : '========='}}</strong></span></p>
+                                         <strong>{{form.get('reviewOtherLoan').value ? form.get('reviewOtherLoan').value  : '========='}}</strong></span>
                                     </div>
                                     <div class="col-md-12 text-justify" style="break-before: auto">
                                         <p class="font-weight-bold">६. <u>निरीक्षण (Inspection)ः</u></p>
@@ -1237,14 +1369,22 @@
                                             </tr>
                                             <tr>
                                                 <td>घ)</td>
-                                                <td>ऋणको लागी बैंकलाई धितो लेखिदिएको चल अचल सम्पतीहरुको ऋणीले आफ्नै खर्चमा वीमा गरि सो वीमालेख बैंक समक्ष पेश गर्नु पर्नेछ । यस्तो वीमा ऋण
+                                                <td>
+                                                    <p *ngIf="form.get('chkSplCovenant').value">ऋणको लागी बैंकलाई धितो लेखिदिएको चल अचल सम्पतीहरुको ऋणीले आफ्नै खर्चमा वीमा गरि सो वीमालेख बैंक समक्ष पेश गर्नु पर्नेछ । यस्तो वीमा ऋण
                                                     (कर्जा) अबधीभरको लागी गरिएको हुनुपर्ने छ र यस्तो वीमालेखमा अनिबार्य रुपमा बैंकको पक्षमा बैंकर्स क्लज (Banker’s Clause) समाबेश गरिएको हुनुपर्ने
                                                     छ । वीमालेख नबिकरण गर्नुपर्ने भएमा ऋणीले वीमालेखको म्याद सकिनु भन्दा कम्तीमा ७ (सात) दिन पहिले अनिबार्य रुपमा नबिकरण गरि सो को बिबरण र
                                                     प्रमाण समेत बैंक समक्ष पेश गर्नुपर्ने छ । यस्तो बीमालेख नबिकरण गरेको छैन भन्ने जानकारी बैंकले पाएमा ऋणीको खाताबाट रकम कट्टा गरि बैंकले यस्तो वीमालेख
                                                     नबिकरण गर्नेछ । ऋणीको खातामा पर्याप्त रकम नभएमा यस्तो रकम समेत ऋण दायित्वमा थप गरि सो मा लाग्ने दस्तुर, १४ प्रतिशत ब्याज तथा थप ब्याज समेत
                                                     असुल उपर गरि बैंकले लिने छ । कथमकदाचित त्यसरी ऋणीले समयावधि भित्र बीमाको नवीकरण नगरेको कारणले बैंक आफैले ऋणीको तर्फबाट बीमाको नवीकरण
                                                     गर्दा ऋणी तथा बैंक दुवैबाट बीमाको नवीकरण हुन गै दोहोरो नवीकरण हुन गएमा बैंकले गरेको नवीकरण मान्य हुनेछ र त्यसरी दोहोरो नवीकरण हुन गै ऋणी लाई
-                                                    पर्न गएको नोक्सानीको जिम्मेवार ऋणी स्वयम हुनेछ ।</td>
+                                                    पर्न गएको नोक्सानीको जिम्मेवार ऋणी स्वयम हुनेछ ।
+                                                    </p>
+                                                    <p><input class="disable-print"
+                                                              type="checkbox"
+                                                              formControlName="chkSplCovenant"
+                                                              id="chkSplCovenant" (change)="onCheck2($event,'chkSplCovenant')"/>
+                                                        <label for="chkSplCovenant" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>ङ)</td>
@@ -1256,85 +1396,85 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="col-md-12 text-justify" style="page-break-inside: auto">
+                                    <div class="col-md-12 text-justify" style="page-break-inside: avoid">
                                         <p class="font-weight-bold">१०. <u>उल्लघंनको अवस्था (Events of Default):</u></p>
-                                        <table class="table table-borderless" style="page-break-inside: auto">
-                                            <tr style="page-break-inside: auto">
+                                        <table class="table table-borderless" style="page-break-inside: avoid">
+                                            <tr>
                                                 <td colspan="2">निम्नानुसार मध्येको कुनै पनि परिस्थिति उत्पन्न भएमा वा पाईएमा “उल्लंघनको अवस्था” भनिनेछ । यदि </td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>क)</td>
                                                 <td>ऋणीले यस स्वीकृति पत्र बमोजिम प्राप्त गर्ने भएको ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्राप्त गर्नको लागि दिएको आवेदन वा यस स्वीकृति पत्र बमोजिम दिएको वा
                                                     स्वीकृति पत्रमा लेखिएको कुनै पनि विवरण उद्घोषण वा Warranty वा कुनै पनि Correspondence वा कुनै पनि आर्थिक विवरण वा योजना मूलभूत रुपमा
                                                     गलत वा  त्रुटीपूर्ण वा मिथ्यापूर्ण सावित हुन गएमा ,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ख)</td>
                                                 <td>ऋणीको सांगठनिक (Corporate) स्तर, कानूनी अस्तित्व वा ऋणीको आर्थिक स्थिति, कबूलियत वा उत्तरदायित्व वा बिस्तार योजना वा कर्जा सापटीको अवस्था
                                                     वा चालुपुँजी सम्बन्धि विवरण वा पूँजीगत खर्चको बारेमा बैकलाई मूलभूत जानकारी नदिएमा वा त्यस्तो जानकारी लुकाउन खोजेमा ,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ग)</td>
                                                 <td>ऋणीले यस स्वीकृति पत्र बमोजिम तिर्नुपर्ने समयावधि भित्र साँवाको कुनै किस्ता वा ब्याज तिर्न नसकेको वा ऋणीको संचालन खातामा पर्याप्त मौज्दात
                                                     (Sufficient  Balance) नराखेमा वा त्यस्तो बाँकी रहेको रकम साँवाको कुनै किस्ता वा ब्याज तिर्न अपुग भएमा,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>घ)</td>
                                                 <td> ऋणीले यस स्वीकृति पत्र वा कुनै पनि सुरक्षणको लिखतमा उल्लेखित कुनै पनि शर्त/कबुलियतहरुको पालना नगरेमा वा गर्न नसकेमा,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ङ)</td>
                                                 <td>ऋणीले बैंकलाई सुरक्षण स्वरुप दिन मन्जुर गरेको कुनै पनि चल–अचल सम्पत्ति वा जायजेथा कुनै पनि कारवाहीको लागि Receiver or Liquidator
                                                     लाई प्रदान गरेमा,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>च)</td>
                                                 <td>कुनै परिस्थितिको सृजना भई बैंकलाई ऋणीले यस स्वीकृति पत्र वा कुनै पनि लिखतमा उल्लेखित कुनै पनि शर्त बन्देजहरुको पालना गर्न असमर्थ छ भन्ने लागेमा
                                                     यस सम्बन्धमा बैंकको आफ्नो स्वविवेकले गरेको निर्णय अन्तिम मानिनुका साथै ऋणीले अन्तिम निर्णयको रुपमा अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>छ)</td>
                                                 <td>कुनै पनि अधिकार प्राप्त निकायबाट ऋणीको कुनै पनि सम्पत्ति रोक्का राख्ने आदेश जारी भएमा ,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ज)</td>
                                                 <td> ऋणीले बैंकको स्वीकृति बेगर व्यवसायको प्रकृति परिवर्तन गरेमा वा व्यवसाय बन्द गरेमा ,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>झ)</td>
                                                 <td>ऋणीले बैंक बाहेक पनि अन्य कुनै साहूलाई तिर्नुपर्ने कुनै रकम तिर्न नसकेकोमा ,</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ञ)</td>
                                                 <td>कुनै व्यक्ति वा सरकारी वा अधिकार प्राप्त निकायबाट ऋणीको सम्पूर्ण वा आशिंक सम्पत्ति वा व्यवसाय रोक्का, जफत वा भागवण्डा गरिएमा वा ऋणी वा ऋणीको
                                                     व्यवसायको निलम्बन वा खारेजीको प्रकृया शुरु गरेमा । </td>
                                             </tr>
                                         </table>
-                                        <table class="table table-borderless">
-                                            <tr style="page-break-inside: auto">
+                                        <table class="table table-borderless" style="page-break-inside: auto">
+                                            <tr>
                                                 <td colspan="2">माथिको कुनै एक वा सबै अवस्था वा परिस्थिति उत्पन्न भएमा बैंकलाई निम्न लिखित अधिकार प्राप्त हुनेछ ।</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>क)</td>
                                                 <td>बाँकी रहेको सम्पूर्ण साँवा, ब्याज तथा अन्य लेना रकमहरु तुरुन्त तिर्न लगाउने (माग गर्ने) ।</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ख)</td>
                                                 <td>ऋणीले सुरक्षण स्वरुप दिएको सम्पूर्ण वा केही सम्पत्ति आफ्नो कब्जामा लिई वा नलिई लिलाम वा बिक्री गर्ने र सो बाट प्राप्त हुन आएको रकम आफूले ऋणीसँग लिनु पर्ने रकममा समायोजन गर्ने ।</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ग)</td>
                                                 <td>आफूले यस स्वीकृति पत्र वा ऋण/कर्जा र/वा बैंकिङ्ग सुविधासँग सम्बन्धित कुनै पनि लिखतको कुनै पनि शर्त बन्देज पालना नगरी रद्द गर्ने तथा कुनै पनि ऋण/कर्जा र/वा बैकिङ्ग सुविधाको दिन बाँकी रकम (हिस्सा/अंश) रोक्का गर्ने ।</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>घ)</td>
                                                 <td>ऋण/कर्जा र/वा बैकिङ्ग सुविधा प्रदान गर्दाको अवस्थाको कुनै पनि शर्त बन्देजहरु आफ्नो स्वविवेकले एकलौटी रुपमा परिवर्तन गर्ने ।</td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>ङ)</td>
                                                 <td>ऋणीको कुनै पनि सांयोगिक उत्तरदायित्व (Contingent Liability) वापत तुरुन्त नगद सुरक्षण (मार्जिन) राख्न लगाउने । </td>
                                             </tr>
-                                            <tr style="page-break-inside: auto">
+                                            <tr>
                                                 <td>च)</td>
                                                 <td>ऋणीले तिर्नु बुझाउनुपर्ने रकम समयमै नतिरी नबुझाइ धिङन्याइ गरेमा बैंकद्वारा जारी गरिएको अन्तिम सूचनालाई आधार मानि बैंक तथा वित्तीय संस्था सम्बन्धी
                                                     ऐन, २०७३ तथा प्रचलित कानून बमोजिम आफनो सम्पुर्ण लेना रकम असुल उपर गर्ने।</td>
@@ -1411,7 +1551,7 @@
                                             समक्ष नपुगेमा यो ऋण स्विकृति स्वतः रद्द भएको मानिनेछ ।
                                         </p>
                                     </div>
-                                    <div class="col-md-12 text-justify" style="overflow: visible; display: inline; break-before: auto">
+                                    <div class="col-md-12 text-justify" style="overflow: visible; display: inline; page-break-inside: auto">
                                         <table>
                                             <thead>
                                                 <tr>

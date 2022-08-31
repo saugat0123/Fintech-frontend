@@ -64,10 +64,10 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     {key: 'OtherNatureOfLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
   ];
   listOfLoan = [];
-  commercialAgricultureAndLivestock = false;
-  educatedYouthSelfEmployment = false;
   youthProjectLoanForReturneesFromAbroad = false;
   loansToWomenEntrepreneurs = false;
+  commercialAgricultureAndLivestock = false;
+  educatedYouthSelfEmployment = false;
   dalitCommunityBusinessDevelopment = false;
   higherAndTechnicalAndVocationalEducation = false;
   textileIndustryOperation = false;
@@ -95,7 +95,6 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepPercentWordPipe: NepaliPercentWordPipe,
               protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
   }
 
@@ -292,8 +291,27 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       plantAmount: [undefined],
       plantAmountInWord: [undefined],
       otherFee: this.formBuilder.array([this.buildOtherFeeForm()]),
+      checkLoanAdmin: true,
+      checkLoanRenewal: true,
+      checkLoanAdminFeeNonFunded: true,
+      checkCommitment: true,
+      checkDcgfPremium: true,
+      checkOtherLoan: true,
+      securityA: true,
+      securityB: true,
+      securityC: true,
+      securityD: true,
+      securityE: true,
+      securityF: true,
+      securityG: true,
+      securityJ: true,
+      securityL: true,
+      securityN: true,
+      securityO: true,
+      securityP: true,
+      securityR: this.formBuilder.array([this.buildSecurityForm()]),
+      chkSplCovenant: true
     });
-    console.log('form', this.form);
   }
 
   buildProposalForm() {
@@ -321,7 +339,10 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       subsidy: [undefined],
       interest: [undefined],
       interestOtherLoan: [undefined],
-      subsidyPeriod: [undefined]
+      subsidyPeriod: [undefined],
+      checkInterestSubsidy: true,
+      selectLoanTypeTenure: [undefined],
+      selectLoanTypeRepay: [undefined],
       // overDraftLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
       // demandLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
       // termLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
@@ -331,7 +352,13 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
 
   buildOtherFeeForm() {
     return this.formBuilder.group({
-      otherLoan: [undefined],
+      otherFee: [undefined],
+    });
+  }
+
+  buildSecurityForm() {
+    return this.formBuilder.group({
+      addSecurity: [undefined],
     });
   }
 
@@ -344,6 +371,10 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     this.form.get(['proposalData', index, 'natureOfLoan']).patchValue(natureOfLoan);
   }
 
+  checkLoanType(selectLoanType, index) {
+    this.form.get(['proposalData', index, 'selectLoanType']).patchValue(selectLoanType);
+  }
+
   addProposal() {
     const control = this.form.get('proposalData') as FormArray;
     control.push(this.buildProposalForm());
@@ -352,6 +383,11 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   addOtherFee() {
     const control = this.form.get('otherFee') as FormArray;
     control.push(this.buildOtherFeeForm());
+  }
+
+  addSecurity() {
+    const control = this.form.get('securityR') as FormArray;
+    control.push(this.buildSecurityForm());
   }
 
   checkOfferLetterData() {
@@ -376,6 +412,21 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     }
   }
 
+  onCheck(e, i, formControlName) {
+      if (e) {
+        this.form.get(['proposalData', i, formControlName]).patchValue(true);
+      } else {
+        this.form.get(['proposalData', i, formControlName]).patchValue(false);
+      }
+  }
+
+  onCheck2(e, formControlName) {
+    if (e) {
+      this.form.get(formControlName).patchValue(e.target.checked);
+    } else {
+      this.form.get(formControlName).patchValue(e.target.value);
+    }
+  }
 
   submit(): void {
     this.spinner = true;
@@ -409,6 +460,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Agriculture Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
+      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
 
@@ -523,5 +575,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
 
   removeOtherFee(index: number) {
     (this.form.get('otherFee') as FormArray).removeAt(index);
+  }
+
+  removeSecurity(index: number) {
+    (this.form.get('securityR') as FormArray).removeAt(index);
   }
 }
