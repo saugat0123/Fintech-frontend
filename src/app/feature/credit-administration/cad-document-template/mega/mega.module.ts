@@ -10,7 +10,7 @@ import {PromissoryNoteSingleBorrowerComponent} from './promissory-note-single-bo
 import {AssignmentOfReceivableComponent} from './assignment-of-receivable/assignment-of-receivable.component';
 import {DeedHypoOfMachineryComponent} from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import {HypoOfStockComponent} from './hypo-of-stock/hypo-of-stock.component';
-import {NbButtonModule, NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LoanDeedPartnershipComponent} from './loan-deed-partnership/loan-deed-partnership.component';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {LoanDeedCompanyComponent} from './loan-deed-company/loan-deed-company.component';
@@ -69,13 +69,15 @@ import { SupplementaryAgreementProprietorshipComponent } from './supplementary-a
 import {GeneralLetterOfHypothecationCompanyComponent} from './general-letter-of-hypothecation-company/general-letter-of-hypothecation-company.component';
 import { GeneralLetterOfHypothecationPropietorshipComponent } from './general-letter-of-hypothecation-propietorship/general-letter-of-hypothecation-propietorship.component';
 import { KaloSuchiBorrowerPgIndividualComponent } from './kalo-suchi-borrower-pg-individual/kalo-suchi-borrower-pg-individual.component';
-
 import { VehicleLoanDeedPartnershipComponent } from './vehicle-loan-deed-partnership/vehicle-loan-deed-partnership.component';
 import {KaloSuchiBorrowerPgPartnershipComponent} from './kalo-suchi-borrower-pg-partnership/kalo-suchi-borrower-pg-partnership.component';
 import { GeneralLetterOfHypothecationPartnershipComponent } from './general-letter-of-hypothecation-partnership/general-letter-of-hypothecation-partnership.component';
 import { PromissoryNoteProprietorshipComponent } from './promissory-note-proprietorship/promissory-note-proprietorship.component';
 import { VehicleLoanDeedProprietorshipComponent } from './vehicle-loan-deed-proprietorship/vehicle-loan-deed-proprietorship.component';
 import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-pg-proprietorship/kalo-suchi-borrower-pg-proprietorship.component';
+import { LetterOfContinuityIndividualComponent } from './letter-of-continuity-individual/letter-of-continuity-individual.component';
+
+import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-of-trust-receipt.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -131,7 +133,8 @@ import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-
         VehicleLoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
         SupplementaryAgreementProprietorshipComponent,
-
+        LetterOfContinuityIndividualComponent,
+        LetterOfTrustReceiptComponent,
     ],
     imports: [
         CommonModule,
@@ -140,6 +143,7 @@ import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-
         NbButtonModule,
         NgxPrintModule,
         MegaOfferLetterTemplateModule,
+        NbSpinnerModule,
     ],
     exports: [
         AssignmentOfReceivableComponent,
@@ -194,7 +198,9 @@ import {KaloSuchiBorrowerPgProprietorshipComponent} from './kalo-suchi-borrower-
         PromissoryNoteProprietorshipComponent,
         VehicleLoanDeedProprietorshipComponent,
         KaloSuchiBorrowerPgProprietorshipComponent,
-        SupplementaryAgreementProprietorshipComponent
+        SupplementaryAgreementProprietorshipComponent,
+        LetterOfContinuityIndividualComponent,
+        LetterOfTrustReceiptComponent
     ],
 })
 
