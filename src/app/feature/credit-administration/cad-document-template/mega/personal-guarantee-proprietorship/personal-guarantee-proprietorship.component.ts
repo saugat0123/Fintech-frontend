@@ -11,14 +11,15 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 
-@Component({
-  selector: 'app-personal-guarantee-partnership',
-  templateUrl: './personal-guarantee-partnership.component.html',
-  styleUrls: ['./personal-guarantee-partnership.component.scss']
-})
-export class PersonalGuaranteePartnershipComponent implements OnInit {
 
-  personalGuaranteePartnership: FormGroup;
+@Component({
+  selector: 'app-personal-guarantee-proprietorship',
+  templateUrl: './personal-guarantee-proprietorship.component.html',
+  styleUrls: ['./personal-guarantee-proprietorship.component.scss']
+})
+export class PersonalGuaranteeProprietorshipComponent implements OnInit {
+
+  personalGuaranteeProprietorship: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -36,7 +37,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.personalGuaranteePartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.personalGuaranteeProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
     }
@@ -45,7 +46,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
     // if (!ObjectUtil.isEmpty(guarantorList)) {
-    //   const guarantorDetails = this.personalGuaranteePartnership.get('personalGuaranteePartnership') as FormArray;
+    //   const guarantorDetails = this.personalGuaranteeProprietorship.get('personalGuaranteeProprietorship') as FormArray;
     //   console.log('list' , guarantorList);
     //   console.log('details' , guarantorDetails);
     //   // guarantorList.forEach(e => {
@@ -65,9 +66,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
 
 
   buildForm() {
-    this.personalGuaranteePartnership = this.formBuilder.group({
+    this.personalGuaranteeProprietorship = this.formBuilder.group({
       branchName: [undefined],
-      companyAct: [undefined],
       companyRegistrationOffice: [undefined],
       registrationIssuedDate: [undefined],
       companyRegistrationNumber: [undefined],
@@ -103,12 +103,12 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   }
 
   changeToNepAmount(event: any, target, from) {
-    this.personalGuaranteePartnership.get(target).patchValue(event.nepVal);
-    this.personalGuaranteePartnership.get(from).patchValue(event.val);
+    this.personalGuaranteeProprietorship.get(target).patchValue(event.nepVal);
+    this.personalGuaranteeProprietorship.get(from).patchValue(event.val);
   }
 
   patchFunction(target) {
-    const patchValue1 = this.personalGuaranteePartnership.get(target).value;
+    const patchValue1 = this.personalGuaranteeProprietorship.get(target).value;
     return patchValue1;
   }
 
@@ -118,13 +118,13 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.personalGuaranteePartnership.value);
+          singleCadFile.initialInformation = JSON.stringify(this.personalGuaranteeProprietorship.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.personalGuaranteePartnership.value);
+        cadFile.initialInformation = JSON.stringify(this.personalGuaranteeProprietorship.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -133,7 +133,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.personalGuaranteePartnership.value);
+      cadFile.initialInformation = JSON.stringify(this.personalGuaranteeProprietorship.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -149,7 +149,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
       this.dialogRef.close();
     });
-    console.log(this.personalGuaranteePartnership.value);
+    console.log(this.personalGuaranteeProprietorship.value);
   }
 
 }
