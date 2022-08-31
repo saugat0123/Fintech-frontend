@@ -385,6 +385,7 @@
             <nb-card-body>
               <app-financial-view *ngIf="customerInfo?.financial; else noIncExp" [formData]="customerInfo?.financial"
                                   [data]="customerInfo?.financial"
+                                  [customerCategory]="customerInfo?.customerCategory"
                                   [customerType]="customerInfo?.customerType"></app-financial-view>
               <ng-template #noIncExp>Not Available</ng-template>
             </nb-card-body>

@@ -62,6 +62,7 @@
         <p><strong>REPAYMENT ANALYSIS: {{loanHolder?.financial ? '' : 'NA'}}</strong></p>
         <app-financial-view *ngIf="loanHolder?.financial"
                             [customerType]="loanHolder?.customerType"
+                            [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                             [formData]="loanHolder?.financial"></app-financial-view>
     </li>
 
