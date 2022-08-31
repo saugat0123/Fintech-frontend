@@ -1,0 +1,28 @@
+@import "../loan-information-detail-view.component";
+
+
+.heading {
+  font-size: 16.5px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.sub-heading {
+  strong {
+    font-size: 13px;
+  }
+}
+
+.background-info {
+  border: 1px solid black;
+  height: 190px;
+}
+.ck-table {
+  display: block !important;
+  overflow-x: auto !important;
+  table-layout: inherit !important;
+  width: 100% !important;
+  font-size: 60%;
+  font-weight: 500;
+
+}
