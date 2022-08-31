@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12" *ngIf="isAboveTen">
+    <div class="col-md-12" *ngIf="isAboveTen || isUptoTwo">
         <div class="form-group">
             <label for="detailInformation"><b>DETAIL INFORMATION</b></label>
             <ckeditor id="detailInformation" formControlName="detailInformation"
