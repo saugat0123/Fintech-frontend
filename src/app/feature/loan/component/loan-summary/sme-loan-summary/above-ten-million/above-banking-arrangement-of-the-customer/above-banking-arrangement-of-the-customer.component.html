@@ -269,5 +269,10 @@
             </div>
         </div>
     </li>
+
+    <li class="font-weight-bold" *ngIf="(isWholeSale) || customerType === 'INDIVIDUAL'">
+        <span> Credit History of the customer with CCBL:</span><br>
+        <span class="font-weight-normal">Relationship with the customer started on ..... account performance of the client is till date is satisfactory/not statisfactory.</span>
+    </li>
 </ol>
 

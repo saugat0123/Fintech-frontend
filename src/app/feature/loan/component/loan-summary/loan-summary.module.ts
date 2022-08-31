@@ -83,6 +83,7 @@ import {RetailRecommendationComponent} from '../../../loan-information-detail-vi
 import { AnnexureOneComponent } from './annexure-one/annexure-one.component';
 import { SecurityDocumentViewComponent } from './sme-loan-summary/above-ten-million/security-document-view/security-document-view.component';
 import { SummaryHeaderComponent } from './summary-header/summary-header.component';
+import { DslWholesaleComponent } from './sme-loan-summary/dsl-wholesale/dsl-wholesale.component';
 
 
 const COMPONENTS = [
@@ -179,7 +180,8 @@ const ENTRY_COMPONENTS = [];
     RetailRecommendationComponent,
     AnnexureOneComponent,
     SecurityDocumentViewComponent,
-    SummaryHeaderComponent
+    SummaryHeaderComponent,
+    DslWholesaleComponent
   ],
     imports: [
         CommonModule,

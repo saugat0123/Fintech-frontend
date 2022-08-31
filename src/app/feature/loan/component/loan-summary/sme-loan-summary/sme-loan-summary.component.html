@@ -231,6 +231,15 @@
                                        [isExecutive]="false"
                                        [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
             </ng-container>
+            <ng-container *ngIf="isDslWholesale">
+                <app-dsl-wholesale [loanDataHolder]="loanDataHolder"
+                                   [customerAllLoanList]="customerAllLoanList"
+                                   [isDetailedView]="isDetailedView"
+                                   [fixedAssetsData]="fixedAssetsData"
+                                   [fiscalYear]="fiscalYearArray"
+                                   [isExecutive]="false"
+                                   [totalProposedLimit]="totalProposedLimit"></app-dsl-wholesale>
+            </ng-container>
             <ng-container class="page-break" *ngIf="loanDataHolder?.security && fixedAssetsData?.length > 0">
                 <app-annexure-one [loanDataHolder]="loanDataHolder"
                                   [fixedAssetsData]="fixedAssetsData"></app-annexure-one>
