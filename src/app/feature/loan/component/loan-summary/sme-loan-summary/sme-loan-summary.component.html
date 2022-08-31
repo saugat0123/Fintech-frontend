@@ -213,28 +213,28 @@
             </ng-container>
         </div>
         <div class="col-md-12">
-<!--            <ng-container>-->
-<!--                <app-upto-ten-million *ngIf="isUpToTenMillion"-->
-<!--                                      [loanDataHolder]="loanDataHolder"-->
-<!--                                      [fiscalYear]="fiscalYearArray"-->
-<!--                                      [isDetailedView]="isDetailedView"-->
-<!--                                      [totalProposed]="totalProposedLimit"-->
-<!--                                      [fixedAssetsData]="fixedAssetsData"-->
-<!--                                      [isExecutive]="false"-->
-<!--                                      [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>-->
-<!--            </ng-container>-->
-<!--            <ng-container>-->
-<!--                <app-above-ten-million *ngIf="isAboveTenMillion"-->
-<!--                                       [loanDataHolder]="loanDataHolder"-->
-<!--                                       [customerAllLoanList]="customerAllLoanList"-->
-<!--                                       [isDetailedView]="isDetailedView"-->
-<!--                                       [fixedAssetsData]="fixedAssetsData"-->
-<!--                                       [fiscalYear]="fiscalYearArray"-->
-<!--                                       [isExecutive]="false"-->
-<!--                                       [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>-->
-<!--            </ng-container>-->
             <ng-container>
-                <app-agriculture-view
+                <app-upto-ten-million *ngIf="isUpToTenMillion"
+                                      [loanDataHolder]="loanDataHolder"
+                                      [fiscalYear]="fiscalYearArray"
+                                      [isDetailedView]="isDetailedView"
+                                      [totalProposed]="totalProposedLimit"
+                                      [fixedAssetsData]="fixedAssetsData"
+                                      [isExecutive]="false"
+                                      [customerAllLoanList]="customerAllLoanList"></app-upto-ten-million>
+            </ng-container>
+            <ng-container>
+                <app-above-ten-million *ngIf="isAboveTenMillion"
+                                       [loanDataHolder]="loanDataHolder"
+                                       [customerAllLoanList]="customerAllLoanList"
+                                       [isDetailedView]="isDetailedView"
+                                       [fixedAssetsData]="fixedAssetsData"
+                                       [fiscalYear]="fiscalYearArray"
+                                       [isExecutive]="false"
+                                       [totalProposedLimit]="totalProposedLimit"></app-above-ten-million>
+            </ng-container>
+            <ng-container>
+                <app-agriculture-view *ngIf="isUptoTwoMillion"
                                       [loanDataHolder]="loanDataHolder"
                                       [customerAllLoanList]="customerAllLoanList"
                                       [loanHolder]="loanDataHolder?.loanHolder"

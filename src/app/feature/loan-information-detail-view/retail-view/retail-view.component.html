@@ -97,6 +97,7 @@
         <ol>
             <app-m-group-summary *ngIf="loanDataHolder?.loanHolder?.mgroupInfo"
                                  [mGroup]="loanDataHolder?.loanHolder?.mgroupInfo"
+                                 [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"
                                  [customerType]="loanDataHolder?.loanHolder?.customerType"></app-m-group-summary>
         </ol>
     </li>

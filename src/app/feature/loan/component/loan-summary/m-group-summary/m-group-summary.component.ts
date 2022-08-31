@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {MGroup} from '../../../../customer/model/mGroup';
 import {CustomerCategory} from '../../../../customer/model/customerCategory';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -10,12 +10,11 @@ import {DefaultTable} from '../../../model/defaultTable';
   templateUrl: './m-group-summary.component.html',
   styleUrls: ['./m-group-summary.component.scss']
 })
-export class MGroupSummaryComponent implements OnInit {
+export class MGroupSummaryComponent implements OnInit, OnChanges {
 
   @Input() mGroup: MGroup;
   @Input() customerCategory: any;
   @Input() customerType: CustomerType;
-  customerCategoryType = CustomerCategory;
   groupPosition;
   totalAmount;
   isAboveTen = false;
@@ -27,15 +26,6 @@ export class MGroupSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.checkCustomerCategory(this.customerCategory);
-    if (!ObjectUtil.isEmpty(this.mGroup)) {
-      if (!ObjectUtil.isEmpty(this.mGroup.groupPosition)) {
-        this.groupPosition = JSON.parse(this.mGroup.groupPosition);
-      }
-      if (!ObjectUtil.isEmpty(this.mGroup.totalAmount)) {
-        this.totalAmount = JSON.parse(this.mGroup.totalAmount);
-      }
-    }
   }
 
   checkCustomerCategory(value) {
@@ -50,6 +40,18 @@ export class MGroupSummaryComponent implements OnInit {
       this.isUptoTwo = true;
     } else {
       this.isWholeSale = true;
+    }
+  }
+
+  ngOnChanges() {
+    this.checkCustomerCategory(this.customerCategory);
+    if (!ObjectUtil.isEmpty(this.mGroup)) {
+      if (!ObjectUtil.isEmpty(this.mGroup.groupPosition)) {
+        this.groupPosition = JSON.parse(this.mGroup.groupPosition);
+      }
+      if (!ObjectUtil.isEmpty(this.mGroup.totalAmount)) {
+        this.totalAmount = JSON.parse(this.mGroup.totalAmount);
+      }
     }
   }
 

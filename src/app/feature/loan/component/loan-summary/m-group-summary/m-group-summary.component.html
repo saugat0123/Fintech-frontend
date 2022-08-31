@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.detailInformation) || 'NA' "></td>
+                    <td colspan="12" class="text-left pl-1 " [innerHTML]="mGroup?.detailInformation || 'NA' | safeHtml"></td>
                 </tr>
                 </tbody>
             </table>
