@@ -217,6 +217,10 @@
                                         [cadData]="cadData" [documentId]="documentId"
                                         [customerLoanId]="customerLoanId">
         </app-personal-guarantee-partnership>
+        <app-personal-guarantee-proprietorship *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PROPRIETORSHIP"
+                                            [cadData]="cadData" [documentId]="documentId"
+                                            [customerLoanId]="customerLoanId">
+        </app-personal-guarantee-proprietorship>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
