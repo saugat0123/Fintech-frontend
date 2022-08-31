@@ -68,6 +68,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     this.personalGuaranteePartnership = this.formBuilder.group({
       branchName: [undefined],
       companyAct: [undefined],
+      companyRegistrationOffice: [undefined],
       registrationIssuedDate: [undefined],
       companyRegistrationNumber: [undefined],
       companyDistrict: [undefined],

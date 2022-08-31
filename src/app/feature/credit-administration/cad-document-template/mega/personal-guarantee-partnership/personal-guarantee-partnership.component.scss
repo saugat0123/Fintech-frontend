@@ -47,6 +47,7 @@ input::-webkit-input-placeholder {
 @media print {
   .print-only {
     display: inline;
+    font-size: 26px;
   }
   div.align {
     font-size: 20px;
