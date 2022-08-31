@@ -31,6 +31,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     discrepancy: boolean;
     partialDiscrepancy: boolean;
     baselCode: any;
+    sccStage: Array<any>;
 
 
 }
