@@ -15,6 +15,7 @@ export class FinancialViewComponent implements OnInit {
   @Input() formData: Financial;
   @Input() customerType;
   @Input() data;
+  @Input() customerCategory;
   isMicro = false;
   financialData: any;
   isBusinessLoan = false;
