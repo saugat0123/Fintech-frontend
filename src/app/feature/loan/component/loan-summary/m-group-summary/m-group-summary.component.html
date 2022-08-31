@@ -16,7 +16,7 @@
             </table>
         </div>
     </div>
-    <li *ngIf="isBelowTen || isSana || customerCategory === 'executing' || customerType === 'INDIVIDUAL'"
+    <li *ngIf="isBelowTen || isSana || customerCategory === 'executing' || (customerType === 'INDIVIDUAL' && !isUptoTwo)"
         class="font-weight-bold">
         <span> GROUP LIMIT {{groupPosition?.length > 0 ? '' : ': NA'}}</span>
         <div class="row">

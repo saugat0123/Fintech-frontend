@@ -72,7 +72,8 @@
                                               [loanDataHolder]="loanDataHolder"
                                               [proposalData]="loanDataHolder?.proposal"></app-retail-purpose-and-justification>
     </li>
-    <li class="libold">
+    <li class="libold"
+        *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p><strong>INTERNAL REPORTING : </strong></p>
         <span [innerHTML]="(loanDataHolder?.loanHolder?.siteVisit?.data | jsonParse)?.internalReport || 'NA' | safeHtml"></span>
     </li>

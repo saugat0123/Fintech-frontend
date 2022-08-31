@@ -369,7 +369,7 @@
                         Add Business Site Visit Details
                     </button>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" *ngIf="customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
                     <label for="internalReport"><b>Internal Reporting</b></label>
                     <ckeditor id="internalReport"
                               formControlName="internalReport"
