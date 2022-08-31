@@ -9,4 +9,5 @@ export class CadStage extends BaseEntity {
     toRole: Role;
     docAction: any;
     comment: string;
+    sccGenerate: boolean;
 }
