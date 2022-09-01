@@ -50,7 +50,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   jsonData;
   olRefNumber;
   documentCheckListData;
-  sccPath;
+  sccPaths: Array<any> = new Array<any>();
   baselDetails;
   gssCode;
   totalStage = [];
@@ -103,7 +103,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.addDrawDownDetail();
     }
     if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
-      this.sccPath = JSON.parse(this.cadFile.exposure.data).sccPath;
+      this.sccPaths = JSON.parse(this.cadFile.exposure.data).sccPath;
     }
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
@@ -320,10 +320,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
         return;
       }
       this.creditAdministrationService.getSccDocPath(formData).subscribe((res: any) => {
+        this.sccPaths.push(res.detail);
         const mergeData = {
           disbursementDetails: this.cadFile.exposure ? JSON.parse(this.cadFile.exposure.data).disbursementDetails : {},
-          sccPath: res.detail
         };
+        mergeData['sccPath'] = this.sccPaths;
         this.spinnerService.hide();
         this.cadFile.exposure.data = JSON.stringify(mergeData);
         this.saveCadFile();
