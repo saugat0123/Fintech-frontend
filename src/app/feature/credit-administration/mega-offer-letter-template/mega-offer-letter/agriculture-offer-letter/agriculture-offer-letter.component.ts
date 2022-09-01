@@ -39,7 +39,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   loanHolderInfo;
   loanTypes = [
     {key: 'CommercialAgricultureAndLivestock', value: 'व्यावसायिक कृषि तथा पशुपन्छी कर्जा (Commercial Agriculture and Livestock Loans)'},
-    {key: 'EducatedYouthSelfEmployment', value: 'डशिक्षित युवा स्वरोजगार कर्जा (Educated Youth Self Employment)'},
+    {key: 'EducatedYouthSelfEmployment', value: 'शिक्षित युवा स्वरोजगार कर्जा (Educated Youth Self Employment)'},
     {key: 'YouthProjectLoanForReturneesFromAbroad', value: 'विदेशबाट फर्केका युवा परियोजना कर्जा (Youth Project Loan For Returnees From Abroad)'},
     {key: 'LoansToWomenEntrepreneurs', value: 'महिला उद्यमशिल कर्जा (Loans to Women Entrepreneurs)'},
     {key: 'DalitCommunityBusinessDevelopmentLoan', value: 'दलित समुदाय व्यवसाय विकास कर्जा (Dalit Community Business Development Loan)'},
@@ -62,6 +62,15 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
     {key: 'TermLoans', value: 'आवधिक कर्जा (Term Loans)'},
     {key: 'OtherNatureOfLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
+  ];
+  interestLoanTypesDropdown = [
+    {key: 'interestSubsidy', value: 'व्याज अनुदान कजा'},
+    {key: 'OtherInterestLoans', value: 'अन्य कर्जा'}
+  ];
+  reviewDropdown = [
+    {key: 'Revolving', value: 'नविकरण हुर्ने कर्जा'},
+    {key: 'TermLoans', value: 'आवधिक प्रकृतीका कर्जा'},
+    {key: 'OtherLoans', value: 'अन्य कर्जा'}
   ];
   listOfLoan = [];
   youthProjectLoanForReturneesFromAbroad = false;
@@ -290,7 +299,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       hpAmountInWord: [undefined],
       plantAmount: [undefined],
       plantAmountInWord: [undefined],
-      otherFee: this.formBuilder.array([this.buildOtherFeeForm()]),
+      otherFee: this.formBuilder.array([this.buildAddMoreForm()]),
       checkLoanAdmin: true,
       checkLoanRenewal: true,
       checkLoanAdminFeeNonFunded: true,
@@ -309,8 +318,11 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       securityN: true,
       securityO: true,
       securityP: true,
-      securityR: this.formBuilder.array([this.buildSecurityForm()]),
-      chkSplCovenant: true
+      securityR: this.formBuilder.array([this.buildAddMoreForm()]),
+      chkSplCovenant: true,
+      covenants: this.formBuilder.array([this.buildAddMoreForm()]),
+      selectReview: [undefined],
+      checkCovenant: true
     });
   }
 
@@ -326,11 +338,15 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       purpose: [undefined],
       drawdown: [undefined],
       drawdownPercent: [undefined],
+      selectLoanTypeTenure: [undefined],
+      selectLoanTypeRepay: [undefined],
+      selectLoanTypeInterest: [undefined],
       tenureTermLoan: [undefined],
       otherTenureLoan: [undefined],
       noOfEmi: [undefined],
       repaymentTermLoan: [undefined],
       repaymentEngDate: [undefined],
+      firstInstallment: [undefined],
       emiAmount: [undefined],
       emiAmountInWords: [undefined],
       nextReviewDate: [undefined],
@@ -340,39 +356,24 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       interest: [undefined],
       interestOtherLoan: [undefined],
       subsidyPeriod: [undefined],
-      checkInterestSubsidy: true,
-      selectLoanTypeTenure: [undefined],
-      selectLoanTypeRepay: [undefined],
-      // overDraftLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
-      // demandLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
-      // termLoan: this.formBuilder.array([this.buildNatureOfLoanForm()]),
-      // otherLoan: this.formBuilder.array([this.buildNatureOfLoanForm()])
+      checkInterestSubsidy: true
     });
   }
 
-  buildOtherFeeForm() {
+  buildAddMoreForm() {
     return this.formBuilder.group({
-      otherFee: [undefined],
+      addField: [undefined],
     });
   }
 
-  buildSecurityForm() {
-    return this.formBuilder.group({
-      addSecurity: [undefined],
-    });
+  checkProposal(e, index, value) {
+    if (e.target.selected) {
+      this.form.get(['proposalData', index, value]).patchValue(value);
+    }
   }
 
-  checkFacilityType(facilityType, index) {
-    this.form.get(['proposalData', index, 'facilityType']).patchValue(facilityType);
-
-  }
-
-  checkNatureOfLoan(natureOfLoan, index) {
-    this.form.get(['proposalData', index, 'natureOfLoan']).patchValue(natureOfLoan);
-  }
-
-  checkLoanType(selectLoanType, index) {
-    this.form.get(['proposalData', index, 'selectLoanType']).patchValue(selectLoanType);
+  checkReview(selectReview) {
+    this.form.get('selectReview').patchValue(selectReview);
   }
 
   addProposal() {
@@ -380,14 +381,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     control.push(this.buildProposalForm());
   }
 
-  addOtherFee() {
-    const control = this.form.get('otherFee') as FormArray;
-    control.push(this.buildOtherFeeForm());
-  }
-
-  addSecurity() {
-    const control = this.form.get('securityR') as FormArray;
-    control.push(this.buildSecurityForm());
+  addMore(formArrayName) {
+    const control = this.form.get(formArrayName) as FormArray;
+    control.push(this.buildAddMoreForm());
   }
 
   checkOfferLetterData() {
@@ -413,7 +409,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   }
 
   onCheck(e, i, formControlName) {
-      if (e) {
+      if (e.target.checked) {
         this.form.get(['proposalData', i, formControlName]).patchValue(true);
       } else {
         this.form.get(['proposalData', i, formControlName]).patchValue(false);
@@ -573,11 +569,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     (this.form.get('proposalData') as FormArray).removeAt(index);
   }
 
-  removeOtherFee(index: number) {
-    (this.form.get('otherFee') as FormArray).removeAt(index);
-  }
-
-  removeSecurity(index: number) {
-    (this.form.get('securityR') as FormArray).removeAt(index);
+  removeAddMore(index: number, formArrayName) {
+    (this.form.get(formArrayName) as FormArray).removeAt(index);
   }
 }

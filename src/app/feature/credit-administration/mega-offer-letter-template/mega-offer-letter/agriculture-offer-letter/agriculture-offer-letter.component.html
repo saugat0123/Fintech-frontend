@@ -199,7 +199,7 @@
                                         <td>
                                             <label class="font-weight-bold disable-print">ग) कर्जाका प्रकारहरु (Choose Service Type)</label>
                                             <nb-select formControlName="natureOfLoan" class="disable-print"
-                                                       (change)="checkNatureOfLoan($event?.target?.value, pi)"
+                                                       (change)="checkProposal($event, pi, 'natureOfLoan')"
                                                        placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let natureOfLoanType of natureOfLoanTypes"
                                                            [value]="natureOfLoanType?.key">
@@ -309,7 +309,7 @@
                                         <td>
                                             <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
                                             <nb-select formControlName="selectLoanTypeRepay" class="disable-print"
-                                                       (change)="checkLoanType($event?.target?.value, pi)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                                       (change)="checkProposal($event, pi, 'selectLoanTypeRepay')" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">
                                                     {{loanTypeDropdown?.value}}
                                                 </nb-option>
@@ -335,11 +335,11 @@
                                                     <strong>{{proposal.get('repaymentEngDate').value ? proposal.get('repaymentEngDate').value  : '========='}}</strong></span>
                                                 तारिखमा लिइनेछ,/प्रत्येक नेपाली त्रैमासको तेश्रो
                                                 महिनाको अन्तिम दिन लिइनेछ ।  तर कर्जा प्रवाह भएको पहिलो <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                                                               formControlName="repaymentEngDate"
-                                                                                                               name="repaymentEngDate"
+                                                                                                               formControlName="firstInstallment"
+                                                                                                               name="firstInstallment"
                                                                                                                type="text"/>
                                                 <span class="print-only nepaliFont">
-                                                    <strong>{{proposal.get('repaymentEngDate').value ? proposal.get('repaymentEngDate').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('firstInstallment').value ? proposal.get('firstInstallment').value  : '========='}}</strong></span>
                                                 किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा–ब्याज
                                                 <input class="form-field disable-print form-control-sm nepaliFont"
                                                        formControlName="noOfEmi"
@@ -386,65 +386,64 @@
                                         <td>च)</td>
                                         <td>व्याज (Interest)</td>
                                         <td>
-                                            <p class="font-weight-bold">व्याज अनुदान कर्जा भएमाः</p>
-                                            <p>प्रत्येक त्रयमासको अन्त्यमा कायम हुने औसत आधार दर (Average Base Rate) मा
+                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                            <nb-select formControlName="selectLoanTypeInterest" class="disable-print"
+                                                       (change)="checkProposal($event, pi, 'selectLoanTypeInterest')" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                                <nb-option *ngFor="let interestLoanTypeDropdown of interestLoanTypesDropdown" [value]="interestLoanTypeDropdown?.key">
+                                                    {{interestLoanTypeDropdown?.value}}
+                                                </nb-option>
+                                            </nb-select>
+                                            <span *ngIf="proposal.get('selectLoanTypeInterest').value === interestLoanTypesDropdown[0].key">
+                                                <p>प्रत्येक त्रयमासको अन्त्यमा कायम हुने औसत आधार दर (Average Base Rate) मा
                                             <input class="form-field disable-print form-control-sm nepaliFont"
-                                                    formControlName="premium"
-                                                    name="premium"
-                                                    type="text"/>
+                                                   formControlName="premium"
+                                                   name="premium"
+                                                   type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
                                             प्रतिशत प्रिमियम दर
                                             (Premium Rate) जोडी
                                             <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                       formControlName="subsidy"
-                                                                       name="subsidy"
-                                                                       type="text"/>
+                                                   formControlName="subsidy"
+                                                   name="subsidy"
+                                                   type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{proposal.get('subsidy').value ? proposal.get('subsidy').value  : '========='}}</strong></span>
+                                                <strong>{{proposal.get('subsidy').value ? proposal.get('subsidy').value  : '========='}}</strong></span>
                                             प्रतिशत ब्याज अनुदान घटाएर, वा
-                                            <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                                  formControlName="interest"
-                                                                                  name="interest"
-                                                                                  type="text"/>
-                                            <span class="print-only nepaliFont">
-                                    <strong>{{proposal.get('interest').value ? proposal.get('interest').value  : '========='}}</strong></span>
-                                            प्रतिशत, ब्याजदर कायम गरिनेछ । त्रयमास
-                                            भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर
-                                            (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै
-                                            बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
-
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                    formControlName="interest"
                                                    name="interest"
                                                    type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{proposal.get('interest').value ? proposal.get('interest').value  : '========='}}</strong></span>
-                                            प्रतिशत प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज
-                                            गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज
-                                            बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको
-                                            समयलाई जनाउनेछ । बैंकको कायम आधार दर (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा
-                                            राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।</p>
-                                            <p class="font-weight-bold">अन्य कर्जा भएमाः</p>
-                                            <p>बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
+                                                <strong>{{proposal.get('interest').value ? proposal.get('interest').value  : '========='}}</strong></span>
+                                            प्रतिशत, ब्याजदर कायम गरिनेछ । त्रयमास
+                                            भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर
+                                            (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै
+                                            बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
+                                            </p>
+                                            </span>
+                                            <span *ngIf="proposal.get('selectLoanTypeInterest').value === interestLoanTypesDropdown[1].key">
+                                                <p>बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
                                                 <input class="form-field disable-print form-control-sm nepaliFont"
-                                                      formControlName="premium"
-                                                      name="premium"
-                                                      type="text"/>
+                                                       formControlName="premium"
+                                                       name="premium"
+                                                       type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
                                                 प्रतिशत सम्म प्रिमियम दर (Premium Rate)
                                                 जोडी, वा दिने <input class="form-field disable-print form-control-sm nepaliFont"
                                                                      formControlName="interestOtherLoan"
                                                                      name="interestOtherLoan"
                                                                      type="text"/>
                                                 <span class="print-only nepaliFont">
-                                    <strong>{{proposal.get('interestOtherLoan').value ? proposal.get('interestOtherLoan').value  : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('interestOtherLoan').value ? proposal.get('interestOtherLoan').value  : '========='}}</strong></span>
                                                 प्रतिशत, ब्याजदर कायम गरिनेछ। ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक
                                                 रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुुक्ता गरेको दिनमा
                                                 त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३
                                                 महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर (Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक
-                                                रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।</p>
+                                                रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
+                                            </p>
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -453,7 +452,7 @@
                                             <input class="disable-print"
                                                    type="checkbox"
                                                    formControlName="checkInterestSubsidy"
-                                                   id="checkInterestSubsidy" (change)="onCheck($event?.target?.value, pi,'checkInterestSubsidy')"/>
+                                                   id="checkInterestSubsidy" (change)="onCheck($event, pi,'checkInterestSubsidy')"/>
                                             <label for="checkInterestSubsidy" class="disable-print"><strong>&nbsp;Needed?</strong></label>
                                         </td>
                                         <td><p *ngIf="proposal.get('checkInterestSubsidy').value">सहूलियतपूर्ण कर्जा सूविधाहरु अन्तर्गत निर्धारण गरेको व्याज दर मध्ये
@@ -478,7 +477,8 @@
                                             <span class="print-only nepaliFont">
                                     <strong>{{proposal.get('premium').value ? proposal.get('premium').value  : '========='}}</strong></span>
                                             प्रतिशत प्रिमियम जोडी हून आउने ब्याजदर लागु हुनेछ । भविष्यमा नेपाल राष्ट्र बैंकबा ब्याज अनुदान
-                                            सुविधा रोेक्का वा रद्द भएमा प्रचलित व्याजदर अनुरुप कर्जाको ब्याज भुक्तान गर्नु पर्नेछ ।</p>
+                                            सुविधा रोेक्का वा रद्द भएमा प्रचलित व्याजदर अनुरुप कर्जाको ब्याज भुक्तान गर्नु पर्नेछ ।
+                                        </p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -858,21 +858,23 @@
                                                    id="checkOtherLoan" (change)="onCheck2($event,'checkOtherLoan')"/>
                                             <label for="checkOtherLoan" class="disable-print"><strong>&nbsp;Needed?</strong></label>
                                         </td>
-                                        <td> <div *ngIf="form.get('checkOtherLoan').value"><div class="col-md-12" formArrayName="otherFee"
+                                        <td>
+                                            <div *ngIf="form.get('checkOtherLoan').value">
+                                                <div class="col-md-12" formArrayName="otherFee"
                                                   *ngFor="let otherFee of form.get('otherFee')['controls']; let i = index">
                                             <table class="table table-bordered text-justify" [formGroupName]="i">
                                                 <div *ngIf="form.get('otherFee')['length'] > 1">
-                                                    <button class="btn btn-danger" nbButton size="tiny" (click)="removeOtherFee(i)">हटाउनुहोस्</button>
+                                                    <button class="btn btn-danger" nbButton size="tiny" (click)="removeAddMore(i, 'otherFee')">हटाउनुहोस्</button>
                                                 </div>
-                                                <tr><ckeditor formControlName="otherFee" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                                <tr><ckeditor formControlName="addField" [config]="ckeConfig" class="disable-print"></ckeditor>
                                                     <span class="print-only nepaliFont">
-                                            <strong>{{otherFee.get('otherFee').value ? otherFee.get('otherFee').value  : '========='}}</strong></span></tr>
+                                            <strong>{{otherFee.get('addField').value ? otherFee.get('addField').value  : '========='}}</strong></span></tr>
                                             </table>
-                                        </div>
-                                            <div>
-                                                <button class="btn btn-success btn-sm" (click)="addOtherFee()">Add More</button>
                                             </div>
-                                        </div>
+                                            <div class="disable-print">
+                                                <button class="btn btn-success btn-sm" (click)="addMore('otherFee')">Add More</button>
+                                            </div>
+                                            </div>
                                     </td>
                                     </tr>
                                     <tr>
@@ -1123,11 +1125,11 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ज)</td>
-                                                    <td>ऋण कर्जा बराबरको प्रतिज्ञा पत्र (Promissory Note) ।</td>
+                                                    <td><p>कर्जा बराबरको प्रतिज्ञा पत्र (Promissory Note) ।</p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>झ)</td>
-                                                    <td>निरन्तरताको पत्र (Letter of Continuity) ।</td>
+                                                    <td><p>निरन्तरताको पत्र (Letter of Continuity) ।</p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ञ)</td>
@@ -1140,7 +1142,7 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ट)</td>
-                                                    <td>स्वीकृत कर्जा सिमा बराबरको कर्जाको लिखत (Loan Deed)</td>
+                                                    <td><p>स्वीकृत कर्जा सिमा बराबरको कर्जाको लिखत (Loan Deed)</p></td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ठ)</td>
@@ -1153,13 +1155,13 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ड)</td>
-                                                    <td>श्री <input class="form-field disable-print form-control-sm nepaliFont"
+                                                    <td><p>श्री <input class="form-field disable-print form-control-sm nepaliFont"
                                                                     formControlName="guarantorName"
                                                                     name="guarantorName"
                                                                     type="text"/>
                                                         <span class="print-only nepaliFont">
                                                         <strong>{{form.get('guarantorName').value ? form.get('guarantorName').value  : '========='}}</strong></span>
-                                                        कोे तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी (Personal Guarantee) । </td>
+                                                        कोे तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी (Personal Guarantee) ।</p> </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ढ)</td>
@@ -1197,11 +1199,12 @@
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>थ)</td>
-                                                    <td>ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/ ऋणीले प्रबद्र्वन  गरेको वा नेपाल
+                                                    <td><p>ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/ ऋणीले प्रबद्र्वन  गरेको वा नेपाल
                                                         राष्ट्र बैंकको निर्देशिका बमोजिम एउटै समुहमा बर्गिकरण गरिएको सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण स्वीकृति पत्रमा
                                                         उल्लेख गरे बमोजिम उपभोग गरेको ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण स्वीकृति
                                                         पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको मानिनेछ । यस ऋण स्वीकृति पत्रमा उल्लेखित कुनै
-                                                        शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा ऋणीको मन्जुरी रहनेछ ।</td>
+                                                        शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा ऋणीको मन्जुरी रहनेछ ।</p>
+                                                    </td>
                                                 </tr>
                                                 <tr style="page-break-inside: auto">
                                                     <td>ड)</td>
@@ -1209,22 +1212,22 @@
                                                              *ngFor="let sec of form.get('securityR')['controls']; let i = index">
                                                         <table class="table table-bordered text-justify" [formGroupName]="i">
                                                             <div *ngIf="form.get('securityR')['length'] > 1">
-                                                                <button class="btn btn-danger" nbButton size="tiny" (click)="removeSecurity(i)">हटाउनुहोस्</button>
+                                                                <button class="btn btn-danger" nbButton size="tiny" (click)="removeAddMore(i, 'securityR')">हटाउनुहोस्</button>
                                                             </div>
-                                                            <tr><ckeditor formControlName="addSecurity" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                                            <tr><ckeditor formControlName="addField" [config]="ckeConfig" class="disable-print"></ckeditor>
                                                                 <span class="print-only nepaliFont">
-                                                        <strong>{{sec.get('addSecurity').value ? sec.get('addSecurity').value  : '========='}}</strong></span></tr>
+                                                        <strong>{{sec.get('addField').value ? sec.get('addField').value  : '========='}}</strong></span></tr>
                                                         </table>
                                                     </div>
-                                                        <div>
-                                                            <button class="btn btn-success btn-sm" (click)="addSecurity()">Add More</button>
+                                                        <div class="disable-print">
+                                                            <button class="btn btn-success btn-sm" (click)="addMore('securityR')">Add More</button>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-md-12 text-justify" style="break-before: auto">
+                                    <div class="col-md-12 text-justify">
                                         <p class="font-weight-bold">४. <u>व्याज (Interest)ः</u></p>
                                         <p>यस कर्जा सम्झौतामा उल्लेखित वार्षिक व्याजका दरले तिर्न वांकी कर्जा तथा बैकिङ्ग सुविधामा दैनिक रुपमा व्याज गणना गरी मासिक वा त्रैमासिक रुपमा वा अन्यथा
                                             उल्लेख भएकोमा सोही बमोजिम असुल उपर गरिनेछ । व्याज दर समय समयमा नेपाल राष्ट्र बैंक वा बैंकले निर्धारण गरे वमोजिम परिवर्तन हुन सक्नेछ । बैंकको निर्णय
@@ -1234,7 +1237,15 @@
                                     </div>
                                     <div class="col-md-12 text-justify" style="break-before: auto">
                                         <p class="font-weight-bold">५. <u>पुनरावलोकन (Review)ः </u></p>
-                                        <p>उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा मध्ये
+                                        <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                        <nb-select formControlName="selectReview" class="disable-print"
+                                                   (change)="checkReview($event)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                            <nb-option *ngFor="let review of reviewDropdown" [value]="review?.key">
+                                                {{review?.value}}
+                                            </nb-option>
+                                        </nb-select>
+                                        <span *ngIf="form.get('selectReview').value === reviewDropdown[0].key">
+                                                 <p>उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा मध्ये
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                    formControlName="reviewLoanType"
                                                    name="reviewLoanType"
@@ -1244,9 +1255,9 @@
                                             को पुनरावलोकन ऋण/कर्जा कार्य–संपादन सन्तोषजनक
                                             रहेको खण्डमा कर्जा प्रवाह गरेको
                                             <input class="form-field disable-print form-control-sm nepaliFont"
-                                                                                   formControlName="surakchyanPg"
-                                                                                   name="surakchyanPg"
-                                                                                   type="text"/>
+                                                   formControlName="surakchyanPg"
+                                                   name="surakchyanPg"
+                                                   type="text"/>
                                             <span class="print-only nepaliFont">
                                             <strong>{{form.get('surakchyanPg').value ? form.get('surakchyanPg').value  : '========='}}</strong></span>
                                             बर्षमा गरिने छ । यदि कार्यसम्पादन सन्तोषजनक पाईएको खण्डमा कर्जा सुविधाको
@@ -1258,10 +1269,15 @@
                                             <strong>{{form.get('surakchyanReviewYrs').value ? form.get('surakchyanReviewYrs').value  : '========='}}</strong></span>
                                             वर्षको लागि बढाउन सकिनेछ , अन्यथा ऋणीले सम्पूर्ण वक्यौता रकम राफसाफ गर्नु पर्नेछ ।
                                         </p>
-                                        <p>उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा अवधि समाप्तीको आधारमा प्रदान गरिने भएकोले पुनरावलोकन गरिनेछैन । </p>
-                                        <ckeditor formControlName="reviewOtherLoan" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                            </span>
+                                        <span *ngIf="form.get('selectReview').value === reviewDropdown[1].key">
+                                                <p>उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा अवधि समाप्तीको आधारमा प्रदान गरिने भएकोले पुनरावलोकन गरिनेछैन । </p>
+                                            </span>
+                                        <span *ngIf="form.get('selectReview').value === reviewDropdown[2].key">
+                                            <ckeditor formControlName="reviewOtherLoan" [config]="ckeConfig" class="disable-print"></ckeditor>
                                             <span class="print-only nepaliFont">
                                          <strong>{{form.get('reviewOtherLoan').value ? form.get('reviewOtherLoan').value  : '========='}}</strong></span>
+                                        </span>
                                     </div>
                                     <div class="col-md-12 text-justify" style="break-before: auto">
                                         <p class="font-weight-bold">६. <u>निरीक्षण (Inspection)ः</u></p>
@@ -1280,12 +1296,17 @@
                                             </tr>
                                             <tr>
                                                 <td>क)</td>
-                                                <td>बैंकलाई सुरक्षण स्वरुप दिएका सम्पूर्ण चल–अचल सम्पत्ति बैंकलाई मान्य हुने बीमा कम्पनीबाट बैंकलाई प्रथम हितग्राहि बनाई पेश गर्नुपर्नेछ ।
-                                                    <ckeditor formControlName="covenant" id="covenant" type="text"
+                                                <td><p>बैंकलाई सुरक्षण स्वरुप दिएका सम्पूर्ण चल–अचल सम्पत्ति बैंकलाई मान्य हुने बीमा कम्पनीबाट बैंकलाई प्रथम हितग्राहि बनाई पेश गर्नुपर्नेछ ।</p>
+                                                    <input class="disable-print"
+                                                           type="checkbox"
+                                                           formControlName="checkCovenant"
+                                                           id="checkCovenant" (change)="onCheck2($event,'checkCovenant')"/>
+                                                    <label for="checkCovenant" class="disable-print"><strong>&nbsp;Needed?</strong></label>
+                                                    <ckeditor *ngIf="form.get('checkCovenant').value" formControlName="covenant" id="covenant" type="text"
                                                               [config]="ckeConfig" class="disable-print"
                                                               [ngClass]="{ 'is-invalid': submitted && form.invalid }"></ckeditor>
                                                     <span class="print-only nepaliFont">
-                                         <strong>{{form.get('covenant').value ? form.get('covenant').value  : '========='}}</strong></span></td>
+                                                    <strong>{{form.get('covenant').value ? form.get('covenant').value  : '========='}}</strong></span></td>
                                             </tr>
                                             <tr>
                                                 <td>ख)</td>
@@ -1343,7 +1364,21 @@
                                             </tr>
                                             <tr>
                                                 <td>ढ)</td>
-                                                <td></td>
+                                                <td><div class="col-md-12" formArrayName="covenants"
+                                                         *ngFor="let cov of form.get('covenants')['controls']; let i = index">
+                                                    <table class="table table-bordered text-justify" [formGroupName]="i">
+                                                        <div *ngIf="form.get('covenants')['length'] > 1">
+                                                            <button class="btn btn-danger" nbButton size="tiny" (click)="removeAddMore(i, 'covenants')">हटाउनुहोस्</button>
+                                                        </div>
+                                                        <tr><ckeditor formControlName="addField" [config]="ckeConfig" class="disable-print"></ckeditor>
+                                                            <span class="print-only nepaliFont">
+                                                        <strong>{{cov.get('addField').value ? cov.get('addField').value  : '========='}}</strong></span></tr>
+                                                    </table>
+                                                </div>
+                                                    <div class="disable-print">
+                                                        <button class="btn btn-success btn-sm" (click)="addMore('covenants')">Add More</button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
