@@ -18,7 +18,6 @@ import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.e
 import {ActionModel} from '../../loan/model/action';
 import {User} from '../../admin/modal/user';
 import {LoanActionService} from '../../loan/loan-action/service/loan-action.service';
-import {ApprovalLimitService} from '../../admin/component/approvallimit/approval-limit.service';
 import {DateService} from '../../../@core/service/baseservice/date.service';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
@@ -71,7 +70,6 @@ export class DetailViewBaseComponent implements OnInit {
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
               private loanActionService: LoanActionService,
-              private approvalLimitService: ApprovalLimitService,
               private dateService: DateService,
               private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService,
@@ -216,17 +214,6 @@ export class DetailViewBaseComponent implements OnInit {
                 this.actionsList.closed = false;
             }
 
-            await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
-                .subscribe((res: any) => {
-                    if (res.detail === undefined) {
-                        this.actionsList.approved = false;
-                    } else {
-                        if (this.loanDataHolder.proposal !== null
-                            && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
-                            this.actionsList.approved = false;
-                        }
-                    }
-                });
             if (this.loanDataHolder.isSol) {
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.solUser)) {
                     if (this.loanDataHolder.solUser.id !== this.user.id) {
