@@ -10,8 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {OfferDocument} from '../../../model/OfferDocument';
-import {CadCheckListTemplateEnum} from '../../../../admin/modal/cadCheckListTemplateEnum';
+
 
 @Component({
   selector: 'app-share-pledge-deed-first-party-individual',
