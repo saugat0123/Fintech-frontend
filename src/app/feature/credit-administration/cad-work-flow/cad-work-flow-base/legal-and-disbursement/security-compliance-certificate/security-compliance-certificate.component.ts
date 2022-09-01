@@ -18,6 +18,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
 import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
 import {CommonService} from '../../../../../../@core/service/common.service';
+import {ApiConfig} from '../../../../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -52,6 +53,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   sccPath;
   baselDetails;
   gssCode;
+  totalStage = [];
+  RootUrl = ApiConfig.URL;
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
               private ngbModal: NgbModal,
@@ -76,6 +79,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.cadFile.loanHolder) && !ObjectUtil.isEmpty(this.cadFile.loanHolder.gssData)) {
         const data = JSON.parse(this.cadFile.loanHolder.gssData);
         this.gssCode = data.groupCode ? data.groupCode : '';
+      }
+      if (!ObjectUtil.isEmpty(this.cadFile.sccStage)) {
+        this.totalStage = this.cadFile.sccStage;
       }
     }
     this.buildSccForm();
@@ -292,6 +298,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     if (this.sumbit) {
       this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.obtainedOnForm.get('obtainedFormData').value);
       this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);
+      if (ObjectUtil.isEmpty(this.cadFile.sccData)) {
+        this.cadFile.cadCurrentStage.sccGenerate = true;
+      } else {
+        this.cadFile.cadCurrentStage.sccGenerate = false;
+      }
       this.cadFile.sccData = JSON.stringify(this.sccForm.value);
       this.saveCadFile();
     } else {

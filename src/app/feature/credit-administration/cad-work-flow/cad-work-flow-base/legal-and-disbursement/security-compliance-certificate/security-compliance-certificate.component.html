@@ -126,10 +126,12 @@
                     formControlName="approvedRemark"></ckeditor>
         </div>
       </div>
-      <ng-container class="print-only" *ngIf="sccForm.get('remarkChecked')?.value">
-        <strong>Remarks</strong>
-        <span [innerHTML]="sccData?.approvedRemark | safeHtml"></span>
-      </ng-container>
+      <div class="print-only">
+        <ng-container *ngIf="sccData?.remarkChecked">
+          <strong>Remarks</strong>
+          <span [innerHTML]="sccData?.approvedRemark | safeHtml"></span>
+        </ng-container>
+      </div>
       <p class="header mt-3"><b>2. Regulatory Requirement </b></p>
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>
@@ -633,35 +635,63 @@
       <!--      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>-->
       <!--      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>-->
       <!--    </ol>-->
+        <div class="row header mt-3">
+          <ng-container *ngFor="let stage of totalStage">
+            <ng-container *ngIf="stage?.role?.roleType === 'MAKER' || stage?.role?.roleType === 'APPROVAL'">
+              <div class="col-md-3 border">
+                <p><b><u>Prepared by</u></b></p>
+                <!--        <p>Name:.....................</p>-->
+                <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                  <div class="print-only signature-padding"></div>
+                  <img align="middle" alt="signature" style="height: 100%; width: 100%"
+                       class="img-thumbnail border-0 signature-height signature-width"
+                       src="{{(stage?.signatureImage === null ? '' : RootUrl + '/' + stage?.signatureImage)}}"/>
+                </div>
+                <p><b>CSU/Branch</b></p>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="stage?.role?.roleType === 'CAD_LEGAL'">
+              <div class="col-md-3 border">
+                <p><b><u> Vetted  by</u></b></p>
+                <!--        <p>Name:.....................</p>-->
+                <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                  <div class="print-only signature-padding"></div>
+                  <img align="middle" alt="signature" style="height: 100%; width: 100%"
+                       class="img-thumbnail border-0 signature-height signature-width"
+                       src="{{stage?.signatureImage === null ? '' : RootUrl + '/' + stage?.signatureImage}}"/>
 
-      <div class="row header">
-        <div class="col-md-3 border">
-          <p><b><u>Prepared by</u></b></p>
-          <!--        <p>Name:.....................</p>-->
-          <div class="box"></div>
-          <p><b>CSU/Branch</b></p>
+                </div>
+                <p><b>Legal</b></p>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="stage?.role?.roleType === 'CRC'">
+              <div class="col-md-3 border">
+                <p><b><u>Limit Implemented By</u></b></p>
+                <!--        <p class="hide">.</p>-->
+                <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                  <div class="print-only signature-padding"></div>
+                  <img align="middle" alt="signature" style="height: 100%; width: 100%"
+                       class="img-thumbnail border-0 signature-height signature-width"
+                       src="{{(stage?.signatureImage === null ? '' : RootUrl + '/' + stage?.signatureImage)}}"/>
+                </div>
+                <p><b>CRC</b></p>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="stage?.role?.roleType === 'COPS'">
+              <div class="col-md-3 border">
+                <p><b><u>Disbursed By</u></b></p>
+                <!--        <p class="hide">.</p>-->
+                <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                  <div class="print-only signature-padding"></div>
+                  <img align="middle" alt="signature" style="height: 100%; width: 100%"
+                       class="img-thumbnail border-0 signature-height signature-width"
+                       src="{{(stage?.signatureImage === null ? '' : RootUrl + '/' + stage?.signatureImage)}}"/>
+                </div>
+                <p><b>COPI</b></p>
+              </div>
+            </ng-container>
+          </ng-container>
         </div>
-        <div class="col-md-3 border">
-          <p><b><u> Vetted  by</u></b></p>
-          <!--        <p>Name:.....................</p>-->
-          <div class="box"></div>
-          <p><b>Legal</b></p>
-        </div>
-        <div class="col-md-3 border">
-          <p><b><u>Limit Implemented By</u></b></p>
-          <!--        <p class="hide">.</p>-->
-          <div class="box"></div>
-          <p><b>CRC</b></p>
-        </div>
-        <div class="col-md-3 border">
-          <p><b><u>Disbursed By</u></b></p>
-          <!--        <p class="hide">.</p>-->
-          <div class="box"></div>
-          <p><b>COPI</b></p>
-        </div>
-
-
-      </div>
       <!--    <hr>-->
       <!--    <p><b>5.Declaration:</b></p><hr>-->
       <!--    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>-->
