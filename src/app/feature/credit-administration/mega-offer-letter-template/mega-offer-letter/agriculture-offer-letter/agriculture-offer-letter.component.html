@@ -172,7 +172,7 @@
                                 <div class="col-md-12" formArrayName="proposalData"
                                  *ngFor="let proposal of form.get('proposalData')['controls']; let pi = index">
                                 <table class="table table-bordered text-justify" [formGroupName]="pi">
-                                    <div *ngIf="form.get('proposalData')['length'] > 1">
+                                    <div *ngIf="form.get('proposalData')['length'] > 1" class="disable-print">
                                         <button class="btn btn-danger" nbButton size="tiny" (click)="removeProposal(pi)">हटाउनुहोस्</button>
                                     </div>
                                     <thead>
@@ -180,16 +180,31 @@
                                         <th style="vertical-align: top">१.१)</th>
                                         <th style="width: 30%">कर्जा/बैंकिंङ्ग सुविधाको प्रकार (Facility Type)</th>
                                         <td>
-                                            <label class="font-weight-bold disable-print">क) सहुलियतपुर्ण कर्जा शिर्षकहरु (Choose Service Type)</label>
+                                            <label class="font-weight-bold">क) सहुलियतपुर्ण कर्जा शिर्षकहरु (Choose Service Type)</label>
                                             <nb-select formControlName="facilityType" class="disable-print"
                                                        (change)="checkFacilityType($event?.target?.value, pi)"
                                                        placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let loanType of loanTypes"
                                                            [value]="loanType?.key">
-                                                    {{loanType?.value}}
+                                                    {{loanType?.nepValue}} ({{loanType?.engValue}})
                                                 </nb-option>
                                             </nb-select>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="vertical-align: top">१.१)</th>
+                                        <th style="width: 30%">कर्जा/बैंकिंङ्ग सुविधाको प्रकार (Facility Type)</th>
+                                        <th>
+                                            <span *ngFor="let loanType of loanTypes">
+                                                <span *ngFor="let natureOfLoanType of natureOfLoanTypes">
+                                                    <span *ngIf="proposal.get('facilityType').value === loanType?.key
+                                                    && proposal.get('natureOfLoan').value === natureOfLoanType?.key">
+                                                        {{loanType?.nepValue + ' ' + natureOfLoanType?.nepValue + ' कर्जा' +
+                                                    ' (' + loanType?.engValue + ' ' + natureOfLoanType?.engValue + ' Loan' + ')'}}
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -199,11 +214,11 @@
                                         <td>
                                             <label class="font-weight-bold disable-print">ग) कर्जाका प्रकारहरु (Choose Service Type)</label>
                                             <nb-select formControlName="natureOfLoan" class="disable-print"
-                                                       (change)="checkProposal($event, pi, 'natureOfLoan')"
+                                                       (change)="checkNatureOfLoan($event?.target?.value, pi)"
                                                        placeholder="सुविधाको किसिम छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let natureOfLoanType of natureOfLoanTypes"
                                                            [value]="natureOfLoanType?.key">
-                                                    {{natureOfLoanType?.value}}
+                                                    {{natureOfLoanType?.nepValue}} {{natureOfLoanType?.engValue}}
                                                    <!-- <span *ngIf="natureOfLoanType?.value === 'अन्य कर्जाहरु (Other Loans)'">
                                                     {{proposal.isOtherLoan === true}}
                                                     </span>-->
@@ -230,14 +245,14 @@
                                             अधिकतम रु.
                                             <app-custom-input (eventEmit)="changeToNepAmountArray($event, pi,'proposalData', 'sanctionedLmtInWord', 'sanctionedLmt')"
                                                                                 [name]="patchFunctionArray('proposalData', pi, 'sanctionedLmt')" class="disable-print"></app-custom-input>
-                                            <span class="print-only nepaliFont"><strong>{{proposal.sanctionedLmt ? proposal.sanctionedLmt : '========='}}</strong></span>/-
+                                            <span class="print-only nepaliFont"><strong>{{proposal.get('sanctionedLmt').value ? proposal.get('sanctionedLmt').value : '========='}}</strong></span>/-
                                             (अक्षेरुपी रुपैया
                                             <input class="form-field disable-print form-control-sm preetiFont size16"
                                                    formControlName="sanctionedLmtInWord"
                                                    name="sanctionedLmtInWord"
                                                    placeholder="अक्षेरुपी"
                                                    type="text"/>
-                                            <span class="print-only preetiFont size16"><strong>{{proposal.sanctionedLmtInWord ? proposal.sanctionedLmtInWord  : '========='}}</strong></span>
+                                            <span class="print-only preetiFont size16"><strong>{{proposal.get('sanctionedLmtInWord').value ? proposal.get('sanctionedLmtInWord').value  : '========='}}</strong></span>
                                             मात्र ।) सम्म
                                         </td>
                                     </tr>
@@ -249,7 +264,7 @@
                                                              name="purpose"
                                                              type="text"/>
                                 <span class="print-only nepaliFont">
-                                    <strong>{{proposal.purpose ? proposal.purpose : '========='}}
+                                    <strong>{{proposal.get('purpose').value ? proposal.get('purpose').value : '========='}}
                                     </strong></span> मा लगानी  गर्न ।
                                         </td>
                                     </tr>
@@ -261,21 +276,21 @@
                                                                           name="drawdown"
                                                                           type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{proposal.drawdown ? proposal.drawdown  : '========='}}</strong></span>
+                                    <strong>{{proposal.get('drawdown').value ? proposal.get('drawdown').value : '========='}}</strong></span>
                                             को
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                    formControlName="drawdownPercent"
                                                    name="drawdownPercent"
                                                    type="text"/>
                                             <span class="print-only nepaliFont">
-                                    <strong>{{proposal.drawdownPercent ? proposal.drawdownPercent : '========='}}</strong></span>
+                                    <strong>{{proposal.get('drawdownPercent').value ? proposal.get('drawdownPercent').value : '========='}}</strong></span>
                                             प्रतिशत सम्म ।</td>
                                     </tr>
                                     <tr style="page-break-inside: auto" >
                                         <td>घ)</td>
                                         <td>कर्जा अवधि (Tenure)</td>
                                         <td>
-                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                            <label class="font-weight-bold disable-print">कर्जाका प्रकारहरु (Choose Loan Type)</label>
                                             <nb-select formControlName="selectLoanTypeTenure" class="disable-print"
                                                        (change)="checkLoanType($event?.target?.value, pi)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">
@@ -289,7 +304,7 @@
                                                        name="tenureTermLoan"
                                                        type="text"/>
                                                 <span class="print-only nepaliFont">
-                                                    <strong>{{proposal.tenureTermLoan ? proposal.tenureTermLoan : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('tenureTermLoan').value ? proposal.get('tenureTermLoan').value : '========='}}</strong></span>
                                                 वर्ष सम्मको लागि प्रदान गरिनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</p>
                                             </span>
                                             <span *ngIf="proposal.get('selectLoanTypeTenure').value === loanTypesDropdown[1].key">
@@ -299,7 +314,7 @@
                                             <span *ngIf="proposal.get('selectLoanTypeTenure').value === loanTypesDropdown[2].key">
                                                 <ckeditor formControlName="otherTenureLoan" [config]="ckeConfig" class="disable-print"></ckeditor>
                                                 <span class="print-only nepaliFont">
-                                                    <strong>{{proposal.otherTenureLoan ? proposal.otherTenureLoan : '========='}}</strong></span>
+                                                    <strong>{{proposal.get('otherTenureLoan').value ? proposal.get('otherTenureLoan').value : '========='}}</strong></span>
                                                 </span>
                                         </td>
                                     </tr>
@@ -307,9 +322,9 @@
                                         <td>ङ)</td>
                                         <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
                                         <td>
-                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                            <label class="font-weight-bold disable-print">कर्जाका प्रकारहरु (Choose Loan Type)</label>
                                             <nb-select formControlName="selectLoanTypeRepay" class="disable-print"
-                                                       (change)="checkProposal($event, pi, 'selectLoanTypeRepay')" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
+                                                       (change)="checkLoanType($event?.target?.value, pi)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let loanTypeDropdown of loanTypesDropdown" [value]="loanTypeDropdown?.key">
                                                     {{loanTypeDropdown?.value}}
                                                 </nb-option>
@@ -320,7 +335,7 @@
                                                                               name="noOfEmi"
                                                                               type="text"/>
                                                 <span class="print-only nepaliFont">
-                                                    <strong>{{proposal.noOfEmi ? proposal.noOfEmi : '========='}}</strong></span>,
+                                                    <strong>{{proposal.get('noOfEmi').value ? proposal.get('noOfEmi').value : '========='}}</strong></span>,
                                                 <input class="form-field disable-print form-control-sm nepaliFont"
                                                        formControlName="repaymentTermLoan"
                                                        name="repaymentTermLoan"
@@ -386,7 +401,7 @@
                                         <td>च)</td>
                                         <td>व्याज (Interest)</td>
                                         <td>
-                                            <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                            <label class="font-weight-bold disable-print">कर्जाका प्रकारहरु (Choose Loan Type)</label>
                                             <nb-select formControlName="selectLoanTypeInterest" class="disable-print"
                                                        (change)="checkProposal($event, pi, 'selectLoanTypeInterest')" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
                                                 <nb-option *ngFor="let interestLoanTypeDropdown of interestLoanTypesDropdown" [value]="interestLoanTypeDropdown?.key">
@@ -863,7 +878,7 @@
                                                 <div class="col-md-12" formArrayName="otherFee"
                                                   *ngFor="let otherFee of form.get('otherFee')['controls']; let i = index">
                                             <table class="table table-bordered text-justify" [formGroupName]="i">
-                                                <div *ngIf="form.get('otherFee')['length'] > 1">
+                                                <div *ngIf="form.get('otherFee')['length'] > 1" class="disable-print">
                                                     <button class="btn btn-danger" nbButton size="tiny" (click)="removeAddMore(i, 'otherFee')">हटाउनुहोस्</button>
                                                 </div>
                                                 <tr><ckeditor formControlName="addField" [config]="ckeConfig" class="disable-print"></ckeditor>
@@ -1211,7 +1226,7 @@
                                                     <td><div class="col-md-12" formArrayName="securityR"
                                                              *ngFor="let sec of form.get('securityR')['controls']; let i = index">
                                                         <table class="table table-bordered text-justify" [formGroupName]="i">
-                                                            <div *ngIf="form.get('securityR')['length'] > 1">
+                                                            <div *ngIf="form.get('securityR')['length'] > 1" class="disable-print">
                                                                 <button class="btn btn-danger" nbButton size="tiny" (click)="removeAddMore(i, 'securityR')">हटाउनुहोस्</button>
                                                             </div>
                                                             <tr><ckeditor formControlName="addField" [config]="ckeConfig" class="disable-print"></ckeditor>
@@ -1237,7 +1252,7 @@
                                     </div>
                                     <div class="col-md-12 text-justify" style="break-before: auto">
                                         <p class="font-weight-bold">५. <u>पुनरावलोकन (Review)ः </u></p>
-                                        <label class="font-weight-bold">कर्जाका प्रकारहरु (Choose Loan Type)</label>
+                                        <label class="font-weight-bold disable-print">कर्जाका प्रकारहरु (Choose Loan Type)</label>
                                         <nb-select formControlName="selectReview" class="disable-print"
                                                    (change)="checkReview($event)" placeholder="कर्जाको प्रकार छनौट गर्नुहोस्">
                                             <nb-option *ngFor="let review of reviewDropdown" [value]="review?.key">
@@ -1367,7 +1382,7 @@
                                                 <td><div class="col-md-12" formArrayName="covenants"
                                                          *ngFor="let cov of form.get('covenants')['controls']; let i = index">
                                                     <table class="table table-bordered text-justify" [formGroupName]="i">
-                                                        <div *ngIf="form.get('covenants')['length'] > 1">
+                                                        <div *ngIf="form.get('covenants')['length'] > 1" class="disable-print">
                                                             <button class="btn btn-danger" nbButton size="tiny" (click)="removeAddMore(i, 'covenants')">हटाउनुहोस्</button>
                                                         </div>
                                                         <tr><ckeditor formControlName="addField" [config]="ckeConfig" class="disable-print"></ckeditor>
@@ -1631,11 +1646,12 @@
                                                                              name="branchName"
                                                                              placeholder=""
                                                                              type="text"/>
-                                                        <span class="print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span>, <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                                                                                                                                           formControlName="branchDis"
-                                                                                                                                                                                                           name="branchDis"
-                                                                                                                                                                                                           placeholder=""
-                                                                                                                                                                                                           type="text"/>
+                                                        <span class="print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span>,
+                                                        <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                       formControlName="branchDis"
+                                                                       name="branchDis"
+                                                                       placeholder=""
+                                                                       type="text"/>
                                                         <span class="print-only nepaliFont"><strong>{{form.get('branchDis').value ? form.get('branchDis').value  : '========='}}</strong></span>।</p>
                                                     <p>टेलिफोन नं. <input class="form-field form-control-sm disable-print nepaliFont"
                                                                           formControlName="branchTelNo"
@@ -1786,12 +1802,23 @@
                                             <div class="col-md-12 mt-5 mb-5">
                                                 <p class="font-weight-bold">सेञ्चुरी कमर्सियल बैंक लिमिटेड,</p>
                                                 <p>पुतलीसडक, काठमाण्डौं, नेपाल ।</p>
-                                                <p>शाखा कार्यालयः <input class="form-field form-control-sm disable-print nepaliFont"
+                                                <p>शाखा कार्यालयः <span *ngIf="form.get('checkBranch').value"><input class="form-field form-control-sm disable-print nepaliFont"
                                                                          formControlName="branchAddress"
                                                                          name="branchAddress"
                                                                          placeholder=""
                                                                          type="text"/>
-                                                    <span class="print-only nepaliFont"><strong>{{form.get('branchAddress').value ? form.get('branchAddress').value  : '========='}}</strong></span></p>
+                                                    <span class="print-only nepaliFont">
+                                                        <strong>{{form.get('branchAddress').value ? form.get('branchAddress').value  : '========='}}</strong>
+                                                    </span>
+                                                </span>
+                                                    <span>
+                                                    <input class="disable-print"
+                                                           type="checkbox"
+                                                           formControlName="checkBranch"
+                                                           id="checkBranch" (change)="onCheck2($event,'checkBranch')"/>
+                                                    <label for="checkBranch" class="disable-print"><strong>&nbsp;Needed?</strong></label>
+                                                    </span>
+                                            </p>
                                             </div>
                                             <div class="col-md-12">
                                                 <p>महोदय,</p>

@@ -34,29 +34,33 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   offerLetterDocument: OfferDocument;
   selectedLoanArray = [];
   selectedNatureOfLoanArray = [];
+  selectedInterestLoan = [];
+  selectedReviewLoan = [];
   nepData;
   external = [];
   loanHolderInfo;
   loanTypes = [
-    {key: 'CommercialAgricultureAndLivestock', value: 'व्यावसायिक कृषि तथा पशुपन्छी कर्जा (Commercial Agriculture and Livestock Loans)'},
-    {key: 'EducatedYouthSelfEmployment', value: 'शिक्षित युवा स्वरोजगार कर्जा (Educated Youth Self Employment)'},
-    {key: 'YouthProjectLoanForReturneesFromAbroad', value: 'विदेशबाट फर्केका युवा परियोजना कर्जा (Youth Project Loan For Returnees From Abroad)'},
-    {key: 'LoansToWomenEntrepreneurs', value: 'महिला उद्यमशिल कर्जा (Loans to Women Entrepreneurs)'},
-    {key: 'DalitCommunityBusinessDevelopmentLoan', value: 'दलित समुदाय व्यवसाय विकास कर्जा (Dalit Community Business Development Loan)'},
-    {key: 'HigherAndTechnicalAndVocationalEducationLoans', value: 'उच्च र प्राविधिक तथा व्यावसायिक शिक्षा कर्जा (Higher and Technical and Vocational Education Loans)'},
-    {key: 'TextileIndustryOperationLoan', value: 'कपडा उधोग सञ्चालन कर्जा (Textile Industry Operation Loan)'},
-    {key: 'TrainingLoansFromInstitutionsRecognizedByTheTechnicalEducationAndVocationalTrainingCouncil', value: 'प्राविधिक शिक्षा तथा व्यावसायिक तालिम परिषद््बाट मान्यता प्राप्त संस्थाबाट लिईने तालिम कर्जा (Training loans from institutions recognized by the Technical Education and Vocational Training Council)'},
-    {key: 'YouthClassSelfEmploymentLoan', value: 'युवा बर्ग स्वरोजगार कर्जा (Youth Class Self Employment Loan)'},
-    {key: 'AgricultureAndLivestockLoans', value: 'कृषि तथा पशुपन्छी कर्जा (Agriculture and Livestock Loans)'},
-    {key: 'DeprivedClassLoans', value: 'विपन्न वर्ग कर्जा (Deprived Class Loans)'},
-    {key: 'FlexiLoan', value: 'फ्लेक्सी कर्जा (Flexi Loan)'},
-    {key: 'OtherLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
+    {key: 'CommercialAgricultureAndLivestock', nepValue: 'व्यावसायिक कृषि तथा पशुपन्छी', engValue: 'Commercial Agriculture and Livestock'},
+    {key: 'EducatedYouthSelfEmployment', nepValue: 'शिक्षित युवा स्वरोजगार', engValue: 'Educated Youth Self Employment'},
+    {key: 'YouthProjectLoanForReturneesFromAbroad', nepValue: 'विदेशबाट फर्केका युवा परियोजना', engValue: 'Youth Project Loan For Returnees From Abroad'},
+    {key: 'LoansToWomenEntrepreneurs', nepValue: 'महिला उद्यमशिल', engValue: 'Loans to Women Entrepreneurs'},
+    {key: 'DalitCommunityBusinessDevelopmentLoan', nepValue: 'दलित समुदाय व्यवसाय विकास', engValue: 'Dalit Community Business Development'},
+    {key: 'HigherAndTechnicalAndVocationalEducationLoans', nepValue: 'उच्च र प्राविधिक तथा व्यावसायिक शिक्षा', engValue: 'Higher and Technical and Vocational Education'},
+    {key: 'TextileIndustryOperationLoan', nepValue: 'कपडा उधोग सञ्चालन', engValue: 'Textile Industry Operation'},
+    {key: 'TrainingLoansFromInstitutionsRecognizedByTheTechnicalEducationAndVocationalTrainingCouncil',
+      nepValue: 'प्राविधिक शिक्षा तथा व्यावसायिक तालिम परिषद््बाट मान्यता प्राप्त संस्थाबाट लिईने तालिम',
+      engValue: 'Training loans from institutions recognized by the Technical Education and Vocational Training Council'},
+    {key: 'YouthClassSelfEmploymentLoan', nepValue: 'युवा बर्ग स्वरोजगार', engValue: 'Youth Class Self Employment'},
+    {key: 'AgricultureAndLivestockLoans', nepValue: 'कृषि तथा पशुपन्छी', engValue: 'Agriculture and Livestock'},
+    {key: 'DeprivedClassLoans', nepValue: 'विपन्न वर्ग', engValue: 'Deprived Class'},
+    {key: 'FlexiLoan', nepValue: 'फ्लेक्सी', engValue: 'Flexi'},
+    {key: 'OtherLoans', nepValue: 'अन्य', engValue: 'Other'}
   ];
   natureOfLoanTypes = [
-      {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
-      {key: 'TermLoans', value: 'आवधिक कर्जा (Term Loans)'},
-      {key: 'DemandLoans', value: 'माग कर्जा (Demand Loans)'},
-      {key: 'OtherNatureOfLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
+      {key: 'Overdraft', nepValue: 'अधिविकर्ष', engValue: 'Overdraft'},
+      {key: 'TermLoans', nepValue: 'आवधिक', engValue: 'Term'},
+      {key: 'DemandLoans', nepValue: 'माग', engValue: 'Demand'},
+      {key: 'OtherNatureOfLoans', nepValue: 'अन्य', engValue: 'Other'}
   ];
   loanTypesDropdown = [
     {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
@@ -92,6 +96,13 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
   demandLoans = false;
   otherNatureOfLoans = false;
 
+  interestSubsidy = false;
+  otherInterestLoans = false;
+
+  revolving = false;
+  termReviewLoans = false;
+  otherReviewLoans = false;
+
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   ckeConfig = NepaliEditor.CK_CONFIG;
 
@@ -112,6 +123,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     this.checkOfferLetterData();
     this.chooseLoanType(this.selectedLoanArray);
     this.chooseNatureOfLoanType(this.selectedNatureOfLoanArray);
+    this.chooseInterestLoanType(this.selectedInterestLoan);
+    this.chooseReviewLoanType(this.selectedReviewLoan);
     this.listOfLoan.push(this.form.get('loanTypeSelectedArray').value);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -322,7 +335,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       chkSplCovenant: true,
       covenants: this.formBuilder.array([this.buildAddMoreForm()]),
       selectReview: [undefined],
-      checkCovenant: true
+      checkCovenant: true,
+      checkBranch: true
     });
   }
 
@@ -370,6 +384,19 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     if (e.target.selected) {
       this.form.get(['proposalData', index, value]).patchValue(value);
     }
+  }
+
+  checkFacilityType(facilityType, index) {
+    this.form.get(['proposalData', index, 'facilityType']).patchValue(facilityType);
+
+  }
+
+  checkNatureOfLoan(natureOfLoan, index) {
+    this.form.get(['proposalData', index, 'natureOfLoan']).patchValue(natureOfLoan);
+  }
+
+  checkLoanType(selectLoanType, index) {
+    this.form.get(['proposalData', index, 'selectLoanType']).patchValue(selectLoanType);
   }
 
   checkReview(selectReview) {
@@ -560,6 +587,41 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
           break;
         case 'OtherNatureOfLoans':
           this.otherNatureOfLoans = true;
+          break;
+      }
+    });
+  }
+
+  chooseInterestLoanType(selectedInterestLoanTypeArray) {
+    this.selectedInterestLoan = selectedInterestLoanTypeArray;
+    this.overdraft = this.termLoans = this.demandLoans
+        = this.otherNatureOfLoans = false;
+    selectedInterestLoanTypeArray.forEach(selectedValue => {
+      switch (selectedValue) {
+        case 'interestSubsidy':
+          this.interestSubsidy = true;
+          break;
+        case 'OtherInterestLoans':
+          this.otherInterestLoans = true;
+          break;
+      }
+    });
+  }
+
+  chooseReviewLoanType(selectedReviewLoanTypeArray) {
+    this.selectedReviewLoan = selectedReviewLoanTypeArray;
+    this.overdraft = this.termLoans = this.demandLoans
+        = this.otherNatureOfLoans = false;
+    selectedReviewLoanTypeArray.forEach(selectedValue => {
+      switch (selectedValue) {
+        case 'Revolving':
+          this.revolving = true;
+          break;
+        case 'TermLoans':
+          this.termReviewLoans = true;
+          break;
+        case 'OtherLoans':
+          this.otherReviewLoans = true;
           break;
       }
     });
