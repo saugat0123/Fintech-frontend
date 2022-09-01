@@ -171,7 +171,7 @@
                             </thead>
                             <tbody *ngFor="let data of form.get('loanData')['controls']; let index = index"
                                    formArrayName="loanData">
-                            <tr [formGroupName]="index" style="page-break-inside: auto">
+                            <tr [formGroupName]="index">
                                 <td><input class="form-field form-control-sm nepaliFont disable-print"
                                            formControlName="loanFacilityType"
                                            placeholder=""
@@ -204,7 +204,7 @@
                                     ऋणस्वीकृती पत्रानुसार
                                 </td>
                             </tr>
-                            <div class="col-md-12" style="left: 440%;">
+                            <div class="col-md-12" style="left: 390%;">
                                 <button
                                         (click)="removeLoanDetail(index)"
                                         *ngIf="index > 0"
@@ -252,17 +252,17 @@
                         <p class="text-center"><strong><u>धितो सुरक्षण</u></strong></p>
                         <table class="table table-responsive-md table-bordered">
                             <thead>
-                            <tr style="page-break-inside: auto">
+                            <tr>
                                 <th>क्र.सं</th>
                                 <th>शेयरधनीको नाम र शेयर धनी नं. प्र. प्र. नं.</th>
                                 <th>डि.पि आईडि/क्लाईन्ट आईडि</th>
-                                <th>शेयर कित्ता</th>
+                                <th class="col-md-3">शेयर कित्ता</th>
                                 <th>शेयर जारि गर्ने संस्था</th>
                                 <th>कैफियत</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr style="page-break-inside: auto">
+                            <tr>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont disable-print"
                                            formControlName="snNo"
@@ -292,7 +292,7 @@
                                            formControlName="shareKitta"
                                            placeholder=""
                                            type="text"
-                                           size="15"/>
+                                           size="5"/>
                                     <span class="print-only nepaliFont"><strong>{{form.get('shareKitta')?.value ? form.get('shareKitta')?.value : '========='}}</strong></span>
                                 </td>
                                 <td>

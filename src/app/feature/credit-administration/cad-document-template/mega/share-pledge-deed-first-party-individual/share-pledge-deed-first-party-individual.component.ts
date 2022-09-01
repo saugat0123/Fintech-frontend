@@ -141,7 +141,7 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
   }
   setTableData(data) {
     const formArray = this.form.get('loanData') as FormArray;
-    if (ObjectUtil.isEmpty(data)) {
+    if (data.length === 0) {
       this.addTableData();
       return;
     }
