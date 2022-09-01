@@ -40,6 +40,8 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
   freeText: Array<any> = new Array<any>();
   totalAsset = 0;
   totalLiabilities = 0;
+  isIndividualVisible = false;
+  isInstitutionVisible = false;
   constructor(
       private formBuilder: FormBuilder,
       private administrationService: CreditAdministrationService,
@@ -61,6 +63,13 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
           !ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
         this.loanHolderNepData = JSON.parse(this.cadData.loanHolder.nepData);
       }
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder)) {
+        if (this.cadData.loanHolder.customerType === 'INDIVIDUAL') {
+            this.isIndividualVisible = true;
+        } else {
+            this.isInstitutionVisible = true;
+        }
     }
     this.loadPersonalGuarantorData();
     this.buildForm();
@@ -95,6 +104,10 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
           municipality: [undefined],
           wadNo: [undefined],
           branch: [undefined],
+          ageOne: [undefined],
+          ageOfDebtorOne: [undefined],
+          ageOfDebtorTwo: [undefined],
+          age: [undefined],
           witnessDistrict1: [undefined],
           witnessMunicipality1: [undefined],
           witnessWardNum1: [undefined],
@@ -133,6 +146,10 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
                 municipality: [this.loanHolderNepData.branchDetail ? this.loanHolderNepData.branchDetail.branchMunVdc : ''],
                 wadNo: [this.loanHolderNepData.branchDetail ? this.loanHolderNepData.branchDetail.branchWardNo : ''],
                 branch: [this.loanHolderNepData.branchDetail ? this.loanHolderNepData.branchDetail.branchNameInNepali : ''],
+                ageOne: [undefined],
+                ageOfDebtorOne: [undefined],
+                ageOfDebtorTwo: [undefined],
+                age: [undefined],
                 witnessDistrict1: [undefined],
                 witnessMunicipality1: [undefined],
                 witnessWardNum1: [undefined],
@@ -173,6 +190,14 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
         const freeText = this.form.value;
         if (this.initialInfoPrint !== null) {
           for (let val = 0; val < freeText.personalGuarantee.length; val++) {
+              this.form.get(['personalGuarantee', val, 'ageOne']).patchValue(this.initialInfoPrint ?
+                  this.initialInfoPrint[val].ageOne : '');
+              this.form.get(['personalGuarantee', val, 'ageOfDebtorOne']).patchValue(this.initialInfoPrint ?
+                  this.initialInfoPrint[val].ageOfDebtorOne : '');
+              this.form.get(['personalGuarantee', val, 'ageOfDebtorTwo']).patchValue(this.initialInfoPrint ?
+                  this.initialInfoPrint[val].ageOfDebtorTwo : '');
+              this.form.get(['personalGuarantee', val, 'age']).patchValue(this.initialInfoPrint ?
+                  this.initialInfoPrint[val].age : '');
               this.form.get(['personalGuarantee', val, 'witnessDistrict1']).patchValue(this.initialInfoPrint ?
                   this.initialInfoPrint[val].witnessDistrict1 : '');
               this.form.get(['personalGuarantee', val, 'witnessMunicipality1']).patchValue(this.initialInfoPrint ?
@@ -254,6 +279,14 @@ export class PersonalGuaranteeInstitutionalComponent implements OnInit {
         const free = this.form.value;
         for (let val = 0; val < free.personalGuarantee.length; val++) {
             const tempFreeText = {
+                ageOne: this.form.get(['personalGuarantee', val, 'ageOne']).value ?
+                    this.form.get(['personalGuarantee', val, 'ageOne']).value : '',
+                ageOfDebtorOne: this.form.get(['personalGuarantee', val, 'ageOfDebtorOne']).value ?
+                    this.form.get(['personalGuarantee', val, 'ageOfDebtorOne']).value : '',
+                ageOfDebtorTwo: this.form.get(['personalGuarantee', val, 'ageOfDebtorTwo']).value ?
+                    this.form.get(['personalGuarantee', val, 'ageOfDebtorTwo']).value : '',
+                age: this.form.get(['personalGuarantee', val, 'age']).value ?
+                    this.form.get(['personalGuarantee', val, 'age']).value : '',
                 witnessDistrict1: this.form.get(['personalGuarantee', val, 'witnessDistrict1']).value ?
                     this.form.get(['personalGuarantee', val, 'witnessDistrict1']).value : '',
                 witnessMunicipality1: this.form.get(['personalGuarantee', val, 'witnessMunicipality1']).value ?
