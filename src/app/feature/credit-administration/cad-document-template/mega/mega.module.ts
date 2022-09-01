@@ -77,7 +77,7 @@ import { LetterOfContinuityIndividualComponent } from './letter-of-continuity-in
 import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-of-trust-receipt.component';
 import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-partnership/personal-guarantee-partnership.component';
 import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-guarantee-proprietorship.component';
-
+import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-first-party-individual/share-pledge-deed-first-party-individual.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -137,6 +137,7 @@ import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-pro
         LetterOfTrustReceiptComponent,
         PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeProprietorshipComponent,
+        SharePledgeDeedFirstPartyIndividualComponent,
     ],
     imports: [
         CommonModule,
@@ -205,6 +206,7 @@ import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-pro
         LetterOfTrustReceiptComponent,
         PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeProprietorshipComponent,
+        SharePledgeDeedFirstPartyIndividualComponent
     ],
 })
 
