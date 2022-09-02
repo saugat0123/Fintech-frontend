@@ -40,7 +40,7 @@
                                         घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि समेत
                                         धितोेबन्धक यथावत कायम रहने छ ।<br>
                                     </ng-container>
-                                    <ng-container *ngIf="item?.collateralShare === 'YES' && (item?.mortgageType === 'New' || item?.mortgageType === 'Existing')">
+                                    <ng-container *ngIf="item?.collateralShare === 'YES' && (item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage' || item?.mortgageType === 'Existing')">
                                         <span *ngIf="item.mortgageType === 'New'">
                                         स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                                         </span>
@@ -241,7 +241,7 @@
                                     घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि समेत
                                     धितोेबन्धक यथावत कायम रहने छ ।<br>
                                 </ng-container>
-                                <ng-container *ngIf="item?.collateralShare == 'YES' && (item?.mortgageType === 'New' || item?.mortgageType === 'Existing')">
+                                <ng-container *ngIf="item?.collateralShare == 'YES' && (item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage' || item?.mortgageType === 'Existing')">
                                     <ng-container *ngIf="item?.mortgageType === 'New'">स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                                         <!--For new mortgage--></ng-container>
                                     ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर जग्गा यस बैकले
