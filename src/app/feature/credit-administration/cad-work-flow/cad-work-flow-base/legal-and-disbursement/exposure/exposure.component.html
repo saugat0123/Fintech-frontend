@@ -17,8 +17,9 @@
                 <thead>
                 <tr class="text-white sb-bg-dark">
                     <th>Facility</th>
-                    <th>Limit</th>
-                    <th>Disbursement</th>
+                    <th>Approved Limit</th>
+                    <th>Outstanding</th>
+                    <th>Present Request</th>
                     <th>Int Rate</th>
                     <th>Maturity</th>
                     <th>Frequency</th>
@@ -34,6 +35,7 @@
 
                             <td><input class="cellInput text-center" formControlName="loanName" [readOnly]="true"></td>
                             <td><input class="cellInput text-center" formControlName="loanLimit" [readOnly]="true"></td>
+                            <td><input class="cellInput text-center" formControlName="outstanding" ></td>
                             <td><input class="cellInput text-center" formControlName="disbursement"></td>
                             <td><input class="cellInput text-center" formControlName="initialRate"></td>
                             <td><input class="cellInput text-center" formControlName="maturity"></td>
