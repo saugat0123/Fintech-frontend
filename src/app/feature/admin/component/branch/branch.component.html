@@ -121,7 +121,7 @@
                                 <p>No Content Found</p>
                             </div>
                             <td>{{i + 1}}</td>
-                            <td>{{allList.name}}</td>
+                            <td>{{allList.name}} <span *ngIf="allList.nepaliName != null">(<span class="nepaliFont">{{allList.nepaliName}}</span>)</span></td>
                             <td>{{allList.branchCode}}</td>
                             <td>{{allList.province?.name}}</td>
                             <td>{{allList.district?.name}}</td>

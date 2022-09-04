@@ -13,33 +13,43 @@
                                 Loan Nature: {{ex?.get('loanConfig')?.value?.loanNature}}
                             </strong>
                             <hr>
-                            <div class="nb-card-header row" *ngIf="!ex?.get('loanId')?.value && !ex?.get('id')?.value">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="loanType"><strong>Loan Type</strong></label>
-                                        <select formControlName="loanType" id="loanType"
-                                                name="loanType"
-                                                class="form-control rounded" name="loanType" required>
-                                            <option [ngValue]="undefined" hidden> Select Loan Type</option>
-                                            <option *ngFor="let list of multipleSelectedLoanType"
-                                                    [ngValue]="list?.key">{{list?.value}}</option>
-                                        </select>
+                            <div class="nb-card-header row">
+                                <ng-container *ngIf="!ex?.get('loanId')?.value && !ex?.get('id')?.value">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="loanType"><strong>Loan Type</strong></label>
+                                            <select formControlName="loanType" id="loanType"
+                                                    name="loanType"
+                                                    class="form-control rounded" name="loanType" required>
+                                                <option [ngValue]="undefined" hidden> Select Loan Type</option>
+                                                <option *ngFor="let list of multipleSelectedLoanType"
+                                                        [ngValue]="list?.key">{{list?.value}}</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="title" for="loanConfig"><strong>Loan Facility</strong></label>
+                                            <ng-select formControlName="loanConfig" id="loanConfig"
+                                                       name="loanConfig"
+                                                       class="rounded"
+                                                       bindLabel="name"
+                                                       (change)="setLoanNameAndType($event,i)"
+                                                       name="loanId" required>
+                                                <ng-option [value]="undefined" hidden> Select Loan Type</ng-option>
+                                                <ng-option *ngFor="let allList of loanList" [value]="allList">
+                                                    {{allList?.name}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </ng-container>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="loanConfig"><strong>Loan Facility</strong></label>
-                                        <ng-select formControlName="loanConfig" id="loanConfig"
-                                                   name="loanConfig"
-                                                   class="rounded"
-                                                   bindLabel="name"
-                                                   (change)="setLoanNameAndType($event,i)"
-                                                   name="loanId" required>
-                                            <ng-option [value]="undefined" hidden> Select Loan Type</ng-option>
-                                            <ng-option *ngFor="let allList of loanList" [value]="allList">
-                                                {{allList?.name}}
-                                            </ng-option>
-                                        </ng-select>
+                                        <nb-checkbox class="title" formControlName="isReview"
+                                                     (change)="checkChecked($event.target.checked, i)"
+                                                     [checked]="ex?.get('isReview')?.value"><strong style="font-size: 16px">Reviewed ?</strong>
+                                        </nb-checkbox>
                                     </div>
                                 </div>
                             </div>

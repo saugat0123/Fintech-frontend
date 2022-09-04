@@ -41,20 +41,21 @@ export class LetterOfContinuityCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    // this.fillForm();
+    this.fillForm();
   }
   buildForm() {
     this.letterOfContinuityCompany = this.formBuilder.group({
       branchNameNepali: [undefined],
       actYear: [undefined],
-      registrationIssueDate: [undefined],
-      panNo: [undefined],
-      gender: [undefined],
+      companyRegOffice: [undefined],
+      registrationDate: [undefined],
+      registrationNo: [undefined],
+      district: [undefined],
       vdcMunicipality: [undefined],
       wardNum: [undefined],
       tole: [undefined],
       borrowerNameNepali: [undefined],
-      authGrandfatherOrFatherInLaw: [undefined],
+      authorizedPersonName: [undefined],
       sachiOne: [undefined],
       sachiTwo: [undefined],
       year: [undefined],
@@ -63,17 +64,17 @@ export class LetterOfContinuityCompanyComponent implements OnInit {
       roj: [undefined],
     });
   }
-  // fillForm() {
-  //    this.letterOfContinuityCompany.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
-  //    this.letterOfContinuityCompany.get('registrationIssueDate').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('panNo').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('gender').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('vdcMunicipality').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('wardNum').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('tole').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('borrowerNameNepali').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('authGrandfatherOrFatherInLaw').patchValue(this.nepData.branchDetail.branchNameNepali);
-  // }
+  fillForm() {
+     this.letterOfContinuityCompany.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
+     this.letterOfContinuityCompany.get('companyRegOffice').patchValue(this.nepData.companyRegOffice);
+     this.letterOfContinuityCompany.get('registrationDate').patchValue(this.nepData.regIssueDate);
+     this.letterOfContinuityCompany.get('registrationNo').patchValue(this.nepData.registrationNo);
+     this.letterOfContinuityCompany.get('district').patchValue(this.nepData.institutionRegisteredAddress.district);
+     this.letterOfContinuityCompany.get('vdcMunicipality').patchValue(this.nepData.institutionRegisteredAddress.municipality);
+     this.letterOfContinuityCompany.get('wardNum').patchValue(this.nepData.institutionRegisteredAddress.wardNo);
+     this.letterOfContinuityCompany.get('borrowerNameNepali').patchValue(this.nepData.nepaliName);
+     this.letterOfContinuityCompany.get('authorizedPersonName').patchValue(this.nepData.authorizedPersonDetail.name);
+  }
 
   submit() {
     let flag = true;
