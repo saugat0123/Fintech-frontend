@@ -43,6 +43,7 @@ export class CorporateGuaranteeComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.patchData();
   }
 
   buildForm() {
@@ -65,6 +66,7 @@ export class CorporateGuaranteeComponent implements OnInit {
       registeredMunVdc: [undefined],
       registeredWardNo: [undefined],
       borrowerName: [undefined],
+      freeText: [undefined],
       offerLetterIssuedDate: [undefined],
       loanAmount: [undefined],
       loanAmountInFigure: [undefined],
@@ -78,7 +80,38 @@ export class CorporateGuaranteeComponent implements OnInit {
       roj: [undefined]
     });
   }
-
+  patchData() {
+    this.form.get('branchName').patchValue(this.nepData.branchDetail ? this.nepData.branchDetail.branchNameInNepali : '');
+    this.form.get('companyRegisteredDate').patchValue(this.nepData.guarantorDetails[0] ?
+        this.nepData.guarantorDetails[0].regIssueDate : '');
+    this.form.get('companyActNumber').patchValue(this.nepData.guarantorDetails[0] ? this.nepData.guarantorDetails[0].registrationNo : '');
+    this.form.get('companyRegisteredDistrict').patchValue(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress ?
+        this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.district : '');
+    this.form.get('companyRegisteredMunVdc').patchValue(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress ?
+        this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.municipality : '');
+    this.form.get('companyRegisteredWardNo').patchValue(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress ?
+        this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.wardNo : '');
+    this.form.get('companyRegisteredTole').patchValue(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress ?
+        this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.tole : '');
+    this.form.get('companyName').patchValue(this.nepData.guarantorDetails[0].name);
+    this.form.get('companyAuthorizedPerson').patchValue(this.nepData.guarantorDetails[0].guarantorAuthorizedPersonDetail.name);
+    this.form.get('ministryOfIndustry').patchValue(this.nepData.companyRegOffice ? this.nepData.companyRegOffice : '');
+    this.form.get('registeredDate').patchValue(this.nepData.regIssueDate ? this.nepData.regIssueDate : '');
+    this.form.get('registeredNumber').patchValue(this.nepData.registrationNo ? this.nepData.registrationNo : '');
+    this.form.get('registeredDistrict').patchValue(this.nepData.institutionRegisteredAddress ?
+        this.nepData.institutionRegisteredAddress.district : '');
+    this.form.get('registeredMunVdc').patchValue(this.nepData.institutionRegisteredAddress ?
+        this.nepData.institutionRegisteredAddress.municipality : '');
+    this.form.get('registeredWardNo').patchValue(this.nepData.institutionRegisteredAddress ?
+        this.nepData.institutionRegisteredAddress.wardNo : '');
+    this.form.get('borrowerName').patchValue(this.nepData.nepaliName ? this.nepData.nepaliName : '');
+    this.form.get('offerLetterIssuedDate').patchValue(this.nepData.miscellaneousDetail ? this.nepData.miscellaneousDetail.offerIssueDate : '');
+    this.form.get('loanAmount').patchValue(this.nepData.miscellaneousDetail ? this.nepData.miscellaneousDetail.loanAmountInFig : '');
+    this.form.get('loanAmountInFigure').patchValue(this.nepData.miscellaneousDetail ?
+        this.nepData.miscellaneousDetail.loanAmountInWord : '');
+    this.form.get('amount').patchValue(this.nepData.miscellaneousDetail ? this.nepData.miscellaneousDetail.loanAmountInFig : '');
+    this.form.get('amountInFig').patchValue(this.nepData.miscellaneousDetail ? this.nepData.miscellaneousDetail.loanAmountInWord : '');
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
