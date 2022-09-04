@@ -1,3 +1,18 @@
+ol {
+  margin-left: -50px;
+}
+
 li {
-  list-style: none;
+  display: block
+}
+li:before {
+  content: counters(item, ".") "";
+  counter-increment: item;
+  margin-left: -20px;
+}
+
+.marginLe {
+  margin-left: -30px;
+  font-weight: normal;
+  font-size: 16px;
 }

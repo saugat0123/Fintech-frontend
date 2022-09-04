@@ -1,6 +1,8 @@
-<p>The customer has requested the branch for approving the following credit facilities:</p>
-<ul>
-    <li *ngFor="let loan of customerAllLoanList; let i = index">
-        1. {{i+1}} {{loan?.loan?.name}}
+<span class="marginLe">
+    The customer has requested the branch for approving the following credit facilities:
+</span>
+<ol>
+    <li *ngFor="let loan of customerAllLoanList">
+        {{loan?.loanType}} of {{loan?.loan?.name}} limit of NPR. {{loan?.proposal?.proposedLimit}}
     </li>
-</ul>
+</ol>
