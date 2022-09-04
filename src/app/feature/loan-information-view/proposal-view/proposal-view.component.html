@@ -396,21 +396,6 @@
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
       </tr>
     </table>
-    <table *ngIf="productUtils.CBS_ENABLE"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-        <tr class="text-white sb-bg-dark">
-          <th>Disbursement Criteria </th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-          <th>Repayment</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
-        </tr>
-    </table>
 
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
       <tr class="text-white sb-bg-dark">
@@ -426,49 +411,54 @@
           </ng-template>
         </th>
       </tr>
-      <tr *ngIf="client !== clientName?.MEGA">
-        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th>Summery & Recommendation</th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span> </td>
-      </tr>
+<!--      <tr *ngIf="client !== clientName?.MEGA">-->
+<!--        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>-->
+<!--      </tr>-->
+<!--      <tr class="text-white sb-bg-dark">-->
+<!--        <th>Summery & Recommendation</th>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span> </td>-->
+<!--      </tr>-->
       <tr class="text-white sb-bg-dark">
         <th>Remarks</th>
       </tr>
       <tr>
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
-      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
-        <th>Purpose of Loan</th>
+
+
+<!--      <ng-container *ngIf="checkedData?.riskChecked">-->
+<!--        <tr class="text-white sb-bg-dark">-->
+<!--          <th>Risk & Mitigation</th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>-->
+<!--        </tr>-->
+<!--      </ng-container>-->
+<!--      <ng-container *ngIf="checkedData?.solChecked">-->
+<!--        <tr class="text-white sb-bg-dark">-->
+<!--          <th>Single Obligor Limit</th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>-->
+<!--        </tr>-->
+<!--      </ng-container>-->
+    </table>
+    <table *ngIf="productUtils.CBS_ENABLE"
+           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+      <tr class="text-white sb-bg-dark">
+        <th>Disbursement Criteria </th>
       </tr>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
       </tr>
       <tr class="text-white sb-bg-dark">
-        <th>Loan Background</th>
+        <th>Repayment</th>
       </tr>
       <tr>
-        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span> </td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
       </tr>
-      <ng-container *ngIf="checkedData?.riskChecked">
-        <tr class="text-white sb-bg-dark">
-          <th>Risk & Mitigation</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
-      <ng-container *ngIf="checkedData?.solChecked">
-        <tr class="text-white sb-bg-dark">
-          <th>Single Obligor Limit</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
     </table>
   </div>
 </div>

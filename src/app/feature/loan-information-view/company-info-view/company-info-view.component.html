@@ -222,113 +222,25 @@
 
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Company Background</th>
+                <th>Loan Background</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
-            </tr>
-        </table>
-        <table *ngIf="(summaryType === summaryTypeName?.GENERAL) || (summaryType === summaryTypeName?.ALPHA)"
-               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Group’s background</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
+                <td class="text-left pl-1"><span
+                        [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span></td>
             </tr>
         </table>
 
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="100%">Information of Proprietor/Shareholder/Partner with holder %</th>
+            <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
+                <th>Purpose of Proposal</th>
             </tr>
-            </thead>
-            <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
-                <tr class="text-white sb-bg-dark">
-                    <th class="sn">S.N</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Contact No</th>
-                    <th>Share %</th>
-                    <th>Address</th>
-                    <th>Ward No.</th>
-                    <th>Address Line 1</th>
-                    <th>Address Line 2</th>
-                    <th>Net Worth</th>
-                </tr>
-                <tr>
-                    <td>{{i+1}}</td>
-                    <td class="text-left pl-1"><strong>{{holder?.name}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.type}}</strong></td>
-                    <td class="text-right pr-1"><strong>{{holder?.contactNo}}</strong></td>
-                    <td class="text-right pr-1"><strong>{{holder?.share}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
-                    <td class="text-right pr-1"><strong>{{holder?.holderPercentWardNumber}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.netWorth}}</strong></td>
-                </tr>
-                <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.MEGA">
-                    <th></th>
-                    <th>Father's Name</th>
-                    <th>Grandfather's Name</th>
-                    <th>Citizenship Number</th>
-                    <th>Issued date(AD/BS)</th>
-                    <th>Issued place</th>
-                    <th>Date of birth(AD/BS)</th>
-                </tr>
-                <tr *ngIf="client !== clientName.MEGA">
-                    <td></td>
-                    <td class="text-left pl-1"><strong>{{holder?.fatherName}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.grandFatherName}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.citizenshipNum}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.issuedDate | date}} ({{holder?.issuedDate|engNepDate: false}})</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.issuedPlace}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth | date}} ({{holder?.dateOfBirth|engNepDate: false}})</strong></td>
-                </tr>
-
-                <tr *ngIf="client != clientName.MEGA">
-                    <td colspan="9">
-                        <br>
-                        <table class="table border-dark">
-                            <thead class="sb-bg-dark text-white">
-                            <tr class="sb-bg-secondary text-white">
-                                <th colspan="10">Family details of {{holder?.name}}</th>
-                            </tr>
-                            <tr>
-                                <th class="sn">S.N</th>
-                                <th>Owner Relationship</th>
-                                <th>Relation Name</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
-                                <th>Citizenship Number</th>
-                                <th>Issued Location</th>
-                                <th>Issued Date(AD/BS)</th>
-                                <th>Mobile Number</th>
-                                <th>Address</th>
-                                <th>Remarks</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
-                                <tr>
-                                    <td>{{j+1}}</td>
-                                    <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
-                                    <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-right pr-1">{{d?.age || 'N/A' }}</td>
-                                    <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}} ({{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}})</td>
-                                    <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
-                                    <td class="text-left pl-1">{{d?.remark ? d?.remark : 'N/A'}}</td>
-                                </tr>
-                            </ng-container>
-                            </tbody>
-                        </table>
-                </tr>
-            </ng-container>
+            <tr>
+                <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA"
+                    [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+            </tr>
         </table>
+
+
         <!-- todo uncomment it and verify-->
        <!-- <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -360,51 +272,19 @@
             </tr>
             </tbody>
         </table>-->
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="8">Management Team</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Address as per Legal Document</th>
-            </tr>
-            </thead>
-            <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
-            <tr>
-                <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{management?.name}}</td>
-                <td class="text-left pl-1">{{management?.designation}}</td>
-                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
-            </tr>
 
-            </tbody>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="4">Note</th>
-            </tr>
-            <tr>
-                <td colspan="4" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
-            </tr>
-        </table>
 
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Business Objective</th>
-            </tr>
-            <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
-        </table>
-        <table *ngIf="summaryType === summaryTypeName.GENERAL"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Succession Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
-            </tr>
-        </table>
+<!--        <table *ngIf="summaryType === summaryTypeName.GENERAL"-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Succession Risk & Mitigation</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>-->
+<!--            </tr>-->
+<!--        </table>-->
 
+<!--
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
@@ -419,68 +299,8 @@
                 <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
             </tr>
         </table>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Market Scenario</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Market demand of product/service</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Key Suppliers</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Key Buyers</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Competitors Overview</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Marketing Strategies</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
-            </tr>
-            <ng-container *ngIf="summaryType === summaryTypeName?.GENERAL">
-                <tr class="text-white sb-bg-dark">
-                    <th>Industry/Market Risk & Mitigation</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
-                </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th>Business/Management Risk & Mitigation</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
-                </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th>Security Risk & Mitigation</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
-                </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th>Financial and Cash Flow Risk & Mitigation</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
-                </tr>
-            </ng-container>
-        </table>
+-->
+<!--
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr class="text-white sb-bg-dark">
@@ -490,28 +310,8 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.legalReviewRemark"></td>
                 </tr>
         </table>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="4">SWOT Analysis</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Strength</th>
-                <th>Weakness</th>
-                <th>Opportunity</th>
-                <th>Threats</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
-            </tr>
-            </tbody>
-        </table>
+-->
+<!--
         <table *ngIf="!srdbAffiliatedId && (summaryType === summaryTypeName?.GENERAL || summaryType === summaryTypeName?.GAMMA)"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr>
@@ -575,6 +375,8 @@
                 <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
             </tr>
         </table>
+-->
+<!--
         <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
@@ -594,7 +396,9 @@
                 <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
             </tr>
         </table>
+-->
 
+<!--
         <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
@@ -623,6 +427,7 @@
                 <td class="text-left pl-1">{{formValue?.succession}}</td>
             </tr>
         </table>
+-->
     </div>
 </div>
 
