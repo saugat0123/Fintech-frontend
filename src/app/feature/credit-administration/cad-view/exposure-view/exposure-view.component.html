@@ -6,8 +6,9 @@
     <tr class="text-white sb-bg-dark">
         <th>S.N</th>
         <th>Facility</th>
-        <th>Limit</th>
-        <th>Disbursement</th>
+        <th>Approved Limit</th>
+        <th>Outstanding</th>
+        <th>Present Request</th>
         <th>Int Rate</th>
         <th>Maturity</th>
         <th>Frequency</th>
@@ -23,6 +24,7 @@
         <td>{{i + 1}}</td>
         <td>{{ex?.loanName}}</td>
         <td class="text-right px-2">Rs.{{ex?.loanLimit | currencyFormatter}}</td>
+        <td class="text-right px-2">Rs.{{(ex?.outstanding ? ex?.outstanding : 0 ) | currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{ex?.disbursement | currencyFormatter}}</td>
         <td>{{ex?.initialRate}}</td>
         <td>{{ex?.maturity}}</td>
