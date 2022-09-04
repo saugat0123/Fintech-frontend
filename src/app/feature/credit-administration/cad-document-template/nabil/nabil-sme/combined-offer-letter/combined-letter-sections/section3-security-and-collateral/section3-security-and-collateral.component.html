@@ -197,7 +197,7 @@
                                 <strong>ग्रहणाधिकार (Lien): </strong>
                                 <p class="m-0" *ngFor="let fd of fdLoop; let i = index"> <!--For TD -->
                                     <span *ngIf="fd.holdingBankCT === 'NABIL'"> <!--If TD is of Nabil Bank-->
-                               नबिल
+                               एभरेष्ट
                            </span>
                                     <span *ngIf="fd.holdingBankCT === 'OTHER'">
                                     <!--Other bank name If TD is of other bank-->
@@ -236,7 +236,7 @@
                                 </p>
 
                                 <p class="m-0" *ngFor="let fd of depositLoop; let i = index"> <!--For Deposit-Saving/Current/Call a/c-->
-                                    नबिल बैंकमा खोलिएको
+                                    एभरेष्ट बैंकमा खोलिएको
                                     <input formControlName="nameOfAccoutHolder"
                                            name="nameOfAccoutHolder"
                                            type="text"

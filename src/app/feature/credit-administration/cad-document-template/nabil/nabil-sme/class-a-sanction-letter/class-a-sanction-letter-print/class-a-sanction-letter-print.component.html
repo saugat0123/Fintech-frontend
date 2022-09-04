@@ -146,7 +146,7 @@
                                 सुरक्षणः
                             </strong>
                             <span *ngIf="letter?.tdHoldingBank.en === 'Nabil'">
-                            नबिल
+                            एभरेष्ट
                             </span>
                             <span *ngIf="letter?.tdHoldingBank.en === 'Other'">
                                  <span [ngClass]="{'font-weight-bold': letter?.TdHolding.ct !== null && letter?.TdHolding.ct !== ''}">
@@ -230,7 +230,7 @@
                             <br/>
                             <strong> धरौटी: </strong> <span *ngIf="this.letter.cashMarginTypeBankGuarantee.en === 'HundredCashMargin'"> नगद १००% धरौती स्वरुप रहनेछ </span>
                             <span *ngIf="this.letter.cashMarginTypeBankGuarantee.en === 'TenCashMargin'">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती
-                                        स्वरुप नबिल बैंकमा रहेको श्री
+                                        स्वरुप एभरेष्ट बैंकमा रहेको श्री
                             <span [ngClass]="{'font-weight-bold': this.holderFinalName !== null && this.holderFinalName !== ''}">
                                             {{this.holderFinalName === null || this.holderFinalName === "" ? "___________" : this.holderFinalName}}
                                         </span>
@@ -299,7 +299,7 @@
                             <span *ngIf="this.letter?.CashMarginHundred?.en">
                             नगद १००% धरौती स्वरुप रहनेछ ।
                             </span>
-                            <span *ngIf="this.letter?.CashMarginTen?.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री
+                            <span *ngIf="this.letter?.CashMarginTen?.en">१००% धरौती स्वरुप एभरेष्ट बैंकमा रहेको श्री
                             <span [ngClass]="{'font-weight-bold': this.holderFinalName !== null && this.holderFinalName !== ''}">
                                             {{this.holderFinalName === null || this.holderFinalName === "" ? "___________" : this.holderFinalName}}
                                         </span>
@@ -368,7 +368,7 @@
                     </li>
                     <li>
                         <strong> ग्रहणाधिकार (Lien): </strong>
-                        <span *ngIf="this.letter.Nabil.en"> नबिल </span> बैंकद्धारा
+                        <span *ngIf="this.letter.Nabil.en"> एभरेष्ट </span> बैंकद्धारा
                         जारी गरिएको ............. को नाममा रहेको कम्तिमा रु
                         <span class="font-weight-bold">
                                             {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
@@ -378,7 +378,7 @@
                         (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति
                         बैंकलाई हस्तान्तरण गर्नु
                         पर्नेछ  गरिदिइएको यथावत कायम रहने छ  ।<br>
-                        नबिल बैंकमा खोलिएको
+                        एभरेष्ट बैंकमा खोलिएको
                         <span [ngClass]="{'font-weight-bold': letter?.dateOfExpiry.ct !== null && letter?.dateOfExpiry.ct !== ''}">
                                             {{letter?.dateOfExpiry.ct === null || letter?.dateOfExpiry.ct === "" ? "___________" : letter?.dateOfExpiry.ct}}
                                         </span>
@@ -1028,7 +1028,7 @@
                         </span>
                     </p>
                     <p>
-                        नबिल बैंक लि.
+                        एभरेष्ट बैंक लि.
                     </p>
                     <p>
                         <span [ngClass]="{'num' : this.branchName!== null && this.branchName!== ''}">
@@ -1049,7 +1049,7 @@
                         </span>
                     </p>
                     <p>
-                        नबिल बैंक लि.
+                        एभरेष्ट बैंक लि.
                     </p>
                     <p>
                         <span [ngClass]="{'num' : this.branchName!== null && this.branchName!== ''}">
