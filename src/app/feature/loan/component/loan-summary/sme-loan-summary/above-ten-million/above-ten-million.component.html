@@ -4,6 +4,7 @@
         <p class="text-uppercase"><strong>Request of the Customer</strong></p>
         <ol>
             <app-above-request-of-the-customer
+                    [existingExposureData]="loanDataHolder?.loanHolder?.existingExposures"
                     [customerAllLoanList]="customerAllLoanList"></app-above-request-of-the-customer>
         </ol>
     </li>
