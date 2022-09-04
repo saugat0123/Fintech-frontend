@@ -76,7 +76,6 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         });
       }
     }
-    console.log('nepali data::', this.nepaliData);
     if (!ObjectUtil.isEmpty(this.initialInfoPrint)) {
       this.form.patchValue(JSON.parse(this.initialInfoPrint));
       this.form.patchValue({
@@ -92,15 +91,12 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
         companyName: this.nepaliData.nepaliName,
         companyRegistrationNo: this.nepaliData.registrationNo,
+        companyPanNumber: this.nepaliData.panNo,
         registrationDate: this.nepaliData.regIssueDate,
         registrationNikayaName: this.nepaliData.companyRegOffice,
-        companyPanNumber: this.nepaliData.panNo,
-        companyPanIssueOffice: this.nepaliData.panIssueOffice,
-        companyPanIssueDate: this.nepaliData.panIssueDate,
         companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
         companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
         companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
-        companyRepresentativeHusbandName: this.nepaliData.authorizedPersonDetail.husbandName,
         companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
         companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
         companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
@@ -126,10 +122,6 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         companyRegVdc: this.nepaliData.institutionRegisteredAddress.municipality,
         companyRegWardNo: this.nepaliData.institutionRegisteredAddress.wardNo,
         companyRegTole: this.nepaliData.institutionRegisteredAddress.tole,
-        companyRegTempDistrict: this.nepaliData.institutionCurrentAddress.district,
-        companyRegTempVdc: this.nepaliData.institutionCurrentAddress.municipality,
-        companyRegTempWardNo: this.nepaliData.institutionCurrentAddress.wardNo,
-        companyRegTempTole: this.nepaliData.institutionCurrentAddress.tole,
       });
     } else {
       this.fillForm();
@@ -166,15 +158,12 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         amountInWords: this.nepaliData.miscellaneousDetail.loanAmountInWord,
         companyName: this.nepaliData.nepaliName,
         companyRegistrationNo: this.nepaliData.registrationNo,
+        companyPanNumber: this.nepaliData.panNo,
         registrationDate: this.nepaliData.regIssueDate,
         registrationNikayaName: this.nepaliData.companyRegOffice,
-        companyPanNumber: this.nepaliData.panNo,
-        companyPanIssueOffice: this.nepaliData.panIssueOffice,
-        companyPanIssueDate: this.nepaliData.panIssueDate,
         companyRepresentativeName: this.nepaliData.authorizedPersonDetail.name,
         companyRepresentativeGrandFatherName: this.nepaliData.authorizedPersonDetail.grandFatherName,
         companyRepresentativeFatherName: this.nepaliData.authorizedPersonDetail.fatherName,
-        companyRepresentativeHusbandName: this.nepaliData.authorizedPersonDetail.husbandName,
         companyRepresentativeDistrict: this.nepaliData.authorizedPersonAddress.district,
         companyRepresentativeVdc: this.nepaliData.authorizedPersonAddress.municipality,
         companyRepresentativeWardNo: this.nepaliData.authorizedPersonAddress.wardNo,
@@ -200,10 +189,6 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
         companyRegVdc: this.nepaliData.institutionRegisteredAddress.municipality,
         companyRegWardNo: this.nepaliData.institutionRegisteredAddress.wardNo,
         companyRegTole: this.nepaliData.institutionRegisteredAddress.tole,
-        companyRegTempDistrict: this.nepaliData.institutionCurrentAddress.district,
-        companyRegTempVdc: this.nepaliData.institutionCurrentAddress.municipality,
-        companyRegTempWardNo: this.nepaliData.institutionCurrentAddress.wardNo,
-        companyRegTempTole: this.nepaliData.institutionCurrentAddress.tole,
       });
     }
   }
@@ -268,14 +253,10 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
       companyRegVdc: [undefined],
       companyRegWardNo: [undefined],
       companyRegTole: [undefined],
-      companyRegTempDistrict: [undefined],
-      companyRegTempVdc: [undefined],
-      companyRegTempWardNo: [undefined],
-      companyRegTempTole: [undefined],
       companyRepresentativeName: [undefined],
+      companyRepresentativeAge: [undefined],
       companyRepresentativeGrandFatherName: [undefined],
       companyRepresentativeFatherName: [undefined],
-      companyRepresentativeHusbandName: [undefined],
       companyRepresentativeDistrict: [undefined],
       companyRepresentativeVdc: [undefined],
       companyRepresentativeWardNo: [undefined],
@@ -284,10 +265,8 @@ export class HypothecationChargeOverFixedAssetsComponent implements OnInit {
       representativeCitizenOffice: [undefined],
       companyName: [undefined],
       companyRegistrationNo: [undefined],
-      registrationNikayaName: [undefined],
       companyPanNumber: [undefined],
-      companyPanIssueOffice: [undefined],
-      companyPanIssueDate: [undefined],
+      registrationNikayaName: [undefined],
       grandFatherName: [undefined],
       fatherName: [undefined],
       spouseName: [undefined],
