@@ -13,7 +13,9 @@ export class ApiUtils {
             url: fullApi,
             header: new HttpHeaders({
                 'Authorization': 'Bearer ' + at,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-Frame-Options': 'DENY',
+                'Content-Security-Policy': `style-src 'self' https://fonts.googleapis.com 'unsafe-inline'`
             })
         };
     }
