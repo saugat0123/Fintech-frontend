@@ -3,6 +3,6 @@
 </span>
 <ol>
     <li *ngFor="let loan of customerLoanAndExposureData">
-        {{loan?.loanType}} of {{loan?.loanName}} limit of NPR. {{loan?.proposedLimit}}
+        {{loan?.loanType | replace: '_': ' '}} of {{loan?.loanName}} limit of NPR. {{loan?.proposedLimit}}
     </li>
 </ol>
