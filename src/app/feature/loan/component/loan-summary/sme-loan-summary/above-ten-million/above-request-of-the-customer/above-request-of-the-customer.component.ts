@@ -36,7 +36,7 @@ export class AboveRequestOfTheCustomerComponent implements OnInit, DoCheck {
                 this.existingExposureData.forEach(ee => {
                     if (!ObjectUtil.isEmpty(ee.isReview)) {
                         if (ee.isReview) {
-                            this.setExistingAndProposedData(ee.loanName, ee.loanType, ee.originalLimit);
+                            this.setExistingAndProposedData(ee.loanName, 'REVIEW', ee.originalLimit);
                         }
                     }
                 });
