@@ -44,6 +44,7 @@ export class CompanyInfo {
     shareholderKycList: Array<ShareholderKyc>;
     accountNo: string;
     accountStrategy: string;
+    accStrategy: string;
     customerCategory: any;
     companyContactDetails: string;
 }
