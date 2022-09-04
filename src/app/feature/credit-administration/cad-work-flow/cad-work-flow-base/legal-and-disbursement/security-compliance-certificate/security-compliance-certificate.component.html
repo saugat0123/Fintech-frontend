@@ -6,17 +6,35 @@
       </div>
     </div>
     <ng-container class="flex-row">
-      <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
+      <h3 class="text-center print-only mb-3"><p><strong>Security Compliance Certificate </strong></p></h3>
       <h5 class="text-center disable-print">Security Compliance Certificate </h5>
 
       <i  class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
-      <a *ngIf="sccPath" (click)="service.openDocument(sccPath)" class="cursor disable-print float-right m-3" nbTooltip="click to open"> SCC FILE <em
-              [className]="service.SET_CLASS_NAME"></em>
-      </a>
     </ng-container>
 
   </nb-card-header>
   <nb-card-body>
+    <ng-container *ngIf="sccPaths?.length > 0">
+      <p class="header mt-3 d-print-none"><b>SCC Documents </b></p>
+      <table class="table table-bordered table-hover table-sm sb-small text-center d-print-none">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>S.N</th>
+          <th>Upload Date</th>
+          <th>Attachment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let scc of sccPaths; let i = index;">
+          <td>{{i+1}}</td>
+          <td>{{scc | sccDateConvert}}</td>
+          <td class="cursor" (click)="service.openDocument(scc)"><em
+                  [class]="scc === null ? 'fas fa-times-circle text-danger':'fa fa-eye'"></em></td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <hr class="d-print-none">
     <form [formGroup]="sccForm">
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
 <!--      <tr>-->
