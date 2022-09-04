@@ -2,7 +2,7 @@
     The customer has requested the branch for approving the following credit facilities:
 </span>
 <ol>
-    <li *ngFor="let loan of customerAllLoanList">
-        {{loan?.loanType}} of {{loan?.loan?.name}} limit of NPR. {{loan?.proposal?.proposedLimit}}
+    <li *ngFor="let loan of customerLoanAndExposureData">
+        {{loan?.loanType}} of {{loan?.loanName}} limit of NPR. {{loan?.proposedLimit}}
     </li>
 </ol>
