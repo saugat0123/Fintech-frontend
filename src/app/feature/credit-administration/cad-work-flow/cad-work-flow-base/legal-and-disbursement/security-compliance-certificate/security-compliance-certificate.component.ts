@@ -10,6 +10,7 @@ import {CompanyInfoService} from '../../../../../admin/service/company-info.serv
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -26,7 +27,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID;
   sccRefNumber;
   securityCode;
-
+  submit = false;
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
@@ -34,7 +35,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               private nbDialogService: NbDialogService,
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
-              private companyInfoService: CompanyInfoService
+              private companyInfoService: CompanyInfoService,
+              private spinnerService: NgxSpinnerService
   ) {
   }
 
@@ -59,6 +61,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     concat('-dis-').concat( exposureHistoryData ? exposureHistoryData.length : 0);
   }
 
+  onSave() {
+    this.submit = true;
+    this.save();
+  }
 
   onClose() {
     this.dialogRef.close();
@@ -73,12 +79,26 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   save() {
+    this.spinnerService.show();
     const formData: FormData = new FormData();
     formData.append('file', this.uploadFile);
     formData.append('customerInfoId', this.cadFile.loanHolder.id.toString());
     formData.append('cadId', this.cadFile.id.toString());
     formData.append('docName', new Date().toString());
     formData.append('branchId', this.cadFile.loanHolder.branch.id.toString());
+    if (ObjectUtil.isEmpty(this.cadFile.exposure)) {
+      // this.spinner = false;
+      this.spinnerService.hide();
+      this.modelClose();
+      this.toastService.show(new Alert(AlertType.WARNING, 'Exposure details are missing'));
+      return;
+    }
+    //   if (this.sumbit) {
+    //     this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);
+    //     this.cadFile.sccData = JSON.stringify(this.sccForm.value);
+    //     this.saveCadFile();
+    //   } else {
+    // }
     this.creditAdministrationService.getSccDocPath(formData).subscribe((res: any) => {
       const mergeData = {
         disbursementDetails: JSON.parse(this.cadFile.exposure.data).disbursementDetails,
@@ -88,9 +108,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.creditAdministrationService.saveCadDocumentBulk(this.cadFile).subscribe((response: any) => {
         this.modelClose();
         this.onClose();
+        this.spinnerService.hide();
         this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadFile.id, 0);
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully upload SCC File'));
       }, error => {
+        this.spinnerService.hide();
         this.modelClose();
         console.log(error);
         this.toastService.show(new Alert(AlertType.ERROR, error));
