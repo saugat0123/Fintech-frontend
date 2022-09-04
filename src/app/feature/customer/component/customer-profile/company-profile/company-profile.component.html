@@ -96,11 +96,7 @@
 
           <div class="row">
                     <span> <strong>Address :</strong>
-                         ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
-                      , {{companyLocationData?.municipalityVdc?.name}})
-                      , {{companyLocationData?.ward}}
-                      , {{companyLocationData?.address1}},
-                      {{companyLocationData?.address2}}</span></div>
+                         {{companyLocationData?.registeredOfficeLegalAddress}}</span></div>
           <div class="row">
             <span> <strong>PAN number :</strong> {{companyInfo?.panNumber}}</span></div>
           <div class="row">
@@ -436,7 +432,11 @@
               </span></a>
         </nb-card-header>
         <nb-card-body>
-          <app-proposal  [loan]="loan" [fromProfile]="true" [customerInfo]="customerInfo" [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
+          <app-proposal  [loan]="loan"
+                         [customerCategory]="customerInfo?.customerCategory"
+                         [fromProfile]="true"
+                         [customerInfo]="customerInfo"
+                         [loanType]="selectedLoanType" (emitter)="getCustomerLoans()"></app-proposal>
         </nb-card-body>
       </nb-card>
     </ng-template>

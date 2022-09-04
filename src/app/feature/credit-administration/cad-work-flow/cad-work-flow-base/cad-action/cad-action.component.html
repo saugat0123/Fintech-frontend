@@ -86,6 +86,11 @@
                     </div>
                 </div>
                 <br>
+                <div  class="col-md-12 py-4 px-3" *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'DISCREPANCY_PENDING' && cadOfferLetterApprovedDoc?.docStatus === 'OFFER_PENDING'">
+                    <nb-checkbox class="form-control" [disabled]="!isMakerOrApproval && cadOfferLetterApprovedDoc?.docStatus.toString() !== 'OFFER_PENDING'"
+                                 name="discrepancy"  [ngModel]="isDiscrepancy" formControlName="discrepancy">Discrepancy Case?</nb-checkbox>
+
+                </div>
                 <div class="form-group col-md-12" *ngIf="missingSignDoc || missingDraftDoc">
                     <em *ngIf="missingSignDoc" class="text-danger font-weight-bold sb-small">You have not uploaded signed
                         offer letter . Are you sure you want to proceed?</em>

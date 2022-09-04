@@ -14,6 +14,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {DateValidator} from '../../../@core/validator/date-validator';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 declare let google: any;
 
@@ -59,6 +60,7 @@ export class SiteVisitComponent implements OnInit {
   spinner = false;
   breakException: any;
   operatingStatusList = ['Regular', 'Partial', 'Closed'];
+  ckeConfig = Editor.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -89,6 +91,9 @@ export class SiteVisitComponent implements OnInit {
 
     this.buildForm();
     if (this.formDataForEdit !== undefined) {
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.internalReport)) {
+        this.siteVisitFormGroup.get('internalReport').patchValue(this.formDataForEdit.internalReport);
+      }
       if (ObjectUtil.isEmpty(this.formDataForEdit.businessSiteVisitDetails)) {
         this.addBusinessSiteVisitDetails();
       }
@@ -114,7 +119,8 @@ export class SiteVisitComponent implements OnInit {
       currentAssetsInspectionFormChecked: [false],
       currentResidentDetails: this.formBuilder.array([]),
       businessSiteVisitDetails: this.formBuilder.array([]),
-      currentAssetsInspectionDetails: this.formBuilder.array([])
+      currentAssetsInspectionDetails: this.formBuilder.array([]),
+      internalReport: undefined,
     });
   }
 

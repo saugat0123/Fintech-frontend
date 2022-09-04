@@ -1,26 +1,24 @@
-<ol>
+<ol [ngClass]="isUptoTwo ? 'marginLe' : ''">
     <div class="row">
         <div class="col-md-12">
             <span class="float-right"><strong>Group Code:</strong><em>{{mGroup?.groupCode || 'NA'}}</em></span>
         </div>
-        <div class="col-md-12" *ngIf="customerCategory===customerCategoryType.SME_ABOVE_TEN_MILLION">
+        <div class="col-md-12" *ngIf="isAboveTen || isUptoTwo">
             <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
-                <thead>
                 <tr class="sb-bg-dark text-white">
-                    <th>Detail Information</th>
+                    <th>DETAIL INFORMATION</th>
                 </tr>
-                </thead>
                 <tbody>
                 <tr>
-                    <td colspan="12" class="text-left pl-1 " [innerHTML]="(mGroup?.detailInformation) || 'NA' "></td>
+                    <td class="text-left pl-1 " [innerHTML]="mGroup?.detailInformation || 'NA' | safeHtml"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <li *ngIf="customerCategory !== customerCategoryType.SME_ABOVE_TEN_MILLION || customerCategory === 'executing' || customerType === 'INDIVIDUAL'"
+    <li *ngIf="isBelowTen || isSana || customerCategory === 'executing' || (customerType === 'INDIVIDUAL' && !isUptoTwo)"
         class="font-weight-bold">
-        <span> Group Limit {{groupPosition?.length > 0 ? '' : ': NA'}}</span>
+        <span> GROUP LIMIT {{groupPosition?.length > 0 ? '' : ': NA'}}</span>
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-responsive-md table-bordered text-center table-sm sb-small"
@@ -77,7 +75,7 @@
     </li>
 
     <li *ngIf="customerType === 'INSTITUTION' && customerCategory === 'executing'" class="font-weight-bold">
-        <span><strong> Outstanding, Overdue and R/E collateral</strong></span>
+        <span><strong> OUTSTANDING, OVERDUE and R/E COLLATERAL</strong></span>
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
@@ -88,6 +86,15 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </li>
+
+    <li *ngIf="isSana || isBelowTen" class="font-weight-bold">
+        <span><strong> DETAIL OF SECURITY HELD FOR GROUP EXPOSURE</strong></span>
+        <div class="row">
+            <div class="col-md-12">
+                <span [innerHTML]="mGroup?.securityHeld || 'NA' | safeHtml"></span>
             </div>
         </div>
     </li>

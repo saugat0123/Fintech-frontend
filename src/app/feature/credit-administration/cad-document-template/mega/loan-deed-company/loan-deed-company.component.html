@@ -1,357 +1,284 @@
-<div class="container nep text-justify">
+<div class="container nep text-justify nepaliFont">
     <div class="row">
         <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
             <form (ngSubmit)="submit()" [formGroup]="loanDeedCompany" class="nepali" id="loanDeedCompanyPrint">
-                <div class="nep align">
+                <div class="nep">
                     <div>
-
-                        <p class="text-center" style="font-size:16pt;"><b>ऋण लिखत (Loan deed)</b></p>
+                        <br>
+                        <p class="text-center" style="font-size:16pt;"><strong>विषयः ऋण तमसुक</strong></p>
                         <p>
-                            लिखितम् लिखत गराई लिनेका नाम प्रचलित नेपाल कानुन बमोजिम संस्थापित तथा संचालित काठमाण्डौं जिल्ला काठमाण्डौं
-                            महानगरपालिका वडा नं. ३१ कमलादी स्थित का सेञ्चुरी कमर्सियल बैंक नेपाल लिमिटेडको शाखा कार्यालय
+                            लिलिखितम् लिखत गरी लिने धनीका नाम काठमाण्डौं जिल्ला का.म.न.पा.वडा नं.२८, पूतलीसडक स्थित प्रधान कार्यालय रही
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="branch"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('branch').value ? loanDeedCompany.get('branch').value  : '========='}}</b></span>
-                            (यस पछि धनी बैंक भनिएको) लिखत गरि दिनेको नाम प्रचलित नेपाल कानून बमोजिम संस्थापित, संचालित प्रदेश नं.
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('branch').value ? loanDeedCompany.get('branch').value  : '========='}}</strong></span>
+                            स्थित शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस उप्रान्त <strong>धनी बैंक </strong>भनिएको छ)लाई लिखत गरी दिने ऋणीका नाम कम्पनी ऐन
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="registrarRegistrationOfficeProvince"
+                                   formControlName="act"
                                    placeholder=""
-                                   type="text" size="1" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeProvince').value ? loanDeedCompany.get('registrarRegistrationOfficeProvince').value  : '========='}}</b></span>
+                                   type="text" size="3" /> <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('act').value ? loanDeedCompany.get('act').value  : '========='}}</strong></span>
+                            बमोजिम नेपाल सरकार उद्योग मन्त्रालय
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="registrarRegistrationOfficeDistrict"
+                                   formControlName="registrationOffice"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeDistrict').value ? loanDeedCompany.get('registrarRegistrationOfficeDistrict').value  : '========='}}</b></span>
-                            जिल्ला
+                                   type="text" size="8" /> <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('registrationOffice').value ? loanDeedCompany.get('registrationOffice').value  : '========='}}</strong></span>
+                            को कार्यालयमा
+                            <strong>मिति
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="registrarRegistrationOfficeMunicipalityVDC"
+                                   formControlName="registrationIssuedDate"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeMunicipalityVDC').value ? loanDeedCompany.get('registrarRegistrationOfficeMunicipalityVDC').value  : '========='}}</b></span>
-                            गाउँपालिका/ नगरपालिका वडा नं.
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="registrarRegistrationOfficeWardNo"
-                                   placeholder=""
-                                   type="text" size="2"/> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOfficeWardNo').value ? loanDeedCompany.get('registrarRegistrationOfficeWardNo').value  : '========='}}</b></span>
-                            मा रजिष्टर्डर दर्ता कार्यालय भएको <input class="form-field form-control-sm nepaliFont disable-print"
-                                                                     formControlName="registrarRegistrationOffice"
-                                                                     placeholder=""
-                                                                     type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrarRegistrationOffice').value ? loanDeedCompany.get('registrarRegistrationOffice').value  : '========='}}</b></span>
-
-                            उद्योग/फर्म/प्रा.लि./लि./ (दर्ता नं.
+                                           type="text" size="10" /> <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('registrationIssuedDate').value ? loanDeedCompany.get('registrationIssuedDate').value  : '========='}}</strong></span>
+                            </strong>
+                            मा दर्ता भई दर्ता नं
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="registrationNo"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('registrationNo').value ? loanDeedCompany.get('registrationNo').value  : '========='}}</b></span>
-                            दर्ता मिति<input class="form-field form-control-sm nepaliFont disable-print"
-                                             formControlName="registrationDate"
-                                             placeholder=""
-                                             type="text"/>,) (यस पछि ऋणी भनिएको) को अख्तियारप्राप्त
-                            <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
-
-                            को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
-
-                            श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
-
-                            {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
-
-                            <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
-
-                            <strong class="nepaliFont">{{nepData?.permanentDistrict}}</strong>
+                                   type="text" size="2" /> <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('registrationNo').value ? loanDeedCompany.get('registrationNo').value  : '========='}}</strong></span>
+                            कायम भई,
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="registrationOfficeDistrict"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('registrationOfficeDistrict').value ? loanDeedCompany.get('registrationOfficeDistrict').value  : '========='}}</strong></span>
                             जिल्ला
-                            <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
-                            {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
-                                    <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
-                            घर भई हाल प्रदेश नं.
-                                    <strong class="nepaliFont">{{nepData?.temporaryProvince}}</strong>
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="registrationOfficeMunicipalityVDC"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('registrationOfficeMunicipalityVDC').value ? loanDeedCompany.get('registrationOfficeMunicipalityVDC').value  : '========='}}</strong></span>
+                            गाउँपालिका/ नगरपालिका वडा नं.
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="registrationOfficeWardNo"
+                                   placeholder=""
+                                   type="text" size="2"/> <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('registrationOfficeWardNo').value ? loanDeedCompany.get('registrationOfficeWardNo').value  : '========='}}</strong></span>
+                            स्थित रजिष्टर्ड ठेगाना रहेको
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="borrowerName"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('borrowerName').value ? loanDeedCompany.get('borrowerName').value  : '========='}}</strong></span>
+                            (जसलाई यस उप्रान्त <strong>ऋणी कम्पनी </strong>भनिएको छ) को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="authorizedPersonName"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('authorizedPersonName').value ? loanDeedCompany.get('authorizedPersonName').value  : '========='}}</strong></span>
+                            आगे म/हामी ऋणी कम्पनीको प्रबन्धपत्रमा उल्लेख भए अनुसार व्यापार व्यवसाय संचालन गर्न ऋणकर्जा तथा बैकिङ सुविधा आवश्यक भई सोका लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाईं धनी बैंकले हामी ऋणी कम्पनीको नाममा जारी गरेको
+                            <strong>मिति
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="offerLetterIssuedDate"
+                                   placeholder=""
+                                   type="text" size="10"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('offerLetterIssuedDate').value ? loanDeedCompany.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
+                            </strong>
+                            गतेको ऋण स्वीकृति पत्रानुसार स्वीकृत निम्नानुसारका ऋणकर्जा तथा बैंकिङ सुविधाहरु सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक गरिदिएको ठिक सांचो हो । तपाई धनी बैंकबाट प्राप्त ऋणकर्जा तथा बैंकिग सुविधाहरुमा लाग्ने
+                            ब्याज, कमिशन, शुल्क आदि स्वीकृत ऋणकर्जा तथा बैंकिङ सुविधाहरु तल उल्लेखित खण्डखण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको मिति भित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिग सुविधा नवीकरण भएमा नवीकरण भएको बखत तपाई धनी
+                            बैंकले ऋणीका नाममा जारी गर्ने ऋण स्वीकृति पत्रमा तोकिएको मिति भित्रमा तपांई धनी बैंकलाई तिर्नु बुझाउनु पर्ने ऋणकर्जाको सम्पूर्ण सांवा ब्याज चुक्ता भुक्तानी गर्नेछौं । स्वीकृत ऋणकर्जा तथा भविष्यमा थप प्राप्त गरेमा सो समेतको सुरक्षण वापत हामी ऋणी कम्पनीको
+                            निजि श्रोत साधनबाट तथा तपाई धनी बैंकबाट प्राप्त गरेको ऋणकर्जा समेतबाट हाल खरिदरआयात गरेको, श्रृृजना गरेको तथा यस उप्रान्त खरिद र आयात गर्ने श्रृजना गर्ने लगायतका सम्पूर्ण चल अचल जायजेथा तथा हामी ऋणी कम्पनीले भुक्तानी प्राप्त गर्न बांकी रकमहरु
+                            <span class="timesNewRoman"> (Account Receivables)</span> समेत यसै लिखतबाट तपाई धनी बैंकको नाममा धितोवन्धक लेखिदिएकाछौं । सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छुटृै लिखतबाट तपाई धनी बैंकको नाममा धितोबन्धकको लिखत लेखिदिई सकेको छौ । प्राप्त
+                            ऋण कर्जाको तपाई धनी बैंकलाई तिर्र्नु बुझाउनु पर्ने सांवा व्याज आदी यसै लिखत तथा उल्लेखित ऋण स्विकृति पत्रानुसार तोकिएको शर्त बमोजिम नतिरे नवुझाएमा वा तिर्न बुझाउन आलटाल गरी बांकी राखेमा वा किस्ता खिलाफि गरेमा वा ऋण स्वीकृति पत्र तथा यसै लिखतको
+                            कुनै शर्त बन्देजहरु उल्लंघन गरेमा समेत हामी ऋणी कम्पनीको नाउंमा तपाईं धनी बैंकमा खोलेको निक्षेप खातामा रहेको रकमबाट कटृा गरी तथा उपरोक्त बमोजिम धितो लेखिदिएको चल अचल श्रीसम्पत्ति बैंक तथा वित्तीय संस्था सम्बन्धी ऐन २०७३ बमोजिम तथा तपाई धनी
+                            बैंकको नियमानुसार कव्जा गरी लिलाम विक्री गरी र वा अन्य व्यवस्था गरी तपाई धनी बैंकको सम्पूर्ण लेना रकम असुल उपर गरी लिनुहोला । कथम्कदाचित धितो लेखिदिएको श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम विक्री हुन नसकेमा वा लिलाम विक्री गर्दा समेत तपाई धनी
+                            बैंकको लेना रकम असुल उपर नभई बांकी रहेमा सो समेत हामी ऋणी कम्पनीको घरघराना लगायतका अन्य श्रीसम्पत्तिबाट असुल उपर गरी लिनुहोला । सो बमोजिम गरी लिएमा पछि कुनै किसिमको उजुर बाजुर गर्ने छैनौ, गरे यसै लिखतले बदर गराई लिनु भनी किनाराका
+                            साक्षीहरुको रोहबरमा राजीखुसीका साथ तपाई धनी बैंकको कार्यालयमा बसी यो लिखतमा ऐ.का अख्तियार प्राप्त
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="signature"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('signature').value ? loanDeedCompany.get('signature').value  : '========='}}</strong></span>
+                            ले हस्ताक्षर गरी यो लिखतमा सहीछाप गरी तपाईं धनी बैंकलाई दियौं र यसको दोहरी समेत बुझिलियौं ।
+                        </p>
 
-                                    <strong class="nepaliFont">{{nepData?.temporaryDistrict}}</strong>
-                            जिल्ला
-                                    <strong class="nepaliFont">{{nepData?.temporaryMunicipality}}</strong>
-                                                            {{nepData?.temporaryMunType == 0 ? 'नगरपालिका' : 'गा बि स'}} वडा नं.
-                                    <strong class="nepaliFont">{{nepData?.temporaryWardNo}}</strong>
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="temporaryAddress"
-                                   placeholder=""
-                                   type="text"/>
-                            <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('temporaryAddress').value ? loanDeedCompany.get('temporaryAddress').value  : '========='}}</b></span>
-                            बस्ने वर्ष
-                                    <strong class="nepaliFont">
-                                        {{nepData?.age}}</strong>
-                            को
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="relation"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('relation').value ? loanDeedCompany.get('relation').value  : '========='}}</b></span>
-                            (ना. प्र. प. नं. <input class="form-field form-control-sm nepaliFont disable-print"
-                                                    formControlName="citizenshipNo"
-                                                    placeholder=""
-                                                    type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('citizenshipNo').value ? loanDeedCompany.get('citizenshipNo').value  : '========='}}</b></span>
-                            मिति <input class="form-field form-control-sm nepaliFont disable-print"
-                                        formControlName="issueDate"
-                                        placeholder=""
-                                        type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('issueDate').value ? loanDeedCompany.get('issueDate').value  : '========='}}</b></span>
-                            जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
-                                          formControlName="issueDistrict"
-                                          placeholder=""
-                                          type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('issueDistrict').value ? loanDeedCompany.get('issueDistrict').value  : '========='}}</b></span>)
-                            आगे ऋणीलाई कर्जा आवश्यक भई तपाई धनी बैंकलाई कर्जा दिलाई दिनु अनुरोध गर्दा तपाईं धनी बैंकको मिति
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="date2"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('date2').value ? loanDeedCompany.get('date2').value  : '========='}}</b></span>
-                            को कर्जा
-                            स्वीकृति पत्र (Credit Facility Letter) मा उल्लेखित शर्तहरु पालना गर्ने गरी ऋणीको मिति
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="date3"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('date3').value ? loanDeedCompany.get('date3').value  : '========='}}</b></span>
-                            मा बसेको
-                            संचालक समितिको निर्णय तथा अख्तियारी बमोजिम
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="loan"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('loan').value ? loanDeedCompany.get('loan').value  : '========='}}</b></span>
-                            कर्जा अन्तर्गत
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="purpose"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('purpose').value ? loanDeedCompany.get('purpose').value  : '========='}}</b></span>
-
-                            उद्धेश्यका लागि यस बैंकबाट एकै पटकमा वा पटक–पटक गरी कुल कर्जा रु.
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="amount"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('amount').value ? loanDeedCompany.get('amount').value  : '========='}}</b></span>
-                            /–
-                            (अक्षरेपी <input class="form-field form-control-sm nepaliFont disable-print col-3"
-                                             formControlName="amountInWords"
-                                             placeholder=""
-                                             type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('amountInWords').value ? loanDeedCompany.get('amountInWords').value  : '========='}}</b></span>
-                            मात्र) सम्म ऋण लिएको ठिक साँचो हो ।  सो कर्जाको साँवा
-                            व्याज रकम तथा अन्य दस्तुर समेत आजका कर्जा स्वीकृति पत्रमा उल्लेखित भाखा भित्रमा चुक्ता भुक्तान गरिनेछ । उक्त कर्जामा कर्जा स्वीकृतिपत्रमा
-                            उल्लेखित दरले हुने व्याज रकम, व्याज दरमा परिवर्तन भएमा परिवर्तित दरले हुने व्याज, कर्जाको भाखा म्याद नाघेमा म्याद नाघेको कर्जामा बैंकको
-                            नियमानुसार लाग्ने पेनाल ब्याज  र धनी बैंकको नियमानुसार लाग्ने अन्य दस्तुर समेतका रकम बुझाउन मञ्जुरी छ । उक्त कर्र्जा र पछि लिने विभिन्न
-                            ऋण/सुविधा र सोमा लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर र ऋण असुलीमा लाग्ने खर्च लगायतका सम्पुर्ण रकम समेतको सुरक्षण वापत धनी
-                            बैंकको नाममा तपसिल बमोजिमकोे घरजग्गा र सो जग्गामा पछि बन्ने थपिने घर, टहरा, ग्यारेज लिगलगापात समेत धनी बैकको नाममा धितो सुरक्षण
-                            लेखि दिएको छ । धितो लेखिदिएको सम्पत्तिमा बैकको सम्पुर्ण रकम चुक्ता नगरी वा बैंकको पूर्व स्वीकृति नलिई हटाउने भत्काउने सार्ने वा, घरजग्गाको
-                            मोल घटाउने काम गर्ने छैन । उपरोक्तानुसार ऋणीले लिएको वा लिने ऋण रकमको सम्पुर्ण साँवा, व्याज रकम र धनी बैंकको नियमानुसार ऋणीले तिर्न
-                            बुझाउन पर्ने अन्य रकम समेत फछ्यौट नभएसम्म यो लिखत कायमै रहनेछ र कर्जा नविकरण भएमा नविकरण हुदांको अवस्थामा धनी बैंकले ऋणीको
-                            नाममा जारी गर्ने ऋण स्वीकृति पत्रहरुमा उल्लेखित शर्तबन्देजहरु पनि यसै लिखतको अभिन्न अंङ्ग हुनेछ । स्वीकृत ऋणकर्जा तथा भविष्यमा धनी बैंकले
-                            उपलब्ध गराउने थप ऋणकर्जा तथा सूविधाको सुरक्षण वापत तपसिल बमोजिमको सम्पत्ति तथा ऋणीको निजी श्रोतबाट खरिद गरेको श्रृजना भएको र धनी
-                            बैंकबाट प्राप्त ऋणकर्जाबाट खरिद वा आयात गरेको, श्रृजना गरेकोे लगायत तथा ऋणीको हककोे श्री सम्पत्ति तथा ऋणीले भूक्तानी प्राप्त गर्न बांकी आसामी
-                            खाताका (Accounts Receivable) रकमहरु समेत यसै लिखितबाट धनी बैंकको नाउंमा धितो बन्धक लेखिदिएको छ । ऋणीले उपरोक्त शर्त बन्देजको
-                            उल्लंघन गरेमा वा ऋण कर्जाको दुरुपयोग वा अन्य कार्यमा लगाएमा वा धनी बैंकले तोकिदिएको भाखा भित्र कर्जा र सोमा लागेका ब्याज वा हर्जाना चुक्ता
-                            नगरेमा ऋणीले यसै लिखतद्वारा सुरक्षण लेखिदिएको तपसिलमा उल्लेखित घरजग्गा, नेपाल राष्ट्र बैंकको नीति निर्देशन अनुसार कालो सूचीमा दर्ता गरी
-                            वा नगरी धनी बैंकको तजबिजमा बैंक तथा वित्तीय संस्था सम्वन्धी ऐन, २०७३ अन्य प्रचलित कानून तथा बैंकको नियमानुसार लिलाम विक्री वा अन्य
-                            व्यवस्था गरी बेचविखन गरी ऋण कर्जाको असुल उपर गरी लिनुपर्ने सम्पुर्ण साँवा, व्याज, फि, कमिशन, पेनाल्टी तथा अन्य दैदस्तुरहरु असुल उपर गरी
-                            लिनुहोला । उपरोक्त बमोजिम लिलाम विक्री वा बेचविखन गर्दा शुरु निर्धारित मुल्यांकनमा घटीवढी गरीे लिलाम विक्री वा अन्य तवरले बेचबिखन गर्न सक्ने
-                            कुरामा ऋणीको मन्जुरी छ । साथै, बैंकको कर्जा समयमा चुक्ता भुक्तान नगरी कर्जा असुलीको कारवाही चलाउँदा कर्जा सूचना केन्द्रको कालो सूचिमा समावेश
-                            गरी ऋणीको नाममा अन्य बैंक तथा वित्तीय संस्थामा रहेको बैंक खाताको जानकारी माग गर्न, उक्त खाता रोक्का गरी कर्जा असुली गर्न वा नेपाल धितोपत्र
-                            बोर्डमा सूचिकृत तथा सूचिकृत नभएका अन्य संगठित संस्थाहरुको धितोपत्रर शेयरको जानकारी माग गर्न र उक्त धितोपत्ररशेयरहरु रोक्का गरी कर्जा असुली
-                            गर्न बैंकलाई यसै लिखत बमोजिम पूर्ण अख्तियारी प्रदान गरेको छ । धितो सुरक्षण लेखिदिएको तपसिलको घरजग्गा कच्चा नकरा ठहरी बेचविखन, लिलाम
-                            विक्री हुन नसकेमा वा लिलाम, विक्री हँुदा समेत बैंकले असुल गरी लिनु पर्ने सम्पूर्ण रकम कलम असुल उपर नभएमा ऋणीको हक वा हक लाग्ने
-                            घरघरानाको अन्य चल अचल जायज्येथा समेतबाट असुल गरी लिएमा ऋणीको  मन्जुरी छ । पछि कुनै उजुर दावी गर्ने छैन, गरे यसै लिखतले बदर होस्
-                            भनि किनाराका साक्षीहरुको रोहवरमा  धनी बैकको प्रतिनिधिको सामुन्ने बैककै कार्यालयमा बसी प्राप्त अख्तियारी अन्तरगत खुशीराजीले यो लिखतमा सहिछाप
-                            गरि धनी सेञ्चुरी कमर्सियल बैंक नेपाल लिमिटेडलाई दिएँ । साक्षी किनाराका सदर ।</p>
-                        <p class="text-center"><b>तपसिल</b></p>
-                        धितो लेखिदिएको अचल सम्पत्तिको बिवरण
+                        <p class="text-center"><strong>स्विकृत ऋणकर्जाको विवरण</strong></p>
                         <table border="1" width="100%">
                             <thead>
                             <tr>
-                                <th>क्र.सं.</th>
-                                <th>जग्गाधनीको नाम</th>
-                                <th>न.पा./गा.वि.स.</th>
-                                <th>वडा नं.</th>
-                                <th>सिट नं.</th>
-                                <th>कि.नं.</th>
-                                <th>क्षेत्रफल</th>
-                                <th>र.नं. /मिति</th>
+                                <th>ऋणकर्जा वा बैंकिङ सुविधा</th>
+                                <th>रकम</th>
+                                <th>ब्याज र कमिसन</th>
+                                <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="sNo"
+                                           formControlName="loanFacilityType"
                                            placeholder=""
-                                           type="text" size="3" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('sNo').value ? loanDeedCompany.get('sNo').value  : '========='}}</b></span></td>
-                                <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="landOwnerName"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('landOwnerName').value ? loanDeedCompany.get('landOwnerName').value  : '========='}}</b></span>
+                                           type="text" size="7" />
+                                    <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('loanFacilityType').value ? loanDeedCompany.get('loanFacilityType').value  : '========='}}</strong></span>
+                                    कर्जा
                                 </td>
                                 <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="municipalityVDC"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('municipalityVDC').value ? loanDeedCompany.get('municipalityVDC').value  : '========='}}</b></span>
+                                    <strong>रु
+                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                                          [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
+                                        <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amount').value ? loanDeedCompany.get('amount').value  : '========='}}</strong></span>
+                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                               formControlName="amountInWords"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amountInWords').value ? loanDeedCompany.get('amountInWords').value  : '========='}}</strong></span>
+                                        मात्र<span class="timesNewRoman">)</span>
+                                    </strong>
                                 </td>
                                 <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="seatNo"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNo').value ? loanDeedCompany.get('wardNo').value  : '========='}}</b></span>
+                                    ऋण स्वीकृती पत्र अनुसार
                                 </td>
                                 <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="kNo"
+                                    ऋण स्वीकृती पत्र अनुसार
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                           formControlName="loanFacilityType2"
                                            placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('seatNo').value ? loanDeedCompany.get('seatNo').value  : '========='}}</b></span>
+                                           type="text" size="7" />
+                                    <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('loanFacilityType2').value ? loanDeedCompany.get('loanFacilityType2').value  : '========='}}</strong></span>
+                                    कर्जा
                                 </td>
                                 <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                    <strong>रु
+                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords2', 'amount2')"
+                                                          [name]="patchFunction('amount2')" class="disable-print"></app-custom-input>
+                                        <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amount2').value ? loanDeedCompany.get('amount2').value  : '========='}}</strong></span>
+                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                               formControlName="amountInWords2"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amountInWords2').value ? loanDeedCompany.get('amountInWords2').value  : '========='}}</strong></span>
+                                        मात्र<span class="timesNewRoman">)</span>
+                                    </strong>
+                                </td>
+                                <td>
+                                    ऋण स्वीकृती पत्र अनुसार
+                                </td>
+                                <td>
+                                    ऋण स्वीकृती पत्र अनुसार
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            <strong>जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु
+                            <app-custom-input (eventEmit)="changeToNepAmount($event, 'totalAmountInWords', 'totalAmount')"
+                                              [name]="patchFunction('totalAmount')" class="disable-print"></app-custom-input>
+                            <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('totalAmount').value ? loanDeedCompany.get('totalAmount').value  : '========='}}</strong></span>
+                            <span class="timesNewRoman">/- (</span>अक्षरेपि
+                            <input class="form-field form-control-sm nepaliFont disable-print col-5"
+                                   formControlName="totalAmountInWords"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('totalAmountInWords').value ? loanDeedCompany.get('totalAmountInWords').value  : '========='}}</strong></span>
+                            मात्र<span class="timesNewRoman">)</span>
+                        </strong>
+                        </p>
+                        <br />
+                        <p><strong><U>सुरक्षणहरु</U></strong></p>
+                        <p class="text-center"><strong><U>तपसिल</U></strong></p>
+                        <p><input class="form-field form-control-sm nepaliFont disable-print"
+                                  formControlName="FACOwnerName"
+                                  placeholder=""
+                                  type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('FACOwnerName').value ? loanDeedCompany.get('FACOwnerName').value  : '========='}}</strong></span>
+                            को नामको तपसिल बमोजिमको जग्गा तथा उक्त जग्गामा निर्माणभएको घर, टहरा लगायत अन्य लिगलगापातहरु तथा भविष्यमा हूने कूनै थप निर्माण कार्यहरु समेत सम्पूर्ण
+                            लिगलगापातहरु तपाईं धनी बैंकको नाममा तोकिएको ऋण कर्जा तथा भविष्यमा थप हूने ऋण कर्जा तथा बैंकिङ सूविधाहरु समेतको सूरक्षण वापत यथावत धितोवन्धक कायम रहने कूरामा मेरो/हाम्रो मञ्जूरी छ ।
+                        </p>
+                        <p class="text-center"><strong>धितो रहने सम्पत्तिको बिवरण</strong></p>
+                        <table border="1" width="100%">
+                            <thead>
+                            <tr>
+                                <th>जिल्ला</th>
+                                <th>न<span class="timesNewRoman">.</span>पा<span class="timesNewRoman">/</span>गा<span class="timesNewRoman">.</span>वि<span class="timesNewRoman">.</span>स</th>
+                                <th>वडा नं<span class="timesNewRoman">./</span>सिट नं<span class="timesNewRoman">.</span></th>
+                                <th>कित्ता नं<span class="timesNewRoman">.</span></th>
+                                <th>क्षेत्रफल</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="FACOwnerDistrict"
+                                           placeholder=""
+                                           type="text" />
+                                    <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('FACOwnerDistrict').value ? loanDeedCompany.get('FACOwnerDistrict').value  : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="FACOwnerMunicipalityVDC"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('FACOwnerMunicipalityVDC').value ? loanDeedCompany.get('FACOwnerMunicipalityVDC').value  : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="FACOwnerWardNo"
+                                           placeholder=""
+                                           type="text" size="3"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('FACOwnerWardNo').value ? loanDeedCompany.get('FACOwnerWardNo').value  : '========='}}</strong></span>
+                                    <span class="timesNewRoman">/</span>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="nakshaSeatNo"
+                                           placeholder=""
+                                           type="text" size="4"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('nakshaSeatNo').value ? loanDeedCompany.get('nakshaSeatNo').value  : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="plotNo"
+                                           placeholder=""
+                                           type="text" size="5"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('plotNo').value ? loanDeedCompany.get('plotNo').value  : '========='}}</strong></span>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont disable-print"
                                            formControlName="area"
                                            placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('kNo').value ? loanDeedCompany.get('kNo').value  : '========='}}</b></span>
-                                </td>
-                                <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="rNoDate"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('area').value ? loanDeedCompany.get('area').value  : '========='}}</b></span>
-                                </td>
-                                <td>
-                                    <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="rNoDate"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('rNoDate').value ? loanDeedCompany.get('rNoDate').value  : '========='}}</b></span>
+                                           type="text" size="7"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('area').value ? loanDeedCompany.get('area').value  : '========='}}</strong></span>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                         <br />
-                        <p>माथि उल्लेखित जग्गामा उल्लेख भएको घर, गोदाम, टहरा, कारखाना आदि र भविष्यमा बन्ने घर, गोदाम, टहरा, कारखाना आदि समेत यसै लिखतबाट बैंकलाई दिन मञ्जुर भएको छु/छौं ।</p>
-                        <br />
-                        <div class="row">
-                            <div class="col">
-                                <p class="text-left"><b>रोहबर धनी बैंकको कर्मचारी :</b></p>
-                                नामः		 <input class="form-field form-control-sm nepaliFont disable-print"
-                                                    formControlName="rohbarBankEmployeeName"
-                                                    placeholder=""
-                                                    type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('rohbarBankEmployeeName').value ? loanDeedCompany.get('rohbarBankEmployeeName').value  : '========='}}</b></span>
-                                <br />
-                                दस्तखत
-                                <br />
-                            </div>
-                            <div class="col">
-                                <p class="text-center"><b>ऋणीको  सहिछाप :</b></p>
-
-                                अख्तियारप्राप्त व्यक्तिको नामः <input class="form-field form-control-sm nepaliFont disable-print"
-                                                                      formControlName="nameOfAuthorizedPerson"
-                                                                      placeholder=""
-                                                                      type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('nameOfAuthorizedPerson').value ? loanDeedCompany.get('nameOfAuthorizedPerson').value  : '========='}}</b></span>
-                                <br />
-                                दस्तखतः
-                                <br />
-                                छाप
-                            </div>
-                        </div>
                         <div>
-                            <p class="text-left"><b><u>रोहबर</u></b></p>
-
-                            धितो जमानीकर्ताको सहिछाप :
-                            <br >
-                            <span *ngFor="let one of guarantorData">
-                            नाम :<strong class="nepaliFont">{{one?.guarantorName}}</strong> <br>  </span>
-
-                            जमानीकर्ताको सहिछाप :
-                            <br >
-                            <span *ngFor="let one of guarantorData">
-                            नाम :<strong class="nepaliFont">{{one?.guarantorName}}</strong> <br> </span>
-
+                            <p class="text-center"><strong><U>साक्षीः</U></strong></p>
+                            <p>
+                                १.  <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="witnessName"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('witnessName').value ? loanDeedCompany.get('witnessName').value  : '========='}}</strong></span>
+                                <br>
+                                <br>
+                                २. <input class="form-field form-control-sm nepaliFont disable-print"
+                                          formControlName="witnessName2"
+                                          placeholder=""
+                                          type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('witnessName2').value ? loanDeedCompany.get('witnessName2').value  : '========='}}</strong></span>
+                            </p>
                         </div>
-                        <br />
-                        <br />
-
                         <div>
                             <p>
                                 ईति सम्वत् २०
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="year"
                                        placeholder=""
-                                       type="text" size="2" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('year').value ? loanDeedCompany.get('year').value  : '========='}}</b></span>
+                                       type="text" size="2" />
+                                <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('year').value ? loanDeedCompany.get('year').value  : '========='}}</strong></span>
                                 साल
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="month"
                                        placeholder=""
-                                       type="text" size="2" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('month').value ? loanDeedCompany.get('month').value  : '========='}}</b></span>महिना
+                                       type="text" size="2" />
+                                <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('month').value ? loanDeedCompany.get('month').value  : '========='}}</strong></span>
+                                महिना
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="day"
                                        placeholder=""
-                                       type="text" size="2" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('day').value ? loanDeedCompany.get('day').value  : '========='}}</b></span>गते रोज
+                                       type="text" size="2" />
+                                <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('day').value ? loanDeedCompany.get('day').value  : '========='}}</strong></span>
+                                गते रोज
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="time"
                                        placeholder=""
-                                       type="text" size="5" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('time').value ? loanDeedCompany.get('time').value  : '========='}}</b></span>शुभम् ।
+                                       type="text" size="5" />
+                                <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('time').value ? loanDeedCompany.get('time').value  : '========='}}</strong></span>
+                                शुभम् ।
                             </p>
                         </div>
-                        <br />
-                        <div>
-                            <p class="text-left"><b>साक्षीः</b></p>
-                            <p>
-                                १.  <input class="form-field form-control-sm nepaliFont disable-print"
-                                           formControlName="districtOfWitness"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('districtOfWitness').value ? loanDeedCompany.get('districtOfWitness').value  : '========='}}</b></span>जिल्ला
-                                <input class="form-field form-control-sm nepaliFont disable-print"
-                                       formControlName="municipalityVDCOfWitness"
-                                       placeholder=""
-                                       type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('municipalityVDCOfWitness').value ? loanDeedCompany.get('municipalityVDCOfWitness').value  : '========='}}</b></span>
-                                नगरपालिका/गाउँपालिका वडा नं
-                                <input class="form-field form-control-sm nepaliFont disable-print"
-                                       formControlName="wardNoOfWitness"
-                                       placeholder=""
-                                       type="text" size="2"/>
-                                <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNoOfWitness').value ? loanDeedCompany.get('wardNoOfWitness').value  : '========='}}</b></span>
-                                बस्ने बर्ष
-                                <input class="form-field form-control-sm nepaliFont disable-print"
-                                       formControlName="ageOfWitness"
-                                       placeholder=""
-                                       type="text" size="3" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('ageOfWitness').value ? loanDeedCompany.get('ageOfWitness').value  : '========='}}</b></span>
-                                को/की <input class="form-field form-control-sm nepaliFont disable-print"
-                                             formControlName="relationOfWitness"
-                                             placeholder=""
-                                             type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('relationOfWitness').value ? loanDeedCompany.get('relationOfWitness').value  : '========='}}</b></span>
-                            </p><p>
-                            २. <input class="form-field form-control-sm nepaliFont disable-print"
-                                      formControlName="districtOfWitness2"
-                                      placeholder=""
-                                      type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('districtOfWitness2').value ? loanDeedCompany.get('districtOfWitness2').value  : '========='}}</b></span>
-                            जिल्ला
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="municipalityVDCOfWitness2"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('municipalityVDCOfWitness2').value ? loanDeedCompany.get('municipalityVDCOfWitness2').value  : '========='}}</b></span>
-                            नगरपालिका/गाउँपालिका वडा नं
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="wardNoOfWitness2"
-                                   placeholder=""
-                                   type="text" size="2" />
-                            <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('wardNoOfWitness2').value ? loanDeedCompany.get('wardNoOfWitness2').value  : '========='}}</b></span>
-                            बस्ने बर्ष
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="ageOfWitness2"
-                                   placeholder=""
-                                   type="text" size="3" /> <span class="print-only nepaliFont"><b>{{loanDeedCompany.get('ageOfWitness2').value ? loanDeedCompany.get('ageOfWitness2').value  : '========='}}</b></span>
-                            को/की
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="relationOfWitness2"
-                                   placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{loanDeedCompany.get('relationOfWitness2').value ? loanDeedCompany.get('relationOfWitness2').value  : '========='}}</b></span>
-                        </p>
-                        </div>
                     </div>
-
                 </div>
                 <div class="row disable-print">
                     <div class="col-md-12 text-right">
                         <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="loanDeedCompanyPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                         <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="loanDeedCompanyPrint" class="mr-2 custom-color" >Print</button>
                         <button nbButton status="success" (click)="submit()">Save</button>
-
-
                     </div>
-
                 </div>
             </form>
         </div>

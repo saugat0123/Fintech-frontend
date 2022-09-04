@@ -26,20 +26,24 @@ import {LoanModule} from './loan/loan.module';
 import {GuarantorDetailComponent} from './loan/component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
+import { CrgIndividualComponent } from './credit-risk-grading/component/crg-individual/crg-individual.component';
+import { CrgInstitutionComponent } from './credit-risk-grading/component/crg-institution/crg-institution.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
-        imports: [
-            FeatureRoutingModule,
-            ThemeModule,
-            NbAccordionModule,
-            NgxChartsModule,
-            NbSelectModule,
-            NbDatepickerModule.forRoot(),
-            NgSelectModule,
-            DragDropModule,
-            NepaliCalendarModule
-        ],
+    imports: [
+        FeatureRoutingModule,
+        ThemeModule,
+        NbAccordionModule,
+        NgxChartsModule,
+        NbSelectModule,
+        NbDatepickerModule.forRoot(),
+        NgSelectModule,
+        DragDropModule,
+        NepaliCalendarModule,
+        NepaliPatroModule
+    ],
         declarations: [
             FeatureComponent,
             DashboardComponent,
@@ -58,12 +62,23 @@ import {UserActivityComponent} from './admin/component/user/user-activity/user-a
             GuarantorAdderComponent,
             GuarantorDetailComponent,
             ContactDetailsComponent,
-            UserActivityComponent
+            UserActivityComponent,
+            CrgIndividualComponent,
+            CrgInstitutionComponent
         ],
-        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent,
-             CreditRiskGradingGammaComponent, MultipleBankingComponent,
-          InstitutionalCrgGammaComponent,           GuarantorAdderComponent,           GuarantorDetailComponent, ContactDetailsComponent
-        ],
+    exports: [
+        MouseScrollDisableDirective,
+        CommonAddressComponent,
+        CustomerWisePendingComponent,
+        CreditRiskGradingGammaComponent,
+        MultipleBankingComponent,
+        InstitutionalCrgGammaComponent,
+        GuarantorAdderComponent,
+        GuarantorDetailComponent,
+        ContactDetailsComponent,
+        CrgIndividualComponent,
+        CrgInstitutionComponent
+    ],
         providers: [SafePipe],
     entryComponents: [CreditRiskGradingGammaComponent]
     }

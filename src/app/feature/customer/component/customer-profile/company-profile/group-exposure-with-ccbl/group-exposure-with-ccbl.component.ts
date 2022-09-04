@@ -30,6 +30,11 @@ export class GroupExposureWithCcblComponent implements OnInit {
   spinner = false;
   default_table: any;
   outstandingOverdueTable: any;
+  isAboveTen = false;
+  isBelowTen = false;
+  isWholeSale = false;
+  isSana = false;
+  isUptoTwo = false;
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
@@ -44,6 +49,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
 
     this.buildForm();
     this.patchInitialTable();
+    this.checkCustomerCategory(this.customerInfo.customerCategory);
     if (!ObjectUtil.isEmpty(this.customerInfo.mgroupInfo)) {
       this.mGroupInfo = this.customerInfo.mgroupInfo;
       if (ObjectUtil.isEmpty(this.mGroupInfo.detailInformation)) {
@@ -65,6 +71,10 @@ export class GroupExposureWithCcblComponent implements OnInit {
           new Date(this.mGroupInfo.groupExposureDate) : undefined);
       this.form.get('detailInformation').patchValue(this.mGroupInfo.detailInformation);
       this.form.get('outstandingOverdue').patchValue(this.mGroupInfo.outstandingOverdue);
+      this.form.get('securityHeld').patchValue(this.mGroupInfo.securityHeld);
+      if (ObjectUtil.isEmpty(this.mGroupInfo.securityHeld)) {
+        this.form.get('securityHeld').patchValue(CcblTable.secutity_held());
+      }
     } else {
       this.addGroupPosition();
       this.addCompany();
@@ -84,6 +94,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
       groupExposureDateType: [undefined],
       groupExposureDate: [undefined],
       detailInformation: [this.default_table],
+      securityHeld: [undefined],
       groupName: [undefined],
       groupCode: [undefined],
       outstandingOverdue: [undefined],
@@ -143,6 +154,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.outstandingOverdue = this.formControls.outstandingOverdue.value;
     mGroup.groupPosition = JSON.stringify(groupLimit.value);
     mGroup.companyGroup = JSON.stringify(companyGroup.value);
+    mGroup.securityHeld = this.formControls.securityHeld.value;
     // mGroup.companyGroup = companyGroup.value;
     mGroup.totalAmount = JSON.stringify(totalAmount);
     return mGroup;
@@ -252,6 +264,21 @@ export class GroupExposureWithCcblComponent implements OnInit {
             })
         );
       });
+    }
+  }
+
+  checkCustomerCategory(value) {
+    if (value === 'SME_ABOVE_TEN_MILLION' || value === 'AGRICULTURE_ABOVE_TEN_MILLION') {
+      this.isAboveTen = true;
+    } else if (value === 'SME_UPTO_TEN_MILLION' ||
+        value === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
+      this.isBelowTen = true;
+    } else if (value === 'SANA_BYABASAYI') {
+      this.isSana = true;
+    } else if (value === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwo = true;
+    } else {
+      this.isWholeSale = true;
     }
   }
 }

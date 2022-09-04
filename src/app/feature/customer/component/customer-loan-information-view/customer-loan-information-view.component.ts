@@ -10,6 +10,8 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {CoreCapitalService} from '../../../admin/service/core-capital.service';
+import {CalendarType} from '../../../../@core/model/calendar-type';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -18,7 +20,7 @@ import {CoreCapitalService} from '../../../admin/service/core-capital.service';
 })
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
-  @Input() loanDataHolder: LoanDataHolder;
+  @Input() customer: Customer;
   @Input() fiscalYear;
 
   companyInfo = new CompanyInfo();
@@ -28,6 +30,9 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   asOnDate: any;
   spinner = false;
   isRetailCustomer = false;
+  calendarType: CalendarType = CalendarType.AD;
+  isAgri = false;
+  category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION'];
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, protected fiscalYearService: FiscalYearService,
@@ -45,7 +50,12 @@ export class CustomerLoanInformationViewComponent implements OnInit {
       }
     });
     this.getFiscalYears();
-
+    for (const cat of this.category) {
+      if (this.customerInfo.customerCategory === cat) {
+        this.isAgri = true;
+        break;
+      }
+    }
   }
 
   checkCustomerType() {

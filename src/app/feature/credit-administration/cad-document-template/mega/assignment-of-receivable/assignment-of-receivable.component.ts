@@ -47,13 +47,17 @@ export class AssignmentOfReceivableComponent implements OnInit {
 
   buildForm() {
     this.assignmentOfReceivable = this.formBuilder.group({
+      act: [undefined],
+      ministryName: [undefined],
+      metropolitian: [undefined],
+      authorizedIndividual: [undefined],
       address: [undefined],
       department: [undefined],
       mantralaya: [undefined],
       officeName: [undefined],
       regNo: [undefined],
       regDate: [undefined],
-      metropolitan1: [undefined],
+      metropolitan: [undefined],
       wardNo: [undefined],
       partnershipForm: [undefined],
       representativeName: [undefined],
@@ -66,11 +70,16 @@ export class AssignmentOfReceivableComponent implements OnInit {
       mrOrMrs: [undefined],
       ownerBankNum: [undefined],
       documentWritenDate: [undefined],
-      rupees: [undefined],
-      rupessInWord: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWords: [undefined],
+      dueDate: [undefined],
+      witness1: [undefined],
+      witness2: [undefined],
       sambatYear: [undefined],
       sambatMonth: [undefined],
+      sambatDate: [undefined],
       sambatDay: [undefined],
+      shubham: [undefined],
       sambatDocumentWrittenInWord: [undefined],
       witnessSignature: [undefined],
       witnessDistrict: [undefined],
@@ -118,6 +127,14 @@ export class AssignmentOfReceivableComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
     });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.assignmentOfReceivable.get([target]).patchValue(event.nepVal);
+    this.assignmentOfReceivable.get([from]).patchValue(event.val);
+  }
+  patchFunction(target) {
+    const patchValue1 = this.assignmentOfReceivable.get([target]).value;
+    return patchValue1;
   }
 
 }

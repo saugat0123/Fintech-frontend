@@ -369,9 +369,16 @@
                         Add Business Site Visit Details
                     </button>
                 </div>
-                <div class="col-md-12 mt-2 mb-2">
-                    <hr>
+                <div class="col-md-12" *ngIf="customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
+                    <label for="internalReport"><b>Internal Reporting</b></label>
+                    <ckeditor id="internalReport"
+                              formControlName="internalReport"
+                              name="internalReport" type="text"
+                              [config]="ckeConfig"></ckeditor>
                 </div>
+                <span class="mb-2 mt-2">
+                    <hr>
+                </span>
             </div>
             <div [hidden]="!currentAssetsInspectionForm" class="row mt-3">
                 <div *ngFor="let currentAssets of siteVisitFormGroup.get('currentAssetsInspectionDetails')['controls']; let i = index"

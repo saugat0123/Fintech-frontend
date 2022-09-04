@@ -19,7 +19,7 @@ import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 })
 export class PromissoryNoteSingleBorrowerComponent implements OnInit {
 
-    promissorySingleNote: FormGroup;
+    promissoryNoteSingleBorrower: FormGroup;
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() documentId: number;
     @Input() customerLoanId: number;
@@ -38,7 +38,7 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-                    this.promissorySingleNote.patchValue(JSON.parse(singleCadFile.initialInformation));
+                    this.promissoryNoteSingleBorrower.patchValue(JSON.parse(singleCadFile.initialInformation));
                 }
             });
         }
@@ -48,18 +48,20 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
     }
 
     buildForm() {
-        this.promissorySingleNote = this.formBuilder.group({
+        this.promissoryNoteSingleBorrower = this.formBuilder.group({
             date: [undefined],
             amount: [undefined],
             amountInWord: [undefined],
             grandFatherName: [undefined],
             fatherName: [undefined],
+            husbandName: [undefined],
             perDistrict: [undefined],
             perMunicipalityOrVdc: [undefined],
             perWardNo: [undefined],
             currentDistrict: [undefined],
-            CurrentMunicipalityOrVdc: [undefined],
+            MunicipalityOrVdc: [undefined],
             CurrentWardNo: [undefined],
+            tole: [undefined],
             borrowerAge: [undefined],
             borrowerName: [undefined],
             citizenshipNo: [undefined],
@@ -74,22 +76,38 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
             witnessAddress: [undefined],
             witnessName1: [undefined],
             witnessAddress1: [undefined],
+            district: [undefined],
+            province: [undefined],
+            date1: [undefined],
+            name: [undefined],
+            name1: [undefined],
+            year: [undefined],
+            month: [undefined],
+            day: [undefined],
+            time: [undefined],
         });
     }
-
+    changeToNepAmount(event: any, target, from) {
+        this.promissoryNoteSingleBorrower.get([target]).patchValue(event.nepVal);
+        this.promissoryNoteSingleBorrower.get([from]).patchValue(event.val);
+    }
+    patchFunction(target) {
+        const patchValue1 = this.promissoryNoteSingleBorrower.get([target]).value;
+        return patchValue1;
+    }
     submit() {
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
                     flag = false;
-                    singleCadFile.initialInformation = JSON.stringify(this.promissorySingleNote.value);
+                    singleCadFile.initialInformation = JSON.stringify(this.promissoryNoteSingleBorrower.value);
                 }
             });
             if (flag) {
                 const cadFile = new CadFile();
                 const document = new Document();
-                cadFile.initialInformation = JSON.stringify(this.promissorySingleNote.value);
+                cadFile.initialInformation = JSON.stringify(this.promissoryNoteSingleBorrower.value);
                 document.id = this.documentId;
                 cadFile.cadDocument = document;
                 cadFile.customerLoanId = this.customerLoanId;
@@ -98,7 +116,7 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
         } else {
             const cadFile = new CadFile();
             const document = new Document();
-            cadFile.initialInformation = JSON.stringify(this.promissorySingleNote.value);
+            cadFile.initialInformation = JSON.stringify(this.promissoryNoteSingleBorrower.value);
             document.id = this.documentId;
             cadFile.cadDocument = document;
             cadFile.customerLoanId = this.customerLoanId;
@@ -114,7 +132,7 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.dialogRef.close();
         });
-        console.log(this.promissorySingleNote.value);
+        console.log(this.promissoryNoteSingleBorrower.value);
     }
 
 }

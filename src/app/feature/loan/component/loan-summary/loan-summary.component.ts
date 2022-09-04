@@ -12,7 +12,6 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
-import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
 import {environment} from '../../../../../environments/environment';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
@@ -176,7 +175,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private loanConfigService: LoanConfigService,
-        private approvalLimitService: ApprovalLimitService,
         private dateService: DateService,
         private modalService: NgbModal,
         private documentService: DocumentService,

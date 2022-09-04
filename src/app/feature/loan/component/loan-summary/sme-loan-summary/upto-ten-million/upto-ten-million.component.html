@@ -8,10 +8,12 @@
     </li>
     <li>
         <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
-        <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
-                                            [isDetailedView]="isDetailedView"
-                                            [isExecutive]="isExecutive"
-                                            [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+        <ol>
+            <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                [isDetailedView]="isDetailedView"
+                                                [isExecutive]="isExecutive"
+                                                [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+        </ol>
     </li>
     <li>
         <!-- details of the customer -->
@@ -141,12 +143,17 @@
         <p><strong>REPAYMENT MODALITY:</strong></p>
         <app-upto-repayment-modality [customerAllLoanList]="customerAllLoanList"></app-upto-repayment-modality>
     </li>
-    <li *ngIf="loanDataHolder?.loanHolder?.netTradingAssets">
+    <li>
         <!-- nta statement and inspection -->
         <p><strong>NTA STATEMENT AND INSPECTION:</strong></p>
         <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets; else notAvailable"
                          [fiscalYears]="fiscalYear"
                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
+
+        <app-site-visit-view
+                *ngIf="loanDataHolder?.loanHolder?.siteVisit || fixedAssetsData?.length > 0 else notAvailable"
+                [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
+                [fixedAssetsData]="fixedAssetsData"></app-site-visit-view>
     </li>
     <li>
         <!-- waiver deviations and deferral -->
