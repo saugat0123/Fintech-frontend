@@ -1,6 +1,6 @@
-<div class="container text-justify" id="formPrint" style="line-height: 30px !important;">
+<div class="container nep text-justify" id="formPrint" style="line-height: 30px !important;">
     <form [formGroup]="form">
-        <div>
+        <div class="align">
             <div class="text-center mt-3">
                 <ul>निरन्तरताको लिखत <span class="timesNewRoman">(Letter of Continuity)</span></ul>
             </div>
@@ -18,23 +18,23 @@
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="actYear" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('actYear').value ? form.get('actYear').value  : '========='}}</b></span>
             बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegOffice" type="text"/>
+            <span class="print-only nepaliFont"><b>{{form.get('companyRegOffice').value ? form.get('companyRegOffice').value  : '========='}}</b></span>
+            कार्यालयमा मिति
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationIssueDate" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('registrationIssueDate').value ? form.get('registrationIssueDate').value  : '========='}}</b></span>
-            कार्यालयमा मिति
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="panNo" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('panNo').value ? form.get('panNo').value  : '========='}}</b></span>
             मा दर्ता भई सा.फ.र.न
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="panNo" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('panNo').value ? form.get('panNo').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationNo" type="text"/>
+            <span class="print-only nepaliFont"><b>{{form.get('registrationNo').value ? form.get('registrationNo').value  : '========='}}</b></span>
             कायम भई
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"/>
+            <span class="print-only nepaliFont"><b>{{form.get('district').value ? form.get('district').value  : '========='}}</b></span>
+            जिल्ला,
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="vdcOrMuni" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('vdcOrMuni').value ? form.get('vdcOrMuni').value  : '========='}}</b></span>
-            जिल्ला,
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNo" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('wardNo').value ? form.get('wardNo').value  : '========='}}</b></span>
             गा.वि.स/न.पा.वडा नं
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="tole" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('tole').value ? form.get('tole').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNum" type="text"/>
+            <span class="print-only nepaliFont"><b>{{form.get('wardNum').value ? form.get('wardNum').value  : '========='}}</b></span>
             , स्थीत ठेगाना रहेको श्री
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerNameInNepali" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('borrowerNameInNepali').value ? form.get('borrowerNameInNepali').value  : '========='}}</b></span>
@@ -45,8 +45,8 @@
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="fatherOrHusbandName" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('fatherOrHusbandName').value ? form.get('fatherOrHusbandName').value  : '========='}}</b></span>
             को छोरा
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branchNameNepali" type="district"/>
-            <span class="print-only nepaliFont"><b>{{form.get('district').value ? form.get('district').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authDistrict" type="district"/>
+            <span class="print-only nepaliFont"><b>{{form.get('authDistrict').value ? form.get('authDistrict').value  : '========='}}</b></span>
             जिल्ला
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerVdcOrMunicipality" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('borrowerVdcOrMunicipality').value ? form.get('borrowerVdcOrMunicipality').value  : '========='}}</b></span>
@@ -59,28 +59,10 @@
             को
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonName" type="text"/>
             <span class="print-only nepaliFont"><b>{{form.get('authorizedPersonName').value ? form.get('authorizedPersonName').value  : '========='}}</b></span>
-            .१, र रु
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="grandFatherOrFatherInLaw" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('grandFatherOrFatherInLaw').value ? form.get('grandFatherOrFatherInLaw').value  : '========='}}</b></span>
-            को नाती
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="fatherOrHusbandName" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('fatherOrHusbandName').value ? form.get('fatherOrHusbandName').value  : '========='}}</b></span>
-            को छोरा
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('district').value ? form.get('district').value  : '========='}}</b></span>
-            जिल्ला
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerVdcOrMunicipality" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('borrowerVdcOrMunicipality').value ? form.get('borrowerVdcOrMunicipality').value  : '========='}}</b></span>
-            गा.बि.स./न.पा वडा नं
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerWardNo" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('borrowerWardNo').value ? form.get('borrowerWardNo').value  : '========='}}</b></span>
-            बस्ने बर्ष
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="year2" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('year2').value ? form.get('year2').value  : '========='}}</b></span>
-            को
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonName" type="text"/>
-            <span class="print-only nepaliFont"><b>{{form.get('authorizedPersonName').value ? form.get('authorizedPersonName').value  : '========='}}</b></span>
-            समेत दुई (२) ले अनुरोध गरे अनुरुप तथा त्यस बैंक स्वयंले ईच्छाए अनुरुप त्यस बैंकले आफू समक्ष हाम्रो खाता खोली र/वा हाम्रो नाममा खोलिएको खातालाई निरन्तरता दिई हामीलाई कर्जा, सापटी, डिस्काउण्ट
+            समेत
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFreeText" type="text"/>
+            <span class="print-only nepaliFont"><b>{{form.get('authorizedPersonFreeText').value ? form.get('authorizedPersonFreeText').value  : '========='}}</b></span>
+            ले अनुरोध गरे अनुरुप तथा त्यस बैंक स्वयंले ईच्छाए अनुरुप त्यस बैंकले आफू समक्ष हाम्रो खाता खोली र/वा हाम्रो नाममा खोलिएको खातालाई निरन्तरता दिई हामीलाई कर्जा, सापटी, डिस्काउण्ट
             उपलब्ध गराएको वा हाम्र्रोे खातामा रहेको मौज्दात भन्दा बढी रकम झिक्न पाउने अधिविकर्ष सुविधा प्रदान गरेको वा हाम्रो खातामा रहेको भन्दा बढी रकम झिकिसकिएको अवस्थामा त्यसलाई कायमै राख्ने सुविधा
             दिएकोमा सो बापत देहाय बमोजिम गर्न हामी मञ्जुर गर्दछौं।
 
