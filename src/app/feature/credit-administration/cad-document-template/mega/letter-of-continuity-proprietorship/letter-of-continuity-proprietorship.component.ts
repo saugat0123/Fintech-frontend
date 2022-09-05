@@ -42,20 +42,26 @@ export class LetterOfContinuityProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    // this.fillForm();
+    this.fillForm();
   }
   buildForm() {
     this.form = this.formBuilder.group({
       branchNameNepali: [undefined],
       actYear: [undefined],
+      companyRegOffice: [undefined],
       registrationIssueDate: [undefined],
-      panNo: [undefined],
-      gender: [undefined],
-      vdcMunicipality: [undefined],
+      registrationNo: [undefined],
+      district: [undefined],
+      vdcOrMuni: [undefined],
       wardNum: [undefined],
-      tole: [undefined],
-      borrowerNameNepali: [undefined],
-      authGrandfatherOrFatherInLaw: [undefined],
+      borrowerNameInNepali: [undefined],
+      grandFatherOrFatherInLaw: [undefined],
+      fatherOrHusbandName: [undefined],
+      authDistrict: [undefined],
+      borrowerVdcOrMunicipality: [undefined],
+      borrowerWardNo: [undefined],
+      year1: [undefined],
+      authorizedPersonName: [undefined],
       sachiOne: [undefined],
       sachiTwo: [undefined],
       year: [undefined],
@@ -63,6 +69,22 @@ export class LetterOfContinuityProprietorshipComponent implements OnInit {
       date: [undefined],
       roj: [undefined],
     });
+  }
+  fillForm() {
+    this.form.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
+    this.form.get('companyRegOffice').patchValue(this.nepData.companyRegOffice);
+    this.form.get('registrationIssueDate').patchValue(this.nepData.regIssueDate);
+    this.form.get('registrationNo').patchValue(this.nepData.registrationNo);
+    this.form.get('district').patchValue(this.nepData.institutionRegisteredAddress.district);
+    this.form.get('vdcOrMuni').patchValue(this.nepData.institutionRegisteredAddress.municipality);
+    this.form.get('wardNum').patchValue(this.nepData.institutionRegisteredAddress.wardNo);
+    this.form.get('borrowerNameInNepali').patchValue(this.nepData.nepaliName);
+    this.form.get('grandFatherOrFatherInLaw').patchValue(this.nepData.authorizedPersonDetail.grandFatherName);
+    this.form.get('fatherOrHusbandName').patchValue(this.nepData.authorizedPersonDetail.fatherName);
+    this.form.get('authDistrict').patchValue(this.nepData.authorizedPersonAddress.district);
+    this.form.get('borrowerVdcOrMunicipality').patchValue(this.nepData.authorizedPersonAddress.municipality);
+    this.form.get('borrowerWardNo').patchValue(this.nepData.authorizedPersonAddress.wardNo);
+    this.form.get('authorizedPersonName').patchValue(this.nepData.authorizedPersonDetail.name);
   }
   submit() {
     let flag = true;
