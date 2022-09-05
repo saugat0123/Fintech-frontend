@@ -48,21 +48,35 @@ export class LetterOfTrustReceiptComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+            console.log(this.nepData);
             if (!this.isForEdit) {
-                this.setFormDataInitial();
+                // this.setFormDataInitial();
+                this.fillForm();
             }
         }
-        this.addName();
 
     }
 
     buildForm() {
         this.letterOfTrustReceipt = this.formBuilder.group({
             date: [undefined],
-            branch: [undefined],
             nepaliName: [undefined],
+            branch: [undefined],
             name: this.formBuilder.array([])
         });
+    }
+    fillForm() {
+        this.letterOfTrustReceipt.patchValue({
+            nepaliName: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+            name: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+            branch: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+        });
+        if (!ObjectUtil.isEmpty(this.nepData)) {
+            if (!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name)) {
+                this.addName();
+                this.letterOfTrustReceipt.get(['name', 0, 'name']).patchValue(this.nepData.authorizedPersonDetail.name);
+            }
+        }
     }
 
     submit() {
@@ -104,14 +118,14 @@ export class LetterOfTrustReceiptComponent implements OnInit {
             this.dialogRef.close();
         });
     }
-    setFormDataInitial() {
-        if (!ObjectUtil.isEmpty(this.nepData)) {
-            this.letterOfTrustReceipt.patchValue({
-                branch: [this.nepData.branchDetail.branchNameInNepali ? this.nepData.branchDetail.branchNameInNepali : undefined],
-                nepaliName: [this.nepData ? this.nepData.nepaliName : undefined]
-            });
-        }
-    }
+    // setFormDataInitial() {
+    //     if (!ObjectUtil.isEmpty(this.nepData)) {
+    //         this.letterOfTrustReceipt.patchValue({
+    //             // branch: [this.nepData.branchDetail.branchNameInNepali ? this.nepData.branchDetail.branchNameInNepali : undefined],
+    //             nepaliName: [this.nepData ? this.nepData.nepaliName : undefined]
+    //         });
+    //     }
+    // }
 
     addName() {
         (this.letterOfTrustReceipt.get('name') as FormArray).push(this.formBuilder.group({
@@ -125,6 +139,9 @@ export class LetterOfTrustReceiptComponent implements OnInit {
     }
 
     setName(data) {
+        if (data.length < 0) {
+            this.addName();
+        }
         data.name.forEach(d => {
             (this.letterOfTrustReceipt.get('name') as FormArray).push(this.formBuilder.group({
                 name: [d ? d.name : undefined],
