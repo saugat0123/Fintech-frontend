@@ -290,6 +290,6 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     getWithinLoan(id) {
-       return  this.customerAllLoanList.filter(d => d.id === id)[0].loan.name;
+       return  !ObjectUtil.isEmpty(id) ? this.customerAllLoanList.filter(d => d.id === id)[0].loan.name : '';
     }
 }
