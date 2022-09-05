@@ -39,7 +39,7 @@
                      </div>
                     </div>
 
-                    <div>
+                    <div *ngIf="fromSummary">
                         <textarea class="form-control" rows="4" placeholder="Comment for update" (change)="onCommentChange($event)" [(ngModel)]="commentForUpdate"></textarea>
                     </div>
 
