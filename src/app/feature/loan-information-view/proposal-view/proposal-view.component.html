@@ -411,15 +411,7 @@
           </ng-template>
         </th>
       </tr>
-<!--      <tr *ngIf="client !== clientName?.MEGA">-->
-<!--        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>-->
-<!--      </tr>-->
-<!--      <tr class="text-white sb-bg-dark">-->
-<!--        <th>Summery & Recommendation</th>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span> </td>-->
-<!--      </tr>-->
+
       <tr class="text-white sb-bg-dark">
         <th>Remarks</th>
       </tr>
@@ -427,23 +419,14 @@
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
 
-
-<!--      <ng-container *ngIf="checkedData?.riskChecked">-->
-<!--        <tr class="text-white sb-bg-dark">-->
-<!--          <th>Risk & Mitigation</th>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>-->
-<!--        </tr>-->
-<!--      </ng-container>-->
-<!--      <ng-container *ngIf="checkedData?.solChecked">-->
-<!--        <tr class="text-white sb-bg-dark">-->
-<!--          <th>Single Obligor Limit</th>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>-->
-<!--        </tr>-->
-<!--      </ng-container>-->
+      <ng-container *ngIf="checkedData?.solChecked">
+        <tr class="text-white sb-bg-dark">
+          <th>Single Obligor Limit</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+        </tr>
+      </ng-container>
     </table>
     <table *ngIf="productUtils.CBS_ENABLE"
            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">

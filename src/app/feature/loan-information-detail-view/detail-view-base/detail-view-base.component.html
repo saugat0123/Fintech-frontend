@@ -317,6 +317,20 @@
             <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
         </tr>
     </table>
+
+    <ng-container *ngIf="checkedData?.riskChecked">
+        <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Risk & Mitigation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span
+                        [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
+    </ng-container>
+
     <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
