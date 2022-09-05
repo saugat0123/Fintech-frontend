@@ -146,9 +146,13 @@ export class ProposalComponent implements OnInit {
             if (!this.isFundable) {
               this.isGeneral = false;
             }
-            if (this.isFixedDeposit) {
+            if (this.isFixedDeposit && this.loanType === 'NEW_LOAN') {
               this.loanNatureSelected = false;
               this.fundableNonFundableSelcted = false;
+            }
+            if (this.isFixedDeposit && this.loanType !== 'NEW_LOAN') {
+              this.loanNatureSelected = true;
+              this.fundableNonFundableSelcted = true;
             }
             this.proposalForm.get('proposedLimit').setValidators([Validators.required,
               MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
@@ -428,15 +432,12 @@ export class ProposalComponent implements OnInit {
     const n = this.proposalForm.get('tenureDurationInMonths').value;
     if (proposedAmount && rate && n) {
       const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
-      const amount = this.proposalForm.get('installmentAmount').value;
       switch (repaymentMode) {
         case 'emi':
-          this.proposalForm.get('installmentAmount').patchValue(Math.ceil(emi / 100) * 100);
-          // this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
           break;
         case 'eqi':
-          // this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(0)));
-          this.proposalForm.get('installmentAmount').patchValue(Math.ceil((emi / 100) * 100));
+          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
           break;
       }
     } else {
