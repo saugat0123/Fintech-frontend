@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {OfferDocument} from '../../../model/OfferDocument';
@@ -17,6 +17,8 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Editor} from '../../../../../@core/utils/constants/editor';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
     selector: 'app-loan-against-share',
@@ -37,17 +39,16 @@ export class LoanAgainstShareComponent implements OnInit {
     nepData;
     external = [];
     loanHolderInfo;
-
+    dropVal = ['शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)', 'शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)'];
+    config = NepaliEditor.CK_CONFIG;
+    @ViewChild('ckEditorComponent', {static: true}) ckEditor: ElementRef;
     constructor(private formBuilder: FormBuilder,
                 private toastService: ToastService,
                 private router: Router,
                 private administrationService: CreditAdministrationService,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private routerUtilsService: RouterUtilsService,
-                private engToNepNumberPipe: EngToNepaliNumberPipe,
-                private currencyFormatPipe: CurrencyFormatterPipe,
-                private nepToEngNumberPipe: NepaliToEngNumberPipe,
-                private nepPercentWordPipe: NepaliPercentWordPipe) {
+               private render: Renderer2) {
     }
 
     ngOnInit() {
@@ -81,7 +82,7 @@ export class LoanAgainstShareComponent implements OnInit {
             pratisat: [undefined],
             approvedKarjaAmount: [undefined],
             remainingLoan: [undefined],
-            dhitoSurachankoName: [undefined],
+            dhitoSurachankoName: ['  a}snfO{ dfGox\'g] z]o/x? lwtf] ;\'/If0fsf]        sf] gfddf /x]sf] z]o/_ pknAw u/fP cg\';f/ :jLs[t shf{ l;df leq /xg] u/L shf{ ;\'lawf pkef]u ug{ kfpg] 5 .'],
             sriName: [undefined],
             amount: [undefined],
             amountInWords: [undefined],
@@ -143,7 +144,8 @@ export class LoanAgainstShareComponent implements OnInit {
             sadakMarga7: [undefined],
             email7: [undefined],
             contactNumber7: [undefined],
-            date7: [undefined]
+            date7: [undefined],
+            surakChand: this.formBuilder.array([])
         });
     }
 
@@ -236,4 +238,16 @@ export class LoanAgainstShareComponent implements OnInit {
     removeloanAgainstShare(i) {
         (this.form.get('loanAgainstShare') as FormArray).removeAt(i);
     }
+    addSurakChand () {
+        (this.form.get('surakChand') as FormArray).push(this.formBuilder.group({
+            text: [undefined]
+        }));
+    }
+    removesurakChand(i) {
+        (this.form.get('surakChand') as FormArray).removeAt(i);
+    }
+
+    // ngAfterViewInit(): void {
+    //     console.log('ck eidtor',this.ckEditor);
+    // }
 }
