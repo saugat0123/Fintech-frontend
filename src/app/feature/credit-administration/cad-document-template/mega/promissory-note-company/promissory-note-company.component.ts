@@ -22,6 +22,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  nepData;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -37,6 +38,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
         }
       });
     }
+    this.fillForm();
   }
 
   buildForm() {
@@ -68,6 +70,23 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       borrowerNameInNepali: [undefined]
     });
   }
+  fillForm() {
+    this.promissoryNoteCompany.patchValue({
+      amount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+      amountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+      ministry: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+      district: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+      date1: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+      registrationNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+      wardNo: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.wardNo : ''],
+      borrowerNameInNepali: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+      autName: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+      municipality1: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '']
+    });
+  }
+
+
 
   changeToNepAmount(event: any, target, from) {
     this.promissoryNoteCompany.get([target]).patchValue(event.nepVal);
