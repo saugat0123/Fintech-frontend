@@ -104,11 +104,9 @@ export class AddAdditionalDocumentComponent implements OnInit {
     }
 
     setDocument(pathControl, dateControl, pathLink) {
-        this.addDocForm.patchValue({
-            pathControl: pathLink,
-            dateControl: new Date(),
-            uploadOn: new Date()
-        });
+        this.addDocForm.get(pathControl).patchValue(pathLink);
+        this.addDocForm.get(dateControl).patchValue(new Date());
+        this.addDocForm.get('uploadOn').patchValue(new Date());
     }
 
     onClose() {
