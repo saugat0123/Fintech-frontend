@@ -141,7 +141,12 @@ export class CompanyFormComponent implements OnInit {
     isAboveTen = false;
     isBelowTen = false;
     isWholeSale = false;
-    accStrategyOption = ['New', 'Grow', 'Maintain', 'Exit'];
+    accStrategyEnum = [
+        {key: 'new', value: 'New'},
+        {key: 'grow', value: 'Grow'},
+        {key: 'maintain', value: 'Maintain'},
+        {key: 'exit', value: 'Exit'}
+    ];
 
     constructor(
         private formBuilder: FormBuilder,

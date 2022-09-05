@@ -47,7 +47,7 @@
                                     class="form-control custom-select"
                                     [ngClass]="{ 'is-invalid': (submitted) && form?.accStrategy?.errors }">
                                 <option [value]="null" hidden>--Select Account Strategy--</option>
-                                <option [ngValue]="acc" *ngFor="let acc of accStrategyOption">{{acc}}</option>
+                                <option [ngValue]="acc?.key" *ngFor="let acc of accStrategyEnum">{{acc?.value}}</option>
                             </select>
                             <div *ngIf="(submitted) && form?.accStrategy?.invalid"
                                  class="invalid-feedback">
