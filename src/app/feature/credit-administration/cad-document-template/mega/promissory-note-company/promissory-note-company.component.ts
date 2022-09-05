@@ -38,7 +38,11 @@ export class PromissoryNoteCompanyComponent implements OnInit {
         }
       });
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
     this.fillForm();
+    console.log('nep data: ', this.nepData);
   }
 
   buildForm() {
@@ -67,7 +71,9 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       date1: [undefined],
       district: [undefined],
       wardNo: [undefined],
-      borrowerNameInNepali: [undefined]
+      borrowerNameInNepali: [undefined],
+      autName: [undefined],
+      municipality1: [undefined]
     });
   }
   fillForm() {
