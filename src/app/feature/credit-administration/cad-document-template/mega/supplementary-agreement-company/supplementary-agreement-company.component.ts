@@ -46,6 +46,7 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
             this.guarantorData = Object.values(this.nepData.guarantorDetails);
         }
+        this.fillForm();
     }
 
     buildForm() {
@@ -72,7 +73,29 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
             itemDetails2: [undefined],
         });
     }
-
+    fillForm() {
+        this.supplementaryAgreementCompany.patchValue({
+                branch: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+                companyRegistrationOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+                registrationIssuedDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+                registrationNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+                companyDistrict: [!ObjectUtil.isEmpty
+                (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+                companyMunicipalityVDC: [!ObjectUtil.isEmpty
+                (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+                companyWardNo: [!ObjectUtil.isEmpty
+                (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.municipality : ''],
+                borrowerName: [!ObjectUtil.isEmpty
+                (this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+                authorizedPersonName: [!ObjectUtil.isEmpty
+                (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+                offerLetterIssuedDate: [!ObjectUtil.isEmpty
+                (this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.offerIssueDate : ''],
+                amount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+                amountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+            }
+        );
+    }
     submit() {
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
