@@ -39,6 +39,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="accStrategy"><strong>Account strategy</strong></label>
+                            <select id="accStrategy" formControlName="accStrategy"
+                                    name="accStrategy"
+                                    class="form-control custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted) && form?.accStrategy?.errors }">
+                                <option [value]="null" hidden>--Select Account Strategy--</option>
+                                <option [ngValue]="acc" *ngFor="let acc of accStrategyOption">{{acc}}</option>
+                            </select>
+                            <div *ngIf="(submitted) && form?.accStrategy?.invalid"
+                                 class="invalid-feedback">
+                                <div *ngIf="form?.accStrategy?.errors?.required">Account Strategy is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row" style="margin-top: -0.2rem">
