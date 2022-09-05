@@ -13,6 +13,7 @@ import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {SummaryType} from '../../loan/component/SummaryType';
+import {CompanyJsonData} from '../../admin/modal/CompanyJsonData';
 
 @Component({
   selector: 'app-detail-view-base',
@@ -45,6 +46,7 @@ export class DetailViewBaseComponent implements OnInit {
   summaryTypeName = SummaryType;
   summaryType = environment.summaryType;
   @Output() documents = new EventEmitter();
+  companyJsonData: CompanyJsonData;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -73,6 +75,10 @@ export class DetailViewBaseComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo) &&
+        !ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.companyJsonData)) {
+      this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
     }
   }
 
