@@ -424,6 +424,12 @@
         [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
 </app-crg-lambda-detail-view>
 
+<app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"
+                               [fromProfile]="false"></app-credit-risk-grading-gamma>
+
+<app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"
+                    [fromProfile]="false"></app-credit-grading>
+
 <app-all-document-view *ngIf="loanDataHolder"
                        [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 
@@ -449,10 +455,7 @@
             [approved]="false"
             [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
 </div>
-<!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
-<!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
-<!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
-<!--                                [fromProfile]="false"></app-credit-grading>-->
+
 <div *ngIf="!productUtils.CBS_ENABLE">
     <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
                                         [customerAllLoanList]="customerAllLoanList"
