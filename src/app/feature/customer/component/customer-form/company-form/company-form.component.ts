@@ -141,8 +141,7 @@ export class CompanyFormComponent implements OnInit {
     isAboveTen = false;
     isBelowTen = false;
     isWholeSale = false;
-
-
+    accStrategyOption = ['New', 'Grow', 'Maintain', 'Exit'];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -512,7 +511,9 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
                 this.companyJsonData.promoterNetWorth],
             customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
-                this.companyInfo.customerCategory, [Validators.required]]
+                this.companyInfo.customerCategory, [Validators.required]],
+            accStrategy: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
+                this.companyInfo.accStrategy, [Validators.required]]
         });
     }
 
@@ -858,10 +859,10 @@ export class CompanyFormComponent implements OnInit {
         submitData.business = this.companyInfoFormGroup.get('business').value;
         submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
         if (!ObjectUtil.isEmpty(this.formValue)) {
-            this.companyInfo.accountStrategy = this.formValue.accountStrategy;
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
+        this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
