@@ -43,6 +43,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.fillForm();
   }
 
   buildForm() {
@@ -121,7 +122,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       witnessMunicipality: [undefined],
       witnessVdc: [undefined],
       witnessAge: [undefined],
-      companyName: [undefined],
+      companyNameNepali: [undefined],
       amount: [undefined],
       monthOfYear: [undefined],
       dayOfMonth: [undefined],
@@ -130,7 +131,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       billNum: [undefined],
       billInput: [undefined],
       amountInWords: [undefined],
-      companyBorrowerName: [undefined],
+      authPersonName: [undefined],
       witnessEvidence: [undefined],
       governmentOffice: [undefined],
       registration: [undefined],
@@ -141,6 +142,23 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       timeOfDay: [undefined],
       dateOfRegister: [undefined],
       companyAct: [undefined],
+      accountNumber: [undefined],
+    });
+  }
+
+  fillForm() {
+    this.letterOfSetOffCompany.patchValue({
+      governmentOffice: [this.nepData.companyRegOffice],
+      registration: [this.nepData.regIssueDate],
+      registrationNum: [this.nepData.registrationNo],
+      companyDistrict: [this.nepData.institutionRegisteredAddress.district],
+      companyMunicipality: [this.nepData.institutionRegisteredAddress.municipality],
+      companyWard: [this.nepData.institutionRegisteredAddress.wardNo],
+      companyNameNepali: [this.nepData.nepaliName],
+      authPersonName: [this.nepData.authorizedPersonDetail.name],
+      dateOfRegister: [this.nepData.miscellaneousDetail.offerIssueDate],
+      amount: [this.nepData.miscellaneousDetail.loanAmountInFig],
+      amountInWords: [this.nepData.miscellaneousDetail.loanAmountInWord]
     });
   }
 
