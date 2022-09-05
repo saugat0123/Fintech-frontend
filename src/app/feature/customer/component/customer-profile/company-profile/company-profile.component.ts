@@ -153,7 +153,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.form.houseNumber.setValue(companyInfoData.companyLocations.houseNumber);
         this.form.establishmentDate.setValue(new Date(companyInfoData.establishmentDate));
         this.form.withinLimitRemarks.setValue(companyInfoData.withinLimitRemarks);
-        this.form.accountStrategy.setValue(companyInfoData.accountStrategy);
+        this.form.accountStrategy.setValue(companyInfoData.accStrategy);
     }
 
     getCompanyInfo(companyInfoId) {
