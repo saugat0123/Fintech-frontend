@@ -103,7 +103,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.addDrawDownDetail();
     }
     if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
-      this.sccPaths = JSON.parse(this.cadFile.exposure.data).sccPath;
+      this.sccPaths = !ObjectUtil.isEmpty(JSON.parse(this.cadFile.exposure.data).sccPath) ?
+          JSON.parse(this.cadFile.exposure.data).sccPath : [];
     }
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
