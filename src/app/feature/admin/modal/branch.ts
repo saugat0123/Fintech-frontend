@@ -6,6 +6,7 @@ import {MunicipalityVdc} from './municipality_VDC';
 export class Branch {
     id: number;
     name: string;
+    nepaliName: string;
     branchCode: string;
     address: string;
     created: string;

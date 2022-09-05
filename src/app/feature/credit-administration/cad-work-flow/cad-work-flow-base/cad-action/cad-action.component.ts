@@ -95,6 +95,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     pathValueData;
     isMakerOrApproval = false;
     isDiscrepancy = false;
+    inMyBucket = false;
 
 
     constructor(private router: ActivatedRoute,
@@ -132,6 +133,9 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.isMaker = true;
         } else {
             this.getNewDocStatusOnApprove();
+        }
+        if (this.currentCADStage.toRole.id.toString() === this.roleId) {
+            this.inMyBucket = true;
         }
         this.backwardTooltipMessageAndShowHideBackward();
 

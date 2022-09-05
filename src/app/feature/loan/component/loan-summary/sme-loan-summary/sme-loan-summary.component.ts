@@ -562,6 +562,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
                     if (!allLoanIds.includes(cl.id)) {
                       this.customerAllLoanList.push(cl);
                     }
+                    this.calculateTotalProposedLimit(this.customerAllLoanList);
                     this.loaded = true;
                   });
                 },
@@ -569,8 +570,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
                   console.error(err);
                 }
             );
+          } else {
+            this.calculateTotalProposedLimit(this.customerAllLoanList);
           }
-          this.calculateTotalProposedLimit(this.customerAllLoanList);
           this.customerLoanList.emit(this.customerAllLoanList);
         },
         (error) => {
@@ -580,6 +582,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalProposedLimit(customerAllLoanList: LoanDataHolder[]) {
+    this.totalProposedLimit = 0;
     customerAllLoanList.forEach(cl => {
       this.totalProposedLimit += cl.proposal.proposedLimit;
     });
