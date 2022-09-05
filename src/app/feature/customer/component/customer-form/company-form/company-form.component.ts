@@ -859,7 +859,6 @@ export class CompanyFormComponent implements OnInit {
         submitData.business = this.companyInfoFormGroup.get('business').value;
         submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
         if (!ObjectUtil.isEmpty(this.formValue)) {
-            this.companyInfo.accountStrategy = this.formValue.accountStrategy;
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;

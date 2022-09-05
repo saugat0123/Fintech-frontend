@@ -43,7 +43,6 @@ export class CompanyInfo {
     companyLegalDocumentAddress: string;
     shareholderKycList: Array<ShareholderKyc>;
     accountNo: string;
-    accountStrategy: string;
     accStrategy: string;
     customerCategory: any;
     companyContactDetails: string;
