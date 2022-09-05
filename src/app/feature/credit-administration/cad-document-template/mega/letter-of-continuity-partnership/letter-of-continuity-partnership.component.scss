@@ -16,7 +16,13 @@
 li {
   list-style-type: none;
 }
-
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
 @media screen {
   .print-only {
     display: none;
@@ -37,6 +43,10 @@ li {
     text-align: justify;
     text-justify: inter-word;
     margin: 10px 70px;
+  }
+  ol.conditional-list li {
+    list-style: devanagari;
+    line-height:  1.9 !important;
   }
 }
 ol.conditional-list li {
