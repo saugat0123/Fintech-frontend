@@ -56,7 +56,7 @@
 
 <table *ngIf="(summaryType === summaryTypeName?.GENERAL) || (summaryType === summaryTypeName?.ALPHA)"
        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-    <tr class="text-white sb-bg-dark">
+    <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="text-white sb-bg-dark">
         <th>Group’s background</th>
     </tr>
     <tr>
@@ -206,7 +206,7 @@
     </tr>
 </table>
 
-<table
+<table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
         <th>Market Scenario</th>
@@ -266,7 +266,7 @@
 </ng-template>
 
 <ng-container *ngIf="summaryType === summaryTypeName?.GENERAL">
-    <table
+    <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
             <th>Industry/Market Risk & Mitigation</th>
@@ -276,7 +276,7 @@
         </tr>
     </table>
 
-    <table
+    <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
         <tr class="text-white sb-bg-dark">
@@ -287,7 +287,7 @@
         </tr>
     </table>
 
-    <table
+    <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
         <tr class="text-white sb-bg-dark">
@@ -300,15 +300,15 @@
 
     <table *ngIf="summaryType === summaryTypeName.GENERAL"
            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-        <tr class="text-white sb-bg-dark">
+        <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="text-white sb-bg-dark">
             <th>Succession Risk & Mitigation</th>
         </tr>
-        <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
+        <tr>
             <td class="text-left pl-1"><span [innerHTML]="loanDataHolder?.companyInfo?.successionPlanning | safeHtml"></span></td>
         </tr>
     </table>
 
-    <table
+    <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
             <th>Financial and Cash Flow Risk & Mitigation</th>
@@ -317,7 +317,7 @@
             <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
         </tr>
     </table>
-    <table
+    <table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
             <th>Analysis of 5C</th>
@@ -404,10 +404,6 @@
 <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
                            [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
 
-<app-all-document-view *ngIf="loanDataHolder"
-                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
-
-
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
@@ -416,18 +412,20 @@
         *ngIf="loanDataHolder?.crgGamma"
         [formData]="loanDataHolder?.crgGamma">
 </app-crg-gamma-detail-view>
+
 <app-crg-alpha-detailed-view
         *ngIf="loanDataHolder?.creditRiskGradingAlpha"
         [loanTag]="loanDataHolder?.loan?.loanTag"
         [formData]="loanDataHolder?.creditRiskGradingAlpha">
 </app-crg-alpha-detailed-view>
+
 <app-crg-lambda-detail-view
         *ngIf="loanDataHolder?.creditRiskGradingLambda"
         [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
 </app-crg-lambda-detail-view>
 
-
-
+<app-all-document-view *ngIf="loanDataHolder"
+                       [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 
 <div *ngIf="client === clientName?.MEGA">
     <app-comments-summary
