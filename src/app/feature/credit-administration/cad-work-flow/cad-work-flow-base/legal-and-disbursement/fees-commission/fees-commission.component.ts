@@ -23,7 +23,13 @@ export class FeesCommissionComponent implements OnInit {
     isValid = false;
 
     // todo replace with api from backend predefined data
-    feeTypeList = ['STRF', 'LRF', 'LMF', 'CIC', 'LOAN_COMMITMENT_FEE'];
+    feeTypeList = [
+        {key: 'STRF', value: 'Secured Transaction Registry Fee'},
+        {key: 'LRF', value: 'Loan Renewal Fee'},
+        {key: 'LMF', value: 'Loan Administration Fee'},
+        {key: 'CIC', value: 'Credit Information Fee'},
+        {key: 'LOAN_COMMITMENT_FEE', value: 'Loan Commitment Fee'}
+    ];
 
 
     feeCommissionFormGroup: FormGroup;
