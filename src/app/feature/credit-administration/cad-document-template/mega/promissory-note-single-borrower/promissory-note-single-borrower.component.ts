@@ -50,7 +50,6 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
         }
-        console.log('nep data: ', this.nepData);
     }
 
     buildForm() {
@@ -165,7 +164,6 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.dialogRef.close();
         });
-        console.log(this.promissoryNoteSingleBorrower.value);
     }
 
 }
