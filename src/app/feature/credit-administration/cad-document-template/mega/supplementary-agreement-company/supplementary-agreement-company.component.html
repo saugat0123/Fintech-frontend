@@ -94,7 +94,19 @@
                         </p>
                         <br>
                         <p>
-                            तहांले हाम्रो नाममा जारी गरेको मिति
+                            तहांले हाम्रो नाममा
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="name"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('name').value ? supplementaryAgreementCompany.get('name').value : ' '}}</strong></span>
+                            जारी गरेको
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="name2"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementCompany.get('name2').value ? supplementaryAgreementCompany.get('name2').value : ' '}}</strong></span>
+                            मिति
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="offerLetterIssuedDate"
                                    placeholder=""
