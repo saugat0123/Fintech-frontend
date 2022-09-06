@@ -45,7 +45,7 @@ export class KaloSuchiBorrowerPartnershipComponent implements OnInit {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
-
+// Test
   buildForm() {
     this.form = this.formBuilder.group({
       address: [undefined],
