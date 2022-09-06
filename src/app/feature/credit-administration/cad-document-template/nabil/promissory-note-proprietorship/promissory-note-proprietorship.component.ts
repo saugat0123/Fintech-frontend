@@ -58,6 +58,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     isInstitutional = false;
     tempData;
     spinner = false;
+    defaultAuthorizedBodyName = 'नेपाल सरकार';
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -327,7 +328,8 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
             nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
             actName: this.individualData.actName ? this.individualData.actName.ct : '',
             yearInFigure: this.actYear ? this.actYear : '',
-            nameOfAuthorizedBody: this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : '',
+            nameOfAuthorizedBody: (this.individualData.authorizedBodyName &&
+                this.individualData.authorizedBodyName.ct) ? this.individualData.authorizedBodyName.ct : this.defaultAuthorizedBodyName,
             nameOfDepartment: this.individualData.registeredWith ? this.individualData.registeredWith.ct : '',
             dateOfRegistration: this.registrationDate ? this.registrationDate : '',
             registrationNo: this.individualData.registrationNo ? this.individualData.registrationNo.ct : '',
