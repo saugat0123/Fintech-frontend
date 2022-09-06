@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
@@ -11,46 +11,48 @@ import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
+
 @Component({
-  selector: 'app-letter-of-continuity-individual',
-  templateUrl: './letter-of-continuity-individual.component.html',
-  styleUrls: ['./letter-of-continuity-individual.component.scss']
+  selector: 'app-share-pledge-deed-first-party-individual',
+  templateUrl: './share-pledge-deed-first-party-individual.component.html',
+  styleUrls: ['./share-pledge-deed-first-party-individual.component.scss']
 })
-export class LetterOfContinuityIndividualComponent implements OnInit {
+export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
+
+  form: FormGroup;
+  cadFile: CadFile;
+  singleData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  letterOfContinuityIndividual: FormGroup;
-  nepData;
-  initialData;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService,
-  ) { }
+              private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.initialData = JSON.parse(singleCadFile.initialInformation);
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.form.patchValue(initialInfo);
+          this.setTableData(initialInfo.loanData);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-    }
-    if (!ObjectUtil.isEmpty(this.initialData)) {
-      this.letterOfContinuityIndividual.patchValue(this.initialData);
-    } else {
-      this.fillForm();
+      this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
+
   buildForm() {
-    this.letterOfContinuityIndividual = this.formBuilder.group({
-      branchNameNepali: [undefined],
+    this.form = this.formBuilder.group({
+      loanData: this.formBuilder.array([]),
+      tableShow: true,
+      branch: [undefined],
       grandFatherName: [undefined],
       fatherName: [undefined],
       husbandName: [undefined],
@@ -63,28 +65,26 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
       age: [undefined],
-      borrowerNameNepali: [undefined],
-      witness1: [undefined],
-      witness2: [undefined],
+      individualName: [undefined],
+      offerLetterIssuedDate: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
+      amount2: [undefined],
+      amountInWords2: [undefined],
+      facOwnerName: [undefined],
+      witnessName: [undefined],
+      witnessName2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
       time: [undefined],
+      snNo: [undefined],
+      shareholderNameAndCitizenshipNo: [undefined],
+      clientId: [undefined],
+      shareKitta: [undefined],
+      shareIssuingCompany: [undefined],
+      kaifiyat: [undefined]
     });
-  }
-  fillForm() {
-     this.letterOfContinuityIndividual.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
-     this.letterOfContinuityIndividual.get('grandFatherName').patchValue(this.nepData.grandFatherName);
-     this.letterOfContinuityIndividual.get('fatherName').patchValue(this.nepData.fatherName);
-     this.letterOfContinuityIndividual.get('husbandName').patchValue(this.nepData.husbandName);
-     this.letterOfContinuityIndividual.get('permanentDistrict').patchValue(this.nepData.customerPermanentAddress.district);
-     this.letterOfContinuityIndividual.get('permanentMunicipalityVDC').patchValue(this.nepData.customerPermanentAddress.municipality);
-     this.letterOfContinuityIndividual.get('permanentWardNo').patchValue(this.nepData.customerPermanentAddress.wardNo);
-     this.letterOfContinuityIndividual.get('permanentTole').patchValue(this.nepData.customerPermanentAddress.tole);
-     this.letterOfContinuityIndividual.get('temporaryDistrict').patchValue(this.nepData.customerTemporaryAddress.district);
-     this.letterOfContinuityIndividual.get('temporaryMunicipalityVDC').patchValue(this.nepData.customerTemporaryAddress.municipality);
-     this.letterOfContinuityIndividual.get('temporaryWardNo').patchValue(this.nepData.customerTemporaryAddress.wardNo);
-     this.letterOfContinuityIndividual.get('borrowerNameNepali').patchValue(this.nepData.nepaliName);
   }
 
   submit() {
@@ -93,13 +93,13 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.letterOfContinuityIndividual.value);
+          singleCadFile.initialInformation = JSON.stringify(this.form.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.letterOfContinuityIndividual.value);
+        cadFile.initialInformation = JSON.stringify(this.form.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -108,7 +108,7 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.letterOfContinuityIndividual.value);
+      cadFile.initialInformation = JSON.stringify(this.form.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -116,13 +116,58 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
+  }
+  removeLoanDetail(index) {
+    (this.form.get('loanData') as FormArray).removeAt(index);
+  }
+
+  addTableData() {
+    (this.form.get('loanData') as FormArray).push(
+        this.formBuilder.group({
+          loanFacilityType: [undefined],
+          amountInWords1: [undefined],
+          amount1: [undefined],
+        })
+    );
+  }
+  setTableData(data) {
+    const formArray = this.form.get('loanData') as FormArray;
+    if (data.length === 0) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        loanFacilityType: [value.loanFacilityType],
+        amountInWords1: [value.amountInWords1],
+        amount1: [value.amount1],
+      }));
+    });
+  }
+  changeToNepAmount(event: any, target, from) {
+    this.form.get([target]).patchValue(event.nepVal);
+    this.form.get([from]).patchValue(event.val);
+  }
+
+  patchFunction(target) {
+    const patchValue1 = this.form.get([target]).value;
+    return patchValue1;
+  }
+  changeToNepAmount1(event: any, i , formArrayName) {
+    this.form.get([formArrayName, i, 'amountInWords1']).patchValue(event.nepVal);
+    this.form.get([formArrayName, i, 'amount1']).patchValue(event.val);
+  }
+
+  patchFunction1(formArrayName, i, formControlName) {
+    const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
+    return patchValue1;
   }
 }
