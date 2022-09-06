@@ -22,6 +22,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
   @Input() customerLoanId: number;
   letterOfSetOffCompany: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -36,14 +37,18 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.letterOfSetOffCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    this.fillForm();
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.letterOfSetOffCompany.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
   }
 
   buildForm() {
