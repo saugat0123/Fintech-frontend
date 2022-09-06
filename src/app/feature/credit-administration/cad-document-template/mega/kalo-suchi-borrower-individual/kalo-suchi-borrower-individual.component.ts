@@ -23,6 +23,7 @@ export class KaloSuchiBorrowerIndividualComponent implements OnInit {
     @Input() customerLoanId: number;
     form: FormGroup;
     nepData;
+    initialInfo;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -37,74 +38,93 @@ export class KaloSuchiBorrowerIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-                    this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
                 }
             });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.form.patchValue(this.initialInfo);
+        } else {
+            this.filForm();
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
         }
+        console.log('Nep Data:', this.nepData);
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            address: [undefined],
-            metropolitian: [undefined],
+            municipality: [undefined],
             approver: [undefined],
             debtor: [undefined],
-            department: [undefined],
-            mantralaya: [undefined],
-            officeName: [undefined],
-            regNo: [undefined],
             approverDistrict: [undefined],
             approverMunicipality: [undefined],
             approverWard: [undefined],
-            approverAddress: [undefined],
+            approverTole: [undefined],
             approverCurProvince: [undefined],
             approverCurDistrict: [undefined],
             approverCurMunicipality: [undefined],
             approverCurWard: [undefined],
             ward: [undefined],
-            regDate: [undefined],
-            metropolitan1: [undefined],
-            wardNo: [undefined],
-            partnershipForm: [undefined],
-            representativeName: [undefined],
-            representativeGrandaughterName: [undefined],
-            sonOrDaughter: [undefined],
-            wife: [undefined],
             district: [undefined],
-            permanentAdd: [undefined],
+            tole: [undefined],
             curProvince: [undefined],
             curDistrict: [undefined],
             curMunicipality: [undefined],
             curWard: [undefined],
-            metropolitan2: [undefined],
-            age: [undefined],
-            mrOrMrs: [undefined],
-            ownerBankNum: [undefined],
-            documentWritenDate: [undefined],
-            rupees: [undefined],
-            rupessInWord: [undefined],
-            sambatYear: [undefined],
-            sambatMonth: [undefined],
-            sambatDay: [undefined],
-            sambatDocumentWrittenInWord: [undefined],
-            witnessSignature: [undefined],
-            witnessDistrict: [undefined],
-            witnessMunicipality: [undefined],
-            witnessVdc: [undefined],
             loanFacilityTypeNep: [undefined],
-            loanFacilityTypeEng: [undefined],
-            witnessAge: [undefined],
-            witnessEvidence: [undefined],
             fatherInLawName: [undefined],
             fatherName: [undefined],
             husbandName: [undefined],
             citizenshipNo: [undefined],
             citizenshipIssuedDate: [undefined],
             citizenshipIssuingOffice: [undefined],
-            date: [undefined]
+            date: [undefined],
+        });
+    }
+
+    filForm() {
+        this.form.patchValue({
+            debtor: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+            district: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.district) ?
+                this.nepData.customerPermanentAddress.district : '',
+            municipality: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.municipality) ?
+                this.nepData.customerPermanentAddress.municipality : '',
+            ward: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.wardNo) ? this.nepData.customerPermanentAddress.wardNo : '',
+            tole: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.tole) ? this.nepData.customerPermanentAddress.tole : '',
+            // curProvince: [undefined],
+            curDistrict: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.district) ?
+                this.nepData.customerTemporaryAddress.district : '',
+            curMunicipality: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.municipality) ?
+                this.nepData.customerTemporaryAddress.municipality : '',
+            curWard: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.wardNo) ?
+                this.nepData.customerTemporaryAddress.wardNo : '',
+            loanFacilityTypeNep: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanFacilityTypeInNep) ?
+                this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
+            approver: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+            fatherName: !ObjectUtil.isEmpty(this.nepData.fatherName) ? this.nepData.fatherName : '',
+            fatherInLawName: !ObjectUtil.isEmpty(this.nepData.fatherInLawName) ? this.nepData.fatherInLawName : '',
+            husbandName: !ObjectUtil.isEmpty(this.nepData.husbandName) ? this.nepData.husbandName : '',
+            approverDistrict: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.district) ?
+                this.nepData.customerPermanentAddress.district : '',
+            approverMunicipality: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.municipality) ?
+                this.nepData.customerPermanentAddress.municipality : '',
+            approverWard: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.wardNo) ?
+                this.nepData.customerPermanentAddress.wardNo : '',
+            approverTole: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.tole) ?
+                this.nepData.customerPermanentAddress.tole : '',
+            approverCurProvince: undefined,
+            approverCurDistrict: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.district) ?
+                this.nepData.customerTemporaryAddress.district : '',
+            approverCurMunicipality: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.municipality) ?
+                this.nepData.customerTemporaryAddress.municipality : '',
+            approverCurWard: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.wardNo) ?
+                this.nepData.customerTemporaryAddress.wardNo : '',
+            citizenshipNo: !ObjectUtil.isEmpty(this.nepData.citizenshipNo) ? this.nepData.citizenshipNo : '',
+            citizenshipIssuedDate: !ObjectUtil.isEmpty(this.nepData.citizenshipIssueDate) ? this.nepData.citizenshipIssueDate : '',
+            citizenshipIssuingOffice: !ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? this.nepData.citizenshipIssueDistrict : '',
+            date: undefined,
         });
     }
 
