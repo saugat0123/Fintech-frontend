@@ -36,6 +36,7 @@ import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ApprovalRoleHierarchyService} from '../../../loan/approval/approval-role-hierarchy.service';
 import {SingleLoanTransferModelComponent} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
 import {CombinedLoanTransferModelComponent} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-catalogue',
@@ -128,7 +129,8 @@ export class CatalogueComponent implements OnInit {
         private catalogueService: CatalogueService,
         private location: AddressService,
         private nbDialogService: NbDialogService,
-        private service: ApprovalRoleHierarchyService) {
+        private service: ApprovalRoleHierarchyService,
+        private datePipe: DatePipe) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -312,8 +314,8 @@ export class CatalogueComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.filterForm.get('startDate').value) && this.filterForm.get('endDate').value) {
             this.catalogueService.search.lastModifiedDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
-                'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
-                'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
+                'startDate': this.datePipe.transform(this.filterForm.get('startDate').value, 'MM/dd/yyyy'),
+                'endDate': this.datePipe.transform(this.filterForm.get('endDate').value, 'MM/dd/yyyy'),
             });
         }
         this.catalogueService.search.currentUserRole = ObjectUtil.isEmpty(this.filterForm.get('role').value) ? undefined :
