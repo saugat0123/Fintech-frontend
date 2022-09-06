@@ -44,6 +44,7 @@ export class ManjurinamaForGadiNamasariCompanyComponent implements OnInit {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
+    this.fillForm();
   }
 
   buildForm() {
@@ -56,7 +57,13 @@ export class ManjurinamaForGadiNamasariCompanyComponent implements OnInit {
       authorizedPersonName: [undefined],
     });
   }
-
+  fillForm() {
+    this.manjurinamaForGadiNamasariCompany.patchValue({
+          borrowerName: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+          authorizedPersonName: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+        }
+    );
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
