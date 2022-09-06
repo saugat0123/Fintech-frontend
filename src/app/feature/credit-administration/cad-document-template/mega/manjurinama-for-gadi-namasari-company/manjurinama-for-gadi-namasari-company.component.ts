@@ -23,6 +23,7 @@ export class ManjurinamaForGadiNamasariCompanyComponent implements OnInit {
   @Input() customerLoanId: number;
   manjurinamaForGadiNamasariCompany: FormGroup;
   nepData;
+  initialInfo;
   guarantorData;
   submitted = false;
   constructor(private formBuilder: FormBuilder,
@@ -36,7 +37,8 @@ export class ManjurinamaForGadiNamasariCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.manjurinamaForGadiNamasariCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
+          console.log('this.initialInfo', this.initialInfo);
         }
       });
     }
@@ -44,7 +46,11 @@ export class ManjurinamaForGadiNamasariCompanyComponent implements OnInit {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
-    this.fillForm();
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.manjurinamaForGadiNamasariCompany.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
   }
 
   buildForm() {
