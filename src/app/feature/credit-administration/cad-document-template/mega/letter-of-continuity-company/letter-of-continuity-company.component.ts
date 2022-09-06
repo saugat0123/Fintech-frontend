@@ -22,6 +22,7 @@ export class LetterOfContinuityCompanyComponent implements OnInit {
   @Input() customerLoanId: number;
   letterOfContinuityCompany: FormGroup;
   nepData;
+  initialData;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -34,14 +35,18 @@ export class LetterOfContinuityCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.letterOfContinuityCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialData = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    this.fillForm();
+    if (!ObjectUtil.isEmpty(this.initialData)) {
+      this.letterOfContinuityCompany.patchValue(this.initialData);
+    } else {
+      this.fillForm();
+    }
   }
   buildForm() {
     this.letterOfContinuityCompany = this.formBuilder.group({
