@@ -28,7 +28,10 @@
 li {
   list-style-type: none;
 }
-
+ol.conditional-list li {
+  list-style: devanagari;
+  line-height: 30px !important;
+}
 input::-webkit-input-placeholder {
   font-size: 16px;
 }
@@ -36,9 +39,9 @@ input::-webkit-input-placeholder {
   font-family: 'Times New Roman'
 }
 
-input[type="text"] {
-  font-size:20px;
-}
+//input[type="text"] {
+//  font-size:20px;
+//}
 @media screen {
   .print-only {
     display: none;
@@ -62,4 +65,13 @@ input[type="text"] {
     margin: 10px 70px;
   }
 
+}
+.font18 {
+  font-size: 18px;
+}
+.font26 {
+  font-size: 26px;
+}
+.font27 {
+  font-size: 27px;
 }
