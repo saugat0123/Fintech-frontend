@@ -27,6 +27,7 @@ import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-lo
 import {OfferLetterConsentComponent} from './mega-offer-letter/offer-letter-consent/offer-letter-consent.component';
 import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal-offer-letter-renewals/personal-offer-letter-renewals.component';
 import { LoanAgainstShareComponent } from './mega-offer-letter/loan-against-share/loan-against-share.component';
+import {OfferLetterOfAllOtherLoanRetailLoanComponent} from './offer-letter-of-all-other-loan-retail-loan/offer-letter-of-all-other-loan-retail-loan.component';
 
 
 const COMPONENTS = [
@@ -49,6 +50,7 @@ const COMPONENTS = [
   SmeOfferLetterComponent,
   SmeOfferLetterPrintComponent,
   PersonalOfferLetterRenewalsComponent,
+  OfferLetterOfAllOtherLoanRetailLoanComponent,
 
 
 ];
@@ -71,7 +73,8 @@ const COMPONENTS = [
         PersonalOfferLetterRenewalsComponent,
         CustomInputComponent,
         CustomInputComponent,
-        LoanAgainstShareComponent
+        LoanAgainstShareComponent,
+        OfferLetterOfAllOtherLoanRetailLoanComponent,
     ],
     imports: [
         ThemeModule,

@@ -12,6 +12,7 @@ export enum MegaOfferLetterConst {
     OFFER_LETTER_CONSENT,
     PERSONAL_OFFER_LETTER_RENEWALS,
     LOAN_AGAINST_SHARE,
+    ALL_OTHER_LOAN_RETAIL_LOAN
 }
 
 export namespace MegaOfferLetterConst {
@@ -41,6 +42,8 @@ export namespace MegaOfferLetterConst {
           return 'Personal Offer Letter';
           case MegaOfferLetterConst.LOAN_AGAINST_SHARE:
               return 'Loan Against Share';
+          case MegaOfferLetterConst.ALL_OTHER_LOAN_RETAIL_LOAN:
+              return 'All Other Loan Retail Loan';
       }
     }
 
