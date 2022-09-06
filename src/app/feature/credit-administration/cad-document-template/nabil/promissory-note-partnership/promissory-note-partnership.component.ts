@@ -71,6 +71,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   issuedPlaceArray: Array <any> = new Array<any>();
   spinner = false;
   tempData;
+  defaultAuthorizedBodyName = 'नेपाल सरकार';
 
   constructor(
       private formBuilder: FormBuilder,
@@ -161,6 +162,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       loanamountinWords: [undefined],
       actDetails: [undefined],
       actYearInFigure: [undefined],
+      authorizedBody: [undefined],
       nameOfHead: [undefined],
       dateOfRegistration: [undefined],
       registrationNumber: [undefined],
@@ -297,7 +299,9 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     this.form.patchValue({
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
       actYearInFigure: [this.setActYear()],
-      nameOfHead: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
+      authorizedBody: (this.loanHolderNepData.authorizedBodyName &&
+          this.loanHolderNepData.authorizedBodyName.ct) ? this.loanHolderNepData.authorizedBodyName.ct : this.defaultAuthorizedBodyName,
+      nameOfHead: [this.loanHolderNepData.registeredWith ? this.loanHolderNepData.registeredWith.ct : ''],
       dateOfRegistration: [this.setRegistrationDate()],
       registrationNumber: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
       districtOfFirm: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],

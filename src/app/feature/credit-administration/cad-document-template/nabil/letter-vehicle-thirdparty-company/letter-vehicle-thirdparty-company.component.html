@@ -33,7 +33,15 @@
                                         placeholder=""
                                         type="text" readonly/>
                         <span class="print-only font-weight-bold">{{letterVehicleThirdPartyCompany?.get('actYearInFigure').value ? letterVehicleThirdPartyCompany?.get('actYearInFigure').value : '___________________'}}</span>
-                        बमोजिम नेपाल सरकार
+                        बमोजिम
+                        <input
+                                class="form-field form-control-sm disable-print"
+                                name="authorizedBody" formControlName="authorizedBody"
+                                placeholder="" type="text"/>
+                        <span class="print-only font-weight-bold">
+                                    {{ letterVehicleThirdPartyCompany?.get('authorizedBody')?.value ? letterVehicleThirdPartyCompany?.get('authorizedBody')?.value : '_________________'}},
+                                </span>
+
                         <span class="d-print-none">
                         <input class="form-field form-control-sm"
                                formControlName="nameOfDepartment"

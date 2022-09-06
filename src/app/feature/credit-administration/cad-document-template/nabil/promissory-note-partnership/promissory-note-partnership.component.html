@@ -36,7 +36,14 @@
                                 formControlName="actYearInFigure" placeholder=" " type="text" />
                             <span
                                 class="print-only font-weight-bold">{{form?.get('actYearInFigure')?.value ? form?.get('actYearInFigure')?.value : "___________________________"}}</span>
-                            बमोजिम नेपाल सरकार <input class="form-field disable-print form-control-sm" name="nameOfHead"
+                            बमोजिम <input
+                                    class="form-field form-control-sm disable-print"
+                                    name="authorizedBody" formControlName="authorizedBody"
+                                    placeholder="" type="text"/>
+                            <span class="print-only font-weight-bold">
+                                    {{ form?.get('authorizedBody')?.value ? form?.get('authorizedBody')?.value : '_________________'}},
+                                </span>
+                            <input class="form-field disable-print form-control-sm" name="nameOfHead"
                                 formControlName="nameOfHead" placeholder="" type="text" />
                             <span
                                 class="print-only font-weight-bold">{{form?.get('nameOfHead')?.value ? form?.get('nameOfHead')?.value : "___________________________"}}</span>
