@@ -73,10 +73,10 @@
                                 class="print-only nepaliFont"><strong>{{supplementaryAgreementProprietorship.get('borrowerName').value ? supplementaryAgreementProprietorship.get('borrowerName').value : '========='}}</strong></span>
                             का प्रोप्राईटर
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="authorizedPersonGrandfatherName"
+                                   formControlName="authorizedPersonGrandFatherName"
                                    placeholder=""
                                    type="text"/><span
-                                class="print-only nepaliFont"><strong>{{supplementaryAgreementProprietorship.get('authorizedPersonGrandfatherName').value ? supplementaryAgreementProprietorship.get('authorizedPersonGrandfatherName').value : '========='}}</strong></span>
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementProprietorship.get('authorizedPersonGrandFatherName').value ? supplementaryAgreementProprietorship.get('authorizedPersonGrandFatherName').value : '========='}}</strong></span>
                             को नाती
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="authorizedPersonFatherName"
@@ -131,7 +131,19 @@
                         </p>
                         <br>
                         <p>
-                            तहांले हाम्रो नाममा जारी गरेको मिति
+                            तहांले हाम्रो नाममा
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="name"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementProprietorship.get('name').value ? supplementaryAgreementProprietorship.get('name').value : ' '}}</strong></span>
+                            जारी गरेको
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="name2"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementProprietorship.get('name2').value ? supplementaryAgreementProprietorship.get('name2').value : ' '}}</strong></span>
+                            मिति
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="offerLetterIssuedDate"
                                    placeholder=""
