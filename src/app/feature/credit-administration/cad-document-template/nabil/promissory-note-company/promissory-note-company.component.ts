@@ -59,6 +59,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
   tempPro;
   spinner = false;
   tempData;
+  defaultAuthorizedBodyName = 'नेपाल सरकार';
 
   constructor(private formBuilder: FormBuilder,
     private administrationService: CreditAdministrationService,
@@ -291,7 +292,8 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
       actDate: [this.setActYear()],
       headName: [this.loanHolderNepData.registeredWith ? this.loanHolderNepData.registeredWith.ct : ''],
-      authorizedBody: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
+      authorizedBody: [(this.loanHolderNepData.authorizedBodyName &&
+          this.loanHolderNepData.authorizedBodyName.ct) ? this.loanHolderNepData.authorizedBodyName.ct : this.defaultAuthorizedBodyName],
       registrationNumber: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.np : ''],
       firmDistrict: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
       firmWardNumber: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],

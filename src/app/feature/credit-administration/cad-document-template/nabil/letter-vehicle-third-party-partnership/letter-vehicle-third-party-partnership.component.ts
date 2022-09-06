@@ -47,6 +47,7 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
   supportedInfo;
   loanHolderNepData: any;
   spinner = false;
+  defaultAuthorizedBodyName = 'नेपाल सरकार';
 
   constructor(
       private formBuilder: FormBuilder,
@@ -80,6 +81,7 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
       nameOfBranchLocated: [undefined],
       actName: [undefined],
       actYearInFigure: [undefined],
+      authorizedBody: [undefined],
       nameOfDepartment: [undefined],
       dateOfRegistration: [undefined],
       registrationNo: [undefined],
@@ -98,7 +100,9 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
           nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
           actName: !ObjectUtil.isEmpty(this.individualData.actName) ? this.individualData.actName.ct : this.nameOfAct,
           actYearInFigure: this.setActYear(),
-          nameOfDepartment: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ? this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
+          authorizedBody: (this.individualData.authorizedBodyName &&
+              this.individualData.authorizedBodyName.ct) ? this.individualData.authorizedBodyName.ct : this.defaultAuthorizedBodyName,
+          nameOfDepartment: this.individualData.registeredWith ? this.individualData.registeredWith.ct : '',
           dateOfRegistration: this.setRegistrationDate(),
           registrationNo: this.individualData.registrationNo ? this.individualData.registrationNo.ct : '',
           nameOfBorrower: this.individualData.name ? this.individualData.name.ct : '',
