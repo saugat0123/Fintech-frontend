@@ -22,6 +22,7 @@ export class LetterOfContinuityPartnershipComponent implements OnInit {
   @Input() customerLoanId: number;
   form: FormGroup;
   nepData;
+  initialData;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -33,33 +34,38 @@ export class LetterOfContinuityPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialData = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    // this.fillForm();
+    if (!ObjectUtil.isEmpty(this.initialData)) {
+      this.form.patchValue(this.initialData);
+    } else {
+      this.fillForm();
+    }
   }
   buildForm() {
     this.form = this.formBuilder.group({
       branchNameNepali: [undefined],
       actYear: [undefined],
+      companyRegOffice: [undefined],
       registrationIssueDate: [undefined],
-      panNo: [undefined],
+      registrationNo: [undefined],
+      district: [undefined],
       vdcOrMuni: [undefined],
-      wardNo: [undefined],
-      tole: [undefined],
+      wardNum: [undefined],
       borrowerNameInNepali: [undefined],
       grandFatherOrFatherInLaw: [undefined],
       fatherOrHusbandName: [undefined],
-      district: [undefined],
+      authDistrict: [undefined],
       borrowerVdcOrMunicipality: [undefined],
       borrowerWardNo: [undefined],
       year1: [undefined],
       authorizedPersonName: [undefined],
-      year2: [undefined],
+      authorizedPersonFreeText: [undefined],
       sachiOne: [undefined],
       sachiTwo: [undefined],
       year: [undefined],
@@ -68,17 +74,22 @@ export class LetterOfContinuityPartnershipComponent implements OnInit {
       roj: [undefined]
     });
   }
-  // fillForm() {
-  //    this.form.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
-  //    this.form.get('registrationIssueDate').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('panNo').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('gender').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('vdcMunicipality').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('wardNum').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('tole').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('borrowerNameNepali').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.form.get('authGrandfatherOrFatherInLaw').patchValue(this.nepData.branchDetail.branchNameNepali);
-  // }
+  fillForm() {
+     this.form.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
+     this.form.get('companyRegOffice').patchValue(this.nepData.companyRegOffice);
+     this.form.get('registrationIssueDate').patchValue(this.nepData.regIssueDate);
+     this.form.get('registrationNo').patchValue(this.nepData.registrationNo);
+     this.form.get('district').patchValue(this.nepData.institutionRegisteredAddress.district);
+     this.form.get('vdcOrMuni').patchValue(this.nepData.institutionRegisteredAddress.municipality);
+     this.form.get('wardNum').patchValue(this.nepData.institutionRegisteredAddress.wardNo);
+     this.form.get('borrowerNameInNepali').patchValue(this.nepData.nepaliName);
+     this.form.get('grandFatherOrFatherInLaw').patchValue(this.nepData.authorizedPersonDetail.grandFatherName);
+     this.form.get('fatherOrHusbandName').patchValue(this.nepData.authorizedPersonDetail.fatherName);
+     this.form.get('authDistrict').patchValue(this.nepData.authorizedPersonAddress.district);
+     this.form.get('borrowerVdcOrMunicipality').patchValue(this.nepData.authorizedPersonAddress.municipality);
+     this.form.get('borrowerWardNo').patchValue(this.nepData.authorizedPersonAddress.wardNo);
+     this.form.get('authorizedPersonName').patchValue(this.nepData.authorizedPersonDetail.name);
+  }
 
   submit() {
     let flag = true;

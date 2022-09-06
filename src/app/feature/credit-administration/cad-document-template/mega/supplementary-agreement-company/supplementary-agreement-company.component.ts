@@ -23,7 +23,7 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
     @Input() customerLoanId: number;
     supplementaryAgreementCompany: FormGroup;
     nepData;
-    guarantorData;
+    initialInfo;
     submitted = false;
 
     constructor(private formBuilder: FormBuilder,
@@ -38,13 +38,18 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-                    this.supplementaryAgreementCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
+                    console.log('this.initialInfo', this.initialInfo);
                 }
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-            this.guarantorData = Object.values(this.nepData.guarantorDetails);
+        }
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.supplementaryAgreementCompany.patchValue(this.initialInfo);
+        } else {
+            this.fillForm();
         }
     }
 
@@ -62,6 +67,8 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
             borrowerName: [undefined],
             authorizedPersonName: [undefined],
             date2: [undefined],
+            name: [undefined],
+            name2: [undefined],
             offerLetterIssuedDate: [undefined],
             amount: [undefined],
             amountInWords: [undefined],
@@ -72,7 +79,29 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
             itemDetails2: [undefined],
         });
     }
-
+    fillForm() {
+        this.supplementaryAgreementCompany.patchValue({
+                branch: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+                companyRegistrationOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+                registrationIssuedDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+                registrationNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+                companyDistrict: [!ObjectUtil.isEmpty
+                (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+                companyMunicipalityVDC: [!ObjectUtil.isEmpty
+                (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+                companyWardNo: [!ObjectUtil.isEmpty
+                (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.municipality : ''],
+                borrowerName: [!ObjectUtil.isEmpty
+                (this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+                authorizedPersonName: [!ObjectUtil.isEmpty
+                (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+                offerLetterIssuedDate: [!ObjectUtil.isEmpty
+                (this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.offerIssueDate : ''],
+                amount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+                amountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+            }
+        );
+    }
     submit() {
         let flag = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
