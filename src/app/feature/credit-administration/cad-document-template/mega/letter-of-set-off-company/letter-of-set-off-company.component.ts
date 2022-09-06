@@ -148,17 +148,17 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
 
   fillForm() {
     this.letterOfSetOffCompany.patchValue({
-      governmentOffice: [ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? (this.nepData.companyRegOffice) : ''],
-      registration: [ObjectUtil.isEmpty(this.nepData.regIssueDate) ? (this.nepData.regIssueDate) : ''],
-      registrationNum: [ObjectUtil.isEmpty(this.nepData.registrationNo) ? (this.nepData.registrationNo) : ''],
-      companyDistrict: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ? (this.nepData.institutionRegisteredAddress.district) : ''],
-      companyMunicipality: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? (this.nepData.institutionRegisteredAddress.municipality) : ''],
-      companyWard: [(this.nepData.institutionRegisteredAddress.wardNo) ? (this.nepData.institutionRegisteredAddress.wardNo) : ''],
-      companyNameNepali: [ObjectUtil.isEmpty(this.nepData.nepaliName) ? (this.nepData.nepaliName) : ''],
-      authPersonName: [ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name) ? (this.nepData.authorizedPersonDetail.name) : ''],
-      dateOfRegister: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ? (this.nepData.miscellaneousDetail.offerIssueDate) : ''],
-      amount: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? (this.nepData.miscellaneousDetail.offerIssueDate) : ''],
-      amountInWords: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ? (this.nepData.miscellaneousDetail.loanAmountInWord) : '']
+      governmentOffice: [ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? '' : (this.nepData.companyRegOffice)],
+      registration: [ObjectUtil.isEmpty(this.nepData.regIssueDate) ? '' : (this.nepData.regIssueDate)],
+      registrationNum: [ObjectUtil.isEmpty(this.nepData.registrationNo) ? '' : (this.nepData.registrationNo)],
+      companyDistrict: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ? '' : (this.nepData.institutionRegisteredAddress.district)],
+      companyMunicipality: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? '' : (this.nepData.institutionRegisteredAddress.municipality)],
+      companyWard: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.wardNo) ? '' : (this.nepData.institutionRegisteredAddress.wardNo)],
+      companyNameNepali: [ObjectUtil.isEmpty(this.nepData.nepaliName) ? '' : (this.nepData.nepaliName)],
+      authPersonName: [ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name) ? '' : (this.nepData.authorizedPersonDetail.name)],
+      dateOfRegister: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ? '' : (this.nepData.miscellaneousDetail.offerIssueDate)],
+      amount: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? '' : (this.nepData.miscellaneousDetail.offerIssueDate)],
+      amountInWords: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ? '' : (this.nepData.miscellaneousDetail.loanAmountInWord)]
     });
   }
 
