@@ -38,7 +38,6 @@ export class ManjurinamaForGadiNamasariCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfo = JSON.parse(singleCadFile.initialInformation);
-          console.log('this.initialInfo', this.initialInfo);
         }
       });
     }

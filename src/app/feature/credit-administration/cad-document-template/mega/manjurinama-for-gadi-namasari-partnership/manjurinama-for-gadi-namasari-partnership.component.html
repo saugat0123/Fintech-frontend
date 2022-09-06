@@ -1,7 +1,7 @@
 <div class="container nep text-justify nepaliFont">
     <div class="row">
         <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
-            <form (ngSubmit)="submit()" [formGroup]="manjurinamaForGadiNamasariPartnership" class="nepali" id="manjurinamaForGadiNamasariPartnershipPrint">
+            <form [formGroup]="manjurinamaForGadiNamasariPartnership" class="nepali" id="manjurinamaForGadiNamasariPartnershipPrint">
                 <div class="nep">
                     <div>
                         <br>
@@ -82,13 +82,22 @@
                                        formControlName="authorizedPersonName"
                                        placeholder=""
                                        type="text"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariPartnership.get('authorizedPersonName').value ? manjurinamaForGadiNamasariPartnership.get('authorizedPersonName').value  : '========='}}</strong></span>
-                                तथा
-                                <input class="form-field form-control-sm nepaliFont disable-print"
-                                       formControlName="authorizedPersonName2"
-                                       placeholder=""
-                                       type="text"/><span class="print-only nepaliFont"><strong>{{manjurinamaForGadiNamasariPartnership.get('authorizedPersonName2').value ? manjurinamaForGadiNamasariPartnership.get('authorizedPersonName2').value  : '========='}}</strong></span>
+                                <ng-container *ngFor="let controls of manjurinamaForGadiNamasariPartnership?.get('name')['controls']; let i = index" formArrayName="name">
+                                    <ng-container formGroupName = {{i}}>
+                                        तथा
+                                        <input class="form-field form-control-sm nepaliFont disable-print"
+                                        formControlName="name"
+                                        placeholder=""
+                                        type="text"/>
+                                        <span class="print-only nepaliFont"><strong>{{controls?.get('name').value ? controls?.get('name').value  : '========='}}</strong></span>
+                                        <button class="btn disable-print"  (click)="remove(i)"><i class="fa fa-trash"></i></button>
+                                    </ng-container>
+                                </ng-container>
                             </strong></p>
-                        </div>
+                            <div class="text-right">
+                            <button class="btn disable-print" (click)="addName()"><i class="fa fa-plus"></i></button>
+                            </div>
+                            </div>
                     </div>
                 </div>
                 <div class="row disable-print">
