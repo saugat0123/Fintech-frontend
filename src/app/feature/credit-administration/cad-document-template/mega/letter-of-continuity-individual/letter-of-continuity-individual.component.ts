@@ -22,6 +22,7 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
   @Input() customerLoanId: number;
   letterOfContinuityIndividual: FormGroup;
   nepData;
+  initialData;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -34,14 +35,18 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.letterOfContinuityIndividual.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialData = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    // this.fillForm();
+    if (!ObjectUtil.isEmpty(this.initialData)) {
+      this.letterOfContinuityIndividual.patchValue(this.initialData);
+    } else {
+      this.fillForm();
+    }
   }
   buildForm() {
     this.letterOfContinuityIndividual = this.formBuilder.group({
@@ -67,17 +72,20 @@ export class LetterOfContinuityIndividualComponent implements OnInit {
       time: [undefined],
     });
   }
-  // fillForm() {
-  //    this.letterOfContinuityCompany.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
-  //    this.letterOfContinuityCompany.get('registrationIssueDate').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('panNo').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('gender').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('vdcMunicipality').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('wardNum').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('tole').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('borrowerNameNepali').patchValue(this.nepData.branchDetail.branchNameNepali);
-  //    this.letterOfContinuityCompany.get('authGrandfatherOrFatherInLaw').patchValue(this.nepData.branchDetail.branchNameNepali);
-  // }
+  fillForm() {
+     this.letterOfContinuityIndividual.get('branchNameNepali').patchValue(this.nepData.branchDetail.branchNameInNepali);
+     this.letterOfContinuityIndividual.get('grandFatherName').patchValue(this.nepData.grandFatherName);
+     this.letterOfContinuityIndividual.get('fatherName').patchValue(this.nepData.fatherName);
+     this.letterOfContinuityIndividual.get('husbandName').patchValue(this.nepData.husbandName);
+     this.letterOfContinuityIndividual.get('permanentDistrict').patchValue(this.nepData.customerPermanentAddress.district);
+     this.letterOfContinuityIndividual.get('permanentMunicipalityVDC').patchValue(this.nepData.customerPermanentAddress.municipality);
+     this.letterOfContinuityIndividual.get('permanentWardNo').patchValue(this.nepData.customerPermanentAddress.wardNo);
+     this.letterOfContinuityIndividual.get('permanentTole').patchValue(this.nepData.customerPermanentAddress.tole);
+     this.letterOfContinuityIndividual.get('temporaryDistrict').patchValue(this.nepData.customerTemporaryAddress.district);
+     this.letterOfContinuityIndividual.get('temporaryMunicipalityVDC').patchValue(this.nepData.customerTemporaryAddress.municipality);
+     this.letterOfContinuityIndividual.get('temporaryWardNo').patchValue(this.nepData.customerTemporaryAddress.wardNo);
+     this.letterOfContinuityIndividual.get('borrowerNameNepali').patchValue(this.nepData.nepaliName);
+  }
 
   submit() {
     let flag = true;
