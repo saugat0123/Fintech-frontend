@@ -25,7 +25,7 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
     @Input() customerLoanId: number;
     @Input() nepaliAmount: NepaliNumberAndWords;
     nepData;
-
+    initialInfo;
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -38,13 +38,19 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-                    this.promissoryNoteSingleBorrower.patchValue(JSON.parse(singleCadFile.initialInformation));
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
                 }
             });
+        }
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.promissoryNoteSingleBorrower.patchValue(this.initialInfo);
+        } else {
+            this.fillForm();
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
         }
+        console.log('nep data: ', this.nepData);
     }
 
     buildForm() {
@@ -58,10 +64,11 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
             perDistrict: [undefined],
             perMunicipalityOrVdc: [undefined],
             perWardNo: [undefined],
-            currentDistrict: [undefined],
-            MunicipalityOrVdc: [undefined],
-            CurrentWardNo: [undefined],
-            tole: [undefined],
+            perTole: [undefined],
+            tempDistrict: [undefined],
+            tempMunicipalityOrVdc: [undefined],
+            tempWardNo: [undefined],
+            tempTole: [undefined],
             borrowerAge: [undefined],
             borrowerName: [undefined],
             citizenshipNo: [undefined],
@@ -85,6 +92,32 @@ export class PromissoryNoteSingleBorrowerComponent implements OnInit {
             month: [undefined],
             day: [undefined],
             time: [undefined],
+        });
+    }
+    fillForm() {
+        this.promissoryNoteSingleBorrower.patchValue({
+            amount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : '',
+            amountInWord: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : '',
+            grandFatherName: !ObjectUtil.isEmpty(this.nepData.grandFatherName) ? this.nepData.grandFatherName : '',
+            perDistrict: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress) ?
+                this.nepData.customerPermanentAddress.district : '',
+            perMunicipalityOrVdc: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress) ?
+                this.nepData.customerPermanentAddress.municipality : '',
+            perWardNo: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress) ?
+                this.nepData.customerPermanentAddress.wardNo : '',
+            perTole: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress) ?
+                this.nepData.customerPermanentAddress.tole : '',
+            tempDistrict: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress) ?
+                this.nepData.customerTemporaryAddress.district : '',
+            tempMunicipalityOrVdc: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress) ?
+                this.nepData.customerTemporaryAddress.municipality : '',
+            tempWardNo: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress) ?
+                this.nepData.customerTemporaryAddress.wardNo : '',
+            tempTole: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress) ?
+                this.nepData.customerTemporaryAddress.tole : '',
+            borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+            fatherName: !ObjectUtil.isEmpty(this.nepData.fatherName) ? this.nepData.fatherName : '',
+            husbandName: !ObjectUtil.isEmpty(this.nepData.husbandName) ? this.nepData.husbandName : '',
         });
     }
     changeToNepAmount(event: any, target, from) {

@@ -9,7 +9,7 @@
                         <p class="text-center" style="font-size:24pt;"><b>(PROMISSORY NOTE)</b></p>
 
                         <p class="box-border">रु <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWord', 'amount')"
-                                                                   [name]="patchFunction('amountInWord')" class="disable-print"></app-custom-input>
+                                                                   [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
                             <span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('amount').value ?  promissoryNoteSingleBorrower.get('amount').value  : '========='}}</b></span>
                             (अक्षरेपी <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
                                              formControlName="amountInWord"
@@ -32,24 +32,24 @@
                                    type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('husbandName').value ?  promissoryNoteSingleBorrower.get('husbandName').value  : '========='}}</b></span>
                             को छोरा/छोरी/पत्नी
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="district"
+                                   formControlName="perDistrict"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('district').value ?  promissoryNoteSingleBorrower.get('district').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('perDistrict').value ?  promissoryNoteSingleBorrower.get('perDistrict').value  : '========='}}</b></span>
                             जिल्ला
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="MunicipalityOrVdc"
+                                   formControlName="perMunicipalityOrVdc"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('MunicipalityOrVdc').value ?  promissoryNoteSingleBorrower.get('MunicipalityOrVdc').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('perMunicipalityOrVdc').value ?  promissoryNoteSingleBorrower.get('perMunicipalityOrVdc').value  : '========='}}</b></span>
                             ब्ज्ञट गा.वि.स/न.पा वडा न
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="CurrentWardNo"
+                                   formControlName="perWardNo"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('CurrentWardNo').value ?  promissoryNoteSingleBorrower.get('CurrentWardNo').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('perWardNo').value ?  promissoryNoteSingleBorrower.get('perWardNo').value  : '========='}}</b></span>
                             ,
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="tole"
+                                   formControlName="perTole"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('tole').value ?  promissoryNoteSingleBorrower.get('tole').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('perTole').value ?  promissoryNoteSingleBorrower.get('perTole').value  : '========='}}</b></span>
                             स्थाई ठेगाना भई हाल
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="province"
@@ -57,18 +57,22 @@
                                    type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('province').value ?  promissoryNoteSingleBorrower.get('province').value  : '========='}}</b></span>
                             प्रदेश
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="district"
+                                   formControlName="tempDistrict"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('district').value ?  promissoryNoteSingleBorrower.get('district').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('tempDistrict').value ?  promissoryNoteSingleBorrower.get('tempDistrict').value  : '========='}}</b></span>
                             जिल्ला<input class="form-field form-control-sm nepaliFont disable-print"
-                                         formControlName="perMunicipalityOrVdc"
+                                         formControlName="tempMunicipalityOrVdc"
                                          placeholder=""
-                                         type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('perMunicipalityOrVdc').value ?  promissoryNoteSingleBorrower.get('perMunicipalityOrVdc').value  : '========='}}</b></span>
+                                         type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('tempMunicipalityOrVdc').value ?  promissoryNoteSingleBorrower.get('tempMunicipalityOrVdc').value  : '========='}}</b></span>
                             न.पा.वडा नं.
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="CurrentWardNo"
+                                   formControlName="tempWardNo"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('CurrentWardNo').value ?  promissoryNoteSingleBorrower.get('CurrentWardNo').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('tempWardNo').value ?  promissoryNoteSingleBorrower.get('tempWardNo').value  : '========='}}</b></span>,
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="tempTole"
+                                   placeholder=""
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('tempTole').value ?  promissoryNoteSingleBorrower.get('tempTole').value  : '========='}}</b></span>
                             बस्ने बर्ष
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="date1"
@@ -89,10 +93,10 @@
                                    formControlName="amountInWord"
                                    placeholder=""
                                    type="text"/><span class="print-only preetiFont size16"><b>{{ promissoryNoteSingleBorrower.get('amountInWord').value ?  promissoryNoteSingleBorrower.get('amountInWord').value  : '========='}}</b></span>
-                            मात्र)भुक्तानी माग गरेको मितिसम्मको व्याज बार्षिक बैंक नियम अनुसार हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेडलाई दिएँं ।</p>
+                            मात्र)भुक्तानी माग गरेको मितिसम्मको व्याज बार्षिक बैंक नियम अनुसार हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेडलाई दिएँं /दियौं ।</p>
 
                         <p class="text-right"><b><u>प्रतिज्ञा गर्ने व्यक्तिको</u></b></p><br><br><br>
-                        <p class="text-right">लेखात्मक सही_____________________________________</p>
+                        <p class="text-right">लेखात्मक सही_________________________________</p>
                         <div class="col-sm-3">
                             <table class="table table-bordered" style="width: 30rem">
                                 <thead>
@@ -106,6 +110,7 @@
                             </table>
                         </div>
                         <div><b><u>साक्षी</u></b><br>
+                            <div class="col-sm-10">
                             १.<input class="form-field form-control-lg nepaliFont disable-print"
                                      formControlName="name"
                                      placeholder=""
@@ -131,6 +136,7 @@
                                            placeholder=""
                                            type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteSingleBorrower.get('time').value ?  promissoryNoteSingleBorrower.get('time').value  : '========='}}</b></span>
                             शुभम् ।
+                            </div>
                         </div>
                         <div class="row disable-print">
                             <div class="col-md-12 text-right">
