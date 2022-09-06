@@ -33,6 +33,7 @@ export class RetailSecurityComponent implements OnInit {
     proposalAllData;
     files = [];
     shareData;
+    isVisible = false;
 
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.security)) {
@@ -42,6 +43,12 @@ export class RetailSecurityComponent implements OnInit {
                 this.files = JSON.parse(this.formData.files);
             }
             this.selectedSecurity();
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+            if (this.loanDataHolder.customerInfo.isAgriculture &&
+                this.loanDataHolder.customerInfo.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION') {
+                this.isVisible = true;
+            }
         }
     }
 

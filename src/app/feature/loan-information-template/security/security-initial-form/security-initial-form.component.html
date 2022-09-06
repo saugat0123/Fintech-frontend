@@ -151,6 +151,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="governmentValue">Government Value</label>
+                            <input (change)="updateLandSecurityTotal()"
+                                   class="form-control rounded"
+                                   formControlName="governmentValue"
+                                   id="governmentValue"
+                                   placeholder="Government Value"
+                                   name="governmentValue"
+                                   type="text"/>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div *ngIf="securityForm.get(['landDetails',i,'landOtherBranchChecked']).value">
@@ -1299,18 +1311,17 @@
                                            type="number"/>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="governmentRate">Government Rate</label>
+                                    <label class="title" for="buildingGovernmentValue">Government Value</label>
                                     <input
                                             class="form-control rounded"
-                                            formControlName="governmentRate"
-                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('governmentRate').errors)}"
-                                            id="governmentRate"
-                                            placeholder="Rate"
+                                            formControlName="buildingGovernmentValue"
+                                            [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('buildingGovernmentValue').errors)}"
+                                            id="buildingGovernmentValue"
+                                            placeholder="Government Value"
                                             name="landBuildingRate"
-                                            type="number" appDecimalNumber/>
+                                            type="number"/>
                                 </div>
                             </div>
                             <div class="col-md-3">

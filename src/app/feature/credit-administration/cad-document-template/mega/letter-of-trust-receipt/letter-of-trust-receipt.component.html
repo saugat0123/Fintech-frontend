@@ -1,0 +1,149 @@
+<div class="container nep text-justify ">
+<div [nbSpinner] = "spinner"
+     nbSpinnerStatus="primary"
+     nbSpinnerSize="large"
+     nbSpinnerMessage="Saving Letter of trust receipt.....">
+    <form [formGroup]="letterOfTrustReceipt" class="nep" id="letterOfTrustReceiptPrint">
+
+        <div class="form-group align">
+            <h6><strong>मिति: <input class="form-field form-control-sm nepaliFont disable-print"
+            formControlName="date"
+            name="date"
+            type="text"/><span class="print-only nepaliFont"><strong>{{letterOfTrustReceipt?.get('date')?.value}}</strong></span></strong></h6>
+            <br><br>
+            <p>श्री सेञ्चुरी कमर्सियल  बैंक लिमिटेड</p>
+            <p>पुतलीसडक ,काठमाण्डौ</p>
+            <p>शाखा कार्यालय: <input type="text" class="nepaliFont form-control-sm form-field disable-print" formControlName="branch">
+            <span class="print-only nepaliFont">{{letterOfTrustReceipt?.get('branch')?.value}}</span>
+            </p>
+            <h6 class="text-center">
+                <strong> <b>न्यासमा सामान बुझीलिने सम्बन्धी गोश्वारा पत्र</b></strong><br>
+                <strong><u><span class="timesNewRoman">(General Letter of Trust Receipt)</span></u></strong>
+            </h6>
+            <div>
+                महोदय,
+             <br><br>
+                <span style="padding-left: 90px">त्यस बैंकले मेरो/हाम्रो नाममा उपलव्ध गराएको वा भविष्यमा उपलव्ध गराउने विभिन्न
+                    ऋणकर्जा, प्रतीतपत्र सिमा त्यस बैंकले मेरो/हाम्रो नाममा उपलव्ध गराएको वा</span>
+                    भविष्यमा उपलव्ध गराउने विभिन्न ऋणकर्जा, प्रतीतपत्र सिमा
+                    आदि अन्तर्गत मेरो/हाम्रो अनुरोधमा तहांले खोलेको प्रतीतपत्र अन्तर्गत आयात/खरिद हुने सामान (जुन तहांले
+                    म/हामीलाई उपलव्ध गराएको कर्जा, सुविधा वापत सुरक्षणस्वरुप दृष्टिबन्धक <span class="timesNewRoman"><b>(Hypothecation)</b></span>
+                    रहनेछ, सम्बन्धित बन्दरगाह वा अन्तर्राष्ट्रिय विमानस्थल वा भन्सार कार्यालयबाट छुटाई न्यास <span class="timesNewRoman"><b>(Trust)</b></span>
+                        मा लिने सम्बन्धमा देहाय बमोजिम गर्न, गराउन यसैबाट मञ्जुर गर्दै यो गोश्वारा(पत्र लेखीदिएका छ/छौं:</div>
+                <br>
+                <div class="row">
+                    <div class="col-md-1">१.</div>
+                    <div class="col-md-11">माथि उल्लेख भए बमोजिम पटकपटक खोलेको प्रतीतपत्र अन्तर्गत मेरो ÷हाम्रो नाममा जारी भएको ड्राफ्ट वा बील
+                    <span class="timesNewRoman"><b>(draft or bill)</b></span> म/हामीले स्वीकार गरेपछि (जुन स्वीकारोक्ति पटकपटक मैले/हामीले गरीदिने
+                        पूरक सम्झौता <span class="timesNewRoman"><b>(Supplementary Agreement)</b></span> बाट प्रमाणित हुनेछ)
+                        त्यस्तो ड्राफ्ट वा बील वापतको रकम मेरो/हाम्रो तर्फबाट
+                        बैंकले भुक्तानी दिई मेरा/हाम्रो नाममा कर्जा श्रृजना भएकोले कर्जाको सुरक्षण वापत रहने सोही प्रतीतपत्र
+                        अन्तर्गतका सामानहरु सम्बन्धी कागजात <span class="timesNewRoman"><b>(shipping documents)</b></span>
+                        मरहामीलाई बैंकले हस्तान्तरण गरेकोले मरहामी यो
+                        प्रतिवद्धता गर्दछु/छौं कि उल्लेखित प्रतीतपत्र अन्तर्गतका सामानहरु सम्बन्धित ढुवानीकर्ता पानीजहाज वा
+                        यस्तै अन्य ढुवानीका माध्यमबाट बैंकको अभिकर्ताको हैसियतमा बुझीलिई सुरक्षितसाथ देशभित्र ल्याई बैंकको हक
+                        तथा पक्षमा भण्डारण गरी राख्नेछौं र उल्लेखित सामान सम्बन्धी कागजात वा सामान वा सो को बिक्रीबाट प्राप्त
+                        बिक्री मूल्यमाथि पूर्णतः बैंकको स्वामित्व रहने र मेरो/हाम्रो हैसियत न्यासधारी <span class="timesNewRoman"><b>(Trustee)</b></span>
+                        सरह मात्र हुनेछ ।
+                    </div>
+                    <div class="col-md-1"> २.</div>
+                    <div class="col-md-11">उल्लेखित सामान ढुवानीकर्ताबाट बुझीलिई मेरो/हाम्रो भण्डारमा भण्डारण गर्दा लाग्ने सबै किसिमका खर्चहरु
+                        जस्तै लैण्डिंग <span class="timesNewRoman"><b>(landing)</b></span> खर्च, मार्गस्थ, मार्गस्थ भण्डारण, मार्गस्थ बिमा, ढुवानी, सरकारी/गैरसरकारी
+                        निकायमा तिर्नुपर्ने दस्तुर आदि म/हामी आफैंले तिर्ने बुझाउने छौं र कथंकदाचित त्यस्ता कुनै वा सबै खर्च
+                        बैंकले व्यहोरेको अवस्थामा बैंकले माग्नासाथ तिर्ने बुझाउने प्रतिवद्धता गर्दछौं ।
+                    </div>
+                    <div class="col-md-1">३.</div>
+                    <div class="col-md-11">माथि उल्लेख भए बमोजिम बैंकले मेरो÷हाम्रो नाममा स्वीकृत गरेको ऋणकर्जा वा बैंकिंग सुविधा वा मेरा/हाम्रो
+                        अनुरोधमा वा कारणबाट बैंकमाथि श्रृजना भएको कुनैपनि किसिमको दायित्वको समेत सांवा, ब्याज वा अन्य शुल्क,
+                        खर्च समेतको निरन्तर सुरक्षणस्वरुप उल्लेखित सामानहरु मेरो/हाम्रो न्यासमा सुरक्षितपूर्वक राख्नेछौं । साथै
+                        यस लिखत अन्तर्गत बैंक र म/हामी बीचको सम्बन्ध साहु र जमानी दिने <span class="timesNewRoman"><b>(guarantor)</b></span>
+                        वा सुरक्षक <span class="timesNewRoman"><b>(surety)</b></span> मा कथंकदाचित परिणत भई बैंकले प्रमुख ऋणी
+                        <span class="timesNewRoman"><b>(principal debtor)</b></span> लाई कुनै मोहलत वा सुविधा दिएमा समेत बैंकको
+                        मरहामीमाथिको अधिकारमा कुनै असर पर्ने छैन ।
+                    </div>
+                    <div class="col-md-1">४.</div>
+                    <div class="col-md-11"> म/हामीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको अवस्थामा यस लिखत बमोजिम म/हामीले भण्डारण
+                        गरीराखेको सामानमा बैंकको हकाधिकार <span class="timesNewRoman"><b>(lien)</b></span>
+                        रहनेछ र बैंकलाई उपयुक्त लागेमा म/हामीलाई विना कुनै सूचना दिई
+                        बैंक आफैंले वा अन्य तेश्रो पक्ष मार्फत त्यस्तो सामान सबै वा आंशिक रुपमा आफ्नो नियन्त्रणमा लिन, अन्यत्र
+                        भण्डारण गर्न वा बिक्री गर्न वा अन्य व्यवस्था गर्न बैंक स्वतन्त्र हुनेछ र त्यस्तो कार्यमा भएको खर्च समेत
+                        तिर्न बुझाउन मरहामी मञ्जुर गर्दछौं ।
+                    </div>
+                    <div class="col-md-1">५.</div>
+                    <div class="col-md-11">   म/हामीले बैंकलाई तिर्न बुझाउनु पर्ने रकम नतिरे नबुझाएको अवस्थामा यस लिखत बमोजिम मरहामीले भण्डारण
+                        गरीराखेको बैंकको हकाधिकार भएको सामान सामान्य व्यापारिक कारोवारको सिलसिलामा बिक्री गर्ने बाहेक त्यस्तो
+                        सामानमा अन्य तेश्रो पक्षको हक श्रृजना गर्ने, अन्यत्र धितोमा राख्ने, दृष्टिबन्धक <span class="timesNewRoman"><b>(hypothecation)</b></span>
+                        लेखीदिने, बिक्री गर्ने वा अन्य कुनै किसिमबाट सो सामानको मूल्य लिने काम गर्ने गराउने छैनरछैनौं ।
+                    </div>
+                    <div class="col-md-1">६.</div>
+                    <div class="col-md-11"> म/हामीले बैंकलाई तिर्नु बुझाउनु पर्ने रकम नतिरे नबुझाएको अवस्थामा यस लिखत बमोजिम म/हामीले भण्डारण
+                        गरीराखेको बैंकको हकाधिकार भएको सामान कथंकदाचित मरहामीले पूरै वा आंशिक बिक्री गरेमा बिक्रीबाट प्राप्त
+                        मूल्य तत्कालै बैंकमा जम्मा गर्ने, गराउनेछौं । यसरी तत्कालै जम्मा गर्न गराउन नसकेमा पनि बैंकको पक्षमा
+                        न्यासधारीको हैसियतमा हाम्रो जिम्मा रहनेछ ।</div>
+                    <div class="col-md-1">७.</div>
+                    <div class="col-md-11">यस लिखतमा अन्यत्र जेसुकै उल्लेख भएतापनि बैंकको हकाधिकार भएको सामान कुनैपनि अवस्थामा बिक्री गर्दा
+                        मेरोरहाम्रो हैसियत सामान बुझीलिने <span class="timesNewRoman"><b>(consignee)</b></span>
+                        वा बैंकको अभिकर्ता सरह मात्र हुनेछ र सामानको बिक्री मूल्य
+                        तत्कालै बैंकले तोके बमोजिम जम्मा गर्ने, गराउनेछौं । कथंकदाचित बिक्री मूल्य अन्य कुनै बैंक तथा वित्तीय
+                        संस्थामा मेरोरहाम्रो नाममा खुलेको कुनैपनि खातामा जम्मा भएमा तत्कालै सेञ्चुरी कमर्सियल बैंक लि. मा
+                        रकमान्तर गर्ने, गराउने छौं ।साथै सामान बिक्रीको सिलसिलामा सामान खरिद गर्ने पक्षमाथि कुनै दावी श्रृजना
+                        भएमा त्यस्तो दावी समेत बैंकको पक्षमा हस्तान्तरण गर्नेछौं ।
+                    </div>
+                    <div class="col-md-1">८.</div>
+                    <div class="col-md-11">  यस लिखत बमोजिम म/हामीले भण्डारण गरीराखेको बैंकको हकाधिकार भएको सामान बैंकलाई स्वीकार्य बिमा कम्पनीबाट
+                        आगजनी, विद्रोह, सामाजिक हुलदंगा, मार्गस्थ, आतंकवाद लगायत सामानको प्रकृति अनुरुप आवश्यक पर्ने जोखिमहरु
+                        विरुद्ध आफ्नै खर्चमा ”बैंकर्स क्लज <span class="timesNewRoman"><b>(Banker's Clause)"</b></span>
+                        सहित बिमा गराई बिमा प्रलेख <span class="timesNewRoman"><b>(policy)</b></span>  र बिमा
+                        शुल्क भुक्तान गरेको रसिद बैंकले मागेका बखत हस्तान्तरण गर्ने गरी न्यासधारीको हैसियतमा म/हामीसंग रहनेछ ।
+                    </div>
+                    <div class="col-md-1">९.</div>
+                    <div class="col-md-11">यस लिखत बमोजिम सामान सम्बन्धी कागजातहरु <span class="timesNewRoman"><b>(shipping documents)</b></span>
+                        म/हामीलाई हस्तान्तरण गरेको कारणले
+                        मात्र मरहामीले बैंकको पक्षमा लेखीदिएको अन्य सुरक्षण सम्बन्धी कागजात अन्तर्गत बैंकलाई प्राप्त अधिकार वा
+                        मेरोरहाम्रो दायित्व फेरबदल वा संशोधन भएको मानिने छैन ।
+                    </div>
+                </div>
+            <br>
+            <div class="text-right">
+                <p>गोश्वारा—पत्रका कारणी</p>
+                <div>
+                    <input class="form-field form-control-sm nepaliFont text-center disable-print"
+                formControlName="nepaliName"
+                placeholder=""
+                type="text"/>
+                    <span class="print-only nepaliFont"><b>{{letterOfTrustReceipt?.get('nepaliName')?.value}}</b></span>
+                    को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री
+                    <ng-container *ngFor="let controls of letterOfTrustReceipt?.get('name')['controls']; let i = index" formArrayName="name">
+                        <ng-container formGroupName = {{i}}>
+                            <!--        <input class="form-control" formControlName="nepaliName">-->
+                            <input class="form-field form-control-sm disable-print nepaliFont" formControlName="name">
+                            <span class="print-only nepaliFont"><b>{{controls?.get('name')?.value}}</b></span>
+                            <button class="btn disable-print"  (click)="remove(i)"><i class="fa fa-trash"></i></button>
+                        </ng-container>
+                    </ng-container>
+<!--                    <span class="form-group"-->
+<!--                    *ngFor="let controls of letterOfTrustReceipt.get('name')['controls']; let i=index"-->
+<!--                    formArrayName="name">-->
+<!--                    <span class="" [formGroupName]="i">-->
+<!--                        <i (click)="remove(i)" size="small" class="float-right fa fa-trash disable-print"-->
+<!--                           *ngIf="letterOfTrustReceipt.get('name')['length']>1"></i><input class="form-field form-control-sm nepaliFont"-->
+<!--                    formControlName="name"-->
+<!--                    name="name"-->
+<!--                    type="input">-->
+<!--                    </span>-->
+<!--                </span>-->
+                </div>
+
+                <button class="btn disable-print" (click)="addName()"><i class="fa fa-plus"></i></button>
+            </div>
+                <div class="row disable-print">
+                <div class="col-md-12 text-right">
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="letterOfTrustReceiptPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="letterOfTrustReceiptPrint" class="mr-2 custom-color" >Print</button>
+                    <button nbButton status="success" (click)="submit()">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>

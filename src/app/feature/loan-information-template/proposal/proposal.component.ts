@@ -46,6 +46,7 @@ export class ProposalComponent implements OnInit {
     @ViewChild('securityAdderComponent', {static: false}) securityAdderComponent: SecurityAdderComponent;
     @ViewChild('cadFileSetupComponent', {static: false}) cadFileSetupComponent: CadFileSetupComponent;
     @Output() emitter = new EventEmitter();
+    @Input() customerCategory;
     // @Output() crgGammaData = new EventEmitter();
     proposedLimit: number;
     proposalForm: FormGroup;
@@ -161,6 +162,7 @@ export class ProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('loan', this.loan);
         this.configEditor();
         this.buildForm();
         this.checkLoanTypeAndBuildForm();

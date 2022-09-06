@@ -20,9 +20,9 @@ export class SiteVisitViewComponent implements OnInit, DoCheck {
     landSelected = false;
     apartmentSelected = false;
     landBuilding = false;
-    landData = [];
-    apartmentData = [];
-    landBuildingData = [];
+    landData;
+    apartmentData;
+    landBuildingData;
     iterableDiffer;
 
     constructor(private iterableDiffers: IterableDiffers) {

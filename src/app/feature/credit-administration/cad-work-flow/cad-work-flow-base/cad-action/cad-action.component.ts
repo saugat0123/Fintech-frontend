@@ -95,6 +95,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     pathValueData;
     isMakerOrApproval = false;
     isDiscrepancy = false;
+    inMyBucket = false;
 
 
     constructor(private router: ActivatedRoute,
@@ -132,6 +133,9 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.isMaker = true;
         } else {
             this.getNewDocStatusOnApprove();
+        }
+        if (this.currentCADStage.toRole.id.toString() === this.roleId) {
+            this.inMyBucket = true;
         }
         this.backwardTooltipMessageAndShowHideBackward();
 
@@ -317,9 +321,9 @@ export class CadActionComponent implements OnInit, OnChanges {
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
-            const discrepancyApproved = this.cadOfferLetterApprovedDoc.discrepancy && !this.cadOfferLetterApprovedDoc.discrepancyApproved;
-            console.log('this is discrepancy approved', discrepancyApproved);
-            console.log('this is discrepancy approved', newDocStatus);
+            // const discrepancyApproved = this.cadOfferLetterApprovedDoc.discrepancy && !this.cadOfferLetterApprovedDoc.discrepancyApproved;
+            // console.log('this is discrepancy approved', discrepancyApproved);
+            // console.log('this is discrepancy approved', newDocStatus);
             this.popUpTitle = this.approvedLabel;
             if (newDocStatus === '0') {
                 this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));
@@ -328,9 +332,9 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.formAction = this.formBuilder.group(
                 {
                     cadId: [this.cadId],
-                    docAction: [discrepancyApproved ? 'DISCREPANCY_APPROVED' : newDocStatus],
+                    docAction: [newDocStatus],
                     comment: [undefined, Validators.required],
-                    documentStatus: [discrepancyApproved ? 'OFFER_PENDING' : newDocStatus],
+                    documentStatus: [newDocStatus],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
@@ -364,6 +368,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             {
                 closeOnBackdropClick: false,
                 hasBackdrop: false,
+                closeOnEsc: false,
                 hasScroll: true
             });
 

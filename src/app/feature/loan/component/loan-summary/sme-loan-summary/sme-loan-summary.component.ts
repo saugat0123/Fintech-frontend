@@ -1,5 +1,5 @@
 import {DOCUMENT} from '@angular/common';
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild,} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +12,6 @@ import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routi
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ApprovalLimitService} from '../../../../admin/component/approvallimit/approval-limit.service';
 import {DocumentService} from '../../../../admin/component/document/document.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {UserService} from '../../../../admin/component/user/user.service';
@@ -194,6 +193,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   isUpToTenMillion = false;
   isDetailedView = false;
   isSaneView = false;
+  isDslWholesale = false;
   radioSelected: any;
   viewName = ['Sana Byabasahi Karja', 'Upto Ten Million', 'Above Ten Million'];
   tempData;
@@ -204,13 +204,14 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   customerCategoryType = CustomerCategory.SANA_BYABASAYI;
   ccblData: any;
   fixedAssetsData = [];
-  siteVisitJson = [];
   isExecutive = false;
 
   @Input() crgTotalRiskScore: any;
   data;
   approveAuth;
   spinner = false;
+  lastDateOfInspection;
+  isUptoTwoMillion = false;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -221,7 +222,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       private activatedRoute: ActivatedRoute,
       private router: Router,
       private loanConfigService: LoanConfigService,
-      private approvalLimitService: ApprovalLimitService,
       private dateService: DateService,
       private modalService: NgbModal,
       private documentService: DocumentService,
@@ -258,6 +258,12 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
     this.getCompanyAccountNo();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.siteVisit)) {
+      const data = JSON.parse(this.loanDataHolder.loanHolder.siteVisit.data);
+      if (data.currentResidentFormChecked) {
+        this.lastDateOfInspection = data.currentResidentDetails[data.currentResidentDetails.length - 1].dateOfVisit;
+      }
+    }
 
   }
 
@@ -556,6 +562,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
                     if (!allLoanIds.includes(cl.id)) {
                       this.customerAllLoanList.push(cl);
                     }
+                    this.calculateTotalProposedLimit(this.customerAllLoanList);
                     this.loaded = true;
                   });
                 },
@@ -563,8 +570,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
                   console.error(err);
                 }
             );
+          } else {
+            this.calculateTotalProposedLimit(this.customerAllLoanList);
           }
-          this.calculateTotalProposedLimit(this.customerAllLoanList);
           this.customerLoanList.emit(this.customerAllLoanList);
         },
         (error) => {
@@ -574,6 +582,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalProposedLimit(customerAllLoanList: LoanDataHolder[]) {
+    this.totalProposedLimit = 0;
     customerAllLoanList.forEach(cl => {
       this.totalProposedLimit += cl.proposal.proposedLimit;
     });
@@ -879,15 +888,17 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   checkCustomerCategoryForDetailView() {
     if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_ABOVE_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_ABOVE_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
+        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_ABOVE_TEN_MILLION') {
       this.isAboveTenMillion = true;
       this.isDetailedView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'DSL_WHOLE_SALE') {
+      this.isDslWholesale = true;
     } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'SME_UPTO_TEN_MILLION' ||
-        this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION' ||
         this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_TWO_TO_TEN_MILLION') {
       this.isUpToTenMillion = true;
       this.isDetailedView = true;
+    } else if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_TWO_MILLION') {
+      this.isUptoTwoMillion = true;
     } else {
       this.isSaneView = true;
       this.isDetailedView = true;
@@ -895,12 +906,16 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getFixedAssetsCollateral(securityName: string, securityId: number, uuid: string) {
+    const collateral = {
+      securityName: null,
+      collateralData: null,
+    };
     this.collateralSiteVisitService.getCollateralByUUID(securityName, securityId, uuid)
         .subscribe((response: any) => {
           if (response.detail.length > 0) {
-            response.detail.forEach(rd => {
-              this.fixedAssetsData.push(rd);
-            });
+            collateral.securityName = securityName;
+            collateral.collateralData = response.detail;
+            this.fixedAssetsData.push(collateral);
           }
         }, error => {
           console.error(error);

@@ -75,7 +75,7 @@
         </div>
     </li>
 
-    <li class="font-weight-bold" *ngIf="isAboveTen">
+    <li class="font-weight-bold" *ngIf="(isAboveTen || isUptoTwoMillion) && !isWithoutCollateral">
         <span> Report from the existing BFIs in case of swap</span>
         <span class="font-weight-normal"> (date of report:{{multiBankingData?.swapDate ? (multiBankingData?.swapDate | date)
             : 'N/A'}})</span>
@@ -110,7 +110,7 @@
         </div>
     </li>
 
-    <li class="font-weight-bold">
+    <li class="font-weight-bold" *ngIf="!isWithoutCollateral">
         <span> Report from CIC</span>
         <span class="font-weight-normal"> (date of report: {{cicl?.cibDate ? (cicl?.cibDate | date) : 'N/A' }})</span>
         <div class="row">
@@ -175,7 +175,7 @@
         </div>
     </li>
 
-    <li class="font-weight-bold">
+    <li class="font-weight-bold" *ngIf="!isWithoutCollateral">
         <span> Past performance with the Bank:</span>
         <div *ngIf="isAboveTen || isWholeSale; else uptoOrSana"
              class="row">
@@ -221,7 +221,7 @@
         </ng-template>
     </li>
 
-    <li class="font-weight-bold" *ngIf="isAboveTen || isWholeSale">
+    <li class="font-weight-bold" *ngIf="(isAboveTen || isWholeSale) && !isWithoutCollateral">
         <span> Account strategy: {{multiBankingData?.accountStrategy ? '' : 'NA'}}</span>
         <div class="container">
             <span [innerHTML]="multiBankingData?.accountStrategy | safeHtml"></span>
@@ -229,45 +229,14 @@
     </li>
 
     <li class="font-weight-bold"
-        *ngIf="(isAboveTen || isWholeSale) || customerType === 'INDIVIDUAL'">
+        *ngIf="((isAboveTen || isWholeSale) || customerType === 'INDIVIDUAL') && !isWithoutCollateral && !isUptoTwoMillion">
         <span> Average Utilization and Transaction Record of facilities by the customer during the last 12 months with CCBL</span>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
-                    <tbody class="sb-bg-dark text-white text-center">
-                    <tr>
-                        <th class="sn" rowspan="2">S.N</th>
-                        <th rowspan="2">Facilities</th>
-                        <th rowspan="2">Avg. utilization(%)</th>
-                        <th class="border-top-0 border-bottom-0" rowspan="2" style="color: white"></th>
-                        <th colspan="7">Transaction Records</th>
-                    </tr>
-                    <tr>
-                        <th>Debit</th>
-                        <th>No.</th>
-                        <th>Amount</th>
-                        <th>Credit</th>
-                        <th>No.</th>
-                        <th>Amount</th>
-                    </tr>
-                    </tbody>
-                    <tbody *ngFor="let avg of multiBankingData?.utilization; let iv = index">
-                    <tr>
-                        <td>{{iv + 1}}</td>
-                        <td>{{avg?.facilityName}}</td>
-                        <td>{{avg?.avgUtil}}</td>
-                        <td></td>
-                        <td>{{avg?.debit}}</td>
-                        <td>{{avg?.debitNo}}</td>
-                        <td class="text-right pr-1">Rs. {{avg?.debitAmount | currencyFormatter}}</td>
-                        <td>{{avg?.credit}}</td>
-                        <td>{{avg?.creditNo}}</td>
-                        <td class="text-right pr-1">Rs. {{avg?.creditAmount | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <app-transaction-record [multiBanking]="multiBanking"></app-transaction-record>
+    </li>
+
+    <li class="font-weight-bold" *ngIf="(isWholeSale) || customerType === 'INDIVIDUAL'">
+        <span> Credit History of the customer with CCBL:</span><br>
+        <span class="font-weight-normal">Relationship with the customer started on ..... account performance of the client is till date is satisfactory/not statisfactory.</span>
     </li>
 </ol>
 

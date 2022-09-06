@@ -1,0 +1,235 @@
+<h2 class="heading mt-5">Detailed Assessment</h2>
+<ol class="above-ten-million-list">
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Request of the Customer</strong></p>
+        <ol><app-above-request-of-the-customer
+                [existingExposureData]="loanDataHolder?.loanHolder?.existingExposures"
+                [customerAllLoanList]="customerAllLoanList"></app-above-request-of-the-customer></ol>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Purpose of, and Justification for, the Proposal</strong></p>
+        <ol>
+            <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+                                                [isExecutive]="isExecutive"
+                                                [isDetailedView]="isDetailedView"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
+        </ol>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Background of the Customer</strong></p>
+        <app-above-background-of-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                          [loanHolder]="loanDataHolder?.loanHolder"></app-above-background-of-customer>
+    </li>
+    <li>
+        <p class="text-uppercase font-weight-bold"><strong>VISION, MISSION, GOALS AND OBJECTIVES, ITS FINANCIAL SERVICES AND SERVICE DELIVERY MODALITIES:</strong></p>
+        <span>
+            The vision of M/s ................................. <br>
+            The mission of M/s ................... is to .................. <br>
+            The primary goals of M/s ................................. are to: <br>
+            <ol>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </span>
+    </li>
+    <li>
+        <p class="text-uppercase"><strong>Rating</strong></p>
+        <span style="font-size: 14px"><b>5.1 CCBL rating</b></span>
+        <table class="table table-bordered table-sm sb-small">
+            <tbody>
+            <td>Based on Balance Sheet as of:</td>
+            <td>FY 2076/76</td>
+            <td>Outcome of Rating</td>
+            <tr>
+                <td>Rating</td>
+                <td>CCBL.....</td>
+                <td>Fit for renewal/renewal with enhancemnet/???</td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        <p class="text-uppercase"><strong>Sectoral Outlook</strong></p>
+        <span style="font-size: 14px"><b>6.1 Sector</b>
+            <app-above-bank-sol [loanDataHolder]="loanDataHolder"></app-above-bank-sol>
+        </span>
+    </li>
+    <!--*ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"-->
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Banking Arrangement</strong></p>
+        <ol>
+            <app-above-banking-arrangement-of-the-customer
+                    [multiBanking]="loanDataHolder?.loanHolder?.multiBanking"
+                    [proposal]="loanDataHolder?.proposal"
+                    [isRetailCustomer]="false"
+                    [cicl]="loanDataHolder?.loanHolder?.cicl"
+                    [customerCategory]="loanDataHolder?.loanHolder?.customerCategory"></app-above-banking-arrangement-of-the-customer>
+        </ol>
+    </li>
+
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Product exposure of the branch/bank:</strong></p>
+        <span class="font-weight-normal">Exposure of the branch and bank as on .........</span>
+        <table class="table table-bordered table-sm sb-small">
+            <tbody>
+            <td rowspan="2">Product</td>
+            <td colspan="2">Total Loans (DSL Wholesale)</td>
+            <td colspan="2">Total (DS) loan</td>
+            <td colspan="2">Gross NPA (DSL)</td>
+            <tr>
+                <td>Branch</td>
+                <td>Branch</td>
+                <td>Branch</td>
+                <td>Branch</td>
+                <td>Branch</td>
+                <td>Branch</td>
+            </tr>
+            <tr>
+                <td>DSL Wholesale</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Financial Highlights</strong></p>
+        <div class="col-md-12 table-responsive-md" *ngIf="financialCCBL?.data else noFin">
+            <table style="width: 100%" class="table-responsive-md sb-small table-sm table-bordered"
+                   [innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml">
+            </table>
+            <table style="width: 100%"
+                   [innerHTML]="financialCCBL?.data?.commentFinancialHighlight || 'NA' | safeHtml"></table>
+        </div>
+        <ng-template #noFin>Not Available</ng-template>
+        <!--        <app-financal-view [formData]="loanDataHolder?.loanHolder?.financial"-->
+        <!--                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>-->
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Assessment of Credit Facilities:</strong></p>
+        <div class="col-md-12 table-responsive-md" *ngIf="financialCCBL?.data">
+            <table style="width: 100%" class="table-responsive-md sb-small table-sm table-bordered"
+                   [innerHTML]="financialCCBL?.data?.assesment || 'NA' | safeHtml"></table>
+            <table style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment || 'NA' | safeHtml"></table>
+            <strong>11.2 ASSESSMENT OF TERM LOAN</strong> (Amounts in Million)
+            <table style="width: 100%" class="table-responsive-md sb-small table-sm table-bordered"
+                   [innerHTML]="financialCCBL?.data?.assesment2 || 'NA' | safeHtml"></table>
+            <table style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment2 || 'NA' | safeHtml"></table>
+            <strong>11.3 ASSESSMENT OF OTHER CREDIT FACILITIES: </strong> (Amounts in Million)
+            <table style="width: 100%" class="table-responsive-md sb-small table-sm table-bordered"
+                   [innerHTML]="financialCCBL?.data?.assesment3 || 'NA' | safeHtml"></table>
+            <table style="width: 100%" [innerHTML]="financialCCBL?.data?.assessmentComment3 || 'NA' | safeHtml"></table>
+        </div>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Risk Analysis</strong></p>
+        <app-above-risk-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-risk-analysis>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>SWOT Analysis</strong></p>
+        <app-above-swot-analysis [customerInfo]="loanDataHolder?.loanHolder"></app-above-swot-analysis>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Pricing and estimated income from the loan account:</strong></p>
+        <app-above-pricing-and-estimated-income-from-the-account *ngIf="customerAllLoanList?.length > 0"
+                                                                 [customerAllLoanList]="customerAllLoanList"
+                                                                 [loanDataHolder]="loanDataHolder"></app-above-pricing-and-estimated-income-from-the-account>
+        13.6 Income to the Bank:
+        <app-financial-view [formData]="loanDataHolder?.financial"
+                            [data]="loanDataHolder?.financial"
+                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-financial-view>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Security Arrangement</strong></p>
+        <br>The purposed credit facilities shall be secured by the following security arrangement:<br>
+        <app-security-document-view [security]="loanDataHolder?.loanHolder?.security"></app-security-document-view>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Documents to be executed/obtained: </strong></p>
+<!--        new component to be created-->
+    </li>
+    <li class="font-weight-bold">
+        <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE):</strong></p>
+        <div class="col-md-12" *ngFor="let cl of customerAllLoanList">
+            <span><b>{{cl?.loan?.name}}</b></span>
+            <br>
+            <span [innerHTML]="(cl?.proposal?.data | jsonParse)?.disbursementCriteria  || 'NA' | safeHtml"></span>
+        </div>
+
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Validity and repayment of credit facilities: </strong></p>
+        <div class="col-md-12" *ngFor="let cl of customerAllLoanList">
+            <span><b>{{cl?.loan?.name}}</b></span>
+            <br>
+            <span [innerHTML]="(cl?.proposal?.data | jsonParse)?.repayment || 'NA'| safeHtml"></span>
+        </div>
+    </li>
+    <li class="font-weight-bold">
+        <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY: </strong></p>
+        <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.waiverConclusionRecommendation || 'NA' | safeHtml"></span>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><strong>Compliance status: </strong></p>
+        <!--        new component to be created-->
+    </li>
+    <li class="font-weight-bold">
+        <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <app-nrb-statutory-remarks-status
+                *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.data; else notAvailable"
+                [loanDataHolder]="loanDataHolder"></app-nrb-statutory-remarks-status>
+    </li>
+    <li class="font-weight-bold">
+        <p class="text-uppercase"><b>MIS/NRB REPORTING</b></p>
+        <app-report-summary *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels else notAvailable"
+                            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+    </li>
+
+    <li class="font-weight-bold">
+        <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
+        <app-above-review-of-credit-facilities
+                *ngIf="(loanDataHolder?.loanHolder?.data | jsonParse)?.reviewDate else notAvailable"
+                [loanDataHolder]="loanDataHolder">
+        </app-above-review-of-credit-facilities>
+    </li>
+    <li class="font-weight-bold">
+        <p><strong>CONCLUSION</strong></p>
+        <p>In view of the assessment / discussions mentioned above, the proposal is found to be acceptable; grounds, in
+            summary,
+            for the same, are as under:</p>
+        <ul>
+            <li>The proposal complies with the NRB guidelines, and, except for the issues for which waivers have been sought
+                above, with CPG and product paper of the Bank. </li>
+            <li>Business operations satisfactory.</li>
+            <li>Sufficient and reliable sources income to serve the principal and interest of the loan/s.</li>
+            <li>Good reputation, integrity, resourcefulness and commitment of the borrower/promoters. </li>
+            <li>Adequate and acceptable security coverage. </li>
+            <li>Satisfactory past performance. </li>
+        </ul>
+    </li>
+    <li class="font-weight-bold">
+        <p><strong>RECOMMENDATIONS:</strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <p class="mt-2">Therefore, on the basis of the above-mentioned information and credit assessment, it is recommended for approval
+            of following credit facilities to M/s {{loanDataHolder?.loanHolder?.name}}:<br>
+            To seek approval to convert existing overdraft facility of amounting {{totalProposedLimit | currencyFormatter}} Mio to deprived sector Term loan-II
+            for 5 years on terminating basis and Continue existing DE facility with interest rate 11.57% (BR+3%) to finance in deprived sector.
+    </li>
+    <li class="font-weight-bold">
+        <p><strong>RECOMMENDED, REVIEWED, AND APPROVED BY:</strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <app-signature-section [loanDataHolder]="loanDataHolder"
+                               [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
+    </li>
+</ol>
+
+<ng-template #notAvailable>
+    <span class="font-weight-normal">Not Available</span>
+</ng-template>

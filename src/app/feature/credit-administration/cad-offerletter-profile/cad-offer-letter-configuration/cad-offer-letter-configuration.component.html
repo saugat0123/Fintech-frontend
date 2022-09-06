@@ -1392,6 +1392,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div *ngIf="collateral?.get('collateralType')?.value === 'land_and_building'">
                                     <div class="col-md-12" *ngIf="collateral?.get('collateralOwnerType')?.value">
                                         <div class="row">
                                             <div class="col-md-4">
@@ -1633,9 +1634,10 @@
                                         </div>
                                         <hr>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
-                            <ng-container *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION'">
+                            <ng-container *ngIf="collateral?.get('collateralOwnerType')?.value === 'INSTITUTION' && collateral?.get('collateralType')?.value === 'land_and_building'">
                                 <div class="row col-md-12" formGroupName="collateralAuthorizedPersonDetail">
                                     <div class="col-md-12">
                                         <strong>Collateral Authorized Person Detail</strong>
@@ -2014,9 +2016,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="offerReferenceNo">Offer Letter Reference No.(in
-                                        English)</label>
-                                    <input class="form-control rounded"
+                                    <label class="title" for="offerReferenceNo">Offer Letter Reference No.</label>
+                                    <input class="form-control rounded nepaliFont"
                                            formControlName="offerReferenceNo"
                                            id="offerReferenceNo"
                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get('miscellaneousDetail')?.get('offerReferenceNo')?.errors}"
@@ -2027,9 +2028,8 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title" for="offerIssueDate">Offer Letter Issued Date (in
-                                        English)</label>
-                                    <input class="form-control rounded"
+                                    <label class="title" for="offerIssueDate">Offer Letter Issued Date</label>
+                                    <input class="form-control rounded nepaliFont"
                                            formControlName="offerIssueDate"
                                            id="offerIssueDate"
                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get('miscellaneousDetail')?.get('offerIssueDate')?.errors}"
@@ -2054,7 +2054,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="loanAmountInWord">Loan Amount (in Word)</label>
-                                    <input class="form-control rounded nepaliFont font-size"
+                                    <input class="form-control rounded font-size"
                                            formControlName="loanAmountInWord"
                                            id="loanAmountInWord"
                                            [ngClass]="{'is-invalid': submitted && userConfigForm.get('miscellaneousDetail')?.get('loanAmountInWord')?.errors}"
@@ -2143,7 +2143,7 @@
                                            placeholder=""
                                            id="branchNameInNepali"
                                            readonly
-                                           class="form-control form-control-sm" formControlName="branchNameInNepali"/>
+                                           class="form-control form-control-sm nepaliFont" formControlName="branchNameInNepali"/>
                                 </div>
                             </div>
                             <div class="col-md-12 row">
