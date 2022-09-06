@@ -23,7 +23,7 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
     @Input() customerLoanId: number;
     supplementaryAgreementCompany: FormGroup;
     nepData;
-    guarantorData;
+    initialInfo;
     submitted = false;
 
     constructor(private formBuilder: FormBuilder,
@@ -38,15 +38,19 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-                    this.supplementaryAgreementCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
+                    console.log('this.initialInfo', this.initialInfo);
                 }
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-            this.guarantorData = Object.values(this.nepData.guarantorDetails);
         }
-        this.fillForm();
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.supplementaryAgreementCompany.patchValue(this.initialInfo);
+        } else {
+            this.fillForm();
+        }
     }
 
     buildForm() {
@@ -63,6 +67,8 @@ export class SupplementaryAgreementCompanyComponent implements OnInit {
             borrowerName: [undefined],
             authorizedPersonName: [undefined],
             date2: [undefined],
+            name: [undefined],
+            name2: [undefined],
             offerLetterIssuedDate: [undefined],
             amount: [undefined],
             amountInWords: [undefined],
