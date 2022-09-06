@@ -50,7 +50,6 @@ export class KaloSuchiBorrowerIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
         }
-        console.log('Nep Data:', this.nepData);
     }
 
     buildForm() {
@@ -93,7 +92,7 @@ export class KaloSuchiBorrowerIndividualComponent implements OnInit {
                 this.nepData.customerPermanentAddress.municipality : '',
             ward: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.wardNo) ? this.nepData.customerPermanentAddress.wardNo : '',
             tole: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.tole) ? this.nepData.customerPermanentAddress.tole : '',
-            // curProvince: [undefined],
+            curProvince: undefined,
             curDistrict: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.district) ?
                 this.nepData.customerTemporaryAddress.district : '',
             curMunicipality: !ObjectUtil.isEmpty(this.nepData.customerTemporaryAddress.municipality) ?
