@@ -45,13 +45,18 @@
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonGrandFather').value ?
                     assignmentOfReceivablesPartnership.get('authorizedPersonGrandFather').value  : '========='}}</strong></span>
                 को नाती
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonFather').value ?
+                <span *ngIf="this.nepData.authorizedPersonDetail.gender==='1'">
+                  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonFather').value ?
                     assignmentOfReceivablesPartnership.get('authorizedPersonFather').value  : '========='}}</strong></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonHusband').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                </span>
+
+                <span *ngIf="this.nepData.authorizedPersonDetail.gender==='0'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonHusband').value ?
+                      assignmentOfReceivablesPartnership.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                </span>
+
                 को छोरा
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrict" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonDistrict').value ?
