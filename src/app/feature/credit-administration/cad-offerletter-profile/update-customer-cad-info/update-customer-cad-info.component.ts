@@ -20,7 +20,9 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
     cadData: CustomerApprovedLoanCadDocumentation;
     updateForm: FormGroup;
     spinner = false;
-    data = {accountNo: null, accountName: null, issuanceOfMc: null, operativeAc: null, againstPurchaseOf: null, securityType: undefined};
+    data = {accountNo: null, accountName: null, issuanceOfMc: null, operativeAc: null, againstPurchaseOf: null, securityType: undefined
+        , cic: undefined, kasufa: undefined, nextReview: undefined, multiBanking: undefined, group: undefined
+    };
     securityType =  SecurityTypeEnum.pair();
 
     constructor(private formBuilder: FormBuilder,
@@ -42,13 +44,18 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
 
     buildForm() {
         this.updateForm = this.formBuilder.group({
-            accountNo: [ObjectUtil.isEmpty(this.data.accountNo) ? undefined : this.data.accountNo, [Validators.required]],
-            accountName: [ObjectUtil.isEmpty(this.data.accountName) ? undefined : this.data.accountName, [Validators.required]],
+            accountNo: [ObjectUtil.isEmpty(this.data.accountNo) ? undefined : this.data.accountNo],
+            accountName: [ObjectUtil.isEmpty(this.data.accountName) ? undefined : this.data.accountName],
             // tslint:disable-next-line:max-line-length
-            againstPurchaseOf: [ObjectUtil.isEmpty(this.data.againstPurchaseOf) ? undefined : this.data.againstPurchaseOf, [Validators.required]],
-            issuanceOfMc: [ObjectUtil.isEmpty(this.data.issuanceOfMc) ? undefined : this.data.issuanceOfMc, [Validators.required]],
-            operativeAc: [ObjectUtil.isEmpty(this.data.operativeAc) ? undefined : this.data.operativeAc, [Validators.required]],
-            securityType: [ObjectUtil.isEmpty(this.data.securityType) ? undefined : this.data.securityType,[Validators.required]]
+            againstPurchaseOf: [ObjectUtil.isEmpty(this.data.againstPurchaseOf) ? undefined : this.data.againstPurchaseOf],
+            issuanceOfMc: [ObjectUtil.isEmpty(this.data.issuanceOfMc) ? undefined : this.data.issuanceOfMc],
+            operativeAc: [ObjectUtil.isEmpty(this.data.operativeAc) ? undefined : this.data.operativeAc],
+            securityType: [ObjectUtil.isEmpty(this.data.securityType) ? undefined : this.data.securityType],
+            cic: [ObjectUtil.isEmpty(this.data.cic) ? undefined : this.data.cic, [Validators.required]],
+            kasufa: [ObjectUtil.isEmpty(this.data.kasufa) ? undefined : this.data.kasufa, [Validators.required]],
+            nextReview: [ObjectUtil.isEmpty(this.data.nextReview) ? undefined : this.data.nextReview, [Validators.required]],
+            multiBanking: [ObjectUtil.isEmpty(this.data.multiBanking) ? undefined : this.data.multiBanking, [Validators.required]],
+            group: [ObjectUtil.isEmpty(this.data.group) ? undefined : this.data.group, [Validators.required]],
         });
     }
 
