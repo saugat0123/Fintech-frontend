@@ -97,6 +97,9 @@ export class ProposalSummaryComponent implements OnInit {
             this.isCorporate = true;
         }
     }
+    convertLoanNumber(number: number) {
+        return Number(number);
+    }
 
     public setToggled() {
         if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {

@@ -3,6 +3,16 @@
         <app-only-business-profile *ngIf="isCorporate"  [companyInfo]="loanDataHolder?.companyInfo"
                                     [loanDataHolder]="loanDataHolder"></app-only-business-profile>
     </ng-container>
+    <ng-container *ngIf="isCorporate && proposalAllData?.proposeOfSubmission">
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <p><strong class="header"> Propose Of Submission</strong></p>
+                <span [innerHTML]="proposalAllData?.proposeOfSubmission || 'N/A' | safeHtml"></span>
+            </div>
+        </div>
+        <hr class="print-line">
+    </ng-container>
     <ng-container *ngIf="proposalData?.data !== null">
         <app-proposal-summary
                 *ngIf="proposalSummary"

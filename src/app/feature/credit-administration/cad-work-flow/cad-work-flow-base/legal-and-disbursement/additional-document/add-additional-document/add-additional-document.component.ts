@@ -114,7 +114,7 @@ export class AddAdditionalDocumentComponent implements OnInit {
     }
 
     save() {
-        if (this.uploadFile) {
+        if (this.uploadFile && this.addDocForm.get('docType').value === 'SIGNED') {
             this.addDocForm.get('remarks').patchValue('OBTAINED');
         }
         this.cadData.additionalDocumentList.push(this.addDocForm.value);
