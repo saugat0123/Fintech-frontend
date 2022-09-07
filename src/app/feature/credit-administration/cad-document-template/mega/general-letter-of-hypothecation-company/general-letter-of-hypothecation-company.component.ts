@@ -13,175 +13,137 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-general-letter-of-hypothecation-company',
-  templateUrl: './general-letter-of-hypothecation-company.component.html',
-  styleUrls: ['./general-letter-of-hypothecation-company.component.scss']
+    selector: 'app-general-letter-of-hypothecation-company',
+    templateUrl: './general-letter-of-hypothecation-company.component.html',
+    styleUrls: ['./general-letter-of-hypothecation-company.component.scss']
 })
 export class GeneralLetterOfHypothecationCompanyComponent implements OnInit {
 
-  HypothecationCompany: FormGroup;
-  @Input() customerInfo: CustomerInfoData;
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
-  @Input() documentId: number;
-  @Input() customerLoanId: number;
-  nepData;
-  guarantorData;
-  submitted = false;
-  constructor(private formBuilder: FormBuilder,
-              private administrationService: CreditAdministrationService,
-              private toastService: ToastService,
-              private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+    HypothecationCompany: FormGroup;
+    @Input() customerInfo: CustomerInfoData;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    @Input() documentId: number;
+    @Input() customerLoanId: number;
+    nepData;
+    guarantorData;
+    submitted = false;
+    initialInfo;
 
-  ngOnInit(): void {
-    this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.HypothecationCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+    constructor(private formBuilder: FormBuilder,
+                private administrationService: CreditAdministrationService,
+                private toastService: ToastService,
+                private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+                private routerUtilsService: RouterUtilsService) {
+    }
+
+    ngOnInit(): void {
+        this.buildForm();
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
+                }
+            });
         }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.guarantorData = Object.values(this.nepData.guarantorDetails);
-    }
-  }
-
-  buildForm() {
-    this.HypothecationCompany = this.formBuilder.group({
-      bankBranchName: [undefined],
-      guarantorGrandFatherName: [undefined],
-      guarrantorFatherName: [undefined],
-      guarantorDistrict: [undefined],
-      guarantorMunicipalityOrVdc: [undefined],
-      Municipality: [undefined],
-      guarantorWardNo: [undefined],
-      tempProvinceNo: [undefined],
-      tempAddDistrict: [undefined],
-      tempAddMunicipality: [undefined],
-      tempAddWardNo: [undefined],
-      tempAddress: [undefined],
-      guarantorAge: [undefined],
-      guarantorName: [undefined],
-      guarantorCitizenshipNum: [undefined],
-      guarantorIssueDate: [undefined],
-      guarantorIssueDistrict: [undefined],
-      guarantorGrandfather1: [undefined],
-      guarrantorFatherName1: [undefined],
-      guarantorDistrict1: [undefined],
-      guarantorMunicipalityOrVdc1: [undefined],
-      guarantorWardNo1: [undefined],
-      guarantorProvinceNo: [undefined],
-      tempAddDistrict1: [undefined],
-      TempAddMunicipality1: [undefined],
-      tempAddWardNo1: [undefined],
-      tempAddress1: [undefined],
-      guarantorAge1: [undefined],
-      guarantorName1: [undefined],
-      guarantorCitizenshipNo1: [undefined],
-      CitizenshipIssuedDate1: [undefined],
-      CitizenshipIssuedDistrict1: [undefined],
-      guarantorGrandFather2: [undefined],
-      guarrantorFatherName2: [undefined],
-      borrowerDistrict: [undefined],
-      borrowerMunicipalityOrVdc: [undefined],
-      borrowerWardNo: [undefined],
-      borrowerProvinceNo: [undefined],
-      borrowerTempDistrict: [undefined],
-      tempMunicipalityOrVdc2: [undefined],
-      tempWardNo2: [undefined],
-      tempAddress2: [undefined],
-      borrowerAge: [undefined],
-      borrowerName: [undefined],
-      borrowerCitizenshipNo: [undefined],
-      borrowerCitizenshipIssuedDate: [undefined],
-      borrowerCitizenshipIssuedDistrict: [undefined],
-      numberOfGuarantor: [undefined],
-      loanApprovalDate: [undefined],
-      loanAmount: [undefined],
-      loanAmtInWord: [undefined],
-      loanFacility1: [undefined],
-      purpose1: [undefined],
-      loanFacilityAmount1: [undefined],
-      interestRate1: [undefined],
-      timePeriod1: [undefined],
-      apology1: [undefined],
-      loanFacility2: [undefined],
-      purpose2: [undefined],
-      loanFacilityAmount2: [undefined],
-      interestRate2: [undefined],
-      timePeriod2: [undefined],
-      apology2: [undefined],
-      staffName: [undefined],
-      guarantorName2: [undefined],
-      guarantorAddress: [undefined],
-      docWrittenYear: [undefined],
-      docWrittenMonth: [undefined],
-      docWrittenDay: [undefined],
-      docWrittenWeek: [undefined],
-      witnessDistrict1: [undefined],
-      witnessMunicipalityOrVdc1: [undefined],
-      witnessWardNo1: [undefined],
-      witnessAge1: [undefined],
-      witnessName1: [undefined],
-      witnessDistrict2: [undefined],
-      witnessMunicipalityOrVdc2: [undefined],
-      witnessWardNo2: [undefined],
-      witnessAge2: [undefined],
-      witnessName2: [undefined],
-      date: [undefined],
-      registerNum: [undefined],
-      Act: [undefined]
-    });
-  }
-  changeToNepAmount(event: any, target, from) {
-    this.HypothecationCompany.get([target]).patchValue(event.nepVal);
-    this.HypothecationCompany.get([from]).patchValue(event.val);
-  }
-
-  patchFunction(target) {
-    const patchValue1 = this.HypothecationCompany.get([target]).value;
-    return patchValue1;
-  }
-
-  submit() {
-    let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.HypothecationCompany.value);
+        if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+            this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+            this.guarantorData = Object.values(this.nepData.guarantorDetails);
         }
-      });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.HypothecationCompany.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
-    } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.HypothecationCompany.value);
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.HypothecationCompany.patchValue(this.initialInfo);
+        } else {
+            this.fillForm();
+        }
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-      this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-      this.dialogRef.close();
+    buildForm() {
+        this.HypothecationCompany = this.formBuilder.group({
+            bankBranchName: [undefined],
+            guarantorMunicipalityOrVdc: [undefined],
+            Municipality: [undefined],
+            guarantorWardNo: [undefined],
+            authorizedPerson: [undefined],
+            guarantorDistrict1: [undefined],
+            borrowerName: [undefined],
+            docWrittenYear: [undefined],
+            docWrittenMonth: [undefined],
+            docWrittenDay: [undefined],
+            date: [undefined],
+            registerNum: [undefined],
+            act: [undefined],
+        });
+    }
+
+    fillForm() {
+        this.HypothecationCompany.patchValue({
+            bankBranchName: !ObjectUtil.isEmpty(this.nepData.branchDetail) ?
+                this.nepData.branchDetail.branchName : '',
+            guarantorMunicipalityOrVdc: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+                this.nepData.institutionRegisteredAddress.municipality : '',
+            Municipality: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ?
+                this.nepData.companyRegOffice : '',
+            guarantorWardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+                this.nepData.institutionRegisteredAddress.wardNo : '',
+            authorizedPerson: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+                this.nepData.authorizedPersonDetail.name : '',
+            guarantorDistrict1: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+                this.nepData.institutionRegisteredAddress.district : '',
+            borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ?
+                this.nepData.nepaliName : '',
+            date: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ?
+                this.nepData.regIssueDate : '',
+            registerNum: !ObjectUtil.isEmpty(this.nepData.registrationNo) ?
+                this.nepData.registrationNo : '',
     });
-  }
+    }
+
+    changeToNepAmount(event: any, target, from) {
+        this.HypothecationCompany.get([target]).patchValue(event.nepVal);
+        this.HypothecationCompany.get([from]).patchValue(event.val);
+    }
+
+    patchFunction(target) {
+        const patchValue1 = this.HypothecationCompany.get([target]).value;
+        return patchValue1;
+    }
+
+    submit() {
+        let flag = true;
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    flag = false;
+                    singleCadFile.initialInformation = JSON.stringify(this.HypothecationCompany.value);
+                }
+            });
+            if (flag) {
+                const cadFile = new CadFile();
+                const document = new Document();
+                cadFile.initialInformation = JSON.stringify(this.HypothecationCompany.value);
+                document.id = this.documentId;
+                cadFile.cadDocument = document;
+                cadFile.customerLoanId = this.customerLoanId;
+                this.cadData.cadFileList.push(cadFile);
+            }
+        } else {
+            const cadFile = new CadFile();
+            const document = new Document();
+            cadFile.initialInformation = JSON.stringify(this.HypothecationCompany.value);
+            document.id = this.documentId;
+            cadFile.cadDocument = document;
+            cadFile.customerLoanId = this.customerLoanId;
+            this.cadData.cadFileList.push(cadFile);
+        }
+
+        this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.dialogRef.close();
+        });
+    }
 
 }
