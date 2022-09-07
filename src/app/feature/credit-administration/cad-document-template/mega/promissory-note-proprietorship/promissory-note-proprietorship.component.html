@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
             <form (ngSubmit)="submit()" [formGroup]="form" class="nepali" id="promissoryNoteProprietorshipPrint">
-                <div class="nep">
+                <div class="nep" style="margin: 0 10%;">
                     <p>
                         <p class="text-center" style="font-size:24pt;"><strong>प्रतिज्ञा पत्र</strong></p>
                         <p class="text-center" style="font-size:24pt;"><strong>(PROMISSORY NOTE)</strong></p><br/><br/>
@@ -14,9 +14,13 @@
                                              formControlName="amountInWords"
                                              type="text"/>
                             <span class="print-only preetiFont">
-                                <strong>{{ form.get('amountInWords').value ?  form.get('amountInWords').value  : '========='}}</strong></span> रुपैयाँ मात्र ।)</p>
-                        <p><span style="color: red">
-                             लिखितम प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४ बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
+                                <strong>{{ form.get('amountInWords').value ?  form.get('amountInWords').value  : '========='}}</strong></span> मात्र ।)</p>
+                        <p><span>
+                             लिखितम प्राईभेट फर्म रजिष्ट्रेशन ऐन
+                            <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
+                                       formControlName="date2"
+                                       type="text"/>
+                            <span class="print-only preetiFont"><strong>{{ form.get('registrationOffice').value ?  form.get('registrationOffice').value  : '========='}}</strong></span> बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
                             <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
                                    formControlName="registrationOffice"
                                    type="text"/>
