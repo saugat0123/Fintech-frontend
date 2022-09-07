@@ -21,28 +21,39 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   form: FormGroup;
-  promissoryProprietorship;
+  nepData;
+  initialInfo;
+  year;
 
   constructor(
       private formBuilder: FormBuilder,
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService
-  ) { }
+      private routerUtilsService: RouterUtilsService,
+  ) {
+    this.year = 'hello';
+  }
 
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.promissoryProprietorship = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.form.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
+    console.log('nep data: ', this.nepData);
+
   }
 
   buildForm() {
@@ -70,9 +81,36 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      roj: [undefined]
+      roj: [undefined],
+      date2: [undefined]
     });
   }
+  fillForm() {
+    this.form.patchValue({
+      amount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : '',
+      amountInWords: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : '',
+      loanAmount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : '',
+      loanAmountInWords: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : '',
+      registrationOffice: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : '',
+      registrationDistrict: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+      registrationDate: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : '',
+      registrationNo: !ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : '',
+      registrationWardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      borrowerNameInNepali: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+      customerName: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : '',
+      registrationMunVdc: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      grandFatherName: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.grandFatherName : '',
+      fatherName: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.fatherName : '',
+      district: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.district : '',
+      municipality: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.municipality : '',
+      wardNumber: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.wardNo : '',
+      name: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : '',
+    });
+  }
+
   changeToNepAmount(event: any, target, from) {
     this.form.get([target]).patchValue(event.nepVal);
     this.form.get([from]).patchValue(event.val);
