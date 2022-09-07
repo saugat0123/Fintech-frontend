@@ -3,11 +3,6 @@
     <form [formGroup]="consentLetterIndividual" class="nep" id="consentLetterIndividualPrint">
 
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             श्री सेञ्चुरी कमर्सियल वैंक लिमिटेड <br>
             पुतलीसडक, काठमाण्डौं<br>
             शाखा कार्यालय
@@ -21,14 +16,17 @@
                 महाशय,<br>
                 त्यस वैंकवाट श्री
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="grandFatherName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('grandFatherName').value ? consentLetterIndividual.get('grandFatherName').value  : '========='}}</b></span>को नाती/नातिनी/बुहारी
-
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="fatherName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('fatherName').value ? consentLetterIndividual.get('fatherName').value  : '========='}}</b></span>
-                ,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="husbandName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('husbandName').value ? consentLetterIndividual.get('husbandName').value  : '========='}}</b></span>को छोरा/छोरी/पत्नी
-
+                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('grandFatherName').value ? consentLetterIndividual.get('grandFatherName').value  : '========='}}</b></span>
+                को नाती/नातिनी/बुहारी
+                <span *ngIf="this.nepData.gender==='1'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="fatherName" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{consentLetterIndividual.get('fatherName').value ? consentLetterIndividual.get('fatherName').value  : '========='}}</strong></span>
+                </span>
+                <span *ngIf="this.nepData.gender==='0'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="husbandName" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{consentLetterIndividual.get('husbandName').value ? consentLetterIndividual.get('husbandName').value  : '========='}}</strong></span>
+                </span>
+                को छोरा/छोरी/पत्नी
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="permanentDistrict" type="text"/>
                 <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('permanentDistrict').value ? consentLetterIndividual.get('permanentDistrict').value  : '========='}}</b></span>
                 जिल्ला
@@ -57,17 +55,24 @@
                 <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('borrowerAge').value ? consentLetterIndividual.get('borrowerAge').value  : '========='}}</b></span>
                 को/की
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('borrowerName').value ? consentLetterIndividual.get('borrowerName').value  : '========='}}</b></span>को नाममा बिभिन्न शिर्षक अन्र्तगतको ऋण कर्जा <strong>रु </strong>
-
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmount" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('loanAmount').value ? consentLetterIndividual.get('loanAmount').value  : '========='}}</b></span>
-                /– <b>(अक्षरेपि </b>
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('amountInWords').value ? consentLetterIndividual.get('amountInWords').value  : '========='}}</b></span>
-                <b> रुपैयाँ मात्र)</b>
+                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('borrowerName').value ? consentLetterIndividual.get('borrowerName').value  : '========='}}</b></span>
+                को नाममा बिभिन्न शिर्षक अन्र्तगतको ऋण कर्जा
+                <strong>रु
+                    <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                      [name]="patchFunction('amount')"
+                                      class="disable-print"></app-custom-input>
+                    <span class="print-only nepaliFont"><strong>{{consentLetterIndividual.get('amount').value ? consentLetterIndividual.get('amount').value : '========='}}</strong></span>
+                    <span class="timesNewRoman">/- (</span>अक्षरेपि
+                    <input class="form-field form-control-sm nepaliFont disable-print col-3"
+                           formControlName="amountInWords"
+                           placeholder=""
+                           type="text"/><span class="print-only nepaliFont"
+                                              style="font-size: 20px;"><strong>{{consentLetterIndividual.get('amountInWords').value ? consentLetterIndividual.get('amountInWords').value : '========='}}</strong></span>
+                    मात्र<span class="timesNewRoman">)</span>
+                </strong>
                 कर्जा लिनका लागि सुरक्षण वापत धितो स्वरुप
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="gurantorName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('gurantorName').value ? consentLetterIndividual.get('gurantorName').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="FACOwnerName" type="text"/>
+                <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('FACOwnerName').value ? consentLetterIndividual.get('FACOwnerName').value  : '========='}}</b></span>
                 को नाउंमा जग्गा धनि प्रमाण पुर्जा भै हकभोगमा रहेको तपसिलमा उल्लेख भए बमोजिमको जायजेथा सुरक्षण वापत बैंकलाई धितो लेखि दिएमा धितोजमानी दातासंग तल बिबरणमा भरिए
                 बमोजिमका हामी नाता संबन्धका ब्यक्तिहरुको पुर्ण रुपमा सहमति छ । उपरोक्त फर्म/व्यक्तीले उल्लेखित कर्जा र त्यसमा लाग्ने व्याज जरिवाना समेत नतिरे नवूझाएमा
                 <b>बैंक तथा वित्तिय संस्था सम्बन्धी ऐन २०७३ </b> तथा बैंकको ऐन नियम अनूसार तपसिलमा उल्लेखित,धितोदाताको नाउको जायजेथाबाट असुल उपर गरेमा मेरो/हाम्रो मन्जुरी छ ।
@@ -118,8 +123,8 @@
                             <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('landOwnerTole').value ? consentLetterIndividual.get('landOwnerTole').value  : '========='}}</b></span>
                         </td>
                         <td>
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="landOwnerName1" type="text"/>
-                            <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('landOwnerName1').value ? consentLetterIndividual.get('landOwnerName1').value  : '========='}}</b></span>
+                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="landOwnerKittaNo" type="text"/>
+                            <span class="print-only nepaliFont"><b>{{consentLetterIndividual.get('landOwnerKittaNo').value ? consentLetterIndividual.get('landOwnerKittaNo').value  : '========='}}</b></span>
                         </td>
                         <td>
                             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="landArea" type="text"/>
