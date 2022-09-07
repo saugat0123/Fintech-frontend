@@ -426,6 +426,10 @@ export class ProposalComponent implements OnInit {
    }
   }
 
+  private roundUpToNearest100(number: number): number {
+    return Math.ceil(number / 100) * 100;
+  }
+
   calculateEmiEqiAmount(repaymentMode) {
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
     const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
@@ -434,10 +438,10 @@ export class ProposalComponent implements OnInit {
       const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
       switch (repaymentMode) {
         case 'emi':
-          this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(this.roundUpToNearest100(Number(emi.toFixed(2))));
           break;
         case 'eqi':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(this.roundUpToNearest100(Number((emi * 3).toFixed(2))));
           break;
       }
     } else {
