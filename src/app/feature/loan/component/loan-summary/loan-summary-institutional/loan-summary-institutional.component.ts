@@ -213,6 +213,8 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   consumerFinance = false;
   smallBusiness = false;
   fullSettlement = false;
+  companyJsonData;
+  marketScenario;
 
   ngOnInit() {
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
@@ -223,11 +225,14 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditChecklist)) {
       this.esrmData = JSON.parse(this.loanDataHolder.loanHolder.creditChecklist.data);
     }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
-        && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
-        this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.baselCode)
+        && this.loanDataHolder.baselCode.length > 0) {
+        this.loanDataHolder.baselCode.forEach(rep => {
         this.customerReportingInfo.push(rep);
       });
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.companyJsonData)) {
+      this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
     }
     this.getLoanDataHolder();
     if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {

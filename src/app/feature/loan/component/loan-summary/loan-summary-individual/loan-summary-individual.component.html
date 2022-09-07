@@ -315,17 +315,19 @@
                                            [ciclValue]="loanDataHolder?.loanHolder?.cicl"
                                            [loanDataHolder]="loanDataHolder"></app-cicl-view>
                         </div>
-                        <ng-container>
+                        <ng-container *ngIf="customerReportingInfo.length > 0">
                             <div class="row">
                                 <div class="col-md-12">
                                     <p class="sub-header"><strong>Customer Reporting Information</strong></p>
                                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                                         <tr class="sb-bg-gray">
                                             <td>S.N</td>
+                                            <td>Code</td>
                                             <td>Description</td>
                                         </tr>
                                         <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
-                                            <td>{{i+1}}</td>
+                                            <td>{{i + 1}}</td>
+                                            <td>{{reporting?.name}}</td>
                                             <td>{{reporting?.description}}</td>
                                         </tr>
                                     </table>
@@ -744,15 +746,15 @@
                 <div class="col-md-12 print-only">
                     <p><strong class="header">Approval Chain</strong></p>
                 </div>
-                <div class="row col-md-12 summary" style="max-height: 40vh;">
+                <div class="row col-md-12 summary">
                     <div *ngFor="let previous of signatureList; let i=index;"
                          class="col-md-3 padding-0-125">
-                        <div class="signature-block" style="max-height: 20vh;">
+                        <div class="signature-block" style="max-height: 80vh;">
                             <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-gray">
                                 <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                             </div>
                             <hr class="border-dark m-0">
-                            <div class="row justify-content-center signature mx-auto" style="height: 80px; max-height: 80px">
+                            <div class="row justify-content-center signature mx-auto" style="max-height: 40vh">
                                 <div class="print-only signature-padding"></div>
                                 <img align="middle" alt="signature" style="height: 100%; width: 100%"
                                      class="img-thumbnail border-0 signature-height signature-width"

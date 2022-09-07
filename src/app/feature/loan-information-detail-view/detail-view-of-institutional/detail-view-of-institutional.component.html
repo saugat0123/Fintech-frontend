@@ -60,17 +60,19 @@
         <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
     </ng-container>
-    <ng-container>
+    <ng-container *ngIf="customerReportingInfo.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <p class="sub-header"><strong>Customer Reporting Information</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-gray">
                         <td>S.N</td>
+                        <td>Code</td>
                         <td>Description</td>
                     </tr>
                     <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
                         <td>{{i + 1}}</td>
+                        <td>{{reporting?.name}}</td>
                         <td>{{reporting?.description}}</td>
                     </tr>
                 </table>
@@ -192,6 +194,11 @@
                             [innerHTML]="(loanDataHolder?.loanHolder?.financial?.historicalProjected | jsonParse)?.remarks || 'N/A' | safeHtml"></div>
                 </div>
             </ng-container>
+            <div class="col-md-12" *ngIf="isCorporate && companyJsonData?.BusinessIndustryOutlook">
+                <hr class="print-line">
+                <p><strong class="header text-left">Industry Outlook </strong></p>
+                <div [innerHTML]="companyJsonData?.BusinessIndustryOutlook || 'N/A' | safeHtml"></div>
+            </div>
             <div *ngIf="netTradingAssetsSummary" class="col-md-12">
                 <hr class="print-line">
                 <app-net-trading-assets-view *ngIf="netTradingAssetsSummary"

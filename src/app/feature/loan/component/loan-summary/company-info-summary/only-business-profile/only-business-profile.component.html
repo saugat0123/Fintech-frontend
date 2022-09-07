@@ -5,16 +5,24 @@
         <table
                 class="table table-condensed table-bordered table-responsive-md table-sm  company-detail summary">
             <tr>
+                <td><b>Customer ID</b></td>
+                <td colspan="3">{{loanDataHolder?.loanHolder.customerCode || 'N/A'}}</td>
+            </tr>
+            <tr>
+                <td><b>Account Number</b></td>
+                <td colspan="3">{{getAccountNumber(accountNumberList) || 'N/A'}}</td>
+            </tr>
+            <tr>
                 <td><b>Nature Of business</b></td>
                 <td>{{companyJsonData?.majorProductService}}</td>
                 <td><b>Relationship Start (with group)</b>: {{companyJsonData?.relationshipSince}}</td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td><b>Sister Concerns</b></td>
                 <td>{{companyJsonData?.sisterConcern || 'N/A'}}</td>
                 <td><b>Relationship Since (with customer) (AD/BS)</b>: {{companyJsonData?.relationshipSinceWithCustomer | date}}
                     ({{companyJsonData?.relationshipSinceWithCustomer |engNepDate: false}})</td>
-            </tr>
+            </tr>-->
             <tr>
                 <td rowspan="6"><b>RegistrationDetail</b></td>
                 <td><b>Dept/office</b></td>
@@ -96,7 +104,7 @@
             </tr>
             <tr>
                 <td><b>Issue Place</b></td>
-                <td colspan="2">{{companyInfo?.issuePlace}}</td>
+                <td colspan="2">{{companyInfo?.legalStatus?.regIssuedPlace || 'N/A'}}</td>
             </tr>
             <tr>
                 <td><b>Registered Address</b></td>
@@ -160,15 +168,6 @@
                 <td><b>SubSector</b></td>
                 <td colspan="3">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
             </tr>
-            <tr>
-                <td><b>Customer ID</b></td>
-                <td colspan="3">{{loanDataHolder?.loanHolder.customerCode}}</td>
-            </tr>
-            <tr>
-                <td><b>Account Number</b></td>
-                <td colspan="3">{{getAccountNumber(accountNumberList)}}</td>
-            </tr>
-
         </table>
     </div>
     <div class="col-md-12" *ngIf="newGuarantor?.length > 0">
