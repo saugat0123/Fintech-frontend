@@ -23,7 +23,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DocAction} from '../../../loan/model/docAction';
 import {RoleType} from '../../../admin/modal/roleType';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -110,6 +110,11 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   showBranch = true;
   formAction: FormGroup;
 
+  totaldv = 0;
+  totalmv = 0;
+  totalcv = 0;
+
+
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
 
@@ -117,6 +122,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.initial();
+    this.updateLandSecurityTotal();
+    console.log('Customer info ----> ', this.customerInfo.security);
     this.activatedRoute.queryParams.subscribe((data) => {
       this.companyInfoId = data.customerInfoId;
     });
@@ -559,5 +566,38 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           documentStatus: [undefined]
         }
     );
+  }
+
+  updateLandSecurityTotal() {
+    const parseData = JSON.parse(this.customerInfo.security.data);
+    const landDetails = parseData.initialForm.landDetails;
+    this.totaldv = 0;
+    this.totalmv = 0;
+    this.totalcv = 0;
+    landDetails.forEach((sec) => {
+      if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
+        if (sec['revaluationData'].revaluationDetails === undefined || sec['revaluationData'].revaluationDetails === null) {
+          this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
+          this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
+          this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
+        } else {
+          const revData = sec['revaluationData'].revaluationDetails;
+          if (ObjectUtil.isEmpty(revData.reValuatedConsideredValue)) {
+            this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
+            this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
+            this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
+          } else {
+            this.totalmv += Number(revData.reValuatedFmv);
+            this.totaldv += Number(revData.reValuatedDv);
+            this.totalcv += Number(revData.reValuatedConsideredValue);
+          }
+        }
+      } else {
+        this.totaldv += Number(sec['distressValue']);
+        this.totalmv += Number(sec['marketValue']);
+        this.totalcv += Number(sec['landConsideredValue']);
+      }
+    });
+
   }
 }
