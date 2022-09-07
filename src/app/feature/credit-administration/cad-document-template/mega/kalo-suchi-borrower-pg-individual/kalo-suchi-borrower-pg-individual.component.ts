@@ -38,18 +38,17 @@ export class KaloSuchiBorrowerPgIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-                    this.kaloSuchiBorrowerPgIndividual.patchValue(JSON.parse(singleCadFile.initialInformation));
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
                 }
             });
         }
-        if (!ObjectUtil.isEmpty(this.initialInfo)) {
-            this.kaloSuchiBorrowerPgIndividual.patchValue(this.initialInfo);
-            console.log(this.initialInfo, 'initialinfo');
-        } else {
-            this.fillForm();
-        }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+        }
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.kaloSuchiBorrowerPgIndividual.patchValue(this.initialInfo);
+        } else {
+            this.fillForm();
         }
     }
 
