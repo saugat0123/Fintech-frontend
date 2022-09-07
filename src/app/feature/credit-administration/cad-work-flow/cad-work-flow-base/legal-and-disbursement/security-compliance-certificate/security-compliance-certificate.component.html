@@ -33,7 +33,7 @@
       </tr>
       <tr>
         <th class="text-left">Group</th>
-        <td colspan="2">{{(cadFile?.data | jsonParse)?.group}}</td>
+        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.group}}</td>
         <th class="text-left">RM</th>
         <td  colspan="2">{{maker}}</td>
         <th class="text-left">Branch</th>
@@ -41,15 +41,15 @@
       </tr>
       <tr>
         <th class="text-left" colspan="2">Multibanking</th>
-        <td colspan="2">{{(cadFile?.data | jsonParse)?.multiBanking}}</td>
+        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.multiBanking}}</td>
         <th class="text-left">Ka.Su.Fa.</th>
-        <td>{{(cadFile?.data | jsonParse)?.kasufa}}</td>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.kasufa}}</td>
         <th class="text-left">CIC</th>
         <td></td>
       </tr>
       <tr>
         <th class="text-left">Next Review/Tenure</th>
-        <td>{{(cadFile?.data | jsonParse)?.nextReviewDate}}</td>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.nextReview}}</td>
         <th class="text-left">Purpose</th>
         <td colspan="2" [innerHTML]="purposeOfLoan | safeHtml"></td>
         <th class="text-left">File Manager</th>
