@@ -119,7 +119,7 @@
                                               formControlName="registrationNumber"
                                               id="registrationNumber"
                                               min="0" placeholder="Enter registration number"
-                                              type="text" (change)="checkRegistrationNumber(regNumber.value)"/>
+                                              type="text" (change)="checkRegistrationNumber(regNumber.value, issuePlace.value)"/>
                                        <div *ngIf="submitted && form.registrationNumber.errors "
                                             class="invalid-feedback">
                                            <div *ngIf="form.registrationNumber.errors.required">
@@ -156,7 +156,9 @@
                                <div class="form-group">
                                    <label for="issuePlace"><strong>Issue Place</strong></label>
                                    <select formControlName="issuePlace" id="issuePlace"
+                                           #issuePlace
                                            [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}"
+                                           (ngModelChange)="checkRegistrationNumber(regNumber.value, issuePlace.value)"
                                            class="form-control">
                                        <option [value]="null">Select Issued Place</option>
                                        <option *ngFor="let district of allDistrict" [value]="district?.name">
