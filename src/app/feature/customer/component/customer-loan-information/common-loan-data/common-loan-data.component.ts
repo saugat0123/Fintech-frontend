@@ -185,7 +185,7 @@ export class CommonLoanDataComponent implements OnInit {
         const loanList = [];
         // this.updateCombinedDetails();
         this.resCombinedData.forEach((value) => {
-            const tempProposalData = JSON.parse(value.proposal.data);
+            const tempProposalData = this.commonLoanData.value;
                 value.proposal.checkedData = JSON.stringify(mergeChecked);
             if (!ObjectUtil.isEmpty(tempProposalData)) {
                 tempProposalData['commonLoanData'] = JSON.stringify(this.commonLoanData.value);
