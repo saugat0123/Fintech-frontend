@@ -27,6 +27,7 @@ export class GeneralLetterOfHypothecationPartnershipComponent implements OnInit 
   nepData;
   guarantorData;
   submitted = false;
+  initialInfo;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -38,7 +39,7 @@ export class GeneralLetterOfHypothecationPartnershipComponent implements OnInit 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.HypothecationPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
@@ -46,95 +47,69 @@ export class GeneralLetterOfHypothecationPartnershipComponent implements OnInit 
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.HypothecationPartnership.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
   }
 
   buildForm() {
     this.HypothecationPartnership = this.formBuilder.group({
-      bankBranchName: [undefined],
       guarantorGrandFatherName: [undefined],
       guarrantorFatherName: [undefined],
       guarantorDistrict: [undefined],
       guarantorMunicipalityOrVdc: [undefined],
       Municipality: [undefined],
       guarantorWardNo: [undefined],
-      tempProvinceNo: [undefined],
-      tempAddDistrict: [undefined],
-      tempAddMunicipality: [undefined],
-      tempAddWardNo: [undefined],
-      tempAddress: [undefined],
       guarantorAge: [undefined],
       guarantorName: [undefined],
-      guarantorCitizenshipNum: [undefined],
-      guarantorIssueDate: [undefined],
-      guarantorIssueDistrict: [undefined],
       guarantorGrandfather1: [undefined],
       guarrantorFatherName1: [undefined],
       guarantorDistrict1: [undefined],
       guarantorMunicipalityOrVdc1: [undefined],
       guarantorWardNo1: [undefined],
-      guarantorProvinceNo: [undefined],
-      tempAddDistrict1: [undefined],
-      TempAddMunicipality1: [undefined],
-      tempAddWardNo1: [undefined],
-      tempAddress1: [undefined],
       guarantorAge1: [undefined],
-      guarantorName1: [undefined],
-      guarantorCitizenshipNo1: [undefined],
-      CitizenshipIssuedDate1: [undefined],
-      CitizenshipIssuedDistrict1: [undefined],
-      guarantorGrandFather2: [undefined],
-      guarrantorFatherName2: [undefined],
-      borrowerDistrict: [undefined],
-      borrowerMunicipalityOrVdc: [undefined],
-      borrowerWardNo: [undefined],
-      borrowerProvinceNo: [undefined],
-      borrowerTempDistrict: [undefined],
-      tempMunicipalityOrVdc2: [undefined],
-      tempWardNo2: [undefined],
-      tempAddress2: [undefined],
-      borrowerAge: [undefined],
-      borrowerName: [undefined],
-      borrowerCitizenshipNo: [undefined],
-      borrowerCitizenshipIssuedDate: [undefined],
-      borrowerCitizenshipIssuedDistrict: [undefined],
-      numberOfGuarantor: [undefined],
-      loanApprovalDate: [undefined],
-      loanAmount: [undefined],
-      loanAmtInWord: [undefined],
-      loanFacility1: [undefined],
-      purpose1: [undefined],
-      loanFacilityAmount1: [undefined],
-      interestRate1: [undefined],
-      timePeriod1: [undefined],
-      apology1: [undefined],
-      loanFacility2: [undefined],
-      purpose2: [undefined],
-      loanFacilityAmount2: [undefined],
-      interestRate2: [undefined],
-      timePeriod2: [undefined],
-      apology2: [undefined],
-      staffName: [undefined],
-      guarantorName2: [undefined],
-      guarantorAddress: [undefined],
+      date: [undefined],
+      registerNum: [undefined],
+      AuthorizedPersonName: [undefined],
+      AuthorizedPersonName1: [undefined],
+      guarantorDistrict2: [undefined],
       docWrittenYear: [undefined],
       docWrittenMonth: [undefined],
       docWrittenDay: [undefined],
-      docWrittenWeek: [undefined],
-      witnessDistrict1: [undefined],
-      witnessMunicipalityOrVdc1: [undefined],
-      witnessWardNo1: [undefined],
-      witnessAge1: [undefined],
-      witnessName1: [undefined],
-      witnessDistrict2: [undefined],
-      witnessMunicipalityOrVdc2: [undefined],
-      witnessWardNo2: [undefined],
-      witnessAge2: [undefined],
-      witnessName2: [undefined],
-      date: [undefined],
-      registerNum: [undefined],
-      Act: [undefined],
-      AuthorizedPersonName: [undefined],
-      AuthorizedPersonName1: [undefined],
+      bankBranchName: [undefined],
+    });
+  }
+
+  fillForm() {
+    this.HypothecationPartnership.patchValue({
+      guarantorGrandFatherName: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.grandFatherName : '',
+      guarrantorFatherName: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.fatherName : '',
+      guarantorMunicipalityOrVdc: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      Municipality: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ?
+          this.nepData.companyRegOffice : '',
+      guarantorWardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      guarantorAge: [undefined],
+      guarantorName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ?
+          this.nepData.nepaliName : '',
+      guarantorDistrict1: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+      date: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ?
+          this.nepData.regIssueDate : '',
+      registerNum: !ObjectUtil.isEmpty(this.nepData.registrationNo) ?
+          this.nepData.registrationNo : '',
+      AuthorizedPersonName: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.name : '',
+      bankBranchName: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ?
+          this.nepData.companyRegOffice : '',
+      guarantorDistrict: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+
     });
   }
   changeToNepAmount(event: any, target, from) {
