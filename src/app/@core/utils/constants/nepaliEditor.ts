@@ -1,7 +1,8 @@
 export class NepaliEditor {
     static CK_CONFIG = {
         allowedContent: false,
-        font_names: 'Arial;Times New Roman;Verdana;Preeti',
+        contentsCss: ['body {font-size: 24px;font-family:Preeti;}'],
+        font_names: 'Preeti',
         toolbarGroups: [
             { name: 'document', groups: ['mode', 'document', 'doctools'] },
             { name: 'clipboard', groups: ['clipboard', 'undo'] },
