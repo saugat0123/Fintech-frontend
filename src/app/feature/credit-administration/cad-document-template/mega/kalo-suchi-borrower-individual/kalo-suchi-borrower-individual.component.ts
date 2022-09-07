@@ -42,21 +42,29 @@ export class KaloSuchiBorrowerIndividualComponent implements OnInit {
                 }
             });
         }
+        if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+            this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+        }
         if (!ObjectUtil.isEmpty(this.initialInfo)) {
             this.form.patchValue(this.initialInfo);
         } else {
-            this.filForm();
-        }
-        if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-            this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+            this.fillForm();
         }
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            municipality: [undefined],
-            approver: [undefined],
             debtor: [undefined],
+            district: [undefined],
+            municipality: [undefined],
+            ward: [undefined],
+            tole: [undefined],
+            curProvince: [undefined],
+            curDistrict: [undefined],
+            curMunicipality: [undefined],
+            curWard: [undefined],
+            loanFacilityTypeNep: [undefined],
+            approver: [undefined],
             approverDistrict: [undefined],
             approverMunicipality: [undefined],
             approverWard: [undefined],
@@ -65,25 +73,17 @@ export class KaloSuchiBorrowerIndividualComponent implements OnInit {
             approverCurDistrict: [undefined],
             approverCurMunicipality: [undefined],
             approverCurWard: [undefined],
-            ward: [undefined],
-            district: [undefined],
-            tole: [undefined],
-            curProvince: [undefined],
-            curDistrict: [undefined],
-            curMunicipality: [undefined],
-            curWard: [undefined],
-            loanFacilityTypeNep: [undefined],
             fatherInLawName: [undefined],
             fatherName: [undefined],
             husbandName: [undefined],
             citizenshipNo: [undefined],
             citizenshipIssuedDate: [undefined],
             citizenshipIssuingOffice: [undefined],
-            date: [undefined],
+            date: [undefined]
         });
     }
 
-    filForm() {
+    fillForm() {
         this.form.patchValue({
             debtor: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
             district: !ObjectUtil.isEmpty(this.nepData.customerPermanentAddress.district) ?
