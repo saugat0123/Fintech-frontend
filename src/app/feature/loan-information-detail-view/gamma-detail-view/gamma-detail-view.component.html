@@ -110,6 +110,7 @@
                                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                        [customerInfo]="loanDataHolder?.loanHolder"
                         [customerAllLoanList]="customerAllLoanList"
                         [security]="loanDataHolder?.security"></app-collateral-summary>
             </li>

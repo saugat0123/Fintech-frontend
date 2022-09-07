@@ -1,3 +1,4 @@
+
 <div class="row mt-1 col-md-12 sb-small">
     <div *ngIf="approveSheet === 'approveSheet'; else notApproveSheet">
         <p><strong>{{loanCategory === 'INDIVIDUAL' ? '10. ' : '9. '}} Group Security Details</strong></p>
@@ -88,6 +89,18 @@
         <mark class="alert-warning">Coverage%:</mark>
         <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |roundvalue}}%</strong>
     </div>
+
+    <div  class="col-md-2 sb-small">
+        <mark class="alert-warning">Total Fair Market Value:</mark>
+        <strong>{{totalmv}}</strong>
+    </div>
+
+    <div  class="col-md-2 sb-small">
+        <mark class="alert-warning">Total Distress Value:</mark>
+        <strong>{{totaldv}}</strong>
+    </div>
+
+
     <div  class="col-md-2 sb-small">
         <mark class="alert-warning">Loan Exposure:</mark>
         <strong>{{
