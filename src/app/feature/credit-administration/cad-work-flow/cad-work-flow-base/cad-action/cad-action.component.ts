@@ -267,6 +267,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             });
             this.formAction.get('toUser').clearValidators();
             this.formAction.updateValueAndValidity();
+            this.formAction.get('toUser').patchValue(null);
         } else {
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
                 this.userList = response.detail;

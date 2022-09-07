@@ -486,6 +486,34 @@
                         </nb-accordion>
                     </div>
 
+                    <div class="box box-primary col-md-6 mb-2" *ngFor="let data of otherCycleList; let i = index;">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>{{data}}</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <span (click)="setChecked(otherCycleKeys[i] , true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="setChecked(otherCycleKeys[i] , false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
+                                    <div class="row">
+                                        <div *ngFor="let docs of otherCycleDoc[otherCycleKeys[i]]; let documentIndex = index"
+                                             class="col-md-4">
+                                            <nb-checkbox
+                                                    [checked]="docs.checked"
+                                                    id="{{data+documentIndex}}"
+                                                    (change)="onSelect(otherCycleKeys[i], $event, docs)"
+                                                    status="primary">
+                                                <span>{{docs.displayName}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
                 </div>
             </div>
             <div class="box-footer text-right">
