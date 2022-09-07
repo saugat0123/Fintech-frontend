@@ -106,7 +106,7 @@ export class LoanConfigComponent implements OnInit {
     }
 
     add() {
-        this.router.navigate(['home/admin/configLoan']);
+        this.router.navigate(['home/admin/configLoan', '']);
     }
 
     configureRole(loanConfigId: number) {

@@ -503,7 +503,7 @@
                                             <nb-checkbox
                                                     [checked]="docs.checked"
                                                     id="{{data+documentIndex}}"
-                                                    (change)="onSelect(otherCycleKeys[i], $event, docs)"
+                                                    (change)="onSelect(otherCycleKeys[i], $event, docs, documentIndex)"
                                                     status="primary">
                                                 <span>{{docs.displayName}}</span>
                                             </nb-checkbox>

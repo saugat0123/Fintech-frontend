@@ -95,7 +95,7 @@ export class UIComponent implements OnInit, DoCheck {
     financedAssets = financedAssets.enumObject();
 
     static loadData(other: UIComponent) {
-        other.loanConfig = other.route.snapshot.data.result.detail;
+        other.loanConfig = other.route.snapshot.data.result ? other.route.snapshot.data.result.detail : new LoanConfig();
         other.selectedLoanCategory = other.loanConfig.loanCategory;
         other.getTemplate();
         other.offerLetterService.getAll().subscribe((responseList: any) => {
@@ -302,12 +302,14 @@ export class UIComponent implements OnInit, DoCheck {
                 if (data.length > 0) {
                     const selected = [];
                     data.forEach((d, ix) => {
-                        other.loanConfig[other.otherCycleKeys[currentIndex]].forEach(da => {
-                            if (d.id === da.id) {
-                                data[ix].checked = true;
-                                selected.push(data[ix]);
-                            }
-                        });
+                        if (other.loanConfig.id !== undefined && other.loanConfig.id !== 0) {
+                            other.loanConfig[other.otherCycleKeys[currentIndex]].forEach(da => {
+                                if (d.id === da.id) {
+                                    data[ix].checked = true;
+                                }
+                            });
+                        }
+                        selected.push(data[ix]);
                     });
                     const docs = other.otherCycleKeys[currentIndex];
                     other.otherCycleDoc[docs] = data;
@@ -317,9 +319,6 @@ export class UIComponent implements OnInit, DoCheck {
                     const docs = other.otherCycleKeys[currentIndex];
                     other.otherCycleDoc[docs] = data;
                     other.otherCycleFinal[docs] = [];
-                }
-                if (i === 21) {
-                    console.log('maintained', other.otherCycleDoc);
                 }
             });
         }
@@ -441,6 +440,9 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
         this.loanConfig.approvedDocument = this.finalCadDocumentUploadList;
         this.loanConfig.renewWithEnhancement = this.finalRenewWithEnhancementDocument;
+        this.otherCycleKeys.forEach((d) => {
+            this.otherCycleFinal[d] = this.otherCycleDoc[d].filter(doc => doc.checked === true);
+        });
         Object.assign(this.loanConfig, this.otherCycleFinal);
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
@@ -602,20 +604,13 @@ export class UIComponent implements OnInit, DoCheck {
         this.otherCycleDoc[key].forEach((d) => {
             Object.assign(d, {checked: checkAll});
         });
-        if (checkAll) {
-            this.otherCycleFinal[key] = this.otherCycleDoc[key];
-        } else {
-            this.otherCycleFinal[key] = [];
-        }
     }
 
-    onSelect(key, event, data) {
+    onSelect(key, event, data, docIndex) {
         if (event.target.checked) {
-            this.otherCycleFinal[key].push(data);
+            this.otherCycleDoc[key][docIndex].checked = true;
         } else {
-            const index = this.otherCycleFinal[key].indexOf(data);
-            this.otherCycleFinal[key].splice(index, 1);
+            this.otherCycleDoc[key][docIndex].checked = false;
         }
-        console.log(this.otherCycleFinal[key]);
     }
 }
