@@ -23,6 +23,7 @@ import {LoanTag} from '../model/loanTag';
 import { CustomerType } from '../../customer/model/customerType';
 import { CustomerInfoData } from '../model/customerInfoData';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-summary-base',
@@ -65,7 +66,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 private documentService: DocumentService,
                 private customerLoanService: LoanFormService,
                 private combinedLoanService: CombinedLoanService,
-                private customerInfoService: CustomerInfoService) {
+                private customerInfoService: CustomerInfoService,
+                private spinerService: NgxSpinnerService) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
@@ -82,6 +84,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     loadSummary() {
+        this.spinerService.show();
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -217,6 +220,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             }
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
             this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
+            this.spinerService.hide();
         });
     }
 

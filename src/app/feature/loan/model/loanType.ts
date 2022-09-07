@@ -7,11 +7,11 @@ export enum LoanType {
     FULL_SETTLEMENT_LOAN = 'Full Settlement Loan',
     RENEW_WITH_ENHANCEMENT = 'Renew with Enhancement',
     SECURITY_FULL_RELEASE = 'Security Full Release',
-    SECURITY_PARTIAL_RELEASE= 'Security Partial Release',
-    REALIGNMENT='Realignmen',
-    INTEREST_REVISION='Interest Revision',
-    OTHERS_MEMO='Others Memo',
-    WAIVER_DEFFERAL_MEMO='waiver/defferal Memo'
+    SECURITY_PARTIAL_RELEASE = 'Security Partial Release',
+    REALIGNMENT = 'Realignment',
+    INTEREST_REVISION = 'Interest Revision',
+    OTHERS_MEMO = 'Others Memo',
+    WAIVER_DEFFERAL_MEMO = 'waiver/defferal Memo'
 
 }
 

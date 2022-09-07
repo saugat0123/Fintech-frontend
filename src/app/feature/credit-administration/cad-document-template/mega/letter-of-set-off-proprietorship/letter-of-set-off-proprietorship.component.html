@@ -57,6 +57,8 @@
                 को
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1" type="text"/>
                 <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPerson1').value ? letterOfSetOffProprietorship.get('authorizedPerson1').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="proprietors" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('proprietors').value ? letterOfSetOffProprietorship.get('proprietors').value  : '========='}}</b></span>
                 आगे तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस पछि <b>धनी बैंक</b> भनिएको छ)
                 ले म/हाम्रो/ऋणीको अनुरोधमा म/हामी/ऋणीलाई ऋणकर्जा तथा बैकिङ सुबिधाको लागि <b>मिति </b>
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementDate" type="text"/>
@@ -114,18 +116,18 @@
             <div>
                 <div style="padding-left: 600px;">
                     श्री
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="nameOfBorrower" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('nameOfBorrower').value ? letterOfSetOffProprietorship.get('nameOfBorrower').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerPersonName" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('borrowerPersonName').value ? letterOfSetOffProprietorship.get('borrowerPersonName').value  : '========='}}</b></span>
                     का प्रोप्राईटर
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonTwo" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonTwo').value ? letterOfSetOffProprietorship.get('authorizedPersonTwo').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('authorizedPersonFather').value ? letterOfSetOffProprietorship.get('authorizedPersonFather').value  : '========='}}</b></span>
                 </div>
                 <br>
                 <p style="padding-left: 100px;">साक्षि :</p>
-                १.
-                <br><br>
-                २.
-                <br>
+                १) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sachiOne" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfSetOffProprietorship.get('sachiOne').value ? letterOfSetOffProprietorship.get('sachiOne').value  : '========='}}</strong></span><br>
+                २) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sachiTwo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfSetOffProprietorship.get('sachiTwo').value ? letterOfSetOffProprietorship.get('sachiTwo').value  : '========='}}</strong></span><br><br>
                 इति सम्बत २०
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementYear" type="text"/>
                 <span class="print-only nepaliFont"><b>{{letterOfSetOffProprietorship.get('agreementYear').value ? letterOfSetOffProprietorship.get('agreementYear').value  : '========='}}</b></span>
