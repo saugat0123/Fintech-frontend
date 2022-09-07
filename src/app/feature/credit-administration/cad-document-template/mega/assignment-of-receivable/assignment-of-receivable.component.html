@@ -2,11 +2,6 @@
     <!--div class="row">-->
     <form [formGroup]="assignmentOfReceivable" class="nep" id="assignmentOfReceivablePrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong><u>भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा</u></strong><br><br>
                 <strong><u><span class="timesNewRoman">(Assignment of Receivables)</span></u></strong>
@@ -46,7 +41,7 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNo" type="text"/>
                 <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('wardNo').value ?
                     assignmentOfReceivable.get('wardNo').value  : '========='}}</b></span>
-                स्थित रजिष्टर्ड ठेगाना रहेका
+                स्थित रजिष्टर्ड ठेगाना रहेको
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="partnershipForm" type="text"/>
                 <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('partnershipForm').value ?
                     assignmentOfReceivable.get('partnershipForm').value  : '========='}}</b></span>
@@ -76,7 +71,11 @@
                 कलम उपर हामीलाई रहेको हक अधिकार तपाई धनी बैंकका नाममा हक हस्तान्तरण <span class="timesNewRoman">(Assign)</span> गरी दियौ ।
                 कथंकदाचित हामीले तपाई धनी बैंकबाट उल्लेखित
                 सिमा भित्र रही हाल प्राप्त गरेको वा पछि प्राप्त गर्ने ऋण /कर्जाको समय, समयमा तिर्न वुझाउन पर्ने सांवा, व्याज, फि, कमिशन, पेनाल्टी, दस्तुर लगायतका
-                रकम कलम तपाई धनी बैंकको मिति
+                रकम कलम तपाई धनी बैंकको
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="freeText" type="text"/>
+                <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('freeText').value ?
+                    assignmentOfReceivable.get('freeText').value  : ''}}</b></span>
+                मिति
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="dueDate" type="text"/>
                 <span class="print-only nepaliFont"><b>{{assignmentOfReceivable.get('dueDate').value ?
                     assignmentOfReceivable.get('dueDate').value  : '========='}}</b></span>

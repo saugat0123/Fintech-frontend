@@ -32,7 +32,7 @@
         <td><b>Firm renewed</b></td>
         <td colspan="2">For FY {{companyJsonData?.otherCompanyDetail?.firmRenew}}</td>
         <td><b>A/C strategy</b> </td>
-        <td></td>
+        <td>{{(companyInfo?.accStrategy) ? (companyInfo?.accStrategy) : 'N/A'}}</td>
         <td colspan="2">{{companyJsonData?.relationshipSince ? (companyJsonData?.relationshipSince | date) : 'N/A'}}</td>
         <td>{{companyJsonData?.relationshipSinceWithCustomer ? (companyJsonData?.relationshipSinceWithCustomer | date) : 'N/A'}}</td>
     </tr>

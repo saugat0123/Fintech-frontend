@@ -129,11 +129,9 @@
                                             <td><strong>कर्जा सुविधाको प्रकार (Facility Type)</strong></td>
                                             <td><select class="form-control text-dark disable-print" formControlName="facilityType">
                                                 <option [value]="null" hidden>Select Facility Type</option>
-                                                <option value="शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)">
-                                                    शेयर धितो माग कर्जा (Demand Loan-Loan Against Share)
+                                                <option *ngFor="let value of dropVal;" [value]="value" >
+                                                    {{value}}
                                                 </option>
-                                                <option value="शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)">
-                                                    शेयर धितो अधिविकर्ष कर्जा (Overdraft-Loan Against Share)</option>
                                             </select>
                                                 <span class="print-only">{{controls?.get('facilityType')?.value}}</span>
                                             </td>
@@ -287,13 +285,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-1 text-center">क)</div>
-                                <div class="col-md-11">बैकलाई मान्यहुने शेयरहरु धितो सुरक्षणको <input class="form-fields form-control-sm nepaliFont disable-print"
-                                                                                                      formControlName="dhitoSurachankoName"
-                                                                                                      name="dhitoSurachankoName"
-                                                                                                      placeholder=""
-                                                                                                      type="text">
-                                    <span class="print-only nepaliFont">{{form?.get('dhitoSurachankoName')?.value}}</span>
-                                    को नाममा रहेको शेयर) उपलब्ध गराए अनुसार स्वीकृत कर्जा सिमा भित्र रहने गरी कर्जा सुबिधा उपभोग गर्न पाउने छ ।</div>
+
+                                <div class="col-md-11">
+                                     <ckeditor #ckEditorComponent
+                                             [config]="config"
+                                             class="form-fields  nepaliFont disable-print"
+                                               formControlName="dhitoSurachankoName"
+                                               name="dhitoSurachankoName"></ckeditor>
+                                    <span class="print-only nepaliFont" [innerHTML]="(form?.get('dhitoSurachankoName')?.value | safeHtml)"></span>
+                                  </div>
 
                             </div>
                             <div class="row">
@@ -363,6 +363,18 @@
                                     समेत यस ऋण स्विकृति पत्रमा उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको मानिनेछ ।
                                     यस ऋण स्विकृति पत्रमा उल्लेखित कुनै शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा ऋणीको मन्जुरी रहनेछ ।</div>
                             </div>
+                            <div class="row" *ngFor="let controls of form?.get('surakChand')['controls']; let i = index;" formArrayName="surakChand">
+                                <ng-container formGroupName="{{i}}">
+                                    <div class="col-md-1 text-center">{{(i + 1 + 8) | nepaliWord:'unicode' }})</div>
+                                    <div class="col-md-11">
+                                        <ckeditor [config]="config" class="disable-print" formControlName="text"></ckeditor>
+                                        <span class="print-only nepaliFont" [innerHTML]="(controls?.get('text')?.value | safeHtml)"></span>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <button (click)="addSurakChand()" nbButton size="small" status="info" type="Button" class="disable-print">
+                                थप्नुहोस् (ADD+)..
+                            </button>
                             <h6>४.<strong><u> ब्याज : </u></strong></h6>
                             <div class="row">
                                 <div class="col-md-1"></div>

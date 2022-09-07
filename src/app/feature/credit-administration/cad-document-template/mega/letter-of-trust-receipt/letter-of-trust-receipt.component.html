@@ -108,8 +108,8 @@
                 <p>गोश्वारा—पत्रका कारणी</p>
                 <div>
                     <input class="form-field form-control-sm nepaliFont text-center disable-print"
-                formGroupName="nepaliName"
-                placeholder="रिनिको नाम"
+                formControlName="nepaliName"
+                placeholder=""
                 type="text"/>
                     <span class="print-only nepaliFont"><b>{{letterOfTrustReceipt?.get('nepaliName')?.value}}</b></span>
                     को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री
@@ -117,7 +117,7 @@
                         <ng-container formGroupName = {{i}}>
                             <!--        <input class="form-control" formControlName="nepaliName">-->
                             <input class="form-field form-control-sm disable-print nepaliFont" formControlName="name">
-                            <span class="print-only nepaliFont">{{controls?.get('name')?.value}}</span>
+                            <span class="print-only nepaliFont"><b>{{controls?.get('name')?.value}}</b></span>
                             <button class="btn disable-print"  (click)="remove(i)"><i class="fa fa-trash"></i></button>
                         </ng-container>
                     </ng-container>

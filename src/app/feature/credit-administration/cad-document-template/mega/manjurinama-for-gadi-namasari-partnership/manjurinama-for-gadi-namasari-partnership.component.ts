@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
@@ -17,13 +18,13 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
   styleUrls: ['./manjurinama-for-gadi-namasari-partnership.component.scss']
 })
 export class ManjurinamaForGadiNamasariPartnershipComponent implements OnInit {
-
+  @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
   manjurinamaForGadiNamasariPartnership: FormGroup;
   nepData;
-  guarantorData;
+  initialInfo;
   submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -31,18 +32,25 @@ export class ManjurinamaForGadiNamasariPartnershipComponent implements OnInit {
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.manjurinamaForGadiNamasariPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          const data = JSON.parse(singleCadFile.initialInformation);
+          this.manjurinamaForGadiNamasariPartnership.patchValue(data);
+          this.setName(data);
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.guarantorData = Object.values(this.nepData.guarantorDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.manjurinamaForGadiNamasariPartnership.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -54,10 +62,21 @@ export class ManjurinamaForGadiNamasariPartnershipComponent implements OnInit {
       vehicleRegistrationNo: [undefined],
       borrowerName: [undefined],
       authorizedPersonName: [undefined],
-      authorizedPersonName2: [undefined],
+      name: this.formBuilder.array([]),
     });
   }
-
+  fillForm() {
+    this.manjurinamaForGadiNamasariPartnership.patchValue({
+          borrowerName: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+          authorizedPersonName: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+        });
+    if (!ObjectUtil.isEmpty(this.nepData)) {
+      if (!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name)) {
+        this.addName();
+        this.manjurinamaForGadiNamasariPartnership.get(['name', 0, 'name']).patchValue(this.nepData.authorizedPersonDetail.name);
+      }
+    }
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -96,5 +115,24 @@ export class ManjurinamaForGadiNamasariPartnershipComponent implements OnInit {
       this.dialogRef.close();
     });
   }
-}
+  addName() {
+    (this.manjurinamaForGadiNamasariPartnership.get('name') as FormArray).push(this.formBuilder.group({
+      name: [undefined]
+    }));
+  }
 
+  remove(i) {
+    (this.manjurinamaForGadiNamasariPartnership.get('name') as FormArray).removeAt(i);
+  }
+
+  setName(data) {
+    if (data.length < 0) {
+      this.addName();
+    }
+    data.name.forEach(d => {
+      (this.manjurinamaForGadiNamasariPartnership.get('name') as FormArray).push(this.formBuilder.group({
+        name: [d ? d.name : undefined],
+      }));
+    });
+  }
+}

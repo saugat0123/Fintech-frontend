@@ -8,4 +8,5 @@ export class ExistingExposure extends BaseEntity {
     loanConfig: any;
     docStatus: any;
     originalLimit: number;
+    isReview: boolean;
 }

@@ -23,6 +23,7 @@ export class ManjurinamaForGadiNamasariIndividualComponent implements OnInit {
   @Input() customerLoanId: number;
   manjurinamaForGadiNamasariIndividual: FormGroup;
   nepData;
+  initialInfo;
   guarantorData;
   submitted = false;
   constructor(private formBuilder: FormBuilder,
@@ -36,13 +37,18 @@ export class ManjurinamaForGadiNamasariIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.manjurinamaForGadiNamasariIndividual.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.manjurinamaForGadiNamasariIndividual.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -53,10 +59,14 @@ export class ManjurinamaForGadiNamasariIndividualComponent implements OnInit {
       engineNo: [undefined],
       vehicleRegistrationNo: [undefined],
       borrowerName: [undefined],
-      authorizedPersonName: [undefined],
     });
   }
-
+fillForm() {
+  this.manjurinamaForGadiNamasariIndividual.patchValue({
+        borrowerName: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+      }
+  );
+}
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {

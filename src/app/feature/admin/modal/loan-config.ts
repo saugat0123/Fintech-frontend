@@ -26,6 +26,12 @@ export class LoanConfig {
     partialSettlement: Array<Document>;
     fullSettlement: Array<Document>;
     eligibilityDocuments: Array<Document>;
+    securityFullRelease: Array<Document>;
+    securityPartialRelease: Array<Document>;
+    realignment: Array<Document>;
+    interestRevision: Array<Document>;
+    othersMemo: Array<Document>;
+    waiverDefferalMemo: Array<Document>;
     offerLetters: Array<OfferLetter>;
     enableEligibility: boolean;
     minimumProposedAmount: number;
