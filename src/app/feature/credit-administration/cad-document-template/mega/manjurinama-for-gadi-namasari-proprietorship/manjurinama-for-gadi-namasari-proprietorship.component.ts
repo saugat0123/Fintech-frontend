@@ -23,8 +23,10 @@ export class ManjurinamaForGadiNamasariProprietorshipComponent implements OnInit
   @Input() customerLoanId: number;
   manjurinamaForGadiNamasariProprietorship: FormGroup;
   nepData;
+  initialInfo;
   guarantorData;
   submitted = false;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -36,7 +38,7 @@ export class ManjurinamaForGadiNamasariProprietorshipComponent implements OnInit
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.manjurinamaForGadiNamasariProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
@@ -44,17 +46,30 @@ export class ManjurinamaForGadiNamasariProprietorshipComponent implements OnInit
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.manjurinamaForGadiNamasariProprietorship.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
   }
 
   buildForm() {
     this.manjurinamaForGadiNamasariProprietorship = this.formBuilder.group({
-      date : [undefined],
+      date: [undefined],
       chasisNo: [undefined],
       engineNo: [undefined],
       vehicleRegistrationNo: [undefined],
       borrowerName: [undefined],
       authorizedPersonName: [undefined],
     });
+  }
+
+  fillForm() {
+    this.manjurinamaForGadiNamasariProprietorship.patchValue({
+          borrowerName: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+          authorizedPersonName: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+        }
+    );
   }
 
   submit() {

@@ -12,7 +12,10 @@
                 <strong> <b><u>मोजरा पत्र <span class="timesNewRoman">(  Letter of  Set off  )</span></u></b> </strong>
             </h6>
             <div>
-                लिखितम् साझेदारी ऐन २०२० बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
+                लिखितम् साझेदारी ऐन
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="actYear" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('actYear').value ? letterOfSetOffPartnership.get('actYear').value  : '========='}}</b></span>
+                बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegistrationOffice" type="text"/>
                 <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('companyRegistrationOffice').value ? letterOfSetOffPartnership.get('companyRegistrationOffice').value  : '========='}}</b></span>
                 कार्यालयमा मिति
@@ -55,33 +58,11 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonAge" type="text"/>
                 <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonAge').value ? letterOfSetOffPartnership.get('authorizedPersonAge').value  : '========='}}</b></span>
                 को
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPerson1').value ? letterOfSetOffPartnership.get('authorizedPerson1').value  : '========='}}</b></span>
-                .१, र रु
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonGrandfatherNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonGrandfatherNext').value ? letterOfSetOffPartnership.get('authorizedPersonGrandfatherNext').value  : '========='}}</b></span>
-                को नाती
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonNext').value ? letterOfSetOffPartnership.get('authorizedPersonNext').value  : '========='}}</b></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFatherNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonFatherNext').value ? letterOfSetOffPartnership.get('authorizedPersonFatherNext').value  : '========='}}</b></span>
-                को छोरा
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrictNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonDistrictNext').value ? letterOfSetOffPartnership.get('authorizedPersonDistrictNext').value  : '========='}}</b></span>
-                जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonMunicipalityNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonMunicipalityNext').value ? letterOfSetOffPartnership.get('authorizedPersonMunicipalityNext').value  : '========='}}</b></span>
-                गा.बि.स./न.पा वडा नं
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonWardNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonWardNext').value ? letterOfSetOffPartnership.get('authorizedPersonWardNext').value  : '========='}}</b></span>
-                बस्ने बर्ष
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonAgeNext" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonAgeNext').value ? letterOfSetOffPartnership.get('authorizedPersonAgeNext').value  : '========='}}</b></span>
-                को
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonPrevious" type="text"/>
-                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonPrevious').value ? letterOfSetOffPartnership.get('authorizedPersonPrevious').value  : '========='}}</b></span>
-                समेत दुई (२) आगे तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस पछि धनी बैंक भनिएको छ)
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPerson').value ? letterOfSetOffPartnership.get('authorizedPerson').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="partners" type="text"/>
+                <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('partners').value ? letterOfSetOffPartnership.get('partners').value  : '========='}}</b></span>
+                आगे तपाई सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यस पछि धनी बैंक भनिएको छ)
                 ले म/हाम्रो/ऋणीको अनुरोधमा म/हामी/ऋणीलाई ऋणकर्जा तथा बैकिङ सुबिधाको लागि <b>मिति </b>
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementDate" type="text"/>
                 <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('agreementDate').value ? letterOfSetOffPartnership.get('agreementDate').value  : '========='}}</b></span>
@@ -137,22 +118,22 @@
             <div>
                 <div style="padding-left: 390px;">
             श्री
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="nameOfBorrower" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('nameOfBorrower').value ? letterOfSetOffPartnership.get('nameOfBorrower').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerPersonName" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('borrowerPersonName').value ? letterOfSetOffPartnership.get('borrowerPersonName').value  : '========='}}</b></span>
             का
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonOne" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonOne').value ? letterOfSetOffPartnership.get('authorizedPersonOne').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPerson').value ? letterOfSetOffPartnership.get('authorizedPerson').value  : '========='}}</b></span>
                 .१, र
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonTwo" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonTwo').value ? letterOfSetOffPartnership.get('authorizedPersonTwo').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('authorizedPersonFather').value ? letterOfSetOffPartnership.get('authorizedPersonFather').value  : '========='}}</b></span>
                 समेत दुई (२)
                 </div>
                 <br>
                 <p style="padding-left: 100px;">साक्षि :</p>
-                १.
-                <br><br>
-                २.
-                <br>
+                १) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sachiOne" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfSetOffPartnership.get('sachiOne').value ? letterOfSetOffPartnership.get('sachiOne').value  : '========='}}</strong></span><br>
+                २) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sachiTwo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfSetOffPartnership.get('sachiTwo').value ? letterOfSetOffPartnership.get('sachiTwo').value  : '========='}}</strong></span><br><br>
                 इति सम्बत २०
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="agreementYear" type="text"/>
                 <span class="print-only nepaliFont"><b>{{letterOfSetOffPartnership.get('agreementYear').value ? letterOfSetOffPartnership.get('agreementYear').value  : '========='}}</b></span>

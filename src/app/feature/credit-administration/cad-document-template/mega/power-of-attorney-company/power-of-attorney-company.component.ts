@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
@@ -33,6 +33,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   nepData;
+  isForEdit = false;
   guarantorData;
   submitted = false;
   constructor(private formBuilder: FormBuilder,
@@ -46,13 +47,19 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.PowerOfAttorneyCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          const data = JSON.parse(singleCadFile.initialInformation);
+          this.PowerOfAttorneyCompany.patchValue(data);
+          this.setName(data);
+          this.isForEdit = true;
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
+      if (!this.isForEdit) {
+        this.fillForm();
+      }
     }
   }
 
@@ -138,8 +145,37 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       witnessAge2: [undefined],
       witnessName2: [undefined],
       date: [undefined],
-      registerNum: [undefined]
+      date1: [undefined],
+      registerNum: [undefined],
+      meroHamroName: [undefined],
+      jariVayeko: [undefined],
+      guarantorName3: this.formBuilder.array([]),
     });
+  }
+  fillForm() {
+    this.PowerOfAttorneyCompany.patchValue({
+      bankBranchName: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+      date: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+      registerNum: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+      // tslint:disable-next-line:max-line-length
+      tempAddDistrict: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+      // tslint:disable-next-line:max-line-length
+      guarantorMunicipalityOrVdc: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.municipality : ''],
+      guarantorWardNo: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.wardNo : ''],
+      staffName: [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+      guarantorName: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+      loanApprovalDate: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.offerIssueDate : ''],
+      loanAmount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+      loanAmtInWord: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+      guarantorName3: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+      guarantorDistrict: [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.district : ''],
+    });
+    if (!ObjectUtil.isEmpty(this.nepData)) {
+      if (!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name)) {
+        this.addName();
+        this.PowerOfAttorneyCompany.get(['guarantorName3', 0, 'guarantorName3']).patchValue(this.nepData.authorizedPersonDetail.name);
+      }
+    }
   }
   changeToNepAmount(event: any, target, from) {
     this.PowerOfAttorneyCompany.get([target]).patchValue(event.nepVal);
@@ -150,7 +186,6 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
     const patchValue1 = this.PowerOfAttorneyCompany.get([target]).value;
     return patchValue1;
   }
-
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -189,5 +224,24 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       this.dialogRef.close();
     });
   }
+  addName() {
+    (this.PowerOfAttorneyCompany.get('guarantorName3') as FormArray).push(this.formBuilder.group({
+      guarantorName3: [undefined],
+    }));
+  }
 
+  remove(i) {
+    (this.PowerOfAttorneyCompany.get('guarantorName3') as FormArray).removeAt(i);
+  }
+
+  setName(data) {
+    if (data.length < 0) {
+      this.addName();
+    }
+    data.guarantorName3.forEach(d => {
+      (this.PowerOfAttorneyCompany.get('guarantorName3') as FormArray).push(this.formBuilder.group({
+        guarantorName3: [d ? d.guarantorName3 : undefined],
+      }));
+    });
+  }
 }

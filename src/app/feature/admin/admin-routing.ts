@@ -32,6 +32,7 @@ import {EligibilitySummaryComponent} from './component/eligibility/eligibility-s
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
 import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
 import {PreferenceComponent} from './component/preference/preference.component';
+import {LoanConfigResolver} from './component/loan-config/loanConfigResolver';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -46,7 +47,7 @@ export const adminRoutes: Routes = [
     {path: 'valuator', component: ValuatorComponent},
     {path: 'sector', component: SectorComponent},
     {path: 'subSector', component: SubSectorComponent},
-    {path: 'configLoan', component: UIComponent},
+    {path: 'configLoan/:id', component: UIComponent, resolve: {result: LoanConfigResolver}},
     {path: 'nepse', component: NepseComponent},
     {path: 'segment', component: SegmentComponent},
     {path: 'sub-segment', component: SubSegmentComponent},
