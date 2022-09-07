@@ -73,10 +73,10 @@
                                 class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('borrowerName').value ? supplementaryAgreementPartnership.get('borrowerName').value : '========='}}</strong></span>
                             का साझेदारहरु
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="authorizedPersonGrandfatherName"
+                                   formControlName="authorizedPersonGrandFatherName"
                                    placeholder=""
                                    type="text"/><span
-                                class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('authorizedPersonGrandfatherName').value ? supplementaryAgreementPartnership.get('authorizedPersonGrandfatherName').value : '========='}}</strong></span>
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('authorizedPersonGrandFatherName').value ? supplementaryAgreementPartnership.get('authorizedPersonGrandFatherName').value : '========='}}</strong></span>
                             को नाती
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="authorizedPersonFatherName"
@@ -121,10 +121,10 @@
                                 class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('authorizedPersonName').value ? supplementaryAgreementPartnership.get('authorizedPersonName').value : '========='}}</strong></span>
                             .१, र रु
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="authorizedPersonGrandatherName2"
+                                   formControlName="authorizedPersonGrandFatherName2"
                                    placeholder=""
                                    type="text"/><span
-                                class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('authorizedPersonGrandfatherName2').value ? supplementaryAgreementPartnership.get('authorizedPersonGrandfatherName2').value : '========='}}</strong></span>
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('authorizedPersonGrandFatherName2').value ? supplementaryAgreementPartnership.get('authorizedPersonGrandFatherName2').value : '========='}}</strong></span>
                             को नाती
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="authorizedPersonFatherName2"
@@ -179,7 +179,19 @@
                         </p>
                         <br>
                         <p>
-                            तहांले हाम्रो नाममा जारी गरेको मिति
+                            तहांले हाम्रो नाममा
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="name"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('name').value ? supplementaryAgreementPartnership.get('name').value : ' '}}</strong></span>
+                            जारी गरेको
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="name2"
+                                   placeholder=""
+                                   type="text"/><span
+                                class="print-only nepaliFont"><strong>{{supplementaryAgreementPartnership.get('name2').value ? supplementaryAgreementPartnership.get('name2').value : ' '}}</strong></span>
+                            मिति
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="offerLetterIssuedDate"
                                    placeholder=""
