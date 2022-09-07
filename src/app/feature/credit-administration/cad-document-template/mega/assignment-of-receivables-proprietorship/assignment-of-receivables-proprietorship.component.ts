@@ -22,6 +22,7 @@ export class AssignmentOfReceivablesProprietorshipComponent implements OnInit {
   @Input() customerLoanId: number;
   assignmentOfReceivablesProprietorship: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -36,12 +37,17 @@ export class AssignmentOfReceivablesProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.assignmentOfReceivablesProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.assignmentOfReceivablesProprietorship.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -49,15 +55,11 @@ export class AssignmentOfReceivablesProprietorshipComponent implements OnInit {
     this.assignmentOfReceivablesProprietorship = this.formBuilder.group({
       branchOfficeAddress: [undefined],
       companyRegistrationOffice: [undefined],
-      department: [undefined],
-      mantralaya: [undefined],
-      officeName: [undefined],
-      regNo: [undefined],
       regDate: [undefined],
-      metropolitan1: [undefined],
+      regNo: [undefined],
+      district: [undefined],
       metropolitan: [undefined],
       wardNo: [undefined],
-      partnershipForm: [undefined],
       borrowerName: [undefined],
       authorizedPersonGrandFather: [undefined],
       authorizedPersonFather: [undefined],
@@ -69,33 +71,53 @@ export class AssignmentOfReceivablesProprietorshipComponent implements OnInit {
       authorizedPerson: [undefined],
       loanAmount: [undefined],
       loanAmountInWords: [undefined],
+      freeTextDate: [undefined],
       offerLetterIssuedDate: [undefined],
       witness1: [undefined],
       witness2: [undefined],
-      representativeName: [undefined],
-      representativeGrandaughterName: [undefined],
-      sonOrDaughter: [undefined],
-      wife: [undefined],
-      district: [undefined],
-      metropolitan2: [undefined],
-      age: [undefined],
-      mrOrMrs: [undefined],
-      ownerBankNum: [undefined],
-      documentWritenDate: [undefined],
-      rupees: [undefined],
-      rupessInWord: [undefined],
       sambatYear: [undefined],
       sambatMonth: [undefined],
       sambatDay: [undefined],
       sambatDate: [undefined],
       shubham: [undefined],
-      sambatDocumentWrittenInWord: [undefined],
-      witnessSignature: [undefined],
-      witnessDistrict: [undefined],
-      witnessMunicipality: [undefined],
-      witnessVdc: [undefined],
-      witnessAge: [undefined],
-      witnessEvidence: [undefined],
+    });
+  }
+  fillForm(){
+    this.assignmentOfReceivablesProprietorship.patchValue({
+      branchOfficeAddress: !ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchName : '',
+      companyRegistrationOffice: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : '',
+      regDate: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ?
+          this.nepData.regIssueDate : '',
+      regNo: !ObjectUtil.isEmpty(this.nepData.registrationNo) ?
+          this.nepData.registrationNo : '',
+      district: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+      metropolitan: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      wardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.wardNo) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ?
+          this.nepData.nepaliName : '',
+      authorizedPersonGrandFather: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.grandFatherName : '',
+      authorizedPersonFather: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.fatherName : '',
+      authorizedPersonHusband: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.husbandName : '',
+      authorizedPersonDistrict: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ?
+          this.nepData.authorizedPersonAddress.district : '',
+      authorizedPersonMetropolitan: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ?
+          this.nepData.authorizedPersonAddress.municipality : '',
+      authorizedPersonWardNo: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ?
+          this.nepData.authorizedPersonAddress.wardNo : '',
+      authorizedPerson: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.name : '',
+      loanAmount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ?
+          this.nepData.miscellaneousDetail.loanAmountInFig : '',
+      loanAmountInWords: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ?
+          this.nepData.miscellaneousDetail.loanAmountInWord : '',
+      offerLetterIssuedDate: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ?
+          this.nepData.miscellaneousDetail.offerIssueDate : '',
     });
   }
 
