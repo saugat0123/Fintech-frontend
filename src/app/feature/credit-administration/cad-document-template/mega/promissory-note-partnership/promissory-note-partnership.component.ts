@@ -20,11 +20,12 @@ import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 export class PromissoryNotePartnershipComponent implements OnInit {
 
   promissoryNotePartnership: FormGroup;
-  promissoryPartnership;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
   @Input() nepaliAmount: NepaliNumberAndWords;
+  nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -37,63 +38,39 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.promissoryNotePartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.promissoryPartnership = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.promissoryNotePartnership.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
+    console.log('nep data: ', this.nepData);
+
   }
 
   buildForm() {
     this.promissoryNotePartnership = this.formBuilder.group({
-      branch: [undefined],
-      temporaryProvince: [undefined],
-      temporaryProvince2: [undefined],
-      permanentDistrict: [undefined],
-      permanentMunicipalityVDC: [undefined],
-      permanentWardNo: [undefined],
-      permanentDistrict2: [undefined],
-      permanentMunicipalityVDC2: [undefined],
-      permanentWardNo2: [undefined],
-      namesOfTheRightPeopleInTheAffidavit: [undefined],
-      namesOfTheRightPeopleInTheAffidavit2: [undefined],
-      grandParents: [undefined],
-      parents: [undefined],
-      grandParents2: [undefined],
-      parents2: [undefined],
-      temporaryDistrict: [undefined],
-      temporaryMunicipalityVDC: [undefined],
-      temporaryWardNo: [undefined],
-      temporaryDistrict2: [undefined],
-      temporaryMunicipalityVDC2: [undefined],
-      temporaryWardNo2: [undefined],
-      age: [undefined],
-      age2: [undefined],
-      relation: [undefined],
-      citizenshipNo: [undefined],
-      issueDate: [undefined],
-      issueDistrict: [undefined],
-      citizenshipNo2: [undefined],
-      issueDate2: [undefined],
-      issueDistrict2: [undefined],
-      annualRate: [undefined],
-      onePerson: [undefined],
-      relation2: [undefined],
+      municipality1: [undefined],
+      district: [undefined],
+      wardNo: [undefined],
+      grandFather: [undefined],
+      autFather: [undefined],
+      autHusband: [undefined],
+      autDistrict: [undefined],
+      autMunicipality: [undefined],
+      autWardNo: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
-      nameOfWitness: [undefined],
-      addressOfWitness: [undefined],
-      nameOfWitness2: [undefined],
-      addressOfWitness2: [undefined],
       ministry: [undefined],
-      actName: [undefined],
-      actDate: [undefined],
-      department: [undefined],
       office: [undefined],
       registrationNo: [undefined],
       registrationDate: [undefined],
@@ -102,11 +79,31 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       nameOfAuthorizedPerson: [undefined],
       date1: [undefined],
       date2: [undefined],
-      district: [undefined],
-      wardNo: [undefined],
+      input1: [undefined],
       borrowerNameInNepali: [undefined]
     });
   }
+  fillForm() {
+    this.promissoryNotePartnership.patchValue({
+      amount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : '',
+      amountInWords: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : '',
+      ministry: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : '',
+      date1: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : '',
+      registrationNo: !ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : '',
+      district: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : '',
+      municipality1: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      wardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.wardNo : '',
+      borrowerNameInNepali: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+      nameOfAuthorizedPerson: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : '',
+      autFather: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.fatherName : '',
+      autHusband: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.husbandName : '',
+      autDistrict: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.district : '',
+      autMunicipality: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.municipality : '',
+      autWardNo: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.wardNo : '',
+      grandFather: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.grandFatherName : '',
+    });
+    }
   changeToNepAmount(event: any, target, from) {
     this.promissoryNotePartnership.get([target]).patchValue(event.nepVal);
     this.promissoryNotePartnership.get([from]).patchValue(event.val);

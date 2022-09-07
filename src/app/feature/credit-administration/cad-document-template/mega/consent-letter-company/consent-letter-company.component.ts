@@ -24,6 +24,7 @@ export class ConsentLetterCompanyComponent implements OnInit {
   @Input() customerLoanId: number;
   consentLetterCompany: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -38,12 +39,17 @@ export class ConsentLetterCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.consentLetterCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.consentLetterCompany.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -59,14 +65,14 @@ export class ConsentLetterCompanyComponent implements OnInit {
       institutionRegisteredVdcOrMunicipality: [undefined],
       institutionRegisteredWard: [undefined],
       borrowerName: [undefined],
-      loanAmount: [undefined],
+      amount: [undefined],
       amountInWords: [undefined],
-      gurantorName: [undefined],
+      FACOwnerName: [undefined],
       landOwnerName: [undefined],
       landOwnerDistrict: [undefined],
       landOwnerWard: [undefined],
       landOwnerTole: [undefined],
-      landOwnerName1: [undefined],
+      landOwnerKittaNo: [undefined],
       landArea: [undefined],
       fullYear: [undefined],
       monthOfYear: [undefined],
@@ -80,7 +86,41 @@ export class ConsentLetterCompanyComponent implements OnInit {
       relationWithBorrower1: [undefined],
     });
   }
-
+  fillForm() {
+    this.consentLetterCompany.patchValue({
+          branchOffice: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+          ministryOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+          CompanyRegistrationDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+          registrationNum: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+          institutionRegisteredDistrict: [!ObjectUtil.isEmpty
+          (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+          institutionRegisteredVdcOrMunicipality: [!ObjectUtil.isEmpty
+          (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+          institutionRegisteredWard: [!ObjectUtil.isEmpty
+          (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.municipality : ''],
+          borrowerName: [!ObjectUtil.isEmpty
+          (this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+          amount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+          amountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+          FACOwnerName: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0]) ? this.nepData.collateralDetails[0].nameInNepali : ''],
+          landOwnerName: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0]) ? this.nepData.collateralDetails[0].nameInNepali : ''],
+          landOwnerDistrict: [!ObjectUtil.isEmpty(this.nepData.collateralDetails[0].landAndBuildingDetail)
+              ? this.nepData.collateralDetails[0].landAndBuildingDetail.district : ''],
+          landOwnerMunicipality: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.municipality : ''],
+          landOwnerWard: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.wardNo : ''],
+          landOwnerTole: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.tole : ''],
+          landOwnerKittaNo: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.plotNo : ''],
+          landArea: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.area : ''],
+        }
+    );
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -119,5 +159,13 @@ export class ConsentLetterCompanyComponent implements OnInit {
       this.dialogRef.close();
     });
   }
+    changeToNepAmount(event: any, target, from) {
+        this.consentLetterCompany.get([target]).patchValue(event.nepVal);
+        this.consentLetterCompany.get([from]).patchValue(event.val);
+    }
 
+    patchFunction(target) {
+        const patchValue1 = this.consentLetterCompany.get([target]).value;
+        return patchValue1;
+    }
 }

@@ -3,11 +3,6 @@
     <form [formGroup]="consentLetterCompany" class="nep" id="consentLetterCompanyPrint">
 
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             श्री सेञ्चुरी कमर्सियल वैंक लिमिटेड <br>
             पुतलीसडक, काठमाण्डौं<br>
             शाखा कार्यालय
@@ -43,21 +38,28 @@
                 स्थित रजिष्टर्ड ठेगाना रहेका
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName" type="text"/>
                 <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('borrowerName').value ? consentLetterCompany.get('borrowerName').value  : '========='}}</b></span>
-                को नाममा बिभिन्न शिर्षक अन्र्तगतको ऋण कर्जा <strong>रु </strong>
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmount" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('loanAmount').value ? consentLetterCompany.get('loanAmount').value  : '========='}}</b></span>
-                /– <b>(अक्षरेपि </b>
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('amountInWords').value ? consentLetterCompany.get('amountInWords').value  : '========='}}</b></span>
-                <b> रुपैयाँ मात्र)</b>
+                को नाममा बिभिन्न शिर्षक अन्र्तगतको ऋण कर्जा
+                <strong>रु
+                <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
+                                  [name]="patchFunction('amount')"
+                                  class="disable-print"></app-custom-input>
+                <span class="print-only nepaliFont"><strong>{{consentLetterCompany.get('amount').value ? consentLetterCompany.get('amount').value : '========='}}</strong></span>
+                <span class="timesNewRoman">/- (</span>अक्षरेपि
+                <input class="form-field form-control-sm nepaliFont disable-print col-3"
+                       formControlName="amountInWords"
+                       placeholder=""
+                       type="text"/><span class="print-only nepaliFont"
+                                          style="font-size: 20px;"><strong>{{consentLetterCompany.get('amountInWords').value ? consentLetterCompany.get('amountInWords').value : '========='}}</strong></span>
+                मात्र<span class="timesNewRoman">)</span>
+                </strong>
                 कर्जा लिनका लागि सुरक्षण वापत धितो स्वरुप
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="gurantorName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('gurantorName').value ? consentLetterCompany.get('gurantorName').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="FACOwnerName" type="text"/>
+                <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('FACOwnerName').value ? consentLetterCompany.get('FACOwnerName').value  : '========='}}</b></span>
                 को नाउंमा जग्गा धनि प्रमाण पुर्जा भै हकभोगमा रहेको तपसिलमा उल्लेख भए बमोजिमको जायजेथा सुरक्षण वापत बैंकलाई धितो लेखि दिएमा धितोजमानी दातासंग तल बिबरणमा भरिए
                 बमोजिमका हामी नाता संबन्धका ब्यक्तिहरुको पुर्ण रुपमा सहमति छ । उपरोक्त फर्म/व्यक्तीले उल्लेखित कर्जा र त्यसमा लाग्ने व्याज जरिवाना समेत नतिरे नवूझाएमा
                 <b>बैंक तथा वित्तिय संस्था सम्बन्धी ऐन २०७३ </b> तथा बैंकको ऐन नियम अनूसार तपसिलमा उल्लेखित, धितोदाता श्री
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="gurantorName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('gurantorName').value ? consentLetterCompany.get('gurantorName').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="FACOwnerName" type="text"/>
+                <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('FACOwnerName').value ? consentLetterCompany.get('FACOwnerName').value  : '========='}}</b></span>
                 को नाउको जायजेथाबाट असुल उपर गरेमा मेरो/हाम्रो मन्जुरी छ । पछि उक्त जायजेथामा मेरो/हाम्रो पनि हक लाग्ने हो र निजले मात्र धितो लेखिदिदैमा मेरो/हाम्रो  हक जाने होइन भनि कहि कतै उजुर वाजुर गर्ने छैन गरे यसै सहमति
                 पत्रलाई आधार मानि मेरो/हाम्रो  दावी खारेज होस् भनि यो सहमति पत्रको कागजमा सहिछाप गरी सेञ्चुरी कमर्सियल बैंक लिमिटेडलाई दियां/दियौं ।
             </div>
@@ -107,8 +109,8 @@
                             <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('landOwnerTole').value ? consentLetterCompany.get('landOwnerTole').value  : '========='}}</b></span>
                         </td>
                         <td>
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="landOwnerName1" type="text"/>
-                            <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('landOwnerName1').value ? consentLetterCompany.get('landOwnerName1').value  : '========='}}</b></span>
+                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="landOwnerKittaNo" type="text"/>
+                            <span class="print-only nepaliFont"><b>{{consentLetterCompany.get('landOwnerKittaNo').value ? consentLetterCompany.get('landOwnerKittaNo').value  : '========='}}</b></span>
                         </td>
                         <td>
                             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="landArea" type="text"/>

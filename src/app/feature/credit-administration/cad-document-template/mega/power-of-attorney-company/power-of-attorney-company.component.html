@@ -1,15 +1,15 @@
 <div class="container nep text-justify nepaliFont">
-    <form (ngSubmit)="submit()" [formGroup]="PowerOfAttorneyCompany" class="nep" id="PowerOfAttorneyCompanyPrint">
+    <form [formGroup]="PowerOfAttorneyCompany" class="nep" id="PowerOfAttorneyCompanyPrint">
         <h5 class="text-center"><strong>वारेसनामा</strong></h5>
         <h5 class="text-center"><u><strong>(Power of Attorney)</strong></u></h5>
         <div class="row">
             <div class="col-md-12">
                 <p>
                     लिखितम कम्पनी ऐन <input class="form-field form-control-sm nepaliFont disable-print"
-                                            name="date"
-                                            formControlName="date"
+                                            name="date1"
+                                            formControlName="date1"
                                             placeholder=""
-                                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('date').value ? PowerOfAttorneyCompany.get('date').value  : '========='}}</strong></span>
+                                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('date1').value ? PowerOfAttorneyCompany.get('date1').value  : '========='}}</strong></span>
                     बमोजिम नेपाल सरकार उद्योग मन्त्रालय <input class="form-field form-control-sm nepaliFont disable-print"
                                                                name="bankBranchName"
                                                                formControlName="bankBranchName"
@@ -45,17 +45,30 @@
                                                         formControlName="staffName"
                                                         placeholder=""
                                                         type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('staffName').value ? PowerOfAttorneyCompany.get('staffName').value  : '========='}}</strong></span>
-                    को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                                                                 name="guarantorName"
-                                                                                 formControlName="guarantorName"
-                                                                                 placeholder=""
-                                                                                 type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('guarantorName').value ? PowerOfAttorneyCompany.get('guarantorName').value  : '========='}}</strong></span>
+                    को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री <ng-container *ngFor="let controls of PowerOfAttorneyCompany?.get('guarantorName3')['controls']; let i = index" formArrayName="guarantorName3">
+                    <ng-container formGroupName = {{i}}>
+                        <input class="form-field form-control-sm disable-print nepaliFont" formControlName="guarantorName3">
+                        <span class="print-only nepaliFont"><b>{{controls?.get('guarantorName3')?.value}}</b></span>
+                        <button class="btn disable-print"  (click)="remove(i)"><i class="fa fa-trash"></i></button>
+                    </ng-container>
+                </ng-container>
+                    <button class="btn disable-print" (click)="addName()"><i class="fa fa-plus"></i></button>
                     ( जसलाई यस उप्रान्त ऋणी कम्पनीÞ भनिएको छ) आगे म/हामी ऋणीको अनुरोधमा सेञ्चुरी कमर्सियल बैंक लिमिटेड बाट
-                    मेरो/हाम्रो नाममा जारी भएको मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                    मेरो/हाम्रो नाममा <input class="form-field form-control-sm nepaliFont disable-print"
+                                             name="meroHamroName"
+                                             formControlName="meroHamroName"
+                                             placeholder=""
+                                             type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('meroHamroName').value ? PowerOfAttorneyCompany.get('meroHamroName').value  : ' '}}</strong></span>
+                    जारी भएको <input class="form-field form-control-sm nepaliFont disable-print"
+                                     name="jariVayeko"
+                                     formControlName="jariVayeko"
+                                     placeholder=""
+                                     type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('jariVayeko').value ? PowerOfAttorneyCompany.get('jariVayeko').value  : ' '}}</strong></span>
+                    मिति <input class="form-field form-control-sm nepaliFont disable-print"
                                                             name="loanApprovalDate"
                                                             formControlName="loanApprovalDate"
                                                             placeholder=""
-                                                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('loanApprovalDate').value ? PowerOfAttorneyCompany.get('loanApprovalDate').value  : '========='}}</strong></span>
+                                                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('loanApprovalDate').value ? PowerOfAttorneyCompany.get('loanApprovalDate').value  : ' '}}</strong></span>
                     को ऋण स्वीकृति पत्रानुसार मेरो/हाम्रो नाममा कुल जम्मा <strong>रु.  </strong>
                     <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmtInWord', 'loanAmount')"
                                       [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
@@ -65,7 +78,7 @@
                            formControlName="loanAmtInWord"
                            placeholder=""
                            type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyCompany.get('loanAmtInWord').value ? PowerOfAttorneyCompany.get('loanAmtInWord').value  : '========='}}</strong></span>
-                    <strong>रुपैयाँ मात्र)</strong>
+                    <strong> रुपैयाँ मात्र)</strong>
                     स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको
                     (Account Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील, वित्तीय उपकरण आदि हामी ऋणीको हकमा
                     बुझीलिन सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ) लाई

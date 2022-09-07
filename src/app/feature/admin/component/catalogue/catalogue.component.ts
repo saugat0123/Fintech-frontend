@@ -112,6 +112,7 @@ export class CatalogueComponent implements OnInit {
     isFileUnderCurrentToUser: any;
     loanConfigId: number;
     customerId: number;
+    loanTypes = LoanType.value();
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -153,6 +154,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(LoanType.value());
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {

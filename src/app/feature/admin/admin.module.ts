@@ -92,6 +92,7 @@ import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { CapitalConfigurationComponent } from './component/capital-configuration/capital-configuration.component';
 import { CapitalConfigurationFormComponent } from './component/capital-configuration/capital-configuration-form/capital-configuration-form.component';
+import {LoanConfigResolver} from './component/loan-config/loanConfigResolver';
 
 @NgModule({
     declarations: [
@@ -221,7 +222,8 @@ import { CapitalConfigurationFormComponent } from './component/capital-configura
         FinancialConfigModalComponent,
         RoleAddComponent,
         CapitalConfigurationFormComponent
-    ]
+    ],
+    providers:[LoanConfigResolver]
 
 })
 export class AdminModule {

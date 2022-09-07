@@ -78,6 +78,7 @@ import { LetterOfTrustReceiptComponent } from './letter-of-trust-receipt/letter-
 import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-partnership/personal-guarantee-partnership.component';
 import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-guarantee-proprietorship.component';
 import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-first-party-individual/share-pledge-deed-first-party-individual.component';
+import {CoreModule} from '../../../../@core/core.module';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -147,6 +148,7 @@ import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-
         NgxPrintModule,
         MegaOfferLetterTemplateModule,
         NbSpinnerModule,
+        CoreModule,
     ],
     exports: [
         AssignmentOfReceivableComponent,

@@ -23,7 +23,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   nepData;
-  guarantorData;
+  guarantorData = [];
   submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -42,6 +42,14 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+      if (this.nepData.guarantorDetails.length > 0) {
+        const val = this.nepData.guarantorDetails;
+        console.log('this.personalGuaranteeCompany.value', this.personalGuaranteeCompany.value);
+        console.log('val', val);
+        this.setGuarantor(val);
+      } else {
+        this.addForm();
+      }
       //this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
     // if (!ObjectUtil.isEmpty(guarantorList)) {
@@ -61,52 +69,87 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     //   //   ); }
     //   // );
     // }
+    this.patchData();
   }
 
 
   buildForm() {
     this.personalGuaranteeCompany = this.formBuilder.group({
-      districtName: [undefined],
-      municipalityName: [undefined],
-      wardNo: [undefined],
       branchName: [undefined],
-      GrandFatherName: [undefined],
-      grandChildrenName: [undefined],
-      districtName2: [undefined],
-      municipalityName2: [undefined],
-      wardNo2: [undefined],
-      age: [undefined],
-      guarantorName: [undefined],
-      citizenshipNo: [undefined],
-      date: [undefined],
-      districtAdministrationOfficeName: [undefined],
-      registeredOffice: [undefined],
-      companyName: [undefined],
-      companyRegistrationNumber: [undefined],
+      companyAct: [undefined],
+      ministryOfIndustry: [undefined],
       registeredDate: [undefined],
+      companyRegistrationNumber: [undefined],
+      registeredDistrict: [undefined],
+      registeredMunicipalityOrVdc: [undefined],
+      registeredWardNo: [undefined],
+      borrowerName: [undefined],
+      freeTextOne: [undefined],
+      freeTextTwo: [undefined],
+      offerLetterIssuedDate: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      loanApprovalDate: [undefined],
-      documentWrittenYear: [undefined],
-      documentWrittenMonth: [undefined],
-      documentWrittenDay: [undefined],
-      bankStaffName: [undefined],
-      witnessDistrict: [undefined],
-      witnessMunicipalityOrVdc: [undefined],
-      witnessWardNo: [undefined],
-      witnessAge: [undefined],
-      witnessName: [undefined],
-      docWrittenWeek: [undefined],
-      borrowerTempDis: [undefined],
-      MunicipalityOrVdc: [undefined],
-      name: [undefined],
-      perWardNo: [undefined],
-      perMun: [undefined],
-      perDis: [undefined],
-      borrowerStateNo: [undefined],
+      loanAmount: [undefined],
+      loanAmountInWords: [undefined],
+      personalGuarantor: this.formBuilder.array([]),
+      witnessOne: [undefined],
+      witnessTwo: [undefined],
+      year: [undefined],
+      month: [undefined],
+      day: [undefined],
+      roj: [undefined]
     });
   }
-
+  addForm() {
+    const form = this.personalGuaranteeCompany.get('personalGuarantor') as FormArray;
+    form.push(this.formBuilder.group({
+      guarantorName: undefined,
+      guarantorFatherName: undefined,
+      guarantorFatherInName: undefined,
+      guarantorGrandFatherName: undefined,
+      guarantorHusbandName: undefined,
+      guarantorPerDistrict: undefined,
+      guarantorPerMunicipality: undefined,
+      guarantorPerWardNo: undefined,
+      guarantorPerTole: undefined,
+      guarantorTempDistrict: undefined,
+      guarantorTempMunicipality: undefined,
+      guarantorTempWardNo: undefined,
+      guarantorTempTole: undefined,
+      guarantorCitizenNo: undefined,
+      guarantorCitizenIssueDate: undefined,
+      guarantorCitizenIssueDistrict: undefined
+    }));
+  }
+  setGuarantor(val) {
+    const control = this.personalGuaranteeCompany.get('personalGuarantor') as FormArray;
+    if (!ObjectUtil.isEmpty(val)) {
+      val.forEach(d => {
+       if (d.guarantorType === 'Personal_Guarantor') {
+         control.push(
+             this.formBuilder.group({
+               guarantorName: d.name,
+               guarantorFatherName: d.fatherName,
+               guarantorFatherInName: d.fatherInLawName,
+               guarantorGrandFatherName: d.grandFatherName,
+               guarantorHusbandName: d.husbandName,
+               guarantorPerDistrict: d.guarantorPermanentAddress.district,
+               guarantorPerMunicipality: d.guarantorPermanentAddress.municipality,
+               guarantorPerWardNo: d.guarantorPermanentAddress.wardNo,
+               guarantorPerTole: d.guarantorPermanentAddress.tole,
+               guarantorTempDistrict: d.guarantorTemporaryAddress.district,
+               guarantorTempMunicipality: d.guarantorTemporaryAddress.municipality,
+               guarantorTempWardNo: d.guarantorTemporaryAddress.wardNo,
+               guarantorTempTole: d.guarantorTemporaryAddress.tole,
+               guarantorCitizenNo: d.citizenshipNo,
+               guarantorCitizenIssueDate: d.citizenshipIssueDate,
+               guarantorCitizenIssueDistrict: d.citizenshipIssueDistrict
+             })
+         );
+       }
+      });
+    }
+  }
   changeToNepAmount(event: any, target, from) {
     this.personalGuaranteeCompany.get(target).patchValue(event.nepVal);
     this.personalGuaranteeCompany.get(from).patchValue(event.val);
@@ -115,6 +158,34 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   patchFunction(target) {
     const patchValue1 = this.personalGuaranteeCompany.get(target).value;
     return patchValue1;
+  }
+  patchData() {
+    this.personalGuaranteeCompany.get('branchName').patchValue(this.nepData.branchDetail ?
+        this.nepData.branchDetail.branchNameInNepali : '');
+    this.personalGuaranteeCompany.get('ministryOfIndustry').patchValue(this.nepData.companyRegOffice ?
+        this.nepData.companyRegOffice : '');
+    this.personalGuaranteeCompany.get('registeredDate').patchValue(this.nepData.regIssueDate ?
+        this.nepData.regIssueDate : '');
+    this.personalGuaranteeCompany.get('companyRegistrationNumber').patchValue(this.nepData.registrationNo ?
+        this.nepData.registrationNo : '');
+    this.personalGuaranteeCompany.get('registeredDistrict').patchValue(this.nepData.institutionRegisteredAddress ?
+        this.nepData.institutionRegisteredAddress.district : '');
+    this.personalGuaranteeCompany.get('registeredMunicipalityOrVdc').patchValue(this.nepData.institutionRegisteredAddress ?
+        this.nepData.institutionRegisteredAddress.municipality : '');
+    this.personalGuaranteeCompany.get('registeredWardNo').patchValue(this.nepData.institutionRegisteredAddress ?
+        this.nepData.institutionRegisteredAddress.wardNo : '');
+    this.personalGuaranteeCompany.get('borrowerName').patchValue(this.nepData.nepaliName ?
+        this.nepData.nepaliName : '');
+    this.personalGuaranteeCompany.get('offerLetterIssuedDate').patchValue(this.nepData.miscellaneousDetail ?
+        this.nepData.miscellaneousDetail.offerIssueDate : '');
+    this.personalGuaranteeCompany.get('amount').patchValue(this.nepData.miscellaneousDetail ?
+        this.nepData.miscellaneousDetail.loanAmountInFig : '');
+    this.personalGuaranteeCompany.get('amountInWords').patchValue(this.nepData.miscellaneousDetail ?
+        this.nepData.miscellaneousDetail.loanAmountInWord : '');
+    this.personalGuaranteeCompany.get('loanAmount').patchValue(this.nepData.miscellaneousDetail ?
+        this.nepData.miscellaneousDetail.loanAmountInFig : '');
+    this.personalGuaranteeCompany.get('loanAmountInWords').patchValue(this.nepData.miscellaneousDetail ?
+        this.nepData.miscellaneousDetail.loanAmountInWord : '');
   }
 
   submit() {
