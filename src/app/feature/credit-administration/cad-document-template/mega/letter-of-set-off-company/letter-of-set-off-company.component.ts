@@ -163,7 +163,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       companyNameNepali: [ObjectUtil.isEmpty(this.nepData.nepaliName) ? '' : (this.nepData.nepaliName)],
       authPersonName: [ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name) ? '' : (this.nepData.authorizedPersonDetail.name)],
       dateOfRegister: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ? '' : (this.nepData.miscellaneousDetail.offerIssueDate)],
-      amount: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? '' : (this.nepData.miscellaneousDetail.offerIssueDate)],
+      amount: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? '' : (this.nepData.miscellaneousDetail.loanAmountInFig)],
       amountInWords: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ? '' : (this.nepData.miscellaneousDetail.loanAmountInWord)]
     });
   }
