@@ -25,6 +25,7 @@ export class LoanDeedCompanyComponent implements OnInit {
   nepData;
   guarantorData;
   submitted = false;
+  isForEdit = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -37,12 +38,16 @@ export class LoanDeedCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.loanDeedCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.isForEdit = true;
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
+      if (!this.isForEdit) {
+        this.fillForm();
+      }
     }
   }
 
@@ -83,6 +88,16 @@ export class LoanDeedCompanyComponent implements OnInit {
       time: [undefined]
     });
 
+  }
+  fillForm() {
+    this.loanDeedCompany.patchValue({
+      branch: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+      registrationOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+      registrationIssuedDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+      registrationNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+      registrationOfficeDistrict: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+      // registrationOfficeMunicipalityVDC:
+    });
   }
 
 
