@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {DocAction} from '../../../../../loan/model/docAction';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -28,6 +29,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   sccRefNumber;
   securityCode;
   submit = false;
+  maker;
+  approval;
+  assignedLoan = '';
+  purposeOfLoan = '';
+  accountNo = '';
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
@@ -41,6 +47,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setMakerApproval();
     this.getCompanyPan();
     this.setSccRefNumber();
     this.getSecurityCode();
@@ -134,6 +141,18 @@ export class SecurityComplianceCertificateComponent implements OnInit {
        this.securityCode = ObjectUtil.separateFirstDash(accountData.acInfo.securityType);
      }
    }
+  }
+
+  setMakerApproval() {
+    this.maker = this.cadFile.assignedLoan[0].previousList[0].fromUser.name;
+    this.approval = this.cadFile.assignedLoan[0].currentStage.fromUser.name;
+    this.assignedLoan += this.cadFile.assignedLoan.map(d => d.loan.name + ',');
+    this.purposeOfLoan += this.cadFile.assignedLoan.map(d => (JSON.parse(d.proposal.data).purposeOfLoan || 'N/A') + ',');
+    this.assignedLoan = this.assignedLoan.substring(0, this.assignedLoan.length - 1);
+    this.purposeOfLoan = this.purposeOfLoan.substring(0, this.purposeOfLoan.length - 1);
+    this.accountNo += this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION
+        ? JSON.parse(this.cadFile.assignedLoan[0].companyInfo.companyJsonData).accountDetails.map(d => d.accountNo) :
+        JSON.parse(this.cadFile.assignedLoan[0].customerInfo.individualJsonData).accountDetails.map(d => d.accountNo);
   }
 
 

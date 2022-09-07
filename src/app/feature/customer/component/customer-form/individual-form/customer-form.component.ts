@@ -127,6 +127,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.getSubSector();
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.individualJsonData = JSON.parse(this.customer.individualJsonData);
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             if (this.customer.sameAddress !== undefined) {
