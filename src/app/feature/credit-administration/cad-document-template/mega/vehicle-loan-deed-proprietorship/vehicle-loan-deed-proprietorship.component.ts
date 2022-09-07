@@ -22,6 +22,7 @@ export class VehicleLoanDeedProprietorshipComponent implements OnInit {
   @Input() customerLoanId: number;
   vehicleLoanDeedProprietorship: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -36,12 +37,17 @@ export class VehicleLoanDeedProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.vehicleLoanDeedProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.vehicleLoanDeedProprietorship.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -105,6 +111,42 @@ export class VehicleLoanDeedProprietorshipComponent implements OnInit {
       chassisNo: [undefined],
     });
   }
+    fillForm() {
+      this.vehicleLoanDeedProprietorship.patchValue({
+            branchOfficeAddress: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+            companyRegistrationOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+            regDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+            regNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+            district: [!ObjectUtil.isEmpty
+            (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+            metropolitan: [!ObjectUtil.isEmpty
+            (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+            wardNo: [!ObjectUtil.isEmpty
+            (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.municipality : ''],
+            borrowerName: [!ObjectUtil.isEmpty
+            (this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+            authorizedPerson: [!ObjectUtil.isEmpty
+            (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+            offerLetterIssuedDate: [!ObjectUtil.isEmpty
+            (this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.offerIssueDate : ''],
+            loanAmount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+            loanAmountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+                this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+            authorizedPersonGrandFather: [!ObjectUtil.isEmpty
+            (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.grandFatherName : ''],
+            authorizedPersonFather: [!ObjectUtil.isEmpty
+            (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.fatherName : ''],
+            authorizedPersonHusband: [!ObjectUtil.isEmpty
+             (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.husbandName : ''],
+        authorizedPersonDistrict: [!ObjectUtil.isEmpty
+        (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.district : ''],
+        authorizedPersonMetropolitan: [!ObjectUtil.isEmpty
+        (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.municipality : ''],
+        authorizedPersonWardNo: [!ObjectUtil.isEmpty
+        (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.wardNo : ''],
+          }
+      );
+    }
 
   submit() {
     let flag = true;
