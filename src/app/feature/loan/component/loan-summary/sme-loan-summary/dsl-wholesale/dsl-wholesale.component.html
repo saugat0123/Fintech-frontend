@@ -22,16 +22,7 @@
     </li>
     <li>
         <p class="text-uppercase font-weight-bold"><strong>VISION, MISSION, GOALS AND OBJECTIVES, ITS FINANCIAL SERVICES AND SERVICE DELIVERY MODALITIES:</strong></p>
-        <span>
-            The vision of M/s ................................. <br>
-            The mission of M/s ................... is to .................. <br>
-            The primary goals of M/s ................................. are to: <br>
-            <ol>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ol>
-        </span>
+        <span [innerHTML]="(loanDataHolder.companyInfo.companyJsonData | jsonParse).vision || 'NA' | safeHtml"></span>
     </li>
     <li>
         <p class="text-uppercase"><strong>Rating</strong></p>
