@@ -1077,15 +1077,27 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
-    checkRegistrationNumber(regNumber: String) {
-        this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
-            const companyName = res.detail.companyName;
-            if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'This customer'+' '+ companyName +' '+'already exists. Please input a unique value or choose the customer from catalogue section'));
-            }
-        }, error => {
-            console.error(error);
-        });
+    checkRegistrationNumber(regNumber: String, issuedPlace: String) {
+        if (!ObjectUtil.isEmpty(regNumber)) {
+            this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
+                let tempData: any;
+                if (!ObjectUtil.isEmpty(res.detail)) {
+                    const regList = res.detail;
+                    if (!ObjectUtil.isEmpty(regNumber) && !ObjectUtil.isEmpty(issuedPlace)) {
+                        tempData = regList.filter((val: any) =>
+                            regNumber.toLowerCase() === val.registrationNumber.toLowerCase()
+                            && issuedPlace === val.issuePlace
+                        );
+                    }
+                    if (!ObjectUtil.isEmpty(tempData) && tempData.length > 0) {
+                        this.toastService.show(new Alert(AlertType.WARNING, 'This registration number' + ' ' + regNumber + ' ' +
+                            'and' + ' ' + 'district' + ' ' + issuedPlace + ' ' + 'already exists.'));
+                    }
+                }
+            }, error => {
+                console.error(error);
+            });
+        }
     }
 
     getClientType() {
