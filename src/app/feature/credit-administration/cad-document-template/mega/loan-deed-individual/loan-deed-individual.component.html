@@ -18,17 +18,20 @@
                                type="text"/>
                         <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('grandFatherName').value ? loanDeedIndividual.get('grandFatherName').value  : '========='}}</strong></span>
                         को नाती/नातिनी/बुहारी
+                        <span *ngIf="this.nepData.gender==='1'">
                         <input class="form-field form-control-sm nepaliFont disable-print"
-                               formControlName="fatherName"
+                           formControlName="fatherName"
+                           placeholder=""
+                           type="text"/>
+                        <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('fatherName').value ? loanDeedIndividual.get('fatherName').value  : '========='}}</strong></span>
+                        </span>
+                        <span *ngIf="this.nepData.gender==='0'">
+                        <input class="form-field form-control-sm nepaliFont disable-print"
+                               formControlName="husbandName"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('fatherName').value ? loanDeedIndividual.get('fatherName').value  : '========='}}</strong></span>
-                        ,
-                        <input class="form-field form-control-sm nepaliFont disable-print"
-                                formControlName="husbandName"
-                                placeholder=""
-                                type="text"/>
                         <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('husbandName').value ? loanDeedIndividual.get('husbandName').value  : '========='}}</strong></span>
+                        </span>
                         को छोरा/छोरी/पत्नी
                         <input class="form-field form-control-sm nepaliFont disable-print"
                                formControlName="permanentDistrict"
@@ -100,7 +103,8 @@
                         <input class="form-field form-control-sm nepaliFont disable-print col-5"
                                formControlName="amountInWords"
                                placeholder=""
-                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('amountInWords').value ? loanDeedIndividual.get('amountInWords').value  : '========='}}</strong></span>
+                               type="text"
+                               style="font-size: 18px;"/><span class="print-only nepaliFont" style="font-size: 18px;"><strong>{{loanDeedIndividual.get('amountInWords').value ? loanDeedIndividual.get('amountInWords').value  : '========='}}</strong></span>
                              मात्र)
                         </strong>
                         सम्मको ऋणकर्जा तथा बैंकिङ सूविधाहरु ऋण स्विकृती पत्रमा उल्लेखित तरिका बमोजिम
@@ -129,7 +133,7 @@
 
 
                     <p class="text-center"><strong>ऋणकर्जा वा बैंकिङ सुविधा</strong></p>
-                    <table border="1" width="100%">
+                        <table class="table table-responsive-md table-bordered">
                         <thead>
                         <tr>
                             <th>ऋणकर्जा वा बैंकिङ सुविधा</th>
@@ -156,7 +160,8 @@
                                     <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="amountInWords"
                                            placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('amountInWords').value ? loanDeedIndividual.get('amountInWords').value  : '========='}}</strong></span>
+                                           type="text"
+                                           style="font-size: 18px;"/><span class="print-only nepaliFont" style="font-size: 18px;"><strong>{{loanDeedIndividual.get('amountInWords').value ? loanDeedIndividual.get('amountInWords').value : '========='}}</strong></span>
                                     मात्र<span class="timesNewRoman">)</span>
                                 </strong>
                             </td>
@@ -176,7 +181,7 @@
                            type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('FACOwnerName').value ? loanDeedIndividual.get('FACOwnerName').value  : '========='}}</strong></span>
                     को नामको तपसिल बमोजिमको जग्गा तथा उक्त जग्गामा निर्माणभएको घर, टहरा लगायत अन्य लिगलगापातहरु तथा भविष्यमा हूने कूनै थप निर्माण कार्यहरु समेत सम्पूर्ण लिगलगापातहरु तपाईं धनी बैंकको नाममा तोकिएको ऋण कर्जा तथा भविष्यमा थप हूने ऋण कर्जा तथा बैंकिङ सूविधाहरु समेतको सूरक्षण वापत यथावत धितोवन्धक कायम रहने कूरामा मेरो मञ्जूरी छ । </p>
                     <p class="text-center"><strong>धितो रहने सम्पत्तिको बिवरण</strong></p>
-                    <table border="1" width="100%">
+                    <table class="table table-responsive-md table-bordered">
                         <thead>
                         <tr>
                             <th>जिल्ला</th>
@@ -240,7 +245,13 @@
                                   formControlName="witnessName2"
                                   placeholder=""
                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('witnessName2').value ? loanDeedIndividual.get('witnessName2').value  : '========='}}</strong></span>
-                    </p>
+                            <br>
+                            <br>
+                            ३. <input class="form-field form-control-sm nepaliFont disable-print"
+                                      formControlName="witnessName3"
+                                      placeholder=""
+                                      type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get('witnessName3').value ? loanDeedIndividual.get('witnessName3').value  : '========='}}</strong></span>
+                        </p>
                     </div>
                     <div>
                         <p>

@@ -82,6 +82,7 @@ export class LoanDeedIndividualComponent implements OnInit {
             area: [undefined],
             witnessName: [undefined],
             witnessName2: [undefined],
+            witnessName3: [undefined],
             year: [undefined],
             month: [undefined],
             day: [undefined],
