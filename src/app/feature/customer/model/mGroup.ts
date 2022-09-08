@@ -12,9 +12,10 @@ export class MGroup extends BaseEntity {
      totalAmount: string;
      companyGroup: string;
      securityHeld: string;
+     groupTotal: number;
 
      public MGroup(groupCode, detailInformation, groupName, groupExposureDateType, groupExposureDate,
-                   outstandingOverdue, groupPosition, totalAmount, companyGroup, securityHeld) {
+                   outstandingOverdue, groupPosition, totalAmount, companyGroup, securityHeld, groupTotal) {
           this.groupCode = groupCode;
           this.detailInformation = detailInformation;
           this.groupName = groupName;
@@ -25,5 +26,6 @@ export class MGroup extends BaseEntity {
           this.totalAmount = totalAmount;
           this.companyGroup = companyGroup;
           this.securityHeld = securityHeld;
+          this.groupTotal = groupTotal;
      }
 }
