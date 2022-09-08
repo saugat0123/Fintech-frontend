@@ -106,7 +106,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
       totalProNonFunded: [0],
       totalProTotal: [0],
       totalChanges: [0],
-      companyGroup: this.formBuilder.array([])
+      companyGroup: this.formBuilder.array([]),
+      groupTotal: [0]
     });
   }
 
@@ -155,6 +156,7 @@ export class GroupExposureWithCcblComponent implements OnInit {
     mGroup.groupPosition = JSON.stringify(groupLimit.value);
     mGroup.companyGroup = JSON.stringify(companyGroup.value);
     mGroup.securityHeld = this.formControls.securityHeld.value;
+    mGroup.groupTotal = this.formControls.groupTotal.value;
     // mGroup.companyGroup = companyGroup.value;
     mGroup.totalAmount = JSON.stringify(totalAmount);
     return mGroup;
@@ -202,6 +204,8 @@ export class GroupExposureWithCcblComponent implements OnInit {
     this.form.get('totalProNonFunded').patchValue(proNonFunded.toFixed(2));
     this.form.get('totalProTotal').patchValue(proTotal.toFixed(2));
     this.form.get('totalChanges').patchValue(changeAmount.toFixed(2));
+    const groupTotal = Number(exTotal) + Number(proTotal);
+    this.form.get('groupTotal').patchValue(Number(groupTotal).toFixed(2));
   }
 
   removeData(i: number, formArrayName) {
