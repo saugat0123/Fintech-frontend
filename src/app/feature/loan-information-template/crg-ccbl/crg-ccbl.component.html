@@ -79,6 +79,9 @@
                             <nb-option name="esrmRating" [hidden]="!fromProfile"
                                        *ngFor="let es of esrm" [value]="es">{{es}}</nb-option>
                         </nb-select>
+                        <br> <br>
+                        <label><b>External Rating:</b></label>
+                        <input name="externalRating" id="externalRating" [(ngModel)]="externalRating" nbInput>
                     </div>
 
                 </div>
