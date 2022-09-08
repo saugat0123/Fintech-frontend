@@ -41,13 +41,13 @@ export class KaloSuchiBorrowerCompanyComponent implements OnInit {
         }
       });
     }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
     if (!ObjectUtil.isEmpty(this.initialInfo)) {
       this.kaloSuchiBorrowerCompany.patchValue(this.initialInfo);
     } else {
       this.fillForm();
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
 
@@ -88,8 +88,6 @@ export class KaloSuchiBorrowerCompanyComponent implements OnInit {
       approverWard: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
           this.nepData.institutionRegisteredAddress.wardNo : '',
       approverTole: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
-      date1 : undefined,
-      relationship : undefined,
     });
   }
 
@@ -122,12 +120,12 @@ export class KaloSuchiBorrowerCompanyComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
       this.dialogRef.close();
     });
   }
