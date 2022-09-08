@@ -99,7 +99,11 @@
                 वक्यौता रकम वा सापटी रकम, कलम (entire receivables) तपाई धनी बैंकको हामी सरह नै समान हक अधिकार रहने गरी यसै लिखतद्वारा
                 उपरोक्त रकम कलम उपर हामीलाई रहेको हक अधिकार तपाई धनी बैंकका नाममा हक हस्तान्तरण (Assign) गरी दियौ । कथंकदाचित हामीले तपाई धनी
                 बैंकबाट उल्लेखित सिमा भित्र रही हाल प्राप्त गरेको वा पछि प्राप्त गर्ने ऋण /कर्जाको समय, समयमा तिर्न वुझाउन पर्ने सांवा, व्याज, फि, कमिशन,
-                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको मिति
+                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="freeTextDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('freeTextDate').value ?
+                    assignmentOfReceivablesPartnership.get('freeTextDate').value  : ''}}</strong></span>
+                मिति
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('offerLetterIssuedDate').value ?
                     assignmentOfReceivablesPartnership.get('offerLetterIssuedDate').value  : '========='}}</strong></span>

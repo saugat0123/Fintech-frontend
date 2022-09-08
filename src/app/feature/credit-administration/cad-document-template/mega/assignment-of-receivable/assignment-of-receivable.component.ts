@@ -41,16 +41,14 @@ export class AssignmentOfReceivableComponent implements OnInit {
         }
       });
     }
-    if (!ObjectUtil.isEmpty(this.initialInfo)) {
-      this.assignmentOfReceivable.patchValue(this.initialInfo);
-      console.log(this.initialInfo, 'initialinfo');
-    } else {
-      this.fillForm();
-    }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log('nepData ', this.nepData);
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.assignmentOfReceivable.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
   }
 
   buildForm() {
@@ -132,12 +130,12 @@ export class AssignmentOfReceivableComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
       }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
       this.dialogRef.close();
     });
   }
