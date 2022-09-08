@@ -20,7 +20,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
     styleUrls: ['./customer-loan-document.component.scss']
 })
 export class CustomerLoanDocumentComponent implements OnInit {
-    public static FILE_SIZE_5MB = 5242880;
+    public static FILE_SIZE_2MB = 2097152;
     public static FILE_SIZE_10MB = 10485760;
     @Input() loanDataHolder: LoanDataHolder;
     @Input() loanType: LoanType;
@@ -121,7 +121,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
 
     documentUploader(event, documentName: string, documentId, index: number) {
         const file = event.target.files[0];
-        if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_5MB) {
+        if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_2MB) {
             this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
             (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
         } else if (ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.idNumber)) {

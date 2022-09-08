@@ -42,7 +42,7 @@ export class MultiDocumentUploadTemplateComponent implements OnInit {
         const doc: File[] = file.target.files;
         const formData: FormData = new FormData();
         for (let i = 0; i < doc.length; i++) {
-            if (doc[i].size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+            if (doc[i].size > DmsLoanFileComponent.FILE_SIZE_2MB) {
                 this.toast.show(new Alert(AlertType.INFO, 'Maximum File Size is 5MB'));
                 return;
             }
