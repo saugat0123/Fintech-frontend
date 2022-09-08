@@ -111,7 +111,7 @@ export class CadDocumentUploadComponent implements OnInit {
 
     documentUploader(event, documentName: string, documentId, index: number) {
         const file = event.target.files[0];
-        if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_5MB) {
+        if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_2MB) {
             this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
             (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
         } else {
