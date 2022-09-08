@@ -187,7 +187,6 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   @Input() combinedLoan: any;
   isCorporate = false;
   thisClient;
-  customerReportingInfo = [];
   esrmData;
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -224,12 +223,6 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditChecklist)) {
       this.esrmData = JSON.parse(this.loanDataHolder.loanHolder.creditChecklist.data);
-    }
-    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.baselCode)
-        && this.loanDataHolder.baselCode.length > 0) {
-        this.loanDataHolder.baselCode.forEach(rep => {
-        this.customerReportingInfo.push(rep);
-      });
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.companyJsonData)) {
       this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);

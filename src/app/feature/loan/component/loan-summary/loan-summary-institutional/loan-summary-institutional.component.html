@@ -43,7 +43,7 @@
 
                 <app-guarantor-view *ngIf="isCorporate"
                                     [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
-                <ng-container *ngIf="customerReportingInfo.length > 0">
+                <ng-container *ngIf="loanDataHolder?.baselCode">
                     <div class="row">
                         <div class="col-md-12">
                             <p class="sub-header"><strong>Customer Reporting Information</strong></p>
@@ -53,7 +53,7 @@
                                     <td>Code</td>
                                     <td>Description</td>
                                 </tr>
-                                <tr *ngFor="let reporting of customerReportingInfo; let i = index;">
+                                <tr *ngFor="let reporting of loanDataHolder?.baselCode; let i = index;">
                                     <td>{{i + 1}}</td>
                                     <td>{{reporting?.name}}</td>
                                     <td>{{reporting?.description}}</td>

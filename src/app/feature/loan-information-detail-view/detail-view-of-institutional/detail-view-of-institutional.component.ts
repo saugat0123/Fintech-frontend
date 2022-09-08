@@ -73,7 +73,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   isCorporate = false;
   thisClient;
   facilityUtilization;
-  customerReportingInfo = [];
   esrmData;
   companyJsonData;
   constructor(
@@ -83,12 +82,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.baselCode)
-        && this.loanDataHolder.baselCode.length > 0) {
-      this.loanDataHolder.baselCode.forEach(rep => {
-        this.customerReportingInfo.push(rep);
-      });
-    }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditChecklist)) {
       this.esrmData = JSON.parse(this.loanDataHolder.loanHolder.creditChecklist.data);
     }

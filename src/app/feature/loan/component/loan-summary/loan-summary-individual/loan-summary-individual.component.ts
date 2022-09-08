@@ -211,15 +211,8 @@ export class LoanSummaryIndividualComponent implements OnInit {
 
   consumerFinance = false;
   smallBusiness = false;
-  customerReportingInfo = [];
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.baselCode)
-        && this.loanDataHolder.baselCode.length > 0) {
-      this.loanDataHolder.baselCode.forEach(rep => {
-        this.customerReportingInfo.push(rep);
-      });
-    }
     this.getLoanDataHolder();
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
