@@ -261,37 +261,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN' ">
-                                    <div class="form-group">
-                                        <label class="title" for="existInterestRate"> <strong> Existing Interest Rate(%)</strong></label>
-                                        <input
-                                                class="form-control" formControlName="existInterestRate"
-                                                id="existInterestRate" name="existInterestRate" placeholder="Existing Interest Rate(%)"
-                                                [(ngModel)]="existInterestLimit"
-                                                type="number" appDecimalNumber
-                                        >
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4"
-                                     *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
-                                    <div class="form-group">
-                                        <label class="title" for="interestRate"><strong>Interest
-                                            Rate(%)</strong></label>
-                                        <input
-                                                class="form-control" formControlName="interestRate"
-                                                id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
-                                                [(ngModel)]="interestLimit"
-                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber
-                                                readonly >
-                                        <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
-                                        <!--                         class="invalid-feedback">-->
-                                        <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
-                                        <!--                      <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>-->
-                                        <!--                    </div>-->
-                                    </div>
-                                </div>
-                                <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
                                         <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
@@ -324,6 +293,40 @@
                                         <!--                      <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>-->
 
                                         <!--                      <span *ngIf="formControls.premiumRateOnBaseRate.errors.min">Premium Rate On Base Rate must be positive numerical value.</span>-->
+                                        <!--                    </div>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN' ">
+                                    <div class="form-group">
+                                        <label class="title" for="existInterestRate"> <strong> Existing Interest Rate(%)</strong></label>
+                                        <input
+                                                class="form-control" formControlName="existInterestRate"
+                                                id="existInterestRate" name="existInterestRate" placeholder="Existing Interest Rate(%)"
+                                                [(ngModel)]="existInterestLimit"
+                                                type="number" appDecimalNumber
+                                        >
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
+                                    <div class="form-group">
+                                        <label class="title" for="interestRate"><strong>Interest
+                                            Rate(%)</strong></label>
+                                        <nb-checkbox class="mx-2" (change)="checkChecked($event.target.checked,'flatInterest')"
+                                        [checked]="flatInterest">Is flat interest rate?
+                                        </nb-checkbox>
+                                        <input
+                                                class="form-control" formControlName="interestRate"
+                                                id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
+                                                [(ngModel)]="interestLimit"
+                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber
+                                                readonly >
+                                        <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
+                                        <!--                         class="invalid-feedback">-->
+                                        <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
+                                        <!--                      <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>-->
                                         <!--                    </div>-->
                                     </div>
                                 </div>
