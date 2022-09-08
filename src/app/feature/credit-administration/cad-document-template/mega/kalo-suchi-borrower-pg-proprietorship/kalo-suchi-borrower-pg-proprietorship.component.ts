@@ -133,8 +133,10 @@ export class KaloSuchiBorrowerPgProprietorshipComponent implements OnInit {
       municipalityCurrent: !ObjectUtil.isEmpty(this.nepData.institutionCurrentAddress) ?
           this.nepData.institutionCurrentAddress.municipality : '',
       wardCurrent: !ObjectUtil.isEmpty(this.nepData.institutionCurrentAddress) ? this.nepData.institutionCurrentAddress.wardNo : '',
-      loanFacilityTypeNepali: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
-      loanFacilityTypeEnglish: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanFacilityTypeInEng : '',
+      loanFacilityTypeNepali: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
+      loanFacilityTypeEnglish: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanFacilityTypeInEng : '',
     });
   }
   submit() {
