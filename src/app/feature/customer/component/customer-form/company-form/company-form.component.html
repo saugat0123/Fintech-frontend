@@ -3,7 +3,7 @@
          nbSpinnerSize="giant">
     <nb-card-header>
         <div class="d-flex justify-content-end">
-            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
+            <nb-radio-group [(ngModel)]="calendarTfype" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
                 <nb-radio value="BS">BS</nb-radio>
             </nb-radio-group>
@@ -90,8 +90,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div *ngFor="let acc of companyInfoFormGroup?.get('accountDetails')['controls']; let ii = index"
-                         formArrayName="accountDetails" class="col-md-4">
+                         formArrayName="accountDetails" class="col-md-3">
                         <label for="accountNo"><strong>Account Number: {{ii + 1}}</strong></label>
                         <div [formGroupName]="ii" class="form-group">
                             <input formControlName="accountNo"
@@ -99,21 +100,20 @@
                                    id="accountNo"
                                    placeholder="Enter Account Number"/>
                             <div class="mt-2">
-                                <button (click)="addAccountNumber()"
-                                        nbButton status="primary" size="small"
-                                        value="Add Account No.">Add
-                                </button>
+
                                 <button (click)="removeAccount(ii)"
-                                        *ngIf="companyInfoFormGroup?.get('accountDetails')['length'] > 0"
+                                        *ngIf="companyInfoFormGroup?.get('accountDetails')['length'] > 1"
                                         nbButton size="small"
                                         status="primary">
                                     <nb-icon icon="trash-outline"></nb-icon>
                                 </button>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="cpl-md-1 mt-4" ><button (click)="addAccountNumber()" nbButton status="primary" size="small" value="Add Account No.">Add</button></div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">

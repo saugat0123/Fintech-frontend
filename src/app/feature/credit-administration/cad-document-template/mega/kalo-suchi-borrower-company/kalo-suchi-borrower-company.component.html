@@ -7,27 +7,21 @@
             </h6>
             <br>
 
-            <h6 class="text-center">
+            <p class="text-center">
                 <u>ऋणी र जमानतकर्ताले कालो सूचिमा नाम समावेश गर्ने बारेको मञ्जुरीनामा </u>
-            </h6>
+            </p>
             <br>
             <p>
                 नेपाल राष्ट्र बैंकद्धारा बाणिज्य बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालो सूचि
-                व्यवस्था सम्बन्धी निर्देशन
-                मलाई/हामीलाई पूर्ण जानकारी छ । सो निर्देशन बमोजजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु
-                तपाई
-                धनी बैंकको नीति नियम तथा सो वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृति पत्र र/वा लिखतको शर्त मुताविक सो
-                वापतको
-                सांवा, ब्याज, फि, कमिशन, दस्तुर आदि जे जस्तो बुझाउनु पर्छ सो नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित
-                नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड ४, ५ र १० को
-                अवस्था
-                सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियम अनुसार कर्जा सूचना केन्द्र लि को कालो सूचिमा समावेश गरिएमा
-                मेरो/हाम्रो मञ्जुरी छ ।
+                व्यवस्था सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण जानकारी छ । सो निर्देशन बमोजजिम त्यस बैंकबाट लिएको
+                तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो वापत त्यस बैंकबाट जारी भएको
+                कर्जा स्वीकृति पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि, कमिशन, दस्तुर आदि जे
+                जस्तो बुझाउनु पर्छ सो नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको
+                कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड ४, ५ र १० को अवस्था सिर्जित भएमा मेरो/हाम्रो
+                नाम प्रचलित नियम अनुसार कर्जा सूचना केन्द्र लि को कालो सूचिमा समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ ।
                 पछि त्यसरी कालो सूचिमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजुर—वाजुर गर्ने छैन, गरे यसै कागजले बदर
-                गरी दिनु होला भनी
-                नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड १३ वमोजिम यो
-                मन्जुरीनामाको कागज सही–छाप
-                गरी तपाई सेञ्चुरी कमर्सियल बैंक लि. लाई दिएको छु/छौं ।
+                गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड १३
+                वमोजिम यो मन्जुरीनामाको कागज सही–छाप गरी तपाई सेञ्चुरी कमर्सियल बैंक लि. लाई दिएको छु/छौं ।
             </p>
             <p style="text-align: center">
                 <u>तपसील</u>
@@ -35,35 +29,41 @@
             <div>
                 <table>
                     <tr>
-                        <td class="align-text-top leftWidth"> ऋणीको नाम </td>
-                        <td class="align-text-top">: <input class="form-field form-control-sm nepaliFont disable-print" formControlName="debtor"
-                                   type="text"/>
+                        <td class="align-text-top leftWidth"> ऋणीको नाम</td>
+                        <td class="align-text-top">: <input class="form-field form-control-sm nepaliFont disable-print"
+                                                            formControlName="debtor"
+                                                            type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('debtor').value ? kaloSuchiBorrowerCompany.get('debtor').value : '========='}}</b></span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="align-text-top">ठेगाना </td>
-                        <td class="align-text-top"> : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district"
-                                    type="text"/>
+                        <td class="align-text-top">ठेगाना</td>
+                        <td class="align-text-top"> : <input class="form-field form-control-sm nepaliFont disable-print"
+                                                             formControlName="district"
+                                                             type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('district').value ? kaloSuchiBorrowerCompany.get('district').value : '========='}}</b></span>
                             जिल्ला
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitian"
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="metropolitian"
                                    type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('metropolitian').value ? kaloSuchiBorrowerCompany.get('metropolitian').value : '========='}}</b></span>
                             गा.वि.स/न.पा वडा नं
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ward" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ward"
+                                   type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('ward').value ? kaloSuchiBorrowerCompany.get('ward').value : '========='}}</b></span>
                             ,
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="permanentAdd"
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="permanentAdd"
                                    type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('permanentAdd').value ? kaloSuchiBorrowerCompany.get('permanentAdd').value : '========='}}</b></span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="align-text-top">कर्जा/सुविधा विवरण </td>
+                        <td class="align-text-top">कर्जा/सुविधा विवरण</td>
                         <td class="align-text-top">
-                            : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="creditInfo"
-                                   type="text"/>
+                            : <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="creditInfo"
+                                     type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('creditInfo').value ? kaloSuchiBorrowerCompany.get('creditInfo').value : '========='}}</b></span>
                         </td>
                     </tr>
@@ -75,28 +75,31 @@
             <div>
                 <table>
                     <tr>
-                        <td class="align-text-top leftWidth">मञ्जुरी दिनेको नाम </td>
+                        <td class="align-text-top leftWidth">मञ्जुरी दिनेको नाम</td>
                         <td class="align-text-top">
-                            : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approver"
-                                   type="text"/>
+                            : <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="approver"
+                                     type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('approver').value ? kaloSuchiBorrowerCompany.get('approver').value : '========='}}</b></span>
 
                         </td>
                     </tr>
                     <tr>
-                        <td class="align-text-top">ऋणीसंगको सम्बन्ध </td>
+                        <td class="align-text-top">ऋणीसंगको सम्बन्ध</td>
                         <td class="align-text-top">
-                            : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="relationship"
-                                   type="text"/>
+                            : <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="relationship"
+                                     type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('relationship').value ? kaloSuchiBorrowerCompany.get('relationship').value : '========='}}</b></span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="align-text-top">ठेगाना </td>
+                        <td class="align-text-top">ठेगाना</td>
                         <td class="align-text-top">
 
-                            : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverDistrict"
-                                   type="text"/>
+                            : <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="approverDistrict"
+                                     type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('approverDistrict').value ? kaloSuchiBorrowerCompany.get('approverDistrict').value : '========='}}</b></span>
 
                             जिल्ला
@@ -106,11 +109,13 @@
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('approverMunicipality').value ? kaloSuchiBorrowerCompany.get('approverMunicipality').value : '========='}}</b></span>
 
                             गा.वि.स/न.पा वडा नं.
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverWard"
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="approverWard"
                                    type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('approverWard').value ? kaloSuchiBorrowerCompany.get('approverWard').value : '========='}}</b></span>
                             ,
-                            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverTole"
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="approverTole"
                                    type="text"/>
                             <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('approverTole').value ? kaloSuchiBorrowerCompany.get('approverTole').value : '========='}}</b></span>
 
@@ -123,7 +128,7 @@
             <div class="row mb-2">
                 <div class="col-md-6">
                     <p>मिति : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date1"
-                                    type="text"/>
+                                     type="text"/>
                         <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerCompany.get('date1').value ? kaloSuchiBorrowerCompany.get('date1').value : '========='}}</b></span>
                     </p>
                 </div>

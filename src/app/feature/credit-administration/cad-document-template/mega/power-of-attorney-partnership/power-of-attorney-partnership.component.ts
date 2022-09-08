@@ -27,7 +27,8 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   @Input() customerLoanId: number;
   nepData;
   guarantorData;
-  submitted = false;
+  initialInfo;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -39,7 +40,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.PowerOfAttorneyPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
@@ -47,11 +48,17 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.PowerOfAttorneyPartnership.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
+    }
+    console.log('nepdata::::', this.nepData);
   }
 
   buildForm() {
     this.PowerOfAttorneyPartnership = this.formBuilder.group({
-      bankBranchName: [undefined],
+      companyRegOffice: [undefined],
       guarantorGrandFatherName: [undefined],
       guarrantorFatherName: [undefined],
       guarantorDistrict: [undefined],
@@ -131,9 +138,49 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessAge2: [undefined],
       witnessName2: [undefined],
       date: [undefined],
-      registerNum: [undefined]
+      registerNum: [undefined],
+      actYear: [undefined],
+      registrationIssuedDate: [undefined],
+      sachiOne: [undefined],
+      sachiTwo: [undefined],
+      InstitutionRegisteredMunicipality: [undefined],
+      InstitutionRegisteredWard: [undefined],
+      borrowerPersonName: [undefined],
+      authorizedPersonGrandfather: [undefined],
+      authorizedPerson: [undefined],
+      authorizedPersonFather: [undefined],
+      authorizedPersonDistrict: [undefined],
+      authorizedPersonMunicipality: [undefined],
+      authorizedPersonWard: [undefined],
+      agreementDate: [undefined],
+      amountToPay: [undefined],
+      amountToPayInWords: [undefined],
+      authorizedPersonAge: [undefined],
+      partners: [undefined],
     });
   }
+
+  fillForm() {
+    this.PowerOfAttorneyPartnership.patchValue({
+      companyRegOffice : [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? (this.nepData.companyRegOffice) : ''],
+      registrationIssuedDate : [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? (this.nepData.regIssueDate) : ''],
+      registerNum : [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? (this.nepData.registrationNo) : ''],
+      tempAddDistrict : [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ? (this.nepData.institutionRegisteredAddress.district) : ''],
+      InstitutionRegisteredMunicipality : [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? (this.nepData.institutionRegisteredAddress.municipality) : ''],
+      InstitutionRegisteredWard : [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? (this.nepData.institutionRegisteredAddress.municipality) : ''],
+      borrowerPersonName : [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? (this.nepData.nepaliName) : ''],
+      authorizedPersonGrandfather : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.grandfatherName) ? (this.nepData.authorizedPersonDetail.grandfatherName) : ''],
+      authorizedPerson : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name) ? (this.nepData.authorizedPersonDetail.name) : ''],
+      authorizedPersonFather : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.fatherName) ? (this.nepData.authorizedPersonDetail.fatherName) : ''],
+      authorizedPersonDistrict : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress.district) ? (this.nepData.authorizedPersonAddress.district) : ''],
+      authorizedPersonMunicipality : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress.municipality) ? (this.nepData.authorizedPersonAddress.municipality) : ''],
+      authorizedPersonWard : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress.wardNo) ? (this.nepData.authorizedPersonAddress.wardNo) : ''],
+      agreementDate : [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ? (this.nepData.miscellaneousDetail.offerIssueDate) : ''],
+      amountToPay: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? '' : (this.nepData.miscellaneousDetail.loanAmountInFig)],
+      amountToPayInWords: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ? '' : (this.nepData.miscellaneousDetail.loanAmountInWord)]
+    });
+  }
+
   changeToNepAmount(event: any, target, from) {
     this.PowerOfAttorneyPartnership.get([target]).patchValue(event.nepVal);
     this.PowerOfAttorneyPartnership.get([from]).patchValue(event.val);

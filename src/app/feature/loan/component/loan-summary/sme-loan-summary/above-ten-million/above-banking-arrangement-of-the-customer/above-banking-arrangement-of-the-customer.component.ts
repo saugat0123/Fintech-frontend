@@ -24,6 +24,7 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
   ciclData;
   customerCate = CustomerCategory;
   isAboveTen = false;
+  isDSL = false;
   isBelowTen = false;
   isWholeSale = false;
   isUptoTwoMillion = false;
@@ -55,6 +56,8 @@ export class AboveBankingArrangementOfTheCustomerComponent implements OnInit {
       this.isUptoTwoMillion = true;
     } else if (value === 'AGRICULTURE_WITHOUT_COLLATERAL') {
       this.isWithoutCollateral = true;
+    } else if (value === 'DSL_WHOLE_SALE') {
+      this.isDSL = true;
     } else {
       this.isWholeSale = true;
     }

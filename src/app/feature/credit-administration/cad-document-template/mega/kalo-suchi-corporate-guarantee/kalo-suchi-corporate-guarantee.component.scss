@@ -5,9 +5,12 @@
 .shortInput {
   width: 50px;
 }
+.leftWidth{
+  width: 15%;
+}
 
 .leftWidth{
-  width: 23%;
+  width: 15%;
 }
 
 .nep {
@@ -63,3 +66,11 @@ input::-webkit-input-placeholder {
 
 }
 
+.nepaliFont {
+  font-size: 26px;
+  font-family: Preeti;
+}
+
+span{
+  line-height: 1;
+}

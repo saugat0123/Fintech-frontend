@@ -93,6 +93,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { CapitalConfigurationComponent } from './component/capital-configuration/capital-configuration.component';
 import { CapitalConfigurationFormComponent } from './component/capital-configuration/capital-configuration-form/capital-configuration-form.component';
 import {LoanConfigResolver} from './component/loan-config/loanConfigResolver';
+import { DocumentsToObtainComponent } from './component/document/documents-to-obtain/documents-to-obtain.component';
 
 @NgModule({
     declarations: [
@@ -169,6 +170,7 @@ import {LoanConfigResolver} from './component/loan-config/loanConfigResolver';
         RoleAddComponent,
         CapitalConfigurationComponent,
         CapitalConfigurationFormComponent,
+        DocumentsToObtainComponent,
         // SecurityComponent
     ],
   imports: [

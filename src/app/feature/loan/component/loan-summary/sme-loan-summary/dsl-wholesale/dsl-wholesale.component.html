@@ -27,18 +27,20 @@
     <li>
         <p class="text-uppercase"><strong>Rating</strong></p>
         <span style="font-size: 14px"><b>5.1 CCBL rating</b></span>
-        <table class="table table-bordered table-sm sb-small">
+        <table class="table table-bordered table-sm sb-small col-md-5">
             <tbody>
-            <td>Based on Balance Sheet as of:</td>
-            <td>FY 2076/76</td>
-            <td>Outcome of Rating</td>
+            <td class="col-md-3">Based on Balance Sheet as of:</td>
+            <td class="col-md-2">{{this.crgCcbl.selectedFiscalYear}}</td>
+<!--            <td>Outcome of Rating</td>-->
             <tr>
                 <td>Rating</td>
-                <td>CCBL.....</td>
-                <td>Fit for renewal/renewal with enhancemnet/???</td>
+                <td>{{this.crgCcbl.thresholdPoint}}</td>
+<!--                <td>Fit for renewal/renewal with enhancemnet/???</td>-->
             </tr>
             </tbody>
         </table>
+        <p style="font-size: 14px"><b>5.2 External Rating: </b><span>{{this.crgCcbl.externalRating}}</span>
+        </p>
     </li>
     <li>
         <p class="text-uppercase"><strong>Sectoral Outlook</strong></p>

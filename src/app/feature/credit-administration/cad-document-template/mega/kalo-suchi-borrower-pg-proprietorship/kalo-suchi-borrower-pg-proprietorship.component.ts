@@ -24,6 +24,7 @@ export class KaloSuchiBorrowerPgProprietorshipComponent implements OnInit {
   @Input() customerLoanId: number;
   kaloSuchiBorrowerPgProprietorship: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -38,12 +39,17 @@ export class KaloSuchiBorrowerPgProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.kaloSuchiBorrowerPgProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.kaloSuchiBorrowerPgProprietorship.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -76,9 +82,63 @@ export class KaloSuchiBorrowerPgProprietorshipComponent implements OnInit {
       guarantorCurMunicipality: [undefined],
       guarantorCurWard: [undefined],
       date: [undefined],
+      guarantorCurTole: [undefined]
     });
   }
-
+  fillForm() {
+    this.kaloSuchiBorrowerPgProprietorship.patchValue({
+      guarantorName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ? this.nepData.guarantorDetails[0].name : '',
+      guarantorFatherName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ? this.nepData.guarantorDetails[0].fatherName : '',
+      guarantorFatherInLawName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ? this.nepData.guarantorDetails[0].fatherInLawName : '',
+      guarantorHusbandName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ? this.nepData.guarantorDetails[0].husbandName : '',
+      guarantorCitizenshipNum: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ? this.nepData.guarantorDetails[0].citizenshipNo : '',
+      gurantorCitizenshipIssuedDate: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].citizenshipIssueDate : '',
+      gurantorCitizenshipIssuingOffice: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].citizenshipIssueDistrict : '',
+      guarantorDistrictPermanent: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.district : '',
+      guarantorMunicipalityPermanent: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.municipality : '',
+      guarantorWardPermanent: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.wardNo : '',
+      guarantorTolePermanent: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.tole : '',
+      guarantorCurDistrict: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.district : '',
+      guarantorCurMunicipality: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.municipality : '',
+      guarantorCurWard: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.wardNo : '',
+      guarantorCurTole: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.tole : '',
+      district: [!ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.district : ''],
+      metropolitian: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      ward: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      permanentAdd: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.tole : '',
+      creditInfo: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
+      borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+      districtPermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+      municipalityPermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      wardNumPermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      tolePermanent: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+      districtCurrent: !ObjectUtil.isEmpty(this.nepData.institutionCurrentAddress) ? this.nepData.institutionCurrentAddress.district : '',
+      municipalityCurrent: !ObjectUtil.isEmpty(this.nepData.institutionCurrentAddress) ?
+          this.nepData.institutionCurrentAddress.municipality : '',
+      wardCurrent: !ObjectUtil.isEmpty(this.nepData.institutionCurrentAddress) ? this.nepData.institutionCurrentAddress.wardNo : '',
+      loanFacilityTypeNepali: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
+      loanFacilityTypeEnglish: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanFacilityTypeInEng : '',
+    });
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
