@@ -118,6 +118,13 @@
         </table>
     </div>
 </div>
+<ng-container *ngIf="companyInfo?.customerCategory === 'DSL_WHOLE_SALE' else others">
+    <div class="container-fluid">
+        <p style="font-size: 13.5px"><strong>3.5 Promoters Structure</strong></p>
+    </div>
+    <span [innerHTML]="(companyInfo.companyJsonData | jsonParse).promoterStructure || 'NA' | safeHtml"></span>
+</ng-container>
+<ng-template #others>
 <div class="container-fluid">
     <p style="font-size: 13.5px"><strong>3.5 Address and contact details</strong></p>
 </div>
@@ -165,3 +172,4 @@
         <td>{{contactDetails?.factoryBusinessMobile}}</td>
     </tr>
 </table>
+</ng-template>

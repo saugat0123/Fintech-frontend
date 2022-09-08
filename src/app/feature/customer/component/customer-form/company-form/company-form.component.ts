@@ -101,6 +101,7 @@ export class CompanyFormComponent implements OnInit {
     designationList: DesignationList = new DesignationList();
     businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
     designation;
+    designationForDSL;
     subSector = [];
     clientType: any;
     loanTypeList = [{
@@ -214,6 +215,7 @@ export class CompanyFormComponent implements OnInit {
             this.addAccountNumber();
         }
         this.designation = this.designationList.designation;
+        this.designationForDSL = this.designationList.designation.filter(val => val.id === 'Promoter' || val.id === 'BOD' || val.id === 'Management Team' || val.id === 'Other');
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -510,6 +512,12 @@ export class CompanyFormComponent implements OnInit {
             promoterNetWorth: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
                 this.companyJsonData.promoterNetWorth],
+            vision: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.vision)) ? undefined :
+                this.companyJsonData.vision],
+            promoterStructure: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.promoterStructure)) ? undefined :
+                this.companyJsonData.promoterStructure],
             customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
                 this.companyInfo.customerCategory, [Validators.required]],
             accStrategy: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
@@ -858,6 +866,8 @@ export class CompanyFormComponent implements OnInit {
         submitData.sameAddress = this.sameAddress;
         submitData.business = this.companyInfoFormGroup.get('business').value;
         submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
+        submitData.vision = this.companyInfoFormGroup.get('vision').value;
+        submitData.promoterStructure = this.companyInfoFormGroup.get('promoterStructure').value;
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
@@ -1071,6 +1081,8 @@ export class CompanyFormComponent implements OnInit {
             this.isAboveTen = true;
             this.companyInfoFormGroup.get('business').patchValue(null);
             this.companyInfoFormGroup.get('promoterNetWorth').patchValue(null);
+            this.companyInfoFormGroup.get('vision').patchValue(null);
+            this.companyInfoFormGroup.get('promoterStructure').patchValue(null);
             this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         } else if (value === 'SME_UPTO_TEN_MILLION' ||
             value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
