@@ -16,86 +16,75 @@
   <nb-card-body>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
       <tr>
-        <th>Date</th>
+        <th class="text-left">Date</th>
         <td colspan="3">{{date | date}}</td>
-        <th>Customer's Name</th>
+        <th class="text-left">Customer's Name</th>
         <td colspan="3">{{cadFile?.loanHolder?.name}}</td>
-<!--        <th>PAN Number</th>-->
-<!--        <td>{{panNumber}}</td>-->
       </tr>
       <tr>
-        <th>A/C NUmber</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
-        <th>Customer Id</th>
+        <th class="text-left">A/C NUmber</th>
+        <td>{{accountNo}}</td>
+        <th class="text-left">Customer Id</th>
         <td>{{cadFile?.loanHolder?.customerCode}}</td>
-        <th>Facility</th>
-        <td>{{cadFile?.loanHolder?.branch?.name}}</td>
-        <th>Approval</th>
-        <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
+        <th class="text-left">Facility</th>
+        <td>{{assignedLoan}}</td>
+        <th class="text-left">Approval</th>
+        <td>{{approval}}</td>
       </tr>
       <tr>
-        <th>Group</th>
-        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
-        <th>RM</th>
-        <td  colspan="2">{{cadFile?.loanHolder?.customerCode}}</td>
-        <th>Branch</th>
-        <td>{{cadFile?.loanHolder?.branch?.name}}</td>
-      </tr>
-      <tr>
-        <th colspan="2">Multibanking</th>
-        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
-        <th>Ka.Su.Fa.</th>
-        <td>{{cadFile?.loanHolder?.customerCode}}</td>
-        <th>CIC</th>
+        <th class="text-left">Group</th>
+        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.group}}</td>
+        <th class="text-left">RM</th>
+        <td  colspan="2">{{maker}}</td>
+        <th class="text-left">Branch</th>
         <td>{{cadFile?.loanHolder?.branch?.name}}</td>
       </tr>
       <tr>
-        <th>Next Review/Tenure</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
-        <th>Purpose</th>
-        <td colspan="2">{{cadFile?.loanHolder?.customerCode}}</td>
-        <th>File Manager</th>
-        <td colspan="2">{{cadFile?.loanHolder?.branch?.name}}</td>
+        <th class="text-left" colspan="2">Multibanking</th>
+        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.multiBanking}}</td>
+        <th class="text-left">Ka.Su.Fa.</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.kasufa}}</td>
+        <th class="text-left">CIC</th>
+        <td></td>
       </tr>
       <tr>
-        <th>Unit</th>
+        <th class="text-left">Next Review/Tenure</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.nextReview}}</td>
+        <th class="text-left">Purpose</th>
+        <td colspan="2" [innerHTML]="purposeOfLoan | safeHtml"></td>
+        <th class="text-left">File Manager</th>
+        <td colspan="2">{{maker}}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Unit</th>
         <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>
-<!--        <th>SCC REF No:</th>-->
-<!--        <td>{{}}</td>-->
       </tr>
-
-<!--      <tr>-->
-<!--        <th>Security Code</th>-->
-<!--        <td>{{securityCode}}</td>-->
-<!--        <th>Operative Account</th>-->
-<!--        <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>-->
-<!--      </tr>-->
     </table>
     <p><b>MIS Codes:</b></p>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
       <tr>
-        <th>NRB Sector Code: </th>
+        <th class="text-left">NRB Sector Code: </th>
         <td></td>
-        <th>NRB Sub Sector Code</th>
+        <th class="text-left">NRB Sub Sector Code</th>
         <td></td>
-        <th>Security Code</th>
+        <th class="text-left">Security Code</th>
         <td></td>
       </tr>
       <tr>
-        <th>Basel Code: </th>
+        <th class="text-left">Basel Code: </th>
         <td></td>
-        <th>Productwise</th>
+        <th class="text-left">Productwise</th>
         <td></td>
-        <th> Sub Productwise</th>
+        <th class="text-left"> Sub Productwise</th>
 
         <td></td>
       </tr>
       <tr>
-        <th>SIS Sector : </th>
+        <th class="text-left">SIS Sector : </th>
         <td></td>
-        <th>SIS Collateral</th>
+        <th class="text-left">SIS Collateral</th>
         <td></td>
-        <th>Security Code</th>
+        <th class="text-left">Security Code</th>
         <td></td>
       </tr>
     </table>

@@ -112,6 +112,24 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     case LoanType.RENEW_WITH_ENHANCEMENT:
                         this.initialDocuments = this.loanConfig.renewWithEnhancement;
                         break;
+                    case LoanType.REALIGNMENT:
+                        this.initialDocuments = this.loanConfig.realignment;
+                        break;
+                    case LoanType.INTEREST_REVISION:
+                        this.initialDocuments = this.loanConfig.interestRevision;
+                        break;
+                    case LoanType.OTHERS_MEMO:
+                        this.initialDocuments = this.loanConfig.othersMemo;
+                        break;
+                    case  LoanType.SECURITY_FULL_RELEASE:
+                        this.initialDocuments = this.loanConfig.securityFullRelease;
+                        break;
+                    case LoanType.SECURITY_PARTIAL_RELEASE:
+                        this.initialDocuments = this.loanConfig.securityPartialRelease;
+                        break;
+                    case LoanType.WAIVER_DEFFERAL_MEMO:
+                        this.initialDocuments = this.loanConfig.waiverDefferalMemo;
+                        break;
                     default:
                         this.initialDocuments = this.loanConfig.initial;
                 }

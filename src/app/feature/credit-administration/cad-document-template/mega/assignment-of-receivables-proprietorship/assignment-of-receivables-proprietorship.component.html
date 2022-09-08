@@ -2,11 +2,6 @@
     <!--div class="row">-->
     <form [formGroup]="assignmentOfReceivablesProprietorship" class="nep" id="assignmentOfReceivablesProprietorshipPrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong><u>भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा</u></strong><br><br>
                 <strong><u><span class="timesNewRoman">(Assignment of Receivables)</span></u></strong>
@@ -50,13 +45,18 @@
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonGrandFather').value ?
                     assignmentOfReceivablesProprietorship.get('authorizedPersonGrandFather').value  : '========='}}</strong></span>
                 को नाती
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonFather').value ?
-                    assignmentOfReceivablesProprietorship.get('authorizedPersonFather').value  : '========='}}</strong></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonHusband').value ?
-                    assignmentOfReceivablesProprietorship.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                <span *ngIf="this.nepData.authorizedPersonDetail.gender==='1'">
+                  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonFather').value ?
+                        assignmentOfReceivablesProprietorship.get('authorizedPersonFather').value  : '========='}}</strong></span>
+                </span>
+
+                <span *ngIf="this.nepData.authorizedPersonDetail.gender==='0'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonHusband').value ?
+                          assignmentOfReceivablesProprietorship.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                </span>
+
                 को छोरा
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrict" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPersonDistrict').value ?
@@ -77,16 +77,16 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('authorizedPerson').value ?
                     assignmentOfReceivablesProprietorship.get('authorizedPerson').value  : '========='}}</strong></span>
-                आगे हाम्रो नाममा तपाई धनी बैंकबाट हाम्रो व्यापारिक प्रयोजनको लागि जम्मा <strong>रु</strong>
+                आगे हाम्रो नाममा तपाई धनी बैंकबाट हाम्रो व्यापारिक प्रयोजनको लागि जम्मा <strong>रु </strong>
                 <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmountInWords', 'loanAmount')"
                                   [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('loanAmount').value ?
                     assignmentOfReceivablesProprietorship.get('loanAmount').value  : '========='}}</strong></span>
-                <strong>/– (अक्षरेपि</strong>
+                <strong>/– (अक्षरेपि </strong>
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmountInWords" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('loanAmountInWords').value ?
                     assignmentOfReceivablesProprietorship.get('loanAmountInWords').value  : '========='}}</strong></span>
-                <strong>रुपैयाँ मात्र)</strong>
+                <strong> मात्र)</strong>
                 सम्मको विभिन्न ऋण कर्जा तथा बैकिङ्ग सुविधा स्वीकृत भएको हुँदा हामीले सो सिमा <span class="timesNewRoman">(Limit)</span> भित्र रही हाल
                 उपयोग गरिरहेको वा पछि उपयोग गर्ने
                 उल्लेखित ऋणकर्जा तथा बैकिङ्ग सुविधा र सोमा तपाई धनी बैंकको नियमानुसार लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर, ऋण असूलीमा हुने खर्च
@@ -99,7 +99,11 @@
                 उपरोक्त रकम कलम उपर हामीलाई रहेको हक अधिकार तपाई धनी बैंकका नाममा हक हस्तान्तरण <span class="timesNewRoman">(Assign)</span>
                 गरी दियौ । कथंकदाचित हामीले तपाई धनी
                 बैंकबाट उल्लेखित सिमा भित्र रही हाल प्राप्त गरेको वा पछि प्राप्त गर्ने ऋण /कर्जाको समय, समयमा तिर्न वुझाउन पर्ने सांवा, व्याज, फि, कमिशन,
-                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको मिति
+                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="freeTextDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('freeTextDate').value ?
+                    assignmentOfReceivablesProprietorship.get('freeTextDate').value  : ''}}</strong></span>
+                मिति
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesProprietorship.get('offerLetterIssuedDate').value ?
                     assignmentOfReceivablesProprietorship.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
