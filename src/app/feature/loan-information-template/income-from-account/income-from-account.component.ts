@@ -145,7 +145,8 @@ export class IncomeFromAccountComponent implements OnInit {
       netProfit: [undefined],
       netProfitPercent: [undefined],
       economic: [undefined],
-      economicProfitPercent: [undefined]
+      economicProfitPercent: [undefined],
+      economicRemark: [undefined]
     });
   }
 

@@ -75,7 +75,6 @@ export class DetailViewOfIndividualComponent implements OnInit {
   toggleId = [];
   check = false;
   thisClient;
-  customerReportingInfo = [];
 
   constructor(
       private modalService: NgbModal,
@@ -84,12 +83,6 @@ export class DetailViewOfIndividualComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
-        && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
-      this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
-        this.customerReportingInfo.push(rep);
-      });
-    }
     this.disable();
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
