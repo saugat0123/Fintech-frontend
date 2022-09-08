@@ -118,7 +118,6 @@ export class GroupExposureWithCcblComponent implements OnInit {
     }
     this.spinner = true;
     this.mGroupInfo = this.setMGroupValue();
-    console.log('mGroupInfo', this.mGroupInfo);
     this.mGroupService.save(this.mGroupInfo).subscribe((response) => {
       this.responseData.emit(response.detail);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group Exposure'));
@@ -206,7 +205,6 @@ export class GroupExposureWithCcblComponent implements OnInit {
     this.form.get('totalProTotal').patchValue(proTotal.toFixed(2));
     this.form.get('totalChanges').patchValue(changeAmount.toFixed(2));
     const groupTotal = Number(exTotal) + Number(proTotal);
-    console.log('groupTotal', groupTotal);
     this.form.get('groupTotal').patchValue(Number(groupTotal).toFixed(2));
   }
 
