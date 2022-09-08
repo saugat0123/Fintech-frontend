@@ -61,7 +61,6 @@ export class DslWholesaleComponent implements OnInit {
         this.guarantorData = this.loanDataHolder.loanHolder.guarantors.guarantorList;
       }
     }
-    console.log('loanDataHolder', this.loanDataHolder);
     // Setting IncomeFromAccount data--
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount)) {
       this.incomeFromAccountData = this.loanDataHolder.loanHolder.incomeFromAccount;
