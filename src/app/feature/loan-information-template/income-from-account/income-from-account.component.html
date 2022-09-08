@@ -383,7 +383,7 @@
               </tr>
             </table>
 
-            <span><strong>Profitability From Customer</strong></span>
+            <!--<span><strong>Profitability From Customer</strong></span>
             <br>
             <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
               <thead>
@@ -469,10 +469,10 @@
                            type="number" appDecimalNumber>
                 </td>
               </tr>
-            </table>
+            </table>-->
           </ng-template>
         </div>
-        <div class="col-md-12">
+        <!--<div class="col-md-12">
           <div class="form-group">
             <label for="remark"><strong>Remark</strong></label>
             <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"
@@ -484,7 +484,7 @@
             </div>
 
           </div>
-        </div>
+        </div>-->
       </div>
 
       <div class="row">
@@ -643,6 +643,20 @@
             </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <div class="form-group">
+            <label for="remark"><strong>Remark</strong></label>
+            <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.economicRemark.errors }"
+                      class="form-control" formControlName="economicRemark" id="remark"
+                      name="remark" placeholder="Economic Profitabilty Remark" rows="3"></textarea>
+            <div *ngIf="(submitted) && formControls.economicRemark.invalid"
+                 class="invalid-feedback">
+              <span *ngIf="formControls.economicRemark.errors.required">Remark is required.</span>
+            </div>
+
+          </div>
         </div>
       </div>
       <nb-card *ngIf="individual">

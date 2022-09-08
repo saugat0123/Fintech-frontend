@@ -73,8 +73,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   isCorporate = false;
   thisClient;
   facilityUtilization;
-  customerReportingInfo = [];
   esrmData;
+  companyJsonData;
   constructor(
       private toastService: ToastService,
       private modalService: NgbModal,
@@ -82,12 +82,6 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanDataHolder) && !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.reportingInfoLevels)
-        && this.loanDataHolder.loanHolder.reportingInfoLevels.length > 0) {
-      this.loanDataHolder.loanHolder.reportingInfoLevels.forEach(rep => {
-        this.customerReportingInfo.push(rep);
-      });
-    }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditChecklist)) {
       this.esrmData = JSON.parse(this.loanDataHolder.loanHolder.creditChecklist.data);
     }
@@ -104,6 +98,9 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
       this.consumerFinance = true;
     } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' && this.loanDataHolder.loanHolder.customerType === 'INSTITUTION') {
       this.smallBusiness = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.companyJsonData)) {
+      this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
