@@ -47,7 +47,6 @@ export class MultipleBankingComponent implements OnInit {
         this.router.queryParams.subscribe((res: any) => {
             this.customerType = res.customerType;
         });
-        console.log('customerType', this.customerType);
         this.buildForm();
         this.checkCustomerCategory(this.customerCategory);
         if (!ObjectUtil.isEmpty(this.multiBankingData)) {
