@@ -225,6 +225,10 @@
                                            [cadData]="cadData" [documentId]="documentId"
                                            [customerLoanId]="customerLoanId">
         </app-share-pledge-deed-first-party-individual>
+        <app-kalo-suchi-corporate-guarantee *ngSwitchCase="cadTemplate.KALO_SUCHI_CORPORATE_GUARANTEE"
+                                                      [cadData]="cadData" [documentId]="documentId"
+                                                      [customerLoanId]="customerLoanId">
+        </app-kalo-suchi-corporate-guarantee>
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
     </div>
