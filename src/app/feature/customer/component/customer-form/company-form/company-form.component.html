@@ -1280,6 +1280,15 @@
                     </div>
                 </ng-template>
                 <hr>
+                <div class="row" *ngIf="isDSL">
+                    <div class="div col-md-12">
+                        <label for="documentsObtained"><strong>Documents Obtained</strong></label>
+                        <ckeditor
+                                id="documentsObtained" formControlName="documentsObtained"
+                                name="documentsObtained" type="text" [config]="ckeConfig">
+                        </ckeditor>
+                    </div>
+                </div>
             </form>
         </div>
     </nb-card-body>

@@ -36,6 +36,7 @@ export class DslWholesaleComponent implements OnInit {
   crgGammaSummary = false;
   crgGammaScore = 0;
   crgGammaGradeStatusBadge;
+  documentsObtained;
   constructor() {
     this.client = environment.client;
   }
@@ -86,6 +87,9 @@ export class DslWholesaleComponent implements OnInit {
           this.crgGammaGradeStatusBadge = 'badge badge-warning';
         }
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo) || !ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.documentsObtained) ) {
+      this.documentsObtained = JSON.parse(this.loanDataHolder.companyInfo.documentsObtained);
     }
   }
 

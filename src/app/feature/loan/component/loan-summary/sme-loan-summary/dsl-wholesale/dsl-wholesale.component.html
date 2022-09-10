@@ -152,7 +152,13 @@
     </li>
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Documents to be executed/obtained: </strong></p>
-<!--        new component to be created-->
+        <ng-container>
+            <br>
+            <div class="col-md-12 table-responsive-md">
+                <table class="table-bordered table-responsive-md sb-small table-sm" style="width: 100%"
+                       [innerHTML]="documentsObtained | safeHtml"></table>
+            </div>
+        </ng-container>
     </li>
     <li class="font-weight-bold">
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE):</strong></p>
