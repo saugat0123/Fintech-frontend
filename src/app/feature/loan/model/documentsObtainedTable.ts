@@ -246,4 +246,5 @@ export class DocumentsObtainedTable {
             '\t</tbody>\n' +
             '</table>\n';
     }
+
 }
