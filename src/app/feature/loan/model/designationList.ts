@@ -45,6 +45,14 @@ export class DesignationList {
       name: 'Chairman',
     },
     {
+      id: 'Promoter',
+      name: 'Promoter',
+    },
+    {
+      id: 'Management Team',
+      name: 'Management Team',
+    },
+    {
       id: 'Other',
       name: 'Other',
     }

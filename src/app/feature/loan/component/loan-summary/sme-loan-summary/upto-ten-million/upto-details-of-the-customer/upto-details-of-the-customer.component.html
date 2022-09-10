@@ -44,8 +44,10 @@
         </td>
         <td><b>Banking Arrangement</b></td>
         <td colspan="4">
-            {{checkedData?.swapChecked ? 'Swap' : ''}},
-            {{checkedData?.consortiumChecked ? 'Consortium' : ''}},
+            {{checkedData?.swapChecked ? 'Swap' : ''}}
+            {{(checkedData?.swapChecked && (checkedData?.consortiumChecked || checkedData?.multiBankingChecked)) ? ', ': ''}}
+            {{checkedData?.consortiumChecked ? 'Consortium' : ''}}
+            {{(checkedData?.consortiumChecked && checkedData?.multiBankingChecked) ? ', ': ''}}
             {{checkedData?.multiBankingChecked ? 'MultiBanking' : ''}}
         </td>
     </tr>

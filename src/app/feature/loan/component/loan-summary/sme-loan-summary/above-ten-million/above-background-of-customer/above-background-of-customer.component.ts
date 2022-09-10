@@ -12,6 +12,7 @@ import {CustomerInfoData} from '../../../../../model/customerInfoData';
 export class AboveBackgroundOfCustomerComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
   @Input() loanHolder: CustomerInfoData;
+  @Input() customerCategory;
   jsonData: any;
   registeredAddress: any;
   currentAddress: any;
