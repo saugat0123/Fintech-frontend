@@ -159,7 +159,6 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(LoanType.value());
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
