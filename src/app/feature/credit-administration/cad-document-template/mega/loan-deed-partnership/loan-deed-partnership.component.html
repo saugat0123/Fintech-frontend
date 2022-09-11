@@ -46,9 +46,9 @@
                                    type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('borrowerName').value ? loanDeedPartnership.get('borrowerName').value  : '========='}}</strong></span>
                             (जसलाई यसपछि <strong>ऋणी/फर्म</strong> भनिएको छ) का साझेदारहरु
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="authorizedPersonGrandfatherName"
+                                   formControlName="authorizedPersonGrandFatherName"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('authorizedPersonGrandfatherName').value ? loanDeedPartnership.get('authorizedPersonGrandfatherName').value  : '========='}}</strong></span>
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('authorizedPersonGrandFatherName').value ? loanDeedPartnership.get('authorizedPersonGrandFatherName').value  : '========='}}</strong></span>
                             को नाती
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="authorizedPersonFatherName"
@@ -88,9 +88,9 @@
                                    type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('authorizedPersonName').value ? loanDeedPartnership.get('authorizedPersonName').value  : '========='}}</strong></span>
                             .१, र रु
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="authorizedPersonGrandfatherName2"
+                                   formControlName="authorizedPersonGrandFatherName2"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('authorizedPersonGrandfatherName2').value ? loanDeedPartnership.get('authorizedPersonGrandfatherName2').value  : '========='}}</strong></span>
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('authorizedPersonGrandFatherName2').value ? loanDeedPartnership.get('authorizedPersonGrandFatherName2').value  : '========='}}</strong></span>
                             को नाती
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="authorizedPersonFatherName2"
@@ -127,7 +127,17 @@
                                    formControlName="authorizedPersonName2"
                                    placeholder=""
                                    type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('authorizedPersonName2').value ? loanDeedPartnership.get('authorizedPersonName2').value  : '========='}}</strong></span>
-                            समेत दुई (२) आगे म/हामी ऋणी/फर्मको उदेश्य अनुसार व्यापार व्यवसाय संचालन गर्न ऋणकर्जा तथा बैकिङ सुविधा आवश्यक भई सोका लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाईं धनी बैंकले म/हामी ऋणी फर्मको नाममा जारी गरेका
+                            समेत दुई (२) आगे म/हामी ऋणी/फर्मको उदेश्य अनुसार व्यापार व्यवसाय संचालन गर्न ऋणकर्जा तथा बैकिङ सुविधा आवश्यक भई सोका लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाईं धनी बैंकले म/हामी ऋणी फर्मको नाममा
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="nameMa"
+                                   placeholder=""
+                                   type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('nameMa').value ? loanDeedPartnership.get('nameMa').value : ' '}}</strong></span>
+                            जारी गरेको <input class="form-field form-control-sm nepaliFont disable-print"
+                                              formControlName="jariGareko"
+                                              placeholder=""
+                                              type="text" size="10"/><span
+                                class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('jariGareko').value ? loanDeedPartnership.get('jariGareko').value : ' '}}</strong></span>
                             <strong>मिति
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="offerLetterIssuedDate"
@@ -143,12 +153,12 @@
                             नवुझाएमा वा तिर्न बुझाउन आलटाल गरी बांकी राखेमा वा किस्ता खिलाफि गरेमा वा ऋण स्वीकृति पत्र तथा यसै लिखतको कुनै शर्त बन्देजहरु उल्लंघन गरेमा समेत हामी ऋणी फर्मको नाउंमा तपाईं धनी बैंकमा खोलेको निक्षेप खातामा रहेको रकमबाट कटृा गरी तथा उपरोक्त
                             बमोजिम धितो लेखिदिएको चल अचल श्रीसम्पत्ति बैंक तथा वित्तीय संस्था सम्बन्धी ऐन २०७३ बमोजिम तथा तपाई धनी बैंकको नियमानुसार कव्जा गरी लिलाम विक्री गरी र वा अन्य व्यवस्था गरी तपाई धनी बैंकको सम्पूर्ण लेना रकम असुल उपर गरी लिनुहोला । कथम्कदाचित
                             धितो लेखिदिएको श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम विक्री हुन नसकेमा वा लिलाम विक्री गर्दा समेत तपाई धनी बैंकको लेना रकम असुल उपर नभई बांकी रहेमा सो समेत हामी ऋणी फर्मको घरघराना तथा अन्य चल अचल श्रीसम्पत्तिबाट असुल उपर गरी लिनुहोला । सो
-                            बमोजिम गरी लिएमा पछि कुनै किसिमको उजुर बाजुर गर्ने छैनौ, गरे यसै लिखतले बदर गराई लिनु भनी किनाराका साक्षीहरुको रोहबरमा  राजीखुसीका साथ तपाई धनी बैंकको कार्यालयमा बसी यो लिखतमा ऐ.का साझेदारहरुले हस्ताक्षर गरी यो लिखतमा सहीछाप गरी तपाईं
+                            बमोजिम गरी लिएमा पछि कुनै किसिमको उजुर बाजुर गर्ने छैनौ, गरे यसै लिखतले बदर गराई लिनु भनी किनाराका साक्षीहरुको रोहबरमा राजीखुसीका साथ तपाई धनी बैंकको कार्यालयमा बसी यो लिखतमा ऐ.का साझेदारहरुले हस्ताक्षर गरी यो लिखतमा सहीछाप गरी तपाईं
                             धनी बैंकलाई दियौं र यसको दोहरी समेत बुझिलियौं ।
                         </p>
                         <br>
                         <p class="text-center"><strong>स्विकृत ऋणकर्जाको विवरण</strong></p>
-                        <table border="1" width="100%">
+                        <table class="table table-responsive-md table-bordered">
                             <thead>
                             <tr>
                                 <th>ऋणकर्जा वा बैंकिङ सुविधा</th>
@@ -157,53 +167,29 @@
                                 <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
+                            <tbody *ngFor="let data of loanDeedPartnership.get('loanData')['controls']; let index = index"
+                                   formArrayName="loanData">
+                            <tr [formGroupName]="index">
                                 <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="loanFacilityType"
                                            placeholder=""
-                                           type="text" size="7" />
-                                    <span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('loanFacilityType').value ? loanDeedPartnership.get('loanFacilityType').value  : '========='}}</strong></span>
+                                           type="text" size="7"/>
+                                    <span class="print-only nepaliFont"><strong>{{data.get('loanFacilityType').value ? data.get('loanFacilityType').value : '========='}}</strong></span>
                                     कर्जा
                                 </td>
                                 <td>
                                     <strong>रु
-                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
-                                                          [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
-                                        <span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('amount').value ? loanDeedPartnership.get('amount').value  : '========='}}</strong></span>
-                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                               formControlName="amountInWords"
-                                               placeholder=""
-                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('amountInWords').value ? loanDeedPartnership.get('amountInWords').value  : '========='}}</strong></span>
-                                        मात्र<span class="timesNewRoman">)</span>
-                                    </strong>
-                                </td>
-                                <td>
-                                    ऋण स्वीकृती पत्र अनुसार
-                                </td>
-                                <td>
-                                    ऋण स्वीकृती पत्र अनुसार
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                           formControlName="loanFacilityType2"
-                                           placeholder=""
-                                           type="text" size="7" />
-                                    <span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('loanFacilityType2').value ? loanDeedPartnership.get('loanFacilityType2').value  : '========='}}</strong></span>
-                                    कर्जा
-                                </td>
-                                <td>
-                                    <strong>रु
-                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords2', 'amount2')"
-                                                          [name]="patchFunction('amount2')" class="disable-print"></app-custom-input>
-                                        <span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('amount2').value ? loanDeedPartnership.get('amount2').value  : '========='}}</strong></span>
+                                        <app-custom-input (eventEmit)="changeToNepAmount1($event, index, 'loanData')"
+                                                          [name]="patchFunction1('loanData', index, 'amount2')"
+                                                          class="disable-print"></app-custom-input>
+                                        <span class="print-only nepaliFont"><strong>{{data.get('amount2').value ? data.get('amount2').value : '========='}}</strong></span>
                                         <span class="timesNewRoman">/- (</span>अक्षरेपि
                                         <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                                formControlName="amountInWords2"
                                                placeholder=""
-                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('amountInWords2').value ? loanDeedPartnership.get('amountInWords2').value  : '========='}}</strong></span>
+                                               type="text"
+                                               style="font-size: 18px;"/><span
+                                                class="print-only nepaliFont" style="font-size: 18px;"><strong>{{data.get('amountInWords2').value ? data.get('amountInWords2').value : '========='}}</strong></span>
                                         मात्र<span class="timesNewRoman">)</span>
                                     </strong>
                                 </td>
@@ -214,8 +200,26 @@
                                     ऋण स्वीकृती पत्र अनुसार
                                 </td>
                             </tr>
+                            <tr class="disable-print">
+                                <td colspan="4" style="text-align: right">
+                                    <button
+                                            (click)="removeLoanDetail(index)"
+                                            *ngIf="index > 0"
+                                            class="mt-sm-2 disable-print" nbButton
+                                            status="primary">हटाउनुहोस्
+                                    </button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
+                        <br>
+                        <div class="row mr-1 mb-3">
+                            <div class="col-md-12 text-right disable-print">
+                                <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                                    थप्नुहोस्
+                                </button>
+                            </div>
+                        </div>
                         <p>
                             <strong>जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु
                             <app-custom-input (eventEmit)="changeToNepAmount($event, 'totalAmountInWords', 'totalAmount')"
@@ -225,7 +229,8 @@
                             <input class="form-field form-control-sm nepaliFont disable-print col-5"
                                    formControlName="totalAmountInWords"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('totalAmountInWords').value ? loanDeedPartnership.get('totalAmountInWords').value  : '========='}}</strong></span>
+                                   type="text"
+                                   style="font-size: 18px;"/><span class="print-only nepaliFont" style="font-size: 18px;"><strong>{{loanDeedPartnership.get('totalAmountInWords').value ? loanDeedPartnership.get('totalAmountInWords').value  : '========='}}</strong></span>
                             मात्र<span class="timesNewRoman">)</span>
                         </strong>
                         </p>
@@ -236,12 +241,16 @@
                                   formControlName="FACOwnerName"
                                   placeholder=""
                                   type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('FACOwnerName').value ? loanDeedPartnership.get('FACOwnerName').value  : '========='}}</strong></span>
-                            को नामको तपसिल बमोजिमको जग्गा तथा उक्त जग्गामा निर्माणभएको घर, टहरा लगायत अन्य लिगलगापातहरु तथा भविष्यमा हूने कूनै थप निर्माण कार्यहरु समेत सम्पूर्ण लिगलगापातहरु तपाईं धनी बैंकको नाममा तोकिएको ऋण
-                            कर्जा तथा भविष्यमा थप हूने ऋण कर्जा तथा बैंकिङ सूविधाहरु समेतको सूरक्षण वापत यथावत धितोवन्धक कायम रहने कूरामा मेरो/हाम्रो मञ्जूरी छ ।
+                            ,
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="freeText"
+                                   placeholder=""
+                                   type="text" size="60"/><span
+                                    class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('freeText').value ? loanDeedPartnership.get('freeText').value : ' '}}</strong></span>
                         </p>
                         <br>
                         <p class="text-center"><strong>धितो रहने सम्पत्तिको बिवरण</strong></p>
-                        <table border="1" width="100%">
+                        <table class="table table-responsive-md table-bordered">
                             <thead>
                             <tr>
                                 <th>जिल्ला</th>
@@ -292,21 +301,11 @@
                             </tbody>
                         </table>
                         <br />
-                        <div>
-                            <p class="text-center"><strong><U>साक्षीः</U></strong></p>
-                            <p>
-                                १.  <input class="form-field form-control-sm nepaliFont disable-print"
-                                           formControlName="witnessName"
-                                           placeholder=""
-                                           type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('witnessName').value ? loanDeedPartnership.get('witnessName').value  : '========='}}</strong></span>
-                                <br>
-                                <br>
-                                २. <input class="form-field form-control-sm nepaliFont disable-print"
-                                          formControlName="witnessName2"
-                                          placeholder=""
-                                          type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('witnessName2').value ? loanDeedPartnership.get('witnessName2').value  : '========='}}</strong></span>
-                            </p>
-                        </div>
+                        <input class="form-field form-control-sm nepaliFont disable-print"
+                               formControlName="freeText2"
+                               placeholder=""
+                               type="text" size="15"/><span
+                            class="print-only nepaliFont"><strong>{{loanDeedPartnership.get('freeText2').value ? loanDeedPartnership.get('freeText2').value : ' '}}</strong></span>
                         <div>
                             <p>
                                 ईति सम्वत् २०

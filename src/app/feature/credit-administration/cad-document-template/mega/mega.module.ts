@@ -80,6 +80,8 @@ import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-pro
 import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-first-party-individual/share-pledge-deed-first-party-individual.component';
 import {CoreModule} from '../../../../@core/core.module';
 import { KaloSuchiCorporateGuaranteeComponent } from './kalo-suchi-corporate-guarantee/kalo-suchi-corporate-guarantee.component';
+import {SharePledgeDeedThirdPartyIndividualComponent} from './share-pledge-deed-third-party-individual/share-pledge-deed-third-party-individual.component';
+
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -141,6 +143,7 @@ import { KaloSuchiCorporateGuaranteeComponent } from './kalo-suchi-corporate-gua
         PersonalGuaranteeProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent,
         KaloSuchiCorporateGuaranteeComponent,
+        SharePledgeDeedThirdPartyIndividualComponent
     ],
     imports: [
         CommonModule,
@@ -211,7 +214,8 @@ import { KaloSuchiCorporateGuaranteeComponent } from './kalo-suchi-corporate-gua
         PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent,
-        KaloSuchiCorporateGuaranteeComponent
+        KaloSuchiCorporateGuaranteeComponent,
+        SharePledgeDeedThirdPartyIndividualComponent
     ],
 })
 
