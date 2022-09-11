@@ -349,7 +349,7 @@ export class MultipleBankingComponent implements OnInit {
             this.isBelowTen = true;
         } else if (value === 'AGRICULTURE_UPTO_TWO_MILLION') {
             this.isUptoTwoMillion = true;
-        } else if (value === 'AGRICULTURE_WITHOUT_COLLATERAL') {
+        } else if (value === 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION') {
             this.isWithoutCollateral = true;
         } else if (value === 'DSL_WHOLE_SALE') {
             this.isDSL = true;
