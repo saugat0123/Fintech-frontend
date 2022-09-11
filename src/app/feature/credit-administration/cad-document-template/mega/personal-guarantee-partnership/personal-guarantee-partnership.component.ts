@@ -25,6 +25,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   nepData;
   guarantorData;
   submitted = false;
+  initialInfo;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -43,6 +44,11 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.personalGuaranteePartnership.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
     // if (!ObjectUtil.isEmpty(guarantorList)) {
     //   const guarantorDetails = this.personalGuaranteePartnership.get('personalGuaranteePartnership') as FormArray;
@@ -100,6 +106,62 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       day: [undefined],
       time: [undefined],
     });
+  }
+
+  fillForm() {
+    this.personalGuaranteePartnership.patchValue({
+      branchName: !ObjectUtil.isEmpty(this.nepData.branchDetail) ?
+          this.nepData.branchDetail.branchNameInNepali : '',
+      companyRegistrationOffice: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ?
+          this.nepData.companyRegOffice : '',
+      registrationIssuedDate: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ?
+          this.nepData.regIssueDate : '',
+      companyRegistrationNumber: !ObjectUtil.isEmpty(this.nepData.registrationNo) ?
+          this.nepData.registrationNo : '',
+      companyDistrict: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+      companyMunicipalityVDC: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      companyWardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ?
+          this.nepData.nepaliName : '',
+      offerLetterIssuedDate: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.offerIssueDate : '',
+      amount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanAmountInFig : '',
+      amountInWords: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanAmountInWord : '',
+      guarantorName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].name : '',
+      guarantorFatherName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].fatherName : '',
+      guarantorFatherInLawName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].fatherInLawName : '',
+      guarantorHusbandName: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].husbandName : '',
+      guarantorCitizenshipNo: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].citizenshipNo : '',
+      guarantorCitizenshipIssuedDate: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].citizenshipIssueDate : '',
+      guarantorCitizenshipIssuedDistrict: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].citizenshipIssueDistrict : '',
+      guarantorPermanentDistrict: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.district : '',
+      guarantorPermanentMunicipalityVDC: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.municipality : '',
+      guarantorPermanentWardNo: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.wardNo : '',
+      guarantorPermanentTole: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorPermanentAddress) ?
+          this.nepData.guarantorDetails[0].guarantorPermanentAddress.tole : '',
+      guarantorTemporaryDistrict: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.district : '',
+      guarantorTemporaryMunicipalityVDC: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.municipality : '',
+      guarantorTemporaryWardNo: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorTemporaryAddress) ?
+          this.nepData.guarantorDetails[0].guarantorTemporaryAddress.wardNo : '',
+        }
+    );
   }
 
   changeToNepAmount(event: any, target, from) {

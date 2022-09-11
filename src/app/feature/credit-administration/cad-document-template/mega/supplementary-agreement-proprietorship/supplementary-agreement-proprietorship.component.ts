@@ -23,6 +23,7 @@ export class SupplementaryAgreementProprietorshipComponent implements OnInit {
   @Input() customerLoanId: number;
   supplementaryAgreementProprietorship: FormGroup;
   nepData;
+  initialInfo;
   guarantorData;
   submitted = false;
 
@@ -38,13 +39,18 @@ export class SupplementaryAgreementProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.supplementaryAgreementProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.supplementaryAgreementProprietorship.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -59,7 +65,7 @@ export class SupplementaryAgreementProprietorshipComponent implements OnInit {
       companyMunicipalityVDC: [undefined],
       companyWardNo: [undefined],
       borrowerName: [undefined],
-      authorizedPersonGrandfatherName: [undefined],
+      authorizedPersonGrandFatherName: [undefined],
       authorizedPersonFatherName: [undefined],
       authorizedPersonHusbandName: [undefined],
       authorizedPersonDistrict: [undefined],
@@ -68,6 +74,8 @@ export class SupplementaryAgreementProprietorshipComponent implements OnInit {
       authorizedPersonAge: [undefined],
       authorizedPersonName: [undefined],
       date2: [undefined],
+      name: [undefined],
+      name2: [undefined],
       offerLetterIssuedDate: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
@@ -80,7 +88,41 @@ export class SupplementaryAgreementProprietorshipComponent implements OnInit {
       witnessName2: [undefined],
     });
   }
-
+  fillForm() {
+    this.supplementaryAgreementProprietorship.patchValue({
+          branch: [!ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchNameInNepali : ''],
+          companyRegistrationOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+          registrationIssuedDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+          registrationNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+          companyDistrict: [!ObjectUtil.isEmpty
+          (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+          companyMunicipalityVDC: [!ObjectUtil.isEmpty
+          (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.district : ''],
+          companyWardNo: [!ObjectUtil.isEmpty
+          (this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.municipality : ''],
+          borrowerName: [!ObjectUtil.isEmpty
+          (this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+          authorizedPersonGrandFatherName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.grandFatherName : ''],
+          authorizedPersonFatherName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.fatherName : ''],
+          authorizedPersonHusbandName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.husbandName : ''],
+          authorizedPersonDistrict: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.district : ''],
+          authorizedPersonMunicipalityVDC: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.municipality : ''],
+          authorizedPersonWardNo: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.wardNo : ''],
+          authorizedPersonName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+          offerLetterIssuedDate: [!ObjectUtil.isEmpty
+          (this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.offerIssueDate : ''],
+          amount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+          amountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+        }
+    );
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {

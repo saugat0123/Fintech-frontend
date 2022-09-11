@@ -1,16 +1,10 @@
 <div class="container nep text-justify">
     <form [formGroup]="form" class="nep" id="formPrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong>सेञ्चुरी कमर्सि बैंक लि</strong>
             </h6>
             <br>
-
             <h6 class="text-center">
                 <p>ऋणी र जमानतकर्ताले कालो सूचिमा नाम समावेश गर्ने बारेको मञ्जुरीनामा</p>
             </h6>
@@ -41,16 +35,16 @@
                                 type="text"/>
                 <span class="print-only size16 nepaliFont"><b>{{form.get('district').value ? form.get('district').value : '========='}}</b></span>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="metropolitian"
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="municipality"
                        type="text"/>
-                <span class="print-only size16 nepaliFont"><b>{{form.get('metropolitian').value ? form.get('metropolitian').value : '========='}}</b></span>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('municipality').value ? form.get('municipality').value : '========='}}</b></span>
                 गा.वि.स/न.पा वडा नं
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ward" type="text"/>
                 <span class="print-only size16 nepaliFont"><b>{{form.get('ward').value ? form.get('ward').value : '========='}}</b></span>
                 ,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="permanentAdd"
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="tole"
                        type="text"/>
-                <span class="print-only size16 nepaliFont"><b>{{form.get('permanentAdd').value ? form.get('permanentAdd').value : '========='}}</b></span>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('tole').value ? form.get('tole').value : '========='}}</b></span>
                 स्थाई ठेगाना भई हाल
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="curProvince"
                        type="text"/>
@@ -72,11 +66,6 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanFacilityTypeNep"
                        type="text"/>
                 <span class="print-only size16 nepaliFont"><b>{{form.get('loanFacilityTypeNep').value ? form.get('loanFacilityTypeNep').value : '========='}}</b></span>
-                /(
-                <input class="form-field form-control-sm disable-print" formControlName="loanFacilityTypeEng"
-                       type="text"/>
-                <span class="print-only size16 "><b>{{form.get('loanFacilityTypeEng').value ? form.get('loanFacilityTypeEng').value : '========='}}</b></span>)
-
                 <br>
 
             <hr>
@@ -104,19 +93,6 @@
                             type="text"/>
                 <span class="print-only size16 nepaliFont"><b>{{form.get('husbandName').value ? form.get('husbandName').value : '========='}}</b></span>
                 <br>
-                ना.प्र.नं <input class="form-field form-control-sm nepaliFont disable-print"
-                                 formControlName="citizenshipNo"
-                                 type="text"/>
-                <span class="print-only size16 nepaliFont"><b>{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : '========='}}</b></span>
-                जारी मिति <input class="form-field form-control-sm nepaliFont disable-print"
-                                 formControlName="citizenshipIssuedDate"
-                                 type="text"/>
-                <span class="print-only size16 nepaliFont"><b>{{form.get('citizenshipIssuedDate').value ? form.get('citizenshipIssuedDate').value : '========='}}</b></span>
-                जारी गर्ने कार्यालय जि.प्र.का <input class="form-field form-control-sm nepaliFont disable-print"
-                                                     formControlName="citizenshipIssuingOffice"
-                                                     type="text"/>
-                <span class="print-only size16 nepaliFont"><b>{{form.get('citizenshipIssuingOffice').value ? form.get('citizenshipIssuingOffice').value : '========='}}</b></span>
-                <br>
                 ठेगाना :-
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverDistrict"
                        type="text"/>
@@ -133,9 +109,9 @@
                        type="text"/>
                 <span class="print-only size16 nepaliFont"><b>{{form.get('approverWard').value ? form.get('approverWard').value : '========='}}</b></span>
                 ,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverAddress"
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverTole"
                        type="text"/>
-                <span class="print-only size16 nepaliFont"><b>{{form.get('approverAddress').value ? form.get('approverAddress').value : '========='}}</b></span>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('approverTole').value ? form.get('approverTole').value : '========='}}</b></span>
 
                 स्थाई ठेगाना भई हाल
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverCurProvince"
@@ -157,6 +133,19 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="approverCurWard"
                        type="text"/>
                 <span class="print-only size16 nepaliFont"><b>{{form.get('approverCurWard').value ? form.get('approverCurWard').value : '========='}}</b></span>
+                <br>
+                ना.प्र.नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                 formControlName="citizenshipNo"
+                                 type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : '========='}}</b></span>
+                जारी मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                                 formControlName="citizenshipIssuedDate"
+                                 type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('citizenshipIssuedDate').value ? form.get('citizenshipIssuedDate').value : '========='}}</b></span>
+                जारी गर्ने कार्यालय जि.प्र.का <input class="form-field form-control-sm nepaliFont disable-print"
+                                                     formControlName="citizenshipIssuingOffice"
+                                                     type="text"/>
+                <span class="print-only size16 nepaliFont"><b>{{form.get('citizenshipIssuingOffice').value ? form.get('citizenshipIssuingOffice').value : '========='}}</b></span>
             </p>
             <br>
             <br>

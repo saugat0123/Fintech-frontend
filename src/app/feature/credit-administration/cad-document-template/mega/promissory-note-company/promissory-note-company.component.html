@@ -3,7 +3,7 @@
         <div class="col-md-12 viewFull" style="overflow-y: auto;height:500px;">
             <form (ngSubmit)="submit()" [formGroup]="promissoryNoteCompany" class="nepali" id="promissoryNoteCompanyPrint">
                 <div class="nep">
-                    <div>
+                    <div style="margin: 0 10%;">
 
                         <p class="text-center" style="font-size:24pt;"><b>प्रतिज्ञा पत्र</b></p>
                         <p class="text-center" style="font-size:24pt;"><b>(PROMISSORY NOTE)</b></p>
@@ -12,19 +12,19 @@
                                                                    [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
                             <span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('amount').value ?  promissoryNoteCompany.get('amount').value  : '========='}}</b></span>
                             (अक्षरेपी <input class="form-field form-control-sm preetiFont size16 disable-print col-3"
-                                                                                         formControlName="amountInWords"
-                                                                                         placeholder=""
-                                                                                         type="text"/><span class="print-only preetiFont size16"><b>{{ promissoryNoteCompany.get('amountInWords').value ?  promissoryNoteCompany.get('amountInWords').value  : '========='}}</b></span> मात्र ।)</p>
+                                             formControlName="amountInWords"
+                                             placeholder=""
+                                             type="text"/><span class="print-only preetiFont size16"><b>{{ promissoryNoteCompany.get('amountInWords').value ?  promissoryNoteCompany.get('amountInWords').value  : '========='}}</b></span> मात्र ।)</p>
                         <p>
                             लिखितम् कम्पनी ऐन <input class="form-field form-control-sm nepaliFont disable-print"
-                                      formControlName="office"
-                                      placeholder=""
-                                      type="text"/>
+                                                     formControlName="office"
+                                                     placeholder=""
+                                                     type="text"/>
                             <span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('office').value ?  promissoryNoteCompany.get('office').value  : '========='}}</b></span>
                             बमोजिम नेपाल सरकार उद्योग मन्त्रालय <input class="form-field form-control-sm nepaliFont disable-print"
-                                                        formControlName="ministry"
-                                                        placeholder=""
-                                                        type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('ministry').value ?  promissoryNoteCompany.get('ministry').value  : '========='}}</b></span>
+                                                                       formControlName="ministry"
+                                                                       placeholder=""
+                                                                       type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('ministry').value ?  promissoryNoteCompany.get('ministry').value  : '========='}}</b></span>
                             को कार्यालयमा मिति
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="date1"
@@ -42,9 +42,9 @@
                                    type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('district').value ?  promissoryNoteCompany.get('district').value  : '========='}}</b></span>
                             जिल्ला,
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="branch"
+                                   formControlName="municipality1"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('branch').value ?  promissoryNoteCompany.get('branch').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('municipality1').value ?  promissoryNoteCompany.get('municipality1').value  : '========='}}</b></span>
                             गा.वि.स/न.पा.वडा नं
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="wardNo"
@@ -57,9 +57,9 @@
                                    type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('borrowerNameInNepali').value ?  promissoryNoteCompany.get('borrowerNameInNepali').value  : '========='}}</b></span>
                             को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री
                             <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="name"
+                                   formControlName="autName"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('name').value ?  promissoryNoteCompany.get('name').value  : '========='}}</b></span>
+                                   type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('autName').value ?  promissoryNoteCompany.get('autName').value  : '========='}}</b></span>
                             आगे, तपाई श्री सेञ्चुरी कमर्सियल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई रु
                             <input class="form-field form-control-sm nepaliFont disable-print"
                                    formControlName="amount"
@@ -74,50 +74,53 @@
 
                         <p class="text-right"><b><u>प्रतिज्ञा गर्ने व्यक्तिको</u></b></p><br><br><br>
                         <p class="text-right">लेखात्मक सही_____________________________________</p>
-                    <div class="col-sm-3">
-                    <table class="table table-bordered">
-                        <tr>
-                            <td class="text-center" style="height: 10rem;"> संस्थाको छाप</td>
-                        </tr>
-                    </table>
-                    </div>
+                        <div class="col-sm-3">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td class="text-center" style="height: 10rem;"> संस्थाको छाप</td>
+                                </tr>
+                            </table>
+                        </div>
                         <div><b><u>साक्षी</u></b><br>
-                            १.<input class="form-field form-control-lg nepaliFont disable-print"
-                                     formControlName="name"
-                                     placeholder=""
-                                     type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('name').value ?  promissoryNoteCompany.get('name').value  : '========='}}</b></span><br>
-                            २.<input class="form-field form-control-sm nepaliFont disable-print"
-                                     formControlName="name"
-                                     placeholder=""
-                                     type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('name').value ?  promissoryNoteCompany.get('name').value  : '========='}}</b></span><br>
-                            मिति सम्बत् २०<input class="form-field form-control-sm nepaliFont disable-print"
-                                                formControlName="year"
-                                                placeholder=""
-                                                type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('year').value ?  promissoryNoteCompany.get('year').value  : '========='}}</b></span>
-                            साल <input class="form-field form-control-sm nepaliFont disable-print"
-                                      formControlName="month"
-                                      placeholder=""
-                                      type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('month').value ?  promissoryNoteCompany.get('month').value  : '========='}}</b></span>
-                            महिना <input class="form-field form-control-sm nepaliFont disable-print"
-                                          formControlName="day"
-                                          placeholder=""
-                                          type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('day').value ?  promissoryNoteCompany.get('day').value  : '========='}}</b></span>
-                            गते रोज <input class="form-field form-control-sm nepaliFont disable-print"
-                                          formControlName="day"
-                                          placeholder=""
-                                          type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('day').value ?  promissoryNoteCompany.get('day').value  : '========='}}</b></span>
-                            शुभम् ।
+                            <div style="margin-left: 30px;">
+                                १.<input class="form-field form-control-lg nepaliFont disable-print"
+                                         formControlName="name"
+                                         placeholder=""
+                                         type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('name').value ?  promissoryNoteCompany.get('name').value  : '========='}}</b></span><br>
+                                २.<input class="form-field form-control-sm nepaliFont disable-print"
+                                         formControlName="name"
+                                         placeholder=""
+                                         type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('name').value ?  promissoryNoteCompany.get('name').value  : '========='}}</b></span><br>
+                                मिति सम्बत् २०<input class="form-field form-control-sm nepaliFont disable-print"
+                                                     formControlName="year"
+                                                     placeholder=""
+                                                     type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('year').value ?  promissoryNoteCompany.get('year').value  : '========='}}</b></span>
+                                साल <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="month"
+                                           placeholder=""
+                                           type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('month').value ?  promissoryNoteCompany.get('month').value  : '========='}}</b></span>
+                                महिना <input class="form-field form-control-sm nepaliFont disable-print"
+                                             formControlName="day"
+                                             placeholder=""
+                                             type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('day').value ?  promissoryNoteCompany.get('day').value  : '========='}}</b></span>
+                                गते रोज <input class="form-field form-control-sm nepaliFont disable-print"
+                                               formControlName="day"
+                                               placeholder=""
+                                               type="text"/><span class="print-only nepaliFont"><b>{{ promissoryNoteCompany.get('day').value ?  promissoryNoteCompany.get('day').value  : '========='}}</b></span>
+                                शुभम् ।
+                            </div>
                         </div>
-                    <div class="row disable-print">
-                        <div class="col-md-12 text-right">
-                            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteCompanyPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
-                            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteCompanyPrint" class="mr-2 custom-color" >Print</button>
-                            <button nbButton status="success" (click)="submit()">Save</button>
+                        <div class="row disable-print">
+                            <div class="col-md-12 text-right">
+                                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteCompanyPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="promissoryNoteCompanyPrint" class="mr-2 custom-color" >Print</button>
+                                <button nbButton status="success" (click)="submit()">Save</button>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+

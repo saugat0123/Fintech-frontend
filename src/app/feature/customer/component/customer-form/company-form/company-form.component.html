@@ -3,7 +3,7 @@
          nbSpinnerSize="giant">
     <nb-card-header>
         <div class="d-flex justify-content-end">
-            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
+            <nb-radio-group [(ngModel)]="calendarTfype" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
                 <nb-radio value="BS">BS</nb-radio>
             </nb-radio-group>
@@ -90,8 +90,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div *ngFor="let acc of companyInfoFormGroup?.get('accountDetails')['controls']; let ii = index"
-                         formArrayName="accountDetails" class="col-md-4">
+                         formArrayName="accountDetails" class="col-md-3">
                         <label for="accountNo"><strong>Account Number: {{ii + 1}}</strong></label>
                         <div [formGroupName]="ii" class="form-group">
                             <input formControlName="accountNo"
@@ -99,21 +100,20 @@
                                    id="accountNo"
                                    placeholder="Enter Account Number"/>
                             <div class="mt-2">
-                                <button (click)="addAccountNumber()"
-                                        nbButton status="primary" size="small"
-                                        value="Add Account No.">Add
-                                </button>
+
                                 <button (click)="removeAccount(ii)"
-                                        *ngIf="companyInfoFormGroup?.get('accountDetails')['length'] > 0"
+                                        *ngIf="companyInfoFormGroup?.get('accountDetails')['length'] > 1"
                                         nbButton size="small"
                                         status="primary">
                                     <nb-icon icon="trash-outline"></nb-icon>
                                 </button>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="cpl-md-1 mt-4" ><button (click)="addAccountNumber()" nbButton status="primary" size="small" value="Add Account No.">Add</button></div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -628,6 +628,17 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name"><strong>Type</strong></label>
+                                    <ng-container *ngIf="isWholeSale === true else other">
+                                        <select
+                                                [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }"
+                                                class="form-control" formControlName="type"
+                                                name="type">
+                                            <option [value]="null">Select type</option>
+                                            <option *ngFor="let designationForDSL of designationForDSL"
+                                                    [ngValue]="designationForDSL.id">{{designationForDSL.name}}</option>
+                                        </select>
+                                    </ng-container>
+                                    <ng-template #other>
                                     <select
                                             [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }"
                                             class="form-control" formControlName="type"
@@ -636,6 +647,7 @@
                                         <option *ngFor="let designations of designation"
                                                 [ngValue]="designations.id">{{designations.name}}</option>
                                     </select>
+                                    </ng-template>
                                     <div
                                             *ngIf="(submitted) && proprietor.get('type').invalid"
                                             class="invalid-feedback">
@@ -1247,7 +1259,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="business"><strong>4.1 BUSINESS</strong></label>
+                                <label for="business"><strong>5.1 BUSINESS</strong></label>
                                 <ckeditor id="business" formControlName="business" name="business" type="text"
                                           [config]="ckeConfig"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.business.errors }"></ckeditor>
@@ -1263,7 +1275,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="promoterNetWorth"><strong>4.2 PROMOTERS/KEY PERSON(S) AND THEIR
+                                <label for="promoterNetWorth"><strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR
                                     NETWORTH:</strong></label>
                                 <ckeditor id="promoterNetWorth" formControlName="promoterNetWorth"
                                           name="promoterNetWorth" type="text"
@@ -1275,6 +1287,32 @@
                                         Promoters/key person(s) and their networth is required
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="isWholeSale === true">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="vision"><strong>5.3 VISION, MISSION, GOALS AND OBJECTIVES:</strong></label>
+                                <ckeditor id="vision" formControlName="vision"
+                                          name="vision" type="text"
+                                          [config]="ckeConfig"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.vision.errors }"></ckeditor>
+                                <div *ngIf="(submitted) && form.vision.invalid"
+                                     class="text-danger">
+                                    <div *ngIf="form.vision.errors.required">
+                                        Vision is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="promoterStructure"><strong>5.3 PROMOTERS STRUCTURE:</strong></label>
+                                <ckeditor id="promoterStructure" formControlName="promoterStructure"
+                                          name="promoterStructure" type="text"
+                                          [config]="ckeConfig"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.promoterStructure.errors }"></ckeditor>
                             </div>
                         </div>
                     </div>

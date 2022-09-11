@@ -2,11 +2,6 @@
     <!--div class="row">-->
     <form [formGroup]="assignmentOfReceivablesPartnership" class="nep" id="assignmentOfReceivablesPartnershipPrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong><u>भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा</u></strong><br><br>
                 <strong><u><span class="timesNewRoman">(Assignment of Receivables)</span></u></strong>
@@ -46,70 +41,46 @@
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('borrowerName').value ?
                     assignmentOfReceivablesPartnership.get('borrowerName').value  : '========='}}</strong></span>
                 का साझेदारहरु
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1GrandFather" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1GrandFather').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1GrandFather').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonGrandFather" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonGrandFather').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPersonGrandFather').value  : '========='}}</strong></span>
                 को नाती
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Father" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1Father').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1Father').value  : '========='}}</strong></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Husband" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1Husband').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1Husband').value  : '========='}}</strong></span>
+                <span *ngIf="this.nepData.authorizedPersonDetail.gender==='1'">
+                  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonFather" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonFather').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPersonFather').value  : '========='}}</strong></span>
+                </span>
+
+                <span *ngIf="this.nepData.authorizedPersonDetail.gender==='0'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonHusband" type="text"/>
+                      <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonHusband').value ?
+                      assignmentOfReceivablesPartnership.get('authorizedPersonHusband').value  : '========='}}</strong></span>
+                </span>
+
                 को छोरा
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1District" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1District').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1District').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonDistrict" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonDistrict').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPersonDistrict').value  : '========='}}</strong></span>
                 जिल्ला,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Metropolitan" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1Metropolitan').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1Metropolitan').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonMetropolitan" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonMetropolitan').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPersonMetropolitan').value  : '========='}}</strong></span>
                 गा.वि.स/न.पा. वडा न
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1WardNo" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1WardNo').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1WardNo').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonWardNo" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonWardNo').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPersonWardNo').value  : '========='}}</strong></span>
                 बस्ने बर्ष
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Age" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1Age').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1Age').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonAge" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPersonAge').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPersonAge').value  : '========='}}</strong></span>
                 को
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson1').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson1').value  : '========='}}</strong></span>
-                १, र
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2GrandFather" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2GrandFather').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2GrandFather').value  : '========='}}</strong></span>
-                को नाती
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2Father" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2Father').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2Father').value  : '========='}}</strong></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2Husband" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2Husband').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2Husband').value  : '========='}}</strong></span>
-                को छोरा
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2District" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2District').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2District').value  : '========='}}</strong></span>
-                जिल्ला,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2Metropolitan" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2Metropolitan').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2Metropolitan').value  : '========='}}</strong></span>
-                गा.वि.स/न.पा. वडा न
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2WardNo" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2WardNo').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2WardNo').value  : '========='}}</strong></span>
-                बस्ने बर्ष
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2Age" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2Age').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2Age').value  : '========='}}</strong></span>
-                को
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson2" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson2').value ?
-                    assignmentOfReceivablesPartnership.get('authorizedPerson2').value  : '========='}}</strong></span>
-                समेत दुई (२) आगे हाम्रो नाममा तपाई धनी बैंकबाट हाम्रो व्यापारिक प्रयोजनको लागि जम्मा <strong>रु</strong>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('authorizedPerson').value ?
+                    assignmentOfReceivablesPartnership.get('authorizedPerson').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="freeText" type="text"/>
+                <span class="print-only nepaliFont text-justify"><strong>{{assignmentOfReceivablesPartnership.get('freeText').value ?
+                    assignmentOfReceivablesPartnership.get('freeText').value  : ''}}</strong></span>
+                आगे हाम्रो नाममा तपाई धनी बैंकबाट हाम्रो व्यापारिक प्रयोजनको लागि जम्मा <strong>रु </strong>
                 <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmountInWords', 'loanAmount')"
                                   [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('loanAmount').value ?
@@ -118,7 +89,7 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmountInWords" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('loanAmountInWords').value ?
                     assignmentOfReceivablesPartnership.get('loanAmountInWords').value  : '========='}}</strong></span>
-                <strong>रुपैयाँ मात्र)</strong>
+                <strong> मात्र)</strong>
                 सम्मको विभिन्न ऋण कर्जा तथा बैकिङ्ग सुविधा स्वीकृत भएको हुँदा हामीले सो सिमा (Limit) भित्र रही हाल उपयोग गरिरहेको वा पछि उपयोग गर्ने
                 उल्लेखित ऋणकर्जा तथा बैकिङ्ग सुविधा र सोमा तपाई धनी बैंकको नियमानुसार लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर, ऋण असूलीमा हुने खर्च
                 लगायतका अन्य सम्पूर्ण रकम समेतको सुरक्षण स्वरुप यस अघि कुनै पनि व्यहोराले अन्य कसैको हक अधिकार कायम हुने गरी लिखत गरी नदिएको हाम्रो
@@ -128,7 +99,11 @@
                 वक्यौता रकम वा सापटी रकम, कलम (entire receivables) तपाई धनी बैंकको हामी सरह नै समान हक अधिकार रहने गरी यसै लिखतद्वारा
                 उपरोक्त रकम कलम उपर हामीलाई रहेको हक अधिकार तपाई धनी बैंकका नाममा हक हस्तान्तरण (Assign) गरी दियौ । कथंकदाचित हामीले तपाई धनी
                 बैंकबाट उल्लेखित सिमा भित्र रही हाल प्राप्त गरेको वा पछि प्राप्त गर्ने ऋण /कर्जाको समय, समयमा तिर्न वुझाउन पर्ने सांवा, व्याज, फि, कमिशन,
-                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको मिति
+                पेनाल्टी, दस्तुर लगायतका रकम कलम तपाई धनी बैंकको
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="freeTextDate" type="text"/>
+                <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('freeTextDate').value ?
+                    assignmentOfReceivablesPartnership.get('freeTextDate').value  : ''}}</strong></span>
+                मिति
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{assignmentOfReceivablesPartnership.get('offerLetterIssuedDate').value ?
                     assignmentOfReceivablesPartnership.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
@@ -164,25 +139,32 @@
                 <p class="ml-lg-5">
                     १.
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness1" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('witness1').value ? assignmentOfReceivablesPartnership.get('witness1').value  : '========='}}</b></span><br>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('witness1').value ?
+                        assignmentOfReceivablesPartnership.get('witness1').value  : '========='}}</b></span><br>
                     २.
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witness2" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('witness2').value ? assignmentOfReceivablesPartnership.get('witness2').value  : '========='}}</b></span><br>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('witness2').value ?
+                        assignmentOfReceivablesPartnership.get('witness2').value  : '========='}}</b></span><br>
                     ईति सम्वत् २०
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatYear" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatYear').value ? assignmentOfReceivablesPartnership.get('sambatYear').value  : '========='}}</b></span>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatYear').value ?
+                        assignmentOfReceivablesPartnership.get('sambatYear').value  : '========='}}</b></span>
                     साल
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatMonth" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatMonth').value ? assignmentOfReceivablesPartnership.get('sambatMonth').value  : '========='}}</b></span>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatMonth').value ?
+                        assignmentOfReceivablesPartnership.get('sambatMonth').value  : '========='}}</b></span>
                     महिना
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatDate" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatDate').value ? assignmentOfReceivablesPartnership.get('sambatDate').value  : '========='}}</b></span>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatDate').value ?
+                        assignmentOfReceivablesPartnership.get('sambatDate').value  : '========='}}</b></span>
                     गते रोज
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sambatDay" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatDay').value ? assignmentOfReceivablesPartnership.get('sambatDay').value  : '========='}}</b></span>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('sambatDay').value ?
+                        assignmentOfReceivablesPartnership.get('sambatDay').value  : '========='}}</b></span>
                     शुभम्
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="shubham" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('shubham').value ? assignmentOfReceivablesPartnership.get('shubham').value  : '========='}}</b></span>
+                    <span class="print-only nepaliFont"><b>{{assignmentOfReceivablesPartnership.get('shubham').value ?
+                        assignmentOfReceivablesPartnership.get('shubham').value  : '========='}}</b></span>
                 </p>
             </div>
         </div>
