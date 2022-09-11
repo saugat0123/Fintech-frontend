@@ -229,8 +229,8 @@ export class CompanyFormComponent implements OnInit {
                         }
                     }
                 });
-            }
-        );
+            });
+        console.log('customerCategory', this.customerCategory);
     }
 
     buildForm() {
@@ -1062,8 +1062,9 @@ export class CompanyFormComponent implements OnInit {
     }
 
     getCustomerCategory() {
-        this.customerCategory = this.customerCate.filter(f =>
-            f.value !== CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL);
+        // this.customerCategory = this.customerCate.filter(f =>
+        //     f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
+        this.customerCategory = this.customerCate;
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {
