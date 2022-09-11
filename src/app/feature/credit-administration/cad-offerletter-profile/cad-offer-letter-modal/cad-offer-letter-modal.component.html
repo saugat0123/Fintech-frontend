@@ -32,8 +32,10 @@
             <app-loan-against-share *ngSwitchCase="offerLetterTypeConst?.LOAN_AGAINST_SHARE"
                                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
             ></app-loan-against-share>
-            <app-agriculture-offer-letter *ngSwitchCase="offerLetterTypeConst.AGRICULTURE_OFFER_LETTER"
-                                                [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-agriculture-offer-letter>
+            <app-dsl-wholesale *ngSwitchCase="offerLetterTypeConst?.DSL_WHOLESALE"
+                                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+            ></app-dsl-wholesale>
+
         </div>
         <nb-card-footer>
             <div>

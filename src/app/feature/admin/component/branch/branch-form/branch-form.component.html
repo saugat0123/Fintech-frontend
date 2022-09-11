@@ -20,6 +20,15 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <label for="nepaliName">Nepali Name</label>
+                    <input type="text" class="form-control nepaliFont" id="nepaliName"
+                           formControlName="nepaliName" placeholder="नाम"
+                           [ngClass]="{'is-invalid': submitted && branchFormControl.nepaliName.errors}"/>
+                    <div *ngIf="submitted && branchFormControl.nepaliName.invalid" class="invalid-feedback">
+                        Nepali Name is required!
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <label for="province">Province</label>
                     <select formControlName="province" id="province"
                             class="custom-select"

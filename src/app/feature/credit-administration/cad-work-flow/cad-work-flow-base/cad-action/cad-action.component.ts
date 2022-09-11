@@ -95,6 +95,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     pathValueData;
     isMakerOrApproval = false;
     isDiscrepancy = false;
+    inMyBucket = false;
 
 
     constructor(private router: ActivatedRoute,
@@ -132,6 +133,9 @@ export class CadActionComponent implements OnInit, OnChanges {
             this.isMaker = true;
         } else {
             this.getNewDocStatusOnApprove();
+        }
+        if (this.currentCADStage.toRole.id.toString() === this.roleId) {
+            this.inMyBucket = true;
         }
         this.backwardTooltipMessageAndShowHideBackward();
 
@@ -263,6 +267,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             });
             this.formAction.get('toUser').clearValidators();
             this.formAction.updateValueAndValidity();
+            this.formAction.get('toUser').patchValue(null);
         } else {
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.selectedBranchId).subscribe((response: any) => {
                 this.userList = response.detail;
@@ -317,9 +322,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
-            // const discrepancyApproved = this.cadOfferLetterApprovedDoc.discrepancy && !this.cadOfferLetterApprovedDoc.discrepancyApproved;
-            // console.log('this is discrepancy approved', discrepancyApproved);
-            // console.log('this is discrepancy approved', newDocStatus);
             this.popUpTitle = this.approvedLabel;
             if (newDocStatus === '0') {
                 this.toastService.show(new Alert(AlertType.ERROR, 'This Document is Already Approved'));

@@ -22,6 +22,7 @@ export class AssignmentOfReceivablesPartnershipComponent implements OnInit {
   @Input() customerLoanId: number;
   assignmentOfReceivablesPartnership: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -36,12 +37,17 @@ export class AssignmentOfReceivablesPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.assignmentOfReceivablesPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.assignmentOfReceivablesPartnership.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -49,61 +55,70 @@ export class AssignmentOfReceivablesPartnershipComponent implements OnInit {
     this.assignmentOfReceivablesPartnership = this.formBuilder.group({
       branchOfficeAddress: [undefined],
       companyRegistrationOffice: [undefined],
-      department: [undefined],
-      mantralaya: [undefined],
-      officeName: [undefined],
-      regNo: [undefined],
       regDate: [undefined],
-      metropolitan1: [undefined],
+      regNo: [undefined],
+      district: [undefined],
       metropolitan: [undefined],
       wardNo: [undefined],
-      partnershipForm: [undefined],
       borrowerName: [undefined],
-      authorizedPerson1GrandFather: [undefined],
-      authorizedPerson1Father: [undefined],
-      authorizedPerson1Husband: [undefined],
-      authorizedPerson1District: [undefined],
-      authorizedPerson1Metropolitan: [undefined],
-      authorizedPerson1WardNo: [undefined],
-      authorizedPerson1Age: [undefined],
-      authorizedPerson1: [undefined],
-      authorizedPerson2GrandFather: [undefined],
-      authorizedPerson2Father: [undefined],
-      authorizedPerson2Husband: [undefined],
-      authorizedPerson2District: [undefined],
-      authorizedPerson2Metropolitan: [undefined],
-      authorizedPerson2WardNo: [undefined],
-      authorizedPerson2Age: [undefined],
-      authorizedPerson2: [undefined],
+      authorizedPersonGrandFather: [undefined],
+      authorizedPersonFather: [undefined],
+      authorizedPersonHusband: [undefined],
+      authorizedPersonDistrict: [undefined],
+      authorizedPersonMetropolitan: [undefined],
+      authorizedPersonWardNo: [undefined],
+      authorizedPersonAge: [undefined],
+      authorizedPerson: [undefined],
+      freeText: [undefined],
       loanAmount: [undefined],
       loanAmountInWords: [undefined],
+      freeTextDate: [undefined],
       offerLetterIssuedDate: [undefined],
       witness1: [undefined],
       witness2: [undefined],
-      representativeName: [undefined],
-      representativeGrandaughterName: [undefined],
-      sonOrDaughter: [undefined],
-      wife: [undefined],
-      district: [undefined],
-      metropolitan2: [undefined],
-      age: [undefined],
-      mrOrMrs: [undefined],
-      ownerBankNum: [undefined],
-      documentWritenDate: [undefined],
-      rupees: [undefined],
-      rupessInWord: [undefined],
       sambatYear: [undefined],
       sambatMonth: [undefined],
       sambatDay: [undefined],
       sambatDate: [undefined],
       shubham: [undefined],
-      sambatDocumentWrittenInWord: [undefined],
-      witnessSignature: [undefined],
-      witnessDistrict: [undefined],
-      witnessMunicipality: [undefined],
-      witnessVdc: [undefined],
-      witnessAge: [undefined],
-      witnessEvidence: [undefined],
+    });
+  }
+  fillForm() {
+    this.assignmentOfReceivablesPartnership.patchValue({
+      branchOfficeAddress: !ObjectUtil.isEmpty(this.nepData.branchDetail) ? this.nepData.branchDetail.branchName : '',
+      companyRegistrationOffice: !ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : '',
+      regDate: !ObjectUtil.isEmpty(this.nepData.regIssueDate) ?
+          this.nepData.regIssueDate : '',
+      regNo: !ObjectUtil.isEmpty(this.nepData.registrationNo) ?
+          this.nepData.registrationNo : '',
+      district: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ?
+          this.nepData.institutionRegisteredAddress.district : '',
+      metropolitan: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ?
+          this.nepData.institutionRegisteredAddress.municipality : '',
+      wardNo: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.wardNo) ?
+          this.nepData.institutionRegisteredAddress.wardNo : '',
+      borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ?
+          this.nepData.nepaliName : '',
+      authorizedPersonGrandFather: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.grandFatherName : '',
+      authorizedPersonFather: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.fatherName : '',
+      authorizedPersonHusband: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.husbandName : '',
+      authorizedPersonDistrict: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ?
+          this.nepData.authorizedPersonAddress.district : '',
+      authorizedPersonMetropolitan: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ?
+          this.nepData.authorizedPersonAddress.municipality : '',
+      authorizedPersonWardNo: !ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress) ?
+          this.nepData.authorizedPersonAddress.wardNo : '',
+      authorizedPerson: !ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail) ?
+          this.nepData.authorizedPersonDetail.name : '',
+      loanAmount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ?
+          this.nepData.miscellaneousDetail.loanAmountInFig : '',
+      loanAmountInWords: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ?
+          this.nepData.miscellaneousDetail.loanAmountInWord : '',
+      offerLetterIssuedDate: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ?
+          this.nepData.miscellaneousDetail.offerIssueDate : '',
     });
   }
 
@@ -136,12 +151,12 @@ export class AssignmentOfReceivablesPartnershipComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
       this.dialogRef.close();
     });
   }

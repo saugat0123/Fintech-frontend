@@ -25,9 +25,9 @@ export class MultipleBankingComponent implements OnInit {
     multiBanking: MultipleBanking = new MultipleBanking();
     bankName = ['CCBL', 'Other Banks'];
     financialArrange = ['None', 'Sole', 'Multiple Banking', 'Consortium'];
-    multiBankingChecked = true;
-    consortiumChecked = true;
-    swapChecked = true;
+    multiBankingChecked = false;
+    consortiumChecked = false;
+    swapChecked = false;
     ckeConfig;
     customerCate = CustomerCategory;
     isAboveTen = false;
@@ -35,6 +35,7 @@ export class MultipleBankingComponent implements OnInit {
     isWholeSale = false;
     isUptoTwoMillion = false;
     isWithoutCollateral = false;
+    isDSL = false;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -350,6 +351,8 @@ export class MultipleBankingComponent implements OnInit {
             this.isUptoTwoMillion = true;
         } else if (value === 'AGRICULTURE_WITHOUT_COLLATERAL') {
             this.isWithoutCollateral = true;
+        } else if (value === 'DSL_WHOLE_SALE') {
+            this.isDSL = true;
         } else {
             this.isWholeSale = true;
         }

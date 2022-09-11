@@ -1,3 +1,4 @@
+
 export enum MegaOfferLetterConst {
     RETAIL_HOUSING,
     RETAIL_EDUCATIONAL,
@@ -11,7 +12,7 @@ export enum MegaOfferLetterConst {
     OFFER_LETTER_CONSENT,
     PERSONAL_OFFER_LETTER_RENEWALS,
     LOAN_AGAINST_SHARE,
-    AGRICULTURE_OFFER_LETTER
+    DSL_WHOLESALE,
 }
 
 export namespace MegaOfferLetterConst {
@@ -41,8 +42,8 @@ export namespace MegaOfferLetterConst {
           return 'Personal Offer Letter';
         case MegaOfferLetterConst.LOAN_AGAINST_SHARE:
           return 'Loan Against Share';
-        case MegaOfferLetterConst.AGRICULTURE_OFFER_LETTER:
-          return 'Agriculture Offer Letter';
+        case MegaOfferLetterConst.DSL_WHOLESALE:
+          return 'Dsl Wholesale';
       }
     }
 

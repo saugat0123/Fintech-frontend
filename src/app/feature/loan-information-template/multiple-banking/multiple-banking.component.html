@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="multiBankingForm">
-            <div class="row" *ngIf="isAboveTen">
+            <div class="row" *ngIf="isAboveTen || isDSL || (customerType === 'INSTITUTION' && isBelowTen)">
                 <div class="col-md-12">
                     <h6><strong>Consortium</strong></h6>
                     <nb-checkbox class="float-right" (change)="checkChecked($event.target.checked,'consortium')"

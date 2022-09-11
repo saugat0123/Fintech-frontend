@@ -72,6 +72,10 @@ export class UIComponent implements OnInit, DoCheck {
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
+    otherCycleDoc = {};
+    otherCycleFinal = {};
+    otherCycleList = ['Security Full Release', 'Security Partial Release', 'Realignment', 'Interest Revision', 'Others Memo', 'waiver/defferal Memo'];
+    otherCycleKeys = ['securityFullRelease', 'securityPartialRelease', 'realignment', 'interestRevision', 'othersMemo', 'waiverDefferalMemo'];
 
     constructor(
         private loanTemplateService: LoanTemplateService,
@@ -91,6 +95,8 @@ export class UIComponent implements OnInit, DoCheck {
     financedAssets = financedAssets.enumObject();
 
     static loadData(other: UIComponent) {
+        other.loanConfig = other.route.snapshot.data.result ? other.route.snapshot.data.result.detail : new LoanConfig();
+        other.selectedLoanCategory = other.loanConfig.loanCategory;
         other.getTemplate();
         other.offerLetterService.getAll().subscribe((responseList: any) => {
             other.offerLetterList = responseList.detail;
@@ -277,7 +283,6 @@ export class UIComponent implements OnInit, DoCheck {
 
             if (other.id !== undefined && other.id !== 0) {
                 other.service.detail(other.id).subscribe((res: any) => {
-                    other.loanConfig = res.detail;
                     other.renewWithEnhancementDocumentList.forEach(renewWithEnhancementDocument => {
                         other.loanConfig.renewWithEnhancement.forEach(loanConfigRenewWithEnhancementDocument => {
                             if (renewWithEnhancementDocument.id === loanConfigRenewWithEnhancementDocument.id) {
@@ -290,8 +295,36 @@ export class UIComponent implements OnInit, DoCheck {
             }
         });
 
+        for (let i = 16; i <= 21; i++) {
+            other.documentService.getByLoanCycleAndStatus(i, Status.ACTIVE).subscribe((response: any) => {
+                const currentIndex = i - 16;
+                const data = response.detail as Document [];
+                if (data.length > 0) {
+                    const selected = [];
+                    data.forEach((d, ix) => {
+                        if (other.loanConfig.id !== undefined && other.loanConfig.id !== 0) {
+                            other.loanConfig[other.otherCycleKeys[currentIndex]].forEach(da => {
+                                if (d.id === da.id) {
+                                    data[ix].checked = true;
+                                }
+                            });
+                        }
+                        selected.push(data[ix]);
+                    });
+                    const docs = other.otherCycleKeys[currentIndex];
+                    other.otherCycleDoc[docs] = data;
+                    other.otherCycleFinal[docs] = selected;
 
-            const index = other.loanTagList.indexOf(other.loanTagList.filter(value => value.toString() === 'MICRO LOAN')[0]);
+                } else {
+                    const docs = other.otherCycleKeys[currentIndex];
+                    other.otherCycleDoc[docs] = data;
+                    other.otherCycleFinal[docs] = [];
+                }
+            });
+        }
+
+
+        const index = other.loanTagList.indexOf(other.loanTagList.filter(value => value.toString() === 'MICRO LOAN')[0]);
             other.loanTagList.forEach(value => {
                 if (value.toString() === 'MICRO LOAN') {
                     other.loanTagList.indexOf(value);
@@ -407,7 +440,10 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
         this.loanConfig.approvedDocument = this.finalCadDocumentUploadList;
         this.loanConfig.renewWithEnhancement = this.finalRenewWithEnhancementDocument;
-
+        this.otherCycleKeys.forEach((d) => {
+            this.otherCycleFinal[d] = this.otherCycleDoc[d].filter(doc => doc.checked === true);
+        });
+        Object.assign(this.loanConfig, this.otherCycleFinal);
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
         this.loanConfig.loanTag = this.selectedLoanTag;
@@ -562,5 +598,19 @@ export class UIComponent implements OnInit, DoCheck {
                 this.finalRenewWithEnhancementDocument = [];
             }
         });
+    }
+
+    setChecked(key, checkAll) {
+        this.otherCycleDoc[key].forEach((d) => {
+            Object.assign(d, {checked: checkAll});
+        });
+    }
+
+    onSelect(key, event, data, docIndex) {
+        if (event.target.checked) {
+            this.otherCycleDoc[key][docIndex].checked = true;
+        } else {
+            this.otherCycleDoc[key][docIndex].checked = false;
+        }
     }
 }

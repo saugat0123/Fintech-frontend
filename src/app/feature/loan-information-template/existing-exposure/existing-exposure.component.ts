@@ -81,22 +81,22 @@ export class ExistingExposureComponent implements OnInit {
 
     addExposure() {
         const exposure: any = {
-            existingLimit : null,
-            proposedLimit : null,
-            interestRate : null,
-            existInterestRate : null,
-            baseRate : null,
-            premiumRateOnBaseRate : null,
-            tenureDurationInMonths : null,
-            outStandingLimit : null,
-            existCashMargin : null,
-            cashMargin : null,
-            existCommissionPercentage : null,
-            commissionPercentage : null,
-            enhanceLimitAmount : null,
-            commitmentFee : null,
-            settlementAmount : null,
-            existingDateOfExpiry : null,
+            existingLimit: null,
+            proposedLimit: null,
+            interestRate: null,
+            existInterestRate: null,
+            baseRate: null,
+            premiumRateOnBaseRate: null,
+            tenureDurationInMonths: null,
+            outStandingLimit: null,
+            existCashMargin: null,
+            cashMargin: null,
+            existCommissionPercentage: null,
+            commissionPercentage: null,
+            enhanceLimitAmount: null,
+            commitmentFee: null,
+            settlementAmount: null,
+            existingDateOfExpiry: null,
         };
         (this.existingExposure.get('exposure') as FormArray).push(
             this.formBuilder.group({
@@ -107,6 +107,7 @@ export class ExistingExposureComponent implements OnInit {
                 loanName: [undefined],
                 loanConfig: [undefined],
                 docStatus: ['APPROVED'],
+                isReview: [false]
             })
         );
         const c: ExistingExposure = new ExistingExposure();
@@ -145,7 +146,8 @@ export class ExistingExposureComponent implements OnInit {
                     loanConfig: [data.loan],
                     docStatus: [data.documentStatus],
                     loanId: [data.id],
-                    originalLimit: [data.proposal.proposedLimit]
+                    originalLimit: [data.proposal.proposedLimit],
+                    isReview: [false],
                 })
             );
         }
@@ -203,8 +205,7 @@ export class ExistingExposureComponent implements OnInit {
             .subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Existing Exposure'));
                 this.triggerCustomerRefresh.emit(true);
-            console.log('res', res);
-        });
+            });
     }
 
     addProposalData(data) {
@@ -216,7 +217,7 @@ export class ExistingExposureComponent implements OnInit {
                 data.existInterestRate],
             interestRate: [ObjectUtil.isEmpty(data) ? undefined : data.interestRate],
             baseRate: [ObjectUtil.isEmpty(data) ? undefined : data.baseRate],
-            premiumRateOnBaseRate: [ ObjectUtil.isEmpty(data) ? undefined : data.premiumRateOnBaseRate],
+            premiumRateOnBaseRate: [ObjectUtil.isEmpty(data) ? undefined : data.premiumRateOnBaseRate],
             tenureDurationInMonths: [ObjectUtil.isEmpty(data) ? undefined : data.tenureDurationInMonths],
             outStandingLimit: [ObjectUtil.isEmpty(data) ? undefined : data.outStandingLimit],
             existCashMargin: [ObjectUtil.isEmpty(data) ? undefined : data.existCashMargin],
@@ -227,22 +228,21 @@ export class ExistingExposureComponent implements OnInit {
             commitmentFee: [ObjectUtil.isEmpty(data) ? undefined : data.commitmentFee],
             settlementAmount: [ObjectUtil.isEmpty(data) ? undefined : data.settlementAmount],
             existingDateOfExpiry: [ObjectUtil.isEmpty(data) ? undefined :
-                ObjectUtil.isEmpty(data.existingDateOfExpiry) ? undefined :  new Date(data.existingDateOfExpiry)]
+                ObjectUtil.isEmpty(data.existingDateOfExpiry) ? undefined : new Date(data.existingDateOfExpiry)]
         });
     }
 
     setExposure() {
         const data = this.existingExposure.get('exposure') as FormArray;
-        console.log('existingData', this.existingData);
-        console.log('Data Value', data.value);
         data.value.forEach((d, i) => {
-           this.existingData[i].proposalData = JSON.stringify(d.proposalData);
-           this.existingData[i].loanId = d.loanId;
-           this.existingData[i].loanType = d.loanType;
-           this.existingData[i].loanName = d.loanName;
-           this.existingData[i].loanConfig = d.loanConfig;
-           this.existingData[i].docStatus = d.docStatus;
-           this.existingData[i].originalLimit = Number(d.proposalData.proposedLimit);
+            this.existingData[i].proposalData = JSON.stringify(d.proposalData);
+            this.existingData[i].loanId = d.loanId;
+            this.existingData[i].loanType = d.loanType;
+            this.existingData[i].loanName = d.loanName;
+            this.existingData[i].loanConfig = d.loanConfig;
+            this.existingData[i].docStatus = d.docStatus;
+            this.existingData[i].isReview = d.isReview;
+            this.existingData[i].originalLimit = Number(d.proposalData.proposedLimit);
         });
     }
 
@@ -257,6 +257,7 @@ export class ExistingExposureComponent implements OnInit {
                 loanConfig: [e.loanConfig],
                 docStatus: [e.docStatus],
                 originalLimit: [e.originalLimit],
+                isReview: [e.isReview],
                 id: [e.id],
                 version: [e.version]
             }));
@@ -264,8 +265,8 @@ export class ExistingExposureComponent implements OnInit {
     }
 
     setLoanNameAndType(value, i: number) {
-        this.existingExposure.get(['exposure', i , 'loanName']).patchValue(value.name);
-        this.existingExposure.get(['exposure', i , 'loanConfig']).patchValue(value);
+        this.existingExposure.get(['exposure', i, 'loanName']).patchValue(value.name);
+        this.existingExposure.get(['exposure', i, 'loanConfig']).patchValue(value);
         return;
     }
 
@@ -276,5 +277,9 @@ export class ExistingExposureComponent implements OnInit {
                 this.existingData.push(c);
             }
         });
+    }
+
+    checkChecked(checked, i) {
+        this.existingExposure.get(['exposure', i, 'isReview']).patchValue(checked);
     }
 }

@@ -12,106 +12,125 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-kalo-suchi-borrower-proprietorship',
-  templateUrl: './kalo-suchi-borrower-proprietorship.component.html',
-  styleUrls: ['./kalo-suchi-borrower-proprietorship.component.scss']
+    selector: 'app-kalo-suchi-borrower-proprietorship',
+    templateUrl: './kalo-suchi-borrower-proprietorship.component.html',
+    styleUrls: ['./kalo-suchi-borrower-proprietorship.component.scss']
 })
 export class KaloSuchiBorrowerProprietorshipComponent implements OnInit {
 
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
-  @Input() documentId: number;
-  @Input() customerLoanId: number;
-  form: FormGroup;
-  nepData;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    @Input() documentId: number;
+    @Input() customerLoanId: number;
+    form: FormGroup;
+    nepData;
+    initialInfo;
 
-  constructor(private formBuilder: FormBuilder,
-              private administrationService: CreditAdministrationService,
-              private toastService: ToastService,
-              private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService
-  ) {
-  }
+    constructor(private formBuilder: FormBuilder,
+                private administrationService: CreditAdministrationService,
+                private toastService: ToastService,
+                private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+                private routerUtilsService: RouterUtilsService
+    ) {
+    }
 
-  ngOnInit() {
-    this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+    ngOnInit() {
+        this.buildForm();
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    this.initialInfo = JSON.parse(singleCadFile.initialInformation);
+                }
+            });
         }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-    }
-  }
-
-  buildForm() {
-    this.form = this.formBuilder.group({
-      address: [undefined],
-      metropolitian: [undefined],
-      approver: [undefined],
-      debtor: [undefined],
-      approverDistrict: [undefined],
-      approverMunicipality: [undefined],
-      approverWard: [undefined],
-      approverAddress: [undefined],
-      approverCurProvince: [undefined],
-      approverCurDistrict: [undefined],
-      approverCurMunicipality: [undefined],
-      approverCurWard: [undefined],
-      ward: [undefined],
-      wardNo: [undefined],
-      district: [undefined],
-      permanentAdd: [undefined],
-      curProvince: [undefined],
-      curDistrict: [undefined],
-      curMunicipality: [undefined],
-      curWard: [undefined],
-      loanFacilityTypeNep: [undefined],
-      loanFacilityTypeEng: [undefined],
-      date: [undefined]
-    });
-  }
-
-  submit() {
-    let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
+        if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+            this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
         }
-      });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
-    } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
+        if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.form.patchValue(this.initialInfo);
+        } else {
+            this.fillForm();
+        }
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-      this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-      this.dialogRef.close();
-    });
-  }
+    buildForm() {
+        this.form = this.formBuilder.group({
+            debtor: [undefined],
+            district: [undefined],
+            municipality: [undefined],
+            ward: [undefined],
+            tole: [undefined],
+            loanFacilityTypeNep: [undefined],
+            approver: [undefined],
+            approverDistrict: [undefined],
+            approverMunicipality: [undefined],
+            approverWard: [undefined],
+            approverTole: [undefined],
+            date: [undefined]
+        });
+    }
+
+    fillForm() {
+        this.form.patchValue({
+            debtor: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+            district: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ?
+                this.nepData.institutionRegisteredAddress.district : '',
+            municipality: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ?
+                this.nepData.institutionRegisteredAddress.municipality : '',
+            ward: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.wardNo) ? this.nepData.institutionRegisteredAddress.wardNo : '',
+            tole: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.tole) ? this.nepData.institutionRegisteredAddress.tole : '',
+            loanFacilityTypeNep: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanFacilityTypeInNep) ?
+                this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
+            approver: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+            approverDistrict: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ?
+                this.nepData.institutionRegisteredAddress.district : '',
+            approverMunicipality: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ?
+                this.nepData.institutionRegisteredAddress.municipality : '',
+            approverWard: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.wardNo) ?
+                this.nepData.institutionRegisteredAddress.wardNo : '',
+            approverTole: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.tole) ?
+                this.nepData.institutionRegisteredAddress.tole : '',
+            date: undefined,
+        });
+    }
+
+    submit() {
+        let flag = true;
+        if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            this.cadData.cadFileList.forEach(singleCadFile => {
+                if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                    flag = false;
+                    singleCadFile.initialInformation = JSON.stringify(this.form.value);
+                }
+            });
+            if (flag) {
+                const cadFile = new CadFile();
+                const document = new Document();
+                cadFile.initialInformation = JSON.stringify(this.form.value);
+                document.id = this.documentId;
+                cadFile.cadDocument = document;
+                cadFile.customerLoanId = this.customerLoanId;
+                this.cadData.cadFileList.push(cadFile);
+            }
+        } else {
+            const cadFile = new CadFile();
+            const document = new Document();
+            cadFile.initialInformation = JSON.stringify(this.form.value);
+            document.id = this.documentId;
+            cadFile.cadDocument = document;
+            cadFile.customerLoanId = this.customerLoanId;
+            this.cadData.cadFileList.push(cadFile);
+        }
+
+        this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.dialogRef.close();
+            this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.dialogRef.close();
+        });
+    }
 
 }
 

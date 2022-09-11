@@ -1,6 +1,6 @@
-<div class="container text-justify" id="letterOfContinuityIndividualPrint" style="line-height: 30px !important;">
+<div class="container nep text-justify" id="letterOfContinuityIndividualPrint" style="line-height: 30px !important;">
     <form [formGroup]="letterOfContinuityIndividual">
-        <div>
+        <div class="align">
             <div class="text-center mt-3">
                 <ul><U>निरन्तरताको लिखत <span class="timesNewRoman">(Letter of Continuity)</span></U></ul>
             </div>
@@ -19,17 +19,23 @@
                    formControlName="grandFatherName"
                    type="text"/>
             <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('grandFatherName').value ? letterOfContinuityIndividual.get('grandFatherName').value : '========='}}</strong></span>
-            को नाती/नातिनी/बुहारी
-            <input class="form-field form-control-sm nepaliFont disable-print"
-                   formControlName="fatherName"
-                   type="text"/>
-            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('fatherName').value ? letterOfContinuityIndividual.get('fatherName').value : '========='}}</strong></span>
-            ,
-            <input class="form-field form-control-sm nepaliFont disable-print"
-                   formControlName="husbandName"
-                   type="text"/>
-            <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('husbandName').value ? letterOfContinuityIndividual.get('husbandName').value : '========='}}</strong></span>
-            को छोरा/छोरी/पत्नी
+            को
+            <span *ngIf="this.nepData.gender == 0">
+                नातिनी/बुहारी
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="husbandName"
+                       type="text"/>
+                <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('husbandName').value ? letterOfContinuityIndividual.get('husbandName').value : ''}}</strong></span>
+                को छोरी/पत्नी
+            </span>
+            <span *ngIf="this.nepData.gender == 1">
+                नाती
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="fatherName"
+                       type="text"/>
+               <span class="print-only nepaliFont"><strong>{{letterOfContinuityIndividual.get('fatherName').value ? letterOfContinuityIndividual.get('fatherName').value : '========='}}</strong></span>
+                को छोरा
+            </span>
             <input class="form-field form-control-sm nepaliFont disable-print"
                    formControlName="permanentDistrict"
                    placeholder=""

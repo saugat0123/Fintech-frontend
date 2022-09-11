@@ -17,7 +17,9 @@ nb-card {
 @media screen {
   .print-only {
     display: none;
-
+  *{
+    word-spacing: 40px !important;
+  }
   }
 
   .disable-print {
@@ -35,6 +37,10 @@ nb-card {
       outline: none;
     }
   }
+  *{
+    word-spacing: 8px !important;
+    line-height: 1.8;
+  }
 
 }
 
@@ -42,4 +48,8 @@ nb-card {
   .nb-card-body__viewFull {
     max-width: 100%;
   }
+}
+.cke_editable {
+  font-family: 'Preeti' !important;
+  font-size: 18px;
 }

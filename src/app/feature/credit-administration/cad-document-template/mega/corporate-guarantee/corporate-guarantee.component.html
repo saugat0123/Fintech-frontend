@@ -1,25 +1,20 @@
 <div class="container nep text-justify">
     <form [formGroup]="form" class="nep" id="corporateGuaranteePrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong>संस्थागत जमानत (Corporate Guarantee)</strong>
             </h6>
             <p>
                 लिखितम यो जमानतको लिखत गराई लिनेको नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका वडा
                 न. २८ स्थित पुतलीसडकमा मुख्य कार्यालय रहि
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branchName" type="text" readonly/>
-                <span class="print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span>
+                <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="branchName" type="text" readonly/>
+                <span class="print-only nepaliFont font26"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span>
                 शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लि.
                 <strong>(जसलाई यस उप्रान्त यस लिखतमा धनी बैंक भनिएको छ)</strong> आगे जमानतको लिखत गरिदिनेका नाम
-                <span style="color: red">
+                <span>
                     कम्पनी ऐन
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyActOne" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyActOne').value ? form.get('companyActOne').value  : '========='}}</strong></span>
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('companyActOne').value ? form.get('companyActOne').value  : '========='}}</strong></span>
                     बमोजिम नेपाल सरकार (साविक श्री ५ को सरकार) उद्योग मन्त्रालय उद्योग विभागमा मिति
                      <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegisteredDate" type="text" readonly/>
                     <span class="print-only nepaliFont"><strong>{{form.get('companyRegisteredDate').value ? form.get('companyRegisteredDate').value  : '========='}}</strong></span>
@@ -27,54 +22,58 @@
                      <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyActNumber" type="text" readonly/>
                      <span class="print-only nepaliFont"><strong>{{form.get('companyActNumber').value ? form.get('companyActNumber').value  : '========='}}</strong></span>
                     कायम भई
-                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegisteredDistrict" type="text" readonly/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyRegisteredDistrict').value ? form.get('companyRegisteredDistrict').value  : '========='}}</strong></span>
+                     <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="companyRegisteredDistrict" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('companyRegisteredDistrict').value ? form.get('companyRegisteredDistrict').value  : '========='}}</strong></span>
                     जिल्ला
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegisteredMunVdc" type="text" readonly/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyRegisteredMunVdc').value ? form.get('companyRegisteredMunVdc').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="companyRegisteredMunVdc" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('companyRegisteredMunVdc').value ? form.get('companyRegisteredMunVdc').value  : '========='}}</strong></span>
                     गा.वि.स/न.पा.वडा नं.
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegisteredWardNo" type="text" readonly/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyRegisteredWardNo').value ? form.get('companyRegisteredWardNo').value  : '========='}}</strong></span>,
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegisteredTole" type="text" readonly/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyRegisteredTole').value ? form.get('companyRegisteredTole').value  : '========='}}</strong></span>
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('companyRegisteredWardNo').value ? form.get('companyRegisteredWardNo').value  : '========='}}</strong></span>,
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="companyRegisteredTole" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('companyRegisteredTole').value ? form.get('companyRegisteredTole').value  : '========='}}</strong></span>
                     स्थित रजिष्र्टड कार्यालय रहेको <strong> श्री
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyName" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyName').value ? form.get('companyName').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="companyName" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('companyName').value ? form.get('companyName').value  : '========='}}</strong></span>
                     प्रा.लि.</strong> (जसलाई यस पछी जमानतकर्ता संस्था भनिएको छ) को तर्फबाट अख्तियार प्राप्त श्री
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyAuthorizedPerson" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyAuthorizedPerson').value ? form.get('companyAuthorizedPerson').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="companyAuthorizedPerson" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('companyAuthorizedPerson').value ? form.get('companyAuthorizedPerson').value  : '========='}}</strong></span>
                     आगे कम्पनी ऐन
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyActTwo" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('companyActTwo').value ? form.get('companyActTwo').value  : '========='}}</strong></span>
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('companyActTwo').value ? form.get('companyActTwo').value  : '========='}}</strong></span>
                     बमोजिम नेपाल सरकार उद्योग मन्त्रालय
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ministryOfIndustry" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('ministryOfIndustry').value ? form.get('ministryOfIndustry').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="ministryOfIndustry" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('ministryOfIndustry').value ? form.get('ministryOfIndustry').value  : '========='}}</strong></span>
                     को कार्यालयमा मिति
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredDate" type="text"/>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredDate" type="text" readonly/>
                     <span class="print-only nepaliFont"><strong>{{form.get('registeredDate').value ? form.get('registeredDate').value  : '========='}}</strong></span>
                     मा दर्ता भई दर्ता नं
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredNumber" type="text"/>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredNumber" type="text" readonly/>
                     <span class="print-only nepaliFont"><strong>{{form.get('registeredNumber').value ? form.get('registeredNumber').value  : '========='}}</strong></span> कायम
                     भई,
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredDistrict" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('registeredDistrict').value ? form.get('registeredDistrict').value  : '========='}}</strong></span> जिल्ला,
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredMunVdc" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('registeredMunVdc').value ? form.get('registeredMunVdc').value  : '========='}}</strong></span> गा.वि.स/न.पा.वडा नं
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredWardNo" type="text"/>
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="registeredDistrict" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('registeredDistrict').value ? form.get('registeredDistrict').value  : '========='}}</strong></span> जिल्ला,
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="registeredMunVdc" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('registeredMunVdc').value ? form.get('registeredMunVdc').value  : '========='}}</strong></span> गा.वि.स/न.पा.वडा नं
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredWardNo" type="text" readonly/>
                     <span class="print-only nepaliFont"><strong>{{form.get('registeredWardNo').value ? form.get('registeredWardNo').value  : '========='}}</strong></span> स्थित रजिष्टर्ड ठेगाना रहेको
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="borrowerName" type="text" readonly/>
+                    <span class="print-only nepaliFont font26"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span>
                 </span>
-                    (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ) लाई <strong>मिति
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/></strong>
-                     <span class="print-only nepaliFont"><strong>{{form.get('offerLetterIssuedDate').value ? form.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
+                    (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ) लाई
+                     <input class="form-field form-control-sm nepaliFont disable-print font24" formControlName="freeText" type="text"/>
+                     <span class="print-only nepaliFont font27"><strong>{{form.get('freeText').value ? form.get('freeText').value  : '========='}}</strong></span>
+                     <strong>
+                         मिति
+                     <input class="form-field form-control-sm disable-print" formControlName="offerLetterIssuedDate" type="text" readonly/></strong>
+                     <span class="print-only"><strong>{{form.get('offerLetterIssuedDate').value ? form.get('offerLetterIssuedDate').value  : '____________'}}</strong></span>
                     गतेका दिन यस बैंकवाट जारी भएको ऋण स्विकृती  पत्रानुसार स्विकृत  तथा भविष्यमा बैंकले उपलब्ध गराउने विभिन्न ऋण कर्जा तथा
                     बैंकिङ्ग सुबिधा वा सुरक्षण वापत हामी जमानत दिने संस्थाले जमानत दिनुपर्ने शर्तमा जम्मा  <strong>रु
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmount" type="text"/>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmount" type="text" readonly/>
                     <span class="print-only nepaliFont"><strong>{{form.get('loanAmount').value ? form.get('loanAmount').value  : '========='}}</strong></span>/–
                     (अक्षरेपि
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmountInFigure" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('loanAmountInFigure').value ? form.get('loanAmountInFigure').value  : '========='}}</strong></span> रुपैयाँ मात्र)</strong>
+                    <input class="form-field form-control-sm nepaliFont disable-print font16" formControlName="loanAmountInFigure" type="text" readonly/>
+                    <span class="print-only nepaliFont font19"><strong>{{form.get('loanAmountInFigure').value ? form.get('loanAmountInFigure').value  : '========='}}</strong></span> मात्र)</strong>
                     सम्मको विभिन्न ऋणकर्जा तथा बैकिङ सुबिधाहरुको सुरक्षणार्थ सोका लागी तपाई धनी बैंक र ऋणीका वीच सम्पन्न ऋण संझौता तथा अन्य लिखत कागजात तथा सो मा नविकरण
                     भएमा सो समेत बमोजिम ऋणीले तपाई धनी बैंकलाई तिर्न बुझाउन पर्ने साँवा, व्याज, थप व्याज, कमिशन, फी, मार्जिन आदि अन्य रकम कलम तिर्नु बुझाउन पर्ने वापत जमानत
                     बसी दिन हाम्रो मञ्जुरी रहेको छ । तपाई धनी बैंकलाई ऋणीले तिर्नु बुझाउनु पर्ने उल्लेखित कर्जा तथा बैंकिङ्ग कारोबारसँग सम्बन्धित रकम तपाई धनी बैंकले माग गरेमा तपसिलको
@@ -113,10 +112,10 @@
                     </li>
                     <li>
                         यस जमानतको लिखतमा जुनसुकै कुरा उल्लेख भएतापनि यस लिखत बमोजिम हाम्रो दायित्व तपाई धनी बैंकले ऋणीलाई प्रदान गर्ने <strong>रु
-                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
+                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text" readonly/>
                         <span class="print-only nepaliFont"><strong>{{form.get('amount').value ? form.get('amount').value  : '========='}}</strong></span>/– (अक्षरेपि
-                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInFig" type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{form.get('amountInFig').value ? form.get('amountInFig').value  : '========='}}</strong></span> रुपैयाँ मात्र)</strong>
+                        <input class="form-field form-control-sm nepaliFont disable-print font16" formControlName="amountInFig" type="text" readonly/>
+                        <span class="print-only nepaliFont font18"><strong>{{form.get('amountInFig').value ? form.get('amountInFig').value  : '========='}}</strong></span> मात्र)</strong>
                         सम्मको ऋण कर्जा तथा बैंकिङ्ग कारोबार सुविधा सम्बन्धमा संस्थागत जमानत दाताको दायित्व सोही रकम कलमको हदसम्म सिमित रहनेछ ।
                     </li>
                     <li>
@@ -170,19 +169,19 @@
             <div>
                 <p><strong>साक्षीहरु</strong></p>
                 १) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sachiOne" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{form.get('sachiOne').value ? form.get('sachiOne').value  : '========='}}</strong></span><br>
+                <span class="print-only nepaliFont font24"><strong>{{form.get('sachiOne').value ? form.get('sachiOne').value  : '========='}}</strong></span><br>
                 २) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="sachiTwo" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{form.get('sachiTwo').value ? form.get('sachiTwo').value  : '========='}}</strong></span><br><br>
+                <span class="print-only nepaliFont font24"><strong>{{form.get('sachiTwo').value ? form.get('sachiTwo').value  : '========='}}</strong></span><br><br>
                 <p>
                     ईति सम्वत्
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="year" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('year').value ? form.get('year').value  : '========='}}</strong></span> साल
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('year').value ? form.get('year').value  : '========='}}</strong></span> साल
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="month" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('month').value ? form.get('month').value  : '========='}}</strong></span> महिना
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('month').value ? form.get('month').value  : '========='}}</strong></span> महिना
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="day" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('day').value ? form.get('day').value  : '========='}}</strong></span> गते
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('day').value ? form.get('day').value  : '========='}}</strong></span> गते
                     <input class="form-field form-control-sm nepaliFont disable-print" formControlName="roj" type="text"/>
-                    <span class="print-only nepaliFont"><strong>{{form.get('roj').value ? form.get('roj').value  : '========='}}</strong></span> रोज शुभम ।
+                    <span class="print-only nepaliFont font24"><strong>{{form.get('roj').value ? form.get('roj').value  : '========='}}</strong></span> रोज शुभम ।
                 </p>
             </div>
         </div>

@@ -8,7 +8,7 @@
     <ng-container class="flex-row">
       <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
       <h5 class="text-center disable-print">Security Compliance Certificate </h5>
-
+      <p class="text-center">{{sccRefNumber}}</p>
       <i class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
     </ng-container>
 
@@ -16,34 +16,76 @@
   <nb-card-body>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
       <tr>
-        <th>Unit</th>
-        <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>
-        <th>Customer Id</th>
+        <th class="text-left">Date</th>
+        <td colspan="3">{{date | date}}</td>
+        <th class="text-left">Customer's Name</th>
+        <td colspan="3">{{cadFile?.loanHolder?.name}}</td>
+      </tr>
+      <tr>
+        <th class="text-left">A/C NUmber</th>
+        <td>{{accountNo}}</td>
+        <th class="text-left">Customer Id</th>
         <td>{{cadFile?.loanHolder?.customerCode}}</td>
-        <th>SCC REF No:</th>
-        <td>{{sccRefNumber}}</td>
+        <th class="text-left">Facility</th>
+        <td>{{assignedLoan}}</td>
+        <th class="text-left">Approval</th>
+        <td>{{approval}}</td>
       </tr>
       <tr>
-        <th>Date</th>
-        <td>{{date | date}}</td>
-        <th>Customer's Name</th>
-        <td>{{cadFile?.loanHolder?.name}}</td>
-        <th>PAN Number</th>
-        <td>{{panNumber}}</td>
-      </tr>
-      <tr>
-        <th>A/C NUmber</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
-        <th>Branch</th>
+        <th class="text-left">Group</th>
+        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.group}}</td>
+        <th class="text-left">RM</th>
+        <td  colspan="2">{{maker}}</td>
+        <th class="text-left">Branch</th>
         <td>{{cadFile?.loanHolder?.branch?.name}}</td>
-        <th>Sector Code</th>
-        <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
       </tr>
       <tr>
-        <th>Security Code</th>
-        <td>{{securityCode}}</td>
-        <th>Operative Account</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
+        <th class="text-left" colspan="2">Multibanking</th>
+        <td colspan="2">{{(cadFile?.data | jsonParse)?.acInfo?.multiBanking}}</td>
+        <th class="text-left">Ka.Su.Fa.</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.kasufa}}</td>
+        <th class="text-left">CIC</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="text-left">Next Review/Tenure</th>
+        <td>{{(cadFile?.data | jsonParse)?.acInfo?.nextReview}}</td>
+        <th class="text-left">Purpose</th>
+        <td colspan="2" [innerHTML]="purposeOfLoan | safeHtml"></td>
+        <th class="text-left">File Manager</th>
+        <td colspan="2">{{maker}}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Unit</th>
+        <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>
+      </tr>
+    </table>
+    <p><b>MIS Codes:</b></p>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <tr>
+        <th class="text-left">NRB Sector Code: </th>
+        <td></td>
+        <th class="text-left">NRB Sub Sector Code</th>
+        <td></td>
+        <th class="text-left">Security Code</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="text-left">Basel Code: </th>
+        <td></td>
+        <th class="text-left">Productwise</th>
+        <td></td>
+        <th class="text-left"> Sub Productwise</th>
+
+        <td></td>
+      </tr>
+      <tr>
+        <th class="text-left">SIS Sector : </th>
+        <td></td>
+        <th class="text-left">SIS Collateral</th>
+        <td></td>
+        <th class="text-left">Security Code</th>
+        <td></td>
       </tr>
     </table>
     <p><b>1.Exposure Details</b></p>
@@ -93,6 +135,7 @@
   </nb-card-body>
   <nb-card-footer class="disable-print">
     <button (click)="onClose()" nbButton  status="primary" size="small" class="float-right mr-2">Close</button>
+    <button (click)="onSave()" nbButton  status="primary" size="small" class="float-right mr-2">Save</button>
     <button [useExistingCss]="true"  ngxPrint printSectionId="print-block"  status="primary"  size="small" class="float-right mr-2" nbButton styleSheetFile="assets/css/printStyles.scss"><i class="fa fa-print"></i>-Print</button>
   </nb-card-footer>
 </nb-card>

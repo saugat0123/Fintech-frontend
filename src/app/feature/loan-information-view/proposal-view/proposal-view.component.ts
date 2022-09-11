@@ -7,7 +7,7 @@ import {LoanType} from '../../loan/model/loanType';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {CustomerLoanDto} from '../../loan/model/CustomerLoanDto';
+import {CustomerLoanDto} from '../../loan/model/customerLoanDto';
 import {ExistingExposure} from '../../loan/model/existingExposure';
 
 @Component({
