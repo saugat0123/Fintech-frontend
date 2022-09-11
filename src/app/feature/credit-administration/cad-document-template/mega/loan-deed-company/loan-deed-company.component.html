@@ -92,7 +92,7 @@
                         </p>
 
                         <p class="text-center"><strong>स्विकृत ऋणकर्जाको विवरण</strong></p>
-                        <table border="1" width="100%">
+                        <table class="table table-responsive-md table-bordered">
                             <thead>
                             <tr>
                                 <th>ऋणकर्जा वा बैंकिङ सुविधा</th>
@@ -101,56 +101,29 @@
                                 <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
+                            <tbody *ngFor="let data of loanDeedCompany.get('loanData')['controls']; let index = index"
+                                   formArrayName="loanData">
+                            <tr [formGroupName]="index">
                                 <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
                                            formControlName="loanFacilityType"
                                            placeholder=""
-                                           type="text" size="7" />
-                                    <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('loanFacilityType').value ? loanDeedCompany.get('loanFacilityType').value  : '========='}}</strong></span>
+                                           type="text" size="7"/>
+                                    <span class="print-only nepaliFont"><strong>{{data.get('loanFacilityType').value ? data.get('loanFacilityType').value : '========='}}</strong></span>
                                     कर्जा
                                 </td>
                                 <td>
                                     <strong>रु
-                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords', 'amount')"
-                                                          [name]="patchFunction('amount')" class="disable-print"></app-custom-input>
-                                        <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amount').value ? loanDeedCompany.get('amount').value  : '========='}}</strong></span>
-                                        <span class="timesNewRoman">/- (</span>अक्षरेपि
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
-                                               formControlName="amountInWords"
-                                               placeholder=""
-                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amountInWords').value ? loanDeedCompany.get('amountInWords').value  : '========='}}</strong></span>
-                                        मात्र<span class="timesNewRoman">)</span>
-                                    </strong>
-                                </td>
-                                <td>
-                                    ऋण स्वीकृती पत्र अनुसार
-                                </td>
-                                <td>
-                                    ऋण स्वीकृती पत्र अनुसार
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><ng-container *ngFor="let controls of loanDeedCompany?.get('loanFacilityType2')['controls']; let i = index" formArrayName="loanFacilityType2">
-                                    <ng-container formGroupName = {{i}}>
-                                        <input class="form-field form-control-sm disable-print nepaliFont" formControlName="loanFacilityType2">
-                                        <span class="print-only nepaliFont"><b>{{controls?.get('loanFacilityType2')?.value}}</b></span>
-                                        <button class="btn disable-print"  (click)="remove(i)"><i class="fa fa-trash"></i></button>
-                                    </ng-container>
-                                </ng-container>
-                                    <button class="btn disable-print" (click)="addName()"><i class="fa fa-plus"></i></button>
-                                    कर्जा
-                                </td>
-                                <td>
-                                    <strong>रु
-                                        <app-custom-input (eventEmit)="changeToNepAmount($event, 'amountInWords2', 'amount2')"
-                                                          [name]="patchFunction('amount2')" class="disable-print"></app-custom-input>
-                                        <span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amount2').value ? loanDeedCompany.get('amount2').value  : '========='}}</strong></span>
+                                        <app-custom-input (eventEmit)="changeToNepAmount1($event, index, 'loanData')"
+                                                          [name]="patchFunction1('loanData', index, 'amount2')"
+                                                          class="disable-print"></app-custom-input>
+                                        <span class="print-only nepaliFont"><strong>{{data.get('amount2').value ? data.get('amount2').value : '========='}}</strong></span>
                                         <span class="timesNewRoman">/- (</span>अक्षरेपि
                                         <input class="form-field form-control-sm nepaliFont disable-print col-9"
                                                formControlName="amountInWords2"
                                                placeholder=""
-                                               type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('amountInWords2').value ? loanDeedCompany.get('amountInWords2').value  : '========='}}</strong></span>
+                                               type="text"
+                                               style="font-size: 18px;"/><span
+                                                class="print-only nepaliFont" style="font-size: 18px;"><strong>{{data.get('amountInWords2').value ? data.get('amountInWords2').value : '========='}}</strong></span>
                                         मात्र<span class="timesNewRoman">)</span>
                                     </strong>
                                 </td>
@@ -161,8 +134,26 @@
                                     ऋण स्वीकृती पत्र अनुसार
                                 </td>
                             </tr>
+                            <tr class="disable-print">
+                                <td colspan="4" style="text-align: right">
+                                    <button
+                                            (click)="removeLoanDetail(index)"
+                                            *ngIf="index > 0"
+                                            class="mt-sm-2 disable-print" nbButton
+                                            status="primary">हटाउनुहोस्
+                                    </button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
+                        <br>
+                        <div class="row mr-1 mb-3">
+                            <div class="col-md-12 text-right disable-print">
+                                <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                                    थप्नुहोस्
+                                </button>
+                            </div>
+                        </div>
                         <p>
                             <strong>जम्मा ऋणकर्जा तथा बैंकिङ सुविधा रु
                             <app-custom-input (eventEmit)="changeToNepAmount($event, 'totalAmountInWords', 'totalAmount')"
@@ -245,22 +236,9 @@
                                    formControlName="freeText2"
                                    placeholder=""
                                    type="text" size="15"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('freeText2').value ? loanDeedCompany.get('freeText2').value  : ' '}}</strong></span>
-<!--                            <p class="text-center"><strong><U>साक्षीः</U></strong></p>-->
-<!--                            <p>-->
-<!--                                १.  <input class="form-field form-control-sm nepaliFont disable-print"-->
-<!--                                           formControlName="witnessName"-->
-<!--                                           placeholder=""-->
-<!--                                           type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('witnessName').value ? loanDeedCompany.get('witnessName').value  : '========='}}</strong></span>-->
-<!--                                <br>-->
-<!--                                <br>-->
-<!--                                २. <input class="form-field form-control-sm nepaliFont disable-print"-->
-<!--                                          formControlName="witnessName2"-->
-<!--                                          placeholder=""-->
-<!--                                          type="text"/><span class="print-only nepaliFont"><strong>{{loanDeedCompany.get('witnessName2').value ? loanDeedCompany.get('witnessName2').value  : '========='}}</strong></span>-->
-<!--                            </p>-->
                         </div>
+                        <br>
                         <div>
-                            <br>
                             <p>
                                 ईति सम्वत् २०
                                 <input class="form-field form-control-sm nepaliFont disable-print"

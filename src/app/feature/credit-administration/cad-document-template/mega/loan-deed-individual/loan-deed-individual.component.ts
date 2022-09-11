@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
@@ -47,14 +47,17 @@ export class LoanDeedIndividualComponent implements OnInit {
             this.singleData = JSON.parse(this.cadData.loanHolder.nepData);
         }
         if (!ObjectUtil.isEmpty(this.initialInfo)) {
+            this.setTableData(this.initialInfo.loanData);
             this.loanDeedIndividual.patchValue(this.initialInfo);
         } else {
+            this.addTableData();
             this.fillForm();
         }
     }
 
     buildForm() {
         this.loanDeedIndividual = this.formBuilder.group({
+            loanData: this.formBuilder.array([]),
             branch: [undefined],
             grandFatherName: [undefined],
             fatherName: [undefined],
@@ -69,20 +72,20 @@ export class LoanDeedIndividualComponent implements OnInit {
             temporaryWardNo: [undefined],
             age: [undefined],
             borrowerName: [undefined],
+            nameMa: [undefined],
+            jariGareko: [undefined],
             offerLetterIssuedDate: [undefined],
             amount: [undefined],
             amountInWords: [undefined],
-            loanFacilityType: [undefined],
             FACOwnerName: [undefined],
+            freeText: [undefined],
             FACOwnerDistrict: [undefined],
             FACOwnerMunicipalityVDC: [undefined],
             FACOwnerWardNo: [undefined],
             nakshaSeatNo: [undefined],
             plotNo: [undefined],
             area: [undefined],
-            witnessName: [undefined],
-            witnessName2: [undefined],
-            witnessName3: [undefined],
+            freeText2: [undefined],
             year: [undefined],
             month: [undefined],
             day: [undefined],
@@ -136,7 +139,40 @@ export class LoanDeedIndividualComponent implements OnInit {
                 (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.area : ''],
             }
         );
+        this.loanDeedIndividual.get
+        (['loanData', 0, 'loanFacilityType']).patchValue(this.nepData.miscellaneousDetail.loanFacilityTypeInNep);
+        this.loanDeedIndividual.get(['loanData', 0, 'amount2']).patchValue(this.nepData.miscellaneousDetail.loanAmountInFig);
+        this.loanDeedIndividual.get(['loanData', 0, 'amountInWords2']).patchValue(this.nepData.miscellaneousDetail.loanAmountInWord);
     }
+    addTableData() {
+        (this.loanDeedIndividual.get('loanData') as FormArray).push(
+            this.formBuilder.group({
+                loanFacilityType: [undefined],
+                amount2: [undefined],
+                amountInWords2: [undefined],
+            })
+        );
+    }
+
+    setTableData(data) {
+        const formArray = this.loanDeedIndividual.get('loanData') as FormArray;
+        if (data.length === 0) {
+            this.addTableData();
+            return;
+        }
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                loanFacilityType: [value.loanFacilityType],
+                amount2: [value.amount2],
+                amountInWords2: [value.amountInWords2],
+            }));
+        });
+    }
+
+    removeLoanDetail(index) {
+        (this.loanDeedIndividual.get('loanData') as FormArray).removeAt(index);
+    }
+
 
     submit() {
         let flag = true;
@@ -184,6 +220,15 @@ export class LoanDeedIndividualComponent implements OnInit {
 
     patchFunction(target) {
         const patchValue1 = this.loanDeedIndividual.get([target]).value;
+        return patchValue1;
+    }
+    changeToNepAmount1(event: any, i, formArrayName) {
+        this.loanDeedIndividual.get([formArrayName, i, 'amountInWords2']).patchValue(event.nepVal);
+        this.loanDeedIndividual.get([formArrayName, i, 'amount2']).patchValue(event.val);
+    }
+
+    patchFunction1(formArrayName, i, formControlName) {
+        const patchValue1 = this.loanDeedIndividual.get([formArrayName, i, formControlName]).value;
         return patchValue1;
     }
 }
