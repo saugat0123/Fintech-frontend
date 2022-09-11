@@ -11,8 +11,6 @@ import {TemplateAddModelComponent} from './component/loan-config/loan-template/t
 import {AddLoanComponent} from './component/loan-config/add-loan/add-loan.component';
 import {UserComponent} from './component/user/user.component';
 import {UserFormComponent} from './component/user/user-form/user-form.component';
-import {ApprovalLimitComponent} from './component/approvallimit/approval-limit.component';
-import {ApprovalLimitFormComponent} from './component/approvallimit/approval-limit-form/approval-limit-form.component';
 import {RolePermissionComponent} from './component/role-permission/role-permission.component';
 import {BranchFormComponent} from './component/branch/branch-form/branch-form.component';
 import {RoleFormComponent} from './component/role-permission/role-form/role-form.component';
@@ -94,6 +92,8 @@ import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { CapitalConfigurationComponent } from './component/capital-configuration/capital-configuration.component';
 import { CapitalConfigurationFormComponent } from './component/capital-configuration/capital-configuration-form/capital-configuration-form.component';
+import {LoanConfigResolver} from './component/loan-config/loanConfigResolver';
+import { DocumentsToObtainComponent } from './component/document/documents-to-obtain/documents-to-obtain.component';
 
 @NgModule({
     declarations: [
@@ -105,8 +105,6 @@ import { CapitalConfigurationFormComponent } from './component/capital-configura
         AddLoanComponent,
         UserComponent,
         UserFormComponent,
-        ApprovalLimitComponent,
-        ApprovalLimitFormComponent,
         RolePermissionComponent,
         RoleFormComponent,
         RolePermissionComponent,
@@ -172,6 +170,7 @@ import { CapitalConfigurationFormComponent } from './component/capital-configura
         RoleAddComponent,
         CapitalConfigurationComponent,
         CapitalConfigurationFormComponent,
+        DocumentsToObtainComponent,
         // SecurityComponent
     ],
   imports: [
@@ -196,7 +195,6 @@ import { CapitalConfigurationFormComponent } from './component/capital-configura
   ],
 
     entryComponents: [
-        ApprovalLimitFormComponent,
         BranchFormComponent,
         NepseFormComponent,
         SegmentFormComponent,
@@ -226,7 +224,8 @@ import { CapitalConfigurationFormComponent } from './component/capital-configura
         FinancialConfigModalComponent,
         RoleAddComponent,
         CapitalConfigurationFormComponent
-    ]
+    ],
+    providers:[LoanConfigResolver]
 
 })
 export class AdminModule {

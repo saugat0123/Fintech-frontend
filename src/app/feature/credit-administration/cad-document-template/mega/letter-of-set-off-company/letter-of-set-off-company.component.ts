@@ -22,6 +22,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
   @Input() customerLoanId: number;
   letterOfSetOffCompany: FormGroup;
   nepData;
+  initialInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -36,12 +37,18 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.letterOfSetOffCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
+          console.log('this.initialInfo', this.initialInfo);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.letterOfSetOffCompany.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -121,7 +128,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       witnessMunicipality: [undefined],
       witnessVdc: [undefined],
       witnessAge: [undefined],
-      companyName: [undefined],
+      companyNameNepali: [undefined],
       amount: [undefined],
       monthOfYear: [undefined],
       dayOfMonth: [undefined],
@@ -130,7 +137,7 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       billNum: [undefined],
       billInput: [undefined],
       amountInWords: [undefined],
-      companyBorrowerName: [undefined],
+      authPersonName: [undefined],
       witnessEvidence: [undefined],
       governmentOffice: [undefined],
       registration: [undefined],
@@ -141,6 +148,23 @@ export class LetterOfSetOffCompanyComponent implements OnInit {
       timeOfDay: [undefined],
       dateOfRegister: [undefined],
       companyAct: [undefined],
+      accountNumber: [undefined],
+    });
+  }
+
+  fillForm() {
+    this.letterOfSetOffCompany.patchValue({
+      governmentOffice: [ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? '' : (this.nepData.companyRegOffice)],
+      registration: [ObjectUtil.isEmpty(this.nepData.regIssueDate) ? '' : (this.nepData.regIssueDate)],
+      registrationNum: [ObjectUtil.isEmpty(this.nepData.registrationNo) ? '' : (this.nepData.registrationNo)],
+      companyDistrict: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ? '' : (this.nepData.institutionRegisteredAddress.district)],
+      companyMunicipality: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? '' : (this.nepData.institutionRegisteredAddress.municipality)],
+      companyWard: [ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.wardNo) ? '' : (this.nepData.institutionRegisteredAddress.wardNo)],
+      companyNameNepali: [ObjectUtil.isEmpty(this.nepData.nepaliName) ? '' : (this.nepData.nepaliName)],
+      authPersonName: [ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name) ? '' : (this.nepData.authorizedPersonDetail.name)],
+      dateOfRegister: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ? '' : (this.nepData.miscellaneousDetail.offerIssueDate)],
+      amount: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? '' : (this.nepData.miscellaneousDetail.loanAmountInFig)],
+      amountInWords: [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ? '' : (this.nepData.miscellaneousDetail.loanAmountInWord)]
     });
   }
 

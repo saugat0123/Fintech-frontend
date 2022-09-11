@@ -1,6 +1,6 @@
-<div class="container text-justify" id="letterOfContinuityCompanyPrint" style="font-family: Preeti; line-height: 30px !important;">
+<div class="container nep text-justify" id="letterOfContinuityCompanyPrint">
     <form [formGroup]="letterOfContinuityCompany">
-        <div>
+        <div class="align">
             <div class="text-center mt-3">
                 <ul>निरन्तरताको लिखत <span class="timesNewRoman">(Letter of Continuity)</span></ul>
             </div>
@@ -17,29 +17,29 @@
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="actYear" type="text"/>
             <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('actYear').value ? letterOfContinuityCompany.get('actYear').value  : '========='}}</b></span>
             बमोजिम नेपाल सरकार उद्योग मन्त्रालय
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationIssueDate" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('registrationIssueDate').value ? letterOfContinuityCompany.get('registrationIssueDate').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyRegOffice" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('companyRegOffice').value ? letterOfContinuityCompany.get('companyRegOffice').value  : '========='}}</b></span>
             को कार्यालयमा मिति
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="panNo" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('panNo').value ? letterOfContinuityCompany.get('panNo').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationDate" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('registrationDate').value ? letterOfContinuityCompany.get('registrationDate').value  : '========='}}</b></span>
             मा दर्ता भई दर्ता नं
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="gender" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('gender').value ? letterOfContinuityCompany.get('gender').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationNo" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('registrationNo').value ? letterOfContinuityCompany.get('registrationNo').value  : '========='}}</b></span>
             कायम भई,
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="district" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('district').value ? letterOfContinuityCompany.get('district').value  : '========='}}</b></span>
+            जिल्ला,
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="vdcMunicipality" type="text"/>
             <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('vdcMunicipality').value ? letterOfContinuityCompany.get('vdcMunicipality').value  : '========='}}</b></span>
-            जिल्ला,
+            गा.वि.स/न.पा.वडा नं
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNum" type="text"/>
             <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('wardNum').value ? letterOfContinuityCompany.get('wardNum').value  : '========='}}</b></span>
-            गा.वि.स/न.पा.वडा नं
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="tole" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('tole').value ? letterOfContinuityCompany.get('tole').value  : '========='}}</b></span>
             स्थित रजिष्टर्ड ठेगाना रहेको
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerNameNepali" type="text"/>
             <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('borrowerNameNepali').value ? letterOfContinuityCompany.get('borrowerNameNepali').value  : '========='}}</b></span>
             को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authGrandfatherOrFatherInLaw" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('authGrandfatherOrFatherInLaw').value ? letterOfContinuityCompany.get('authGrandfatherOrFatherInLaw').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonName" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('authorizedPersonName').value ? letterOfContinuityCompany.get('authorizedPersonName').value  : '========='}}</b></span>
             (जसलाई यस उप्रान्त ऋणी कम्पनी भनिएको छ) ले अनुरोध गरे अनुरुप तथा त्यस बैंक स्वयंले ईच्छाए अनुरुप त्यस बैंकले आफू समक्ष हाम्रो खाता खोली र/वा हाम्रो नाममा खोलिएको खातालाई निरन्तरता दिई हामीलाई कर्जा, सापटी,
             डिस्काउण्ट उपलब्ध गराएको वा हाम्र्रोे खातामा रहेको मौज्दात भन्दा बढी रकम झिक्न पाउने अधिविकर्ष सुविधा प्रदान गरेको वा हाम्रो खातामा रहेको भन्दा बढी रकम झिकिसकिएको अवस्थामा त्यसलाई कायमै राख्ने सुविधा दिएकोमा सो
             बापत देहाय बमोजिम गर्न हामी मञ्जुर गर्दछौं।
@@ -74,8 +74,8 @@
             <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerNameNepali" type="text"/>
             <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('borrowerNameNepali').value ? letterOfContinuityCompany.get('borrowerNameNepali').value  : '========='}}</b></span>
             को तर्फबाट अख्तियार प्राप्त ऐको संचालक/प्रतिनिधि श्री
-            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="actYear" type="text"/>
-            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('actYear').value ? letterOfContinuityCompany.get('actYear').value  : '========='}}</b></span>
+            <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPersonName" type="text"/>
+            <span class="print-only nepaliFont"><b>{{letterOfContinuityCompany.get('authorizedPersonName').value ? letterOfContinuityCompany.get('authorizedPersonName').value  : '========='}}</b></span>
             <br><br>
             <div>
                 <p><strong>साक्षीहरु</strong></p>

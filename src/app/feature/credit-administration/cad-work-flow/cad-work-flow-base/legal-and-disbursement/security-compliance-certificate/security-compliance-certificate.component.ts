@@ -10,6 +10,8 @@ import {CompanyInfoService} from '../../../../../admin/service/company-info.serv
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../../customer/model/customerType';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {DocAction} from '../../../../../loan/model/docAction';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -26,7 +28,12 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID;
   sccRefNumber;
   securityCode;
-
+  submit = false;
+  maker;
+  approval;
+  assignedLoan = '';
+  purposeOfLoan = '';
+  accountNo = '';
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
@@ -34,11 +41,13 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               private nbDialogService: NbDialogService,
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
-              private companyInfoService: CompanyInfoService
+              private companyInfoService: CompanyInfoService,
+              private spinnerService: NgxSpinnerService
   ) {
   }
 
   ngOnInit() {
+    this.setMakerApproval();
     this.getCompanyPan();
     this.setSccRefNumber();
     this.getSecurityCode();
@@ -59,6 +68,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     concat('-dis-').concat( exposureHistoryData ? exposureHistoryData.length : 0);
   }
 
+  onSave() {
+    this.submit = true;
+    this.save();
+  }
 
   onClose() {
     this.dialogRef.close();
@@ -73,12 +86,26 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   save() {
+    this.spinnerService.show();
     const formData: FormData = new FormData();
     formData.append('file', this.uploadFile);
     formData.append('customerInfoId', this.cadFile.loanHolder.id.toString());
     formData.append('cadId', this.cadFile.id.toString());
     formData.append('docName', new Date().toString());
     formData.append('branchId', this.cadFile.loanHolder.branch.id.toString());
+    if (ObjectUtil.isEmpty(this.cadFile.exposure)) {
+      // this.spinner = false;
+      this.spinnerService.hide();
+      this.modelClose();
+      this.toastService.show(new Alert(AlertType.WARNING, 'Exposure details are missing'));
+      return;
+    }
+    //   if (this.sumbit) {
+    //     this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);
+    //     this.cadFile.sccData = JSON.stringify(this.sccForm.value);
+    //     this.saveCadFile();
+    //   } else {
+    // }
     this.creditAdministrationService.getSccDocPath(formData).subscribe((res: any) => {
       const mergeData = {
         disbursementDetails: JSON.parse(this.cadFile.exposure.data).disbursementDetails,
@@ -88,9 +115,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.creditAdministrationService.saveCadDocumentBulk(this.cadFile).subscribe((response: any) => {
         this.modelClose();
         this.onClose();
+        this.spinnerService.hide();
         this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadFile.id, 0);
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully upload SCC File'));
       }, error => {
+        this.spinnerService.hide();
         this.modelClose();
         console.log(error);
         this.toastService.show(new Alert(AlertType.ERROR, error));
@@ -112,6 +141,18 @@ export class SecurityComplianceCertificateComponent implements OnInit {
        this.securityCode = ObjectUtil.separateFirstDash(accountData.acInfo.securityType);
      }
    }
+  }
+
+  setMakerApproval() {
+    this.maker = this.cadFile.assignedLoan[0].previousList[0].fromUser.name;
+    this.approval = this.cadFile.assignedLoan[0].currentStage.fromUser.name;
+    this.assignedLoan += this.cadFile.assignedLoan.map(d => d.loan.name + ',');
+    this.purposeOfLoan += this.cadFile.assignedLoan.map(d => (JSON.parse(d.proposal.data).purposeOfLoan || 'N/A') + ',');
+    this.assignedLoan = this.assignedLoan.substring(0, this.assignedLoan.length - 1);
+    this.purposeOfLoan = this.purposeOfLoan.substring(0, this.purposeOfLoan.length - 1);
+    this.accountNo += this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION
+        ? JSON.parse(this.cadFile.assignedLoan[0].companyInfo.companyJsonData).accountDetails.map(d => d.accountNo) :
+        JSON.parse(this.cadFile.assignedLoan[0].customerInfo.individualJsonData).accountDetails.map(d => d.accountNo);
   }
 
 

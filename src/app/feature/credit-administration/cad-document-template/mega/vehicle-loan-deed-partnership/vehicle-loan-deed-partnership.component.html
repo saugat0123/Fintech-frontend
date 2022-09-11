@@ -2,11 +2,6 @@
     <!--div class="row">-->
     <form [formGroup]="vehicleLoanDeedPartnership" class="nep" id="vehicleLoanDeedPartnershipPrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong><u>सवारी साधन ऋण तमसुक</u></strong><br><br>
             </h6>
@@ -46,13 +41,14 @@
                 <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedPartnership.get('authorizedPerson1GrandFather').value ?
                     vehicleLoanDeedPartnership.get('authorizedPerson1GrandFather').value  : '========='}}</strong></span>
                 को नाती
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Father" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedPartnership.get('authorizedPerson1Father').value ?
-                    vehicleLoanDeedPartnership.get('authorizedPerson1Father').value  : '========='}}</strong></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Husband" type="text"/>
-                <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedPartnership.get('authorizedPerson1Husband').value ?
-                    vehicleLoanDeedPartnership.get('authorizedPerson1Husband').value  : '========='}}</strong></span>
+                <span *ngIf="this.nepData.gender==='1'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Father" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedPartnership.get('authorizedPerson1Father').value ? vehicleLoanDeedPartnership.get('authorizedPerson1Father').value  : '========='}}</strong></span>
+                </span>
+                <span *ngIf="this.nepData.gender==='0'">
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1Father" type="text"/>
+                    <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedPartnership.get('authorizedPerson1Husband').value ? vehicleLoanDeedPartnership.get('authorizedPerson1Husband').value  : '========='}}</strong></span>
+                </span>
                 को छोरा
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="authorizedPerson1District" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedPartnership.get('authorizedPerson1District').value ?

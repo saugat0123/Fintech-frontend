@@ -5,7 +5,12 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    लिखितम प्राईभेट फर्म रजिष्ट्रेशन ऐन २०१४
+                    लिखितम प्राईभेट फर्म रजिष्ट्रेशन ऐन
+                    <input class="form-field form-control-sm nepaliFont disable-print"
+                           name="actYear"
+                           formControlName="actYear"
+                           placeholder=""
+                           type="text"/>
                     बमोजिम नेपाल सरकार बाणिज्य मन्त्रालय, बाणिज्य विभाग <input class="form-field form-control-sm nepaliFont disable-print"
                                                                                     name="bankBranchName"
                                                                                     formControlName="bankBranchName"
@@ -22,25 +27,25 @@
                                                  placeholder=""
                                                  type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('registerNum').value ? PowerOfAttorneyProprietorship.get('registerNum').value  : '========='}}</strong></span>
                     कायम भई, <input class="form-field form-control-sm nepaliFont disable-print"
-                                    name="tempAddDistrict"
-                                    formControlName="tempAddDistrict"
+                                    name="institutionRegDestrict"
+                                    formControlName="institutionRegDestrict"
                                     placeholder=""
-                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('tempAddDistrict').value ? PowerOfAttorneyProprietorship.get('tempAddDistrict').value  : '========='}}</strong></span>
+                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('institutionRegDestrict').value ? PowerOfAttorneyProprietorship.get('institutionRegDestrict').value  : '========='}}</strong></span>
                     जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
-                                   name="guarantorMunicipalityOrVdc"
-                                   formControlName="guarantorMunicipalityOrVdc"
+                                   name="institutionRegVDC"
+                                   formControlName="institutionRegVDC"
                                    placeholder=""
-                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorMunicipalityOrVdc').value ? PowerOfAttorneyProprietorship.get('guarantorMunicipalityOrVdc').value  : '========='}}</strong></span>
+                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('institutionRegVDC').value ? PowerOfAttorneyProprietorship.get('institutionRegVDC').value  : '========='}}</strong></span>
                     गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
-                                               name="guarantorWardNo"
-                                               formControlName="guarantorWardNo"
+                                               name="institutionRegWard"
+                                               formControlName="institutionRegWard"
                                                placeholder=""
-                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorWardNo').value ? PowerOfAttorneyProprietorship.get('guarantorWardNo').value  : '========='}}</strong></span>
+                                               type="text" size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('institutionRegWard').value ? PowerOfAttorneyProprietorship.get('institutionRegWard').value  : '========='}}</strong></span>
                     स्थित ठेगाना रहेको श्री <input class="form-field form-control-sm nepaliFont disable-print"
-                                                   name="guarantorName"
-                                                   formControlName="guarantorName"
+                                                   name="borrowerPersonName"
+                                                   formControlName="borrowerPersonName"
                                                    placeholder=""
-                                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
+                                                   type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('borrowerPersonName').value ? PowerOfAttorneyProprietorship.get('borrowerPersonName').value  : '========='}}</strong></span>
                     का प्रोप्राईटर <input class="form-field form-control-sm nepaliFont disable-print"
                                          name="guarantorGrandFatherName"
                                          formControlName="guarantorGrandFatherName"
@@ -86,10 +91,10 @@
                               type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
                     आगे म/हामी ऋणीको अनुरोधमा सेञ्चुरी कमर्सियल बैंक लिमिटेड बाट  मेरो/हाम्रो नाममा जारी भएको
                     मिति <input class="form-field form-control-sm nepaliFont disable-print"
-                                name="date"
-                                formControlName="date"
+                                name="offerDate"
+                                formControlName="offerDate"
                                 placeholder=""
-                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('date').value ? PowerOfAttorneyProprietorship.get('date').value  : '========='}}</strong></span>
+                                type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('offerDate').value ? PowerOfAttorneyProprietorship.get('offerDate').value  : '========='}}</strong></span>
                     गतेको ऋण स्वीकृति पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा
                     <strong>रु.  </strong>
                     <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmtInWord', 'loanAmount')"
@@ -162,20 +167,31 @@
                 </div>
 
                 नाम <span class="timesNewRoman">:</span> <input class="form-field form-control-sm nepaliFont size16 disable-print"
-                                                                name="guarantorName"
-                                                                formControlName="guarantorName"
+                                                                name="borrowerPersonName"
+                                                                formControlName="borrowerPersonName"
                                                                 placeholder=""
-                                                                type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
+                                                                type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('borrowerPersonName').value ? PowerOfAttorneyProprietorship.get('borrowerPersonName').value  : '========='}}</strong></span>
                 <br>
-                ठेगाना <span class="timesNewRoman">:</span>  <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                    formControlName="guarantorDistrict"
+                ठेगाना <span class="timesNewRoman">:</span>  <input class="form-field form-control-sm nepaliFont disable-print"
+                                                                    name="institutionRegDestrict"
+                                                                    formControlName="institutionRegDestrict"
                                                                     placeholder=""
-                                                                    type="text"size="33"/><br>
+                                                                    type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('institutionRegDestrict').value ? PowerOfAttorneyProprietorship.get('institutionRegDestrict').value  : '========='}}</strong></span>
+                जिल्ला, <input class="form-field form-control-sm nepaliFont disable-print"
+                               name="institutionRegVDC"
+                               formControlName="institutionRegVDC"
+                               placeholder=""
+                               type="text"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('institutionRegVDC').value ? PowerOfAttorneyProprietorship.get('institutionRegVDC').value  : '========='}}</strong></span>
+                गा.वि.स/न.पा.वडा नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                           name="institutionRegWard"
+                                           formControlName="institutionRegWard"
+                                           placeholder=""
+                                           type="text" size="2"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('institutionRegWard').value ? PowerOfAttorneyProprietorship.get('institutionRegWard').value  : '========='}}</strong></span><br>
                 आधिकारिक प्रतिनिधिको नाम <span class="timesNewRoman">:</span> <input class="form-field form-control-sm nepaliFont size16 disable-print"
-                                                                                     name="staffName"
-                                                                                     formControlName="staffName"
+                                                                                     name="guarantorName"
+                                                                                     formControlName="guarantorName"
                                                                                      placeholder=""
-                                                                                     type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('staffName').value ? PowerOfAttorneyProprietorship.get('staffName').value  : '========='}}</strong></span>
+                                                                                     type="text"size="35"/><span class="print-only nepaliFont"><strong>{{PowerOfAttorneyProprietorship.get('guarantorName').value ? PowerOfAttorneyProprietorship.get('guarantorName').value  : '========='}}</strong></span>
 
 
                 <br>

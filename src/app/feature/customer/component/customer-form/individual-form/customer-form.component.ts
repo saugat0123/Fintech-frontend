@@ -129,6 +129,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
+            this.individualJsonData = JSON.parse(this.customer.individualJsonData);
             if (this.customer.sameAddress !== undefined) {
                 this.sameAddress = this.customer.sameAddress;
             }
@@ -158,8 +159,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     filterCustomerCateEnum() {
         this.customerCateEnum1 = this.customerCateEnum.filter(value =>
-            value.value === CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL || value.value === CustomerCategory.AGRICULTURE_UPTO_TWO_MILLION
-        );
+            value.value === CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION ||
+            value.value === CustomerCategory.AGRICULTURE_UPTO_TWO_MILLION);
         console.log('customerCateEnum1', this.customerCateEnum1);
     }
     onCloseCreateCustomer() {

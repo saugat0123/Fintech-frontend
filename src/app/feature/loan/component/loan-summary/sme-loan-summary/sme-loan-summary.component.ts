@@ -12,7 +12,6 @@ import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routi
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ApprovalLimitService} from '../../../../admin/component/approvallimit/approval-limit.service';
 import {DocumentService} from '../../../../admin/component/document/document.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {UserService} from '../../../../admin/component/user/user.service';
@@ -223,7 +222,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       private activatedRoute: ActivatedRoute,
       private router: Router,
       private loanConfigService: LoanConfigService,
-      private approvalLimitService: ApprovalLimitService,
       private dateService: DateService,
       private modalService: NgbModal,
       private documentService: DocumentService,
@@ -564,6 +562,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
                     if (!allLoanIds.includes(cl.id)) {
                       this.customerAllLoanList.push(cl);
                     }
+                    this.calculateTotalProposedLimit(this.customerAllLoanList);
                     this.loaded = true;
                   });
                 },
@@ -571,8 +570,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
                   console.error(err);
                 }
             );
+          } else {
+            this.calculateTotalProposedLimit(this.customerAllLoanList);
           }
-          this.calculateTotalProposedLimit(this.customerAllLoanList);
           this.customerLoanList.emit(this.customerAllLoanList);
         },
         (error) => {
@@ -582,6 +582,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalProposedLimit(customerAllLoanList: LoanDataHolder[]) {
+    this.totalProposedLimit = 0;
     customerAllLoanList.forEach(cl => {
       this.totalProposedLimit += cl.proposal.proposedLimit;
     });

@@ -238,12 +238,7 @@
                         </ng-container>
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
-                            <option value="RENEWED_LOAN">Renew Loan</option>
-                            <option value="CLOSURE_LOAN">Close Loan</option>
-                            <option value="ENHANCED_LOAN">Enhance Loan</option>
-                            <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
-                            <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
-                            <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
+                            <option [value]="obj?.key" *ngFor="let obj of loanTypes">{{obj.value}}</option>
                         </ng-container>
                     </select>
                 </td>
@@ -388,5 +383,39 @@
                 </div>
             </nb-card-footer>
         </nb-card>
+    </ng-template>
+    <ng-template #changeLoan>
+<nb-card>
+    <nb-card-header>
+        <p>Do you want to change loan type ? <i  style="color: red">* if no please select cancel</i></p>
+    </nb-card-header>
+    <nb-card-body>
+        <form   class="form-group">
+            <div class="col-md-12">
+                <select
+                        [(ngModel)]="loanConfig"
+                        class="form-control"
+                        name="loan">
+                    <option hidden> select Loan Type</option>
+                    <option *ngFor="let allList of loanList"
+                            [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="d-flex justify-content-end">
+
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="saveLoan(loanConfig)">
+                        Change
+                    </button>
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="saveLoan()">
+                        Cancel
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
     </ng-template>
 </nb-card>

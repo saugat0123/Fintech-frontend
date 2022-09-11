@@ -13,7 +13,6 @@ import {LoanTemplateComponent} from './component/loan-config/loan-template/loan-
 import {LoanConfigComponent} from './component/loan-config/loan-config.component';
 
 import {UserComponent} from './component/user/user.component';
-import {ApprovalLimitComponent} from './component/approvallimit/approval-limit.component';
 import {RolePermissionComponent} from './component/role-permission/role-permission.component';
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {Routes} from '@angular/router';
@@ -33,6 +32,7 @@ import {EligibilitySummaryComponent} from './component/eligibility/eligibility-s
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
 import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
 import {PreferenceComponent} from './component/preference/preference.component';
+import {LoanConfigResolver} from './component/loan-config/loanConfigResolver';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -47,12 +47,11 @@ export const adminRoutes: Routes = [
     {path: 'valuator', component: ValuatorComponent},
     {path: 'sector', component: SectorComponent},
     {path: 'subSector', component: SubSectorComponent},
-    {path: 'configLoan', component: UIComponent},
+    {path: 'configLoan/:id', component: UIComponent, resolve: {result: LoanConfigResolver}},
     {path: 'nepse', component: NepseComponent},
     {path: 'segment', component: SegmentComponent},
     {path: 'sub-segment', component: SubSegmentComponent},
     {path: 'user', component: UserComponent},
-    {path: 'approvalLimit', component: ApprovalLimitComponent},
     {path: 'company', component: CompanyComponent},
     {path: 'user-guide', component: UserGuideComponent},
     {path: 'preference-master', component: PreferenceComponent},

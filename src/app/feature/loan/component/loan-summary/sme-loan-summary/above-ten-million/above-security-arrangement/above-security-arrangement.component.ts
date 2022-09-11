@@ -115,7 +115,7 @@ export class AboveSecurityArrangementComponent implements OnInit, DoCheck {
   }
 
   getSecurityAndFixedCollateralData(uuid: string, d: any, securityName: string, security: string) {
-    const colData = this.fixedAssetsCollateral.filter(f => f.securityName === securityName);
+    const colData = this.fixedAssetsCollateral.filter(f => f.securityName === security);
     let collateralData = null;
     if (colData.length > 0) {
       collateralData = JSON.parse(colData[0].collateralData[0].siteVisitJsonData);
@@ -364,6 +364,7 @@ export class AboveSecurityArrangementComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     const changes = this.iterableDiffer.diff(this.fixedAssetsCollateral);
     if (changes) {
+      this.proposedSecurity1 = [];
       if (this.formData['selectedArray'] !== undefined) {
         if (this.formData['initialForm'] !== undefined) {
           const landDetail = this.formData['initialForm']['landDetails'];

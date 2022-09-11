@@ -1,0 +1,152 @@
+<div class="container nep text-justify">
+
+    <form [formGroup]="kaloSuchiCorporateGuarantee" class="nep" id="kaloSuchiCorporateGuaranteePrint">
+
+        <div class="form-group align">
+            <h6 class="text-center">
+                सेञ्चुरी कमर्सि बैंक लि
+            </h6>
+            <br>
+
+            <p class="text-center">
+                <u>ऋणी र जमानतकर्ताले कालो सूचिमा नाम समावेश गर्ने बारेको मञ्जुरीनामा</u>
+            </p>
+            <br>
+            <div>
+                <p>
+                    नेपाल राष्ट्र बैंकद्धारा बाणिज्य बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालो सूचि
+                    व्यवस्था सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण जानकारी छ । सो निर्देशन बमोजजिम त्यस बैंकबाट लिएको
+                    तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो वापत त्यस बैंकबाट जारी भएको
+                    कर्जा स्वीकृति पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि, कमिशन, दस्तुर आदि जे जस्तो
+                    बुझाउनु पर्छ सो नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा
+                    सूचना
+                    तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड ४, ५ र १० को अवस्था सिर्जित भएमा मेरो/हाम्रो नाम
+                    प्रचलित नियम अनुसार कर्जा सूचना केन्द्र लि को कालो सूचिमा समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ ।
+                    पछि त्यसरी कालो सूचिमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजुर—वाजुर गर्ने छैन, गरे यसै कागजले
+                    बदर गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको
+                    खण्ड
+                    १३ वमोजिम यो मन्जुरीनामाको कागज सही–छाप गरी तपाई सेञ्चुरी कमर्सियल बैंक लि. लाई दिएको छु/छौं ।
+                </p>
+                <p style="text-align: center">
+                    <u>तपसील</u>
+                </p>
+                <br>
+                <table>
+                    <tr>
+                        <td class="align-text-top leftWidth">ऋणीको नाम</td>
+                        <td class="align-text-top">
+                            : <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="borrowerName"
+                                     type="text"/>
+                            <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('borrowerName').value ? kaloSuchiCorporateGuarantee.get('borrowerName').value : '========='}}</b></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="align-text-top">ठेगाना</td>
+                        <td class="align-text-top">:<input class="form-field form-control-sm nepaliFont disable-print"
+                                                           formControlName="districtPermanent" type="text"/>
+                            <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('districtPermanent').value ? kaloSuchiCorporateGuarantee.get('districtPermanent').value : '========='}}</b></span>
+                            जिल्ला
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="municipalityPermanent" type="text"/>
+                            <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('municipalityPermanent').value ? kaloSuchiCorporateGuarantee.get('municipalityPermanent').value : '========='}}</b></span>
+                            गा.वि.स/न.पा वडा नं
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="wardNumPermanent"
+                                   type="text"/>
+                            <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('wardNumPermanent').value ? kaloSuchiCorporateGuarantee.get('wardNumPermanent').value : '========='}}</b></span>
+                            ,
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="tolePermanent"
+                                   type="text"/>
+                            <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('tolePermanent').value ? kaloSuchiCorporateGuarantee.get('tolePermanent').value : '========='}}</b></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="align-text-top">कर्जा/सुविधा विवरण</td>
+                        <td class="align-text-top">:
+                            <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="loanFacilityTypeNepali" type="text"/>
+                            <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('loanFacilityTypeNepali').value ? kaloSuchiCorporateGuarantee.get('loanFacilityTypeNepali').value : '========='}}</b></span>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                <hr>
+                <br>
+
+                <div>
+                    <table>
+                        <tr>
+                            <td class="align-text-top leftWidth">मञ्जुरी दिनेको नाम</td>
+                            <td class="align-text-top">
+                                : <input class="form-field form-control-sm nepaliFont disable-print"
+                                         formControlName="guarantorName"
+                                         type="text"/>
+                                <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('guarantorName').value ? kaloSuchiCorporateGuarantee.get('guarantorName').value : '========='}}</b></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-text-top">ऋणीसंगको सम्बन्ध</td>
+                            <td class="align-text-top">:
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="relationship"
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('relationship').value ? kaloSuchiCorporateGuarantee.get('relationship').value : '========='}}</b></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-text-top"> ठेगाना </td>
+                            <td class="align-text-top">:<input
+                                    class="form-field form-control-sm nepaliFont disable-print"
+                                    formControlName="institutionRegDistrict" type="text"/>
+                                <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('institutionRegDistrict').value ? kaloSuchiCorporateGuarantee.get('institutionRegDistrict').value : '========='}}</b></span>
+
+                                जिल्ला
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="institutionRegMun" type="text"/>
+                                <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('institutionRegMun').value ? kaloSuchiCorporateGuarantee.get('institutionRegMun').value : '========='}}</b></span>
+
+                                गा.वि.स/न.पा वडा नं.
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="institutionRegWard" type="text"/>
+                                <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('institutionRegWard').value ? kaloSuchiCorporateGuarantee.get('institutionRegWard').value : '========='}}</b></span>
+                                ,
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="institutionRegTole" type="text"/>
+                                <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('institutionRegTole').value ? kaloSuchiCorporateGuarantee.get('institutionRegTole').value : '========='}}</b></span>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="row" style="padding-top: 50px">
+
+                    <div class="col-md-5">मिति :
+                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date"
+                               type="text"/>
+                        <span class="print-only nepaliFont"><b>{{kaloSuchiCorporateGuarantee.get('date').value ? kaloSuchiCorporateGuarantee.get('date').value : '========='}}</b></span>
+
+                    </div>
+                    <div class="col-md-6">दस्तखत ...................................</div>
+                </div>
+            </div>
+            <div class="row disable-print">
+                <div class="col-md-12 text-right">
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                            printSectionId="kaloSuchiCorporateGuaranteePrint" (click)="submit()" class="mr-2"
+                            status="basic">Save & Print
+                    </button>
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                            printSectionId="kaloSuchiCorporateGuaranteePrint" class="mr-2 custom-color">Print
+                    </button>
+                    <button nbButton status="success" (click)="submit()">Save</button>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

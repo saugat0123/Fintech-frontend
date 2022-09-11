@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
@@ -19,7 +19,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class LoanDeedPartnershipComponent implements OnInit {
 
   loanDeedPartnership: FormGroup;
-  multipleData;
+  nepData;
+  initialInfo;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -35,18 +36,26 @@ export class LoanDeedPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.loanDeedPartnership.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.multipleData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.setTableData(this.initialInfo.loanData);
+      this.loanDeedPartnership.patchValue(this.initialInfo);
+    } else {
+      this.addTableData();
+      this.fillForm();
     }
   }
 
 
   buildForm() {
     this.loanDeedPartnership = this.formBuilder.group({
+      loanData: this.formBuilder.array([]),
       registrationOffice: [undefined],
       registrationIssuedDate: [undefined],
       registrationNo: [undefined],
@@ -54,7 +63,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
       registrationOfficeMunicipalityVDC: [undefined],
       registrationOfficeWardNo: [undefined],
       borrowerName: [undefined],
-      authorizedPersonGrandfatherName: [undefined],
+      authorizedPersonGrandFatherName: [undefined],
       authorizedPersonFatherName: [undefined],
       authorizedPersonHusbandName: [undefined],
       authorizedPersonDistrict: [undefined],
@@ -62,7 +71,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
       authorizedPersonWardNo: [undefined],
       authorizedPersonAge: [undefined],
       authorizedPersonName: [undefined],
-      authorizedPersonGrandfatherName2: [undefined],
+      authorizedPersonGrandFatherName2: [undefined],
       authorizedPersonFatherName2: [undefined],
       authorizedPersonHusbandName2: [undefined],
       authorizedPersonDistrict2: [undefined],
@@ -70,6 +79,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
       authorizedPersonWardNo2: [undefined],
       authorizedPersonAge2: [undefined],
       authorizedPersonName2: [undefined],
+      nameMa: [undefined],
+      jariGareko: [undefined],
       offerLetterIssuedDate: [undefined],
       amount: [undefined],
       amount2: [undefined],
@@ -80,19 +91,104 @@ export class LoanDeedPartnershipComponent implements OnInit {
       loanFacilityType: [undefined],
       loanFacilityType2: [undefined],
       FACOwnerName: [undefined],
+      freeText: [undefined],
       FACOwnerDistrict: [undefined],
       FACOwnerMunicipalityVDC: [undefined],
       FACOwnerWardNo: [undefined],
       nakshaSeatNo: [undefined],
       plotNo: [undefined],
       area: [undefined],
-      witnessName: [undefined],
-      witnessName2: [undefined],
+      freeText2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
       time: [undefined]
     });
+  }
+  fillForm() {
+    this.loanDeedPartnership.patchValue({
+          registrationOffice: [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? this.nepData.companyRegOffice : ''],
+          registrationIssuedDate: [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? this.nepData.regIssueDate : ''],
+          registrationNo: [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? this.nepData.registrationNo : ''],
+          registrationOfficeDistrict: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress)
+              ? this.nepData.institutionRegisteredAddress.district : ''],
+          registrationOfficeMunicipalityVDC: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress)
+              ? this.nepData.institutionRegisteredAddress.municipality : ''],
+          registrationOfficeWardNo: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress)
+              ? this.nepData.institutionRegisteredAddress.wardNo : ''],
+          borrowerName: [!ObjectUtil.isEmpty
+          (this.nepData.nepaliName) ? this.nepData.nepaliName : ''],
+          authorizedPersonGrandFatherName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.grandFatherName : ''],
+          authorizedPersonFatherName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.fatherName : ''],
+          authorizedPersonHusbandName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.husbandName : ''],
+          authorizedPersonDistrict: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.district : ''],
+          authorizedPersonMunicipalityVDC: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.municipality : ''],
+          authorizedPersonWardNo: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonAddress) ? this.nepData.authorizedPersonAddress.wardNo : ''],
+          authorizedPersonName: [!ObjectUtil.isEmpty
+          (this.nepData.authorizedPersonDetail) ? this.nepData.authorizedPersonDetail.name : ''],
+          offerLetterIssuedDate: [!ObjectUtil.isEmpty
+          (this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.offerIssueDate : ''],
+          amount: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInFig : ''],
+          amountInWords: [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanAmountInWord : ''],
+          loanFacilityType: [!ObjectUtil.isEmpty
+          (this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanFacilityTypeInNep : ''],
+          FACOwnerName: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0]) ? this.nepData.collateralDetails[0].nameInNepali : ''],
+          FACOwnerDistrict: [!ObjectUtil.isEmpty(this.nepData.collateralDetails[0].landAndBuildingDetail)
+              ? this.nepData.collateralDetails[0].landAndBuildingDetail.district : ''],
+          FACOwnerMunicipalityVDC: [!ObjectUtil.isEmpty(this.nepData.collateralDetails[0].landAndBuildingDetail)
+              ? this.nepData.collateralDetails[0].landAndBuildingDetail.municipality : ''],
+          FACOwnerWardNo: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.wardNo : ''],
+          FACOwnerTole: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.tole : ''],
+          nakshaSeatNo: [!ObjectUtil.isEmpty(this.nepData.collateralDetails[0].landAndBuildingDetail)
+              ? this.nepData.collateralDetails[0].landAndBuildingDetail.nakshaSeatNo : ''],
+          plotNo: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.plotNo : ''],
+          area: [!ObjectUtil.isEmpty
+          (this.nepData.collateralDetails[0].landAndBuildingDetail) ? this.nepData.collateralDetails[0].landAndBuildingDetail.area : ''],
+        }
+    );
+    this.loanDeedPartnership.get
+    (['loanData', 0, 'loanFacilityType']).patchValue(this.nepData.miscellaneousDetail.loanFacilityTypeInNep);
+    this.loanDeedPartnership.get(['loanData', 0, 'amount2']).patchValue(this.nepData.miscellaneousDetail.loanAmountInFig);
+    this.loanDeedPartnership.get(['loanData', 0, 'amountInWords2']).patchValue(this.nepData.miscellaneousDetail.loanAmountInWord);
+  }
+
+  addTableData() {
+    (this.loanDeedPartnership.get('loanData') as FormArray).push(
+        this.formBuilder.group({
+          loanFacilityType: [undefined],
+          amount2: [undefined],
+          amountInWords2: [undefined],
+        })
+    );
+  }
+
+  setTableData(data) {
+    const formArray = this.loanDeedPartnership.get('loanData') as FormArray;
+    if (data.length === 0) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        loanFacilityType: [value.loanFacilityType],
+        amount2: [value.amount2],
+        amountInWords2: [value.amountInWords2],
+      }));
+    });
+  }
+
+  removeLoanDetail(index) {
+    (this.loanDeedPartnership.get('loanData') as FormArray).removeAt(index);
   }
 
 
@@ -141,6 +237,15 @@ export class LoanDeedPartnershipComponent implements OnInit {
 
   patchFunction(target) {
     const patchValue1 = this.loanDeedPartnership.get([target]).value;
+    return patchValue1;
+  }
+  changeToNepAmount1(event: any, i, formArrayName) {
+    this.loanDeedPartnership.get([formArrayName, i, 'amountInWords2']).patchValue(event.nepVal);
+    this.loanDeedPartnership.get([formArrayName, i, 'amount2']).patchValue(event.val);
+  }
+
+  patchFunction1(formArrayName, i, formControlName) {
+    const patchValue1 = this.loanDeedPartnership.get([formArrayName, i, formControlName]).value;
     return patchValue1;
   }
 }
