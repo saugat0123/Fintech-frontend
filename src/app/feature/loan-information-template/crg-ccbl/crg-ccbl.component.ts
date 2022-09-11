@@ -43,8 +43,9 @@ export class CrgCcblComponent implements OnInit {
         financial: null,
         esrm: null,
     };
-    esrm = ['Low', 'Medium', 'High'];
+    esrm = ['Low', 'Medium', 'High', 'N/A'];
     esrmRating: string;
+    externalRating: string;
     yesNo = ['Yes', 'No'];
     waiverValue: string;
     isWaiver = false;
@@ -58,6 +59,7 @@ export class CrgCcblComponent implements OnInit {
             this.thresholdPoint = this.data.thresholdPoint;
             this.thresholdOutcome = this.data.thresholdOutcome;
             this.esrmRating = this.data.esrmRating;
+            this.externalRating = this.data.externalRating;
             this.waiverValue = this.data.waiverValue;
         }
     }
@@ -131,6 +133,7 @@ export class CrgCcblComponent implements OnInit {
                         thresholdPoint: this.thresholdPoint,
                         thresholdOutcome: this.thresholdOutcome,
                         esrmRating: this.esrmRating,
+                        externalRating: this.externalRating,
                         waiverValue: this.waiverValue
                     };
                     this.eventEmitter.emit(JSON.stringify(data));
@@ -151,6 +154,7 @@ export class CrgCcblComponent implements OnInit {
                 thresholdPoint: this.thresholdPoint,
                 thresholdOutcome: this.thresholdOutcome,
                 esrmRating: this.esrmRating,
+                externalRating: this.externalRating,
                 waiverValue: this.waiverValue
             };
             this.eventEmitter.emit(JSON.stringify(data));

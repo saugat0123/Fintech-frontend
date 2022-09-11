@@ -12,15 +12,16 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-kalo-suchi-borrower-company',
-  templateUrl: './kalo-suchi-borrower-company.component.html',
-  styleUrls: ['./kalo-suchi-borrower-company.component.scss']
+  selector: 'app-kalo-suchi-corporate-guarantee',
+  templateUrl: './kalo-suchi-corporate-guarantee.component.html',
+  styleUrls: ['./kalo-suchi-corporate-guarantee.component.scss']
 })
-export class KaloSuchiBorrowerCompanyComponent implements OnInit {
+export class KaloSuchiCorporateGuaranteeComponent implements OnInit {
+
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  kaloSuchiBorrowerCompany: FormGroup;
+  kaloSuchiCorporateGuarantee: FormGroup;
   nepData;
   initialInfo;
 
@@ -45,49 +46,51 @@ export class KaloSuchiBorrowerCompanyComponent implements OnInit {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
     if (!ObjectUtil.isEmpty(this.initialInfo)) {
-      this.kaloSuchiBorrowerCompany.patchValue(this.initialInfo);
+      this.kaloSuchiCorporateGuarantee.patchValue(this.initialInfo);
     } else {
       this.fillForm();
     }
   }
 
   buildForm() {
-    this.kaloSuchiBorrowerCompany = this.formBuilder.group({
-      debtor: [undefined],
-      district: [undefined],
-      metropolitian: [undefined],
-      ward: [undefined],
-      permanentAdd: [undefined],
-      creditInfo: [undefined],
+    this.kaloSuchiCorporateGuarantee = this.formBuilder.group({
+      borrowerName: [undefined],
+      districtPermanent: [undefined],
+      municipalityPermanent: [undefined],
+      wardNumPermanent: [undefined],
+      tolePermanent: [undefined],
+      loanFacilityTypeNepali : [undefined],
+      guarantorName : [undefined],
       relationship: [undefined],
-      approver: [undefined],
-      approverDistrict: [undefined],
-      approverMunicipality: [undefined],
-      approverWard: [undefined],
-      approverTole: [undefined],
-      date1: [undefined],
+      institutionRegDistrict: [undefined],
+      institutionRegMun: [undefined],
+      institutionRegWard: [undefined],
+      institutionRegTole: [undefined],
+      date: [undefined],
     });
   }
   fillForm() {
-    this.kaloSuchiBorrowerCompany.patchValue({
-      debtor: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
-      district: [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
-          this.nepData.institutionRegisteredAddress.district : ''],
-      metropolitian: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
-          this.nepData.institutionRegisteredAddress.municipality : '',
-      ward: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
-          this.nepData.institutionRegisteredAddress.wardNo : '',
-      permanentAdd: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
-          this.nepData.institutionRegisteredAddress.tole : '',
-      creditInfo: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ? this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
-      approver: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
-      approverDistrict: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+    this.kaloSuchiCorporateGuarantee.patchValue({
+      borrowerName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+      districtPermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
           this.nepData.institutionRegisteredAddress.district : '',
-      approverMunicipality: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+      municipalityPermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
           this.nepData.institutionRegisteredAddress.municipality : '',
-      approverWard: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
+      wardNumPermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ?
           this.nepData.institutionRegisteredAddress.wardNo : '',
-      approverTole: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+      tolePermanent: !ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress) ? this.nepData.institutionRegisteredAddress.tole : '',
+      loanFacilityTypeNepali: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
+          this.nepData.miscellaneousDetail.loanFacilityTypeInNep : '',
+      guarantorName : !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0]) ?
+          this.nepData.guarantorDetails[0].name : '',
+      institutionRegDistrict: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress) ?
+          this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.district : '',
+      institutionRegMun: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress) ?
+          this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.municipality : '',
+      institutionRegWard: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress) ?
+          this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.wardNo : '',
+      institutionRegTole: !ObjectUtil.isEmpty(this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress) ?
+          this.nepData.guarantorDetails[0].guarantorInstitutionRegisteredAddress.tole : '',
     });
   }
 
@@ -97,13 +100,13 @@ export class KaloSuchiBorrowerCompanyComponent implements OnInit {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
+          singleCadFile.initialInformation = JSON.stringify(this.kaloSuchiCorporateGuarantee.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
+        cadFile.initialInformation = JSON.stringify(this.kaloSuchiCorporateGuarantee.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -112,7 +115,7 @@ export class KaloSuchiBorrowerCompanyComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.kaloSuchiBorrowerCompany.value);
+      cadFile.initialInformation = JSON.stringify(this.kaloSuchiCorporateGuarantee.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;

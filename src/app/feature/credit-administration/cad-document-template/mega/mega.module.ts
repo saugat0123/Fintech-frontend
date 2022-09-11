@@ -79,6 +79,7 @@ import { PersonalGuaranteePartnershipComponent } from './personal-guarantee-part
 import {PersonalGuaranteeProprietorshipComponent} from './personal-guarantee-proprietorship/personal-guarantee-proprietorship.component';
 import {SharePledgeDeedFirstPartyIndividualComponent} from './share-pledge-deed-first-party-individual/share-pledge-deed-first-party-individual.component';
 import {CoreModule} from '../../../../@core/core.module';
+import { KaloSuchiCorporateGuaranteeComponent } from './kalo-suchi-corporate-guarantee/kalo-suchi-corporate-guarantee.component';
 @NgModule({
     declarations: [PersonalGuaranteeJointBorrowerComponent,
         PersonalGuaranteeCompanyComponent,
@@ -139,6 +140,7 @@ import {CoreModule} from '../../../../@core/core.module';
         PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeProprietorshipComponent,
         SharePledgeDeedFirstPartyIndividualComponent,
+        KaloSuchiCorporateGuaranteeComponent,
     ],
     imports: [
         CommonModule,
@@ -208,7 +210,8 @@ import {CoreModule} from '../../../../@core/core.module';
         LetterOfTrustReceiptComponent,
         PersonalGuaranteePartnershipComponent,
         PersonalGuaranteeProprietorshipComponent,
-        SharePledgeDeedFirstPartyIndividualComponent
+        SharePledgeDeedFirstPartyIndividualComponent,
+        KaloSuchiCorporateGuaranteeComponent
     ],
 })
 
