@@ -384,4 +384,38 @@
             </nb-card-footer>
         </nb-card>
     </ng-template>
+    <ng-template #changeLoan>
+<nb-card>
+    <nb-card-header>
+        <p>Do you want to change loan type ? <i  style="color: red">* if no please select cancel</i></p>
+    </nb-card-header>
+    <nb-card-body>
+        <form   class="form-group">
+            <div class="col-md-12">
+                <select
+                        [(ngModel)]="loanConfig"
+                        class="form-control"
+                        name="loan">
+                    <option hidden> select Loan Type</option>
+                    <option *ngFor="let allList of loanList"
+                            [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="d-flex justify-content-end">
+
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="saveLoan(loanConfig)">
+                        Change
+                    </button>
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="saveLoan()">
+                        Cancel
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+    </ng-template>
 </nb-card>
