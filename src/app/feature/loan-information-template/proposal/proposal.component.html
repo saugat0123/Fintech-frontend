@@ -91,7 +91,8 @@
                                                 [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
-                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()"
+                                                (keyup)="calculateLimitValues()" appDecimalNumber>
                                         <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>

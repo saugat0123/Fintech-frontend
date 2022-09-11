@@ -595,6 +595,10 @@ export class ProposalComponent implements OnInit {
             this.formControls.proposedLimit.setValue(NumberUtils.isNumber(closedAmount));
             this.clearProposedLimitValidation();
             return;
+          case 'RENEWED_LOAN':
+            const renewSettlementAmount = this.formControls.existingLimit.value - this.formControls.proposedLimit.value;
+            this.formControls.settlementAmount.setValue(renewSettlementAmount);
+            return;
           default:
             return;
         }
