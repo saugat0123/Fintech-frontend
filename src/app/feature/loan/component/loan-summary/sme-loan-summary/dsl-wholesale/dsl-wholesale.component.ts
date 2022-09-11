@@ -52,7 +52,7 @@ export class DslWholesaleComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
         this.financialCCBL = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
       }
-      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.crgCcbl)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
         this.crgCcbl = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) &&

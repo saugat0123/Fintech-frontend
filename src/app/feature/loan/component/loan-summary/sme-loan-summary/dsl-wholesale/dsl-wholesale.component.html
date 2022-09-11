@@ -22,16 +22,7 @@
     </li>
     <li>
         <p class="text-uppercase font-weight-bold"><strong>VISION, MISSION, GOALS AND OBJECTIVES, ITS FINANCIAL SERVICES AND SERVICE DELIVERY MODALITIES:</strong></p>
-        <span>
-            The vision of M/s ................................. <br>
-            The mission of M/s ................... is to .................. <br>
-            The primary goals of M/s ................................. are to: <br>
-            <ol>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ol>
-        </span>
+        <span [innerHTML]="(loanDataHolder?.companyInfo?.companyJsonData | jsonParse).vision || 'NA' | safeHtml"></span>
     </li>
     <li>
         <p class="text-uppercase"><strong>Rating</strong></p>
@@ -39,16 +30,16 @@
         <table class="table table-bordered table-sm sb-small col-md-5">
             <tbody>
             <td class="col-md-3">Based on Balance Sheet as of:</td>
-            <td class="col-md-2">{{this.crgCcbl.selectedFiscalYear}}</td>
+            <td class="col-md-2">{{this.crgCcbl?.selectedFiscalYear ? this.crgCcbl?.selectedFiscalYear: 'NA'}}</td>
 <!--            <td>Outcome of Rating</td>-->
             <tr>
                 <td>Rating</td>
-                <td>{{this.crgCcbl.thresholdPoint}}</td>
+                <td>{{this.crgCcbl?.thresholdPoint ? this.crgCcbl?.thresholdPoint : 'NA'}}</td>
 <!--                <td>Fit for renewal/renewal with enhancemnet/???</td>-->
             </tr>
             </tbody>
         </table>
-        <p style="font-size: 14px"><b>5.2 External Rating: </b><span>{{this.crgCcbl.externalRating}}</span>
+        <p style="font-size: 14px"><b>5.2 External Rating: </b><span>{{this.crgCcbl?.externalRating ? this.crgCcbl?.externalRating : 'NA'}}</span>
         </p>
     </li>
     <li>
@@ -72,29 +63,41 @@
 
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Product exposure of the branch/bank:</strong></p>
-        <span class="font-weight-normal">Exposure of the branch and bank as on .........</span>
-        <table class="table table-bordered table-sm sb-small">
-            <tbody>
-            <td rowspan="2">Product</td>
-            <td colspan="2">Total Loans (DSL Wholesale)</td>
-            <td colspan="2">Total (DS) loan</td>
-            <td colspan="2">Gross NPA (DSL)</td>
-            <tr>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
+        <span class="font-weight-normal">Exposure of the branch and bank as on </span>
+        <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark">
+                <th rowspan="2">
+                    Product
+                </th>
+                <th colspan="2">
+                    Total loans (DSL wholesale)
+                </th>
+                <th colspan="2">
+                    Total (DS) loan
+                </th>
+                <th colspan="2">
+                    Gross NPA (DSL)
+                </th>
             </tr>
+            <tr class="sb-bg-dark">
+                <th>Branch</th>
+                <th>Branch</th>
+                <th>Branch</th>
+                <th>Branch</th>
+                <th>Branch</th>
+                <th>Branch</th>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
-                <td>DSL Wholesale</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="font-weight-bold">DSL Wholesale</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch1}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch2}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch3}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch4}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch5}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch6}}</td>
             </tr>
             </tbody>
         </table>
