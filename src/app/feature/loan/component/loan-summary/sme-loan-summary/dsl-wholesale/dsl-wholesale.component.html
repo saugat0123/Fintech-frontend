@@ -159,9 +159,7 @@
         <p class="text-uppercase"><strong>Documents to be executed/obtained: </strong></p>
         <ng-container>
             <br>
-            <div class="col-md-12 table-responsive-md">
-                <table class="table-bordered table-responsive-md sb-small table-sm" style="width: 100%"
-                       [innerHTML]="documentsObtained | safeHtml"></table>
+            <div class="col-md-12 table-responsive-md"  [innerHTML]="documentsObtained | safeHtml">
             </div>
         </ng-container>
     </li>
