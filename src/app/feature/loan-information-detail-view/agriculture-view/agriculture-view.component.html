@@ -66,6 +66,21 @@
                             [formData]="loanHolder?.financial"></app-financial-view>
     </li>
 
+
+    <li class="libold">
+        <!-- background information -->
+        <p>
+            <strong>BACKGROUND INFORMATION:</strong><br>
+            <strong>5.1 BUSINESS:</strong>
+        </p>
+        <span [innerHTML]="(loanDataHolder?.companyInfo?.companyJsonData | jsonParse)?.business || 'NA' | safeHtml"></span>
+        <p class="mt-2">
+            <strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong>
+        </p>
+        <span [innerHTML]="(loanDataHolder?.companyInfo?.companyJsonData | jsonParse)?.promoterNetWorth || 'NA' | safeHtml"></span>
+    </li>
+
+
     <li class="libold">
         <p><strong>PURPOSE AND JUSTIFICATION OF CREDIT PROPOSAL: {{loanDataHolder?.proposal ? '' : 'NA'}}</strong></p>
         <app-retail-purpose-and-justification *ngIf="loanDataHolder?.proposal"
