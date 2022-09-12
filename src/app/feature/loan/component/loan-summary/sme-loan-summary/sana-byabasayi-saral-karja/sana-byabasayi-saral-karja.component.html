@@ -174,7 +174,15 @@
         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
         <!--        <app-conlusion-review-table></app-conlusion-review-table>-->
     </li>
-
+    <li>
+<!--            *ngIf="customerCategory === 'AgriDSL up to 0.5 Million'">-->
+<!--            *ngIf ="customerCategory?.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION?.creditChecklist;">-->
+        <!-- Credit Checklist -->
+        <app-credit-checklist-view  *ngIf="loanDataHolder?.loanHolder?.creditChecklist;"
+                                    [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                    [fromProfile]="false"
+                                    [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+    </li>
 </ol>
 
 <ng-template #notAvailable>

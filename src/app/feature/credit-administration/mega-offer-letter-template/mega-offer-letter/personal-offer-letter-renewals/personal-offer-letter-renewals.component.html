@@ -1,5 +1,5 @@
 <!--todo refactor ui-->
-<div class="nep" id="{{offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS}}">
+<div class="nep" id="{{offerLetterConst.PERSONAL_OFFER_LETTER_RENEWALS}}" xmlns="http://www.w3.org/1999/html">
     <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="Saving Retail Personal offer letter.....">
@@ -7,6 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form (ngSubmit)="submit()" [formGroup]="form" class="nepali" id="personalOfferLetterRenewalsPrint">
+                        <h6 class="text-center">ऋण स्वीकृति–पत्र</h6>
                         <p class="text-right"> मिति:
                             <input class="form-field form-control-sm disable-print nepaliFont"
                                    formControlName="date"
@@ -34,7 +35,7 @@
                                        formControlName="perDis"
                                        placeholder=""
                                        type="text"/>
-                  <span class="print-only nepaliFont"><strong>{{form.get('perDis').value ? form.get('perDis').value  : '========='}}</strong></span>जिल्ला,
+                  <span class="print-only nepaliFont"><strong>{{form.get('perDis').value ? form.get('perDis').value  : '========='}}</strong></span> जिल्ला,
                   <input class="form-field form-control-sm disable-print nepaliFont"
                          formControlName="perMun"
                          placeholder=""
@@ -45,6 +46,11 @@
                          placeholder=""
                          type="text"/>
                   <span class="print-only nepaliFont"><strong>{{form.get('perWardNo').value ? form.get('perWardNo').value  : '========='}}</strong></span>,&nbsp;
+                      <input class="form-field form-control-sm disable-print nepaliFont"
+                             formControlName="perWardNo2"
+                             placeholder=""
+                             type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{form.get('perWardNo2').value ? form.get('perWardNo2').value  : '========='}}</strong></span>
               </span>
                         </div>
                         <div class="row form-group">
@@ -53,8 +59,13 @@
                                             formControlName="tempDis"
                                             placeholder=""
                                             type="text"/>
-                  <span class="print-only nepaliFont"><strong>{{form.get('tempDis').value ? form.get('tempDis').value  : '========='}}</strong></span>जिल्ला: &nbsp;
-                  <input class="form-field form-control-sm disable-print nepaliFont"
+                  <span class="print-only nepaliFont"><strong>{{form.get('tempDis').value ? form.get('tempDis').value  : '========='}}</strong></span>
+                   &nbsp;प्रदेश नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                           formControlName="pradeshNo"
+                                           placeholder=""
+                                           type="text"/>
+                  <span class="print-only nepaliFont"><strong>{{form.get('pradeshNo').value ? form.get('pradeshNo').value  : '========='}}</strong></span>
+                 जिल्ला: <input class="form-field form-control-sm disable-print nepaliFont"
                          formControlName="tempMun"
                          placeholder=""
                          type="text"/>
@@ -143,7 +154,13 @@
                                         <tr style="page-break-inside: auto">
                                             <td style="width: 5%; vertical-align: top" rowspan="6"><strong>(क)</strong></td>
                                             <td class="font-weight-bold">सूविधा (Facility)</td>
-                                            <td><strong>ओभरड्राफ्ट  । (Overdraft)</strong> </td>
+                                            <td><select class="form-control text-dark disable-print" formControlName="facilityType">
+                                                <option [value]="null" hidden>Select Facility Type</option>
+                                                <option *ngFor="let value of dropVal;" [value]="value">
+                                                    {{value}}
+                                                </option>
+                                            </select>
+                                            </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td class="font-weight-bold">स्वीकृत सिमा (Sanctioned Limit)</td>
@@ -169,11 +186,21 @@
                                                              placeholder=""
                                                              type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('purposeDate').value ? form.get('purposeDate').value  : '========='}}</strong></span>
-                                                को कर्जा स्वीकृत पत्र बमोजिम ।</td>
+                                                को कर्जा स्वीकृत पत्र बमोजिम । <br> <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                                      formControlName="freeText"
+                                                                                      name="freeText"
+                                                                                      placeholder=""
+                                                                                      type="text" size="70"/>
+                                                <span class="print-only nepaliFont" [innerHTML]="(form?.get('freeText')?.value | safeHtml)"></span></td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td class="font-weight-bold">स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                                            <td>साविककै कर्जा स्वीकृत पत्र र वा सोको संशोधन पत्रमा उल्लेख भए बमोजिम नै हूनेछ ।</td>
+                                            <td>साविककै कर्जा स्वीकृत पत्र र वा सोको संशोधन पत्रमा उल्लेख भए बमोजिम नै हूनेछ । <br> <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                                                                                           formControlName="freeText2"
+                                                                                                                                           name="freeText2"
+                                                                                                                                           placeholder=""
+                                                                                                                                           type="text" size="70"/>
+                                                <span class="print-only nepaliFont" [innerHTML]="(form?.get('freeText2')?.value | safeHtml)"></span></td>
                                         </tr>
                                         <tr style="page-break-inside: auto" >
                                             <td class="font-weight-bold">स्वीकृत सीमाको अन्तिम मिति (Limit Expiry Date)</td>
@@ -212,93 +239,93 @@
                                                 Web Site www.centurybank.com.np मा समेत राखिनेछ ।
                                             </td>
                                         </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td style="width: 5%; vertical-align: top; border-top: none" rowspan="7" class="font-weight-bold">(ख)</td>
-                                            <td class="font-weight-bold">सूविधा (Facility)</td>
-                                            <td class="font-weight-bold">माग कर्जा । (Demand Loan) </td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td class="font-weight-bold">स्वीकृत सिमा (Sanctioned Limit)</td>
-                                            <td>
-                                                <strong>अधिकतम रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'loanNameInWord2', 'loanAmount2')"
-                                                                                     [name]="patchFunction('loanAmount2')" class="disable-print"></app-custom-input>
-                                                    <span class="print-only nepaliFont"><strong>{{form.get('loanAmount2').value ? form.get('loanAmount2').value  : '========='}}</strong></span>/-
-                                                    (अक्षेरुपी रुपैया
-                                                    <input class="form-field form-control-sm disable-print preetiFont size16"
-                                                           formControlName="loanNameInWord2"
-                                                           name="loanNameInWord2"
-                                                           placeholder="अक्षेरुपी"
-                                                           type="text"/>
-                                                    <span class="print-only preetiFont size16"><strong>{{form.get('loanNameInWord2').value ? form.get('loanNameInWord2').value  : '========='}}</strong></span>
-                                                    मात्र ।) सम्म</strong>
-                                            </td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td class="font-weight-bold">उद्येश्य (Purpose)</td>
-                                            <td> मिति <input class="form-field form-control-sm disable-print nepaliFont"
-                                                            formControlName="purpose"
-                                                            name="purpose"
-                                                            placeholder=""
-                                                            type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('purpose').value ? form.get('purpose').value  : '========='}}</strong></span>
-                                                को कर्जा स्वीकृत पत्र बमोजिम ।</td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td class="font-weight-bold">स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                                            <td>साविककै कर्जा स्वीकृत पत्र र वा सोको संशोधन पत्रमा उल्लेख भए बमोजिम नै हूनेछ ।</td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td class="font-weight-bold">स्वीकृत सीमाको अन्तिम मिति (Limit Expiry Date)</td>
-                                            <td><strong>मिति ई.सं.</strong><input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                  formControlName="limitExpiryDate2"
-                                                                                  name="limitExpiryDate2"
-                                                                                  placeholder=""
-                                                                                  type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('limitExpiryDate2').value ? form.get('limitExpiryDate2').value  : '========='}}</strong></span>
-                                                भित्र कर्जा तथा सुविधाको पूनरावलोकन गरिने र सो
-                                                मिति सम्म उपभोग गर्न सकिनेछ । पूनरावलोकन गर्ने मिति जूनसूकै उल्लेख भएको भए पनि बैंकले माग गर्नासाथ बैंकको सम्पुर्ण लेना रकम
-                                                भुक्तानी गर्नूपर्नेछ । कुनै कारणले पुनरावलोकन गर्न उल्लेखित समय भित्र नसकिएमा ऋणीको अनुरोधमा बैंकले उक्त अन्तिम मितिलाई
-                                                थप <input class="form-field form-control-sm disable-print nepaliFont"
-                                                         formControlName="limitExpiryDateExtend2"
-                                                         name="limitExpiryDateExtend2"
-                                                         placeholder=""
-                                                         type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('limitExpiryDateExtend2').value ? form.get('limitExpiryDateExtend2').value  : '========='}}</strong></span>
-                                                दिन सम्म सार्न सक्नेछ ।
-                                            </td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td class="font-weight-bold">अवधि (Tenure)</td>
-                                            <td>प्रत्येक कर्जा प्रवाह गरेको मितिले <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                          formControlName="tenure2"
-                                                                                          name="tenure2"
-                                                                                          placeholder=""
-                                                                                          type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('tenure2').value ? form.get('tenure2').value  : '========='}}</strong></span>
-                                                दिन भित्र भुक्तानी गर्नु पर्ने ।</td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td class="font-weight-bold">व्याज (Interest)</td>
-                                            <td>
-                                                बैंकले निर्धारण गरेको आधार दर (Base Rate) मा थप <strong><input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                                               formControlName="interest2"
-                                                                                                               name="interest2"
-                                                                                                               placeholder=""
-                                                                                                               type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('interest2').value ? form.get('interest2').value  : '========='}}</strong></span>
-                                                प्रतिशत सम्म</strong> प्रिमियम दर (Premium Rate) जोडी ब्याजदर
-                                                कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको
-                                                अन्तिम दिनमा तर ऋणीले ऋण कर्जा पूर्ण रुपले चुतmा गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ ।
-                                                त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम आधार दर
-                                                (Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको
-                                                Web Site www.centurybank.com.np मा समेत राखिनेछ ।
-                                            </td>
-                                        </tr>
-                                        <tr style="page-break-inside: auto">
-                                            <td>१.१</td>
-                                            <td class="font-weight-bold">कर्जा सूचना शुल्क तथा कर्जा सुरक्षण शुल्क (Credit Information Fee & Secured transaction fee)</td>
-                                            <td>यर्थाथ मुल्य अनुसार कर्जा सूचना शुल्क तथा कर्जा सुरक्षण शुल्क लगाई कर्जा प्रवाह हुनु पूर्व वा कर्जा नवीकरण हुनुपूर्व ऋणीबाट असुल उपर गरिनेछ ।</td>
-                                        </tr>
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td style="width: 5%; vertical-align: top; border-top: none" rowspan="7" class="font-weight-bold">(ख)</td>-->
+<!--                                            <td class="font-weight-bold">सूविधा (Facility)</td>-->
+<!--                                            <td class="font-weight-bold">माग कर्जा । (Demand Loan) </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td class="font-weight-bold">स्वीकृत सिमा (Sanctioned Limit)</td>-->
+<!--                                            <td>-->
+<!--                                                <strong>अधिकतम रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'loanNameInWord2', 'loanAmount2')"-->
+<!--                                                                                     [name]="patchFunction('loanAmount2')" class="disable-print"></app-custom-input>-->
+<!--                                                    <span class="print-only nepaliFont"><strong>{{form.get('loanAmount2').value ? form.get('loanAmount2').value  : '========='}}</strong></span>/- -->
+<!--                                                    (अक्षेरुपी रुपैया-->
+<!--                                                    <input class="form-field form-control-sm disable-print preetiFont size16"-->
+<!--                                                           formControlName="loanNameInWord2"-->
+<!--                                                           name="loanNameInWord2"-->
+<!--                                                           placeholder="अक्षेरुपी"-->
+<!--                                                           type="text"/>-->
+<!--                                                    <span class="print-only preetiFont size16"><strong>{{form.get('loanNameInWord2').value ? form.get('loanNameInWord2').value  : '========='}}</strong></span>-->
+<!--                                                    मात्र ।) सम्म</strong>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td class="font-weight-bold">उद्येश्य (Purpose)</td>-->
+<!--                                            <td> मिति <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                            formControlName="purpose"-->
+<!--                                                            name="purpose"-->
+<!--                                                            placeholder=""-->
+<!--                                                            type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('purpose').value ? form.get('purpose').value  : '========='}}</strong></span>-->
+<!--                                                को कर्जा स्वीकृत पत्र बमोजिम ।</td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td class="font-weight-bold">स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>-->
+<!--                                            <td>साविककै कर्जा स्वीकृत पत्र र वा सोको संशोधन पत्रमा उल्लेख भए बमोजिम नै हूनेछ ।</td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td class="font-weight-bold">स्वीकृत सीमाको अन्तिम मिति (Limit Expiry Date)</td>-->
+<!--                                            <td><strong>मिति ई.सं.</strong><input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                                  formControlName="limitExpiryDate2"-->
+<!--                                                                                  name="limitExpiryDate2"-->
+<!--                                                                                  placeholder=""-->
+<!--                                                                                  type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('limitExpiryDate2').value ? form.get('limitExpiryDate2').value  : '========='}}</strong></span>-->
+<!--                                                भित्र कर्जा तथा सुविधाको पूनरावलोकन गरिने र सो-->
+<!--                                                मिति सम्म उपभोग गर्न सकिनेछ । पूनरावलोकन गर्ने मिति जूनसूकै उल्लेख भएको भए पनि बैंकले माग गर्नासाथ बैंकको सम्पुर्ण लेना रकम-->
+<!--                                                भुक्तानी गर्नूपर्नेछ । कुनै कारणले पुनरावलोकन गर्न उल्लेखित समय भित्र नसकिएमा ऋणीको अनुरोधमा बैंकले उक्त अन्तिम मितिलाई-->
+<!--                                                थप <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                         formControlName="limitExpiryDateExtend2"-->
+<!--                                                         name="limitExpiryDateExtend2"-->
+<!--                                                         placeholder=""-->
+<!--                                                         type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('limitExpiryDateExtend2').value ? form.get('limitExpiryDateExtend2').value  : '========='}}</strong></span>-->
+<!--                                                दिन सम्म सार्न सक्नेछ ।-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td class="font-weight-bold">अवधि (Tenure)</td>-->
+<!--                                            <td>प्रत्येक कर्जा प्रवाह गरेको मितिले <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                                          formControlName="tenure2"-->
+<!--                                                                                          name="tenure2"-->
+<!--                                                                                          placeholder=""-->
+<!--                                                                                          type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('tenure2').value ? form.get('tenure2').value  : '========='}}</strong></span>-->
+<!--                                                दिन भित्र भुक्तानी गर्नु पर्ने ।</td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td class="font-weight-bold">व्याज (Interest)</td>-->
+<!--                                            <td>-->
+<!--                                                बैंकले निर्धारण गरेको आधार दर (Base Rate) मा थप <strong><input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                                                               formControlName="interest2"-->
+<!--                                                                                                               name="interest2"-->
+<!--                                                                                                               placeholder=""-->
+<!--                                                                                                               type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('interest2').value ? form.get('interest2').value  : '========='}}</strong></span>-->
+<!--                                                प्रतिशत सम्म</strong> प्रिमियम दर (Premium Rate) जोडी ब्याजदर-->
+<!--                                                कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो महिनाको-->
+<!--                                                अन्तिम दिनमा तर ऋणीले ऋण कर्जा पूर्ण रुपले चुतmा गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ ।-->
+<!--                                                त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम आधार दर-->
+<!--                                                (Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको-->
+<!--                                                Web Site www.centurybank.com.np मा समेत राखिनेछ ।-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr style="page-break-inside: auto">-->
+<!--                                            <td>१.१</td>-->
+<!--                                            <td class="font-weight-bold">कर्जा सूचना शुल्क तथा कर्जा सुरक्षण शुल्क (Credit Information Fee & Secured transaction fee)</td>-->
+<!--                                            <td>यर्थाथ मुल्य अनुसार कर्जा सूचना शुल्क तथा कर्जा सुरक्षण शुल्क लगाई कर्जा प्रवाह हुनु पूर्व वा कर्जा नवीकरण हुनुपूर्व ऋणीबाट असुल उपर गरिनेछ ।</td>-->
+<!--                                        </tr>-->
                                         <tr style="page-break-inside: auto">
                                             <td>१.२</td>
                                             <td class="font-weight-bold">कर्जा प्रशासनिक र नवीकरण शुल्क (Loan Administration/ Renewal  Fee)</td>
@@ -307,7 +334,7 @@
                                                                                                                               name="renewalFee"
                                                                                                                               placeholder=""
                                                                                                                               type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('renewalFee').value ? form.get('renewalFee').value  : '========='}}</strong></span>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('renewalFee').value ? form.get('renewalFee').value  : ' '}}</strong></span>
                                                 ।–</strong> लगाई असुल उपर गरिनेछ ।</td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -318,14 +345,14 @@
                                                                                                                          name="avgUtil"
                                                                                                                          placeholder=""
                                                                                                                          type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('avgUtil').value ? form.get('avgUtil').value  : '========='}}</strong></span>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('avgUtil').value ? form.get('avgUtil').value  : ' '}}</strong></span>
                                                 प्रतिशत भन्दा कम भएको खण्डमा उपयोग
                                                 नगरेको कर्जा (Unutilized Amount) मा <input class="form-field form-control-sm disable-print nepaliFont"
                                                                                            formControlName="unutilAmt"
                                                                                            name="unutilAmt"
                                                                                            placeholder=""
                                                                                            type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('unutilAmt').value ? form.get('unutilAmt').value  : '========='}}</strong></span>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('unutilAmt').value ? form.get('unutilAmt').value  : ' '}}</strong></span>
                                                 प्रतिशत प्रतिवद्धता शुल्क लाग्नेछ । साथै, नेपाल राष्ट्र बैंकवाट बैंक तथा वित्तीय
                                                 संस्थाहरुलाई जारी गरिएको तथा भविष्यमा जारी गरिने निर्देशन वा सो मा संशोधन हूने उक्त निर्देशन, परिपत्र, नीतिमा भएको विद्यमान
                                                 प्रावधान बमोजिम हुनेछ ।</td>
@@ -338,7 +365,7 @@
                                                                                            name="otherFee"
                                                                                            placeholder=""
                                                                                            type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('otherFee').value ? form.get('otherFee').value  : '========='}}</strong></span>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('otherFee').value ? form.get('otherFee').value  : ' '}}</strong></span>
                                                 प्रतिशतको दरले लाग्ने छ ।  अन्य शुल्क तथा चार्जहरु उल्लेख भएको हकमा सोही
                                                 बमोजिम र नभएको अवस्थामा बैंकको स्वीकृत सेवा शुल्क <strong>(Fee and Charges)</strong> बमोजिम लाग्ने छ । सोको
                                                 जानकारी बैंकको Web Site www.centurybank.com.np वाट समेत प्राप्त गर्न सकिनेछ ।</td>
@@ -351,7 +378,7 @@
                                                         name="securityDate"
                                                         placeholder=""
                                                         type="text"/>
-                                            <span class="print-only nepaliFont"><strong>{{form.get('securityDate').value ? form.get('securityDate').value  : '========='}}</strong></span>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('securityDate').value ? form.get('securityDate').value  : ' '}}</strong></span>
                                             मा जारीकर्जा स्वीकृत पत्र र/वा सो को नविकरण वा संशोधन पत्रमा उल्लेखित यहांले बैंकको नाममा लेखिदिनुभएको
                                             तपशिलमा उल्लेख भए अनुसार धितो तथा सुरक्षणको रुपमा दिनुभएको ब्यक्तिगत र/वा संस्थागत जमानीलाई नै तोकिएको अवधिसम्मको लागि
                                             निरन्तरता दिइनेछ  र यो कानूनी रुपमा वैध र बन्धनकारी हुनेछ । कर्जा सुविधाको नविकरणका लागि यहांले उल्लेखित कर्जा सुविधा उपभोग गरेवापत
@@ -499,7 +526,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="width: 40%"><p class="font-weight-bold">बैंकः</p>
-                                            <p class="font-weight-bold">सेञ्चुरी कमर्सियल बैंक लिमिटेड,</p>
+<!--                                            <p class="font-weight-bold">सेञ्चुरी कमर्सियल बैंक लिमिटेड,</p>-->
                                             <p>रजिष्टर्ड कार्यालय पुतलिसडक, काठमाण्डौ ।</p>
                                             <p>पोष्ट वक्स नं. <input class="form-field form-control-sm disable-print nepaliFont"
                                                                      formControlName="postBox"
@@ -507,38 +534,42 @@
                                                                      placeholder=""
                                                                      type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('postBox').value ? form.get('postBox').value  : '========='}}</strong></span>
-                                                ,काठमाण्डौ नेपाल </p>
-                                            <p class="font-weight-bold">मार्फतः</p>
-                                            <p><input class="form-field form-control-sm disable-print nepaliFont"
-                                                      formControlName="marfatBank"
-                                                      name="marfatBank"
-                                                      placeholder=""
-                                                      type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('marfatBank').value ? form.get('marfatBank').value  : '========='}}</strong></span> लिमिटेड,</p>
+                                                ,काठमाण्डौ नेपाल </p> <br>
+                                            <p>पोष्ट बक्स नं. २६१००</p> <br>
+                                            <p>फोन नं. ४–४१२५७९, ४–४२८३९२</p> <br>
+                                            <p>फ्याक्स नंं. ०१–४४४१४२२</p>
+
+<!--                                            <p><input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                      formControlName="marfatBank"-->
+<!--                                                      name="marfatBank"-->
+<!--                                                      placeholder=""-->
+<!--                                                      type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('marfatBank').value ? form.get('marfatBank').value  : '========='}}</strong></span> लिमिटेड,</p>-->
                                             <br>
                                             <p>शाखा कार्यालय, <input class="form-field form-control-sm disable-print nepaliFont"
                                                                      formControlName="branchName"
                                                                      name="branchName"
                                                                      placeholder=""
                                                                      type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span>, <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                           formControlName="branchDis"
-                                                                                           name="branchDis"
-                                                                                           placeholder=""
-                                                                                           type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('branchDis').value ? form.get('branchDis').value  : '========='}}</strong></span>।</p>
-                                            <p>टेलिफोन नं. <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                  formControlName="branchTelNo"
-                                                                  name="branchTelNo"
-                                                                  placeholder=""
-                                                                  type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('branchTelNo').value ? form.get('branchTelNo').value  : '========='}}</strong></span></p>
-                                            <p>फ्याक्स नं. <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                  formControlName="branchFax"
-                                                                  name="branchFax"
-                                                                  placeholder=""
-                                                                  type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('branchFax').value ? form.get('branchFax').value  : '========='}}</strong></span></p>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('branchName').value ? form.get('branchName').value  : '========='}}</strong></span>
+<!--                                                <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                                           formControlName="branchDis"-->
+<!--                                                                                           name="branchDis"-->
+<!--                                                                                           placeholder=""-->
+<!--                                                                                           type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('branchDis').value ? form.get('branchDis').value  : '========='}}</strong></span>।</p>-->
+<!--                                            <p>टेलिफोन नं. <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                  formControlName="branchTelNo"-->
+<!--                                                                  name="branchTelNo"-->
+<!--                                                                  placeholder=""-->
+<!--                                                                  type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('branchTelNo').value ? form.get('branchTelNo').value  : '========='}}</strong></span></p>-->
+<!--                                            <p>फ्याक्स नं. <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                  formControlName="branchFax"-->
+<!--                                                                  name="branchFax"-->
+<!--                                                                  placeholder=""-->
+<!--                                                                  type="text"/>-->
+<!--                                                <span class="print-only nepaliFont"><strong>{{form.get('branchFax').value ? form.get('branchFax').value  : '========='}}</strong></span></p>-->
                                         </td>
                                         <td style="width: 60%"><p class="font-weight-bold">ऋणीः</p>
                                             <p>श्री <input class="form-field form-control-sm disable-print nepaliFont"
@@ -565,14 +596,21 @@
                                                                                                       name="borrowerPerWard"
                                                                                                       placeholder=""
                                                                                                       type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard').value ? form.get('borrowerPerWard').value  : '========='}}</strong></span></p>
-                                            <p>हालको ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
+                                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard').value ? form.get('borrowerPerWard').value  : '========='}}</strong></span>
+                                                <input class="form-field form-control-sm disable-print nepaliFont"
+                                                       formControlName="borrowerPerWard2"
+                                                       name="borrowerPerWard2"
+                                                       placeholder=""
+                                                       type="text"/>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard2').value ? form.get('borrowerPerWard2').value  : '========='}}</strong></span>
+                                            </p>
+                                            <p>हालको ठेगाना:हाल <input class="form-field form-control-sm disable-print nepaliFont"
                                                                     formControlName="borrowerTempProvince"
                                                                     name="borrowerTempProvince"
                                                                     placeholder=""
                                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempProvince').value ? form.get('borrowerTempProvince').value  : '========='}}</strong></span>
-                                                प्रदेश/प्रदेश नं <input class="form-field form-control-sm disable-print nepaliFont"
+                                                प्रदेश नं <input class="form-field form-control-sm disable-print nepaliFont"
                                                                                                           formControlName="borrowerTempDis"
                                                                                                           name="borrowerTempDis"
                                                                                                           placeholder=""
@@ -621,6 +659,12 @@
                                                                                   placeholder=""
                                                                                   type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerMobile').value ? form.get('borrowerMobile').value  : '========='}}</strong></span></p>
+                                            <p>फ्याक्स नं./पोट बक्स नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                                  formControlName="faxnoPostNo"
+                                                                                  name="faxnoPostNo"
+                                                                                  placeholder=""
+                                                                                  type="text"/>
+                                                <span class="print-only nepaliFont"><strong>{{form.get('faxnoPostNo').value ? form.get('faxnoPostNo').value  : '========='}}</strong></span></p>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -686,36 +730,130 @@
                                 </div>
                                 <div class="row" style="width: 100%">
                                 <div class="col-md-12 text-justify">
-                                    <div class="col-md-6 float-left">
+                                    <div class="col-md-12 float-left">
                                         <p>हस्ताक्षरः .....................................<br>
                                         ऋणीको नामः <input class="form-field form-control-sm disable-print nepaliFont"
                                                           formControlName="borrowerName3"
                                                           name="borrowerName3"
                                                           placeholder=""
                                                           type="text"/>
-                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerName3').value ? form.get('borrowerName3').value  : '========='}}</strong></span><br>
-                                        ठेगानाः	<input class="form-field form-control-sm disable-print nepaliFont"
-                                                          formControlName="borrowerAddress"
-                                                          name="borrowerAddress"
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerName3').value ? form.get('borrowerName3').value  : '========='}}</strong></span> </p><br>
+<!--                                        ठेगानाः	<input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                          formControlName="borrowerAddress"-->
+<!--                                                          name="borrowerAddress"-->
+<!--                                                          placeholder=""-->
+<!--                                                          type="text"/>-->
+<!--                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerAddress').value ? form.get('borrowerAddress').value  : '========='}}</strong></span><br>-->
+                                        <p style="padding-left: 10px">स्थाई ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                formControlName="borrowerPerDis"
+                                                                name="borrowerPerDis"
+                                                                placeholder=""
+                                                                type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDis').value ? form.get('borrowerPerDis').value  : '========='}}</strong></span>
+                                            जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
+                                                          formControlName="borrowerPerMun"
+                                                          name="borrowerPerMun"
                                                           placeholder=""
                                                           type="text"/>
-                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerAddress').value ? form.get('borrowerAddress').value  : '========='}}</strong></span><br>
-                                        ल्याप्चे सहिछाप<br></p>
-                                        <table class="table table-bordered">
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerMun').value ? form.get('borrowerPerMun').value  : '========='}}</strong></span>
+                                            म.न.पा./उप म.न.पा./न.पा./गा.वि.स., वडा नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                                              formControlName="borrowerPerWard"
+                                                                                              name="borrowerPerWard"
+                                                                                              placeholder=""
+                                                                                              type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard').value ? form.get('borrowerPerWard').value  : '========='}}</strong></span>
+                                            <input class="form-field form-control-sm disable-print nepaliFont"
+                                                   formControlName="borrowerPerWard2"
+                                                   name="borrowerPerWard2"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerWard2').value ? form.get('borrowerPerWard2').value  : '========='}}</strong></span>
+                                        </p>
+                                        <p>हालको ठेगाना:हाल <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                   formControlName="borrowerTempProvince"
+                                                                   name="borrowerTempProvince"
+                                                                   placeholder=""
+                                                                   type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempProvince').value ? form.get('borrowerTempProvince').value  : '========='}}</strong></span>
+                                            प्रदेश नं <input class="form-field form-control-sm disable-print nepaliFont"
+                                                             formControlName="borrowerTempDis"
+                                                             name="borrowerTempDis"
+                                                             placeholder=""
+                                                             type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempDis').value ? form.get('borrowerTempDis').value  : '========='}}</strong></span>
+                                            जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
+                                                          formControlName="borrowerTempMun"
+                                                          name="borrowerTempMun"
+                                                          placeholder=""
+                                                          type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempMun').value ? form.get('borrowerTempMun').value  : '========='}}</strong></span>
+                                            म.न.पा./उपम.न.पा./न.पा./गाउपालिका
+                                            वडा नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                           formControlName="borrowerTempWard"
+                                                           name="borrowerTempWard"
+                                                           placeholder=""
+                                                           type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempWard').value ? form.get('borrowerTempWard').value  : '========='}}</strong></span>
+                                            टोल/गाउ <input class="form-field form-control-sm disable-print nepaliFont"
+                                                           formControlName="borrowerTempTole"
+                                                           name="borrowerTempTole"
+                                                           placeholder=""
+                                                           type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempTole').value ? form.get('borrowerTempTole').value  : '========='}}</strong></span>
+                                            घर नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                          formControlName="borrowerHouseNo"
+                                                          name="borrowerHouseNo"
+                                                          placeholder=""
+                                                          type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerHouseNo').value ? form.get('borrowerHouseNo').value  : '========='}}</strong></span>
+                                            सडक/मार्ग <input class="form-field form-control-sm disable-print nepaliFont"
+                                                             formControlName="borrowerTempStreet"
+                                                             name="borrowerTempStreet"
+                                                             placeholder=""
+                                                             type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerTempStreet').value ? form.get('borrowerTempStreet').value  : '========='}}</strong></span></p>
+                                        <p>ईमेलः <input class="form-field form-control-sm disable-print"
+                                                        formControlName="borrowerEmail"
+                                                        name="borrowerEmail"
+                                                        placeholder=""
+                                                        type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerEmail').value ? form.get('borrowerEmail').value  : '========='}}</strong></span></p>
+                                        <p>सम्पर्क टेलिफोन/मोवाइल नं.ः <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                              formControlName="borrowerMobile"
+                                                                              name="borrowerMobile"
+                                                                              placeholder=""
+                                                                              type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerMobile').value ? form.get('borrowerMobile').value  : '========='}}</strong></span></p>
+                                        <p>फ्याक्स नं./पोट बक्स नं. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                                           formControlName="faxnoPostNo"
+                                                                           name="faxnoPostNo"
+                                                                           placeholder=""
+                                                                           type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('faxnoPostNo').value ? form.get('faxnoPostNo').value  : '========='}}</strong></span></p>
+                                        <div class="col-md-6 float-right" style="align-content: center">
+                                            मितिः<input class="form-field form-control-sm disable-print nepaliFont"
+                                                        formControlName="borrowerDate"
+                                                        name="borrowerDate"
+                                                        placeholder=""
+                                                        type="text"/>
+                                            <span class="print-only nepaliFont"><strong>{{form.get('borrowerDate').value ? form.get('borrowerDate').value  : ' '}}</strong></span>
+                                        </div>
+                                        ल्याप्चे सहिछाप<br>
+                                        <table class="table table-bordered col-md-4">
                                             <tr>
                                                 <th style="height: 12rem;" class="text-center">दांया</th>
                                                 <th style="height: 12rem;" class="text-center">बांयाँ</th>
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="col-md-6 float-left" style="align-content: center">
-                                        मितिः<input class="form-field form-control-sm disable-print nepaliFont"
-                                                    formControlName="borrowerDate"
-                                                    name="borrowerDate"
-                                                    placeholder=""
-                                                    type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerAddress').value ? form.get('borrowerAddress').value  : '========='}}</strong></span>
-                                    </div>
+<!--                                    <div class="col-md-6 float-right" style="align-content: center">-->
+<!--                                        मितिः<input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                    formControlName="borrowerDate"-->
+<!--                                                    name="borrowerDate"-->
+<!--                                                    placeholder=""-->
+<!--                                                    type="text"/>-->
+<!--                                        <span class="print-only nepaliFont"><strong>{{form.get('borrowerDate').value ? form.get('borrowerDate').value  : '========='}}</strong></span>-->
+<!--                                    </div>-->
                                 </div>
                                 </div>
                                 <div class="col-md-12 text-justify">
@@ -743,6 +881,7 @@
                                         सिमामा हेरफेर भएको अवस्थामा समेत मैले/हामीले बैंकलाई छूट्टै लेखिदिएको जमानीपत्रमा उल्लेखित वा तल उल्लेखित ठेगानामा बैंकले सोही
                                         ब्यहोराको जानकारी गराएमा मैले/हामीले पर्याप्त रुपमा जानकारी पाएको स्विकार गर्नेछौं ।</p>
                                 </div>
+                                    <br>
                                 <div class="col-md-12" style="width: 80%; border: 1px solid black; page-break-inside: avoid">
                                     <div class="col-md-6 float-left">
                                         <p>जमानीकर्ताको नामः <input class="form-field form-control-sm disable-print nepaliFont"
@@ -940,41 +1079,41 @@
                                     </div>
                                 </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <p>संस्थागत जमानीकर्ताको नामः <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                      formControlName="jamanikartaName"
-                                                                      name="jamanikartaName"
-                                                                      placeholder=""
-                                                                         type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{form.get('jamanikartaName').value ? form.get('jamanikartaName').value  : '========='}}</strong></span></p>
-                                    <p>अख्तियारप्राप्त व्यक्तिको नामः <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                          formControlName="akhtiyarName"
-                                                                          name="akhtiyarName"
-                                                                          placeholder=""
-                                                                          type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{form.get('akhtiyarName').value ? form.get('akhtiyarName').value  : '========='}}</strong></span></p>
-                                    <p>ठेगानाः	<input class="form-field form-control-sm disable-print nepaliFont"
-                                                      formControlName="jamanikartaAddress"
-                                                      name="jamanikartaAddress"
-                                                      placeholder=""
-                                                      type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{form.get('jamanikartaAddress').value ? form.get('jamanikartaAddress').value  : '========='}}</strong></span>(पूरा ठेगाना लेख्ने)</p><br>
+<!--                                <div class="col-md-12">-->
+<!--                                    <p>संस्थागत जमानीकर्ताको नामः <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                      formControlName="jamanikartaName"-->
+<!--                                                                      name="jamanikartaName"-->
+<!--                                                                      placeholder=""-->
+<!--                                                                         type="text"/>-->
+<!--                                        <span class="print-only nepaliFont"><strong>{{form.get('jamanikartaName').value ? form.get('jamanikartaName').value  : '========='}}</strong></span></p>-->
+<!--                                    <p>अख्तियारप्राप्त व्यक्तिको नामः <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                          formControlName="akhtiyarName"-->
+<!--                                                                          name="akhtiyarName"-->
+<!--                                                                          placeholder=""-->
+<!--                                                                          type="text"/>-->
+<!--                                        <span class="print-only nepaliFont"><strong>{{form.get('akhtiyarName').value ? form.get('akhtiyarName').value  : '========='}}</strong></span></p>-->
+<!--                                    <p>ठेगानाः	<input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                      formControlName="jamanikartaAddress"-->
+<!--                                                      name="jamanikartaAddress"-->
+<!--                                                      placeholder=""-->
+<!--                                                      type="text"/>-->
+<!--                                        <span class="print-only nepaliFont"><strong>{{form.get('jamanikartaAddress').value ? form.get('jamanikartaAddress').value  : '========='}}</strong></span>(पूरा ठेगाना लेख्ने)</p><br>-->
 
-                                    <p>हस्ताक्षरः ....................................................</p>
-                                </div>
-                                    <div class="row" style="width: 100%">
-                                        <div class="col-md-12">
-                                    <div class="col-md-6 float-left" style="vertical-align: bottom">मितिः <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                                                                 formControlName="dateBtm"
-                                                                                                                 name="dateBtm"
-                                                                                                                 placeholder=""
-                                                                                                                 type="text"/>
-                                        <span class="print-only nepaliFont"><strong>{{form.get('dateBtm').value ? form.get('dateBtm').value  : '========='}}</strong></span></div>
-                                    <div class="col-md-6 float-left">
-                                        <div style="border: 1px solid black; height: 200px; width: 400px; text-align: center;">छाप</div>
-                                    </div>
-                                </div>
-                                    </div>
+<!--                                    <p>हस्ताक्षरः ....................................................</p>-->
+<!--                                </div>-->
+<!--                                    <div class="row" style="width: 100%">-->
+<!--                                        <div class="col-md-12">-->
+<!--                                    <div class="col-md-6 float-left" style="vertical-align: bottom">मितिः <input class="form-field form-control-sm disable-print nepaliFont"-->
+<!--                                                                                                                 formControlName="dateBtm"-->
+<!--                                                                                                                 name="dateBtm"-->
+<!--                                                                                                                 placeholder=""-->
+<!--                                                                                                                 type="text"/>-->
+<!--                                        <span class="print-only nepaliFont"><strong>{{form.get('dateBtm').value ? form.get('dateBtm').value  : '========='}}</strong></span></div>-->
+<!--                                    <div class="col-md-6 float-left">-->
+<!--                                        <div style="border: 1px solid black; height: 200px; width: 400px; text-align: center;">छाप</div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                    </div>-->
                             </div>
                             </div>
                         <div class="row">

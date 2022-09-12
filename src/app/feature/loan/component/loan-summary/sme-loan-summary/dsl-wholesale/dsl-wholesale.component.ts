@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers, OnInit} from '@angular/core';
 import {CompanyInfo} from '../../../../../admin/modal/company-info';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {environment} from '../../../../../../../environments/environment';
@@ -10,7 +10,7 @@ import {json} from 'd3';
   templateUrl: './dsl-wholesale.component.html',
   styleUrls: ['./dsl-wholesale.component.scss']
 })
-export class DslWholesaleComponent implements OnInit {
+export class DslWholesaleComponent implements OnInit, DoCheck {
   @Input() companyInfo: CompanyInfo;
   @Input() loanDataHolder: LoanDataHolder;
   @Input() customerAllLoanList: LoanDataHolder[];
@@ -39,8 +39,11 @@ export class DslWholesaleComponent implements OnInit {
   crgGammaScore = 0;
   crgGammaGradeStatusBadge;
   documentsObtained;
-  constructor() {
+  allLonList: LoanDataHolder [];
+  iterableDiffer;
+  constructor(private iterableDiffers: IterableDiffers) {
     this.client = environment.client;
+    this.iterableDiffer = iterableDiffers.find([]).create(null);
   }
 
   ngOnInit() {
@@ -98,4 +101,10 @@ export class DslWholesaleComponent implements OnInit {
     }
   }
 
+  ngDoCheck(): void {
+    const changes = this.iterableDiffer.diff(this.customerAllLoanList);
+    if (changes) {
+      this.allLonList = this.customerAllLoanList.filter(cl => cl.documentStatus.toString() !== 'APPROVED');
+    }
+  }
 }
