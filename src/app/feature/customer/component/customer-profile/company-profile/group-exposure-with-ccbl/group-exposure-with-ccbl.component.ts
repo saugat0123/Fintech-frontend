@@ -71,6 +71,10 @@ export class GroupExposureWithCcblComponent implements OnInit {
           new Date(this.mGroupInfo.groupExposureDate) : undefined);
       this.form.get('detailInformation').patchValue(this.mGroupInfo.detailInformation);
       this.form.get('outstandingOverdue').patchValue(this.mGroupInfo.outstandingOverdue);
+      this.form.get('securityHeld').patchValue(this.mGroupInfo.securityHeld);
+      if (ObjectUtil.isEmpty(this.mGroupInfo.securityHeld)) {
+        this.form.get('securityHeld').patchValue(CcblTable.secutity_held());
+      }
     } else {
       this.addGroupPosition();
       this.addCompany();

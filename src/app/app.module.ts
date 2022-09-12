@@ -33,7 +33,6 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
 import {AmountWordPipe} from './@core/pipe/amount-word.pipe';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { ReleaseInfoComponent } from './@core/release-info/release-info.component';
-import {NepaliCurrencyWordPreetiPipe} from './@core/pipe/nepali-currency-word-preeti.pipe';
 
 @NgModule({
     declarations: [
