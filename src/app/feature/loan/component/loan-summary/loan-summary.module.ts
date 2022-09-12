@@ -96,6 +96,7 @@ import {
     CustomerNetWorthViewComponent
 } from '../../../loan-information-detail-view/customer-net-worth-view/customer-net-worth-view.component';
 import { DslWholesaleComponent } from './sme-loan-summary/dsl-wholesale/dsl-wholesale.component';
+import {FeatureModule} from '../../../feature.module';
 
 
 const COMPONENTS = [
@@ -213,6 +214,7 @@ const ENTRY_COMPONENTS = [];
         LoanInformationViewModule,
         NepaliPatroModule,
         SecurityTaggedViewModule,
+        FeatureModule,
     ],
     exports: [
         LoanSummaryComponent,

@@ -32,7 +32,7 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   isRetailCustomer = false;
   calendarType: CalendarType = CalendarType.AD;
   isAgri = false;
-  category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION'];
+  category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION', 'DSL_WHOLE_SALE'];
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, protected fiscalYearService: FiscalYearService,

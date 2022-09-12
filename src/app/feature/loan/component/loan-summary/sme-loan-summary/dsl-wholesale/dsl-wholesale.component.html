@@ -235,6 +235,16 @@
     </li>
 </ol>
 
+<div class="col-md-12 above-ten-million-list">
+    <app-crg-long [fromProfile]="false"
+                  [formData]="loanDataHolder?.loanHolder?.creditChecklist"></app-crg-long>
+
+    <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                                [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                [fromProfile]="false"
+                                [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+</div>
+
 <ng-template #notAvailable>
     <span class="font-weight-normal">Not Available</span>
 </ng-template>
