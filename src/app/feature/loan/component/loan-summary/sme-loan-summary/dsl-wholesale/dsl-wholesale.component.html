@@ -63,7 +63,7 @@
 
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Product exposure of the branch/bank:</strong></p>
-        <span class="font-weight-normal">Exposure of the branch and bank as on </span>
+        <span class="font-weight-normal">Exposure of the branch and bank as on {{((loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.dateCheckList) | date}} </span>
         <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-dark">
