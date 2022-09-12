@@ -771,6 +771,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             branch4: [undefined],
             branch5: [undefined],
             branch6: [undefined],
+            dateCheckList: undefined,
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);

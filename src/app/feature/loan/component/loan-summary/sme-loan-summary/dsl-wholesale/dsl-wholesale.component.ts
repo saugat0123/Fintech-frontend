@@ -38,6 +38,7 @@ export class DslWholesaleComponent implements OnInit, DoCheck {
   crgGammaSummary = false;
   crgGammaScore = 0;
   crgGammaGradeStatusBadge;
+  documentsObtained;
   allLonList: LoanDataHolder [];
   iterableDiffer;
   constructor(private iterableDiffers: IterableDiffers) {
@@ -94,6 +95,9 @@ export class DslWholesaleComponent implements OnInit, DoCheck {
           this.crgGammaGradeStatusBadge = 'badge badge-warning';
         }
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo) || !ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.documentsObtained) ) {
+      this.documentsObtained = JSON.parse(this.loanDataHolder.companyInfo.documentsObtained);
     }
   }
 
