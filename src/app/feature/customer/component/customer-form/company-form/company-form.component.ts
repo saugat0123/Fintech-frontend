@@ -50,6 +50,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
 import {CustomerCategory} from '../../../model/customerCategory';
 import {ContactDetailsComponent} from '../../../../contact-details/contact-details.component';
+import {DocumentsObtainedTable} from '../../../../loan/model/documentsObtainedTable';
 
 @Component({
     selector: 'app-company-form',
@@ -229,8 +230,8 @@ export class CompanyFormComponent implements OnInit {
                         }
                     }
                 });
-            }
-        );
+            });
+        console.log('customerCategory', this.customerCategory);
     }
 
     buildForm() {
@@ -521,7 +522,9 @@ export class CompanyFormComponent implements OnInit {
             customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
                 this.companyInfo.customerCategory, [Validators.required]],
             accStrategy: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
-                this.companyInfo.accStrategy, [Validators.required]]
+                this.companyInfo.accStrategy, [Validators.required]],
+            documentsObtained: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.documentsObtained)) ?
+                DocumentsObtainedTable.key_Figure() : JSON.parse(this.companyInfo.documentsObtained)],
         });
     }
 
@@ -874,6 +877,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
@@ -1062,8 +1066,9 @@ export class CompanyFormComponent implements OnInit {
     }
 
     getCustomerCategory() {
-        this.customerCategory = this.customerCate.filter(f =>
-            f.value !== CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL);
+        // this.customerCategory = this.customerCate.filter(f =>
+        //     f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
+        this.customerCategory = this.customerCate;
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {

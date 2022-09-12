@@ -125,7 +125,7 @@
                 <div class="col-md-8">
                   <p class="custom-font">
                     <span>{{(customerInfo?.customerType === customerType.INDIVIDUAL
-                            || customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION')
+                            || customerInfo?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION')
                             ? 'INCOME & EXPENSES' : 'INCOME TO THE BANK'}}</span>
                   </p>
                 </div>
@@ -1378,6 +1378,28 @@
 
           <div class="col-md-12 form-group">
             <b>PRODUCTS EXPOSURE OF THE BRANCH/BANK: </b>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType" [ngModelOptions]="{standalone: true}">
+                  <nb-radio value="AD">AD</nb-radio>
+                  <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+            <div class="form-group col-md-5" style="display: flex">
+              <label>Date of Checklist:&nbsp; </label>
+              <ng-container>
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
+                       class="form-control "
+                       formControlName="dateCheckList" placeholder="Date of checklist">
+                <app-calendar
+                        (messageToEmit)="commonLoanData.get('dateCheckList').patchValue($event?.eDate)"
+                        *ngIf="calendarType === 'BS'"
+                        [ePreDate]="commonLoanData.get('dateCheckList').value"></app-calendar>
+                <nb-datepicker #dateOfChecklist></nb-datepicker>
+              </ng-container>
+            </div>
             <div>
               <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
                 <thead>

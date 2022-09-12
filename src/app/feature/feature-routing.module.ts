@@ -7,12 +7,14 @@ import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hier
 import {RouteGuard} from '../@core/service/authentication/route-guard';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {UserActivityComponent} from './admin/component/user/user-activity/user-activity.component';
+import {AboveFiftyComponent} from '../component/dashboard/pending/above-fifty/above-fifty.component';
 
 const routes: Routes = [
   {
     path: '', component: FeatureComponent,
     children: [
       {path: 'status/:name', component: PendingsLoanComponent},
+      {path: 'fifty-mil/:id', component: AboveFiftyComponent},
       {path: 'dashboard', component: DashboardComponent},
       {
         path: 'approval-role-hierarchy/:type/:refId',
