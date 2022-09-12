@@ -3,6 +3,8 @@ import {LoanDataHolder} from '../../../../model/loanData';
 import {CustomerCategory} from '../../../../../customer/model/customerCategory';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {CustomerInfoData} from '../../../../model/customerInfoData';
+import {CalendarType} from '../../../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-sana-byabasayi-saral-karja',
@@ -11,6 +13,8 @@ import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-forma
 })
 export class SanaByabasayiSaralKarjaComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() customerInfo: CustomerInfoData;
+  @Input() calendarType: CalendarType = CalendarType.AD;
   @Input() fiscalYear;
   @Input() totalProposed;
   @Input() isDetailedView: boolean;
@@ -22,12 +26,14 @@ export class SanaByabasayiSaralKarjaComponent implements OnInit {
   approveAuth;
   totalAmount;
   financialCCBL;
+  zeroPointFive = false;
 
   constructor(
       private currencyFormatterPipe: CurrencyFormatterPipe
   ) { }
 
   ngOnInit() {
+    this.checkCustomerCategoryForDetailView();
     this.customerCategory = this.loanDataHolder.loanHolder.customerCategory;
     this.data = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData);
     if (!ObjectUtil.isEmpty(this.data)) {
@@ -39,4 +45,11 @@ export class SanaByabasayiSaralKarjaComponent implements OnInit {
     }
   }
 
+  checkCustomerCategoryForDetailView() {
+    if (this.loanDataHolder.loanHolder.customerCategory.toString() === 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION') {
+      this.zeroPointFive = true;
+      this.isDetailedView = true;
+    }
+  }
 }
+
