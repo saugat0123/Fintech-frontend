@@ -188,3 +188,12 @@
 <ng-template #notAvailable>
     <span class="font-weight-normal">Not Available</span>
 </ng-template>
+
+<div *ngIf="zeroPointFive">
+    <div class="page-break"></div>
+    <app-crg-long
+            [formData]="loanDataHolder?.loanHolder?.crgLongChecklist"
+            [fromProfile]="false"
+            [calendarType]="calendarType" >
+    </app-crg-long>
+</div>
