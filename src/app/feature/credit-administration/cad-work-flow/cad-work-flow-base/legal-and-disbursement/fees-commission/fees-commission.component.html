@@ -37,7 +37,7 @@
                         <tr>
                           <td> <select class="cellInput" id="feeType" formControlName="feeType">
                               <option [value]="null" disabled hidden>Select Fee Type</option>
-                              <option *ngFor="let f of keys" [value]="f" [disabled]="disablePreviousSelected(feeCommissionForm.get('loanFeeDetails'),f?.key)"
+                              <option *ngFor="let f of keys" [value]="feeTypeList[f]" [disabled]="disablePreviousSelected(feeCommissionForm.get('loanFeeDetails'),feeTypeList[f])"
                                       (focusout)="checkValidation(i,j)">{{feeTypeList[f]}}</option>
                           </select></td>
                           <td><input class="cellInput" formControlName="feePercent" name="feePercent" id="feePercent"
