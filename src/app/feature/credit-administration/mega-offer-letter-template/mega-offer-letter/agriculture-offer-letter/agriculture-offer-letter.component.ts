@@ -302,7 +302,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       noOfEmi: [undefined],
       repaymentTermLoan: [undefined],
       repaymentEngDate: [undefined],
-      proposalData: this.formBuilder.array([this.buildProposalForm()]),
+      proposalData: this.formBuilder.array([]),
       loanAdminFee: [undefined],
       loanRenewFee: [undefined],
       loanAdminFeeNonFunded: [undefined],
@@ -345,7 +345,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       hpAmountInWord: [undefined],
       plantAmount: [undefined],
       plantAmountInWord: [undefined],
-      otherFee: this.formBuilder.array([this.buildAddMoreForm()]),
+      otherFee: this.formBuilder.array([]),
       checkLoanAdmin: true,
       checkLoanRenewal: true,
       checkLoanAdminFeeNonFunded: true,
@@ -364,9 +364,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       securityN: true,
       securityO: true,
       securityP: true,
-      securityR: this.formBuilder.array([this.buildAddMoreForm()]),
+      securityR: this.formBuilder.array([]),
       chkSplCovenant: true,
-      covenants: this.formBuilder.array([this.buildAddMoreForm()]),
+      covenants: this.formBuilder.array([]),
       selectReview: [undefined],
       checkCovenant: true,
       checkBranch: true
@@ -505,6 +505,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AGRICULTURE_OFFER_LETTER);
       } else {
         const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        console.log(initialInfo, 'initialInfo');
         this.form.patchValue(initialInfo, {emitEvent: false});
         this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
         this.selectedNatureOfLoanArray = initialInfo.natureOfLoanTypeSelectedArray;
