@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {LoanConfig} from '../../modal/loan-config';
@@ -34,10 +34,15 @@ import {Province} from '../../modal/province';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ApprovalRoleHierarchyService} from '../../../loan/approval/approval-role-hierarchy.service';
-import {SingleLoanTransferModelComponent} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
-import {CombinedLoanTransferModelComponent} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
-import {ChangeLoanComponent} from '../../../customer/component/change-loan/change-loan.component';
+import {
+    SingleLoanTransferModelComponent
+} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {
+    CombinedLoanTransferModelComponent
+} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
 import {Status} from '../../../../@core/Status';
+import {Editor} from '../../../../@core/utils/constants/editor';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-catalogue',
@@ -118,6 +123,9 @@ export class CatalogueComponent implements OnInit {
     loanList  = [];
     @ViewChild('changeLoan', {static: true}) changeLoan: any;
     loanConfig;
+    additionalRemarks;
+    selectedData: LoanDataHolder;
+    config = Editor.CK_CONFIG;
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -134,7 +142,8 @@ export class CatalogueComponent implements OnInit {
         private catalogueService: CatalogueService,
         private location: AddressService,
         private nbDialogService: NbDialogService,
-        private service: ApprovalRoleHierarchyService) {
+        private service: ApprovalRoleHierarchyService,
+        private spinnerService: NgxSpinnerService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -672,6 +681,30 @@ export class CatalogueComponent implements OnInit {
             this.modalService.open(this.changeLoan,{ backdrop: 'static', keyboard: false});
         }, error => {
             this.spinner = false;
+        });
+    }
+
+    openAdditionalComment(data, additionalComment) {
+        this.selectedData = data;
+        this.additionalRemarks = this.selectedData.currentStage.comment;
+        console.log(data);
+        this.modalService.open(additionalComment, {backdrop: true});
+    }
+
+    saveData() {
+        this.spinnerService.show();
+        this.selectedData.currentStage.comment = this.additionalRemarks;
+        this.loanFormService.save(this.selectedData).subscribe((res) => {
+            this.selectedData = null;
+            this.additionalRemarks = '';
+            this.modalService.dismissAll();
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Saved Data'));
+            CatalogueComponent.loadData(this);
+            this.spinnerService.hide();
+        }, err => {
+            this.modalService.dismissAll();
+            this.toastService.show(new Alert(AlertType.DANGER, 'Something went wrong'));
+            this.spinnerService.hide();
         });
     }
 }
