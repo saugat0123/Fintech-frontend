@@ -35,7 +35,9 @@
             <app-dsl-wholesale *ngSwitchCase="offerLetterTypeConst?.DSL_WHOLESALE"
                                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
             ></app-dsl-wholesale>
-
+            <app-agriculture-offer-letter *ngSwitchCase="offerLetterTypeConst?.AGRICULTURE_OFFER_LETTER"
+                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+            ></app-agriculture-offer-letter>
         </div>
         <nb-card-footer>
             <div>
