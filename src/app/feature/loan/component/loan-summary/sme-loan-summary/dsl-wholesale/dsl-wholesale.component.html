@@ -62,7 +62,7 @@
 
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Product exposure of the branch/bank:</strong></p>
-        <span class="font-weight-normal">Exposure of the branch and bank as on </span>
+        <span class="font-weight-normal">Exposure of the branch and bank as on {{((loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.dateCheckList) | date}} </span>
         <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-dark">
@@ -156,7 +156,11 @@
     </li>
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Documents to be executed/obtained: </strong></p>
-<!--        new component to be created-->
+        <ng-container>
+            <br>
+            <div class="col-md-12 table-responsive-md"  [innerHTML]="documentsObtained | safeHtml">
+            </div>
+        </ng-container>
     </li>
     <li class="font-weight-bold">
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE):</strong></p>

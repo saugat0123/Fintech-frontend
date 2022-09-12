@@ -29,6 +29,7 @@ import {UserActivityComponent} from './admin/component/user/user-activity/user-a
 import { CrgIndividualComponent } from './credit-risk-grading/component/crg-individual/crg-individual.component';
 import { CrgInstitutionComponent } from './credit-risk-grading/component/crg-institution/crg-institution.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {AboveFiftyComponent} from '../component/dashboard/pending/above-fifty/above-fifty.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {NepaliPatroModule} from 'nepali-patro';
             ContactDetailsComponent,
             UserActivityComponent,
             CrgIndividualComponent,
-            CrgInstitutionComponent
+            CrgInstitutionComponent,
+            AboveFiftyComponent
         ],
     exports: [
         MouseScrollDisableDirective,
@@ -77,7 +79,8 @@ import {NepaliPatroModule} from 'nepali-patro';
         GuarantorDetailComponent,
         ContactDetailsComponent,
         CrgIndividualComponent,
-        CrgInstitutionComponent
+        CrgInstitutionComponent,
+        AboveFiftyComponent
     ],
         providers: [SafePipe],
     entryComponents: [CreditRiskGradingGammaComponent]
