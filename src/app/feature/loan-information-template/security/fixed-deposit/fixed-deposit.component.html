@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label class="title">Amount<strong></strong></label>
                             <input class="form-control"
-                                   (change)="deposit.get('realizableValue').patchValue((deposit.get('considerValue').value / 100) * deposit.get('realizableRate').value)"
+                                   (change)="calRealizable(i, 'realizableValue')"
                                    [ngClass]="{'is-invalid': (submitted) && (deposit.get('fairMarketValue').errors)}"
                                    formControlName="fairMarketValue" placeholder="Amount" type="number">
                             <div *ngIf="(submitted) && (deposit.get('fairMarketValue').invalid)" class="invalid-feedback">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <!--<div class="col-md-4">
                         <div class="form-group">
                             <label class="title">Consider Value<strong></strong></label>
                             <input class="form-control" disabled
@@ -81,14 +81,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title">Realizable Rate<strong></strong></label>
                             <input class="form-control"
                                    [ngClass]="{'is-invalid': (submitted) && (deposit.get('considerValue').errors)}"
-                                   (change)="deposit.get('realizableValue').patchValue((deposit.get('considerValue').value / 100) * deposit.get('realizableRate').value)"
+                                   (change)="calRealizable(i, 'realizableValue')"
                                    formControlName="realizableRate" placeholder="Realizable Rate %" type="number">
                             <div *ngIf="(submitted) && (deposit.get('realizableRate').invalid)"
                                  class="invalid-feedback">

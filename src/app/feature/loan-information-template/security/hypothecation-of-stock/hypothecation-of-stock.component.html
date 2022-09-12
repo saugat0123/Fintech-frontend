@@ -20,6 +20,22 @@
        <ng-container>
            <div class="col-md-3">
                <div class="form-group">
+                   <label class="title">Book Value Date</label>
+                   <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                          formControlName="bookValueDate"
+                          id="bookValueDate"
+                          name="bookValueDate" placeholder="Book Value Date"
+                          [nbDatepicker]="bookValueDate"
+                          type="text"/>
+                   <app-calendar
+                           (messageToEmit)="hypothecationForm.get(['hypothecationOfStock',i,'bookValueDate']).patchValue($event?.eDate)"
+                           *ngIf="calendarType === 'BS'"
+                           [ePreDate]="hypothecationForm.get(['hypothecationOfStock',i,'bookValueDate']).value"></app-calendar>
+                   <nb-datepicker #bookValueDate></nb-datepicker>
+               </div>
+           </div>
+           <div class="col-md-3">
+               <div class="form-group">
                    <label class="title">Stock Book Value</label>
                    <input class="form-control rounded" formControlName="bookValue"
                           placeholder="Book Value"

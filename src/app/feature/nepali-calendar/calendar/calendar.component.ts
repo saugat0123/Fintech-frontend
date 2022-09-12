@@ -161,7 +161,9 @@ export class CalendarComponent implements OnInit {
 
   selectedCalendar(value) {
     const elements = document.getElementsByClassName('customNepaliDatePickerHeight')[0];
-    this.renderer.removeStyle(elements, 'height');
+    if (!ObjectUtil.isEmpty(elements)) {
+      this.renderer.removeStyle(elements, 'height');
+    }
     this.selectedDay = value;
     this.toggleShow = false;
     this.getEnglishDate();
@@ -247,9 +249,13 @@ export class CalendarComponent implements OnInit {
     const elements = document.getElementsByClassName('customNepaliDatePickerHeight')[0];
     if (!this.toggleShow) {
       this.toggleShow = true;
-      this.renderer.setStyle(elements, 'height', '70vh');
+      if (!ObjectUtil.isEmpty(elements)) {
+        this.renderer.setStyle(elements, 'height', '70vh');
+      }
     } else {
-      this.renderer.removeStyle(elements, 'height');
+      if (!ObjectUtil.isEmpty(elements)) {
+        this.renderer.removeStyle(elements, 'height');
+      }
       this.toggleShow = false;
     }
 
