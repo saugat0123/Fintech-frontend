@@ -46,4 +46,5 @@ export class CompanyInfo {
     accStrategy: string;
     customerCategory: any;
     companyContactDetails: string;
+    documentsObtained: string;
 }
