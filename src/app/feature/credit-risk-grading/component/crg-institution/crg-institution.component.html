@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card class="page-break">
     <div class="row">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
@@ -8,8 +8,8 @@
             </nb-radio-group>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row mt-5">
+        <div class="col-md-12 mt-5">
             <form [formGroup]="crgLongChecklistFormGroup">
                 <div class="form-group col-md-5" style="display: flex">
                     <label>Date of Checklist:&nbsp; </label>
@@ -26,12 +26,12 @@
                     <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
                 </div>
                 <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
+                    <tbody>
                     <tr>
                         <th>Grade</th>
                         <th *ngFor="let option of optionList">{{option}}</th>
                     </tr>
-                    </thead>
+                    </tbody>
                     <tbody>
                     <tr>
                         <th>INDUSTRY / MARKET</th>
