@@ -41,6 +41,11 @@ nb-card{
     display: inline;
 
   }
+
+  tr.disable-print {
+    display: table-row;
+
+  }
 }
 
 @media print {

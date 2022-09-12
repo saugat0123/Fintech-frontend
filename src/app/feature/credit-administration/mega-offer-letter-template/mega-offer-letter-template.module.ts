@@ -28,6 +28,7 @@ import {OfferLetterConsentComponent} from './mega-offer-letter/offer-letter-cons
 import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal-offer-letter-renewals/personal-offer-letter-renewals.component';
 import { LoanAgainstShareComponent } from './mega-offer-letter/loan-against-share/loan-against-share.component';
 import { DslWholesaleComponent } from './mega-offer-letter/dsl-wholesale/dsl-wholesale.component';
+import {AgricultureOfferLetterComponent} from './mega-offer-letter/agriculture-offer-letter/agriculture-offer-letter.component';
 
 
 const COMPONENTS = [
@@ -55,7 +56,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent,
-        OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent, LoanAgainstShareComponent, DslWholesaleComponent,
+        OfferLetterConsentComponent, PersonalOfferLetterRenewalsComponent, LoanAgainstShareComponent, DslWholesaleComponent, AgricultureOfferLetterComponent
         ],
     exports: [
         HayerPurchaseComponent,
@@ -72,7 +73,8 @@ const COMPONENTS = [
         CustomInputComponent,
         CustomInputComponent,
         LoanAgainstShareComponent,
-        DslWholesaleComponent
+        DslWholesaleComponent,
+        AgricultureOfferLetterComponent
     ],
     imports: [
         ThemeModule,

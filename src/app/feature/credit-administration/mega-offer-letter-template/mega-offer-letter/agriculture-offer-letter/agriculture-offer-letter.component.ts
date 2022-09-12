@@ -11,13 +11,11 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
 import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {Editor} from '../../../../../@core/utils/constants/editor';
 import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
@@ -63,8 +61,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       {key: 'OtherNatureOfLoans', nepValue: 'अन्य', engValue: 'Other'}
   ];
   loanTypesDropdown = [
-    {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
     {key: 'TermLoans', value: 'आवधिक कर्जा (Term Loans)'},
+    {key: 'Overdraft', value: 'अधिविकर्ष कर्जा (Overdraft Loans)'},
     {key: 'OtherNatureOfLoans', value: 'अन्य कर्जाहरु (Other Loans)'}
   ];
   interestLoanTypesDropdown = [
@@ -128,6 +126,37 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     this.listOfLoan.push(this.form.get('loanTypeSelectedArray').value);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      console.log(this.loanHolderInfo, 'this.loanHolderInfo');
+    }
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+      this.form.patchValue({
+        olRefNo: this.loanHolderInfo.miscellaneousDetail.offerReferenceNo ? this.loanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
+        olIssueDate: this.loanHolderInfo.miscellaneousDetail.offerIssueDate ? this.loanHolderInfo.miscellaneousDetail.offerIssueDate : '',
+        borrowerName: this.loanHolderInfo.nepaliName ? this.loanHolderInfo.nepaliName : '',
+        borrowerPerDis: this.loanHolderInfo.customerPermanentAddress.district ? this.loanHolderInfo.customerPermanentAddress.district : '',
+        borrowerPerMun: this.loanHolderInfo.customerPermanentAddress.municipality ? this.loanHolderInfo.customerPermanentAddress.municipality : '',
+        borrowerPerWard: this.loanHolderInfo.customerPermanentAddress.wardNo ? this.loanHolderInfo.customerPermanentAddress.wardNo : '',
+        borrowerTempDis: this.loanHolderInfo.customerTemporaryAddress.district ? this.loanHolderInfo.customerTemporaryAddress.district : '',
+        borrowerTempMun: this.loanHolderInfo.customerTemporaryAddress.municipality ? this.loanHolderInfo.customerTemporaryAddress.municipality : '',
+        borrowerTempWard: this.loanHolderInfo.customerTemporaryAddress.wardNo ? this.loanHolderInfo.customerTemporaryAddress.wardNo : '',
+        borrowerTempTole: this.loanHolderInfo.customerTemporaryAddress.tole ? this.loanHolderInfo.customerTemporaryAddress.tole : '',
+        borrowerMobileNo: this.loanHolderInfo.contactNo ? this.loanHolderInfo.contactNo : '',
+        drawdownPercent: this.loanHolderInfo.miscellaneousDetail.drawdownPer ? this.loanHolderInfo.miscellaneousDetail.drawdownPer : '',
+        // surakchyanName: this.loanHolderInfo.collateralDetails[0].nameInNepali ? this.loanHolderInfo.collateralDetails[0].nameInNepali : '',
+        // surakchyanDis: this.loanHolderInfo.collateralDetails[0].district ? this.loanHolderInfo.collateralDetails[0].district : '',
+        // surakchyanMun: this.loanHolderInfo.collateralDetails[0].municipality ? this.loanHolderInfo.collateralDetails[0].municipality : '',
+        // surakchyanWard: this.loanHolderInfo.collateralDetails[0].wardNo ? this.loanHolderInfo.collateralDetails[0].wardNo : '',
+        // surakchyanKittaNo: this.loanHolderInfo.collateralDetails[0].plotNo ? this.loanHolderInfo.collateralDetails[0].plotNo : '',
+        // surakchyanArea: this.loanHolderInfo.collateralDetails[0].area ? this.loanHolderInfo.collateralDetails[0].area : '',
+        // perGuarantorName: this.loanHolderInfo.guarantorDetails[0].name ? this.loanHolderInfo.guarantorDetails[0].name : '',
+        // guarantorName: this.loanHolderInfo.guarantorDetails[0].name ? this.loanHolderInfo.guarantorDetails[0].name : '',
+        branchName: this.loanHolderInfo.branchDetail.branchNameInNepali ? this.loanHolderInfo.branchDetail.branchNameInNepali : '',
+        branchDis: this.loanHolderInfo.branchDetail.branchDistrict ? this.loanHolderInfo.branchDetail.branchDistrict : '',
+        branchTelNo: this.loanHolderInfo.branchDetail.branchTelNo ? this.loanHolderInfo.branchDetail.branchTelNo : '',
+        branchFax: this.loanHolderInfo.branchDetail.branchFaxNo ? this.loanHolderInfo.branchDetail.branchFaxNo : '',
+      });
+      this.form.get(['proposalData', 0, 'sanctionedLmt']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInFig);
+      this.form.get(['proposalData', 0, 'sanctionedLmtInWord']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInWord);
     }
   }
 
@@ -221,6 +250,7 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       borrowerAddress: [undefined],
       borrowerDate: [undefined],
       borrowerName4: [undefined],
+      perGuarantorName: [undefined],
       guarantorName: [undefined],
       guarantorDis: [undefined],
       guarantorMun: [undefined],
@@ -264,6 +294,9 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       overdraftNepali: [undefined],
       overdraftEnglish: [undefined],
       loanTypeSelectedArray: [undefined],
+      natureOfLoanTypeSelectedArray: [undefined],
+      interestLoanTypeSelectedArray: [undefined],
+      reviewLoanTypeSelectedArray: [undefined],
       tenureTermLoan: [undefined],
       otherTenureLoan : [undefined],
       noOfEmi: [undefined],
@@ -425,6 +458,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         this.form.patchValue(initialInfo, {emitEvent: false});
         this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
         this.selectedNatureOfLoanArray = initialInfo.natureOfLoanTypeSelectedArray;
+        this.selectedInterestLoan = initialInfo.interestLoanTypeSelectedArray;
+        this.selectedReviewLoan = initialInfo.reviewLoanTypeSelectedArray;
         this.chooseLoanType(this.selectedLoanArray);
         this.chooseNatureOfLoanType(this.selectedNatureOfLoanArray);
         this.initialInfoPrint = initialInfo;
@@ -461,6 +496,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
             .toString()) {
           this.form.get('loanTypeSelectedArray').patchValue(this.selectedLoanArray);
           this.form.get('natureOfLoanTypeSelectedArray').patchValue(this.selectedNatureOfLoanArray);
+          this.form.get('interestLoanTypeSelectedArray').patchValue(this.selectedInterestLoan);
+          this.form.get('reviewLoanTypeSelectedArray').patchValue(this.selectedReviewLoan);
           offerLetterPath.initialInformation = JSON.stringify(this.form.value);
         }
       });
@@ -469,6 +506,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AGRICULTURE_OFFER_LETTER);
       this.form.get('loanTypeSelectedArray').patchValue(this.selectedLoanArray);
       this.form.get('natureOfLoanTypeSelectedArray').patchValue(this.selectedNatureOfLoanArray);
+      this.form.get('interestLoanTypeSelectedArray').patchValue(this.selectedInterestLoan);
+      this.form.get('reviewLoanTypeSelectedArray').patchValue(this.selectedReviewLoan);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
@@ -483,7 +522,6 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Agriculture Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
 
