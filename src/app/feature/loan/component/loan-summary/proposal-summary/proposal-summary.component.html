@@ -108,11 +108,16 @@
 
                     <td class="text-left">
                     <span *ngIf="loan?.loan?.isFundable">
-                        BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}}%,
-                        <br>
-                        PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}}%,
-                        <br>
-                        INT : {{(loan?.proposal?.data | jsonParse)?.interestRate}}%
+                        <ng-container *ngIf="(loan?.proposal?.checkedData | jsonParse)?.flatInterest; else otherInterest">
+                           INT : {{(loan?.proposal?.data | jsonParse)?.interestRate}}%
+                        </ng-container>
+                        <ng-template #otherInterest>
+                            BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}}%,
+                            <br>
+                            PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}}%,
+                            <br>
+                            INT : {{(loan?.proposal?.data | jsonParse)?.interestRate}}%
+                        </ng-template>
                     </span>
                         <span *ngIf="!loan?.loan?.isFundable">
                         <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
