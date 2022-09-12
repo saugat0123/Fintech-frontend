@@ -125,7 +125,7 @@
                 <div class="col-md-8">
                   <p class="custom-font">
                     <span>{{(customerInfo?.customerType === customerType.INDIVIDUAL
-                            || customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION')
+                            || customerInfo?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION')
                             ? 'INCOME & EXPENSES' : 'INCOME TO THE BANK'}}</span>
                   </p>
                 </div>
