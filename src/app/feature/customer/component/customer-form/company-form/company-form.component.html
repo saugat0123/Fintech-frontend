@@ -1318,9 +1318,9 @@
                     </div>
                 </ng-template>
                 <hr>
-                <div class="row" *ngIf="isDSL">
+                <div class="row" *ngIf="isWholeSale">
                     <div class="div col-md-12">
-                        <label for="documentsObtained"><strong>Documents Obtained</strong></label>
+                        <label for="documentsObtained"><strong>DOCUMENTS TO BE EXECUTED/ OBTAINED:</strong></label>
                         <ckeditor
                                 id="documentsObtained" formControlName="documentsObtained"
                                 name="documentsObtained" type="text" [config]="ckeConfig">

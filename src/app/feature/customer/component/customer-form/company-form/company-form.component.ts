@@ -144,7 +144,6 @@ export class CompanyFormComponent implements OnInit {
     isBelowTen = false;
     isWholeSale = false;
     accStrategyOption = ['New', 'Grow', 'Maintain', 'Exit'];
-    isDSL = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -1076,7 +1075,6 @@ export class CompanyFormComponent implements OnInit {
         this.isAboveTen = false;
         this.isBelowTen = false;
         this.isWholeSale = false;
-        this.isDSL = false;
         let value: any = null;
         if (editCustomer) {
             const newValue = targetValue.split(':').map(m => m.trim());
@@ -1097,8 +1095,6 @@ export class CompanyFormComponent implements OnInit {
             const formControlName = ['promoterBackground', 'lineOfBusiness', 'discriptionWithComment', 'majorBuyersSuppliers', 'group'];
             formControlName.forEach(f => this.companyInfoFormGroup.get(f).patchValue(null));
             this.isBelowTen = true;
-        } else if (value === 'DSL_WHOLE_SALE') {
-            this.isDSL = true;
         } else {
             this.isWholeSale = true;
         }
