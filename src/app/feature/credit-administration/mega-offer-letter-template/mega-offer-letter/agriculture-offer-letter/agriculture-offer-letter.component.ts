@@ -441,6 +441,56 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     control.push(this.buildProposalForm());
   }
 
+  setProposal(details) {
+    const proposal = this.form.get('proposalData') as FormArray;
+    details.forEach(data => {
+      proposal.push(
+          this.formBuilder.group({
+            facilityType: [data.facilityType],
+            natureOfLoan: [data.natureOfLoan],
+            isOtherLoan: [data.isOtherLoan],
+            otherNatureOfLoanInNep: [data.otherNatureOfLoanInNep],
+            otherNatureOfLoanInEng: [data.otherNatureOfLoanInEng],
+            sanctionedLmt: [data.sanctionedLmt],
+            sanctionedLmtInWord: [data.sanctionedLmtInWord],
+            purpose: [data.purpose],
+            drawdown: [data.drawdown],
+            drawdownPercent: [data.drawdownPercent],
+            selectLoanTypeTenure: [data.selectLoanTypeTenure],
+            selectLoanTypeRepay: [data.selectLoanTypeRepay],
+            selectLoanTypeInterest: [data.selectLoanTypeInterest],
+            tenureTermLoan: [data.tenureTermLoan],
+            otherTenureLoan: [data.otherTenureLoan],
+            noOfEmi: [data.noOfEmi],
+            repaymentTermLoan: [data.repaymentTermLoan],
+            repaymentEngDate: [data.repaymentEngDate],
+            firstInstallment: [data.firstInstallment],
+            emiAmount: [data.emiAmount],
+            emiAmountInWords: [data.emiAmountInWords],
+            nextReviewDate: [data.nextReviewDate],
+            otherRepaymentLoan: [data.otherRepaymentLoan],
+            premium: [data.premium],
+            subsidy: [data.subsidy],
+            interest: [data.interest],
+            interestOtherLoan: [data.interestOtherLoan],
+            subsidyPeriod: [data.subsidyPeriod],
+            checkInterestSubsidy: [data.checkInterestSubsidy]
+          })
+      );
+    });
+  }
+
+  setMore(details, formArrayName) {
+    const addMore = this.form.get(formArrayName) as FormArray;
+    details.forEach(data => {
+      addMore.push(
+          this.formBuilder.group({
+            addField: [data.addField],
+          })
+      );
+    });
+  }
+
   addMore(formArrayName) {
     const control = this.form.get(formArrayName) as FormArray;
     control.push(this.buildAddMoreForm());
@@ -462,6 +512,10 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         this.selectedReviewLoan = initialInfo.reviewLoanTypeSelectedArray;
         this.chooseLoanType(this.selectedLoanArray);
         this.chooseNatureOfLoanType(this.selectedNatureOfLoanArray);
+        this.setProposal(initialInfo.proposalData);
+        this.setMore(initialInfo.otherFee, 'otherFee');
+        this.setMore(initialInfo.securityR, 'securityR');
+        this.setMore(initialInfo.covenants, 'covenants');
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.form.patchValue(initialInfo, {emitEvent: false});
