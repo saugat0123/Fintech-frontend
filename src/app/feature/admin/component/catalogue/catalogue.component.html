@@ -250,6 +250,13 @@
                                     model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
                                 Re-initiate</button>
                         </div>
+                        <div *ngIf='((model?.documentStatus.toString() === "PENDING") && roleAccess === "ALL")'>
+                            <button  nbTooltip="Additional Remarks"
+                                     nbButton status="warning"
+                                     size="tiny"><i class="fa fa-plus"
+                                       (click)="openAdditionalComment(model, additionalComment)"></i></button>
+
+                        </div>
                         <div *ngIf="model.parentId">
                             <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
                                class="text-success cursor">{{loanType[model.loanType]}} From
@@ -258,6 +265,7 @@
                         <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                             <p>NA</p>
                         </div>
+
                     </td>
                 </ng-template>
             </tr>
@@ -417,5 +425,18 @@
         </form>
     </nb-card-body>
 </nb-card>
+    </ng-template>
+
+
+    <ng-template #additionalComment>
+        <nb-card>
+            <nb-card-header>Additional Comment</nb-card-header>
+            <nb-card-body>
+                <ckeditor  [(ngModel)]="additionalRemarks" name="additionalRemarks" [config]="config" ></ckeditor>
+            </nb-card-body>
+            <nb-card-footer>
+                <button class="float-right" nbButton (click)="saveData()">Save</button>
+            </nb-card-footer>
+        </nb-card>
     </ng-template>
 </nb-card>
