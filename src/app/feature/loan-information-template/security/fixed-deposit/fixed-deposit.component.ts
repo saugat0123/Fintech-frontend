@@ -36,7 +36,7 @@ export class FixedDepositComponent implements OnInit {
         this.formBuilder.group({
             receiptNumber: [formData.receiptNumber],
             amount: [formData.amount],
-            considerValue: [formData.considerValue],
+            // considerValue: [formData.considerValue],
             distressValue: [formData.distressValue],
             fairMarketValue: [formData.fairMarketValue],
             expiryDate: [formData.expiryDate ? new Date(formData.expiryDate) : ''],
@@ -72,7 +72,7 @@ export class FixedDepositComponent implements OnInit {
     return this.formBuilder.group({
       receiptNumber: [undefined],
       amount: [undefined, Validators.required],
-      considerValue: [undefined, Validators.required],
+      // considerValue: [undefined, Validators.required],
       distressValue: [undefined],
       fairMarketValue: [undefined],
       marketValue: [undefined],
@@ -89,4 +89,9 @@ export class FixedDepositComponent implements OnInit {
     });
   }
 
+    calRealizable(i: number, realizableValue) {
+      const value = (this.fixedDepositForm.get(['fixedDepositDetails', i, 'fairMarketValue']).value / 100) *
+          this.fixedDepositForm.get(['fixedDepositDetails', i, 'realizableRate']).value;
+      this.fixedDepositForm.get(['fixedDepositDetails', i, realizableValue]).patchValue(value);
+    }
 }
