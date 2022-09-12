@@ -60,7 +60,7 @@
         <!-- key financial figures -->
         <p><strong>KEY FINANCIAL FIGURES </strong></p>
         <table style="width: 100%" class="table-responsive-md sb-small table-sm table-bordered"
-               [innerHTML]="financialCCBL?.data?.financialFigure || 'NA' | safeHtml"></table>
+               [innerHTML]="financialCCBL?.data?.financialHighlight || 'NA' | safeHtml"></table>
     </li>
 
     <li>
@@ -126,12 +126,8 @@
     <li>
         <!-- covenants -->
         <p><strong>COVENANTS:</strong></p>
-        <span [innerHTML]="(loanDataHolder?.proposal?.data | jsonParse)?.specialCovenant || 'NA' | safeHtml"></span>
-        <!--        <app-upto-convenants></app-upto-convenants>-->
-    </li>
-    <li>
-        <p><strong>SPECIAL COVENANTS/CONDITIONS, IF ANY:</strong></p>
         <span [innerHTML]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.specialCovenant || 'NA'"></span>
+        <!--        <app-upto-convenants></app-upto-convenants>-->
     </li>
     <li>
         <!-- disbursement modality -->
@@ -182,12 +178,13 @@
     <li>
         <!-- conlusion review table -->
         <p><strong>CONCLUSION, REVIEW AND RECOMMENDATION:</strong></p>
+        <span class="font-weight-normal" *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_TWO_TO_TEN_MILLION'">
+            On the basis of the above-mentioned information and credit assessment, we recommend for approval of credit facilities of NPR
+            <b>{{totalProposed | currencyFormatter}}</b> million in total to M/s. <b>{{loanDataHolder?.loanHolder?.name}}</b> as detailed above in S. No. 6.
+        </span>
         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
         <!--        <app-conlusion-review-table></app-conlusion-review-table>-->
     </li>
-    <!--</ol>-->
-    <!--&lt;!&ndash;credit card requirement&ndash;&gt;-->
-    <!--<app-credit-card-requirement></app-credit-card-requirement>-->
 </ol>
 <ng-template #notAvailable>
     <span class="font-weight-normal">Not Available</span>

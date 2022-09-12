@@ -3,6 +3,7 @@ import {CompanyInfo} from '../../../../../admin/modal/company-info';
 import {LoanDataHolder} from '../../../../model/loanData';
 import {environment} from '../../../../../../../environments/environment';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {json} from 'd3';
 
 @Component({
   selector: 'app-dsl-wholesale',
@@ -27,6 +28,7 @@ export class DslWholesaleComponent implements OnInit {
   incomeFromAccountSummary = false;
   incomeFromAccountData: any;
   financialCCBL;
+  crgCcbl;
   client: string;
   isJointInfo = false;
   loanCategory;
@@ -36,6 +38,7 @@ export class DslWholesaleComponent implements OnInit {
   crgGammaSummary = false;
   crgGammaScore = 0;
   crgGammaGradeStatusBadge;
+  documentsObtained;
   constructor() {
     this.client = environment.client;
   }
@@ -49,6 +52,9 @@ export class DslWholesaleComponent implements OnInit {
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.financialCcbl)) {
         this.financialCCBL = JSON.parse(this.loanDataHolder.loanHolder.financialCcbl);
+      }
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder)) {
+        this.crgCcbl = JSON.parse(this.loanDataHolder.loanHolder.crgCcbl);
       }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) &&
           !ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) &&
@@ -86,6 +92,9 @@ export class DslWholesaleComponent implements OnInit {
           this.crgGammaGradeStatusBadge = 'badge badge-warning';
         }
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo) || !ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.documentsObtained) ) {
+      this.documentsObtained = JSON.parse(this.loanDataHolder.companyInfo.documentsObtained);
     }
   }
 

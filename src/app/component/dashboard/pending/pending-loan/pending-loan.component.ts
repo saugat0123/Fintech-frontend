@@ -23,6 +23,8 @@ export class PendingLoanComponent implements OnInit {
     initCount: number;
     postApprovalDocStat;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    aboveFiftyMio: number;
+    belowFiftyMio: number;
 
     constructor(
         private router: Router,

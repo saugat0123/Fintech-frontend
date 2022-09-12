@@ -3,11 +3,6 @@
     <form [formGroup]="kaloSuchiBorrowerPgPartnership" class="nep" id="kaloSuchiBorrowerPgPartnershipPrint">
 
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
             <h6 class="text-center">
                 <strong>सेञ्चुरी कमर्सि बैंक लि</strong>
             </h6>
@@ -18,14 +13,21 @@
             </h6>
             <br>
             <p>
-                नेपाल राष्ट्र बैंकद्धारा बाणिज्य बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशन
-                मलाई/हामीलाई पूर्ण जानकारी छ । सो निर्देशन बमोजजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई
-                धनी बैंकको नीति नियम तथा सो वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृति पत्र र/वा लिखतको शर्त मुताविक सो वापतको
+                नेपाल राष्ट्र बैंकद्धारा बाणिज्य बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालो सूचि
+                व्यवस्था सम्बन्धी निर्देशन
+                मलाई/हामीलाई पूर्ण जानकारी छ । सो निर्देशन बमोजजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु
+                तपाई
+                धनी बैंकको नीति नियम तथा सो वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृति पत्र र/वा लिखतको शर्त मुताविक सो
+                वापतको
                 सांवा, ब्याज, फि, कमिशन, दस्तुर आदि जे जस्तो बुझाउनु पर्छ सो नबुझाएमा वा बुझाउन नलगाएमा वा माथी उल्लेखित
-                नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड ४, ५ र १० को अवस्था
-                सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियम अनुसार कर्जा सूचना केन्द्र लि को कालो सूचिमा समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ ।
-                पछि त्यसरी कालो सूचिमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजुर—वाजुर गर्ने छैन, गरे यसै कागजले बदर गरी दिनु होला भनी
-                नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड १३ वमोजिम यो मन्जुरीनामाको कागज सही–छाप
+                नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड ४, ५ र १० को
+                अवस्था
+                सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियम अनुसार कर्जा सूचना केन्द्र लि को कालो सूचिमा समावेश गरिएमा
+                मेरो/हाम्रो मञ्जुरी छ ।
+                पछि त्यसरी कालो सूचिमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजुर—वाजुर गर्ने छैन, गरे यसै कागजले बदर
+                गरी दिनु होला भनी
+                नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालो सूचि व्यवस्था सम्बन्धी निर्देशनको खण्ड १३ वमोजिम यो
+                मन्जुरीनामाको कागज सही–छाप
                 गरी तपाई सेञ्चुरी कमर्सियल बैंक लि. लाई दिएको छु/छौं ।
             </p>
             <p style="text-align: center">
@@ -33,39 +35,30 @@
             </p>
             <p>
                 ऋणीको नाम :
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('borrowerName').value ? kaloSuchiBorrowerPgPartnership.get('borrowerName').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="borrowerName"
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('borrowerName').value ? kaloSuchiBorrowerPgPartnership.get('borrowerName').value : '========='}}</b></span>
                 <br>
-                ठेगाना : <input class="form-field form-control-sm nepaliFont disable-print" formControlName="districtPermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('districtPermanent').value ? kaloSuchiBorrowerPgPartnership.get('districtPermanent').value  : '========='}}</b></span>
+                ठेगाना : <input class="form-field form-control-sm nepaliFont disable-print"
+                                formControlName="institutionRegDistrict" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('institutionRegDistrict').value ? kaloSuchiBorrowerPgPartnership.get('institutionRegDistrict').value : '========='}}</b></span>
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="municipalityPermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('municipalityPermanent').value ? kaloSuchiBorrowerPgPartnership.get('municipalityPermanent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="institutionRegMunicipality" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('institutionRegMunicipality').value ? kaloSuchiBorrowerPgPartnership.get('institutionRegMunicipality').value : '========='}}</b></span>
                 गा.वि.स/न.पा वडा नं
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardNumPermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('wardNumPermanent').value ? kaloSuchiBorrowerPgPartnership.get('wardNumPermanent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="institutionRegWard"
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('institutionRegWard').value ? kaloSuchiBorrowerPgPartnership.get('institutionRegWard').value : '========='}}</b></span>
                 ,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="tolePermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('tolePermanent').value ? kaloSuchiBorrowerPgPartnership.get('tolePermanent').value  : '========='}}</b></span>
-                स्थाई ठेगाना भई हाल
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="provinceCurrent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('provinceCurrent').value ? kaloSuchiBorrowerPgPartnership.get('provinceCurrent').value  : '========='}}</b></span>
-                प्रदेश
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="districtCurrent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('districtCurrent').value ? kaloSuchiBorrowerPgPartnership.get('districtCurrent').value  : '========='}}</b></span>
-                जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="municipalityCurrent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('municipalityCurrent').value ? kaloSuchiBorrowerPgPartnership.get('municipalityCurrent').value  : '========='}}</b></span>
-                न.पा.वडा नं.
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="wardCurrent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('wardCurrent').value ? kaloSuchiBorrowerPgPartnership.get('wardCurrent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="institutionRegTole"
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('institutionRegTole').value ? kaloSuchiBorrowerPgPartnership.get('institutionRegTole').value : '========='}}</b></span>
                 <br>
                 कर्जा/सुविधा विवरण :
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanFacilityTypeNepali" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('loanFacilityTypeNepali').value ? kaloSuchiBorrowerPgPartnership.get('loanFacilityTypeNepali').value  : '========='}}</b></span>
-                /
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanFacilityTypeEnglish" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('loanFacilityTypeEnglish').value ? kaloSuchiBorrowerPgPartnership.get('loanFacilityTypeEnglish').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="loanFacilityTypeNepali" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('loanFacilityTypeNepali').value ? kaloSuchiBorrowerPgPartnership.get('loanFacilityTypeNepali').value : '========='}}</b></span>
                 <br>
                 <br>
             </p>
@@ -73,76 +66,99 @@
             <br>
             <p>
                 मञ्जुरी दिनेको नाम :
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorName" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorName').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorName"
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorName').value : '========='}}</b></span>
                 <br>
                 ऋणीसंगको सम्बन्ध :
             </p>
             <div style="margin-left: 38px;">
                 <p>
-                    बाबु :—   <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorFatherName" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorFatherName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorFatherName').value  : '========='}}</b></span>
+                    बाबु :— <input class="form-field form-control-sm nepaliFont disable-print"
+                                   formControlName="guarantorFatherName" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorFatherName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorFatherName').value : '========='}}</b></span>
                     <br>
-                    ससुरा :—  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorFatherInLawName" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorFatherInLawName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorFatherInLawName').value  : '========='}}</b></span>
+                    ससुरा :— <input class="form-field form-control-sm nepaliFont disable-print"
+                                    formControlName="guarantorFatherInLawName" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorFatherInLawName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorFatherInLawName').value : '========='}}</b></span>
                     <br>
-                    पति :—  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorHusbandName" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorHusbandName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorHusbandName').value  : '========='}}</b></span>
+                    पति :— <input class="form-field form-control-sm nepaliFont disable-print"
+                                  formControlName="guarantorHusbandName" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorHusbandName').value ? kaloSuchiBorrowerPgPartnership.get('guarantorHusbandName').value : '========='}}</b></span>
                     <br>
-                    ना.प्र.नं   <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorCitizenshipNum" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCitizenshipNum').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCitizenshipNum').value  : '========='}}</b></span>
-
-                    जारी मिति    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="gurantorCitizenshipIssuedDate" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuedDate').value ? kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuedDate').value  : '========='}}</b></span>
-
-                    जारी गर्ने कार्यालय  जि.प्र.का  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="gurantorCitizenshipIssuingOffice" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuingOffice').value ? kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuingOffice').value  : '========='}}</b></span>
                 </p>
-                <br>
                 ठेगाना :-
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorDistrictPermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorDistrictPermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorDistrictPermanent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorDistrictPermanent" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorDistrictPermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorDistrictPermanent').value : '========='}}</b></span>
 
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorMunicipalityPermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorMunicipalityPermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorMunicipalityPermanent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorMunicipalityPermanent" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorMunicipalityPermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorMunicipalityPermanent').value : '========='}}</b></span>
 
                 गा.वि.स/न.पा वडा नं.
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorWardPermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorWardPermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorWardPermanent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorWardPermanent" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorWardPermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorWardPermanent').value : '========='}}</b></span>
                 ,
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorTolePermanent" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorTolePermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorTolePermanent').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorTolePermanent" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorTolePermanent').value ? kaloSuchiBorrowerPgPartnership.get('guarantorTolePermanent').value : '========='}}</b></span>
 
                 स्थाई ठेगाना भई हाल
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorCurProvince" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurProvince').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurProvince').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorCurProvince" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurProvince').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurProvince').value : '========='}}</b></span>
 
                 प्रदेश
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorCurDistrict" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurDistrict').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurDistrict').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorCurDistrict" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurDistrict').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurDistrict').value : '========='}}</b></span>
 
                 जिल्ला
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorCurMunicipality" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurMunicipality').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurMunicipality').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print"
+                       formControlName="guarantorCurMunicipality" type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurMunicipality').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurMunicipality').value : '========='}}</b></span>
 
                 न.पा.वडा नं.
-                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorCurWard" type="text"/>
-                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurWard').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurWard').value  : '========='}}</b></span>
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="guarantorCurWard"
+                       type="text"/>
+                <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCurWard').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCurWard').value : '========='}}</b></span>
+                <p>
+                    ना.प्र.नं <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="guarantorCitizenshipNum" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('guarantorCitizenshipNum').value ? kaloSuchiBorrowerPgPartnership.get('guarantorCitizenshipNum').value : '========='}}</b></span>
+
+                    जारी मिति <input class="form-field form-control-sm nepaliFont disable-print"
+                                     formControlName="gurantorCitizenshipIssuedDate" type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuedDate').value ? kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuedDate').value : '========='}}</b></span>
+
+                    जारी गर्ने कार्यालय जि.प्र.का <input class="form-field form-control-sm nepaliFont disable-print"
+                                                         formControlName="gurantorCitizenshipIssuingOffice"
+                                                         type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuingOffice').value ? kaloSuchiBorrowerPgPartnership.get('gurantorCitizenshipIssuingOffice').value : '========='}}</b></span>
+                </p>
             </div>
             <div class="row" style="padding-top: 50px">
 
                 <div class="col-md-5">मिति :
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('date').value ? kaloSuchiBorrowerPgPartnership.get('date').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date"
+                           type="text"/>
+                    <span class="print-only nepaliFont"><b>{{kaloSuchiBorrowerPgPartnership.get('date').value ? kaloSuchiBorrowerPgPartnership.get('date').value : '========='}}</b></span>
 
                 </div>
-                <div class="col-md-6">दस्तखत  ......................................</div>
+                <div class="col-md-6">दस्तखत ......................................</div>
             </div>
             <div class="row disable-print">
                 <div class="col-md-12 text-right">
-                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="kaloSuchiBorrowerPgPartnershipPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
-                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="kaloSuchiBorrowerPgPartnershipPrint" class="mr-2 custom-color" >Print</button>
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                            printSectionId="kaloSuchiBorrowerPgPartnershipPrint" (click)="submit()" class="mr-2"
+                            status="basic">Save & Print
+                    </button>
+                    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                            printSectionId="kaloSuchiBorrowerPgPartnershipPrint" class="mr-2 custom-color">Print
+                    </button>
                     <button nbButton status="success" (click)="submit()">Save</button>
 
                 </div>

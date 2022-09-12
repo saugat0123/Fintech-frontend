@@ -50,6 +50,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
 import {CustomerCategory} from '../../../model/customerCategory';
 import {ContactDetailsComponent} from '../../../../contact-details/contact-details.component';
+import {DocumentsObtainedTable} from '../../../../loan/model/documentsObtainedTable';
 
 @Component({
     selector: 'app-company-form',
@@ -101,6 +102,7 @@ export class CompanyFormComponent implements OnInit {
     designationList: DesignationList = new DesignationList();
     businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
     designation;
+    designationForDSL;
     subSector = [];
     clientType: any;
     loanTypeList = [{
@@ -214,6 +216,7 @@ export class CompanyFormComponent implements OnInit {
             this.addAccountNumber();
         }
         this.designation = this.designationList.designation;
+        this.designationForDSL = this.designationList.designation.filter(val => val.id === 'Promoter' || val.id === 'BOD' || val.id === 'Management Team' || val.id === 'Other');
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -227,8 +230,8 @@ export class CompanyFormComponent implements OnInit {
                         }
                     }
                 });
-            }
-        );
+            });
+        console.log('customerCategory', this.customerCategory);
     }
 
     buildForm() {
@@ -510,10 +513,18 @@ export class CompanyFormComponent implements OnInit {
             promoterNetWorth: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
                 this.companyJsonData.promoterNetWorth],
+            vision: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.vision)) ? undefined :
+                this.companyJsonData.vision],
+            promoterStructure: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.promoterStructure)) ? undefined :
+                this.companyJsonData.promoterStructure],
             customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
                 this.companyInfo.customerCategory, [Validators.required]],
             accStrategy: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
-                this.companyInfo.accStrategy, [Validators.required]]
+                this.companyInfo.accStrategy, [Validators.required]],
+            documentsObtained: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.documentsObtained)) ?
+                DocumentsObtainedTable.key_Figure() : JSON.parse(this.companyInfo.documentsObtained)],
         });
     }
 
@@ -858,12 +869,15 @@ export class CompanyFormComponent implements OnInit {
         submitData.sameAddress = this.sameAddress;
         submitData.business = this.companyInfoFormGroup.get('business').value;
         submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
+        submitData.vision = this.companyInfoFormGroup.get('vision').value;
+        submitData.promoterStructure = this.companyInfoFormGroup.get('promoterStructure').value;
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
@@ -1052,8 +1066,9 @@ export class CompanyFormComponent implements OnInit {
     }
 
     getCustomerCategory() {
-        this.customerCategory = this.customerCate.filter(f =>
-            f.value !== CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL);
+        // this.customerCategory = this.customerCate.filter(f =>
+        //     f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
+        this.customerCategory = this.customerCate;
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {
@@ -1071,6 +1086,8 @@ export class CompanyFormComponent implements OnInit {
             this.isAboveTen = true;
             this.companyInfoFormGroup.get('business').patchValue(null);
             this.companyInfoFormGroup.get('promoterNetWorth').patchValue(null);
+            this.companyInfoFormGroup.get('vision').patchValue(null);
+            this.companyInfoFormGroup.get('promoterStructure').patchValue(null);
             this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         } else if (value === 'SME_UPTO_TEN_MILLION' ||
             value === 'AGRICULTURE_UPTO_TWO_MILLION' ||

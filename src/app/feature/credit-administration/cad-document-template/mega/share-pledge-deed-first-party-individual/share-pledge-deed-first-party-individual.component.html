@@ -15,13 +15,6 @@
                                 class="print-only nepaliFont"><strong>{{form.get('branch')?.value ? form.get('branch')?.value : '========='}}</strong></span>
                             शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यसपछि धनी बैंक भनिएको
                             छ), ऋण/कर्जा तथा अन्य बैंकिङ सूविधाहरु लिई/उपयोग गरि सोको तमसूक गरिदिनेको
-                            <input class="form-field form-control-sm nepaliFont disable-print"
-                                   formControlName="branch"
-                                   placeholder=""
-                                   type="text"/><span
-                                class="print-only nepaliFont"><strong>{{form.get('branch')?.value ? form.get('branch')?.value : '========='}}</strong></span>
-                            शाखा कार्यालय रहेको सेञ्चुरी कमर्सियल बैंक लिमिटेड (जसलाई यसपछि <strong>धनी बैंक </strong>भनिएको
-                            छ), ऋण/कर्जा तथा अन्य बैंकिङ सूविधाहरु लिई/उपयोग गरि सोको तमसूक गरिदिनेको
                             <strong>नाम श्री
                                 <input class="form-field form-control-sm nepaliFont disable-print"
                                        formControlName="grandFatherName"
@@ -243,21 +236,21 @@
                         </p>
                         <p>बैकलाई मान्य हुने शेयरहरु धितो सुरक्षणको रुपमा <input
                                 class="form-field form-control-sm nepaliFont disable-print"
-                                formControlName="facOwnerName"
+                                formControlName="shareholderName"
                                 placeholder=""
                                 type="text"/><span
-                                class="print-only nepaliFont"><strong>{{form.get('facOwnerName')?.value ? form.get('facOwnerName')?.value : '========='}}</strong></span>
+                                class="print-only nepaliFont"><strong>{{form.get('shareholderName')?.value ? form.get('shareholderName')?.value : '========='}}</strong></span>
                             को नाममा रहेको शेयर उपलब्ध गराए अनुसार स्वीकृत कर्जा सिमा भित्र रहने गरी कर्जा सुबिधा
                             उपभोग
                             गर्न पाउने छन् ।</p>
                         <p class="text-center"><strong><u>धितो सुरक्षण</u></strong></p>
                         <table class="table table-responsive-md table-bordered">
                             <thead>
-                            <tr>
+                            <tr style="page-break-inside: auto">
                                 <th>क्र.सं</th>
                                 <th>शेयरधनीको नाम र शेयर धनी नं. प्र. प्र. नं.</th>
                                 <th>डि.पि आईडि/क्लाईन्ट आईडि</th>
-                                <th class="col-md-3">शेयर कित्ता</th>
+                                <th>शेयर कित्ता</th>
                                 <th>शेयर जारि गर्ने संस्था</th>
                                 <th>कैफियत</th>
                             </tr>
