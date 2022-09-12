@@ -10,10 +10,12 @@
     </li>
     <li>
         <p><strong>PURPOSE OF CREDIT FACILITIES:</strong></p>
-        <ol><app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
+        <ol>
+            <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
                                                 [isDetailedView]="isDetailedView"
                                                 [isExecutive]="isExecutive"
-                                                [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary></ol>
+                                                [proposalData]="loanDataHolder?.proposal"></app-proposal-justification-summary>
+        </ol>
     </li>
     <li>
         <!-- details of the customer -->
@@ -36,7 +38,8 @@
             <strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong>
         </p>
         <div class="p-2 background-info col-md-12">
-            <span [innerHTML]="(loanDataHolder?.companyInfo?.companyJsonData | jsonParse)?.promoterNetWorth | safeHtml"></span></div>
+            <span [innerHTML]="(loanDataHolder?.companyInfo?.companyJsonData | jsonParse)?.promoterNetWorth | safeHtml"></span>
+        </div>
     </li>
     <li>
         <!-- current status and present proposal -->
@@ -165,6 +168,9 @@
     <li>
         <!-- conlusion review table -->
         <p><strong>CONCLUSION, REVIEW AND RECOMMENDATION:</strong></p>
+        <p>BM’s Declaration: I hereby confirm that the credit proposal is prepared under the CCBL Credit Policy
+            Guidelines, CCBL Interest Subsidy under Subsidized Loan and comply with NRB Directives/Circulars unless
+            otherwise mentioned specifically.</p>
         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
         <!--        <app-conlusion-review-table></app-conlusion-review-table>-->
     </li>
