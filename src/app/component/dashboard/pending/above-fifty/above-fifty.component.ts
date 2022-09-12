@@ -41,8 +41,8 @@ export class AboveFiftyComponent implements OnInit {
         const url = other.router.url.split('/');
         other.loanFormService.getAbove(other.page, url[url.length - 1]).subscribe(
             (response: any) => {
-                other.loanHolderLoanList = response.detail.content;
-                other.loanHolderLoanListTemp = response.detail.content;
+                other.loanHolderLoanList = response.detail;
+                other.loanHolderLoanListTemp = response.detail;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.loanHolderLoanList.forEach((l) => other.loanForCombine.push(
                     {customerInfoId: l.customerInfo.id, loan: other.getLoansData(l.combineLoanList)}));
