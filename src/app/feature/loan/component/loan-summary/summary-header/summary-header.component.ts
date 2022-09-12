@@ -32,6 +32,7 @@ export class SummaryHeaderComponent implements OnInit {
     this.checkCustomerCategoryForDetailView();
     console.log('loanDataHolder', this.loanDataHolder);
 
+
   }
 
   checkCustomerCategoryForDetailView() {
