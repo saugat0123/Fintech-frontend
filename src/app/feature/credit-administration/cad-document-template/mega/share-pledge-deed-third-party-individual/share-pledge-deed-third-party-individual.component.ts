@@ -1,24 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
-import {NbDialogRef} from '@nebular/theme';
-import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
-import {Document} from '../../../../admin/modal/document';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {NbDialogRef} from '@nebular/theme';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Document} from '../../../../admin/modal/document';
 
 @Component({
-    selector: 'app-share-pledge-deed-first-party-individual',
-    templateUrl: './share-pledge-deed-first-party-individual.component.html',
-    styleUrls: ['./share-pledge-deed-first-party-individual.component.scss']
+    selector: 'app-share-pledge-deed-third-party-individual',
+    templateUrl: './share-pledge-deed-third-party-individual.component.html',
+    styleUrls: ['./share-pledge-deed-third-party-individual.component.scss']
 })
-export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
-
+export class SharePledgeDeedThirdPartyIndividualComponent implements OnInit {
     form: FormGroup;
     cadFile: CadFile;
     nepData;
@@ -43,7 +41,6 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
                 }
             });
         }
-
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
         }
@@ -59,7 +56,22 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             loanData: this.formBuilder.array([]),
+            personData: this.formBuilder.array([]),
+            tableShow: true,
             branch: [undefined],
+            grandFatherName1: [undefined],
+            fatherName1: [undefined],
+            husbandName1: [undefined],
+            permanentDistrict1: [undefined],
+            permanentMunicipalityVDC1: [undefined],
+            permanentWardNo1: [undefined],
+            permanentTole1: [undefined],
+            temporaryProvince1: [undefined],
+            temporaryDistrict1: [undefined],
+            temporaryMunicipalityVDC1: [undefined],
+            temporaryWardNo1: [undefined],
+            age1: [undefined],
+            individualName1: [undefined],
             grandFatherName: [undefined],
             fatherName: [undefined],
             husbandName: [undefined],
@@ -73,12 +85,13 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
             temporaryWardNo: [undefined],
             age: [undefined],
             individualName: [undefined],
+            freeText: [undefined],
             offerLetterIssuedDate: [undefined],
             amount: [undefined],
             amountInWords: [undefined],
             amount2: [undefined],
             amountInWords2: [undefined],
-            shareholderName: [undefined],
+            facOwnerName: [undefined],
             witnessName: [undefined],
             witnessName2: [undefined],
             year: [undefined],
@@ -90,7 +103,8 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
             clientId: [undefined],
             shareKitta: [undefined],
             shareIssuingCompany: [undefined],
-            kaifiyat: [undefined]
+            kaifiyat: [undefined],
+
         });
     }
 
@@ -98,6 +112,19 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
         this.form.patchValue({
             branch: !ObjectUtil.isEmpty(this.nepData.branchDetail) ?
                 this.nepData.branchDetail.branchName : '',
+            grandFatherName1: undefined,
+            fatherName1: undefined,
+            husbandName1: undefined,
+            permanentDistrict1: undefined,
+            permanentMunicipalityVDC1: undefined,
+            permanentWardNo1: undefined,
+            permanentTole1: undefined,
+            temporaryProvince1: undefined,
+            temporaryDistrict1: undefined,
+            temporaryMunicipalityVDC1: undefined,
+            temporaryWardNo1: undefined,
+            age1: undefined,
+            individualName1: undefined,
             grandFatherName: !ObjectUtil.isEmpty(this.nepData.grandFatherName) ? this.nepData.grandFatherName : '',
             fatherName: !ObjectUtil.isEmpty(this.nepData.fatherName) ? this.nepData.fatherName : '',
             husbandName: !ObjectUtil.isEmpty(this.nepData.husbandName) ? this.nepData.husbandName : '',
@@ -118,6 +145,7 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
                 this.nepData.customerTemporaryAddress.wardNo : '',
             age: undefined,
             individualName: !ObjectUtil.isEmpty(this.nepData.nepaliName) ? this.nepData.nepaliName : '',
+            freeText: undefined,
             offerLetterIssuedDate: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
                 this.nepData.miscellaneousDetail.offerIssueDate : '',
             amount: !ObjectUtil.isEmpty(this.nepData.miscellaneousDetail) ?
@@ -204,7 +232,7 @@ export class SharePledgeDeedFirstPartyIndividualComponent implements OnInit {
         );
     }
 
-    setTableData(data?: any) {
+    setTableData(data) {
         const formArray = this.form.get('loanData') as FormArray;
         if (data.length === 0) {
             this.addTableData();

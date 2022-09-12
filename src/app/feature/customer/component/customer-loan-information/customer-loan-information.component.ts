@@ -765,6 +765,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             totalRequiredFac: [undefined],
             excess: [undefined],
             commentOfFac: [undefined],
+            branch1: [undefined],
+            branch2: [undefined],
+            branch3: [undefined],
+            branch4: [undefined],
+            branch5: [undefined],
+            branch6: [undefined],
+            dateCheckList: undefined,
         });
         if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
             const commonData = JSON.parse(this.customerInfo.commonLoanData);

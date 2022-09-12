@@ -1375,6 +1375,83 @@
                         formControlName="waiverConclusionRecommendation"></ckeditor>
             </div>
           </div>
+
+          <div class="col-md-12 form-group">
+            <b>PRODUCTS EXPOSURE OF THE BRANCH/BANK: </b>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType" [ngModelOptions]="{standalone: true}">
+                  <nb-radio value="AD">AD</nb-radio>
+                  <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+            <div class="form-group col-md-5" style="display: flex">
+              <label>Date of Checklist:&nbsp; </label>
+              <ng-container>
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
+                       class="form-control "
+                       formControlName="dateCheckList" placeholder="Date of checklist">
+                <app-calendar
+                        (messageToEmit)="commonLoanData.get('dateCheckList').patchValue($event?.eDate)"
+                        *ngIf="calendarType === 'BS'"
+                        [ePreDate]="commonLoanData.get('dateCheckList').value"></app-calendar>
+                <nb-datepicker #dateOfChecklist></nb-datepicker>
+              </ng-container>
+            </div>
+            <div>
+              <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+                <thead>
+                  <tr class="sb-bg-dark">
+                    <th rowspan="2">
+                      Product
+                    </th>
+                    <th colspan="2">
+                      Total loans (DSL wholesale)
+                    </th>
+                    <th colspan="2">
+                      Total (DS) loan
+                    </th>
+                    <th colspan="2">
+                      Gross NPA (DSL)
+                    </th>
+                  </tr>
+                  <tr class="sb-bg-dark">
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-weight-bold">DSL wholesale</td>
+                    <td><input class="form-control"
+                               formControlName="branch1"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch2"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch3"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch4"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch5"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch6"
+                               type="text"/></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </form>
       <div>
