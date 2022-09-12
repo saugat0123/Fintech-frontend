@@ -70,16 +70,17 @@
                     <div class="col-md-12 row" *ngIf="showHideSolUser">
                         <div class="col-md-6">
                             <label class="toRole" for="toRole">Approving Authority</label>
+<!--                            {{customerLoanHolder?.solUser?.role.id}}-->
                             <select style="width: 100%"
-                                    (change)="getSOlUSerList(formAction?.get('selectedRoleForSol')?.value)"
+                                    (ngModelChange)="getSOlUSerList(formAction?.get('selectedRoleForSol')?.value)"
                                     class="form-control form-control-sm"
                                     formControlName="selectedRoleForSol"
                                     name="toRole">
                                 <option [value]="null" hidden>Select Role</option>
                                 <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                        [ngValue]="forwardBackward?.role"
-                                        [selected]="forwardBackward?.role?.id === customerLoanHolder?.solUser?.role.id">
-                                    {{forwardBackward.role?.roleName}}
+                                        [value]="forwardBackward?.role"
+                                        [selected]="forwardBackward.role?.id === customerLoanHolder?.solUser?.role.id">
+                                    {{forwardBackward?.role?.roleName}}
                                 </option>
                             </select>
                             <div *ngIf="isNoUserSol" class="sb-small text-danger">{{solNoUserMessage}}</div>
