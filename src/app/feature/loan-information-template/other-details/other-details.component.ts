@@ -5,6 +5,7 @@ import {LoanType} from '../../loan/model/loanType';
 import value = LoanType.value;
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
     selector: 'app-other-details',
@@ -13,6 +14,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 })
 export class OtherDetailsComponent implements OnInit {
     @Input() otherData;
+    @Input() customerInfo: CustomerInfoData;
     @Input() fromProfile: boolean;
     @Output() otherDataEmitter = new EventEmitter();
     otherForm: FormGroup;
@@ -23,12 +25,21 @@ export class OtherDetailsComponent implements OnInit {
         { key : 'N/A', value : 'N/A'}];
     submitData;
     submitted = false;
-
+    dapDaaOutstandingTable = `<table border="1" cellspacing="0" style="border-collapse:collapse; width:100%"><tbody><tr><td style="border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; height:17px; text-align:center; vertical-align:middle; white-space:normal; width:59px"><span style="font-size:14px"><span style="font-family:Cambria"><strong>S.no.</strong></span></span></td><td style="border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:1px solid black; vertical-align:bottom; white-space:normal; width:485px"><span style="font-size:14px"><span style="font-family:Cambria"><strong>Particulars of DAP/DAA</strong></span></span></td><td style="border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:1px solid black; vertical-align:middle; white-space:normal; width:243px"><span style="font-size:14px"><span style="font-family:Cambria"><strong>Outstanding amount</strong></span></span></td></tr><tr><td style="border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; height:17px; text-align:center; vertical-align:middle; white-space:normal; width:59px"><span style="font-size:14px"><span style="font-family:Cambria"><strong> </strong></span></span></td><td style="border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; vertical-align:bottom; white-space:normal; width:485px"><span style="font-size:14px"><span style="font-family:Cambria"> </span></span></td><td style="border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; vertical-align:middle; white-space:normal; width:243px"><span style="font-size:14px"><span style="font-family:Cambria"> </span></span></td></tr><tr><td style="border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; height:17px; text-align:center; vertical-align:middle; white-space:normal; width:59px"><span style="font-size:14px"><span style="font-family:Cambria"><strong> </strong></span></span></td><td style="border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; vertical-align:bottom; white-space:normal; width:485px"><span style="font-size:14px"><span style="font-family:Cambria"> </span></span></td><td style="border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; vertical-align:middle; white-space:normal; width:243px"><span style="font-size:14px"><span style="font-family:Cambria"> </span></span></td></tr></tbody></table>`;
+    thisClient;
+    isCorporate = false;
     constructor(private formBuilder: FormBuilder,
                 private overlay: NgxSpinnerService) {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.customerInfo) && !ObjectUtil.isEmpty(this.customerInfo.clientType)) {
+            this.thisClient = this.customerInfo.clientType;
+            if ((this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
+                this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') && this.customerInfo.customerType === 'INSTITUTION') {
+                this.isCorporate = true;
+            }
+        }
         if (!ObjectUtil.isEmpty(this.otherData)) {
             const data = JSON.parse(this.otherData);
             this.buildForm(data);
@@ -53,7 +64,9 @@ export class OtherDetailsComponent implements OnInit {
             shortTermRating: [data ? data.shortTermRating : undefined],
             moaAoa: [data ? data.moaAoa : undefined],
             securityInspection: this.formBuilder.array([]),
-            meetingDetails: this.formBuilder.array([])
+            meetingDetails: this.formBuilder.array([]),
+            dapDaaOutstanding: [data ? (data.dapDaaOutstanding ? data.dapDaaOutstanding : this.dapDaaOutstandingTable)
+                : this.dapDaaOutstandingTable],
         });
     }
 
