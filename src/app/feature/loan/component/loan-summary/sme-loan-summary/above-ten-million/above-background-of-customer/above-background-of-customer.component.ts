@@ -18,6 +18,7 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
   currentAddress: any;
   contactedPerson: any;
   contactDetails: CompanyContactDetail;
+  shareCapitalDetails;
 
   constructor() { }
 
@@ -28,6 +29,7 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
       this.currentAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
       this.contactedPerson = JSON.parse(this.companyInfo.contactPersons);
       this.contactDetails = JSON.parse(this.companyInfo.companyContactDetails);
+      this.shareCapitalDetails = JSON.parse(this.companyInfo.shareCapital);
     }
   }
 
