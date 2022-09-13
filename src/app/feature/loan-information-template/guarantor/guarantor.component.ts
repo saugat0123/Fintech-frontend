@@ -217,7 +217,7 @@ export class GuarantorComponent implements OnInit {
       ],
 
       permanentAddressLineOne: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLineOne)],
-      permanentAddressLineTwo: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLineTwo)],
+      // permanentAddressLineTwo: [ObjectUtil.setUndefinedIfNull(data.permanentAddressLineTwo)],
       temporaryAddressLineOne: [ObjectUtil.setUndefinedIfNull(data.temporaryAddressLineOne)],
       temporaryAddressLineTwo: [ObjectUtil.setUndefinedIfNull(data.temporaryAddressLineTwo)],
 
@@ -354,7 +354,6 @@ export class GuarantorComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.form.invalid) {
-      console.log('invalid', this.form);
       return;
     }
     if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {
@@ -457,8 +456,8 @@ export class GuarantorComponent implements OnInit {
             // this.form.get(['guarantorDetails', i, 'successionPlanning']).patchValue(this.form.get(['guarantorDetails', i, 'successionPlanning']).value);
             this.form.get(['guarantorDetails', i, 'temporaryAddressLineOne'])
                 .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineOne']).value);
-            this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
-                .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineTwo']).value);
+           /* this.form.get(['guarantorDetails', i, 'temporaryAddressLineTwo'])
+                .patchValue(this.form.get(['guarantorDetails', i, 'permanentAddressLineTwo']).value);*/
             this.checkSameAddress = event;
         } else {
             this.resetValue(i);
