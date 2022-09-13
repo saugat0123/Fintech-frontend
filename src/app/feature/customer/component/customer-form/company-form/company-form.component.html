@@ -733,7 +733,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6" *ngIf="!isWholeSale">
                                 <div class="form-group">
                                     <label><strong>Address Line 2</strong></label>
                                     <input class="form-control"
@@ -745,7 +745,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="!isWholeSale">
                                 <div class="form-group">
                                     <label for="province"><strong>Province</strong></label>
                                     <ng-select formControlName="province"
@@ -764,7 +764,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="!isWholeSale">
                                 <div class="form-group">
                                     <label for="district"><strong>District</strong></label>
                                     <ng-select formControlName="district"
@@ -784,7 +784,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="!isWholeSale">
                                 <div class="form-group">
                                     <label for="municipalityVdc"><strong>Municipalities or VDC</strong></label>
                                     <ng-select formControlName="municipalityVdc" bindLabel="name"
@@ -835,7 +835,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-4 form-group" *ngIf="!isWholeSale">
                                 <label><strong>Issued date</strong></label>
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedDate"
                                        [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedDate').errors}"
@@ -856,7 +856,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="!isWholeSale">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="issuedPlace"><strong>Issue Place</strong></label>
@@ -908,7 +908,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="!isWholeSale">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="grandFatherName"><strong>Grandfather's Name</strong></label>
@@ -971,6 +971,75 @@
                 <!--                           </div>-->
                 <!--                       </div>-->
                 <!-- END ROW -->
+                <br>
+                <div class="col-md-12" *ngIf="isWholeSale">
+                    <h5 class="my-2">Promoters Structure</h5>
+                    <table class="table table-condensed table-bordered table-responsive-md">
+                        <thead>
+                        <tr>
+                            <td rowspan="2" style="vertical-align: middle; text-align: center">
+                                <strong>Particulars</strong></td>
+                            <td colspan="2" style="text-align: center"><strong>Current year</strong></td>
+                            <td colspan="2" style="text-align: center"><strong>Previous year</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Share Capital</strong></td>
+                            <td><strong>%</strong></td>
+                            <td><strong>Share Capital</strong></td>
+                            <td><strong>%</strong></td>
+                            <td *ngIf="companyInfoFormGroup.get('shareCapital')['controls'].length > 1">Action</td>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let shareCapital of companyInfoFormGroup.get('shareCapital')['controls']; let shareIndex = index"
+                               formArrayName="shareCapital">
+                        <tr [formGroupName]="shareIndex">
+                            <td>
+                                <input class="form-control"
+                                       formControlName="particulars"
+                                       placeholder="Particular"
+                                       type="text">
+                            </td>
+                            <td>
+                                <input
+                                        class="form-control"
+                                        formControlName="capitalFirstYear"
+                                        placeholder="Share Capital"
+                                        type="number">
+                            </td>
+                            <td>
+                                <input
+                                        class="form-control"
+                                        formControlName="percentFirsYear"
+                                        placeholder="%"
+                                        type="number">
+                            </td>
+                            <td>
+                                <input class="form-control"
+                                       formControlName="capitalSecondYear"
+                                       placeholder="Share Capital"
+                                       type="number">
+                            </td>
+                            <td>
+                                <input class="form-control"
+                                       formControlName="percentSecondYear"
+                                       placeholder="%"
+                                       type="number">
+                            </td>
+                            <td>
+                                <button *ngIf="companyInfoFormGroup.get('shareCapital')['controls'].length > 1"
+                                        (click)="removeShareCapital(shareIndex)"
+                                        class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                    <em class="fa fa-trash" style="color:white;"></em>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-6 text-right">
+                        <input (click)="addShareCapital()" class="btn btn-sm btn-flat btn-primary"
+                               type="button" value="Add More"/>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <app-contact-details #contactDetail [contactDetail]="contactDetails"></app-contact-details>
                 </div>
