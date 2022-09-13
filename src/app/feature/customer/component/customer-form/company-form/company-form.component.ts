@@ -1074,9 +1074,8 @@ export class CompanyFormComponent implements OnInit {
     }
 
     getCustomerCategory() {
-        // this.customerCategory = this.customerCate.filter(f =>
-        //     f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
-        this.customerCategory = this.customerCate;
+        this.customerCategory = this.customerCate.filter(f =>
+            f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {
