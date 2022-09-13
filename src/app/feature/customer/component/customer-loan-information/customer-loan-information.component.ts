@@ -166,6 +166,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
       nbDialogRef: NbDialogRef<any>;
       customer: Customer;
     commonLoanData: FormGroup;
+    complianceStatus: FormGroup;
     ckeConfig;
     waiverChecked = false;
     commitmentChecked = false;
@@ -289,6 +290,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 this.checkCrgGamma = true;
             }
         }
+        this.buildComplianceStatusForm();
 
     }
     buildFundedNonFunded() {
@@ -746,7 +748,18 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 });
         }
     }
+    buildComplianceStatusForm() {
+        this.complianceStatus = this.formBuilder.group({
+            lendingRequirement: [undefined],
+            toleranceLimit: [undefined],
+            otherDocsAndReq: [undefined],
 
+        });
+        if (!ObjectUtil.isEmpty(this.customerInfo.complianceStatus)) {
+            const complianceData = JSON.parse(this.customerInfo.complianceStatus);
+            this.complianceStatus.patchValue(complianceData);
+        }
+    }
     buildProposalCommonForm() {
         this.commonLoanData = this.formBuilder.group({
             borrowerInformation: [undefined],
@@ -851,6 +864,22 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
         });
     }
+
+    saveComplianceStatus() {
+        this.spinner.show();
+        this.customerInfo.complianceStatus = JSON.stringify(this.complianceStatus.value);
+        this.customerInfoService.save(this.customerInfo).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved  Compliance Status!'));
+            this.customerInfo = res.detail;
+            this.nbDialogRef.close();
+            this.spinner.hide();
+            this.triggerCustomerRefresh.emit(true);
+        }, error => {
+            this.spinner.hide();
+            this.toastService.show(new Alert(AlertType.DANGER, 'Some thing Went Wrong'));
+        });
+    }
+
     setCheckedData(data) {
         if (!ObjectUtil.isEmpty(data)) {
             this.checkChecked(data['swapChargeChecked'], 'swapCharge');
@@ -866,8 +895,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.buildProposalCommonForm();
     }
-
-
     saveReviewDate(data: string) {
         this.spinner.show();
         if (!ObjectUtil.isEmpty(data)) {
