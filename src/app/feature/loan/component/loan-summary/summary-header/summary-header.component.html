@@ -75,11 +75,12 @@
 <!-- CRG - Gamma-->
 <div *ngIf="loanDataHolder?.loanHolder?.crgCcbl" class="col-md-12 d-print-block print-padding">
     <nb-card class="sb-medium">
+
         <nb-card-header class="text-center">
             <strong><h6>Counter Party Risk Rating</h6></strong>
         </nb-card-header>
         <nb-card-body>
-            <div class="row">
+            <div class="row" *ngIf="!zeroPointFive">
                 <div class="col-md-6 text-right">
                     <app-gauge-chart [chartHeight]="180" [chartWidth]="275" [maxValue]="100"
                                      [obtainedValue]="crgCCbl?.data"
