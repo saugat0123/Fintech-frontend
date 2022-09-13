@@ -121,6 +121,44 @@
 <ng-container *ngIf="companyInfo?.customerCategory === 'DSL_WHOLE_SALE' else others">
     <div class="container-fluid">
         <p style="font-size: 13.5px"><strong>3.5 Promoters Structure</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md sb-small">
+            <thead>
+            <tr>
+                <td rowspan="2" style="vertical-align: middle; text-align: center"><strong>S.N.</strong></td>
+                <td rowspan="2" style="vertical-align: middle; text-align: center"><strong>Particulars</strong></td>
+                <td colspan="2" style="text-align: center"><strong>Current year</strong></td>
+                <td colspan="2" style="text-align: center"><strong>Previous year</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Share Capital</strong></td>
+                <td><strong>%</strong></td>
+                <td><strong>Share Capital</strong></td>
+                <td><strong>%</strong></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let shareCapital of shareCapitalDetails; let i = index;">
+                <td>
+                    <span>{{i+1}}</span>
+                </td>
+                <td>
+                    {{shareCapital.particulars}}
+                </td>
+                <td>
+                   {{shareCapital.capitalFirstYear}}
+                </td>
+                <td>
+                    {{shareCapital.percentFirsYear}}
+                </td>
+                <td>
+                    {{shareCapital.capitalSecondYear}}
+                </td>
+                <td>
+                    {{shareCapital.percentSecondYear}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <span [innerHTML]="(companyInfo.companyJsonData | jsonParse).promoterStructure || 'NA' | safeHtml"></span>
 </ng-container>
