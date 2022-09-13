@@ -91,6 +91,10 @@
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
         <p><strong>INTERNAL REPORTING : </strong></p>
         <span [innerHTML]="(loanDataHolder?.loanHolder?.siteVisit?.data | jsonParse)?.internalReport || 'NA' | safeHtml"></span>
+
+        <app-nta-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets; else notAvailable"
+                         [fiscalYears]="fiscalYear"
+                         [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-summary>
     </li>
     <li class="libold"
         *ngIf="loanDataHolder?.loanHolder?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
@@ -190,3 +194,6 @@
         <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
     </div>
 </ol>
+<ng-template #notAvailable>
+    <span class="font-weight-normal">Not Available</span>
+</ng-template>
