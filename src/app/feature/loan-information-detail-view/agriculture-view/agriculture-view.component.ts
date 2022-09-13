@@ -13,6 +13,7 @@ export class AgricultureViewComponent implements OnInit {
   @Input() loanHolder: CustomerInfoData;
   @Input() proposalData;
   @Input() fixedAssetsData;
+  @Input() fiscalYear;
   @Input() lastDateOfInspection;
   @Input() companyGroup;
   @Input() commonLoanData;
