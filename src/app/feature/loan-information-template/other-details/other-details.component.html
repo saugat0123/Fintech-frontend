@@ -226,6 +226,17 @@
                 </div>
             </div>
         </div>
+        <ng-container *ngIf="isCorporate">
+            <div class="col-md-12">
+                <label class="header"><strong class="header">7. DAP/DAA Outstanding</strong></label>
+            </div>
+            <div class="ml-1 col-md-12">
+                <div class="col-md-12">
+                    <ckeditor id="dapDaaOutstanding" formControlName="dapDaaOutstanding"
+                              [config]="ckeConfig"></ckeditor>
+                </div>
+            </div>
+        </ng-container>
     </div>
     <div class="col-md-12">
         <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">

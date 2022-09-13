@@ -869,6 +869,7 @@
             <nb-card-body>
               <app-other-details [fromProfile]="true"
                                  [otherData]="customerInfo?.otherDetails"
+                                 [customerInfo]="customerInfo"
                                  (otherDataEmitter)="saveOthersData($event)">
               </app-other-details>
             </nb-card-body>
