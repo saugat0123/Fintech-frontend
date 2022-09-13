@@ -884,6 +884,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        console.log('table::::', (this.companyInfoFormGroup.get('documentsObtained').value));
         this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
         this.companyInfo.shareCapital = JSON.stringify(this.companyInfoFormGroup.get('shareCapital').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {

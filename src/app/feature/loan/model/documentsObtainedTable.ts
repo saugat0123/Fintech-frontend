@@ -1,6 +1,12 @@
 export class DocumentsObtainedTable {
     public static key_Figure() {
-        return '<p><strong>General</strong>:</p>\n' +
+        return '<table border="0" cellpadding="1" cellspacing="1" style="width:100%">\n' +
+            '\t<tbody>\n' +
+            '\t\t<tr>\n' +
+            '\t\t\t<td><span style="font-size:14px"><strong>General:</strong></span></td>\n' +
+            '\t\t</tr>\n' +
+            '\t</tbody>\n' +
+            '</table>\n' +
             '\n' +
             '<table border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
             '\t<thead>\n' +
@@ -81,25 +87,32 @@ export class DocumentsObtainedTable {
             '\t</tbody>\n' +
             '</table>\n' +
             '\n' +
-            '<br>' +
-            '<p><strong>Hypothecation of assets required</strong>:</p>\n' +
+            '<p>​​​​​​​​​​​​​​</p>\n' +
+            '\n' +
+            '<table border="0" cellpadding="1" cellspacing="1" style="width:100%">\n' +
+            '\t<tbody>\n' +
+            '\t\t<tr>\n' +
+            '\t\t\t<td>&nbsp;<span style="font-size:14px"><strong>Hypothecation of assets required:</strong></span></td>\n' +
+            '\t\t</tr>\n' +
+            '\t</tbody>\n' +
+            '</table>\n' +
             '\n' +
             '<table border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
             '\t<thead>\n' +
             '\t\t<tr>\n' +
             '\t\t\t<th scope="col" style="text-align:left">S.N</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 686px;">Name of Documents</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 196px;">Status&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:686px">Name of Documents</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:196px">Status&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</th>\n' +
             '\t\t\t<th scope="col" style="text-align:left">S.N</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 375px;">Name of Documents</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 229px;">Status&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:375px">Name of Documents</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:229px">Status&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</th>\n' +
             '\t\t</tr>\n' +
             '\t</thead>\n' +
             '\t<tbody>\n' +
             '\t\t<tr>\n' +
             '\t\t\t<td>1.</td>\n' +
-            '\t\t\t<td style="width:686px"><span style="font-size:11.0pt"><span style="font-family:&quot;Times New Roman&quot;,serif">Hypothecation over entire assets of the Company Incuding Deprived Sector Lending</span></span></td>\n' +
-            '\t\t\t<td style="width:196px">To be ontained</td>\n' +
+            '\t\t\t<td style="white-space:nowrap; width:686px"><span style="font-size:11.0pt"><span style="font-family:&quot;Times New Roman&quot;,serif">Hypothecation over entire assets of the Company Incuding Deprived Sector Lending</span></span></td>\n' +
+            '\t\t\t<td style="width:196px">&nbsp;</td>\n' +
             '\t\t\t<td>2.</td>\n' +
             '\t\t\t<td style="width:375px"><span style="font-size:11.0pt"><span style="font-family:&quot;Times New Roman&quot;,serif">Assignment of Loan Accounts of the company</span></span></td>\n' +
             '\t\t\t<td style="width:229px">&nbsp;</td>\n' +
@@ -115,18 +128,25 @@ export class DocumentsObtainedTable {
             '\t</tbody>\n' +
             '</table>\n' +
             '\n' +
-            '<br>' +
-            '<p><strong>Guarantees related</strong>:</p>\n' +
+            '<p>​​​​​​​</p>\n' +
+            '\n' +
+            '<table border="0" cellpadding="1" cellspacing="1" style="width:100%">\n' +
+            '\t<tbody>\n' +
+            '\t\t<tr>\n' +
+            '\t\t\t<td><span style="font-size:14px"><strong>Guarantees related:</strong></span></td>\n' +
+            '\t\t</tr>\n' +
+            '\t</tbody>\n' +
+            '</table>\n' +
             '\n' +
             '<table border="1" cellpadding="1" cellspacing="1" style="width:100%">\n' +
             '\t<thead>\n' +
             '\t\t<tr>\n' +
             '\t\t\t<th scope="col" style="text-align:left">S.N</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 425px;">Name of Documents</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 216px;">Status</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:425px">Name of Documents</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:216px">Status</th>\n' +
             '\t\t\t<th scope="col" style="text-align:left">S.N</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 558px;">Name of Documents</th>\n' +
-            '\t\t\t<th scope="col" style="text-align: left; width: 224px;">Status</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:558px">Name of Documents</th>\n' +
+            '\t\t\t<th scope="col" style="text-align:left; width:224px">Status</th>\n' +
             '\t\t</tr>\n' +
             '\t</thead>\n' +
             '\t<tbody>\n' +
@@ -147,9 +167,6 @@ export class DocumentsObtainedTable {
             '\t\t\t<td style="width:224px">&nbsp;</td>\n' +
             '\t\t</tr>\n' +
             '\t</tbody>\n' +
-            '</table>\n' +
-            '\n' +
-            '<p>&nbsp;</p>';
+            '</table>';
     }
-
 }
