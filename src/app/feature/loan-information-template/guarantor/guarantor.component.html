@@ -36,9 +36,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
+<!--                                *ngIf="customerInfo?.customerType === 'INSTITUTION'"-->
+                                <div class="col-md-4">
                                     <div class = "form-group">
-                                        <label for="name"><strong>Type</strong></label>
+                                        <label for="name"><strong>Relationship with Borrower</strong></label>
                                         <select
                                                 class="form-control" formControlName="guarantorType"
                                                 name="guarantorType">
@@ -619,13 +620,13 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label><strong>No. of Directors from marginalized community group</strong></label>
+                                                <label><strong>No. of Female Directors from marginalized community group</strong></label>
                                                 <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('femaleMarDirector').errors }"
                                                        class="form-control form-control-sm-error rounded"
                                                        formControlName="femaleMarDirector"
                                                        id="femaleMarDirector"
                                                        name="femaleMarDirector"
-                                                       placeholder="Directors from marginalized community group"
+                                                       placeholder="Female Directors from marginalized community group"
                                                        type="number"/>
                                                 <div *ngIf="(submitted) && guarantorDetails.get('femaleMarDirector').invalid"
                                                      class="invalid-feedback">
@@ -872,7 +873,7 @@
                                                type="text">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!--<div class="col-md-6">
                                     <div class="form-group">
                                         <label><strong>Address Line 2</strong></label>
                                         <input class="form-control"
@@ -880,7 +881,7 @@
                                                placeholder="Address Line 2 (optional)"
                                                type="text">
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Province</strong></label>
