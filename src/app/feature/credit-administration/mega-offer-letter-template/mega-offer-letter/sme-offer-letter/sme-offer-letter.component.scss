@@ -34,12 +34,21 @@ nb-card{
   .disable-print {
     display: inline;
   }
+
+  tr.disable-print {
+    display: table-row;
+  }
 }
 
 @media print {
   .print-only {
     display: inline;
   }
+
+  tr.print-only {
+    display: table-row;
+  }
+
   div.align {
     font-size: 20px;
     line-height: 1.9;
@@ -48,3 +57,21 @@ nb-card{
     margin: 10px 70px;
   }
 }
+
+span {
+  line-height: 1;
+}
+
+.preetiFont {
+  font-family: Preeti;
+}
+
+.size16 {
+  font-size: 1rem;
+}
+
+.size24 {
+  font-size: 1.5rem;
+}
+
+thead{ display:table-row-group }
