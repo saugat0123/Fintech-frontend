@@ -857,7 +857,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row" style="width: 100%;">
-                                    <div class="col-md-12" style="break-before: auto;">
+                                    <div class="col-md-12" style="break-inside: avoid;">
                                         <p class="font-weight-bold"><u></u></p>
                                         <p>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा बैंकिङ्ग सुविधाहरु निम्न बमोजिमको सम्पति तथा लिखतहरुले सुरक्षित राखिनेछ ।</p>
                                         <table class="table table-borderless text-justify">
@@ -1077,7 +1077,7 @@
                                                             <label for="securityE" class="disable-print"><strong>&nbsp;Needed?</strong></label></p>
                                                     </td>
                                                 </tr>
-                                                <tr style="page-break-inside: auto">
+                                                <tr style="break-inside: avoid">
                                                     <td>च)</td>
                                                     <td>
                                                         <p *ngIf="form.get('securityF').value">आयप्राप्ति अधिकार हस्तान्तरण पत्र (Assignment of Receivables) ।</p>
@@ -1766,69 +1766,70 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" style="width: 100%">
-                                        <div class="col-md-12">
-                                            <div class="col-md-12 mt-5 mb-5">
-                                                <p class="font-weight-bold">सेञ्चुरी कमर्सियल बैंक लिमिटेड,</p>
-                                                <p>प्रधान कार्यालयः पुतलीसडक, काठमाण्डौं, नेपाल ।</p>
-                                                <p class="disable-print">शाखा कार्यालयः <span *ngIf="form.get('checkBranch').value"><input class="form-field form-control-sm disable-print nepaliFont"
-                                                                         formControlName="branchAddress"
-                                                                         name="branchAddress"
-                                                                         placeholder=""
-                                                                         type="text"/>
+                                </div>
+                                <div class="row" style="page-break-before: always !important;">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 mt-5 mb-5">
+                                            <p>सेञ्चुरी कमर्सियल बैंक लिमिटेड,</p>
+                                            <p>प्रधान कार्यालयः पुतलीसडक, काठमाण्डौं, नेपाल ।</p>
+                                            <p class="disable-print">शाखा कार्यालयः <span *ngIf="form.get('checkBranch').value"><input class="form-field form-control-sm disable-print nepaliFont"
+                                                                                                                                       formControlName="branchAddress"
+                                                                                                                                       name="branchAddress"
+                                                                                                                                       placeholder=""
+                                                                                                                                       type="text"/>
                                                     <span class="print-only nepaliFont">
                                                         <strong>{{form.get('branchAddress').value ? form.get('branchAddress').value  : '========='}}</strong>
                                                     </span>
                                                 </span>
-                                                    <span>
+                                                <span>
                                                     <input class="disable-print"
                                                            type="checkbox"
                                                            formControlName="checkBranch"
                                                            id="checkBranch" (change)="onCheck2($event,'checkBranch')"/>
                                                     <label for="checkBranch" class="disable-print"><strong>&nbsp;Needed?</strong></label>
                                                     </span>
-                                                </p>
-                                                <p class="print-only" *ngIf="form.get('checkBranch').value">शाखा कार्यालयः
-                                                    <span class="print-only nepaliFont">
+                                            </p>
+                                            <p class="print-only" *ngIf="form.get('checkBranch').value">शाखा कार्यालयः
+                                                <span class="print-only nepaliFont">
                                                         <strong>{{form.get('branchAddress').value ? form.get('branchAddress').value  : '========='}}</strong>
                                                     </span>
-                                                </p>
-                                            </div>
-                                            <div class="col-md-12 text-justify">
-                                                <p>महोदय,</p>
-                                                <p>सेञ्चुरी कमर्सियल बैंक लि.ले मेरो/हाम्रो नाममा जारी गरेको मिति
-                                                    <input class="form-field form-control-sm disable-print preetiFont size24"
-                                                             formControlName="loanDate"
-                                                             value="{{form.get('olIssueDate').value}}"
-                                                             name="loanDate"
-                                                             placeholder=""
-                                                             type="text"/>
-                                                    <span class="print-only preetiFont size24">
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 text-justify">
+                                            <p>महोदय,</p>
+                                            <p>सेञ्चुरी कमर्सियल बैंक लि.ले मेरो/हाम्रो नाममा जारी गरेको मिति
+                                                <input class="form-field form-control-sm disable-print preetiFont size24"
+                                                       formControlName="loanDate"
+                                                       value="{{form.get('olIssueDate').value}}"
+                                                       name="loanDate"
+                                                       placeholder=""
+                                                       type="text"/>
+                                                <span class="print-only preetiFont size24">
                                                         <strong>{{form.get('loanDate').value ? form.get('loanDate').value  : '========='}}</strong>
                                                     </span>
-                                                    को ऋण स्वीकृति पत्र राम्रोसंग पढीवाची सुनी वुझी मेरो/हाम्रो मनोमान राजी खुसीसंग सो पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु
-                                                    म/हामीलाई पूर्ण मन्जुर छ भनी सहीछाप गरि दिएको छु/छौं । उपरोक्त बमोजिम बैंकबाट प्राप्त हुने ऋण कर्जा तथा सुविधा लगायत
-                                                    अन्य दायित्व तिर्न बुझाउन यस मेरो/हाम्रो पूर्ण मन्जुरी रहेकोले बैंकले जारी गरेको यस स्वीकृति पत्रमा स्वीकृति (Acceptance)
-                                                    जनाई सोको प्रतिलिपिमा सही छाप गरी तपाई बैंकलाई दिएँ/दियौं र सोको सक्कल एक प्रति पत्र बुझिलिए/लियौंं ।</p>
-                                            </div>
+                                                को ऋण स्वीकृति पत्र राम्रोसंग पढीवाची सुनी वुझी मेरो/हाम्रो मनोमान राजी खुसीसंग सो पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु
+                                                म/हामीलाई पूर्ण मन्जुर छ भनी सहीछाप गरि दिएको छु/छौं । उपरोक्त बमोजिम बैंकबाट प्राप्त हुने ऋण कर्जा तथा सुविधा लगायत
+                                                अन्य दायित्व तिर्न बुझाउन यस मेरो/हाम्रो पूर्ण मन्जुरी रहेकोले बैंकले जारी गरेको यस स्वीकृति पत्रमा स्वीकृति (Acceptance)
+                                                जनाई सोको प्रतिलिपिमा सही छाप गरी तपाई बैंकलाई दिएँ/दियौं र सोको सक्कल एक प्रति पत्र बुझिलिए/लियौंं ।</p>
                                         </div>
-                                        <div class="col-md-12" style="page-break-inside: auto">
-                                            <div class="col-md-12">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
                                             <p>भवदीय,</p>
                                             <p>श्री <input class="form-field form-control-sm disable-print nepaliFont"
-                                                          formControlName="borrowerName"
-                                                          value="{{form.get('borrowerName').value}}"
-                                                          name="borrowerName"
-                                                          placeholder=""
-                                                          type="text"/>
+                                                           formControlName="borrowerName"
+                                                           value="{{form.get('borrowerName').value}}"
+                                                           name="borrowerName"
+                                                           placeholder=""
+                                                           type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerName').value ? form.get('borrowerName').value  : '========='}}</strong></span></p>
                                             <br>
                                             <p>स्थायी ठेगानाः <input class="form-field form-control-sm disable-print nepaliFont"
-                                                                    formControlName="borrowerPerDis"
-                                                                    value="{{form.get('borrowerPerDis').value}}"
-                                                                    name="borrowerPerDis"
-                                                                    placeholder=""
-                                                                    type="text"/>
+                                                                     formControlName="borrowerPerDis"
+                                                                     value="{{form.get('borrowerPerDis').value}}"
+                                                                     name="borrowerPerDis"
+                                                                     placeholder=""
+                                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('borrowerPerDis').value ? form.get('borrowerPerDis').value  : '========='}}</strong></span>
                                                 जिल्ला <input class="form-field form-control-sm disable-print nepaliFont"
                                                               formControlName="borrowerPerMun"
@@ -1913,9 +1914,9 @@
                                                                                         type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{form.get('dhyanakarshan').value ? form.get('dhyanakarshan').value  : '========='}}</strong></span> ।</strong></p>
 
-                                                <p class="mt-5">दस्तखतः ...................................................</p>
+                                            <p class="mt-5">दस्तखतः ...................................................</p>
 
-                                                <p class="mt-5">कम्पनीको छापः</p>
+                                            <p class="mt-5">कम्पनीको छापः</p>
                                         </div>
                                         <div class="col-md-12">
                                             <p class="font-weight-bold">साक्षी</p>
@@ -1935,39 +1936,39 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
                                 <div class="col-md-12">
-                            <p class="text-center">ईति सम्बत <input class="form-field form-control-sm disable-print nepaliFont"
-                                                formControlName="year"
-                                                name="year"
-                                                placeholder=""
-                                                type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{form.get('year').value ? form.get('year').value  : '========='}}</strong></span>
-                                साल <input class="form-field form-control-sm disable-print nepaliFont"
-                                           formControlName="month"
-                                           name="month"
-                                           placeholder=""
-                                           type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{form.get('month').value ? form.get('month').value  : '========='}}</strong></span>
-                                महिना <input class="form-field form-control-sm disable-print nepaliFont"
-                                             formControlName="day"
-                                             name="day"
-                                             placeholder=""
-                                             type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{form.get('day').value ? form.get('day').value  : '========='}}</strong></span>
-                                गते रोज <input class="form-field form-control-sm disable-print nepaliFont"
-                                               formControlName="roj"
-                                               name="roj"
+                                    <p class="text-center">ईति सम्बत <input class="form-field form-control-sm disable-print nepaliFont"
+                                                    formControlName="year"
+                                                    name="year"
+                                                    placeholder=""
+                                                    type="text"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('year').value ? form.get('year').value  : '========='}}</strong></span>
+                                    साल <input class="form-field form-control-sm disable-print nepaliFont"
+                                               formControlName="month"
+                                               name="month"
                                                placeholder=""
                                                type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{form.get('roj').value ? form.get('roj').value  : '========='}}</strong></span>
-                                शुभम् <input class="form-field form-control-sm disable-print nepaliFont"
-                                             formControlName="subham"
-                                             name="subham"
-                                             placeholder=""
-                                             type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{form.get('subham').value ? form.get('subham').value  : '========='}}</strong></span> ।</p>
-                            </div>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('month').value ? form.get('month').value  : '========='}}</strong></span>
+                                    महिना <input class="form-field form-control-sm disable-print nepaliFont"
+                                                 formControlName="day"
+                                                 name="day"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('day').value ? form.get('day').value  : '========='}}</strong></span>
+                                    गते रोज <input class="form-field form-control-sm disable-print nepaliFont"
+                                                   formControlName="roj"
+                                                   name="roj"
+                                                   placeholder=""
+                                                   type="text"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('roj').value ? form.get('roj').value  : '========='}}</strong></span>
+                                    शुभम् <input class="form-field form-control-sm disable-print nepaliFont"
+                                                 formControlName="subham"
+                                                 name="subham"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    <span class="print-only nepaliFont"><strong>{{form.get('subham').value ? form.get('subham').value  : '========='}}</strong></span> ।
+                                </p>
+                                </div>
                         </div>
                         </div>
                         <div class="row">
