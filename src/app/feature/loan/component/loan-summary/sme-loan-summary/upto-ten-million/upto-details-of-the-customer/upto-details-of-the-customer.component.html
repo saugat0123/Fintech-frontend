@@ -88,7 +88,8 @@
     </tbody>
 
     <tr>
-        <td colspan="3"><b>Rating/NRB Classification/risk weight</b></td>
+        <td colspan="5" *ngIf="!isDSL"><b>Rating/NRB Classification/risk weight</b></td>
+        <td colspan="5" *ngIf="isDSL"><b>Rating/risk weight</b></td>
         <td><b>Total</b></td>
         <td>{{multiBankingData?.totalFunded | currencyFormatter}}</td>
         <td>{{multiBankingData?.totalNonFunded | currencyFormatter}}</td>
@@ -100,7 +101,8 @@
         <td><b>CCBL</b></td>
         <td><b>External (name)</b></td>
         <td><b>NRB</b></td>
-        <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
+        <td colspan="5" *ngIf="!isDSL"><b>Main Promoters/Partners/Proprietors</b></td>
+        <td colspan="5" *ngIf="isDSL"><b>Main Promoters/Shareholders</b></td>
     </tr>
     <tr>
         <td [attr.rowspan]="propList?.length+1">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.thresholdPoint}}</td>
