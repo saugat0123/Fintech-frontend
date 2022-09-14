@@ -14,11 +14,11 @@
                     <div class="col-md-12">
                         <form [formGroup]="combinedType.form">
                             <div class="col-md-12 mb-1 mt-1" *ngIf="documentStatus !== docStatus.HSOV_PENDING && documentStatus !== docStatus.DUAL_APPROVAL_PENDING">
-                                <nb-checkbox class="cursor" (change)="dualApproval($event?.target?.checked, false)" [disabled]="!isMaker || combinedHSOV" [checked]="preSelectedSolUser[0]?.dualApproval"
+                                <nb-checkbox class="cursor" (change)="dualApproval($event?.target?.checked, false)" [disabled]="combinedHSOV" [checked]="preSelectedSolUser[0]?.dualApproval"
                                              formControlName="dualApproval">Dual Approval?
                                 </nb-checkbox>
                                 &nbsp;
-                                <nb-checkbox class="cursor" [disabled]="!isMaker || combinedDual" (change)="hsov($event?.target?.checked, false)" [checked]="preSelectedSolUser[0]?.isHsov"
+                                <nb-checkbox class="cursor" [disabled]="combinedDual" (change)="hsov($event?.target?.checked, false)" [checked]="preSelectedSolUser[0]?.isHsov"
                                              formControlName="isHsov"> HSOV?
                                 </nb-checkbox>
                             </div>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
@@ -88,8 +88,14 @@ export class LoanActionModalComponent implements OnInit {
             if (this.customerLoanHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
                 this.loanTag = true;
             }
-            this.isHSOVChecked(this.customerLoanHolder.isHsov);
-            this.dualApproval(this.customerLoanHolder.dualApproval);
+            this.formAction.patchValue({
+                isHsov: this.customerLoanHolder.isHsov
+            });
+            this.hsov = this.customerLoanHolder.isHsov;
+            this.formAction.patchValue({
+                dualApproval: this.customerLoanHolder.dualApproval
+            });
+            this.dual = this.customerLoanHolder.dualApproval;
         }
         // this.getHsovUserList();
         // this.getHsovRole();
@@ -364,30 +370,28 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     isHSOVChecked(event) {
-        if (event) {
             this.formAction.patchValue({
-                isHsov: true
+                isHsov: event
             });
-            this.hsov = true;
-        } else {
-            this.formAction.patchValue({
-                isHsov: false
-            });
-            this.hsov = false;
-        }
+            this.hsov = event;
+        this.docAction = this.isMaker ? this.docAction : (this.hsov ? 'HSOV_PENDING' : 'APPROVED');
+        this.documentStatus = this.isMaker ? this.documentStatus : event ? DocStatus.HSOV_PENDING : DocStatus.APPROVED;
+        this.formAction.patchValue({
+            docAction: this.docAction,
+            documentStatus: this.documentStatus
+        });
     }
     dualApproval(event) {
-        if (event) {
             this.formAction.patchValue({
-                dualApproval: true
+                dualApproval: event
             });
-            this.dual = true;
-        } else {
-            this.formAction.patchValue({
-                dualApproval: false
-            });
-            this.dual = false;
-        }
+            this.dual = event;
+        this.docAction = this.isMaker ? this.docAction : event ? 'DUAL_APPROVAL_PENDING' : 'APPROVED';
+        this.documentStatus = this.isMaker ? this.documentStatus : event ? DocStatus.DUAL_APPROVAL_PENDING : DocStatus.APPROVED;
+        this.formAction.patchValue({
+            docAction: this.docAction,
+            documentStatus: this.documentStatus
+        });
     }
 
 }

@@ -468,6 +468,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
         } else {
             this.combinedDual = false;
         }
+        this.documentStatus = this.isMaker ? this.documentStatus : event ? 'DUAL_APPROVAL_PENDING' : 'APPROVED';
+        this.docAction = this.isMaker ? this.docAction : event ? 'APPROVED' : this.docAction;
+        this.combinedType.form.get('actions').value.forEach((d, i) => {
+            this.combinedType.form.get(['actions', i]).patchValue({
+                docAction: this.docAction,
+                documentStatus: this.documentStatus
+            });
+        });
     }
 
     dualApprovalIndividual(event, index) {
@@ -501,6 +509,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.combinedHSOV = true;
         } else {
             this.combinedHSOV = false;
+            this.documentStatus = this.isMaker ? this.documentStatus : event ? 'HSOV_PENDING' : 'APPROVED';
         }
     }
 
