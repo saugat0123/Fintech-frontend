@@ -100,7 +100,8 @@
         <td><b>CCBL</b></td>
         <td><b>External (name)</b></td>
         <td><b>NRB</b></td>
-        <td colspan="5"><b>Main Promoters/Shareholders</b></td>
+        <td colspan="5" *ngIf="!isDSL"><b>Main Promoters/Partners/Proprietors</b></td>
+        <td colspan="5" *ngIf="isDSL"><b>Main Promoters/Shareholders</b></td>
     </tr>
     <tr>
         <td [attr.rowspan]="propList?.length+1">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.thresholdPoint}}</td>
