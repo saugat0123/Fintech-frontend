@@ -43,9 +43,11 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Sectoral Outlook</strong></p>
-        <span style="font-size: 14px"><b>6.1 Sector</b>
-            <app-above-bank-sol [loanDataHolder]="loanDataHolder"></app-above-bank-sol>
+        <span style="font-size: 14px"><b>6.1 Sector&nbsp;</b>
+            <app-above-bank-sol *ngIf="loanDataHolder?.companyInfo?.customerCategory != 'DSL_WHOLE_SALE'"
+                    [loanDataHolder]="loanDataHolder"></app-above-bank-sol>
         </span>
+        <span *ngIf="loanDataHolder?.companyInfo?.customerCategory === 'DSL_WHOLE_SALE'" [innerHtml]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse).dslSolText | safeHtml"></span>
     </li>
     <!--*ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"-->
     <li class="font-weight-bold">
