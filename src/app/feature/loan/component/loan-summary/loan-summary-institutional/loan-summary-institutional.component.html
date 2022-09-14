@@ -2,10 +2,10 @@
     <div id="print-block">
         <div class="summary">
             <ng-container>
-                <app-only-business-profile *ngIf="isCorporate" [companyInfo]="loanDataHolder?.companyInfo"
+                <app-only-business-profile *ngIf="isCorporate && !others" [companyInfo]="loanDataHolder?.companyInfo"
                                            [loanDataHolder]="loanDataHolder"></app-only-business-profile>
             </ng-container>
-            <ng-container *ngIf="isCorporate && proposalAllData?.proposeOfSubmission">
+            <ng-container *ngIf="isCorporate && proposalAllData?.proposeOfSubmission && !others">
                 <div class="row">
                     <div class="col-md-12">
                         <hr class="print-line">
@@ -41,7 +41,32 @@
                 <app-security-summary *ngIf="approvedSecurity?.length > 0"
                                       [securities]="approvedSecurity"></app-security-summary>
 
-                <app-guarantor-view *ngIf="isCorporate"
+                <ng-container *ngIf="others">
+                    <hr class="print-line">
+                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
+                        <tr class="sb-bg-gray">
+                            <th>Justification</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1"><span
+                                    [innerHTML]="proposalAllData?.justification || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr class="print-line">
+                    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
+                        <tr class="sb-bg-gray">
+                            <th>Current Request</th>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1"><span
+                                    [innerHTML]="proposalAllData?.currentRequest || 'N/A' | safeHtml"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </ng-container>
+
+                <app-guarantor-view *ngIf="isCorporate || (others || fullSettlement)"
                                     [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
                 <ng-container *ngIf="loanDataHolder?.baselCode">
                     <div class="row">
@@ -70,7 +95,7 @@
             </app-customer-share-summary>
             <app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
             <!-- Customer Share Security  -->
-
+            <ng-container *ngIf="!others && !fullSettlement">
             <ng-container>
                 <hr class="print-line">
                 <p [hidden]="loanCategory === 'INSTITUTION'"><strong class="header">Applicant/Guarantor
@@ -282,6 +307,7 @@
                         [facilityUtilizationData]="loanDataHolder?.loanHolder?.facilityUtilization">
                 </app-facility-utilization>
             </div>
+            </ng-container>
             <hr class="print-line">
             <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                                    [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>

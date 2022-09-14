@@ -1,9 +1,9 @@
 <div class="summary">
     <ng-container>
-        <app-only-business-profile *ngIf="isCorporate"  [companyInfo]="loanDataHolder?.companyInfo"
+        <app-only-business-profile *ngIf="isCorporate && !fullSettlement && !others"  [companyInfo]="loanDataHolder?.companyInfo"
                                     [loanDataHolder]="loanDataHolder"></app-only-business-profile>
     </ng-container>
-    <ng-container *ngIf="isCorporate && proposalAllData?.proposeOfSubmission">
+    <ng-container *ngIf="isCorporate && proposalAllData?.proposeOfSubmission && !fullSettlement && !others">
         <div class="row">
             <div class="col-md-12">
                 <hr class="print-line">
@@ -34,12 +34,6 @@
 <!--        </ng-container>-->
 <!--    </div>-->
     <!--                release and replacement-->
-    <hr *ngIf="loanDataHolder?.loanHolder?.crgGamma"
-                    class="print-line">
-    <app-crg-gamma-detail-view
-            *ngIf="loanDataHolder?.loanHolder?.crgGamma"
-            [formData]="loanDataHolder?.loanHolder?.crgGamma" [customerInfoId]="loanDataHolder?.loanHolder?.id">
-    </app-crg-gamma-detail-view>
     <ng-container>
         <hr class="print-line">
         <app-cross-collateral *ngIf="loanDataHolder?.loanHolder?.crossCollateral"
@@ -57,7 +51,32 @@
         <!--                    existing security-->
         <app-security-summary *ngIf="approvedSecurity?.length > 0"
                               [securities]="approvedSecurity"></app-security-summary>
-        <app-guarantor-view *ngIf="isCorporate" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
+        <ng-container *ngIf="others">
+            <hr class="print-line">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
+                <tr class="sb-bg-gray">
+                    <th>Justification</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="proposalAllData?.justification || 'N/A' | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
+            <hr class="print-line">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
+                <tr class="sb-bg-gray">
+                    <th>Current Request</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1"><span
+                            [innerHTML]="proposalAllData?.currentRequest || 'N/A' | safeHtml"></span>
+                    </td>
+                </tr>
+            </table>
+        </ng-container>
+
+        <app-guarantor-view *ngIf="isCorporate || (others || fullSettlement)" [customerAllLoanList]="customerAllLoanList"></app-guarantor-view>
 
     </ng-container>
     <ng-container *ngIf="loanDataHolder?.baselCode">
@@ -83,7 +102,7 @@
     <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                     [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
     </app-customer-share-detail-view>
-
+    <ng-container *ngIf="!others && !fullSettlement">
     <hr class="print-line">
     <div class="row">
         <div class="col-md-12">
@@ -96,7 +115,7 @@
         </div>
     </div>
 
-    <hr class="print-line">
+<!--    <hr class="print-line">-->
     <ng-container>
         <div class="row  mt-3">
 <!--            <div *ngIf="!isCorporate" class="col-md-12">-->
@@ -141,7 +160,7 @@
                                [loanDataHolder]="loanDataHolder"></app-cicl-view>
             </div>
             <div class="col-md-12">
-                <hr class="print-line">
+                <hr class="print-line"  *ngIf="loanDataHolder?.loanHolder?.multiBanking && isCorporate">
                 <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking && isCorporate"
                                            [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>
             </div>
@@ -352,6 +371,7 @@
             </table>
         </div>
     </div>
+    </ng-container>
     <hr class="print-line">
     <div class="row mt-3">
         <div class="col-md-12">
@@ -465,21 +485,27 @@
         </div>
     </div>
     <br>
+    <ng-container *ngIf="!others && !fullSettlement">
     <hr *ngIf="loanDataHolder?.loanHolder?.creditChecklist" class="print-line">
     <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                [fromProfile]="false"
                                [isCorporate]="isCorporate"
                                [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
-    <hr class="print-line">
+        <app-credit-risk-grading-gamma
+                [fromProfile]="false"
+                [customerInfo]="loanDataHolder?.loanHolder"
+                [formData]="loanDataHolder.loanHolder?.crgGamma"></app-credit-risk-grading-gamma>
+
     <!--Product Paper Checklist-->
-    <div *ngIf="toggleChecklist !== null && !isCorporate">
+    <div *ngIf="toggleChecklist?.length > 0">
+        <hr class="print-line">
         <p><strong class="header">Product Paper Checklist</strong></p>
     </div>
-    <ng-container *ngFor="let loan of combinedLoan; let i = index">
-        <ng-container *ngIf="toggleChecklist[i] !== null && !isCorporate">
-            <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
-                                         *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
+    <ng-container *ngFor="let checklist of toggleChecklist; let i = index">
+        <ng-container *ngIf="checklist !== null || checklist !== 'undefined'">
+            <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="checklist"
+                                         *ngIf="checklist"></app-product-paper-checklist>
         </ng-container>
     </ng-container>
     <ng-container *ngIf="loanDataHolder?.loanHolder?.securities[0]?.collateralSiteVisits">
@@ -493,4 +519,5 @@
                          [siteVisit]="loanDataHolder?.loanHolder?.siteVisit"
                          [loanDataHolder]="loanDataHolder"
                          [customerAllLoanList]="customerAllLoanList"></app-site-visit-view>
+    </ng-container>
 </div>

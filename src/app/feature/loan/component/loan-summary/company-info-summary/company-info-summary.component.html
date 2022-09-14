@@ -534,5 +534,11 @@
       <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.businessManagementRisk | safeHtml"></span></td>
     </tr>
   </table>
+  <hr *ngIf="loanDataHolder?.loanHolder?.crgGamma"
+      class="print-line">
+  <app-crg-gamma-detail-view
+          *ngIf="loanDataHolder?.loanHolder?.crgGamma"
+          [formData]="loanDataHolder?.loanHolder?.crgGamma" [customerInfoId]="loanDataHolder?.loanHolder?.id">
+  </app-crg-gamma-detail-view>
 </div>
 </div>

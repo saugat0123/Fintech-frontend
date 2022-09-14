@@ -75,6 +75,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   facilityUtilization;
   esrmData;
   companyJsonData;
+  others = false;
+  fullSettlement = false;
   constructor(
       private toastService: ToastService,
       private modalService: NgbModal,
@@ -93,6 +95,8 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
     this.facilityUtilization = JSON.parse(this.loanDataHolder.loanHolder.facilityUtilization);
     this.currentIndex = this.loanDataHolder.previousList.length;
     this.loanCategory = this.loanDataHolder.loanCategory;
+    this.others = LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS;
+    this.fullSettlement = LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN;
     this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
@@ -236,7 +240,7 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
   disable() {
     if (this.combinedLoan.length > 0) {
       this.combinedLoan.forEach((val, i) => {
-        if (!ObjectUtil.isEmpty(val.paperProductChecklist)) {
+        if (!ObjectUtil.isEmpty(val.paperProductChecklist)  && JSON.parse(val.paperProductChecklist).view !== 'undefined') {
           const obj = JSON.parse(val.paperProductChecklist);
           this.paperChecklist = obj.view;
           this.allId = obj.id;
@@ -247,14 +251,11 @@ export class DetailViewOfInstitutionalComponent implements OnInit {
             if (!child.includes('checked')) {
               input.innerHTML = `<input type="radio" disabled>`;
             } else {
-              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * 100) + 1}">`;
+              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * 100) + 1}${d}">`;
             }
           });
           this.toggleChecklist.push(parserData.body.innerHTML);
           this.toggleId.push(this.allId);
-        } else {
-          this.toggleChecklist.push(null);
-          this.toggleId.push(null);
         }
       });
     }

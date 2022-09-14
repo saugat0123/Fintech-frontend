@@ -55,7 +55,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
     withoutHistoryAns: any;
     questions = [[], []];
     answers = [[], []];
-
+    remarks = '';
 
     constructor(
         private crgGroupService: CrgGroupService,
@@ -98,12 +98,14 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
             totalPoint: 0,
             grade: null,
             groupObject: this.formBuilder.array([]),
+            remarks: ''
             // withoutCreditGroupObject: this.formBuilder.array([])
         };
 
         this.totalWithHistoryPointMapper = new Map<string, number>();
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = JSON.parse(this.formData.data);
+            // this.remarks = ObjectUtil.isEmpty(this.formDataForEdit.remarks) ? '' : this.formDataForEdit.remarks;
         }
         // const withHistory = questionList.filter(cqu => (cqu.fid === 0));
         // const withoutHistory = questionList.filter(cqu => (cqu.fid === 1));
@@ -186,10 +188,12 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
         // this.answers[1].push(this.withoutHistoryAns);
         crgFormGroupObject.groupObject.push(this.formBuilder.array(withoutHistoryData));
         this.creditRiskGrading = this.formBuilder.group(crgFormGroupObject);
+        console.log('this is form',this.creditRiskGrading);
         if (!ObjectUtil.isEmpty(this.formDataForEdit)) {
             this.totalPoints = this.formDataForEdit.totalPoint;
             this.grading = this.formDataForEdit.grade;
             this.creditRiskGrading.get('groupObject').patchValue(this.formDataForEdit.groupObject);
+            this.remarks = ObjectUtil.isEmpty(this.formDataForEdit.remarks) ? '' : this.formDataForEdit.remarks;
             this.calcFinalTotal();
         }
         this.spinner = false;
@@ -207,6 +211,7 @@ export class CreditRiskGradingGammaComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.creditRiskData = this.formData;
         }
+        this.creditRiskGrading.get('remarks').patchValue(this.remarks);
         this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
         this.crgDataEmitter.emit(this.creditRiskData.data);
     }

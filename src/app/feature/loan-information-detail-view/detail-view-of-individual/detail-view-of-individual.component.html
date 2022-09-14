@@ -38,12 +38,42 @@
     <!--                    existing security-->
     <app-security-summary *ngIf="approvedSecurity?.length > 0"
                           [securities]="approvedSecurity"></app-security-summary>
+    <ng-container *ngIf="others">
+        <hr class="print-line">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
+            <tr class="sb-bg-gray">
+                <th>Justification</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span
+                        [innerHTML]="proposalAllData?.justification || 'N/A' | safeHtml"></span>
+                </td>
+            </tr>
+        </table>
+        <hr class="print-line">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small summary">
+            <tr class="sb-bg-gray">
+                <th>Current Request</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span
+                        [innerHTML]="proposalAllData?.currentRequest || 'N/A' | safeHtml"></span>
+                </td>
+            </tr>
+        </table>
+    </ng-container>
+
+    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && ( others || fullSettlement)" [customerAllLoanList]="customerAllLoanList"
+                        [loanDataHolder]="loanDataHolder"
+                        [individual]="loanDataHolder?.loanHolder?.customerType === 'INDIVIDUAL'"
+                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 </ng-container>
 <!-- Customer Share Security  -->
 <app-customer-share-detail-view *ngIf="loanDataHolder?.loanHolder?.customerShareBatches && isShareLoan"
                                 [customerShareBatch]="loanDataHolder?.loanHolder?.customerShareBatches">
 </app-customer-share-detail-view>
-<hr class="print-line">
+    <ng-container *ngIf="!others && !fullSettlement">
+    <hr class="print-line">
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
                      [loanDataHolder]="loanDataHolder"
@@ -142,7 +172,7 @@
     <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                            [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
 </div>
-
+    </ng-container>
 <!--<div *ngIf="productUtils.CBS_ENABLE">
     <div class="row mt-5">
         <div class="col-md-12">
@@ -365,7 +395,6 @@
     </div>
 </div>
 
-<hr class="print-line" *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
 <!--<div class="borrower_class">
     <div class="row">
         <div class="col-md-12">
@@ -383,20 +412,28 @@
 
 <app-multi-banking-summary *ngIf="loanDataHolder?.loanHolder?.multiBanking"
                            [formData]="loanDataHolder?.loanHolder?.multiBanking"></app-multi-banking-summary>-->
-
+    <ng-container *ngIf="!others && !fullSettlement">
+        <hr class="print-line" *ngIf="loanDataHolder?.loanHolder?.creditChecklist">
 <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                            [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                            [fromProfile]="false"
                            [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
-<hr class="print-line">
+
+<!--        CRG Gamma View-->
+        <app-credit-risk-grading-gamma
+                [fromProfile]="false"
+                [customerInfo]="loanDataHolder?.loanHolder"
+                [formData]="loanDataHolder.loanHolder?.crgGamma"></app-credit-risk-grading-gamma>
+
 <!--Product Paper Checklist-->
-<div>
+<div *ngIf="toggleChecklist?.length > 0">
+    <hr class="print-line">
     <p><strong class="header">Product Paper Checklist</strong></p>
 </div>
-<ng-container *ngFor="let loan of combinedLoan; let i = index">
-    <ng-container *ngIf="toggleChecklist[i] !== null">
-        <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="toggleChecklist[i]"
-                                     *ngIf="(loan?.loan?.paperChecklist | jsonParse)?.checklistChecked && loan?.paperProductChecklist"></app-product-paper-checklist>
+<ng-container *ngFor="let checklist of toggleChecklist; let i = index">
+    <ng-container *ngIf="checklist !== null || checklist !== 'undefined'">
+        <app-product-paper-checklist [allIds]="toggleId[i]" [paper]="checklist"
+                                     *ngIf="checklist"></app-product-paper-checklist>
     </ng-container>
 </ng-container>
 
@@ -409,5 +446,5 @@
 <app-collateral-site-visit *ngIf="loanDataHolder?.securities"
                            [loanDataHolder]="loanDataHolder"
                            [securities]="loanSecurity"></app-collateral-site-visit>
-
+    </ng-container>
 </div>

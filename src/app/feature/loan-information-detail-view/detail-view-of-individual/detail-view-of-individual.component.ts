@@ -13,6 +13,7 @@ import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {LoanTag} from '../../loan/model/loanTag';
+import {LoanType} from '../../loan/model/loanType';
 
 @Component({
   selector: 'app-detail-view-of-individual',
@@ -75,6 +76,8 @@ export class DetailViewOfIndividualComponent implements OnInit {
   toggleId = [];
   check = false;
   thisClient;
+  others = false;
+  fullSettlement = false;
 
   constructor(
       private modalService: NgbModal,
@@ -99,6 +102,8 @@ export class DetailViewOfIndividualComponent implements OnInit {
       const obj = JSON.parse(this.loanDataHolder.loan.paperChecklist);
       this.checklistChecked = obj.checklistChecked;
     }
+    this.others = LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS;
+    this.fullSettlement = LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN;
     this.thisClient = this.loanDataHolder.loanHolder.clientType;
     if (this.thisClient === 'CORPORATE' || this.thisClient === 'INFRASTRUCTURE_AND_PROJECT' ||
         this.thisClient === 'MID_MARKET' || this.thisClient === 'BUSINESS_DEVELOPMENT') {
@@ -179,7 +184,7 @@ export class DetailViewOfIndividualComponent implements OnInit {
   disable() {
     if (this.combinedLoan.length > 0) {
       this.combinedLoan.forEach((val, i) => {
-        if (!ObjectUtil.isEmpty(val.paperProductChecklist)) {
+        if (!ObjectUtil.isEmpty(val.paperProductChecklist) && JSON.parse(val.paperProductChecklist).view !== 'undefined') {
           const obj = JSON.parse(val.paperProductChecklist);
           this.paperChecklist = obj.view;
           this.allId = obj.id;
@@ -190,14 +195,11 @@ export class DetailViewOfIndividualComponent implements OnInit {
             if (!child.includes('checked')) {
               input.innerHTML = `<input type="radio" disabled>`;
             } else {
-              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * Math.random() * 100) + 1}">`;
+              input.innerHTML = `<input type="radio" checked  name ="${Math.floor(Math.random() * Math.random() * 100) + 1}${d}">`;
             }
           });
           this.toggleChecklist.push(parserData.body.innerHTML);
           this.toggleId.push(this.allId);
-        } else {
-          this.toggleChecklist.push(null);
-          this.toggleId.push(null);
         }
       });
     }

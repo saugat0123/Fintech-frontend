@@ -188,6 +188,7 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
   isCorporate = false;
   thisClient;
   esrmData;
+  others = false;
   constructor(
       @Inject(DOCUMENT) private _document: Document,
       private userService: UserService,
@@ -228,12 +229,11 @@ export class LoanSummaryInstitutionalComponent implements OnInit {
       this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
     }
     this.getLoanDataHolder();
-    if (LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN) {
-      this.fullSettlement = true;
-    }
     if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
       this.isRemitLoan = true;
     }
+      this.others = LoanType[this.loanDataHolder.loanType] === LoanType.OTHERS;
+      this.fullSettlement = LoanType[this.loanDataHolder.loanType] === LoanType.FULL_SETTLEMENT_LOAN;
     // this.disable();
     if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
       this.consumerFinance = true;
