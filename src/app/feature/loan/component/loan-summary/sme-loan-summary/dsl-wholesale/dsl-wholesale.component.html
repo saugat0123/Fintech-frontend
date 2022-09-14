@@ -222,17 +222,18 @@
         <p><strong>RECOMMENDATIONS:</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
         <p class="mt-2">Therefore, on the basis of the above-mentioned information and credit assessment, it is recommended for approval
-            of following credit facilities to M/s {{loanDataHolder?.loanHolder?.name}}:<br>
-            <ul>
-                <li *ngFor="let data of allLonList; let i = index" class="col-sm-12">
-                    <span><u> {{ data?.loanType | replace:'_' :' ' + ' OF ' + data.loan.name}}
-                        (<mark><em class="sb-small">Limit: Rs.{{data?.proposal?.proposedLimit | currencyFormatter}}
-                            , Tenure: {{data?.proposal?.tenureDurationInMonths}} months, Base Rate : {{(data?.proposal?.data | jsonParse).baseRate}}
-                            + Premium Rate : {{(data?.proposal?.data | jsonParse).premiumRateOnBaseRate}}
-                            <span *ngIf="(data?.proposal?.data | jsonParse)?.subsidizedLoan">- Subsidy Rate: {{(data?.proposal?.data | jsonParse)?.subsidizedLoan}}</span></em></mark>)</u>
-                    </span>
-                </li>
-            </ul>
+            of following credit facilities to M/s TESTDATA {{loanDataHolder?.loanHolder?.name}}:<br>
+<!--            <ul>-->
+<!--                <li *ngFor="let data of allLonList; let i = index" class="col-sm-12">-->
+<!--                    <span><u> {{ data?.loanType | replace:'_' :' ' + ' OF ' + data.loan.name}}-->
+<!--                        (<mark><em class="sb-small">Limit: Rs.{{data?.proposal?.proposedLimit | currencyFormatter}}-->
+<!--                            , Tenure: {{data?.proposal?.tenureDurationInMonths}} months, Base Rate : {{(data?.proposal?.data | jsonParse).baseRate}}-->
+<!--                            + Premium Rate : {{(data?.proposal?.data | jsonParse).premiumRateOnBaseRate}}-->
+<!--                            <span *ngIf="(data?.proposal?.data | jsonParse)?.subsidizedLoan">- Subsidy Rate: {{(data?.proposal?.data | jsonParse)?.subsidizedLoan}}</span></em></mark>)</u>-->
+<!--                    </span>-->
+<!--                </li>-->
+<!--            </ul>-->
+            <span [innerHtml]="proposalData.recommendations | safeHtml"></span>
     </li>
     <li class="font-weight-bold">
         <p><strong>RECOMMENDED, REVIEWED, AND APPROVED BY:</strong></p>
