@@ -58,6 +58,8 @@ export class PlantMachineryComponent implements OnInit {
         const plantAndMachineryForm = this.plantMachineryForm.get('plantDetails') as FormArray;
         plantAndMachineryForm.push(
             this.formBuilder.group({
+                bookValueDate: [formData.bookValueDate ? new Date(formData.bookValueDate) : ''],
+                bookValue: [formData.bookValue],
                 model: [formData.model],
                 quotation: [formData.quotation],
                 supplier: [formData.supplier],
@@ -67,7 +69,7 @@ export class PlantMachineryComponent implements OnInit {
                 plantMachineryStaffRepresentativeName: [formData.plantMachineryStaffRepresentativeName],
                 plantBranch: [formData.plantBranch],
                 fairMarketValue: [formData.fairMarketValue],
-                considerValue: [formData.considerValue],
+                // considerValue: [formData.considerValue],
                 distressValue: [formData.distressValue],
                 plantMachineryStaffRepresentativeDesignation: [formData.plantMachineryStaffRepresentativeDesignation],
                 plantMachineryStaffRepresentativeDesignation2: [formData.plantMachineryStaffRepresentativeDesignation2],
@@ -184,6 +186,8 @@ export class PlantMachineryComponent implements OnInit {
 
   public plantDetailsFormGroup(): FormGroup {
     return this.formBuilder.group({
+      bookValueDate: [undefined],
+      bookValue: [undefined],
       model: [undefined, Validators.required],
       quotation: [undefined, Validators.required],
       supplier: [undefined],
@@ -193,7 +197,7 @@ export class PlantMachineryComponent implements OnInit {
       plantMachineryStaffRepresentativeName: [undefined],
       plantBranch: [undefined],
       fairMarketValue: [undefined],
-      considerValue: [undefined],
+      // considerValue: [undefined],
       distressValue: [undefined],
       plantMachineryStaffRepresentativeDesignation: [undefined],
       plantMachineryStaffRepresentativeDesignation2: [undefined],

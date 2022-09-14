@@ -76,7 +76,7 @@ export class LandComponent implements OnInit {
           area: [formData.area],
           fairMarketValue: [formData.fairMarketValue],
           distressValue: [formData.distressValue],
-          considerValue: [formData.considerValue],
+          // considerValue: [formData.considerValue],
           description: [formData.description],
           landValuator: [formData.landValuator],
           landValuatorDate: [formData.landValuatorDate ? new Date(formData.landValuatorDate) : ''],
@@ -228,8 +228,8 @@ export class LandComponent implements OnInit {
       const considerValue = (Number(this.landForm.get(['landDetails', index, 'distressValue']).value)
           * (Number(this.landForm.get(['landDetails', index, 'landRate']).value)) / 100);
       this.landForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
-      this.landForm.get(['landDetails', index, 'considerValue']).patchValue(
-          this.landForm.get(['landDetails', index, 'fairMarketValue']).value);
+      /*this.landForm.get(['landDetails', index, 'considerValue']).patchValue(
+          this.landForm.get(['landDetails', index, 'fairMarketValue']).value);*/
     }
     this.updateLandSecurityTotal();
   }
@@ -282,7 +282,7 @@ export class LandComponent implements OnInit {
       area: [undefined],
       fairMarketValue: [undefined],
       distressValue: [undefined],
-      considerValue: [undefined],
+      // considerValue: [undefined],
       description: [undefined],
       landValuator: [undefined],
       landValuatorDate: [undefined],

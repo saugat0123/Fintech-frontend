@@ -9,7 +9,31 @@
             <div [formGroupName]="i.toString()">
                 <input type="checkbox" formControlName="plantOtherBranchChecked"> Property on another branch
                 location
-                <div class="row">
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title">Book Value Date</label>
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="bookValueDate"
+                                   id="bookValueDate"
+                                   name="bookValueDate" placeholder="Book Value Date"
+                                   [nbDatepicker]="bookValueDate"
+                                   type="text"/>
+                            <app-calendar
+                                    (messageToEmit)="plantMachineryForm.get(['plantDetails',i,'bookValueDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="plantMachineryForm.get(['plantDetails',i,'bookValueDate']).value"></app-calendar>
+                            <nb-datepicker #bookValueDate></nb-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title">Book Value</label>
+                            <input class="form-control rounded" formControlName="bookValue"
+                                   placeholder="Book Value"
+                                   type="number"/>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="title" for="model">Model No.</label>
@@ -41,12 +65,12 @@
                             <input class="form-control rounded" formControlName="fairMarketValue"
                                    id="fairMarketValue"
                                    (change)="plant.get('quotation').patchValue((plant.get('fairMarketValue').value / 100) * plant.get('realisableRate').value)"
-                                   name="fairMarketValue" placeholder="Fair Market Value"
+                                   name="fairMarketValue" placeholder="Market Value"
                                    type="text" appDecimalNumber />
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <!--<div class="col-md-3">
                         <div class="form-group">
                             <label class="title" for="considerValue">Consider Value</label>
                             <input class="form-control rounded" formControlName="considerValue"
@@ -55,7 +79,7 @@
                                    name="considerValue" placeholder="Consider Value"
                                    type="text" appDecimalNumber />
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="col-md-3">

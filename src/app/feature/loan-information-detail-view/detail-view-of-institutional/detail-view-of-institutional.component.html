@@ -20,6 +20,14 @@
                 [proposalData]="proposalData"
                 [loanDataHolder]="loanDataHolder"></app-proposal-summary>
     </ng-container>
+
+    <ng-container *ngIf="isCorporate && (loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.dapDaaOutstanding">
+        <hr class="print-line">
+        <p><strong class="header">DAP/DAA Outstanding</strong></p>
+        <div class="table-condensed table-responsive-md"
+             [innerHTML]="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.dapDaaOutstanding || 'N/A' | safeHtml">
+        </div>
+    </ng-container>
 <!--    <div *ngIf="isCorporate" class="col-md-12">-->
 <!--        <p><strong class="header text-left">Purpose of Loan </strong></p>-->
 <!--        <ng-container *ngFor="let loan of customerAllLoanList; let i = index">-->

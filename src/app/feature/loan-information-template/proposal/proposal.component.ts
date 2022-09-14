@@ -99,6 +99,7 @@ export class ProposalComponent implements OnInit {
     checkedProjection = false;
     fixedAssetsChecked = false;
     summaryEnvChecked = false;
+    flatInterest = false;
     subsidyLoanType = [
         {value: 'Literate Youth Self Employment Loan'},
         {value: 'Project Loan For Youth Returning From Foreign'},
@@ -601,7 +602,8 @@ export class ProposalComponent implements OnInit {
                 borrowChecked: this.borrowChecked,
                 endUseChecked: this.endUseChecked,
                 fixedAssetsChecked: this.fixedAssetsChecked,
-                summaryEnvChecked: this.summaryEnvChecked
+                summaryEnvChecked: this.summaryEnvChecked,
+                flatInterest: this.flatInterest
             };
             this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -626,6 +628,26 @@ export class ProposalComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData)) {
                 this.proposalForm.patchValue(JSON.parse(this.customerInfo.commonLoanData));
                 this.proposalData.checkedData = JSON.parse(this.customerInfo.commonLoanData).mergedCheck;
+            } else {
+                const mergeChecked = {
+                    solChecked: this.solChecked,
+                    waiverChecked: this.waiverChecked,
+                    riskChecked: this.riskChecked,
+                    subsidizedLoanChecked: this.subsidizedLoanChecked,
+                    deviationChecked: this.deviationChecked,
+                    commitmentChecked: this.commitmentChecked,
+                    swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+                    prepaymentChargeChecked: this.prepaymentChargeChecked,
+                    purposeChecked: this.purposeChecked,
+                    debtChecked: this.debtChecked,
+                    netChecked: this.netChecked,
+                    borrowChecked: this.borrowChecked,
+                    endUseChecked: this.endUseChecked,
+                    fixedAssetsChecked: this.fixedAssetsChecked,
+                    summaryEnvChecked: this.summaryEnvChecked,
+                    flatInterest: this.flatInterest
+                };
+                this.proposalData.checkedData = JSON.stringify(mergeChecked);
             }
             if (this.withIn) {
                 this.loan.withIn = this.withIn;
@@ -755,6 +777,10 @@ export class ProposalComponent implements OnInit {
                 this.summaryEnvChecked = event;
             }
                 break;
+            case 'flatInterest': {
+                this.flatInterest = event;
+            }
+                break;
         }
     }
 
@@ -777,6 +803,7 @@ export class ProposalComponent implements OnInit {
             this.checkChecked(data['checkedProjection'], 'changeProjection');
             this.checkChecked(data['fixedAssetsChecked'], 'fixedAssets');
             this.checkChecked(data['summaryEnvChecked'], 'summaryEnv');
+            this.checkChecked(data['flatInterest'], 'flatInterest');
         }
     }
 
