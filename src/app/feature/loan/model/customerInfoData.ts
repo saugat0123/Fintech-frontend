@@ -89,4 +89,5 @@ export class CustomerInfoData {
     financialCcbl: string;
     existingExposures: Array<ExistingExposure>;
     withInData: string;
+    complianceStatus: string;
 }
