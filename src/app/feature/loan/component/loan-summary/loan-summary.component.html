@@ -121,10 +121,10 @@
                             <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
                             <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
                                 ({{loanDataHolder?.createdAt | engNepDate: false}})</span> <br>
-                            <span *ngIf="loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                            <span *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
                                 <b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
-                        <div class="float-right" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                        <div class="float-right" *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                                 ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
                             <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
@@ -141,7 +141,7 @@
             </div>
             <!-- CRG - Gamma-->
             <div *ngIf="crgGammaSummary" class="col-md-12">
-                <nb-card class="sb-medium" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                <nb-card class="sb-medium" *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
                     <nb-card-header class="text-center">
                         <h6>Credit Scoring</h6>
                     </nb-card-header>
