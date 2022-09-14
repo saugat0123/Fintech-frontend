@@ -1,8 +1,8 @@
-<p><strong>14.1. Pricing</strong></p>
+<p><strong>13.1. Pricing</strong></p>
 <p>We propose the following pricing for the proposed credit facilities: </p>
 <div class="container mr-4">
     <div class="d-flex justify-content-between">
-        <p><strong>14.1.1.	Interest (%  p.a.)</strong></p>
+        <p><strong>13.1.1.	Interest (%  p.a.)</strong></p>
     </div>
 </div>
 <table class="table table-condensed text-center table-bordered table-responsive-md table-sm sb-small">
@@ -38,7 +38,7 @@
 <!--<p>Interest is payable on quarterly basis, as per Nepali calendar…………. Rate of interest is subject to change as per the Bank’s decision.</p>-->
 <!--<p>Penal interest: 2% additional on the overdue principal amount for the period the overdue remains.</p>-->
 <div class="container">
-    <p><strong>14.1.2. Processing fee: (flat, one time; payable upfront at the time of first disbursement of the loan)</strong></p>
+    <p><strong>13.1.2. Processing fee: (flat, one time; payable upfront at the time of first disbursement of the loan)</strong></p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
     <thead>
@@ -71,7 +71,7 @@
     </tbody>
 </table>
 <div class="container">
-    <p><strong>14.1.3. Prepayment charge: </strong></p>
+    <p><strong>13.1.3. Prepayment charge: </strong></p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
     <thead>
@@ -98,7 +98,7 @@
     </tbody>
 </table>
 <div class="container">
-    <p><strong>14.1.4. Commissions (% p.q.)</strong></p>
+    <p><strong>13.1.4. Commissions (% p.q.)</strong></p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
     <thead>
@@ -131,7 +131,7 @@
     </tbody>
 </table>
 <div class="container">
-    <p><strong>14.1.5. Cash Margin</strong></p>
+    <p><strong>13.1.5. Cash Margin</strong></p>
 </div>
 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
     <thead>
@@ -165,13 +165,13 @@
 </table>
 <div class="container">
     <p></p>
-    <p><strong>14.1.6. Forex: {{((loanDataHolder?.proposal.data | jsonParse)?.forexOnSale | currencyFormatter) || 'NA'}} </strong> paisa discount / USD on sale;
+    <p><strong>13.1.6. Forex: {{((loanDataHolder?.proposal.data | jsonParse)?.forexOnSale | currencyFormatter) || 'NA'}} </strong> paisa discount / USD on sale;
       <strong>{{((loanDataHolder?.proposal.data | jsonParse)?.forexOnPurchase | currencyFormatter) || 'NA'}}</strong>  paisa / USD premium on purchase</p>
-    <p><strong>14.1.7. CIC charge: </strong>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? (loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) : 'NA'}}</p>
-    <p><strong>14.1.8. STR charge: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.strCharge ?
+    <p><strong>13.1.7. CIC charge: </strong>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ? (loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) : 'NA'}}</p>
+    <p><strong>13.1.8. STR charge: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.strCharge ?
         ((loanDataHolder?.proposal?.data | jsonParse)?.strCharge) : 'NA'}}</p>
-    <p><strong>14.1.9. Commitment fee:</strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee ?
+    <p><strong>13.1.9. Commitment fee:</strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee ?
         ((loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee | currencyFormatter) : 'NA'}}</p>
-    <p><strong>14.1.10. Other charges/fees: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.other ?
+    <p><strong>13.1.10. Other charges/fees: </strong>{{(loanDataHolder?.proposal?.data | jsonParse)?.other ?
         ((loanDataHolder?.proposal?.data | jsonParse)?.other): 'NA'}}</p>
 </div>
