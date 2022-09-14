@@ -56,6 +56,7 @@ export class CommonLoanInformationComponent implements OnInit {
     loanTypeList = LoanType.value();
     multipleSelectedLoanType = [];
     loanList = [];
+
     ngOnInit() {
         this.buildForm();
         this.getAllLoans();
@@ -81,12 +82,14 @@ export class CommonLoanInformationComponent implements OnInit {
             loanConfig: [undefined],
             exposureWithInId: [undefined],
             witInType: [1],
+            loanNumber: [undefined],
             id: [undefined]
         });
         formArray.push(exposure);
         const c: ExistingExposure = new ExistingExposure();
         this.commonLoans.push(c);
     }
+
     sliceLoan() {
         this.loanTypeList.forEach((val) => {
             if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
@@ -98,6 +101,7 @@ export class CommonLoanInformationComponent implements OnInit {
 
         });
     }
+
     setLoans() {
         const formArray = (this.commonLoanForm.get('data') as FormArray);
         this.commonLoans.forEach((e, i) => {
@@ -110,6 +114,7 @@ export class CommonLoanInformationComponent implements OnInit {
                 docStatus: [e.docStatus],
                 exposureWithInId: [e.exposureWithInId],
                 witInType: [e.witInType],
+                loanNumber: [e.loanNumber],
                 originalLimit: [e.originalLimit],
                 id: [e.id]
             }));
@@ -117,6 +122,7 @@ export class CommonLoanInformationComponent implements OnInit {
         });
         this.setFormCondition();
     }
+
     setFormCondition() {
         this.commonLoanForm.get('data').value.forEach((d, i) => {
             this.commonLoanForm.get(['data', i, 'proposalData']).get('existingLimit').patchValue(d.originalLimit);
@@ -162,12 +168,14 @@ export class CommonLoanInformationComponent implements OnInit {
 
     setAllExposure() {
         const formArray = (this.commonLoanForm.get('data'));
+        console.log(formArray);
         formArray.value.forEach((d, i) => {
             this.commonLoans[i].proposalData = JSON.stringify(d.proposalData);
             this.commonLoans[i].docStatus = d.docStatus;
             this.commonLoans[i].loanConfig = d.loanConfig;
             this.commonLoans[i].loanName = d.loanConfig.name;
             this.commonLoans[i].loanType = d.loanType;
+            // this.commonLoans[i].loanNumber = d.loanNumber;
             this.commonLoans[i].originalLimit = Number(d.proposalData.existingLimit);
         });
     }
@@ -307,8 +315,8 @@ export class CommonLoanInformationComponent implements OnInit {
 
 
     setCondition(i) {
-        const data = this.commonLoanForm.get(['data', i , 'loanConfig']).value as LoanConfig;
-        const loanType = this.commonLoanForm.get(['data', i , 'loanType']).value;
+        const data = this.commonLoanForm.get(['data', i, 'loanConfig']).value as LoanConfig;
+        const loanType = this.commonLoanForm.get(['data', i, 'loanType']).value;
         const check = {
             checkApproved: false,
             isFundable: false,
@@ -372,90 +380,91 @@ export class CommonLoanInformationComponent implements OnInit {
             }
         });
     }
-    addExistingExposure() {
-   return   this.formBuilder.group({
-         proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
-         interestRate: [undefined],
-         baseRate: [undefined],
-         premiumRateOnBaseRate: [undefined],
-         serviceChargeMethod: ['PERCENT'],
-         swapChargeMethod: ['PERCENT'],
-         serviceCharge: [undefined],
-         tenureDurationInMonths: [undefined],
-         repaymentMode: ['EMI'],
-         repaymentModeInterest: [undefined],
-         repaymentModePrincipal: [undefined],
-         disbursementCriteria: [undefined],
-         repayment: [undefined],
-         borrowerInformation: [undefined],
-         interestAmount: [undefined],
-         existingLimit: [undefined],
-         outStandingLimit: [undefined],
-         collateralRequirement: [undefined, Validators.required],
-         swapCharge: [undefined],
-         subsidizedLoan: [undefined],
-         remark: [undefined],
-         cashMargin: [undefined],
-         commissionPercentage: [undefined],
-         commissionFrequency: [undefined],
-         couponRate: [undefined],
-         premiumOnCouponRate: [undefined],
-         tenorOfEachDeal: [undefined],
-         cashMarginMethod: ['PERCENT'],
-         enhanceLimitAmount: [undefined],
-         subsidyLoanType: [undefined],
-         others: [undefined],
 
-         // Additional Fields--
-         // for installment Amount--
-         installmentAmount: [undefined],
-         principalAmount: [undefined],
-         // for moratoriumPeriod Amount--
-         moratoriumPeriod: [undefined],
-         // for prepaymentCharge Amount--
-         prepaymentCharge: [0],
-         // for prepaymentCharge Amount--
-         // for commitmentFee Amount--
-         commitmentFee: [undefined],
-         solConclusionRecommendation: [undefined],
-         waiverConclusionRecommendation: [undefined],
-         riskConclusionRecommendation: [undefined],
-         summeryRecommendation: undefined,
-         purposeOfLoan: undefined,
-         termsAndCondition: undefined,
-         prepaymentSwapCommitment: [undefined],
-         existCashMargin: [undefined],
-         existCashMarginMethod: ['PERCENT'],
-         existInterestRate: [undefined],
-         existCommissionPercentage: [undefined],
-         settlementAmount: [undefined],
-         groupExposure: this.formBuilder.array([]),
-         files: [undefined],
-         deviationConclusionRecommendation: [undefined],
-         shares: this.formBuilder.array([]),
-         realState: this.formBuilder.array([]),
-         vehicle: this.formBuilder.array([]),
-         deposit: this.formBuilder.array([]),
-         depositBank: [undefined],
-         depositOther: [undefined],
-         depositBankRemark: [undefined],
-         depositOtherRemark: [undefined],
-         total: [undefined],
-         totals: [undefined],
-         borrowingCase: [undefined],
-         endUseOfFund: [undefined],
-         justificationChangeHistorical: [undefined],
-         justificationChangeProjection: [undefined],
-         fixedAssetsSummary: this.formBuilder.array([]),
-         summaryEnvironment: this.formBuilder.group({
-             priority: [undefined],
-             criticalSectorList: [undefined],
-             criticalSector: [undefined],
-             processApplicable: [undefined],
-         }),
-         justification: [undefined],
-         currentRequest: [undefined]
-     });
+    addExistingExposure() {
+        return this.formBuilder.group({
+            proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
+            interestRate: [undefined],
+            baseRate: [undefined],
+            premiumRateOnBaseRate: [undefined],
+            serviceChargeMethod: ['PERCENT'],
+            swapChargeMethod: ['PERCENT'],
+            serviceCharge: [undefined],
+            tenureDurationInMonths: [undefined],
+            repaymentMode: ['EMI'],
+            repaymentModeInterest: [undefined],
+            repaymentModePrincipal: [undefined],
+            disbursementCriteria: [undefined],
+            repayment: [undefined],
+            borrowerInformation: [undefined],
+            interestAmount: [undefined],
+            existingLimit: [undefined],
+            outStandingLimit: [undefined],
+            collateralRequirement: [undefined, Validators.required],
+            swapCharge: [undefined],
+            subsidizedLoan: [undefined],
+            remark: [undefined],
+            cashMargin: [undefined],
+            commissionPercentage: [undefined],
+            commissionFrequency: [undefined],
+            couponRate: [undefined],
+            premiumOnCouponRate: [undefined],
+            tenorOfEachDeal: [undefined],
+            cashMarginMethod: ['PERCENT'],
+            enhanceLimitAmount: [undefined],
+            subsidyLoanType: [undefined],
+            others: [undefined],
+
+            // Additional Fields--
+            // for installment Amount--
+            installmentAmount: [undefined],
+            principalAmount: [undefined],
+            // for moratoriumPeriod Amount--
+            moratoriumPeriod: [undefined],
+            // for prepaymentCharge Amount--
+            prepaymentCharge: [0],
+            // for prepaymentCharge Amount--
+            // for commitmentFee Amount--
+            commitmentFee: [undefined],
+            solConclusionRecommendation: [undefined],
+            waiverConclusionRecommendation: [undefined],
+            riskConclusionRecommendation: [undefined],
+            summeryRecommendation: undefined,
+            purposeOfLoan: undefined,
+            termsAndCondition: undefined,
+            prepaymentSwapCommitment: [undefined],
+            existCashMargin: [undefined],
+            existCashMarginMethod: ['PERCENT'],
+            existInterestRate: [undefined],
+            existCommissionPercentage: [undefined],
+            settlementAmount: [undefined],
+            groupExposure: this.formBuilder.array([]),
+            files: [undefined],
+            deviationConclusionRecommendation: [undefined],
+            shares: this.formBuilder.array([]),
+            realState: this.formBuilder.array([]),
+            vehicle: this.formBuilder.array([]),
+            deposit: this.formBuilder.array([]),
+            depositBank: [undefined],
+            depositOther: [undefined],
+            depositBankRemark: [undefined],
+            depositOtherRemark: [undefined],
+            total: [undefined],
+            totals: [undefined],
+            borrowingCase: [undefined],
+            endUseOfFund: [undefined],
+            justificationChangeHistorical: [undefined],
+            justificationChangeProjection: [undefined],
+            fixedAssetsSummary: this.formBuilder.array([]),
+            summaryEnvironment: this.formBuilder.group({
+                priority: [undefined],
+                criticalSectorList: [undefined],
+                criticalSector: [undefined],
+                processApplicable: [undefined],
+            }),
+            justification: [undefined],
+            currentRequest: [undefined]
+        });
     }
 
     getAllLoans() {
@@ -467,19 +476,20 @@ export class CommonLoanInformationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS Something Went Wrong'));
         });
     }
+
     setLoan(event, i) {
-        this.commonLoanForm.get(['data', i , 'loanName']).patchValue(event.name);
-            this.commonLoanForm.get(['data', i, 'proposalData']).get('existingLimit').patchValue(0);
-            this.setCondition(i);
-            this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
-                .patchValue((Number(value) + Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').value)).toFixed(2)));
-            this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
-                .patchValue((Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').value) + Number(value)).toFixed(2)));
-            this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').valueChanges.subscribe(value => {
-                this.commonLoanForm.get(['data', i, 'proposalData']).get('principalAmount')
-                    .patchValue(Number(value));
-            });
-            this.checkInstallmentAmount(i);
+        this.commonLoanForm.get(['data', i, 'loanName']).patchValue(event.name);
+        this.commonLoanForm.get(['data', i, 'proposalData']).get('existingLimit').patchValue(0);
+        this.setCondition(i);
+        this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
+            .patchValue((Number(value) + Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').value)).toFixed(2)));
+        this.commonLoanForm.get(['data', i, 'proposalData']).get('baseRate').valueChanges.subscribe(value => this.commonLoanForm.get(['data', i, 'proposalData']).get('interestRate')
+            .patchValue((Number(this.commonLoanForm.get(['data', i, 'proposalData']).get('premiumRateOnBaseRate').value) + Number(value)).toFixed(2)));
+        this.commonLoanForm.get(['data', i, 'proposalData']).get('proposedLimit').valueChanges.subscribe(value => {
+            this.commonLoanForm.get(['data', i, 'proposalData']).get('principalAmount')
+                .patchValue(Number(value));
+        });
+        this.checkInstallmentAmount(i);
     }
 
     private setProposalData(formDataForEdit: any, i) {
@@ -553,7 +563,7 @@ export class CommonLoanInformationComponent implements OnInit {
             },
             error: (err: any) => {
                 this.spinnerService.hide();
-                this.toastService.show(new Alert(AlertType.ERROR,  err.toString()));
+                this.toastService.show(new Alert(AlertType.ERROR, err.toString()));
             },
             complete: () => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Converted To Loan'));

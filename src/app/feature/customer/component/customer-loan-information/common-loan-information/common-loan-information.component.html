@@ -56,32 +56,45 @@
                                 </select></div>
                         </div>
                     </div>
-                    <div class="col-md-4" *ngIf="!controls?.get('loanId')?.value">
-                        <div>
-                            <nb-checkbox [(ngModel)]="commonLoans[i].withIn" name="withIn"
-                                         [ngModelOptions]="{standalone: true}">Is proposed facility is within limit ? <i
-                                    style="color:red">(If YES, Please Tick)</i>?
-                            </nb-checkbox>
-                            <select *ngIf="commonLoans[i].withIn"
-                                    class="custom-select"
-                                    name="withInLoan"
-                                    (change)="onSelect($event?.target?.value , i)"
-                                    [(ngModel)]="commonLoans[i].exposureWithInId"
-                                    [ngModelOptions]="{standalone: true}">
-                                <option [ngValue]="null" hidden selected>Select</option>
-                                <ng-container *ngFor="let scheme of customerInfo?.existingExposures;">
-                                    <option *ngIf="scheme?.id" [value]="scheme?.loanId ? scheme?.loanId : scheme?.id">{{scheme?.loanConfig?.name}}
-                                        : {{(scheme?.proposalData | jsonParse)?.proposedLimit}}</option>
-                                </ng-container>
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-md-12" *ngIf="!controls?.get('loanId')?.value && controls?.get('id')?.value">
                         <button ngbTooltip="Click To Full Settle The Loan" class="float-right" nbButton
                                 (click)="fullSettle(controls?.get('id').value)"><i class="fa fa-fast-forward"></i>
                         </button>
                     </div>
                     <div class="row" [formGroup]="controls?.get('proposalData')">
+                        <div class="col-md-4" *ngIf="!controls?.get('loanId')?.value">
+                            <div>
+                                <nb-checkbox [(ngModel)]="commonLoans[i].withIn" name="withIn"
+                                             [ngModelOptions]="{standalone: true}">Is proposed facility is within limit ? <i
+                                        style="color:red">(If YES, Please Tick)</i>?
+                                </nb-checkbox>
+                                <select *ngIf="commonLoans[i].withIn"
+                                        class="custom-select"
+                                        name="withInLoan"
+                                        (change)="onSelect($event?.target?.value , i)"
+                                        [(ngModel)]="commonLoans[i].exposureWithInId"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <option [ngValue]="null" hidden selected>Select</option>
+                                    <ng-container *ngFor="let scheme of customerInfo?.existingExposures;">
+                                        <option *ngIf="scheme?.id" [value]="scheme?.loanId ? scheme?.loanId : scheme?.id">{{scheme?.loanConfig?.name}}
+                                            : {{(scheme?.proposalData | jsonParse)?.proposedLimit}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="existingLimit"><strong>Loan Number</strong></label>
+                                <input class="form-control"
+                                       [(ngModel)]="commonLoans[i].loanNumber"
+                                       [ngModelOptions]="{standalone: true}"
+                                       id="loanNumber"
+                                       name="existingLimit" placeholder="Loan Number"
+                                       type="number">
+                            </div>
+                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="existingLimit"><strong>Existing Limit</strong></label>

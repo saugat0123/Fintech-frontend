@@ -12,5 +12,6 @@ export class ExistingExposure extends BaseEntity {
     withIn: boolean;
     exposureWithInId: number;
     witInType: number;
+    loanNumber: string;
 
 }

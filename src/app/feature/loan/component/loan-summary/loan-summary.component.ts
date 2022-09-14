@@ -588,12 +588,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                                 loan.loanType = e.loanType as LoanType;
                                 loan.withIn = e.withIn;
                                 loan.withInLoan  = e.exposureWithInId;
+                                loan.loanNumber  = Number(e.loanNumber);
                                 this.customerAllLoanList.push(loan);
                             }
                         });
                     }
                     this.allLoanList.forEach(d => {
-                        if (!ObjectUtil.isEmpty(d.d.reviewDate)) {
+                        if (!ObjectUtil.isEmpty(d.reviewDate)) {
                             if (!ObjectUtil.isEmpty(d.reviewDate.lastReviewDate) || !ObjectUtil.isEmpty(d.reviewDate.nextReviewDate)) {
                                 this.hasReviewDate = true;
                             }
