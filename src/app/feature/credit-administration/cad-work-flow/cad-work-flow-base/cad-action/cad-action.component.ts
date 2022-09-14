@@ -333,7 +333,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public getUserList(role) {
         this.userList = [];
-        if (role.roleType === RoleType.CAD_LEGAL) {
+        if (role.roleType === RoleType.CAD_LEGAL || role.roleType === RoleType.CRC) {
             this.formAction.patchValue({
                 toRole: role
             });
