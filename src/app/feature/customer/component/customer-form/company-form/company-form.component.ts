@@ -571,7 +571,6 @@ export class CompanyFormComponent implements OnInit {
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required],
-            shareCapital: this.formBuilder.array([])
         });
     }
 
