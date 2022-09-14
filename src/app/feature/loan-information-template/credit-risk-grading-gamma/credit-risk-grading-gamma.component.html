@@ -93,7 +93,7 @@
             <ng-container>
                 <ng-container
                         *ngFor="let answer of creditRiskGrading?.get(['groupObject', creditHistory])?.value; let j = index">
-                    <tr style="background-color: #17a2b1">
+                    <tr [ngClass]="fromProfile ? 'sb-bg-dark' : 'sb-bg-gray'">
                         <th>Topic</th>
                         <th>{{answer?.groupName}}</th>
                         <th>{{answer?.weightage}} %</th>
@@ -132,20 +132,20 @@
             </ng-container>
             </tbody>
             <tbody>
-            <tr class="sb-bg-secondary">
+            <tr [ngClass]="fromProfile ? 'sb-bg-dark' : 'sb-bg-gray'">
                 <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
                 <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
                 <th class="text-center">{{creditRiskGrading?.get('totalPoint')?.value}}</th>
             </tr>
             </tbody>
         </table>
-        <div class="row">
+        <div class="row" *ngIf="fromProfile">
             <label class="title" >Remarks</label>
             <textarea class="form-control rounded" [ngModelOptions]="{standalone: true}"
                       name="remarks" [(ngModel)]="remarks" placeholder="Remarks"
                       rows="2" type="text"></textarea>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="fromProfile">
             <button class="float-sm-right" nbButton (click)="onSubmit()">Save</button>
         </div>
     </form>
