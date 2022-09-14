@@ -121,6 +121,7 @@
                             <span *ngIf="loanDataHolder.loanHolder.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                                 <b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
+                        <hr class="print-line">
                         <div class="float-right" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                             <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
