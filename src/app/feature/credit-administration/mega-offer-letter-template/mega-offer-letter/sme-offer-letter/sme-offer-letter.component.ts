@@ -71,38 +71,32 @@ export class SmeOfferLetterComponent implements OnInit {
         this.listOfLoan.push(this.loanForm.get('loanTypeSelectedArray').value);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder.nepData)) {
             this.smeLoanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-            console.log(this.smeLoanHolderInfo);
-            console.log(this.smeLoanHolderInfo.miscellaneousDetail, 'loanFacilityTypeNep');
         }
         if (!ObjectUtil.isEmpty(this.smeLoanHolderInfo)) {
             this.loanForm.patchValue({
-                referenceNo: this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo ? this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
-                issuedDate: this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate ? this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate : '',
+                referenceNo: this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo ?
+                    this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
+                issuedDate: this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate ?
+                    this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate : '',
                 borrowerName: this.smeLoanHolderInfo.nepaliName ? this.smeLoanHolderInfo.nepaliName : '',
-                instRegDist: this.smeLoanHolderInfo.institutionRegisteredAddress.district ? this.smeLoanHolderInfo.institutionRegisteredAddress.district : '',
-                instRegVdcMun: this.smeLoanHolderInfo.institutionRegisteredAddress.municipality ? this.smeLoanHolderInfo.institutionRegisteredAddress.municipality : '',
-                instRegWardNo: this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo ? this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo : '',
+                instRegDist: this.smeLoanHolderInfo.institutionRegisteredAddress.district ?
+                    this.smeLoanHolderInfo.institutionRegisteredAddress.district : '',
+                instRegVdcMun: this.smeLoanHolderInfo.institutionRegisteredAddress.municipality ?
+                    this.smeLoanHolderInfo.institutionRegisteredAddress.municipality : '',
+                instRegWardNo: this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo ?
+                    this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo : '',
                 authPersonMobileNo: this.smeLoanHolderInfo.contactNo ? this.smeLoanHolderInfo.contactNo : '',
-                authPersonName: this.smeLoanHolderInfo.authorizedPersonDetail.name ? this.smeLoanHolderInfo.authorizedPersonDetail.name : '',
-                // loanFacilityTypeNep: this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInNep ? this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInNep : '',
-                // loanFacilityTypeEng: this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInEng ? this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInEng : '',
-                drawdownPercent: this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer ? this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer : '',
-                // surakchyanName: this.loanHolderInfo.collateralDetails[0].nameInNepali ? this.loanHolderInfo.collateralDetails[0].nameInNepali : '',
-                // surakchyanDis: this.loanHolderInfo.collateralDetails[0].district ? this.loanHolderInfo.collateralDetails[0].district : '',
-                // surakchyanMun: this.loanHolderInfo.collateralDetails[0].municipality ? this.loanHolderInfo.collateralDetails[0].municipality : '',
-                // surakchyanWard: this.loanHolderInfo.collateralDetails[0].wardNo ? this.loanHolderInfo.collateralDetails[0].wardNo : '',
-                // surakchyanKittaNo: this.loanHolderInfo.collateralDetails[0].plotNo ? this.loanHolderInfo.collateralDetails[0].plotNo : '',
-                // surakchyanArea: this.loanHolderInfo.collateralDetails[0].area ? this.loanHolderInfo.collateralDetails[0].area : '',
-                // perGuarantorName: this.loanHolderInfo.guarantorDetails[0].name ? this.loanHolderInfo.guarantorDetails[0].name : '',
-                // guarantorName: this.loanHolderInfo.guarantorDetails[0].name ? this.loanHolderInfo.guarantorDetails[0].name : '',
-                branchName: this.smeLoanHolderInfo.branchDetail.branchNameInNepali ? this.smeLoanHolderInfo.branchDetail.branchNameInNepali : '',
-                branchDis: this.smeLoanHolderInfo.branchDetail.branchDistrict ? this.smeLoanHolderInfo.branchDetail.branchDistrict : '',
+                authPersonName: this.smeLoanHolderInfo.authorizedPersonDetail.name ?
+                    this.smeLoanHolderInfo.authorizedPersonDetail.name : '',
+                drawdownPercent: this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer ?
+                    this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer : '',
+                branchName: this.smeLoanHolderInfo.branchDetail.branchNameInNepali ?
+                    this.smeLoanHolderInfo.branchDetail.branchNameInNepali : '',
+                branchDis: this.smeLoanHolderInfo.branchDetail.branchDistrict ?
+                    this.smeLoanHolderInfo.branchDetail.branchDistrict : '',
                 branchTelNo: this.smeLoanHolderInfo.branchDetail.branchTelNo ? this.smeLoanHolderInfo.branchDetail.branchTelNo : '',
                 branchFax: this.smeLoanHolderInfo.branchDetail.branchFaxNo ? this.smeLoanHolderInfo.branchDetail.branchFaxNo : '',
             });
-            // this.loanForm.get(['proposalData', 0, 'sanctionedLmt']).patchValue(this.smeLoanHolderInfo.miscellaneousDetail.loanAmountInFig);
-            // this.loanForm.get(['proposalData', 0, 'sanctionedLmtInWord']).patchValue(this.smeLoanHolderInfo.miscellaneousDetail.loanAmountInWord);
-            // this.loanForm.get(['overdraftLoan', 0, 'loanFacilityTypeNep']).patchValue(this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInNep);
         }
     }
 
@@ -662,9 +656,7 @@ export class SmeOfferLetterComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME_OFFER_LETTER);
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-            console.log(initialInfo, 'initialInfo');
             this.initialInfoPrint = initialInfo;
-            console.log(this.offerLetterDocument);
             this.existingOfferLetter = true;
             this.loanForm.patchValue(initialInfo, {emitEvent: false});
 
