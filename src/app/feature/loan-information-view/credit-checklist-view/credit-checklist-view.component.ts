@@ -4,6 +4,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
+import {LoanDataHolder} from '../../loan/model/loanData';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {CustomerCategory} from '../../customer/model/customerCategory';
 
 @Component({
   selector: 'app-credit-checklist-view',
@@ -15,11 +18,15 @@ export class CreditChecklistViewComponent implements OnInit {
   @Input() formData: CreditChecklistView;
   @Input() fromProfile;
   @Input() calendarType: CalendarType;
+  @Input() loanDataHolder: LoanDataHolder;
+  @Input() companyInfo: CustomerInfoData;
+  @Input() customerInfo: CustomerInfoData;
   @Input() customerType: CustomerType;
   @Input()
-
+  customerCategory = CustomerCategory;
   formGroupCheckList: FormGroup;
   dataForEdit;
+  isDSL = false;
   creditChecklistView: CreditChecklistView = new CreditChecklistView();
   optionList = ['Yes', 'No', 'Na'];
   optionListRegulatory = ['Yes', 'No'];
@@ -28,6 +35,13 @@ export class CreditChecklistViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+        if (this.loanDataHolder.companyInfo.customerCategory === 'DSL_WHOLE_SALE') {
+          this.isDSL = true;
+        }
+      }
+    }
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditChecklistView = this.formData;
       this.dataForEdit = JSON.parse(this.formData.data);
