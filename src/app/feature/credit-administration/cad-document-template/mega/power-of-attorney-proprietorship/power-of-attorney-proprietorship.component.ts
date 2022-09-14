@@ -27,7 +27,7 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   @Input() customerLoanId: number;
   nepData;
   guarantorData;
-  submitted = false;
+  initialInfo;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -39,13 +39,18 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.PowerOfAttorneyProprietorship.patchValue(JSON.parse(singleCadFile.initialInformation));
+          this.initialInfo = JSON.parse(singleCadFile.initialInformation);
         }
       });
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
       this.guarantorData = Object.values(this.nepData.guarantorDetails);
+    }
+    if (!ObjectUtil.isEmpty(this.initialInfo)) {
+      this.PowerOfAttorneyProprietorship.patchValue(this.initialInfo);
+    } else {
+      this.fillForm();
     }
   }
 
@@ -131,7 +136,34 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       witnessAge2: [undefined],
       witnessName2: [undefined],
       date: [undefined],
-      registerNum: [undefined]
+      registerNum: [undefined],
+      offerDate: [undefined],
+      actYear: [undefined],
+      borrowerPersonName: [undefined],
+      institutionRegDestrict: [undefined],
+      institutionRegVDC: [undefined],
+      institutionRegWard: [undefined],
+    });
+  }
+
+  fillForm() {
+    this.PowerOfAttorneyProprietorship.patchValue({
+      bankBranchName : [!ObjectUtil.isEmpty(this.nepData.companyRegOffice) ? (this.nepData.companyRegOffice) : ''],
+      date : [!ObjectUtil.isEmpty(this.nepData.regIssueDate) ? (this.nepData.regIssueDate) : ''],
+      registerNum : [!ObjectUtil.isEmpty(this.nepData.registrationNo) ? (this.nepData.registrationNo) : ''],
+      institutionRegDestrict : [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.district) ? (this.nepData.institutionRegisteredAddress.district) : ''],
+      institutionRegVDC : [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? (this.nepData.institutionRegisteredAddress.municipality) : ''],
+      institutionRegWard : [!ObjectUtil.isEmpty(this.nepData.institutionRegisteredAddress.municipality) ? (this.nepData.institutionRegisteredAddress.municipality) : ''],
+      borrowerPersonName : [!ObjectUtil.isEmpty(this.nepData.nepaliName) ? (this.nepData.nepaliName) : ''],
+      guarantorGrandFatherName : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.grandfatherName) ? (this.nepData.authorizedPersonDetail.grandfatherName) : ''],
+      guarrantorFatherName : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.fatherName) ? (this.nepData.authorizedPersonDetail.fatherName) : ''],
+      guarantorDistrict : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress.district) ? (this.nepData.authorizedPersonAddress.district) : ''],
+      guarantorMunicipalityOrVdc : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress.municipality) ? (this.nepData.authorizedPersonAddress.municipality) : ''],
+      guarantorWardNo : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonAddress.wardNo) ? (this.nepData.authorizedPersonAddress.wardNo) : ''],
+      guarantorName : [!ObjectUtil.isEmpty(this.nepData.authorizedPersonDetail.name) ? (this.nepData.authorizedPersonDetail.name) : ''],
+      offerDate : [!ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.offerIssueDate) ? (this.nepData.miscellaneousDetail.offerIssueDate) : ''],
+      loanAmount : [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInFig) ? '' : (this.nepData.miscellaneousDetail.loanAmountInFig)],
+      loanAmtInWord : [ObjectUtil.isEmpty(this.nepData.miscellaneousDetail.loanAmountInWord) ? '' : (this.nepData.miscellaneousDetail.loanAmountInWord)],
     });
   }
   changeToNepAmount(event: any, target, from) {

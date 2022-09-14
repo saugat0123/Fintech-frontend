@@ -125,7 +125,7 @@
                 <div class="col-md-8">
                   <p class="custom-font">
                     <span>{{(customerInfo?.customerType === customerType.INDIVIDUAL
-                            || customerInfo?.customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION')
+                            || customerInfo?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION')
                             ? 'INCOME & EXPENSES' : 'INCOME TO THE BANK'}}</span>
                   </p>
                 </div>
@@ -1189,8 +1189,34 @@
           </nb-card>
         </ng-template>
 
-      </div>
-    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <nb-card class="col-md-11 py-2">
+                        <a (click)="openModel(complianceStatus1)" class="cursor info-label">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p class="custom-font">COMPLIANCE STATUS<br><em class="sb-small"></em></p>
+                                </div>
+                                <div class="col-md-4 d-flex justify-content-end">
+                                    <span style="color: green" title="Status : Saved">
+                                      <em *ngIf="customerInfo?.complianceStatus"
+                                          class="fas fa-check-circle px-2"></em>
+                                    </span>
+                                    <span style="color: red" title="Status : Not Saved">
+                                      <em *ngIf="!customerInfo?.complianceStatus"
+                                          class="fas fa-times-circle px-2"></em>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </nb-card>
+                </div>
+            </div>
+
+        </div>
 
     <nb-accordion>
 
@@ -1215,10 +1241,18 @@
             <div class="col-md-12">
               <div class="form-group">
                 <strong>SOL of the BANK</strong>
-                <p class="mt-1">
+                <p class="mt-1" *ngIf="!isDSL">
               <textarea class="form-control rounded"
                         formControlName="solText"
                         id="solText"
+                        rows="3">
+              </textarea>
+                </p>
+                <p class="mt-1" *ngIf="isDSL">
+              <textarea ngModel="{{dslSOL ? dslSOL : defaultSolText}}"
+                        class="form-control rounded"
+                        formControlName="dslSolText"
+                        id="dslSolText"
                         rows="3">
               </textarea>
                 </p>
@@ -1375,6 +1409,83 @@
                         formControlName="waiverConclusionRecommendation"></ckeditor>
             </div>
           </div>
+
+          <div class="col-md-12 form-group">
+            <b>PRODUCTS EXPOSURE OF THE BRANCH/BANK: </b>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType" [ngModelOptions]="{standalone: true}">
+                  <nb-radio value="AD">AD</nb-radio>
+                  <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+            <div class="form-group col-md-5" style="display: flex">
+              <label>Date of Checklist:&nbsp; </label>
+              <ng-container>
+                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
+                       class="form-control "
+                       formControlName="dateCheckList" placeholder="Date of checklist">
+                <app-calendar
+                        (messageToEmit)="commonLoanData.get('dateCheckList').patchValue($event?.eDate)"
+                        *ngIf="calendarType === 'BS'"
+                        [ePreDate]="commonLoanData.get('dateCheckList').value"></app-calendar>
+                <nb-datepicker #dateOfChecklist></nb-datepicker>
+              </ng-container>
+            </div>
+            <div>
+              <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+                <thead>
+                  <tr class="sb-bg-dark">
+                    <th rowspan="2">
+                      Product
+                    </th>
+                    <th colspan="2">
+                      Total loans (DSL wholesale)
+                    </th>
+                    <th colspan="2">
+                      Total (DS) loan
+                    </th>
+                    <th colspan="2">
+                      Gross NPA (DSL)
+                    </th>
+                  </tr>
+                  <tr class="sb-bg-dark">
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                    <th>Branch</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-weight-bold">DSL wholesale</td>
+                    <td><input class="form-control"
+                               formControlName="branch1"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch2"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch3"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch4"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch5"
+                               type="text"/></td>
+                    <td><input class="form-control"
+                               formControlName="branch6"
+                               type="text"/></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </form>
       <div>
@@ -1386,3 +1497,62 @@
   </nb-card>
 </ng-template>
 
+<ng-template #complianceStatus1 let-data let-ref="dialogRef">
+    <nb-card class="template-css">
+        <nb-card-header>
+            COMPLIANCE STATUS
+            <a (click)="ref.close()" aria-label="Close"
+               class="close cursor" data-dismiss="modal">
+                      <span (click)="ref.close()" style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+        </nb-card-header>
+        <nb-card-body>
+            <form [formGroup]="complianceStatus">
+                <div class="row">
+                    <ng-container *ngIf="customerInfo?.customerType== customerType.INSTITUTION;">
+                        <div class="col-md-12 mt-3">
+                            <div class="form-group">
+                                <label class="title"><strong>Lending Requirement</strong></label>
+                                <ckeditor [config]="ckeConfig"
+                                          [style]="{height:'250px !important;'}"
+                                          formControlName="lendingRequirement"
+                                          placeholder="Lending Requirement">
+                                </ckeditor>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mt-3">
+                            <div class="form-group">
+                                <label class="title"><strong>Tolerance Limit</strong></label>
+                                <ckeditor [config]="ckeConfig"
+                                          [style]="{height:'250px !important;'}"
+                                          formControlName="toleranceLimit"
+                                          placeholder="Tolerance Limit">
+                                </ckeditor>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <div class="form-group">
+                                <label class="title"><strong>Other Documents and Requirements</strong></label>
+                                <ckeditor [config]="ckeConfig"
+                                          [style]="{height:'250px !important;'}"
+                                          formControlName="otherDocsAndReq"
+                                          placeholder=">Other Documents and Requirements">
+                                </ckeditor>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </form>
+
+            <div>
+                <button (click)="saveComplianceStatus()"
+                        class="btn float-right d-flex justify-content-end" nbButton type="submit">Save
+                </button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>

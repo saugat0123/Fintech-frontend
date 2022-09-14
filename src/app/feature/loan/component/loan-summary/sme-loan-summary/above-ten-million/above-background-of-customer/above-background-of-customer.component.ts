@@ -12,11 +12,15 @@ import {CustomerInfoData} from '../../../../../model/customerInfoData';
 export class AboveBackgroundOfCustomerComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
   @Input() loanHolder: CustomerInfoData;
+  @Input() customerCategory;
   jsonData: any;
   registeredAddress: any;
   currentAddress: any;
   contactedPerson: any;
   contactDetails: CompanyContactDetail;
+  shareCapitalDetails;
+  totalCurrent = 0;
+  totalPrevious = 0;
 
   constructor() { }
 
@@ -27,6 +31,13 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
       this.currentAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
       this.contactedPerson = JSON.parse(this.companyInfo.contactPersons);
       this.contactDetails = JSON.parse(this.companyInfo.companyContactDetails);
+      this.shareCapitalDetails = JSON.parse(this.companyInfo.shareCapital);
+    }
+    if (!ObjectUtil.isEmpty(this.shareCapitalDetails)) {
+      this.shareCapitalDetails.forEach((data: any) => {
+        this.totalCurrent = this.totalCurrent + data.capitalFirstYear;
+        this.totalPrevious = this.totalPrevious + data.capitalSecondYear;
+      });
     }
   }
 

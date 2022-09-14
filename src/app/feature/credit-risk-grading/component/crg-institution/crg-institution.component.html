@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card class="page-break">
     <div class="row">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
@@ -8,9 +8,10 @@
             </nb-radio-group>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row mt-5">
+        <div class="col-md-12 mt-5">
             <form [formGroup]="crgLongChecklistFormGroup">
+                <div class="row">
                 <div class="form-group col-md-5" style="display: flex">
                     <label>Date of Checklist:&nbsp; </label>
                     <ng-container *ngIf="fromProfile">
@@ -24,14 +25,20 @@
                         <nb-datepicker #dateOfChecklist></nb-datepicker>
                     </ng-container>
                     <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
+
                 </div>
+                    <div class="col-md-4">
+                        <label>CRG Total Point:{{totalCRG | ngxRound}}// {{totalCRG}} </label>
+                    </div>
+                </div>
+
                 <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
+                    <tbody>
                     <tr>
                         <th>Grade</th>
                         <th *ngFor="let option of optionList">{{option}}</th>
                     </tr>
-                    </thead>
+                    </tbody>
                     <tbody>
                     <tr>
                         <th>INDUSTRY / MARKET</th>
@@ -47,7 +54,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="industryMarket"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="industryMarket"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -69,7 +76,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="marketPosition"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="marketPosition"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -91,7 +98,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="supplierRelationship"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="supplierRelationship"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -114,7 +121,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="margins"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="margins"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -136,7 +143,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="liquidity"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="liquidity"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -158,7 +165,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialSupport"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="financialSupport"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -180,7 +187,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="financialStructure"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="financialStructure"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -202,7 +209,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="planning"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="planning"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -224,7 +231,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="relationshipWith"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="relationshipWith"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -246,7 +253,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="managementCapability"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="managementCapability"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">
@@ -268,7 +275,7 @@
                     <tr>
                         <td></td>
                         <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionList"><input [value]="option" formControlName="envThreats"
+                            <td *ngFor="let option of optionList"><input [value]="option" (change)="checks()" formControlName="envThreats"
                                                                          type="radio"></td>
                         </ng-container>
                         <ng-container *ngIf="!fromProfile">

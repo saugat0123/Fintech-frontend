@@ -50,6 +50,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
 import {CustomerCategory} from '../../../model/customerCategory';
 import {ContactDetailsComponent} from '../../../../contact-details/contact-details.component';
+import {DocumentsObtainedTable} from '../../../../loan/model/documentsObtainedTable';
 
 @Component({
     selector: 'app-company-form',
@@ -101,6 +102,7 @@ export class CompanyFormComponent implements OnInit {
     designationList: DesignationList = new DesignationList();
     businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
     designation;
+    designationForDSL;
     subSector = [];
     clientType: any;
     loanTypeList = [{
@@ -142,6 +144,7 @@ export class CompanyFormComponent implements OnInit {
     isBelowTen = false;
     isWholeSale = false;
     accStrategyOption = ['New', 'Grow', 'Maintain', 'Exit'];
+    isAgriPointFive = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -213,7 +216,13 @@ export class CompanyFormComponent implements OnInit {
             this.addProprietor();
             this.addAccountNumber();
         }
+        if (ObjectUtil.isEmpty(this.formValue.shareCapital)) {
+            this.addShareCapital();
+        } else {
+            this.setShareCapital(JSON.parse(this.companyInfo.shareCapital));
+        }
         this.designation = this.designationList.designation;
+        this.designationForDSL = this.designationList.designation.filter(val => val.id === 'Promoter' || val.id === 'BOD' || val.id === 'Management Team' || val.id === 'Other');
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -227,8 +236,7 @@ export class CompanyFormComponent implements OnInit {
                         }
                     }
                 });
-            }
-        );
+            });
     }
 
     buildForm() {
@@ -510,10 +518,19 @@ export class CompanyFormComponent implements OnInit {
             promoterNetWorth: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
                 this.companyJsonData.promoterNetWorth],
+            vision: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.vision)) ? undefined :
+                this.companyJsonData.vision],
+            promoterStructure: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.promoterStructure)) ? undefined :
+                this.companyJsonData.promoterStructure],
             customerCategory: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
                 this.companyInfo.customerCategory, [Validators.required]],
             accStrategy: [(ObjectUtil.isEmpty(this.companyInfo)) ? undefined :
-                this.companyInfo.accStrategy, [Validators.required]]
+                this.companyInfo.accStrategy, [Validators.required]],
+            documentsObtained: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.documentsObtained)) ?
+                DocumentsObtainedTable.key_Figure() : JSON.parse(this.companyInfo.documentsObtained)],
+            shareCapital: this.formBuilder.array([]),
         });
     }
 
@@ -539,7 +556,7 @@ export class CompanyFormComponent implements OnInit {
         this.addressList.push(new Address());
         return this.formBuilder.group({
             name: [undefined, Validators.required],
-            contactNo: [undefined],
+            contactNo: [undefined, Validators.required],
             share: [undefined, Validators.required],
             province: [null],
             district: [null],
@@ -553,7 +570,7 @@ export class CompanyFormComponent implements OnInit {
             dateOfBirth: [undefined],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
-            type: [null, Validators.required]
+            type: [null, Validators.required],
         });
     }
 
@@ -858,12 +875,17 @@ export class CompanyFormComponent implements OnInit {
         submitData.sameAddress = this.sameAddress;
         submitData.business = this.companyInfoFormGroup.get('business').value;
         submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
+        submitData.vision = this.companyInfoFormGroup.get('vision').value;
+        submitData.promoterStructure = this.companyInfoFormGroup.get('promoterStructure').value;
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         }
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        console.log('table::::', (this.companyInfoFormGroup.get('documentsObtained').value));
+        this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
+        this.companyInfo.shareCapital = JSON.stringify(this.companyInfoFormGroup.get('shareCapital').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
             this.close();
@@ -1053,13 +1075,14 @@ export class CompanyFormComponent implements OnInit {
 
     getCustomerCategory() {
         this.customerCategory = this.customerCate.filter(f =>
-            f.value !== CustomerCategory.AGRICULTURE_WITHOUT_COLLATERAL);
+            f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {
         this.isAboveTen = false;
         this.isBelowTen = false;
         this.isWholeSale = false;
+        this.isAgriPointFive = false;
         let value: any = null;
         if (editCustomer) {
             const newValue = targetValue.split(':').map(m => m.trim());
@@ -1071,6 +1094,8 @@ export class CompanyFormComponent implements OnInit {
             this.isAboveTen = true;
             this.companyInfoFormGroup.get('business').patchValue(null);
             this.companyInfoFormGroup.get('promoterNetWorth').patchValue(null);
+            this.companyInfoFormGroup.get('vision').patchValue(null);
+            this.companyInfoFormGroup.get('promoterStructure').patchValue(null);
             this.companyInfoFormGroup.get('group').patchValue(this.groupTable);
         } else if (value === 'SME_UPTO_TEN_MILLION' ||
             value === 'AGRICULTURE_UPTO_TWO_MILLION' ||
@@ -1078,8 +1103,42 @@ export class CompanyFormComponent implements OnInit {
             const formControlName = ['promoterBackground', 'lineOfBusiness', 'discriptionWithComment', 'majorBuyersSuppliers', 'group'];
             formControlName.forEach(f => this.companyInfoFormGroup.get(f).patchValue(null));
             this.isBelowTen = true;
-        } else {
+        } else if (value === 'DSL_WHOLE_SALE') {
             this.isWholeSale = true;
+        } else {
+            this.isAgriPointFive = true;
         }
+    }
+
+     addShareCapital() {
+        const control = this.companyInfoFormGroup.controls.shareCapital as FormArray;
+        control.push(
+            this.formBuilder.group({
+                particulars: [undefined],
+                capitalFirstYear: [undefined],
+                percentFirsYear: [undefined],
+                capitalSecondYear: [undefined],
+                percentSecondYear: [undefined],
+            })
+        );
+    }
+
+    setShareCapital(currentData) {
+        const controls = this.companyInfoFormGroup.get('shareCapital') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    particulars: [ObjectUtil.isEmpty(singleData.particulars) ? undefined : singleData.particulars],
+                    capitalFirstYear: [ObjectUtil.isEmpty(singleData.capitalFirstYear) ? undefined : singleData.capitalFirstYear],
+                    percentFirsYear: [ObjectUtil.isEmpty(singleData.percentFirsYear) ? undefined : singleData.percentFirsYear],
+                    capitalSecondYear: [ObjectUtil.isEmpty(singleData.capitalSecondYear) ? undefined : singleData.capitalSecondYear],
+                    percentSecondYear: [ObjectUtil.isEmpty(singleData.percentSecondYear) ? undefined : singleData.percentSecondYear],
+                })
+            );
+        });
+    }
+
+    removeShareCapital(shareIndex) {
+        (this.companyInfoFormGroup.get('shareCapital') as FormArray).removeAt(shareIndex);
     }
 }

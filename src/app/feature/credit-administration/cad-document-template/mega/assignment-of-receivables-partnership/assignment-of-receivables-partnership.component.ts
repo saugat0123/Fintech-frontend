@@ -44,10 +44,8 @@ export class AssignmentOfReceivablesPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log('nepData ', this.nepData);
     if (!ObjectUtil.isEmpty(this.initialInfo)) {
       this.assignmentOfReceivablesPartnership.patchValue(this.initialInfo);
-      console.log(this.initialInfo, 'initialinfo');
     } else {
       this.fillForm();
     }
@@ -74,6 +72,7 @@ export class AssignmentOfReceivablesPartnershipComponent implements OnInit {
       freeText: [undefined],
       loanAmount: [undefined],
       loanAmountInWords: [undefined],
+      freeTextDate: [undefined],
       offerLetterIssuedDate: [undefined],
       witness1: [undefined],
       witness2: [undefined],

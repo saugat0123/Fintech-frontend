@@ -7,3 +7,10 @@
 ol li {
   font-weight: bold;
 }
+@media print {
+  .page-break {
+    page-break-before: always !important;
+    page-break-after: always !important;
+  }
+}
+

@@ -2,11 +2,7 @@
     <!--div class="row">-->
     <form [formGroup]="vehicleLoanDeedCompany" class="nep" id="vehicleLoanDeedCompanyPrint">
         <div class="form-group align">
-            <div class="logo-container print-only">
-                <div>
-                    <img height="60px" src="../../../../../assets/img/logo.png">
-                </div>
-            </div>
+
             <h6 class="text-center">
                 <strong><u>सवारी साधन ऋण तमसुक</u></strong><br><br>
             </h6>
@@ -56,16 +52,16 @@
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="offerLetterIssuedDate" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedCompany.get('offerLetterIssuedDate').value ?
                     vehicleLoanDeedCompany.get('offerLetterIssuedDate').value  : '========='}}</strong></span>
-                को ऋण स्वीकृति पत्रानूसार सवारी कर्जा <span class="timesNewRoman">(Auto Loan)</span> कर्जा शिर्षक अन्तर्गत <strong>रु</strong>
+                को ऋण स्वीकृति पत्रानूसार सवारी कर्जा <span class="timesNewRoman">(Auto Loan)</span> कर्जा शिर्षक अन्तर्गत <strong>रु </strong>
                 <app-custom-input (eventEmit)="changeToNepAmount($event, 'loanAmountInWords', 'loanAmount')"
                                   [name]="patchFunction('loanAmount')" class="disable-print"></app-custom-input>
                 <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedCompany.get('loanAmount').value ?
                     vehicleLoanDeedCompany.get('loanAmount').value  : '========='}}</strong></span>
-                <strong>/– (अक्षरेपि</strong>
+                <strong>/– (अक्षरेपि </strong>
                 <input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanAmountInWords" type="text"/>
                 <span class="print-only nepaliFont"><strong>{{vehicleLoanDeedCompany.get('loanAmountInWords').value ?
                     vehicleLoanDeedCompany.get('loanAmountInWords').value  : '========='}}</strong></span>
-                <strong>मात्र)</strong>
+                <strong> मात्र)</strong>
                 ऋण/कर्जा लिए/खाएको ठिक, साँचो, सत्य हो । उक्त ऋण/कर्जाको साँवा र धनी बैंकको नीति, नियमानूसारको ब्याज, हर्जाना व्याज एवं अन्य
                 लागेको/लाग्ने दै–दस्तुरहरू समेत देहायको शर्त तथा बन्देजहरूको अधिनमा रही तथा रहने गरी वेमाख गरी, धिङन्याई, आलटाल आदि केही नगरी बैंकले
                 तोकिदिएको भाखा/अवधि/म्याद भित्र चुक्ता भुक्तानी गर्नेछु/गर्नेछौं । भाखा/अवधि भित्र चूक्ता भूक्तानी नगरेमा वा यसमा लेखिएका शर्तहरूको उल्लंघन म/हामी

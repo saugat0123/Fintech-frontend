@@ -9,6 +9,7 @@ import { ApiConfig } from './@core/utils/api/ApiConfig';
     selector: 'app-root',
     template: `
         <router-outlet></router-outlet>
+        <app-overlay-spinner></app-overlay-spinner>
     `
 })
 

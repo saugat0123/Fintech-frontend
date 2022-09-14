@@ -44,8 +44,10 @@
         </td>
         <td><b>Banking Arrangement</b></td>
         <td colspan="4">
-            {{checkedData?.swapChecked ? 'Swap' : ''}},
-            {{checkedData?.consortiumChecked ? 'Consortium' : ''}},
+            {{checkedData?.swapChecked ? 'Swap' : ''}}
+            {{(checkedData?.swapChecked && (checkedData?.consortiumChecked || checkedData?.multiBankingChecked)) ? ', ': ''}}
+            {{checkedData?.consortiumChecked ? 'Consortium' : ''}}
+            {{(checkedData?.consortiumChecked && checkedData?.multiBankingChecked) ? ', ': ''}}
             {{checkedData?.multiBankingChecked ? 'MultiBanking' : ''}}
         </td>
     </tr>
@@ -98,7 +100,8 @@
         <td><b>CCBL</b></td>
         <td><b>External (name)</b></td>
         <td><b>NRB</b></td>
-        <td colspan="5"><b>Main Promoters/Partners/Proprietor</b></td>
+        <td colspan="5" *ngIf="!isDSL"><b>Main Promoters/Partners/Proprietors</b></td>
+        <td colspan="5" *ngIf="isDSL"><b>Main Promoters/Shareholders</b></td>
     </tr>
     <tr>
         <td [attr.rowspan]="propList?.length+1">{{(loanDataHolder?.loanHolder?.crgCcbl | jsonParse)?.thresholdPoint}}</td>

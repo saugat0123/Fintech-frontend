@@ -257,3 +257,8 @@ ol  ol > li:before {
 .page-break {
   page-break-before: always !important;
 }
+@media print {
+  .noprint{
+    visibility: hidden;
+  }
+}

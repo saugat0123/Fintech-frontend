@@ -3,6 +3,7 @@
     display: none;
   }
 
+
   .disable-print {
     display: inline;
 
@@ -25,6 +26,9 @@
 @media print {
   .print-only {
     display: block;
+  }
+  .noprint{
+    visibility: hidden;
   }
 }
 

@@ -22,10 +22,16 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   commentData;
   ciclData = [];
   reviewDate;
+  isDSL = false;
   constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+        if (this.loanDataHolder.companyInfo.customerCategory === 'DSL_WHOLE_SALE') {
+          this.isDSL = true;
+        }
+      }
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
         const data = JSON.parse(this.loanDataHolder.loanHolder.data);

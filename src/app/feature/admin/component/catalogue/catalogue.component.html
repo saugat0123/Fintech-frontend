@@ -250,6 +250,13 @@
                                     model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
                                 Re-initiate</button>
                         </div>
+                        <div *ngIf='((model?.documentStatus.toString() === "PENDING") && roleAccess === "ALL")'>
+                            <button  nbTooltip="Additional Remarks"
+                                     nbButton status="warning"
+                                     size="tiny"><i class="fa fa-plus"
+                                       (click)="openAdditionalComment(model, additionalComment)"></i></button>
+
+                        </div>
                         <div *ngIf="model.parentId">
                             <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
                                class="text-success cursor">{{loanType[model.loanType]}} From
@@ -258,6 +265,7 @@
                         <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                             <p>NA</p>
                         </div>
+
                     </td>
                 </ng-template>
             </tr>
@@ -381,6 +389,53 @@
                     <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES</button>
                     <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
                 </div>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+    <ng-template #changeLoan>
+<nb-card>
+    <nb-card-header>
+        <p>Do you want to change loan type ? <i  style="color: red">* if no please select cancel</i></p>
+    </nb-card-header>
+    <nb-card-body>
+        <form   class="form-group">
+            <div class="col-md-12">
+                <select
+                        [(ngModel)]="loanConfig"
+                        class="form-control"
+                        name="loan">
+                    <option hidden> select Loan Type</option>
+                    <option *ngFor="let allList of loanList"
+                            [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="d-flex justify-content-end">
+
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="saveLoan(loanConfig)">
+                        Change
+                    </button>
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="saveLoan()">
+                        Cancel
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+    </ng-template>
+
+
+    <ng-template #additionalComment>
+        <nb-card>
+            <nb-card-header>Additional Comment</nb-card-header>
+            <nb-card-body>
+                <ckeditor  [(ngModel)]="additionalRemarks" name="additionalRemarks" [config]="config" ></ckeditor>
+            </nb-card-body>
+            <nb-card-footer>
+                <button class="float-right" nbButton (click)="saveData()">Save</button>
             </nb-card-footer>
         </nb-card>
     </ng-template>

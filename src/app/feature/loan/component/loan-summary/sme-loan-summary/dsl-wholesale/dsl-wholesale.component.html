@@ -10,8 +10,7 @@
         <p class="text-uppercase"><strong>Purpose of, and Justification for, the Proposal</strong></p>
         <ol>
             <app-proposal-justification-summary [customerAllLoanList]="customerAllLoanList"
-                                                [isExecutive]="isExecutive"
-                                                [isDetailedView]="isDetailedView"
+                                                [isDetailedView]="true"
                                                 [proposalData]="proposalData"></app-proposal-justification-summary>
         </ol>
     </li>
@@ -22,38 +21,33 @@
     </li>
     <li>
         <p class="text-uppercase font-weight-bold"><strong>VISION, MISSION, GOALS AND OBJECTIVES, ITS FINANCIAL SERVICES AND SERVICE DELIVERY MODALITIES:</strong></p>
-        <span>
-            The vision of M/s ................................. <br>
-            The mission of M/s ................... is to .................. <br>
-            The primary goals of M/s ................................. are to: <br>
-            <ol>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ol>
-        </span>
+        <span [innerHTML]="(loanDataHolder?.companyInfo?.companyJsonData | jsonParse).vision || 'NA' | safeHtml"></span>
     </li>
     <li>
         <p class="text-uppercase"><strong>Rating</strong></p>
         <span style="font-size: 14px"><b>5.1 CCBL rating</b></span>
-        <table class="table table-bordered table-sm sb-small">
+        <table class="table table-bordered table-sm sb-small col-md-5">
             <tbody>
-            <td>Based on Balance Sheet as of:</td>
-            <td>FY 2076/76</td>
-            <td>Outcome of Rating</td>
+            <td class="col-md-3">Based on Balance Sheet as of:</td>
+            <td class="col-md-2">{{this.crgCcbl?.selectedFiscalYear ? this.crgCcbl?.selectedFiscalYear: 'NA'}}</td>
+<!--            <td>Outcome of Rating</td>-->
             <tr>
                 <td>Rating</td>
-                <td>CCBL.....</td>
-                <td>Fit for renewal/renewal with enhancemnet/???</td>
+                <td>{{this.crgCcbl?.thresholdPoint ? this.crgCcbl?.thresholdPoint : 'NA'}}</td>
+<!--                <td>Fit for renewal/renewal with enhancemnet/???</td>-->
             </tr>
             </tbody>
         </table>
+        <p style="font-size: 14px"><b>5.2 External Rating: </b><span>{{this.crgCcbl?.externalRating ? this.crgCcbl?.externalRating : 'NA'}}</span>
+        </p>
     </li>
     <li>
         <p class="text-uppercase"><strong>Sectoral Outlook</strong></p>
-        <span style="font-size: 14px"><b>6.1 Sector</b>
-            <app-above-bank-sol [loanDataHolder]="loanDataHolder"></app-above-bank-sol>
+        <span style="font-size: 14px"><b>6.1 Sector&nbsp;</b>
+            <app-above-bank-sol *ngIf="loanDataHolder?.companyInfo?.customerCategory != 'DSL_WHOLE_SALE'"
+                    [loanDataHolder]="loanDataHolder"></app-above-bank-sol>
         </span>
+        <span *ngIf="loanDataHolder?.companyInfo?.customerCategory === 'DSL_WHOLE_SALE'" [innerHtml]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse).dslSolText | safeHtml"></span>
     </li>
     <!--*ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"-->
     <li class="font-weight-bold">
@@ -70,29 +64,41 @@
 
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Product exposure of the branch/bank:</strong></p>
-        <span class="font-weight-normal">Exposure of the branch and bank as on .........</span>
-        <table class="table table-bordered table-sm sb-small">
-            <tbody>
-            <td rowspan="2">Product</td>
-            <td colspan="2">Total Loans (DSL Wholesale)</td>
-            <td colspan="2">Total (DS) loan</td>
-            <td colspan="2">Gross NPA (DSL)</td>
-            <tr>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
-                <td>Branch</td>
+        <span class="font-weight-normal">Exposure of the branch and bank as on {{((loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.dateCheckList) | date}} </span>
+        <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark">
+                <th rowspan="2">
+                    Product
+                </th>
+                <th colspan="2">
+                    Total loans (DSL wholesale)
+                </th>
+                <th colspan="2">
+                    Total (DS) loan
+                </th>
+                <th colspan="2">
+                    Gross NPA (DSL)
+                </th>
             </tr>
+            <tr class="sb-bg-dark">
+                <th>Branch</th>
+                <th>Bank</th>
+                <th>Branch</th>
+                <th>Bank</th>
+                <th>Branch</th>
+                <th>Bank</th>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
-                <td>DSL Wholesale</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="font-weight-bold">DSL Wholesale</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch1}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch2}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch3}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch4}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch5}}</td>
+                <td>{{(loanDataHolder?.loanHolder?.commonLoanData | jsonParse)?.branch6}}</td>
             </tr>
             </tbody>
         </table>
@@ -152,7 +158,11 @@
     </li>
     <li class="font-weight-bold">
         <p class="text-uppercase"><strong>Documents to be executed/obtained: </strong></p>
-<!--        new component to be created-->
+        <ng-container>
+            <br>
+            <div class="col-md-12 table-responsive-md"  [innerHTML]="documentsObtained | safeHtml">
+            </div>
+        </ng-container>
     </li>
     <li class="font-weight-bold">
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE):</strong></p>
@@ -208,19 +218,24 @@
             <li>The proposal complies with the NRB guidelines, and, except for the issues for which waivers have been sought
                 above, with CPG and product paper of the Bank. </li>
             <li>Business operations satisfactory.</li>
-            <li>Sufficient and reliable sources income to serve the principal and interest of the loan/s.</li>
-            <li>Good reputation, integrity, resourcefulness and commitment of the borrower/promoters. </li>
-            <li>Adequate and acceptable security coverage. </li>
-            <li>Satisfactory past performance. </li>
         </ul>
     </li>
     <li class="font-weight-bold">
         <p><strong>RECOMMENDATIONS:</strong></p>
         <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
         <p class="mt-2">Therefore, on the basis of the above-mentioned information and credit assessment, it is recommended for approval
-            of following credit facilities to M/s {{loanDataHolder?.loanHolder?.name}}:<br>
-            To seek approval to convert existing overdraft facility of amounting {{totalProposedLimit | currencyFormatter}} Mio to deprived sector Term loan-II
-            for 5 years on terminating basis and Continue existing DE facility with interest rate 11.57% (BR+3%) to finance in deprived sector.
+            of following credit facilities to M/s TESTDATA {{loanDataHolder?.loanHolder?.name}}:<br>
+<!--            <ul>-->
+<!--                <li *ngFor="let data of allLonList; let i = index" class="col-sm-12">-->
+<!--                    <span><u> {{ data?.loanType | replace:'_' :' ' + ' OF ' + data.loan.name}}-->
+<!--                        (<mark><em class="sb-small">Limit: Rs.{{data?.proposal?.proposedLimit | currencyFormatter}}-->
+<!--                            , Tenure: {{data?.proposal?.tenureDurationInMonths}} months, Base Rate : {{(data?.proposal?.data | jsonParse).baseRate}}-->
+<!--                            + Premium Rate : {{(data?.proposal?.data | jsonParse).premiumRateOnBaseRate}}-->
+<!--                            <span *ngIf="(data?.proposal?.data | jsonParse)?.subsidizedLoan">- Subsidy Rate: {{(data?.proposal?.data | jsonParse)?.subsidizedLoan}}</span></em></mark>)</u>-->
+<!--                    </span>-->
+<!--                </li>-->
+<!--            </ul>-->
+            <span [innerHtml]="proposalData.recommendations | safeHtml"></span>
     </li>
     <li class="font-weight-bold">
         <p><strong>RECOMMENDED, REVIEWED, AND APPROVED BY:</strong></p>
@@ -229,6 +244,16 @@
                                [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-signature-section>
     </li>
 </ol>
+
+<div class="col-md-12 above-ten-million-list">
+    <app-crg-long [fromProfile]="false"
+                  [formData]="loanDataHolder?.loanHolder?.creditChecklist"></app-crg-long>
+
+    <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                                [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                [fromProfile]="false"
+                                [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+</div>
 
 <ng-template #notAvailable>
     <span class="font-weight-normal">Not Available</span>

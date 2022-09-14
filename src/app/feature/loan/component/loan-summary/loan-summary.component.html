@@ -55,7 +55,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="mt-1">
+                            <div class="mt-1 noprint">
                                 <strong style="font-size:14px">Loan Status:</strong>
                                 <span class="badge badge-info ml-1" style="font-size: 13px">
                                     {{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
@@ -120,9 +120,10 @@
                             <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
                             <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
                                 ({{loanDataHolder?.createdAt | engNepDate: false}})</span> <br>
-                            <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
+                            <span *ngIf="loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                                <b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
-                        <div class="float-right">
+                        <div class="float-right" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                                 ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
                             <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
@@ -140,8 +141,8 @@
             <!-- CRG - Gamma-->
             <div *ngIf="crgGammaSummary" class="col-md-12">
                 <hr>
-                <nb-card class="sb-medium">
-                    <nb-card-header class="text-center">
+                <nb-card class="sb-medium" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                    <nb-card-header class="text-center noprint">
                         <h6>Credit Scoring</h6>
                     </nb-card-header>
                     <nb-card-body>

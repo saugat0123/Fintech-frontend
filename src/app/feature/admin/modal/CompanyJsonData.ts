@@ -39,6 +39,8 @@ export class CompanyJsonData {
   // loanType: string = undefined;
   reviewDate: string = undefined;
   promoterNetWorth: string;
+  vision: string;
+  promoterStructure: string;
   business: string;
   sameAddress: boolean;
 }
