@@ -38,6 +38,8 @@
             <app-agriculture-offer-letter *ngSwitchCase="offerLetterTypeConst?.AGRICULTURE_OFFER_LETTER"
                                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
             ></app-agriculture-offer-letter>
+            <app-offer-letter-of-all-other-loan-retail-loan *ngSwitchCase="offerLetterTypeConst.ALL_OTHER_LOAN_RETAIL_LOAN"
+                                                            [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-of-all-other-loan-retail-loan>
         </div>
         <nb-card-footer>
             <div>
