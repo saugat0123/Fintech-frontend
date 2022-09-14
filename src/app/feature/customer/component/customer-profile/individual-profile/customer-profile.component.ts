@@ -568,6 +568,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     sliceLoan() {
+        this.multipleSelectedLoanType = [];
         this.loanTypeList.forEach((val) => {
             if (val.key === 'CLOSURE_LOAN' || val.key === 'PARTIAL_SETTLEMENT_LOAN' || val.key === 'FULL_SETTLEMENT_LOAN'
                 || val.key === 'RELEASE_AND_REPLACEMENT' || val.key === 'PARTIAL_RELEASE_OF_COLLATERAL'

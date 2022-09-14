@@ -210,7 +210,7 @@
 
                                 </div>
                             </div>
-                            <div *ngIf="smallBusiness || deprivedSector || consumerFinance || microFinancialService"><strong class="float-left">Review Date:</strong>
+                            <div *ngIf="(smallBusiness || deprivedSector || consumerFinance || microFinancialService) && hasReviewDate"><strong class="float-left">Review Date:</strong>
                                 <table class="table table-sm table-responsive-sm table-bordered sb-small float-left">
                                     <thead>
                                     <tr class="sb-bg-gray">
@@ -220,15 +220,15 @@
                                     </tr>
                                     </thead>
                                     <tr *ngFor="let allLoan of proposedLoan">
-                                        <ng-container *ngIf="allLoan?.reviewDate?.data">
+                                        <ng-container *ngIf="allLoan?.reviewDate">
                                             <td>
                                                 {{allLoan?.loan?.name}}
                                             </td>
                                             <td>
-                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.lastReviewDate || 'N/A' | safeHtml"></span>
+                                                <span [innerHTML]="(allLoan?.reviewDate)?.lastReviewDate || 'N/A' | safeHtml"></span>
                                             </td>
                                             <td>
-                                                <span [innerHTML]="(allLoan?.reviewDate?.data | jsonParse)?.nextReviewDate || 'N/A' | safeHtml"></span>
+                                                <span [innerHTML]="(allLoan?.reviewDate)?.nextReviewDate || 'N/A' | safeHtml"></span>
                                             </td>
                                         </ng-container>
                                     </tr>

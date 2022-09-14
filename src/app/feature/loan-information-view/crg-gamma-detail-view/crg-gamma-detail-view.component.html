@@ -31,3 +31,11 @@
     </tr>
     </tbody>
 </table>
+<table class="table table-condensed table-bordered table-responsive-md table-sm sb-small company-detail summary">
+    <tr  class="sb-bg-gray">
+        <th>Remarks</th>
+    </tr>
+    <tr >
+        <td class="text-left pl-1"><span [innerHTML]="crgGammaData?.remarks || 'N/A' | safeHtml"></span></td>
+    </tr>
+</table>

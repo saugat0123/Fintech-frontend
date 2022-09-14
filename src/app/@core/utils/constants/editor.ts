@@ -1,6 +1,7 @@
 export class Editor {
     static CK_CONFIG = {
         allowedContent: false,
+        contentsCss: ['body {font-size: 18px;font-family:Cambria;}'],
         font_names: 'Arial;Times New Roman;Verdana;Cambria',
         toolbarGroups: [
             {name: 'document', groups: ['mode', 'document', 'doctools']},
