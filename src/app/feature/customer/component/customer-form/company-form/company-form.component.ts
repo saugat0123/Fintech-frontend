@@ -571,7 +571,6 @@ export class CompanyFormComponent implements OnInit {
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required],
-            shareCapital: this.formBuilder.array([])
         });
     }
 
@@ -884,6 +883,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
+        console.log('table::::', (this.companyInfoFormGroup.get('documentsObtained').value));
         this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
         this.companyInfo.shareCapital = JSON.stringify(this.companyInfoFormGroup.get('shareCapital').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
@@ -1074,9 +1074,8 @@ export class CompanyFormComponent implements OnInit {
     }
 
     getCustomerCategory() {
-        // this.customerCategory = this.customerCate.filter(f =>
-        //     f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
-        this.customerCategory = this.customerCate;
+        this.customerCategory = this.customerCate.filter(f =>
+            f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {
