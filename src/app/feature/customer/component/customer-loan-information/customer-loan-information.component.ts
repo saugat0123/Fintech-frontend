@@ -212,8 +212,8 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
         if (this.customerInfo.customerCategory === 'DSL_WHOLE_SALE') {
             this.isDSL = true;
             if (!ObjectUtil.isEmpty(this.customerInfo)) {
-                this.parsedData = JSON.parse(this.customerInfo.data);
-                this.dslSOL = JSON.parse(this.customerInfo.data).dslSolText;
+                this.parsedData = JSON.parse(this.customerInfo.commonLoanData);
+                this.dslSOL = this.parsedData.dslSolText;
             }
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.withInData)) {
@@ -299,11 +299,6 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             if (!ObjectUtil.isEmpty(jsonSec.totalPoint)) {
                 this.checkCrgGamma = true;
             }
-        }
-        if (!ObjectUtil.isEmpty(this.customerInfo.data)) {
-            const parsedData = JSON.parse(this.customerInfo.data);
-            console.log('parsed data::::', parsedData);
-            console.log('customer info ::::', this.customerInfo);
         }
     }
     buildFundedNonFunded() {
