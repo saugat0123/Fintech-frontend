@@ -181,6 +181,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
     fundedNonFunded: FormGroup;
     isAgri = false;
     category = ['AGRICULTURE_UPTO_TWO_MILLION', 'AGRICULTURE_TWO_TO_TEN_MILLION', 'AGRICULTURE_ABOVE_TEN_MILLION', 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION', 'DSL_WHOLE_SALE'];
+    isDSL = false;
+    dslSOL = false;
+    parsedData;
+    defaultSolText = 'As licensed by central bank of Nepal, Nepal Rastra Bank, there are four categories of Bank and Financial Institutions (BFIs) having license from A to D categories and microfinance is one of them categorized under "D" class bank. These "D" class financial institutions established generally with the objective of providing financial services to poor and help them to uplift and live with prosperous life through borrowed loan investing in their micro and small business. Currently, there are ..... microfinance institutions operating in the country and benefited ..... people providing loans and advances of NPR .......... and mobilized deposits of NPR .... having industry NPA .....%. Although microfinance institutions mobilize deposits from their customers, they do not have sufficient loanable fund so major portion of resources for lending fulfilled from borrowed fund from other "A", "B" and "C" class BFIs. Similarly, in case of co-operative, based on NRB directives 17/77BFI\'s are allowed to lend to co-operatives who have been providing MF services under guideline as per the NRB directives.';
 
     constructor(
         private toastService: ToastService,
@@ -204,6 +208,13 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             if (this.customerInfo.customerCategory === cat) {
                 this.isAgri = true;
                 break;
+            }
+        }
+        if (this.customerInfo.customerCategory === 'DSL_WHOLE_SALE') {
+            this.isDSL = true;
+            if (!ObjectUtil.isEmpty(this.customerInfo)) {
+                this.parsedData = JSON.parse(this.customerInfo.commonLoanData);
+                this.dslSOL = this.parsedData.dslSolText;
             }
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.withInData)) {
@@ -770,6 +781,7 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
             waiverConclusionRecommendation: [undefined],
             mergedCheck: [undefined],
             solText: [undefined],
+            dslSolText: [undefined],
             regularityOfPayments: [undefined],
             specialInstruction: [undefined],
             fixedAssetsComputing: this.formBuilder.array([]),
