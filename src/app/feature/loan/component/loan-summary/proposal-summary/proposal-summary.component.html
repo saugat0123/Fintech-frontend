@@ -380,6 +380,13 @@
             </ng-container>
         </table>
 
+        <div *ngIf="isCorporate && (loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.dapDaaOutstanding" class="my-4">
+            <p><strong class="header">DAP/DAA Outstanding</strong></p>
+            <div class="table-condensed table-responsive-md"
+                 [innerHTML]="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.dapDaaOutstanding || 'N/A' | safeHtml">
+            </div>
+        </div>
+
         <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small summary">
             <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
                 <td class="sb-bg-gray">CIB Charge</td>

@@ -20,14 +20,6 @@
                 [proposalData]="proposalData"
                 [loanDataHolder]="loanDataHolder"></app-proposal-summary>
     </ng-container>
-
-    <ng-container *ngIf="isCorporate && (loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.dapDaaOutstanding">
-        <hr class="print-line">
-        <p><strong class="header">DAP/DAA Outstanding</strong></p>
-        <div class="table-condensed table-responsive-md"
-             [innerHTML]="(loanDataHolder?.loanHolder?.otherDetails | jsonParse)?.dapDaaOutstanding || 'N/A' | safeHtml">
-        </div>
-    </ng-container>
 <!--    <div *ngIf="isCorporate" class="col-md-12">-->
 <!--        <p><strong class="header text-left">Purpose of Loan </strong></p>-->
 <!--        <ng-container *ngFor="let loan of customerAllLoanList; let i = index">-->
@@ -358,6 +350,24 @@
                             [innerHTML]="loanDataHolder?.loanHolder?.accountStrategy | safeHtml"></span></td>
                 </tr>
             </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="isCorporate">
+        <div class="col-md-12">
+            <hr class="print-line">
+            <p><strong class="header">Certification by Recommender</strong></p>
+            <span>I confirm that this credit proposal is, unless otherwise mentioned specifically in the preceding sections,</span>
+            <ul class="mb-0">
+                <li>
+                    in line with company's bylaws/MOA/AOA
+                </li>
+                <li>
+                    in compliance with all relevant policies and guidelines laid down by Nepal Rastra Bank and Laxmi Bank Management
+                </li>
+            </ul>
+            <span>
+                Also, legal registration, permits, license and tax certificates are valid as on the date of credit proposal.
+            </span>
         </div>
     </div>
     <hr class="print-line">
