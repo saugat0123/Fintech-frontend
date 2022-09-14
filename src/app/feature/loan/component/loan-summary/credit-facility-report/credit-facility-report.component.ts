@@ -213,7 +213,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         this.calculateLandSecurityTotal();
         this.calculateBuildingSecurityTotal();
         this.calculateLandAndBuildingSecurityTotal();
-        this.panNumber = ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.incomeSource) ? '' :
+        this.panNumber = ObjectUtil.isEmpty(this.loanDataHolder.customerInfo) ? '' :
             JSON.parse(this.loanDataHolder.customerInfo.incomeSource).panNumber;
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
             const nextReviewDate = JSON.parse(this.loanDataHolder.loanHolder.data);
