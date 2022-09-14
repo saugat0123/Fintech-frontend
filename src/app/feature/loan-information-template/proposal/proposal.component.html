@@ -264,6 +264,9 @@
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
                                         <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
+                                        <nb-checkbox class="mx-2" (change)="checkChecked($event.target.checked,'flatInterest')"
+                                                     [checked]="flatInterest">Is flat interest rate?
+                                        </nb-checkbox>
                                         <input
                                                 class="form-control" formControlName="baseRate" id="baseRate"
                                                 name="baseRate" placeholder="Base Rate(%)"
@@ -278,7 +281,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral) && !flatInterest">
                                     <div class="form-group">
                                         <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                             Rate(%)</strong></label>
@@ -314,9 +317,6 @@
                                     <div class="form-group">
                                         <label class="title" for="interestRate"><strong>Interest
                                             Rate(%)</strong></label>
-                                        <nb-checkbox class="mx-2" (change)="checkChecked($event.target.checked,'flatInterest')"
-                                        [checked]="flatInterest">Is flat interest rate?
-                                        </nb-checkbox>
                                         <input
                                                 class="form-control" formControlName="interestRate"
                                                 id="interestRate" name="interestRate" placeholder="Interest Rate(%)"

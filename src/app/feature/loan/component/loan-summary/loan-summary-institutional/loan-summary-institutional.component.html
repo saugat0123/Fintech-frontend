@@ -311,6 +311,24 @@
             <hr class="print-line">
             <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
                                    [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+            <div class="row" *ngIf="isCorporate">
+                <div class="col-md-12">
+                    <hr class="print-line">
+                    <p><strong class="header">Certification by Recommender</strong></p>
+                    <span>I confirm that this credit proposal is, unless otherwise mentioned specifically in the preceding sections,</span>
+                    <ul class="mb-0">
+                        <li>
+                            in line with company's bylaws/MOA/AOA
+                        </li>
+                        <li>
+                            in compliance with all relevant policies and guidelines laid down by Nepal Rastra Bank and Laxmi Bank Management
+                        </li>
+                    </ul>
+                    <span>
+                Also, legal registration, permits, license and tax certificates are valid as on the date of credit proposal.
+            </span>
+                </div>
+            </div>
             <hr class="print-line">
             <div class="row mt-3">
                 <div class="col-md-12">
