@@ -104,13 +104,14 @@
                     </div>
                 </div>
             </div>
-            <hr class="print-line">
+
             <!-- <div class="row">
                 <div class="col-md-12">
                     <app-credit-facility-report [loanDataHolder]="loanDataHolder"
                         [customerLoanList]="customerAllLoanList"></app-credit-facility-report>
                 </div>
             </div> -->
+            <hr class="print-line">
             <div class="row ">
                 <div class="col-md-12 sb-small">
                     <div class="clearfix">
@@ -121,7 +122,7 @@
                             <span *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder?.loanHolder?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                                 <b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
-                        <hr class="print-line">
+
                         <div class="float-right" *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                             <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
@@ -145,7 +146,7 @@
                 </div>
             </div>-->
 
-            <hr class="print-line disable-print">
+            <hr class="print-line">
             <ng-container *ngIf="loanDataHolder?.loanHolder?.crgCcbl">
                 <div class="row">
                     <div  class="col-md-12">
