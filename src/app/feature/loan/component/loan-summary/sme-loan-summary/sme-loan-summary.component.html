@@ -54,7 +54,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="mt-2">
+                            <div class="mt-2 noprint">
                                 <strong>Loan Status:</strong>
                                 <span class="badge badge-info ml-1" style="font-size: 13px;line-height: 1.9em">
                                     {{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
@@ -118,9 +118,10 @@
                             <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
                             <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
                                 ({{loanDataHolder?.createdAt | engNepDate: false}})</span> <br>
-                            <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
+                            <span *ngIf="loanDataHolder.loanHolder.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
+                                <b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
-                        <div class="float-right">
+                        <div class="float-right" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                             <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
                             <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                                 ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
@@ -147,13 +148,13 @@
             <ng-container *ngIf="loanDataHolder?.loanHolder?.crgCcbl">
                 <div class="row">
                     <div  class="col-md-12">
-                        <nb-card class="sb-medium">
+                        <nb-card class="sb-medium" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                             <nb-card-header class="text-center">
                                 <p><strong>Counter Party Risk Rating</strong></p>
                             </nb-card-header>
                             <nb-card-body>
                                 <div class="row">
-                                    <div class="col-md-6 text-right">
+                                    <div class="col-md-6 text-right" >
                                         <app-gauge-chart [chartHeight]="180" [chartWidth]="275" [maxValue]="100"
                                                          [obtainedValue]="ccblData?.data" gaugeIdentifier="crg-gamma">
                                         </app-gauge-chart>
@@ -240,7 +241,6 @@
                                       [loanHolder]="loanDataHolder?.loanHolder"
                                       [proposalData]="proposalView"
                                       [fixedAssetsData]="fixedAssetsData"
-                                      [fiscalYear]="fiscalYearArray"
                                       [lastDateOfInspection]="lastDateOfInspection"></app-agriculture-view>
             </ng-container>
             <ng-container *ngIf="isDslWholesale">

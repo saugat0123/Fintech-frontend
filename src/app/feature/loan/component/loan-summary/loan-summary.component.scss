@@ -162,3 +162,8 @@
 
   }
 }
+@media print {
+  .noprint{
+    visibility: hidden;
+  }
+}
