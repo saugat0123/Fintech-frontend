@@ -19,6 +19,8 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
   contactedPerson: any;
   contactDetails: CompanyContactDetail;
   shareCapitalDetails;
+  totalCurrent = 0;
+  totalPrevious = 0;
 
   constructor() { }
 
@@ -30,6 +32,12 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
       this.contactedPerson = JSON.parse(this.companyInfo.contactPersons);
       this.contactDetails = JSON.parse(this.companyInfo.companyContactDetails);
       this.shareCapitalDetails = JSON.parse(this.companyInfo.shareCapital);
+    }
+    if (!ObjectUtil.isEmpty(this.shareCapitalDetails)) {
+      this.shareCapitalDetails.forEach((data: any) => {
+        this.totalCurrent = this.totalCurrent + data.capitalFirstYear;
+        this.totalPrevious = this.totalPrevious + data.capitalSecondYear;
+      });
     }
   }
 
