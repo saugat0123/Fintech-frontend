@@ -63,8 +63,25 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
     ];
     ckeConfig = NepaliEditor.CK_CONFIG;
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-
-
+    facility = ['आवास कर्जा (Home Loan)',  'शैक्षिक कर्जा (Education Loan),',
+    'ब्यक्तिगत अधिविकर्ष (Personal Overdraft)', 'व्यक्तिगत आवधिक कर्जा (Personal Term Loan)',
+    'Rastra Sewak Karja (राष्ट्र सेवक कर्जा)', ' फ्लेक्सी कर्जा (Flexi Loans)'];
+    purposeValue = [' व्यक्तिगत आर्थिक आवश्यकता पूर्ति गर्न ।', 'उच्च शिक्षाका लागि ।',
+    'कर्जा भुक्तानी गर्न ।', 'जग्गा खरिद गर्न ।', 'घर निमार्ण तथा मर्मत गर्दा लिएको कर्जा भुक्तनी गर्न ।',
+    'घर खरिद गर्दा लिएको कर्जा भुक्तानी गर्न ।', 'घर खरिद गर्न ।', ' घर निर्माण गर्ने प्रयोजनको लागि ।',
+    'ब्यापारमा लगानी गनर् ।', 'खरिद जग्गामा पुनः लगानी गर्न र व्यक्तिगत आर्थिक आवश्यकता पूर्ति गर्न ।',
+    ' घरजग्गामा पुनः लगानी गन ।', 'ब्यापारमा लगानी गर्न ।', 'Other' ];
+    drawDown = ['वार्षिक रुपमा घरलाने तलबको २ गुणासम्म ।', 'धितो सुरक्षण लगायत कर्जा सम्वन्धि', 'कर्जा रकम'];
+    repaymentValue = ['यो कर्जाको भुक्तानी मोर्‍याटाेरियम अवधि बाहेक (EQI)', 'यो कर्जाको भुक्तानी मोर्‍याटाेरियम अवधि बाहेक (Equated Monthly Installment)',
+    'यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले'];
+    dhitoSurachanValue = '<p style=\"text-align:justify\"><span style=\"font-size:14px\">धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा वा सुरक्षणमा दिईएको घरजग्गाको फेयर मार्केट मूल्य <span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\">(Fair Market Value) </span></span> को ================================ प्रतिशत मध्ये कम हुने रकम बराबरको कर्जा रकम उपभोग गर्न सकिनेछ ।</span></p>\n';
+    karjaRakumValue = '<p style=\"text-align:justify\"><span style=\"font-size:14px\">कर्जा रकम ================= चरण प्रवाह गरिने छ । पहिलो चरणमा बैंकमा गर्नूपर्ने आवश्यक कर्जाका कागजातहरु&divide;तमसूकहरु गरे पश्चात र धितो सूरक्षण स्वरुप उपलब्ध गराईएको स्थिर सम्पत्ती यस बैंकको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई रजिष्ट्रेशन पारित गरिदिए पछि <strong>रू ========================&divide;&ndash; <span style=\"font-family:&quot;Times New Roman&quot;,serif\">(</span>अक्षरेपी रुपैया ===================== मात्र<span style=\"font-family:&quot;Times New Roman&quot;,serif\">)</span></strong>&nbsp;प्रवाह गरिने छ । दोस्रो चरणमा यस बैंकको सुचीकृत मुल्यांकन कर्ताले मुल्यांकन गरेको भवन निर्माण लागतको प्रगती विवरण <span style=\"font-family:&quot;Times New Roman&quot;,serif\">(Progress Report)&nbsp;</span>को आधारमा रहि <strong>रू ========================&divide;&ndash; <span style=\"font-family:&quot;Times New Roman&quot;,serif\">(</span>अक्षरेपी रुपैया ================== मात्र<span style=\"font-family:&quot;Times New Roman&quot;,serif\">)</span></strong>&nbsp;प्रवाह गरिनेछ । तेश्रो तथा &nbsp;चौथो चरणमा कूल कर्जा सिमा भित्र रही धितो सूरक्षण वापत रहने अचल सम्पत्तीको फेयर मार्केट मुल्य <span style=\"font-family:&quot;Times New Roman&quot;,serif\">(Fair Market Value)</span> को ===================== प्रतिशत वा कूल भवन निर्माण लागतको ======================== प्रतिशत ननाघ्ने गरि बांकी कर्जा सिमा <strong>रू ===========================&divide;&ndash; <span style=\"font-family:&quot;Times New Roman&quot;,serif\">(</span>अक्षरेपी रुपैया ========================= मात्र<span style=\"font-family:&quot;Times New Roman&quot;,serif\">)</span></strong>&nbsp;प्रवाह गरिनेछ । अन्तिम चरणको कर्जा प्रवाह गर्नू पुर्व सम्बन्धित निकायबाट भवन निर्माण सम्पन्नताको प्रमाण यस बैंकमा पेश गर्नू पर्नेछ ।</span></p>\n';
+    repaymentOneValue = '<p style=\"text-align:justify\"><span style=\"font-size:14px\">यो कर्जाको भुक्तानी मो&yen;याटोरियम अवधि बाहेक =========================================&nbsp;समान त्रैमासिक किस्ता </span><span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\"><span style=\"font-size:12.5pt\">(EQI)</span>&nbsp;</span></span><span style=\"font-size:14px\">रुपमा त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा लिइनेछ, तर कर्जा प्रवाह भएको पहिलो किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा&ndash;ब्याज ============================= समान त्रैमासिक किस्ता प्रति किस्ता अनुमानित <strong>रु</strong> ==================================== </span><strong><span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\"><span style=\"font-size:12.5pt\">(</span></span></span></strong><span style=\"font-size:14px\"><strong>अक्षरुपि </strong>=================================== <strong>मात्र</strong></span><strong><span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\"><span style=\"font-size:12.5pt\">)</span></span></span></strong><span style=\"font-size:14px\">&nbsp;का दरले बुझाउनु पर्नेछ ।</span></p>\n';
+    repaymentTwoValue = '<p style=\"text-align:justify\"><span style=\"font-size:14px\">यो कर्जाको भुक्तानी मोर्&zwj;याटाेरियम अवधि बाहेक <strong>===========================</strong>&nbsp;समान मासिक किस्ता <span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\">(Equated Monthly Installment)&nbsp;</span></span>रुपमा लिइनेछ, &nbsp;तर कर्जा प्रवाह भएको पहिलो मासिक किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा&ndash;ब्याज अनुमानित <strong>&nbsp;रु&nbsp;&nbsp;=========================== <span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\">(</span></span>अक्षरेपि ===========================<span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\">)&nbsp;</span></span></strong>&nbsp;का दरले बुझाउनु पर्नेछ।</span></p>\n';
+    repaymentThreeValue = '<p><span style=\"font-size:14px\">यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले <strong>=========================&nbsp;</strong>सम्मका लागि हुनेछ । सन्तोषजनक कारोवारको अवस्थामा बैंकले स्वीकृत सीमा अवधि पटक पटक बढाउन सक्नेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।</span></p>\n';
+    tenureValue = ['मोर्‍याटाेरियम अवधि (Moratorium Period)', 'कर्जाको भुक्तानी कर्जा'];
+    tenureOneValue = '<p><span style=\"font-size:14px\">मोर्&zwj;याटाेरियम अवधि <span style=\"font-family:&quot;Times New Roman&quot;,serif\"><span style=\"color:black\">(</span></span><span style=\"font-family:&quot;Times New Roman&quot;,serif\">Moratorium Period<span style=\"color:black\">)</span></span><span style=\"font-family:Preeti\">&nbsp;</span>सहित कर्जा प्रवाह भएको मितिले <strong>===========================&nbsp;</strong>वर्ष सम्म मात्र ।</span></p>\n';
+    tenureTwoValue = '<p><span style=\"font-size:14px\">कर्जाको भुक्तानी कर्जा प्रवाह भएको मितिले&nbsp;<strong>&nbsp;===========================</strong> वर्ष भित्र हुनेछ ।</span></p>\n';
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private toastService: ToastService,
@@ -86,22 +103,136 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
 
     buildForm() {
         this.RetailLoan = this.formBuilder.group({
+            referenceNo: [undefined],
+            issuedDate: [undefined],
+            borrowerName: [undefined],
+            registeredDistrict: [undefined],
+            instRegVdcMun: [undefined],
+            instRegWardNo: [undefined],
+            toleName: [undefined],
+            instRegProvince: [undefined],
+            instRegDist: [undefined],
+            tempMunicipality: [undefined],
+            tempWardNo: [undefined],
+            toleOrVillageName: [undefined],
+            houseNumber: [undefined],
+            street: [undefined],
+            authPersonEmail: [undefined],
+            authPersonMobileNo: [undefined],
+            postBox: [undefined],
+            overdraftLoan: this.formBuilder.array([]),
+            adminFeeNonFundedAmt: [undefined],
+            adminFeeNonFundedAmtWord: [undefined],
+            averageBaseRate: [undefined],
+            quarterlyAverageRate: [undefined],
+            quarterlyAveragePercent: [undefined],
+            interestRate: [undefined],
+            isCommitmentCharge: [undefined],
+            isFreeTextOne: [false],
+            freeTextOne: [undefined],
+            facOwnerName: [undefined],
+            facOffice: [undefined],
+            facDistrict: [undefined],
+            facVdcMun: [undefined],
+            facWardNo: [undefined],
+            facCurrentDistrict: [undefined],
+            facCurrentVdcMun: [undefined],
+            facCurrentWardNo: [undefined],
+            facCurrentTole: [undefined],
+            plotNo: [undefined],
+            plotArea: [undefined],
+            loanAmount: [undefined],
+            loanAmountInWord: [undefined],
+            isFreeTextTwo: [false],
+            freeTextTwo: [undefined],
+            valuatorName: [undefined],
+            fmvAmount: [undefined],
+            dvAmount: [undefined],
+            dvAmountInWord: [undefined],
+            customerName: [undefined],
+            guarantorNameOne: [undefined],
+            guarantorNameTwo: [undefined],
+            isFreeTextThree: [false],
+            freeTextThree: [undefined],
+            securityArray: this.formBuilder.array([]),
+            premiumRate: [undefined],
+            postBoxNumber: [undefined],
+            branchName: [undefined],
+            borrowerName2: [undefined],
+            borrowerPerDis: [undefined],
+            borrowerPerMun: [undefined],
+            borrowerPerWard: [undefined],
+            borrowerPerTole: [undefined],
+            borrowerTempProvince: [undefined],
+            borrowerTempDis: [undefined],
+            borrowerTempMun: [undefined],
+            borrowerTempWard: [undefined],
+            borrowerTempTole: [undefined],
+            borrowerHouseNo: [undefined],
+            borrowerTempStreet: [undefined],
+            borrowerEmail: [undefined],
+            borrowerMobile: [undefined],
+            faxNumber: [undefined],
+            freeTextFour: [undefined],
+            freeTextFive: [undefined],
+            freeTextSix: [undefined],
+            freeTextSeven: [undefined],
+            freeTextEight: [undefined],
+            freeTextNine: [undefined],
+            loanReviewDate: [undefined],
+            individualBorrowerName: [undefined],
+            individualBorrowerPerDis: [undefined],
+            individualBorrowerPerMun: [undefined],
+            individualBorrowerPerWard: [undefined],
+            individualBorrowerTole: [undefined],
+            individualTempProvince: [undefined],
+            individualTempDistrict: [undefined],
+            individualTempMun: [undefined],
+            individualTempWard: [undefined],
+            individualTempTole: [undefined],
+            individualBorrowerHouseNo: [undefined],
+            individualTempStreet: [undefined],
+            individualBorrowerEmail: [undefined],
+            individualBorrowerMobile: [undefined],
+            faxOrPostBoxNo: [undefined],
+            sachiOne: [undefined],
+            sachiTwo: [undefined],
+            docWrittenYear: [undefined],
+            docWrittenMonth: [undefined],
+            docWrittenDay: [undefined],
+            docWrittenWeek: [undefined],
+            guarantorName: [undefined],
+            guarantorPerDistrict: [undefined],
+            guarantorPerVdcMun: [undefined],
+            guarantorPerWard: [undefined],
+            guarantorTempPradesh: [undefined],
+            guarantorTempDist: [undefined],
+            guarantorTempVdcMun: [undefined],
+            guarantorTempWard: [undefined],
+            guarantorTempTole: [undefined],
+            guarantorTempHouseNo: [undefined],
+            guarantorTempStreetName: [undefined],
+            guarantorEmail: [undefined],
+            guarantorMobile: [undefined],
+            date: [undefined],
+            isNeeded: [true],
+            totalYear: [undefined],
+
+
             minChargeAmtWordSme: [undefined],
             minChargeAmtSme: [undefined],
             emiAmtInWordSme: [undefined],
             emiAmtSme: [undefined],
             loanAmountInWordSme: [undefined],
             loanAmountSme: [undefined],
-            referenceNo: [undefined],
             overdrafLoanPrices: [undefined],
-            date: [undefined],
             address: [undefined],
             to: [undefined],
             sector: [undefined],
             mobileNo: [undefined],
             name: [undefined],
             borrowerLoanType: [undefined],
-            borrowerName: [undefined],
+
             loanBorrowerOneName: [undefined],
             loanBorrowerAddress: [undefined],
             loanBorrowerContactNo: [undefined],
@@ -114,7 +245,6 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
             loanAsset: [undefined],
             loanTypeSelectedArray: [undefined],
             printPageCount: [undefined],
-            overdraftLoan: this.formBuilder.array([]),
             demandLoanType: this.formBuilder.array([]),
             fixTermLoan: this.formBuilder.array([]),
             hirePurchaseLoan: this.formBuilder.array([]),
@@ -134,55 +264,17 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
             wardNo: [undefined],
             onlySelf: [undefined],
             faxNo: [undefined],
-            postBox: [undefined],
             branchDis: [undefined],
             marfatBank: [undefined],
             branchTelNo: [undefined],
             branchFax: [undefined],
-            borrowerTempProvince: [undefined],
-            borrowerTempDis: [undefined],
-            borrowerTempMun: [undefined],
-            borrowerPerWard: [undefined],
-            borrowerName2: [undefined],
-            branchName: [undefined],
-            borrowerTempWard: [undefined],
-            borrowerTempTole: [undefined],
-            borrowerHouseNo: [undefined],
-            borrowerTempStreet: [undefined],
-            borrowerEmail: [undefined],
-            borrowerPerMun: [undefined],
-            borrowerPerDis: [undefined],
-            borrowerMobile: [undefined],
-            issuedDate: [undefined],
-            instRegVdcMun: [undefined],
-            instRegWardNo: [undefined],
-            instRegDist: [undefined],
-            instRegProvince: [undefined],
-            instRegProvinceNo: [undefined],
             compRegOffice: [undefined],
             authPersonName: [undefined],
-            authPersonMobileNo: [undefined],
-            authPersonEmail: [undefined],
             authPersonDist: [undefined],
             authPersonVdcMun: [undefined],
             authPersonWard: [undefined],
-            facOwnerName: [undefined],
-            facOffice: [undefined],
-            facDistrict: [undefined],
-            facVdcMun: [undefined],
-            facWardNo: [undefined],
-            facCurrentDistrict: [undefined],
-            facCurrentVdcMun: [undefined],
-            facCurrentWardNo: [undefined],
             noOfVehiclesToFinance: [undefined],
             vehicleModel: [undefined],
-            plotNo: [undefined],
-            plotArea: [undefined],
-            valuatorName: [undefined],
-            fmvAmount: [undefined],
-            fmvAmountInWord: [undefined],
-            dvAmount: [undefined],
-            dvAmountInWord: [undefined],
             reviewYearIncreased: [undefined],
             DebtEquityAmount: [undefined],
             vatBillPercent: [undefined],
@@ -192,39 +284,46 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
             voucher2District: [undefined],
             voucher2VdcMun: [undefined],
             voucher2Ward: [undefined],
-            guarantorName: [undefined],
-            guarantorPerDistrict: [undefined],
-            guarantorPerVdcMun: [undefined],
-            guarantorPerWard: [undefined],
-            guarantorTempPradesh: [undefined],
-            guarantorTempDist: [undefined],
-            guarantorTempVdcMun: [undefined],
-            guarantorTempWard: [undefined],
-            guarantorTempTole: [undefined],
-            guarantorTempHouseNo: [undefined],
-            guarantorTempStreetName: [undefined],
-            guarantorEmail: [undefined],
-            guarantorMobile: [undefined],
             adminFeeFundedAmt: [undefined],
             adminFeeFundedAmtWord: [undefined],
-            adminFeeNonFundedAmt: [undefined],
-            adminFeeNonFundedAmtWord: [undefined],
             fiscalYear: [undefined],
             quarter: [undefined],
-            averageBaseRate: [undefined],
             sawariSadhan: [undefined],
             assestNepali: [undefined],
             assestEnglish: [undefined],
             bankersClause: [undefined],
-            loanReviewDate: [undefined],
-            loanAmount: [undefined],
-            loanAmountInWord: [undefined]
+            fmvAmountInWord: [undefined],
+            totaladminFeeNonFundedAmtWord: [undefined],
+            totaladminFeeNonFundedAmt: [undefined]
         });
 
     }
 
     overdraftFormGroup(): FormGroup {
         return this.formBuilder.group({
+            facilityType: [undefined],
+            adminFeeNonFundedAmt: [undefined],
+            adminFeeNonFundedAmtWord: [undefined],
+            purposeOfLoan: [undefined],
+            otherPurpose: [undefined],
+            drawDrown: [undefined],
+            dhitoSurachan: [undefined],
+            karjaRakum: [undefined],
+            loanRepayment: [undefined],
+            repaymentOne: [undefined],
+            repaymentTwo: [undefined],
+            repaymentThree: [undefined],
+            tenure: [undefined],
+            tenureOne: [undefined],
+            tenureTwo: [undefined],
+            premiumBaseRate: [undefined],
+            totalMonth: [undefined],
+            totalMonthOne: [undefined],
+            moratoriumPeriodArray: this.formBuilder.array([]),
+            interest: [undefined],
+            amount: [undefined],
+            amountInWord: [undefined],
+            loanPeriod: [undefined],
             baseRate: [undefined],
             loanAmountInWord: [undefined],
             loanAmount: [undefined],
@@ -239,7 +338,7 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
             dasturFlag: [true],
             loanFacilityTypeNep: [undefined],
             loanFacilityTypeEng: [undefined],
-            purposeOfLoan: [undefined],
+
             loanReviewDate: [undefined],
             preview: [undefined],
             drawdownPercent: [undefined],
@@ -539,6 +638,29 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
         details.forEach(data => {
             overDraftDetails.push(
                 this.formBuilder.group({
+                    facilityType: [data.facilityType],
+                    adminFeeNonFundedAmt: [data.adminFeeNonFundedAmt],
+                    adminFeeNonFundedAmtWord: [data.adminFeeNonFundedAmtWord],
+                    purposeOfLoan: [data.purposeOfLoan],
+                    otherPurpose: [data.otherPurpose],
+                    drawDrown: [data.drawDrown],
+                    dhitoSurachan: [data.dhitoSurachan ? data.dhitoSurachan : this.dhitoSurachanValue],
+                    karjaRakum: [data.karjaRakum ? data.karjaRakum : this.karjaRakumValue],
+                    loanRepayment: [data.loanRepayment],
+                    repaymentOne: [data.repaymentOne ? data.repaymentOne : this.repaymentOneValue],
+                    repaymentTwo: [data.repaymentTwo ? data.repaymentTwo : this.repaymentTwoValue],
+                    repaymentThree: [data.repaymentThree ? data.repaymentThree : this.repaymentThreeValue],
+                    // purposePercentage: [data.purposePercentage],
+                    tenure: [data.tenure],
+                    tenureOne: [data.tenureOne ? data.tenureOne : this.tenureOneValue],
+                    tenureTwo: [data.tenureTwo ? data.tenureTwo : this.tenureTwoValue],
+                    premiumBaseRate: [data.premiumBaseRate],
+                    totalMonth: [data.totalMonth],
+                    totalMonthOne: [data.totalMonthOne],
+                    moratoriumPeriodArray: this.formBuilder.array([]),
+                    amount: [data.amount],
+                    amountInWord: [data.amountInWord],
+                    loanPeriod: [data.loanPeriod],
                     baseRate: [data.baseRate],
                     loanAmountInWord: [data.loanAmountInWord],
                     loanAmount: [data.loanAmount],
@@ -553,7 +675,6 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
                     dasturFlag: [data.dasturFlag],
                     loanFacilityTypeNep: [data.loanFacilityTypeNep],
                     loanFacilityTypeEng: [data.loanFacilityTypeEng],
-                    purposeOfLoan: [data.purposeOfLoan],
                     loanReviewDate: [data.loanReviewDate],
                     preview: [data.preview],
                     drawdownPercent: [data.drawdownPercent],
@@ -953,9 +1074,9 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
         this.RetailLoan.get([formArrayName, i, formControlName]).patchValue(event.val);
     }
 
-    patchFunction(formArrayName, i, formControlName) {
-        return this.RetailLoan.get([formArrayName, i, formControlName]).value;
-    }
+    // patchFunction(formArrayName, i, formControlName) {
+    //     return this.RetailLoan.get([formArrayName, i, formControlName]).value;
+    // }
 
     changeToNepAmount1(event: any, target, from) {
         this.RetailLoan.get([target]).patchValue(event.nepVal);
@@ -967,4 +1088,26 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
     }
 
 
+    addMoratoriumPeriod(i) {
+        (this.RetailLoan.get(['overdraftLoan', i, 'moratoriumPeriodArray']) as FormArray).push(this.formBuilder.group({
+            totalMonthOne: [undefined]
+        }));
+    }
+
+    removeMoratoriumPeriodArray(i: number) {
+        (this.RetailLoan.get(['overdraftLoan', i, 'moratoriumPeriodArray']) as FormArray).removeAt(i);
+    }
+
+    checkChecked(controlName, checked: any) {
+        this.RetailLoan.get(controlName).patchValue(checked);
+    }
+    addSecurity() {
+        (this.RetailLoan.get('securityArray') as FormArray).push(this.formBuilder.group({
+            text: [undefined]
+        }));
+    }
+
+    removeSecurity(i) {
+        (this.RetailLoan.get('securityArray') as FormArray).removeAt(i);
+    }
 }
