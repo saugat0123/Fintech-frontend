@@ -1215,13 +1215,18 @@
             <div class="col-md-12">
               <div class="form-group">
                 <strong>SOL of the BANK</strong>
-                <p class="mt-1">
+                <p class="mt-1" *ngIf="!isDSL">
               <textarea class="form-control rounded"
                         formControlName="solText"
                         id="solText"
                         rows="3">
               </textarea>
                 </p>
+              <input *ngIf="isDSL" [ngModel]="defaultSolText"
+                        class="form-control rounded"
+                        formControlName="dslSolText"
+                        id="dslSolText"
+                        rows="3">
               </div>
             </div>
 
