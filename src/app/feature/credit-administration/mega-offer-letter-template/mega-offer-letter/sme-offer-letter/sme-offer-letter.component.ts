@@ -72,20 +72,20 @@ export class SmeOfferLetterComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder.nepData)) {
             this.smeLoanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             console.log(this.smeLoanHolderInfo);
+            console.log(this.smeLoanHolderInfo.miscellaneousDetail, 'loanFacilityTypeNep');
         }
         if (!ObjectUtil.isEmpty(this.smeLoanHolderInfo)) {
             this.loanForm.patchValue({
                 referenceNo: this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo ? this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
                 issuedDate: this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate ? this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate : '',
                 borrowerName: this.smeLoanHolderInfo.nepaliName ? this.smeLoanHolderInfo.nepaliName : '',
-                instRegDist: this.smeLoanHolderInfo.customerPermanentAddress.district ? this.smeLoanHolderInfo.customerPermanentAddress.district : '',
-                instRegVdcMun: this.smeLoanHolderInfo.customerPermanentAddress.municipality ? this.smeLoanHolderInfo.customerPermanentAddress.municipality : '',
-                instRegWardNo: this.smeLoanHolderInfo.customerPermanentAddress.wardNo ? this.smeLoanHolderInfo.customerPermanentAddress.wardNo : '',
-                borrowerTempDis: this.smeLoanHolderInfo.customerTemporaryAddress.district ? this.smeLoanHolderInfo.customerTemporaryAddress.district : '',
-                borrowerTempMun: this.smeLoanHolderInfo.customerTemporaryAddress.municipality ? this.smeLoanHolderInfo.customerTemporaryAddress.municipality : '',
-                borrowerTempWard: this.smeLoanHolderInfo.customerTemporaryAddress.wardNo ? this.smeLoanHolderInfo.customerTemporaryAddress.wardNo : '',
-                borrowerTempTole: this.smeLoanHolderInfo.customerTemporaryAddress.tole ? this.smeLoanHolderInfo.customerTemporaryAddress.tole : '',
+                instRegDist: this.smeLoanHolderInfo.institutionRegisteredAddress.district ? this.smeLoanHolderInfo.institutionRegisteredAddress.district : '',
+                instRegVdcMun: this.smeLoanHolderInfo.institutionRegisteredAddress.municipality ? this.smeLoanHolderInfo.institutionRegisteredAddress.municipality : '',
+                instRegWardNo: this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo ? this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo : '',
                 authPersonMobileNo: this.smeLoanHolderInfo.contactNo ? this.smeLoanHolderInfo.contactNo : '',
+                authPersonName: this.smeLoanHolderInfo.authorizedPersonDetail.name ? this.smeLoanHolderInfo.authorizedPersonDetail.name : '',
+                // loanFacilityTypeNep: this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInNep ? this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInNep : '',
+                // loanFacilityTypeEng: this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInEng ? this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInEng : '',
                 drawdownPercent: this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer ? this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer : '',
                 // surakchyanName: this.loanHolderInfo.collateralDetails[0].nameInNepali ? this.loanHolderInfo.collateralDetails[0].nameInNepali : '',
                 // surakchyanDis: this.loanHolderInfo.collateralDetails[0].district ? this.loanHolderInfo.collateralDetails[0].district : '',
@@ -102,6 +102,7 @@ export class SmeOfferLetterComponent implements OnInit {
             });
             // this.loanForm.get(['proposalData', 0, 'sanctionedLmt']).patchValue(this.smeLoanHolderInfo.miscellaneousDetail.loanAmountInFig);
             // this.loanForm.get(['proposalData', 0, 'sanctionedLmtInWord']).patchValue(this.smeLoanHolderInfo.miscellaneousDetail.loanAmountInWord);
+            // this.loanForm.get(['overdraftLoan', 0, 'loanFacilityTypeNep']).patchValue(this.smeLoanHolderInfo.miscellaneousDetail.loanFacilityTypeInNep);
         }
     }
 
@@ -239,7 +240,11 @@ export class SmeOfferLetterComponent implements OnInit {
             bankersClause: [undefined],
             loanReviewDate: [undefined],
             loanAmount: [undefined],
-            loanAmountInWord: [undefined]
+            loanAmountInWord: [undefined],
+            totalLoanAmountDir: [undefined],
+            totalLoanAmountInWordDir: [undefined],
+            totalLoanAmountHypo: [undefined],
+            totalLoanAmountInWordHypo: [undefined],
         });
 
     }
@@ -657,7 +662,7 @@ export class SmeOfferLetterComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.SME_OFFER_LETTER);
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-            console.log(initialInfo);
+            console.log(initialInfo, 'initialInfo');
             this.initialInfoPrint = initialInfo;
             console.log(this.offerLetterDocument);
             this.existingOfferLetter = true;

@@ -1,4 +1,4 @@
-<div class="nep nepaliFont" id="{{offerLetterConst.SME_OFFER_LETTER}}">
+<div class="nep nepaliFont container" id="{{offerLetterConst.SME_OFFER_LETTER}}">
     <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="Saving Sme offer letter.....">
@@ -26,7 +26,6 @@
                                 <span class="print-only nepaliFont"><strong>{{loanForm.get('issuedDate').value ? loanForm.get('issuedDate').value : '========='}}</strong></span>
                             </div>
                         </div>
-                        <br><br><br>
                         <div class="mb-2">
                             श्री <input
                                 class="form-fields form-control-sm disable-print nepaliFont"
@@ -111,7 +110,6 @@
                                 type="text"/>
                             <span class="print-only nepaliFont"><strong>{{loanForm.get('authPersonEmail').value ? loanForm.get('authPersonEmail').value : '========='}}</strong></span>।
                         </div>
-                        <br><br>
 
                         <div class="row form-group text-justify">
                             <div class="col-md-12">
@@ -145,17 +143,17 @@
                                             <th>१.१</th>
                                             <th style="width: 40%">कर्जा/बैंकिंङ्ग सुविधाको प्रकार (Facility Type)</th>
                                             <th>
-                                                <input class="form-fields disable-print form-control-sm preetiFont size16"
+                                                <input class="form-fields disable-print form-control-sm preetiFont size24"
                                                        formControlName="loanFacilityTypeNep"
                                                        placeholder=""
                                                        type="text"/>
-                                                <span class="print-only preetiFont size16"><strong>{{overdraft.loanFacilityTypeNep ? overdraft.loanFacilityTypeNep : '=================='}}</strong></span>
+                                                <span class="print-only preetiFont size24"><strong>{{overdraft.loanFacilityTypeNep ? overdraft.loanFacilityTypeNep : '=================='}}</strong></span>
                                                 अधिविकर्ष(
-                                                <input class="form-fields disable-print form-control-sm preetiFont size16"
+                                                <input class="form-fields disable-print form-control-sm"
                                                        formControlName="loanFacilityTypeEng"
                                                        placeholder=""
                                                        type="text"/>
-                                                <span class="print-only preetiFont size16"><strong>{{overdraft.loanFacilityTypeEng ? overdraft.loanFacilityTypeEng : '=================='}}</strong></span>Overdraft)
+                                                <span class="print-only"><strong>{{overdraft.loanFacilityTypeEng ? overdraft.loanFacilityTypeEng : '=================='}}</strong></span>Overdraft)
                                             </th>
                                         </tr>
                                         </thead>
@@ -291,12 +289,12 @@
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tl.loanFacilityTypeNep ? tl.loanFacilityTypeNep : '========='}}</strong></span>आवधिक
                                                 कर्जा
-                                                (<input class="form-fields form-control-sm disable-print nepaliFont"
+                                                (<input class="form-fields form-control-sm disable-print"
                                                         formControlName="loanFacilityTypeEng"
                                                         name="loanFacilityTypeEng"
                                                         placeholder=""
                                                         type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{tl.loanFacilityTypeEng ? tl.loanFacilityTypeEng : '========='}}</strong></span>Term
+                                                <span class="print-only"><strong>{{tl.loanFacilityTypeEng ? tl.loanFacilityTypeEng : '========='}}</strong></span>Term
                                                 Loan)
                                             </th>
                                         </tr>
@@ -418,7 +416,7 @@
                                                         type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tl.emiAmtInWord ? tl.emiAmtInWord : '========='}}</strong></span>
                                                 पैसा मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन गरि साविकको
-                                                किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि÷किस्ता संख्या समायोजन नगरी किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई
+                                                किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई
                                                 तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता (Operative Account) बाट खर्च गरिनेछ ।
                                             </td>
                                         </tr>
@@ -480,12 +478,12 @@
                                                 <span class="print-only nepaliFont"><strong>{{tli.loanFacilityTypeNep ? tli.loanFacilityTypeNep : '========='}}</strong></span>आवधिक
                                                 कर्जा १
                                                 (<input
-                                                    class="form-fields form-control-sm disable-print nepaliFont"
+                                                    class="form-fields form-control-sm disable-print"
                                                     formControlName="loanFacilityTypeEng"
                                                     name="loanFacilityTypeEng"
                                                     placeholder=""
                                                     type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{tli.loanFacilityTypeEng ? tli.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{tli.loanFacilityTypeEng ? tli.loanFacilityTypeEng : '========='}}</strong></span>
                                                 Term Loan-Ι)
                                             </th>
                                         </thead>
@@ -582,19 +580,9 @@
                                                         placeholder=""
                                                         type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tli.emiAmtInWord ? tli.emiAmtInWord : '========='}}</strong></span>
-                                                पैसा मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा व्याजदर परिवर्तन
-                                                भएमा कर्जाको अवधि÷किस्ता संख्या मात्र सो अनुरुप समायोजन गरि साविकको
-                                                किस्ता
-                                                रकम
-                                                यथास्थितीमा
-                                                राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि÷किस्ता संख्या समायोजन
-                                                नगरी
-                                                किस्ता रकम
-                                                वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ ।
-                                                प्रत्येक
-                                                किस्ता रकम
-                                                संचालन
-                                                खाता (Operative Account) बाट खर्च गरिनेछ ।
+                                                पैसा मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन गरि साविकको किस्ता रकम यथास्थितीमा राखिने छ । यदी
+                                                व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता
+                                                (Operative Account) बाट खर्च गरिनेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -614,13 +602,8 @@
                                                         placeholder=""
                                                         type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tli.moratoriumPeriod ? tli.moratoriumPeriod : '========='}}</strong></span>
-                                                बर्षको
-                                                Moratorium Period) सम्मका लागि हुनेछ । तर, बैंकले चाहेको बखतमा सो
-                                                तोकेको
-                                                समयावधि
-                                                भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा
-                                                रद्द
-                                                गर्न सक्नेछ ।
+                                                बर्षको Moratorium Period) सम्मका लागि हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा
+                                                रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -657,12 +640,12 @@
                                                         type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{lc.loanFacilityTypeNep ? lc.loanFacilityTypeNep : '========='}}</strong></span>
                                                 प्रतितपत्र (
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                <input class="form-fields form-control-sm disable-print"
                                                         formControlName="loanFacilityTypeEng"
                                                         name="loanFacilityTypeEng"
                                                         placeholder=""
                                                         type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{lc.loanFacilityTypeEng ? lc.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{lc.loanFacilityTypeEng ? lc.loanFacilityTypeEng : '========='}}</strong></span>
                                                 <strong>Letter of Credit- Usance/Sight/Acceptance</strong>)
                                             </th>
                                         </tr>
@@ -703,11 +686,7 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{lc.loanReviewDate ? lc.loanReviewDate : '========='}}</strong></span>
-                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको
-                                                समयावधि भन्दा
-                                                अघि नै ऋणीलाई
-                                                जानकारी दिई वा नदिई
-                                                स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
+                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -806,12 +785,12 @@
                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tr.loanFacilityTypeNep ? tr.loanFacilityTypeNep : '========='}}</strong></span>
                                                 ट्रष्ट रिसिट कर्जा (प्रतीत पत्र कर्जाको सिमा भित्र
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                <input class="form-fields form-control-sm disable-print"
                                                         formControlName="loanFacilityTypeEng"
                                                         name="loanFacilityTypeEng"
                                                         placeholder=""
                                                         type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{tr.loanFacilityTypeEng ? tr.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{tr.loanFacilityTypeEng ? tr.loanFacilityTypeEng : '========='}}</strong></span>
                                                 <strong>Trust Receipt Loan- Within Letter of Credit</strong>)
                                             </th>
                                         </tr>
@@ -852,11 +831,7 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tr.loanReviewDate ? tr.loanReviewDate : '========='}}</strong></span>
-                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको
-                                                समयावधि भन्दा
-                                                अघि नै ऋणीलाई
-                                                जानकारी दिई वा नदिई
-                                                स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
+                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -874,14 +849,8 @@
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td>ङ)</td>
-                                            <td class="font-weight-bold">स्वीकृत कर्जा सुविधा उपभोग गर्न
-                                                पाउने सीमा
-                                                (Drawdown)
-                                            </td>
-                                            <td>स्वीकृत सीमाभित्र रहेर प्रतितपत्र मार्फत आयात गरिएका
-                                                बस्तुहरुको कागजात मूल्य
-                                                (Document
-                                                Value) को
+                                            <td class="font-weight-bold">स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा (Drawdown)</td>
+                                            <td>स्वीकृत सीमाभित्र रहेर प्रतितपत्र मार्फत आयात गरिएका बस्तुहरुको कागजात मूल्य (Document Value) को
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="trDrawdown"
                                                        name="trDrawdown"
@@ -902,22 +871,10 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{tr.premium ? tr.premium : '========='}}</strong></span>
-                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम
-                                                गरिनेछ । ऋणीले
-                                                उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि
-                                                हरेक नेपाली
-                                                त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण
-                                                रुपले चुक्ता
-                                                गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी
-                                                लिइनेछ । त्रयमास
-                                                भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३
-                                                महिनाको समयलाई
-                                                जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा
-                                                हूने परिवर्तन
-                                                जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक
-                                                पत्रिकामा प्रकाशित
-                                                गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत
-                                                राखिनेछ ।
+                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो
+                                                महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र
+                                                मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक
+                                                पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
                                             </td>
                                         </tr>
                                         </tbody>
@@ -952,12 +909,12 @@
                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{dl.loanFacilityTypeNep ? dl.loanFacilityTypeNep : '========='}}</strong></span>
                                                 माग कर्जा (
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                <input class="form-fields form-control-sm disable-print"
                                                         formControlName="loanFacilityTypeEng"
                                                         name="loanFacilityTypeEng"
                                                         placeholder=""
                                                         type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{dl.loanFacilityTypeEng ? dl.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{dl.loanFacilityTypeEng ? dl.loanFacilityTypeEng : '========='}}</strong></span>
                                                 Demand loan) प्रतितपत्र सीमा regular अन्तर्गत )
                                             </th>
                                         </tr>
@@ -998,21 +955,13 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{dl.loanReviewDate ? dl.loanReviewDate : '========='}}</strong></span>
-                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो
-                                                तोकेको समयावधि भन्दा
-                                                अघि नै ऋणीलाई
-                                                जानकारी दिई वा नदिई
-                                                स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
+                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td>घ)</td>
                                             <td>अवधि (Deal tenure)</td>
-                                            <td>उल्लेखित सीमा र अवधिभित्र यो कर्जा लिने र तिर्ने गर्न
-                                                सक्ने गरी चक्रात्मक
-                                                आधार
-                                                (Revolving Basis) मा यो कर्जा सुविधा उपलब्ध हुनेछ । हरेक
-                                                माग कर्जा को अवधि
+                                            <td>उल्लेखित सीमा र अवधिभित्र यो कर्जा लिने र तिर्ने गर्न सक्ने गरी चक्रात्मक आधार (Revolving Basis) मा यो कर्जा सुविधा उपलब्ध हुनेछ । हरेक माग कर्जा को अवधि
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                         formControlName="dlTenure"
                                                         name="dlTenure"
@@ -1025,10 +974,7 @@
                                         <tr style="page-break-inside: auto">
                                             <td>ङ)</td>
                                             <td>माग गर्न सकिने सिमा (Drawdown)</td>
-                                            <td>स्वीकृत सीमाभित्र रहेर प्रतितपत्र मार्फत आयात गरिएका
-                                                बस्तुहरुको कागजात मूल्य
-                                                (Document
-                                                Value) को
+                                            <td>स्वीकृत सीमाभित्र रहेर प्रतितपत्र मार्फत आयात गरिएका बस्तुहरुको कागजात मूल्य (Document Value) को
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="dlDrawdown"
                                                        name="dlDrawdown"
@@ -1042,30 +988,17 @@
                                             <td>च)</td>
                                             <td>व्याज (Interest)</td>
                                             <td>
-                                                बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा
-                                                थप
+                                                बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="premium"
                                                        name="premium"
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{dl.premium ? dl.premium : '========='}}</strong></span>
-                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर
-                                                कायम गरिनेछ । ऋणीले
-                                                उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना
-                                                गरि हरेक नेपाली
-                                                त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा
-                                                पूर्ण रुपले चुक्ता
-                                                गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च
-                                                गरी लिइनेछ । त्रयमास
-                                                भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने
-                                                ३ महिनाको समयलाई
-                                                जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate)
-                                                मा हूने परिवर्तन
-                                                जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक
-                                                पत्रिकामा प्रकाशित
-                                                गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा
-                                                समेत राखिनेछ ।
+                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो
+                                                महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र
+                                                मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक
+                                                पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
                                             </td>
                                         </tr>
                                         </tbody>
@@ -1100,12 +1033,12 @@
                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{bg.loanFacilityTypeNep ? bg.loanFacilityTypeNep : '========='}}</strong></span>
                                                 बैंक जमानत (
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                <input class="form-fields form-control-sm disable-print"
                                                        formControlName="loanFacilityTypeEng"
                                                        name="loanFacilityTypeEng"
                                                        placeholder=""
                                                        type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{bg.loanFacilityTypeEng ? bg.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{bg.loanFacilityTypeEng ? bg.loanFacilityTypeEng : '========='}}</strong></span>
                                                 Bank Guarantee- PB / BB/ AP / CSG / Credit Line)
                                             </th>
                                         </tr>
@@ -1153,11 +1086,7 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{bg.loanReviewDate ? bg.loanReviewDate : '========='}}</strong></span>
-                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो
-                                                तोकेको समयावधि भन्दा
-                                                अघि नै ऋणीलाई
-                                                जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द
-                                                गर्न सक्नेछ ।
+                                                सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -1290,12 +1219,12 @@
                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{hpl.loanFacilityTypeNep ? hpl.loanFacilityTypeNep : '========='}}</strong></span>
                                                 बहायर पर्चेज कर्जा (
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                <input class="form-fields form-control-sm disable-print"
                                                        formControlName="loanFacilityTypeEng"
                                                        name="loanFacilityTypeEng"
                                                        placeholder=""
                                                        type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{hpl.loanFacilityTypeEng ? hpl.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{hpl.loanFacilityTypeEng ? hpl.loanFacilityTypeEng : '========='}}</strong></span>
                                                 Hire Purchase Loan)
                                             </th>
                                         </tr>
@@ -1350,32 +1279,17 @@
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td>ग)</td>
-                                            <td>स्वीकृत कर्जा सुविधा उपभोग गन पाउने अवस्था र
-                                                सीमा (Drawdown)
-                                            </td>
-                                            <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु
-                                                स्वीकार गरी बैंकमा वुझाए पछि
-                                                स्वीकृत कर्जा
-                                                तथा सुविधा वा सवारी साधनको मूल्य (VAT Bill ) को
+                                            <td>स्वीकृत कर्जा सुविधा उपभोग गन पाउने अवस्था र सीमा (Drawdown)</td>
+                                            <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा वा सवारी साधनको मूल्य (VAT Bill ) को
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="vatBillDrawdown"
                                                        name="vatBillDrawdown"
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{hpl.vatBillDrawdown ? hpl.vatBillDrawdown : '========='}}</strong></span>
-                                                प्रतिशत सम्म कर्जा रकम
-                                                उपभोग गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा
-                                                वाहेक ऋणीले लिन सक्ने कर्जा तथा
-                                                सुविधाको
-                                                रकम सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा
-                                                ऋणीको मन्जुरी रहेको छ । त्यसरी
-                                                भुक्तानी
-                                                गरिएको रकम कलमको सम्वन्धमा ऋणी र विक्रेतावीच
-                                                भविश्यमा कुनै किसिमको विवाद
-                                                उत्पन्न भई कुनै
-                                                किसिमको दायित्व सिर्जना भएमा सो दायित्व ऋणी
-                                                आफैले व्यहोर्न मन्जुरी व्यक्त
-                                                गर्दछ ।
+                                                प्रतिशत सम्म कर्जा रकम उपभोग गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको रकम सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी
+                                                रहेको छ । त्यसरी भुक्तानी गरिएको रकम कलमको सम्वन्धमा ऋणी र विक्रेतावीच भविश्यमा कुनै किसिमको विवाद उत्पन्न भई कुनै किसिमको दायित्व सिर्जना भएमा सो दायित्व ऋणी
+                                                आफैले व्यहोर्न मन्जुरी व्यक्त गर्दछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -1387,27 +1301,16 @@
                                                     placeholder=""
                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{hpl.noOfEmi ? hpl.noOfEmi : '========='}}</strong></span>
-                                                समान मासिक किस्ता (Equated Monthly Installment-
-                                                EMI) रुपमा अंग्रेजी महिनाको
-                                                प्रत्येक १० तारिख / समान त्रैमासिक किस्ता
-                                                (Equated Quartely
-                                                Installement-EQI)
-                                                रुपमा नेपाली त्रैमासको तेश्रो महिनाको अन्तिम
-                                                दिनमा लिइनेछ, तर कर्जा प्रवाह
-                                                भएको पहिलो
-                                                मासिक/ त्रैमासिक किस्ताको रकम भुक्तानी सम्बन्धमा
-                                                पहिलो पटकका लागि दिन गणना
-                                                गरी ब्याज रकम
-                                                मात्र लिइनेछ,
-                                                दोस्रो पटकदेखि नियमित साँवा–ब्याज
+                                                समान मासिक किस्ता (Equated Monthly Installment- EMI) रुपमा अंग्रेजी महिनाको प्रत्येक १० तारिख / समान त्रैमासिक किस्ता (Equated Quartely
+                                                Installement-EQI) रुपमा नेपाली त्रैमासको तेश्रो महिनाको अन्तिम दिनमा लिइनेछ, तर कर्जा प्रवाह भएको पहिलो मासिक/ त्रैमासिक किस्ताको रकम भुक्तानी सम्बन्धमा पहिलो पटकका
+                                                लागि दिन गणना गरी ब्याज रकम मात्र लिइनेछ, दोस्रो पटकदेखि नियमित साँवा–ब्याज
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                         formControlName="noOfEmi"
                                                         name="noOfEmi"
                                                         placeholder=""
                                                         type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{hpl.noOfEmi ? hpl.noOfEmi : '========='}}</strong></span>
-                                                समान मासिक/त्रैमासिक किस्ता प्रति किस्ता
-                                                अनुमानित रु
+                                                समान मासिक/त्रैमासिक किस्ता प्रति किस्ता अनुमानित रु
                                                 <app-custom-input
                                                         (eventEmit)="changeToNepAmount($event,i,'hirePurchaseLoan', 'emiAmtInWord','emiAmt')"
                                                         [name]="patchFunction('hirePurchaseLoan',i,'emiAmt')"
@@ -1420,21 +1323,9 @@
                                                        placeholder="अक्षेरुपी"
                                                        type="text"/>
                                                 <span class="print-only preetiFont size16"><strong>{{hpl.emiAmtInWord ? hpl.emiAmtInWord : '========='}}</strong></span>
-                                                मात्र)
-                                                का दरले बुझाउनु पर्नेछ । भविष्यमा औषत आधार दर
-                                                /व्याजदर परिवर्तन भएमा कर्जाको
-                                                अवधि/किस्ता
-                                                संख्या मात्र सो
-                                                अनुरुप समायोजन गरि साविकको किस्ता रकम
-                                                यथास्थितीमा राखिने छ । यदी व्याजदर
-                                                वृद्धि पश्चात
-                                                कर्जाको अवधि/किस्ता संख्या समायोजन नगरी किस्ता
-                                                रकम वृद्धि गर्नुपरेको खण्डमा
-                                                बैंकलाई
-                                                तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता
-                                                रकम संचालन खाता (Operative
-                                                Account)
-                                                बाट खर्च गरिनेछ ।
+                                                मात्र) का दरले बुझाउनु पर्नेछ । भविष्यमा औषत आधार दर /व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन गरि साविकको किस्ता रकम यथास्थितीमा राखिने
+                                                छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी किस्ता रकम वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता
+                                                (Operative Account) बाट खर्च गरिनेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
@@ -1447,41 +1338,24 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{hpl.loanReviewDate ? hpl.loanReviewDate : '========='}}</strong></span>
-                                                वर्ष सम्मका लागि हुनेछ । तर, बैंकले चाहेको बखतमा
-                                                सो तोकेको समयावधि भन्दा अघि
-                                                नै
-                                                ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा
-                                                सुविधाको सीमा रद्द गर्न सक्नेछ ।
+                                                वर्ष सम्मका लागि हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td>च)</td>
                                             <td>व्याज (Interest)</td>
                                             <td>
-                                                बैंकले निर्धारण गरेको औषत आधार दर (Average Base
-                                                Rate) मा थप
+                                                बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="premium"
                                                        name="premium"
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{hpl.premium ? hpl.premium : '========='}}</strong></span>
-                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी
-                                                ब्याजदर कायम गरिनेछ । ऋणीले
-                                                उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा
-                                                व्याज गणना गरि हरेक नेपाली
-                                                त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण
-                                                कर्जा पूर्ण रुपले चुक्ता
-                                                गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको
-                                                खाता खर्च गरी लिइनेछ । त्रयमास
-                                                भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा
-                                                समाप्त हुने ३ महिनाको समयलाई
-                                                जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base
-                                                Rate) मा हूने परिवर्तन
-                                                जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको
-                                                दैनिक पत्रिकामा प्रकाशित
-                                                गरिनुका साथै बैंकको Web Site
-                                                www.centurybank.com.np मा समेत राखिनेछ ।
+                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो
+                                                महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र
+                                                मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको
+                                                दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
                                             </td>
                                         </tr>
                                         </tbody>
@@ -1517,12 +1391,12 @@
                                                     type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{bgl.loanFacilityTypeNep ? bgl.loanFacilityTypeNep : '========='}}</strong></span>
                                                 ब्रिज ग्याप कर्जा (
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                <input class="form-fields form-control-sm disable-print"
                                                        formControlName="loanFacilityTypeEng"
                                                        name="loanFacilityTypeEng"
                                                        placeholder=""
                                                        type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{bgl.loanFacilityTypeEng ? bgl.loanFacilityTypeEng : '========='}}</strong></span>
+                                                <span class="print-only"><strong>{{bgl.loanFacilityTypeEng ? bgl.loanFacilityTypeEng : '========='}}</strong></span>
                                                 Bridge Gap Loan)
                                             </th>
                                         </tr>
@@ -1564,18 +1438,13 @@
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{bgl.loanReviewDate ? bgl.loanReviewDate : '========='}}</strong></span>
-                                                दिन सम्मका लागि मात्र हुनेछ । तर, बैंकले
-                                                चाहेको बखतमा सो तोकेको समयावधि
-                                                भन्दा अघि नै
-                                                ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा
-                                                सुविधाको सीमा रद्द गर्न सक्नेछ ।
+                                                दिन सम्मका लागि मात्र हुनेछ । तर, बैंकले चाहेको बखतमा सो तोकेको समयावधि भन्दा अघि नै ऋणीलाई जानकारी दिई वा नदिई स्वीकृत कर्जा सुविधाको सीमा रद्द गर्न सक्नेछ ।
                                             </td>
                                         </tr>
                                         <tr style="page-break-inside: auto">
                                             <td>घ)</td>
                                             <td>स्वीकृत सीमाको अवधि (Tenure)</td>
-                                            <td>उल्लेखित सीमा र अवधिभित्र यो कर्जा
-                                                Terminating Basis मा
+                                            <td>उल्लेखित सीमा र अवधिभित्र यो कर्जा Terminating Basis मा
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="renewalFee"
                                                        name="renewalFee"
@@ -1589,24 +1458,17 @@
                                             <td>ङ)</td>
                                             <td>व्याज (Interest)</td>
                                             <td>
-                                                बैंकले निर्धारण गरेको औषत आधार दर (Average
-                                                Base Rate) मा थप
+                                                बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
                                                 <input class="form-fields form-control-sm disable-print nepaliFont"
                                                        formControlName="premium"
                                                        name="premium"
                                                        placeholder=""
                                                        type="text"/>
                                                 <span class="print-only nepaliFont"><strong>{{bgl.premium ? bgl.premium : '========='}}</strong></span>
-                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले
-                                                उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली
-                                                त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता
-                                                गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ ।
-                                                त्रयमास
-                                                भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको
-                                                समयलाई
-                                                जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा हूने परिवर्तन
-                                                जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित
-                                                गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
+                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली त्रयमासको तेश्रो
+                                                महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुक्ता गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ । त्रयमास भन्नाले आषाढ, आश्विन, पौष तथा चैत्र
+                                                मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक
+                                                पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
                                             </td>
                                         </tr>
                                         </tbody>
@@ -1644,10 +1506,7 @@
                         <table class="table table-bordered table-responsive-md table-hover">
                             <tbody>
                             <tr>
-                                <td> प्रशासनिक शुल्क कोषमा आधारीत कर्जाको हकमा (Loan
-                                    Adminstrative Fee
-                                    funded Limit)
-                                </td>
+                                <td> प्रशासनिक शुल्क कोषमा आधारीत कर्जाको हकमा (Loan Adminstrative Fee funded Limit)</td>
                                 <td><strong>रु</strong>
                                     <app-custom-input
                                             (eventEmit)="changeToNepAmount1($event,'adminFeeFundedAmtWord','adminFeeFundedAmt')"
@@ -1663,14 +1522,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>प्रशासनिक शुल्क गैर कोषमा आधारित कर्जाको (Loan
-                                    Adminstrative Fee for
-                                    Non- funded
-                                    facility)
-                                </td>
+                                <td>प्रशासनिक शुल्क गैर कोषमा आधारित कर्जाको (Loan Adminstrative Fee for Non- funded facility)</td>
                                 <td><strong>रु</strong>
                                     <app-custom-input (eventEmit)="changeToNepAmount1($event,'adminFeeNonFundedAmtWord','adminFeeNonFundedAmt')"
-                                            [name]="patchFunction1('adminFeeNonFundedAmtWord')" class="disable-print"></app-custom-input>
+                                            [name]="patchFunction1('adminFeeNonFundedAmt')" class="disable-print"></app-custom-input>
                                     <span class="print-only nepaliFont"><strong>{{loanForm.get('adminFeeNonFundedAmt').value ? loanForm.get('adminFeeNonFundedAmt').value : '========='}}</strong></span>
                                     /-
                                     (अक्षरुपी <input class="form-fields form-control-sm nepaliFont disable-print"
@@ -1698,17 +1553,14 @@
                             </tr>
                             <tr>
                                 <td>प्रतिवद्धता शुल्क (Commitment Charge)</td>
-                                <td>कर्जा अवधिमा कर्जाको औसत उपयोग (Average
-                                    Utilization) ६० प्रतिशत भन्दा कम
-                                    भएको खण्डमा उपयोग नगरेको कर्जाको
-                                    (Unutilized Amount) मा नेपाल राष्ट्र बैंकको
-                                    नियमानुर प्रतिवद्धता शुल्क लाग्नेछ ।
+                                <td>कर्जा अवधिमा कर्जाको औसत उपयोग (Average Utilization) ६० प्रतिशत भन्दा कम भएको खण्डमा उपयोग नगरेको कर्जाको (Unutilized Amount) मा नेपाल राष्ट्र बैंकको नियमानुर प्रतिवद्धता
+                                    शुल्क लाग्नेछ ।
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <div class="text-justify">
-                        <strong>३. <u>सुरक्षण :</u></strong>
+                        <div style="break-inside: auto; overflow: visible" class="text-justify">
+                        <p class="font-weight-bold">३. <u>सुरक्षण :</u></p>
                         <br>
                         ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा बैंकिङ्ग सुविधाहरु निम्न बमोजिमको सम्पति तथा लिखतहरुले सुरक्षित राखिनेछ ।<br>
                         क)
@@ -1771,8 +1623,7 @@
                                placeholder=""
                                type="text"/>
                         <span class="print-only nepaliFont"><strong>{{loanForm.get('plotArea').value ? loanForm.get('plotArea').value : '========='}}</strong></span>
-                        (रोपनी/विगाह) को जग्गा तथा सो जग्गाहरुको चर्चेको
-                        सम्पुर्ण लिगलगापातहरु समेतको रु
+                        (रोपनी/विगाह) को जग्गा तथा सो जग्गाहरुको चर्चेको सम्पुर्ण लिगलगापातहरु समेतको रु
                         <app-custom-input
                                 (eventEmit)="changeToNepAmount1($event,'totalLoanAmountInWord','totalLoanAmount')"
                                 [name]="patchFunction1('totalLoanAmount')"
@@ -1793,8 +1644,7 @@
                                placeholder=""
                                type="text"/>
                         <span class="print-only nepaliFont"><strong>{{loanForm.get('valuatorName').value ? loanForm.get('valuatorName').value : '========='}}</strong></span>
-                        ले गरेको मूल्याकंन अनुसार उक्त सम्पत्तिको भबन निमार्ण
-                        सम्पन्न पश्चात फेयर मार्केट मूल्य (Fair Market Value) रु
+                        ले गरेको मूल्याकंन अनुसार उक्त सम्पत्तिको भबन निमार्ण सम्पन्न पश्चात फेयर मार्केट मूल्य (Fair Market Value) रु
                         <app-custom-input
                                 (eventEmit)="changeToNepAmount1($event,'fmvAmountInWord','fmvAmount')"
                                 [name]="patchFunction1('fmvAmount')"
@@ -1807,7 +1657,7 @@
                                placeholder=""
                                type="text"/>
                         <span class="print-only preetiFont size16"><strong>{{loanForm.get('fmvAmountInWord').value ? loanForm.get('fmvAmountInWord').value : '========='}}</strong></span>
-                        रुपैंयाँ मात्र) र डिष्टे«स मूल्य (Distress Value) रु
+                        रुपैंयाँ मात्र) र डिष्ट्रेस मूल्य (Distress Value) रु
                         <app-custom-input
                                 (eventEmit)="changeToNepAmount1($event,'dvAmountInWord','dvAmount')"
                                 [name]="patchFunction1('dvAmount')"
@@ -1841,10 +1691,11 @@
                         <span class="print-only nepaliFont"><strong>{{loanForm.get('sawariSadhan').value ? loanForm.get('sawariSadhan').value : '========='}}</strong></span>
                         ) सेञ्चुरी कमर्सियल बैक लिमिटेडको स्वामित्वमा रहने गरी दर्ता नामसारी गरिदिनू पर्नेछ ।<br>
                         ग) रु.
-                        <app-custom-input
-                                (eventEmit)="changeToNepAmount1($event,'totalLoanAmountInWord','totalLoanAmount')"
-                                [name]="patchFunction1('totalLoanAmount')"
-                                class="disable-print"></app-custom-input>
+                            <input class="form-fields form-control-sm nepaliFont disable-print"
+                                   value="{{loanForm.get('totalLoanAmount').value}}"
+                                   formControlName="totalLoanAmount"
+                                   placeholder=""
+                                   type="text"/>
                         <span class="print-only nepaliFont"><strong>{{loanForm.get('totalLoanAmount').value ? loanForm.get('totalLoanAmount').value : '========='}}</strong></span>/-
                         (अक्षेरुपी
                         <input class="form-fields form-control-sm disable-print preetiFont size16"
@@ -1871,29 +1722,22 @@
                                        type="text"/>
                         <span class="print-only preetiFont size16"><strong>{{loanForm.get('guarantorName').value ? loanForm.get('guarantorName').value : '========='}}</strong></span>
                         कोे तर्फबाट स्वीकृत कर्जा सीमा बराबरको व्यक्तिगत जमानी ।<br>
-                        ढ) बहुबैंकिङ्ग कारोबार गरी चालूपंूजी प्रकृतिका कर्जा उपभोग
-                        गरिरहेको बैंकको नाममा
-                        पारिपासु (सम्झौता)
-                        लिखत (Paripassu Deed) धितो सूरक्षणाको रुपमा उपलव्ध गराउनू पर्नेछ
+                        ढ) बहुबैंकिङ्ग कारोबार गरी चालूपंूजी प्रकृतिका कर्जा उपभोग गरिरहेको बैंकको नाममा पारिपासु (सम्झौता) लिखत (Paripassu Deed) धितो सूरक्षणाको रुपमा उपलव्ध गराउनू पर्नेछ
                         ।<br>
-                        ण) ऋणी कम्पनीको नाममा यस बैंकबाट स्वीकृत ऋण कर्जा चूक्ता नभएसम्म सञ्चालक (Directors) बाट लिएको
-                        रू
+                        ण) ऋणी कम्पनीको नाममा यस बैंकबाट स्वीकृत ऋण कर्जा चूक्ता नभएसम्म सञ्चालक (Directors) बाट लिएको रू
                         <app-custom-input
-                                (eventEmit)="changeToNepAmount1($event,'totalLoanAmountInWord','totalLoanAmount')"
-                                [name]="patchFunction1('totalLoanAmount')"
+                                (eventEmit)="changeToNepAmount1($event,'totalLoanAmountInWordDir','totalLoanAmountDir')"
+                                [name]="patchFunction1('totalLoanAmountDir')"
                                 class="disable-print"></app-custom-input>
-                        <span class="print-only nepaliFont"><strong>{{loanForm.get('totalLoanAmount').value ? loanForm.get('totalLoanAmount').value : '========='}}</strong></span>/-
+                        <span class="print-only nepaliFont"><strong>{{loanForm.get('totalLoanAmountDir').value ? loanForm.get('totalLoanAmountDir').value : '========='}}</strong></span>/-
                         (अक्षेरुपी रुपैया
                         <input class="form-fields form-control-sm disable-print preetiFont size16"
-                               formControlName="totalLoanAmountInWord"
-                               name="totalLoanAmountInWord"
+                               formControlName="totalLoanAmountInWordDir"
+                               name="totalLoanAmountInWordDir"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only preetiFont size16"><strong>{{loanForm.get('totalLoanAmountInWord').value ? loanForm.get('totalLoanAmountInWord').value : '========='}}</strong></span>
-                        मात्र) बराबरको ऋणको भूक्तानी गर्नू पूर्व बैंकको पूर्व स्वीकृति लिनू पर्नेछ । बैंकको पूर्व
-                        स्वीकृति
-                        विना सञ्चालक
-                        (Directors) बाट उठाइएको ऋण कर्जा भुक्तानी नगर्ने प्रतिवद्धता पत्र उपलब्ध गराउनू पर्ने छ ।<br>
+                        <span class="print-only preetiFont size16"><strong>{{loanForm.get('totalLoanAmountInWordDir').value ? loanForm.get('totalLoanAmountInWordDir').value : '========='}}</strong></span>
+                        मात्र) बराबरको ऋणको भूक्तानी गर्नू पूर्व बैंकको पूर्व स्वीकृति लिनू पर्नेछ । बैंकको पूर्व स्वीकृति विना सञ्चालक (Directors) बाट उठाइएको ऋण कर्जा भुक्तानी नगर्ने प्रतिवद्धता पत्र उपलब्ध गराउनू पर्ने छ ।<br>
                         <br>
                         त) ऋणी कम्पनी / फर्मकोे नाममा रहेर्को प्लान्ट, मेशिनरी, उपकरण र
                         <input class="form-fields form-control-sm nepaliFont disable-print"
@@ -1909,63 +1753,45 @@
                         <span class="print-only preetiFont size16"><strong>{{loanForm.get('assestEnglish').value ? loanForm.get('assestEnglish').value : '========='}}</strong></span>
                         )को रू
                         <app-custom-input
-                                (eventEmit)="changeToNepAmount1($event,'totalLoanAmountInWord','totalLoanAmount')"
-                                [name]="patchFunction1('totalLoanAmount')"
+                                (eventEmit)="changeToNepAmount1($event,'totalLoanAmountInWordHypo','totalLoanAmountHypo')"
+                                [name]="patchFunction1('totalLoanAmountHypo')"
                                 class="disable-print"></app-custom-input>
-                        <span class="print-only nepaliFont"><strong>{{loanForm.get('totalLoanAmount').value ? loanForm.get('totalLoanAmount').value : '========='}}</strong></span>/-
+                        <span class="print-only nepaliFont"><strong>{{loanForm.get('totalLoanAmountHypo').value ? loanForm.get('totalLoanAmountHypo').value : '========='}}</strong></span>/-
                         (अक्षेरुपी रुपैया
                         <input class="form-fields form-control-sm disable-print preetiFont size16"
-                               formControlName="totalLoanAmountInWord"
-                               name="totalLoanAmountInWord"
+                               formControlName="totalLoanAmountInWordHypo"
+                               name="totalLoanAmountInWordHypo"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only preetiFont size16"><strong>{{loanForm.get('totalLoanAmountInWord').value ? loanForm.get('totalLoanAmountInWord').value : '========='}}</strong></span>
-                        मात्र) उपर माथि उल्लेखित कर्जा सूविधा तथा सो बाट उत्पन्न दायित्वको हद सम्म धनि बैंकको हक रहने
-                        गरी
-                        गरिदिने हाईपोथिकेसन (Charge over Fixed assets –Plant, Machinery,Equipment and
+                        <span class="print-only preetiFont size16"><strong>{{loanForm.get('totalLoanAmountInWordHypo').value ? loanForm.get('totalLoanAmountInWordHypo').value : '========='}}</strong></span>
+                        मात्र) उपर माथि उल्लेखित कर्जा सूविधा तथा सो बाट उत्पन्न दायित्वको हद सम्म धनि बैंकको हक रहने गरी गरिदिने हाईपोथिकेसन (Charge over Fixed assets –Plant, Machinery,Equipment and
                         <input class="form-fields form-control-sm nepaliFont disable-print"
                                formControlName="assestEnglish"
                                placeholder=""
                                type="text"/>
                         <span class="print-only preetiFont size16"><strong>{{loanForm.get('assestEnglish').value ? loanForm.get('assestEnglish').value : '========='}}</strong></span>
                         .) यथावत नै कायम रहनेछ ।<br><br>
-                        ऋणीले बैंकलाई धितो बन्धक लेखिदिएको सम्पुर्ण चल अचल सम्पत्तिको
-                        जोखिम सूरक्षित गर्नको लागि सम्पतिहरु मध्ये भवन/स्टक/स्थिर सम्पत्ति/सवारी साधनको वास्तविक मूल्य
-                        बराबरको बैंकर्स क्लज सहितको
+                        ऋणीले बैंकलाई धितो बन्धक लेखिदिएको सम्पुर्ण चल अचल सम्पत्तिको जोखिम सूरक्षित गर्नको लागि सम्पतिहरु मध्ये भवन/स्टक/स्थिर सम्पत्ति/सवारी साधनको वास्तविक मूल्य बराबरको बैंकर्स क्लज सहितको
                         <input class="form-fields form-control-sm nepaliFont disable-print"
                                formControlName="onlySelf"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only preetiFont size16"><strong>{{loanForm.get('totalLoanAmountInWord').value ? loanForm.get('totalLoanAmountInWord').value : '========='}}</strong></span>
+                        <span class="print-only preetiFont size16"><strong>{{loanForm.get('onlySelf').value ? loanForm.get('onlySelf').value : '========='}}</strong></span>
                         वीमा (
                         <input class="form-fields form-control-sm nepaliFont disable-print"
                                formControlName="bankersClause"
                                placeholder=""
                                type="text"/>
                         <span class="print-only preetiFont size16"><strong>{{loanForm.get('bankersClause').value ? loanForm.get('bankersClause').value : '========='}}</strong></span>
-                        Insurance)गराई बैंकको नाममा दरपिठ (Endorce) गरी वीमालेख तथा वीमा शूल्क तिरेको
-                        रसिदको सक्कल प्रति ऋणीले बैंकमा पेश गर्नू पर्नेछ । विमा गर्दा सम्पत्तिको वास्तविक मुल्य भन्दा कम
-                        रकमको वीमा
-                        गर्नू हूदैन । कथंकदाचित सम्पत्तिको वास्तविक मुल्य भन्दा कम रकमको मात्र वीमा भएमा रहेछ र कूनै
-                        कारणबाट
-                        सम्पत्तिको क्षति हूदा औसत शर्त (Under Insurance Clause) तथा अन्य कूनै कारणबाट बीमा दावी भूक्तानी
-                        कम प्राप्त हूने भएमा सोको जिम्मेवारी ऋणी (विमित) आफै हूनेछ, बैंक जवाफदेही हूने छैन । वीमालेखको
-                        म्याद
-                        समाप्त हूनू अगावै नविकरण गरी नविकरण भएको वीमालेख र नविकरण शूल्क बूझाएको रसिद सक्कलै
-                        प्रति बैंकमा बूझाउनू पर्नेछ । ऋणीले समयमा वीमालेख नविकरण नगराएमा बैंक आफैले
-                        साविककै वीमा मूल्यमा नविकरण गराउन सक्नेछ वा बैंकलाई वीमालेखमा उल्लेखित रकम कम रहेको भन्ने लागेमा
-                        वीमालेखको रकम (Insured Amount)
-                        बढाएर समेत वीमालेख नविकरण गराउन सक्नेछ । बैकले वीमालेख नविकण गरिदिंदा साविककै वीमा कम्पनी वा
-                        अन्य
-                        वीमा कम्पनीबा६ समेत वीमालेख जारी गराउन सक्नेछ । वीमालेख नविकरण बापत लाग्ने वीमा शूल्क
-                        (Insurance Premimum) ऋणीको खातामा रकम भएमा खाताबाट सोझै खर्च लेखी वा खातामा
-                        आवश्यक रकम नरहेछ भने ऋणीको नाममा बाध्यतात्मक ऋणकर्जा (Force Loan) कायम गरी वीमा कम्पनीलाई वीमा
-                        शूल्क (Insurance Premimum) भूक्तानी गरिनेछ । त्यसरी बाध्यतात्मक ऋणकर्जा ९(Force Loan) कायम भएको
-                        रकममा बैंकले प्रकाशित गरेको आधार दरमा सबैभन्दा बढी प्रिमियम जोडि कायम हुन आउने ब्याजदरको हिसाबले
-                        ब्याज
-                        गणना गरी सावा र व्याज असूल उपर गर्नेछ ।<br>
+                        Insurance) गराई बैंकको नाममा दरपिठ (Endorce) गरी वीमालेख तथा वीमा शूल्क तिरेको रसिदको सक्कल प्रति ऋणीले बैंकमा पेश गर्नू पर्नेछ । विमा गर्दा सम्पत्तिको वास्तविक मुल्य भन्दा कम रकमको वीमा गर्नू हूदैन ।
+                        कथंकदाचित सम्पत्तिको वास्तविक मुल्य भन्दा कम रकमको मात्र वीमा भएमा रहेछ र कूनै कारणबाट सम्पत्तिको क्षति हूदा औसत शर्त (Under Insurance Clause) तथा अन्य कूनै कारणबाट बीमा दावी भूक्तानी कम प्राप्त हूने
+                        भएमा सोको जिम्मेवारी ऋणी (विमित) आफै हूनेछ, बैंक जवाफदेही हूने छैन । वीमालेखको म्याद समाप्त हूनू अगावै नविकरण गरी नविकरण भएको वीमालेख र नविकरण शूल्क बूझाएको रसिद सक्कलै प्रति बैंकमा बूझाउनू पर्नेछ ।
+                        ऋणीले समयमा वीमालेख नविकरण नगराएमा बैंक आफैले साविककै वीमा मूल्यमा नविकरण गराउन सक्नेछ वा बैंकलाई वीमालेखमा उल्लेखित रकम कम रहेको भन्ने लागेमा वीमालेखको रकम (Insured Amount) बढाएर समेत
+                        वीमालेख नविकरण गराउन सक्नेछ । बैकले वीमालेख नविकण गरिदिंदा साविककै वीमा कम्पनी वा अन्य वीमा कम्पनीबाट समेत वीमालेख जारी गराउन सक्नेछ । वीमालेख नविकरण बापत लाग्ने वीमा शूल्क (Insurance Premimum)
+                        ऋणीको खातामा रकम भएमा खाताबाट सोझै खर्च लेखी वा खातामा आवश्यक रकम नरहेछ भने ऋणीको नाममा बाध्यतात्मक ऋणकर्जा (Force Loan) कायम गरी वीमा कम्पनीलाई वीमा शूल्क (Insurance Premimum)
+                        भूक्तानी गरिनेछ । त्यसरी बाध्यतात्मक ऋणकर्जा (Force Loan) कायम भएको रकममा बैंकले प्रकाशित गरेको आधार दरमा सबैभन्दा बढी प्रिमियम जोडि कायम हुन आउने ब्याजदरको हिसाबले ब्याज गणना गरी सावा र व्याज
+                        असूल उपर गर्नेछ ।
                         </div>
-                        <br>
                         <div class="text-justify">
                         <strong> ४. <u>व्याज (Interest) :</u></strong><br>
                         यस कर्जा सम्झौतामा उल्लेखित वार्षिक व्याजका दरले तिर्न वांकी कर्जा तथा बैकिङ्ग सुविधामा दैनिक रुपमा व्याज गणना गरी मासिक वा त्रैमासिक रुपमा वा
@@ -1977,10 +1803,8 @@
                         </div>
                         <div class="text-justify">
                         <strong>५. <u>पुनरावलोकन (Review) :</u></strong><br>
-                        उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा मध्ये अधिबिकर्ष कर्जा,
-                        प्रतितपत्र (Letter of Credit- Usance/Sight), माग कर्जा (Demand Loan within LC regular)
-                        र बैंक जमानत कर्जाको पुनरावलोकन ऋण/कर्जा कार्य–संपादन सन्तोषजनक रहेको खण्डमा यो कर्जा प्रवाह
-                        गरेको
+                        उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा मध्ये अधिबिकर्ष कर्जा, प्रतितपत्र (Letter of Credit- Usance/Sight), माग कर्जा (Demand Loan within LC regular) र बैंक जमानत कर्जाको पुनरावलोकन
+                        ऋण/कर्जा कार्य–संपादन सन्तोषजनक रहेको खण्डमा यो कर्जा प्रवाह गरेको
                         <input class="form-fields form-control-sm nepaliFont disable-print"
                                formControlName="loanReviewDate"
                                placeholder=""
@@ -1995,26 +1819,17 @@
                         वर्षको लागि बढाउन सकिनेछ , अन्यथा ऋणीले सम्पूर्ण वक्यौता रकम राफसाफ गर्नु पर्नेछ ।
                         <br><br>
                         <strong>६. <u>निरीक्षण (Inspection):</u></strong><br>
-                        ऋणीले सुरक्षणमा दिएका चल/अचल सम्पत्तिहरु तथा ऋणीको कारखाना,
-                        कार्यालय, गोदाम आदि जुनसुकै
-                        बखत ऋणीलाई
-                        पूर्व सूचना
-                        दिई वा नदिई बैंकले निरीक्षण गर्न सक्नेछ । त्यसरी गरिने
-                        निरीक्षणको सम्पूर्ण व्यवस्था तथा
-                        खर्च ऋणीले
-                        गर्नुपर्नेछ ।
+                        ऋणीले सुरक्षणमा दिएका चल/अचल सम्पत्तिहरु तथा ऋणीको कारखाना, कार्यालय, गोदाम आदि जुनसुकै बखत ऋणीलाई पूर्व सूचना दिई वा नदिई बैंकले निरीक्षण गर्न सक्नेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा
+                        खर्च ऋणीले गर्नुपर्नेछ ।
                         <br><br>
                         <strong>७. <u>परिशोधन (Repayment):</u></strong><br>
-                        उल्लेखित ऋण/कर्जा र/वा बैंकिङ्ग सुविधाहरु बैंकले माग गर्ना साथ
-                        तुरुन्त फिर्ता भुतmानी
-                        गर्नु पर्नेछ ।
+                        उल्लेखित ऋण/कर्जा र/वा बैंकिङ्ग सुविधाहरु बैंकले माग गर्ना साथ तुरुन्त फिर्ता भुक्तानी गर्नु पर्नेछ ।
                         </div>
-                        <div class="text-justify">
-                        <strong>८. <u>शर्तहरु (Covenants):</u></strong><br>
-                        माथि उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधाहरु पूर्ण रुपले चुक्ता
-                        भुतmान नभएसम्म ऋणीले
+                        <div style="page-break-inside: auto; overflow: visible" class="text-justify">
+                        <p class="font-weight-bold">८. <u>शर्तहरु (Covenants):</u></p>
+                        माथि उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधाहरु पूर्ण रुपले चुक्ता भुक्तान नभएसम्म ऋणीले
                         निम्न बमोजिमका
-                        शर्तहरु पूर्ण रुपले पालना गर्नुपर्नेछ ः<br>
+                        शर्तहरु पूर्ण रुपले पालना गर्नुपर्नेछः<br>
                         <div class="ml-4">
                             क) बैंकलाई सुरक्षण स्वरुप दिएका सम्पूर्ण चल–अचल सम्पत्ति
                             बैंकलाई मान्य हुने बीमा
@@ -2096,7 +1911,7 @@
                             चाल्नेछ । <br>
                             ट) प्रचलित नेपाल कानून बमोजिम तिर्नु बुझाउनुपर्ने सम्पूर्ण
                             कर, शुल्क, दस्तुर,
-                            रकम÷कलम समयमै तिरी
+                            रकम/कलम समयमै तिरी
                             बुझाई व्ययभार रहित भै बस्नेछ । <br>
                             ठ) बैंकको पूर्व लिखित स्वीकृति नलिई ऋणीले आफ्नो दायित्व
                             नामसारी वा हस्तान्तरण गर्ने
@@ -2110,7 +1925,7 @@
                             ढ) बैंकले एकल ग्राहक वा ग्राहकसमूहलाई कोष एवं गैह्रकोषमा
                             प्रवाह गर्ने कर्जा सिमा
                             नेपाल राष्ट्र
-                            बैंकले समय समयमा तोकेको कर्जा सिमा ९(Single Obligor Limit)
+                            बैंकले समय समयमा तोकेको कर्जा सिमा (Single Obligor Limit)
                             बमोजिम हुनेछ । <br>
                             ण) विषय वा प्रसंगले अर्को अर्थ नलागेमा यस लिखत पत्र र यस
                             लिखतको अभिन्न अंगको रुपमा
@@ -2168,7 +1983,7 @@
                             सो विमा शुल्कमा बैंकले
                             प्रकाशित औषत आधार दरमा अधिकतम प्रिमियम जोडि ब्याजदर कायम गरी
                             असुल गरिनेछ । <br>
-                            त ) सूरक्षण वापत रहने सवारी साधनको खरिद मूल्य (VAT Bill) को अधिकतम
+                            त) सूरक्षण वापत रहने सवारी साधनको खरिद मूल्य (VAT Bill) को अधिकतम
                             <input class="form-fields form-control-sm nepaliFont disable-print"
                                    formControlName="vatBillPercent"
                                    placeholder=""
@@ -2365,7 +2180,7 @@
                             सम्पुर्ण लेना रकम असुल उपर गर्ने ।
 
                         </div>
-                        <div class="text-justify">
+                        <div style="page-break-inside: avoid" class="text-justify">
                         <strong> ११. <u>पूर्व शर्तहरु (Conditions Precedent)
                             :</u></strong><br>
                         क) ऋणीले ऋणीको प्रबन्ध–पत्र, नियमावली बमोजिम बोलाईएको बैध संचालक
@@ -2382,7 +2197,7 @@
                         अगावै
                         जुनसुकै बखत रद्द गर्न सक्नेछ ।<br>
                         ख) ऋणीलाई स्वीकृत कर्जा तथा बैंकिङ्ग सुविधाहरुको सीमाको
-                        अन्तिम÷पुनरावलोकन÷नवीकरण मिति
+                        अन्तिम/पुनरावलोकन/नवीकरण मिति
                         जेसुकै उल्लेख
                         गरिएको भएता पनि ऋणीले लिएका कर्जा तथा सुविधाहरु कुनै कारण देखाई
                         वा नदेखाई बैंकले कुनैपनि
@@ -2395,8 +2210,8 @@
                         <div class="ml-4 text-justify">
                             ऋणीले निम्न लिखित कुराहरु सत्य भएको कुराको उद्घोषणा गर्दछ
                             ।<br>
-                            क) ऋणीले यस ऋण स्विकृति पत्र बमोजिम गर्ने÷गरेका सम्पूर्ण
-                            कागजात÷लिखतहरु कानूनी रुपले
+                            क) ऋणीले यस ऋण स्विकृति पत्र बमोजिम गर्ने/गरेका सम्पूर्ण
+                            कागजात/लिखतहरु कानूनी रुपले
                             बन्धनकारी
                             छन् ।<br>
                             ख) ऋणी तथा जमानतकर्ताको विरुद्वमा कुनै कानूनी कारवाही
@@ -2411,7 +2226,7 @@
                             समावेश छैन ।<br>
                             ङ) ऋणी तथा जमानतकर्ता यस बैंको संस्थापक शेयरधनी वा संस्थापक
                             शेयरधनीको परिवार होईन
-                            र÷वा यस बैंकको
+                            र/वा यस बैंकको
                             एक प्रतिशत वा सो भन्दा बढी पब्लिक शेयर (Public Share) लिएको
                             छैन ।
                         </div>
@@ -2443,7 +2258,7 @@
                         मान्य हुनेछ । अर्थात ऋणीले
                         यो पत्र
                         उल्लेखित मितिबाट ३० दिन भित्र स्वीकार गरी आफ्नो स्वीकृति
-                        ९ब्अअभउतबलअभ० बैंक समक्ष पेश
+                        (Acceptance) बैंक समक्ष पेश
                         गरिसक्नु
                         पर्नेछ । अन्यथा सो म्याद भित्र त्यसरी स्वीकृति दिएको कुरा बैंक
                         समक्ष नपुगेमा यो ऋण
@@ -2519,6 +2334,7 @@
                                 <td style="width: 50%">
                                     <p class="font-weight-bold text-center">ऋणीः</p>
                                     श्री <input class="form-fields form-control-sm disable-print nepaliFont"
+                                            value="{{loanForm.get('borrowerName').value}}"
                                             formControlName="borrowerName2"
                                             name="borrowerName2"
                                             placeholder=""
@@ -2527,17 +2343,20 @@
                                     <br>
                                     साविक ठेगानाः <input class="form-fields form-control-sm disable-print nepaliFont"
                                             formControlName="borrowerPerDis"
+                                            value="{{loanForm.get('instRegDist').value}}"
                                             name="borrowerPerDis"
                                             placeholder=""
                                             type="text"/>
                                     <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerPerDis').value ? loanForm.get('borrowerPerDis').value : '========='}}</strong></span>
                                     जिल्ला <input class="form-fields form-control-sm disable-print nepaliFont"
+                                            value="{{loanForm.get('instRegVdcMun').value}}"
                                             formControlName="borrowerPerMun"
                                             name="borrowerPerMun"
                                             placeholder=""
                                             type="text"/>
                                     <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerPerMun').value ? loanForm.get('borrowerPerMun').value : '========='}}</strong></span>
                                     म.न.पा./उप म.न.पा./न.पा./गा.वि.स., वडा नं. <input class="form-fields form-control-sm disable-print nepaliFont"
+                                            value="{{loanForm.get('instRegWardNo').value}}"
                                             formControlName="borrowerPerWard"
                                             name="borrowerPerWard"
                                             placeholder=""
@@ -2666,105 +2485,85 @@
                         </p>
                         <p>भवदीय,</p>
                         <p class="font-weight-bold">ऋणी :</p>
+                            <div class="mb-2">
+                                श्री <input
+                                    class="form-fields form-control-sm disable-print nepaliFont"
+                                    formControlName="borrowerName"
+                                    placeholder=""
+                                    type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerName').value ? loanForm.get('borrowerName').value : '========='}}</strong></span>
+                            </div>
+                            <div class="'mb-2">
+                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                       formControlName="instRegVdcMun"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('instRegVdcMun').value ? loanForm.get('instRegVdcMun').value : '========='}}</strong></span>म.न.पा./उप
+                                &nbsp;म.न.पा./न.पा./गाउपालिका, वडा नं.
+                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                       formControlName="instRegWardNo"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('instRegWardNo').value ? loanForm.get('instRegWardNo').value : '========='}}</strong></span>
+                            </div>
+                            <div class="mb-2">
+                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                       formControlName="instRegDist"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('instRegDist').value ? loanForm.get('instRegDist').value : '========='}}</strong></span>
+                                जिल्ला,
+                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                       formControlName="instRegProvince"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('instRegProvince').value ? loanForm.get('instRegProvince').value : '========='}}</strong></span>प्रदेश/प्रदेश
+                                नं.
+                                <input class="form-fields form-control-sm disable-print nepaliFont"
+                                       formControlName="instRegProvinceNo"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('instRegProvinceNo').value ? loanForm.get('instRegProvinceNo').value : '========='}}</strong></span>,
+                                नेपाल ।
+                            </div>
+                            <div class="mb-2">
+                                रजिष्टर्ड कार्यालय <input
+                                    class="form-fields form-control-sm disable-print nepaliFont"
+                                    formControlName="compRegOffice"
+                                    name="faxNo"
+                                    placeholder="" type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('compRegOffice').value ? loanForm.get('compRegOffice').value : '========='}}</strong></span>
+                            </div>
+                            <div class="mb-2">
+                                पोट बक्स नं.: <input
+                                    class="form-fields form-control-sm disable-print nepaliFont"
+                                    formControlName="postBox"
+                                    name="faxNo"
+                                    placeholder="" type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('postBox').value ? loanForm.get('postBox').value : '========='}}</strong></span>
+                            </div>
+
+                            <div class="mb-2">
+                                ध्यानाकर्षणःअध्यक्ष/संचालक/साझेदार/प्रोपाइटर श्री <input
+                                    class="form-fields form-control-sm nepaliFont disable-print"
+                                    formControlName="authPersonName"
+                                    placeholder=""
+                                    type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('authPersonName').value ? loanForm.get('authPersonName').value : '========='}}</strong></span>
+                            </div>
+                            <div class="mb-5">
+                                सम्पर्क टेलिफोन/मोबाईल नं.:<input
+                                    class="form-fields form-control-sm nepaliFont disable-print"
+                                    formControlName="authPersonMobileNo"
+                                    placeholder=""
+                                    style="width: 200px"
+                                    type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{loanForm.get('authPersonMobileNo').value ? loanForm.get('authPersonMobileNo').value : '========='}}</strong></span>।
+                            </div>
+                            <p class="mt-5">दस्तखतः .........................................................</p>
+                            <p class="mt-5 mb-5">कम्पनीको छापः</p>
                         <div>
-                            <p>श्री <input class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="borrowerName2"
-                                    name="borrowerName2"
-                                    placeholder=""
-                                    type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerName2').value ? loanForm.get('borrowerName2').value : '========='}}</strong></span>
-                            </p>
-                            <p>स्थाई ठेगानाः <input class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="borrowerPerDis"
-                                    name="borrowerPerDis"
-                                    placeholder=""
-                                    type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerPerDis').value ? loanForm.get('borrowerPerDis').value : '========='}}</strong></span>
-                                जिल्ला <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerPerMun"
-                                        name="borrowerPerMun"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerPerMun').value ? loanForm.get('borrowerPerMun').value : '========='}}</strong></span>
-                                म.न.पा./उप म.न.पा./न.पा./गा.वि.स., वडा नं. <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerPerWard"
-                                        name="borrowerPerWard"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerPerWard').value ? loanForm.get('borrowerPerWard').value : '========='}}</strong></span>
-                            </p>
-                            <p>हालको ठेगानाः <input class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="borrowerTempProvince"
-                                    name="borrowerTempProvince"
-                                    placeholder=""
-                                    type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerTempProvince').value ? loanForm.get('borrowerTempProvince').value : '========='}}</strong></span>
-                                प्रदेश/प्रदेश नं <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerTempDis"
-                                        name="borrowerTempDis"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerTempDis').value ? loanForm.get('borrowerTempDis').value : '========='}}</strong></span>
-                                जिल्ला <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerTempMun"
-                                        name="borrowerTempMun"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerTempMun').value ? loanForm.get('borrowerTempMun').value : '========='}}</strong></span>
-                                म.न.पा./उपम.न.पा./न.पा./गाउपालिका
-                                वडा नं. <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerTempWard"
-                                        name="borrowerTempWard"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerTempWard').value ? loanForm.get('borrowerTempWard').value : '========='}}</strong></span>
-                                टोल/गाउ <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerTempTole"
-                                        name="borrowerTempTole"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerTempTole').value ? loanForm.get('borrowerTempTole').value : '========='}}</strong></span>
-                                घर नं. <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerHouseNo"
-                                        name="borrowerHouseNo"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerHouseNo').value ? loanForm.get('borrowerHouseNo').value : '========='}}</strong></span>
-                                सडक/मार्ग <input class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="borrowerTempStreet"
-                                        name="borrowerTempStreet"
-                                        placeholder=""
-                                        type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerTempStreet').value ? loanForm.get('borrowerTempStreet').value : '========='}}</strong></span>
-                            </p>
-                            <p>ईमेलः <input class="form-fields form-control-sm disable-print"
-                                    formControlName="borrowerEmail"
-                                    name="borrowerEmail"
-                                    placeholder=""
-                                    type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerEmail').value ? loanForm.get('borrowerEmail').value : '========='}}</strong></span>
-                            </p>
-                            <p>सम्पर्क टेलिफोन/मोवाइल नं.: <input class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="borrowerMobile"
-                                    name="borrowerMobile"
-                                    placeholder=""
-                                    type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerMobile').value ? loanForm.get('borrowerMobile').value : '========='}}</strong></span>
-                            </p><br>
-                            ध्यानाकर्षण :
-                            <input class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="borrowerMobile"
-                                    name="borrowerMobile"
-                                    placeholder=""
-                                    type="text"/>
-                            <span class="print-only nepaliFont"><strong>{{loanForm.get('borrowerMobile').value ? loanForm.get('borrowerMobile').value : '========='}}</strong></span>
-                            ।<br>
-                            दस्तखतः<span>.............................................</span>
-                            <br><br><br><br><br>
-                            कम्पनीको छापः<span>........................................</span>
-                        </div>
-                        <div>
-                            साक्षी :<br><br>
+                            <p class="font-weight-bold">साक्षी :</p>
                             १) <input class="form-fields form-control-sm disable-print nepaliFont"
                                 formControlName="voucher1District"
                                 name="voucher1District"
