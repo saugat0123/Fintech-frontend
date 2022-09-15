@@ -9,24 +9,16 @@
                 </p>
                 <p class="text-center"><strong> विषय:— प्रतिज्ञा पत्र <br>
                     <u>(PROMISSORY NOTE)</u></strong></p>
-                <div class="row text-justify">
                     लिखितम् म/हामी तपसिलका ऋणीहरु आगे तपाई लक्ष्मी बैंक लिमिटेडबाट तपसिलमा उल्लेखित विवरण बमोजिमको कर्जा उपभोग
                     गर्ने/गरेको व्यहोरा ठिक साँचो हो । धनी बैंकले सो कर्जा जुनसुकै बखत भुक्तानी माग गरेका वखत धनी बैंकको कर्जा स्वीकृतीपत्र/कर्जा
                     प्रस्तावपत्रमा उल्लेखित शर्त बमोजिम तपाईलाई अथवा तपाईले निर्देशन दिएको वा अह्राएको व्यक्ति/संस्थालाई भुक्तानी माग गरेको मिति
                     सम्मको कर्जा तथा सोमा बैंक नियमानुसार लाग्ने व्याज, पेनल व्याज लागयतका सम्पूर्ण वाँकी बक्यौता रकम कलम तिर्न वुझाउन प्रतिज्ञा
                     र कबुल गरी यो प्रतिज्ञापत्रको लिखत साक्षीहरुको रोहबरमा गरी तपाई लक्ष्मी बैंक लिमिटेडलाई दिए ।
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-12 text-center">
-                            <strong>तपसिल</strong>
-                        </div>
-                    </div>
-                </div>
+                <p class="text-center"><strong>तपसिल</strong>
                 <div class="row">
                     <div class="col-md-12">
                         <strong>कर्जाको विवरण :</strong>
-                        <table class="table table-border">
+                        <table class="table table-border table-sm">
                             <tr>
                                 <td>कर्जा स्वीकृती/प्रस्ताव पत्र नं. र मिति</td>
                                 <td>
@@ -45,7 +37,7 @@
                 <div class="row" *ngIf="individual">
                     <div class="col-md-12">
                         <strong>प्रतिज्ञापत्रको लिखत लेखिदिने ऋणीको विवरण (व्यक्तिगत ऋणीको हकमा) :</strong>
-                        <table class="table table-border">
+                        <table class="table table-border table-sm">
                             <tr>
                                 <td>ऋणीको नाम :</td>
                                 <td><span [ngClass]="nepaliData?.nepaliName ? 'nepaliFont font16' : ''">{{this.nepaliData?.nepaliName ? this.nepaliData?.nepaliName : '_________________'}}</span></td>
@@ -114,10 +106,10 @@
                 <div class="row" *ngIf="!individual">
                     <div class="col-md-12">
                         <strong>प्रतिज्ञापत्रको लिखत लेखिदिने ऋणीको विवरण :</strong>
-                        <table class="table table-border">
+                        <table class="table table-border table-sm">
                             <tr>
-                                <td>ऋणीको नाम :</td>
-                                <td><span [ngClass]="nepaliData?.nepaliName ? 'nepaliFont font16' : ''">{{this.nepaliData?.nepaliName ? this.nepaliData?.nepaliName : '_________________'}}</span></td>
+                                <td width="40%">ऋणीको नाम :</td>
+                                <td width="60%"><span [ngClass]="nepaliData?.nepaliName ? 'nepaliFont font16' : ''">{{this.nepaliData?.nepaliName ? this.nepaliData?.nepaliName : '_________________'}}</span></td>
                             </tr>
                             <tr>
                                 <td>दर्ता नं. :</td>
