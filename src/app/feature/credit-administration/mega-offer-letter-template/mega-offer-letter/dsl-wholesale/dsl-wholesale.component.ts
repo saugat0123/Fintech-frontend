@@ -17,6 +17,7 @@ import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-wo
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
   selector: 'app-dsl-wholesale',
@@ -38,6 +39,17 @@ export class DslWholesaleComponent implements OnInit {
   nepData;
   external = [];
   loanHolderInfo;
+  ckeConfig = NepaliEditor.CK_CONFIG;
+  reviewDropdown = [
+    {key: 'Overdraft', value: 'अधिविकर्ष कर्जा'},
+    {key: 'TermLoans', value: 'आवधिक प्रकृतीका कर्जा'},
+    {key: 'DemandLoans', value: 'माग कर्जा'}
+  ];
+  loanTypesDropdown = [
+    {key: 'TermLoans', value: 'विपन्न वर्ग आवधिक कर्जा (Deprived Sector Term Loan)'},
+    {key: 'Overdraft', value: 'विपन्न वर्ग अधिविकर्ष कर्जा (Deprived Sector Overdraft)'},
+    {key: 'DemandLoans', value: 'विपन्न वर्ग माग कर्जाहरु (Deprived Sector Demand)'}
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
@@ -53,10 +65,30 @@ export class DslWholesaleComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
     this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    }
+    console.log(this.loanHolderInfo, 'loanDATAhOLDER');
+    if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+      this.form.patchValue({
+        offerLetterReferenceNum: this.loanHolderInfo.miscellaneousDetail.offerReferenceNo ? this.loanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
+        date: this.loanHolderInfo.miscellaneousDetail.offerIssueDate ? this.loanHolderInfo.miscellaneousDetail.offerIssueDate : '',
+        borrowerName: this.loanHolderInfo.nepaliName ? this.loanHolderInfo.nepaliName : '',
+        districtPermanent: this.loanHolderInfo.institutionRegisteredAddress.district ? this.loanHolderInfo.institutionRegisteredAddress.district : '',
+        municipalityPermanent: this.loanHolderInfo.institutionRegisteredAddress.municipality ? this.loanHolderInfo.institutionRegisteredAddress.municipality : '',
+        wardPermanent: this.loanHolderInfo.institutionRegisteredAddress.wardNo ? this.loanHolderInfo.institutionRegisteredAddress.wardNo : '',
+        districtCurrent: this.loanHolderInfo.institutionCurrentAddress.district ? this.loanHolderInfo.institutionCurrentAddress.district : '',
+        municipalityCurrent: this.loanHolderInfo.institutionCurrentAddress.municipality ? this.loanHolderInfo.institutionCurrentAddress.municipality : '',
+        wardCurrent: this.loanHolderInfo.institutionCurrentAddress.wardNo ? this.loanHolderInfo.institutionCurrentAddress.wardNo : '',
+        toleCurrent: this.loanHolderInfo.institutionCurrentAddress.tole ? this.loanHolderInfo.institutionCurrentAddress.tole : '',
+        authorizedPersonName: this.loanHolderInfo.authorizedPersonDetail.name ? this.loanHolderInfo.authorizedPersonDetail.name : '',
+        drawdownPercent: this.loanHolderInfo.miscellaneousDetail.drawdownPer ? this.loanHolderInfo.miscellaneousDetail.drawdownPer : '',
+        branchNameNepali: this.loanHolderInfo.branchDetail.branchNameInNepali ? this.loanHolderInfo.branchDetail.branchNameInNepali : '',
+        branchDistrict: this.loanHolderInfo.branchDetail.branchDistrict ? this.loanHolderInfo.branchDetail.branchDistrict : '',
+        telephoneNumber: this.loanHolderInfo.branchDetail.branchTelNo ? this.loanHolderInfo.branchDetail.branchTelNo : '',
+        faxNumber: this.loanHolderInfo.branchDetail.branchFaxNo ? this.loanHolderInfo.branchDetail.branchFaxNo : '',
+      });
     }
   }
 
@@ -79,12 +111,6 @@ export class DslWholesaleComponent implements OnInit {
       authorizedPersonName: [undefined],
       authorizedPersonContactNum: [undefined],
       faxNum: [undefined],
-      nepaliAmountInFigures: [undefined],
-      nepaliAmountInWords: [undefined],
-      loanTenure: [undefined],
-      equalInstallmentInNepaliFig: [undefined],
-      equalInstallmentInNepaliWord: [undefined],
-      premium: [undefined],
       fiscalYear: [undefined],
       quaterly: [undefined],
       baseRate: [undefined],
@@ -95,15 +121,8 @@ export class DslWholesaleComponent implements OnInit {
       branchDistrict: [undefined],
       telephoneNumber: [undefined],
       faxNumber: [undefined],
-      borrowerNameNepali: [undefined],
-      permanentDistrict: [undefined],
-      permanentVdcOrMun: [undefined],
-      currentProvinceNum: [undefined],
-      currentDistrict: [undefined],
-      currentVdcMunicipality: [undefined],
-      currentWardNum: [undefined],
-      currentTole: [undefined],
       emailAddress: [undefined],
+      currentProvinceNum: [undefined],
       currentContactNum: [undefined],
       currentFaxPostBox: [undefined],
       name3: [undefined],
@@ -121,6 +140,19 @@ export class DslWholesaleComponent implements OnInit {
       timeOfDay: [undefined],
       from: [undefined],
       permanentWardNum: [undefined],
+      loanProcessFee: [undefined],
+      checkLoanProcessFee: true,
+      loanRenewFee: [undefined],
+      selectReview: [undefined],
+      checkLoanRenewFee: true,
+      checkCommitmentCharge: true,
+      branchAddress: [undefined],
+      checkBranch: true,
+      proposalData: this.formBuilder.array([]),
+      otherFee: this.formBuilder.array([]),
+      otherFeeInNep: [undefined],
+      otherFeeInEng: [undefined],
+      addField: [undefined]
     });
   }
 
@@ -133,9 +165,9 @@ export class DslWholesaleComponent implements OnInit {
       this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.DSL_WHOLESALE);
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      console.log(initialInfo);
       this.initialInfoPrint = initialInfo;
-      console.log(this.offerLetterDocument);
+      this.setProposal(initialInfo.proposalData);
+      //this.setMore(initialInfo.otherFee, 'otherFee');
       this.existingOfferLetter = true;
       this.form.patchValue(initialInfo);
       if (!ObjectUtil.isEmpty(initialInfo)) {
@@ -210,7 +242,119 @@ export class DslWholesaleComponent implements OnInit {
     });
   }
 
-  removedslWholesale(i) {
+  removeDslWholesale(i) {
     (this.form.get('dslWholesale') as FormArray).removeAt(i);
+  }
+
+  onCheck(e, formControlName) {
+    if (e) {
+      this.form.get(formControlName).patchValue(e.target.checked);
+    } else {
+      this.form.get(formControlName).patchValue(e.target.value);
+    }
+  }
+
+  checkLoanType(selectLoanType, index) {
+    this.form.get(['proposalData', index, 'selectLoanType']).patchValue(selectLoanType);
+  }
+
+  buildProposalForm() {
+    return this.formBuilder.group({
+      selectLoanType: [undefined],
+      nepaliAmountInFigures: [undefined],
+      nepaliAmountInWords: [undefined],
+      limitExpiry: [undefined],
+      loanTenure: [undefined],
+      equalInstallmentInNepaliFig: [undefined],
+      equalInstallmentInNepaliWord: [undefined],
+      premium: [undefined],
+      selectTenure: [undefined],
+      checkRepayment: true,
+      checkLoanExpiry: true
+    });
+  }
+
+  checkProposal(e, index, value) {
+    if (e.target.selected) {
+      this.form.get(['proposalData', index, value]).patchValue(value);
+    }
+  }
+
+  setProposal(details) {
+    const proposal = this.form.get('proposalData') as FormArray;
+    details.forEach(data => {
+      proposal.push(
+          this.formBuilder.group({
+            selectLoanType: [data.selectLoanType],
+            nepaliAmountInFigures: [data.nepaliAmountInFigures],
+            nepaliAmountInWords: [data.nepaliAmountInWords],
+            limitExpiry: [data.limitExpiry],
+            loanTenure: [data.loanTenure],
+            equalInstallmentInNepaliFig: [data.equalInstallmentInNepaliFig],
+            equalInstallmentInNepaliWord: [data.equalInstallmentInNepaliWord],
+            premium: [data.premium],
+            selectTenure: [data.selectTenure],
+            checkRepayment: [data.checkRepayment],
+            checkLoanExpiry: [data.checkLoanExpiry]
+          })
+      );
+    });
+  }
+
+  onCheck2(e, i, formControlName) {
+    if (e.target.checked) {
+      this.form.get(['proposalData', i, formControlName]).patchValue(true);
+    } else {
+      this.form.get(['proposalData', i, formControlName]).patchValue(false);
+    }
+  }
+
+  removeProposal(index: number) {
+    (this.form.get('proposalData') as FormArray).removeAt(index);
+  }
+
+  addProposal() {
+    const control = this.form.get('proposalData') as FormArray;
+    control.push(this.buildProposalForm());
+  }
+
+  changeToNepAmountArray(event: any, i , formArrayName, target, from) {
+    this.form.get([formArrayName, i, target]).patchValue(event.nepVal);
+    this.form.get([formArrayName, i, from]).patchValue(event.val);
+  }
+
+  patchFunctionArray(formArrayName, i, formControlName) {
+    const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
+    return patchValue1;
+  }
+
+  removeAddMore(index: number, formArrayName) {
+    (this.form.get(formArrayName) as FormArray).removeAt(index);
+  }
+
+  addMore(formArrayName) {
+    const control = this.form.get(formArrayName) as FormArray;
+    control.push(this.buildAddMoreForm());
+  }
+
+  buildAddMoreForm() {
+    return this.formBuilder.group({
+      otherFeeInNep: [undefined],
+      otherFeeInEng: [undefined],
+      addField: [undefined],
+    });
+  }
+
+  setMore(details, formArrayName) {
+    const addMore = this.form.get(formArrayName) as FormArray;
+    details.forEach(data => {
+      addMore.push(
+          this.formBuilder.group({
+            otherFeeInNep: [data.otherFeeInNep],
+            otherFeeInEng: [data.otherFeeInEng],
+            addField: [data.addField],
+          })
+      );
+    });
   }
 }
