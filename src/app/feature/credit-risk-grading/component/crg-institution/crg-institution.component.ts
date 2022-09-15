@@ -74,6 +74,5 @@ export class CrgInstitutionComponent implements OnInit {
       }
     });
     this.totalCRG = total / index;
-    console.log('this is total', total);
   }
 }
