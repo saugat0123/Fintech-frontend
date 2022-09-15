@@ -1037,7 +1037,7 @@
                     </table>
                 </div>
                 <div class="col-md-12">
-                        <input (click)="addShareCapital()" class="btn btn-sm btn-flat btn-primary float-right"
+                        <input *ngIf="isWholeSale" (click)="addShareCapital()" class="btn btn-sm btn-flat btn-primary float-right"
                                type="button" value="Add More"/>
                 </div>
                 <br>
