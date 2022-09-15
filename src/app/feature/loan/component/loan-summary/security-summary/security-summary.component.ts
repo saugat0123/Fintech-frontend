@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {
@@ -18,7 +18,7 @@ import {Security} from '../../../model/security';
     templateUrl: './security-summary.component.html',
     styleUrls: ['./security-summary.component.scss']
 })
-export class SecuritySummaryComponent implements OnInit {
+export class SecuritySummaryComponent implements OnInit, OnChanges {
     formData: Object;
     @Input() shareSecurity;
     @Input() collateralData;
@@ -30,6 +30,8 @@ export class SecuritySummaryComponent implements OnInit {
     depositSelected = false;
     shareSelected = false;
     isPresentGuarantor = false;
+    isAssignmentOfRecSelect = false;
+    isShareSecurity = false;
     totalAmount = 0;
     hypothecation = false;
     securityOther = false;
@@ -89,108 +91,6 @@ export class SecuritySummaryComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.security)) {
-            this.formData = JSON.parse(this.security.data);
-        }
-
-        if (this.formData['selectedArray'] !== undefined) {
-            if (this.formData['initialForm'] !== undefined) {
-                // For Land, Land and Building, And Apartment or real estate Collateral
-                const landDetail = this.formData['initialForm']['landDetails'];
-                const landBuildingDetail = this.formData['initialForm']['landBuilding'];
-                const apartmentDetail = this.formData['initialForm']['buildingDetails'];
-
-                this.checkSecurityInSelectedArray('LandSecurity');
-                this.checkSecurityInSelectedArray('Land and Building Security');
-                this.checkSecurityInSelectedArray('ApartmentSecurity');
-                this.existingSecurityOnly = [];
-                // land security
-                if (this.landSelected) {
-                    this.getEstateProposedAndExistingSecurity(landDetail, 'Land');
-                    this.calculateExistingValue('Land');
-                }
-                // land and building Security
-                if (this.landBuilding) {
-                    this.getEstateProposedAndExistingSecurity(landBuildingDetail, 'Land and Building');
-                    this.calculateExistingValue('Land and Building');
-                }
-                // Apartment Security
-                if (this.apartmentSelected) {
-                    this.getEstateProposedAndExistingSecurity(apartmentDetail, 'Apartment');
-                    this.calculateExistingValue('Apartment');
-                }
-                this.calculateRealEstateExistingTotal();
-
-                this.proposeAndExistingSecurity = [];
-                if (this.landSelected) {
-                    this.calculateExistingAndProposedValue('Land');
-                }
-                if (this.landBuilding) {
-                    this.calculateExistingAndProposedValue('Land and Building');
-                }
-                if (this.apartmentSelected) {
-                    this.calculateExistingAndProposedValue('Apartment');
-                }
-                this.calculateRealEstateProposedTotal();
-
-                // Other Security ie. Vehicle, plant And Machinery
-                const vehicle = this.formData['initialForm']['vehicleDetails'];
-                const hypoOfStock = this.formData['initialForm']['hypothecationOfStock'];
-                const plant = this.formData['initialForm']['plantDetails'];
-                const fixedDeposit = this.formData['initialForm']['fixedDepositDetails'];
-                const insurance = this.formData['initialForm']['insurancePolicy'];
-
-                // Plant and machinery security
-                this.checkSecurityInSelectedArray('PlantSecurity');
-                // Hypothecation of stock security
-                this.checkSecurityInSelectedArray('HypothecationOfStock');
-                // Vehicle security
-                this.checkSecurityInSelectedArray('VehicleSecurity');
-                // Insurance policy
-                this.checkSecurityInSelectedArray('InsurancePolicySecurity');
-                // Fixed deposit receipt security
-                this.checkSecurityInSelectedArray('FixedDeposit');
-                this.nonEstateExistingSecurityOnly = [];
-                if (this.vehicleSelected) {
-                    this.getProposeExistingForNonEstate(vehicle, 'Vehicle');
-                    this.calculateExistingNonEstateValue('Vehicle');
-                }
-                if (this.hypothecation) {
-                    this.getProposeExistingForNonEstate(hypoOfStock, 'Hypothecation of Stock');
-                    this.calculateExistingNonEstateValue('Hypothecation of Stock');
-                }
-                if (this.plantSelected) {
-                    this.getProposeExistingForNonEstate(plant, 'Plant and Machinery Security');
-                    this.calculateExistingNonEstateValue('Plant and Machinery Security');
-                }
-                if (this.fixedDepositSelected) {
-                    this.getProposeExistingForNonEstate(fixedDeposit, 'Fixed Deposit Receipt');
-                    this.calculateExistingNonEstateValue('Fixed Deposit Receipt');
-                }
-                if (this.insurancePolicySelected) {
-                    this.getProposeExistingForNonEstate(insurance, 'Insurance Policy Security');
-                    this.calculateExistingNonEstateValue('Insurance Policy Security');
-                }
-                this.calculateOtherSecurityExistingTotal();
-                this.nonEstateProposeExistingSecurity = [];
-                if (this.vehicleSelected) {
-                    this.calculateExistingAndProposedNonEstate('Vehicle');
-                }
-                if (this.hypothecation) {
-                    this.calculateExistingAndProposedNonEstate('Hypothecation of Stock');
-                }
-                if (this.plantSelected) {
-                    this.calculateExistingAndProposedNonEstate('Plant and Machinery Security');
-                }
-                if (this.fixedDepositSelected) {
-                    this.calculateExistingAndProposedNonEstate('Fixed Deposit Receipt');
-                }
-                if (this.insurancePolicySelected) {
-                    this.calculateExistingAndProposedNonEstate('Insurance Policy Security');
-                }
-                this.calculateOtherSecurityProposedTotal();
-            }
-        }
     }
 
     getEstateProposedAndExistingSecurity(securityDetail: any[], securityName: string) {
@@ -443,6 +343,46 @@ export class SecuritySummaryComponent implements OnInit {
                     }
                 });
                 break;
+            case 'Assignment of Receivables':
+                securityData.forEach(assign => {
+                    if (assign.forProposed) {
+                        let amount = 0;
+                        amount += Number(assign.amount);
+                        this.proposedSecurity2.push({
+                            securityName: securityName,
+                            totalAmount: amount
+                        });
+                    }
+                    if (assign.forExisting) {
+                        let amount = 0;
+                        amount += Number(assign.amount);
+                        this.existingSecurity2.push({
+                            securityName: securityName,
+                            totalAmount: amount
+                        });
+                    }
+                });
+                break;
+            case 'Share Security':
+                securityData.forEach(share => {
+                    if (share.forProposed) {
+                        let amount = 0;
+                        amount += Number(share.consideredValue);
+                        this.proposedSecurity2.push({
+                            securityName: securityName,
+                            totalAmount: amount
+                        });
+                    }
+                    if (share.forExisting) {
+                        let amount = 0;
+                        amount += Number(share.consideredValue);
+                        this.existingSecurity2.push({
+                            securityName: securityName,
+                            totalAmount: amount
+                        });
+                    }
+                });
+                break;
             default:
         }
     }
@@ -475,13 +415,13 @@ export class SecuritySummaryComponent implements OnInit {
                 });
                 const detail = {
                     securityName: securityName,
-                    totalAmount: totalAmount + (existingSecurityDetail.length > 0 ? existingSecurityDetail[0].totalAmount : 0),
+                    totalAmount: totalAmount + (existingSecurityDetail.length > 0 ? Number(existingSecurityDetail[0].totalAmount) : 0),
                 };
                 this.nonEstateProposeExistingSecurity.push(detail);
             } else {
                 const detail = {
                     securityName: securityName,
-                    totalAmount: existingSecurityDetail.length > 0 ? existingSecurityDetail[0].totalAmount : 0,
+                    totalAmount: existingSecurityDetail.length > 0 ? Number(existingSecurityDetail[0].totalAmount) : 0,
                 };
                 this.nonEstateProposeExistingSecurity.push(detail);
             }
@@ -544,8 +484,145 @@ export class SecuritySummaryComponent implements OnInit {
                     case 'FixedDeposit':
                         this.fixedDepositSelected = true;
                         break;
+                    case 'ShareSecurity':
+                        this.isShareSecurity = true;
+                        break;
+                    case 'AssignmentOfReceivables':
+                        this.isAssignmentOfRecSelect = true;
+                        break;
                 }
             }
         });
+    }
+
+    ngOnChanges() {
+        if (!ObjectUtil.isEmpty(this.security)) {
+            this.formData = JSON.parse(this.security.data);
+            if (this.formData['selectedArray'] !== undefined) {
+                if (this.formData['initialForm'] !== undefined) {
+                    // For Land, Land and Building, And Apartment or real estate Collateral
+
+                    this.checkSecurityInSelectedArray('LandSecurity');
+                    this.checkSecurityInSelectedArray('Land and Building Security');
+                    this.checkSecurityInSelectedArray('ApartmentSecurity');
+                    this.existingSecurityOnly = [];
+                    // land security
+                    if (this.landSelected) {
+                        const landDetail = this.formData['initialForm']['landDetails'];
+                        this.getEstateProposedAndExistingSecurity(landDetail, 'Land');
+                        this.calculateExistingValue('Land');
+                    }
+                    // land and building Security
+                    if (this.landBuilding) {
+                        const landBuildingDetail = this.formData['initialForm']['landBuilding'];
+                        this.getEstateProposedAndExistingSecurity(landBuildingDetail, 'Land and Building');
+                        this.calculateExistingValue('Land and Building');
+                    }
+                    // Apartment Security
+                    if (this.apartmentSelected) {
+                        const apartmentDetail = this.formData['initialForm']['buildingDetails'];
+                        this.getEstateProposedAndExistingSecurity(apartmentDetail, 'Apartment');
+                        this.calculateExistingValue('Apartment');
+                    }
+                    this.calculateRealEstateExistingTotal();
+
+                    this.proposeAndExistingSecurity = [];
+                    if (this.landSelected) {
+                        this.calculateExistingAndProposedValue('Land');
+                    }
+                    if (this.landBuilding) {
+                        this.calculateExistingAndProposedValue('Land and Building');
+                    }
+                    if (this.apartmentSelected) {
+                        this.calculateExistingAndProposedValue('Apartment');
+                    }
+                    this.calculateRealEstateProposedTotal();
+
+                    // Other Security ie. Vehicle, plant And Machinery and Others
+
+                    // const corporate = this.formData['initialForm']['insurancePolicy'];
+                    // const personal = this.formData['initialForm']['insurancePolicy'];
+                    // // Corporate Guarantee
+                    // this.checkSecurityInSelectedArray('CorporateGuarantee');
+                    // // Personal Guarantee
+                    // this.checkSecurityInSelectedArray('PersonalGuarantee');
+
+                    // Share Security
+                    this.checkSecurityInSelectedArray('ShareSecurity');
+                    // Assignment Of Receivables
+                    this.checkSecurityInSelectedArray('AssignmentOfReceivables');
+                    // Plant and machinery security
+                    this.checkSecurityInSelectedArray('PlantSecurity');
+                    // Hypothecation of stock security
+                    this.checkSecurityInSelectedArray('HypothecationOfStock');
+                    // Vehicle security
+                    this.checkSecurityInSelectedArray('VehicleSecurity');
+                    // Insurance policy
+                    this.checkSecurityInSelectedArray('InsurancePolicySecurity');
+                    // Fixed deposit receipt security
+                    this.checkSecurityInSelectedArray('FixedDeposit');
+                    this.nonEstateExistingSecurityOnly = [];
+                    if (this.vehicleSelected) {
+                        const vehicle = this.formData['initialForm']['vehicleDetails'];
+                        this.getProposeExistingForNonEstate(vehicle, 'Vehicle');
+                        this.calculateExistingNonEstateValue('Vehicle');
+                    }
+                    if (this.hypothecation) {
+                        const hypoOfStock = this.formData['initialForm']['hypothecationOfStock'];
+                        this.getProposeExistingForNonEstate(hypoOfStock, 'Hypothecation of Stock');
+                        this.calculateExistingNonEstateValue('Hypothecation of Stock');
+                    }
+                    if (this.plantSelected) {
+                        const plant = this.formData['initialForm']['plantDetails'];
+                        this.getProposeExistingForNonEstate(plant, 'Plant and Machinery Security');
+                        this.calculateExistingNonEstateValue('Plant and Machinery Security');
+                    }
+                    if (this.fixedDepositSelected) {
+                        const fixedDeposit = this.formData['initialForm']['fixedDepositDetails'];
+                        this.getProposeExistingForNonEstate(fixedDeposit, 'Fixed Deposit Receipt');
+                        this.calculateExistingNonEstateValue('Fixed Deposit Receipt');
+                    }
+                    if (this.insurancePolicySelected) {
+                        const insurance = this.formData['initialForm']['insurancePolicy'];
+                        this.getProposeExistingForNonEstate(insurance, 'Insurance Policy Security');
+                        this.calculateExistingNonEstateValue('Insurance Policy Security');
+                    }
+                    if (this.isShareSecurity) {
+                        const share  = JSON.parse(this.shareSecurity.data);
+                        this.getProposeExistingForNonEstate(share.shareSecurityDetails, 'Share Security');
+                        this.calculateExistingNonEstateValue('Share Security');
+                    }
+                    if (this.isAssignmentOfRecSelect) {
+                        const assignment = this.formData['initialForm']['assignmentOfReceivables'];
+                        this.getProposeExistingForNonEstate(assignment, 'Assignment of Receivables');
+                        this.calculateExistingNonEstateValue('Assignment of Receivables');
+                    }
+                    this.calculateOtherSecurityExistingTotal();
+                    this.nonEstateProposeExistingSecurity = [];
+                    if (this.vehicleSelected) {
+                        this.calculateExistingAndProposedNonEstate('Vehicle');
+                    }
+                    if (this.hypothecation) {
+                        this.calculateExistingAndProposedNonEstate('Hypothecation of Stock');
+                    }
+                    if (this.plantSelected) {
+                        this.calculateExistingAndProposedNonEstate('Plant and Machinery Security');
+                    }
+                    if (this.fixedDepositSelected) {
+                        this.calculateExistingAndProposedNonEstate('Fixed Deposit Receipt');
+                    }
+                    if (this.insurancePolicySelected) {
+                        this.calculateExistingAndProposedNonEstate('Insurance Policy Security');
+                    }
+                    if (this.isShareSecurity) {
+                        this.calculateExistingAndProposedNonEstate('Share Security');
+                    }
+                    if (this.isAssignmentOfRecSelect) {
+                        this.calculateExistingAndProposedNonEstate('Assignment of Receivables');
+                    }
+                    this.calculateOtherSecurityProposedTotal();
+                }
+            }
+        }
     }
 }
