@@ -44,7 +44,9 @@ import {TranslateService} from '@ngx-translate/core';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {CommonAddressComponent} from '../../../../common-address/common-address.component';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
-import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {
+    OwnerKycApplicableComponent
+} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Clients} from '../../../../../../environments/Clients';
@@ -110,11 +112,11 @@ export class CompanyFormComponent implements OnInit {
         key: 'UPTO_TEN_MILLION',
         value: 'Upto Ten Million'
     },
-    {
-        key: 'ABOVE_TEN_MILLION',
-        value: 'Above Ten Million'
-    }
-];
+        {
+            key: 'ABOVE_TEN_MILLION',
+            value: 'Above Ten Million'
+        }
+    ];
 
     ckeConfig = Editor.CK_CONFIG;
 
@@ -421,33 +423,33 @@ export class CompanyFormComponent implements OnInit {
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.regulatoryConcern,  undefined ],
+                this.businessAndIndustry.regulatoryConcern, undefined],
             buyer: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.buyer,  undefined ],
+                this.businessAndIndustry.buyer, undefined],
             supplier: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.supplier, undefined ],
+                this.businessAndIndustry.supplier, undefined],
 
             /** 9. Industry Growth*/
             industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
-                this.companyInfo.industryGrowth, undefined ],
+                this.companyInfo.industryGrowth, undefined],
 
             /** 10. Market competition*/
             marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
-                this.companyInfo.marketCompetition, undefined ],
+                this.companyInfo.marketCompetition, undefined],
 
             /** 11. Experience*/
             experience: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
-                this.companyInfo.experience, undefined ],
+                this.companyInfo.experience, undefined],
 
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession,  undefined ],
+                this.companyInfo.succession, undefined],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -525,8 +527,10 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfo.accStrategy, [Validators.required]],
             documentsObtained: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.documentsObtained)) ?
                 DocumentsObtainedTable.key_Figure() : JSON.parse(this.companyInfo.documentsObtained)],
-            business:  [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.business)) ?
-                BusinessTable.table_Data() : JSON.parse(this.companyInfo.business)],
+            business: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.business)) ? undefined : this.companyJsonData.business],
+            businessForDsl: [this.companyInfo.companyJsonData.includes('businessDsl') ?
+                JSON.parse(this.companyInfo.companyJsonData).businessDsl : BusinessTable.table_Data()],
             shareCapital: this.formBuilder.array([]),
             date:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
@@ -828,8 +832,8 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-                proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
-                    proprietorsIndex.toString())[0].ownerKycForm.value;
+            proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
+                proprietorsIndex.toString())[0].ownerKycForm.value;
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
         }
@@ -875,6 +879,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.group = this.companyInfoFormGroup.get('group').value;
         submitData.sameAddress = this.sameAddress;
         submitData.business = this.companyInfoFormGroup.get('business').value;
+        submitData.businessDsl = this.companyInfoFormGroup.get('businessForDsl').value;
         submitData.promoterNetWorth = this.companyInfoFormGroup.get('promoterNetWorth').value;
         submitData.vision = this.companyInfoFormGroup.get('vision').value;
         submitData.promoterStructure = this.companyInfoFormGroup.get('promoterStructure').value;
@@ -884,8 +889,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.customerCategory = this.companyInfoFormGroup.get('customerCategory').value;
         this.companyInfo.accStrategy = this.companyInfoFormGroup.get('accStrategy').value;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
-        console.log('table::::', (this.companyInfoFormGroup.get('documentsObtained').value));
         this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
+        this.companyInfo.businessDsl = JSON.stringify(this.companyInfoFormGroup.get('businessForDsl').value);
         this.companyInfo.business = JSON.stringify(this.companyInfoFormGroup.get('business').value);
         this.companyInfo.shareCapital = JSON.stringify(this.companyInfoFormGroup.get('shareCapital').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
@@ -958,12 +963,12 @@ export class CompanyFormComponent implements OnInit {
 
     calculateTotalIncomeDuringReview() {
         let total = 0;
-            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
-                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
-            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
+        total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
+            this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
+            this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
+            this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
+            this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
+        this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
     }
 
     // Calculation of Share %
@@ -1112,7 +1117,7 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
-     addShareCapital() {
+    addShareCapital() {
         const control = this.companyInfoFormGroup.controls.shareCapital as FormArray;
         control.push(
             this.formBuilder.group({

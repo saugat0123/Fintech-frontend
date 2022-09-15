@@ -43,5 +43,6 @@ export class CompanyJsonData {
   vision: string;
   promoterStructure: string;
   business: string;
+  businessDsl: string;
   sameAddress: boolean;
 }

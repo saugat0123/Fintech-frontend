@@ -48,5 +48,6 @@ export class CompanyInfo {
     companyContactDetails: string;
     documentsObtained: string;
     business: string;
+    businessDsl: string;
     shareCapital: string;
 }

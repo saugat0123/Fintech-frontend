@@ -1324,39 +1324,59 @@
                         </div>
                     </div>
                 </ng-container>
-
                 <ng-template #smeUpToTen>
                     <div class="row" *ngIf="isWholeSale === true">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div>
-                                    <label for="business" style="display: inline-block;"><strong>5.1 BUSINESS</strong></label>
-                                    <input *ngIf="calendarType === 'AD'" id="date"
-                                           formControlName="date"
-                                           size="4"
-                                           [nbDatepicker]="date" name="date"
-                                           class="form-control small" placeholder="Date"
-                                           [ngClass]="{ 'is-invalid':submitted && form.date.errors}">
-                                    <input formControlName="date" *ngIf="calendarType === 'BS'"
-                                           hidden>
-
-                                    <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value"
-                                                  *ngIf="calendarType === 'BS'"
-                                                  (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"></app-calendar>
-                                    <nb-datepicker #date></nb-datepicker>
+                                    <div class="d-inline-block" style="margin-right: 10px;">
+                                        <label for="businessForDsl"><strong>5.1  Business Related Information as of</strong></label>
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <input *ngIf="calendarType === 'AD'" id="date"
+                                               formControlName="date"
+                                               size="10"
+                                               [nbDatepicker]="businessDate" name="date"
+                                               class="form-control d-inline-block" placeholder="Date"
+                                               [ngClass]="{ 'is-invalid':submitted && form.date.errors}">
+                                        <input formControlName="date" *ngIf="calendarType === 'BS'"
+                                               hidden>
+                                        <app-calendar [ePreDate]="companyInfoFormGroup.get('date').value"
+                                                      *ngIf="calendarType === 'BS'"
+                                                      (messageToEmit)="companyInfoFormGroup.get('date').patchValue($event?.eDate)"></app-calendar>
+                                        <nb-datepicker #businessDate></nb-datepicker>
+                                    </div>
                                 </div>
-                                <ckeditor id="business" formControlName="business" name="business" type="text"
+                                <ckeditor id="businessForDsl" formControlName="businessForDsl" name="businessForDsl" type="text"
                                           [config]="ckeConfig"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.business.errors }"></ckeditor>
-                                <div *ngIf="(submitted) && form.business.invalid"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.businessForDsl.errors }">
+
+                                </ckeditor>
+                                <div *ngIf="(submitted) && form.businessForDsl.invalid"
                                      class="text-danger">
-                                    <div *ngIf="form.promoterBackground.errors.required">
+                                    <div *ngIf="form.businessForDsl.errors.required">
                                         Business is required
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <ng-container class="row" *ngIf="this.companyInfo.customerCategory !== 'DSL_WHOLE_SALE'">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="business"><strong>5.1 BUSINESS</strong></label>
+                                <ckeditor id="business" formControlName="business" name="business" type="text"
+                                          [config]="ckeConfig"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.business.errors }">
+                                </ckeditor>
+                                <div *ngIf="(submitted) && form.business.invalid" class="text-danger">
+                                    <div *ngIf="form.business.errors.required">
+                                        Business is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

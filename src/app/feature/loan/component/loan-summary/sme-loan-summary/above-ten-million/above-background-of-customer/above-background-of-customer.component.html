@@ -165,8 +165,9 @@
             </tbody>
         </table>
     </div>
-    <span [innerHTML]="(companyInfo.companyJsonData | jsonParse).promoterStructure || 'NA' | safeHtml"></span>
-    <span [innerHTML]="(companyInfo.companyJsonData | jsonParse).business || 'NA' | safeHtml"></span>
+    <span [innerHTML]="(companyInfo?.companyJsonData | jsonParse).promoterStructure || 'NA' | safeHtml"></span>
+    <p><strong>3.7.	Business Related Information as of {{jsonData?.date | date }}</strong></p>
+    <span [innerHTML]="(companyInfo?.companyJsonData | jsonParse).businessDsl || 'NA' | safeHtml"></span>
 </ng-container>
 <ng-template #others>
 <div class="container-fluid">
