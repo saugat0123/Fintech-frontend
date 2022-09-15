@@ -48,9 +48,10 @@
                                         <input class="form-field form-control-sm d-print-none"
                                                name="nameOfClient"
                                                formControlName="nameOfClient"
+                                               value="{{item?.nameOfBorrowingClientCT}}"
                                                placeholder=" "
                                                type="text"/>
-                                        <span class="print-only font-weight-bold">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
+                                        <span class="print-only font-weight-bold">{{item?.nameOfBorrowingClientCT ? item?.nameOfBorrowingClientCT : '______________________'}}</span>
                                         को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                         <ng-container *ngIf="item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage'"> गरिदिनु पर्नेछ ।
                                             <!--For new mortgage/remortgage--> </ng-container>
@@ -248,9 +249,10 @@
                                     <input class="form-field form-control-sm d-print-none"
                                            name="nameOfClient2"
                                            formControlName="nameOfClient2"
+                                           value="{{item?.nameOfBorrowingClientCT}}"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{form.get('nameOfClient2') ? form.get('nameOfClient2')?.value : '______________________'}}</span>
+                                    <span class="print-only font-weight-bold">{{item?.nameOfBorrowingClientCT ? item?.nameOfBorrowingClientCT : '______________________'}}</span>
                                     को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                     <ng-container *ngIf="item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage'"> गरिदिनु पर्नेछ
                                         <!--For new motgage/remortgage--> </ng-container>
