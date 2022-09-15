@@ -210,6 +210,65 @@ export class HayerPurchaseComponent implements OnInit {
             currentTole: [!ObjectUtil.isEmpty
             (this.loanHolderInfo.customerTemporaryAddress) ? this.loanHolderInfo.customerTemporaryAddress.tole : ''],
             contactNumber: [!ObjectUtil.isEmpty(this.loanHolderInfo.contactNo) ? this.loanHolderInfo.contactNo : ''],
+            sanctionedLimit: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.miscellaneousDetail) ? this.loanHolderInfo.miscellaneousDetail.loanAmountInFig : ''],
+            sanctionedLimitInWords: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.miscellaneousDetail) ? this.loanHolderInfo.miscellaneousDetail.loanAmountInWord : ''],
+            vehicleModal: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.collateralDetails[0].vehicleDetail) ?
+                this.loanHolderInfo.collateralDetails[0].vehicleDetail.vehicleModelNo : ''],
+            hirePurchaseAndLoanDeedAmount: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.miscellaneousDetail) ? this.loanHolderInfo.miscellaneousDetail.loanAmountInFig : ''],
+            hirePurchaseAndLoanDeedAmountinWords: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.miscellaneousDetail) ? this.loanHolderInfo.miscellaneousDetail.loanAmountInWord : ''],
+            personalGuaranteer1: [!ObjectUtil.isEmpty(this.loanHolderInfo.nepaliName) ? this.loanHolderInfo.nepaliName : ''],
+            personalGuaranteer2: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0]) ? this.loanHolderInfo.guarantorDetails[0].name : ''],
+            branchOffice: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.branchDetail) ? this.loanHolderInfo.branchDetail.branchNameInNepali : ''],
+            debtor: [!ObjectUtil.isEmpty(this.loanHolderInfo.nepaliName) ? this.loanHolderInfo.nepaliName : ''],
+            debtorPermanentDistrict: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerPermanentAddress) ? this.loanHolderInfo.customerPermanentAddress.district : ''],
+            debtorPermanentMunicipality: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerPermanentAddress) ? this.loanHolderInfo.customerPermanentAddress.municipality : ''],
+            debtorPermanentWard: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerPermanentAddress) ? this.loanHolderInfo.customerPermanentAddress.wardNo : ''],
+            debtorCurrentDistrict: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerTemporaryAddress) ? this.loanHolderInfo.customerTemporaryAddress.district : ''],
+            debtorCurrentMunicipality: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerTemporaryAddress) ? this.loanHolderInfo.customerTemporaryAddress.municipality : ''],
+            debtorCurrentWard: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerTemporaryAddress) ? this.loanHolderInfo.customerTemporaryAddress.wardNo : ''],
+            debtorCurrentTole: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.customerTemporaryAddress) ? this.loanHolderInfo.customerTemporaryAddress.tole : ''],
+            debtorContactNumber: [!ObjectUtil.isEmpty(this.loanHolderInfo.contactNo) ? this.loanHolderInfo.contactNo : ''],
+            loanSanctionedDate: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.miscellaneousDetail) ? this.loanHolderInfo.miscellaneousDetail.offerIssueDate : ''],
+            guarantorName: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0]) ? this.loanHolderInfo.guarantorDetails[0].nepaliName : ''],
+            guarantorPermanentDistrict: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress.district : ''],
+            guarantorPermanentMunicipality: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress.municipality : ''],
+            guarantorPermanentWard1: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress.wardNo : ''],
+            guarantorPermanentWard2: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorPermanentAddress.tole : ''],
+            guarantorCurrentDistrict: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorTemporaryAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorTemporaryAddress.district : ''],
+            guarantorCurrentMunicipality: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorTemporaryAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorTemporaryAddress.municipality : ''],
+            guarantorCurrentWard: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0].guarantorTemporaryAddress) ?
+                this.loanHolderInfo.guarantorDetails[0].guarantorTemporaryAddress.wardNo : ''],
+            guarantorContactNumber: [!ObjectUtil.isEmpty
+            (this.loanHolderInfo.guarantorDetails[0]) ? this.loanHolderInfo.guarantorDetails[0].contactNo : ''],
         });
     }
     autoLoanFormGroup(): FormGroup {
