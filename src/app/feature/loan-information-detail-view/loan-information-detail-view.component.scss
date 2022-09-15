@@ -27,43 +27,47 @@
   .print-only {
     display: block;
   }
-  .noprint{
+  .noprint {
     visibility: hidden;
   }
-}
-
-.heading-list {
-  li {
-    margin-top: 2rem;
+  hr.print-line {
+    border-top: 2px solid black;
   }
-  li:first-child {
-    margin-top: 0;
+
+  .heading-list {
+    li {
+      margin-top: 2rem;
+    }
+
+    li:first-child {
+      margin-top: 0;
+    }
+
+    ol > li {
+      font-weight: bold;
+    }
+
+    .libold {
+      font-weight: bold !important;
+    }
+  }
+  ol {
+    counter-reset: item;
   }
 
   ol > li {
-    font-weight: bold;
+    counter-increment: item;
   }
 
-  .libold {
-    font-weight: bold !important;
+  ol ol > li {
+    display: block;
   }
-}
-ol {
-  counter-reset: item;
-}
 
-ol > li {
-  counter-increment: item;
-}
-
-ol ol > li {
-  display: block;
-}
-
-ol  ol > li:before {
-  content: counters(item, ".") ".   ";
-  margin-left: -20px;
-}
-.page-break {
-  page-break-before: always !important;
+  ol ol > li:before {
+    content: counters(item, ".") ".   ";
+    margin-left: -20px;
+  }
+  .page-break {
+    page-break-before: always !important;
+  }
 }
