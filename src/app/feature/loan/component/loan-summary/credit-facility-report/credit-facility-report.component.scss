@@ -66,6 +66,10 @@
 
   @media print {
 
+    table, td, th, tr {
+      border: 1px solid black !important;
+    }
+
     nb-card {
       background: none;
       border: none;
