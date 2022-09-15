@@ -1314,13 +1314,12 @@
     </div>
   </nb-card-body>
   <nb-card-footer class="mb-3">
-    <button nbButton status="info" [useExistingCss]="true" class="mb-4 float-right" [disabled]="!initialInfoPrint"
-            ngxPrint printSectionId="hirePurchasePrint">Print
-    </button>
+    <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+            printSectionId="hirePurchasePrint" class="mr-2 custom-color" >Print</button>
   </nb-card-footer>
 </nb-card>
 </div>
-<app-hayer-purchase-print  *ngIf="initialInfoPrint"
-                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                           [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>
+<!--<app-hayer-purchase-print  *ngIf="initialInfoPrint"-->
+<!--                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"-->
+<!--                           [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>-->
 
