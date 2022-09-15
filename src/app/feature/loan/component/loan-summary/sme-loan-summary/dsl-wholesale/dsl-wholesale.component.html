@@ -47,7 +47,7 @@
             <app-above-bank-sol *ngIf="loanDataHolder?.companyInfo?.customerCategory != 'DSL_WHOLE_SALE'"
                     [loanDataHolder]="loanDataHolder"></app-above-bank-sol>
         </span>
-        <span *ngIf="loanDataHolder?.companyInfo?.customerCategory === 'DSL_WHOLE_SALE'" [innerHtml]="(loanDataHolder?.loanHolder?.commonLoanData | jsonParse).dslSolText | safeHtml"></span>
+        <span *ngIf="customerCategory === 'DSL_WHOLE_SALE'" [innerHtml]="dslSOL || 'NA' | safeHtml"></span>
     </li>
     <!--*ngIf="(loanDataHolder?.loanHolder?.multiBanking || loanDataHolder?.loanHolder?.cicl) else notAvailable"-->
     <li class="font-weight-bold">
