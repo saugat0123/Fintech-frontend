@@ -440,6 +440,7 @@ export class ProposalComponent implements OnInit {
             existingLimit: [undefined],
             outStandingLimit: [undefined],
             collateralRequirement: [undefined, Validators.required],
+            customRepayment: [undefined],
             swapCharge: [undefined],
             subsidizedLoan: [undefined],
             remark: [undefined],
@@ -1124,33 +1125,33 @@ export class ProposalComponent implements OnInit {
     //     this.loan = data;
     // }
 
-  addFixedArray() {
-    (this.proposalForm.get('fixedAssetsSummary') as FormArray).push(
-      this.formBuilder.group({
-        particular: [undefined],
-        unit: [undefined],
-        rate: [undefined],
-        total: [undefined],
-        remarks: [undefined],
-      })
-    );
-  }
-  setFixedArray() {
-    const fixedAssets = this.proposalForm.get('fixedAssetsSummary') as FormArray;
-      if (this.customerInfo.customerType === 'INSTITUTION') {
-          if (this.formDataForEdit.fixedAssetsSummary > 0) {
-              this.formDataForEdit.fixedAssetsSummary.forEach(d => {
-                  fixedAssets.push(this.formBuilder.group({
-                      particular: [d.particular],
-                      unit: [d.unit],
-                      rate: [d.rate],
-                      total: [d.total],
-                      remarks: [d.remarks],
-                  }));
-              });
-          }
-      }
-  }
+    addFixedArray() {
+        (this.proposalForm.get('fixedAssetsSummary') as FormArray).push(
+            this.formBuilder.group({
+                particular: [undefined],
+                unit: [undefined],
+                rate: [undefined],
+                total: [undefined],
+                remarks: [undefined],
+            })
+        );
+    }
+    setFixedArray() {
+        const fixedAssets = this.proposalForm.get('fixedAssetsSummary') as FormArray;
+        if (this.customerInfo.customerType === 'INSTITUTION') {
+            if (this.formDataForEdit.fixedAssetsSummary > 0) {
+                this.formDataForEdit.fixedAssetsSummary.forEach(d => {
+                    fixedAssets.push(this.formBuilder.group({
+                        particular: [d.particular],
+                        unit: [d.unit],
+                        rate: [d.rate],
+                        total: [d.total],
+                        remarks: [d.remarks],
+                    }));
+                });
+            }
+        }
+    }
 
     deleteEmitter(event) {
         if (event === true) {
@@ -1232,6 +1233,8 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('justification').setValue(formDataForEdit.justification);
         this.proposalForm.get('currentRequest').setValue(formDataForEdit.currentRequest);
         this.proposalForm.get('repay').setValue(formDataForEdit.repay);
+        this.proposalForm.get('customRepayment').setValue(!ObjectUtil.isEmpty(formDataForEdit.customRepayment) ?
+            formDataForEdit.customRepayment : '');
     }
     patchValue(data) {
         this.proposalForm.patchValue(JSON.parse(data));
