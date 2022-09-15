@@ -440,7 +440,6 @@ export class ProposalComponent implements OnInit {
             existingLimit: [undefined],
             outStandingLimit: [undefined],
             collateralRequirement: [undefined, Validators.required],
-            customRepayment: [undefined],
             swapCharge: [undefined],
             subsidizedLoan: [undefined],
             remark: [undefined],
@@ -1233,8 +1232,6 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.get('justification').setValue(formDataForEdit.justification);
         this.proposalForm.get('currentRequest').setValue(formDataForEdit.currentRequest);
         this.proposalForm.get('repay').setValue(formDataForEdit.repay);
-        this.proposalForm.get('customRepayment').setValue(!ObjectUtil.isEmpty(formDataForEdit.customRepayment) ?
-            formDataForEdit.customRepayment : '');
     }
     patchValue(data) {
         this.proposalForm.patchValue(JSON.parse(data));
