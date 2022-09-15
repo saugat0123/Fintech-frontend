@@ -436,7 +436,20 @@
                                         <!--                    </div>-->
                                     </div>
                                 </div>
-                                <div  *ngIf="showRepaymentMode" class="col-md-4">
+                                <div  *ngIf="showRepaymentMode" class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Custom Repayment Mode</strong></label>
+                                        <ckeditor id="customRepayment" formControlName="customRepayment" name="customRepayment" type="text"
+                                                  [config]="ckeConfig"
+                                                  ></ckeditor>
+                                        <!--<div *ngIf="(submitted) && formControls.customRepayment.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls.customRepayment.errors.required">Custom repayment is required.</span>
+                                        </div>-->
+                                        <!--[ngClass]="{ 'is-invalid': (submitted) && formControls.customRepayment.errors }"-->
+                                    </div>
+                                </div>
+                                <!--<div  *ngIf="showRepaymentMode" class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="repaymentModeInterest"><strong>Interest Payment</strong></label>
                                         <select
@@ -483,7 +496,7 @@
                                             Repayment Frequency is required</span>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <!--                                end of repayment mode-->
 
                                 <!--                start of installment amount div-->
@@ -501,9 +514,9 @@
                                 <!--                end of ng s
                                 installment amount div-->
                                 <div class="col-md-4"
-                                     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
-                                           && (showInterestAmount || client !== clientName?.ICFC)">
+                                           && (showInterestAmount || client !== clientName?.ICFC) && !showRepaymentMode">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Interest Amount</strong></label>
                                         <input
@@ -514,9 +527,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
-                                     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                     *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
-                                           && (showInterestAmount || client !== clientName?.ICFC)">
+                                           && (showInterestAmount || client !== clientName?.ICFC) && !showRepaymentMode">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Principal Amount</strong></label>
                                         <input
