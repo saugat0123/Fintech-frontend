@@ -29,7 +29,7 @@ import {PersonalOfferLetterRenewalsComponent} from './mega-offer-letter/personal
 import { LoanAgainstShareComponent } from './mega-offer-letter/loan-against-share/loan-against-share.component';
 import { DslWholesaleComponent } from './mega-offer-letter/dsl-wholesale/dsl-wholesale.component';
 import {AgricultureOfferLetterComponent} from './mega-offer-letter/agriculture-offer-letter/agriculture-offer-letter.component';
-import {OfferLetterOfAllOtherLoanRetailLoanComponent} from './offer-letter-of-all-other-loan-retail-loan/offer-letter-of-all-other-loan-retail-loan.component';
+import {OfferLetterOfAllOtherLoanRetailLoanComponent} from './mega-offer-letter/offer-letter-of-all-other-loan-retail-loan/offer-letter-of-all-other-loan-retail-loan.component';
 
 
 const COMPONENTS = [
@@ -52,7 +52,7 @@ const COMPONENTS = [
   SmeOfferLetterComponent,
   SmeOfferLetterPrintComponent,
   PersonalOfferLetterRenewalsComponent,
-    OfferLetterOfAllOtherLoanRetailLoanComponent,
+  OfferLetterOfAllOtherLoanRetailLoanComponent,
 
 ];
 
