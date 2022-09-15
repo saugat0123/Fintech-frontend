@@ -1,4 +1,11 @@
-<p *ngIf="!fromProfile"><b>Credit CheckList</b></p>
+<nb-card class="page-break">
+    <ng-container *ngIf="isDSL">
+        <div>
+            <p style="text-align: center"><strong>Annex-II</strong></p>
+            <p style="text-align: center">Credit Checklist</p>
+            <label><strong>Name of the Client: M/s {{loanDataHolder?.loanHolder?.name}}</strong></label>
+        </div>
+    </ng-container>
     <div class="row">
         <div class="col-md-12 text-right" *ngIf="fromProfile">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
@@ -11,6 +18,8 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
+                <ng-container *ngIf="!isDSL">
+                    <p *ngIf="!fromProfile"><b>Credit CheckList</b></p>
                 <label><strong>Credit Checklist-General</strong></label>
                         <!--          <form [formGroup]="formGroupCheckList">-->
                         <div class="form-group col-md-5" style="display: flex">
@@ -28,6 +37,7 @@
                             <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
 
                         </div>
+                </ng-container>
                         <div class="pt-2">
                             <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                 <thead>
@@ -387,8 +397,19 @@
                                 </tbody>
                             </table>
                         </div>
+                <ng-container *ngIf="!isDSL">
+                    <div>
+                        <label><strong>Regulatory Compliance Checklist</strong></label><br/>
+                    </div>
+                </ng-container>
 
-                <label><strong>Regulatory Compliance Checklist</strong></label><br/>
+                <ng-container *ngIf="isDSL">
+                    <div>
+                        <p style="text-align: center"><strong>Annex-III</strong></p>
+                        <p style="text-align: center; border: 1px solid black"><strong>Regulatory Compliance Checklist</strong></p>
+                        <label><strong>Name of the Client: M/s {{loanDataHolder?.loanHolder?.name}}</strong></label>
+                    </div>
+                </ng-container>
                 <label><strong>NRB Directive No. 6.8 Ka</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
@@ -692,3 +713,4 @@
     <nb-card-footer *ngIf="fromProfile">
         <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
     </nb-card-footer>
+</nb-card>

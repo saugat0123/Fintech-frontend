@@ -247,12 +247,14 @@
 
 <div class="col-md-12 above-ten-million-list">
     <app-crg-long [fromProfile]="false"
-                  [formData]="loanDataHolder?.loanHolder?.crgLongChecklist"></app-crg-long>
+                  [formData]="loanDataHolder?.loanHolder?.crgLongChecklist"
+                  [loanDataHolder]="loanDataHolder"></app-crg-long>
 
     <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
                                 [formData]="loanDataHolder?.loanHolder?.creditChecklist"
                                 [fromProfile]="false"
-                                [customerType]="loanDataHolder?.loanHolder?.customerType"></app-credit-checklist-view>
+                                [customerType]="loanDataHolder?.loanHolder?.customerType"
+                                [loanDataHolder]="loanDataHolder"></app-credit-checklist-view>
 </div>
 
 <ng-template #notAvailable>
