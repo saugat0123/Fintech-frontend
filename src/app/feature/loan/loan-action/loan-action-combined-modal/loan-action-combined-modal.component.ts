@@ -66,6 +66,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isUserNotPresentForCombine = false;
     showUserList = true;
     spinner = false;
+    individualFormLength: number;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -275,6 +276,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
             }));
         });
         return form;
+    }
+
+    public removeIndividualForm(index: number) {
+        (this.individualType.form.get('actions') as FormArray).removeAt(index);
+        this.individualFormLength = (this.individualType.form.get('actions') as FormArray).length;
     }
 
     private conditionalCombinedDataLoad(): void {

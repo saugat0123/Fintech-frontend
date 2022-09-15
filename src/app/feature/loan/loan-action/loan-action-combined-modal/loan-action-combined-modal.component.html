@@ -59,12 +59,22 @@
                 </div>
                 <div *ngIf="radioStageType.value === 'individually'" class="row" [nbSpinner]="spinner">
                     <div class="col-md-12">
+                            <span class="text-danger text-uppercase" style="font-size: 12px;">
+                                To keep file click this icon button
+                                <button nbButton size="tiny"><nb-icon icon="log-out-outline"></nb-icon></button>
+                                if you require to send specific file only otherwise leave as it is
+                            </span>
                         <form [formGroup]="individualType?.form">
                             <nb-accordion formArrayName="actions">
                                 <nb-accordion-item
                                         *ngFor="let control of individualType?.form?.get('actions')['controls']; let i = index"
                                         [formGroupName]="i.toString()">
                                     <nb-accordion-item-header>
+                                        <button class="text-right mr-2" nbButton size="tiny" status="primary" nbTooltip="Click to keep file"
+                                                [disabled]="individualFormLength === 1"
+                                                (click)="removeIndividualForm(i)">
+                                            <nb-icon icon="log-out-outline"></nb-icon>
+                                        </button>
                                         {{ getLoanById(control?.get('customerLoanId').value)?.loan?.name }}
                                         ({{ getLoanById(control?.get('customerLoanId').value)?.createdAt | date }})
                                         - {{ getLoanById(
