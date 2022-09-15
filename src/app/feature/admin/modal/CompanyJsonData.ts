@@ -7,6 +7,7 @@ export class CompanyJsonData {
 
   otherCompanyDetail: OtherCompanyDetail = undefined;
   sisterConcern: Array<any> = new Array<any>();
+  date: string = undefined;
   majorProductService: string = undefined;
   relationshipSince: string = undefined;
   companyBackground: string = undefined;

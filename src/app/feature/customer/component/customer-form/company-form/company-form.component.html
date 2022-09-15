@@ -1326,10 +1326,25 @@
                 </ng-container>
 
                 <ng-template #smeUpToTen>
-                    <div class="row">
+                    <div class="row" *ngIf="isWholeSale === true">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="business"><strong>5.1 BUSINESS</strong></label>
+                                <div>
+                                    <label for="business" style="display: inline-block;"><strong>5.1 BUSINESS</strong></label>
+                                    <input *ngIf="calendarType === 'AD'" id="date"
+                                           formControlName="date"
+                                           size="4"
+                                           [nbDatepicker]="date" name="date"
+                                           class="form-control small" placeholder="Date"
+                                           [ngClass]="{ 'is-invalid':submitted && form.date.errors}">
+                                    <input formControlName="date" *ngIf="calendarType === 'BS'"
+                                           hidden>
+
+                                    <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value"
+                                                  *ngIf="calendarType === 'BS'"
+                                                  (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"></app-calendar>
+                                    <nb-datepicker #date></nb-datepicker>
+                                </div>
                                 <ckeditor id="business" formControlName="business" name="business" type="text"
                                           [config]="ckeConfig"
                                           [ngClass]="{ 'is-invalid': (submitted) && form.business.errors }"></ckeditor>

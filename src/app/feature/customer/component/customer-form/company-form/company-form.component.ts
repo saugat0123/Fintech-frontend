@@ -51,6 +51,7 @@ import {Clients} from '../../../../../../environments/Clients';
 import {CustomerCategory} from '../../../model/customerCategory';
 import {ContactDetailsComponent} from '../../../../contact-details/contact-details.component';
 import {DocumentsObtainedTable} from '../../../../loan/model/documentsObtainedTable';
+import {BusinessTable} from '../../../../loan/model/businessTable';
 
 @Component({
     selector: 'app-company-form',
@@ -512,9 +513,6 @@ export class CompanyFormComponent implements OnInit {
             warehouseAddress: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.warehouseAddress)) ? undefined :
                 this.companyJsonData.warehouseAddress],
-            business: [(ObjectUtil.isEmpty(this.companyJsonData)
-                || ObjectUtil.isEmpty(this.companyJsonData.business)) ? undefined :
-                this.companyJsonData.business],
             promoterNetWorth: [(ObjectUtil.isEmpty(this.companyJsonData)
                 || ObjectUtil.isEmpty(this.companyJsonData.promoterNetWorth)) ? undefined :
                 this.companyJsonData.promoterNetWorth],
@@ -530,7 +528,13 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfo.accStrategy, [Validators.required]],
             documentsObtained: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.documentsObtained)) ?
                 DocumentsObtainedTable.key_Figure() : JSON.parse(this.companyInfo.documentsObtained)],
+            business:  [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.business)) ?
+                BusinessTable.table_Data() : JSON.parse(this.companyInfo.business)],
             shareCapital: this.formBuilder.array([]),
+            date:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.date)) ? undefined :
+                    new Date(this.companyJsonData.date), DateValidator.isValidBefore],
         });
     }
 
@@ -885,6 +889,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         console.log('table::::', (this.companyInfoFormGroup.get('documentsObtained').value));
         this.companyInfo.documentsObtained = JSON.stringify(this.companyInfoFormGroup.get('documentsObtained').value);
+        this.companyInfo.business = JSON.stringify(this.companyInfoFormGroup.get('business').value);
         this.companyInfo.shareCapital = JSON.stringify(this.companyInfoFormGroup.get('shareCapital').value);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
