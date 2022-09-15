@@ -126,21 +126,20 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
     this.listOfLoan.push(this.form.get('loanTypeSelectedArray').value);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      console.log(this.loanHolderInfo, 'this.loanHolderInfo');
     }
     if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
       this.form.patchValue({
         olRefNo: this.loanHolderInfo.miscellaneousDetail.offerReferenceNo ? this.loanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
         olIssueDate: this.loanHolderInfo.miscellaneousDetail.offerIssueDate ? this.loanHolderInfo.miscellaneousDetail.offerIssueDate : '',
         borrowerName: this.loanHolderInfo.nepaliName ? this.loanHolderInfo.nepaliName : '',
-        borrowerPerDis: this.loanHolderInfo.customerPermanentAddress.district ? this.loanHolderInfo.customerPermanentAddress.district : '',
-        borrowerPerMun: this.loanHolderInfo.customerPermanentAddress.municipality ? this.loanHolderInfo.customerPermanentAddress.municipality : '',
-        borrowerPerWard: this.loanHolderInfo.customerPermanentAddress.wardNo ? this.loanHolderInfo.customerPermanentAddress.wardNo : '',
-        borrowerTempDis: this.loanHolderInfo.customerTemporaryAddress.district ? this.loanHolderInfo.customerTemporaryAddress.district : '',
-        borrowerTempMun: this.loanHolderInfo.customerTemporaryAddress.municipality ? this.loanHolderInfo.customerTemporaryAddress.municipality : '',
-        borrowerTempWard: this.loanHolderInfo.customerTemporaryAddress.wardNo ? this.loanHolderInfo.customerTemporaryAddress.wardNo : '',
-        borrowerTempTole: this.loanHolderInfo.customerTemporaryAddress.tole ? this.loanHolderInfo.customerTemporaryAddress.tole : '',
-        borrowerMobileNo: this.loanHolderInfo.contactNo ? this.loanHolderInfo.contactNo : '',
+        borrowerPerDis: this.loanHolderInfo.institutionRegisteredAddress.district ? this.loanHolderInfo.institutionRegisteredAddress.district : '',
+        borrowerPerMun: this.loanHolderInfo.institutionRegisteredAddress.municipality ? this.loanHolderInfo.institutionRegisteredAddress.municipality : '',
+        borrowerPerWard: this.loanHolderInfo.institutionRegisteredAddress.wardNo ? this.loanHolderInfo.institutionRegisteredAddress.wardNo : '',
+        borrowerTempDis: this.loanHolderInfo.institutionCurrentAddress.district ? this.loanHolderInfo.institutionCurrentAddress.district : '',
+        borrowerTempMun: this.loanHolderInfo.institutionCurrentAddress.municipality ? this.loanHolderInfo.institutionCurrentAddress.municipality : '',
+        borrowerTempWard: this.loanHolderInfo.institutionCurrentAddress.wardNo ? this.loanHolderInfo.institutionCurrentAddress.wardNo : '',
+        borrowerTempTole: this.loanHolderInfo.institutionCurrentAddress.tole ? this.loanHolderInfo.institutionCurrentAddress.tole : '',
+        authorizedPerson: this.loanHolderInfo.authorizedPersonDetail.name ? this.loanHolderInfo.authorizedPersonDetail.name : '',
         drawdownPercent: this.loanHolderInfo.miscellaneousDetail.drawdownPer ? this.loanHolderInfo.miscellaneousDetail.drawdownPer : '',
         // surakchyanName: this.loanHolderInfo.collateralDetails[0].nameInNepali ? this.loanHolderInfo.collateralDetails[0].nameInNepali : '',
         // surakchyanDis: this.loanHolderInfo.collateralDetails[0].district ? this.loanHolderInfo.collateralDetails[0].district : '',
@@ -155,8 +154,8 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         branchTelNo: this.loanHolderInfo.branchDetail.branchTelNo ? this.loanHolderInfo.branchDetail.branchTelNo : '',
         branchFax: this.loanHolderInfo.branchDetail.branchFaxNo ? this.loanHolderInfo.branchDetail.branchFaxNo : '',
       });
-      this.form.get(['proposalData', 0, 'sanctionedLmt']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInFig);
-      this.form.get(['proposalData', 0, 'sanctionedLmtInWord']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInWord);
+      // this.form.get(['proposalData', 0, 'sanctionedLmt']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInFig);
+      // this.form.get(['proposalData', 0, 'sanctionedLmtInWord']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInWord);
     }
   }
 
@@ -505,7 +504,6 @@ export class AgricultureOfferLetterComponent implements OnInit { form: FormGroup
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AGRICULTURE_OFFER_LETTER);
       } else {
         const  initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log(initialInfo, 'initialInfo');
         this.form.patchValue(initialInfo, {emitEvent: false});
         this.selectedLoanArray = initialInfo.loanTypeSelectedArray;
         this.selectedNatureOfLoanArray = initialInfo.natureOfLoanTypeSelectedArray;

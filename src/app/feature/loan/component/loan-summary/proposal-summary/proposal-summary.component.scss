@@ -14,3 +14,10 @@ th, td {
 table {
   table-layout: fixed;
 }
+
+@media print {
+
+  table, td, th, tr {
+    border: 1px solid black !important;
+  }
+}

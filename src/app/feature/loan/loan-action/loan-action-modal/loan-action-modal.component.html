@@ -75,9 +75,9 @@
                                     class="form-control form-control-sm"
                                     formControlName="selectedRoleForSol"
                                     name="toRole">
-                                <option [value]="null" hidden>Select Role</option>
+                                <option [ngValue]="null" hidden>Select Role</option>
                                 <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                        [value]="forwardBackward?.role"
+                                        [ngValue]="forwardBackward?.role"
                                         [selected]="forwardBackward.role?.id === customerLoanHolder?.solUser?.role.id">
                                     {{forwardBackward?.role?.roleName}}
                                 </option>
