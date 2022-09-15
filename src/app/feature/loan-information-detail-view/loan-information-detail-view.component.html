@@ -75,13 +75,13 @@
                 </div>
             </div>
             <div class="col-md-9 d-flex justify-content-start">
-                <div>
+                <div class="noprint">
                     <button nbButton outline (click)="onOpen()" class="btn btn-danger btn-flat btn-sm" type="button">
                         Credit Scoring Report
                     </button>
                 </div>
             </div>
-            <hr>
+            <hr class="print-line">
             <!--            <section class="container-fluid">-->
             <!--                <div class="row">-->
             <!--                    <div class="col-md-12 sb-small">-->
@@ -205,9 +205,9 @@
                             <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
                             <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
                                 ({{loanDataHolder?.createdAt | engNepDate: false}})</span> <br>
-                            <span *ngIf="loanDataHolder.loanHolder.customerCategory !=='AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'"><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
+                            <span *ngIf="loanDataHolder?.loanHolder?.customerCategory !=='AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'"><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
                         </div>
-                        <div class="float-right" *ngIf="loanDataHolder.loanHolder.customerCategory !=='AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                        <div class="float-right" *ngIf="loanDataHolder?.loanHolder?.customerCategory !=='AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
                             <span *ngIf="loanDataHolder?.customerInfo?.isAgriculture">
                                 <b>Customer Category: </b> {{loanDataHolder?.loanHolder?.customerCategory | replace: '_':' '}}
                                 <br>
@@ -228,9 +228,9 @@
                     </div>
                 </div>
             </div>
-            <hr>
+
             <div *ngIf="crgGammaSummary" class="col-md-12">
-                <nb-card class="sb-medium" *ngIf="loanDataHolder.loanHolder.customerCategory !=='AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
+                <nb-card class="sb-medium" *ngIf="loanDataHolder?.loanHolder?.customerCategory !=='AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION'">
                     <nb-card-header class="text-center">
                         <h6>Credit Risk Gauge</h6>
                     </nb-card-header>
@@ -259,6 +259,7 @@
                     </nb-card-body>
                 </nb-card>
             </div>
+            <hr class="print-line">
             <div class="container-fluid">
                 <ng-container *ngIf="loanDataHolder?.customerInfo?.isAgriculture; else notAgriculture">
                     <app-agriculture-view *ngIf="isDataLoaded"

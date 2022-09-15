@@ -11,7 +11,6 @@
     <div class="row mt-5">
         <div class="col-md-12 mt-5">
             <form [formGroup]="crgLongChecklistFormGroup">
-                <ng-container *ngIf="!isDSL">
                 <div class="row">
                 <div class="form-group col-md-5" style="display: flex">
                     <label>Date of Checklist:&nbsp; </label>
@@ -29,22 +28,10 @@
 
                 </div>
                     <div class="col-md-4">
-                        <label>CRG Total Point:{{totalCRG | ngxRound}} // {{totalCRG}} </label>
+                        <label>CRG Total Point:{{totalCRG | ngxRound}}</label>
                     </div>
                 </div>
-                </ng-container>
-                <ng-container *ngIf="isDSL">
-                    <div>
-                        <p style="text-align: center;"><strong>Annex-I</strong></p><br/>
-                        <p style="text-align: center;"><strong>Customer Risk Grading</strong></p><br/>
-                        <p style="text-align:left;">
-                            <strong>Customer: M/s {{loanDataHolder?.loanHolder?.name}}</strong>
-                            <span style="float:right;">
-                                    <strong>CRG Total Point: {{totalCRG | ngxRound}} // {{totalCRG}} </strong>
-                                </span>
-                        </p>
-                    </div>
-                </ng-container>
+
                 <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tbody>
                     <tr>
