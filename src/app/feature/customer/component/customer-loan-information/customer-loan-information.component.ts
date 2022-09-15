@@ -210,8 +210,10 @@ export class CustomerLoanInformationComponent implements OnInit, OnChanges {
                 break;
             }
         }
-        if (this.customerInfo.customerCategory === 'DSL_WHOLE_SALE') {
-            this.isDSL = true;
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            if (this.customerInfo.customerCategory === 'DSL_WHOLE_SALE') {
+                this.isDSL = true;
+            }
         }
         if (!ObjectUtil.isEmpty(this.customerInfo)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.commonLoanData) && this.customerInfo.commonLoanData.includes('dslSolText')) {
