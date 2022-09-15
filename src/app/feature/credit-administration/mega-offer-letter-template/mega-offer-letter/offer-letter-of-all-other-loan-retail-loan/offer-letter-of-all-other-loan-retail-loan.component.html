@@ -12,16 +12,16 @@
                         <div class="col-md-6">
                             <strong>चलानी नं.</strong>
                             <input class="form-fields form-control-sm nepaliFont disable-print"
-                                   formControlName="referenceNo" type="text"/>
-                            <span class="print-only nepaliFont"><strong>{{RetailLoan.get('referenceNo').value ? RetailLoan.get('referenceNo').value : '========='}}</strong></span>
+                                   formControlName="olRefNo" type="text"/>
+                            <span class="print-only nepaliFont"><strong>{{RetailLoan.get('olRefNo').value ? RetailLoan.get('olRefNo').value : '========='}}</strong></span>
                         </div>
                         <div class="col-md-6 text-right">
                             मितिः <input
                                 class="form-fields form-control-sm nepaliFont disable-print"
-                                formControlName="issuedDate"
+                                formControlName="olIssueDate"
                                 placeholder="२०७९"
                                 type="text">
-                            <span class="print-only nepaliFont font14"><strong>{{RetailLoan.get('issuedDate').value ? RetailLoan.get('issuedDate').value : '========='}}</strong></span>
+                            <span class="print-only nepaliFont font14"><strong>{{RetailLoan.get('olIssueDate').value ? RetailLoan.get('olIssueDate').value : '========='}}</strong></span>
                         </div>
                     </div>
                     <br><br>
@@ -36,26 +36,26 @@
                     <div class="'mb-2">
                         स्थायी ठेगाना :
                         <input class="form-fields form-control-sm disable-print nepaliFont"
-                               formControlName="registeredDistrict"
+                               formControlName="borrowerPerDis"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('registeredDistrict').value ? RetailLoan.get('registeredDistrict').value : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerDis').value ? RetailLoan.get('borrowerPerDis').value : '========='}}</strong></span>
                         जिल्ला <input class="form-fields form-control-sm disable-print nepaliFont"
-                                      formControlName="instRegVdcMun"
+                                      formControlName="borrowerPerMun"
                                       placeholder=""
                                       type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('instRegVdcMun').value ? RetailLoan.get('instRegVdcMun').value : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerMun').value ? RetailLoan.get('borrowerPerMun').value : '========='}}</strong></span>
                         म.न.पा./उप म.न.पा./न.पा./गा.वि.स वडा नं.
                         <input class="form-fields form-control-sm disable-print nepaliFont"
-                               formControlName="instRegWardNo"
+                               formControlName="borrowerPerWard"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('instRegWardNo').value ? RetailLoan.get('instRegWardNo').value : '========='}}</strong></span>,
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerWard').value ? RetailLoan.get('borrowerPerWard').value : '========='}}</strong></span>,
                         <input class="form-fields form-control-sm disable-print nepaliFont"
-                               formControlName="toleName"
+                               formControlName="borrowerPerTole"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('toleName').value ? RetailLoan.get('toleName').value : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerTole').value ? RetailLoan.get('borrowerPerTole').value : '========='}}</strong></span>
                     </div>
                     <div class="mb-2">
                         हालको ठेगाना : हाल
@@ -64,27 +64,27 @@
                         <span class="print-only nepaliFont"><strong>{{RetailLoan.get('instRegProvince').value ? RetailLoan.get('instRegProvince').value : '========='}}</strong></span>
                         जिल्ला, प्रदेश नं
                         <input class="form-fields form-control-sm disable-print nepaliFont"
-                               formControlName="instRegDist"
+                               formControlName="borrowerTempDis"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('instRegDist').value ? RetailLoan.get('instRegDist').value : '========='}}</strong></span>प्रदेश/प्रदेश
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempDis').value ? RetailLoan.get('borrowerTempDis').value : '========='}}</strong></span>प्रदेश/प्रदेश
                         जिल्ला
                         <input class="form-fields form-control-sm disable-print nepaliFont"
-                               formControlName="tempMunicipality"
+                               formControlName="borrowerTempMun"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('tempMunicipality').value ? RetailLoan.get('tempMunicipality').value : '========='}}</strong></span>,
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempMun').value ? RetailLoan.get('borrowerTempMun').value : '========='}}</strong></span>,
                         म.न.पा./उप म.न.पा./न.पा./गाउपालिका वडा नं.
                         <input class="form-fields form-control-sm disable-print nepaliFont"
-                               formControlName="tempWardNo"
+                               formControlName="borrowerTempWard"
                                placeholder=""
                                type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('tempWardNo').value ? RetailLoan.get('tempWardNo').value : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempWard').value ? RetailLoan.get('borrowerTempWard').value : '========='}}</strong></span>
                         टोल/गाउ <input class="form-fields form-control-sm disable-print nepaliFont"
-                                       formControlName="toleOrVillageName"
+                                       formControlName="borrowerTempTole"
                                        placeholder=""
                                        type="text"/>
-                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('toleOrVillageName').value ? RetailLoan.get('toleOrVillageName').value : '========='}}</strong></span>
+                        <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempTole').value ? RetailLoan.get('borrowerTempTole').value : '========='}}</strong></span>
                         घर नं. <input class="form-fields form-control-sm disable-print nepaliFont"
                                       formControlName="houseNumber"
                                       placeholder=""
@@ -96,14 +96,14 @@
                                          type="text"/>
                         <span class="print-only nepaliFont"><strong>{{RetailLoan.get('street').value ? RetailLoan.get('street').value : '========='}}</strong></span><br>
                         ईमेल : <input
-                            class="form-fields form-control-sm nepaliFont"
+                            class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="authPersonEmail"
                             placeholder=""
                             style="width: 200px"
                             type="text"/>
                         <span class="print-only nepaliFont"><strong>{{RetailLoan.get('authPersonEmail').value ? RetailLoan.get('authPersonEmail').value : '========='}}</strong></span><br>
                         सम्पर्क टेलिफोन/मोबाईल नं.:<input
-                            class="form-fields form-control-sm nepaliFont"
+                            class="form-fields form-control-sm nepaliFont disable-print"
                             formControlName="authPersonMobileNo"
                             placeholder=""
                             style="width: 200px"
@@ -152,7 +152,7 @@
                                         <tbody>
                                         <tr>
                                             <td>क)</td>
-                                            <td>कर्जा/बैंकिंङ्ग सुविधाको प्रकार <strong>(Facility Type)</strong></td>
+                                            <td style="width: 40%">कर्जा/बैंकिंङ्ग सुविधाको प्रकार <strong>(Facility Type)</strong></td>
                                             <td>
                                                 <select class="form-control text-dark disable-print" formControlName="facilityType">
                                                     <option [value]="null" hidden>Select Facility Type</option>
@@ -195,8 +195,8 @@
                                                     <textarea class="form-field disable-print nepaliFont" formControlName="otherPurpose">
                                                     </textarea>
                                                 </span>
-                                                <span *ngIf="overdraft.get('purposeOfLoan').value !== 'Other'" class="print-only">{{overdraft?.get('purposeOfLoan')?.value ? overdraft?.get('purposeOfLoan').value : '========='}}</span>
-                                                <span *ngIf="overdraft.get('purposeOfLoan').value === 'Other'" class="print-only">{{overdraft?.get('otherPurpose')?.value ? overdraft?.get('otherPurpose').value : '========='}}</span>
+                                                <span *ngIf="overdraft.get('purposeOfLoan').value !== 'Other'" class="print-only">{{overdraft?.get('purposeOfLoan')?.value ? overdraft?.get('purposeOfLoan').value : ''}}</span>
+                                                <span *ngIf="overdraft.get('purposeOfLoan').value === 'Other'" class="print-only">{{overdraft?.get('otherPurpose')?.value ? overdraft?.get('otherPurpose').value : ''}}</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -255,7 +255,7 @@
                                                 <span *ngIf="overdraft.get('loanRepayment').value !== 'यो कर्जाको भुक्तानी मोर्‍याटाेरियम अवधि बाहेक (EQI)'
                                                 && overdraft.get('loanRepayment').value !== 'यो कर्जाको भुक्तानी मोर्‍याटाेरियम अवधि बाहेक (Equated Monthly Installment)'
                                                 && overdraft.get('loanRepayment').value !== 'यो अधिविकर्ष सुविधा को सीमा कर्जा प्रवाह भएको मितिले'" class="print-only">
-                                                    {{overdraft?.get('loanRepayment')?.value ? overdraft?.get('loanRepayment').value : '========='}}</span>
+                                                    {{overdraft?.get('loanRepayment')?.value ? overdraft?.get('loanRepayment').value : ''}}</span>
                                                 भविष्यमा औषत आधार दर /व्याजदर परिवर्तन भएमा कर्जाको अवधि/किस्ता संख्या मात्र सो अनुरुप समायोजन गरि साविकको
                                                 किस्ता रकम यथास्थितीमा राखिने छ । यदी व्याजदर वृद्धि पश्चात कर्जाको अवधि/किस्ता संख्या समायोजन नगरी किस्ता रकम
                                                 वृद्धि गर्नुपरेको खण्डमा बैंकलाई तदनुरुपको जानकारी गराउनुपर्नेछ । प्रत्येक किस्ता रकम संचालन खाता (Operative Account)
@@ -273,14 +273,23 @@
                                                     </option>
                                                 </select>
                                                 <span *ngIf="overdraft.get('tenure').value === 'मोर्‍याटाेरियम अवधि (Moratorium Period)'">
-                                                    <ckeditor [config]="ckeConfig" class="form-fields  nepaliFont disable-print mb-2"
-                                                              formControlName="tenureOne" name="tenureOne"></ckeditor>
-                                                    <span class="print-only nepaliFont" [innerHTML]="(overdraft?.get('tenureOne')?.value | safeHtml)"></span>
+                                                   मोर्‍याटाेरियम अवधि (Moratorium Period) सहित कर्जा प्रवाह भएको मितिले
+                                                    <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                             formControlName="tenureOne"
+                                                             name="tenureOne"
+                                                             placeholder=""
+                                                             type="text"/> वर्ष सम्म मात्र ।
+                                                    <span class="print-only preetiFont size16"><strong>{{overdraft.get('tenureOne').value ? overdraft.get('tenureOne').value : '========='}}</strong></span>
                                                 </span>
                                                 <span *ngIf="overdraft.get('tenure').value === 'कर्जाको भुक्तानी कर्जा'">
-                                                    <ckeditor [config]="ckeConfig" class="form-fields  nepaliFont disable-print mb-2"
-                                                              formControlName="tenureTwo" name="tenureTwo"></ckeditor>
-                                                    <span class="print-only nepaliFont" [innerHTML]="(overdraft?.get('tenureTwo')?.value | safeHtml)"></span>
+                                                   कर्जाको भुक्तानी कर्जा प्रवाह भएको मितिले
+                                                    <input class="form-fields form-control-sm disable-print nepaliFont"
+                                                           formControlName="tenureTwo"
+                                                           name="tenureTwo"
+                                                           placeholder=""
+                                                           type="text"/> वर्ष सम्म मात्र ।
+                                                    <span class="print-only preetiFont size16"><strong>{{overdraft.get('tenureTwo').value ? overdraft.get('tenureTwo').value : '========='}}</strong></span>
+                                                    वर्ष भित्र हुनेछ ।
                                                 </span>
                                             </td>
                                         </tr>
@@ -288,35 +297,17 @@
                                             <td>छ)</td>
                                             <td>व्याज <strong>(Interest)</strong></td>
                                             <td>
-                                                प्रत्येक त्रयमासको अन्त्यमा कायम हुने औसत आधार दर ( Average Base Rate)
-                                                मा थप .......
+                                                प्रत्येक त्रयमासको अन्त्यमा कायम हुने औसत आधार दर ( Average Base Rate) मा थप
+                                                <input
+                                                        class="form-fields form-control-sm disable-print nepaliFont"
+                                                        formControlName="totalMonthOne"
+                                                        name="totalMonthOne"
+                                                        placeholder=""
+                                                        type="text"/>
+                                                <span class="print-only nepaliFont"><strong>{{overdraft.get('totalMonthOne').value ? overdraft.get('totalMonthOne').value : '========='}}</strong></span>
                                                 प्रतिशत प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । त्रयमास
-                                                भन्नाले आषाढ,
-                                                आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ ।
-                                                बैंकको कायम
-                                                आधार दर
-                                                (Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा
-                                                राष्ट्रियस्तरको दैनिक
-                                                पत्रिकामा प्रकाशित
-                                                गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
-                                                बैंकले निर्धारण गरेको औषत आधार दर (Average Base Rate) मा थप
-                                                <input class="form-fields form-control-sm disable-print nepaliFont"
-                                                       formControlName="premiumBaseRate"
-                                                       name="premiumBaseRate"
-                                                       placeholder=""
-                                                       type="text"/>
-                                                <span class="print-only nepaliFont"><strong>{{overdraft.get('premiumBaseRate').value ? overdraft.get('premiumBaseRate').value : '========='}}</strong></span>
-                                                प्रतिशत सम्म प्रिमियम दर (Premium Rate) जोडी ब्याजदर कायम गरिनेछ । ऋणीले
-                                                उपभोग गरेको कर्जा रकमको हिसाबमा दैनिक रुपमा व्याज गणना गरि हरेक नेपाली
-                                                त्रयमासको तेश्रो महिनाको अन्तिम दिनमा र ऋणीले ऋण कर्जा पूर्ण रुपले चुतmा
-                                                गरेको दिनमा त्यस्तो ब्याज बैंकमा रहेको ऋणीको खाता खर्च गरी लिइनेछ ।
-                                                त्रयमास
-                                                भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको
-                                                समयलाई
-                                                जनाउनेछ । बैंकको कायम औषत आधार दर ( Average Base Rate) मा हूने परिवर्तन
-                                                जानकारीको लागि त्रैमासिक रुपमा राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित
-                                                गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
-                                                ब
+                                                भन्नाले आषाढ, आश्विन, पौष तथा चैत्र मसान्तमा समाप्त हुने ३ महिनाको समयलाई जनाउनेछ । बैंकको कायम आधार दर (Base Rate) मा हूने परिवर्तन जानकारीको लागि त्रैमासिक रुपमा
+                                                राष्ट्रियस्तरको दैनिक पत्रिकामा प्रकाशित गरिनुका साथै बैंकको Web Site www.centurybank.com.np मा समेत राखिनेछ ।
                                             </td>
                                         </tr>
                                         <tr>
@@ -475,7 +466,7 @@
                                            type="text"/>
                                     <span class="print-only nepaliFont"><strong>{{RetailLoan.get('facVdcMun').value ? RetailLoan.get('facVdcMun').value : '========='}}</strong></span>
                                     गा.वि.स./न.पा./उप म.न.पा./म.न.पा/गा.पा. वडा नं.
-                                    <input class="form-fields form-control-sm nepaliFont"
+                                    <input class="form-fields form-control-sm nepaliFont disable-print"
                                            formControlName="facWardNo"
                                            placeholder=""
                                            type="text"/>
@@ -578,10 +569,10 @@
                             </tr>
                             <tr>
                                 <td>ख) </td>
-                                <td>श्री <input class="form-fields form-control-sm nepaliFont disable-print" formControlName="customerName"
+                                <td>श्री <input class="form-fields form-control-sm nepaliFont disable-print" formControlName="borrowerName"
                                        placeholder=""
                                        type="text"/>
-                                    <span class="print-only preetiFont size16"><strong>{{RetailLoan.get('customerName').value ? RetailLoan.get('customerName').value : '========='}}</strong></span>
+                                    <span class="print-only preetiFont size16"><strong>{{RetailLoan.get('borrowerName').value ? RetailLoan.get('borrowerName').value : '========='}}</strong></span>
                                 ले तिर्न कबुल गरेको कुल कर्जा सिमा बराबर मुल्यको प्रतिज्ञा पत्र (Promissory Note) ।<br>
                                 </td>
                             </tr>
@@ -592,10 +583,10 @@
                             <tr>
                                 <td>घ)</td>
                                 <td> श्री <input class="form-fields form-control-sm nepaliFont disable-print"
-                                       formControlName="guarantorNameOne"
+                                       formControlName="borrowerName"
                                        placeholder=""
                                        type="text"/>
-                                    <span class="print-only preetiFont size16"><strong>{{RetailLoan.get('guarantorNameOne').value ? RetailLoan.get('guarantorNameOne').value : '========='}}</strong></span>
+                                    <span class="print-only preetiFont size16"><strong>{{RetailLoan.get('borrowerName').value ? RetailLoan.get('borrowerName').value : '========='}}</strong></span>
                                     , श्री <input class="form-fields form-control-sm nepaliFont disable-print"
                                       formControlName="guarantorNameTwo"
                                       placeholder=""
@@ -1011,11 +1002,11 @@
                                     ऋणीः</p>
                                     श्री <input
                                             class="form-fields form-control-sm disable-print nepaliFont"
-                                            formControlName="borrowerName2"
-                                            name="borrowerName2"
+                                            formControlName="borrowerName"
+                                            name="borrowerName"
                                             placeholder=""
                                             type="text"/>
-                                    <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerName2').value ? RetailLoan.get('borrowerName2').value : '========='}}</strong></span>
+                                    <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerName').value ? RetailLoan.get('borrowerName').value : '========='}}</strong></span>
                                     <br>
                                     स्थायी ठेगानाः <input
                                             class="form-fields form-control-sm disable-print nepaliFont"
@@ -1201,63 +1192,51 @@
 
                         सेञ्चुरी कमर्सियल बैंक लि.ले यस मेरो/हाम्रो नाममा जारी गरेको मिति
                         <input class="form-fields form-control-sm nepaliFont disable-print"
-                               formControlName="loanReviewDate"
+                               formControlName="olIssueDate"
                                placeholder=""
                                type="text"/> <span
-                            class="print-only nepaliFont"><strong>{{RetailLoan.get('loanReviewDate').value ? RetailLoan.get('loanReviewDate').value : '========='}}</strong></span>
-                        गतेको ऋण
-                        स्विकृति पत्र राम्रोसंग पढीवाची सुनी वुझी मेरो/हाम्रो मनोमान
-                        राजी खुसीसंग सो पत्रमा
-                        उल्लेखित
-                        सम्पूर्ण शर्त तथा बन्देजहरु म/हामीलाई पूर्ण मन्जुर छ भनी
-                        सहीछाप गरि दिएको छु/छौं
-                        । उपरोक्त
-                        बमोजिम बैंकबाट प्राप्त हुने ऋण कर्जा तथा सुविधा लगायत अन्य
-                        दायित्व तिर्न बुझाउन यस
-                        कम्पनीको/हाम्रो
-                        पूर्ण मन्जुरी रहेकोले बैंकले जारी गरेको यस स्वीकृति पत्रमा
-                        स्विकृति (Acceptance) जनाई
-                        सोको
-                        प्रतिलिपिमा सही छाप गरी तपाई बैंकलाई दिएँ/दियौं र सोको सक्कल एक
-                        प्रति पत्र
-                        बुझिलिए/लियौंं ।
+                            class="print-only nepaliFont"><strong>{{RetailLoan.get('olIssueDate').value ? RetailLoan.get('olIssueDate').value : '========='}}</strong></span>
+                        गतेको ऋण स्विकृति पत्र राम्रोसंग पढीवाची सुनी वुझी मेरो/हाम्रो मनोमान राजी खुसीसंग सो पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु म/हामीलाई पूर्ण मन्जुर
+                        छ भनी सहीछाप गरि दिएको छु/छौं । उपरोक्त बमोजिम बैंकबाट प्राप्त हुने ऋण कर्जा तथा सुविधा लगायत अन्य दायित्व तिर्न बुझाउन यस कम्पनीको/हाम्रो
+                        पूर्ण मन्जुरी रहेकोले बैंकले जारी गरेको यस स्वीकृति पत्रमा स्विकृति (Acceptance) जनाई सोको प्रतिलिपिमा सही छाप गरी तपाई बैंकलाई दिएँ/दियौं र
+                        सोको सक्कल एक प्रति पत्र बुझिलिए/लियौंं ।
                         <br><br>
                         भवदीय,<br>
                         <br>
                         <div>
                             <p>श्री <input
                                     class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="individualBorrowerName"
-                                    name="individualBorrowerName"
+                                    formControlName="borrowerName"
+                                    name="borrowerName"
                                     placeholder=""
                                     type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualBorrowerName').value ? RetailLoan.get('individualBorrowerName').value : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerName').value ? RetailLoan.get('borrowerName').value : '========='}}</strong></span>
                             </p><br>
                             <p>स्थाई ठेगानाः <input
                                     class="form-fields form-control-sm disable-print nepaliFont"
-                                    formControlName="individualBorrowerPerDis"
-                                    name="individualBorrowerPerDis"
+                                    formControlName="borrowerPerDis"
+                                    name="borrowerPerDis"
                                     placeholder=""
                                     type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualBorrowerPerDis').value ? RetailLoan.get('individualBorrowerPerDis').value : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerDis').value ? RetailLoan.get('borrowerPerDis').value : '========='}}</strong></span>
                                 जिल्ला <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="individualBorrowerPerMun"
-                                        name="individualBorrowerPerMun"
+                                        formControlName="borrowerPerMun"
+                                        name="borrowerPerMun"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualBorrowerPerMun').value ? RetailLoan.get('individualBorrowerPerMun').value : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerMun').value ? RetailLoan.get('borrowerPerMun').value : '========='}}</strong></span>
                                 म.न.पा./उप म.न.पा./न.पा./गा.वि.स., वडा नं. <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="individualBorrowerPerWard"
-                                        name="individualBorrowerPerWard"
+                                        formControlName="borrowerPerWard"
+                                        name="borrowerPerWard"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualBorrowerPerWard').value ? RetailLoan.get('individualBorrowerPerWard').value : '========='}}</strong></span>,
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerWard').value ? RetailLoan.get('borrowerPerWard').value : '========='}}</strong></span>,
                                 <input class="form-fields form-control-sm disable-print nepaliFont"
-                                       formControlName="individualBorrowerTole"
-                                       name="individualBorrowerTole" type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualBorrowerTole').value ? RetailLoan.get('individualBorrowerTole').value : '========='}}</strong></span>
+                                       formControlName="borrowerPerTole"
+                                       name="borrowerPerTole" type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerPerTole').value ? RetailLoan.get('borrowerPerTole').value : '========='}}</strong></span>
                             </p>
                             <p>हालको ठेगानाः <input
                                     class="form-fields form-control-sm disable-print nepaliFont"
@@ -1269,30 +1248,30 @@
                                 प्रदेश/प्रदेश नं <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
                                         formControlName="individualTempDistrict"
-                                        name="individualTempDistrict"
+                                        name="borrowerTempDis"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualTempDistrict').value ? RetailLoan.get('individualTempDistrict').value : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempDis').value ? RetailLoan.get('borrowerTempDis').value : '========='}}</strong></span>
                                 जिल्ला <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="individualTempMun"
-                                        name="individualTempMun"
+                                        formControlName="borrowerTempMun"
+                                        name="borrowerTempMun"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualTempMun').value ? RetailLoan.get('individualTempMun').value : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempMun').value ? RetailLoan.get('borrowerTempMun').value : '========='}}</strong></span>
                                 म.न.पा./उपम.न.पा./न.पा./गाउपालिका
                                 वडा नं. <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="individualTempWard"
-                                        name="individualTempWard" type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualTempWard').value ? RetailLoan.get('individualTempWard').value : '========='}}</strong></span>
+                                        formControlName="borrowerTempWard"
+                                        name="borrowerTempWard" type="text"/>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempWard').value ? RetailLoan.get('borrowerTempWard').value : '========='}}</strong></span>
                                 टोल/गाउ <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
-                                        formControlName="individualTempTole"
-                                        name="individualTempTole"
+                                        formControlName="borrowerTempTole"
+                                        name="borrowerTempTole"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('individualTempTole').value ? RetailLoan.get('individualTempTole').value : '========='}}</strong></span>
+                                <span class="print-only nepaliFont"><strong>{{RetailLoan.get('borrowerTempTole').value ? RetailLoan.get('borrowerTempTole').value : '========='}}</strong></span>
                                 घर नं. <input
                                         class="form-fields form-control-sm disable-print nepaliFont"
                                         formControlName="individualBorrowerHouseNo"
