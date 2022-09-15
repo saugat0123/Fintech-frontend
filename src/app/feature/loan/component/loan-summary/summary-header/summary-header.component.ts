@@ -30,7 +30,6 @@ export class SummaryHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.checkCustomerCategoryForDetailView();
-    console.log('loanDataHolder', this.loanDataHolder);
 
 
   }
