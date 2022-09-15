@@ -3,6 +3,9 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {CustomerCategory} from '../../../customer/model/customerCategory';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-crg-long',
@@ -14,9 +17,14 @@ export class CrgInstitutionComponent implements OnInit {
   @Input() fromProfile;
   @Input() formData;
   @Input() calendarType: CalendarType;
+  @Input() loanDataHolder: LoanDataHolder;
+  @Input() companyInfo: CustomerInfoData;
+  @Input() customerInfo: CustomerInfoData;
+  customerCategory = CustomerCategory;
   crgLongChecklistFormGroup: FormGroup;
   crgLongChecklist;
   dataForEdit;
+  isDSL = false;
   optionList = ['1', '2', '3', '4', '5', '6', '7', '8'];
   totalCRG: number;
   checkCRG = [];
@@ -26,6 +34,13 @@ export class CrgInstitutionComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+        if (this.loanDataHolder.companyInfo.customerCategory === 'DSL_WHOLE_SALE') {
+          this.isDSL = true;
+        }
+      }
+    }
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.crgLongChecklist = this.formData;
       this.dataForEdit = JSON.parse(this.formData);
