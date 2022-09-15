@@ -78,7 +78,7 @@ input::-webkit-input-placeholder {
 
 @page {
   size: A4;
-  margin: 17mm 17mm 17mm 17mm;
+  margin: 0;
 }
 
 .page-break {
@@ -119,3 +119,13 @@ ol li{
   font-size: 14px;
 }
 
+@media print {
+  .nepali {
+    height: 100%;
+    width: 100%;
+    margin-top: -10px;
+    margin-right: initial;
+    margin-left: initial;
+    line-height: 20px;
+  }
+}
