@@ -37,7 +37,9 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {CustomerType} from 'src/app/feature/customer/model/customerType';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {CadFileSetupComponent} from '../../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
+import {
+    CadFileSetupComponent
+} from '../../../credit-administration/cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {SecurityDocumentComponent} from './security-document/security-document.component';
 
 
@@ -928,7 +930,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 assignmentDetails.push(
                     this.formBuilder.group({
                         amount: [singleData.amount],
-                        otherDetail: [singleData.otherDetail]
+                        otherDetail: [singleData.otherDetail],
+                        forProposed: [singleData.forProposed],
+                        forExisting: [singleData.forExisting],
                     })
                 );
             });
@@ -1536,8 +1540,10 @@ export class SecurityInitialFormComponent implements OnInit {
 
     assignmentDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
-                amount: [undefined, Validators.required ],
-                otherDetail: [undefined]
+                amount: [undefined, Validators.required],
+                otherDetail: [undefined],
+                forProposed: false,
+                forExisting: false,
             }
         );
     }
@@ -1967,6 +1973,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     priceBookValue: [share.priceBookValue],
                     dividendYeild: [share.dividendYeild],
                     dividendPayoutRatio: [share.dividendPayoutRatio],
+                    forProposed: [share.forProposed],
+                    forExisting: [share.forExisting],
                 })
             );
         });
@@ -1987,6 +1995,8 @@ export class SecurityInitialFormComponent implements OnInit {
             priceBookValue: [undefined],
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
+            forProposed: [false],
+            forExisting: [false],
         });
     }
 
