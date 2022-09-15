@@ -23,9 +23,23 @@ nb-card {
   .disable-print {
     display: inline;
   }
+
+  tr.disable-print {
+    display: table-row;
+  }
+
 }
 
 @media print {
+
+  .print-only {
+    display: inline;
+  }
+
+  tr.print-only {
+    display: table-row;
+  }
+
   .form-fields {
     margin: 0px 5px;
     border: none;
@@ -34,6 +48,10 @@ nb-card {
     &:focus {
       outline: none;
     }
+  }
+
+  .disable-print {
+    display: none;
   }
 
 }
