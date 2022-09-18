@@ -212,14 +212,11 @@ export class CompanyFormComponent implements OnInit {
             this.setProprietors(this.companyJsonData.proprietorList);
             this.setAccountNumber(this.companyJsonData.accountDetails);
             this.calculateSharePercent('proprietors', 'totalSharePercent');
+            this.setShareCapital(JSON.parse(this.companyInfo.shareCapital));
         } else {
             this.addProprietor();
             this.addAccountNumber();
-        }
-        if (ObjectUtil.isEmpty(this.formValue.shareCapital)) {
             this.addShareCapital();
-        } else {
-            this.setShareCapital(JSON.parse(this.companyInfo.shareCapital));
         }
         this.designation = this.designationList.designation;
         this.designationForDSL = this.designationList.designation.filter(val => val.id === 'Promoter' || val.id === 'BOD' || val.id === 'Management Team' || val.id === 'Other');
@@ -571,7 +568,6 @@ export class CompanyFormComponent implements OnInit {
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required],
-            shareCapital: this.formBuilder.array([])
         });
     }
 
@@ -1074,9 +1070,8 @@ export class CompanyFormComponent implements OnInit {
     }
 
     getCustomerCategory() {
-        // this.customerCategory = this.customerCate.filter(f =>
-        //     f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
-        this.customerCategory = this.customerCate;
+        this.customerCategory = this.customerCate.filter(f =>
+            f.value !== CustomerCategory.AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION);
     }
 
     checkCustomerCategory(targetValue, editCustomer: boolean) {

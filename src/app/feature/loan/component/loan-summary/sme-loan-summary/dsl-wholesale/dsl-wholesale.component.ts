@@ -41,6 +41,7 @@ export class DslWholesaleComponent implements OnInit, DoCheck {
   documentsObtained;
   allLonList: LoanDataHolder [];
   iterableDiffer;
+  dslSOL;
   constructor(private iterableDiffers: IterableDiffers) {
     this.client = environment.client;
     this.iterableDiffer = iterableDiffers.find([]).create(null);
@@ -50,6 +51,11 @@ export class DslWholesaleComponent implements OnInit, DoCheck {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.customerCategory = this.loanDataHolder.loanHolder.customerCategory;
       this.tempData = this.loanDataHolder.proposal;
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.commonLoanData)) {
+        if (this.loanDataHolder.loanHolder.commonLoanData.includes('dslSolText')) {
+          this.dslSOL = JSON.parse(this.loanDataHolder.loanHolder.commonLoanData).dslSolText;
+        }
+      }
       if (!ObjectUtil.isEmpty(this.tempData.data)) {
         this.proposalData = JSON.parse(this.tempData.data);
       }

@@ -257,3 +257,13 @@ ol  ol > li:before {
 .page-break {
   page-break-before: always !important;
 }
+@media print {
+  .noprint{
+    visibility: hidden;
+  }
+  hr.print-line {
+    border-top: 2px solid black;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+}

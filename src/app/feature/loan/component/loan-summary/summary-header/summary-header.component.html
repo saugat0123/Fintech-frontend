@@ -1,7 +1,7 @@
 <div style="page-break-before: always">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 noprint">
                 <strong>Loan Status:</strong>
                 <span class="badge badge-info ml-1" style="font-size: 13px;line-height: 1.9em">
                                     {{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-
+<hr class="print-line">
 <div class="row">
     <div class="col-md-12 sb-small">
         <div class="clearfix">
@@ -51,9 +51,10 @@
                 <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span> <br>
                 <span> <b>Application Received On:</b> {{loanDataHolder?.createdAt | date}}
                     ({{loanDataHolder?.createdAt | engNepDate: false}})</span><br>
-                <span><b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
+                <span *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder?.loanHolder?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
+                    <b>Purpose: {{loanDataHolder?.loan?.name}}</b></span>
             </div>
-            <div class="float-right">
+            <div class="float-right" *ngIf="loanDataHolder.loanHolder.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder.loanHolder.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
                 <span><strong>Customer Category: </strong>{{loanDataHolder?.companyInfo?.customerCategory | replace: '_': ' '}}</span><br>
                 <span><b>Loan Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
                     ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span><br>
@@ -74,7 +75,7 @@
 
 <!-- CRG - Gamma-->
 <div *ngIf="loanDataHolder?.loanHolder?.crgCcbl" class="col-md-12 d-print-block print-padding">
-    <nb-card class="sb-medium">
+    <nb-card class="sb-medium" *ngIf="loanDataHolder?.loanHolder?.customerCategory !== 'DSL_WHOLE_SALE' && loanDataHolder?.loanHolder?.customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
 
         <nb-card-header class="text-center">
             <strong><h6>Counter Party Risk Rating</h6></strong>
@@ -106,3 +107,4 @@
         </nb-card-body>
     </nb-card>
 </div>
+<hr class="print-line">

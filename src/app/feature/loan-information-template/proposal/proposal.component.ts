@@ -427,7 +427,8 @@ export class ProposalComponent implements OnInit {
             forexOnPurchase: [undefined],
             other: [undefined],
             creditHistory: ['0'],
-            specialCovenant: [undefined]
+            specialCovenant: [undefined],
+            recommendations: [undefined],
 
     });
     }
