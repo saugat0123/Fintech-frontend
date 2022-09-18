@@ -24,14 +24,14 @@ export class FinancialViewComponent implements OnInit {
   auditorList = [];
   incomeSource;
   initialData;
-
+  isExpenditureDetail = false;
   constructor(protected toastService: ToastService) {
   }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.financialData = JSON.parse(this.formData.data);
-      if (CustomerType[this.customerType] === CustomerType.INSTITUTION ) {
+      if (CustomerType[this.customerType] === CustomerType.INSTITUTION) {
         this.isBusinessLoan = true;
       }
     }
@@ -41,6 +41,11 @@ export class FinancialViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.financialData)) {
       if (!ObjectUtil.isEmpty(this.financialData.auditorList)) {
         this.auditorList = this.financialData.auditorList;
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.financialData)) {
+      if (this.financialData.customerCategory === 'AGRICULTURE_UPTO_ZERO_POINT_FIVE_MILLION') {
+        this.isExpenditureDetail = true;
       }
     }
   }
