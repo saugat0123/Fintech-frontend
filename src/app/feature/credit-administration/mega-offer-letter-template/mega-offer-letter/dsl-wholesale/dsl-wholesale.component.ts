@@ -357,4 +357,8 @@ export class DslWholesaleComponent implements OnInit {
       );
     });
   }
+
+  checkReview(selectReview) {
+    this.form.get('selectReview').patchValue(selectReview);
+  }
 }
