@@ -43,7 +43,6 @@ export class LoanActionCombinedModalComponent implements OnInit {
     ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
-    public stageType: 'individually' | 'combined';
     public sendForwardBackwardList: [];
     public combinedType: {
         form?: FormGroup,
@@ -61,14 +60,12 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isUserPresent = [];
     isSolUserPresent = [];
     preSelectedSolUser = [];
-    showSolUser = [];
     showHideCombineSolUser = false;
     submitted = false;
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
     spinner = false;
-    isDual;
     isHsov;
     combinedDual = false;
     combinedHSOV = false;
@@ -141,11 +138,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
         }
     }
 
-    public getLoanById(id: number | string): LoanDataHolder {
-        return this.combinedLoan.loans.find((l) => l.id === Number(id));
-    }
 
     public getCombinedUserList(role) {
+        this.isUserNotPresentForCombine = false;
         this.isUserNotPresentForCombine = false;
         this.showUserList = true;
         this.spinner = true;
@@ -185,56 +180,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
         });
     }
 
-    public getIndividualUserList(role, i: number) {
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-            this.individualType.users.set(i, response.detail);
-            const users: User[] = response.detail;
-            this.isUserPresent[i] = true;
-            if (users.length === 0) {
-                this.isUserPresent[i] = false;
-            } else {
-                this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
-                this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
-                this.individualType.form.updateValueAndValidity();
-            }
-        });
-    }
 
     public onSubmit(): void {
-        // if (this.stageType === 'individually') {
-        //     this.individualType.submitted = true;
-        //     if (this.individualType.form.invalid) {
-        //         return;
-        //     }
-        //     let dialogRef;
-        //     if (this.docAction === DocAction[DocAction.REVERT_APPROVED]) {
-        //         const action = this.individualType.form.get('actions') as FormArray;
-        //         action.value.forEach((ac) => {
-        //            ac.toUser = this.toUser;
-        //            ac.toRole = this.toUser.role;
-        //         });
-        //         dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-        //             context: {
-        //                 individualCombine: this.individualType.form.value,
-        //                 action: this.docAction
-        //             }
-        //         });
-        //     } else {
-        //         dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-        //             context: {
-        //                 individualCombine: this.individualType.form.value,
-        //                 action: this.docAction
-        //             }
-        //         });
-        //     }
-        //     dialogRef.onClose.subscribe((verified: boolean) => {
-        //         if (verified === true) {
-        //             this.postCombinedAction(false);
-        //             this.nbDialogRef.close();
-        //             this.emitter.emit(true);
-        //         }
-        //     });
-        // } else if (this.stageType === 'combined') {
             this.combinedType.submitted = true;
             if (this.combinedType.form.invalid) {
                 return;
@@ -268,7 +215,6 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     this.emitter.emit();
                 }
             });
-        // }
     }
 
     private buildCombinedForm(): FormGroup {
@@ -375,92 +321,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
 
-    // sol logic starts here
-    // individual
-    public getIndividualUserSolList(role, i: number) {
-        if (!ObjectUtil.isEmpty(role)) {
-            this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-                this.individualType.solUsers.set(i, response.detail);
-                const users: User[] = response.detail;
-                this.isSolUserPresent[i] = true;
-                if (users.length === 1) {
-                    this.individualType.form.get(['actions', i]).patchValue({
-                        solUser: users[0]
-                    });
-                } else if (users.length > 1) {
-                    this.individualType.form.get(['actions', i]).patchValue({
-                        solUser: users[0]
-                    });
 
-                } else if (users.length === 0) {
-                    this.isSolUserPresent[i] = false;
-                }
-            });
-        }
-    }
-
-    showHideSol(event: boolean, i: number) {
-        const val = {index: i, value: event};
-        const checkIndexPresent = this.showSolUser.filter(s => s.index === i);
-        if (checkIndexPresent.length === 0) {
-            this.showSolUser.push(val);
-        } else {
-            checkIndexPresent[0].value = event;
-        }
-        if (!event) {
-            this.individualType.form.get(['actions', i]).patchValue({
-                solUser: null
-            });
-            this.individualType.form.get(['actions', i, 'solUser']).clearValidators();
-            this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
-        } else {
-            this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
-            this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
-            this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
-        }
-    }
-
-    // combineSol
-    public getCombinedSolUserList(role) {
-        this.isSolUserPresentForCombine = true;
-        this.combinedType.form.patchValue({
-            solUser: null
-        });
-        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-            this.combinedType.solUserList = response.detail;
-            if (this.combinedType.solUserList.length === 1) {
-                this.combinedType.form.patchValue({
-                    solUser: this.combinedType.solUserList[0]
-                });
-            } else if (this.combinedType.solUserList.length > 1) {
-                this.combinedType.form.patchValue({
-                    solUser: this.combinedType.solUserList[0]
-                });
-            } else if (this.combinedType.solUserList.length === 0) {
-                this.isSolUserPresentForCombine = false;
-            }
-        });
-
-
-    }
-
-    showHideSolCombine(event: boolean) {
-        if (event) {
-            this.showHideCombineSolUser = true;
-            this.combinedType.form.get('solUser').patchValue(undefined);
-            this.combinedType.form.get('solUser').setValidators(Validators.required);
-            this.combinedType.form.get('solUser').updateValueAndValidity();
-        } else {
-            this.combinedType.form.patchValue({
-                solUser: null,
-                selectedRoleForSol: null,
-                isSol: false
-            });
-            this.showHideCombineSolUser = false;
-            this.combinedType.form.get('solUser').clearValidators();
-            this.combinedType.form.get('solUser').updateValueAndValidity();
-        }
-    }
 
     dualApproval(event, individual) {
         if (event && !individual) {
@@ -468,33 +329,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
         } else {
             this.combinedDual = false;
         }
+        this.documentStatus = this.isMaker ? this.documentStatus : (event ? DocStatus.DUAL_APPROVAL_PENDING : DocStatus.APPROVED);
+        this.docAction = this.isMaker ? this.docAction : event ? 'DUAL_APPROVAL_PENDING' : this.docAction;
+            this.combinedType.form.patchValue({
+                docAction: this.docAction,
+                documentStatus: this.documentStatus
+            });
     }
 
-    dualApprovalIndividual(event, index) {
-        if (!event) {
-            this.individualType.form.get(['actions', index]).patchValue({
-                dualApproval: false
-            });
-        } else {
-            this.individualType.form.get(['actions', index]).patchValue({
-                dualApproval: true
-            });
-        }
-
-    }
-
-    hsovIndividual(event, index) {
-        if (!event) {
-            this.individualType.form.get(['actions', index]).patchValue({
-                isHsov: false
-            });
-        } else {
-            this.individualType.form.get(['actions', index]).patchValue({
-                isHsov: true
-            });
-        }
-
-    }
 
     hsov(event, individual) {
         if (event && !individual) {
@@ -502,6 +344,12 @@ export class LoanActionCombinedModalComponent implements OnInit {
         } else {
             this.combinedHSOV = false;
         }
+        this.documentStatus = this.isMaker ? this.documentStatus : (event ? DocStatus.HSOV_PENDING : DocStatus.APPROVED);
+        this.docAction = this.isMaker ? this.docAction : (event ? 'HSOV_PENDING' : this.docAction);
+        this.combinedType.form.patchValue({
+            docAction: this.docAction,
+            documentStatus: this.documentStatus
+        });
     }
 
     compareFn(c1: any, c2: any): boolean {

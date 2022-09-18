@@ -10,7 +10,7 @@
         <nb-card-body>
             <form [formGroup]="formAction" role="form">
                 <div class="col-md-12 mb-1 mt-1"  *ngIf="!customerLoanHolder?.isHsov && !customerLoanHolder?.dualApproval">
-                    <div *ngIf="isMaker">
+                    <div>
                             <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
                                          [disabled]="dual || loanTag"
                                          [checked]="customerLoanHolder.isHsov"> HSOV ?
@@ -26,7 +26,6 @@
                 <p *ngIf="additionalDetails?.hasDeferredDocs" class="text-danger">
                     This loan contains deferred documents that are not uploaded.
                 </p>
-
                 <div  *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING' || docAction== 'HSOV_PENDING'" class="row">
                     <div class="col-md-12 mt-1  form-group">
                         <label class="toRole">TO</label>

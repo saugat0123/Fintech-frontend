@@ -216,6 +216,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
                         docAction: 'APPROVED',
+                        branchId: this.branchId,
                         docActionMsg: 'Approved',
                         documentStatus: DocStatus.APPROVED,
                         isRemitLoan: this.isRemitLoan,
@@ -283,6 +284,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasDeferredDocs: true
             };
         }
+        console.log('this is contentxt', context);
         if (ObjectUtil.isEmpty(this.combinedLoanId)) {
             this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
                 context,
