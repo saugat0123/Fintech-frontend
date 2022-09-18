@@ -86,7 +86,7 @@
             </thead>
 
             <tbody>
-            <tr *ngFor="let pro of jsonData?.proprietorList; let i = index">
+            <tr *ngFor="let pro of BODList; let i = index">
                 <td>{{i+1}}</td>
                 <td>{{pro?.name}}</td>
                 <td>{{pro?.type}}</td>
@@ -106,7 +106,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let pro of jsonData?.proprietorList; let ii = index">
+            <tr *ngFor="let pro of ManagementTeamList; let ii = index">
                 <td>{{pro?.name}}</td>
                 <td>{{pro?.share}}</td>
             </tr>
