@@ -57,6 +57,8 @@ export class Section4SecurityCollateralComponent implements OnInit {
     guarantorData: Array<any> = new Array<any>();
     tempLandBuilding;
     tempSecondaryLandBuilding;
+    nameOfClients: Array<any> = new Array<any>();
+    nameOfClients1: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -86,6 +88,8 @@ export class Section4SecurityCollateralComponent implements OnInit {
         }
         this.buildForm();
         this.checkCondition();
+        this.patchNameOfClients(this.primaryCollateral);
+        this.patchNameOfClients1(this.secondaryCollateral);
         if (this.primaryShare.length > 0) {
             this.primaryDetails();
         } if (this.secondaryShare.length > 0) {
@@ -209,10 +213,10 @@ export class Section4SecurityCollateralComponent implements OnInit {
     buildForm() {
         return this.form = this.formBuilder.group({
             // Primary Security
-            nameOfClient: [undefined],
+            nameOfClients: this.formBuilder.array([]),
 
             // Secondary Security
-            nameOfClient2: [undefined],
+            nameOfClients1: this.formBuilder.array([]),
 
             TDPrimaryDetails: this.formBuilder.array([]),
             TDSecondaryDetails: this.formBuilder.array([]),
@@ -331,13 +335,13 @@ export class Section4SecurityCollateralComponent implements OnInit {
                 this.clientName1 = this.primaryShare[0].nameOfBorrowingClientCT;
             } else if (this.primaryShare.length === 2) {
                 for (let i = 0; i < this.primaryShare.length; i++) {
-                    this.clientName1 = this.primaryShare[i].nameOfBorrowingClientCT;
+                    this.clientNames.push(this.primaryShare[i].nameOfBorrowingClientCT);
                 }
                 this.allClientNames = this.clientNames.join(' र ');
                 this.clientName1 = this.allClientNames;
             } else {
                 for (let i = 0; i < this.primaryShare.length - 1; i++) {
-                    this.clientName1 = this.primaryShare[i].nameOfBorrowingClientCT;
+                    this.clientNames.push(this.primaryShare[i].nameOfBorrowingClientCT);
                 }
                 this.allClientNames = this.clientNames.join(' , ');
                 const temp1 = this.primaryShare[this.primaryShare.length - 1];
@@ -352,13 +356,13 @@ export class Section4SecurityCollateralComponent implements OnInit {
                 this.clientName2 = this.secondaryShare[0].nameOfBorrowingClientCT;
             } else if (this.secondaryShare.length === 2) {
                 for (let i = 0; i < this.secondaryShare.length; i++) {
-                    this.clientName2 = this.secondaryShare[i].nameOfBorrowingClientCT;
+                    this.clientNames2.push(this.secondaryShare[i].nameOfBorrowingClientCT);
                 }
                 this.allClientNames2 = this.clientNames2.join(' र ');
                 this.clientName2 = this.allClientNames2;
             } else {
                 for (let i = 0; i < this.secondaryShare.length - 1; i++) {
-                    this.clientName2 = this.secondaryShare[i].nameOfBorrowingClientCT;
+                    this.clientNames2.push(this.secondaryShare[i].nameOfBorrowingClientCT);
                 }
                 this.allClientNames2 = this.clientNames2.join(' , ');
                 const temp1 = this.secondaryShare[this.secondaryShare.length - 1];
@@ -375,6 +379,28 @@ export class Section4SecurityCollateralComponent implements OnInit {
                     nameOfGuarantor: val.guarantorName ? val.guarantorName.ct : '',
                     loanAmountInFigure: val.gurantedAmount ? val.gurantedAmount.ct : '',
                     loanAmountInWords: this.nepaliCurrencyWordPipe.transform(val.gurantedAmount ? val.gurantedAmount.en : 0)
+                })
+            );
+        });
+    }
+
+    patchNameOfClients(primaryCollateral) {
+        const formArray = this.form.get('nameOfClients') as FormArray;
+        primaryCollateral.forEach(val => {
+            formArray.push(
+                this.formBuilder.group({
+                    nameOfClient: val.nameOfBorrowingClientCT ? val.nameOfBorrowingClientCT : '',
+                })
+            );
+        });
+    }
+
+    patchNameOfClients1(secondaryCollateral) {
+        const formArray = this.form.get('nameOfClients1') as FormArray;
+        secondaryCollateral.forEach(val => {
+            formArray.push(
+                this.formBuilder.group({
+                    nameOfClient2: val.nameOfBorrowingClientCT ? val.nameOfBorrowingClientCT : '',
                 })
             );
         });
