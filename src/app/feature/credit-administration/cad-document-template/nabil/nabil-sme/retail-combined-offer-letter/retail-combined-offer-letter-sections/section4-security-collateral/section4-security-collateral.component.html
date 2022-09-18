@@ -51,7 +51,7 @@
                                                formControlName="nameOfClient"
                                                placeholder=" "
                                                type="text"/>
-                                        <span class="print-only font-weight-bold">{{form.get(['nameOfClients', i ,'nameOfClient']) ? form.get(['nameOfClients', i ,'nameOfClient'])?.value : '______________________'}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['nameOfClients',i,'nameOfClient']) ? form.get(['nameOfClients',i,'nameOfClient'])?.value : '______________________'}}</span>
                                         को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                         <ng-container *ngIf="item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage'"> गरिदिनु पर्नेछ ।
                                             <!--For new mortgage/remortgage--> </ng-container>
@@ -253,7 +253,7 @@
                                            formControlName="nameOfClient2"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{form.get(['nameOfClients1', i ,'nameOfClient2']) ? form.get(['nameOfClients1', i ,'nameOfClient2'])?.value : '______________________'}}</span>
+                                    <span class="print-only font-weight-bold">{{form.get(['nameOfClients1',i,'nameOfClient2']) ? form.get(['nameOfClients1',i,'nameOfClient2'])?.value : '______________________'}}</span>
                                     को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                     <ng-container *ngIf="item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage'"> गरिदिनु पर्नेछ
                                         <!--For new motgage/remortgage--> </ng-container>
