@@ -3,6 +3,7 @@ import {CompanyInfo} from '../../../../../../admin/modal/company-info';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {CompanyContactDetail} from '../../../../../../admin/modal/crg/companyContactDetail';
 import {CustomerInfoData} from '../../../../../model/customerInfoData';
+import {Proprietors} from '../../../../../../admin/modal/proprietors';
 
 @Component({
   selector: 'app-above-background-of-customer',
@@ -21,6 +22,10 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
   shareCapitalDetails;
   totalCurrent = 0;
   totalPrevious = 0;
+  isDSL: boolean;
+  propList: Array<Proprietors>;
+  BODList: Array<Proprietors>;
+  ManagementTeamList: Array<Proprietors>;
 
   constructor() { }
 
@@ -32,6 +37,14 @@ export class AboveBackgroundOfCustomerComponent implements OnInit {
       this.contactedPerson = JSON.parse(this.companyInfo.contactPersons);
       this.contactDetails = JSON.parse(this.companyInfo.companyContactDetails);
       this.shareCapitalDetails = JSON.parse(this.companyInfo.shareCapital);
+      if (this.companyInfo.customerCategory === 'DSL_WHOLE_SALE') {
+        this.isDSL = true;
+      }
+      this.propList = this.jsonData.proprietorList;
+      if (this.isDSL) {
+        this.BODList = this.propList.filter(value => value.type === 'BOD');
+        this.ManagementTeamList = this.propList.filter(value => value.type === 'Management Team');
+      }
     }
     if (!ObjectUtil.isEmpty(this.shareCapitalDetails)) {
       this.shareCapitalDetails.forEach((data: any) => {
