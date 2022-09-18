@@ -36,22 +36,11 @@ export class AddAdditionalDocumentComponent implements OnInit {
         this.addDocForm = this.formBuilder.group({
             id: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.id],
             docName: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.docName, [Validators.required]],
-            docType: ['DRAFT'],
             docPath: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.docPath],
             uploadOn: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.uploadOn],
             remarks: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.remarks],
             obtainedOn: [ObjectUtil.isEmpty(this.additionalDocument) ? new Date() : new Date(this.additionalDocument.obtainedOn)],
-            version: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.version],
-            pathSigned: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.pathSigned],
-            draftPath: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.draftPath],
-            // tslint:disable-next-line:max-line-length
-            draftUploadDate: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined :
-                ObjectUtil.isEmpty(this.additionalDocument.draftUploadDate) ? undefined :
-                    new Date(this.additionalDocument.draftUploadDate) ],
-            // tslint:disable-next-line:max-line-length
-            signUploadDate: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined :
-                ObjectUtil.isEmpty(this.additionalDocument.signUploadDate) ? undefined :
-                    new Date(this.additionalDocument.signUploadDate)]
+            version: [ObjectUtil.isEmpty(this.additionalDocument) ? undefined : this.additionalDocument.version]
         });
     }
 
@@ -63,7 +52,6 @@ export class AddAdditionalDocumentComponent implements OnInit {
     submit() {
         this.spinner = true;
         const name = this.addDocForm.get('docName').value;
-        const type = this.addDocForm.get('docType').value;
         if (!ObjectUtil.isEmpty(this.additionalDocument)) {
             const index = this.cadData.additionalDocumentList.indexOf(this.additionalDocument, 0);
             if (index > -1) {
@@ -89,12 +77,13 @@ export class AddAdditionalDocumentComponent implements OnInit {
             formData.append('file', this.uploadFile);
             formData.append('cadId', this.cadData.id.toString());
             formData.append('documentName', name.toString());
-            formData.append('type', type.toString());
             formData.append('customerInfoId', this.cadData.loanHolder.id.toString());
             formData.append('branchId', this.cadData.loanHolder.branch.id.toString());
             this.service.uploadAdditionalDocument(formData).subscribe((res: any) => {
-               type === 'SIGNED' ? this.setDocument('pathSigned', 'signUploadDate', res.detail)
-                   : this.setDocument('draftPath', 'draftUploadDate', res.detail);
+                this.addDocForm.patchValue({
+                    docPath: res.detail,
+                    uploadOn: new Date()
+                });
                 this.save();
             });
 
@@ -103,18 +92,12 @@ export class AddAdditionalDocumentComponent implements OnInit {
         }
     }
 
-    setDocument(pathControl, dateControl, pathLink) {
-        this.addDocForm.get(pathControl).patchValue(pathLink);
-        this.addDocForm.get(dateControl).patchValue(new Date());
-        this.addDocForm.get('uploadOn').patchValue(new Date());
-    }
-
     onClose() {
         this.dialogRef.close();
     }
 
     save() {
-        if (this.uploadFile && this.addDocForm.get('docType').value === 'SIGNED') {
+        if (this.uploadFile) {
             this.addDocForm.get('remarks').patchValue('OBTAINED');
         }
         this.cadData.additionalDocumentList.push(this.addDocForm.value);
