@@ -91,7 +91,7 @@ export class Section4SecurityCollateralComponent implements OnInit {
         } if (this.secondaryShare.length > 0) {
             this.secondaryDetails();
         }
-        this.fillForm();
+       // this.fillForm();
     }
 
     checkCondition() {
