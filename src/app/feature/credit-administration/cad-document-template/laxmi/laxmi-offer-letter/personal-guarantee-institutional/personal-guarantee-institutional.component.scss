@@ -109,3 +109,37 @@ ol.order-list {
 .fontSize16 {
   font-size: 16px;
 }
+.font20 {
+  font-size: 20px;
+}
+@media print {
+  .nepali {
+    p {
+      font-size: 16px;
+      line-height: 20px;
+    }
+    ol.order-list > li {
+      margin: 10px 0px;
+      padding-left: 20px;
+      line-height: 20px;
+      page-break-inside: avoid;
+    }
+    ol.order-list {
+      list-style: devanagari;
+      display: inline-block;
+    }
+    .alignment {
+      display: inline;
+      font-size: 16px;
+      line-height: 20px;
+      width: 100%;
+      page-break-inside: auto;
+    }
+    .textAlign {
+      display: inline-block;
+      font-size: 16px;
+      line-height: 20px;
+      page-break-inside: avoid;
+    }
+  }
+}
