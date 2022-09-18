@@ -147,6 +147,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     public getCombinedUserList(role) {
         this.isUserNotPresentForCombine = false;
+        this.isUserNotPresentForCombine = false;
         this.showUserList = true;
         this.spinner = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
@@ -468,8 +469,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
         } else {
             this.combinedDual = false;
         }
-        this.documentStatus = this.isMaker ? this.documentStatus : event ? 'DUAL_APPROVAL_PENDING' : 'APPROVED';
-        this.docAction = this.isMaker ? this.docAction : event ? 'APPROVED' : this.docAction;
+        this.documentStatus = this.isMaker ? this.documentStatus : (event ? 'DUAL_APPROVAL_PENDING' : 'APPROVED');
+        this.docAction = this.isMaker ? this.docAction : event ? 'DUAL_APPROVAL_PENDING' : this.docAction;
         this.combinedType.form.get('actions').value.forEach((d, i) => {
             this.combinedType.form.get(['actions', i]).patchValue({
                 docAction: this.docAction,
@@ -509,7 +510,14 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.combinedHSOV = true;
         } else {
             this.combinedHSOV = false;
-            this.documentStatus = this.isMaker ? this.documentStatus : event ? 'HSOV_PENDING' : 'APPROVED';
+            this.documentStatus = this.isMaker ? this.documentStatus : (event ? 'HSOV_PENDING' : 'APPROVED');
+            this.docAction = this.isMaker ? this.docAction : event ? 'APPROVED' : this.docAction;
+            this.combinedType.form.get('actions').value.forEach((d, i) => {
+                this.combinedType.form.get(['actions', i]).patchValue({
+                    docAction: this.docAction,
+                    documentStatus: this.documentStatus
+                });
+            });
         }
     }
 
