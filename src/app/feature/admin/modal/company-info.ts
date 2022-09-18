@@ -47,5 +47,7 @@ export class CompanyInfo {
     customerCategory: any;
     companyContactDetails: string;
     documentsObtained: string;
+    business: string;
+    businessDsl: string;
     shareCapital: string;
 }

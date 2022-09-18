@@ -1,28 +1,28 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
-import {OfferLetteDocrTypeEnum} from '../../model/OfferLetteDocrTypeEnum';
-import {OfferLetterDocType} from '../../../cad-documents/cad-document-core/model/OfferLetteDocrTypeEnum';
-import {ToastService} from '../../../../@core/utils';
-import {CustomerOfferLetterService} from '../../../loan/service/customer-offer-letter.service';
+import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
+import {OfferLetteDocrTypeEnum} from '../../../model/OfferLetteDocrTypeEnum';
+import {OfferLetterDocType} from '../../../../cad-documents/cad-document-core/model/OfferLetteDocrTypeEnum';
+import {ToastService} from '../../../../../@core/utils';
+import {CustomerOfferLetterService} from '../../../../loan/service/customer-offer-letter.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {OfferDocument} from '../../model/OfferDocument';
-import {NepaliEditor} from '../../../../@core/utils/constants/nepaliEditor';
-import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
-import {CreditAdministrationService} from '../../service/credit-administration.service';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {NepaliEditor} from '../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NbDialogRef} from '@nebular/theme';
-import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {RouterUtilsService} from '../../utils/router-utils.service';
-import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-word.pipe';
-import {EngToNepaliNumberPipe} from '../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
-import {NepaliToEngNumberPipe} from '../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {NepaliPercentWordPipe} from '../../../../@core/pipe/nepali-percent-word.pipe';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../model/CadDocStatus';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-offer-letter-of-all-other-loan-retail-loan',
@@ -97,14 +97,43 @@ export class OfferLetterOfAllOtherLoanRetailLoanComponent implements OnInit {
         this.listOfLoan.push(this.RetailLoan.get('loanTypeSelectedArray').value);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder.nepData)) {
             this.smeLoanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-            console.log(this.smeLoanHolderInfo);
+        }
+        if (!ObjectUtil.isEmpty(this.smeLoanHolderInfo)) {
+            this.RetailLoan.patchValue({
+                olRefNo: this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo ? this.smeLoanHolderInfo.miscellaneousDetail.offerReferenceNo : '',
+                olIssueDate: this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate ? this.smeLoanHolderInfo.miscellaneousDetail.offerIssueDate : '',
+                borrowerName: this.smeLoanHolderInfo.nepaliName ? this.smeLoanHolderInfo.nepaliName : '',
+                borrowerPerDis: this.smeLoanHolderInfo.institutionRegisteredAddress.district ? this.smeLoanHolderInfo.institutionRegisteredAddress.district : '',
+                borrowerPerMun: this.smeLoanHolderInfo.institutionRegisteredAddress.municipality ? this.smeLoanHolderInfo.institutionRegisteredAddress.municipality : '',
+                borrowerPerWard: this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo ? this.smeLoanHolderInfo.institutionRegisteredAddress.wardNo : '',
+                borrowerPerTole: this.smeLoanHolderInfo.institutionRegisteredAddress.tole ? this.smeLoanHolderInfo.institutionRegisteredAddress.tole : '',
+                borrowerTempDis: this.smeLoanHolderInfo.institutionCurrentAddress.district ? this.smeLoanHolderInfo.institutionCurrentAddress.district : '',
+                borrowerTempMun: this.smeLoanHolderInfo.institutionCurrentAddress.municipality ? this.smeLoanHolderInfo.institutionCurrentAddress.municipality : '',
+                borrowerTempWard: this.smeLoanHolderInfo.institutionCurrentAddress.wardNo ? this.smeLoanHolderInfo.institutionCurrentAddress.wardNo : '',
+                borrowerTempTole: this.smeLoanHolderInfo.institutionCurrentAddress.tole ? this.smeLoanHolderInfo.institutionCurrentAddress.tole : '',
+                drawdownPercent: this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer ? this.smeLoanHolderInfo.miscellaneousDetail.drawdownPer : '',
+                // surakchyanName: this.loanHolderInfo.collateralDetails[0].nameInNepali ? this.loanHolderInfo.collateralDetails[0].nameInNepali : '',
+                // surakchyanDis: this.loanHolderInfo.collateralDetails[0].district ? this.loanHolderInfo.collateralDetails[0].district : '',
+                // surakchyanMun: this.loanHolderInfo.collateralDetails[0].municipality ? this.loanHolderInfo.collateralDetails[0].municipality : '',
+                // surakchyanWard: this.loanHolderInfo.collateralDetails[0].wardNo ? this.loanHolderInfo.collateralDetails[0].wardNo : '',
+                // surakchyanKittaNo: this.loanHolderInfo.collateralDetails[0].plotNo ? this.loanHolderInfo.collateralDetails[0].plotNo : '',
+                // surakchyanArea: this.loanHolderInfo.collateralDetails[0].area ? this.loanHolderInfo.collateralDetails[0].area : '',
+                // perGuarantorName: this.loanHolderInfo.guarantorDetails[0].name ? this.loanHolderInfo.guarantorDetails[0].name : '',
+                // guarantorName: this.loanHolderInfo.guarantorDetails[0].name ? this.loanHolderInfo.guarantorDetails[0].name : '',
+                branchName: this.smeLoanHolderInfo.branchDetail.branchNameInNepali ? this.smeLoanHolderInfo.branchDetail.branchNameInNepali : '',
+                branchDis: this.smeLoanHolderInfo.branchDetail.branchDistrict ? this.smeLoanHolderInfo.branchDetail.branchDistrict : '',
+                branchTelNo: this.smeLoanHolderInfo.branchDetail.branchTelNo ? this.smeLoanHolderInfo.branchDetail.branchTelNo : '',
+                branchFax: this.smeLoanHolderInfo.branchDetail.branchFaxNo ? this.smeLoanHolderInfo.branchDetail.branchFaxNo : '',
+            });
+            // this.form.get(['proposalData', 0, 'sanctionedLmt']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInFig);
+            // this.form.get(['proposalData', 0, 'sanctionedLmtInWord']).patchValue(this.loanHolderInfo.miscellaneousDetail.loanAmountInWord);
         }
     }
 
     buildForm() {
         this.RetailLoan = this.formBuilder.group({
-            referenceNo: [undefined],
-            issuedDate: [undefined],
+            olRefNo: [undefined],
+            olIssueDate: [undefined],
             borrowerName: [undefined],
             registeredDistrict: [undefined],
             instRegVdcMun: [undefined],
