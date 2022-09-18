@@ -3163,7 +3163,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
         if (alluarantors.length > 0) {
             if (ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value)) {
-                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).patchValue('0');
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).patchValue("0");
             }
             let guarantorsDetails: any = [];
             this.guarantorTranslatedFormGroup = this.formBuilder.group({
