@@ -9,7 +9,8 @@
                 <span style="font-weight: bold">क. प्राथमिक सुरक्षण (Primary Security)</span>
                 <div *ngIf="isPrimaryLandAndBuilding">
                     <div style="margin-left: 20px">
-                            <ng-container *ngFor="let item of primaryCollateral; let i = index">
+                            <ng-container *ngFor="let item of primaryCollateral; let i = index" formArrayName="nameOfClients">
+                                <div [formGroupName]="i">
                                 <!--Applicable only if Land/building as primary collateral-->
                                 <span style="font-weight: bold">{{i+1 | nepaliNumber}}. घर/जग्गा धितोेबन्धक हकाधिकार (Mortage Charges):</span>
                                 <br>
@@ -50,7 +51,7 @@
                                                formControlName="nameOfClient"
                                                placeholder=" "
                                                type="text"/>
-                                        <span class="print-only font-weight-bold">{{form.get('nameOfClient') ? form.get('nameOfClient')?.value : '______________________'}}</span>
+                                        <span class="print-only font-weight-bold">{{form.get(['nameOfClients',i,'nameOfClient']) ? form.get(['nameOfClients',i,'nameOfClient'])?.value : '______________________'}}</span>
                                         को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                         <ng-container *ngIf="item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage'"> गरिदिनु पर्नेछ ।
                                             <!--For new mortgage/remortgage--> </ng-container>
@@ -74,6 +75,7 @@
                                 </ng-template>
                                 <app-master-securities-view
                                         [securityDetails]="tempLandBuilding && tempLandBuilding[i] ? tempLandBuilding[i] : []"></app-master-securities-view>
+                                </div>
                             </ng-container>
                     </div>
                     <br>
@@ -209,8 +211,9 @@
                 <!--If land/land & building is proposed as collateral-->
                 <span style="font-weight: bold">ख. माध्यमिक सुरक्षण (Secondary Security)</span>
                  <div *ngIf="isSecondaryLandAndBuilding">
-                     <ng-container *ngFor="let item of secondaryCollateral; let i = index">
-                        <div style="margin-left: 20px">
+                     <ng-container *ngFor="let item of secondaryCollateral; let i = index" formArrayName="nameOfClients1">
+                         <div [formGroupName]="i">
+                         <div style="margin-left: 20px">
                             <!--Applicable only if Land/building as primary collateral-->
                             <span style="font-weight: bold">{{i+1 | nepaliNumber}}. घर/जग्गा धितोेबन्धक हकाधिकार (Mortage Charges):</span>
                             <br>
@@ -250,7 +253,7 @@
                                            formControlName="nameOfClient2"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only font-weight-bold">{{form.get('nameOfClient2') ? form.get('nameOfClient2')?.value : '______________________'}}</span>
+                                    <span class="print-only font-weight-bold">{{form.get(['nameOfClients1',i,'nameOfClient2']) ? form.get(['nameOfClients1',i,'nameOfClient2'])?.value : '______________________'}}</span>
                                     को नाममा स्वीकृत ऋण कर्जा सविधा समेत उल्लेख गरी संयक्त रुपमा धितोेबन्धक पारित
                                     <ng-container *ngIf="item?.mortgageType === 'New' || item?.mortgageType === 'Remortgage'"> गरिदिनु पर्नेछ
                                         <!--For new motgage/remortgage--> </ng-container>
@@ -274,9 +277,10 @@
                             </ng-template>
                             <app-master-secondary-securities-view
                                     [securityDetails]="tempSecondaryLandBuilding && tempSecondaryLandBuilding[i] ? tempSecondaryLandBuilding[i] : []"></app-master-secondary-securities-view>
-                        </div>
-                        <br>
-                    </ng-container>
+                         </div>
+                             <br>
+                         </div>
+                     </ng-container>
                  </div>
                 <div>
                     <!--For Auto loan/Auto Commercial Loan-->
