@@ -1324,8 +1324,8 @@
                         </div>
                     </div>
                 </ng-container>
-                <ng-template #smeUpToTen>
-                    <div class="row" *ngIf="isWholeSale === true">
+                <ng-template #smeUpToTen >
+                    <ng-container class="row" *ngIf="isWholeSale === true; else notWholesale">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div>
@@ -1360,8 +1360,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <ng-container class="row" *ngIf="this.companyInfo.customerCategory !== 'DSL_WHOLE_SALE'">
+                    </ng-container>
+                    <ng-template class="row" #notWholesale>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="business"><strong>5.1 BUSINESS</strong></label>
@@ -1376,7 +1376,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
+                    </ng-template>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
