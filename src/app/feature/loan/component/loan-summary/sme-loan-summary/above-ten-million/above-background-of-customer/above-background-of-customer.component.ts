@@ -3,6 +3,7 @@ import {CompanyInfo} from '../../../../../../admin/modal/company-info';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {CompanyContactDetail} from '../../../../../../admin/modal/crg/companyContactDetail';
 import {CustomerInfoData} from '../../../../../model/customerInfoData';
+import {CompanyJsonData} from '../../../../../../admin/modal/CompanyJsonData';
 import {Proprietors} from '../../../../../../admin/modal/proprietors';
 
 @Component({
