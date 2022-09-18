@@ -149,6 +149,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 this.combinedType.form.get('toUser').setValidators(Validators.required);
                 this.combinedType.form.updateValueAndValidity();
             } else if (this.combinedType.userList.length === 0) {
+                this.combinedType.form.reset();
                 this.isUserNotPresentForCombine = true;
             }
         });
@@ -161,6 +162,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.isUserPresent[i] = true;
             if (this.userList.length === 0) {
                 this.isUserPresent[i] = false;
+                this.individualType.form.get(['actions', i, 'toUser']).reset();
             } else if (role.roleType === RoleType.COMMITTEE && this.individualType.users.size > 0) {
                 this.checkLogInUserRoleType('individual', i);
             } else {
