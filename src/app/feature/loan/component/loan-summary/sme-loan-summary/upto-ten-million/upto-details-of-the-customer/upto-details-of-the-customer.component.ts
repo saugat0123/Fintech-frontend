@@ -38,6 +38,10 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
         this.reviewDate = data.reviewDate;
       }
       this.propList = this.companyJsonData.proprietorList;
+      if (this.isDSL) {
+        this.propList = this.propList.filter(value =>
+            value.type === 'Promoter');
+      }
       if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
