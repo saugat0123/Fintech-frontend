@@ -23,6 +23,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
   isTermLoanSelected = false;
   isAutoLoanSelected = false;
   isAutoLoanEmiSelected = false;
+  isShortTermLoan = false;
   isMortgageTermLoanSelected = false;
   isEquityMortgageTermLoanSelected = false;
   subsidyAgricultureSelected;
@@ -91,6 +92,9 @@ export class Section5InterstPenalChargeComponent implements OnInit {
         selectedLoanLists.forEach((data) => {
             if (data === this.loanNameConst.AUTO_LOAN) {
                 this.isAutoLoanSelected = true;
+            }
+            if (data === this.loanNameConst.SHORT_TERM_LOAN) {
+                this.isShortTermLoan = true;
             }
             if (data === this.loanNameConst.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                 this.termSelected = true;
