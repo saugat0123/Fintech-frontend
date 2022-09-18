@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="col-md-12 text-center"
-         *ngIf="customerType === 'INDIVIDUAL' || customerCategory === 'AGRICULTURE_UPTO_TWO_MILLION'">
-        <p><strong>Monthly Income / Expenditure Detail</strong></p> <br>
+    <div class="col-md-12 text-center">
         <div class="row">
-            <div class="col-md-6">
+            <span *ngIf="customerType === 'INDIVIDUAL'">
+            <p><strong>Monthly Income / Expenditure Detail</strong></p> <br>
+            <div class="col-md-6 float-right">
                 <table class="table table-condensed table-bordered table-sm table-responsive-sm text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -24,7 +24,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 float-right">
                 <table class="table table-condensed table-sm table-bordered table-responsive-sm text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -48,11 +48,12 @@
                     </tr>
                 </table>
             </div>
+            </span>
         </div>
 
         <!--        income and expenditure of project/ business-->
-        <div *ngIf="customerType === 'INDIVIDUAL' || customerCategory !== 'AGRICULTURE_UPTO_TWO_MILLION'">
-            <p><strong>Income / Expenditure Detail of Project/ Business</strong></p> br>
+        <div *ngIf="customerType === 'INSTITUTION'">
+            <p><strong>Income / Expenditure Detail of Project/ Business</strong></p> <br>
             <div class="row">
                 <div class="col-md-6">
                     <table class="table table-condensed table-sm table-bordered table-responsive-sm text-center table-sm sb-small">
@@ -84,7 +85,7 @@
                 </div>
                 <div class="col-md-6">
                     <table class="table table-condensed table-bordered table-sm table-responsive-sm text-center table-sm sb-small"
-                           *ngIf="!isBusinessLoan">
+                           *ngIf="isBusinessLoan">
                         <thead>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="4">Income</th>
@@ -116,7 +117,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="customerType === 'INSTITUTION'">
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -137,7 +138,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="customerType === 'INSTITUTION'">
                 <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
